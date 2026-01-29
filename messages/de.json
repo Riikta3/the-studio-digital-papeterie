@@ -1,0 +1,50 @@
+{
+  "Navbar": {
+    "product": "Produkt",
+    "features": "Funktionen",
+    "dashboard": "Dashboard",
+    "themes": "Themen",
+    "testimonials": "Referenzen",
+    "pricing": "Preise",
+    "faq": "FAQ",
+    "createButton": "Einladung erstellen"
+  },
+  "Hero": {
+    "titleLine1": "Ihre Hochzeit",
+    "titleLine2": "beginnt hier.",
+    "description": "Erstellen Sie eine außergewöhnliche digitale Einladung, die die Eleganz von Papier mit der Magie des Webs verbindet. Ein zauberhaftes Erlebnis für Ihre Gäste, ohne Verschwendung.",
+    "createButton": "Einladung erstellen",
+    "demoButton": "Demo ansehen",
+    "discover": "Entdecken"
+  },
+  "Features": {
+    "titleLine1": "Die Eleganz von Papier,",
+    "titleLine2": "die Magie des Digitalen",
+    "subtitle": "Warum zwischen Schönheit und Praktikabilität wählen? MeetMyWedding bietet Ihnen das Beste aus beiden Welten.",
+    "ecoTitle": "Umweltfreundlich & Verantwortungsbewusst",
+    "ecoDesc": "Sparen Sie Hunderte von Umschlägen und Briefmarken. Eine elegante Geste für den Planeten, ohne Kompromisse beim Stil.",
+    "editTitle": "Unbegrenzt bearbeitbar",
+    "editDesc": "Ein Fehler beim Datum? Eine Änderung des Ortes? Aktualisieren Sie Ihre Website sofort, auch nach dem Versenden.",
+    "rsvpTitle": "Vereinfachtes RSVP-Management",
+    "rsvpDesc": "Keine verlorenen Antwortkarten mehr. Verfolgen Sie Anwesenheit, Diätwünsche und Begleitpersonen in Echtzeit.",
+    "langTitle": "International Mehrsprachig",
+    "langDesc": "Heißen Sie Gäste aus aller Welt willkommen. Ihre Seite ist auf Französisch, Englisch, Spanisch, Italienisch, Deutsch, Portugiesisch, Arabisch, Chinesisch und Japanisch verfügbar."
+  },
+  "FAQ": {
+    "titleLine1": "Häufig gestellte",
+    "titleLine2": "Fragen",
+    "q1": "Kann ich meine Seite nach dem Versenden bearbeiten?",
+    "a1": "Absolut! Das ist die Magie des Digitalen. Sie können Zeiten ändern oder Infos jederzeit hinzufügen.",
+    "q2": "Muss ich ein monatliches Abo bezahlen?",
+    "a2": "Nein, niemals. Es ist eine einmalige Zahlung. Ihre Seite bleibt 12 Monate nach Ihrer Hochzeit online.",
+    "q3": "Wie bestätigen Gäste ihre Teilnahme?",
+    "a3": "Ein einfaches Formular ist integriert. Sie erhalten Antworten sofort in Ihrem Dashboard.",
+    "q4": "Kann ich eine eigene Domain haben?",
+    "a4": "Ja! Mit der Option 'Eigene Domain' (+65€) oder im Premium-Paket enthalten.",
+    "q5": "Bieten Sie passende Papiereinladungen an?",
+    "a5": "Wir konzentrieren uns auf das Digitale, können aber hochauflösende PDFs für den lokalen Druck bereitstellen."
+  },
+  "Common": {
+    "loading": "Laden..."
+  }
+}

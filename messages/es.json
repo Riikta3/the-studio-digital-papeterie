@@ -1,0 +1,50 @@
+{
+  "Navbar": {
+    "product": "Producto",
+    "features": "Funcionalidades",
+    "dashboard": "Panel",
+    "themes": "Temas",
+    "testimonials": "Testimonios",
+    "pricing": "Precios",
+    "faq": "FAQ",
+    "createButton": "Crear mi invitación"
+  },
+  "Hero": {
+    "titleLine1": "Tu boda",
+    "titleLine2": "comienza aquí.",
+    "description": "Crea una invitación digital excepcional que combina la elegancia del papel con la magia de la web. Una experiencia mágica para tus invitados, sin desperdicios.",
+    "createButton": "Crear mi invitación",
+    "demoButton": "Ver demostración",
+    "discover": "Descubrir"
+  },
+  "Features": {
+    "titleLine1": "La elegancia del papel,",
+    "titleLine2": "la magia de lo digital",
+    "subtitle": "¿Por qué elegir entre belleza y practicidad? MeetMyWedding te ofrece lo mejor de ambos mundos.",
+    "ecoTitle": "Ecológico y Responsable",
+    "ecoDesc": "Ahorra cientos de sobres y sellos. Un gesto elegante para el planeta, sin comprometer el estilo.",
+    "editTitle": "Editable Infinitamente",
+    "editDesc": "¿Un error en la fecha? ¿Un cambio de lugar? Actualiza tu sitio al instante, incluso después de enviarlo.",
+    "rsvpTitle": "Gestión de RSVP Simplificada",
+    "rsvpDesc": "Se acabaron las tarjetas de respuesta perdidas. Rastrea la asistencia, requisitos dietéticos y acompañantes en tiempo real.",
+    "langTitle": "Multilingüe Internacional",
+    "langDesc": "Da la bienvenida a invitados de todo el mundo. Tu sitio está disponible en francés, inglés, español, italiano, alemán, portugués, árabe, chino y japonés."
+  },
+  "FAQ": {
+    "titleLine1": "Preguntas",
+    "titleLine2": "Frecuentes",
+    "q1": "¿Puedo editar mi sitio después de enviar las invitaciones?",
+    "a1": "¡Absolutamente! Esa es la magia de lo digital. Puedes cambiar horarios, agregar información de alojamiento o cambiar una foto en cualquier momento.",
+    "q2": "¿Tengo que pagar una suscripción mensual?",
+    "a2": "No, nunca. Es un pago único. Tu sitio permanece en línea durante 12 meses después de tu boda.",
+    "q3": "¿Cómo confirman su asistencia los invitados (RSVP)?",
+    "a3": "Un formulario simple y elegante está integrado en tu sitio. Recibes respuestas al instante en tu panel de control.",
+    "q4": "¿Puedo tener un nombre de dominio personalizado?",
+    "a4": "¡Sí! Con la opción 'Dominio Personalizado' (+65€) o incluido en el paquete Premium.",
+    "q5": "¿Ofrecen invitaciones de papel a juego?",
+    "a5": "Nos centramos en la experiencia digital por ahora, pero podemos proporcionar archivos PDF de alta definición para imprimir."
+  },
+  "Common": {
+    "loading": "Cargando..."
+  }
+}

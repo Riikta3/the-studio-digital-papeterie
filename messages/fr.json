@@ -1,0 +1,56 @@
+{
+  "Navbar": {
+    "product": "Produit",
+    "features": "Fonctionnalités",
+    "dashboard": "Dashboard",
+    "themes": "Thèmes",
+    "testimonials": "Témoignages",
+    "pricing": "Tarifs",
+    "faq": "FAQ",
+    "createButton": "Créer mon faire-part"
+  },
+  "Hero": {
+    "titleLine1": "Votre mariage",
+    "titleLine2": "commence ici.",
+    "description": "Créez une invitation digitale d'exception qui allie l'élégance du papier à la magie du web. Une expérience féérique pour vos invités, sans le gaspillage.",
+    "createButton": "Créer mon faire-part",
+    "demoButton": "Voir la démo",
+    "discover": "Découvrir"
+  },
+  "Features": {
+    "titleLine1": "L'élégance du papier,",
+    "titleLine2": "la magie du digital",
+    "subtitle": "Pourquoi choisir entre beauté et praticité ? MeetMyWedding vous offre le meilleur des deux mondes.",
+    "ecoTitle": "Écologique & Responsable",
+    "ecoDesc": "Économisez des centaines d'enveloppes et de timbres. Un geste élégant pour la planète, sans compromis sur le style.",
+    "editTitle": "Modifiable à l'infini",
+    "editDesc": "Une erreur de date ? Un changement de lieu ? Mettez à jour votre site instantanément, même après l'envoi.",
+    "rsvpTitle": "Gestion RSVP Simplifiée",
+    "rsvpDesc": "Fini les cartons réponses perdus. Suivez les présences, les régimes alimentaires et les accompagnants en temps réel.",
+    "langTitle": "Multi-langues International",
+    "langDesc": "Accueillez vos invités du monde entier. Votre site est disponible en Français, Anglais, Espagnol, Italien, Allemand, Portugais, Arabe, Chinois et Japonais."
+  },
+  "FAQ": {
+    "titleLine1": "Questions",
+    "titleLine2": "Fréquentes",
+    "q1": "Puis-je modifier mon site après l'envoi des invitations ?",
+    "a1": "Absolument ! C'est la magie du digital. Vous pouvez modifier les horaires, ajouter des infos sur l'hébergement ou changer une photo à tout moment. Vos invités verront toujours la version à jour.",
+    "q2": "Est-ce que je dois payer un abonnement mensuel ?",
+    "a2": "Non, jamais. Le paiement est unique. Votre site reste en ligne pendant 12 mois après votre mariage, ce qui vous laisse le temps de partager les photos souvenirs.",
+    "q3": "Comment mes invités confirment-ils leur présence (RSVP) ?",
+    "a3": "Un formulaire simple et élégant est intégré à votre site. Vous recevez les réponses instantanément dans votre tableau de bord (et par email si vous le souhaitez). Vous pouvez exporter la liste des invités en un clic.",
+    "q4": "Puis-je avoir un nom de domaine personnalisé ?",
+    "a4": "Oui ! Avec l'option 'Custom Domain' (+65€) ou incluse dans le pack Premium, vous pouvez avoir une adresse comme www.paula-et-marcos.com.",
+    "q5": "Proposez-vous des faire-part papier assortis ?",
+    "a5": "Nous nous concentrons sur l'expérience digitale pour l'instant, mais nous pouvons vous fournir les fichiers PDF haute définition de votre design pour que vous puissiez les imprimer chez votre imprimeur local."
+  },
+  "Common": {
+    "loading": "Chargement..."
+  },
+  "CookieConsent": {
+    "bannerText": "Nous utilisons des cookies pour améliorer votre expérience utilisateur et analyser le trafic.",
+    "acceptButton": "Accepter",
+    "declineButton": "Refuser",
+    "learnMore": "En savoir plus"
+  }
+}

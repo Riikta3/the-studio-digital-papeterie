@@ -1,0 +1,169 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html {
+  scroll-behavior: smooth;
+}
+
+@layer base {
+  :root {
+    --background: 36 45% 96%;
+    --foreground: 24 15% 20%;
+    --card: 0 0% 100%;
+    --card-foreground: 24 15% 20%;
+    --primary: 124 18% 48%;
+    --primary-foreground: 0 0% 98%;
+    --secondary: 350 28% 75%;
+    --secondary-foreground: 24 20% 20%;
+    --muted: 32 25% 90%;
+    --muted-foreground: 24 10% 35%;
+    --accent: 28 30% 88%;
+    --accent-foreground: 24 20% 20%;
+    --border: 30 20% 85%;
+    --ring: 124 18% 48%;
+    --radius: 1rem;
+    --font-heading: var(--font-playfair);
+    --font-body: var(--font-inter);
+    color-scheme: light;
+  }
+
+  .theme-floral {
+    --background: 36 45% 96%;
+    --foreground: 24 15% 20%;
+    --card: 0 0% 100%;
+    --card-foreground: 24 15% 20%;
+    --primary: 124 18% 48%;
+    --primary-foreground: 0 0% 98%;
+    --secondary: 350 28% 75%;
+    --secondary-foreground: 24 20% 20%;
+    --muted: 32 25% 90%;
+    --muted-foreground: 24 10% 35%;
+    --accent: 28 30% 88%;
+    --accent-foreground: 24 20% 20%;
+    --border: 30 20% 85%;
+    --ring: 124 18% 48%;
+    --radius: 1rem;
+    --font-heading: var(--font-playfair);
+    --font-body: var(--font-inter);
+    color-scheme: light;
+  }
+
+  .theme-minimalist {
+    --background: 40 20% 97%;
+    --foreground: 220 8% 12%;
+    --card: 0 0% 100%;
+    --card-foreground: 220 8% 12%;
+    --primary: 220 8% 14%;
+    --primary-foreground: 0 0% 98%;
+    --secondary: 30 6% 60%;
+    --secondary-foreground: 220 8% 12%;
+    --muted: 30 10% 92%;
+    --muted-foreground: 30 6% 35%;
+    --accent: 0 0% 94%;
+    --accent-foreground: 220 8% 12%;
+    --border: 30 8% 86%;
+    --ring: 220 8% 14%;
+    --radius: 0rem;
+    --font-heading: var(--font-inter);
+    --font-body: var(--font-inter);
+    color-scheme: light;
+  }
+
+  .theme-boho {
+    --background: 35 45% 90%;
+    --foreground: 24 20% 18%;
+    --card: 0 0% 100%;
+    --card-foreground: 24 20% 18%;
+    --primary: 14 55% 48%;
+    --primary-foreground: 0 0% 98%;
+    --secondary: 32 70% 55%;
+    --secondary-foreground: 24 20% 18%;
+    --muted: 35 30% 84%;
+    --muted-foreground: 24 15% 35%;
+    --accent: 20 45% 80%;
+    --accent-foreground: 24 20% 18%;
+    --border: 28 25% 78%;
+    --ring: 14 55% 48%;
+    --radius: 1.5rem;
+    --font-heading: var(--font-cormorant);
+    --font-body: var(--font-cormorant);
+    color-scheme: light;
+  }
+
+  .theme-royal {
+    --background: 230 35% 12%;
+    --foreground: 0 0% 98%;
+    --card: 230 35% 16%;
+    --card-foreground: 0 0% 98%;
+    --primary: 45 65% 55%;
+    --primary-foreground: 230 35% 12%;
+    --secondary: 230 20% 20%;
+    --secondary-foreground: 0 0% 98%;
+    --muted: 230 25% 18%;
+    --muted-foreground: 0 0% 80%;
+    --accent: 45 60% 45%;
+    --accent-foreground: 230 35% 12%;
+    --border: 230 20% 24%;
+    --ring: 45 65% 55%;
+    --radius: 0.5rem;
+    --font-heading: var(--font-cinzel);
+    --font-body: var(--font-inter);
+    color-scheme: dark;
+  }
+
+  .theme-modern {
+    --background: 210 15% 92%;
+    --foreground: 240 10% 12%;
+    --card: 0 0% 100%;
+    --card-foreground: 240 10% 12%;
+    --primary: 278 70% 65%;
+    --primary-foreground: 0 0% 98%;
+    --secondary: 0 0% 12%;
+    --secondary-foreground: 0 0% 98%;
+    --muted: 210 10% 88%;
+    --muted-foreground: 240 6% 35%;
+    --accent: 270 45% 85%;
+    --accent-foreground: 240 10% 12%;
+    --border: 210 10% 82%;
+    --ring: 278 70% 65%;
+    --radius: 0.75rem;
+    --font-heading: var(--font-epilogue);
+    --font-body: var(--font-inter);
+    color-scheme: light;
+  }
+
+  * {
+    border-color: hsl(var(--border));
+  }
+
+  body {
+    @apply bg-background text-foreground font-body antialiased;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    @apply font-heading;
+  }
+}
+
+@layer components {
+  .glass-card {
+    @apply border border-border/20 bg-card shadow-lg;
+  }
+
+  .glass-bar {
+    @apply border border-border/20 bg-card/90 shadow-lg backdrop-blur-md;
+  }
+}
+
+@layer utilities {
+  .bg-noise {
+    background-size: 320px 320px;
+    background-repeat: repeat;
+  }
+}

@@ -1,0 +1,50 @@
+{
+  "Navbar": {
+    "product": "Prodotto",
+    "features": "Funzionalità",
+    "dashboard": "Dashboard",
+    "themes": "Temi",
+    "testimonials": "Testimonianze",
+    "pricing": "Prezzi",
+    "faq": "FAQ",
+    "createButton": "Crea invito"
+  },
+  "Hero": {
+    "titleLine1": "Il tuo matrimonio",
+    "titleLine2": "inizia qui.",
+    "description": "Crea un invito digitale eccezionale che unisce l'eleganza della carta alla magia del web. Un'esperienza magica per i tuoi ospiti, senza sprechi.",
+    "createButton": "Crea invito",
+    "demoButton": "Vedi demo",
+    "discover": "Scopri"
+  },
+  "Features": {
+    "titleLine1": "L'eleganza della carta,",
+    "titleLine2": "la magia del digitale",
+    "subtitle": "Perché scegliere tra bellezza e praticità? MeetMyWedding ti offre il meglio di entrambi i mondi.",
+    "ecoTitle": "Ecologico e Responsabile",
+    "ecoDesc": "Risparmia centinaia di buste e francobolli. Un gesto elegante per il pianeta, senza compromessi sullo stile.",
+    "editTitle": "Modificabile all'Infinito",
+    "editDesc": "Un errore nella data? Un cambio di location? Aggiorna il tuo sito istantaneamente, anche dopo l'invio.",
+    "rsvpTitle": "Gestione RSVP Semplificata",
+    "rsvpDesc": "Niente più cartoline di risposta perse. Tieni traccia delle presenze, delle esigenze dietetiche e degli accompagnatori in tempo reale.",
+    "langTitle": "Multilingue Internazionale",
+    "langDesc": "Accogli ospiti da tutto il mondo. Il tuo sito è disponibile in francese, inglese, spagnolo, italiano, tedesco, portoghese, arabo, cinese e giapponese."
+  },
+  "FAQ": {
+    "titleLine1": "Domande",
+    "titleLine2": "Frequenti",
+    "q1": "Posso modificare il mio sito dopo l'invio?",
+    "a1": "Assolutamente! Questa è la magia del digitale. Puoi cambiare orari o aggiungere info in qualsiasi momento.",
+    "q2": "Devo pagare un abbonamento mensile?",
+    "a2": "No, mai. È un pagamento unico. Il tuo sito rimane online per 12 mesi dopo il matrimonio.",
+    "q3": "Come confermano la presenza gli ospiti?",
+    "a3": "Un modulo semplice è integrato nel tuo sito. Ricevi risposte istantaneamente nella tua dashboard.",
+    "q4": "Posso avere un dominio personalizzato?",
+    "a4": "Sì! Con l'opzione 'Dominio Personalizzato' (+65€) o inclusa nel pacchetto Premium.",
+    "q5": "Offrite inviti cartacei coordinati?",
+    "a5": "Ci concentriamo sull'esperienza digitale, ma possiamo fornire file PDF ad alta definizione per la stampa."
+  },
+  "Common": {
+    "loading": "Caricamento..."
+  }
+}

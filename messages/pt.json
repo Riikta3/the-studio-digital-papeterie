@@ -1,0 +1,50 @@
+{
+  "Navbar": {
+    "product": "Produto",
+    "features": "Funcionalidades",
+    "dashboard": "Painel",
+    "themes": "Temas",
+    "testimonials": "Depoimentos",
+    "pricing": "Preços",
+    "faq": "FAQ",
+    "createButton": "Criar convite"
+  },
+  "Hero": {
+    "titleLine1": "O seu casamento",
+    "titleLine2": "começa aqui.",
+    "description": "Crie um convite digital excepcional que combina a elegância do papel com a magia da web. Uma experiência mágica para os seus convidados, sem desperdício.",
+    "createButton": "Criar convite",
+    "demoButton": "Ver demonstração",
+    "discover": "Descobrir"
+  },
+  "Features": {
+    "titleLine1": "A elegância do papel,",
+    "titleLine2": "a magia do digital",
+    "subtitle": "Por que escolher entre beleza e praticidade? MeetMyWedding oferece o melhor dos dois mundos.",
+    "ecoTitle": "Ecológico e Responsável",
+    "ecoDesc": "Poupe centenas de envelopes e selos. Um gesto elegante para o planeta, sem comprometer o estilo.",
+    "editTitle": "Infinitamente Editável",
+    "editDesc": "Um erro na data? Uma mudança de local? Atualize o seu site instantaneamente, mesmo após o envio.",
+    "rsvpTitle": "Gestão de RSVP Simplificada",
+    "rsvpDesc": "Acabaram-se os cartões de resposta perdidos. Acompanhe a presença, requisitos dietéticos e acompanhantes em tempo real.",
+    "langTitle": "Multilíngue Internacional",
+    "langDesc": "Dê as boas-vindas a convidados de todo o mundo. O seu site está disponível em Francês, Inglês, Espanhol, Italiano, Alemão, Português, Árabe, Chinês e Japonês."
+  },
+  "FAQ": {
+    "titleLine1": "Perguntas",
+    "titleLine2": "Frequentes",
+    "q1": "Posso editar o meu site após o envio?",
+    "a1": "Absolutamente! Essa é a magia do digital. Pode alterar horários ou adicionar informações a qualquer momento.",
+    "q2": "Tenho de pagar uma assinatura mensal?",
+    "a2": "Não, nunca. É um pagamento único. O seu site fica online durante 12 meses após o casamento.",
+    "q3": "Como é que os convidados confirmam a presença?",
+    "a3": "Um formulário simples está integrado no seu site. Recebe respostas instantaneamente no seu painel.",
+    "q4": "Posso ter um domínio personalizado?",
+    "a4": "Sim! Com a opção 'Domínio Personalizado' (+65€) ou incluído no pacote Premium.",
+    "q5": "Oferecem convites em papel a condizer?",
+    "a5": "Focamo-nos na experiência digital, mas podemos fornecer ficheiros PDF de alta definição para impressão."
+  },
+  "Common": {
+    "loading": "A carregar..."
+  }
+}
