@@ -48,7 +48,7 @@ export function Hero() {
 
           <div className='mt-8 flex flex-wrap gap-4 justify-center'>
             <Link href='/create/plan'>
-              <button className='group flex items-center gap-2 rounded-full bg-primary px-8 py-3.5 text-base font-semibold text-primary-foreground shadow-lg transition-all hover:-translate-y-1 hover:shadow-xl'>
+              <button className='group flex items-center gap-2 rounded-full bg-primary px-8 py-3.5 text-base font-semibold text-white shadow-lg transition-all hover:-translate-y-1 hover:shadow-xl'>
                 {t("createButton")}
                 <ArrowRight className='h-4 w-4 transition-transform group-hover:translate-x-1' />
               </button>
@@ -61,33 +61,35 @@ export function Hero() {
       </div>
 
       {/* Scroll Down Indicator */}
-      <motion.div
-        initial={{ opacity: 0, y: 10 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{
-          delay: 1.5,
-          duration: 1,
-          repeat: Infinity,
-          repeatType: "reverse",
-        }}
-        className='absolute bottom-12 left-1/2 -translate-x-1/2 cursor-pointer'
-      >
-        <a
-          href='#fonctionnalites'
-          onClick={(e) => {
-            e.preventDefault();
-            document.getElementById("fonctionnalites")?.scrollIntoView({
-              behavior: "smooth",
-            });
+      <div className='absolute bottom-12 left-1/2 -translate-x-1/2'>
+        <motion.div
+          initial={{ opacity: 0, y: 10 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{
+            delay: 1.5,
+            duration: 1,
+            repeat: Infinity,
+            repeatType: "reverse",
           }}
-          className='flex flex-col items-center gap-2 text-muted-foreground hover:text-primary transition-colors'
+          className='cursor-pointer'
         >
-          <span className='text-[10px] uppercase tracking-widest font-medium'>
-            {t("discover")}
-          </span>
-          <ChevronDown className='w-5 h-5' />
-        </a>
-      </motion.div>
+          <a
+            href='#fonctionnalites'
+            onClick={(e) => {
+              e.preventDefault();
+              document.getElementById("fonctionnalites")?.scrollIntoView({
+                behavior: "smooth",
+              });
+            }}
+            className='flex flex-col items-center gap-2 text-muted-foreground hover:text-primary transition-colors'
+          >
+            <span className='text-[10px] uppercase tracking-widest font-medium'>
+              {t("discover")}
+            </span>
+            <ChevronDown className='w-5 h-5' />
+          </a>
+        </motion.div>
+      </div>
     </section>
   );
 }

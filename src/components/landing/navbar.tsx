@@ -52,7 +52,7 @@ export function Navbar() {
           </Link>
 
           {/* Desktop Navigation */}
-          <nav className='hidden md:flex items-center gap-8'>
+          <nav className='hidden lg:flex items-center gap-8'>
             {/* Dropdown for Product Features */}
             <div
               className='relative group'
@@ -118,17 +118,17 @@ export function Navbar() {
           </nav>
 
           {/* CTA & Toggle (Desktop) */}
-          <div className='hidden md:flex items-center gap-4 shrink-0'>
+          <div className='hidden lg:flex items-center gap-4 shrink-0'>
             <LanguageSwitcher />
             <Link href='/create/plan'>
-              <button className='rounded-full bg-primary px-6 py-2.5 text-sm font-semibold text-primary-foreground shadow-lg transition-transform hover:scale-105 hover:shadow-xl active:scale-95 whitespace-nowrap'>
+              <button className='rounded-full bg-primary px-6 py-2.5 text-sm font-semibold text-white shadow-lg transition-transform hover:scale-105 hover:shadow-xl active:scale-95 whitespace-nowrap'>
                 {t("createButton")}
               </button>
             </Link>
           </div>
 
           {/* Mobile Menu Button */}
-          <div className='flex items-center gap-4 md:hidden z-50'>
+          <div className='flex items-center gap-4 lg:hidden z-50'>
             <LanguageSwitcher />
             <button
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
@@ -153,7 +153,7 @@ export function Navbar() {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -20 }}
             transition={{ duration: 0.2 }}
-            className='fixed inset-0 z-40 flex flex-col bg-background pt-24 px-6 md:hidden overflow-y-auto'
+            className='fixed inset-0 z-40 flex flex-col bg-background pt-24 px-6 lg:hidden overflow-y-auto'
           >
             <nav className='flex flex-col gap-6 items-center pb-8'>
               <span className='text-xs font-bold text-muted-foreground uppercase tracking-widest mb-2'>

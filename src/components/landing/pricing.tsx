@@ -1,9 +1,9 @@
 "use client";
 
 import { cn } from "@/lib/utils";
+import { Link } from "@/navigation";
 import { motion } from "framer-motion";
 import { Check } from "lucide-react";
-import Link from "next/link";
 
 const plans = [
   {
@@ -113,14 +113,14 @@ export function PricingPreview() {
               </ul>
 
               <Link
-                href='/create/plan'
+                href={`/create/plan?selected=${plan.highlight ? "premium" : "experience"}`}
                 className='mt-auto'
               >
                 <button
                   className={cn(
                     "w-full rounded-full py-3 text-sm font-semibold transition-all",
                     plan.highlight
-                      ? "bg-primary text-primary-foreground hover:bg-primary/90 shadow-md hover:shadow-lg"
+                      ? "bg-primary text-white hover:bg-primary/90 shadow-md hover:shadow-lg"
                       : "bg-card border border-input text-foreground hover:bg-accent hover:text-accent-foreground",
                   )}
                 >
