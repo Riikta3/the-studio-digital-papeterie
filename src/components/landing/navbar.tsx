@@ -47,7 +47,7 @@ export function Navbar() {
             onClick={() => setIsMobileMenuOpen(false)}
           >
             <span className='font-heading text-2xl font-bold tracking-tight text-foreground'>
-              MeetMyWedding
+              The Studio Digital Papeterie
             </span>
           </Link>
 

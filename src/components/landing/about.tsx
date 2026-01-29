@@ -46,9 +46,9 @@ export function About() {
             </h2>
 
             <p className='text-lg text-muted-foreground leading-relaxed'>
-              MeetMyWedding est né d'un constat simple : les futurs mariés
-              méritent mieux que des modèles de sites web rigides et
-              impersonnels.
+              The Studio Digital Papeterie est né d'un constat simple : les
+              futurs mariés méritent mieux que des modèles de sites web rigides
+              et impersonnels.
             </p>
 
             <p className='text-muted-foreground leading-relaxed'>
