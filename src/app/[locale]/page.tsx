@@ -14,14 +14,31 @@ export default function Home() {
   return (
     <main className='min-h-screen w-full relative'>
       <Navbar />
+
+      {/* 1. La Promesse (Hero) */}
       <Hero />
-      <Features />
-      <DashboardPreview />
+
+      {/* 2. La Preuve Visuelle (Examples - Themes) : On seduit d'abord */}
       <Examples />
+
+      {/* 3. L'Argumentaire Rationnel (Features) : On rassure ensuite */}
+      <Features />
+
+      {/* 4. La Facilité d'Usage (Dashboard) : On montre "l'envers du décor" */}
+      <DashboardPreview />
+
+      {/* 5. La Preuve Sociale (Testimonials) */}
       <Testimonials />
+
+      {/* 6. L'Histoire (About) */}
       <About />
+
+      {/* 7. L'Offre (Pricing) */}
       <PricingPreview />
+
+      {/* 8. Les Derniers Doutes (FAQ) */}
       <FAQ />
+
       <Footer />
       <ScrollToTop />
     </main>

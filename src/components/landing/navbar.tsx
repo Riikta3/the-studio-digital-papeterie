@@ -9,7 +9,7 @@ import {
   useMotionValueEvent,
   useScroll,
 } from "framer-motion";
-import { ChevronDown, Menu, X } from "lucide-react";
+import { Menu, X } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { useState } from "react";
 
@@ -18,7 +18,6 @@ export function Navbar() {
   const { scrollY } = useScroll();
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const [isProductMenuOpen, setIsProductMenuOpen] = useState(false);
 
   useMotionValueEvent(scrollY, "change", (latest) => {
     setIsScrolled(latest > 50);
@@ -36,7 +35,7 @@ export function Navbar() {
           className={cn(
             "mx-auto flex items-center justify-between rounded-full px-6 transition-all duration-300",
             isScrolled
-              ? "bg-card shadow-lg border border-border/50 py-3 max-w-5xl"
+              ? "bg-card/80 backdrop-blur-md shadow-sm border border-border/20 py-3 max-w-5xl"
               : "bg-transparent py-2 max-w-7xl",
           )}
         >
@@ -47,82 +46,24 @@ export function Navbar() {
             onClick={() => setIsMobileMenuOpen(false)}
           >
             <span className='font-heading text-2xl font-bold tracking-tight text-foreground'>
-              The Studio Digital Papeterie
+              The Studio
             </span>
           </Link>
 
-          {/* Desktop Navigation */}
-          <nav className='hidden lg:flex items-center gap-8'>
-            {/* Dropdown for Product Features */}
-            <div
-              className='relative group'
-              onMouseEnter={() => setIsProductMenuOpen(true)}
-              onMouseLeave={() => setIsProductMenuOpen(false)}
-            >
-              <button className='flex items-center gap-1 text-sm font-medium text-foreground/80 hover:text-primary transition-colors py-2'>
-                {t("product")} <ChevronDown className='w-4 h-4' />
-              </button>
-
-              <AnimatePresence>
-                {isProductMenuOpen && (
-                  <motion.div
-                    initial={{ opacity: 0, y: 10 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    exit={{ opacity: 0, y: 10 }}
-                    transition={{ duration: 0.2 }}
-                    className='absolute top-full left-1/2 -translate-x-1/2 pt-2 w-48'
-                  >
-                    <div className='bg-card border border-border/50 rounded-xl shadow-xl overflow-hidden p-2 flex flex-col'>
-                      <Link
-                        href='#fonctionnalites'
-                        className='px-4 py-2 hover:bg-muted/50 rounded-lg text-sm text-foreground/80 hover:text-primary transition-colors text-start'
-                      >
-                        {t("features")}
-                      </Link>
-                      <Link
-                        href='#apercu'
-                        className='px-4 py-2 hover:bg-muted/50 rounded-lg text-sm text-foreground/80 hover:text-primary transition-colors text-start'
-                      >
-                        {t("dashboard")}
-                      </Link>
-                      <Link
-                        href='#modeles'
-                        className='px-4 py-2 hover:bg-muted/50 rounded-lg text-sm text-foreground/80 hover:text-primary transition-colors text-start'
-                      >
-                        {t("themes")}
-                      </Link>
-                    </div>
-                  </motion.div>
-                )}
-              </AnimatePresence>
-            </div>
-
+          {/* Desktop Actions (Clean & Minimalist) */}
+          <div className='hidden lg:flex items-center gap-6 shrink-0'>
             <Link
-              href='#temoignages'
-              className='text-sm font-medium text-foreground/80 hover:text-primary transition-colors'
+              href='/login'
+              className='text-sm font-medium text-muted-foreground hover:text-foreground transition-colors'
             >
-              {t("testimonials")}
+              {t("login")}
             </Link>
-            <Link
-              href='#tarifs'
-              className='text-sm font-medium text-foreground/80 hover:text-primary transition-colors'
-            >
-              {t("pricing")}
-            </Link>
-            <Link
-              href='#faq'
-              className='text-sm font-medium text-foreground/80 hover:text-primary transition-colors'
-            >
-              {t("faq")}
-            </Link>
-          </nav>
 
-          {/* CTA & Toggle (Desktop) */}
-          <div className='hidden lg:flex items-center gap-4 shrink-0'>
             <LanguageSwitcher />
+
             <Link
               href='/create/plan'
-              className='rounded-full bg-primary px-6 py-2.5 text-sm font-semibold text-white shadow-lg transition-transform hover:scale-105 hover:shadow-xl active:scale-95 whitespace-nowrap'
+              className='rounded-full bg-primary px-6 py-2.5 text-sm font-semibold text-white shadow-md transition-transform hover:scale-105 active:scale-95 whitespace-nowrap'
             >
               {t("createButton")}
             </Link>
@@ -157,9 +98,6 @@ export function Navbar() {
             className='fixed inset-0 z-40 flex flex-col bg-background pt-24 px-6 lg:hidden overflow-y-auto'
           >
             <nav className='flex flex-col gap-6 items-center pb-8'>
-              <span className='text-xs font-bold text-muted-foreground uppercase tracking-widest mb-2'>
-                {t("product")}
-              </span>
               <Link
                 href='#fonctionnalites'
                 onClick={() => setIsMobileMenuOpen(false)}
@@ -185,25 +123,11 @@ export function Navbar() {
               <div className='w-12 h-[1px] bg-border my-2' />
 
               <Link
-                href='#temoignages'
+                href='/login'
                 onClick={() => setIsMobileMenuOpen(false)}
-                className='text-lg font-heading font-medium text-foreground hover:text-primary'
+                className='text-lg font-heading font-medium text-muted-foreground hover:text-primary'
               >
-                {t("testimonials")}
-              </Link>
-              <Link
-                href='#tarifs'
-                onClick={() => setIsMobileMenuOpen(false)}
-                className='text-lg font-heading font-medium text-foreground hover:text-primary'
-              >
-                {t("pricing")}
-              </Link>
-              <Link
-                href='#faq'
-                onClick={() => setIsMobileMenuOpen(false)}
-                className='text-lg font-heading font-medium text-foreground hover:text-primary'
-              >
-                {t("faq")}
+                {t("login")}
               </Link>
 
               <div className='mt-8 flex flex-col w-full gap-4'>

@@ -22,41 +22,49 @@ export function Hero() {
           alt=''
           fill
           priority
-          className='object-cover opacity-40 mix-blend-multiply'
+          className='object-cover opacity-60' /* Removed mix-blend for cleaner look with new colors */
         />
 
         {/* Center Overlay to ensure text readability */}
         <div className='absolute inset-0 bg-background/20 bg-[radial-gradient(ellipse_at_center,var(--tw-gradient-stops))] from-transparent via-background/40 to-background/90' />
       </motion.div>
 
+      {/* Global Grain Overlay for "Paper Feel" */}
+      <div className='fixed inset-0 pointer-events-none z-[100] opacity-[0.04] mix-blend-multiply bg-noise' />
+
       <div className='container relative mx-auto flex flex-col items-center justify-center px-4 text-center z-10'>
         {/* Text Content Centered */}
         <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 1.2, ease: "easeOut" }}
-          className='flex max-w-3xl flex-col items-center gap-6'
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 1.0, ease: "easeOut" }}
+          className='flex max-w-4xl flex-col items-center gap-8'
         >
-          <h1 className='font-heading text-5xl font-bold leading-tight text-foreground md:text-7xl'>
+          <h1 className='font-heading text-6xl md:text-8xl font-medium tracking-tight text-foreground leading-[0.9] drop-shadow-sm'>
             {t("titleLine1")} <br />
-            <span className='text-primary italic'>{t("titleLine2")}</span>
+            <span className='italic text-primary font-semibold'>
+              {t("titleLine2")}
+            </span>
           </h1>
 
-          <p className='max-w-lg text-lg leading-relaxed text-muted-foreground'>
+          <p className='max-w-lg text-lg md:text-xl font-body text-muted-foreground leading-relaxed'>
             {t("description")}
           </p>
 
-          <div className='mt-8 flex flex-wrap gap-4 justify-center'>
+          <div className='mt-10 flex flex-col md:flex-row items-center gap-8'>
             <Link
               href='/create/plan'
-              className='group flex items-center gap-2 rounded-full bg-primary px-8 py-3.5 text-base font-semibold text-white shadow-lg transition-all hover:-translate-y-1 hover:shadow-xl'
+              className='group relative overflow-hidden rounded-full bg-primary px-10 py-4 text-xl font-heading font-semibold italic text-white shadow-xl transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl active:scale-95'
             >
-              {t("createButton")}
-              <ArrowRight className='h-4 w-4 transition-transform group-hover:translate-x-1' />
+              <span className='relative z-10 flex items-center gap-3 drop-shadow-sm'>
+                {t("createButton")}
+                <ArrowRight className='h-5 w-5 transition-transform group-hover:translate-x-1' />
+              </span>
             </Link>
+
             <Link
-              href='#' // Demo link placeholder
-              className='rounded-full border border-input bg-white/50 px-8 py-3.5 text-base font-semibold text-foreground backdrop-blur-sm transition-colors hover:bg-accent/50'
+              href='#'
+              className='text-xs uppercase tracking-widest font-medium text-muted-foreground/80 hover:text-primary transition-colors border-b border-transparent hover:border-primary pb-0.5'
             >
               {t("demoButton")}
             </Link>

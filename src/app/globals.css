@@ -8,43 +8,45 @@ html {
 
 @layer base {
   :root {
-    --background: 36 45% 96%;
-    --foreground: 24 15% 20%;
+    --background: 40 33% 98%;
+    --foreground: 0 0% 16%;
     --card: 0 0% 100%;
-    --card-foreground: 24 15% 20%;
-    --primary: 124 18% 48%;
+    --card-foreground: 0 0% 16%;
+    --primary: 145 19% 36%;
     --primary-foreground: 0 0% 98%;
-    --secondary: 350 28% 75%;
-    --secondary-foreground: 24 20% 20%;
-    --muted: 32 25% 90%;
-    --muted-foreground: 24 10% 35%;
-    --accent: 28 30% 88%;
-    --accent-foreground: 24 20% 20%;
-    --border: 30 20% 85%;
-    --ring: 124 18% 48%;
+    --secondary: 24 33% 92%;
+    /* Terracotta tres pale */
+    --secondary-foreground: 0 0% 16%;
+    --muted: 40 20% 94%;
+    --muted-foreground: 0 0% 40%;
+    --accent: 25 25% 60%;
+    /* Terracotta Doux #C59D85 approx */
+    --accent-foreground: 0 0% 98%;
+    --border: 40 10% 88%;
+    --ring: 145 19% 36%;
     --radius: 1rem;
-    --font-heading: var(--font-playfair);
+    --font-heading: var(--font-cormorant);
     --font-body: var(--font-inter);
     color-scheme: light;
   }
 
   .theme-floral {
-    --background: 36 45% 96%;
-    --foreground: 24 15% 20%;
+    --background: 40 33% 98%;
+    --foreground: 0 0% 16%;
     --card: 0 0% 100%;
-    --card-foreground: 24 15% 20%;
-    --primary: 124 18% 48%;
+    --card-foreground: 0 0% 16%;
+    --primary: 145 19% 36%;
     --primary-foreground: 0 0% 98%;
-    --secondary: 350 28% 75%;
-    --secondary-foreground: 24 20% 20%;
-    --muted: 32 25% 90%;
-    --muted-foreground: 24 10% 35%;
-    --accent: 28 30% 88%;
-    --accent-foreground: 24 20% 20%;
-    --border: 30 20% 85%;
-    --ring: 124 18% 48%;
+    --secondary: 24 33% 92%;
+    --secondary-foreground: 0 0% 16%;
+    --muted: 40 20% 94%;
+    --muted-foreground: 0 0% 40%;
+    --accent: 25 25% 60%;
+    --accent-foreground: 0 0% 98%;
+    --border: 40 10% 88%;
+    --ring: 145 19% 36%;
     --radius: 1rem;
-    --font-heading: var(--font-playfair);
+    --font-heading: var(--font-cormorant);
     --font-body: var(--font-inter);
     color-scheme: light;
   }
@@ -71,45 +73,56 @@ html {
   }
 
   .theme-boho {
-    --background: 35 45% 90%;
-    --foreground: 24 20% 18%;
+    /* Theme Romantique Moderne */
+    --background: 0 33% 98%;
+    /* Blush Pale #FFF5F5 */
+    --foreground: 0 0% 16%;
     --card: 0 0% 100%;
-    --card-foreground: 24 20% 18%;
-    --primary: 14 55% 48%;
+    --card-foreground: 0 0% 16%;
+    --primary: 0 42% 69%;
+    /* Vieux Rose #D48C8C */
     --primary-foreground: 0 0% 98%;
-    --secondary: 32 70% 55%;
-    --secondary-foreground: 24 20% 18%;
-    --muted: 35 30% 84%;
-    --muted-foreground: 24 15% 35%;
-    --accent: 20 45% 80%;
-    --accent-foreground: 24 20% 18%;
-    --border: 28 25% 78%;
-    --ring: 14 55% 48%;
+    --secondary: 40 40% 90%;
+    /* Sable clair */
+    --secondary-foreground: 0 0% 16%;
+    --muted: 0 20% 96%;
+    --muted-foreground: 0 0% 40%;
+    --accent: 40 47% 56%;
+    /* Touche dorée pour le luxe */
+    --accent-foreground: 0 0% 98%;
+    --border: 0 20% 90%;
+    --ring: 0 42% 69%;
     --radius: 1.5rem;
-    --font-heading: var(--font-cormorant);
-    --font-body: var(--font-cormorant);
+    --font-heading: var(--font-playfair);
+    --font-body: var(--font-inter);
     color-scheme: light;
   }
 
   .theme-royal {
-    --background: 230 35% 12%;
-    --foreground: 0 0% 98%;
-    --card: 230 35% 16%;
-    --card-foreground: 0 0% 98%;
-    --primary: 45 65% 55%;
-    --primary-foreground: 230 35% 12%;
-    --secondary: 230 20% 20%;
-    --secondary-foreground: 0 0% 98%;
-    --muted: 230 25% 18%;
-    --muted-foreground: 0 0% 80%;
-    --accent: 45 60% 45%;
-    --accent-foreground: 230 35% 12%;
-    --border: 230 20% 24%;
-    --ring: 45 65% 55%;
-    --radius: 0.5rem;
+    /* Theme Classique Intemporel */
+    --background: 0 0% 98%;
+    /* Blanc Albâtre #FAFAFA */
+    --foreground: 216 41% 15%;
+    --card: 0 0% 100%;
+    --card-foreground: 216 41% 15%;
+    --primary: 216 41% 18%;
+    /* Bleu Nuit #1B2A41 */
+    --primary-foreground: 0 0% 98%;
+    --secondary: 210 20% 90%;
+    --secondary-foreground: 216 41% 18%;
+    --muted: 210 10% 94%;
+    --muted-foreground: 216 20% 40%;
+    --accent: 40 47% 56%;
+    /* Or Métallique #C5A059 */
+    --accent-foreground: 0 0% 98%;
+    --border: 216 10% 85%;
+    --ring: 216 41% 18%;
+    --radius: 0.25rem;
+    /* Coins plus carres -> Prestige */
     --font-heading: var(--font-cinzel);
     --font-body: var(--font-inter);
-    color-scheme: dark;
+    color-scheme: light;
+    /* On passe en light pour le classique 'Papier' */
   }
 
   .theme-modern {

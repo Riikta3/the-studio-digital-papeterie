@@ -45,24 +45,34 @@ export function Testimonials() {
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ delay: i * 0.2 }}
               viewport={{ once: true }}
-              className='bg-card p-8 rounded-2xl shadow-sm border border-border/50 relative'
+              className='bg-[#FDFBF7] p-10 rounded-3xl shadow-[0_10px_40px_-15px_rgba(0,0,0,0.05)] border border-border/30 relative flex flex-col items-center text-center group hover:translate-y-[-5px] transition-transform duration-300'
             >
-              <div className='absolute -top-4 left-8 bg-primary text-primary-foreground px-3 py-1 text-xs rounded-full flex gap-1 items-center'>
-                <Star className='w-3 h-3 fill-primary-foreground' /> 5.0
+              {/* Decorative Quote */}
+              <div className='text-6xl font-serif text-primary/10 absolute top-4 left-6 leading-none'>
+                "
               </div>
 
-              <p className='text-muted-foreground italic mb-6 leading-relaxed'>
-                "{t.text}"
-              </p>
+              <div className='flex-1 flex items-center'>
+                <p className='font-heading text-2xl text-foreground/80 leading-relaxed italic'>
+                  {t.text}
+                </p>
+              </div>
 
-              <div className='border-t border-border pt-4'>
-                <h4 className='font-heading font-bold text-lg'>{t.names}</h4>
-                <div className='flex justify-between items-center mt-1'>
-                  <span className='text-xs text-muted-foreground uppercase tracking-wider'>
+              <div className='mt-8 pt-6 border-t border-border/40 w-full'>
+                <div className='flex flex-col items-center gap-2'>
+                  <div className='flex gap-0.5 text-orange-400 mb-2'>
+                    {[1, 2, 3, 4, 5].map((s) => (
+                      <Star
+                        key={s}
+                        className='w-3 h-3 fill-current'
+                      />
+                    ))}
+                  </div>
+                  <h4 className='font-sans font-bold text-sm uppercase tracking-widest text-foreground'>
+                    {t.names}
+                  </h4>
+                  <span className='text-xs text-muted-foreground font-medium'>
                     {t.date}
-                  </span>
-                  <span className='text-xs font-medium text-primary bg-primary/10 px-2 py-0.5 rounded-full'>
-                    {t.theme}
                   </span>
                 </div>
               </div>

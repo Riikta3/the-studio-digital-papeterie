@@ -4,83 +4,157 @@ import { motion } from "framer-motion";
 import { Globe, Leaf, RefreshCcw, Users } from "lucide-react";
 import { useTranslations } from "next-intl";
 
-const features = [
-  // ... moved inside component
-];
-
 export function Features() {
   const t = useTranslations("Features");
-
-  const features = [
-    {
-      icon: Leaf,
-      title: t("ecoTitle"),
-      description: t("ecoDesc"),
-      delay: 0.2,
-    },
-    {
-      icon: RefreshCcw,
-      title: t("editTitle"),
-      description: t("editDesc"),
-      delay: 0.3,
-    },
-    {
-      icon: Users,
-      title: t("rsvpTitle"),
-      description: t("rsvpDesc"),
-      delay: 0.4,
-    },
-    {
-      icon: Globe,
-      title: t("langTitle"),
-      description: t("langDesc"),
-      delay: 0.5,
-    },
-  ];
 
   return (
     <section
       id='fonctionnalites'
-      className='relative py-24 bg-muted/20'
+      className='relative py-32 overflow-hidden'
     >
       <div className='container mx-auto px-4'>
-        <div className='mb-16 text-center'>
+        {/* Section Header */}
+        <div className='mb-24 text-center'>
           <motion.h2
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
+            transition={{ duration: 0.8 }}
             viewport={{ once: true }}
-            className='font-heading text-3xl font-bold text-foreground md:text-4xl'
+            className='font-heading text-4xl md:text-5xl font-medium text-foreground mb-6'
           >
             {t("titleLine1")}{" "}
             <span className='text-primary italic'>{t("titleLine2")}</span>
           </motion.h2>
-          <p className='mx-auto mt-4 max-w-2xl text-muted-foreground'>
+          <p className='mx-auto mt-4 max-w-2xl text-lg text-muted-foreground font-body'>
             {t("subtitle")}
           </p>
         </div>
 
-        <div className='grid gap-8 md:grid-cols-2 lg:grid-cols-4'>
-          {features.map((feature, index) => (
+        <div className='flex flex-col gap-32'>
+          {/* Feature 1: Modifiable - Image Left (Writing), Text Right */}
+          <div className='grid md:grid-cols-2 gap-16 items-center'>
             <motion.div
-              key={index}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: feature.delay }}
+              initial={{ opacity: 0, scale: 0.95 }}
+              whileInView={{ opacity: 1, scale: 1 }}
               viewport={{ once: true }}
-              className='group relative overflow-hidden rounded-2xl border border-border/50 bg-card p-8 text-center shadow-sm transition-all hover:shadow-md'
+              transition={{ duration: 0.8 }}
+              className='relative aspect-[4/3] rounded-2xl overflow-hidden shadow-2xl border border-border/50 order-2 md:order-1'
             >
-              <div className='mx-auto mb-6 flex h-14 w-14 items-center justify-center rounded-full bg-primary/10 text-primary transition-transform group-hover:scale-110'>
-                <feature.icon className='h-7 w-7' />
-              </div>
-              <h3 className='mb-3 font-heading text-xl font-semibold text-foreground'>
-                {feature.title}
-              </h3>
-              <p className='text-sm leading-relaxed text-muted-foreground'>
-                {feature.description}
-              </p>
+              <div
+                className='absolute inset-0 bg-cover bg-center transition-transform duration-1000 md:hover:scale-105'
+                style={{
+                  backgroundImage: "url('/images/landing/feature-writing.png')",
+                }}
+              />
+              <div className='absolute inset-0 bg-black/5' />
             </motion.div>
-          ))}
+
+            <motion.div
+              initial={{ opacity: 0, x: 50 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.8 }}
+              className='order-1 md:order-2 space-y-6'
+            >
+              <div className='w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center text-primary mb-4'>
+                <RefreshCcw className='w-6 h-6' />
+              </div>
+              <h3 className='font-heading text-4xl font-medium text-foreground'>
+                {t("editTitle")}
+              </h3>
+              <p className='text-lg text-muted-foreground leading-relaxed font-body'>
+                {t("editDesc")}
+              </p>
+              <div className='h-1 w-20 bg-primary/20 mt-4' />
+            </motion.div>
+          </div>
+
+          {/* Feature 2: RSVP & Lang - Text Left, Image Right (Party) */}
+          <div className='grid md:grid-cols-2 gap-16 items-center'>
+            <motion.div
+              initial={{ opacity: 0, x: -50 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.8 }}
+              className='space-y-12'
+            >
+              <div className='space-y-4'>
+                <div className='flex items-center gap-3 text-primary font-heading text-2xl'>
+                  <Users className='w-6 h-6' />
+                  <h3>{t("rsvpTitle")}</h3>
+                </div>
+                <p className='text-lg text-muted-foreground leading-relaxed pl-9 border-l-2 border-primary/20'>
+                  {t("rsvpDesc")}
+                </p>
+              </div>
+
+              <div className='space-y-4'>
+                <div className='flex items-center gap-3 text-primary font-heading text-2xl'>
+                  <Globe className='w-6 h-6' />
+                  <h3>{t("langTitle")}</h3>
+                </div>
+                <p className='text-lg text-muted-foreground leading-relaxed pl-9 border-l-2 border-primary/20'>
+                  {t("langDesc")}
+                </p>
+              </div>
+            </motion.div>
+
+            <motion.div
+              initial={{ opacity: 0, scale: 0.95 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.8 }}
+              className='relative aspect-[4/3] rounded-2xl overflow-hidden shadow-2xl border border-border/50'
+            >
+              <div
+                className='absolute inset-0 bg-cover bg-center transition-transform duration-1000 md:hover:scale-105'
+                style={{
+                  backgroundImage: "url('/images/landing/feature-table.png')",
+                }}
+              />
+              <div className='absolute inset-0 bg-primary/5 mix-blend-overlay' />
+            </motion.div>
+          </div>
+
+          {/* Feature 3: Eco (Values) - Textured Paper Style */}
+          {/* Feature 3: Eco (Values) - Split View (Image Left, Text Right) */}
+          <div className='grid md:grid-cols-2 gap-16 items-center'>
+            <motion.div
+              initial={{ opacity: 0, x: -50 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.8 }}
+              className='relative aspect-[4/3] rounded-2xl overflow-hidden shadow-2xl border border-border/50'
+            >
+              <div
+                className='absolute inset-0 bg-cover bg-center transition-transform duration-1000 md:hover:scale-105'
+                style={{
+                  backgroundImage: "url('/images/landing/feature-paper.png')",
+                }}
+              />
+              {/* Soft overlay to make the paper feel premium, not just an image */}
+              <div className='absolute inset-0 bg-primary/5 mix-blend-multiply' />
+            </motion.div>
+
+            <motion.div
+              initial={{ opacity: 0, x: 50 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.8 }}
+              className='space-y-6'
+            >
+              <div className='w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center text-primary mb-4'>
+                <Leaf className='w-6 h-6' />
+              </div>
+              <h3 className='font-heading text-4xl font-medium text-foreground'>
+                {t("ecoTitle")}
+              </h3>
+              <p className='text-lg text-muted-foreground leading-relaxed font-body'>
+                {t("ecoDesc")}
+              </p>
+              <div className='h-1 w-20 bg-primary/20 mt-4' />
+            </motion.div>
+          </div>
         </div>
       </div>
     </section>

@@ -20,15 +20,21 @@ export function About() {
             className='relative'
           >
             {/* Image Placeholder - styled as a photo frame */}
-            <div className='aspect-[4/5] bg-muted rounded-lg overflow-hidden shadow-2xl rotate-3 border-8 border-card'>
-              <div className='w-full h-full bg-muted/50 flex items-center justify-center text-muted-foreground'>
-                <span className='font-heading italic text-2xl'>L'équipe</span>
-              </div>
+            <div className='aspect-[4/5] bg-muted rounded-lg overflow-hidden shadow-2xl rotate-3 border-8 border-card relative z-10'>
+              <div
+                className='absolute inset-0 bg-cover bg-center transition-transform duration-700 hover:scale-105'
+                style={{
+                  backgroundImage: "url('/images/landing/about-team.png')",
+                }}
+              />
             </div>
-            <div className='absolute -bottom-6 -left-6 aspect-[4/5] w-2/3 bg-muted/30 rounded-lg overflow-hidden shadow-xl -rotate-6 border-8 border-card z-[-1]'>
-              <div className='w-full h-full bg-muted/30 flex items-center justify-center text-muted-foreground'>
-                <span className='font-heading italic'>Atelier</span>
-              </div>
+            <div className='absolute -bottom-6 -left-6 aspect-[4/5] w-2/3 bg-muted/30 rounded-lg overflow-hidden shadow-xl -rotate-6 border-8 border-card z-0'>
+              <div
+                className='absolute inset-0 bg-cover bg-center'
+                style={{
+                  backgroundImage: "url('/images/landing/about-atelier.png')",
+                }}
+              />
             </div>
           </motion.div>
 
