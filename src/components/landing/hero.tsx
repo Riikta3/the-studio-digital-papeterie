@@ -47,15 +47,19 @@ export function Hero() {
           </p>
 
           <div className='mt-8 flex flex-wrap gap-4 justify-center'>
-            <Link href='/create/plan'>
-              <button className='group flex items-center gap-2 rounded-full bg-primary px-8 py-3.5 text-base font-semibold text-white shadow-lg transition-all hover:-translate-y-1 hover:shadow-xl'>
-                {t("createButton")}
-                <ArrowRight className='h-4 w-4 transition-transform group-hover:translate-x-1' />
-              </button>
+            <Link
+              href='/create/plan'
+              className='group flex items-center gap-2 rounded-full bg-primary px-8 py-3.5 text-base font-semibold text-white shadow-lg transition-all hover:-translate-y-1 hover:shadow-xl'
+            >
+              {t("createButton")}
+              <ArrowRight className='h-4 w-4 transition-transform group-hover:translate-x-1' />
             </Link>
-            <button className='rounded-full border border-input bg-white/50 px-8 py-3.5 text-base font-semibold text-foreground backdrop-blur-sm transition-colors hover:bg-accent/50'>
+            <Link
+              href='#' // Demo link placeholder
+              className='rounded-full border border-input bg-white/50 px-8 py-3.5 text-base font-semibold text-foreground backdrop-blur-sm transition-colors hover:bg-accent/50'
+            >
               {t("demoButton")}
-            </button>
+            </Link>
           </div>
         </motion.div>
       </div>

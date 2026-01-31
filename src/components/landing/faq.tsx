@@ -56,28 +56,32 @@ export function FAQ() {
               viewport={{ once: true }}
               className='border border-border/50 rounded-2xl bg-card overflow-hidden'
             >
-              <button
-                onClick={() => setOpenIndex(openIndex === index ? null : index)}
-                className='flex w-full items-center justify-between p-6 text-start transition-colors hover:bg-muted/30'
-              >
-                <span className='font-heading font-semibold text-lg text-foreground'>
-                  {faq.question}
-                </span>
-                <div
-                  className={cn(
-                    "flex h-8 w-8 shrink-0 items-center justify-center rounded-full border border-primary/20 transition-all duration-300",
-                    openIndex === index
-                      ? "bg-primary text-white rotate-180"
-                      : "text-primary",
-                  )}
+              <h3>
+                <button
+                  onClick={() =>
+                    setOpenIndex(openIndex === index ? null : index)
+                  }
+                  className='flex w-full items-center justify-between p-6 text-start transition-colors hover:bg-muted/30'
                 >
-                  {openIndex === index ? (
-                    <Minus className='h-4 w-4' />
-                  ) : (
-                    <Plus className='h-4 w-4' />
-                  )}
-                </div>
-              </button>
+                  <span className='font-heading font-semibold text-lg text-foreground'>
+                    {faq.question}
+                  </span>
+                  <div
+                    className={cn(
+                      "flex h-8 w-8 shrink-0 items-center justify-center rounded-full border border-primary/20 transition-all duration-300",
+                      openIndex === index
+                        ? "bg-primary text-white rotate-180"
+                        : "text-primary",
+                    )}
+                  >
+                    {openIndex === index ? (
+                      <Minus className='h-4 w-4' />
+                    ) : (
+                      <Plus className='h-4 w-4' />
+                    )}
+                  </div>
+                </button>
+              </h3>
 
               <motion.div
                 initial={false}

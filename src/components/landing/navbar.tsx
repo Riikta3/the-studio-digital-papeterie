@@ -120,10 +120,11 @@ export function Navbar() {
           {/* CTA & Toggle (Desktop) */}
           <div className='hidden lg:flex items-center gap-4 shrink-0'>
             <LanguageSwitcher />
-            <Link href='/create/plan'>
-              <button className='rounded-full bg-primary px-6 py-2.5 text-sm font-semibold text-white shadow-lg transition-transform hover:scale-105 hover:shadow-xl active:scale-95 whitespace-nowrap'>
-                {t("createButton")}
-              </button>
+            <Link
+              href='/create/plan'
+              className='rounded-full bg-primary px-6 py-2.5 text-sm font-semibold text-white shadow-lg transition-transform hover:scale-105 hover:shadow-xl active:scale-95 whitespace-nowrap'
+            >
+              {t("createButton")}
             </Link>
           </div>
 
@@ -209,11 +210,9 @@ export function Navbar() {
                 <Link
                   href='/create/plan'
                   onClick={() => setIsMobileMenuOpen(false)}
-                  className='w-full'
+                  className='w-full rounded-full bg-primary px-6 py-4 text-base font-semibold text-primary-foreground shadow-lg active:scale-95 text-center'
                 >
-                  <button className='w-full rounded-full bg-primary px-6 py-4 text-base font-semibold text-primary-foreground shadow-lg active:scale-95'>
-                    {t("createButton")}
-                  </button>
+                  {t("createButton")}
                 </Link>
               </div>
             </nav>

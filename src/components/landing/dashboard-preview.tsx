@@ -43,7 +43,8 @@ export function DashboardPreview() {
             <div className='w-full md:w-64 border-b md:border-b-0 md:border-r border-border bg-muted/30 flex md:flex-col p-4 gap-4 md:gap-0 overflow-x-auto md:overflow-x-visible'>
               <div className='h-8 w-8 md:w-32 bg-primary/20 rounded-md mb-0 md:mb-8 shrink-0' />{" "}
               {/* Logo placeholder */}
-              <div className='flex md:flex-col space-x-2 md:space-x-0 md:space-y-2'>
+              {/* Logo placeholder */}
+              <ul className='flex md:flex-col space-x-2 md:space-x-0 md:space-y-2'>
                 {[
                   {
                     icon: LayoutDashboard,
@@ -59,7 +60,7 @@ export function DashboardPreview() {
                   },
                   { icon: Settings, label: "Paramètres", active: false },
                 ].map((item, i) => (
-                  <div
+                  <li
                     key={i}
                     className={cn(
                       "flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-medium cursor-pointer transition-colors shrink-0",
@@ -70,9 +71,9 @@ export function DashboardPreview() {
                   >
                     <item.icon className='w-5 h-5 shrink-0' />
                     <span className='hidden md:inline'>{item.label}</span>
-                  </div>
+                  </li>
                 ))}
-              </div>
+              </ul>
             </div>
 
             {/* Main Content Area */}
@@ -80,9 +81,9 @@ export function DashboardPreview() {
               {/* Header */}
               <div className='flex justify-between items-center mb-8'>
                 <div>
-                  <h3 className='font-heading text-2xl font-bold text-foreground'>
+                  <div className='font-heading text-2xl font-bold text-foreground'>
                     Bonjour, Paula
-                  </h3>
+                  </div>
                   <p className='text-sm text-muted-foreground'>
                     Voici ce qu'il se passe aujourd'hui.
                   </p>
@@ -138,7 +139,7 @@ export function DashboardPreview() {
 
               {/* Recent Activity List placeholder */}
               <div className='bg-card rounded-xl border border-border shadow-sm p-6'>
-                <h4 className='font-semibold mb-4'>Dernières réponses</h4>
+                <div className='font-semibold mb-4'>Dernières réponses</div>
                 <div className='space-y-4'>
                   {[1, 2, 3].map((_, i) => (
                     <div

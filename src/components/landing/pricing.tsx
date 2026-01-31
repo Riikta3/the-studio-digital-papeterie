@@ -116,16 +116,16 @@ export function PricingPreview() {
                 href={`/create/plan?selected=${plan.highlight ? "premium" : "experience"}`}
                 className='mt-auto'
               >
-                <button
+                <div
                   className={cn(
-                    "w-full rounded-full py-3 text-sm font-semibold transition-all",
+                    "w-full rounded-full py-3 text-sm font-semibold transition-all text-center",
                     plan.highlight
                       ? "bg-primary text-white hover:bg-primary/90 shadow-md hover:shadow-lg"
                       : "bg-card border border-input text-foreground hover:bg-accent hover:text-accent-foreground",
                   )}
                 >
                   {plan.cta}
-                </button>
+                </div>
               </Link>
             </motion.div>
           ))}
