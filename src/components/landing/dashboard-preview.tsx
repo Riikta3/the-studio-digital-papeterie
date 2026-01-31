@@ -56,7 +56,7 @@ export function DashboardPreview() {
                 </div>
                 <div className='w-1/2 h-full flex flex-col items-center justify-center p-12 text-center space-y-6 bg-white'>
                   <div className='font-heading text-5xl text-primary italic'>
-                    Charlotte & William
+                    Sarah & Michael
                   </div>
                   <p className='font-body text-base text-gray-500 leading-relaxed max-w-sm'>
                     Nous sommes heureux de vous inviter à célébrer notre union
@@ -99,7 +99,7 @@ export function DashboardPreview() {
               {/* Invitation Preview */}
               <div className='flex-1 flex flex-col items-center justify-center p-6 text-center space-y-5 bg-hero-pattern bg-cover relative'>
                 <div className='font-heading text-3xl text-primary italic relative z-10 mt-8'>
-                  Charlotte & William
+                  Sarah & Michael
                 </div>
 
                 {/* Photo Placeholder - Real Image */}
