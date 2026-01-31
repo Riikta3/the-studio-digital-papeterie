@@ -28,7 +28,7 @@ export function Testimonials() {
   return (
     <section
       id='temoignages'
-      className='py-24 bg-primary/5'
+      className='py-24 bg-background overflow-hidden relative'
     >
       <div className='container mx-auto px-4'>
         <div className='mb-16 text-center'>

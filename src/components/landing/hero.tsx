@@ -63,7 +63,13 @@ export function Hero() {
             </Link>
 
             <Link
-              href='#'
+              href='#apercu'
+              onClick={(e) => {
+                e.preventDefault();
+                document.getElementById("apercu")?.scrollIntoView({
+                  behavior: "smooth",
+                });
+              }}
               className='text-xs uppercase tracking-widest font-medium text-muted-foreground/80 hover:text-primary transition-colors border-b border-transparent hover:border-primary pb-0.5'
             >
               {t("demoButton")}
@@ -86,10 +92,10 @@ export function Hero() {
           className='cursor-pointer'
         >
           <a
-            href='#fonctionnalites'
+            href='#modeles'
             onClick={(e) => {
               e.preventDefault();
-              document.getElementById("fonctionnalites")?.scrollIntoView({
+              document.getElementById("modeles")?.scrollIntoView({
                 behavior: "smooth",
               });
             }}

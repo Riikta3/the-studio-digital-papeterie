@@ -24,9 +24,11 @@ export function ScrollToTop() {
         scale: isVisible ? 1 : 0.5,
         pointerEvents: isVisible ? "auto" : "none",
       }}
-      transition={{ duration: 0.3 }}
+      whileHover={{ scale: 1.1 }}
+      whileTap={{ scale: 0.9 }}
+      transition={{ duration: 0.2 }}
       onClick={scrollToTop}
-      className='fixed bottom-8 right-8 z-50 flex h-12 w-12 items-center justify-center rounded-full bg-primary text-primary-foreground shadow-lg transition-transform hover:scale-110 active:scale-90'
+      className='fixed bottom-8 right-8 z-50 flex h-12 w-12 items-center justify-center rounded-full bg-primary text-primary-foreground shadow-lg'
       aria-label='Scroll to top'
     >
       <ArrowUp className='h-5 w-5' />

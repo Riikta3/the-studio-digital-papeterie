@@ -35,7 +35,7 @@ export function Navbar() {
           className={cn(
             "mx-auto flex items-center justify-between rounded-full px-6 transition-all duration-300",
             isScrolled
-              ? "bg-card/80 backdrop-blur-md shadow-sm border border-border/20 py-3 max-w-5xl"
+              ? "bg-card/80 backdrop-blur-md shadow-sm border border-border/20 py-3 max-w-7xl"
               : "bg-transparent py-2 max-w-7xl",
           )}
         >
@@ -45,10 +45,40 @@ export function Navbar() {
             className='flex items-center gap-2 z-50 shrink-0'
             onClick={() => setIsMobileMenuOpen(false)}
           >
-            <span className='font-heading text-2xl font-bold tracking-tight text-foreground'>
-              The Studio Digital Papeterie
-            </span>
+            <img
+              src='/images/logo.png'
+              alt='The Studio Digital Papeterie, les faire-part digitales'
+              className='h-12 w-auto object-contain mix-blend-multiply'
+            />
           </Link>
+
+          {/* Desktop Nav Links */}
+          <nav className='hidden lg:flex items-center gap-8'>
+            <Link
+              href='#modeles'
+              className='text-sm font-medium text-muted-foreground hover:text-primary transition-colors'
+            >
+              {t("themes")}
+            </Link>
+            <Link
+              href='#temoignages'
+              className='text-sm font-medium text-muted-foreground hover:text-primary transition-colors'
+            >
+              {t("testimonials")}
+            </Link>
+            <Link
+              href='#fonctionnalites'
+              className='text-sm font-medium text-muted-foreground hover:text-primary transition-colors'
+            >
+              {t("features")}
+            </Link>
+            <Link
+              href='#tarifs'
+              className='text-sm font-medium text-muted-foreground hover:text-primary transition-colors'
+            >
+              {t("pricing")}
+            </Link>
+          </nav>
 
           {/* Desktop Actions (Clean & Minimalist) */}
           <div className='hidden lg:flex items-center gap-6 shrink-0'>
