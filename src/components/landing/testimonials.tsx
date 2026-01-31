@@ -28,7 +28,7 @@ export function Testimonials() {
   return (
     <section
       id='temoignages'
-      className='py-24 bg-background overflow-hidden relative'
+      className='py-24 bg-[#F5F5F4] overflow-hidden relative'
     >
       <div className='container mx-auto px-4'>
         <div className='mb-16 text-center'>
@@ -45,7 +45,7 @@ export function Testimonials() {
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ delay: i * 0.2 }}
               viewport={{ once: true }}
-              className='bg-[#FDFBF7] p-10 rounded-3xl shadow-[0_10px_40px_-15px_rgba(0,0,0,0.05)] border border-border/30 relative flex flex-col items-center text-center group hover:translate-y-[-5px] transition-transform duration-300'
+              className='bg-white p-10 rounded-3xl shadow-[0_10px_40px_-15px_rgba(0,0,0,0.08)] border border-border/10 relative flex flex-col items-center text-center group hover:translate-y-[-5px] transition-transform duration-300'
             >
               {/* Decorative Quote */}
               <div className='text-6xl font-serif text-primary/10 absolute top-4 left-6 leading-none'>
