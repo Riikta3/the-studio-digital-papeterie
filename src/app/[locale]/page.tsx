@@ -1,5 +1,3 @@
-"use client";
-
 import { About } from "@/components/landing/about";
 import { DashboardPreview } from "@/components/landing/dashboard-preview";
 import { Examples } from "@/components/landing/examples";

@@ -19,7 +19,7 @@ export function Hero() {
       >
         <Image
           src='/hero-bg.png'
-          alt='Hero background'
+          alt=''
           fill
           priority
           className='object-cover opacity-40 mix-blend-multiply'
