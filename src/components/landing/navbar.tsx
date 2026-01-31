@@ -92,7 +92,7 @@ export function Navbar() {
             <LanguageSwitcher />
 
             <Link
-              href='/create/plan'
+              href='/create'
               className='rounded-full bg-primary px-6 py-2.5 text-sm font-semibold text-white shadow-md transition-transform hover:scale-105 active:scale-95 whitespace-nowrap'
             >
               {t("createButton")}
@@ -166,7 +166,7 @@ export function Navbar() {
 
               <div className='mt-8 flex flex-col w-full gap-4'>
                 <Link
-                  href='/create/plan'
+                  href='/create'
                   onClick={() => setIsMobileMenuOpen(false)}
                   className='w-full rounded-full bg-primary px-6 py-4 text-base font-semibold text-primary-foreground shadow-lg active:scale-95 text-center'
                 >

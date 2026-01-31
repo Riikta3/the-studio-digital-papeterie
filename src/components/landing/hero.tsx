@@ -53,7 +53,7 @@ export function Hero() {
 
           <div className='mt-10 flex flex-col md:flex-row items-center gap-8'>
             <Link
-              href='/create/plan'
+              href='/create'
               className='group relative overflow-hidden rounded-full bg-primary px-10 py-4 text-xl font-heading font-semibold italic text-white shadow-xl transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl active:scale-95'
             >
               <span className='relative z-10 flex items-center gap-3 drop-shadow-sm'>

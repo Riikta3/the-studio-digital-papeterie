@@ -3,7 +3,7 @@
 import { MailX, Sparkles } from "lucide-react";
 import Link from "next/link";
 
-export default function RootNotFound() {
+export default function NotFound() {
   return (
     <main className='container flex min-h-screen flex-col items-center justify-center gap-8 py-16 text-center mx-auto relative overflow-hidden'>
       {/* Background Decor */}
@@ -39,7 +39,7 @@ export default function RootNotFound() {
           href='/'
           className='mt-6 rounded-full bg-primary px-8 py-4 text-base font-semibold text-white shadow-lg transition-all hover:scale-105 active:scale-95 flex items-center gap-2'
         >
-          Retourner à la fête
+          Retourner à l'accueil
         </Link>
       </div>
     </main>
