@@ -1,12 +1,18 @@
 "use client";
 
-import { Link } from "@/navigation";
+import { Link, useRouter } from "@/navigation";
 import { motion } from "framer-motion";
 import { ArrowLeft } from "lucide-react";
 import { useTranslations } from "next-intl";
 
 export default function LoginPage() {
   const t = useTranslations("Navbar"); // Using Navbar translation for basic button for now
+  const router = useRouter();
+
+  const handleLogin = (e: React.FormEvent) => {
+    e.preventDefault();
+    router.push("/dashboard");
+  };
 
   return (
     <div className='min-h-screen w-full grid md:grid-cols-2'>
@@ -18,14 +24,14 @@ export default function LoginPage() {
             backgroundImage: "url('/images/landing/feature-table.png')",
           }}
         />
-        <div className='absolute inset-0 bg-black/10' />
-        <div className='absolute bottom-16 left-16 max-w-md text-white'>
-          <blockquote className='font-heading text-5xl italic leading-tight mb-6'>
+        <div className='absolute inset-0' />
+        <div className='absolute bottom-16 left-16 max-w-md text-white drop-shadow-[0_2px_4px_rgba(0,0,0,0.4)]'>
+          <blockquote className='font-heading text-5xl italic font-medium leading-tight mb-6'>
             "Les plus beaux souvenirs commencent par une invitation."
           </blockquote>
           <div className='flex gap-3 items-center opacity-80'>
             <div className='h-px w-12 bg-white' />
-            <span className='text-sm uppercase tracking-widest font-medium'>
+            <span className='text-sm uppercase tracking-widest font-medium '>
               The Studio
             </span>
           </div>
@@ -59,7 +65,7 @@ export default function LoginPage() {
 
           <form
             className='space-y-8'
-            onSubmit={(e) => e.preventDefault()}
+            onSubmit={handleLogin}
           >
             <div className='space-y-2 group'>
               <label className='text-xs font-bold uppercase tracking-widest text-muted-foreground group-focus-within:text-primary transition-colors'>
@@ -67,7 +73,7 @@ export default function LoginPage() {
               </label>
               <input
                 type='email'
-                className='w-full bg-transparent border-b border-border/40 py-3 outline-none focus:border-primary transition-all text-lg font-medium placeholder:text-muted-foreground/30'
+                className='w-full bg-white border border-input rounded-lg px-4 py-3 outline-none focus:border-primary focus:ring-2 focus:ring-primary/10 transition-all text-base font-medium placeholder:text-muted-foreground/40 shadow-sm'
                 placeholder='votre@email.com'
               />
             </div>
@@ -86,7 +92,7 @@ export default function LoginPage() {
               </div>
               <input
                 type='password'
-                className='w-full bg-transparent border-b border-border/40 py-3 outline-none focus:border-primary transition-all text-lg font-medium placeholder:text-muted-foreground/30'
+                className='w-full bg-white border border-input rounded-lg px-4 py-3 outline-none focus:border-primary focus:ring-2 focus:ring-primary/10 transition-all text-base font-medium placeholder:text-muted-foreground/40 shadow-sm'
                 placeholder='••••••••'
               />
             </div>

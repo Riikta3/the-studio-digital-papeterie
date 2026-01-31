@@ -46,7 +46,7 @@ export function Navbar() {
             onClick={() => setIsMobileMenuOpen(false)}
           >
             <span className='font-heading text-2xl font-bold tracking-tight text-foreground'>
-              The Studio
+              The Studio Digital Papeterie
             </span>
           </Link>
 
@@ -71,7 +71,6 @@ export function Navbar() {
 
           {/* Mobile Menu Button */}
           <div className='flex items-center gap-4 lg:hidden z-50'>
-            <LanguageSwitcher />
             <button
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
               className='p-2 text-foreground'
@@ -98,6 +97,11 @@ export function Navbar() {
             className='fixed inset-0 z-40 flex flex-col bg-background pt-24 px-6 lg:hidden overflow-y-auto'
           >
             <nav className='flex flex-col gap-6 items-center pb-8'>
+              {/* Language Switcher moved here */}
+              <div className='mb-4'>
+                <LanguageSwitcher />
+              </div>
+
               <Link
                 href='#fonctionnalites'
                 onClick={() => setIsMobileMenuOpen(false)}
