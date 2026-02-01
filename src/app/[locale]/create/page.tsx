@@ -1,5 +1,6 @@
 "use client";
 
+import { ALL_LANGUAGES, POPULAR_LANGUAGE_IDS } from "@/data/languages";
 import { useRouter } from "@/navigation";
 import { AnimatePresence, motion } from "framer-motion";
 import {
@@ -13,6 +14,7 @@ import {
   Globe,
   Heart,
   Image as ImageIcon,
+  LifeBuoy,
   MapPin,
   MessageSquare,
   Music,
@@ -25,6 +27,13 @@ import {
 import { useEffect, useState } from "react";
 
 // --- Data ---
+const POPULAR_LANGUAGES = ALL_LANGUAGES.filter((l) =>
+  POPULAR_LANGUAGE_IDS.includes(l.id),
+);
+const OTHER_LANGUAGES = ALL_LANGUAGES.filter(
+  (l) => !POPULAR_LANGUAGE_IDS.includes(l.id),
+);
+
 const plans = [
   {
     id: "discovery",
@@ -163,6 +172,52 @@ const modules = [
 
 const FREE_MODULES_LIMIT = 4;
 const EXTRA_MODULE_PRICE = 10;
+const FREE_LANGUAGES_LIMIT = 2;
+const EXTRA_LANGUAGE_PRICE = 20;
+
+const EXTRAS = [
+  {
+    id: "domain",
+    name: "Nom de Domaine",
+    price: 65,
+    description: "Votre adresse unique (ex: mariage-sophie-marc.com).",
+    icon: Globe,
+    badge: "Populaire",
+  },
+  {
+    id: "illustration",
+    name: "Photo en Arrière-plan",
+    price: 20,
+    description: "Ajoutez votre propre photo en fond pour un rendu 100% vous.",
+    icon: ImageIcon,
+    badge: null,
+  },
+  {
+    id: "video",
+    name: "Animation Vidéo",
+    price: 55,
+    description:
+      "Une animation élégante qui surprendra vos invités à l'ouverture.",
+    icon: Video,
+    badge: "Populaire",
+  },
+  {
+    id: "music",
+    name: "Musique Personnalisée",
+    price: 10,
+    description: "La chanson de votre choix à l'ouverture du site.",
+    icon: Music,
+    badge: null,
+  },
+  {
+    id: "vip",
+    name: "Support VIP Prioritaire",
+    price: 25,
+    description: "Assistance dédiée WhatsApp et modifications prioritaires.",
+    icon: LifeBuoy,
+    badge: "Sérénité",
+  },
+];
 
 export default function CreateWizard() {
   const router = useRouter();
@@ -173,7 +228,9 @@ export default function CreateWizard() {
   const [formData, setFormData] = useState({
     plan: "essential",
     theme: "",
+    languages: ["fr"] as string[],
     modules: ["rsvp", "program", "gallery"] as string[],
+    extras: [] as string[],
     name1: "",
     name2: "",
     email: "",
@@ -204,18 +261,58 @@ export default function CreateWizard() {
     }));
   };
 
+  const toggleLanguage = (id: string) => {
+    // Prevent removing the last language
+    if (formData.languages.includes(id) && formData.languages.length === 1) {
+      return;
+    }
+    setFormData((prev) => ({
+      ...prev,
+      languages: prev.languages.includes(id)
+        ? prev.languages.filter((l) => l !== id)
+        : [...prev.languages, id],
+    }));
+  };
+
+  const toggleExtra = (id: string) => {
+    setFormData((prev) => ({
+      ...prev,
+      extras: prev.extras.includes(id)
+        ? prev.extras.filter((e) => e !== id)
+        : [...prev.extras, id],
+    }));
+  };
+
   // Calculations
   const selectedPlan = plans.find((p) => p.id === formData.plan);
+  // Modules Calculation
   const extraModulesCount = Math.max(
     0,
     formData.modules.length - FREE_MODULES_LIMIT,
   );
   const extraModulesPrice = extraModulesCount * EXTRA_MODULE_PRICE;
-  const totalPrice = (selectedPlan?.price || 0) + extraModulesPrice;
   const freeModulesRemaining = Math.max(
     0,
     FREE_MODULES_LIMIT - formData.modules.length,
   );
+
+  // Languages Calculation
+  const isPremium = selectedPlan?.id === "premium";
+  const extraLanguagesCount = isPremium
+    ? 0
+    : Math.max(0, formData.languages.length - FREE_LANGUAGES_LIMIT);
+  const extraLanguagesPrice = extraLanguagesCount * EXTRA_LANGUAGE_PRICE;
+
+  const extrasPrice = formData.extras.reduce((acc, id) => {
+    const extra = EXTRAS.find((e) => e.id === id);
+    return acc + (extra?.price || 0);
+  }, 0);
+
+  const totalPrice =
+    (selectedPlan?.price || 0) +
+    extraModulesPrice +
+    extraLanguagesPrice +
+    extrasPrice;
 
   const handleFinalize = async () => {
     setLoading(true);
@@ -231,7 +328,7 @@ export default function CreateWizard() {
     }
   };
 
-  const totalSteps = 4;
+  const totalSteps = 6;
   const progress = ((step - 1) / (totalSteps - 1)) * 100;
 
   return (
@@ -250,7 +347,7 @@ export default function CreateWizard() {
             transition={{ duration: 0.5, ease: "easeInOut" }}
           />
 
-          {[1, 2, 3, 4].map((s) => (
+          {[1, 2, 3, 4, 5, 6].map((s) => (
             <div
               key={s}
               onClick={() => s < step && setStep(s)}
@@ -273,8 +370,10 @@ export default function CreateWizard() {
               >
                 {s === 1 && "Offre"}
                 {s === 2 && "Design"}
-                {s === 3 && "Modules"}
-                {s === 4 && "Finale"}
+                {s === 3 && "Langues"}
+                {s === 4 && "Modules"}
+                {s === 5 && "Extras"}
+                {s === 6 && "Finale"}
               </span>
             </div>
           ))}
@@ -447,10 +546,183 @@ export default function CreateWizard() {
           </motion.div>
         )}
 
-        {/* --- STEP 3: MODULES --- */}
+        {/* --- STEP 3: LANGUAGES --- */}
         {step === 3 && (
           <motion.div
             key='step3'
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -20 }}
+            transition={{ duration: 0.3 }}
+            className='space-y-12'
+          >
+            <div className='text-center space-y-4'>
+              <div className='inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/10 text-primary text-xs font-bold uppercase tracking-widest mb-2'>
+                International
+              </div>
+              <h1 className='font-heading text-5xl md:text-6xl text-foreground italic'>
+                Vos Langues
+              </h1>
+              <p className='text-muted-foreground text-lg max-w-xl mx-auto'>
+                Sélectionnez les langues de votre site. Traduction automatique
+                par IA incluse.
+              </p>
+            </div>
+
+            {/* Smart Counter */}
+            <div className='max-w-xl mx-auto bg-white rounded-2xl shadow-xl shadow-gray-200/50 p-1 flex items-center justify-between border border-gray-100'>
+              <div className='px-6 py-3'>
+                <span className='block text-xs uppercase tracking-wider text-muted-foreground font-bold mb-1'>
+                  Sélection
+                </span>
+                <div className='text-2xl font-bold text-gray-900'>
+                  {formData.languages.length}{" "}
+                  <span className='text-sm font-normal text-gray-500'>
+                    langues
+                  </span>
+                </div>
+              </div>
+              <div
+                className={`px-6 py-3 rounded-xl flex-1 text-center mx-1 ${
+                  isPremium || formData.languages.length <= FREE_LANGUAGES_LIMIT
+                    ? "bg-green-50 text-green-700"
+                    : "bg-orange-50 text-orange-700"
+                }`}
+              >
+                {isPremium ? (
+                  <>
+                    <span className='font-bold block text-lg'>Illimité</span>
+                    <span className='text-xs opacity-80'>
+                      Inclus dans Premium
+                    </span>
+                  </>
+                ) : formData.languages.length <= FREE_LANGUAGES_LIMIT ? (
+                  <>
+                    <span className='font-bold block text-lg'>
+                      {FREE_LANGUAGES_LIMIT - formData.languages.length}{" "}
+                      Gratuites
+                    </span>
+                    <span className='text-xs opacity-80'>restantes</span>
+                  </>
+                ) : (
+                  <>
+                    <span className='font-bold block text-lg'>
+                      Suppléments actifs
+                    </span>
+                    <span className='text-xs opacity-80'>
+                      +{EXTRA_LANGUAGE_PRICE}€ / langue
+                    </span>
+                  </>
+                )}
+              </div>
+            </div>
+
+            <div className='grid grid-cols-2 md:grid-cols-4 gap-4'>
+              {[
+                ...POPULAR_LANGUAGES,
+                ...OTHER_LANGUAGES.filter((l) =>
+                  formData.languages.includes(l.id),
+                ),
+              ].map((lang) => {
+                const isSelected = formData.languages.includes(lang.id);
+                const langIndex = formData.languages.indexOf(lang.id);
+                const isPaid =
+                  !isPremium && isSelected && langIndex >= FREE_LANGUAGES_LIMIT;
+
+                return (
+                  <motion.div
+                    key={lang.id}
+                    onClick={() => toggleLanguage(lang.id)}
+                    whileHover={{ scale: 1.02 }}
+                    whileTap={{ scale: 0.98 }}
+                    className={`relative p-6 pt-8 rounded-2xl border-2 cursor-pointer transition-all flex flex-col items-center gap-3 text-center group bg-white ${
+                      isSelected
+                        ? isPaid
+                          ? "border-orange-200 shadow-xl shadow-orange-100/50"
+                          : "border-primary/50 shadow-xl shadow-primary/10"
+                        : "border-transparent shadow-md md:hover:shadow-lg md:hover:border-gray-200"
+                    }`}
+                  >
+                    {/* Status Badge */}
+                    {isSelected && (
+                      <div
+                        className={`absolute top-3 left-1/2 -translate-x-1/2 px-3 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-widest ${
+                          isPaid
+                            ? "bg-orange-100 text-orange-700"
+                            : "bg-green-100 text-green-700"
+                        }`}
+                      >
+                        {isPaid ? `+${EXTRA_LANGUAGE_PRICE}€` : "Inclus"}
+                      </div>
+                    )}
+
+                    <div className='text-4xl mb-2'>{lang.flag}</div>
+
+                    <div className='space-y-1'>
+                      <span
+                        className={`font-semibold text-lg block ${isSelected ? "text-gray-900" : "text-gray-600"}`}
+                      >
+                        {lang.name}
+                      </span>
+                    </div>
+
+                    {/* Checkmark corner */}
+                    {isSelected && (
+                      <div
+                        className={`absolute bottom-3 right-3 w-5 h-5 rounded-full flex items-center justify-center ${
+                          isPaid ? "bg-orange-500" : "bg-primary"
+                        }`}
+                      >
+                        <Check className='w-3 h-3 text-white' />
+                      </div>
+                    )}
+                  </motion.div>
+                );
+              })}
+            </div>
+
+            {/* Extra Languages Selector */}
+            <div className='flex justify-center mt-6'>
+              <div className='relative inline-block w-64'>
+                <select
+                  className='w-full appearance-none bg-white border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded-xl leading-tight focus:outline-none focus:bg-white focus:border-primary shadow-sm hover:border-gray-300 transition-colors cursor-pointer font-medium'
+                  onChange={(e) => {
+                    if (e.target.value) {
+                      toggleLanguage(e.target.value);
+                      e.target.value = ""; // Reset
+                    }
+                  }}
+                  defaultValue=''
+                >
+                  <option
+                    value=''
+                    disabled
+                  >
+                    Ajouter une autre langue...
+                  </option>
+                  {OTHER_LANGUAGES.filter(
+                    (l) => !formData.languages.includes(l.id),
+                  ).map((lang) => (
+                    <option
+                      key={lang.id}
+                      value={lang.id}
+                    >
+                      {lang.flag} {lang.name}
+                    </option>
+                  ))}
+                </select>
+                <div className='pointer-events-none absolute inset-y-0 right-0 flex items-center px-4 text-gray-500'>
+                  <ChevronRight className='w-4 h-4 rotate-90' />
+                </div>
+              </div>
+            </div>
+          </motion.div>
+        )}
+
+        {/* --- STEP 4: MODULES --- */}
+        {step === 4 && (
+          <motion.div
+            key='step4'
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -20 }}
@@ -591,10 +863,100 @@ export default function CreateWizard() {
           </motion.div>
         )}
 
-        {/* --- STEP 4: SUMMARY & FORM --- */}
-        {step === 4 && (
+        {/* --- STEP 5: EXTRAS --- */}
+        {step === 5 && (
           <motion.div
-            key='step4'
+            key='step5'
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -20 }}
+            transition={{ duration: 0.3 }}
+            className='space-y-8'
+          >
+            <div className='text-center space-y-4'>
+              <div className='inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/10 text-primary text-xs font-bold uppercase tracking-widest mb-2'>
+                Services Premium
+              </div>
+              <h1 className='font-heading text-5xl md:text-6xl text-foreground italic'>
+                Petites touches en plus ?
+              </h1>
+              <p className='text-muted-foreground text-lg max-w-xl mx-auto'>
+                Ajoutez des options exclusives pour rendre votre invitation
+                encore plus unique.
+              </p>
+            </div>
+
+            <div className='grid grid-cols-1 gap-4 max-w-2xl mx-auto'>
+              {EXTRAS.map((extra) => {
+                const isSelected = formData.extras.includes(extra.id);
+                return (
+                  <motion.div
+                    key={extra.id}
+                    onClick={() => toggleExtra(extra.id)}
+                    whileHover={{ scale: 1.01 }}
+                    whileTap={{ scale: 0.99 }}
+                    className={`relative p-6 rounded-2xl border-2 cursor-pointer transition-all flex items-center justify-between gap-4 group bg-white ${
+                      isSelected
+                        ? "border-primary shadow-lg shadow-primary/10 bg-primary/5"
+                        : "border-gray-100 shadow-sm md:hover:border-primary/50 md:hover:shadow-md"
+                    }`}
+                  >
+                    {/* Icon container */}
+                    <div
+                      className={`w-16 h-16 rounded-xl flex items-center justify-center shrink-0 transition-colors ${
+                        isSelected
+                          ? "bg-primary text-white"
+                          : "bg-gray-50 text-gray-400 group-hover:text-primary group-hover:bg-primary/10"
+                      }`}
+                    >
+                      <extra.icon className='w-8 h-8' />
+                    </div>
+
+                    {/* Content */}
+                    <div className='flex-1 text-left'>
+                      <div className='flex items-center gap-2 mb-1'>
+                        <h3
+                          className={`font-bold text-lg ${isSelected ? "text-primary" : "text-gray-900"}`}
+                        >
+                          {extra.name}
+                        </h3>
+                        {extra.badge && (
+                          <span className='px-2 py-0.5 bg-orange-100 text-orange-700 text-[10px] font-bold uppercase tracking-widest rounded-full'>
+                            {extra.badge}
+                          </span>
+                        )}
+                      </div>
+                      <p className='text-gray-500 text-sm leading-relaxed'>
+                        {extra.description}
+                      </p>
+                    </div>
+
+                    {/* Price & Check */}
+                    <div className='text-right shrink-0 flex flex-col items-end gap-2'>
+                      <span className='font-heading text-2xl text-gray-900 italic'>
+                        +{extra.price}€
+                      </span>
+                      <div
+                        className={`w-6 h-6 rounded-full flex items-center justify-center transition-all ${
+                          isSelected
+                            ? "bg-primary text-white"
+                            : "bg-gray-100 text-transparent group-hover:bg-gray-200"
+                        }`}
+                      >
+                        <Check className='w-4 h-4' />
+                      </div>
+                    </div>
+                  </motion.div>
+                );
+              })}
+            </div>
+          </motion.div>
+        )}
+
+        {/* --- STEP 6: SUMMARY & FORM --- */}
+        {step === 6 && (
+          <motion.div
+            key='step6'
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -20 }}
@@ -648,6 +1010,80 @@ export default function CreateWizard() {
                       </div>
                     </div>
 
+                    {/* Languages List */}
+                    <div className='p-4 bg-gray-50 rounded-2xl border border-gray-100'>
+                      <div className='flex justify-between items-start mb-2'>
+                        <p className='text-[10px] uppercase tracking-wider text-muted-foreground font-bold'>
+                          Langues ({formData.languages.length})
+                        </p>
+                        <button
+                          onClick={() => setStep(3)}
+                          className='text-xs text-primary font-medium hover:underline'
+                        >
+                          Modifier
+                        </button>
+                      </div>
+                      <div className='flex flex-wrap gap-2'>
+                        {formData.languages.map((lid) => {
+                          const lang = ALL_LANGUAGES.find((l) => l.id === lid);
+                          return (
+                            <span
+                              key={lid}
+                              className='text-sm font-semibold bg-white border px-2 py-1 rounded-lg text-gray-700 flex items-center gap-1 shadow-sm'
+                            >
+                              {lang?.flag} {lang?.name}
+                            </span>
+                          );
+                        })}
+                      </div>
+                      {extraLanguagesCount > 0 && (
+                        <p className='text-orange-600 font-bold text-xs mt-2 text-right'>
+                          +{extraLanguagesPrice}€ (Suppléments)
+                        </p>
+                      )}
+                    </div>
+
+                    {/* Extras List */}
+                    {formData.extras.length > 0 && (
+                      <div className='p-4 bg-gray-50 rounded-2xl border border-gray-100 mt-4'>
+                        <div className='flex justify-between items-start mb-2'>
+                          <p className='text-[10px] uppercase tracking-wider text-muted-foreground font-bold'>
+                            Extras ({formData.extras.length})
+                          </p>
+                          <button
+                            onClick={() => setStep(5)}
+                            className='text-xs text-primary font-medium hover:underline'
+                          >
+                            Modifier
+                          </button>
+                        </div>
+                        <div className='space-y-2'>
+                          {formData.extras.map((eid) => {
+                            const extra = EXTRAS.find((e) => e.id === eid);
+                            if (!extra) return null;
+                            return (
+                              <div
+                                key={eid}
+                                className='flex justify-between items-center text-sm'
+                              >
+                                <div className='flex items-center gap-2'>
+                                  {extra?.icon && (
+                                    <extra.icon className='w-4 h-4 text-gray-400' />
+                                  )}
+                                  <span className='font-semibold text-gray-700'>
+                                    {extra?.name}
+                                  </span>
+                                </div>
+                                <span className='text-gray-900 font-bold'>
+                                  +{extra?.price}€
+                                </span>
+                              </div>
+                            );
+                          })}
+                        </div>
+                      </div>
+                    )}
+
                     {/* Modules List */}
                     <div className='space-y-3'>
                       <div className='flex items-center justify-between'>
@@ -655,7 +1091,7 @@ export default function CreateWizard() {
                           Modules ({formData.modules.length})
                         </h3>
                         <button
-                          onClick={() => setStep(3)}
+                          onClick={() => setStep(4)}
                           className='text-xs text-primary font-medium hover:underline'
                         >
                           Modifier
@@ -725,6 +1161,20 @@ export default function CreateWizard() {
                         <div className='flex justify-between text-sm text-orange-600'>
                           <span>Suppléments ({extraModulesCount} modules)</span>
                           <span>+{extraModulesPrice}€</span>
+                        </div>
+                      )}
+                      {extraLanguagesCount > 0 && (
+                        <div className='flex justify-between text-sm text-orange-600'>
+                          <span>
+                            Suppléments Langues ({extraLanguagesCount})
+                          </span>
+                          <span>+{extraLanguagesPrice}€</span>
+                        </div>
+                      )}
+                      {extrasPrice > 0 && (
+                        <div className='flex justify-between text-sm text-orange-600'>
+                          <span>Extras ({formData.extras.length})</span>
+                          <span>+{extrasPrice}€</span>
                         </div>
                       )}
                       <div className='flex justify-between items-center pt-2 text-xl font-bold text-gray-900'>
@@ -845,7 +1295,7 @@ export default function CreateWizard() {
 
       {/* --- Fixed Footer Bar --- */}
       <AnimatePresence>
-        {step !== 4 && (
+        {step !== 6 && (
           <motion.div
             initial={{ y: 100 }}
             animate={{ y: 0 }}
