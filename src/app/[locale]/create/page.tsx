@@ -305,7 +305,7 @@ export default function CreateWizard() {
                   className={`relative p-8 rounded-[2rem] border transition-all cursor-pointer flex flex-col h-full bg-white group ${
                     formData.plan === plan.id
                       ? "border-primary shadow-2xl shadow-primary/10 ring-1 ring-primary"
-                      : "border-gray-100 shadow-xl shadow-gray-200/50 hover:border-primary/30"
+                      : "border-gray-100 shadow-xl shadow-gray-200/50 md:hover:border-primary/30"
                   }`}
                 >
                   {plan.recommended && (
@@ -342,7 +342,7 @@ export default function CreateWizard() {
                     className={`mt-8 w-full py-3 rounded-xl border text-center font-semibold transition-colors ${
                       formData.plan === plan.id
                         ? "bg-primary text-white border-primary"
-                        : "bg-white text-gray-900 border-gray-200 group-hover:border-primary group-hover:text-primary"
+                        : "bg-white text-gray-900 border-gray-200 md:group-hover:bg-primary md:group-hover:text-white md:group-hover:border-primary"
                     }`}
                   >
                     {formData.plan === plan.id ? "Sélectionné" : "Choisir"}
@@ -385,17 +385,17 @@ export default function CreateWizard() {
                   className={`group cursor-pointer relative rounded-[2rem] overflow-hidden aspect-[3/4] shadow-2xl transition-all ${
                     formData.theme === theme.id
                       ? "ring-4 ring-primary ring-offset-4"
-                      : "hover:ring-2 hover:ring-primary/50 hover:ring-offset-2"
+                      : "md:hover:ring-2 md:hover:ring-primary/50 md:hover:ring-offset-2"
                   }`}
                 >
                   <div
-                    className='absolute inset-0 bg-cover bg-center transition-transform duration-700 group-hover:scale-110'
+                    className='absolute inset-0 bg-cover bg-center transition-transform duration-700 md:group-hover:scale-110'
                     style={{ backgroundImage: `url(${theme.image})` }}
                   />
                   <div className='absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-black/10' />
 
                   {/* Hover Overlay Button */}
-                  <div className='absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none'>
+                  <div className='absolute inset-0 flex items-center justify-center opacity-0 md:group-hover:opacity-100 transition-opacity duration-300 pointer-events-none'>
                     <button
                       onClick={(e) => {
                         e.stopPropagation();
@@ -525,7 +525,7 @@ export default function CreateWizard() {
                         ? isPaid
                           ? "border-orange-200 shadow-xl shadow-orange-100/50" // Selected Paid
                           : "border-primary/50 shadow-xl shadow-primary/10" // Selected Free
-                        : "border-transparent shadow-md hover:shadow-lg hover:border-gray-200" // Not Selected
+                        : "border-transparent shadow-md md:hover:shadow-lg md:hover:border-gray-200" // Not Selected
                     }`}
                   >
                     {/* Status Badge */}
