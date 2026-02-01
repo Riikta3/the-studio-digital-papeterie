@@ -22,7 +22,7 @@ import {
   Video,
   X,
 } from "lucide-react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 // --- Data ---
 const plans = [
@@ -179,6 +179,11 @@ export default function CreateWizard() {
     email: "",
     date: "",
   });
+
+  // Scroll to top on step change
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }, [step]);
 
   const nextStep = () => setStep((s) => s + 1);
   const prevStep = () => setStep((s) => s - 1);
