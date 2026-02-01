@@ -231,10 +231,20 @@ export default function CreateWizard() {
     languages: ["fr"] as string[],
     modules: ["rsvp", "program", "gallery"] as string[],
     extras: [] as string[],
+    // Personalization
     name1: "",
     name2: "",
-    email: "",
     date: "",
+    // Billing
+    billingFirstName: "",
+    billingLastName: "",
+    email: "",
+    phone: "",
+    address: "",
+    city: "",
+    postalCode: "",
+    country: "France",
+    termsAccepted: false,
   });
 
   // Scroll to top on step change
@@ -1191,92 +1201,303 @@ export default function CreateWizard() {
               {/* --- User Form --- */}
               <div className='bg-white p-8 rounded-[2rem] shadow-2xl shadow-gray-200/50 border border-gray-100 h-fit'>
                 <h2 className='font-heading text-3xl italic text-gray-900 mb-8'>
-                  Vos Coordonnées
+                  Finalisation
                 </h2>
 
-                <div className='space-y-6'>
-                  <div className='grid grid-cols-2 gap-4'>
+                <div className='space-y-8'>
+                  {/* --- 1. Personnalisation (Couple) --- */}
+                  <div className='space-y-4'>
+                    <div className='flex items-center gap-2 mb-2'>
+                      <Heart className='w-4 h-4 text-primary' />
+                      <h3 className='font-bold text-sm uppercase tracking-widest text-gray-500'>
+                        Personnalisation
+                      </h3>
+                    </div>
+                    <div className='grid grid-cols-2 gap-4'>
+                      <div className='space-y-2'>
+                        <label className='text-xs font-bold uppercase tracking-wider text-gray-400'>
+                          Prénom 1 (Marié·e) *
+                        </label>
+                        <input
+                          type='text'
+                          required
+                          className='w-full px-4 py-3 rounded-xl border border-gray-200 bg-gray-50 focus:bg-white focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none transition-all'
+                          placeholder='Ex: Sophie'
+                          value={formData.name1}
+                          onChange={(e) =>
+                            setFormData({ ...formData, name1: e.target.value })
+                          }
+                        />
+                      </div>
+                      <div className='space-y-2'>
+                        <label className='text-xs font-bold uppercase tracking-wider text-gray-400'>
+                          Prénom 2 (Marié·e) *
+                        </label>
+                        <input
+                          type='text'
+                          required
+                          className='w-full px-4 py-3 rounded-xl border border-gray-200 bg-gray-50 focus:bg-white focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none transition-all'
+                          placeholder='Ex: Thomas'
+                          value={formData.name2}
+                          onChange={(e) =>
+                            setFormData({ ...formData, name2: e.target.value })
+                          }
+                        />
+                      </div>
+                    </div>
                     <div className='space-y-2'>
-                      <label className='text-xs font-bold uppercase tracking-wider text-gray-500'>
-                        Prénom 1 *
+                      <label className='text-xs font-bold uppercase tracking-wider text-gray-400'>
+                        Date de l'événement *
                       </label>
                       <input
-                        type='text'
+                        type='date'
+                        required
                         className='w-full px-4 py-3 rounded-xl border border-gray-200 bg-gray-50 focus:bg-white focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none transition-all'
-                        placeholder='Vous'
-                        value={formData.name1}
+                        value={formData.date}
                         onChange={(e) =>
-                          setFormData({ ...formData, name1: e.target.value })
+                          setFormData({ ...formData, date: e.target.value })
                         }
                       />
                     </div>
+                  </div>
+
+                  <hr className='border-gray-100' />
+
+                  {/* --- 2. Facturation --- */}
+                  <div className='space-y-4'>
+                    <div className='flex items-center gap-2 mb-2'>
+                      <CreditCard className='w-4 h-4 text-primary' />
+                      <h3 className='font-bold text-sm uppercase tracking-widest text-gray-500'>
+                        Facturation
+                      </h3>
+                    </div>
+
+                    {/* Nom / Prénom */}
+                    <div className='grid grid-cols-2 gap-4'>
+                      <div className='space-y-2'>
+                        <label className='text-xs font-bold uppercase tracking-wider text-gray-400'>
+                          Prénom *
+                        </label>
+                        <input
+                          type='text'
+                          required
+                          className='w-full px-4 py-3 rounded-xl border border-gray-200 bg-gray-50 focus:bg-white focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none transition-all'
+                          placeholder='Jean'
+                          value={formData.billingFirstName}
+                          onChange={(e) =>
+                            setFormData({
+                              ...formData,
+                              billingFirstName: e.target.value,
+                            })
+                          }
+                        />
+                      </div>
+                      <div className='space-y-2'>
+                        <label className='text-xs font-bold uppercase tracking-wider text-gray-400'>
+                          Nom *
+                        </label>
+                        <input
+                          type='text'
+                          required
+                          className='w-full px-4 py-3 rounded-xl border border-gray-200 bg-gray-50 focus:bg-white focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none transition-all'
+                          placeholder='Dupont'
+                          value={formData.billingLastName}
+                          onChange={(e) =>
+                            setFormData({
+                              ...formData,
+                              billingLastName: e.target.value,
+                            })
+                          }
+                        />
+                      </div>
+                    </div>
+
+                    {/* Email / Phone */}
+                    <div className='grid grid-cols-1 md:grid-cols-2 gap-4'>
+                      <div className='space-y-2'>
+                        <label className='text-xs font-bold uppercase tracking-wider text-gray-400'>
+                          Email *
+                        </label>
+                        <input
+                          type='email'
+                          required
+                          className='w-full px-4 py-3 rounded-xl border border-gray-200 bg-gray-50 focus:bg-white focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none transition-all'
+                          placeholder='jean@exemple.com'
+                          value={formData.email}
+                          onChange={(e) =>
+                            setFormData({ ...formData, email: e.target.value })
+                          }
+                        />
+                      </div>
+                      <div className='space-y-2'>
+                        <label className='text-xs font-bold uppercase tracking-wider text-gray-400'>
+                          Téléphone *
+                        </label>
+                        <input
+                          type='tel'
+                          required
+                          className='w-full px-4 py-3 rounded-xl border border-gray-200 bg-gray-50 focus:bg-white focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none transition-all'
+                          placeholder='06 12 34 56 78'
+                          value={formData.phone}
+                          onChange={(e) =>
+                            setFormData({ ...formData, phone: e.target.value })
+                          }
+                        />
+                      </div>
+                    </div>
+
+                    {/* Address */}
                     <div className='space-y-2'>
-                      <label className='text-xs font-bold uppercase tracking-wider text-gray-500'>
-                        Prénom 2
+                      <label className='text-xs font-bold uppercase tracking-wider text-gray-400'>
+                        Adresse *
                       </label>
                       <input
                         type='text'
+                        required
                         className='w-full px-4 py-3 rounded-xl border border-gray-200 bg-gray-50 focus:bg-white focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none transition-all'
-                        placeholder='Partenaire'
-                        value={formData.name2}
+                        placeholder='123 Avenue des Champs-Élysées'
+                        value={formData.address}
                         onChange={(e) =>
-                          setFormData({ ...formData, name2: e.target.value })
+                          setFormData({ ...formData, address: e.target.value })
                         }
                       />
                     </div>
+
+                    {/* Zip / City */}
+                    <div className='grid grid-cols-2 gap-4'>
+                      <div className='space-y-2'>
+                        <label className='text-xs font-bold uppercase tracking-wider text-gray-400'>
+                          Code Postal *
+                        </label>
+                        <input
+                          type='text'
+                          required
+                          className='w-full px-4 py-3 rounded-xl border border-gray-200 bg-gray-50 focus:bg-white focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none transition-all'
+                          placeholder='75008'
+                          value={formData.postalCode}
+                          onChange={(e) =>
+                            setFormData({
+                              ...formData,
+                              postalCode: e.target.value,
+                            })
+                          }
+                        />
+                      </div>
+                      <div className='space-y-2'>
+                        <label className='text-xs font-bold uppercase tracking-wider text-gray-400'>
+                          Ville *
+                        </label>
+                        <input
+                          type='text'
+                          required
+                          className='w-full px-4 py-3 rounded-xl border border-gray-200 bg-gray-50 focus:bg-white focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none transition-all'
+                          placeholder='Paris'
+                          value={formData.city}
+                          onChange={(e) =>
+                            setFormData({ ...formData, city: e.target.value })
+                          }
+                        />
+                      </div>
+                    </div>
+
+                    {/* Country */}
+                    <div className='space-y-2'>
+                      <label className='text-xs font-bold uppercase tracking-wider text-gray-400'>
+                        Pays *
+                      </label>
+                      <div className='relative'>
+                        <select
+                          required
+                          className='w-full appearance-none px-4 py-3 rounded-xl border border-gray-200 bg-gray-50 focus:bg-white focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none transition-all'
+                          value={formData.country}
+                          onChange={(e) =>
+                            setFormData({
+                              ...formData,
+                              country: e.target.value,
+                            })
+                          }
+                        >
+                          <option value='France'>France</option>
+                          <option value='Belgique'>Belgique</option>
+                          <option value='Suisse'>Suisse</option>
+                          <option value='Canada'>Canada</option>
+                          <option value='Autre'>Autre</option>
+                        </select>
+                        <MapPin className='absolute right-4 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400 pointer-events-none' />
+                      </div>
+                    </div>
+
+                    {/* Terms & Conditions */}
+                    <div className='flex items-start gap-3 mt-6 p-4 bg-gray-50 rounded-xl border border-gray-100'>
+                      <div className='relative flex items-center pt-0.5'>
+                        <input
+                          type='checkbox'
+                          id='terms'
+                          className='peer h-5 w-5 cursor-pointer appearance-none rounded-md border-2 border-gray-300 transition-all checked:bg-primary checked:border-primary'
+                          checked={formData.termsAccepted}
+                          onChange={(e) =>
+                            setFormData({
+                              ...formData,
+                              termsAccepted: e.target.checked,
+                            })
+                          }
+                        />
+                        <Check className='pointer-events-none absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-3.5 h-3.5 text-white opacity-0 peer-checked:opacity-100 transition-opacity' />
+                      </div>
+                      <label
+                        htmlFor='terms'
+                        className='text-xs text-gray-500 leading-relaxed cursor-pointer select-none'
+                      >
+                        J'accepte les{" "}
+                        <a
+                          href='#'
+                          className='underline hover:text-primary'
+                        >
+                          Conditions Générales de Vente
+                        </a>{" "}
+                        et la{" "}
+                        <a
+                          href='#'
+                          className='underline hover:text-primary'
+                        >
+                          Politique de Confidentialité
+                        </a>
+                        . Je reconnais que la production commence immédiatement
+                        après la commande.
+                      </label>
+                    </div>
                   </div>
 
-                  <div className='space-y-2'>
-                    <label className='text-xs font-bold uppercase tracking-wider text-gray-500'>
-                      Date du Mariage
-                    </label>
-                    <input
-                      type='datetime-local'
-                      className='w-full px-4 py-3 rounded-xl border border-gray-200 bg-gray-50 focus:bg-white focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none transition-all'
-                      value={formData.date}
-                      onChange={(e) =>
-                        setFormData({ ...formData, date: e.target.value })
-                      }
-                    />
-                  </div>
-
-                  <div className='space-y-2'>
-                    <label className='text-xs font-bold uppercase tracking-wider text-gray-500'>
-                      Email *
-                    </label>
-                    <input
-                      type='email'
-                      className='w-full px-4 py-3 rounded-xl border border-gray-200 bg-gray-50 focus:bg-white focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none transition-all'
-                      placeholder='hello@example.com'
-                      value={formData.email}
-                      onChange={(e) =>
-                        setFormData({ ...formData, email: e.target.value })
-                      }
-                    />
-                  </div>
-
-                  <div className='pt-6'>
-                    <button
-                      onClick={handleFinalize}
-                      disabled={!formData.name1 || !formData.email || loading}
-                      className='w-full bg-primary text-white py-5 rounded-xl font-heading font-bold italic text-xl hover:brightness-110 shadow-lg hover:shadow-xl hover:-translate-y-1 active:scale-[0.99] transition-all flex items-center justify-center gap-3 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none'
-                    >
-                      {loading ? (
-                        "Création en cours..."
-                      ) : (
-                        <>
-                          {process.env.NEXT_PUBLIC_BYPASS_PAYMENT === "true"
-                            ? "Créer mon espace ✨"
-                            : "Payer et Créer"}
-                          <CreditCard className='w-5 h-5' />
-                        </>
-                      )}
-                    </button>
-                    <p className='text-center text-xs text-muted-foreground mt-4 flex items-center justify-center gap-1'>
-                      <CreditCard className='w-3 h-3' /> Paiement sécurisé via
-                      Stripe
-                    </p>
-                  </div>
+                  <button
+                    onClick={handleFinalize}
+                    disabled={
+                      loading ||
+                      !formData.name1 ||
+                      !formData.name2 ||
+                      !formData.date ||
+                      !formData.billingFirstName ||
+                      !formData.billingLastName ||
+                      !formData.email ||
+                      !formData.phone ||
+                      !formData.address ||
+                      !formData.postalCode ||
+                      !formData.city ||
+                      !formData.termsAccepted
+                    }
+                    className='w-full mt-4 py-4 rounded-xl bg-primary text-white font-bold text-lg shadow-xl shadow-primary/20 hover:bg-primary/90 hover:scale-[1.02] active:scale-[0.98] transition-all flex items-center justify-center gap-3 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none disabled:shadow-none'
+                  >
+                    {loading ? (
+                      <span className='animate-pulse'>Traitement...</span>
+                    ) : (
+                      <>
+                        <span>Payer & Créer</span>
+                        <ChevronRight className='w-5 h-5' />
+                      </>
+                    )}
+                  </button>
+                  <p className='text-center text-xs text-gray-400 mt-4'>
+                    Paiement sécurisé via Stripe.
+                  </p>
                 </div>
               </div>
             </div>
