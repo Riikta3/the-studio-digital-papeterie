@@ -45,7 +45,7 @@ export function CookieConsent() {
                 {t("bannerText")}
               </p>
               <Link
-                href='/privacy'
+                href='/legal/privacy'
                 className='text-xs text-muted-foreground underline hover:text-primary mt-1 inline-block transition-colors'
               >
                 {t("learnMore")}

@@ -1,4 +1,4 @@
-import Link from "next/link";
+import { Link } from "@/navigation";
 
 export function Footer() {
   return (
@@ -20,7 +20,7 @@ export function Footer() {
             <ul className='space-y-2 text-sm text-muted-foreground'>
               <li>
                 <Link
-                  href='#'
+                  href='/#fonctionnalites'
                   className='hover:text-primary'
                 >
                   Fonctionnalités
@@ -28,7 +28,7 @@ export function Footer() {
               </li>
               <li>
                 <Link
-                  href='#'
+                  href='/#modeles'
                   className='hover:text-primary'
                 >
                   Thèmes
@@ -36,7 +36,7 @@ export function Footer() {
               </li>
               <li>
                 <Link
-                  href='#'
+                  href='/#tarifs'
                   className='hover:text-primary'
                 >
                   Tarifs
@@ -44,7 +44,7 @@ export function Footer() {
               </li>
               <li>
                 <Link
-                  href='#'
+                  href='/#modeles'
                   className='hover:text-primary'
                 >
                   Exemples
@@ -58,7 +58,7 @@ export function Footer() {
             <ul className='space-y-2 text-sm text-muted-foreground'>
               <li>
                 <Link
-                  href='#'
+                  href='/#faq'
                   className='hover:text-primary'
                 >
                   FAQ
@@ -66,7 +66,7 @@ export function Footer() {
               </li>
               <li>
                 <Link
-                  href='#'
+                  href='mailto:hello@thestudio.com'
                   className='hover:text-primary'
                 >
                   Contact
@@ -74,7 +74,7 @@ export function Footer() {
               </li>
               <li>
                 <Link
-                  href='#'
+                  href='/legal/cgv'
                   className='hover:text-primary'
                 >
                   Conditions Générales
@@ -82,10 +82,10 @@ export function Footer() {
               </li>
               <li>
                 <Link
-                  href='#'
+                  href='/legal/privacy'
                   className='hover:text-primary'
                 >
-                  Mentions Légales
+                  Politique de Confidentialité
                 </Link>
               </li>
             </ul>
@@ -96,7 +96,9 @@ export function Footer() {
             <ul className='space-y-2 text-sm text-muted-foreground'>
               <li>
                 <Link
-                  href='#'
+                  href='https://instagram.com'
+                  target='_blank'
+                  rel='noopener noreferrer'
                   className='hover:text-primary'
                 >
                   Instagram
@@ -104,7 +106,9 @@ export function Footer() {
               </li>
               <li>
                 <Link
-                  href='#'
+                  href='https://pinterest.com'
+                  target='_blank'
+                  rel='noopener noreferrer'
                   className='hover:text-primary'
                 >
                   Pinterest
@@ -112,7 +116,9 @@ export function Footer() {
               </li>
               <li>
                 <Link
-                  href='#'
+                  href='https://tiktok.com'
+                  target='_blank'
+                  rel='noopener noreferrer'
                   className='hover:text-primary'
                 >
                   TikTok

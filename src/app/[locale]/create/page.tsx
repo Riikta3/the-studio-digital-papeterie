@@ -1,7 +1,7 @@
 "use client";
 
 import { ALL_LANGUAGES, POPULAR_LANGUAGE_IDS } from "@/data/languages";
-import { useRouter } from "@/navigation";
+import { Link, useRouter } from "@/navigation";
 import { AnimatePresence, motion } from "framer-motion";
 import {
   Calendar,
@@ -1449,19 +1449,21 @@ export default function CreateWizard() {
                         className='text-xs text-gray-500 leading-relaxed cursor-pointer select-none'
                       >
                         J'accepte les{" "}
-                        <a
-                          href='#'
+                        <Link
+                          href='/legal/cgv'
+                          target='_blank'
                           className='underline hover:text-primary'
                         >
                           Conditions Générales de Vente
-                        </a>{" "}
+                        </Link>{" "}
                         et la{" "}
-                        <a
-                          href='#'
+                        <Link
+                          href='/legal/privacy'
+                          target='_blank'
                           className='underline hover:text-primary'
                         >
                           Politique de Confidentialité
-                        </a>
+                        </Link>
                         . Je reconnais que la production commence immédiatement
                         après la commande.
                       </label>
