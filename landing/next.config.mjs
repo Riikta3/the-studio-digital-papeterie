@@ -1,5 +1,5 @@
 import createNextIntlPlugin from "next-intl/plugin";
-import { dirname } from "node:path";
+import { dirname, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 
 const withNextIntl = createNextIntlPlugin("./src/i18n.ts");
@@ -18,7 +18,7 @@ const nextConfig = {
     ],
   },
   turbopack: {
-    root: __dirname,
+    root: resolve(__dirname, ".."),
   },
 };
 

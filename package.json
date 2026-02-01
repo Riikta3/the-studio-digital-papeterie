@@ -1,0 +1,15 @@
+{
+  "private": true,
+  "workspaces": [
+    "landing",
+    "dashboard"
+  ],
+  "scripts": {
+    "dev:landing": "npm run dev -w landing",
+    "build:landing": "npm run build -w landing",
+    "start:landing": "npm run start -w landing",
+    "dev:dashboard": "npm run dev -w dashboard",
+    "build:dashboard": "npm run build -w dashboard",
+    "start:dashboard": "npm run start -w dashboard"
+  }
+}
