@@ -4,14 +4,14 @@ import { usePathname, useRouter } from "@/navigation";
 import { Check, ChevronsUpDown } from "lucide-react";
 import { useLocale } from "next-intl";
 
-import { Button } from "@/components/ui/button";
+import { cn } from "@/lib/utils";
+import { Button } from "@shared/components/ui/button";
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
-import { cn } from "@/lib/utils";
+} from "@shared/components/ui/dropdown-menu";
 
 const languages = [
   { value: "fr", label: "Français" },
