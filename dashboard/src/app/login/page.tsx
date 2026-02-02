@@ -1,9 +1,18 @@
+"use client";
+
 import { Button } from "@shared/components/ui/button";
 import { Input } from "@shared/components/ui/input";
 import { Label } from "@shared/components/ui/label";
+import { useActionState } from "react";
 import { login } from "./actions";
 
+const initialState = {
+  error: "",
+};
+
 export default function LoginPage() {
+  const [state, formAction, isPending] = useActionState(login, initialState);
+
   return (
     <div className='min-h-screen bg-[#FDFBF7] flex flex-col items-center justify-center p-4'>
       <div className='w-full max-w-sm space-y-8 text-center'>
@@ -15,7 +24,7 @@ export default function LoginPage() {
         </div>
 
         <form
-          action={login}
+          action={formAction}
           className='space-y-6 text-left'
         >
           <div className='space-y-2'>
@@ -40,14 +49,17 @@ export default function LoginPage() {
             />
           </div>
 
+          {state?.error && (
+            <p className='text-sm text-red-500 font-medium'>{state.error}</p>
+          )}
+
           <Button
             type='submit'
-            className='w-full bg-[#1B2A41] hover:bg-[#2C3E50] text-white py-6 text-lg font-light'
+            disabled={isPending}
+            className='w-full bg-[#1B2A41] hover:bg-[#2C3E50] text-white py-6 text-lg font-light disabled:opacity-50'
           >
-            Se connecter
+            {isPending ? "Connexion..." : "Se connecter"}
           </Button>
-
-          {/* <p className="text-center text-sm text-red-500">{searchParams.message}</p> */}
         </form>
       </div>
     </div>
