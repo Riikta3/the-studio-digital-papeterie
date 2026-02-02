@@ -276,22 +276,9 @@ export default function CreateWizard() {
         if (result.success) {
           toast.success("Votre espace a été créé avec succès ! 💍");
 
-          // SHOW SUCCESS MODAL OR REDIRECT
-          // For now, we replace the body with the Success State
-          // (Simple implementation: alerting the link via toast or better, UI update)
-
-          // Let's force a UI update to show success state (not implemented in this snippet, using toast for now)
-          toast.message("Lien d'accès généré (Demo)", {
-            description: (
-              <div className='mt-2 p-2 bg-gray-50 rounded border text-xs break-all'>
-                {result.inviteLink}
-              </div>
-            ),
-            duration: 10000,
-            action: {
-              label: "Accéder",
-              onClick: () => window.open(result.inviteLink, "_self"),
-            },
+          toast.info("📩 Email envoyé !", {
+            description: `Un lien d'activation a été envoyé à ${formData.email}. Vérifiez vos spams !`,
+            duration: Infinity,
           });
         } else {
           toast.error("Une erreur est survenue lors de la création.", {

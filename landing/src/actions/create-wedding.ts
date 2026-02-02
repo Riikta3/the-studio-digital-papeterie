@@ -15,20 +15,14 @@ interface CreateWeddingData {
 export async function createWedding(data: CreateWeddingData) {
   console.log("💍 Starting Wedding Provisioning (Invite Flow)...", data);
 
-  // 1. Create User & Generate Invite Link (No Email sent by Supabase, we get the link)
-  // This is perfect for MVP/Demo: we can redirect user immediately or show the link.
+  // 1. Create User & Send Invite Email (Supabase Built-in SMTP or Custom SMTP)
   const { data: authData, error: authError } =
-    await supabaseAdmin.auth.admin.generateLink({
-      type: "invite",
-      email: data.email,
-      options: {
-        data: {
-          first_name: data.firstName,
-          last_name: data.lastName,
-        },
-        redirectTo: `${process.env.NEXT_PUBLIC_DASHBOARD_URL || "http://localhost:3000"}/update-password`,
-        // Ensure this URL points to a valid page where they can set their password
+    await supabaseAdmin.auth.admin.inviteUserByEmail(data.email, {
+      data: {
+        first_name: data.firstName,
+        last_name: data.lastName,
       },
+      redirectTo: `${process.env.NEXT_PUBLIC_DASHBOARD_URL || "http://localhost:3003"}/update-password`,
     });
 
   if (authError) {
@@ -37,7 +31,8 @@ export async function createWedding(data: CreateWeddingData) {
   }
 
   const userId = authData.user.id;
-  const inviteLink = authData.properties.action_link;
+  // Note: inviteLink is NOT returned when sending email, so we set it to null or undefined.
+  const inviteLink = null;
 
   // 2. Create Profile
   const { error: profileError } = await supabaseAdmin.from("profiles").insert({
