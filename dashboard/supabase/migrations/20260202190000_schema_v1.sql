@@ -1,5 +1,8 @@
 -- Migration: Add Households and Settings Architecture
 
+-- 0. Ensure public schema exists
+create schema if not exists public;
+
 -- 1. Create TABLE households
 create table public.households (
   id uuid default uuid_generate_v4() primary key,
