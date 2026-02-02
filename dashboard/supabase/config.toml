@@ -1,0 +1,10 @@
+project_id = "hfimnvjmqwshwdvjygcz" # ID du projet (placeholder, sera écrasé par le link en CI mais utile pour la structure)
+
+[api]
+enabled = true
+port = 54321
+schemas = ["public", "storage", "auth"]
+
+[db]
+port = 54322
+shadow_port = 54320
