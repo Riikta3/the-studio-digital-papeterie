@@ -1,26 +1,23 @@
 "use client";
 
+import { createWedding } from "@/actions/create-wedding";
 import { ALL_LANGUAGES, POPULAR_LANGUAGE_IDS } from "@/data/languages";
 import { Link, useRouter } from "@/navigation";
+import { ModuleSelector } from "@shared/components/modules/ModuleSelector";
+import { APP_MODULES } from "@shared/data/modules";
 import { AnimatePresence, motion } from "framer-motion";
 import {
-  Calendar,
-  Camera,
   Check,
   ChevronRight,
   CreditCard,
   Gem,
-  Gift,
   Globe,
   Heart,
   Image as ImageIcon,
   LifeBuoy,
   MapPin,
-  MessageSquare,
   Music,
   Sparkles,
-  Users,
-  Utensils,
   Video,
   X,
 } from "lucide-react";
@@ -100,75 +97,7 @@ const themes = [
   },
 ];
 
-const modules = [
-  {
-    id: "rsvp",
-    name: "Gestion RSVP",
-    icon: Users,
-    description: "Confirmations de présence",
-  },
-  {
-    id: "gallery",
-    name: "Galerie Photo",
-    icon: ImageIcon,
-    description: "Partagez vos souvenirs",
-  },
-  {
-    id: "program",
-    name: "Programme",
-    icon: Calendar,
-    description: "Déroulé de la journée",
-  },
-  {
-    id: "travel",
-    name: "Infos Voyage",
-    icon: Globe,
-    description: "Hébergement & transport",
-  },
-  {
-    id: "map",
-    name: "Plan Interactif",
-    icon: MapPin,
-    description: "Localisation des lieux",
-  },
-  {
-    id: "music",
-    name: "Playlist",
-    icon: Music,
-    description: "Suggestions musicales",
-  },
-  {
-    id: "gifts",
-    name: "Liste de Mariage",
-    icon: Gift,
-    description: "Cadeaux & participations",
-  },
-  {
-    id: "video",
-    name: "Vidéo d'Intro",
-    icon: Video,
-    description: "Message vidéo personnalisé",
-  },
-  {
-    id: "messages",
-    name: "Livre d'Or",
-    icon: MessageSquare,
-    description: "Messages des invités",
-  },
-  { id: "menu", name: "Menu", icon: Utensils, description: "Détails du repas" },
-  {
-    id: "dress",
-    name: "Dress Code",
-    icon: Heart,
-    description: "Tenue recommandée",
-  },
-  {
-    id: "photos",
-    name: "Partage Photos",
-    icon: Camera,
-    description: "Album collaboratif",
-  },
-];
+// Modules moved to shared/data/modules.ts
 
 const FREE_MODULES_LIMIT = 4;
 const EXTRA_MODULE_PRICE = 10;
@@ -326,14 +255,40 @@ export default function CreateWizard() {
 
   const handleFinalize = async () => {
     setLoading(true);
-    await new Promise((resolve) => setTimeout(resolve, 1500));
 
     const bypass = process.env.NEXT_PUBLIC_BYPASS_PAYMENT === "true";
 
     if (bypass) {
-      router.push("/dashboard");
+      // PROVISIONING (Real DB Creation)
+      try {
+        const result = await createWedding({
+          email: formData.email,
+          firstName: formData.name1,
+          lastName: formData.billingLastName || formData.name1, // Fallback if billing not filled
+          partnerName: formData.name2,
+          weddingDate: formData.date,
+          themeId: formData.theme,
+          modules: formData.modules,
+        });
+
+        if (result.success) {
+          alert(
+            `🎉 Mariage créé avec succès !\n\nCompte: ${result.email}\nMot de passe temporaire: ${result.tempPassword}\n\nConnectez-vous sur le Dashboard.`,
+          );
+          // Redirect to Dashboard (assuming running on port 3000 or the user knows where)
+          // For now, we keep them here or redirect to a success page.
+          // router.push("/success");
+        } else {
+          alert("Erreur lors de la création: " + result.error);
+        }
+      } catch (e) {
+        console.error(e);
+        alert("Erreur technique lors du provisioning.");
+      } finally {
+        setLoading(false);
+      }
     } else {
-      alert("Redirection vers le paiement (Stripe)...");
+      alert("Redirection vers le paiement (Stripe)... (Non implémenté)");
       setLoading(false);
     }
   };
@@ -793,83 +748,13 @@ export default function CreateWizard() {
               </div>
             </div>
 
-            <div className='grid grid-cols-2 md:grid-cols-4 gap-4'>
-              {modules.map((mod) => {
-                const Icon = mod.icon;
-                const isSelected = formData.modules.includes(mod.id);
-                const moduleIndex = formData.modules.indexOf(mod.id);
-                // A module is "paid" if it's selected AND its index in the selection list is beyond the free limit
-                const isPaid = isSelected && moduleIndex >= FREE_MODULES_LIMIT;
-
-                return (
-                  <motion.div
-                    key={mod.id}
-                    onClick={() => toggleModule(mod.id)}
-                    whileHover={{ scale: 1.02 }}
-                    whileTap={{ scale: 0.98 }}
-                    className={`relative p-6 pt-10 rounded-2xl border-2 cursor-pointer transition-all flex flex-col items-center gap-3 text-center group bg-white ${
-                      isSelected
-                        ? isPaid
-                          ? "border-orange-200 shadow-xl shadow-orange-100/50" // Selected Paid
-                          : "border-primary/50 shadow-xl shadow-primary/10" // Selected Free
-                        : "border-transparent shadow-md md:hover:shadow-lg md:hover:border-gray-200" // Not Selected
-                    }`}
-                  >
-                    {/* Status Badge */}
-                    {isSelected && (
-                      <div
-                        className={`absolute top-3 left-1/2 -translate-x-1/2 px-3 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-widest ${
-                          isPaid
-                            ? "bg-orange-100 text-orange-700"
-                            : "bg-green-100 text-green-700"
-                        }`}
-                      >
-                        {isPaid ? `+${EXTRA_MODULE_PRICE}€` : "Inclus"}
-                      </div>
-                    )}
-
-                    <div
-                      className={`w-14 h-14 rounded-full flex items-center justify-center transition-colors mb-2 ${
-                        isSelected
-                          ? isPaid
-                            ? "bg-orange-50"
-                            : "bg-primary/5"
-                          : "bg-gray-50 group-hover:bg-gray-100"
-                      }`}
-                    >
-                      <Icon
-                        className={`w-6 h-6 ${
-                          isSelected
-                            ? isPaid
-                              ? "text-orange-500"
-                              : "text-primary"
-                            : "text-gray-400 group-hover:text-gray-600"
-                        }`}
-                      />
-                    </div>
-
-                    <div className='space-y-1'>
-                      <span
-                        className={`font-semibold text-sm block ${isSelected ? "text-gray-900" : "text-gray-600"}`}
-                      >
-                        {mod.name}
-                      </span>
-                    </div>
-
-                    {/* Checkmark corner */}
-                    {isSelected && (
-                      <div
-                        className={`absolute bottom-3 right-3 w-5 h-5 rounded-full flex items-center justify-center ${
-                          isPaid ? "bg-orange-500" : "bg-primary"
-                        }`}
-                      >
-                        <Check className='w-3 h-3 text-white' />
-                      </div>
-                    )}
-                  </motion.div>
-                );
-              })}
-            </div>
+            <ModuleSelector
+              modules={APP_MODULES}
+              selectedIds={formData.modules}
+              onToggle={toggleModule}
+              freeLimit={FREE_MODULES_LIMIT}
+              extraPrice={EXTRA_MODULE_PRICE}
+            />
           </motion.div>
         )}
 
@@ -1110,7 +995,9 @@ export default function CreateWizard() {
 
                       <div className='space-y-2 max-h-[300px] overflow-y-auto pr-2 custom-scrollbar'>
                         {formData.modules.map((moduleId, index) => {
-                          const module = modules.find((m) => m.id === moduleId);
+                          const module = APP_MODULES.find(
+                            (m) => m.id === moduleId,
+                          );
                           if (!module) return null;
                           const isPaid = index >= FREE_MODULES_LIMIT;
 

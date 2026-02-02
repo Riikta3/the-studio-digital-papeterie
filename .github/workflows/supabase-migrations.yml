@@ -1,0 +1,32 @@
+name: Deploy Migrations to Supabase
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - "dashboard/supabase/migrations/**"
+
+jobs:
+  deploy_migrations:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - uses: supabase/setup-cli@v1
+        with:
+          version: latest
+
+      - name: Link Supabase Project
+        run: supabase link --project-ref $SUPABASE_PROJECT_ID
+        working-directory: dashboard
+        env:
+          SUPABASE_ACCESS_TOKEN: ${{ secrets.SUPABASE_ACCESS_TOKEN }}
+          SUPABASE_PROJECT_ID: ${{ secrets.SUPABASE_PROJECT_ID }}
+
+      - name: Push Database Migrations
+        run: supabase db push
+        working-directory: dashboard
+        env:
+          SUPABASE_ACCESS_TOKEN: ${{ secrets.SUPABASE_ACCESS_TOKEN }}
+          SUPABASE_DB_PASSWORD: ${{ secrets.SUPABASE_DB_PASSWORD }}
