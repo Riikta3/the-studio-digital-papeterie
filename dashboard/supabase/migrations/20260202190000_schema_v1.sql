@@ -26,7 +26,7 @@ exception when duplicate_object then null; end $$;
 
 -- GUESTS (Invités) - Initial structure
 create table if not exists public.guests (
-  id uuid default uuid_generate_v4() primary key,
+  id uuid default gen_random_uuid() primary key,
   wedding_id uuid references public.profiles(id) not null,
   first_name text not null,
   last_name text not null,
@@ -55,7 +55,7 @@ exception when duplicate_object then null; end $$;
 
 -- TABLES (Plan de table)
 create table if not exists public.tables (
-  id uuid default uuid_generate_v4() primary key,
+  id uuid default gen_random_uuid() primary key,
   wedding_id uuid references public.profiles(id) not null,
   name text not null,
   shape text default 'round',
@@ -74,14 +74,14 @@ exception when duplicate_object then null; end $$;
 
 -- 1. Create TABLE households
 create table if not exists public.households (
-  id uuid default uuid_generate_v4() primary key,
+  id uuid default gen_random_uuid() primary key,
   wedding_id uuid references public.profiles(id) not null,
   name text not null,
   email text,
   phone text,
   address text,
   status text check (status in ('pending', 'confirmed', 'declined', 'partial')) default 'pending',
-  magic_link_token uuid default uuid_generate_v4(), 
+  magic_link_token uuid default gen_random_uuid(), 
   message_to_couple text,
   last_relance_at timestamp with time zone,
   created_at timestamp with time zone default timezone('utc'::text, now()) not null
@@ -105,7 +105,7 @@ exception when duplicate_object then null; end $$;
 
 -- 2. Create TABLE settings (Wedding Configuration)
 create table if not exists public.settings (
-  id uuid default uuid_generate_v4() primary key,
+  id uuid default gen_random_uuid() primary key,
   wedding_id uuid references public.profiles(id) not null,
   is_module_accommodation_enabled boolean default false,
   is_module_schedule_enabled boolean default true,
