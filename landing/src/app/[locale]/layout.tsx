@@ -12,6 +12,8 @@ export const metadata: Metadata = {
   description: "Faire-part digitaux haut de gamme",
 };
 
+import { Toaster } from "@shared/components/ui/sonner";
+
 export default async function LocaleLayout({
   children,
   params,
@@ -38,6 +40,7 @@ export default async function LocaleLayout({
       >
         {children}
         <CookieConsent />
+        <Toaster />
       </ThemeProvider>
     </NextIntlClientProvider>
   );

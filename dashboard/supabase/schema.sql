@@ -147,3 +147,14 @@ alter table public.guests
 -- Index for performance
 create index idx_households_wedding_id on public.households(wedding_id);
 create index idx_guests_household_id on public.guests(household_id);
+
+-- 4. Permissions (Fix for Service Role)
+-- Ensure service_role has full access to public schema (required for Admin API)
+grant usage on schema public to service_role;
+grant all on all tables in schema public to service_role;
+grant all on all sequences in schema public to service_role;
+grant all on all routines in schema public to service_role;
+
+alter default privileges in schema public grant all on tables to service_role;
+alter default privileges in schema public grant all on sequences to service_role;
+alter default privileges in schema public grant all on routines to service_role;

@@ -4,6 +4,7 @@ import { createWedding } from "@/actions/create-wedding";
 import { ALL_LANGUAGES, POPULAR_LANGUAGE_IDS } from "@/data/languages";
 import { Link, useRouter } from "@/navigation";
 import { ModuleSelector } from "@shared/components/modules/ModuleSelector";
+import { Spinner } from "@shared/components/ui/spinner";
 import { APP_MODULES } from "@shared/data/modules";
 import { AnimatePresence, motion } from "framer-motion";
 import {
@@ -22,6 +23,7 @@ import {
   X,
 } from "lucide-react";
 import { useEffect, useState } from "react";
+import { toast } from "sonner";
 
 // --- Data ---
 const POPULAR_LANGUAGES = ALL_LANGUAGES.filter((l) =>
@@ -256,7 +258,7 @@ export default function CreateWizard() {
   const handleFinalize = async () => {
     setLoading(true);
 
-    const bypass = process.env.NEXT_PUBLIC_BYPASS_PAYMENT === "true";
+    const bypass = true; // Forced for Demo/MVP as requested
 
     if (bypass) {
       // PROVISIONING (Real DB Creation)
@@ -264,7 +266,7 @@ export default function CreateWizard() {
         const result = await createWedding({
           email: formData.email,
           firstName: formData.name1,
-          lastName: formData.billingLastName || formData.name1, // Fallback if billing not filled
+          lastName: formData.billingLastName || formData.name1, // Fallback
           partnerName: formData.name2,
           weddingDate: formData.date,
           themeId: formData.theme,
@@ -272,23 +274,38 @@ export default function CreateWizard() {
         });
 
         if (result.success) {
-          alert(
-            `🎉 Mariage créé avec succès !\n\nCompte: ${result.email}\nMot de passe temporaire: ${result.tempPassword}\n\nConnectez-vous sur le Dashboard.`,
-          );
-          // Redirect to Dashboard (assuming running on port 3000 or the user knows where)
-          // For now, we keep them here or redirect to a success page.
-          // router.push("/success");
+          toast.success("Votre espace a été créé avec succès ! 💍");
+
+          // SHOW SUCCESS MODAL OR REDIRECT
+          // For now, we replace the body with the Success State
+          // (Simple implementation: alerting the link via toast or better, UI update)
+
+          // Let's force a UI update to show success state (not implemented in this snippet, using toast for now)
+          toast.message("Lien d'accès généré (Demo)", {
+            description: (
+              <div className='mt-2 p-2 bg-gray-50 rounded border text-xs break-all'>
+                {result.inviteLink}
+              </div>
+            ),
+            duration: 10000,
+            action: {
+              label: "Accéder",
+              onClick: () => window.open(result.inviteLink, "_self"),
+            },
+          });
         } else {
-          alert("Erreur lors de la création: " + result.error);
+          toast.error("Une erreur est survenue lors de la création.", {
+            description: result.error,
+          });
         }
       } catch (e) {
         console.error(e);
-        alert("Erreur technique lors du provisioning.");
+        toast.error("Erreur technique inattendue.");
       } finally {
         setLoading(false);
       }
     } else {
-      alert("Redirection vers le paiement (Stripe)... (Non implémenté)");
+      toast.info("Le paiement Stripe n'est pas encore activé.");
       setLoading(false);
     }
   };
@@ -1376,16 +1393,19 @@ export default function CreateWizard() {
                     className='w-full mt-4 py-4 rounded-xl bg-primary text-white font-bold text-lg shadow-xl shadow-primary/20 hover:bg-primary/90 hover:scale-[1.02] active:scale-[0.98] transition-all flex items-center justify-center gap-3 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none disabled:shadow-none'
                   >
                     {loading ? (
-                      <span className='animate-pulse'>Traitement...</span>
+                      <div className='flex items-center gap-2'>
+                        <Spinner className='text-white' />
+                        <span>Création de votre univers...</span>
+                      </div>
                     ) : (
                       <>
-                        <span>Payer & Créer</span>
+                        <span>Créer & Accéder</span>
                         <ChevronRight className='w-5 h-5' />
                       </>
                     )}
                   </button>
                   <p className='text-center text-xs text-gray-400 mt-4'>
-                    Paiement sécurisé via Stripe.
+                    Accès immédiat sans carte bancaire (Demo).
                   </p>
                 </div>
               </div>
