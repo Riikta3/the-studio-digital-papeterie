@@ -18,9 +18,7 @@ export async function createWedding(data: CreateWeddingData) {
   const redirectTo = `${process.env.NEXT_PUBLIC_DASHBOARD_URL || "http://localhost:3003"}/auth/confirm?next=/update-password`;
   console.log("➡️ Redirecting to:", redirectTo);
 
-  let inviteLink = null;
-  let emailSent = false;
-
+  // Removed duplicate declarations
   // FORCE GENERATE LINK (To avoid "OTP Expired" from Email Scanners)
   // We skip sending the email via Supabase and just show the link in the UI.
   const { data: authData, error: authError } =
