@@ -22,8 +22,13 @@ const supabase = createClient(SUPABASE_URL, SERVICE_ROLE_KEY, {
 async function seed() {
   console.log("🌱 Starting Seeding Process...");
 
-  const TEST_EMAIL = "demo@studio.com";
+  const randomSuffix = Math.floor(Math.random() * 10000)
+    .toString()
+    .padStart(4, "0");
+  const TEST_EMAIL = `demo-${randomSuffix}@studio.com`;
   const TEST_PASSWORD = "password123";
+
+  console.log(`🎲 Generated Random Suffix: ${randomSuffix}`);
 
   // 1. Create User or Get Existing
   console.log(`Checking user ${TEST_EMAIL}...`);
@@ -51,7 +56,10 @@ async function seed() {
         email: TEST_EMAIL,
         password: TEST_PASSWORD,
         email_confirm: true,
-        user_metadata: { first_name: "Sophie", last_name: "Martin" },
+        user_metadata: {
+          first_name: `Sophie ${randomSuffix}`,
+          last_name: "Martin",
+        },
       });
 
     if (createError) {
@@ -71,9 +79,9 @@ async function seed() {
   console.log("Creating/Updating Profile...");
   const { error: profileError } = await supabase.from("profiles").upsert({
     id: userId,
-    first_name: "Sophie",
+    first_name: `Sophie ${randomSuffix}`,
     last_name: "Martin",
-    partner_name: "Marc",
+    partner_name: `Marc ${randomSuffix}`,
     wedding_date: "2026-08-24",
   });
   if (profileError) console.error("Profile Error:", profileError);
@@ -83,7 +91,7 @@ async function seed() {
   const { error: settingsError } = await supabase.from("settings").upsert(
     {
       wedding_id: userId,
-      wedding_code: "SOPHIE2026",
+      wedding_code: `SOPHIE${randomSuffix}`,
       is_module_rsvp_meal_enabled: true,
       is_module_schedule_enabled: true,
       is_module_gallery_enabled: true,
@@ -147,8 +155,8 @@ async function seed() {
     .from("households")
     .insert({
       wedding_id: userId,
-      name: "Famille Dupont",
-      email: "jean.dupont@test.com",
+      name: `Famille Dupont ${randomSuffix}`,
+      email: `jean.dupont.${randomSuffix}@test.com`,
       status: "pending",
       address: "123 Rue de la Fête, 75000 Paris",
     })
@@ -171,7 +179,7 @@ async function seed() {
         table_id: tableId, // Link to table (Seating Plan test)
         first_name: "Jean",
         last_name: "Dupont",
-        email: "jean.dupont@test.com",
+        email: `jean.dupont.${randomSuffix}@test.com`,
         status: "confirmed",
         is_child: false,
         is_plus_one: false,
