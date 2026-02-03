@@ -5,6 +5,7 @@ import {
   Inter,
   Playfair_Display,
 } from "next/font/google";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 
 const playfair = Playfair_Display({
   subsets: ["latin"],
@@ -61,6 +62,7 @@ export default async function RootLayout({
         suppressHydrationWarning
       >
         {children}
+        <SpeedInsights />
       </body>
     </html>
   );
