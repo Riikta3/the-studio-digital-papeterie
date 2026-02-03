@@ -8,7 +8,7 @@ import { ThemeProvider } from "@/components/theme-provider";
 import "../globals.css";
 
 export const metadata: Metadata = {
-  title: "Meet My Weeding",
+  title: "The Studio Digital Papeterie",
   description: "Faire-part digitaux haut de gamme",
 };
 

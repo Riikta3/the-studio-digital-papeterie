@@ -123,7 +123,7 @@ export function RingsIntro({ onComplete }: RingsIntroProps) {
             transition={{ delay: 0.5, duration: 1 }}
             className='absolute bottom-20 text-primary/60 font-heading tracking-widest text-sm'
           >
-            MEET MY WEDDING
+            THE STUDIO DIGITAL PAPETERIE
           </motion.div>
         </motion.div>
       )}
