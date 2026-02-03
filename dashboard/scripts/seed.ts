@@ -96,6 +96,7 @@ async function seed() {
       is_module_schedule_enabled: true,
       is_module_gallery_enabled: true,
       is_module_accommodation_enabled: false,
+      rsvp_mode: "closed", // Default for seed
       theme_config: { color_scheme: "terracotta" },
     },
     { onConflict: "wedding_id" },
