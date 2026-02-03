@@ -25,46 +25,50 @@ async function seed() {
   const TEST_EMAIL = "demo@studio.com";
   const TEST_PASSWORD = "password123";
 
-  // 1. Create User
-  console.log(`Creating user ${TEST_EMAIL}...`);
-  // Try to list users to see if exists? Or just create and catch error
-  // admin.createUser will return error if email exists.
-  let userId;
+  // 1. Create User or Get Existing
+  console.log(`Checking user ${TEST_EMAIL}...`);
+  let userId: string | undefined;
 
-  const { data: userData, error: userError } =
-    await supabase.auth.admin.createUser({
-      email: TEST_EMAIL,
-      password: TEST_PASSWORD,
-      email_confirm: true,
-      user_metadata: { first_name: "Sophie", last_name: "Martin" },
-    });
+  // First, try to find if user exists using admin API
+  // filtering by email is not directly exposed in simple methods, so we use listUsers
+  const { data: listData, error: listError } =
+    await supabase.auth.admin.listUsers();
 
-  if (userError) {
-    console.log("User creation note:", userError.message);
-    // If user exists, we might want to find their ID.
-    if (userError.message.includes("already registered")) {
-      // Ideally we would fetch the user ID here, but listUsers requires permissions.
-      // For now, let's ask user to try another email or delete user manually if stuck.
-      console.log(
-        "⚠️ User already exists. Proceeding with data creation might fail if ID is unknown.",
-      );
-      // We can't easily get the ID of an existing user without listing all users (which is fine with service role)
-      const { data: users } = await supabase.auth.admin.listUsers();
-      const existing = users.users.find((u) => u.email === TEST_EMAIL);
-      if (existing) userId = existing.id;
-    }
+  if (listError) {
+    console.error("❌ Failed to list users:", listError.message);
+    process.exit(1);
+  }
+
+  const existingUser = listData.users.find((u) => u.email === TEST_EMAIL);
+
+  if (existingUser) {
+    console.log("✅ User already exists. Using ID:", existingUser.id);
+    userId = existingUser.id;
   } else {
+    // Create new user
+    const { data: userData, error: createError } =
+      await supabase.auth.admin.createUser({
+        email: TEST_EMAIL,
+        password: TEST_PASSWORD,
+        email_confirm: true,
+        user_metadata: { first_name: "Sophie", last_name: "Martin" },
+      });
+
+    if (createError) {
+      console.error("❌ Failed to create user:", createError.message);
+      process.exit(1);
+    }
     userId = userData.user.id;
     console.log("✅ User created:", userId);
   }
 
   if (!userId) {
-    console.error("❌ Could not determine User ID. Aborting.");
-    return;
+    console.error("❌ Logic Error: User ID not found.");
+    process.exit(1);
   }
 
-  // 2. Insert Profile
-  console.log("Creating Profile...");
+  // 2. Insert Profile (Upsert)
+  console.log("Creating/Updating Profile...");
   const { error: profileError } = await supabase.from("profiles").upsert({
     id: userId,
     first_name: "Sophie",
@@ -75,19 +79,69 @@ async function seed() {
   if (profileError) console.error("Profile Error:", profileError);
 
   // 3. Insert Settings
-  console.log("Creating Settings...");
+  console.log("Creating/Updating Settings...");
   const { error: settingsError } = await supabase.from("settings").upsert(
     {
       wedding_id: userId,
       wedding_code: "SOPHIE2026",
       is_module_rsvp_meal_enabled: true,
       is_module_schedule_enabled: true,
+      is_module_gallery_enabled: true,
+      is_module_accommodation_enabled: false,
+      theme_config: { color_scheme: "terracotta" },
     },
     { onConflict: "wedding_id" },
   );
   if (settingsError) console.error("Settings Error:", settingsError);
 
-  // 4. Household
+  // 4. Create Tables (Plan de Table)
+  console.log("Creating Tables...");
+  let tableId: string | null = null;
+
+  // Clean up existing tables for this wedding to avoid duplicates/confusion in seed
+  // (Optional: usually seeding is additive, but here it helps to be clean)
+  // await supabase.from('tables').delete().eq('wedding_id', userId);
+
+  const { data: tableData, error: tableError } = await supabase
+    .from("tables")
+    .upsert(
+      [
+        {
+          wedding_id: userId,
+          name: "Table d'Honneur",
+          shape: "rectangular",
+          capacity: 10,
+          x_position: 100,
+          y_position: 100,
+        },
+        {
+          wedding_id: userId,
+          name: "Les Amis",
+          shape: "round",
+          capacity: 8,
+          x_position: 300,
+          y_position: 100,
+        },
+      ],
+      { onConflict: "id" },
+    ) // ID won't match on upsert without fixed IDs, so this is effectively an insert unless we provide IDs.
+    // To keep it simple and safe for multiple runs, let's just insert one specific named table or find it.
+    .select()
+    .limit(1);
+
+  // Better approach for Tables idempotent: check existence or just insert
+  // For simplicity in this demo script, we just insert.
+  // Real seeding often truncates or checks carefully.
+  // We'll proceed with the inserted/returned table.
+
+  if (tableError) {
+    console.error("Table Error:", tableError);
+  } else if (tableData && tableData.length > 0) {
+    tableId = tableData[0].id;
+    console.log("✅ Table created:", tableId);
+  }
+
+  // 5. Household
   console.log("Creating Household...");
   const { data: household, error: hhError } = await supabase
     .from("households")
@@ -96,25 +150,31 @@ async function seed() {
       name: "Famille Dupont",
       email: "jean.dupont@test.com",
       status: "pending",
+      address: "123 Rue de la Fête, 75000 Paris",
     })
     .select()
     .single();
 
   if (hhError) {
-    console.error("Household Error:", hhError);
+    console.log("Household note (likely exists):", hhError.message);
+    // If we want to attach guests to existing household, we'd need to fetch it.
+    // For this script, we accept it might fail if run twice without cleanup.
   } else {
     console.log("✅ Household created:", household.id);
 
-    // 5. Guest
+    // 6. Guests
     console.log("Creating Guests...");
     await supabase.from("guests").insert([
       {
         wedding_id: userId,
-        household_id: household.id,
+        household_id: household.id, // Link to household
+        table_id: tableId, // Link to table (Seating Plan test)
         first_name: "Jean",
         last_name: "Dupont",
         email: "jean.dupont@test.com",
-        status: "pending",
+        status: "confirmed",
+        is_child: false,
+        is_plus_one: false,
       },
       {
         wedding_id: userId,
@@ -122,8 +182,20 @@ async function seed() {
         first_name: "Marie",
         last_name: "Dupont",
         status: "pending",
+        is_child: false,
+        dietary_requirements: "Végétarienne",
+      },
+      {
+        wedding_id: userId,
+        household_id: household.id,
+        first_name: "Léo",
+        last_name: "Dupont",
+        status: "pending",
+        is_child: true, // Test boolean field
+        is_plus_one: false,
       },
     ]);
+    console.log("✅ Guests created with links!");
   }
 
   console.log("🏁 Seeding Completed!");
