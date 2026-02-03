@@ -18,14 +18,14 @@ export default function Home() {
       {/* 1. La Promesse (Hero) */}
       <Hero />
 
-      {/* 2. La Preuve Visuelle (Examples - Themes) : On seduit d'abord */}
+      {/* 2. La Preuve Visuelle (Dashboard Preview) : On montre tout de suite */}
+      <DashboardPreview />
+
+      {/* 3. Les Exemples (Themes) */}
       <Examples />
 
-      {/* 3. L'Argumentaire Rationnel (Features) : On rassure ensuite */}
+      {/* 4. L'Argumentaire Rationnel (Features) */}
       <Features />
-
-      {/* 4. La Facilité d'Usage (Dashboard) : On montre "l'envers du décor" */}
-      <DashboardPreview />
 
       {/* 5. La Preuve Sociale (Testimonials) */}
       <Testimonials />

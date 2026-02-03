@@ -120,8 +120,8 @@ export function PricingPreview() {
                   className={cn(
                     "w-full rounded-full py-3 text-sm font-semibold transition-all text-center",
                     plan.highlight
-                      ? "bg-primary text-white hover:bg-primary/90 shadow-md hover:shadow-lg"
-                      : "bg-card border border-input text-foreground hover:bg-accent hover:text-accent-foreground",
+                      ? "bg-[#455e4e] text-white hover:bg-[#354a3d] shadow-md hover:shadow-lg"
+                      : "bg-card border border-[#455e4e] text-[#455e4e] hover:bg-[#455e4e] hover:text-white",
                   )}
                 >
                   {plan.cta}
@@ -129,6 +129,116 @@ export function PricingPreview() {
               </Link>
             </motion.div>
           ))}
+        </div>
+
+        {/* Comparison Section */}
+        <div className='mt-24 max-w-4xl mx-auto'>
+          <div className='text-center mb-12'>
+            <h3 className='text-2xl font-heading font-bold mb-4'>
+              Pourquoi passer au{" "}
+              <span className='text-primary italic'>Digital</span> ?
+            </h3>
+            <p className='text-muted-foreground'>
+              Estimation basée sur un mariage de 100 foyers (approx. 200
+              invités).
+            </p>
+          </div>
+
+          <div className='grid md:grid-cols-2 gap-8 items-center bg-card border border-border/50 rounded-3xl overflow-hidden shadow-sm'>
+            {/* Left: Paper Cost (Expensive) */}
+            <div className='p-8 md:p-12 space-y-6 bg-muted/30'>
+              <div className='flex items-center justify-between'>
+                <h4 className='font-heading text-xl font-semibold text-muted-foreground'>
+                  Faire-part Papier
+                </h4>
+                <span className='text-sm font-medium px-3 py-1 rounded-full bg-muted text-muted-foreground'>
+                  Traditionnel
+                </span>
+              </div>
+
+              <ul className='space-y-4'>
+                <li className='flex justify-between text-sm'>
+                  <span className='text-muted-foreground'>
+                    Impression & Design
+                  </span>
+                  <span className='font-medium'>~300€</span>
+                </li>
+                <li className='flex justify-between text-sm'>
+                  <span className='text-muted-foreground'>
+                    Enveloppes & Cartons
+                  </span>
+                  <span className='font-medium'>~100€</span>
+                </li>
+                <li className='flex justify-between text-sm'>
+                  <span className='text-muted-foreground'>
+                    Timbres (100 envois)
+                  </span>
+                  <span className='font-medium'>~200€</span>
+                </li>
+              </ul>
+
+              <div className='pt-6 border-t border-border flex justify-between items-baseline opacity-70'>
+                <span className='font-semibold text-lg'>Total</span>
+                <span className='font-bold text-3xl font-heading strike-through decoration-red-500/50 line-through decoration-2'>
+                  &gt; 600€
+                </span>
+              </div>
+            </div>
+
+            {/* Right: Digital Cost (Cheap & Better) */}
+            <div className='p-8 md:p-12 space-y-6 bg-primary/5 relative'>
+              <div className='absolute top-0 right-0 bg-primary text-white text-xs font-bold px-3 py-1 rounded-bl-xl'>
+                MEILLEUR CHOIX
+              </div>
+              <div className='flex items-center justify-between'>
+                <h4 className='font-heading text-xl font-semibold text-primary'>
+                  The Studio
+                </h4>
+                <span className='text-sm font-medium px-3 py-1 rounded-full bg-primary/10 text-primary'>
+                  Moderne
+                </span>
+              </div>
+
+              <ul className='space-y-4'>
+                <li className='flex justify-between text-sm'>
+                  <span className='text-foreground/80'>
+                    Site complet & RSVP
+                  </span>
+                  <span className='font-medium text-primary'>
+                    <Check className='inline w-4 h-4 mr-1' /> Inclus
+                  </span>
+                </li>
+                <li className='flex justify-between text-sm'>
+                  <span className='text-foreground/80'>
+                    Envois illimités (Email/WhatsApp)
+                  </span>
+                  <span className='font-medium text-primary'>
+                    <Check className='inline w-4 h-4 mr-1' /> Inclus
+                  </span>
+                </li>
+                <li className='flex justify-between text-sm'>
+                  <span className='text-foreground/80'>
+                    Gestion des réponses
+                  </span>
+                  <span className='font-medium text-primary'>
+                    <Check className='inline w-4 h-4 mr-1' /> Zéro stress
+                  </span>
+                </li>
+              </ul>
+
+              <div className='pt-6 border-t border-primary/20 flex justify-between items-baseline'>
+                <span className='font-semibold text-lg'>Total</span>
+                <span className='font-bold text-4xl font-heading text-primary'>
+                  175€
+                </span>
+              </div>
+            </div>
+          </div>
+
+          <p className='text-center mt-6 text-sm text-muted-foreground italic'>
+            En plus de l'économie, vous gagnez des heures de mise sous pli et de
+            gestion !
+          </p>
         </div>
       </div>
     </section>

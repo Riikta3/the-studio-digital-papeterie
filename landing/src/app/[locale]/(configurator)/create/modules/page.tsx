@@ -70,6 +70,12 @@ const MODULES = [
     icon: Utensils,
     desc: "Détail du repas et allergies",
   },
+  {
+    id: "video-guestbook",
+    label: "Livre d'Or Vidéo",
+    icon: MessageSquare,
+    desc: "Vos invités laissent un message vidéo.",
+  },
 ];
 
 export default function ModulesPage() {

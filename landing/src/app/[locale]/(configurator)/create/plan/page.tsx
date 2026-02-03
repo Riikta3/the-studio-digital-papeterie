@@ -1,6 +1,7 @@
 "use client";
 
 import { cn } from "@/lib/utils";
+import { useRouter } from "@/navigation";
 import { useOrderStore, type PlanType } from "@/stores/use-order-store";
 import { Check, Sparkles, Star } from "lucide-react";
 import { useSearchParams } from "next/navigation";
@@ -9,6 +10,7 @@ import { useEffect } from "react";
 export default function PlanPage() {
   const { plan, setPlan } = useOrderStore();
   const searchParams = useSearchParams();
+  const router = useRouter(); // Initialize router
 
   useEffect(() => {
     const selected = searchParams.get("selected");
@@ -16,6 +18,11 @@ export default function PlanPage() {
       setPlan(selected as PlanType);
     }
   }, [searchParams, setPlan]);
+
+  const handleSelect = (p: PlanType) => {
+    setPlan(p);
+    router.push("/create/theme"); // Auto-advance
+  };
 
   return (
     <div className='flex flex-col gap-8'>
@@ -33,7 +40,7 @@ export default function PlanPage() {
       <div className='grid md:grid-cols-2 gap-6 mt-4'>
         {/* EXPERIENCE PLAN */}
         <div
-          onClick={() => setPlan("experience")}
+          onClick={() => handleSelect("experience")}
           className={cn(
             "relative group cursor-pointer rounded-3xl border-2 p-8 transition-all duration-300 hover:shadow-2xl",
             plan === "experience"
@@ -78,11 +85,22 @@ export default function PlanPage() {
               <span>+5€ par module supplémentaire</span>
             </li>
           </ul>
+
+          <div
+            className={cn(
+              "w-full mt-8 rounded-full py-3 text-sm font-semibold transition-all text-center",
+              plan === "experience"
+                ? "bg-[#455e4e] text-white shadow-md"
+                : "bg-card border border-[#455e4e] text-[#455e4e] group-hover:bg-[#455e4e] group-hover:text-white",
+            )}
+          >
+            {plan === "experience" ? "Sélectionné" : "Choisir"}
+          </div>
         </div>
 
         {/* PREMIUM PLAN */}
         <div
-          onClick={() => setPlan("premium")}
+          onClick={() => handleSelect("premium")}
           className={cn(
             "relative group cursor-pointer rounded-3xl border-2 p-8 transition-all duration-300 hover:shadow-2xl",
             plan === "premium"
@@ -131,6 +149,17 @@ export default function PlanPage() {
               <span>Suppression du logo "Studio"</span>
             </li>
           </ul>
+
+          <div
+            className={cn(
+              "w-full mt-8 rounded-full py-3 text-sm font-semibold transition-all text-center",
+              plan === "premium"
+                ? "bg-[#455e4e] text-white shadow-md"
+                : "bg-card border border-[#455e4e] text-[#455e4e] group-hover:bg-[#455e4e] group-hover:text-white",
+            )}
+          >
+            {plan === "premium" ? "Sélectionné" : "Choisir"}
+          </div>
         </div>
       </div>
     </div>

@@ -1,9 +1,9 @@
 "use client";
 
 import { cn } from "@/lib/utils";
+import { useRouter } from "@/navigation";
 import { useOrderStore } from "@/stores/use-order-store";
 import { Check } from "lucide-react";
-import { useEffect } from "react";
 
 // Theme Configuration
 const THEMES = [
@@ -51,6 +51,12 @@ const THEMES = [
 
 export default function ThemePage() {
   const { theme, setTheme } = useOrderStore();
+  const router = useRouter();
+
+  const handleSelect = (id: string) => {
+    setTheme(id);
+    router.push("/create/modules");
+  };
 
   return (
     <div className='flex flex-col gap-8'>
@@ -69,7 +75,7 @@ export default function ThemePage() {
         {THEMES.map((t) => (
           <div
             key={t.id}
-            onClick={() => setTheme(t.id)}
+            onClick={() => handleSelect(t.id)}
             className={cn(
               "group relative cursor-pointer overflow-hidden rounded-3xl border-2 transition-all duration-300 hover:shadow-xl",
               theme === t.id
