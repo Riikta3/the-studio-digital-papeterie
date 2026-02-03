@@ -21,60 +21,32 @@ export async function createWedding(data: CreateWeddingData) {
   let inviteLink = null;
   let emailSent = false;
 
-  // 1. Try sending email first (Preferred)
-  const { data: inviteData, error: inviteError } =
-    await supabaseAdmin.auth.admin.inviteUserByEmail(data.email, {
-      data: {
-        first_name: data.firstName,
-        last_name: data.lastName,
+  // FORCE GENERATE LINK (To avoid "OTP Expired" from Email Scanners)
+  // We skip sending the email via Supabase and just show the link in the UI.
+  const { data: authData, error: authError } =
+    await supabaseAdmin.auth.admin.generateLink({
+      type: "invite",
+      email: data.email,
+      options: {
+        data: {
+          first_name: data.firstName,
+          last_name: data.lastName,
+        },
+        redirectTo,
       },
-      redirectTo,
     });
 
-  if (inviteError) {
-    // If Rate Limit hit, fallback to manual link generation
-    if (
-      inviteError.code === "over_email_send_rate_limit" ||
-      inviteError.status === 429
-    ) {
-      console.warn("⚠️ Email Rate Limit Hit! Falling back to generateLink...");
-
-      const { data: linkData, error: linkError } =
-        await supabaseAdmin.auth.admin.generateLink({
-          type: "invite",
-          email: data.email,
-          options: {
-            data: {
-              first_name: data.firstName,
-              last_name: data.lastName,
-            },
-            redirectTo,
-          },
-        });
-
-      if (linkError) {
-        console.error("Auth Link Gen Error:", linkError);
-        return { success: false, error: linkError.message };
-      }
-
-      inviteLink = linkData.properties.action_link; // Use this manually
-    } else {
-      console.error("Auth Invite Error:", inviteError);
-      return { success: false, error: inviteError.message };
-    }
-  } else {
-    emailSent = true;
+  if (authError) {
+    console.error("Auth Invite Error:", authError);
+    return { success: false, error: authError.message };
   }
 
-  const userId =
-    inviteData?.user?.id ??
-    (
-      await supabaseAdmin
-        .from("auth.users")
-        .select("id")
-        .eq("email", data.email)
-        .single()
-    ).data?.id;
+  const userId = authData.user.id;
+  const inviteLink = authData.properties.action_link;
+  const emailSent = false;
+  const inviteData = null; // Unused in this path
+
+  // userId is already set above
 
   if (!userId)
     return { success: false, error: "User creation failed (No ID found)" };
