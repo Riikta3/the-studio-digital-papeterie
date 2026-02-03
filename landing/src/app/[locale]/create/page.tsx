@@ -281,7 +281,7 @@ export default function CreateWizard() {
               description: "Cliquez pour définir votre mot de passe",
               action: {
                 label: "Accéder",
-                onClick: () => window.open(result.inviteLink, "_self"),
+                onClick: () => window.open(result.inviteLink!, "_self"),
               },
               duration: Infinity,
             });
