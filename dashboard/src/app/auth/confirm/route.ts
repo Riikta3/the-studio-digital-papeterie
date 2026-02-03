@@ -71,7 +71,22 @@ export async function GET(request: NextRequest) {
     }
   }
 
-  // Auth failed -> Redirect to login with error
+  // Check if Supabase returned an error directly (e.g. link expired)
+  const error = searchParams.get("error");
+  const error_description = searchParams.get("error_description");
+  const error_code = searchParams.get("error_code");
+
+  if (error) {
+    const redirectTo = request.nextUrl.clone();
+    redirectTo.pathname = "/login";
+    redirectTo.searchParams.set("error", error_code || error);
+    if (error_description) {
+      redirectTo.searchParams.set("error_description", error_description);
+    }
+    return NextResponse.redirect(redirectTo);
+  }
+
+  // Auth failed -> Redirect to login with generic error
   const redirectTo = request.nextUrl.clone();
   redirectTo.pathname = "/login";
   redirectTo.searchParams.set("error", "auth_failed");
