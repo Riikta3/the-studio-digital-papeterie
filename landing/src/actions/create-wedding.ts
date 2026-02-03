@@ -15,29 +15,69 @@ interface CreateWeddingData {
 export async function createWedding(data: CreateWeddingData) {
   console.log("💍 Starting Wedding Provisioning (Invite Flow)...", data);
 
-  // 1. Create User & Generate Invite Link (Bypass SMTP Rate Limits)
-  // We use generateLink to get the URL directly, avoiding Supabase Free Tier email limits.
-  const { data: authData, error: authError } =
-    await supabaseAdmin.auth.admin.generateLink({
-      type: "invite",
-      email: data.email,
-      options: {
-        data: {
-          first_name: data.firstName,
-          last_name: data.lastName,
-        },
-        redirectTo: `${process.env.NEXT_PUBLIC_DASHBOARD_URL || "http://localhost:3003"}/auth/confirm?next=/update-password`,
+  const redirectTo = `${process.env.NEXT_PUBLIC_DASHBOARD_URL || "http://localhost:3003"}/auth/confirm?next=/update-password`;
+  console.log("➡️ Redirecting to:", redirectTo);
+
+  let inviteLink = null;
+  let emailSent = false;
+
+  // 1. Try sending email first (Preferred)
+  const { data: inviteData, error: inviteError } =
+    await supabaseAdmin.auth.admin.inviteUserByEmail(data.email, {
+      data: {
+        first_name: data.firstName,
+        last_name: data.lastName,
       },
+      redirectTo,
     });
 
-  if (authError) {
-    console.error("Auth Invite Error:", authError);
-    return { success: false, error: authError.message };
+  if (inviteError) {
+    // If Rate Limit hit, fallback to manual link generation
+    if (
+      inviteError.code === "over_email_send_rate_limit" ||
+      inviteError.status === 429
+    ) {
+      console.warn("⚠️ Email Rate Limit Hit! Falling back to generateLink...");
+
+      const { data: linkData, error: linkError } =
+        await supabaseAdmin.auth.admin.generateLink({
+          type: "invite",
+          email: data.email,
+          options: {
+            data: {
+              first_name: data.firstName,
+              last_name: data.lastName,
+            },
+            redirectTo,
+          },
+        });
+
+      if (linkError) {
+        console.error("Auth Link Gen Error:", linkError);
+        return { success: false, error: linkError.message };
+      }
+
+      inviteLink = linkData.properties.action_link; // Use this manually
+    } else {
+      console.error("Auth Invite Error:", inviteError);
+      return { success: false, error: inviteError.message };
+    }
+  } else {
+    emailSent = true;
   }
 
-  const userId = authData.user.id;
-  // We get the link back!
-  const inviteLink = authData.properties.action_link;
+  const userId =
+    inviteData?.user?.id ??
+    (
+      await supabaseAdmin
+        .from("auth.users")
+        .select("id")
+        .eq("email", data.email)
+        .single()
+    ).data?.id;
+
+  if (!userId)
+    return { success: false, error: "User creation failed (No ID found)" };
 
   // 2. Create Profile
   const { error: profileError } = await supabaseAdmin.from("profiles").insert({
