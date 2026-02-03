@@ -276,10 +276,21 @@ export default function CreateWizard() {
         if (result.success) {
           toast.success("Votre espace a été créé avec succès ! 💍");
 
-          toast.info("📩 Email envoyé !", {
-            description: `Un lien d'activation a été envoyé à ${formData.email}. Vérifiez vos spams !`,
-            duration: Infinity,
-          });
+          if (result.inviteLink) {
+            toast.info("Lien d'accès (DEV)", {
+              description: "Cliquez pour définir votre mot de passe",
+              action: {
+                label: "Accéder",
+                onClick: () => window.open(result.inviteLink, "_self"),
+              },
+              duration: Infinity,
+            });
+          } else {
+            toast.info("📩 Email envoyé !", {
+              description: `Un lien d'activation a été envoyé à ${formData.email}. Vérifiez vos spams !`,
+              duration: Infinity,
+            });
+          }
         } else {
           toast.error("Une erreur est survenue lors de la création.", {
             description: result.error,
