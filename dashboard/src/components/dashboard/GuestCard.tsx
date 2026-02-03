@@ -38,7 +38,7 @@ export function GuestCard({ name, email, guestCount, status }: GuestCardProps) {
   };
 
   return (
-    <div className='group bg-white rounded-xl border border-stone-200 shadow-sm hover:shadow-md transition-all duration-300 overflow-hidden flex flex-col'>
+    <div className='group bg-card rounded-xl border border-border shadow-sm hover:shadow-md transition-all duration-300 overflow-hidden flex flex-col'>
       <div className='p-6 flex-1'>
         <div className='flex justify-between items-start mb-4'>
           <div
@@ -50,7 +50,7 @@ export function GuestCard({ name, email, guestCount, status }: GuestCardProps) {
             <DropdownMenuTrigger asChild>
               <Button
                 variant='ghost'
-                className='h-8 w-8 p-0 text-stone-400 hover:text-stone-600'
+                className='h-8 w-8 p-0 text-muted-foreground hover:text-foreground'
               >
                 <MoreHorizontal className='h-4 w-4' />
               </Button>
@@ -68,8 +68,8 @@ export function GuestCard({ name, email, guestCount, status }: GuestCardProps) {
         </div>
 
         <div>
-          <h3 className='font-heading text-2xl text-stone-800 mb-1'>{name}</h3>
-          <div className='flex items-center gap-2 text-stone-500 text-sm mb-4'>
+          <h3 className='font-heading text-2xl text-foreground mb-1'>{name}</h3>
+          <div className='flex items-center gap-2 text-muted-foreground text-sm mb-4'>
             <Users className='w-4 h-4' />
             <span>
               {guestCount} invité{guestCount > 1 ? "s" : ""}
@@ -77,10 +77,10 @@ export function GuestCard({ name, email, guestCount, status }: GuestCardProps) {
           </div>
         </div>
 
-        <div className='space-y-2 text-sm text-stone-600'>
+        <div className='space-y-2 text-sm text-muted-foreground'>
           {email && (
             <div className='flex items-center gap-2'>
-              <Mail className='w-3 h-3 text-stone-400' />
+              <Mail className='w-3 h-3 text-muted-foreground/70' />
               <span className='truncate'>{email}</span>
             </div>
           )}
@@ -88,11 +88,11 @@ export function GuestCard({ name, email, guestCount, status }: GuestCardProps) {
       </div>
 
       {/* Quick Actions Footer */}
-      <div className='border-t border-stone-100 p-4 bg-stone-50/50 flex gap-2'>
+      <div className='border-t border-border p-4 bg-muted/30 flex gap-2'>
         <Button
           variant='outline'
           size='sm'
-          className='flex-1 gap-2 text-stone-600 border-stone-200 hover:bg-white hover:text-stone-900 group-hover:border-stone-300'
+          className='flex-1 gap-2 text-muted-foreground border-border hover:bg-card hover:text-foreground group-hover:border-primary/20'
         >
           <MessageCircle className='w-4 h-4' /> Relancer
         </Button>

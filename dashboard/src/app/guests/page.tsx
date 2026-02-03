@@ -43,23 +43,23 @@ export default function GuestsPage() {
   return (
     <div className='min-h-screen p-8 md:p-12 max-w-7xl mx-auto space-y-8'>
       {/* Header */}
-      <header className='flex justify-between items-center pb-8 border-b border-stone-200'>
+      <header className='flex justify-between items-center pb-8 border-b border-border'>
         <div className='space-y-1'>
           <Link
             href='/'
-            className='text-stone-500 hover:text-stone-800 text-sm flex items-center gap-1 transition-colors mb-2'
+            className='text-muted-foreground hover:text-foreground text-sm flex items-center gap-1 transition-colors mb-2'
           >
             <ArrowLeft className='w-4 h-4' /> Retour à l&apos;accueil
           </Link>
-          <h1 className='text-4xl font-heading font-light text-stone-800'>
+          <h1 className='text-4xl font-heading font-light text-foreground'>
             Vos Invités
           </h1>
-          <p className='text-stone-500'>
+          <p className='text-muted-foreground'>
             Gérez votre liste et suivez les réponses.
           </p>
         </div>
         <div className='flex gap-3'>
-          <Button className='bg-[#1B2A41] text-white hover:bg-[#2C3E50]'>
+          <Button className='bg-primary text-primary-foreground hover:bg-primary/90'>
             <Plus className='w-4 h-4 mr-2' /> Ajouter manuellement
           </Button>
         </div>
