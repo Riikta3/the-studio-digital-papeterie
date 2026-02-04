@@ -1,6 +1,6 @@
 "use client";
 
-import { createHousehold } from "@/actions/guest-actions";
+import { createHousehold, updateHousehold } from "@/actions/guest-actions";
 import { Button } from "@shared/components/ui/button";
 import {
   Dialog,
@@ -14,7 +14,7 @@ import {
 import { Input } from "@shared/components/ui/input";
 import { Label } from "@shared/components/ui/label";
 import { Loader2, Plus, Trash2 } from "lucide-react";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { toast } from "sonner";
 
 interface AddHouseholdDialogProps {
@@ -40,6 +40,7 @@ export function AddHouseholdDialog({
 }: AddHouseholdDialogProps) {
   const [internalOpen, setInternalOpen] = useState(false);
   const [loading, setLoading] = useState(false);
+  const isSubmittingRef = useRef(false);
 
   const isControlled = controlledOpen !== undefined;
   const open = isControlled ? controlledOpen : internalOpen;
