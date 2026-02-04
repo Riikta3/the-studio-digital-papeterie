@@ -48,31 +48,53 @@ export async function createHousehold(
   }
 
   // 2. Create Guests if names are provided
-  const guestNamesRaw = formData.get("guest_names") as string;
-  if (guestNamesRaw && guestNamesRaw.trim()) {
+  const guestNamesRaw = formData.getAll("guest_names") as string[];
+  const guestRelationsRaw = formData.getAll("guest_relations") as string[];
+
+  console.log("DEBUG - Guest Names:", guestNamesRaw);
+  console.log("DEBUG - Guest Relations:", guestRelationsRaw);
+
+  if (guestNamesRaw && guestNamesRaw.length > 0) {
     const guestsToInsert = guestNamesRaw
-      .split("\n") // Split by new line
-      .map((line) => line.trim())
-      .filter((line) => line.length > 0)
-      .map((fullName) => {
-        // Simple first/last name split (can be improved)
-        const parts = fullName.split(" ");
+      .map((fullName, index) => {
+        if (!fullName || !fullName.trim()) return null;
+
+        // Simple first/last name split
+        const parts = fullName.trim().split(" ");
         const firstName = parts[0];
         const lastName = parts.slice(1).join(" ") || ".";
+        const relationType = guestRelationsRaw[index] || null;
+
+        console.log(`DEBUG - Guest ${index}:`, {
+          firstName,
+          lastName,
+          relationType,
+        });
 
         return {
           wedding_id: weddingId,
           household_id: householdData.id,
           first_name: firstName,
           last_name: lastName,
+          relation_type:
+            relationType && relationType !== "" ? relationType : null,
           status: "pending", // Default status for guest
         };
-      });
+      })
+      .filter((g) => g !== null);
 
     if (guestsToInsert.length > 0) {
-      const { error: guestError } = await supabase
+      console.log(
+        "DEBUG - About to insert guests:",
+        JSON.stringify(guestsToInsert, null, 2),
+      );
+
+      const { data, error: guestError } = await supabase
         .from("guests")
-        .insert(guestsToInsert);
+        .insert(guestsToInsert)
+        .select();
+
+      console.log("DEBUG - Insert result:", { data, error: guestError });
 
       if (guestError) {
         console.error("Error creating guests:", guestError);
@@ -136,7 +158,8 @@ export async function updateHousehold(
   const email = formData.get("email") as string;
   const phone = formData.get("phone") as string;
 
-  const { error } = await supabase
+  // 1. Update household info
+  const { error: householdError } = await supabase
     .from("households")
     .update({
       name,
@@ -145,9 +168,76 @@ export async function updateHousehold(
     })
     .eq("id", householdId);
 
-  if (error) {
-    console.error("Error updating household:", error);
+  if (householdError) {
+    console.error("Error updating household:", householdError);
     return { success: false, error: "Erreur lors de la modification." };
+  }
+
+  // 2. Update guests (delete all and recreate)
+  // This is simpler than trying to match/update individual guests
+  const guestNamesRaw = formData.getAll("guest_names") as string[];
+  const guestRelationsRaw = formData.getAll("guest_relations") as string[];
+
+  if (guestNamesRaw && guestNamesRaw.length > 0) {
+    // First, delete existing guests
+    const { error: deleteError } = await supabase
+      .from("guests")
+      .delete()
+      .eq("household_id", householdId);
+
+    if (deleteError) {
+      console.error("Error deleting old guests:", deleteError);
+      return {
+        success: false,
+        error: "Erreur lors de la mise à jour des invités.",
+      };
+    }
+
+    // Get wedding_id from user
+    const {
+      data: { user },
+    } = await supabase.auth.getUser();
+    const weddingId = user?.id;
+
+    if (!weddingId) {
+      return { success: false, error: "Utilisateur non connecté" };
+    }
+
+    // Then, create new guests with updated info
+    const guestsToInsert = guestNamesRaw
+      .map((fullName, index) => {
+        if (!fullName || !fullName.trim()) return null;
+
+        const parts = fullName.trim().split(" ");
+        const firstName = parts[0];
+        const lastName = parts.slice(1).join(" ") || ".";
+        const relationType = guestRelationsRaw[index] || null;
+
+        return {
+          wedding_id: weddingId,
+          household_id: householdId,
+          first_name: firstName,
+          last_name: lastName,
+          relation_type:
+            relationType && relationType !== "" ? relationType : null,
+          status: "pending",
+        };
+      })
+      .filter((g) => g !== null);
+
+    if (guestsToInsert.length > 0) {
+      const { error: insertError } = await supabase
+        .from("guests")
+        .insert(guestsToInsert);
+
+      if (insertError) {
+        console.error("Error creating updated guests:", insertError);
+        return {
+          success: false,
+          error: "Erreur lors de la mise à jour des invités.",
+        };
+      }
+    }
   }
 
   revalidatePath("/guests");

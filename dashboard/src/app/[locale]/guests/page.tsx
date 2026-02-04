@@ -20,7 +20,7 @@ export default async function GuestsPage() {
   // Fetch households with their guests to count them
   const { data: households, error } = await supabase
     .from("households")
-    .select("*, guests(id, first_name, last_name)")
+    .select("*, guests(id, first_name, last_name, relation_type)")
     .order("created_at", { ascending: false });
 
   if (error) {

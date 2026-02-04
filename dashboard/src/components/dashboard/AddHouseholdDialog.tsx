@@ -1,6 +1,7 @@
 "use client";
 
 import { createHousehold, updateHousehold } from "@/actions/guest-actions";
+import { Guest } from "@/types";
 import { Button } from "@shared/components/ui/button";
 import {
   Dialog,
@@ -24,7 +25,7 @@ interface AddHouseholdDialogProps {
     name: string;
     email?: string;
     phone?: string;
-    guests: { first_name: string; last_name: string }[];
+    guests: Guest[];
   };
   trigger?: React.ReactNode;
   open?: boolean;
@@ -51,26 +52,31 @@ export function AddHouseholdDialog({
   const isEdit = !!household;
 
   // Initialize guests based on edit mode or default
-  const initialGuests = household?.guests?.map((g) =>
-    `${g.first_name} ${g.last_name}`.trim(),
-  ) || [""];
-  if (initialGuests.length === 0) initialGuests.push("");
+  const initialGuests = household?.guests?.map((g) => ({
+    name: `${g.first_name} ${g.last_name}`.trim(),
+    relationType: g.relation_type || "",
+  })) || [{ name: "", relationType: "" }];
+  if (initialGuests.length === 0)
+    initialGuests.push({ name: "", relationType: "" });
 
-  const [guests, setGuests] = useState<string[]>(initialGuests);
+  const [guests, setGuests] =
+    useState<{ name: string; relationType: string }[]>(initialGuests);
 
   // Reset state when opening/closing or when household changes
   useEffect(() => {
     if (open) {
-      const resetGuests = household?.guests?.map((g) =>
-        `${g.first_name} ${g.last_name}`.trim(),
-      ) || [""];
-      if (resetGuests.length === 0) resetGuests.push("");
+      const resetGuests = household?.guests?.map((g) => ({
+        name: `${g.first_name} ${g.last_name}`.trim(),
+        relationType: g.relation_type || "",
+      })) || [{ name: "", relationType: "" }];
+      if (resetGuests.length === 0)
+        resetGuests.push({ name: "", relationType: "" });
       setGuests(resetGuests);
     }
   }, [open, household]);
 
   const handleAddGuest = () => {
-    setGuests([...guests, ""]);
+    setGuests([...guests, { name: "", relationType: "" }]);
   };
 
   const handleRemoveGuest = (index: number) => {
@@ -79,11 +85,32 @@ export function AddHouseholdDialog({
     setGuests(newGuests);
   };
 
-  const handleGuestChange = (index: number, value: string) => {
+  const handleGuestChange = (
+    index: number,
+    field: "name" | "relationType",
+    value: string,
+  ) => {
     const newGuests = [...guests];
-    newGuests[index] = value;
+    newGuests[index][field] = value;
     setGuests(newGuests);
   };
+
+  // Relation type options with French labels
+  const relationTypeOptions = [
+    { value: "", label: "Non spécifié" },
+    { value: "partner", label: "Conjoint(e)" },
+    { value: "spouse", label: "Époux/Épouse" },
+    { value: "child", label: "Enfant" },
+    { value: "parent", label: "Parent" },
+    { value: "sibling", label: "Frère/Sœur" },
+    { value: "grandparent", label: "Grand-parent" },
+    { value: "grandchild", label: "Petit-enfant" },
+    { value: "family", label: "Famille élargie" },
+    { value: "friend", label: "Ami(e)" },
+    { value: "colleague", label: "Collègue" },
+    { value: "plus_one", label: "Accompagnant(e)" },
+    { value: "other", label: "Autre" },
+  ];
 
   async function handleSubmit(formData: FormData) {
     if (isSubmittingRef.current) return;
@@ -106,7 +133,7 @@ export function AddHouseholdDialog({
           );
         }
         setOpen(false);
-        if (!isEdit) setGuests([""]); // Reset only on create
+        if (!isEdit) setGuests([{ name: "", relationType: "" }]); // Reset only on create
       } else {
         toast.error(result.error || "Erreur inconnue");
       }
@@ -135,7 +162,7 @@ export function AddHouseholdDialog({
           )}
         </DialogTrigger>
       )}
-      <DialogContent className='sm:max-w-[425px] overflow-y-auto max-h-[90vh]'>
+      <DialogContent className='sm:max-w-[600px] overflow-y-auto max-h-[90vh]'>
         <DialogHeader>
           <DialogTitle>{isEdit ? t("edit_title") : t("add_title")}</DialogTitle>
           <DialogDescription>
@@ -178,30 +205,65 @@ export function AddHouseholdDialog({
 
           <div className='grid gap-2'>
             <Label>{t("guests_section")}</Label>
-            <div className='space-y-2'>
+            <div className='space-y-3'>
               {guests.map((guest, index) => (
                 <div
                   key={index}
-                  className='flex gap-2'
+                  className='p-3 bg-stone-50 rounded-lg border border-stone-200 space-y-2'
                 >
-                  <Input
-                    name='guest_names'
-                    placeholder={t("guest_placeholder", { index: index + 1 })}
-                    value={guest}
-                    onChange={(e) => handleGuestChange(index, e.target.value)}
-                    required
-                  />
-                  {guests.length > 1 && (
-                    <Button
-                      type='button'
-                      variant='ghost'
-                      size='icon'
-                      onClick={() => handleRemoveGuest(index)}
-                      className='text-red-400 hover:text-red-600 hover:bg-red-50'
+                  <div className='flex gap-2'>
+                    <div className='flex-1'>
+                      <Input
+                        name='guest_names'
+                        placeholder={t("guest_placeholder", {
+                          index: index + 1,
+                        })}
+                        value={guest.name}
+                        onChange={(e) =>
+                          handleGuestChange(index, "name", e.target.value)
+                        }
+                        required
+                        className='bg-white'
+                      />
+                    </div>
+                    {guests.length > 1 && (
+                      <Button
+                        type='button'
+                        variant='ghost'
+                        size='icon'
+                        onClick={() => handleRemoveGuest(index)}
+                        className='text-red-400 hover:text-red-600 hover:bg-red-50'
+                      >
+                        <Trash2 size={16} />
+                      </Button>
+                    )}
+                  </div>
+                  <div className='grid gap-1.5'>
+                    <Label
+                      htmlFor={`relation-${index}`}
+                      className='text-xs text-muted-foreground'
                     >
-                      <Trash2 size={16} />
-                    </Button>
-                  )}
+                      Type de relation
+                    </Label>
+                    <select
+                      id={`relation-${index}`}
+                      name='guest_relations'
+                      value={guest.relationType}
+                      onChange={(e) =>
+                        handleGuestChange(index, "relationType", e.target.value)
+                      }
+                      className='w-full h-9 rounded-md border border-input bg-white px-3 py-1 text-sm shadow-sm transition-colors focus:outline-none focus:ring-1 focus:ring-ring'
+                    >
+                      {relationTypeOptions.map((option) => (
+                        <option
+                          key={option.value}
+                          value={option.value}
+                        >
+                          {option.label}
+                        </option>
+                      ))}
+                    </select>
+                  </div>
                 </div>
               ))}
             </div>

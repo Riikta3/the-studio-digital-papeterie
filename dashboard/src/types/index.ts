@@ -5,6 +5,20 @@ export type ActionResult =
 
 export type HouseholdStatus = "pending" | "confirmed" | "declined" | "partial";
 
+export type GuestRelationType =
+  | "partner" // Conjoint(e) / Partenaire
+  | "spouse" // Époux/Épouse
+  | "child" // Enfant
+  | "parent" // Parent
+  | "sibling" // Frère/Sœur
+  | "grandparent" // Grand-parent
+  | "grandchild" // Petit-enfant
+  | "family" // Autre famille (oncle, tante, cousin, etc.)
+  | "friend" // Ami(e)
+  | "colleague" // Collègue
+  | "plus_one" // Plus-un / Accompagnant(e)
+  | "other"; // Autre
+
 export interface Household {
   id: string;
   wedding_id: string;
@@ -29,6 +43,7 @@ export interface Guest {
   last_name: string;
   email: string | null;
   status: "pending" | "confirmed" | "declined";
+  relation_type: GuestRelationType | null;
   is_child: boolean;
   is_plus_one: boolean;
   dietary_requirements: string | null;
