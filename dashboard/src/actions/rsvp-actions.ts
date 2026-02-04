@@ -124,3 +124,82 @@ export async function updateHouseholdRsvp(
 
   return { success: true };
 }
+
+// OPEN MODE: Register a new household and guests
+export async function registerNewHousehold(
+  weddingId: string,
+  formData: FormData,
+) {
+  const adminClient = await import("@supabase/supabase-js").then(
+    ({ createClient }) =>
+      createClient(
+        process.env.NEXT_PUBLIC_SUPABASE_URL!,
+        process.env.SUPABASE_SERVICE_ROLE_KEY!,
+      ),
+  );
+
+  const name = formData.get("name") as string;
+  const email = formData.get("email") as string;
+  const song = formData.get("song") as string;
+  const transport = formData.get("transport") as string;
+  const message = formData.get("message") as string;
+
+  // 1. Create Household
+  const { data: householdData, error: hhError } = await adminClient
+    .from("households")
+    .insert({
+      wedding_id: weddingId,
+      name,
+      email: email || null,
+      song_request: song,
+      transportation: transport,
+      message_to_couple: message,
+      status: "pending", // Waiting for validation
+      source: "public",
+    })
+    .select()
+    .single();
+
+  if (hhError) {
+    console.error(hhError);
+    return { success: false, error: "Erreur lors de la création." };
+  }
+
+  // 2. Parse and Insert Guests
+  // We expect inputs like:
+  // guests[0][first_name], guests[0][last_name], guests[0][dietary]
+  // OR simpler: guest_0_firstname, guest_0_lastname, guest_0_status
+  const guestsToInsert = [];
+
+  // Naive parsing: loop 0 to 20 to find guests
+  for (let i = 0; i < 20; i++) {
+    const firstName = formData.get(`guest_${i}_firstname`) as string;
+    const lastName = formData.get(`guest_${i}_lastname`) as string;
+    const status = formData.get(`guest_${i}_status`) as string;
+    const dietary = formData.get(`guest_${i}_dietary`) as string;
+
+    if (firstName) {
+      guestsToInsert.push({
+        wedding_id: weddingId,
+        household_id: householdData.id,
+        first_name: firstName,
+        last_name: lastName || ".",
+        status: status || "confirmed", // If they register, they usually come
+        dietary_requirements: dietary,
+      });
+    }
+  }
+
+  if (guestsToInsert.length > 0) {
+    const { error: gError } = await adminClient
+      .from("guests")
+      .insert(guestsToInsert);
+
+    if (gError) {
+      console.error(gError);
+      // We don't rollback for now, but in prod we should
+    }
+  }
+
+  return { success: true };
+}

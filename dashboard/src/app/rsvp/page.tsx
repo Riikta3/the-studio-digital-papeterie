@@ -1,6 +1,7 @@
 "use client";
 
 import {
+  registerNewHousehold,
   searchHousehold,
   updateHouseholdRsvp,
   validateWeddingCode,
@@ -8,14 +9,14 @@ import {
 import { Button } from "@shared/components/ui/button";
 import { Input } from "@shared/components/ui/input";
 import { Label } from "@shared/components/ui/label";
-import { Loader2 } from "lucide-react";
+import { Loader2, Plus, Trash2 } from "lucide-react";
 import { useState } from "react";
 import { toast } from "sonner";
 
 export default function RsvpPage() {
-  const [step, setStep] = useState<"code" | "search" | "form" | "success">(
-    "code",
-  );
+  const [step, setStep] = useState<
+    "code" | "search" | "form" | "register" | "success"
+  >("code");
   const [loading, setLoading] = useState(false);
   const [weddingId, setWeddingId] = useState<string | null>(null);
   const [coupleNames, setCoupleNames] = useState<string | null>(null);
@@ -23,11 +24,21 @@ export default function RsvpPage() {
   const [searchResults, setSearchResults] = useState<any[]>([]);
   const [selectedHousehold, setSelectedHousehold] = useState<any | null>(null);
 
+  // Registration State
+  const [newGuests, setNewGuests] = useState<
+    Array<{
+      id: number;
+      firstName: string;
+      lastName: string;
+      status: string;
+      dietary: string;
+    }>
+  >([{ id: 0, firstName: "", lastName: "", status: "confirmed", dietary: "" }]);
+
   // STEP 1: Validate Code
   async function handleCodeSubmit(formData: FormData) {
     setLoading(true);
     const code = formData.get("code") as string;
-
     try {
       const result = await validateWeddingCode(code);
       if (result.success && result.weddingId) {
@@ -50,14 +61,15 @@ export default function RsvpPage() {
     if (!weddingId) return;
     setLoading(true);
     const query = formData.get("name") as string;
-
     try {
       const result = await searchHousehold(weddingId, query as string);
       if (result.success && result.households) {
-        if (result.households.length === 0) {
-          toast.error("Aucun foyer trouvé. Essayez juste le nom de famille.");
-        } else {
-          setSearchResults(result.households);
+        setSearchResults(result.households || []);
+        if (result.households?.length === 0) {
+          toast.info(
+            "Aucun foyer trouvé. Vous pouvez vous enregistrer manuellement.",
+            { duration: 4000 },
+          );
         }
       }
     } catch (e) {
@@ -73,11 +85,10 @@ export default function RsvpPage() {
     setStep("form");
   }
 
-  // STEP 3: Submit Update
+  // STEP 3: Submit Update (Existing Household)
   async function handleRsvpSubmit(formData: FormData) {
     if (!weddingId || !selectedHousehold) return;
     setLoading(true);
-
     try {
       const result = await updateHouseholdRsvp(
         weddingId,
@@ -87,7 +98,7 @@ export default function RsvpPage() {
       if (result.success) {
         setStep("success");
       } else {
-        toast.error(result.error || "Erreur lors de l'enregistrement");
+        toast.error(result.error || "Erreur");
       }
     } catch (e) {
       console.error(e);
@@ -97,7 +108,55 @@ export default function RsvpPage() {
     }
   }
 
-  // ... RENDER STEPS ...
+  // STEP 4: Submit New Registration
+  async function handleRegisterSubmit(formData: FormData) {
+    if (!weddingId) return;
+    setLoading(true);
+
+    // Check if at least one guest name
+    if (!newGuests[0].firstName) {
+      toast.error("Veuillez indiquer au moins un invité");
+      setLoading(false);
+      return;
+    }
+
+    try {
+      const result = await registerNewHousehold(weddingId, formData);
+      if (result.success) {
+        setStep("success");
+      } else {
+        toast.error(result.error || "Erreur");
+      }
+    } catch (e) {
+      console.error(e);
+      toast.error("Erreur technique");
+    } finally {
+      setLoading(false);
+    }
+  }
+
+  // Helper for new guests
+  const addGuestField = () => {
+    setNewGuests([
+      ...newGuests,
+      {
+        id: newGuests.length,
+        firstName: "",
+        lastName: "",
+        status: "confirmed",
+        dietary: "",
+      },
+    ]);
+  };
+
+  const removeGuestField = (index: number) => {
+    if (newGuests.length > 1) {
+      const updated = newGuests.filter((_, i) => i !== index);
+      setNewGuests(updated);
+    }
+  };
+
+  // RENDER
 
   if (step === "code") {
     return (
@@ -128,7 +187,7 @@ export default function RsvpPage() {
               className='w-full h-12 font-heading text-lg'
               disabled={loading}
             >
-              {loading ? <Loader2 className='animate-spin mr-2' /> : null}
+              {loading ? <Loader2 className='animate-spin mr-2' /> : null}{" "}
               Accéder
             </Button>
           </form>
@@ -175,7 +234,7 @@ export default function RsvpPage() {
           </form>
 
           {searchResults.length > 0 && (
-            <div className='space-y-2 text-left'>
+            <div className='space-y-2 text-left animate-in fade-in slide-in-from-bottom-2'>
               <p className='text-sm text-muted-foreground ml-1'>
                 Sélectionnez votre foyer :
               </p>
@@ -195,15 +254,199 @@ export default function RsvpPage() {
               ))}
             </div>
           )}
+
+          <div className='relative pt-4'>
+            <div className='absolute inset-0 flex items-center'>
+              <span className='w-full border-t border-gray-300' />
+            </div>
+            <div className='relative flex justify-center text-xs uppercase'>
+              <span className='bg-[#FDFBF7] px-2 text-gray-500'>Ou</span>
+            </div>
+          </div>
+
+          <Button
+            variant='outline'
+            className='w-full'
+            onClick={() => setStep("register")}
+          >
+            Je ne suis pas dans la liste / Je m&apos;inscris
+          </Button>
         </div>
       </div>
     );
   }
 
+  // REGISTER NEW HOUSEHOLD
+  if (step === "register") {
+    return (
+      <div className='min-h-screen bg-[#FDFBF7] py-12 px-4 sm:px-6 lg:px-8'>
+        <div className='max-w-2xl mx-auto'>
+          <div className='text-center mb-10'>
+            <h2 className='text-sm font-semibold text-primary tracking-widest uppercase'>
+              Nouvel Enregistrement
+            </h2>
+            <h1 className='font-heading text-5xl mt-2 text-gray-900'>
+              Votre Foyer
+            </h1>
+          </div>
+
+          <form
+            action={handleRegisterSubmit}
+            className='bg-white shadow-sm rounded-xl border border-stone-100 overflow-hidden'
+          >
+            <div className='p-8 space-y-10'>
+              {/* Main Details */}
+              <div className='space-y-4'>
+                <h3 className='font-heading text-2xl text-gray-800 border-b border-stone-100 pb-2'>
+                  Coordonnées
+                </h3>
+                <div className='grid grid-cols-1 md:grid-cols-2 gap-4'>
+                  <div className='space-y-2'>
+                    <Label>Nom du Foyer (ex: Famille Dupont)</Label>
+                    <Input
+                      name='name'
+                      placeholder='Famille ... / Couple ...'
+                      required
+                    />
+                  </div>
+                  <div className='space-y-2'>
+                    <Label>Email</Label>
+                    <Input
+                      name='email'
+                      placeholder='votre@email.com'
+                      required
+                    />
+                  </div>
+                </div>
+              </div>
+
+              {/* Dynamic Guests */}
+              <div className='space-y-6'>
+                <div className='flex justify-between items-center border-b border-stone-100 pb-2'>
+                  <h3 className='font-heading text-2xl text-gray-800'>
+                    Invités
+                  </h3>
+                  <Button
+                    type='button'
+                    variant='outline'
+                    size='sm'
+                    onClick={addGuestField}
+                  >
+                    <Plus className='w-4 h-4 mr-2' /> Ajouter une personne
+                  </Button>
+                </div>
+
+                {newGuests.map((guest, index) => (
+                  <div
+                    key={index}
+                    className='p-4 bg-stone-50 rounded-lg border border-stone-100 space-y-4 relative group'
+                  >
+                    {index > 0 && (
+                      <button
+                        type='button'
+                        onClick={() => removeGuestField(index)}
+                        className='absolute top-4 right-4 text-gray-400 hover:text-red-500'
+                      >
+                        <Trash2 className='w-4 h-4' />
+                      </button>
+                    )}
+                    <div className='grid grid-cols-1 md:grid-cols-2 gap-4'>
+                      <div className='space-y-2'>
+                        <Label>Prénom *</Label>
+                        <Input
+                          name={`guest_${index}_firstname`}
+                          required
+                          onChange={(e) => {
+                            const updated = [...newGuests];
+                            updated[index].firstName = e.target.value;
+                            setNewGuests(updated);
+                          }}
+                        />
+                      </div>
+                      <div className='space-y-2'>
+                        <Label>Nom</Label>
+                        <Input
+                          name={`guest_${index}_lastname`}
+                          placeholder='.'
+                        />
+                      </div>
+                    </div>
+                    <div className='grid grid-cols-1 md:grid-cols-2 gap-4'>
+                      <div className='space-y-2'>
+                        <Label>Présence</Label>
+                        <select
+                          name={`guest_${index}_status`}
+                          className='w-full h-10 rounded-md border border-input bg-background px-3 py-2 text-sm'
+                        >
+                          <option value='confirmed'>Sera présent(e)</option>
+                          <option value='declined'>Ne viendra pas</option>
+                        </select>
+                      </div>
+                      <div className='space-y-2'>
+                        <Label>Régime / Allergies</Label>
+                        <Input
+                          name={`guest_${index}_dietary`}
+                          placeholder='Ex: Sans gluten'
+                        />
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+
+              {/* Common Details (Same as update) */}
+              <div className='space-y-6'>
+                <div className='space-y-2'>
+                  <Label>Une chanson ?</Label>
+                  <Input
+                    name='song'
+                    placeholder='Artiste - Titre'
+                  />
+                </div>
+                <div className='space-y-2'>
+                  <Label>Message</Label>
+                  <textarea
+                    name='message'
+                    className='w-full min-h-[80px] rounded-md border border-input bg-background px-3 py-2 text-sm'
+                    placeholder='Un petit mot pour les mariés...'
+                  ></textarea>
+                </div>
+              </div>
+            </div>
+
+            <div className='bg-gray-50 px-8 py-6 border-t border-gray-100 flex justify-between items-center'>
+              <button
+                type='button'
+                onClick={() => setStep("search")}
+                className='text-sm text-gray-500 hover:underline'
+              >
+                Annuler
+              </button>
+              <Button
+                type='submit'
+                size='lg'
+                className='px-8'
+                disabled={loading}
+              >
+                {loading ? (
+                  <Loader2 className='mr-2 h-4 w-4 animate-spin' />
+                ) : (
+                  "Valider mon inscription"
+                )}
+              </Button>
+            </div>
+          </form>
+        </div>
+      </div>
+    );
+  }
+
+  // FORM UPDATE EXISTING (Step "form")
   if (step === "form" && selectedHousehold) {
     return (
       <div className='min-h-screen bg-[#FDFBF7] py-12 px-4 sm:px-6 lg:px-8'>
         <div className='max-w-2xl mx-auto'>
+          {/* ... Header similar to register ... */}
           <div className='text-center mb-10'>
             <h2 className='text-sm font-semibold text-primary tracking-widest uppercase'>
               Réponse pour
@@ -218,28 +461,25 @@ export default function RsvpPage() {
             className='bg-white shadow-sm rounded-xl border border-stone-100 overflow-hidden'
           >
             <div className='p-8 space-y-10'>
-              {/* Section Update Main Contact */}
+              {/* Contact */}
               <div className='space-y-4'>
                 <h3 className='font-heading text-2xl text-gray-800 border-b border-stone-100 pb-2'>
                   Email de contact
                 </h3>
-                <div className='space-y-2'>
-                  <Label htmlFor='email'>Email pour recevoir les infos</Label>
-                  <Input
-                    id='email'
-                    name='email'
-                    defaultValue={selectedHousehold.email || ""}
-                    placeholder='votre@email.com'
-                  />
-                </div>
+                <Input
+                  id='email'
+                  name='email'
+                  defaultValue={selectedHousehold.email || ""}
+                  placeholder='votre@email.com'
+                  required
+                />
               </div>
 
-              {/* Section Guests Loop */}
+              {/* Guests Loop */}
               <div className='space-y-6'>
                 <h3 className='font-heading text-2xl text-gray-800 border-b border-stone-100 pb-2'>
                   Invités
                 </h3>
-
                 {selectedHousehold.guests?.map((guest: any) => (
                   <div
                     key={guest.id}
@@ -251,7 +491,6 @@ export default function RsvpPage() {
                         {guest.last_name !== "." ? guest.last_name : ""}
                       </span>
                     </div>
-
                     <div className='grid grid-cols-1 md:grid-cols-2 gap-4'>
                       <div className='space-y-2'>
                         <Label>Présence *</Label>
@@ -283,22 +522,17 @@ export default function RsvpPage() {
                 ))}
               </div>
 
-              {/* Section Common Details */}
+              {/* Common */}
               <div className='space-y-6'>
-                {/* Song */}
                 <div className='space-y-2'>
-                  <Label className='flex items-center gap-2'>
-                    <span>🎵</span> Une chanson incontournable ?
-                  </Label>
+                  <Label>Une chanson ?</Label>
                   <Input
                     name='song'
                     placeholder='Artiste - Titre'
                     defaultValue={selectedHousehold.song_request || ""}
                   />
                 </div>
-
-                {/* Transport */}
-                <div className='space-y-3'>
+                <div className='space-y-2'>
                   <Label>Transport</Label>
                   <div className='flex flex-col gap-2'>
                     <label className='flex items-center space-x-2'>
@@ -327,16 +561,13 @@ export default function RsvpPage() {
                     </label>
                   </div>
                 </div>
-
-                {/* Message */}
-                <div className='space-y-2 pt-4'>
-                  <Label htmlFor='message'>Message pour les mariés</Label>
+                <div className='space-y-2'>
+                  <Label>Message</Label>
                   <textarea
-                    id='message'
                     name='message'
-                    className='w-full min-h-[100px] rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus:ring-2 focus:ring-ring'
+                    className='w-full min-h-[80px] rounded-md border border-input bg-background px-3 py-2 text-sm'
                     defaultValue={selectedHousehold.message_to_couple || ""}
-                  ></textarea>
+                  />
                 </div>
               </div>
             </div>
@@ -349,10 +580,7 @@ export default function RsvpPage() {
                 disabled={loading}
               >
                 {loading ? (
-                  <>
-                    <Loader2 className='mr-2 h-4 w-4 animate-spin' />
-                    Envoi en cours...
-                  </>
+                  <Loader2 className='mr-2 h-4 w-4 animate-spin' />
                 ) : (
                   "Confirmer ma réponse"
                 )}
@@ -364,7 +592,6 @@ export default function RsvpPage() {
     );
   }
 
-  // Success Step (Same as before)
   if (step === "success") {
     return (
       <div className='min-h-screen flex items-center justify-center bg-[#FDFBF7] p-4'>
@@ -397,5 +624,5 @@ export default function RsvpPage() {
     );
   }
 
-  return <div>Loading...</div>; // Should not happen
+  return <div>Loading...</div>;
 }
