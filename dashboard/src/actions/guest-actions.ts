@@ -1,9 +1,12 @@
 "use server";
 
+import { ActionResult } from "@/types";
 import { createClient } from "@/utils/supabase/server";
 import { revalidatePath } from "next/cache";
 
-export async function createHousehold(formData: FormData) {
+export async function createHousehold(
+  formData: FormData,
+): Promise<ActionResult> {
   const supabase = await createClient();
 
   const name = formData.get("name") as string;
@@ -89,7 +92,9 @@ export async function createHousehold(formData: FormData) {
   return { success: true };
 }
 
-export async function deleteHousehold(householdId: string) {
+export async function deleteHousehold(
+  householdId: string,
+): Promise<ActionResult> {
   const supabase = await createClient();
 
   // 1. Delete associated guests first (Manual Cascade)
@@ -121,7 +126,10 @@ export async function deleteHousehold(householdId: string) {
   return { success: true };
 }
 
-export async function updateHousehold(householdId: string, formData: FormData) {
+export async function updateHousehold(
+  householdId: string,
+  formData: FormData,
+): Promise<ActionResult> {
   const supabase = await createClient();
 
   const name = formData.get("name") as string;

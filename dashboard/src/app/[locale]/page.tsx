@@ -1,3 +1,4 @@
+import { Link } from "@/navigation";
 import { createClient } from "@/utils/supabase/server";
 import { Button } from "@shared/components/ui/button";
 import {
@@ -10,7 +11,6 @@ import {
   Users,
 } from "lucide-react";
 import { getTranslations } from "next-intl/server";
-import Link from "next/link";
 import { redirect } from "next/navigation";
 
 export default async function DashboardHome() {

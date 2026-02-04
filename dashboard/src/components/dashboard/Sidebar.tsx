@@ -1,5 +1,6 @@
 "use client";
 
+import { Link, usePathname } from "@/navigation";
 import { Button } from "@shared/components/ui/button";
 import { cn } from "@shared/lib/utils";
 import {
@@ -13,8 +14,6 @@ import {
   X,
 } from "lucide-react";
 import { useTranslations } from "next-intl";
-import Link from "next/link";
-import { usePathname } from "next/navigation";
 import { useState } from "react";
 
 const navItems = [

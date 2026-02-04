@@ -129,5 +129,10 @@
     "settings": "Settings",
     "view_site": "View my Site",
     "logout": "Logout"
+  },
+  "NotFound": {
+    "title": "Page not found",
+    "description": "Sorry, the page you are looking for does not exist.",
+    "back_home": "Back to home"
   }
 }

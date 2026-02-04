@@ -1,3 +1,8 @@
+// Server Action Result Types
+export type ActionResult =
+  | { success: true; warning?: string }
+  | { success: false; error: string };
+
 export type HouseholdStatus = "pending" | "confirmed" | "declined" | "partial";
 
 export interface Household {
