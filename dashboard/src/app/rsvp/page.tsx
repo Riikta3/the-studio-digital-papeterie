@@ -1,6 +1,10 @@
 "use client";
 
-import { validateWeddingCode } from "@/actions/rsvp-actions";
+import {
+  searchHousehold,
+  updateHouseholdRsvp,
+  validateWeddingCode,
+} from "@/actions/rsvp-actions";
 import { Button } from "@shared/components/ui/button";
 import { Input } from "@shared/components/ui/input";
 import { Label } from "@shared/components/ui/label";
