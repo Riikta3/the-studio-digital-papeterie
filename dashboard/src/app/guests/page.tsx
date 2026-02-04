@@ -40,6 +40,7 @@ export default async function GuestsPage() {
     email: h.email,
     phone: h.phone,
     status: h.status,
+    guests: h.guests || [],
     guestCount: h.guests ? h.guests.length : 0,
   }));
 
@@ -82,7 +83,9 @@ export default async function GuestsPage() {
               id={household.id}
               name={household.name}
               email={household.email}
+              phone={household.phone}
               guestCount={household.guestCount}
+              guests={household.guests}
               status={household.status}
             />
           ))

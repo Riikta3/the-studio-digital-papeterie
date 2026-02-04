@@ -24,6 +24,8 @@ html {
     --border: 40 10% 88%;
     --ring: 145 19% 36%;
     --radius: 1rem;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 210 40% 98%;
     --font-heading: var(--font-cormorant);
     --font-body: var(--font-inter);
     color-scheme: light;

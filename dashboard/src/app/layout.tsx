@@ -1,3 +1,4 @@
+import { Toaster } from "@shared/components/ui/sonner";
 import type { Metadata } from "next";
 import { Cormorant_Garamond, DM_Sans } from "next/font/google";
 import "./globals.css";
@@ -33,6 +34,7 @@ export default function RootLayout({
         className={`${cormorant.variable} ${dmSans.variable} font-body bg-[#FDFBF7] text-gray-900 antialiased`}
       >
         {children}
+        <Toaster />
       </body>
     </html>
   );

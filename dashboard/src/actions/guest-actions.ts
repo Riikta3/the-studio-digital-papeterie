@@ -88,3 +88,60 @@ export async function createHousehold(formData: FormData) {
   revalidatePath("/guests");
   return { success: true };
 }
+
+export async function deleteHousehold(householdId: string) {
+  const supabase = await createClient();
+
+  // 1. Delete associated guests first (Manual Cascade)
+  const { error: guestsError } = await supabase
+    .from("guests")
+    .delete()
+    .eq("household_id", householdId);
+
+  if (guestsError) {
+    console.error("Error deleting guests for household:", guestsError);
+    return {
+      success: false,
+      error: "Erreur lors de la suppression des invités.",
+    };
+  }
+
+  // 2. Delete the household
+  const { error } = await supabase
+    .from("households")
+    .delete()
+    .eq("id", householdId);
+
+  if (error) {
+    console.error("Error deleting household:", error);
+    return { success: false, error: "Erreur lors de la suppression du foyer." };
+  }
+
+  revalidatePath("/guests");
+  return { success: true };
+}
+
+export async function updateHousehold(householdId: string, formData: FormData) {
+  const supabase = await createClient();
+
+  const name = formData.get("name") as string;
+  const email = formData.get("email") as string;
+  const phone = formData.get("phone") as string;
+
+  const { error } = await supabase
+    .from("households")
+    .update({
+      name,
+      email: email || null,
+      phone: phone || null,
+    })
+    .eq("id", householdId);
+
+  if (error) {
+    console.error("Error updating household:", error);
+    return { success: false, error: "Erreur lors de la modification." };
+  }
+
+  revalidatePath("/guests");
+  return { success: true };
+}
