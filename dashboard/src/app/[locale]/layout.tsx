@@ -1,7 +1,10 @@
+import { DashboardLayout } from "@/components/dashboard/DashboardLayout";
 import { Toaster } from "@shared/components/ui/sonner";
 import type { Metadata } from "next";
+import { NextIntlClientProvider } from "next-intl";
+import { getMessages } from "next-intl/server";
 import { Cormorant_Garamond, DM_Sans } from "next/font/google";
-import "./globals.css";
+import "../globals.css";
 
 const cormorant = Cormorant_Garamond({
   subsets: ["latin"],
@@ -22,19 +25,26 @@ export const metadata: Metadata = {
   description: "L'élégance de la papeterie, la puissance du digital.",
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
+  params,
 }: Readonly<{
   children: React.ReactNode;
+  params: { locale: string };
 }>) {
+  const { locale } = await params;
+  const messages = await getMessages();
+
   return (
-    <html lang='fr'>
+    <html lang={locale}>
       <body
         suppressHydrationWarning
         className={`${cormorant.variable} ${dmSans.variable} font-body bg-[#FDFBF7] text-gray-900 antialiased`}
       >
-        {children}
-        <Toaster />
+        <NextIntlClientProvider messages={messages}>
+          <DashboardLayout>{children}</DashboardLayout>
+          <Toaster />
+        </NextIntlClientProvider>
       </body>
     </html>
   );

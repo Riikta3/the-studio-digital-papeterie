@@ -2,11 +2,11 @@ import { AddHouseholdDialog } from "@/components/dashboard/AddHouseholdDialog";
 import { GuestStats } from "@/components/dashboard/GuestStats";
 import { GuestsTable } from "@/components/dashboard/GuestsTable";
 import { createClient } from "@/utils/supabase/server";
-import { ArrowLeft } from "lucide-react";
-import Link from "next/link";
+import { getTranslations } from "next-intl/server";
 import { redirect } from "next/navigation";
 
 export default async function GuestsPage() {
+  const t = await getTranslations("Guests");
   const supabase = await createClient();
 
   const {
@@ -61,18 +61,10 @@ export default async function GuestsPage() {
       {/* Header */}
       <header className='flex flex-col md:flex-row justify-between items-start md:items-center gap-4 pb-4 border-b border-border'>
         <div className='space-y-1'>
-          <Link
-            href='/'
-            className='text-muted-foreground hover:text-foreground text-sm flex items-center gap-1 transition-colors mb-2'
-          >
-            <ArrowLeft className='w-4 h-4' /> Retour à l&apos;accueil
-          </Link>
           <h1 className='text-3xl md:text-4xl font-heading font-light text-foreground'>
-            Vos Invités
+            {t("title")}
           </h1>
-          <p className='text-muted-foreground'>
-            Gérez votre liste, suivez les réponses et organisez votre événement.
-          </p>
+          <p className='text-muted-foreground'>{t("subtitle")}</p>
         </div>
         <div className='flex gap-3'>
           <AddHouseholdDialog />

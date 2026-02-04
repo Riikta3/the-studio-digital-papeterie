@@ -1,0 +1,53 @@
+{
+  "Dashboard": {
+    "greeting": "Hello, {name}",
+    "settings": "Settings",
+    "view_site": "View my site",
+    "wedding_space": "Wedding Space",
+    "responses": "Responses",
+    "guests_confirmed": "{count} guests confirmed out of {total}",
+    "see_list": "View list",
+    "countdown": "Countdown",
+    "days_remaining": "D-{days}",
+    "almost_there": "Almost there!",
+    "big_day": "It's the big day!",
+    "date_missing": "Date?",
+    "add_date": "Add wedding date",
+    "configure_now": "Configure now",
+    "next_step": "Next step: Send hotel info",
+    "to_validate": "To Validate",
+    "households_pending": "{count} households pending validation.",
+    "all_up_to_date": "All up to date!\nNo action required.",
+    "manage_requests": "Manage requests",
+    "recent_activity": "Recent Activity",
+    "online_signup": "Online signup",
+    "admin_add": "Added by admin",
+    "confirmed": "Confirmed",
+    "pending": "Pending",
+    "no_activity": "No recent activity.",
+    "quick_access": "Quick Access",
+    "guest_list": "Guest List",
+    "guest_desc": "Manage, add or remove.",
+    "settings_desc": "Date, code and preferences.",
+    "the_site": "The Site"
+  },
+  "Guests": {
+    "title": "Your Guests",
+    "add_household": "Add Household",
+    "back_home": "Back to home",
+    "search_placeholder": "Search...",
+    "filter_all": "All",
+    "filter_confirmed": "Confirmed",
+    "filter_pending": "Pending",
+    "filter_declined": "Declined"
+  },
+  "Sidebar": {
+    "home": "Home",
+    "guests": "Guests",
+    "messages": "Messages",
+    "billing": "Billing",
+    "settings": "Settings",
+    "view_site": "View my Site",
+    "logout": "Logout"
+  }
+}

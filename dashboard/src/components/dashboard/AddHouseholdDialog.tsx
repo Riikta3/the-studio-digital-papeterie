@@ -14,6 +14,7 @@ import {
 import { Input } from "@shared/components/ui/input";
 import { Label } from "@shared/components/ui/label";
 import { Loader2, Plus, Trash2 } from "lucide-react";
+import { useTranslations } from "next-intl";
 import { useEffect, useRef, useState } from "react";
 import { toast } from "sonner";
 
@@ -38,6 +39,7 @@ export function AddHouseholdDialog({
   onOpenChange,
   hideTrigger,
 }: AddHouseholdDialogProps) {
+  const t = useTranslations("AddHouseholdDialog");
   const [internalOpen, setInternalOpen] = useState(false);
   const [loading, setLoading] = useState(false);
   const isSubmittingRef = useRef(false);
@@ -88,8 +90,6 @@ export function AddHouseholdDialog({
     isSubmittingRef.current = true;
     setLoading(true);
     try {
-      // Ensure guest values are appended if using manual method, or rely on distinct named inputs
-      // Since we use name='guest_names' on multiple inputs, FormData handles it as an array (getAll)
       let result;
       if (isEdit && household) {
         result = await updateHousehold(household.id, formData);
@@ -102,7 +102,7 @@ export function AddHouseholdDialog({
           toast.warning(result.warning);
         } else {
           toast.success(
-            isEdit ? "Foyer modifié avec succès" : "Foyer ajouté avec succès",
+            isEdit ? t("toast_success_edit") : t("toast_success_create"),
           );
         }
         setOpen(false);
@@ -112,7 +112,7 @@ export function AddHouseholdDialog({
       }
     } catch (error) {
       console.error(error);
-      toast.error("Erreur technique lors de l'enregistrement");
+      toast.error(t("toast_error"));
     } finally {
       setLoading(false);
       isSubmittingRef.current = false;
@@ -130,20 +130,16 @@ export function AddHouseholdDialog({
             trigger
           ) : (
             <Button className='bg-primary text-primary-foreground hover:bg-primary/90'>
-              <Plus className='w-4 h-4 mr-2' /> Ajouter un foyer
+              <Plus className='w-4 h-4 mr-2' /> {t("trigger_btn")}
             </Button>
           )}
         </DialogTrigger>
       )}
       <DialogContent className='sm:max-w-[425px] overflow-y-auto max-h-[90vh]'>
         <DialogHeader>
-          <DialogTitle>
-            {isEdit ? "Modifier le foyer" : "Ajouter un foyer"}
-          </DialogTitle>
+          <DialogTitle>{isEdit ? t("edit_title") : t("add_title")}</DialogTitle>
           <DialogDescription>
-            {isEdit
-              ? "Modifiez les informations du foyer et des invités."
-              : 'Créez une nouvelle "enveloppe" regroupant un ou plusieurs invités.'}
+            {isEdit ? t("edit_desc") : t("add_desc")}
           </DialogDescription>
         </DialogHeader>
         <form
@@ -151,37 +147,37 @@ export function AddHouseholdDialog({
           className='grid gap-4 py-4'
         >
           <div className='grid gap-2'>
-            <Label htmlFor='name'>Nom du foyer / Famille *</Label>
+            <Label htmlFor='name'>{t("name_label")}</Label>
             <Input
               id='name'
               name='name'
-              placeholder='Ex: Famille Dupont ou Alice & Bob'
+              placeholder={t("name_placeholder")}
               required
               defaultValue={household?.name}
             />
           </div>
           <div className='grid gap-2'>
-            <Label htmlFor='email'>Email principal (Optionnel)</Label>
+            <Label htmlFor='email'>{t("email_label")}</Label>
             <Input
               id='email'
               name='email'
               type='email'
-              placeholder='Pour envoyer les invitations'
+              placeholder={t("email_placeholder")}
               defaultValue={household?.email}
             />
           </div>
           <div className='grid gap-2'>
-            <Label htmlFor='phone'>Téléphone (Optionnel)</Label>
+            <Label htmlFor='phone'>{t("phone_label")}</Label>
             <Input
               id='phone'
               name='phone'
-              placeholder='06 12 34 56 78'
+              placeholder={t("phone_placeholder")}
               defaultValue={household?.phone}
             />
           </div>
 
           <div className='grid gap-2'>
-            <Label>Invités</Label>
+            <Label>{t("guests_section")}</Label>
             <div className='space-y-2'>
               {guests.map((guest, index) => (
                 <div
@@ -190,7 +186,7 @@ export function AddHouseholdDialog({
                 >
                   <Input
                     name='guest_names'
-                    placeholder={`Invité ${index + 1}`}
+                    placeholder={t("guest_placeholder", { index: index + 1 })}
                     value={guest}
                     onChange={(e) => handleGuestChange(index, e.target.value)}
                     required
@@ -220,7 +216,7 @@ export function AddHouseholdDialog({
                 size={14}
                 className='mr-2'
               />{" "}
-              Ajouter un invité
+              {t("add_guest_btn")}
             </Button>
           </div>
 
@@ -232,12 +228,12 @@ export function AddHouseholdDialog({
               {loading ? (
                 <>
                   <Loader2 className='mr-2 h-4 w-4 animate-spin' />
-                  {isEdit ? "Modification..." : "Création..."}
+                  {isEdit ? t("submitting_edit") : t("submitting_create")}
                 </>
               ) : isEdit ? (
-                "Enregistrer"
+                t("submit_edit")
               ) : (
-                "Ajouter le foyer"
+                t("submit_create")
               )}
             </Button>
           </DialogFooter>

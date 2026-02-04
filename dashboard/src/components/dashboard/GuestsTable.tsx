@@ -39,6 +39,7 @@ import {
   Trash2,
   Users,
 } from "lucide-react";
+import { useTranslations } from "next-intl";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { toast } from "sonner";
@@ -49,6 +50,7 @@ interface GuestsTableProps {
 }
 
 export function GuestsTable({ households }: GuestsTableProps) {
+  const t = useTranslations("GuestsTable");
   const router = useRouter();
   const [search, setSearch] = useState("");
   const [statusFilter, setStatusFilter] = useState<string>("all");
@@ -107,31 +109,31 @@ export function GuestsTable({ households }: GuestsTableProps) {
 
   const handleDelete = async () => {
     if (!deletingHousehold) return;
-    const toastId = toast.loading("Suppression en cours...");
+    const toastId = toast.loading(t("toast_deleting"));
     try {
       const result = await deleteHousehold(deletingHousehold.id);
       if (result.success) {
-        toast.success("Foyer supprimé !", { id: toastId });
+        toast.success(t("toast_deleted"), { id: toastId });
         setDeletingHousehold(null);
         router.refresh();
       } else {
         toast.error(result.error, { id: toastId });
       }
     } catch (e) {
-      toast.error("Erreur technique", { id: toastId });
+      toast.error(t("error_tech"), { id: toastId });
     }
   };
 
   const getStatusBadge = (status: string) => {
     switch (status) {
       case "confirmed":
-        return <Badge variant='success'>Confirmé</Badge>;
+        return <Badge variant='success'>{t("filter_confirmed")}</Badge>;
       case "declined":
-        return <Badge variant='destructive'>Décliné</Badge>;
+        return <Badge variant='destructive'>{t("filter_declined")}</Badge>;
       case "partial":
         return <Badge variant='warning'>Partiel</Badge>;
       default:
-        return <Badge variant='pending'>En attente</Badge>;
+        return <Badge variant='pending'>{t("filter_pending")}</Badge>;
     }
   };
 
@@ -151,7 +153,7 @@ export function GuestsTable({ households }: GuestsTableProps) {
         <div className='relative w-full sm:max-w-sm'>
           <Search className='absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground' />
           <Input
-            placeholder='Rechercher un foyer...'
+            placeholder={t("search_placeholder")}
             className='pl-9 bg-gray-50/50 border-gray-200'
             value={search}
             onChange={(e) => setSearch(e.target.value)}
@@ -167,12 +169,12 @@ export function GuestsTable({ households }: GuestsTableProps) {
               className='capitalize whitespace-nowrap'
             >
               {s === "all"
-                ? "Tous"
+                ? t("filter_all")
                 : s === "confirmed"
-                  ? "Confirmés"
+                  ? t("filter_confirmed")
                   : s === "declined"
-                    ? "Déclinés"
-                    : "En attente"}
+                    ? t("filter_declined")
+                    : t("filter_pending")}
             </Button>
           ))}
         </div>
@@ -189,7 +191,7 @@ export function GuestsTable({ households }: GuestsTableProps) {
                   onClick={() => handleSort("name")}
                   className='-ml-4 h-8 data-[state=open]:bg-accent'
                 >
-                  Foyer / Famille
+                  {t("header_household")}
                   <SortIcon columnKey='name' />
                 </Button>
               </TableHead>
@@ -199,22 +201,24 @@ export function GuestsTable({ households }: GuestsTableProps) {
                   onClick={() => handleSort("guestCount")}
                   className='-ml-4 h-8 data-[state=open]:bg-accent'
                 >
-                  Invités
+                  {t("header_guests")}
                   <SortIcon columnKey='guestCount' />
                 </Button>
               </TableHead>
-              <TableHead>Contact</TableHead>
+              <TableHead>{t("header_contact")}</TableHead>
               <TableHead>
                 <Button
                   variant='ghost'
                   onClick={() => handleSort("status")}
                   className='-ml-4 h-8 data-[state=open]:bg-accent'
                 >
-                  Statut
+                  {t("header_status")}
                   <SortIcon columnKey='status' />
                 </Button>
               </TableHead>
-              <TableHead className='text-right'>Actions</TableHead>
+              <TableHead className='text-right'>
+                {t("header_actions")}
+              </TableHead>
             </TableRow>
           </TableHeader>
           <TableBody>
@@ -224,7 +228,7 @@ export function GuestsTable({ households }: GuestsTableProps) {
                   colSpan={5}
                   className='h-32 text-center text-muted-foreground'
                 >
-                  Aucun résultat trouvé.
+                  {t("no_results")}
                 </TableCell>
               </TableRow>
             ) : (
@@ -252,7 +256,7 @@ export function GuestsTable({ households }: GuestsTableProps) {
                     <div className='flex flex-col gap-1'>
                       <div className='flex items-center gap-1 text-sm font-medium'>
                         <Users className='w-4 h-4 text-muted-foreground' />
-                        {household.guestCount} invité(s)
+                        {t("guest_count", { count: household.guestCount })}
                       </div>
                       <div className='text-xs text-muted-foreground truncate max-w-[200px]'>
                         {household.guests
@@ -293,14 +297,14 @@ export function GuestsTable({ households }: GuestsTableProps) {
                         <DropdownMenuItem
                           onClick={() => setEditingHousehold(household)}
                         >
-                          <Edit2 className='mr-2 h-4 w-4' /> Modifier
+                          <Edit2 className='mr-2 h-4 w-4' /> {t("edit")}
                         </DropdownMenuItem>
                         <DropdownMenuSeparator />
                         <DropdownMenuItem
                           className='text-red-600 focus:text-red-600 focus:bg-red-50'
                           onClick={() => setDeletingHousehold(household)}
                         >
-                          <Trash2 className='mr-2 h-4 w-4' /> Supprimer
+                          <Trash2 className='mr-2 h-4 w-4' /> {t("delete")}
                         </DropdownMenuItem>
                       </DropdownMenuContent>
                     </DropdownMenu>
@@ -329,10 +333,9 @@ export function GuestsTable({ households }: GuestsTableProps) {
       >
         <DialogContent>
           <DialogHeader>
-            <DialogTitle>Supprimer ce foyer ?</DialogTitle>
+            <DialogTitle>{t("delete_title")}</DialogTitle>
             <DialogDescription>
-              Cette action est irréversible. Le foyer "{deletingHousehold?.name}
-              " sera supprimé.
+              {t("delete_desc", { name: deletingHousehold?.name })}
             </DialogDescription>
           </DialogHeader>
           <DialogFooter>
@@ -340,13 +343,13 @@ export function GuestsTable({ households }: GuestsTableProps) {
               variant='outline'
               onClick={() => setDeletingHousehold(null)}
             >
-              Annuler
+              {t("cancel")}
             </Button>
             <Button
               className='bg-red-600 text-white hover:bg-red-700'
               onClick={handleDelete}
             >
-              Supprimer
+              {t("confirm_delete")}
             </Button>
           </DialogFooter>
         </DialogContent>

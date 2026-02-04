@@ -19,6 +19,7 @@ import {
   DropdownMenuTrigger,
 } from "@shared/components/ui/dropdown-menu";
 import { Mail, MessageCircle, MoreHorizontal, Users } from "lucide-react";
+import { useTranslations } from "next-intl";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { toast } from "sonner";
@@ -44,6 +45,7 @@ export function GuestCard({
   guestCount,
   status,
 }: GuestCardProps) {
+  const t = useTranslations("GuestCard");
   const router = useRouter();
   // Status Colors
   const statusStyles = {
@@ -53,11 +55,18 @@ export function GuestCard({
     partial: "bg-blue-50 text-blue-700 border-blue-100",
   };
 
-  const statusLabel = {
-    pending: "En attente",
-    confirmed: "Confirmé",
-    declined: "Décliné",
-    partial: "Partiel",
+  // Dynamic label map using t
+  const getStatusLabel = (s: string) => {
+    switch (s) {
+      case "confirmed":
+        return t("confirmed");
+      case "declined":
+        return t("declined");
+      case "partial":
+        return t("partial");
+      default:
+        return t("pending");
+    }
   };
 
   const [isEditOpen, setIsEditOpen] = useState(false);
@@ -65,20 +74,20 @@ export function GuestCard({
 
   const handleDelete = async () => {
     setIsDeleteOpen(false); // Close dialog
-    const toastId = toast.loading("Suppression en cours...");
+    const toastId = toast.loading(t("toast_deleting"));
 
     try {
       const result = await deleteHousehold(id);
       if (result.success) {
-        toast.success("Foyer supprimé !", { id: toastId });
+        toast.success(t("toast_success"), { id: toastId });
         router.refresh(); // Explicit refresh
       } else {
-        toast.error(result.error || "Erreur lors de la suppression", {
+        toast.error(result.error || t("toast_error"), {
           id: toastId,
         });
       }
     } catch (error) {
-      toast.error("Erreur technique impossible de supprimer", { id: toastId });
+      toast.error(t("toast_tech_error"), { id: toastId });
     }
   };
 
@@ -99,37 +108,27 @@ export function GuestCard({
       />
 
       {/* Delete Confirmation Modal */}
-      <DropdownMenu>
-        {/* We keep the dropdown here but the trigger is inside the card. Wait, the structure was Dropdown inside card header. I should be careful not to break the layout. */}
-      </DropdownMenu>
-
-      {/* I should move the Dialog OUTSIDE the card layout if possible to avoid z-index issues, but here fragment <> is fine. */}
-
-      {/* Hand-rolled Alert Dialog using standard Dialog components */}
       <Dialog
         open={isDeleteOpen}
         onOpenChange={setIsDeleteOpen}
       >
         <DialogContent>
           <DialogHeader>
-            <DialogTitle>Supprimer ce foyer ?</DialogTitle>
-            <DialogDescription>
-              Cette action est irréversible. Le foyer "{name}" et ses invités
-              seront supprimés définitivement.
-            </DialogDescription>
+            <DialogTitle>{t("delete_title")}</DialogTitle>
+            <DialogDescription>{t("delete_desc", { name })}</DialogDescription>
           </DialogHeader>
           <DialogFooter className='gap-2 sm:gap-0'>
             <Button
               variant='outline'
               onClick={() => setIsDeleteOpen(false)}
             >
-              Annuler
+              {t("cancel")}
             </Button>
             <Button
               onClick={handleDelete}
               className='bg-red-600 text-white hover:bg-red-700'
             >
-              Supprimer
+              {t("delete")}
             </Button>
           </DialogFooter>
         </DialogContent>
@@ -141,7 +140,7 @@ export function GuestCard({
             <div
               className={`px-3 py-1 rounded-full text-[10px] uppercase tracking-wider font-bold border ${statusStyles[status]}`}
             >
-              {statusLabel[status]}
+              {getStatusLabel(status)}
             </div>
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
@@ -156,22 +155,22 @@ export function GuestCard({
                 align='end'
                 className='bg-white border-gray-100 shadow-lg'
               >
-                <DropdownMenuLabel>Actions</DropdownMenuLabel>
+                <DropdownMenuLabel>{t("actions")}</DropdownMenuLabel>
                 <DropdownMenuItem
                   className='focus:bg-primary/10 focus:text-primary cursor-pointer'
                   onClick={() => setIsEditOpen(true)}
                 >
-                  Modifier
+                  {t("edit")}
                 </DropdownMenuItem>
                 <DropdownMenuItem className='focus:bg-primary/10 focus:text-primary cursor-pointer'>
-                  Voir les détails
+                  {t("details")}
                 </DropdownMenuItem>
                 <DropdownMenuSeparator className='bg-gray-100' />
                 <DropdownMenuItem
                   onClick={() => setIsDeleteOpen(true)}
                   className='text-red-600 focus:bg-red-50 focus:text-red-700 cursor-pointer'
                 >
-                  Supprimer
+                  {t("delete")}
                 </DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>
@@ -183,9 +182,7 @@ export function GuestCard({
             </h3>
             <div className='flex items-center gap-2 text-muted-foreground text-sm mb-4'>
               <Users className='w-4 h-4' />
-              <span>
-                {guestCount} invité{guestCount > 1 ? "s" : ""}
-              </span>
+              <span>{t("guests_count", { count: guestCount })}</span>
             </div>
           </div>
 
@@ -206,7 +203,7 @@ export function GuestCard({
             size='sm'
             className='flex-1 gap-2 text-muted-foreground border-border hover:bg-card hover:text-foreground group-hover:border-primary/20'
           >
-            <MessageCircle className='w-4 h-4' /> Relancer
+            <MessageCircle className='w-4 h-4' /> {t("follow_up")}
           </Button>
         </div>
       </div>
