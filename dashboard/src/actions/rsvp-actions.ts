@@ -23,10 +23,14 @@ export async function validateWeddingCode(code: string) {
     return { success: false, message: "Code invalide" };
   }
 
+  const profileData = Array.isArray(data.profile)
+    ? data.profile[0]
+    : data.profile;
+
   return {
     success: true,
     weddingId: data.wedding_id,
-    coupleNames: `${data.profile.first_name} & ${data.profile.partner_name}`,
+    coupleNames: `${profileData.first_name} & ${profileData.partner_name}`,
   };
 }
 
