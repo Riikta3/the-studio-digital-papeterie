@@ -15,7 +15,6 @@ import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
-  DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@shared/components/ui/dropdown-menu";
@@ -29,6 +28,9 @@ import {
   TableRow,
 } from "@shared/components/ui/table";
 import {
+  ArrowDown,
+  ArrowUp,
+  ArrowUpDown,
   Edit2,
   Mail,
   MoreHorizontal,
@@ -51,17 +53,57 @@ export function GuestsTable({ households }: GuestsTableProps) {
   const [search, setSearch] = useState("");
   const [statusFilter, setStatusFilter] = useState<string>("all");
 
+  // Sorting State
+  const [sortConfig, setSortConfig] = useState<{
+    key: string;
+    direction: "asc" | "desc";
+  } | null>(null);
+
   const [editingHousehold, setEditingHousehold] = useState<any>(null);
   const [deletingHousehold, setDeletingHousehold] = useState<any>(null);
 
-  // Filter Logic
-  const filteredHouseholds = households.filter((h) => {
-    const matchesSearch =
-      h.name.toLowerCase().includes(search.toLowerCase()) ||
-      h.email?.toLowerCase().includes(search.toLowerCase());
-    const matchesStatus = statusFilter === "all" || h.status === statusFilter;
-    return matchesSearch && matchesStatus;
-  });
+  // Handle Sort Click
+  const handleSort = (key: string) => {
+    setSortConfig((current) => {
+      if (!current || current.key !== key) {
+        return { key, direction: "asc" };
+      }
+      if (current.direction === "asc") {
+        return { key, direction: "desc" };
+      }
+      return null;
+    });
+  };
+
+  // Filter & Sort Logic
+  const filteredAndSortedHouseholds = households
+    .filter((h) => {
+      const matchesSearch =
+        h.name.toLowerCase().includes(search.toLowerCase()) ||
+        h.email?.toLowerCase().includes(search.toLowerCase());
+      const matchesStatus = statusFilter === "all" || h.status === statusFilter;
+      return matchesSearch && matchesStatus;
+    })
+    .sort((a, b) => {
+      if (!sortConfig) return 0;
+
+      let aValue = a[sortConfig.key];
+      let bValue = b[sortConfig.key];
+
+      // Handle specifics like guestCount or status string comparison
+      if (typeof aValue === "string") {
+        aValue = aValue.toLowerCase();
+        bValue = bValue.toLowerCase();
+      }
+
+      if (aValue < bValue) {
+        return sortConfig.direction === "asc" ? -1 : 1;
+      }
+      if (aValue > bValue) {
+        return sortConfig.direction === "asc" ? 1 : -1;
+      }
+      return 0;
+    });
 
   const handleDelete = async () => {
     if (!deletingHousehold) return;
@@ -91,6 +133,15 @@ export function GuestsTable({ households }: GuestsTableProps) {
       default:
         return <Badge variant='pending'>En attente</Badge>;
     }
+  };
+
+  // Render Sort Icon
+  const SortIcon = ({ columnKey }: { columnKey: string }) => {
+    if (sortConfig?.key !== columnKey)
+      return <ArrowUpDown className='ml-2 h-4 w-4 opacity-50' />;
+    if (sortConfig.direction === "asc")
+      return <ArrowUp className='ml-2 h-4 w-4' />;
+    return <ArrowDown className='ml-2 h-4 w-4' />;
   };
 
   return (
@@ -132,15 +183,42 @@ export function GuestsTable({ households }: GuestsTableProps) {
         <Table>
           <TableHeader>
             <TableRow className='bg-gray-50/50 hover:bg-gray-50/50'>
-              <TableHead className='w-[300px]'>Foyer / Famille</TableHead>
-              <TableHead>Invités</TableHead>
+              <TableHead className='w-[300px]'>
+                <Button
+                  variant='ghost'
+                  onClick={() => handleSort("name")}
+                  className='-ml-4 h-8 data-[state=open]:bg-accent'
+                >
+                  Foyer / Famille
+                  <SortIcon columnKey='name' />
+                </Button>
+              </TableHead>
+              <TableHead>
+                <Button
+                  variant='ghost'
+                  onClick={() => handleSort("guestCount")}
+                  className='-ml-4 h-8 data-[state=open]:bg-accent'
+                >
+                  Invités
+                  <SortIcon columnKey='guestCount' />
+                </Button>
+              </TableHead>
               <TableHead>Contact</TableHead>
-              <TableHead>Statut</TableHead>
+              <TableHead>
+                <Button
+                  variant='ghost'
+                  onClick={() => handleSort("status")}
+                  className='-ml-4 h-8 data-[state=open]:bg-accent'
+                >
+                  Statut
+                  <SortIcon columnKey='status' />
+                </Button>
+              </TableHead>
               <TableHead className='text-right'>Actions</TableHead>
             </TableRow>
           </TableHeader>
           <TableBody>
-            {filteredHouseholds.length === 0 ? (
+            {filteredAndSortedHouseholds.length === 0 ? (
               <TableRow>
                 <TableCell
                   colSpan={5}
@@ -150,7 +228,7 @@ export function GuestsTable({ households }: GuestsTableProps) {
                 </TableCell>
               </TableRow>
             ) : (
-              filteredHouseholds.map((household) => (
+              filteredAndSortedHouseholds.map((household) => (
                 <TableRow
                   key={household.id}
                   className='group hover:bg-gray-50/80 transition-colors'
@@ -203,13 +281,15 @@ export function GuestsTable({ households }: GuestsTableProps) {
                       <DropdownMenuTrigger asChild>
                         <Button
                           variant='ghost'
-                          className='h-8 w-8 p-0 opacity-0 group-hover:opacity-100 transition-opacity'
+                          className='h-8 w-8 p-0 text-muted-foreground hover:text-foreground'
                         >
                           <MoreHorizontal className='h-4 w-4' />
                         </Button>
                       </DropdownMenuTrigger>
-                      <DropdownMenuContent align='end'>
-                        <DropdownMenuLabel>Actions</DropdownMenuLabel>
+                      <DropdownMenuContent
+                        align='end'
+                        className='bg-white border-border shadow-lg'
+                      >
                         <DropdownMenuItem
                           onClick={() => setEditingHousehold(household)}
                         >
