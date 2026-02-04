@@ -14,14 +14,13 @@ html {
     --card-foreground: 0 0% 16%;
     --primary: 145 19% 36%;
     --primary-foreground: 0 0% 98%;
-    --secondary: 24 33% 92%;
-    /* Terracotta tres pale */
-    --secondary-foreground: 0 0% 16%;
-    --muted: 40 20% 94%;
-    --muted-foreground: 0 0% 40%;
-    --accent: 25 25% 60%;
-    /* Terracotta Doux #C59D85 approx */
-    --accent-foreground: 0 0% 98%;
+    --secondary: 210 20% 96%;
+    --secondary-foreground: 220 10% 10%;
+    --muted: 210 20% 96%;
+    --muted-foreground: 220 10% 40%;
+    --accent: 210 20% 94%;
+    /* Gris perle neutre */
+    --accent-foreground: 220 10% 10%;
     --border: 40 10% 88%;
     --ring: 145 19% 36%;
     --radius: 1rem;

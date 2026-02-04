@@ -1,45 +1,48 @@
+import { AddHouseholdDialog } from "@/components/dashboard/AddHouseholdDialog";
 import { GuestCard } from "@/components/dashboard/GuestCard";
-import { Button } from "@shared/components/ui/button";
-import { ArrowLeft, Plus } from "lucide-react";
+import { createClient } from "@/utils/supabase/server";
+import { ArrowLeft } from "lucide-react";
 import Link from "next/link";
+import { redirect } from "next/navigation";
 
-// Mock Data
-const MOCK_HOUSEHOLDS = [
-  {
-    id: "1",
-    name: "Famille Dupont",
-    email: "jean.dupont@email.com",
-    guestCount: 4,
-    status: "confirmed" as const,
-  },
-  {
-    id: "2",
-    name: "Thomas & Sarah",
-    guestCount: 2,
-    status: "pending" as const,
-  },
-  {
-    id: "3",
-    name: "Grand-mère Yvette",
-    guestCount: 1,
-    status: "confirmed" as const,
-  },
-  {
-    id: "4",
-    name: "Famille Martin",
-    email: "martin.p@pro.com",
-    guestCount: 5,
-    status: "declined" as const,
-  },
-  {
-    id: "5",
-    name: "Les Cousins du Sud",
-    guestCount: 3,
-    status: "partial" as const,
-  },
-];
+export default async function GuestsPage() {
+  const supabase = await createClient();
 
-export default function GuestsPage() {
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+
+  if (!user) {
+    return redirect("/login");
+  }
+
+  // Fetch households with their guests to count them
+  const { data: households, error } = await supabase
+    .from("households")
+    .select("*, guests(id)")
+    .order("created_at", { ascending: false });
+
+  if (error) {
+    console.error(
+      "Error fetching households detailed:",
+      JSON.stringify(error, null, 2),
+    );
+    // You might want to show an error UI here
+  }
+
+  // Transform data to include guest count
+  // The query returns guests as an array of objects with just IDs if we select guests(id)
+  // We need to verify exactly what Supabase returns for the join.
+  // Assuming standard Supabase join behavior.
+  const displayHouseholds = (households || []).map((h: any) => ({
+    id: h.id,
+    name: h.name,
+    email: h.email,
+    phone: h.phone,
+    status: h.status,
+    guestCount: h.guests ? h.guests.length : 0,
+  }));
+
   return (
     <div className='min-h-screen p-8 md:p-12 max-w-7xl mx-auto space-y-8'>
       {/* Header */}
@@ -59,24 +62,31 @@ export default function GuestsPage() {
           </p>
         </div>
         <div className='flex gap-3'>
-          <Button className='bg-primary text-primary-foreground hover:bg-primary/90'>
-            <Plus className='w-4 h-4 mr-2' /> Ajouter manuellement
-          </Button>
+          <AddHouseholdDialog />
         </div>
       </header>
 
       {/* Grid */}
       <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6'>
-        {MOCK_HOUSEHOLDS.map((household) => (
-          <GuestCard
-            key={household.id}
-            id={household.id}
-            name={household.name}
-            email={household.email}
-            guestCount={household.guestCount}
-            status={household.status}
-          />
-        ))}
+        {displayHouseholds.length === 0 ? (
+          <div className='col-span-full text-center py-20 text-muted-foreground bg-card rounded-xl border border-dashed border-border'>
+            <p>Aucun invité pour le moment.</p>
+            <p className='text-sm mt-2'>
+              Commencez par ajouter un foyer ou partagez votre code mariage.
+            </p>
+          </div>
+        ) : (
+          displayHouseholds.map((household) => (
+            <GuestCard
+              key={household.id}
+              id={household.id}
+              name={household.name}
+              email={household.email}
+              guestCount={household.guestCount}
+              status={household.status}
+            />
+          ))
+        )}
       </div>
     </div>
   );

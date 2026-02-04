@@ -16,6 +16,6 @@ export const config = {
      * - auth (auth callback routes if any)
      * Feel free to modify this pattern to include more paths.
      */
-    "/((?!_next/static|_next/image|favicon.ico|login|auth|.*\\.(?:svg|png|jpg|jpeg|gif|webp)$).*)",
+    "/((?!_next/static|_next/image|favicon.ico|login|auth|rsvp|.*\\.(?:svg|png|jpg|jpeg|gif|webp)$).*)",
   ],
 };

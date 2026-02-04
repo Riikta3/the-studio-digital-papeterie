@@ -50,17 +50,24 @@ export function GuestCard({ name, email, guestCount, status }: GuestCardProps) {
             <DropdownMenuTrigger asChild>
               <Button
                 variant='ghost'
-                className='h-8 w-8 p-0 text-muted-foreground hover:text-foreground'
+                className='h-8 w-8 p-0 text-muted-foreground hover:text-foreground focus:ring-0 focus:outline-none focus-visible:ring-0'
               >
                 <MoreHorizontal className='h-4 w-4' />
               </Button>
             </DropdownMenuTrigger>
-            <DropdownMenuContent align='end'>
+            <DropdownMenuContent
+              align='end'
+              className='bg-white border-gray-100 shadow-lg'
+            >
               <DropdownMenuLabel>Actions</DropdownMenuLabel>
-              <DropdownMenuItem>Modifier</DropdownMenuItem>
-              <DropdownMenuItem>Voir les détails</DropdownMenuItem>
-              <DropdownMenuSeparator />
-              <DropdownMenuItem className='text-red-600'>
+              <DropdownMenuItem className='focus:bg-primary/10 focus:text-primary cursor-pointer'>
+                Modifier
+              </DropdownMenuItem>
+              <DropdownMenuItem className='focus:bg-primary/10 focus:text-primary cursor-pointer'>
+                Voir les détails
+              </DropdownMenuItem>
+              <DropdownMenuSeparator className='bg-gray-100' />
+              <DropdownMenuItem className='text-red-600 focus:bg-red-50 focus:text-red-700 cursor-pointer'>
                 Supprimer
               </DropdownMenuItem>
             </DropdownMenuContent>

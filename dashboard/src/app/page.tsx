@@ -1,5 +1,12 @@
 import { Button } from "@shared/components/ui/button";
-import { ArrowRight, Bell, Calendar, ExternalLink, Users } from "lucide-react";
+import {
+  ArrowRight,
+  Bell,
+  Calendar,
+  ExternalLink,
+  Settings,
+  Users,
+} from "lucide-react";
 import Link from "next/link";
 
 export default function DashboardHome() {
@@ -118,6 +125,50 @@ export default function DashboardHome() {
         </div>
       </section>
 
+      {/* Modules & Configuration */}
+      <section className='space-y-6'>
+        <h2 className='text-2xl font-heading font-light text-foreground'>
+          Vos Modules
+        </h2>
+        <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6'>
+          {/* Module: Invités */}
+          <Link
+            href='/guests'
+            className='group bg-card rounded-xl border border-border p-6 hover:shadow-md transition-all flex items-center gap-4'
+          >
+            <div className='p-3 bg-primary/10 rounded-full text-primary group-hover:scale-110 transition-transform'>
+              <Users size={24} />
+            </div>
+            <div>
+              <h3 className='font-heading text-lg text-foreground'>
+                Liste des Invités
+              </h3>
+              <p className='text-sm text-muted-foreground'>
+                Gérez les rsvp et les foyers.
+              </p>
+            </div>
+            <ArrowRight className='ml-auto w-5 h-5 text-muted-foreground group-hover:text-primary transition-colors' />
+          </Link>
+
+          {/* Module: Settings */}
+          <Link
+            href='/settings'
+            className='group bg-card rounded-xl border border-border p-6 hover:shadow-md transition-all flex items-center gap-4'
+          >
+            <div className='p-3 bg-secondary/20 rounded-full text-secondary-foreground group-hover:scale-110 transition-transform'>
+              <Settings size={24} />
+            </div>
+            <div>
+              <h3 className='font-heading text-lg text-foreground'>Réglages</h3>
+              <p className='text-sm text-muted-foreground'>
+                Code mariage & configuration.
+              </p>
+            </div>
+            <ArrowRight className='ml-auto w-5 h-5 text-muted-foreground group-hover:text-primary transition-colors' />
+          </Link>
+        </div>
+      </section>
+
       {/* Mini-Site Preview Section */}
       <section className='space-y-6'>
         <div className='flex justify-between items-center'>
@@ -136,10 +187,10 @@ export default function DashboardHome() {
           {/* Placeholder for iframe / preview */}
           <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1519225421980-715cb0202128?q=80&w=3400&auto=format&fit=crop')] bg-cover bg-center opacity-50 grayscale hover:grayscale-0 transition-all duration-1000 transform hover:scale-105"></div>
           <div className='relative z-10 bg-white/80 backdrop-blur-md p-8 rounded-xl shadow-2xl text-center max-w-md border border-white/50'>
-            <p className='font-heading text-4xl text-stone-800 mb-2'>
+            <p className='font-heading text-4xl text-gray-800 mb-2'>
               Sophie & Thomas
             </p>
-            <p className='text-stone-600 uppercase tracking-widest text-xs'>
+            <p className='text-gray-600 uppercase tracking-widest text-xs'>
               24 Juin 2026 • Château de la Roche
             </p>
             <div className='mt-8'>
