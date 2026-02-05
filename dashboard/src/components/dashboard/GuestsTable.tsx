@@ -43,7 +43,7 @@ import {
   Trash2,
   Users,
 } from "lucide-react";
-import { useTranslations } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { toast } from "sonner";
@@ -132,17 +132,25 @@ export function GuestsTable({ households }: GuestsTableProps) {
     }
   };
 
+  const locale = useLocale();
+
   const handleExport = async () => {
     setIsExporting(true);
     const toastId = toast.loading("Génération de l'export Excel...");
 
     try {
-      const result = await exportGuestsToExcel();
+      const result = await exportGuestsToExcel(locale);
 
       if (result.success) {
-        // Create blob and download - convert Buffer to Uint8Array for browser compatibility
-        const uint8Array = new Uint8Array(result.data);
-        const blob = new Blob([uint8Array], {
+        // Convert Base64 string to Uint8Array
+        const binaryString = window.atob(result.data);
+        const len = binaryString.length;
+        const bytes = new Uint8Array(len);
+        for (let i = 0; i < len; i++) {
+          bytes[i] = binaryString.charCodeAt(i);
+        }
+
+        const blob = new Blob([bytes], {
           type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
         });
         const url = window.URL.createObjectURL(blob);

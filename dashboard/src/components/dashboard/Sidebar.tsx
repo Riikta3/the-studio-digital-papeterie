@@ -17,6 +17,7 @@ import {
 import { useTranslations } from "next-intl";
 import Image from "next/image";
 import { useState } from "react";
+import { LanguageSwitcher } from "./LanguageSwitcher";
 
 const navItems = [
   { key: "home", href: "/", icon: Home },
@@ -151,6 +152,9 @@ export function Sidebar() {
 
           {/* Footer Actions */}
           <div className='mt-auto border-t border-border pt-6 space-y-2'>
+            <div className='mb-2'>
+              <LanguageSwitcher />
+            </div>
             <Link
               href='/rsvp'
               target='_blank'

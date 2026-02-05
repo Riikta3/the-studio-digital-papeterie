@@ -3,6 +3,7 @@ import { redirect } from "@/navigation";
 import { createClient } from "@/utils/supabase/server";
 
 // We'll make a Client Component for the form to handle Toasts easily
+import { LanguageSwitcher } from "@/components/dashboard/LanguageSwitcher";
 import SettingsForm from "@/components/dashboard/SettingsForm";
 
 export default async function SettingsPage() {
@@ -41,6 +42,17 @@ export default async function SettingsPage() {
           </p>
 
           <SettingsForm initialSettings={settings} />
+        </section>
+
+        <section className='bg-card p-6 rounded-xl border border-border shadow-sm'>
+          <h2 className='text-xl font-heading mb-4'>Langue de la plateforme</h2>
+          <p className='text-sm text-muted-foreground mb-6'>
+            Choisissez la langue de l&apos;interface d&apos;administration.
+          </p>
+
+          <div className='max-w-md'>
+            <LanguageSwitcher />
+          </div>
         </section>
       </div>
     </div>

@@ -131,7 +131,9 @@
     "saving": "Enregistrement...",
     "toast_success": "Réglages mis à jour !",
     "toast_error": "Erreur lors de la mise à jour",
-    "toast_tech_error": "Erreur technique"
+    "toast_tech_error": "Erreur technique",
+    "language_title": "Langue de la plateforme",
+    "language_desc": "Choisissez la langue de l'interface d'administration."
   },
   "Sidebar": {
     "home": "Accueil",
@@ -141,6 +143,9 @@
     "settings": "Réglages",
     "view_site": "Voir mon Site",
     "logout": "Déconnexion"
+  },
+  "LanguageSwitcher": {
+    "select_language": "Langue"
   },
   "NotFound": {
     "title": "Page introuvable",

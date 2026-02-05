@@ -29,7 +29,19 @@
     "guest_list": "Guest List",
     "guest_desc": "Manage, add or remove.",
     "settings_desc": "Date, code and preferences.",
-    "the_site": "The Site"
+    "the_site": "The Site",
+    "total_guests": "Total Guests",
+    "activity_confirmed": "confirmed attendance",
+    "activity_declined": "declined invitation",
+    "activity_rsvp_received": "responded (online)",
+    "activity_added": "added by admin",
+    "quick_add_guest": "Add Guest",
+    "quick_add_desc": "Manually add a household",
+    "manage_responses": "Manage Responses",
+    "manage_responses_desc": "Process pending RSVPs",
+    "guest_list_desc": "Full guest list",
+    "export_data": "Export Data",
+    "export_desc": "Download Excel / CSV file"
   },
   "Guests": {
     "title": "Your Guests",
@@ -119,7 +131,9 @@
     "saving": "Saving...",
     "toast_success": "Settings updated!",
     "toast_error": "Error updating settings",
-    "toast_tech_error": "Technical error"
+    "toast_tech_error": "Technical error",
+    "language_title": "Platform Language",
+    "language_desc": "Choose the administration interface language."
   },
   "Sidebar": {
     "home": "Home",
@@ -134,5 +148,8 @@
     "title": "Page not found",
     "description": "Sorry, the page you are looking for does not exist.",
     "back_home": "Back to home"
+  },
+  "LanguageSwitcher": {
+    "select_language": "Language"
   }
 }

@@ -29,7 +29,19 @@
     "guest_list": "Guest List",
     "guest_desc": "Manage, add or remove.",
     "settings_desc": "Date, code and preferences.",
-    "the_site": "The Site"
+    "the_site": "The Site",
+    "total_guests": "Total Invités",
+    "activity_confirmed": "a confirmé sa présence",
+    "activity_declined": "a décliné l'invitation",
+    "activity_rsvp_received": "a répondu (inscription en ligne)",
+    "activity_added": "a été ajouté par l'admin",
+    "quick_add_guest": "Ajouter un invité",
+    "quick_add_desc": "Ajouter manuellement un foyer",
+    "manage_responses": "Gérer les réponses",
+    "manage_responses_desc": "Traiter les RSVP en attente",
+    "guest_list_desc": "Liste complète des invités",
+    "export_data": "Exporter les données",
+    "export_desc": "Télécharger un fichier Excel / CSV"
   },
   "Guests": {
     "title": "Your Guests",
@@ -39,7 +51,8 @@
     "filter_all": "All",
     "filter_confirmed": "Confirmed",
     "filter_pending": "Pending",
-    "filter_declined": "Declined"
+    "filter_declined": "Declined",
+    "subtitle": "Gérez votre liste, suivez les réponses et organisez votre événement."
   },
   "Sidebar": {
     "home": "Home",
@@ -49,5 +62,99 @@
     "settings": "Settings",
     "view_site": "View my Site",
     "logout": "Logout"
+  },
+  "LanguageSwitcher": {
+    "select_language": "Language"
+  },
+  "GuestStats": {
+    "total": "Total Invités",
+    "invited": "Personnes invitées",
+    "confirmed": "Confirmés",
+    "attending": "Seront présents",
+    "pending": "En attente",
+    "waiting": "Pas encore de réponse",
+    "declined": "Déclinés",
+    "not_coming": "Ne viendront pas"
+  },
+  "GuestsTable": {
+    "search_placeholder": "Rechercher un foyer...",
+    "filter_all": "Tous",
+    "filter_confirmed": "Confirmés",
+    "filter_pending": "En attente",
+    "filter_declined": "Déclinés",
+    "header_household": "Foyer / Famille",
+    "header_guests": "Invités",
+    "header_contact": "Contact",
+    "header_status": "Statut",
+    "header_actions": "Actions",
+    "no_results": "Aucun résultat trouvé.",
+    "guest_count": "{count} invité(s)",
+    "edit": "Modifier",
+    "delete": "Supprimer",
+    "delete_title": "Supprimer ce foyer ?",
+    "delete_desc": "Cette action est irréversible. Le foyer \"{name}\" sera supprimé.",
+    "cancel": "Annuler",
+    "confirm_delete": "Supprimer",
+    "toast_deleting": "Suppression en cours...",
+    "toast_deleted": "Foyer supprimé !",
+    "error_tech": "Erreur technique"
+  },
+  "AddHouseholdDialog": {
+    "add_title": "Ajouter un foyer",
+    "edit_title": "Modifier le foyer",
+    "add_desc": "Créez une nouvelle \"enveloppe\" regroupant un ou plusieurs invités.",
+    "edit_desc": "Modifiez les informations du foyer et des invités.",
+    "trigger_btn": "Ajouter un foyer",
+    "name_label": "Nom du foyer / Famille *",
+    "name_placeholder": "Ex: Famille Dupont ou Alice & Bob",
+    "email_label": "Email principal (Optionnel)",
+    "email_placeholder": "Pour envoyer les invitations",
+    "phone_label": "Téléphone (Optionnel)",
+    "phone_placeholder": "06 12 34 56 78",
+    "guests_section": "Invités",
+    "guest_placeholder": "Invité {index}",
+    "add_guest_btn": "Ajouter un invité",
+    "submit_create": "Ajouter le foyer",
+    "submit_edit": "Enregistrer",
+    "submitting_create": "Création...",
+    "submitting_edit": "Modification...",
+    "toast_success_create": "Foyer ajouté avec succès",
+    "toast_success_edit": "Foyer modifié avec succès",
+    "toast_error": "Erreur technique lors de l'enregistrement"
+  },
+  "GuestCard": {
+    "pending": "En attente",
+    "confirmed": "Confirmé",
+    "declined": "Décliné",
+    "partial": "Partiel",
+    "actions": "Actions",
+    "edit": "Modifier",
+    "details": "Voir les détails",
+    "delete": "Supprimer",
+    "delete_title": "Supprimer ce foyer ?",
+    "delete_desc": "Cette action est irréversible. Le foyer \"{name}\" et ses invités seront supprimés définitivement.",
+    "cancel": "Annuler",
+    "toast_deleting": "Suppression en cours...",
+    "toast_success": "Foyer supprimé !",
+    "toast_error": "Erreur lors de la suppression",
+    "toast_tech_error": "Erreur technique impossible de supprimer",
+    "guests_count": "{count} invité(s)",
+    "follow_up": "Relancer"
+  },
+  "SettingsForm": {
+    "guest_code": "Code Invité",
+    "code_placeholder": "Ex: AMOUR2026",
+    "save": "Enregistrer",
+    "saving": "Enregistrement...",
+    "toast_success": "Réglages mis à jour !",
+    "toast_error": "Erreur lors de la mise à jour",
+    "toast_tech_error": "Erreur technique",
+    "language_title": "Langue de la plateforme",
+    "language_desc": "Choisissez la langue de l'interface d'administration."
+  },
+  "NotFound": {
+    "title": "Page introuvable",
+    "description": "Désolé, la page que vous recherchez n'existe pas.",
+    "back_home": "Retour à l'accueil"
   }
 }
