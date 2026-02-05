@@ -1,5 +1,6 @@
 "use client";
 
+import { logout } from "@/app/[locale]/login/actions";
 import { Link, usePathname } from "@/navigation";
 import { Button } from "@shared/components/ui/button";
 import { cn } from "@shared/lib/utils";
@@ -31,6 +32,18 @@ export function Sidebar() {
 
   // Close sidebar on mobile when navigating
   const handleLinkClick = () => setIsOpen(false);
+
+  const handleLogout = async () => {
+    try {
+      // Hide UI immediately for smooth transition
+      setIsOpen(false);
+      await logout();
+      // Force full page reload to clear auth state
+      window.location.href = "/login";
+    } catch (error) {
+      console.error("Logout error:", error);
+    }
+  };
 
   return (
     <>
@@ -124,6 +137,7 @@ export function Sidebar() {
             </Link>
             <Button
               variant='ghost'
+              onClick={handleLogout}
               className='w-full justify-start text-red-500 hover:bg-red-50 hover:text-red-600 gap-3'
             >
               <LogOut size={18} />

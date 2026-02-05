@@ -1,7 +1,6 @@
 "use server";
 
 import { createClient } from "@/utils/supabase/server";
-import { redirect } from "next/navigation";
 
 export async function login(prevState: any, formData: FormData) {
   const supabase = await createClient();
@@ -18,11 +17,11 @@ export async function login(prevState: any, formData: FormData) {
     return { error: "Identifiants invalides." };
   }
 
-  redirect("/");
+  return { success: true };
 }
 
 export async function logout() {
   const supabase = await createClient();
   await supabase.auth.signOut();
-  redirect("/login");
+  // Don't redirect here, let the client handle it
 }

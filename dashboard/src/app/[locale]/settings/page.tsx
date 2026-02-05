@@ -1,6 +1,6 @@
 import { getSettings } from "@/actions/settings-actions";
+import { redirect } from "@/navigation";
 import { createClient } from "@/utils/supabase/server";
-import { redirect } from "next/navigation";
 
 // We'll make a Client Component for the form to handle Toasts easily
 import SettingsForm from "@/components/dashboard/SettingsForm";
@@ -12,7 +12,7 @@ export default async function SettingsPage() {
   } = await supabase.auth.getUser();
 
   if (!user) {
-    redirect("/login");
+    redirect({ href: "/login", locale: "fr" });
   }
 
   // Fetch settings

@@ -1,4 +1,4 @@
-import { Link } from "@/navigation";
+import { Link, redirect } from "@/navigation";
 import { createClient } from "@/utils/supabase/server";
 import { Button } from "@shared/components/ui/button";
 import {
@@ -11,7 +11,6 @@ import {
   Users,
 } from "lucide-react";
 import { getTranslations } from "next-intl/server";
-import { redirect } from "next/navigation";
 
 export default async function DashboardHome() {
   const t = await getTranslations("Dashboard");
@@ -22,7 +21,7 @@ export default async function DashboardHome() {
   } = await supabase.auth.getUser();
 
   if (!user) {
-    redirect("/login");
+    redirect({ href: "/login", locale: "fr" });
   }
 
   // Fetch Profile (Names & Date)

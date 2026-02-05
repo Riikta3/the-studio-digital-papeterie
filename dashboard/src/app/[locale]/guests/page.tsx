@@ -1,9 +1,9 @@
 import { AddHouseholdDialog } from "@/components/dashboard/AddHouseholdDialog";
 import { GuestStats } from "@/components/dashboard/GuestStats";
 import { GuestsTable } from "@/components/dashboard/GuestsTable";
+import { redirect } from "@/navigation";
 import { createClient } from "@/utils/supabase/server";
 import { getTranslations } from "next-intl/server";
-import { redirect } from "next/navigation";
 
 export default async function GuestsPage() {
   const t = await getTranslations("Guests");
@@ -14,7 +14,7 @@ export default async function GuestsPage() {
   } = await supabase.auth.getUser();
 
   if (!user) {
-    return redirect("/login");
+    redirect({ href: "/login", locale: "fr" });
   }
 
   // Fetch households with their guests to count them

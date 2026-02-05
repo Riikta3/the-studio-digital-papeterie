@@ -1,5 +1,6 @@
 "use client";
 
+import { exportGuestsToExcel } from "@/actions/export-actions";
 import { deleteHousehold } from "@/actions/guest-actions";
 import { Guest } from "@/types";
 import { Badge } from "@shared/components/ui/badge";
@@ -33,6 +34,7 @@ import {
   ArrowUp,
   ArrowUpDown,
   Edit2,
+  FileSpreadsheet,
   Mail,
   MoreHorizontal,
   Pencil,
@@ -67,6 +69,7 @@ export function GuestsTable({ households }: GuestsTableProps) {
   const [editingHousehold, setEditingHousehold] = useState<any>(null);
   const [deletingHousehold, setDeletingHousehold] = useState<any>(null);
   const [editingGuest, setEditingGuest] = useState<Guest | null>(null);
+  const [isExporting, setIsExporting] = useState(false);
 
   // Handle Sort Click
   const handleSort = (key: string) => {
@@ -128,6 +131,40 @@ export function GuestsTable({ households }: GuestsTableProps) {
     }
   };
 
+  const handleExport = async () => {
+    setIsExporting(true);
+    const toastId = toast.loading("Génération de l'export Excel...");
+
+    try {
+      const result = await exportGuestsToExcel();
+
+      if (result.success) {
+        // Create blob and download - convert Buffer to Uint8Array for browser compatibility
+        const uint8Array = new Uint8Array(result.data);
+        const blob = new Blob([uint8Array], {
+          type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+        });
+        const url = window.URL.createObjectURL(blob);
+        const a = document.createElement("a");
+        a.href = url;
+        const date = new Date().toISOString().split("T")[0];
+        a.download = `invites-mariage-${date}.xlsx`;
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        window.URL.revokeObjectURL(url);
+
+        toast.success("Export Excel réussi !", { id: toastId });
+      } else {
+        toast.error(result.error, { id: toastId });
+      }
+    } catch (_error) {
+      toast.error("Erreur lors de l'export", { id: toastId });
+    } finally {
+      setIsExporting(false);
+    }
+  };
+
   const getStatusBadge = (status: string) => {
     switch (status) {
       case "confirmed":
@@ -182,6 +219,16 @@ export function GuestsTable({ households }: GuestsTableProps) {
             </Button>
           ))}
         </div>
+        <Button
+          onClick={handleExport}
+          disabled={isExporting}
+          variant='outline'
+          size='sm'
+          className='gap-2 whitespace-nowrap'
+        >
+          <FileSpreadsheet className='h-4 w-4' />
+          {isExporting ? "Export en cours..." : "Exporter Excel"}
+        </Button>
       </div>
 
       {/* Table */}
