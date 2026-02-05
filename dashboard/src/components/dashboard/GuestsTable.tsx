@@ -49,6 +49,7 @@ import { useState } from "react";
 import { toast } from "sonner";
 import { AddHouseholdDialog } from "./AddHouseholdDialog";
 import { EditGuestDialog } from "./EditGuestDialog";
+import { GuestCard } from "./GuestCard";
 
 interface GuestsTableProps {
   households: any[];
@@ -232,7 +233,7 @@ export function GuestsTable({ households }: GuestsTableProps) {
       </div>
 
       {/* Table */}
-      <div className='rounded-xl border bg-white shadow-sm overflow-hidden'>
+      <div className='hidden md:block rounded-xl border bg-white shadow-sm overflow-hidden'>
         <Table>
           <TableHeader>
             <TableRow className='bg-gray-50/50 hover:bg-gray-50/50'>
@@ -371,6 +372,35 @@ export function GuestsTable({ households }: GuestsTableProps) {
             )}
           </TableBody>
         </Table>
+      </div>
+
+      {/* Mobile View (Cards) */}
+      <div className='md:hidden space-y-4'>
+        {filteredAndSortedHouseholds.length === 0 ? (
+          <div className='text-center p-8 text-muted-foreground bg-white rounded-xl border border-dashed'>
+            {t("no_results")}
+          </div>
+        ) : (
+          filteredAndSortedHouseholds.map((household) => (
+            <GuestCard
+              key={household.id}
+              id={household.id}
+              name={household.name}
+              email={household.email}
+              phone={household.phone}
+              guests={household.guests}
+              guestCount={household.guestCount}
+              status={
+                household.status as
+                  | "pending"
+                  | "confirmed"
+                  | "declined"
+                  | "partial"
+              }
+              onEditGuest={setEditingGuest}
+            />
+          ))
+        )}
       </div>
 
       {/* Edit Dialog */}

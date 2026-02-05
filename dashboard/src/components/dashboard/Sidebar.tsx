@@ -15,6 +15,7 @@ import {
   X,
 } from "lucide-react";
 import { useTranslations } from "next-intl";
+import Image from "next/image";
 import { useState } from "react";
 
 const navItems = [
@@ -47,15 +48,28 @@ export function Sidebar() {
 
   return (
     <>
-      {/* Mobile Trigger */}
-      <div className='md:hidden fixed top-4 left-4 z-50'>
-        <Button
-          variant='outline'
-          size='icon'
-          onClick={() => setIsOpen(!isOpen)}
-        >
-          {isOpen ? <X /> : <Menu />}
-        </Button>
+      {/* Mobile Header (Sticky) */}
+      <div className='md:hidden sticky top-0 z-30 bg-[#FDFBF7]/95 backdrop-blur-sm border-b border-border px-4 py-3 flex items-center justify-between'>
+        <div className='flex items-center gap-3'>
+          <Button
+            variant='ghost'
+            size='icon'
+            className='-ml-2'
+            onClick={() => setIsOpen(true)}
+          >
+            <Menu className='h-6 w-6' />
+          </Button>
+          <span className='font-heading text-lg font-bold'>
+            <Image
+              src='/logo.png'
+              alt='The Studio'
+              width={300}
+              height={90}
+              className='h-8 w-auto object-contain'
+              priority
+            />
+          </span>
+        </div>
       </div>
 
       {/* Sidebar Overlay (Mobile) */}
@@ -69,19 +83,33 @@ export function Sidebar() {
       {/* Sidebar Container */}
       <aside
         className={cn(
-          "fixed top-0 left-0 h-full w-64 bg-white border-r border-border shadow-sm z-40 transition-transform duration-300 ease-in-out md:translate-x-0",
+          "fixed top-0 left-0 h-full w-64 bg-white border-r border-border shadow-sm z-50 transition-transform duration-300 ease-in-out md:translate-x-0",
           isOpen ? "translate-x-0" : "-translate-x-full",
         )}
       >
         <div className='flex flex-col h-full p-6'>
-          {/* Logo */}
-          <div className='mb-10 pl-2'>
-            <h1 className='font-heading text-2xl font-bold tracking-tight'>
-              The Studio
-            </h1>
-            <p className='text-xs text-muted-foreground uppercase tracking-widest mt-1'>
-              Digital Suite
-            </p>
+          {/* Logo & Close Button */}
+          <div className='mb-10 pl-2 flex justify-between items-start'>
+            <div>
+              <div className='relative w-40 h-12'>
+                <Image
+                  src='/logo.png'
+                  alt='The Studio'
+                  fill
+                  className='object-contain object-left'
+                  sizes='(max-width: 768px) 100vw, 200px'
+                  priority
+                />
+              </div>
+            </div>
+            <Button
+              variant='ghost'
+              size='icon'
+              className='md:hidden -mt-1 -mr-2 text-muted-foreground'
+              onClick={() => setIsOpen(false)}
+            >
+              <X className='h-5 w-5' />
+            </Button>
           </div>
 
           {/* Navigation */}
