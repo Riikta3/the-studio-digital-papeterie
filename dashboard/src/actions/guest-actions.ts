@@ -51,9 +51,6 @@ export async function createHousehold(
   const guestNamesRaw = formData.getAll("guest_names") as string[];
   const guestRelationsRaw = formData.getAll("guest_relations") as string[];
 
-  console.log("DEBUG - Guest Names:", guestNamesRaw);
-  console.log("DEBUG - Guest Relations:", guestRelationsRaw);
-
   if (guestNamesRaw && guestNamesRaw.length > 0) {
     const guestsToInsert = guestNamesRaw
       .map((fullName, index) => {
@@ -64,12 +61,6 @@ export async function createHousehold(
         const firstName = parts[0];
         const lastName = parts.slice(1).join(" ") || ".";
         const relationType = guestRelationsRaw[index] || null;
-
-        console.log(`DEBUG - Guest ${index}:`, {
-          firstName,
-          lastName,
-          relationType,
-        });
 
         return {
           wedding_id: weddingId,
@@ -84,17 +75,9 @@ export async function createHousehold(
       .filter((g) => g !== null);
 
     if (guestsToInsert.length > 0) {
-      console.log(
-        "DEBUG - About to insert guests:",
-        JSON.stringify(guestsToInsert, null, 2),
-      );
-
-      const { data, error: guestError } = await supabase
+      const { error: guestError } = await supabase
         .from("guests")
-        .insert(guestsToInsert)
-        .select();
-
-      console.log("DEBUG - Insert result:", { data, error: guestError });
+        .insert(guestsToInsert);
 
       if (guestError) {
         console.error("Error creating guests:", guestError);
@@ -114,9 +97,7 @@ export async function createHousehold(
   return { success: true };
 }
 
-export async function deleteHousehold(
-  householdId: string,
-): Promise<ActionResult> {
+export async function deleteHousehold(householdId: string) {
   const supabase = await createClient();
 
   // 1. Delete associated guests first (Manual Cascade)
@@ -157,6 +138,7 @@ export async function updateHousehold(
   const name = formData.get("name") as string;
   const email = formData.get("email") as string;
   const phone = formData.get("phone") as string;
+  const status = formData.get("status") as string;
 
   // 1. Update household info
   const { error: householdError } = await supabase
@@ -165,6 +147,7 @@ export async function updateHousehold(
       name,
       email: email || null,
       phone: phone || null,
+      ...(status && { status }), // Only update status if provided
     })
     .eq("id", householdId);
 
@@ -238,6 +221,52 @@ export async function updateHousehold(
         };
       }
     }
+  }
+
+  revalidatePath("/guests");
+  return { success: true };
+}
+
+export async function updateGuest(
+  guestId: string,
+  formData: FormData,
+): Promise<ActionResult> {
+  const supabase = await createClient();
+
+  const firstName = formData.get("first_name") as string;
+  const lastName = formData.get("last_name") as string;
+  const email = formData.get("email") as string;
+  const relationType = formData.get("relation_type") as string;
+  const status = formData.get("status") as string;
+  const isChild =
+    formData.get("is_child") === "on" || formData.get("is_child") === "true";
+  const isPlusOne =
+    formData.get("is_plus_one") === "on" ||
+    formData.get("is_plus_one") === "true";
+  const dietaryRequirements = formData.get("dietary_requirements") as string;
+  const dietaryDetails = formData.get("dietary_details") as string;
+
+  const { error } = await supabase
+    .from("guests")
+    .update({
+      first_name: firstName,
+      last_name: lastName,
+      email: email || null,
+      relation_type: relationType && relationType !== "" ? relationType : null,
+      status,
+      is_child: isChild,
+      is_plus_one: isPlusOne,
+      dietary_requirements:
+        dietaryRequirements && dietaryRequirements !== ""
+          ? dietaryRequirements
+          : null,
+      dietary_details: dietaryDetails || null,
+    })
+    .eq("id", guestId);
+
+  if (error) {
+    console.error("Error updating guest:", error);
+    return { success: false, error: "Erreur lors de la modification." };
   }
 
   revalidatePath("/guests");

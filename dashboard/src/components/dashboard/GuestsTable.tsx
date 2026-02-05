@@ -1,6 +1,7 @@
 "use client";
 
 import { deleteHousehold } from "@/actions/guest-actions";
+import { Guest } from "@/types";
 import { Badge } from "@shared/components/ui/badge";
 import { Button } from "@shared/components/ui/button";
 import {
@@ -34,6 +35,7 @@ import {
   Edit2,
   Mail,
   MoreHorizontal,
+  Pencil,
   Phone,
   Search,
   Trash2,
@@ -44,6 +46,7 @@ import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { toast } from "sonner";
 import { AddHouseholdDialog } from "./AddHouseholdDialog";
+import { EditGuestDialog } from "./EditGuestDialog";
 
 interface GuestsTableProps {
   households: any[];
@@ -63,6 +66,7 @@ export function GuestsTable({ households }: GuestsTableProps) {
 
   const [editingHousehold, setEditingHousehold] = useState<any>(null);
   const [deletingHousehold, setDeletingHousehold] = useState<any>(null);
+  const [editingGuest, setEditingGuest] = useState<Guest | null>(null);
 
   // Handle Sort Click
   const handleSort = (key: string) => {
@@ -129,7 +133,7 @@ export function GuestsTable({ households }: GuestsTableProps) {
       case "confirmed":
         return <Badge variant='success'>{t("filter_confirmed")}</Badge>;
       case "declined":
-        return <Badge variant='destructive'>{t("filter_declined")}</Badge>;
+        return <Badge variant='declined'>{t("filter_declined")}</Badge>;
       case "partial":
         return <Badge variant='warning'>Partiel</Badge>;
       default:
@@ -246,9 +250,6 @@ export function GuestsTable({ households }: GuestsTableProps) {
                         <div className='font-heading text-lg'>
                           {household.name}
                         </div>
-                        <div className='text-xs text-muted-foreground flex items-center gap-1'>
-                          Since {new Date().getFullYear()}
-                        </div>
                       </div>
                     </div>
                   </TableCell>
@@ -258,10 +259,19 @@ export function GuestsTable({ households }: GuestsTableProps) {
                         <Users className='w-4 h-4 text-muted-foreground' />
                         {t("guest_count", { count: household.guestCount })}
                       </div>
-                      <div className='text-xs text-muted-foreground truncate max-w-[200px]'>
-                        {household.guests
-                          .map((g: any) => g.first_name)
-                          .join(", ")}
+                      <div className='flex flex-wrap gap-1.5 max-w-[250px]'>
+                        {household.guests.map((guest: Guest) => (
+                          <button
+                            key={guest.id}
+                            onClick={() => setEditingGuest(guest)}
+                            className='group flex items-center gap-1.5 bg-gray-50 hover:bg-primary/10 px-2.5 py-1.5 rounded-md text-xs transition-all hover:shadow-sm border border-transparent hover:border-primary/20 cursor-pointer'
+                          >
+                            <span className='text-gray-700 group-hover:text-primary font-medium'>
+                              {guest.first_name}
+                            </span>
+                            <Pencil className='w-3 h-3 text-gray-400 group-hover:text-primary transition-colors' />
+                          </button>
+                        ))}
                       </div>
                     </div>
                   </TableCell>
@@ -321,7 +331,10 @@ export function GuestsTable({ households }: GuestsTableProps) {
         <AddHouseholdDialog
           open={!!editingHousehold}
           onOpenChange={(open) => !open && setEditingHousehold(null)}
-          household={editingHousehold}
+          household={{
+            ...editingHousehold,
+            status: editingHousehold.status,
+          }}
           hideTrigger
         />
       )}
@@ -354,6 +367,18 @@ export function GuestsTable({ households }: GuestsTableProps) {
           </DialogFooter>
         </DialogContent>
       </Dialog>
+
+      {/* Edit Guest Dialog */}
+      <EditGuestDialog
+        guest={editingGuest}
+        open={!!editingGuest}
+        onOpenChange={(open) => {
+          if (!open) {
+            setEditingGuest(null);
+            router.refresh();
+          }
+        }}
+      />
     </div>
   );
 }

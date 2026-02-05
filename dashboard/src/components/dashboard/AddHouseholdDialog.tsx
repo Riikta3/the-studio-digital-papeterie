@@ -25,6 +25,7 @@ interface AddHouseholdDialogProps {
     name: string;
     email?: string;
     phone?: string;
+    status?: string;
     guests: Guest[];
   };
   trigger?: React.ReactNode;
@@ -203,6 +204,24 @@ export function AddHouseholdDialog({
             />
           </div>
 
+          {/* Status Field - Only show in edit mode */}
+          {isEdit && (
+            <div className='grid gap-2'>
+              <Label htmlFor='status'>Statut du foyer</Label>
+              <select
+                id='status'
+                name='status'
+                defaultValue={household?.status || "pending"}
+                className='w-full h-10 rounded-md border border-input bg-white px-3 py-2 text-sm shadow-sm focus:outline-none focus:ring-1 focus:ring-ring'
+              >
+                <option value='pending'>En attente</option>
+                <option value='confirmed'>Confirmé</option>
+                <option value='declined'>Décliné</option>
+                <option value='partial'>Partiel</option>
+              </select>
+            </div>
+          )}
+
           <div className='grid gap-2'>
             <Label>{t("guests_section")}</Label>
             <div className='space-y-3'>
@@ -283,6 +302,14 @@ export function AddHouseholdDialog({
           </div>
 
           <DialogFooter>
+            <Button
+              type='button'
+              variant='outline'
+              onClick={() => setOpen(false)}
+              disabled={loading}
+            >
+              Annuler
+            </Button>
             <Button
               type='submit'
               disabled={loading}
