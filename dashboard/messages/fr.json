@@ -29,7 +29,19 @@
     "guest_list": "Liste des Invités",
     "guest_desc": "Gérer, ajouter ou supprimer.",
     "settings_desc": "Date, code et préférences.",
-    "the_site": "Le Site"
+    "the_site": "Le Site",
+    "total_guests": "Total Invités",
+    "activity_confirmed": "a confirmé sa présence",
+    "activity_declined": "a décliné l'invitation",
+    "activity_rsvp_received": "a répondu (inscription en ligne)",
+    "activity_added": "a été ajouté par l'admin",
+    "quick_add_guest": "Ajouter un invité",
+    "quick_add_desc": "Ajouter manuellement un foyer",
+    "manage_responses": "Gérer les réponses",
+    "manage_responses_desc": "Traiter les RSVP en attente",
+    "guest_list_desc": "Liste complète des invités",
+    "export_data": "Exporter les données",
+    "export_desc": "Télécharger un fichier Excel / CSV"
   },
   "Guests": {
     "title": "Vos Invités",
