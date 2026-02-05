@@ -22,6 +22,7 @@ export default async function DashboardHome() {
 
   if (!user) {
     redirect({ href: "/login", locale: "fr" });
+    return null; // Ensure TypeScript knows execution stops
   }
 
   // Fetch Profile (Names & Date)
