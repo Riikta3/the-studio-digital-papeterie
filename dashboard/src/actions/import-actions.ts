@@ -5,7 +5,13 @@ import { revalidatePath } from "next/cache";
 import * as XLSX from "xlsx";
 
 // Mapping for headers and values (Reverse of Export)
-const IMPORT_MAPPINGS = {
+const IMPORT_MAPPINGS: {
+  headers: { [key: string]: string };
+  relations: { [key: string]: string };
+  diets: { [key: string]: string };
+  boolean: { [key: string]: boolean };
+  status: { [key: string]: string };
+} = {
   headers: {
     // English
     "Household Name": "name",
