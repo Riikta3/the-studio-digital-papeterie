@@ -318,3 +318,77 @@ export async function exportGuestsToExcel(
     };
   }
 }
+
+export async function downloadImportTemplate(
+  locale: string = "fr",
+): Promise<
+  { success: true; data: string } | { success: false; error: string }
+> {
+  const supportedLocales = ["fr", "en"];
+  const targetLocale = supportedLocales.includes(locale) ? locale : "fr";
+  const t = EXPORT_TRANSLATIONS[targetLocale];
+
+  try {
+    const workbook = XLSX.utils.book_new();
+
+    const headers = [
+      t.headers.household_name,
+      t.headers.email,
+      t.headers.phone,
+      t.headers.firstname,
+      t.headers.lastname,
+      t.headers.relation_type,
+      t.headers.status,
+      t.headers.is_child,
+      t.headers.is_plus_one,
+      t.headers.diet,
+      t.headers.details,
+    ];
+
+    const exampleRow = [
+      t.headers.household_name === "Nom du foyer"
+        ? "Famille Martin"
+        : "Martin Family",
+      "email@example.com",
+      "0600000000",
+      t.headers.firstname === "Prénom" ? "Jean" : "John",
+      t.headers.lastname === "Nom" ? "Martin" : "Doe",
+      "",
+      "",
+      t.boolean.no,
+      t.boolean.no,
+      "",
+      "",
+    ];
+
+    const wsData = [headers, exampleRow];
+    const worksheet = XLSX.utils.aoa_to_sheet(wsData);
+
+    worksheet["!cols"] = [
+      { wch: 20 },
+      { wch: 25 },
+      { wch: 15 },
+      { wch: 15 },
+      { wch: 15 },
+      { wch: 15 },
+      { wch: 15 },
+      { wch: 10 },
+      { wch: 10 },
+      { wch: 15 },
+      { wch: 25 },
+    ];
+
+    XLSX.utils.book_append_sheet(
+      workbook,
+      worksheet,
+      t.sheets.guests || "Invités",
+    );
+
+    const buffer = XLSX.write(workbook, { type: "base64", bookType: "xlsx" });
+
+    return { success: true, data: buffer };
+  } catch (error) {
+    console.error("Error generating template:", error);
+    return { success: false, error: "Erreur lors de la génération du modèle." };
+  }
+}

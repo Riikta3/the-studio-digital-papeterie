@@ -1,7 +1,11 @@
 "use client";
 
-import { exportGuestsToExcel } from "@/actions/export-actions";
+import {
+  downloadImportTemplate,
+  exportGuestsToExcel,
+} from "@/actions/export-actions";
 import { deleteHousehold } from "@/actions/guest-actions";
+import { importGuestsFromExcel } from "@/actions/import-actions";
 import { Guest } from "@/types";
 import { Badge } from "@shared/components/ui/badge";
 import { Button } from "@shared/components/ui/button";
@@ -33,14 +37,17 @@ import {
   ArrowDown,
   ArrowUp,
   ArrowUpDown,
+  Download,
   Edit2,
   FileSpreadsheet,
+  Info,
   Mail,
   MoreHorizontal,
   Pencil,
   Phone,
   Search,
   Trash2,
+  Upload,
   Users,
 } from "lucide-react";
 import { useLocale, useTranslations } from "next-intl";
@@ -71,6 +78,8 @@ export function GuestsTable({ households }: GuestsTableProps) {
   const [deletingHousehold, setDeletingHousehold] = useState<any>(null);
   const [editingGuest, setEditingGuest] = useState<Guest | null>(null);
   const [isExporting, setIsExporting] = useState(false);
+  const [isImporting, setIsImporting] = useState(false);
+  const [showHelp, setShowHelp] = useState(false);
 
   // Handle Sort Click
   const handleSort = (key: string) => {
@@ -174,6 +183,38 @@ export function GuestsTable({ households }: GuestsTableProps) {
     }
   };
 
+  const handleDownloadTemplate = async () => {
+    const toastId = toast.loading("Génération du modèle...");
+    try {
+      const result = await downloadImportTemplate(locale);
+      if (result.success) {
+        const binaryString = window.atob(result.data);
+        const len = binaryString.length;
+        const bytes = new Uint8Array(len);
+        for (let i = 0; i < len; i++) {
+          bytes[i] = binaryString.charCodeAt(i);
+        }
+        const blob = new Blob([bytes], {
+          type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+        });
+        const url = window.URL.createObjectURL(blob);
+        const a = document.createElement("a");
+        a.href = url;
+        const date = new Date().toISOString().split("T")[0];
+        a.download = `modele-import-invites-${date}.xlsx`;
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        window.URL.revokeObjectURL(url);
+        toast.success("Modèle téléchargé !", { id: toastId });
+      } else {
+        toast.error(result.error, { id: toastId });
+      }
+    } catch (error) {
+      toast.error("Erreur lors du téléchargement", { id: toastId });
+    }
+  };
+
   const getStatusBadge = (status: string) => {
     switch (status) {
       case "confirmed":
@@ -228,16 +269,73 @@ export function GuestsTable({ households }: GuestsTableProps) {
             </Button>
           ))}
         </div>
-        <Button
-          onClick={handleExport}
-          disabled={isExporting}
-          variant='outline'
-          size='sm'
-          className='gap-2 whitespace-nowrap'
-        >
-          <FileSpreadsheet className='h-4 w-4' />
-          {isExporting ? "Export en cours..." : "Exporter Excel"}
-        </Button>
+        <div className='flex gap-2'>
+          <Button
+            onClick={handleExport}
+            disabled={isExporting}
+            variant='outline'
+            size='sm'
+            className='gap-2 whitespace-nowrap'
+          >
+            <FileSpreadsheet className='h-4 w-4' />
+            {isExporting ? "Export..." : "Exporter"}
+          </Button>
+          <div className='relative'>
+            <input
+              type='file'
+              accept='.xlsx, .xls'
+              onChange={async (e) => {
+                const file = e.target.files?.[0];
+                if (!file) return;
+
+                setIsImporting(true);
+                const toastId = toast.loading("Import en cours...");
+
+                const formData = new FormData();
+                formData.append("file", file);
+
+                try {
+                  const result = await importGuestsFromExcel(formData);
+                  if (result.success) {
+                    toast.success(result.message, { id: toastId });
+                    router.refresh();
+                  } else {
+                    toast.error(result.error || "Erreur lors de l'import", {
+                      id: toastId,
+                    });
+                  }
+                } catch (err) {
+                  toast.error("Erreur technique", { id: toastId });
+                } finally {
+                  setIsImporting(false);
+                  // Reset input
+                  e.target.value = "";
+                }
+              }}
+              className='absolute inset-0 w-full h-full opacity-0 cursor-pointer z-10 peer'
+              disabled={isImporting}
+            />
+            <Button
+              variant='outline'
+              size='sm'
+              className='gap-2 whitespace-nowrap peer-hover:bg-accent peer-hover:text-accent-foreground'
+              disabled={isImporting}
+            >
+              <Upload className='h-4 w-4' />
+              {isImporting ? "Import..." : "Importer"}
+            </Button>
+          </div>
+          <div className='flex items-center'>
+            <Button
+              variant='ghost'
+              size='icon'
+              className='h-8 w-8'
+              onClick={() => setShowHelp(true)}
+            >
+              <Info className='h-4 w-4 text-muted-foreground cursor-help' />
+            </Button>
+          </div>
+        </div>
       </div>
 
       {/* Table */}
@@ -464,6 +562,53 @@ export function GuestsTable({ households }: GuestsTableProps) {
           }
         }}
       />
+
+      {/* Help / Import Dialog */}
+      <Dialog
+        open={showHelp}
+        onOpenChange={setShowHelp}
+      >
+        <DialogContent>
+          <DialogHeader>
+            <DialogTitle>Comment importer vos invités ?</DialogTitle>
+            <DialogDescription>
+              Suivez ces étapes simples pour importer votre liste d'invités :
+            </DialogDescription>
+          </DialogHeader>
+          <div className='space-y-4 py-4'>
+            <ol className='list-decimal list-inside space-y-2 text-sm text-muted-foreground'>
+              <li>Téléchargez le modèle Excel ci-dessous.</li>
+              <li>Remplissez-le avec vos invités (respectez les colonnes).</li>
+              <li>Sauvegardez le fichier.</li>
+              <li>
+                Cliquez sur le bouton "Importer" et sélectionnez votre fichier.
+              </li>
+            </ol>
+            <div className='bg-blue-50 p-3 rounded-md text-xs text-blue-700 flex gap-2'>
+              <Info className='h-4 w-4 shrink-0' />
+              <p>
+                Astuce : Les colonnes "Enfant" et "Plus-One" attendent "Oui" ou
+                "Non".
+              </p>
+            </div>
+          </div>
+          <DialogFooter>
+            <Button
+              variant='outline'
+              onClick={() => setShowHelp(false)}
+            >
+              Fermer
+            </Button>
+            <Button
+              onClick={handleDownloadTemplate}
+              className='gap-2'
+            >
+              <Download className='h-4 w-4' />
+              Télécharger le modèle
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
     </div>
   );
 }
