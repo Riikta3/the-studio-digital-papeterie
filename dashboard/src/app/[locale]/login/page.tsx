@@ -1,5 +1,6 @@
 "use client";
 
+import { Link } from "@/navigation";
 import { Button } from "@shared/components/ui/button";
 import { Input } from "@shared/components/ui/input";
 import { Label } from "@shared/components/ui/label";
@@ -112,6 +113,14 @@ export default function LoginPage() {
                 required
                 className='h-14 bg-white border-gray-200/80 focus:border-primary/50 focus:ring-primary/20 rounded-xl transition-all duration-300 text-base'
               />
+              <div className='text-right mt-2'>
+                <Link
+                  href='/forgot-password'
+                  className='text-xs text-primary/60 hover:text-primary font-light tracking-wide transition-colors'
+                >
+                  Mot de passe oublié ?
+                </Link>
+              </div>
             </div>
 
             {state?.error && (
