@@ -77,7 +77,9 @@ export function StatCard({
 
       {/* Value */}
       <div className='relative z-10 mb-2'>
-        <div className={`text-5xl font-heading font-light ${styles.value}`}>
+        <div
+          className={`text-4xl md:text-5xl font-heading font-light ${styles.value}`}
+        >
           {value}
         </div>
         {description && (

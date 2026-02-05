@@ -86,7 +86,7 @@ export async function RecentActivity() {
               }`}
             />
 
-            <div className='flex items-start justify-between gap-4 p-4 bg-white rounded-xl border border-border shadow-sm hover:shadow-md transition-all duration-300'>
+            <div className='flex items-start justify-between gap-3 md:gap-4 p-3 md:p-4 bg-white rounded-xl border border-border shadow-sm hover:shadow-md transition-all duration-300'>
               <div className='flex items-start gap-3'>
                 <div
                   className={`p-2 rounded-full border shrink-0 mt-0.5 ${getActivityColor(household.status, household.source)}`}

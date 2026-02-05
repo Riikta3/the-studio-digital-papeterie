@@ -71,7 +71,7 @@ export default async function DashboardHome() {
   }
 
   return (
-    <div className='min-h-screen p-6 md:p-12 max-w-7xl mx-auto space-y-10 bg-[#FDFBF7]/50'>
+    <div className='min-h-screen p-4 md:p-8 lg:p-12 max-w-7xl mx-auto space-y-8 md:space-y-10 bg-[#FDFBF7]/50'>
       <header className='flex flex-col md:flex-row justify-between items-start md:items-center border-b border-gray-200/60 pb-8 gap-4'>
         <div className='space-y-3'>
           <div className='flex flex-col'>
