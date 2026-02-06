@@ -4,7 +4,8 @@ import { Link } from "@/navigation";
 import { Button } from "@shared/components/ui/button";
 import { Input } from "@shared/components/ui/input";
 import { Label } from "@shared/components/ui/label";
-import { useActionState, useEffect } from "react";
+import { Eye, EyeOff } from "lucide-react";
+import { useActionState, useEffect, useState } from "react";
 import { login } from "./actions";
 
 const initialState = {
@@ -12,6 +13,7 @@ const initialState = {
 };
 
 export default function LoginPage() {
+  const [showPassword, setShowPassword] = useState(false);
   const [state, formAction, isPending] = useActionState(login, initialState);
 
   // Redirect on successful login with full page reload to update auth state
@@ -105,14 +107,27 @@ export default function LoginPage() {
               >
                 Mot de passe
               </Label>
-              <Input
-                id='password'
-                name='password'
-                type='password'
-                placeholder='••••••••••'
-                required
-                className='h-14 bg-white border-gray-200/80 focus:border-primary/50 focus:ring-primary/20 rounded-xl transition-all duration-300 text-base'
-              />
+              <div className='relative'>
+                <Input
+                  id='password'
+                  name='password'
+                  type={showPassword ? "text" : "password"}
+                  placeholder='••••••••••'
+                  required
+                  className='h-14 bg-white border-gray-200/80 focus:border-primary/50 focus:ring-primary/20 rounded-xl transition-all duration-300 text-base pr-10'
+                />
+                <button
+                  type='button'
+                  onClick={() => setShowPassword(!showPassword)}
+                  className='absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600 transition-colors'
+                >
+                  {showPassword ? (
+                    <EyeOff className='h-5 w-5' />
+                  ) : (
+                    <Eye className='h-5 w-5' />
+                  )}
+                </button>
+              </div>
               <div className='text-right mt-2'>
                 <Link
                   href='/forgot-password'

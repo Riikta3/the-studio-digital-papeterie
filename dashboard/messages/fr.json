@@ -142,7 +142,13 @@
     "billing": "Facturation",
     "settings": "Réglages",
     "view_site": "Voir mon Site",
-    "logout": "Déconnexion"
+    "logout": "Déconnexion",
+    "logout_confirmation": {
+      "title": "Confirmer la déconnexion",
+      "description": "Êtes-vous sûr de vouloir vous déconnecter ?",
+      "cancel": "Annuler",
+      "confirm": "Se déconnecter"
+    }
   },
   "LanguageSwitcher": {
     "select_language": "Langue"

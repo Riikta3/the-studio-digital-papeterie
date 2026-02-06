@@ -3,6 +3,15 @@
 import { logout } from "@/app/[locale]/login/actions";
 import { Link, usePathname } from "@/navigation";
 import { Button } from "@shared/components/ui/button";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@shared/components/ui/dialog";
 import { cn } from "@shared/lib/utils";
 import {
   CreditCard,
@@ -31,6 +40,7 @@ export function Sidebar() {
   const t = useTranslations("Sidebar");
   const pathname = usePathname();
   const [isOpen, setIsOpen] = useState(false);
+  const [showLogoutDialog, setShowLogoutDialog] = useState(false);
 
   // Close sidebar on mobile when navigating
   const handleLinkClick = () => setIsOpen(false);
@@ -167,14 +177,44 @@ export function Sidebar() {
                 {t("view_site")}
               </Button>
             </Link>
-            <Button
-              variant='ghost'
-              onClick={handleLogout}
-              className='w-full justify-start text-red-500 hover:bg-red-50 hover:text-red-600 gap-3'
+
+            <Dialog
+              open={showLogoutDialog}
+              onOpenChange={setShowLogoutDialog}
             >
-              <LogOut size={18} />
-              {t("logout")}
-            </Button>
+              <DialogTrigger asChild>
+                <Button
+                  variant='ghost'
+                  className='w-full justify-start text-red-500 hover:bg-red-50 hover:text-red-600 gap-3'
+                >
+                  <LogOut size={18} />
+                  {t("logout")}
+                </Button>
+              </DialogTrigger>
+              <DialogContent>
+                <DialogHeader>
+                  <DialogTitle>{t("logout_confirmation.title")}</DialogTitle>
+                  <DialogDescription>
+                    {t("logout_confirmation.description")}
+                  </DialogDescription>
+                </DialogHeader>
+                <DialogFooter className='gap-2 sm:gap-0'>
+                  <Button
+                    variant='outline'
+                    onClick={() => setShowLogoutDialog(false)}
+                  >
+                    {t("logout_confirmation.cancel")}
+                  </Button>
+                  <Button
+                    variant='destructive'
+                    onClick={handleLogout}
+                    className='bg-red-500 hover:bg-red-600 text-white'
+                  >
+                    {t("logout_confirmation.confirm")}
+                  </Button>
+                </DialogFooter>
+              </DialogContent>
+            </Dialog>
           </div>
         </div>
       </aside>
