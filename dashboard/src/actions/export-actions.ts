@@ -337,12 +337,12 @@ export async function downloadImportTemplate(
       t.headers.phone,
       t.headers.firstname,
       t.headers.lastname,
-      t.headers.relation_type,
+      t.headers.relation,
       t.headers.status,
-      t.headers.is_child,
-      t.headers.is_plus_one,
+      t.headers.child,
+      t.headers.plus_one,
       t.headers.diet,
-      t.headers.details,
+      t.headers.diet_details,
     ];
 
     const exampleRow = [
@@ -378,11 +378,35 @@ export async function downloadImportTemplate(
       { wch: 25 },
     ];
 
+    // Add row height (hpt = points)
+    // Row 1 (Headers): 30pt, Row 2 (Example): 20pt
+    worksheet["!rows"] = [{ hpt: 30 }, { hpt: 20 }];
+
     XLSX.utils.book_append_sheet(
       workbook,
       worksheet,
       t.sheets.guests || "Invités",
     );
+
+    // === SHEET 2: Instructions (Lexicon) ===
+    const instructionHeaders = ["Champ", "Valeurs acceptées / Description"];
+    const instructionData = [
+      instructionHeaders,
+      [t.headers.relation, Object.values(t.relations).join(", ")],
+      [t.headers.status, Object.values(t.status).join(", ")],
+      [t.headers.diet, Object.values(t.diet).join(", ")],
+      [
+        t.headers.child + " / " + t.headers.plus_one,
+        `${t.boolean.yes}, ${t.boolean.no}`,
+      ],
+      [t.headers.email, "Format email valide (ex: contact@mail.com)"],
+      [t.headers.phone, "Numéro de téléphone"],
+    ];
+
+    const instructionSheet = XLSX.utils.aoa_to_sheet(instructionData);
+    instructionSheet["!cols"] = [{ wch: 30 }, { wch: 100 }];
+
+    XLSX.utils.book_append_sheet(workbook, instructionSheet, "Instructions");
 
     const buffer = XLSX.write(workbook, { type: "base64", bookType: "xlsx" });
 
