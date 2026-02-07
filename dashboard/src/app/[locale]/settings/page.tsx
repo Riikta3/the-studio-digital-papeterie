@@ -1,10 +1,18 @@
-import { getSettings } from "@/actions/settings-actions";
+import { getProfile, getSettings } from "@/actions/settings-actions";
+import DeleteAccountDialog from "@/components/dashboard/DeleteAccountDialog";
+import { LanguageSwitcher } from "@/components/dashboard/LanguageSwitcher";
+import ProfileSettings from "@/components/dashboard/ProfileSettings";
+import SecuritySettings from "@/components/dashboard/SecuritySettings";
+import SettingsForm from "@/components/dashboard/SettingsForm";
 import { redirect } from "@/navigation";
 import { createClient } from "@/utils/supabase/server";
-
-// We'll make a Client Component for the form to handle Toasts easily
-import { LanguageSwitcher } from "@/components/dashboard/LanguageSwitcher";
-import SettingsForm from "@/components/dashboard/SettingsForm";
+import {
+  Tabs,
+  TabsContent,
+  TabsList,
+  TabsTrigger,
+} from "@shared/components/ui/tabs";
+import { getTranslations } from "next-intl/server";
 
 export default async function SettingsPage() {
   const supabase = await createClient();
@@ -16,45 +24,73 @@ export default async function SettingsPage() {
     redirect({ href: "/login", locale: "fr" });
   }
 
-  // Fetch settings
+  // Fetch settings & profile
   const settings = await getSettings();
-
-  // If no settings exist (should be created on signup ideally), create default?
-  // Or handle null.
+  const profile = await getProfile();
+  const t = await getTranslations("Settings");
 
   return (
-    <div className='p-8 md:p-12 max-w-4xl mx-auto space-y-8'>
+    <div className='p-8 md:p-12 max-w-4xl mx-auto space-y-8 pb-32'>
       <header className='pb-8 border-b border-border'>
         <h1 className='text-4xl font-heading font-light text-foreground'>
-          Réglages
+          {t("title")}
         </h1>
-        <p className='text-muted-foreground mt-2'>
-          Configurez votre mariage et l&apos;accès invités.
-        </p>
+        <p className='text-muted-foreground mt-2'>{t("subtitle")}</p>
       </header>
 
-      <div className='grid gap-8'>
-        <section className='bg-card p-6 rounded-xl border border-border shadow-sm'>
-          <h2 className='text-xl font-heading mb-4'>Code Mariage (RSVP)</h2>
-          <p className='text-sm text-muted-foreground mb-6'>
-            Ce code est nécessaire pour que vos invités puissent accéder au
-            formulaire de réponse. Partagez-le sur vos faire-parts.
-          </p>
+      <Tabs
+        defaultValue='general'
+        className='w-full'
+      >
+        <TabsList className='mb-8'>
+          <TabsTrigger value='general'>{t("tabs.general")}</TabsTrigger>
+          <TabsTrigger value='profile'>{t("tabs.profile")}</TabsTrigger>
+          <TabsTrigger value='security'>{t("tabs.security")}</TabsTrigger>
+        </TabsList>
 
-          <SettingsForm initialSettings={settings} />
-        </section>
+        <TabsContent
+          value='general'
+          className='space-y-8'
+        >
+          <section className='bg-card p-6 rounded-xl border border-border shadow-sm'>
+            <h2 className='text-xl font-heading mb-4'>
+              {t("general.wedding_config_title")}
+            </h2>
+            <p className='text-sm text-muted-foreground mb-6'>
+              {t("general.wedding_config_desc")}
+            </p>
+            <SettingsForm initialSettings={settings} />
+          </section>
 
-        <section className='bg-card p-6 rounded-xl border border-border shadow-sm'>
-          <h2 className='text-xl font-heading mb-4'>Langue de la plateforme</h2>
-          <p className='text-sm text-muted-foreground mb-6'>
-            Choisissez la langue de l&apos;interface d&apos;administration.
-          </p>
+          <section className='bg-card p-6 rounded-xl border border-border shadow-sm'>
+            <h2 className='text-xl font-heading mb-4'>
+              {t("general.language_title")}
+            </h2>
+            <p className='text-sm text-muted-foreground mb-6'>
+              {t("general.language_desc")}
+            </p>
+            <div className='max-w-md'>
+              <LanguageSwitcher />
+            </div>
+          </section>
+        </TabsContent>
 
-          <div className='max-w-md'>
-            <LanguageSwitcher />
-          </div>
-        </section>
-      </div>
+        <TabsContent
+          value='profile'
+          className='space-y-8'
+        >
+          <ProfileSettings profile={profile} />
+        </TabsContent>
+
+        <TabsContent
+          value='security'
+          className='space-y-8'
+        >
+          <SecuritySettings />
+
+          <DeleteAccountDialog />
+        </TabsContent>
+      </Tabs>
     </div>
   );
 }

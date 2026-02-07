@@ -157,5 +157,50 @@
     "title": "Page introuvable",
     "description": "Désolé, la page que vous recherchez n'existe pas.",
     "back_home": "Retour à l'accueil"
+  },
+  "Settings": {
+    "title": "Réglages",
+    "subtitle": "Gérez votre profil, votre sécurité et la configuration du mariage.",
+    "tabs": {
+      "general": "Général",
+      "profile": "Profil",
+      "security": "Sécurité"
+    },
+    "general": {
+      "wedding_config_title": "Configuration Mariage",
+      "wedding_config_desc": "Code d'accès pour le formulaire RSVP de vos invités.",
+      "language_title": "Langue",
+      "language_desc": "Langue de l'interface d'administration."
+    },
+    "profile": {
+      "title": "Informations personnelles",
+      "desc": "Mettez à jour vos informations de profil.",
+      "firstname": "Votre Prénom",
+      "partnername": "Prénom du partenaire",
+      "save": "Enregistrer",
+      "email_title": "Adresse Email",
+      "email_desc": "Modifier votre email nécessitera une confirmation sur la nouvelle adresse.",
+      "new_email": "Nouvel Email",
+      "update_email_btn": "Modifier l'email",
+      "toast_profile_success": "Profil mis à jour"
+    },
+    "security": {
+      "password_title": "Mot de passe",
+      "password_desc": "Mettez à jour votre mot de passe pour sécuriser votre compte.",
+      "new_password": "Nouveau mot de passe",
+      "confirm_password": "Confirmer le mot de passe",
+      "update_password_btn": "Mettre à jour le mot de passe",
+      "danger_zone": "Zone de danger",
+      "delete_account_box_title": "Zone de danger",
+      "delete_account_desc": "La suppression du compte est irréversible. Toutes vos données seront effacées.",
+      "delete_btn": "Supprimer mon compte",
+      "delete_dialog_title": "Supprimer le compte ?",
+      "delete_dialog_desc": "Cette action est définitive. Êtes-vous sûr de vouloir supprimer votre compte et toutes les données associées ?",
+      "type_to_confirm": "Pour confirmer, tapez",
+      "delete_keyword": "SUPPRIMER",
+      "cancel": "Annuler",
+      "confirm_delete_btn": "Supprimer définitivement",
+      "toast_error_tech": "Erreur technique lors de la suppression"
+    }
   }
 }

@@ -151,5 +151,50 @@
   },
   "LanguageSwitcher": {
     "select_language": "Language"
+  },
+  "Settings": {
+    "title": "Settings",
+    "subtitle": "Manage your profile, security and wedding configuration.",
+    "tabs": {
+      "general": "General",
+      "profile": "Profile",
+      "security": "Security"
+    },
+    "general": {
+      "wedding_config_title": "Wedding Configuration",
+      "wedding_config_desc": "Access code for your guests' RSVP form.",
+      "language_title": "Language",
+      "language_desc": "Administration interface language."
+    },
+    "profile": {
+      "title": "Personal Information",
+      "desc": "Update your profile information.",
+      "firstname": "Your First Name",
+      "partnername": "Partner's First Name",
+      "save": "Save",
+      "email_title": "Email Address",
+      "email_desc": "Changing your email will require confirmation on the new address.",
+      "new_email": "New Email",
+      "update_email_btn": "Update Email",
+      "toast_profile_success": "Profile updated"
+    },
+    "security": {
+      "password_title": "Password",
+      "password_desc": "Update your password to secure your account.",
+      "new_password": "New Password",
+      "confirm_password": "Confirm Password",
+      "update_password_btn": "Update Password",
+      "danger_zone": "Danger Zone",
+      "delete_account_box_title": "Danger Zone",
+      "delete_account_desc": "Account deletion is irreversible. All your data will be permanently deleted.",
+      "delete_btn": "Delete my account",
+      "delete_dialog_title": "Delete account?",
+      "delete_dialog_desc": "This action is final. Are you sure you want to delete your account and all associated data?",
+      "type_to_confirm": "To confirm, type",
+      "delete_keyword": "DELETE",
+      "cancel": "Cancel",
+      "confirm_delete_btn": "Delete permanently",
+      "toast_error_tech": "Technical error during deletion"
+    }
   }
 }
