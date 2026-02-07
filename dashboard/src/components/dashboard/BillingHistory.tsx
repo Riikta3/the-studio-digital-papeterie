@@ -105,9 +105,14 @@ export function BillingHistory({ history }: BillingHistoryProps) {
 
   const requestSort = (key: keyof BillingRecord) => {
     let direction: "asc" | "desc" = "asc";
+
     if (sortConfig.key === key && sortConfig.direction === "asc") {
       direction = "desc";
+    } else if (sortConfig.key === key && sortConfig.direction === "desc") {
+      setSortConfig({ key: null, direction: "desc" }); // Reset to default state
+      return;
     }
+
     setSortConfig({ key, direction });
   };
 
