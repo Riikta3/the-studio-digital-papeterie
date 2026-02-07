@@ -34,8 +34,14 @@ export function DashboardLayout({ children }: { children: React.ReactNode }) {
   }, []);
 
   // Pages that should never have sidebar (even if authenticated)
+  const isAuthPage =
+    pathname.includes("/login") ||
+    pathname.includes("/register") ||
+    pathname.includes("/forgot-password") ||
+    pathname.includes("/reset-password");
+
   const isAlwaysFullScreen =
-    pathname.startsWith("/rsvp") || pathname === "/preview";
+    pathname.startsWith("/rsvp") || pathname === "/preview" || isAuthPage;
 
   // Show sidebar only if authenticated and not on full-screen pages
   const showSidebar = isAuthenticated && !isAlwaysFullScreen;

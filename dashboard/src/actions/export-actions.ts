@@ -1,7 +1,7 @@
 "use server";
 
 import { createClient } from "@/lib/supabase/server";
-import * as XLSX from "xlsx";
+import ExcelJS from "exceljs";
 
 const EXPORT_TRANSLATIONS: Record<string, any> = {
   fr: {
@@ -188,9 +188,15 @@ export async function exportGuestsToExcel(
     const t = EXPORT_TRANSLATIONS[targetLocale];
 
     // Prepare data structures
-    const workbook = XLSX.utils.book_new();
+    const workbook = new ExcelJS.Workbook();
+    workbook.creator = "The Studio Digital Papeterie";
+    workbook.lastModifiedBy = "The Studio Digital Papeterie";
+    workbook.created = new Date();
+    workbook.modified = new Date();
 
     // === SHEET 1: Récapitulatif ===
+    const summarySheet = workbook.addWorksheet(t.sheets.summary);
+
     const allGuests = households.flatMap((h) => h.guests || []);
     const totalHouseholds = households.length;
     const totalGuests = allGuests.length;
@@ -235,79 +241,79 @@ export async function exportGuestsToExcel(
       ...Object.entries(dietaryCount).map(([key, value]) => [key, value]),
     ];
 
-    const recapSheet = XLSX.utils.aoa_to_sheet(recapData);
-    XLSX.utils.book_append_sheet(workbook, recapSheet, t.sheets.summary);
+    summarySheet.addRows(recapData);
+
+    // Style the first column to be bold
+    summarySheet.getColumn(1).width = 25;
+    summarySheet.getColumn(1).font = { bold: true };
+    summarySheet.getColumn(2).width = 15;
 
     // === SHEET 2: Foyers ===
-    const householdsData = [
-      [
-        t.headers.household_name,
-        t.headers.email,
-        t.headers.phone,
-        t.headers.guest_count,
-        t.headers.status,
-        t.headers.creation_date,
-      ],
-      ...households.map((h) => [
-        h.name,
-        h.email || "",
-        h.phone || "",
-        (h.guests || []).length,
-        t.status[h.status] || h.status,
-        new Date(h.created_at).toLocaleDateString(
-          targetLocale === "en" ? "en-US" : "fr-FR",
-        ),
-      ]),
+    const householdsSheet = workbook.addWorksheet(t.sheets.households);
+
+    householdsSheet.columns = [
+      { header: t.headers.household_name, key: "name", width: 25 },
+      { header: t.headers.email, key: "email", width: 25 },
+      { header: t.headers.phone, key: "phone", width: 15 },
+      { header: t.headers.guest_count, key: "guest_count", width: 15 },
+      { header: t.headers.status, key: "status", width: 15 },
+      { header: t.headers.creation_date, key: "created_at", width: 20 },
     ];
 
-    const householdsSheet = XLSX.utils.aoa_to_sheet(householdsData);
-    XLSX.utils.book_append_sheet(
-      workbook,
-      householdsSheet,
-      t.sheets.households,
-    );
+    const householdsRows = households.map((h) => ({
+      name: h.name,
+      email: h.email || "",
+      phone: h.phone || "",
+      guest_count: (h.guests || []).length,
+      status: t.status[h.status] || h.status,
+      created_at: new Date(h.created_at).toLocaleDateString(
+        targetLocale === "en" ? "en-US" : "fr-FR",
+      ),
+    }));
+
+    householdsSheet.addRows(householdsRows);
+    householdsSheet.getRow(1).font = { bold: true };
 
     // === SHEET 3: Invités ===
-    const guestsData = [
-      [
-        t.headers.household,
-        t.headers.firstname,
-        t.headers.lastname,
-        t.headers.email,
-        t.headers.relation,
-        t.headers.status,
-        t.headers.child,
-        t.headers.plus_one,
-        t.headers.diet,
-        t.headers.diet_details,
-      ],
-      ...households.flatMap((h) =>
-        (h.guests || []).map((g) => [
-          h.name,
-          g.first_name,
-          g.last_name,
-          g.email || "",
-          t.relations[g.relation_type] || g.relation_type || "",
-          t.status[g.status] || g.status,
-          g.is_child ? t.boolean.yes : t.boolean.no,
-          g.is_plus_one ? t.boolean.yes : t.boolean.no,
-          t.diet[g.dietary_requirements] || g.dietary_requirements || "",
-          g.dietary_details || "",
-        ]),
-      ),
+    const guestsSheet = workbook.addWorksheet(t.sheets.guests);
+
+    guestsSheet.columns = [
+      { header: t.headers.household, key: "household_name", width: 25 },
+      { header: t.headers.firstname, key: "first_name", width: 20 },
+      { header: t.headers.lastname, key: "last_name", width: 20 },
+      { header: t.headers.email, key: "email", width: 25 },
+      { header: t.headers.relation, key: "relation_type", width: 15 },
+      { header: t.headers.status, key: "status", width: 15 },
+      { header: t.headers.child, key: "is_child", width: 10 },
+      { header: t.headers.plus_one, key: "is_plus_one", width: 10 },
+      { header: t.headers.diet, key: "dietary_requirements", width: 20 },
+      { header: t.headers.diet_details, key: "dietary_details", width: 25 },
     ];
 
-    const guestsSheet = XLSX.utils.aoa_to_sheet(guestsData);
-    XLSX.utils.book_append_sheet(workbook, guestsSheet, t.sheets.guests);
+    const guestsRows = households.flatMap((h) =>
+      (h.guests || []).map((g) => ({
+        household_name: h.name,
+        first_name: g.first_name,
+        last_name: g.last_name,
+        email: g.email || "",
+        relation_type: t.relations[g.relation_type] || g.relation_type || "",
+        status: t.status[g.status] || g.status,
+        is_child: g.is_child ? t.boolean.yes : t.boolean.no,
+        is_plus_one: g.is_plus_one ? t.boolean.yes : t.boolean.no,
+        dietary_requirements:
+          t.diet[g.dietary_requirements] || g.dietary_requirements || "",
+        dietary_details: g.dietary_details || "",
+      })),
+    );
+
+    guestsSheet.addRows(guestsRows);
+    guestsSheet.getRow(1).font = { bold: true };
 
     // Generate Excel file as buffer
-    const excelBuffer = XLSX.write(workbook, {
-      type: "buffer",
-      bookType: "xlsx",
-    });
+    const buffer = await workbook.xlsx.writeBuffer();
 
     // Return as Base64 string to avoid serialization issues with Buffer across Server Actions
-    return { success: true, data: excelBuffer.toString("base64") };
+    return { success: true, data: Buffer.from(buffer).toString("base64") };
   } catch (error) {
     console.error("Export Excel error:", error);
     const errorMessage =
@@ -329,88 +335,89 @@ export async function downloadImportTemplate(
   const t = EXPORT_TRANSLATIONS[targetLocale];
 
   try {
-    const workbook = XLSX.utils.book_new();
+    const workbook = new ExcelJS.Workbook();
+    workbook.creator = "The Studio Digital Papeterie";
+    workbook.created = new Date();
 
-    const headers = [
-      t.headers.household_name,
-      t.headers.email,
-      t.headers.phone,
-      t.headers.firstname,
-      t.headers.lastname,
-      t.headers.relation,
-      t.headers.status,
-      t.headers.child,
-      t.headers.plus_one,
-      t.headers.diet,
-      t.headers.diet_details,
+    const worksheet = workbook.addWorksheet(t.sheets.guests || "Invités");
+
+    worksheet.columns = [
+      { header: t.headers.household_name, key: "household_name", width: 20 },
+      { header: t.headers.email, key: "email", width: 25 },
+      { header: t.headers.phone, key: "phone", width: 15 },
+      { header: t.headers.firstname, key: "first_name", width: 15 },
+      { header: t.headers.lastname, key: "last_name", width: 15 },
+      { header: t.headers.relation, key: "relation_type", width: 15 },
+      { header: t.headers.status, key: "status", width: 15 },
+      { header: t.headers.child, key: "is_child", width: 10 },
+      { header: t.headers.plus_one, key: "is_plus_one", width: 10 },
+      { header: t.headers.diet, key: "dietary_requirements", width: 15 },
+      { header: t.headers.diet_details, key: "dietary_details", width: 25 },
     ];
 
-    const exampleRow = [
-      t.headers.household_name === "Nom du foyer"
-        ? "Famille Martin"
-        : "Martin Family",
-      "email@example.com",
-      "0600000000",
-      t.headers.firstname === "Prénom" ? "Jean" : "John",
-      t.headers.lastname === "Nom" ? "Martin" : "Doe",
-      "",
-      "",
-      t.boolean.no,
-      t.boolean.no,
-      "",
-      "",
-    ];
+    // Example row
+    worksheet.addRow({
+      household_name:
+        t.headers.household_name === "Nom du foyer"
+          ? "Famille Martin"
+          : "Martin Family",
+      email: "email@example.com",
+      phone: "0600000000",
+      first_name: t.headers.firstname === "Prénom" ? "Jean" : "John",
+      last_name: t.headers.lastname === "Nom" ? "Martin" : "Doe",
+      relation_type: "",
+      status: "",
+      is_child: t.boolean.no,
+      is_plus_one: t.boolean.no,
+      dietary_requirements: "",
+      dietary_details: "",
+    });
 
-    const wsData = [headers, exampleRow];
-    const worksheet = XLSX.utils.aoa_to_sheet(wsData);
+    // Style headers
+    const headerRow = worksheet.getRow(1);
+    headerRow.font = { bold: true };
+    headerRow.height = 30;
 
-    worksheet["!cols"] = [
-      { wch: 20 },
-      { wch: 25 },
-      { wch: 15 },
-      { wch: 15 },
-      { wch: 15 },
-      { wch: 15 },
-      { wch: 15 },
-      { wch: 10 },
-      { wch: 10 },
-      { wch: 15 },
-      { wch: 25 },
-    ];
-
-    // Add row height (hpt = points)
-    // Row 1 (Headers): 30pt, Row 2 (Example): 20pt
-    worksheet["!rows"] = [{ hpt: 30 }, { hpt: 20 }];
-
-    XLSX.utils.book_append_sheet(
-      workbook,
-      worksheet,
-      t.sheets.guests || "Invités",
-    );
+    worksheet.getRow(2).height = 20;
 
     // === SHEET 2: Instructions (Lexicon) ===
-    const instructionHeaders = ["Champ", "Valeurs acceptées / Description"];
-    const instructionData = [
-      instructionHeaders,
-      [t.headers.relation, Object.values(t.relations).join(", ")],
-      [t.headers.status, Object.values(t.status).join(", ")],
-      [t.headers.diet, Object.values(t.diet).join(", ")],
-      [
-        t.headers.child + " / " + t.headers.plus_one,
-        `${t.boolean.yes}, ${t.boolean.no}`,
-      ],
-      [t.headers.email, "Format email valide (ex: contact@mail.com)"],
-      [t.headers.phone, "Numéro de téléphone"],
+    const instructionSheet = workbook.addWorksheet("Instructions");
+    instructionSheet.columns = [
+      { header: "Champ", key: "field", width: 30 },
+      {
+        header: "Valeurs acceptées / Description",
+        key: "description",
+        width: 100,
+      },
     ];
 
-    const instructionSheet = XLSX.utils.aoa_to_sheet(instructionData);
-    instructionSheet["!cols"] = [{ wch: 30 }, { wch: 100 }];
+    const instructionData = [
+      {
+        field: t.headers.relation,
+        description: Object.values(t.relations).join(", "),
+      },
+      {
+        field: t.headers.status,
+        description: Object.values(t.status).join(", "),
+      },
+      { field: t.headers.diet, description: Object.values(t.diet).join(", ") },
+      {
+        field: t.headers.child + " / " + t.headers.plus_one,
+        description: `${t.boolean.yes}, ${t.boolean.no}`,
+      },
+      {
+        field: t.headers.email,
+        description: "Format email valide (ex: contact@mail.com)",
+      },
+      { field: t.headers.phone, description: "Numéro de téléphone" },
+    ];
 
-    XLSX.utils.book_append_sheet(workbook, instructionSheet, "Instructions");
+    instructionSheet.addRows(instructionData);
+    instructionSheet.getRow(1).font = { bold: true };
 
-    const buffer = XLSX.write(workbook, { type: "base64", bookType: "xlsx" });
+    const buffer = await workbook.xlsx.writeBuffer();
 
-    return { success: true, data: buffer };
+    return { success: true, data: Buffer.from(buffer).toString("base64") };
   } catch (error) {
     console.error("Error generating template:", error);
     return { success: false, error: "Erreur lors de la génération du modèle." };

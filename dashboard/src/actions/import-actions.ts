@@ -1,8 +1,8 @@
 "use server";
 
 import { createClient } from "@/lib/supabase/server";
+import ExcelJS from "exceljs";
 import { revalidatePath } from "next/cache";
-import * as XLSX from "xlsx";
 
 // Mapping for headers and values (Reverse of Export)
 const IMPORT_MAPPINGS: {
@@ -46,6 +46,7 @@ const IMPORT_MAPPINGS: {
     Famille: "family",
     "Ami(e)": "friend",
     Collègue: "colleague",
+    other: "other",
     Autre: "other",
     // En
     Spouse: "spouse",
@@ -93,6 +94,58 @@ const IMPORT_MAPPINGS: {
   },
 };
 
+/**
+ * Helper to convert a worksheet to a JSON array of objects,
+ * using the first row as headers.
+ */
+function sheetToJson(worksheet: ExcelJS.Worksheet): any[] {
+  const jsonData: any[] = [];
+  let headers: string[] = [];
+
+  worksheet.eachRow((row: ExcelJS.Row, rowNumber: number) => {
+    if (rowNumber === 1) {
+      // Capture headers
+      headers = row.values as string[];
+      // row.values in exceljs is 1-based, index 0 is undefined.
+      // We filter or slice to get actual values.
+      // However, usually it returns [undefined, 'Header1', 'Header2', ...]
+      // Let's normalize it.
+      if (Array.isArray(headers) && headers[0] === undefined) {
+        headers = headers.slice(1);
+      }
+    } else {
+      // Data rows
+      const rowData: Record<string, any> = {};
+
+      // Pad rowValues if it has gaps (exceljs might be sparse)
+      // but usually we just iterate headers
+      headers.forEach((header, index) => {
+        // exceljs values are 1-based, so value for header[index] is at rowValues[index + 1]
+        // assuming headers array is 0-indexed strings.
+        const cellValue = row.getCell(index + 1).value;
+
+        // Handle Rich Text or Hyperlinks if necessary, but simple text is string.
+        // For simple imports, we assume string or simple types.
+        // cellValue might be object if it's a formula or rich text.
+        let finalValue = cellValue;
+
+        if (typeof cellValue === "object" && cellValue !== null) {
+          if ("text" in cellValue) {
+            finalValue = (cellValue as any).text;
+          } else if ("result" in cellValue) {
+            finalValue = (cellValue as any).result;
+          }
+        }
+
+        rowData[header] = finalValue;
+      });
+      jsonData.push(rowData);
+    }
+  });
+
+  return jsonData;
+}
+
 export async function importGuestsFromExcel(formData: FormData) {
   try {
     const file = formData.get("file") as File;
@@ -111,14 +164,14 @@ export async function importGuestsFromExcel(formData: FormData) {
 
     // Read and parse file
     const buffer = await file.arrayBuffer();
-    const workbook = XLSX.read(buffer, { type: "array" });
+    const workbook = new ExcelJS.Workbook();
+    await workbook.xlsx.load(buffer);
 
     // Try to find specific sheets
-    let worksheet = workbook.Sheets["Invités"];
+    let worksheet = workbook.getWorksheet("Invités");
     if (!worksheet) {
       // Fallback to "Guests" or first sheet
-      worksheet =
-        workbook.Sheets["Guests"] || workbook.Sheets[workbook.SheetNames[0]];
+      worksheet = workbook.getWorksheet("Guests") || workbook.worksheets[0];
     }
 
     if (!worksheet) {
@@ -129,9 +182,7 @@ export async function importGuestsFromExcel(formData: FormData) {
     }
 
     // Convert to JSON with raw headers
-    const rawData = XLSX.utils.sheet_to_json(worksheet, {
-      defval: "",
-    }) as any[];
+    const rawData = sheetToJson(worksheet);
 
     if (rawData.length === 0) {
       return { success: false, error: "Le fichier est vide" };

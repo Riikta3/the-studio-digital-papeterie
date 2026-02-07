@@ -207,6 +207,59 @@ async function seed() {
     console.log("✅ Guests created with links!");
   }
 
+  // 7. Billing History
+  console.log("Creating Billing History...");
+  const billingRecords = [
+    {
+      user_id: userId,
+      amount: 29900, // 299.00€
+      currency: "EUR",
+      status: "succeeded",
+      plan_name: "premium",
+      created_at: new Date(
+        new Date().setMonth(new Date().getMonth() - 2),
+      ).toISOString(), // 2 months ago
+    },
+    {
+      user_id: userId,
+      amount: 4900, // 49.00€
+      currency: "EUR",
+      status: "succeeded",
+      plan_name: "module-rsvp",
+      created_at: new Date(
+        new Date().setMonth(new Date().getMonth() - 1),
+      ).toISOString(), // 1 month ago
+    },
+    {
+      user_id: userId,
+      amount: 19900, // 199.00€
+      currency: "EUR",
+      status: "pending",
+      plan_name: "standard",
+      created_at: new Date().toISOString(), // Today
+    },
+    {
+      user_id: userId,
+      amount: 9900, // 99.00€
+      currency: "EUR",
+      status: "failed",
+      plan_name: "gold",
+      created_at: new Date(
+        new Date().setFullYear(new Date().getFullYear() - 1),
+      ).toISOString(), // 1 year ago
+    },
+  ];
+
+  const { error: billingError } = await supabase
+    .from("billing")
+    .insert(billingRecords);
+
+  if (billingError) {
+    console.error("❌ Failed to create billing history:", billingError.message);
+  } else {
+    console.log("✅ Billing history created!");
+  }
+
   console.log("🏁 Seeding Completed!");
   console.log(`👉 Login with: ${TEST_EMAIL} / ${TEST_PASSWORD}`);
 }

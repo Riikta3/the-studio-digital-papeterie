@@ -196,5 +196,27 @@
       "confirm_delete_btn": "Delete permanently",
       "toast_error_tech": "Technical error during deletion"
     }
+  },
+  "Billing": {
+    "title": "Billing",
+    "subtitle": "View your payment history and invoices.",
+    "history_title": "Payment History",
+    "plan_label": "Plan",
+    "amount_label": "Amount",
+    "date_label": "Date",
+    "status_label": "Status",
+    "invoice_label": "Invoice",
+    "status_succeeded": "Paid",
+    "status_pending": "Pending",
+    "status_failed": "Failed",
+    "status_refunded": "Refunded",
+    "download_invoice": "Download",
+    "no_invoices_title": "No invoices yet",
+    "no_invoices_desc": "You haven't made any payments yet. Invoices will appear here once your first order is confirmed.",
+    "filter_year_all": "All Years",
+    "filter_month_all": "All Months",
+    "filter_clear": "Clear Filters",
+    "results_count": "{count} result(s)",
+    "no_results_filters": "No results found for these filters."
   }
 }

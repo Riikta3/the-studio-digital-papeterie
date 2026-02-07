@@ -1,10 +1,19 @@
 "use client";
 
+import { processCheckout } from "@/actions/checkout-actions";
 import { ScratchReveal } from "@/components/ui/scratch-reveal";
 import { useRouter } from "@/navigation";
 import { selectTotalPrice, useOrderStore } from "@/stores/use-order-store";
 import { AnimatePresence, motion } from "framer-motion";
-import { Check, CreditCard, Edit2, Eye, Sparkles, X } from "lucide-react";
+import {
+  Check,
+  CreditCard,
+  Edit2,
+  Eye,
+  Loader2,
+  Sparkles,
+  X,
+} from "lucide-react";
 import { useSearchParams } from "next/navigation";
 import { useState } from "react";
 
@@ -14,12 +23,44 @@ export default function CheckoutPage() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const [isPreviewOpen, setIsPreviewOpen] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   // Helper to format currency
   const formatPrice = (p: number) => `${p}€`;
 
   // Dynamic Guest Name
   const guestName = searchParams.get("guest");
+
+  async function handlePayment() {
+    setIsLoading(true);
+    try {
+      // Call Server Action
+      const result = await processCheckout({
+        plan: plan || "unknown",
+        amount: totalPrice,
+        period: "lifetime",
+      });
+
+      if (result.error) {
+        // Fallback if sonner is not installed, but it usually is in this stack
+        alert("Erreur: " + result.error);
+      } else {
+        // Success
+        // Redirect to Dashboard or Success Page
+        // Assuming NEXT_PUBLIC_DASHBOARD_URL is set, but we might just redirect to a local success page
+
+        // For now, redirect to dashboard billing or home
+        const dashboardUrl =
+          process.env.NEXT_PUBLIC_DASHBOARD_URL || "http://localhost:3000";
+        window.location.href = `${dashboardUrl}/fr/billing?success=true`;
+      }
+    } catch (error) {
+      console.error(error);
+      alert("Une erreur est survenue.");
+    } finally {
+      setIsLoading(false);
+    }
+  }
 
   return (
     <div className='flex flex-col gap-8 pb-32'>
@@ -123,9 +164,19 @@ export default function CheckoutPage() {
                 Voir l'aperçu
               </button>
 
-              <button className='w-full flex items-center justify-center gap-2 rounded-xl bg-primary py-4 text-sm font-semibold text-primary-foreground shadow-lg hover:shadow-xl hover:scale-[1.02] active:scale-95 transition-all'>
-                <CreditCard className='w-4 h-4' />
-                Payer {formatPrice(totalPrice)}
+              <button
+                onClick={handlePayment}
+                disabled={isLoading}
+                className='w-full flex items-center justify-center gap-2 rounded-xl bg-primary py-4 text-sm font-semibold text-primary-foreground shadow-lg hover:shadow-xl hover:scale-[1.02] active:scale-95 transition-all disabled:opacity-70 disabled:cursor-not-allowed'
+              >
+                {isLoading ? (
+                  <Loader2 className='w-4 h-4 animate-spin' />
+                ) : (
+                  <CreditCard className='w-4 h-4' />
+                )}
+                {isLoading
+                  ? "Traitement..."
+                  : `Payer ${formatPrice(totalPrice)}`}
               </button>
             </div>
           </div>

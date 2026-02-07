@@ -202,5 +202,27 @@
       "confirm_delete_btn": "Supprimer définitivement",
       "toast_error_tech": "Erreur technique lors de la suppression"
     }
+  },
+  "Billing": {
+    "title": "Facturation",
+    "subtitle": "Retrouvez l'historique de vos paiements et vos factures.",
+    "history_title": "Historique des paiements",
+    "plan_label": "Forfait",
+    "amount_label": "Montant",
+    "date_label": "Date",
+    "status_label": "Statut",
+    "invoice_label": "Facture",
+    "status_succeeded": "Payé",
+    "status_pending": "En attente",
+    "status_failed": "Échoué",
+    "status_refunded": "Remboursé",
+    "download_invoice": "Télécharger",
+    "no_invoices_title": "Aucune facture",
+    "no_invoices_desc": "Vous n'avez pas encore effectué de paiement. Les factures apparaîtront ici une fois votre première commande validée.",
+    "filter_year_all": "Toutes les années",
+    "filter_month_all": "Tous les mois",
+    "filter_clear": "Effacer filtres",
+    "results_count": "{count} résultat(s)",
+    "no_results_filters": "Aucun résultat pour ces filtres."
   }
 }
