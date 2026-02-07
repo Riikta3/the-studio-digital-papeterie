@@ -1,3 +1,4 @@
+import { DashboardInsights } from "@/components/dashboard/DashboardInsights";
 import { QuickActions } from "@/components/dashboard/QuickActions";
 import { RecentActivity } from "@/components/dashboard/RecentActivity";
 import { StatCard } from "@/components/dashboard/StatCard";
@@ -71,8 +72,8 @@ export default async function DashboardHome() {
   }
 
   return (
-    <div className='min-h-screen p-4 md:p-8 lg:p-12 max-w-7xl mx-auto space-y-8 md:space-y-10 bg-[#FDFBF7]/50'>
-      <header className='flex flex-col md:flex-row justify-between items-start md:items-center border-b border-gray-200/60 pb-8 gap-4'>
+    <div className='min-h-screen p-4 md:p-8 lg:p-12 max-w-6xl mx-auto space-y-6 bg-[#FDFBF7]/50'>
+      <header className='flex flex-col md:flex-row justify-between items-start md:items-center border-b border-gray-200/60 pb-6 gap-4'>
         <div className='space-y-3'>
           <div className='flex flex-col'>
             <h1 className='text-4xl md:text-5xl font-heading font-light text-gray-900'>
@@ -191,20 +192,20 @@ export default async function DashboardHome() {
         </div>
       </section>
 
-      {/* Main Content Grid */}
-      <div className='grid grid-cols-1 lg:grid-cols-3 gap-8 lg:gap-12'>
-        {/* Left Column: Activity Feed (2/3 width) */}
-        <div className='lg:col-span-2'>
+      {/* Main Content Grid - 3 Equal Columns */}
+      <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6'>
+        {/* Column 1: Activity Feed */}
+        <div>
           <RecentActivity />
         </div>
 
-        {/* Right Column: Quick Actions & Alerts (1/3 width) */}
-        <div className='space-y-8'>
+        {/* Column 2: Pending Validation */}
+        <div>
           {/* Pending Validation Alert Card */}
-          {(pendingHouseholdsCount ?? 0) > 0 && (
-            <div className='bg-orange-50 border border-orange-100 rounded-xl p-6 relative overflow-hidden'>
+          {(pendingHouseholdsCount ?? 0) > 0 ? (
+            <div className='bg-orange-50 border border-orange-100 rounded-xl p-6 relative overflow-hidden h-[420px] flex flex-col'>
               <div className='absolute top-0 right-0 bg-orange-100 w-16 h-16 rounded-bl-full -mr-8 -mt-8'></div>
-              <div className='relative z-10'>
+              <div className='relative z-10 flex flex-col h-full'>
                 <div className='flex items-center gap-3 mb-3 text-orange-800'>
                   <CheckCircle2 size={20} />
                   <h3 className='font-heading text-lg'>
@@ -215,21 +216,35 @@ export default async function DashboardHome() {
                   Vous avez <strong>{pendingHouseholdsCount} foyers</strong> qui
                   ont répondu et sont en attente de votre validation.
                 </p>
-                <Link href='/guests'>
-                  <Button
-                    size='sm'
-                    className='bg-orange-600 hover:bg-orange-700 text-white border-none w-full'
-                  >
-                    Examiner les réponses
-                  </Button>
-                </Link>
+                <div className='mt-auto'>
+                  <Link href='/guests'>
+                    <Button
+                      size='sm'
+                      className='bg-orange-600 hover:bg-orange-700 text-white border-none w-full'
+                    >
+                      Examiner les réponses
+                    </Button>
+                  </Link>
+                </div>
               </div>
             </div>
+          ) : (
+            <div className='bg-white border border-border rounded-xl p-6 h-[420px] flex items-center justify-center'>
+              <p className='text-muted-foreground text-center italic'>
+                Aucune validation en attente
+              </p>
+            </div>
           )}
+        </div>
 
+        {/* Column 3: Quick Actions */}
+        <div>
           <QuickActions />
         </div>
       </div>
+
+      {/* Insights Section - Full Width */}
+      <DashboardInsights />
     </div>
   );
 }

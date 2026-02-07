@@ -7,21 +7,20 @@ export async function RecentActivity() {
   const t = await getTranslations("Dashboard");
   const supabase = await createClient();
 
-  // Fetch recent households (last 5)
-  // We fetch a bit more to filter if needed
+  // Fetch recent households (last 3 for compact view)
   const { data: households } = await supabase
     .from("households")
     .select("*")
     .order("updated_at", { ascending: false })
-    .limit(5);
+    .limit(3);
 
   if (!households || households.length === 0) {
     return (
-      <div className='space-y-6'>
+      <div className='space-y-6 h-[420px] flex flex-col'>
         <h2 className='text-2xl font-heading font-light text-foreground'>
           {t("recent_activity")}
         </h2>
-        <div className='p-8 text-center border border-dashed border-border rounded-xl bg-muted/20'>
+        <div className='flex-1 flex items-center justify-center border border-dashed border-border rounded-xl bg-muted/20'>
           <p className='text-muted-foreground italic'>{t("no_activity")}</p>
         </div>
       </div>
@@ -62,14 +61,14 @@ export async function RecentActivity() {
   };
 
   return (
-    <div className='space-y-6'>
+    <div className='space-y-6 h-[420px] flex flex-col'>
       <div className='flex items-center justify-between'>
         <h2 className='text-2xl font-heading font-light text-foreground'>
           {t("recent_activity")}
         </h2>
       </div>
 
-      <div className='relative border-l border-border ml-3 space-y-8 py-2'>
+      <div className='relative border-l border-border ml-3 space-y-8 py-2 flex-1 overflow-y-auto'>
         {(households as Household[]).map((household) => (
           <div
             key={household.id}

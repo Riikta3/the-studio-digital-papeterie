@@ -1,6 +1,13 @@
 "use client";
 
 import { BillingRecord } from "@/actions/billing-actions";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 import { Badge } from "@shared/components/ui/badge";
 import { Button } from "@shared/components/ui/button";
 import {
@@ -13,13 +20,25 @@ import {
 } from "@shared/components/ui/table";
 import { format } from "date-fns";
 import { enUS, fr } from "date-fns/locale";
-import { Download, Filter, X } from "lucide-react";
+import {
+  ArrowDown,
+  ArrowUp,
+  ArrowUpDown,
+  Download,
+  Filter,
+  X,
+} from "lucide-react";
 import { useLocale, useTranslations } from "next-intl";
 import { useMemo, useState } from "react";
 
 interface BillingHistoryProps {
   history: BillingRecord[];
 }
+
+type SortConfig = {
+  key: keyof BillingRecord | null;
+  direction: "asc" | "desc";
+};
 
 export function BillingHistory({ history }: BillingHistoryProps) {
   const t = useTranslations("Billing");
@@ -28,6 +47,10 @@ export function BillingHistory({ history }: BillingHistoryProps) {
 
   const [selectedYear, setSelectedYear] = useState<string>("all");
   const [selectedMonth, setSelectedMonth] = useState<string>("all");
+  const [sortConfig, setSortConfig] = useState<SortConfig>({
+    key: "created_at",
+    direction: "desc",
+  });
 
   // Derive available years from history
   const years = useMemo(() => {
@@ -50,9 +73,10 @@ export function BillingHistory({ history }: BillingHistoryProps) {
     });
   }, [dateLocale]);
 
-  // Filter logic
+  // Filter & Sort logic
   const filteredHistory = useMemo(() => {
-    return history.filter((record) => {
+    // 1. Filter
+    const filtered = history.filter((record) => {
       const date = new Date(record.created_at);
       const yearMatch =
         selectedYear === "all" ||
@@ -61,7 +85,42 @@ export function BillingHistory({ history }: BillingHistoryProps) {
         selectedMonth === "all" || date.getMonth().toString() === selectedMonth;
       return yearMatch && monthMatch;
     });
-  }, [history, selectedYear, selectedMonth]);
+
+    // 2. Sort
+    if (sortConfig.key) {
+      filtered.sort((a, b) => {
+        if (!sortConfig.key) return 0;
+
+        const aValue = a[sortConfig.key] ?? ""; // Handle nulls
+        const bValue = b[sortConfig.key] ?? ""; // Handle nulls
+
+        if (aValue < bValue) return sortConfig.direction === "asc" ? -1 : 1;
+        if (aValue > bValue) return sortConfig.direction === "asc" ? 1 : -1;
+        return 0;
+      });
+    }
+
+    return filtered;
+  }, [history, selectedYear, selectedMonth, sortConfig]);
+
+  const requestSort = (key: keyof BillingRecord) => {
+    let direction: "asc" | "desc" = "asc";
+    if (sortConfig.key === key && sortConfig.direction === "asc") {
+      direction = "desc";
+    }
+    setSortConfig({ key, direction });
+  };
+
+  const getSortIcon = (columnKey: keyof BillingRecord) => {
+    if (sortConfig.key !== columnKey) {
+      return <ArrowUpDown className='ml-2 h-4 w-4 opacity-50' />;
+    }
+    return sortConfig.direction === "asc" ? (
+      <ArrowUp className='ml-2 h-4 w-4' />
+    ) : (
+      <ArrowDown className='ml-2 h-4 w-4' />
+    );
+  };
 
   const clearFilters = () => {
     setSelectedYear("all");
@@ -83,7 +142,11 @@ export function BillingHistory({ history }: BillingHistoryProps) {
           </Badge>
         );
       case "failed":
-        return <Badge variant='destructive'>{t("status_failed")}</Badge>;
+        return (
+          <Badge className='bg-red-100 text-red-700 hover:bg-red-200 border-red-200'>
+            {t("status_failed")}
+          </Badge>
+        );
       case "refunded":
         return (
           <Badge
@@ -107,8 +170,6 @@ export function BillingHistory({ history }: BillingHistoryProps) {
 
   const hasActiveFilters = selectedYear !== "all" || selectedMonth !== "all";
 
-  // Check if history is empty regardless of filters (for initial empty state)
-  // But wait, if filters are active and result is empty, show "No results found" instead of "No invoices yet"
   const showEmptyState = history.length === 0;
   const showNoResults = !showEmptyState && filteredHistory.length === 0;
 
@@ -134,38 +195,46 @@ export function BillingHistory({ history }: BillingHistoryProps) {
       <div className='flex flex-col sm:flex-row gap-4 items-center justify-between'>
         <div className='flex items-center gap-2 w-full sm:w-auto'>
           {/* Year Select */}
-          <select
+          <Select
             value={selectedYear}
-            onChange={(e) => setSelectedYear(e.target.value)}
-            className='h-10 rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2'
+            onValueChange={setSelectedYear}
           >
-            <option value='all'>{t("filter_year_all")}</option>
-            {years.map((year) => (
-              <option
-                key={year}
-                value={year.toString()}
-              >
-                {year}
-              </option>
-            ))}
-          </select>
+            <SelectTrigger className='w-[180px] bg-white'>
+              <SelectValue placeholder={t("filter_year_all")} />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value='all'>{t("filter_year_all")}</SelectItem>
+              {years.map((year) => (
+                <SelectItem
+                  key={year}
+                  value={year.toString()}
+                >
+                  {year}
+                </SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
 
           {/* Month Select */}
-          <select
+          <Select
             value={selectedMonth}
-            onChange={(e) => setSelectedMonth(e.target.value)}
-            className='h-10 rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2'
+            onValueChange={setSelectedMonth}
           >
-            <option value='all'>{t("filter_month_all")}</option>
-            {months.map((month) => (
-              <option
-                key={month.value}
-                value={month.value}
-              >
-                {month.label}
-              </option>
-            ))}
-          </select>
+            <SelectTrigger className='w-[140px] bg-white'>
+              <SelectValue placeholder={t("filter_month_all")} />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value='all'>{t("filter_month_all")}</SelectItem>
+              {months.map((month) => (
+                <SelectItem
+                  key={month.value}
+                  value={month.value}
+                >
+                  {month.label}
+                </SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
 
           {hasActiveFilters && (
             <Button
@@ -180,7 +249,6 @@ export function BillingHistory({ history }: BillingHistoryProps) {
           )}
         </div>
         <div className='text-sm text-muted-foreground'>
-          {filteredHistory.length}{" "}
           {t("results_count", { count: filteredHistory.length })}
         </div>
       </div>
@@ -207,10 +275,42 @@ export function BillingHistory({ history }: BillingHistoryProps) {
           <Table>
             <TableHeader>
               <TableRow className='hover:bg-transparent'>
-                <TableHead>{t("date_label")}</TableHead>
-                <TableHead>{t("plan_label")}</TableHead>
-                <TableHead>{t("amount_label")}</TableHead>
-                <TableHead>{t("status_label")}</TableHead>
+                <TableHead
+                  className='cursor-pointer hover:bg-muted/50 transition-colors'
+                  onClick={() => requestSort("created_at")}
+                >
+                  <div className='flex items-center'>
+                    {t("date_label")}
+                    {getSortIcon("created_at")}
+                  </div>
+                </TableHead>
+                <TableHead
+                  className='cursor-pointer hover:bg-muted/50 transition-colors'
+                  onClick={() => requestSort("plan_name")}
+                >
+                  <div className='flex items-center'>
+                    {t("plan_label")}
+                    {getSortIcon("plan_name")}
+                  </div>
+                </TableHead>
+                <TableHead
+                  className='cursor-pointer hover:bg-muted/50 transition-colors'
+                  onClick={() => requestSort("amount")}
+                >
+                  <div className='flex items-center'>
+                    {t("amount_label")}
+                    {getSortIcon("amount")}
+                  </div>
+                </TableHead>
+                <TableHead
+                  className='cursor-pointer hover:bg-muted/50 transition-colors'
+                  onClick={() => requestSort("status")}
+                >
+                  <div className='flex items-center'>
+                    {t("status_label")}
+                    {getSortIcon("status")}
+                  </div>
+                </TableHead>
                 <TableHead className='text-right'>
                   {t("invoice_label")}
                 </TableHead>

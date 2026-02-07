@@ -1,5 +1,4 @@
 import { Link } from "@/navigation";
-import { Button } from "@shared/components/ui/button";
 import { FileDown, Mail, Plus, Users } from "lucide-react";
 import { getTranslations } from "next-intl/server";
 
@@ -38,14 +37,14 @@ export async function QuickActions() {
   ];
 
   return (
-    <div className='space-y-6'>
+    <div className='space-y-6 h-[420px] flex flex-col'>
       <div className='flex items-center justify-between'>
         <h2 className='text-2xl font-heading font-light text-foreground'>
           {t("quick_access")}
         </h2>
       </div>
 
-      <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-1 gap-4'>
+      <div className='grid grid-cols-1 gap-4 flex-1'>
         {actions.map((action, index) => (
           <Link
             key={index}
@@ -76,26 +75,6 @@ export async function QuickActions() {
             <div className='absolute inset-0 bg-gradient-to-r from-transparent via-primary/[0.03] to-transparent translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-1000' />
           </Link>
         ))}
-      </div>
-
-      {/* Promo / Info Card */}
-      <div className='p-6 bg-gradient-to-br from-[#FDFBF7] to-white rounded-xl border border-primary/10 relative overflow-hidden'>
-        <div className='absolute top-0 right-0 w-32 h-32 bg-primary/5 rounded-bl-full -mr-10 -mt-10' />
-
-        <h3 className='font-heading text-lg text-primary mb-2 relative z-10'>
-          The Studio
-        </h3>
-        <p className='text-sm text-muted-foreground font-light mb-4 relative z-10'>
-          Besoin d{"&apos;"}aide pour configurer votre espace ? Consultez notre
-          guide.
-        </p>
-        <Button
-          variant='outline'
-          size='sm'
-          className='w-full bg-white/50 hover:bg-white border-primary/20 text-primary hover:text-primary/80 relative z-10'
-        >
-          Voir le guide
-        </Button>
       </div>
     </div>
   );
