@@ -15,6 +15,7 @@ import {
 import { cn } from "@shared/lib/utils";
 import {
   CreditCard,
+  Grid,
   Home,
   LogOut,
   Menu,
@@ -32,6 +33,7 @@ const navItems = [
   { key: "home", href: "/", icon: Home },
   { key: "guests", href: "/guests", icon: Users },
   { key: "messages", href: "/messages", icon: MessageSquare },
+  { key: "seating_plan", href: "/seating-plan", icon: Grid },
   { key: "billing", href: "/billing", icon: CreditCard },
   { key: "settings", href: "/settings", icon: Settings },
 ];

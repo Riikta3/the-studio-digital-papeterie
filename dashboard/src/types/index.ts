@@ -36,9 +36,22 @@ export interface Household {
   created_at: string;
 }
 
+export interface Table {
+  id: string;
+  wedding_id: string;
+  name: string;
+  shape: "round" | "rectangle";
+  capacity: number;
+  x_position: number;
+  y_position: number;
+  guests?: Guest[];
+  created_at: string;
+}
+
 export interface Guest {
   id: string;
   household_id: string;
+  table_id?: string | null;
   first_name: string;
   last_name: string;
   email: string | null;

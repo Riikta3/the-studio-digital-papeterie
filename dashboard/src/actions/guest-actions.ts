@@ -203,7 +203,7 @@ export async function updateHousehold(
           last_name: lastName,
           relation_type:
             relationType && relationType !== "" ? relationType : null,
-          status: "pending",
+          status: status === "declined" ? "declined" : "pending",
         };
       })
       .filter((g) => g !== null);
@@ -269,6 +269,95 @@ export async function updateGuest(
     return { success: false, error: "Erreur lors de la modification." };
   }
 
+  // --- Start: Sync Guest Status to Household ---
+  try {
+    // 1. Get household_id for this guest
+    const { data: guestData, error: guestFetchError } = await supabase
+      .from("guests")
+      .select("household_id")
+      .eq("id", guestId)
+      .single();
+
+    if (guestData && !guestFetchError) {
+      const householdId = guestData.household_id;
+
+      // 2. Fetch all guests for this household
+      const { data: householdGuests, error: guestsFetchError } = await supabase
+        .from("guests")
+        .select("status")
+        .eq("household_id", householdId);
+
+      if (householdGuests && !guestsFetchError) {
+        const totalGuests = householdGuests.length;
+        if (totalGuests > 0) {
+          const confirmedCount = householdGuests.filter(
+            (g) => g.status === "confirmed",
+          ).length;
+          const declinedCount = householdGuests.filter(
+            (g) => g.status === "declined",
+          ).length;
+
+          // Only update if ALL guests have a status (confirmed or declined)
+          if (confirmedCount + declinedCount === totalGuests) {
+            let newHouseholdStatus = "pending";
+
+            if (confirmedCount === totalGuests) {
+              newHouseholdStatus = "confirmed";
+            } else if (declinedCount === totalGuests) {
+              newHouseholdStatus = "declined";
+            } else {
+              newHouseholdStatus = "partial";
+            }
+
+            const { error: householdUpdateError } = await supabase
+              .from("households")
+              .update({ status: newHouseholdStatus })
+              .eq("id", householdId);
+
+            if (householdUpdateError) {
+              console.error(
+                "Error updating household status:",
+                householdUpdateError,
+              );
+            }
+          }
+        }
+      }
+    }
+  } catch (err) {
+    console.error("Error syncing household status:", err);
+    // Don't fail the request if sync fails
+  }
+  // --- End: Sync Guest Status to Household ---
+
   revalidatePath("/guests");
+  return { success: true };
+}
+
+export async function assignGuestToTable(
+  guestId: string,
+  tableId: string | null,
+): Promise<ActionResult> {
+  const supabase = await createClient();
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+
+  if (!user) {
+    return { success: false, error: "Unauthorized" };
+  }
+
+  const { error } = await supabase
+    .from("guests")
+    .update({ table_id: tableId })
+    .eq("id", guestId)
+    .eq("wedding_id", user.id);
+
+  if (error) {
+    console.error("Error assigning guest to table:", error);
+    return { success: false, error: error.message };
+  }
+
+  revalidatePath("/[locale]/seating-plan", "page");
   return { success: true };
 }

@@ -57,6 +57,7 @@ import { toast } from "sonner";
 import { AddHouseholdDialog } from "./AddHouseholdDialog";
 import { EditGuestDialog } from "./EditGuestDialog";
 import { GuestCard } from "./GuestCard";
+import { SendMagicLinkMenuItem } from "./SendMagicLinkMenuItem";
 
 interface GuestsTableProps {
   households: any[];
@@ -463,6 +464,11 @@ export function GuestsTable({ households }: GuestsTableProps) {
                         >
                           <Edit2 className='mr-2 h-4 w-4' /> {t("edit")}
                         </DropdownMenuItem>
+                        <SendMagicLinkMenuItem
+                          householdId={household.id}
+                          householdName={household.name}
+                          email={household.email}
+                        />
                         <DropdownMenuSeparator />
                         <DropdownMenuItem
                           className='text-red-600 focus:text-red-600 focus:bg-red-50'
