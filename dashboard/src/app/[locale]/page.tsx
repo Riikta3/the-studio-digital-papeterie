@@ -1,3 +1,4 @@
+import { CountdownTimer } from "@/components/dashboard/CountdownTimer";
 import { DashboardInsights } from "@/components/dashboard/DashboardInsights";
 import { QuickActions } from "@/components/dashboard/QuickActions";
 import { RecentActivity } from "@/components/dashboard/RecentActivity";
@@ -5,14 +6,7 @@ import { StatCard } from "@/components/dashboard/StatCard";
 import { Link, redirect } from "@/navigation";
 import { createClient } from "@/utils/supabase/server";
 import { Button } from "@shared/components/ui/button";
-import {
-  Calendar,
-  CheckCircle2,
-  Clock,
-  HeartHandshake,
-  Settings,
-  Users,
-} from "lucide-react";
+import { CheckCircle2, Clock, Settings, Users } from "lucide-react";
 import { getTranslations } from "next-intl/server";
 
 export default async function DashboardHome() {
@@ -59,22 +53,14 @@ export default async function DashboardHome() {
     .select("*", { count: "exact" })
     .eq("status", "pending");
 
-  // Countdown Logic
-  const today = new Date();
   const weddingDate = profile?.wedding_date
     ? new Date(profile.wedding_date)
     : null;
 
-  let daysRemaining = null;
-  if (weddingDate) {
-    const diffTime = weddingDate.getTime() - today.getTime();
-    daysRemaining = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
-  }
-
   return (
     <div className='min-h-screen p-4 md:p-8 lg:p-12 max-w-6xl mx-auto space-y-6 bg-[#FDFBF7]/50'>
       <header className='flex flex-col md:flex-row justify-between items-start md:items-center border-b border-gray-200/60 pb-6 gap-4'>
-        <div className='space-y-3'>
+        <div className='space-y-3 w-full md:w-auto'>
           <div className='flex flex-col'>
             <h1 className='text-4xl md:text-5xl font-heading font-light text-gray-900'>
               {t("greeting", {
@@ -82,22 +68,15 @@ export default async function DashboardHome() {
               })}
             </h1>
             {weddingDate && (
-              <p className='text-muted-foreground font-light mt-2 flex items-center gap-2'>
-                <Calendar
-                  size={14}
-                  className='text-primary/70'
-                />
-                {weddingDate.toLocaleDateString("fr-FR", {
-                  weekday: "long",
-                  year: "numeric",
-                  month: "long",
-                  day: "numeric",
-                })}
-              </p>
+              <div className='mt-4 flex flex-col items-start justify-start w-full'>
+                <div className='pt-2'>
+                  <CountdownTimer date={weddingDate} />
+                </div>
+              </div>
             )}
           </div>
         </div>
-        <div className='hidden md:block'>
+        <div className='hidden md:block self-start md:self-center'>
           <Link href='/settings'>
             <Button
               variant='outline'
@@ -111,7 +90,7 @@ export default async function DashboardHome() {
       </header>
 
       {/* KPI Cards Section */}
-      <section className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6'>
+      <section className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6'>
         {/* Card 1: Total & Taux de réponse */}
         <StatCard
           label={t("total_guests")}
@@ -146,50 +125,6 @@ export default async function DashboardHome() {
             href: "/guests?filter=pending",
           }}
         />
-
-        {/* Card 4: Compte à rebours */}
-        <div className='bg-white p-6 rounded-2xl shadow-sm border border-border flex flex-col justify-between h-auto relative overflow-hidden group hover:border-primary/30 transition-all'>
-          <div className='absolute -right-4 -top-4 text-primary opacity-[0.04] group-hover:scale-110 transition-transform duration-700 rotate-12 pointer-events-none'>
-            <HeartHandshake size={60} />
-          </div>
-
-          <div className='flex justify-between items-start mb-4 relative z-10'>
-            <span className='text-muted-foreground uppercase tracking-wider text-xs font-medium'>
-              {t("countdown")}
-            </span>
-            <div className='p-2 bg-primary/5 text-primary rounded-full'>
-              <HeartHandshake size={18} />
-            </div>
-          </div>
-
-          <div className='relative z-10'>
-            {daysRemaining !== null ? (
-              <>
-                <div className='text-5xl font-heading font-light text-gray-900'>
-                  {daysRemaining > 0 ? daysRemaining : "J-0"}
-                  <span className='text-lg ml-2 font-normal text-muted-foreground'>
-                    jours
-                  </span>
-                </div>
-                <div className='text-sm text-muted-foreground mt-2 font-light'>
-                  {daysRemaining > 0 ? t("almost_there") : t("big_day")}
-                </div>
-              </>
-            ) : (
-              <>
-                <div className='text-3xl font-heading text-gray-400'>
-                  {t("date_missing")}
-                </div>
-                <Link
-                  href='/settings'
-                  className='text-sm text-primary underline mt-2 block hover:text-primary/80'
-                >
-                  {t("add_date")}
-                </Link>
-              </>
-            )}
-          </div>
-        </div>
       </section>
 
       {/* Main Content Grid - 3 Equal Columns */}

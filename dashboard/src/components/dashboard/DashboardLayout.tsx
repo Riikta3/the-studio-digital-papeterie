@@ -48,6 +48,18 @@ export function DashboardLayout({ children }: { children: React.ReactNode }) {
 
   // Show loading state or hide content during auth check to prevent flash
   if (isLoading) {
+    if (
+      !isAuthPage &&
+      !pathname.includes("/preview") &&
+      !pathname.startsWith("/rsvp")
+    ) {
+      return (
+        <div className='fixed inset-0 z-[100] flex items-center justify-center bg-[#FDFBF7]'>
+          {/* Simple loading spinner or just background */}
+          <div className='animate-spin rounded-full h-8 w-8 border-b-2 border-primary'></div>
+        </div>
+      );
+    }
     return null; // or a loading spinner if you prefer
   }
 

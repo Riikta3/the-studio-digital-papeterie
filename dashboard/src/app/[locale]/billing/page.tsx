@@ -5,8 +5,6 @@ import { getTranslations } from "next-intl/server";
 export default async function BillingPage() {
   const t = await getTranslations("Billing");
   const { data: history, error } = await getBillingHistory();
-  console.log("Billing History Data:", history);
-  console.log("Billing History Error:", error);
 
   return (
     <div className='flex-1 space-y-8 p-8 pt-6 max-w-5xl mx-auto'>
