@@ -80,7 +80,8 @@ export function SeatingCanvas({
     // Case 2: Dragging a Guest (assigning to table)
     if (active.data.current?.type === "guest" && over) {
       // Dragging from sidebar to table
-      const guestId = active.data.current.guest.id;
+      const draggedGuest = active.data.current.guest;
+      const guestId = draggedGuest.id;
       const overId = over.id as string;
 
       // Check if dropped on a table
@@ -103,7 +104,7 @@ export function SeatingCanvas({
                 if (isAlreadyThere) return t;
                 return {
                   ...t,
-                  guests: [...(t.guests || []), active.data.current.guest],
+                  guests: [...(t.guests || []), draggedGuest],
                 };
               }
               return t;
