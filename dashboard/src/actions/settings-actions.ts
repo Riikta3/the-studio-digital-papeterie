@@ -19,6 +19,22 @@ export async function getSettings() {
     .single();
 
   if (error) {
+    // Code PGRST116: JSON object requested, multiple (or no) rows returned
+    if (error.code === "PGRST116") {
+      console.log("No settings found for user, creating default settings...");
+      const { data: newSettings, error: insertError } = await supabase
+        .from("settings")
+        .insert([{ wedding_id: user.id }])
+        .select()
+        .single();
+
+      if (insertError) {
+        console.error("Error creating default settings:", insertError);
+        return null;
+      }
+      return newSettings;
+    }
+
     console.error("Error fetching settings:", error);
     return null;
   }
