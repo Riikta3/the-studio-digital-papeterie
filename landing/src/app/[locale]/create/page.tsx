@@ -271,6 +271,9 @@ export default function CreateWizard() {
           weddingDate: formData.date,
           themeId: formData.theme,
           modules: formData.modules,
+          extras: formData.extras,
+          languages: formData.languages,
+          plan: formData.plan,
         });
 
         if (result.success) {

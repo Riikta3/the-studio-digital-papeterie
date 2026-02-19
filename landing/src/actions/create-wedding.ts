@@ -10,6 +10,9 @@ interface CreateWeddingData {
   weddingDate?: string;
   themeId: string;
   modules: string[];
+  extras: string[];
+  languages: string[];
+  plan: string;
 }
 
 export async function createWedding(data: CreateWeddingData) {
@@ -79,6 +82,58 @@ export async function createWedding(data: CreateWeddingData) {
   if (settingsError) {
     console.error("Settings Creation Error:", settingsError);
     return { success: false, error: "Failed to apply settings." };
+  }
+
+  // 4. Create Initial Project State (Builder)
+  // We initialize the builder with the chosen theme and modules
+  const initialBuilderState = {
+    themeId: data.themeId,
+    modules: data.modules.map((type) => ({
+      id: crypto.randomUUID(),
+      type,
+      content: {}, // Empty content for now, will use defaults in builder
+    })),
+  };
+
+  const { error: projectError } = await supabaseAdmin.from("projects").insert({
+    wedding_id: userId,
+    state: initialBuilderState,
+    theme_id: data.themeId,
+    status: "draft",
+  });
+
+  if (projectError) {
+    console.error("Project Creation Error:", projectError);
+    // Non-fatal, can be created later or retried
+  }
+
+  // 5. Record Purchases (Wallet)
+  // We record everything they selected as "purchased" or "active" in their account
+  const purchaseItems: {
+    wedding_id: string;
+    item_type: string;
+    item_id: string;
+  }[] = [];
+
+  // Plan
+  // purchaseItems.push({ wedding_id: userId, item_type: 'plan', item_id: 'essential' }); // Logic needed for plan ID
+
+  // Modules
+  data.modules.forEach((m) => {
+    purchaseItems.push({
+      wedding_id: userId,
+      item_type: "module",
+      item_id: m,
+    });
+  });
+
+  if (purchaseItems.length > 0) {
+    const { error: purchasesError } = await supabaseAdmin
+      .from("purchases")
+      .insert(purchaseItems);
+    if (purchasesError) {
+      console.error("Purchases Recording Error:", purchasesError);
+    }
   }
 
   console.log("✅ Wedding Provisioned! Invite Link:", inviteLink);
