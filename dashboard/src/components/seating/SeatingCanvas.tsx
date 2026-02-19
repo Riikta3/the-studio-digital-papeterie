@@ -9,6 +9,7 @@ import {
   DragOverlay,
   DragStartEvent,
   MouseSensor,
+  pointerWithin,
   TouchSensor,
   useSensor,
   useSensors,
@@ -29,7 +30,7 @@ export function SeatingCanvas({
 }: SeatingCanvasProps) {
   const [tables, setTables] = useState<Table[]>(initialTables);
   const [guests, setGuests] = useState<Guest[]>(initialGuests);
-  const [activeId, setActiveId] = useState<string | null>(null);
+  // const [activeId, setActiveId] = useState<string | null>(null); // Removed unused
   const [activeItem, setActiveItem] = useState<any>(null); // Guest or Table
 
   const sensors = useSensors(
@@ -47,13 +48,13 @@ export function SeatingCanvas({
   );
 
   const handleDragStart = (event: DragStartEvent) => {
-    setActiveId(event.active.id as string);
+    // setActiveId(event.active.id as string);
     setActiveItem(event.active.data.current);
   };
 
   const handleDragEnd = async (event: DragEndEvent) => {
     const { active, over, delta } = event;
-    setActiveId(null);
+    // setActiveId(null);
     setActiveItem(null);
 
     // Case 1: Dragging a Table (repositioning)
@@ -120,6 +121,7 @@ export function SeatingCanvas({
   return (
     <DndContext
       sensors={sensors}
+      collisionDetection={pointerWithin} // Use pointerWithin for better UX
       onDragStart={handleDragStart}
       onDragEnd={handleDragEnd}
       modifiers={[restrictToWindowEdges]}
