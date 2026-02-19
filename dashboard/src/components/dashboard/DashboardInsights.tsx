@@ -4,16 +4,19 @@ import { CheckCircle2, TrendingUp, Users } from "lucide-react";
 export async function DashboardInsights() {
   const supabase = await createClient();
 
-  // Fetch recent confirmations (last 3)
-  const { data: recentConfirmations } = await supabase
-    .from("households")
-    .select("name, updated_at")
-    .eq("status", "confirmed")
-    .order("updated_at", { ascending: false })
-    .limit(3);
+  // Fetch data in parallel
+  const [recentConfirmationsResponse, guestsResponse] = await Promise.all([
+    supabase
+      .from("households")
+      .select("name, updated_at")
+      .eq("status", "confirmed")
+      .order("updated_at", { ascending: false })
+      .limit(3),
+    supabase.from("guests").select("status"),
+  ]);
 
-  // Fetch all guests for response rate calculation
-  const { data: guests } = await supabase.from("guests").select("status");
+  const recentConfirmations = recentConfirmationsResponse.data;
+  const guests = guestsResponse.data;
 
   const totalGuests = guests?.length || 0;
   const confirmedGuests =

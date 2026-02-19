@@ -22,15 +22,20 @@ export default async function DashboardHome() {
     return null;
   }
 
-  // Fetch Profile (Names & Date)
-  const { data: profile } = await supabase
-    .from("profiles")
-    .select("*")
-    .eq("id", user.id)
-    .single();
+  // Parallel Data Fetching to eliminate waterfalls
+  const [profileResponse, guestsResponse, householdsResponse] =
+    await Promise.all([
+      supabase.from("profiles").select("*").eq("id", user.id).single(),
+      supabase.from("guests").select("status"),
+      supabase
+        .from("households")
+        .select("*", { count: "exact" })
+        .eq("status", "pending"),
+    ]);
 
-  // Fetch Guests Stats
-  const { data: guests } = await supabase.from("guests").select("status");
+  const profile = profileResponse.data;
+  const guests = guestsResponse.data;
+  const pendingHouseholdsCount = householdsResponse.count;
 
   // Calculate specific stats
   const totalGuests = guests?.length || 0;
@@ -46,12 +51,6 @@ export default async function DashboardHome() {
     totalGuests > 0
       ? Math.round(((confirmedGuests + declinedGuests) / totalGuests) * 100)
       : 0;
-
-  // Fetch Households Stats (for pending/to validate)
-  const { count: pendingHouseholdsCount } = await supabase
-    .from("households")
-    .select("*", { count: "exact" })
-    .eq("status", "pending");
 
   const weddingDate = profile?.wedding_date
     ? new Date(profile.wedding_date)

@@ -162,23 +162,24 @@ export function Sidebar() {
             })}
           </nav>
 
+          {/* Builder Link */}
+          <div className='mb-6'>
+            <a
+              href='http://localhost:3001'
+              target='_blank'
+              rel='noopener noreferrer'
+              className='flex items-center justify-center gap-2 w-full px-3 py-2.5 bg-primary text-white rounded-lg text-sm font-medium hover:bg-primary/90 transition-all shadow-sm whitespace-nowrap'
+            >
+              <Grid size={16} />
+              <span>Voir mon faire-part</span>
+            </a>
+          </div>
+
           {/* Footer Actions */}
           <div className='mt-auto border-t border-border pt-6 space-y-2'>
             <div className='mb-2'>
               <LanguageSwitcher />
             </div>
-            <Link
-              href='/rsvp'
-              target='_blank'
-            >
-              <Button
-                variant='ghost'
-                className='w-full justify-start text-muted-foreground hover:text-primary gap-3'
-              >
-                <Home size={18} />
-                {t("view_site")}
-              </Button>
-            </Link>
 
             <Dialog
               open={showLogoutDialog}
