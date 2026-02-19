@@ -11,6 +11,7 @@ import {
 } from "framer-motion";
 import { Menu, X } from "lucide-react";
 import { useTranslations } from "next-intl";
+import Image from "next/image";
 import { useState } from "react";
 
 export function Navbar() {
@@ -45,11 +46,15 @@ export function Navbar() {
             className='flex items-center gap-2 z-50 shrink-0'
             onClick={() => setIsMobileMenuOpen(false)}
           >
-            <img
-              src='/images/logo.png'
-              alt='The Studio Digital Papeterie, les faire-part digitales'
-              className='h-12 w-auto object-contain mix-blend-multiply'
-            />
+            <div className='relative h-12 w-32'>
+              <Image
+                src='/images/logo.png'
+                alt='The Studio Digital Papeterie, les faire-part digitales'
+                fill
+                className='object-contain mix-blend-multiply'
+                priority
+              />
+            </div>
           </Link>
 
           {/* Desktop Nav Links */}
