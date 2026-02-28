@@ -6,12 +6,17 @@ import { AnimatePresence, motion } from "framer-motion";
 import {
   Bus,
   CalendarDays,
+  Camera,
   Check,
   Gift,
   Hotel,
   Image as ImageIcon,
+  Info,
   MapPin,
   MessageSquare,
+  Music,
+  PlayCircle,
+  Shirt,
   Timer,
   Utensils,
 } from "lucide-react";
@@ -24,10 +29,22 @@ const MODULES = [
     desc: "Le décompte avant le jour J",
   },
   {
+    id: "intro-video",
+    label: "Vidéo d'Intro",
+    icon: PlayCircle,
+    desc: "Un message vidéo des mariés",
+  },
+  {
     id: "timeline",
     label: "Programme du Jour",
     icon: CalendarDays,
     desc: "Horaires et lieux des cérémonies",
+  },
+  {
+    id: "dress-code",
+    label: "Dress Code",
+    icon: Shirt,
+    desc: "Recommandations vestimentaires",
   },
   {
     id: "rsvp",
@@ -40,6 +57,18 @@ const MODULES = [
     label: "Galerie Photo",
     icon: ImageIcon,
     desc: "Partagez vos meilleurs souvenirs",
+  },
+  {
+    id: "photo-share",
+    label: "Album Partagé",
+    icon: Camera,
+    desc: "Outil de collecte de photos (Wedbox/etc)",
+  },
+  {
+    id: "playlist",
+    label: "Musique",
+    icon: Music,
+    desc: "Playlist collaborative pour DJ",
   },
   {
     id: "map",
@@ -82,6 +111,12 @@ const MODULES = [
     label: "Livre d'Or Vidéo",
     icon: MessageSquare,
     desc: "Vos invités laissent un message vidéo.",
+  },
+  {
+    id: "faq",
+    label: "FAQ / Pratique",
+    icon: Info,
+    desc: "Infos pratiques pour assister les invités",
   },
 ];
 

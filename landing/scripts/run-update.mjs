@@ -1,10 +1,16 @@
 import { createClient } from "@supabase/supabase-js";
 import { config } from "dotenv";
 import path from "path";
-config({ path: path.resolve(process.cwd(), "../.env.local") });
+import { fileURLToPath } from "url";
 
-const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!;
-const serviceRoleKey = process.env.SUPABASE_SERVICE_ROLE_KEY!;
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+// Load env from the root .env.local
+config({ path: path.resolve(__dirname, "../../.env.local") });
+
+const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
+const serviceRoleKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
 
 if (!supabaseUrl || !serviceRoleKey) {
   console.error("Missing Supabase credentials in .env.local");
@@ -21,10 +27,8 @@ const supabaseAdmin = createClient(supabaseUrl, serviceRoleKey, {
 async function updateTestUser() {
   console.log("Updating existing test user...");
 
-  // Update the user we successfully created a few minutes ago
   const WEDDING_CODE = "SOPH&THOM2026TEST4";
 
-  // 1. Find the wedding_id for this code
   const { data: settingsData, error: settingsError } = await supabaseAdmin
     .from("settings")
     .select("wedding_id")
@@ -42,24 +46,23 @@ async function updateTestUser() {
   const userId = settingsData.wedding_id;
   console.log("✅ Found user ID:", userId);
 
-  // 2. Update the Site configuration modules array
   const NEW_MODULE_ORDER = [
-    "countdown", // Le compte à rebours
-    "intro-video", // Video des mariés
-    "timeline", // Programme du Jour
-    "dress-code", // Code vestimentaire
-    "menu", // Menu de la réception
-    "map", // Lieu / Accès
-    "transport", // Navettes & Transport
-    "accommodation", // Hébergements
-    "gallery", // Galerie Photo
-    "photo-share", // Album partage
-    "playlist", // Musique collaborative
-    "gift-list", // Cagnotte / Cadeaux
-    "faq", // Infos Pratiques - Assistés
-    "guestbook", // Livre d'Or
-    "video-guestbook", // Livre d'Or Vidéo
-    "rsvp", // Confirmation de présence
+    "countdown",
+    "intro-video",
+    "timeline",
+    "dress-code",
+    "menu",
+    "map",
+    "transport",
+    "accommodation",
+    "gallery",
+    "photo-share",
+    "playlist",
+    "gift-list",
+    "faq",
+    "guestbook",
+    "video-guestbook",
+    "rsvp",
   ];
 
   const { error: updateError } = await supabaseAdmin
@@ -73,13 +76,7 @@ async function updateTestUser() {
   }
 
   console.log("✅ Modules array successfully updated to the new order.");
-
-  console.log("\n==============================================");
-  console.log("🚀 TEST USER UPDATED");
-  console.log("Invitation Link:");
   console.log(`http://localhost:3002/invitation/${WEDDING_CODE}`);
-  console.log(`http://localhost:3002/fr/invitation/${WEDDING_CODE}`);
-  console.log("==============================================\n");
 }
 
 updateTestUser();

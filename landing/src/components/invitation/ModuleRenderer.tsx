@@ -1,12 +1,17 @@
 import { AccommodationModule } from "./AccommodationModule";
 import { CountdownModule } from "./CountdownModule";
 import { Divider } from "./Divider";
+import { DressCodeModule } from "./DressCodeModule";
+import { FaqModule } from "./FaqModule";
 import { GalleryModule } from "./GalleryModule";
 import { GenericInfoModule } from "./GenericInfoModule";
 import { GiftListModule } from "./GiftListModule";
 import { GuestbookModule } from "./GuestbookModule";
+import { IntroVideoModule } from "./IntroVideoModule";
 import { MapModule } from "./MapModule";
 import { MenuModule } from "./MenuModule";
+import { PhotoShareModule } from "./PhotoShareModule";
+import { PlaylistModule } from "./PlaylistModule";
 import { RsvpModule } from "./RsvpModule";
 import { TimelineModule } from "./TimelineModule";
 import { TransportModule } from "./TransportModule";
@@ -15,15 +20,20 @@ import { VideoGuestbookModule } from "./VideoGuestbookModule";
 // Define a map of module IDs to their respective React components
 const MODULE_COMPONENTS: Record<string, React.ComponentType<any>> = {
   countdown: CountdownModule,
+  "intro-video": IntroVideoModule,
   timeline: TimelineModule,
+  "dress-code": DressCodeModule,
   rsvp: RsvpModule,
   gallery: GalleryModule,
+  "photo-share": PhotoShareModule,
   map: MapModule,
   "gift-list": GiftListModule,
   guestbook: GuestbookModule,
   accommodation: AccommodationModule,
   transport: TransportModule,
   menu: MenuModule,
+  playlist: PlaylistModule,
+  faq: FaqModule,
   "video-guestbook": VideoGuestbookModule,
 };
 

@@ -1,79 +1,160 @@
 "use client";
 
-import { Link } from "@/navigation";
+import { Button } from "@shared/components/ui/button";
 import { motion } from "framer-motion";
-import { ExternalLink, Hotel, MapPin } from "lucide-react";
+import {
+  BedDouble,
+  ExternalLink,
+  Home,
+  Hotel,
+  MapPin,
+  TentTree,
+} from "lucide-react";
 
-const MOCK_HOTELS = [
-  {
-    id: 1,
-    name: "Le Grand Chalet",
-    distance: "À 5 minutes du domaine",
-    desc: "Hôtel 4 étoiles avec vue panoramique.",
-    link: "#",
-  },
-  {
-    id: 2,
-    name: "Les Colombes Airbnb",
-    distance: "À 10 minutes (village voisin)",
-    desc: "Idéal pour les familles ou groupes d'amis. 3 chambres.",
-    link: "#",
-  },
-  {
-    id: 3,
-    name: "Auberge de la Forêt",
-    distance: "Sur place",
-    desc: "Quelques chambres réservées. Contactez-nous rapidement.",
-    link: "#",
-  },
-];
+export type AccommodationType = "Hotel" | "House" | "Camping" | "Other";
+
+export interface AccommodationOption {
+  id: string;
+  type: AccommodationType;
+  name: string;
+  distance: string;
+  description: string;
+  url?: string;
+  urlLabel?: string;
+}
+
+export interface AccommodationData {
+  title: string;
+  subtitle: string;
+  description: string;
+  options: AccommodationOption[];
+}
+
+const MOCK_ACCOMMODATIONS: AccommodationData = {
+  title: "Logements",
+  subtitle: "Où dormir ?",
+  description:
+    "Pour profiter pleinement de la fête en toute sécurité, voici nos suggestions d'hébergements à proximité du domaine.",
+  options: [
+    {
+      id: "1",
+      type: "Hotel",
+      name: "Le Grand Chalet",
+      distance: "À 5 minutes du domaine",
+      description:
+        "Hôtel 4 étoiles avec vue panoramique et un spa pour vous détendre.",
+      url: "https://booking.com",
+      urlLabel: "Réserver une chambre",
+    },
+    {
+      id: "2",
+      type: "House",
+      name: "Les Colombes Airbnb",
+      distance: "À 10 minutes (village voisin)",
+      description:
+        "Idéal pour les familles ou groupes d'amis. Gîte indépendant très spacieux avec 3 chambres.",
+      url: "https://airbnb.com",
+      urlLabel: "Voir sur Airbnb",
+    },
+    {
+      id: "3",
+      type: "Hotel",
+      name: "Auberge de la Forêt",
+      distance: "Sur place",
+      description:
+        "Nous avons pré-réservé quelques chambres pour nos invités. Contactez-nous rapidement pour bloquer la vôtre.",
+    },
+  ],
+};
+
+function getIcon(type: AccommodationType) {
+  switch (type) {
+    case "Hotel":
+      return <Hotel className='w-5 h-5' />;
+    case "House":
+      return <Home className='w-5 h-5' />;
+    case "Camping":
+      return <TentTree className='w-5 h-5' />;
+    default:
+      return <BedDouble className='w-5 h-5' />;
+  }
+}
 
 export function AccommodationModule({ weddingId }: { weddingId: string }) {
+  // In the future: await fetchAccommodationData(weddingId)
+  const data = MOCK_ACCOMMODATIONS;
+
+  if (!data.options || data.options.length === 0) return null;
+
   return (
     <section className='w-full'>
-      <div className='text-center mb-16 space-y-4'>
-        <h2 className='text-sm font-bold uppercase tracking-widest text-primary'>
-          Logements
-        </h2>
-        <h3 className='font-heading text-5xl md:text-6xl italic'>
-          Où dormir ?
-        </h3>
-        <p className='text-muted-foreground text-lg max-w-xl mx-auto'>
-          Pour profiter pleinement de la fête en toute sécurité, voici nos
-          suggestions d'hébergements à proximité du domaine.
-        </p>
-      </div>
+      <motion.div
+        initial={{ opacity: 0, y: 30 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, margin: "-50px" }}
+        transition={{ duration: 0.8, ease: "easeOut" }}
+        className='max-w-5xl mx-auto px-4'
+      >
+        <div className='text-center mb-16 space-y-4'>
+          <h2 className='text-xs md:text-sm font-bold uppercase tracking-[0.2em] text-[#6C7A6E]'>
+            {data.title}
+          </h2>
+          <h3 className='font-heading text-5xl md:text-6xl italic text-[#333333]'>
+            {data.subtitle}
+          </h3>
+          <p className='text-[#556B5D] text-sm md:text-base max-w-2xl mx-auto leading-relaxed font-light'>
+            {data.description}
+          </p>
+        </div>
 
-      <div className='grid md:grid-cols-3 gap-6'>
-        {MOCK_HOTELS.map((hotel, i) => (
-          <motion.div
-            key={hotel.id}
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: i * 0.1 }}
-            className='bg-background rounded-3xl p-8 border border-border/50 shadow-xl shadow-black/5 hover:border-primary/30 transition-colors flex flex-col h-full'
-          >
-            <div className='w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center mb-6'>
-              <Hotel className='w-5 h-5 text-primary' />
-            </div>
-            <h4 className='font-heading text-2xl mb-2'>{hotel.name}</h4>
-            <div className='flex items-center gap-2 text-xs font-bold text-muted-foreground uppercase tracking-widest mb-4'>
-              <MapPin className='w-3 h-3' /> {hotel.distance}
-            </div>
-            <p className='text-sm text-foreground/80 leading-relaxed flex-grow mb-8'>
-              {hotel.desc}
-            </p>
-            <Link
-              href={hotel.link}
-              target='_blank'
-              className='inline-flex w-full items-center justify-center gap-2 py-3 rounded-xl border border-border hover:bg-muted/50 transition-colors text-sm font-bold'
+        <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8'>
+          {data.options.map((option, index) => (
+            <motion.div
+              key={option.id}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: index * 0.1, duration: 0.6 }}
+              className='bg-white rounded-[2rem] p-8 border border-[#EAEAEA] shadow-[0_8px_30px_-12px_rgba(0,0,0,0.06)] flex flex-col h-full group hover:border-[#D0D8D3] transition-colors'
             >
-              Voir le site <ExternalLink className='w-3.5 h-3.5' />
-            </Link>
-          </motion.div>
-        ))}
-      </div>
+              <div className='w-14 h-14 bg-[#F5F7F5] rounded-full flex items-center justify-center mb-6 text-[#4B6856]'>
+                {getIcon(option.type)}
+              </div>
+
+              <h4 className='font-heading text-3xl text-[#333333] mb-3 leading-tight'>
+                {option.name}
+              </h4>
+
+              <div className='flex items-center gap-2 text-[10px] md:text-xs font-bold text-[#6C7A6E] uppercase tracking-widest mb-4'>
+                <MapPin className='w-3.5 h-3.5 opacity-70' /> {option.distance}
+              </div>
+
+              <p className='text-[#556B5D] text-[14px] leading-relaxed font-light mb-8 flex-grow'>
+                {option.description}
+              </p>
+
+              {option.url && (
+                <div className='pt-2 mt-auto'>
+                  <Button
+                    asChild
+                    variant='outline'
+                    className='w-full rounded-full h-auto py-3.5 px-4 whitespace-normal text-center text-[10px] sm:text-[11px] font-bold uppercase tracking-[0.15em] border-[#EBEBEB] bg-white text-[#556B5D] hover:bg-[#F9F9F9] hover:text-[#4B6856] hover:border-[#D0D8D3] transition-all gap-2'
+                  >
+                    <a
+                      href={option.url}
+                      target='_blank'
+                      rel='noopener noreferrer'
+                    >
+                      <span>{option.urlLabel || "VOIR SUR LE SITE"}</span>
+                      <ExternalLink className='w-3 h-3 opacity-60 flex-shrink-0' />
+                    </a>
+                  </Button>
+                </div>
+              )}
+            </motion.div>
+          ))}
+        </div>
+      </motion.div>
     </section>
   );
 }
