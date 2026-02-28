@@ -1,78 +1,162 @@
 "use client";
 
-import { Link } from "@/navigation";
 import { motion } from "framer-motion";
-import { Car, MapPin, Navigation } from "lucide-react";
+import { ExternalLink, MapPin, Navigation } from "lucide-react";
+import Image from "next/image";
 
-const MOCK_LOCATION = {
-  name: "Château de la Roche",
-  address: "123 Allée des Marronniers, 75000 Paris",
-  description: "Un domaine enchanteur avec un grand parc privé.",
+// --- Data Types for Future DB ---
+export interface LocationData {
+  id: string;
+  name: string;
+  address: string;
+  description?: string;
+  imageUrl?: string;
+  imageOrientation?: "portrait" | "landscape";
+  googleMapsUrl?: string; // Kept for backwards compatibility but we build dynamic URL
+  wazeUrl?: string;
+}
+
+const MOCK_LOCATION: LocationData = {
+  id: "loc-1",
+  name: "Pavillon Royal",
+  address: "Carrefour du bout des lacs, 1 Rte de Suresnes, 75116 Paris",
+  description:
+    "Un domaine enchanteur du XVIIIe siècle au cœur d'un parc boisé privé. Le stationnement est assuré sur place.",
+  imageUrl:
+    "https://images.unsplash.com/photo-1519225421980-715cb0215aed?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80",
+  imageOrientation: "portrait", // Change to "landscape" or remove to test banner mode
 };
 
 export function MapModule({ weddingId }: { weddingId: string }) {
+  // In the future: await fetchLocationData(weddingId)
+  const location = MOCK_LOCATION;
+
+  if (!location) return null;
+
+  const isPortrait =
+    location.imageUrl && location.imageOrientation === "portrait";
+
   return (
     <section className='w-full'>
-      <div className='text-center mb-16 space-y-4'>
+      <div className='text-center mb-20 space-y-4'>
         <h2 className='text-sm font-bold uppercase tracking-widest text-primary'>
-          Lieu
+          Lieu de Réception
         </h2>
         <h3 className='font-heading text-5xl md:text-6xl italic'>Accès</h3>
       </div>
 
-      <div className='grid md:grid-cols-2 gap-8 items-center bg-background rounded-[3rem] border border-border/50 p-4 md:p-8 shadow-xl shadow-primary/5'>
-        {/* Map Placeholder */}
-        <motion.div
-          initial={{ opacity: 0, x: -20 }}
-          whileInView={{ opacity: 1, x: 0 }}
-          viewport={{ once: true }}
-          className='relative w-full aspect-square md:aspect-auto md:h-full bg-muted/50 rounded-3xl overflow-hidden flex items-center justify-center border border-border'
+      <motion.div
+        initial={{ opacity: 0, y: 30 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, margin: "-50px" }}
+        transition={{ duration: 0.8, ease: "easeOut" }}
+        className='max-w-5xl mx-auto'
+      >
+        <div
+          className={`relative overflow-hidden bg-card/60 backdrop-blur-sm rounded-[3rem] border border-primary/10 flex flex-col ${isPortrait ? "md:flex-row" : ""}`}
         >
-          <div className="absolute inset-0 opacity-20 bg-[url('https://maps.googleapis.com/maps/api/staticmap?center=Paris&zoom=14&size=600x600&sensor=false')] bg-cover bg-center" />
-          <div className='relative z-10 flex flex-col items-center gap-4 text-center p-6'>
-            <div className='w-16 h-16 bg-background rounded-full flex items-center justify-center shadow-lg text-primary'>
-              <MapPin className='w-8 h-8' />
+          {/* Venue Image (Portrait Mode: Left Side) */}
+          {isPortrait && (
+            <div className='relative w-full md:w-5/12 aspect-[4/5] md:h-auto shrink-0'>
+              <Image
+                src={location.imageUrl!}
+                alt={location.name}
+                fill
+                className='object-cover'
+                sizes='(max-width: 768px) 100vw, 40vw'
+              />
+              {/* Overlay gradient fades to right on desktop */}
+              <div className='absolute inset-0 bg-gradient-to-t from-background/90 via-transparent to-transparent md:bg-gradient-to-r md:from-transparent md:to-background/90' />
             </div>
-            <p className='font-bold text-sm tracking-widest uppercase text-muted-foreground'>
-              Google Maps Intégré
-            </p>
-          </div>
-        </motion.div>
+          )}
 
-        {/* Content */}
-        <motion.div
-          initial={{ opacity: 0, x: 20 }}
-          whileInView={{ opacity: 1, x: 0 }}
-          viewport={{ once: true }}
-          className='p-8 space-y-8'
-        >
-          <div className='space-y-4'>
-            <h4 className='font-heading text-4xl'>{MOCK_LOCATION.name}</h4>
-            <p className='text-muted-foreground leading-relaxed'>
-              {MOCK_LOCATION.description}
-            </p>
-            <p className='font-bold text-foreground'>{MOCK_LOCATION.address}</p>
-          </div>
+          {/* Venue Image (Landscape Banner Mode: Top) */}
+          {location.imageUrl && !isPortrait && (
+            <div className='relative w-full aspect-video md:aspect-[21/9] h-64 md:h-96 shrink-0'>
+              <Image
+                src={location.imageUrl}
+                alt={location.name}
+                fill
+                className='object-cover'
+                sizes='(max-width: 768px) 100vw, 100vw'
+              />
+              <div className='absolute inset-0 bg-gradient-to-t from-background/90 via-transparent to-transparent' />
+            </div>
+          )}
 
-          <div className='flex flex-col gap-4'>
-            <Link
-              href='#'
-              target='_blank'
-              className='w-full py-4 rounded-xl border border-border bg-background hover:bg-muted/50 transition-colors flex items-center justify-center gap-3 font-bold text-sm'
+          {/* Location Content Container */}
+          <div
+            className={`w-full p-10 md:p-14 flex flex-col gap-10 justify-between 
+              ${!location.imageUrl ? "text-center items-center" : isPortrait ? "flex-1 md:py-16" : "md:flex-row items-center"}
+            `}
+          >
+            {/* Address Details */}
+            <div
+              className={`space-y-6 flex-1 ${!location.imageUrl ? "flex flex-col items-center max-w-2xl mx-auto" : ""}`}
             >
-              <Navigation className='w-4 h-4' />
-              Ouvrir dans Google Maps
-            </Link>
-            <Link
-              href='#'
-              target='_blank'
-              className='w-full py-4 rounded-xl bg-blue-50 text-blue-600 hover:bg-blue-100 transition-colors flex items-center justify-center gap-3 font-bold text-sm'
+              <h4 className='font-heading text-3xl md:text-5xl text-foreground/90 leading-tight'>
+                {location.name}
+              </h4>
+              <p className='text-muted-foreground font-light text-base md:text-lg leading-relaxed'>
+                {location.description}
+              </p>
+
+              <div
+                className={`pt-8 border-t border-primary/10 w-full ${!location.imageUrl ? "flex flex-col items-center text-center" : ""}`}
+              >
+                <p
+                  className={`font-bold text-[10px] tracking-[0.2em] uppercase text-primary/70 flex items-center gap-3 mb-3 ${!location.imageUrl ? "justify-center" : ""}`}
+                >
+                  <MapPin className='w-4 h-4 text-primary' />
+                  Adresse du domaine
+                </p>
+                <div
+                  className={`text-foreground/90 text-base leading-relaxed ${!location.imageUrl ? "pl-0" : "pl-7"}`}
+                >
+                  {location.address.split(",").map((line, ix) => (
+                    <span
+                      key={ix}
+                      className='block'
+                    >
+                      {line.trim()}
+                    </span>
+                  ))}
+                </div>
+              </div>
+            </div>
+
+            {/* Map & Actions */}
+            <div
+              className={`flex flex-col gap-6 w-full ${isPortrait || !location.imageUrl ? "max-w-md mx-auto" : "md:w-[320px] shrink-0 mt-8 md:mt-0"}`}
             >
-              <Car className='w-4 h-4' />Y aller avec Waze
-            </Link>
+              {/* Small Embedded Google Map */}
+              <div className='w-full h-48 rounded-3xl overflow-hidden border border-primary/20 shadow-sm bg-muted/30 relative'>
+                <iframe
+                  width='100%'
+                  height='100%'
+                  frameBorder='0'
+                  scrolling='no'
+                  marginHeight={0}
+                  marginWidth={0}
+                  src={`https://maps.google.com/maps?q=${encodeURIComponent(location.address)}&t=&z=14&ie=UTF8&iwloc=&output=embed`}
+                  className='absolute inset-0'
+                />
+              </div>
+
+              <a
+                href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(location.address)}`}
+                target='_blank'
+                rel='noopener noreferrer'
+                className='w-full rounded-[2rem] border border-primary/30 bg-transparent hover:bg-primary/5 transition-colors flex items-center justify-center gap-3 py-4 px-6 text-xs font-bold uppercase tracking-widest text-foreground/90'
+              >
+                <Navigation className='w-4 h-4 text-primary/80' />
+                <span>Ouvrir dans Google Maps</span>
+                <ExternalLink className='w-3 h-3 text-muted-foreground ml-1' />
+              </a>
+            </div>
           </div>
-        </motion.div>
-      </div>
+        </div>
+      </motion.div>
     </section>
   );
 }

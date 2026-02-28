@@ -122,18 +122,6 @@ export function MenuModule({ weddingId }: { weddingId: string }) {
             ))}
           </div>
 
-          {/* DYNAMIC DIETARY/ALLERGY NOTES */}
-          {menu.dietaryNote && (
-            <div className='mt-20 mx-auto max-w-lg p-8 bg-card/40 rounded-2xl border border-primary/10 shadow-sm'>
-              <h4 className='text-[10px] font-bold uppercase tracking-[0.2em] text-primary/80 mb-4'>
-                Note du Chef / Régimes Spéciaux
-              </h4>
-              <p className='text-sm font-light text-muted-foreground/90 italic leading-relaxed'>
-                {menu.dietaryNote}
-              </p>
-            </div>
-          )}
-
           {menu.footer && menu.footer.length > 0 && (
             <div className='mt-20 pt-8 border-t border-border/40 flex flex-col md:flex-row items-center justify-center gap-6 text-xs tracking-widest uppercase text-muted-foreground/80 font-semibold'>
               {menu.footer.map((note, idx) => (
@@ -149,6 +137,18 @@ export function MenuModule({ weddingId }: { weddingId: string }) {
                   <span>{note}</span>
                 </div>
               ))}
+            </div>
+          )}
+
+          {/* DYNAMIC DIETARY/ALLERGY NOTES */}
+          {menu.dietaryNote && (
+            <div className='mt-20 mx-auto max-w-lg p-8 bg-card/40 rounded-2xl border border-primary/10 shadow-sm'>
+              <h4 className='text-[10px] font-bold uppercase tracking-[0.2em] text-primary/80 mb-4'>
+                Note du Chef / Régimes Spéciaux
+              </h4>
+              <p className='text-sm font-light text-muted-foreground/90 italic leading-relaxed'>
+                {menu.dietaryNote}
+              </p>
             </div>
           )}
         </div>
