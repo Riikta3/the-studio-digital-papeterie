@@ -84,26 +84,19 @@ export async function createWedding(data: CreateWeddingData) {
     return { success: false, error: "Failed to apply settings." };
   }
 
-  // 4. Create Initial Project State (Builder)
-  // We initialize the builder with the chosen theme and modules
-  const initialBuilderState = {
-    themeId: data.themeId,
-    modules: data.modules.map((type) => ({
-      id: crypto.randomUUID(),
-      type,
-      content: {}, // Empty content for now, will use defaults in builder
-    })),
-  };
-
-  const { error: projectError } = await supabaseAdmin.from("projects").insert({
+  // 4. Create Site Record (Static Template Approach)
+  const { error: siteError } = await supabaseAdmin.from("sites").insert({
     wedding_id: userId,
-    state: initialBuilderState,
+    plan_id: data.plan,
     theme_id: data.themeId,
+    modules: data.modules,
+    languages: data.languages,
+    extras: data.extras,
     status: "draft",
   });
 
-  if (projectError) {
-    console.error("Project Creation Error:", projectError);
+  if (siteError) {
+    console.error("Site Creation Error:", siteError);
     // Non-fatal, can be created later or retried
   }
 
