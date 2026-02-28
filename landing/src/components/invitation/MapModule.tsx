@@ -24,7 +24,7 @@ const MOCK_LOCATION: LocationData = {
     "Un domaine enchanteur du XVIIIe siècle au cœur d'un parc boisé privé. Le stationnement est assuré sur place.",
   imageUrl:
     "https://images.unsplash.com/photo-1519225421980-715cb0215aed?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80",
-  imageOrientation: "portrait", // Change to "landscape" or remove to test banner mode
+  imageOrientation: "landscape", // "landscape", "portrait", or remove.
 };
 
 export function MapModule({ weddingId }: { weddingId: string }) {
@@ -66,7 +66,7 @@ export function MapModule({ weddingId }: { weddingId: string }) {
                 sizes='(max-width: 768px) 100vw, 40vw'
               />
               {/* Overlay gradient fades to right on desktop */}
-              <div className='absolute inset-0 bg-gradient-to-t from-background/90 via-transparent to-transparent md:bg-gradient-to-r md:from-transparent md:to-background/90' />
+              <div className='absolute inset-0 bg-gradient-to-t from-background/50 via-transparent to-transparent md:bg-gradient-to-r md:from-transparent md:to-background/90' />
             </div>
           )}
 
@@ -80,7 +80,7 @@ export function MapModule({ weddingId }: { weddingId: string }) {
                 className='object-cover'
                 sizes='(max-width: 768px) 100vw, 100vw'
               />
-              <div className='absolute inset-0 bg-gradient-to-t from-background/90 via-transparent to-transparent' />
+              <div className='absolute inset-0 bg-gradient-to-t from-background/50 via-transparent to-transparent' />
             </div>
           )}
 
