@@ -5,6 +5,8 @@ import { supabaseAdmin } from "@/lib/supabase-admin";
 import { ChevronDown } from "lucide-react";
 import { notFound } from "next/navigation";
 
+export const revalidate = 0;
+
 interface InvitationPageProps {
   params: Promise<{
     locale: string;
@@ -127,6 +129,7 @@ export default async function InvitationPage({ params }: InvitationPageProps) {
           <ModuleRenderer
             modules={siteConfig.modules}
             weddingId={weddingId}
+            weddingDate={profile.wedding_date}
           />
         </main>
 

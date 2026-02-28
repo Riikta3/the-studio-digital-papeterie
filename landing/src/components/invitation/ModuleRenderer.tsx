@@ -1,4 +1,5 @@
 import { AccommodationModule } from "./AccommodationModule";
+import { CountdownModule } from "./CountdownModule";
 import { Divider } from "./Divider";
 import { GalleryModule } from "./GalleryModule";
 import { GenericInfoModule } from "./GenericInfoModule";
@@ -13,6 +14,7 @@ import { VideoGuestbookModule } from "./VideoGuestbookModule";
 
 // Define a map of module IDs to their respective React components
 const MODULE_COMPONENTS: Record<string, React.ComponentType<any>> = {
+  countdown: CountdownModule,
   timeline: TimelineModule,
   rsvp: RsvpModule,
   gallery: GalleryModule,
@@ -28,9 +30,11 @@ const MODULE_COMPONENTS: Record<string, React.ComponentType<any>> = {
 export function ModuleRenderer({
   modules,
   weddingId,
+  weddingDate,
 }: {
   modules: string[];
   weddingId: string;
+  weddingDate?: string | null;
 }) {
   if (!modules || modules.length === 0) return null;
 
@@ -63,7 +67,10 @@ export function ModuleRenderer({
 
         return (
           <div key={moduleId}>
-            <ModuleComponent weddingId={weddingId} />
+            <ModuleComponent
+              weddingId={weddingId}
+              weddingDate={weddingDate}
+            />
             {!isLast && <Divider />}
           </div>
         );

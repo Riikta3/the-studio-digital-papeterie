@@ -1,6 +1,7 @@
 import { createClient } from "@supabase/supabase-js";
 import { config } from "dotenv";
-config({ path: ".env.local" });
+import path from "path";
+config({ path: path.resolve(process.cwd(), "../.env.local") });
 
 const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!;
 const serviceRoleKey = process.env.SUPABASE_SERVICE_ROLE_KEY!;
@@ -43,6 +44,7 @@ async function updateTestUser() {
 
   // 2. Update the Site configuration modules array
   const NEW_MODULE_ORDER = [
+    "countdown", // Le compte à rebours
     "timeline", // Programme du Jour
     "menu", // Menu de la réception
     "map", // Lieu / Accès

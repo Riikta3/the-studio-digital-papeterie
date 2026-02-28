@@ -12,10 +12,17 @@ import {
   Image as ImageIcon,
   MapPin,
   MessageSquare,
+  Timer,
   Utensils,
 } from "lucide-react";
 
 const MODULES = [
+  {
+    id: "countdown",
+    label: "Compte à Rebours",
+    icon: Timer,
+    desc: "Le décompte avant le jour J",
+  },
   {
     id: "timeline",
     label: "Programme du Jour",
