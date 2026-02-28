@@ -1,93 +1,208 @@
 "use client";
 
+import { Button } from "@shared/components/ui/button";
 import { motion } from "framer-motion";
-import { Bus, Map, Plane, Train } from "lucide-react";
+import { Bus, Car, ExternalLink, Plane, Ship, Train } from "lucide-react";
 
-const MOCK_TRANSPORTS = [
-  {
-    id: 1,
-    icon: Train,
-    title: "En Train",
-    desc: "Gare TGV la plus proche : Paris Montparnasse (à 45min en voiture du domaine).",
-  },
-  {
-    id: 2,
-    icon: Plane,
-    title: "En Avion",
-    desc: "Aéroport de Paris-Orly (ORY) situé à 1h15 du lieu de réception.",
-  },
-  {
-    id: 3,
-    icon: Bus,
-    title: "Navettes Prévues",
-    desc: "Des navettes feront l'aller-retour entre le centre-ville et le domaine à 2h00 et 4h00 du matin.",
-  },
-];
+// --- Data Types for Future DB ---
+export type TransportIconType = "Train" | "Plane" | "Bus" | "Car" | "Ship";
+
+export interface TransportOption {
+  id: string;
+  iconType: TransportIconType;
+  title: string;
+  description: string;
+}
+
+export interface TransportData {
+  options: TransportOption[];
+  carpoolUrl?: string; // Optional: Si les mariés ont un lien de covoiturage (ex: Togetzer)
+  carpoolLinkLabel?: string; // The text on the button
+  carpoolDescription?: string;
+}
+
+const MOCK_TRANSPORT: TransportData = {
+  options: [
+    {
+      id: "trans-1",
+      iconType: "Train",
+      title: "En Train",
+      description:
+        "Gare TGV de Paris Montparnasse (à 45min en navette du domaine).",
+    },
+    {
+      id: "trans-2",
+      iconType: "Plane",
+      title: "En Avion",
+      description:
+        "Aéroport de Paris-Orly (ORY) situé à 1h15 du lieu de réception.",
+    },
+    {
+      id: "trans-3",
+      iconType: "Bus",
+      title: "Navettes Prévues",
+      description:
+        "Des navettes privées feront l'aller-retour entre les hôtels du centre-ville et le domaine à 2h00, 3h30 et 5h00 du matin.",
+    },
+  ],
+  carpoolUrl: "https://togetzer.com/",
+  carpoolLinkLabel: "Accéder au tableau",
+  carpoolDescription:
+    "Pour limiter notre empreinte écologique et faciliter les trajets, nous avons mis en place un tableau de covoiturage. N'hésitez à proposer ou chercher une place !",
+};
+
+// Helper function to render the correct Lucide icon
+const getIcon = (type: TransportIconType) => {
+  switch (type) {
+    case "Train":
+      return (
+        <Train
+          className='w-6 h-6 text-primary'
+          strokeWidth={1.5}
+        />
+      );
+    case "Plane":
+      return (
+        <Plane
+          className='w-6 h-6 text-primary'
+          strokeWidth={1.5}
+        />
+      );
+    case "Bus":
+      return (
+        <Bus
+          className='w-6 h-6 text-primary'
+          strokeWidth={1.5}
+        />
+      );
+    case "Car":
+      return (
+        <Car
+          className='w-6 h-6 text-primary'
+          strokeWidth={1.5}
+        />
+      );
+    case "Ship":
+      return (
+        <Ship
+          className='w-6 h-6 text-primary'
+          strokeWidth={1.5}
+        />
+      );
+    default:
+      return (
+        <Car
+          className='w-6 h-6 text-primary'
+          strokeWidth={1.5}
+        />
+      );
+  }
+};
 
 export function TransportModule({ weddingId }: { weddingId: string }) {
+  // In the future: await fetchTransportData(weddingId)
+  const data = MOCK_TRANSPORT;
+
+  if (!data || (data.options.length === 0 && !data.carpoolUrl)) return null;
+
   return (
     <section className='w-full'>
-      <div className='text-center mb-16 space-y-4'>
+      <div className='text-center mb-20 space-y-4'>
         <h2 className='text-sm font-bold uppercase tracking-widest text-primary'>
           Logistique
         </h2>
         <h3 className='font-heading text-5xl md:text-6xl italic'>
           Votre Trajet
         </h3>
-        <p className='text-muted-foreground text-lg max-w-xl mx-auto'>
-          Voici toutes les informations pratiques pour nous rejoindre facilement
-          le jour J.
-        </p>
       </div>
 
-      <div className='grid md:grid-cols-2 gap-12 max-w-5xl mx-auto items-center'>
-        <motion.div
-          initial={{ opacity: 0, x: -20 }}
-          whileInView={{ opacity: 1, x: 0 }}
-          viewport={{ once: true }}
-          className='space-y-8'
-        >
-          {MOCK_TRANSPORTS.map((transport, i) => {
-            const Icon = transport.icon;
-            return (
+      <div className='grid md:grid-cols-12 gap-8 max-w-5xl mx-auto'>
+        {/* Dynamic Transport Options List */}
+        {data.options.length > 0 && (
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-50px" }}
+            transition={{ duration: 0.8, ease: "easeOut" }}
+            className={`flex flex-col gap-6 ${data.carpoolUrl ? "md:col-span-7" : "col-span-12"}`}
+          >
+            {data.options.map((option) => (
               <div
-                key={transport.id}
-                className='flex gap-6 items-start bg-background p-6 rounded-3xl border border-border/50 hover:shadow-xl hover:shadow-black/5 transition-shadow'
+                key={option.id}
+                className='group flex flex-col sm:flex-row gap-8 items-start sm:items-center bg-card p-10 py-12 rounded-[2.5rem] border border-primary/20 hover:border-primary/40 transition-colors duration-300'
               >
-                <div className='w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center shrink-0'>
-                  <Icon className='w-6 h-6 text-primary' />
+                <div className='w-16 h-16 bg-muted/40 rounded-full flex items-center justify-center shrink-0 border border-primary/10 transition-transform duration-500'>
+                  {getIcon(option.iconType)}
                 </div>
-                <div>
-                  <h4 className='font-heading text-2xl mb-2'>
-                    {transport.title}
+                <div className='flex flex-col justify-center'>
+                  <h4 className='font-heading text-3xl text-foreground/90 mb-3'>
+                    {option.title}
                   </h4>
-                  <p className='text-foreground/80 text-sm leading-relaxed'>
-                    {transport.desc}
+                  <p className='text-muted-foreground font-light text-[15px] leading-relaxed max-w-md'>
+                    {option.description}
                   </p>
                 </div>
               </div>
-            );
-          })}
-        </motion.div>
+            ))}
+          </motion.div>
+        )}
 
-        <motion.div
-          initial={{ opacity: 0, scale: 0.95 }}
-          whileInView={{ opacity: 1, scale: 1 }}
-          viewport={{ once: true }}
-          className='relative aspect-square md:aspect-auto md:h-full bg-primary/5 rounded-[3rem] overflow-hidden flex flex-col justify-center items-center text-center p-12 border border-primary/20'
-        >
-          <Map className='w-20 h-20 text-primary mb-6 opacity-50' />
-          <h4 className='font-heading text-3xl mb-4 text-primary'>
-            Covoiturage
-          </h4>
-          <p className='text-sm text-foreground/80 leading-relaxed mb-8'>
-            Pour limiter notre empreinte écologique et faciliter les trajets,
-            nous avons mis en place un tableau de covoiturage.
-          </p>
-          <button className='px-8 py-4 rounded-xl bg-primary text-primary-foreground font-bold text-sm uppercase tracking-widest hover:opacity-90 transition-opacity'>
-            Proposer ou chercher une place
-          </button>
-        </motion.div>
+        {/* Dynamic Carpool Block */}
+        {data.carpoolUrl && (
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-50px" }}
+            transition={{ duration: 0.8, delay: 0.2, ease: "easeOut" }}
+            className={`relative overflow-hidden bg-[#F5F7F5] dark:bg-muted/30 rounded-[3rem] border border-primary/20 flex flex-col items-center text-center p-12 lg:p-14 ${data.options.length > 0 ? "md:col-span-5" : "col-span-12 max-w-md mx-auto w-full"}`}
+          >
+            {/* Background Pattern mimicking screenshot lines */}
+            <div
+              className='absolute inset-0 opacity-[0.15] pointer-events-none'
+              style={{
+                backgroundImage: `linear-gradient(45deg, transparent 40%, rgba(0,0,0,0.1) 40%, rgba(0,0,0,0.1) 41%, transparent 41%),
+                                linear-gradient(-45deg, transparent 60%, rgba(0,0,0,0.1) 60%, rgba(0,0,0,0.1) 61%, transparent 61%),
+                                linear-gradient(0deg, transparent 70%, rgba(0,0,0,0.1) 70%, rgba(0,0,0,0.1) 71%, transparent 71%)`,
+                backgroundSize: "300px 300px",
+                backgroundPosition: "center",
+              }}
+            />
+
+            <div className='relative z-10 w-full flex flex-col items-center h-full'>
+              <div className='w-20 h-20 bg-card rounded-full flex items-center justify-center shadow-sm border border-primary/5 mt-4 mb-10'>
+                <Car
+                  className='w-7 h-7 text-primary'
+                  strokeWidth={1.5}
+                />
+              </div>
+
+              <h4 className='font-heading text-4xl text-foreground/90 mb-6'>
+                Covoiturage
+              </h4>
+
+              <p className='text-muted-foreground font-light text-[15px] leading-relaxed mb-auto pb-12 max-w-[280px]'>
+                {data.carpoolDescription}
+              </p>
+
+              <div className='w-full flex justify-center pb-2'>
+                <Button
+                  asChild
+                  size='lg'
+                  className='rounded-full shadow-md gap-2 font-bold uppercase tracking-widest text-xs h-12 px-8'
+                >
+                  <a
+                    href={data.carpoolUrl}
+                    target='_blank'
+                    rel='noopener noreferrer'
+                  >
+                    <span>{data.carpoolLinkLabel || "Accéder au tableau"}</span>
+                    <ExternalLink className='w-3 h-3 opacity-60 ml-1' />
+                  </a>
+                </Button>
+              </div>
+            </div>
+          </motion.div>
+        )}
       </div>
     </section>
   );
