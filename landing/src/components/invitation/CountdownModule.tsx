@@ -95,7 +95,7 @@ export function CountdownModule({
               key={block.label}
               className='flex flex-col items-center'
             >
-              <div className='w-[72px] h-[85px] sm:w-[85px] sm:h-[100px] md:w-[95px] md:h-[115px] bg-white border border-[#EBEBEB] rounded-[1rem] sm:rounded-[1.25rem] shadow-[0_2px_15px_-3px_rgba(0,0,0,0.03)] flex items-center justify-center mb-4 md:mb-6'>
+              <div className='w-[72px] h-[85px] sm:w-[85px] sm:h-[100px] md:w-[95px] md:h-[115px] bg-white border border-[#EAEAEA] rounded-[1rem] sm:rounded-[1.25rem] shadow-[0_8px_30px_-12px_rgba(0,0,0,0.06)] flex items-center justify-center mb-4 md:mb-6'>
                 <span className='font-heading text-[2.5rem] sm:text-[3rem] md:text-[3.5rem] text-[#333333] font-light leading-none'>
                   {block.value.toString().padStart(2, "0")}
                 </span>

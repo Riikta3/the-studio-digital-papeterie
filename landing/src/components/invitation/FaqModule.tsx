@@ -77,7 +77,7 @@ export function FaqModule({ weddingId }: { weddingId: string }) {
               whileInView={{ opacity: 1, scale: 1 }}
               viewport={{ once: true }}
               transition={{ delay: index * 0.1 }}
-              className='bg-white rounded-[1.5rem] p-8 border border-[#EBEBEB] shadow-[0_2px_15px_-3px_rgba(0,0,0,0.03)] flex flex-col h-full'
+              className='bg-white rounded-[1.5rem] p-8 border border-[#EAEAEA] shadow-[0_8px_30px_-12px_rgba(0,0,0,0.06)] flex flex-col h-full'
             >
               <div className='flex items-start gap-4 mb-4'>
                 <Info className='w-5 h-5 text-[#4B6856] mt-1 flex-shrink-0' />

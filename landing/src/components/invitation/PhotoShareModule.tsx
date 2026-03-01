@@ -40,7 +40,7 @@ export function PhotoShareModule({ weddingId }: { weddingId: string }) {
           {data.subtitle}
         </h3>
 
-        <div className='bg-white rounded-[2rem] p-10 border border-[#EBEBEB] shadow-[0_4px_20px_-5px_rgba(0,0,0,0.05)] max-w-2xl mx-auto flex flex-col items-center'>
+        <div className='bg-white rounded-[2rem] p-10 border border-[#EAEAEA] shadow-[0_8px_30px_-12px_rgba(0,0,0,0.06)] max-w-2xl mx-auto flex flex-col items-center'>
           <div className='w-16 h-16 bg-[#F5F7F5] rounded-full flex items-center justify-center mb-6 text-[#4B6856]'>
             <Camera className='w-6 h-6 opacity-80' />
           </div>

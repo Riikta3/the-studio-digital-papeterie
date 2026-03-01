@@ -53,10 +53,12 @@ export async function TimelineModule({ weddingId }: { weddingId: string }) {
   return (
     <section className='w-full'>
       <div className='text-center mb-20 space-y-4'>
-        <h2 className='text-sm font-bold uppercase tracking-widest text-primary'>
+        <h2 className='text-xs md:text-sm font-bold uppercase tracking-[0.2em] text-[#6C7A6E]'>
           Programme
         </h2>
-        <h3 className='font-heading text-5xl md:text-6xl italic'>Le Jour J</h3>
+        <h3 className='font-heading text-5xl md:text-6xl italic text-[#333333]'>
+          Le Jour J
+        </h3>
       </div>
 
       <div className='relative max-w-4xl mx-auto px-4 md:px-0'>
@@ -81,7 +83,7 @@ export async function TimelineModule({ weddingId }: { weddingId: string }) {
 
                 {/* Center Node (Just Time, no dots) */}
                 <div className='absolute left-8 md:left-1/2 md:-translate-x-1/2 -translate-x-1/2 flex items-center justify-center z-10 w-24 bg-background py-4'>
-                  <span className='text-sm font-bold tracking-widest text-primary border border-primary/20 bg-background px-4 py-1.5 rounded-full shadow-sm'>
+                  <span className='text-[10px] md:text-xs font-bold uppercase tracking-[0.2em] text-[#4B6856] border border-[#EAEAEA] bg-white px-4 py-1.5 rounded-full shadow-[0_2px_10px_-3px_rgba(0,0,0,0.04)] mb-0'>
                     {event.time}
                   </span>
                 </div>
@@ -94,22 +96,22 @@ export async function TimelineModule({ weddingId }: { weddingId: string }) {
                       : "md:pl-20 md:text-left text-left"
                   }`}
                 >
-                  <div className='bg-card/50 backdrop-blur-sm border border-primary/10 hover:border-primary/30 transition-colors p-8 rounded-3xl shadow-sm hover:shadow-md'>
-                    <h4 className='font-heading text-2xl md:text-3xl mb-3 text-foreground/90'>
+                  <div className='bg-white border border-[#EAEAEA] shadow-[0_8px_30px_-12px_rgba(0,0,0,0.06)] hover:border-[#D0D8D3] transition-colors p-8 rounded-[2rem]'>
+                    <h4 className='font-heading text-2xl md:text-3xl mb-3 text-[#333333]'>
                       {event.title}
                     </h4>
                     {event.description && (
-                      <p className='text-muted-foreground font-light text-sm md:text-base leading-relaxed mb-5 max-w-sm mr-auto ml-0 md:max-w-none md:mx-0'>
+                      <p className='text-[#556B5D] font-light text-[14px] leading-relaxed mb-5 max-w-sm mr-auto ml-0 md:max-w-none md:mx-0'>
                         {event.description}
                       </p>
                     )}
                     {event.location && (
                       <div
-                        className={`flex items-center gap-2 text-[11px] font-semibold uppercase tracking-widest text-primary/80 ${
+                        className={`flex items-center gap-2 text-[10px] font-bold uppercase tracking-[0.15em] text-[#6C7A6E] ${
                           isEven ? "md:justify-end" : "justify-start"
                         }`}
                       >
-                        <MapPin className='w-4 h-4' />
+                        <MapPin className='w-3.5 h-3.5 opacity-70' />
                         {event.location}
                       </div>
                     )}
