@@ -38,7 +38,7 @@ export function PlaylistModule({ weddingId }: { weddingId: string }) {
     const controller = new AbortController();
     const signal = controller.signal;
 
-    if (searchQuery.trim().length > 2) {
+    if (searchQuery.trim().length > 1) {
       setIsSearching(true);
 
       // Add a slight debounce to avoid hammering the API on every keystroke

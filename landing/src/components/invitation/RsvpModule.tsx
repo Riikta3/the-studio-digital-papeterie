@@ -211,7 +211,7 @@ export function RsvpModule({ weddingId }: { weddingId: string }) {
                 !formData.name ||
                 !formData.attendance
               }
-              className='w-full bg-[#333333] hover:bg-[#1A1A1A] disabled:bg-[#CCCCCC] text-white py-5 rounded-full font-bold text-xs uppercase tracking-[0.3em] transition-all duration-300 shadow-xl shadow-black/5 flex items-center justify-center gap-3 overflow-hidden group'
+              className='w-full bg-[#4B6856] hover:bg-[#3D5446] disabled:bg-[#CCCCCC] text-white py-5 rounded-full font-bold text-xs uppercase tracking-[0.3em] transition-all duration-300 shadow-xl shadow-[#4B6856]/10 flex items-center justify-center gap-3 overflow-hidden group'
             >
               <span className='relative z-10'>
                 {status === "submitting"
