@@ -1,7 +1,9 @@
 "use client";
 
-import { motion } from "framer-motion";
-import { Info } from "lucide-react";
+import { cn } from "@/lib/utils";
+import { AnimatePresence, motion } from "framer-motion";
+import { Minus, Plus } from "lucide-react";
+import { useState } from "react";
 
 export interface FaqItem {
   id: string;
@@ -16,7 +18,7 @@ export interface FaqData {
   questions: FaqItem[];
 }
 
-const MOCK_FAQ: FaqData = {
+const DEFAULT_FAQ_DATA: FaqData = {
   title: "FAQ",
   subtitle: "Infos Pratiques",
   description:
@@ -40,11 +42,18 @@ const MOCK_FAQ: FaqData = {
       answer:
         "Oui, un système de navette est organisé vers les hôtels principaux à 2h, 3h et 4h du matin. Pensez à l'indiquer dans le formulaire RSVP !",
     },
+    {
+      id: "q4",
+      question: "Où pouvons-nous nous garer ?",
+      answer:
+        "Un parking privé et surveillé est à votre disposition à l'entrée du domaine. Suivez simplement les panneaux à votre arrivée.",
+    },
   ],
 };
 
 export function FaqModule({ weddingId }: { weddingId: string }) {
-  const data = MOCK_FAQ;
+  const data = DEFAULT_FAQ_DATA;
+  const [openIndex, setOpenIndex] = useState<number | null>(null);
 
   if (!data.questions || data.questions.length === 0) return null;
 
@@ -55,39 +64,67 @@ export function FaqModule({ weddingId }: { weddingId: string }) {
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, margin: "-50px" }}
         transition={{ duration: 0.8, ease: "easeOut" }}
-        className='max-w-4xl mx-auto px-4'
+        className='max-w-3xl mx-auto px-4'
       >
-        <div className='text-center mb-16 space-y-4'>
-          <p className='text-xs md:text-sm font-bold uppercase tracking-[0.2em] text-[#6C7A6E]'>
-            {data.title}
-          </p>
-          <h3 className='font-heading text-5xl md:text-6xl italic text-[#333333]'>
-            {data.subtitle}
-          </h3>
-          <p className='text-[#556B5D] text-sm md:text-base max-w-2xl mx-auto leading-relaxed font-light'>
-            {data.description}
-          </p>
+        {/* Title Section */}
+        <div className='text-center mb-12'>
+          <h2 className='font-heading text-4xl md:text-5xl text-[#333333]'>
+            Questions{" "}
+            <span className='italic text-[#4B6856] opacity-80'>Fréquentes</span>
+          </h2>
         </div>
 
-        <div className='grid grid-cols-1 md:grid-cols-2 gap-6'>
-          {data.questions.map((q, index) => (
+        {/* Accordion List */}
+        <div className='space-y-4'>
+          {data.questions.map((faq, index) => (
             <motion.div
-              key={q.id}
+              key={faq.id}
               initial={{ opacity: 0, scale: 0.98 }}
               whileInView={{ opacity: 1, scale: 1 }}
               viewport={{ once: true }}
-              transition={{ delay: index * 0.1 }}
-              className='bg-white rounded-[1.5rem] p-8 border border-[#EAEAEA] shadow-[0_8px_30px_-12px_rgba(0,0,0,0.06)] flex flex-col h-full'
+              transition={{ delay: index * 0.05 }}
+              className='bg-white rounded-[1.5rem] border border-[#EAEAEA] shadow-[0_4px_20px_-10px_rgba(0,0,0,0.05)] overflow-hidden transition-all duration-300'
             >
-              <div className='flex items-start gap-4 mb-4'>
-                <Info className='w-5 h-5 text-[#4B6856] mt-1 flex-shrink-0' />
-                <h4 className='font-heading text-2xl text-[#333333] leading-tight'>
-                  {q.question}
-                </h4>
-              </div>
-              <p className='text-[#556B5D] text-sm leading-relaxed font-light pl-9'>
-                {q.answer}
-              </p>
+              <button
+                onClick={() => setOpenIndex(openIndex === index ? null : index)}
+                className='flex w-full items-center justify-between p-7 text-left transition-colors hover:bg-[#F9F9F9]'
+              >
+                <span className='font-heading text-xl md:text-2xl text-[#333333] pr-8 leading-snug'>
+                  {faq.question}
+                </span>
+                <div
+                  className={cn(
+                    "flex h-9 w-9 shrink-0 items-center justify-center rounded-full border transition-all duration-300",
+                    openIndex === index
+                      ? "bg-[#4B6856] border-[#4B6856] text-white rotate-180"
+                      : "border-[#D0D8D3] text-[#4B6856]",
+                  )}
+                >
+                  {openIndex === index ? (
+                    <Minus className='h-4 w-4' />
+                  ) : (
+                    <Plus className='h-4 w-4 opacity-70' />
+                  )}
+                </div>
+              </button>
+
+              <AnimatePresence>
+                {openIndex === index && (
+                  <motion.div
+                    initial={{ height: 0, opacity: 0 }}
+                    animate={{ height: "auto", opacity: 1 }}
+                    exit={{ height: 0, opacity: 0 }}
+                    transition={{ duration: 0.3, ease: "easeInOut" }}
+                  >
+                    <div className='px-7 pb-8 pt-0'>
+                      <div className='h-px w-full bg-[#EAEAEA] mb-6' />
+                      <p className='text-[#556B5D] text-base leading-relaxed font-light'>
+                        {faq.answer}
+                      </p>
+                    </div>
+                  </motion.div>
+                )}
+              </AnimatePresence>
             </motion.div>
           ))}
         </div>

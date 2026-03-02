@@ -10,7 +10,6 @@ import { GuestbookModule } from "./GuestbookModule";
 import { IntroVideoModule } from "./IntroVideoModule";
 import { MapModule } from "./MapModule";
 import { MenuModule } from "./MenuModule";
-import { PhotoShareModule } from "./PhotoShareModule";
 import { PlaylistModule } from "./PlaylistModule";
 import { RsvpModule } from "./RsvpModule";
 import { TimelineModule } from "./TimelineModule";
@@ -25,7 +24,6 @@ const MODULE_COMPONENTS: Record<string, React.ComponentType<any>> = {
   "dress-code": DressCodeModule,
   rsvp: RsvpModule,
   gallery: GalleryModule,
-  "photo-share": PhotoShareModule,
   map: MapModule,
   "gift-list": GiftListModule,
   guestbook: GuestbookModule,
@@ -41,10 +39,12 @@ export function ModuleRenderer({
   modules,
   weddingId,
   weddingDate,
+  extras,
 }: {
   modules: string[];
   weddingId: string;
   weddingDate?: string | null;
+  extras?: any;
 }) {
   if (!modules || modules.length === 0) return null;
 
@@ -80,6 +80,7 @@ export function ModuleRenderer({
             <ModuleComponent
               weddingId={weddingId}
               weddingDate={weddingDate}
+              extras={extras}
             />
             {!isLast && <Divider />}
           </div>
