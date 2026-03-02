@@ -6,7 +6,6 @@ import { AnimatePresence, motion } from "framer-motion";
 import {
   Bus,
   CalendarDays,
-  Camera,
   Check,
   Gift,
   Hotel,
@@ -57,12 +56,6 @@ const MODULES = [
     label: "Galerie Photo",
     icon: ImageIcon,
     desc: "Partagez vos meilleurs souvenirs",
-  },
-  {
-    id: "photo-share",
-    label: "Album Partagé",
-    icon: Camera,
-    desc: "Outil de collecte de photos (Wedbox/etc)",
   },
   {
     id: "playlist",

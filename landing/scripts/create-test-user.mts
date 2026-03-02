@@ -53,7 +53,6 @@ async function updateTestUser() {
     "transport", // Navettes & Transport
     "accommodation", // Hébergements
     "gallery", // Galerie Photo
-    "photo-share", // Album partage
     "playlist", // Musique collaborative
     "gift-list", // Cagnotte / Cadeaux
     "faq", // Infos Pratiques - Assistés
