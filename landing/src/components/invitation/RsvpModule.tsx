@@ -4,10 +4,19 @@ import { AnimatePresence, motion } from "framer-motion";
 import { Check, Heart, Send, X } from "lucide-react";
 import { useState } from "react";
 
-export function RsvpModule({ weddingId }: { weddingId: string }) {
+export function RsvpModule({
+  weddingId,
+  extras,
+}: {
+  weddingId: string;
+  extras?: {
+    rsvp_deadline?: string;
+  };
+}) {
   const [formData, setFormData] = useState({
     name: "",
     attendance: "" as "yes" | "no" | "",
+    guests: "0",
     dietary: "",
     message: "",
   });
@@ -51,6 +60,8 @@ export function RsvpModule({ weddingId }: { weddingId: string }) {
     );
   }
 
+  const deadline = extras?.rsvp_deadline || "1er Avril 2026";
+
   return (
     <section className='w-full'>
       <motion.div
@@ -69,8 +80,9 @@ export function RsvpModule({ weddingId }: { weddingId: string }) {
 
         <div className='bg-white rounded-[2.5rem] p-8 md:p-16 border border-[#EAEAEA] shadow-[0_8px_30px_-12px_rgba(0,0,0,0.06)] max-w-2xl mx-auto'>
           <p className='text-[#556B5D] text-base md:text-lg leading-relaxed font-light mb-12 max-w-md mx-auto'>
-            Nous serions honorés de vous compter parmi nous. Merci de bien
-            vouloir confirmer votre présence avant le 1er Mars 2026.
+            Nous serions honorés de vous compter parmi nous (présence,
+            allergies, accompagnants). Merci de bien vouloir confirmer votre
+            présence avant le {deadline}.
           </p>
 
           <form
@@ -162,27 +174,45 @@ export function RsvpModule({ weddingId }: { weddingId: string }) {
               </div>
             </div>
 
-            {/* Régime Alimentaire */}
-            <AnimatePresence>
+            {/* Accompagnants & Régime Alimentaire */}
+            <AnimatePresence mode='wait'>
               {formData.attendance === "yes" && (
                 <motion.div
-                  initial={{ opacity: 0, height: 0 }}
-                  animate={{ opacity: 1, height: "auto" }}
-                  exit={{ opacity: 0, height: 0 }}
-                  className='space-y-3 overflow-hidden'
+                  key='extra-fields'
+                  initial={{ opacity: 0, y: -20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -20 }}
+                  className='space-y-8'
                 >
-                  <label className='text-[10px] uppercase tracking-[0.2em] font-bold text-[#6C7A6E] ml-4'>
-                    Régime alimentaire & Allergies
-                  </label>
-                  <input
-                    type='text'
-                    value={formData.dietary}
-                    onChange={(e) =>
-                      setFormData({ ...formData, dietary: e.target.value })
-                    }
-                    placeholder='Végétarien, sans gluten, etc.'
-                    className='w-full bg-[#F9F9F9]/50 border border-[#EBEBEB] text-[#333333] placeholder:text-[#6C7A6E]/30 rounded-full py-4 px-8 focus:outline-none focus:ring-1 focus:ring-[#4B6856]/40 focus:border-[#4B6856]/60 transition-all font-light'
-                  />
+                  <div className='space-y-3'>
+                    <label className='text-[10px] uppercase tracking-[0.2em] font-bold text-[#6C7A6E] ml-4'>
+                      Nombre d'accompagnants
+                    </label>
+                    <input
+                      type='number'
+                      min={0}
+                      value={formData.guests}
+                      onChange={(e) =>
+                        setFormData({ ...formData, guests: e.target.value })
+                      }
+                      className='w-full bg-[#F9F9F9]/50 border border-[#EBEBEB] text-[#333333] rounded-full py-4 px-8 focus:outline-none focus:ring-1 focus:ring-[#4B6856]/40 focus:border-[#4B6856]/60 transition-all font-light'
+                    />
+                  </div>
+
+                  <div className='space-y-3'>
+                    <label className='text-[10px] uppercase tracking-[0.2em] font-bold text-[#6C7A6E] ml-4'>
+                      Régime alimentaire & Allergies
+                    </label>
+                    <input
+                      type='text'
+                      value={formData.dietary}
+                      onChange={(e) =>
+                        setFormData({ ...formData, dietary: e.target.value })
+                      }
+                      placeholder='Végétarien, sans gluten, etc.'
+                      className='w-full bg-[#F9F9F9]/50 border border-[#EBEBEB] text-[#333333] placeholder:text-[#6C7A6E]/30 rounded-full py-4 px-8 focus:outline-none focus:ring-1 focus:ring-[#4B6856]/40 focus:border-[#4B6856]/60 transition-all font-light'
+                    />
+                  </div>
                 </motion.div>
               )}
             </AnimatePresence>
