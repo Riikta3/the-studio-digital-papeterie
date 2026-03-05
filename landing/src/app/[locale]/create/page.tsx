@@ -283,11 +283,22 @@ export default function CreateWizard() {
             description: "Redirection vers votre tableau de bord...",
           });
 
-          const dashboardUrl =
-            process.env.NEXT_PUBLIC_DASHBOARD_URL || "http://localhost:3003";
-          setTimeout(() => {
-            window.location.href = `${dashboardUrl}/auth/login`;
-          }, 1500);
+          try {
+            const dashboardUrlStr = process.env.NEXT_PUBLIC_DASHBOARD_URL;
+            if (!dashboardUrlStr)
+              throw new Error(
+                "NEXT_PUBLIC_DASHBOARD_URL is missing from environment variables.",
+              );
+
+            const targetUrl = new URL("/auth/login", dashboardUrlStr);
+
+            setTimeout(() => {
+              window.location.href = targetUrl.toString();
+            }, 1500);
+          } catch (err) {
+            console.error("Erreur de configuration URL Dashboard:", err);
+            // Cannot redirect securely without env var setup
+          }
         } else {
           toast.error("Une erreur est survenue lors de la création.", {
             description: result.error,

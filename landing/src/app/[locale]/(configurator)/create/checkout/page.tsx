@@ -49,10 +49,25 @@ export default function CheckoutPage() {
         // Redirect to Dashboard or Success Page
         // Assuming NEXT_PUBLIC_DASHBOARD_URL is set, but we might just redirect to a local success page
 
-        // For now, redirect to dashboard billing or home
-        const dashboardUrl =
-          process.env.NEXT_PUBLIC_DASHBOARD_URL || "http://localhost:3000";
-        window.location.href = `${dashboardUrl}/fr/billing?success=true`;
+        // Redirect to success page or dashboard
+        try {
+          const dashboardUrlStr = process.env.NEXT_PUBLIC_DASHBOARD_URL;
+          if (!dashboardUrlStr)
+            throw new Error(
+              "NEXT_PUBLIC_DASHBOARD_URL is missing from environment variables.",
+            );
+
+          const targetUrl = new URL(dashboardUrlStr);
+          targetUrl.pathname = "/fr/billing";
+          targetUrl.searchParams.set("success", "true");
+
+          setTimeout(() => {
+            window.location.href = targetUrl.toString();
+          }, 2000);
+        } catch (e) {
+          console.error("Invalid or missing NEXT_PUBLIC_DASHBOARD_URL:", e);
+          // Cannot redirect without knowing the dashboard URL securely
+        }
       }
     } catch (error) {
       console.error(error);
