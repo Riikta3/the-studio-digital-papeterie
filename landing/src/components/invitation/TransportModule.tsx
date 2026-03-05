@@ -57,42 +57,42 @@ const getIcon = (type: TransportIconType) => {
     case "Train":
       return (
         <Train
-          className='w-6 h-6 text-[#4B6856]'
+          className='w-6 h-6 text-primary'
           strokeWidth={1.5}
         />
       );
     case "Plane":
       return (
         <Plane
-          className='w-6 h-6 text-[#4B6856]'
+          className='w-6 h-6 text-primary'
           strokeWidth={1.5}
         />
       );
     case "Bus":
       return (
         <Bus
-          className='w-6 h-6 text-[#4B6856]'
+          className='w-6 h-6 text-primary'
           strokeWidth={1.5}
         />
       );
     case "Car":
       return (
         <Car
-          className='w-6 h-6 text-[#4B6856]'
+          className='w-6 h-6 text-primary'
           strokeWidth={1.5}
         />
       );
     case "Ship":
       return (
         <Ship
-          className='w-6 h-6 text-[#4B6856]'
+          className='w-6 h-6 text-primary'
           strokeWidth={1.5}
         />
       );
     default:
       return (
         <Car
-          className='w-6 h-6 text-[#4B6856]'
+          className='w-6 h-6 text-primary'
           strokeWidth={1.5}
         />
       );
@@ -108,10 +108,10 @@ export function TransportModule({ weddingId }: { weddingId: string }) {
   return (
     <section className='w-full'>
       <div className='text-center mb-20 space-y-4'>
-        <h2 className='text-xs md:text-sm font-bold uppercase tracking-[0.2em] text-[#6C7A6E]'>
+        <h2 className='text-xs md:text-sm font-bold uppercase tracking-[0.2em] text-muted-foreground'>
           Logistique
         </h2>
-        <h3 className='font-heading text-5xl md:text-6xl italic text-[#333333]'>
+        <h3 className='font-heading text-5xl md:text-6xl italic text-foreground'>
           Votre Trajet
         </h3>
       </div>
@@ -129,16 +129,16 @@ export function TransportModule({ weddingId }: { weddingId: string }) {
             {data.options.map((option) => (
               <div
                 key={option.id}
-                className='group flex flex-col sm:flex-row gap-8 items-start sm:items-center bg-white p-10 py-12 rounded-[2.5rem] border border-[#EAEAEA] shadow-[0_8px_30px_-12px_rgba(0,0,0,0.06)] hover:border-[#D0D8D3] transition-colors duration-300'
+                className='group flex flex-col sm:flex-row gap-8 items-start sm:items-center bg-card p-10 py-12 rounded-[2.5rem] border border-border shadow-xl hover:border-primary/30 transition-colors duration-300'
               >
                 <div className='w-16 h-16 bg-muted/40 rounded-full flex items-center justify-center shrink-0 border border-primary/10 transition-transform duration-500'>
                   {getIcon(option.iconType)}
                 </div>
                 <div className='flex flex-col justify-center'>
-                  <h4 className='font-heading text-3xl text-[#333333] mb-3'>
+                  <h4 className='font-heading text-3xl text-foreground mb-3'>
                     {option.title}
                   </h4>
-                  <p className='text-[#556B5D] font-light text-[15px] leading-relaxed max-w-md'>
+                  <p className='text-muted-foreground font-light text-[15px] leading-relaxed max-w-md'>
                     {option.description}
                   </p>
                 </div>
@@ -154,7 +154,7 @@ export function TransportModule({ weddingId }: { weddingId: string }) {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-50px" }}
             transition={{ duration: 0.8, delay: 0.2, ease: "easeOut" }}
-            className={`relative overflow-hidden bg-[#F5F7F5] rounded-[3rem] border border-[#EAEAEA] shadow-[0_8px_30px_-12px_rgba(0,0,0,0.04)] flex flex-col items-center text-center p-12 lg:p-14 ${data.options.length > 0 ? "md:col-span-5" : "col-span-12 max-w-md mx-auto w-full"}`}
+            className={`relative overflow-hidden bg-secondary rounded-[3rem] border border-border shadow-[0_8px_30px_-12px_rgba(0,0,0,0.04)] flex flex-col items-center text-center p-12 lg:p-14 ${data.options.length > 0 ? "md:col-span-5" : "col-span-12 max-w-md mx-auto w-full"}`}
           >
             {/* Background Pattern mimicking screenshot lines */}
             <div
@@ -169,18 +169,18 @@ export function TransportModule({ weddingId }: { weddingId: string }) {
             />
 
             <div className='relative z-10 w-full flex flex-col items-center h-full'>
-              <div className='w-20 h-20 bg-white rounded-full flex items-center justify-center shadow-sm border border-[#EAEAEA] mt-4 mb-10'>
+              <div className='w-20 h-20 bg-card rounded-full flex items-center justify-center shadow-sm border border-border mt-4 mb-10'>
                 <Car
-                  className='w-7 h-7 text-[#4B6856]'
+                  className='w-7 h-7 text-primary'
                   strokeWidth={1.5}
                 />
               </div>
 
-              <h4 className='font-heading text-4xl text-[#333333] mb-6'>
+              <h4 className='font-heading text-4xl text-foreground mb-6'>
                 Covoiturage
               </h4>
 
-              <p className='text-[#556B5D] font-light text-[15px] leading-relaxed mb-auto pb-12 max-w-[280px]'>
+              <p className='text-muted-foreground font-light text-[15px] leading-relaxed mb-auto pb-12 max-w-[280px]'>
                 {data.carpoolDescription}
               </p>
 
@@ -188,7 +188,7 @@ export function TransportModule({ weddingId }: { weddingId: string }) {
                 <Button
                   asChild
                   size='lg'
-                  className='rounded-full h-auto py-3.5 px-8 whitespace-normal text-center text-[10px] sm:text-[11px] font-bold uppercase tracking-[0.15em] border border-[#EBEBEB] bg-white text-[#556B5D] hover:bg-[#F9F9F9] hover:text-[#4B6856] hover:border-[#D0D8D3] transition-all gap-2 shadow-sm'
+                  className='rounded-full h-auto py-3.5 px-8 whitespace-normal text-center text-[10px] sm:text-[11px] font-bold uppercase tracking-[0.15em] border border-border bg-card text-muted-foreground hover:bg-muted hover:text-primary hover:border-primary/30 transition-all gap-2 shadow-sm'
                 >
                   <a
                     href={data.carpoolUrl}

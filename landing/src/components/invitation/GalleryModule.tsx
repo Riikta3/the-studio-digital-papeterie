@@ -95,10 +95,10 @@ export function GalleryModule({ weddingId }: { weddingId: string }) {
   return (
     <section className='w-full relative'>
       <div className='text-center mb-16 space-y-4 px-4'>
-        <h2 className='text-xs md:text-sm font-bold uppercase tracking-[0.2em] text-[#6C7A6E]'>
+        <h2 className='text-xs md:text-sm font-bold uppercase tracking-[0.2em] text-muted-foreground'>
           Souvenirs
         </h2>
-        <h3 className='font-heading text-5xl md:text-6xl italic text-[#333333]'>
+        <h3 className='font-heading text-5xl md:text-6xl italic text-foreground'>
           Galerie
         </h3>
       </div>
@@ -114,7 +114,7 @@ export function GalleryModule({ weddingId }: { weddingId: string }) {
               whileInView={{ opacity: 1, scale: 1, y: 0 }}
               viewport={{ once: true, margin: "-50px" }}
               transition={{ duration: 0.7, delay: i * 0.1, ease: "easeOut" }}
-              className={`${getLayoutClasses(count, i)} cursor-pointer relative rounded-[1rem] md:rounded-[1.5rem] overflow-hidden shadow-[0_4px_20px_-5px_rgba(0,0,0,0.06)] group bg-white border border-[#EAEAEA]`}
+              className={`${getLayoutClasses(count, i)} cursor-pointer relative rounded-[1rem] md:rounded-[1.5rem] overflow-hidden shadow-[0_4px_20px_-5px_rgba(0,0,0,0.06)] group bg-card border border-border`}
               onClick={() => openLightbox(i)}
             >
               <div
@@ -135,13 +135,13 @@ export function GalleryModule({ weddingId }: { weddingId: string }) {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.3 }}
-            className='fixed inset-0 z-50 flex items-center justify-center bg-white/95 backdrop-blur-md'
+            className='fixed inset-0 z-50 flex items-center justify-center bg-card/95 backdrop-blur-md'
             onClick={closeLightbox}
           >
             {/* Close Button */}
             <button
               onClick={closeLightbox}
-              className='absolute top-6 right-6 md:top-10 md:right-10 w-12 h-12 flex items-center justify-center rounded-full bg-[#F5F7F5] border border-[#EAEAEA] text-[#4B6856] hover:bg-[#EAEAEA] transition-colors z-50'
+              className='absolute top-6 right-6 md:top-10 md:right-10 w-12 h-12 flex items-center justify-center rounded-full bg-secondary border border-border text-primary hover:bg-[#EAEAEA] transition-colors z-50'
               aria-label='Fermer la galerie'
             >
               <X className='w-6 h-6' />
@@ -151,7 +151,7 @@ export function GalleryModule({ weddingId }: { weddingId: string }) {
             {count > 1 && (
               <button
                 onClick={prevImage}
-                className='absolute left-4 md:left-10 w-12 h-12 flex items-center justify-center rounded-full bg-white/80 border border-[#EAEAEA] shadow-sm text-[#4B6856] hover:bg-white transition-colors z-50 backdrop-blur-sm'
+                className='absolute left-4 md:left-10 w-12 h-12 flex items-center justify-center rounded-full bg-card/80 border border-border shadow-sm text-primary hover:bg-card transition-colors z-50 backdrop-blur-sm'
                 aria-label='Photo précédente'
               >
                 <ChevronLeft className='w-6 h-6' />
@@ -162,7 +162,7 @@ export function GalleryModule({ weddingId }: { weddingId: string }) {
             {count > 1 && (
               <button
                 onClick={nextImage}
-                className='absolute right-4 md:right-10 w-12 h-12 flex items-center justify-center rounded-full bg-white/80 border border-[#EAEAEA] shadow-sm text-[#4B6856] hover:bg-white transition-colors z-50 backdrop-blur-sm'
+                className='absolute right-4 md:right-10 w-12 h-12 flex items-center justify-center rounded-full bg-card/80 border border-border shadow-sm text-primary hover:bg-card transition-colors z-50 backdrop-blur-sm'
                 aria-label='Photo suivante'
               >
                 <ChevronRight className='w-6 h-6' />

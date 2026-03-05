@@ -85,7 +85,7 @@ export function CountdownModule({
         transition={{ duration: 0.8, ease: "easeOut" }}
         className='max-w-4xl mx-auto flex flex-col items-center justify-center text-center px-4'
       >
-        <p className='text-[11px] md:text-xs font-bold uppercase tracking-[0.25em] text-[#6C7A6E] mb-8 md:mb-10'>
+        <p className='text-[11px] md:text-xs font-bold uppercase tracking-[0.25em] text-muted-foreground mb-8 md:mb-10'>
           Le compte à rebours est lancé
         </p>
 
@@ -95,12 +95,12 @@ export function CountdownModule({
               key={block.label}
               className='flex flex-col items-center'
             >
-              <div className='w-[72px] h-[85px] sm:w-[85px] sm:h-[100px] md:w-[95px] md:h-[115px] bg-white border border-[#EAEAEA] rounded-[1rem] sm:rounded-[1.25rem] shadow-[0_8px_30px_-12px_rgba(0,0,0,0.06)] flex items-center justify-center mb-4 md:mb-6'>
-                <span className='font-heading text-[2.5rem] sm:text-[3rem] md:text-[3.5rem] text-[#333333] font-light leading-none'>
+              <div className='w-[72px] h-[85px] sm:w-[85px] sm:h-[100px] md:w-[95px] md:h-[115px] bg-card border border-border rounded-[1rem] sm:rounded-[1.25rem] shadow-xl flex items-center justify-center mb-4 md:mb-6'>
+                <span className='font-heading text-[2.5rem] sm:text-[3rem] md:text-[3.5rem] text-foreground font-light leading-none'>
                   {block.value.toString().padStart(2, "0")}
                 </span>
               </div>
-              <span className='text-[9px] md:text-[10px] font-bold uppercase tracking-[0.2em] md:tracking-[0.25em] text-[#556B5D] text-center'>
+              <span className='text-[9px] md:text-[10px] font-bold uppercase tracking-[0.2em] md:tracking-[0.25em] text-muted-foreground text-center'>
                 {block.label}
               </span>
             </div>

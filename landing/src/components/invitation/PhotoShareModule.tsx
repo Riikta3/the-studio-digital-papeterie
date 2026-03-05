@@ -33,25 +33,25 @@ export function PhotoShareModule({ weddingId }: { weddingId: string }) {
         transition={{ duration: 0.8, ease: "easeOut" }}
         className='max-w-4xl mx-auto px-4 text-center'
       >
-        <p className='text-xs md:text-sm font-bold uppercase tracking-[0.2em] text-[#6C7A6E] mb-4'>
+        <p className='text-xs md:text-sm font-bold uppercase tracking-[0.2em] text-muted-foreground mb-4'>
           {data.title}
         </p>
-        <h3 className='font-heading text-5xl md:text-6xl italic text-[#333333] mb-8'>
+        <h3 className='font-heading text-5xl md:text-6xl italic text-foreground mb-8'>
           {data.subtitle}
         </h3>
 
-        <div className='bg-white rounded-[2rem] p-10 border border-[#EAEAEA] shadow-[0_8px_30px_-12px_rgba(0,0,0,0.06)] max-w-2xl mx-auto flex flex-col items-center'>
-          <div className='w-16 h-16 bg-[#F5F7F5] rounded-full flex items-center justify-center mb-6 text-[#4B6856]'>
+        <div className='bg-card rounded-[2rem] p-10 border border-border shadow-xl max-w-2xl mx-auto flex flex-col items-center'>
+          <div className='w-16 h-16 bg-secondary rounded-full flex items-center justify-center mb-6 text-primary'>
             <Camera className='w-6 h-6 opacity-80' />
           </div>
-          <p className='text-[#556B5D] text-base leading-relaxed font-light mb-8'>
+          <p className='text-muted-foreground text-base leading-relaxed font-light mb-8'>
             {data.description}
           </p>
 
           <Button
             asChild
             variant='outline'
-            className='rounded-full h-auto py-4 px-8 whitespace-normal text-center text-xs font-bold uppercase tracking-[0.2em] border-[#EBEBEB] bg-white text-[#556B5D] hover:bg-[#F9F9F9] hover:text-[#4B6856] hover:border-[#D0D8D3] transition-all gap-2 shadow-sm'
+            className='rounded-full h-auto py-4 px-8 whitespace-normal text-center text-xs font-bold uppercase tracking-[0.2em] border-border bg-card text-muted-foreground hover:bg-muted hover:text-primary hover:border-primary/30 transition-all gap-2 shadow-sm'
           >
             <a
               href={data.appUrl}

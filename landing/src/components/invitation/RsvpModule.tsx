@@ -40,18 +40,18 @@ export function RsvpModule({
         <motion.div
           initial={{ opacity: 0, scale: 0.95 }}
           animate={{ opacity: 1, scale: 1 }}
-          className='max-w-2xl mx-auto bg-white rounded-[2.5rem] p-12 md:p-16 border border-[#EAEAEA] shadow-[0_8px_30px_-12px_rgba(0,0,0,0.06)] text-center'
+          className='max-w-2xl mx-auto bg-card rounded-[2.5rem] p-12 md:p-16 border border-border shadow-xl text-center'
         >
-          <div className='w-20 h-20 bg-[#F5F7F5] rounded-full flex items-center justify-center mx-auto mb-8 text-[#4B6856]'>
+          <div className='w-20 h-20 bg-secondary rounded-full flex items-center justify-center mx-auto mb-8 text-primary'>
             <Heart
               className='w-8 h-8'
               fill='currentColor'
             />
           </div>
-          <h3 className='font-heading text-4xl italic text-[#333333] mb-4'>
+          <h3 className='font-heading text-4xl italic text-foreground mb-4'>
             Merci infiniment
           </h3>
-          <p className='text-[#556B5D] text-lg font-light leading-relaxed'>
+          <p className='text-muted-foreground text-lg font-light leading-relaxed'>
             Votre réponse a bien été enregistrée. Nous avons hâte de célébrer ce
             moment avec vous !
           </p>
@@ -71,15 +71,15 @@ export function RsvpModule({
         transition={{ duration: 0.8, ease: "easeOut" }}
         className='max-w-4xl mx-auto px-4 text-center'
       >
-        <p className='text-xs md:text-sm font-bold uppercase tracking-[0.2em] text-[#6C7A6E] mb-4'>
+        <p className='text-xs md:text-sm font-bold uppercase tracking-[0.2em] text-muted-foreground mb-4'>
           Votre Présence
         </p>
-        <h3 className='font-heading text-5xl md:text-6xl italic text-[#333333] mb-8'>
+        <h3 className='font-heading text-5xl md:text-6xl italic text-foreground mb-8'>
           R.S.V.P
         </h3>
 
-        <div className='bg-white rounded-[2.5rem] p-8 md:p-16 border border-[#EAEAEA] shadow-[0_8px_30px_-12px_rgba(0,0,0,0.06)] max-w-2xl mx-auto'>
-          <p className='text-[#556B5D] text-base md:text-lg leading-relaxed font-light mb-12 max-w-md mx-auto'>
+        <div className='bg-card rounded-[2.5rem] p-8 md:p-16 border border-border shadow-xl max-w-2xl mx-auto'>
+          <p className='text-muted-foreground text-base md:text-lg leading-relaxed font-light mb-12 max-w-md mx-auto'>
             Nous serions honorés de vous compter parmi nous (présence,
             allergies, accompagnants). Merci de bien vouloir confirmer votre
             présence avant le {deadline}.
@@ -91,7 +91,7 @@ export function RsvpModule({
           >
             {/* Nom & Prénom */}
             <div className='space-y-3'>
-              <label className='text-[10px] uppercase tracking-[0.2em] font-bold text-[#6C7A6E] ml-4'>
+              <label className='text-[10px] uppercase tracking-[0.2em] font-bold text-muted-foreground ml-4'>
                 Prénom & Nom
               </label>
               <input
@@ -102,13 +102,13 @@ export function RsvpModule({
                   setFormData({ ...formData, name: e.target.value })
                 }
                 placeholder='Ex: Jean Dupont'
-                className='w-full bg-[#F9F9F9]/50 border border-[#EBEBEB] text-[#333333] placeholder:text-[#6C7A6E]/30 rounded-full py-4 px-8 focus:outline-none focus:ring-1 focus:ring-[#4B6856]/40 focus:border-[#4B6856]/60 transition-all font-light'
+                className='w-full bg-muted/50 border border-border text-foreground placeholder:text-muted-foreground/30 rounded-full py-4 px-8 focus:outline-none focus:ring-1 focus:ring-primary/40 focus:border-primary/60 transition-all font-light'
               />
             </div>
 
             {/* Attendance Selection */}
             <div className='space-y-4'>
-              <label className='text-[10px] uppercase tracking-[0.2em] font-bold text-[#6C7A6E] ml-4'>
+              <label className='text-[10px] uppercase tracking-[0.2em] font-bold text-muted-foreground ml-4'>
                 Confirmez-vous votre présence ?
               </label>
               <div className='grid grid-cols-1 md:grid-cols-2 gap-4'>
@@ -119,16 +119,16 @@ export function RsvpModule({
                   }
                   className={`relative flex items-center justify-between p-5 rounded-2xl border transition-all duration-300 ${
                     formData.attendance === "yes"
-                      ? "bg-[#F5F7F5] border-[#4B6856] shadow-sm"
-                      : "bg-white border-[#EBEBEB] hover:border-[#D0D8D3]"
+                      ? "bg-secondary border-primary shadow-sm"
+                      : "bg-card border-border hover:border-primary/30"
                   }`}
                 >
                   <div className='flex items-center gap-3'>
                     <div
                       className={`w-6 h-6 rounded-full border flex items-center justify-center transition-colors ${
                         formData.attendance === "yes"
-                          ? "bg-[#4B6856] border-[#4B6856]"
-                          : "border-[#EBEBEB]"
+                          ? "bg-primary border-primary"
+                          : "border-border"
                       }`}
                     >
                       {formData.attendance === "yes" && (
@@ -136,7 +136,7 @@ export function RsvpModule({
                       )}
                     </div>
                     <span
-                      className={`text-sm tracking-wide ${formData.attendance === "yes" ? "text-[#333333] font-medium" : "text-[#6C7A6E]"}`}
+                      className={`text-sm tracking-wide ${formData.attendance === "yes" ? "text-foreground font-medium" : "text-muted-foreground"}`}
                     >
                       Oui, avec plaisir !
                     </span>
@@ -149,7 +149,7 @@ export function RsvpModule({
                   className={`relative flex items-center justify-between p-5 rounded-2xl border transition-all duration-300 ${
                     formData.attendance === "no"
                       ? "bg-[#FFF9F9] border-[#D6A1A1] shadow-sm"
-                      : "bg-white border-[#EBEBEB] hover:border-[#D0D8D3]"
+                      : "bg-card border-border hover:border-primary/30"
                   }`}
                 >
                   <div className='flex items-center gap-3'>
@@ -157,7 +157,7 @@ export function RsvpModule({
                       className={`w-6 h-6 rounded-full border flex items-center justify-center transition-colors ${
                         formData.attendance === "no"
                           ? "bg-[#D6A1A1] border-[#D6A1A1]"
-                          : "border-[#EBEBEB]"
+                          : "border-border"
                       }`}
                     >
                       {formData.attendance === "no" && (
@@ -165,7 +165,7 @@ export function RsvpModule({
                       )}
                     </div>
                     <span
-                      className={`text-sm tracking-wide ${formData.attendance === "no" ? "text-[#333333] font-medium" : "text-[#6C7A6E]"}`}
+                      className={`text-sm tracking-wide ${formData.attendance === "no" ? "text-foreground font-medium" : "text-muted-foreground"}`}
                     >
                       Non, avec regrets
                     </span>
@@ -185,7 +185,7 @@ export function RsvpModule({
                   className='space-y-8'
                 >
                   <div className='space-y-3'>
-                    <label className='text-[10px] uppercase tracking-[0.2em] font-bold text-[#6C7A6E] ml-4'>
+                    <label className='text-[10px] uppercase tracking-[0.2em] font-bold text-muted-foreground ml-4'>
                       Nombre d'accompagnants
                     </label>
                     <input
@@ -195,12 +195,12 @@ export function RsvpModule({
                       onChange={(e) =>
                         setFormData({ ...formData, guests: e.target.value })
                       }
-                      className='w-full bg-[#F9F9F9]/50 border border-[#EBEBEB] text-[#333333] rounded-full py-4 px-8 focus:outline-none focus:ring-1 focus:ring-[#4B6856]/40 focus:border-[#4B6856]/60 transition-all font-light'
+                      className='w-full bg-muted/50 border border-border text-foreground rounded-full py-4 px-8 focus:outline-none focus:ring-1 focus:ring-primary/40 focus:border-primary/60 transition-all font-light'
                     />
                   </div>
 
                   <div className='space-y-3'>
-                    <label className='text-[10px] uppercase tracking-[0.2em] font-bold text-[#6C7A6E] ml-4'>
+                    <label className='text-[10px] uppercase tracking-[0.2em] font-bold text-muted-foreground ml-4'>
                       Régime alimentaire & Allergies
                     </label>
                     <input
@@ -210,7 +210,7 @@ export function RsvpModule({
                         setFormData({ ...formData, dietary: e.target.value })
                       }
                       placeholder='Végétarien, sans gluten, etc.'
-                      className='w-full bg-[#F9F9F9]/50 border border-[#EBEBEB] text-[#333333] placeholder:text-[#6C7A6E]/30 rounded-full py-4 px-8 focus:outline-none focus:ring-1 focus:ring-[#4B6856]/40 focus:border-[#4B6856]/60 transition-all font-light'
+                      className='w-full bg-muted/50 border border-border text-foreground placeholder:text-muted-foreground/30 rounded-full py-4 px-8 focus:outline-none focus:ring-1 focus:ring-primary/40 focus:border-primary/60 transition-all font-light'
                     />
                   </div>
                 </motion.div>
@@ -219,7 +219,7 @@ export function RsvpModule({
 
             {/* Message pour les mariés */}
             <div className='space-y-3'>
-              <label className='text-[10px] uppercase tracking-[0.2em] font-bold text-[#6C7A6E] ml-4'>
+              <label className='text-[10px] uppercase tracking-[0.2em] font-bold text-muted-foreground ml-4'>
                 Petit mot pour les mariés
               </label>
               <textarea
@@ -229,7 +229,7 @@ export function RsvpModule({
                   setFormData({ ...formData, message: e.target.value })
                 }
                 placeholder='Laissez-nous un message...'
-                className='w-full bg-[#F9F9F9]/50 border border-[#EBEBEB] text-[#333333] placeholder:text-[#6C7A6E]/30 rounded-3xl py-4 px-8 focus:outline-none focus:ring-1 focus:ring-[#4B6856]/40 focus:border-[#4B6856]/60 transition-all font-light resize-none'
+                className='w-full bg-muted/50 border border-border text-foreground placeholder:text-muted-foreground/30 rounded-3xl py-4 px-8 focus:outline-none focus:ring-1 focus:ring-primary/40 focus:border-primary/60 transition-all font-light resize-none'
               />
             </div>
 
@@ -241,7 +241,7 @@ export function RsvpModule({
                 !formData.name ||
                 !formData.attendance
               }
-              className='w-full bg-[#4B6856] hover:bg-[#3D5446] disabled:bg-[#CCCCCC] text-white py-5 rounded-full font-bold text-xs uppercase tracking-[0.3em] transition-all duration-300 shadow-xl shadow-[#4B6856]/10 flex items-center justify-center gap-3 overflow-hidden group'
+              className='w-full bg-primary hover:bg-primary/90 disabled:bg-[#CCCCCC] text-primary-foreground py-5 rounded-full font-bold text-xs uppercase tracking-[0.3em] transition-all duration-300 shadow-xl shadow-primary/10 flex items-center justify-center gap-3 overflow-hidden group'
             >
               <span className='relative z-10'>
                 {status === "submitting"

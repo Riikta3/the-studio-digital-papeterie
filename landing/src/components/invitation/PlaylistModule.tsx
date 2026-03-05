@@ -99,26 +99,26 @@ export function PlaylistModule({ weddingId }: { weddingId: string }) {
         transition={{ duration: 0.8, ease: "easeOut" }}
         className='max-w-4xl mx-auto px-4 text-center'
       >
-        <p className='text-xs md:text-sm font-bold uppercase tracking-[0.2em] text-[#6C7A6E] mb-4'>
+        <p className='text-xs md:text-sm font-bold uppercase tracking-[0.2em] text-muted-foreground mb-4'>
           {data.title}
         </p>
-        <h3 className='font-heading text-5xl md:text-6xl italic text-[#333333] mb-8'>
+        <h3 className='font-heading text-5xl md:text-6xl italic text-foreground mb-8'>
           {data.subtitle}
         </h3>
 
-        <div className='bg-white rounded-[2rem] p-8 md:p-12 border border-[#EAEAEA] shadow-[0_8px_30px_-12px_rgba(0,0,0,0.06)] max-w-2xl mx-auto flex flex-col items-center transition-all duration-500'>
+        <div className='bg-card rounded-[2rem] p-8 md:p-12 border border-border shadow-xl max-w-2xl mx-auto flex flex-col items-center transition-all duration-500'>
           {/* Header Icon & Text */}
-          <div className='w-16 h-16 bg-[#F5F7F5] rounded-full flex items-center justify-center mb-6 text-[#4B6856] shrink-0'>
+          <div className='w-16 h-16 bg-secondary rounded-full flex items-center justify-center mb-6 text-primary shrink-0'>
             <Music className='w-6 h-6 opacity-80' />
           </div>
-          <p className='text-[#556B5D] text-base leading-relaxed font-light mb-10'>
+          <p className='text-muted-foreground text-base leading-relaxed font-light mb-10'>
             {data.description}
           </p>
 
           {/* Search Input Container */}
           <div className='w-full max-w-md relative'>
             <div className='relative flex items-center'>
-              <Search className='absolute left-5 w-5 h-5 text-[#6C7A6E] opacity-60' />
+              <Search className='absolute left-5 w-5 h-5 text-muted-foreground opacity-60' />
               <input
                 type='text'
                 value={searchQuery}
@@ -129,7 +129,7 @@ export function PlaylistModule({ weddingId }: { weddingId: string }) {
                     : "Rechercher un titre, un artiste..."
                 }
                 disabled={addedTracks.size >= 3}
-                className='w-full bg-white border border-[#EBEBEB] text-[#333333] placeholder:text-[#6C7A6E]/50 rounded-full py-4 pl-14 pr-6 focus:outline-none focus:ring-1 focus:ring-[#4B6856]/40 focus:border-[#4B6856]/60 transition-all font-light shadow-sm hover:border-[#D0D8D3] disabled:bg-[#F5F7F5] disabled:cursor-not-allowed disabled:opacity-70'
+                className='w-full bg-card border border-border text-foreground placeholder:text-muted-foreground/50 rounded-full py-4 pl-14 pr-6 focus:outline-none focus:ring-1 focus:ring-primary/40 focus:border-primary/60 transition-all font-light shadow-sm hover:border-primary/30 disabled:bg-secondary disabled:cursor-not-allowed disabled:opacity-70'
               />
             </div>
 
@@ -143,15 +143,15 @@ export function PlaylistModule({ weddingId }: { weddingId: string }) {
                   className='absolute right-6 top-1/2 -translate-y-1/2 flex gap-1'
                 >
                   <span
-                    className='w-1.5 h-1.5 bg-[#4B6856]/40 rounded-full animate-bounce'
+                    className='w-1.5 h-1.5 bg-primary/40 rounded-full animate-bounce'
                     style={{ animationDelay: "0ms" }}
                   />
                   <span
-                    className='w-1.5 h-1.5 bg-[#4B6856]/40 rounded-full animate-bounce'
+                    className='w-1.5 h-1.5 bg-primary/40 rounded-full animate-bounce'
                     style={{ animationDelay: "150ms" }}
                   />
                   <span
-                    className='w-1.5 h-1.5 bg-[#4B6856]/40 rounded-full animate-bounce'
+                    className='w-1.5 h-1.5 bg-primary/40 rounded-full animate-bounce'
                     style={{ animationDelay: "300ms" }}
                   />
                 </motion.div>
@@ -167,9 +167,9 @@ export function PlaylistModule({ weddingId }: { weddingId: string }) {
                 animate={{ opacity: 1, height: "auto", y: 0 }}
                 exit={{ opacity: 0, height: 0, overflow: "hidden" }}
                 transition={{ duration: 0.4, ease: "easeOut" }}
-                className='w-full max-w-md mt-6 bg-[#F9F9F9]/50 rounded-2xl border border-[#EAEAEA] overflow-hidden'
+                className='w-full max-w-md mt-6 bg-muted/50 rounded-2xl border border-border overflow-hidden'
               >
-                <ul className='divide-y divide-[#EAEAEA]'>
+                <ul className='divide-y divide-border'>
                   {results.map((track, index) => {
                     const isAdded = addedTracks.has(track.id);
                     return (
@@ -178,7 +178,7 @@ export function PlaylistModule({ weddingId }: { weddingId: string }) {
                         initial={{ opacity: 0, x: -10 }}
                         animate={{ opacity: 1, x: 0 }}
                         transition={{ delay: index * 0.05 }}
-                        className='flex items-center gap-4 p-4 hover:bg-[#F5F7F5] transition-colors group'
+                        className='flex items-center gap-4 p-4 hover:bg-secondary transition-colors group'
                       >
                         {/* Album Cover */}
                         <img
@@ -189,10 +189,10 @@ export function PlaylistModule({ weddingId }: { weddingId: string }) {
 
                         {/* Track Info */}
                         <div className='flex-1 text-left min-w-0'>
-                          <h4 className='font-semibold text-[#333333] truncate text-sm'>
+                          <h4 className='font-semibold text-foreground truncate text-sm'>
                             {track.title}
                           </h4>
-                          <p className='text-xs text-[#6C7A6E] truncate mt-0.5'>
+                          <p className='text-xs text-muted-foreground truncate mt-0.5'>
                             {track.artist}
                           </p>
                         </div>
@@ -203,10 +203,10 @@ export function PlaylistModule({ weddingId }: { weddingId: string }) {
                           disabled={isAdded || addedTracks.size >= 3}
                           className={`w-10 h-10 rounded-full flex items-center justify-center transition-all shrink-0 ${
                             isAdded
-                              ? "bg-[#4B6856] text-white"
+                              ? "bg-primary text-primary-foreground"
                               : addedTracks.size >= 3
-                                ? "bg-white border border-[#EBEBEB] text-[#C4C4C4] cursor-not-allowed"
-                                : "bg-white border border-[#EBEBEB] text-[#4B6856] hover:border-[#4B6856]/30 hover:bg-[#F5F7F5]"
+                                ? "bg-card border border-border text-muted-foreground/50 cursor-not-allowed"
+                                : "bg-card border border-border text-primary hover:border-primary/30 hover:bg-secondary"
                           }`}
                         >
                           <AnimatePresence mode='wait'>
@@ -248,7 +248,7 @@ export function PlaylistModule({ weddingId }: { weddingId: string }) {
                 exit={{ opacity: 0, height: 0 }}
                 className='w-full mt-10'
               >
-                <h4 className='text-xs font-bold uppercase tracking-[0.15em] text-[#6C7A6E] mb-6 text-left w-full pl-2'>
+                <h4 className='text-xs font-bold uppercase tracking-[0.15em] text-muted-foreground mb-6 text-left w-full pl-2'>
                   Titres proposés pour la soirée ({addedTracks.size}/3)
                 </h4>
                 <div className='flex flex-col gap-3'>
@@ -259,7 +259,7 @@ export function PlaylistModule({ weddingId }: { weddingId: string }) {
                       animate={{ opacity: 1, y: 0 }}
                       exit={{ opacity: 0, scale: 0.95 }}
                       transition={{ duration: 0.3 }}
-                      className='flex items-center gap-4 bg-[#F9F9F9] border border-[#EBEBEB] p-3 rounded-2xl group transition-all hover:bg-white hover:border-[#D0D8D3] hover:shadow-sm'
+                      className='flex items-center gap-4 bg-muted border border-border p-3 rounded-2xl group transition-all hover:bg-card hover:border-primary/30 hover:shadow-sm'
                     >
                       <img
                         src={track.coverUrl}
@@ -267,17 +267,17 @@ export function PlaylistModule({ weddingId }: { weddingId: string }) {
                         className='w-12 h-12 rounded-lg object-cover shadow-sm'
                       />
                       <div className='flex-1 text-left min-w-0'>
-                        <h5 className='font-semibold text-[#333333] text-sm truncate'>
+                        <h5 className='font-semibold text-foreground text-sm truncate'>
                           {track.title}
                         </h5>
-                        <p className='text-xs text-[#6C7A6E] truncate'>
+                        <p className='text-xs text-muted-foreground truncate'>
                           {track.artist}
                         </p>
                       </div>
 
                       <button
                         onClick={() => handleRemoveTrack(track.id)}
-                        className='w-8 h-8 rounded-full flex items-center justify-center text-[#6C7A6E] hover:bg-[#FEE2E2] hover:text-[#EF4444] transition-all bg-[#F5F7F5] shrink-0'
+                        className='w-8 h-8 rounded-full flex items-center justify-center text-muted-foreground hover:bg-[#FEE2E2] hover:text-[#EF4444] transition-all bg-secondary shrink-0'
                         title='Retirer ce titre'
                       >
                         <Trash2 className='w-4 h-4' />

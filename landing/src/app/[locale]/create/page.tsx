@@ -170,6 +170,7 @@ export default function CreateWizard() {
     billingFirstName: "",
     billingLastName: "",
     email: "",
+    password: "",
     phone: "",
     address: "",
     city: "",
@@ -265,6 +266,7 @@ export default function CreateWizard() {
       try {
         const result = await createWedding({
           email: formData.email,
+          password: formData.password,
           firstName: formData.name1,
           lastName: formData.billingLastName || formData.name1, // Fallback
           partnerName: formData.name2,
@@ -277,23 +279,15 @@ export default function CreateWizard() {
         });
 
         if (result.success) {
-          toast.success("Votre espace a été créé avec succès ! 💍");
+          toast.success("Votre espace a été créé avec succès ! 💍", {
+            description: "Redirection vers votre tableau de bord...",
+          });
 
-          if (result.inviteLink) {
-            toast.info("Lien d'accès (DEV)", {
-              description: "Cliquez pour définir votre mot de passe",
-              action: {
-                label: "Accéder",
-                onClick: () => window.open(result.inviteLink!, "_self"),
-              },
-              duration: Infinity,
-            });
-          } else {
-            toast.info("📩 Email envoyé !", {
-              description: `Un lien d'activation a été envoyé à ${formData.email}. Vérifiez vos spams !`,
-              duration: Infinity,
-            });
-          }
+          const dashboardUrl =
+            process.env.NEXT_PUBLIC_DASHBOARD_URL || "http://localhost:3003";
+          setTimeout(() => {
+            window.location.href = `${dashboardUrl}/auth/login`;
+          }, 1500);
         } else {
           toast.error("Une erreur est survenue lors de la création.", {
             description: result.error,
@@ -1217,7 +1211,7 @@ export default function CreateWizard() {
                       </div>
                     </div>
 
-                    {/* Email / Phone */}
+                    {/* Email / Password */}
                     <div className='grid grid-cols-1 md:grid-cols-2 gap-4'>
                       <div className='space-y-2'>
                         <label className='text-xs font-bold uppercase tracking-wider text-gray-400'>
@@ -1236,19 +1230,39 @@ export default function CreateWizard() {
                       </div>
                       <div className='space-y-2'>
                         <label className='text-xs font-bold uppercase tracking-wider text-gray-400'>
-                          Téléphone *
+                          Mot de passe *
                         </label>
                         <input
-                          type='tel'
+                          type='password'
                           required
                           className='w-full px-4 py-3 rounded-xl border border-gray-200 bg-gray-50 focus:bg-white focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none transition-all'
-                          placeholder='06 12 34 56 78'
-                          value={formData.phone}
+                          placeholder='6 caractères minimum'
+                          value={formData.password}
                           onChange={(e) =>
-                            setFormData({ ...formData, phone: e.target.value })
+                            setFormData({
+                              ...formData,
+                              password: e.target.value,
+                            })
                           }
                         />
                       </div>
+                    </div>
+
+                    {/* Phone */}
+                    <div className='space-y-2'>
+                      <label className='text-xs font-bold uppercase tracking-wider text-gray-400'>
+                        Téléphone *
+                      </label>
+                      <input
+                        type='tel'
+                        required
+                        className='w-full px-4 py-3 rounded-xl border border-gray-200 bg-gray-50 focus:bg-white focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none transition-all'
+                        placeholder='06 12 34 56 78'
+                        value={formData.phone}
+                        onChange={(e) =>
+                          setFormData({ ...formData, phone: e.target.value })
+                        }
+                      />
                     </div>
 
                     {/* Address */}
@@ -1385,6 +1399,7 @@ export default function CreateWizard() {
                       !formData.billingFirstName ||
                       !formData.billingLastName ||
                       !formData.email ||
+                      !formData.password ||
                       !formData.phone ||
                       !formData.address ||
                       !formData.postalCode ||

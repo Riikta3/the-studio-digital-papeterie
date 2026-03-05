@@ -1,3 +1,4 @@
+import { InvitationFooter } from "@/components/invitation/InvitationFooter";
 import { ModuleRenderer } from "@/components/invitation/ModuleRenderer";
 import { ScrollToTop } from "@/components/invitation/ScrollToTop";
 import { ThemeProvider } from "@/components/theme-provider"; // if we need to force a theme
@@ -134,13 +135,8 @@ export default async function InvitationPage({ params }: InvitationPageProps) {
           />
         </main>
 
-        {/* --- FOOTER --- */}
-        <footer className='py-12 text-center bg-primary/5'>
-          <p className='font-heading text-3xl italic'>Merci</p>
-          <p className='text-xs uppercase tracking-widest text-muted-foreground mt-4'>
-            {profile.first_name} & {profile.partner_name}
-          </p>
-        </footer>
+        {/* --- PREMIUM FOOTER --- */}
+        <InvitationFooter profile={profile} />
 
         {/* --- SCROLL TO TOP FLOATING ACTION BUTTON --- */}
         <ScrollToTop />

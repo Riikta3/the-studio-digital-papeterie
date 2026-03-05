@@ -68,9 +68,9 @@ export function FaqModule({ weddingId }: { weddingId: string }) {
       >
         {/* Title Section */}
         <div className='text-center mb-12'>
-          <h2 className='font-heading text-4xl md:text-5xl text-[#333333]'>
+          <h2 className='font-heading text-4xl md:text-5xl text-foreground'>
             Questions{" "}
-            <span className='italic text-[#4B6856] opacity-80'>Fréquentes</span>
+            <span className='italic text-primary opacity-80'>Fréquentes</span>
           </h2>
         </div>
 
@@ -83,21 +83,21 @@ export function FaqModule({ weddingId }: { weddingId: string }) {
               whileInView={{ opacity: 1, scale: 1 }}
               viewport={{ once: true }}
               transition={{ delay: index * 0.05 }}
-              className='bg-white rounded-[1.5rem] border border-[#EAEAEA] shadow-[0_4px_20px_-10px_rgba(0,0,0,0.05)] overflow-hidden transition-all duration-300'
+              className='bg-card rounded-[1.5rem] border border-border shadow-[0_4px_20px_-10px_rgba(0,0,0,0.05)] overflow-hidden transition-all duration-300'
             >
               <button
                 onClick={() => setOpenIndex(openIndex === index ? null : index)}
-                className='flex w-full items-center justify-between p-7 text-left transition-colors hover:bg-[#F9F9F9]'
+                className='flex w-full items-center justify-between p-7 text-left transition-colors hover:bg-muted'
               >
-                <span className='font-heading text-xl md:text-2xl text-[#333333] pr-8 leading-snug'>
+                <span className='font-heading text-xl md:text-2xl text-foreground pr-8 leading-snug'>
                   {faq.question}
                 </span>
                 <div
                   className={cn(
                     "flex h-9 w-9 shrink-0 items-center justify-center rounded-full border transition-all duration-300",
                     openIndex === index
-                      ? "bg-[#4B6856] border-[#4B6856] text-white rotate-180"
-                      : "border-[#D0D8D3] text-[#4B6856]",
+                      ? "bg-primary border-primary text-primary-foreground rotate-180"
+                      : "border-primary/30 text-primary",
                   )}
                 >
                   {openIndex === index ? (
@@ -118,7 +118,7 @@ export function FaqModule({ weddingId }: { weddingId: string }) {
                   >
                     <div className='px-7 pb-8 pt-0'>
                       <div className='h-px w-full bg-[#EAEAEA] mb-6' />
-                      <p className='text-[#556B5D] text-base leading-relaxed font-light'>
+                      <p className='text-muted-foreground text-base leading-relaxed font-light'>
                         {faq.answer}
                       </p>
                     </div>

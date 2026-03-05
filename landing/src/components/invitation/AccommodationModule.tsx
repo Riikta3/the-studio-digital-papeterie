@@ -96,13 +96,13 @@ export function AccommodationModule({ weddingId }: { weddingId: string }) {
         className='max-w-5xl mx-auto px-4'
       >
         <div className='text-center mb-16 space-y-4'>
-          <h2 className='text-xs md:text-sm font-bold uppercase tracking-[0.2em] text-[#6C7A6E]'>
+          <h2 className='text-xs md:text-sm font-bold uppercase tracking-[0.2em] text-muted-foreground'>
             {data.title}
           </h2>
-          <h3 className='font-heading text-5xl md:text-6xl italic text-[#333333]'>
+          <h3 className='font-heading text-5xl md:text-6xl italic text-foreground'>
             {data.subtitle}
           </h3>
-          <p className='text-[#556B5D] text-sm md:text-base max-w-2xl mx-auto leading-relaxed font-light'>
+          <p className='text-muted-foreground text-sm md:text-base max-w-2xl mx-auto leading-relaxed font-light'>
             {data.description}
           </p>
         </div>
@@ -115,21 +115,21 @@ export function AccommodationModule({ weddingId }: { weddingId: string }) {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: index * 0.1, duration: 0.6 }}
-              className='bg-white rounded-[2rem] p-8 border border-[#EAEAEA] shadow-[0_8px_30px_-12px_rgba(0,0,0,0.06)] flex flex-col h-full group hover:border-[#D0D8D3] transition-colors'
+              className='bg-card rounded-[2rem] p-8 border border-border shadow-xl flex flex-col h-full group hover:border-primary/30 transition-colors'
             >
-              <div className='w-14 h-14 bg-[#F5F7F5] rounded-full flex items-center justify-center mb-6 text-[#4B6856]'>
+              <div className='w-14 h-14 bg-secondary rounded-full flex items-center justify-center mb-6 text-primary'>
                 {getIcon(option.type)}
               </div>
 
-              <h4 className='font-heading text-3xl text-[#333333] mb-3 leading-tight'>
+              <h4 className='font-heading text-3xl text-foreground mb-3 leading-tight'>
                 {option.name}
               </h4>
 
-              <div className='flex items-center gap-2 text-[10px] md:text-xs font-bold text-[#6C7A6E] uppercase tracking-widest mb-4'>
+              <div className='flex items-center gap-2 text-[10px] md:text-xs font-bold text-muted-foreground uppercase tracking-widest mb-4'>
                 <MapPin className='w-3.5 h-3.5 opacity-70' /> {option.distance}
               </div>
 
-              <p className='text-[#556B5D] text-[14px] leading-relaxed font-light mb-8 flex-grow'>
+              <p className='text-muted-foreground text-[14px] leading-relaxed font-light mb-8 flex-grow'>
                 {option.description}
               </p>
 
@@ -138,7 +138,7 @@ export function AccommodationModule({ weddingId }: { weddingId: string }) {
                   <Button
                     asChild
                     variant='outline'
-                    className='w-full rounded-full h-auto py-3.5 px-4 whitespace-normal text-center text-[10px] sm:text-[11px] font-bold uppercase tracking-[0.15em] border-[#EBEBEB] bg-white text-[#556B5D] hover:bg-[#F9F9F9] hover:text-[#4B6856] hover:border-[#D0D8D3] transition-all gap-2'
+                    className='w-full rounded-full h-auto py-3.5 px-4 whitespace-normal text-center text-[10px] sm:text-[11px] font-bold uppercase tracking-[0.15em] border-border bg-card text-muted-foreground hover:bg-muted hover:text-primary hover:border-primary/30 transition-all gap-2'
                   >
                     <a
                       href={option.url}

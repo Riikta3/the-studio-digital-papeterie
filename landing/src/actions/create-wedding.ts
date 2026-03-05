@@ -4,6 +4,7 @@ import { supabaseAdmin } from "@/lib/supabase-admin";
 
 interface CreateWeddingData {
   email: string;
+  password?: string; // Optional for backward compatibility, but required for new flow
   firstName: string;
   lastName: string;
   partnerName: string;
@@ -16,41 +17,59 @@ interface CreateWeddingData {
 }
 
 export async function createWedding(data: CreateWeddingData) {
-  console.log("💍 Starting Wedding Provisioning (Invite Flow)...", data);
+  console.log("💍 Starting Wedding Provisioning (Password Flow)...", {
+    ...data,
+    password: "***",
+  });
 
-  const redirectTo = `${process.env.NEXT_PUBLIC_DASHBOARD_URL || "http://localhost:3003"}/auth/confirm?next=/update-password`;
-  console.log("➡️ Redirecting to:", redirectTo);
+  if (!data.password) {
+    return {
+      success: false,
+      error: "Mot de passe requis pour la création du compte.",
+    };
+  }
 
-  // Removed duplicate declarations
-  // FORCE GENERATE LINK (To avoid "OTP Expired" from Email Scanners)
-  // We skip sending the email via Supabase and just show the link in the UI.
+  // FORCE CREATE USER WITH PASSWORD
   const { data: authData, error: authError } =
-    await supabaseAdmin.auth.admin.generateLink({
-      type: "invite",
+    await supabaseAdmin.auth.admin.createUser({
       email: data.email,
-      options: {
-        data: {
-          first_name: data.firstName,
-          last_name: data.lastName,
-        },
-        redirectTo,
+      password: data.password,
+      email_confirm: true, // Auto-confirm email so they can login immediately
+      user_metadata: {
+        first_name: data.firstName,
+        last_name: data.lastName,
       },
     });
 
   if (authError) {
-    console.error("Auth Invite Error:", authError);
+    console.error("Auth Create Error:", authError);
+    // Custom friendly French errors
+    if (
+      authError.code === "email_exists" ||
+      authError.message.includes("already been registered")
+    ) {
+      return {
+        success: false,
+        error:
+          "Un compte existe déjà avec cette adresse email. Veuillez vous connecter ou utiliser un autre email.",
+      };
+    }
+    if (authError.message.includes("Password should be at least")) {
+      return {
+        success: false,
+        error: "Le mot de passe doit contenir au moins 6 caractères.",
+      };
+    }
     return { success: false, error: authError.message };
   }
 
   const userId = authData.user.id;
-  const inviteLink = authData.properties.action_link;
-  const emailSent = false;
-  const inviteData = null; // Unused in this path
-
-  // userId is already set above
 
   if (!userId)
-    return { success: false, error: "User creation failed (No ID found)" };
+    return {
+      success: false,
+      error: "La création de l'utilisateur a échoué (ID introuvable)",
+    };
 
   // 2. Create Profile
   const { error: profileError } = await supabaseAdmin.from("profiles").insert({
@@ -129,10 +148,10 @@ export async function createWedding(data: CreateWeddingData) {
     }
   }
 
-  console.log("✅ Wedding Provisioned! Invite Link:", inviteLink);
+  console.log("✅ Wedding Provisioned! UserId:", userId);
 
-  // Return success + The Magic Link (Frontend can display it or simulate "Email Sent")
-  return { success: true, userId, email: data.email, inviteLink };
+  // Return success (Frontend will redirect to dashboard login)
+  return { success: true, userId, email: data.email };
 }
 
 function generateWeddingCode(n1: string, n2: string): string {

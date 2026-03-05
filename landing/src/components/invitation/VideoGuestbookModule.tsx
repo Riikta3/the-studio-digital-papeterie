@@ -65,25 +65,25 @@ export function VideoGuestbookModule({ weddingId }: { weddingId: string }) {
         <motion.div
           initial={{ opacity: 0, scale: 0.95 }}
           animate={{ opacity: 1, scale: 1 }}
-          className='max-w-2xl mx-auto bg-white rounded-[2.5rem] p-12 md:p-16 border border-[#EAEAEA] shadow-[0_8px_30px_-12px_rgba(0,0,0,0.06)] text-center'
+          className='max-w-2xl mx-auto bg-card rounded-[2.5rem] p-12 md:p-16 border border-border shadow-xl text-center'
         >
-          <div className='w-20 h-20 bg-[#F5F7F5] rounded-full flex items-center justify-center mx-auto mb-8 text-[#4B6856]'>
+          <div className='w-20 h-20 bg-secondary rounded-full flex items-center justify-center mx-auto mb-8 text-primary'>
             <Video
               className='w-8 h-8'
               fill='none'
               stroke='currentColor'
             />
           </div>
-          <h3 className='font-heading text-4xl italic text-[#333333] mb-4'>
+          <h3 className='font-heading text-4xl italic text-foreground mb-4'>
             Souvenir Enregistré
           </h3>
-          <p className='text-[#556B5D] text-lg font-light leading-relaxed'>
+          <p className='text-muted-foreground text-lg font-light leading-relaxed'>
             Merci pour ce message vidéo ! Les mariés seront ravis de découvrir
             votre surprise.
           </p>
           <button
             onClick={() => setStatus("idle")}
-            className='mt-10 text-xs font-bold uppercase tracking-widest text-[#4B6856] underline'
+            className='mt-10 text-xs font-bold uppercase tracking-widest text-primary underline'
           >
             Envoyer une autre vidéo
           </button>
@@ -101,26 +101,26 @@ export function VideoGuestbookModule({ weddingId }: { weddingId: string }) {
         transition={{ duration: 0.8, ease: "easeOut" }}
         className='max-w-4xl mx-auto px-4 text-center'
       >
-        <p className='text-xs md:text-sm font-bold uppercase tracking-[0.2em] text-[#6C7A6E] mb-4'>
+        <p className='text-xs md:text-sm font-bold uppercase tracking-[0.2em] text-muted-foreground mb-4'>
           Souvenir Inoubliable
         </p>
-        <h2 className='font-heading text-5xl md:text-6xl text-[#333333] mb-8'>
+        <h2 className='font-heading text-5xl md:text-6xl text-foreground mb-8'>
           Livre d'Or{" "}
-          <span className='italic text-[#4B6856] opacity-80'>Vidéo</span>
+          <span className='italic text-primary opacity-80'>Vidéo</span>
         </h2>
 
-        <div className='bg-white rounded-[2.5rem] p-8 md:p-16 border border-[#EAEAEA] shadow-[0_8px_30px_-12px_rgba(0,0,0,0.06)] max-w-2xl mx-auto'>
+        <div className='bg-card rounded-[2.5rem] p-8 md:p-16 border border-border shadow-xl max-w-2xl mx-auto'>
           {!previewUrl ? (
             <div className='space-y-8'>
-              <div className='w-20 h-20 bg-[#F5F7F5] rounded-full flex items-center justify-center mx-auto text-[#4B6856]'>
+              <div className='w-20 h-20 bg-secondary rounded-full flex items-center justify-center mx-auto text-primary'>
                 <Camera className='w-10 h-10' />
               </div>
               <div className='space-y-4 max-w-sm mx-auto'>
-                <p className='text-[#556B5D] text-base md:text-lg leading-relaxed font-light'>
+                <p className='text-muted-foreground text-base md:text-lg leading-relaxed font-light'>
                   Laissez-nous un petit mot, une anecdote ou vos vœux
                   directement en vidéo.
                 </p>
-                <p className='text-[10px] uppercase tracking-[0.15em] font-bold text-[#6C7A6E]/50'>
+                <p className='text-[10px] uppercase tracking-[0.15em] font-bold text-muted-foreground/50'>
                   Capture directe ou upload (Max 50Mo)
                 </p>
               </div>
@@ -136,7 +136,7 @@ export function VideoGuestbookModule({ weddingId }: { weddingId: string }) {
 
               <button
                 onClick={() => fileInputRef.current?.click()}
-                className='w-full bg-[#4B6856] hover:bg-[#3D5446] text-white py-5 rounded-full font-bold text-xs uppercase tracking-[0.3em] transition-all duration-300 shadow-xl shadow-[#4B6856]/10 flex items-center justify-center gap-3'
+                className='w-full bg-primary hover:bg-primary/90 text-primary-foreground py-5 rounded-full font-bold text-xs uppercase tracking-[0.3em] transition-all duration-300 shadow-xl shadow-primary/10 flex items-center justify-center gap-3'
               >
                 Cliquer pour Enregistrer
               </button>
@@ -161,7 +161,7 @@ export function VideoGuestbookModule({ weddingId }: { weddingId: string }) {
                 />
                 <button
                   onClick={handleRemove}
-                  className='absolute top-4 right-4 w-10 h-10 bg-white/20 backdrop-blur-md rounded-full flex items-center justify-center text-white hover:bg-red-500 transition-colors'
+                  className='absolute top-4 right-4 w-10 h-10 bg-card/20 backdrop-blur-md rounded-full flex items-center justify-center text-white hover:bg-red-500 transition-colors'
                 >
                   <X className='w-5 h-5' />
                 </button>
@@ -171,7 +171,7 @@ export function VideoGuestbookModule({ weddingId }: { weddingId: string }) {
                 <button
                   onClick={handleSubmit}
                   disabled={status === "submitting"}
-                  className='w-full bg-[#4B6856] hover:bg-[#3D5446] disabled:bg-[#CCCCCC] text-white py-5 rounded-full font-bold text-xs uppercase tracking-[0.3em] transition-all duration-100 flex items-center justify-center gap-3'
+                  className='w-full bg-primary hover:bg-primary/90 disabled:bg-[#CCCCCC] text-primary-foreground py-5 rounded-full font-bold text-xs uppercase tracking-[0.3em] transition-all duration-100 flex items-center justify-center gap-3'
                 >
                   {status === "submitting" ? (
                     <>
@@ -188,7 +188,7 @@ export function VideoGuestbookModule({ weddingId }: { weddingId: string }) {
                 <button
                   type='button'
                   onClick={handleRemove}
-                  className='text-xs font-bold uppercase tracking-widest text-[#6C7A6E]/60 hover:text-red-500 transition-colors flex items-center justify-center gap-2 mx-auto'
+                  className='text-xs font-bold uppercase tracking-widest text-muted-foreground/60 hover:text-red-500 transition-colors flex items-center justify-center gap-2 mx-auto'
                 >
                   <Trash2 className='w-4 h-4' /> Recommencer
                 </button>
@@ -196,7 +196,7 @@ export function VideoGuestbookModule({ weddingId }: { weddingId: string }) {
             </div>
           )}
 
-          <p className='mt-12 text-[10px] text-[#6C7A6E]/40 italic'>
+          <p className='mt-12 text-[10px] text-muted-foreground/40 italic'>
             Votre vidéo sera envoyée en privé uniquement aux futurs mariés.
           </p>
         </div>

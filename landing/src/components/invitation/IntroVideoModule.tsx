@@ -37,17 +37,17 @@ export function IntroVideoModule({ weddingId }: { weddingId: string }) {
         transition={{ duration: 0.8, ease: "easeOut" }}
         className='max-w-4xl mx-auto px-4 text-center'
       >
-        <p className='text-xs md:text-sm font-bold uppercase tracking-[0.2em] text-[#6C7A6E] mb-4'>
+        <p className='text-xs md:text-sm font-bold uppercase tracking-[0.2em] text-muted-foreground mb-4'>
           {data.title}
         </p>
-        <h3 className='font-heading text-5xl md:text-6xl italic text-[#333333] mb-4'>
+        <h3 className='font-heading text-5xl md:text-6xl italic text-foreground mb-4'>
           {data.subtitle}
         </h3>
-        <p className='text-[#556B5D] text-sm md:text-base max-w-2xl mx-auto leading-relaxed font-light mb-12'>
+        <p className='text-muted-foreground text-sm md:text-base max-w-2xl mx-auto leading-relaxed font-light mb-12'>
           {data.description}
         </p>
 
-        <div className='relative w-full max-w-3xl mx-auto aspect-video rounded-[2rem] overflow-hidden border border-[#EAEAEA] shadow-[0_8px_30px_-12px_rgba(0,0,0,0.06)] bg-[#F5F7F5] group'>
+        <div className='relative w-full max-w-3xl mx-auto aspect-video rounded-[2rem] overflow-hidden border border-border shadow-xl bg-secondary group'>
           <AnimatePresence mode='wait'>
             {!isPlaying ? (
               <motion.div
@@ -56,7 +56,7 @@ export function IntroVideoModule({ weddingId }: { weddingId: string }) {
                 animate={{ opacity: 1 }}
                 exit={{ opacity: 0 }}
                 transition={{ duration: 0.5 }}
-                className='absolute inset-0 flex flex-col items-center justify-center cursor-pointer bg-white'
+                className='absolute inset-0 flex flex-col items-center justify-center cursor-pointer bg-card'
                 onClick={() => setIsPlaying(true)}
               >
                 {/* Decorative Pattern Background */}
@@ -70,14 +70,14 @@ export function IntroVideoModule({ weddingId }: { weddingId: string }) {
                   }}
                 />
 
-                <div className='relative z-10 w-20 h-20 md:w-24 md:h-24 bg-white/80 backdrop-blur-sm rounded-full flex items-center justify-center shadow-sm border border-[#EBEBEB] group-hover:scale-110 transition-transform duration-500 ease-out'>
+                <div className='relative z-10 w-20 h-20 md:w-24 md:h-24 bg-card/80 backdrop-blur-sm rounded-full flex items-center justify-center shadow-sm border border-border group-hover:scale-110 transition-transform duration-500 ease-out'>
                   <Play
-                    className='w-8 h-8 md:w-10 md:h-10 text-[#4B6856] ml-1 opacity-80'
+                    className='w-8 h-8 md:w-10 md:h-10 text-primary ml-1 opacity-80'
                     strokeWidth={1}
                   />
                 </div>
 
-                <span className='relative z-10 mt-6 text-[10px] md:text-xs font-bold uppercase tracking-[0.2em] text-[#6C7A6E] opacity-70 group-hover:opacity-100 transition-opacity duration-300'>
+                <span className='relative z-10 mt-6 text-[10px] md:text-xs font-bold uppercase tracking-[0.2em] text-muted-foreground opacity-70 group-hover:opacity-100 transition-opacity duration-300'>
                   Lancer la vidéo
                 </span>
               </motion.div>
