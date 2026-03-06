@@ -6,6 +6,8 @@ import { Link, useRouter } from "@/navigation";
 import { ModuleSelector } from "@shared/components/modules/ModuleSelector";
 import { Spinner } from "@shared/components/ui/spinner";
 import { APP_MODULES } from "@shared/data/modules";
+import { Elements } from "@stripe/react-stripe-js";
+import { loadStripe } from "@stripe/stripe-js";
 import { AnimatePresence, motion } from "framer-motion";
 import {
   Check,
@@ -24,6 +26,11 @@ import {
 } from "lucide-react";
 import { useEffect, useState } from "react";
 import { toast } from "sonner";
+import { CheckoutForm } from "./CheckoutForm";
+
+const stripePromise = loadStripe(
+  process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY!,
+);
 
 // --- Data ---
 const POPULAR_LANGUAGES = ALL_LANGUAGES.filter((l) =>
@@ -154,6 +161,7 @@ export default function CreateWizard() {
   const router = useRouter();
   const [step, setStep] = useState(1);
   const [loading, setLoading] = useState(false);
+  const [clientSecret, setClientSecret] = useState<string | null>(null);
 
   // Form State
   const [formData, setFormData] = useState({
@@ -255,6 +263,51 @@ export default function CreateWizard() {
     extraModulesPrice +
     extraLanguagesPrice +
     extrasPrice;
+
+  // We expose a function for the CheckoutForm to grab the total
+  const calculateTotal = () => totalPrice;
+
+  // Fetch Payment Intent when reaching the final step
+  useEffect(() => {
+    if (step === 6 && !clientSecret) {
+      const fetchPaymentIntent = async () => {
+        try {
+          const res = await fetch("/api/create-payment-intent", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+              items: {
+                plan: formData.plan,
+                modules: formData.modules,
+                languages: formData.languages,
+                extras: formData.extras,
+              },
+            }),
+          });
+          const data = await res.json();
+          if (data.clientSecret) {
+            setClientSecret(data.clientSecret);
+          } else if (data.amount === 0) {
+            // Free plan logic if implemented
+            console.log("Free plan, no stripe required");
+          } else {
+            toast.error("Erreur lors de l'initialisation du paiement.");
+          }
+        } catch (error) {
+          console.error("Failed to fetch payment intent:", error);
+          toast.error("Erreur de connexion sécurisée.");
+        }
+      };
+
+      fetchPaymentIntent();
+    }
+  }, [
+    step,
+    formData.plan,
+    formData.modules,
+    formData.languages,
+    formData.extras,
+  ]);
 
   const handleFinalize = async () => {
     setLoading(true);
@@ -1400,45 +1453,43 @@ export default function CreateWizard() {
                     </div>
                   </div>
 
-                  <button
-                    onClick={handleFinalize}
-                    disabled={
-                      loading ||
-                      !formData.name1 ||
-                      !formData.name2 ||
-                      !formData.date ||
-                      !formData.billingFirstName ||
-                      !formData.billingLastName ||
-                      !formData.email ||
-                      !formData.password ||
-                      !formData.phone ||
-                      !formData.address ||
-                      !formData.postalCode ||
-                      !formData.city ||
-                      !formData.termsAccepted
-                    }
-                    className='w-full mt-4 py-4 rounded-xl bg-primary text-white font-bold text-lg shadow-xl shadow-primary/20 hover:bg-primary/90 hover:scale-[1.02] active:scale-[0.98] transition-all flex items-center justify-center gap-3 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none disabled:shadow-none'
-                  >
-                    {loading ? (
-                      <div className='flex items-center gap-2'>
-                        <Spinner className='text-white' />
-                        <span>Création de votre univers...</span>
-                      </div>
-                    ) : (
-                      <>
-                        <span>Créer & Accéder</span>
-                        <ChevronRight className='w-5 h-5' />
-                      </>
-                    )}
-                  </button>
-                  <p className='text-center text-xs text-gray-400 mt-4'>
-                    Accès immédiat sans carte bancaire (Demo).
-                  </p>
+                  {clientSecret ? (
+                    <Elements
+                      stripe={stripePromise}
+                      options={{
+                        clientSecret,
+                        appearance: { theme: "stripe" },
+                      }}
+                    >
+                      <CheckoutForm
+                        onSuccess={handleFinalize}
+                        totalPrice={calculateTotal()}
+                        disabled={
+                          !formData.name1 ||
+                          !formData.name2 ||
+                          !formData.date ||
+                          !formData.billingFirstName ||
+                          !formData.billingLastName ||
+                          !formData.email ||
+                          !formData.password ||
+                          !formData.phone ||
+                          !formData.address ||
+                          !formData.postalCode ||
+                          !formData.city ||
+                          !formData.termsAccepted
+                        }
+                      />
+                    </Elements>
+                  ) : (
+                    <div className='w-full flex justify-center py-8'>
+                      <Spinner className='text-primary' />
+                    </div>
+                  )}
                 </div>
               </div>
             </div>
 
-            <div className='text-center'>
+            <div className='text-center mt-6'>
               <button
                 onClick={prevStep}
                 className='text-gray-500 hover:text-primary font-medium text-sm transition-colors flex items-center justify-center gap-2 mx-auto py-2 px-4 hover:bg-gray-50 rounded-full'
