@@ -41,17 +41,34 @@ export default async function InvitationPage({ params }: InvitationPageProps) {
 
   const weddingId = settingsData.wedding_id;
 
-  // 2. Fetch Profiles (Names, Date)
-  const { data: profile, error: profileError } = await supabaseAdmin
-    .from("profiles")
-    .select("first_name, last_name, partner_name, wedding_date")
+  // 2. Fetch Wedding and Profile (Names, Date)
+  const { data: wedding, error: weddingError } = await supabaseAdmin
+    .from("weddings")
+    .select(
+      `
+      partner_name,
+      wedding_date,
+      profiles (
+        first_name,
+        last_name
+      )
+    `,
+    )
     .eq("id", weddingId)
     .single();
 
-  if (profileError || !profile) {
-    console.error("Profile not found:", profileError);
+  if (weddingError || !wedding) {
+    console.error("Wedding not found:", weddingError);
     return notFound();
   }
+
+  // Normalize data for the UI
+  const profile = {
+    first_name: (wedding.profiles as any)?.first_name || "",
+    last_name: (wedding.profiles as any)?.last_name || "",
+    partner_name: wedding.partner_name,
+    wedding_date: wedding.wedding_date,
+  };
 
   // 3. Fetch Sites config (Modules, Theme, Extras)
   const { data: siteConfig, error: siteError } = await supabaseAdmin

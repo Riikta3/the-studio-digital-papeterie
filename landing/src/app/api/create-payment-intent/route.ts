@@ -9,10 +9,13 @@ const stripe = new Stripe(process.env.STRIPE_SECRET_KEY || "sk_test_fallback", {
 
 export async function POST(req: Request) {
   try {
-    const { items } = await req.json();
+    const { items, email } = await req.json();
 
     if (!items || !items.plan) {
-      return NextResponse.json({ error: "Invalid payload" }, { status: 400 });
+      return NextResponse.json(
+        { error: "Invalid payload or missing plan" },
+        { status: 400 },
+      );
     }
 
     // --- SECURE BACKEND CALCULATION ---
@@ -69,17 +72,48 @@ export async function POST(req: Request) {
       });
     }
 
-    // Create a PaymentIntent with the order amount and currency
-    const paymentIntent = await stripe.paymentIntents.create({
+    // --- CUSTOMER MANAGEMENT ---
+    // Look up existing customer by email only if provided
+    let customerId: string | undefined;
+
+    if (email) {
+      const existingCustomers = await stripe.customers.list({
+        email: email,
+        limit: 1,
+      });
+
+      if (existingCustomers.data.length > 0) {
+        customerId = existingCustomers.data[0].id;
+      } else {
+        // Create new customer
+        const newCustomer = await stripe.customers.create({
+          email: email,
+          metadata: {
+            source: "wedding_checkout",
+          },
+        });
+        customerId = newCustomer.id;
+      }
+    }
+
+    const stripePayload: Stripe.PaymentIntentCreateParams = {
       amount: Math.round(finalStripeAmount * 100), // Convert to cents
       currency: "eur",
-      automatic_payment_methods: {
-        enabled: true,
-      },
+      payment_method_types: ["card", "paypal", "klarna"],
       metadata: {
         plan: items.plan || "unknown",
       },
-    });
+    };
+
+    if (customerId) {
+      stripePayload.customer = customerId;
+    }
+    if (email) {
+      stripePayload.metadata!.email = email;
+    }
+
+    // Create a PaymentIntent with the order amount and currency
+    const paymentIntent = await stripe.paymentIntents.create(stripePayload);
 
     return NextResponse.json({
       clientSecret: paymentIntent.client_secret,

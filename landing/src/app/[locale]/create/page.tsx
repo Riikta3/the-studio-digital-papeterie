@@ -24,7 +24,7 @@ import {
   Video,
   X,
 } from "lucide-react";
-import { useEffect, useState } from "react";
+import { use, useCallback, useEffect, useRef, useState } from "react";
 import { toast } from "sonner";
 import { CheckoutForm } from "./CheckoutForm";
 
@@ -157,11 +157,20 @@ const EXTRAS = [
   },
 ];
 
-export default function CreateWizard() {
+export default function CreateWizard({
+  searchParams,
+}: {
+  searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
+}) {
+  const resolvedParams = use(searchParams);
   const router = useRouter();
   const [step, setStep] = useState(1);
   const [loading, setLoading] = useState(false);
   const [clientSecret, setClientSecret] = useState<string | null>(null);
+  const [isRestoring, setIsRestoring] = useState(() => {
+    return !!resolvedParams.payment_intent_client_secret;
+  });
+  const processedRedirectRef = useRef(false);
 
   // Form State
   const [formData, setFormData] = useState({
@@ -191,6 +200,111 @@ export default function CreateWizard() {
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: "smooth" });
   }, [step]);
+
+  // Restore form data from localStorage if we're coming from a Stripe redirect
+  useEffect(() => {
+    if (typeof window === "undefined" || processedRedirectRef.current) return;
+
+    const intentSecret = resolvedParams.payment_intent_client_secret as string;
+
+    if (intentSecret) {
+      processedRedirectRef.current = true;
+
+      // 1. Immediately clean URL to stop infinite loops
+      const newUrl = window.location.pathname + window.location.hash;
+      window.history.replaceState({}, document.title, newUrl);
+
+      // 2. Restore state
+      const savedData = localStorage.getItem("checkout_form_data");
+      if (savedData) {
+        try {
+          const parsedData = JSON.parse(savedData);
+          setFormData(parsedData);
+          setStep(6); // Go directly to final step
+
+          // Scroll to payment section after a short delay to allow render
+          setTimeout(() => {
+            const paymentEl = document.getElementById("payment-section");
+            if (paymentEl) {
+              paymentEl.scrollIntoView({ behavior: "smooth", block: "center" });
+            }
+          }, 800);
+
+          // 3. Verify payment status via Stripe
+          const handleRedirectSuccess = async () => {
+            const stripe = await stripePromise;
+            if (!stripe) return;
+
+            const { paymentIntent } =
+              await stripe.retrievePaymentIntent(intentSecret);
+            if (paymentIntent?.status === "succeeded") {
+              toast.info("Validation du paiement en cours...");
+
+              // Direct creation call to avoid stale closure issues
+              const finalizeWithData = async (data: typeof formData) => {
+                setLoading(true);
+                try {
+                  const result = await createWedding({
+                    email: data.email,
+                    password: data.password,
+                    firstName: data.name1,
+                    lastName: data.billingLastName || data.name1,
+                    partnerName: data.name2,
+                    weddingDate: data.date,
+                    themeId: data.theme,
+                    modules: data.modules,
+                    extras: data.extras,
+                    languages: data.languages,
+                    plan: data.plan,
+                  });
+                  if (result.success) {
+                    localStorage.removeItem("checkout_form_data");
+                    toast.success("Votre espace a été créé ! 💍");
+                    const dashboardUrlStr =
+                      process.env.NEXT_PUBLIC_DASHBOARD_URL;
+                    if (dashboardUrlStr) {
+                      const targetUrl = new URL("/auth/login", dashboardUrlStr);
+                      setTimeout(() => {
+                        window.location.href = targetUrl.toString();
+                      }, 1200);
+                    }
+                  } else {
+                    toast.error("Erreur post-paiement: " + result.error);
+                  }
+                } catch (e) {
+                  console.error(e);
+                  toast.error("Erreur technique post-paiement.");
+                } finally {
+                  setLoading(false);
+                }
+              };
+
+              setTimeout(() => {
+                finalizeWithData(parsedData);
+              }, 600);
+            } else if (paymentIntent?.status === "processing") {
+              toast.info("Votre paiement est en cours de traitement.");
+            } else {
+              toast.error(
+                "Le paiement a échoué ou a été annulé. Veuillez réessayer.",
+              );
+            }
+          };
+
+          handleRedirectSuccess();
+        } catch (e) {
+          console.error("Failed to restore form data", e);
+        } finally {
+          // Always stop restoration loading state
+          setTimeout(() => setIsRestoring(false), 500);
+        }
+      } else {
+        setIsRestoring(false);
+      }
+    } else {
+      setIsRestoring(false);
+    }
+  }, [createWedding]);
 
   const nextStep = () => setStep((s) => s + 1);
   const prevStep = () => setStep((s) => s - 1);
@@ -265,7 +379,14 @@ export default function CreateWizard() {
     extrasPrice;
 
   // We expose a function for the CheckoutForm to grab the total
+  // Calculate Total
   const calculateTotal = () => totalPrice;
+
+  // Reset client secret when plan, modules, languages, or extras change
+  // so the payment intent amount resets and updates.
+  useEffect(() => {
+    setClientSecret(null);
+  }, [formData.plan, formData.modules, formData.languages, formData.extras]);
 
   // Fetch Payment Intent when reaching the final step
   useEffect(() => {
@@ -282,6 +403,7 @@ export default function CreateWizard() {
                 languages: formData.languages,
                 extras: formData.extras,
               },
+              email: formData.email,
             }),
           });
           const data = await res.json();
@@ -305,13 +427,14 @@ export default function CreateWizard() {
     }
   }, [
     step,
+    clientSecret,
     formData.plan,
     formData.modules,
     formData.languages,
     formData.extras,
   ]);
 
-  const handleFinalize = async () => {
+  const handleFinalize = useCallback(async () => {
     setLoading(true);
 
     const bypass = true; // Forced for Demo/MVP as requested
@@ -334,6 +457,9 @@ export default function CreateWizard() {
         });
 
         if (result.success) {
+          // Cleanup
+          localStorage.removeItem("checkout_form_data");
+
           toast.success("Votre espace a été créé avec succès ! 💍", {
             description: "Redirection vers votre tableau de bord...",
           });
@@ -369,10 +495,29 @@ export default function CreateWizard() {
       toast.info("Le paiement Stripe n'est pas encore activé.");
       setLoading(false);
     }
-  };
+  }, [formData, createWedding]);
 
   const totalSteps = 6;
   const progress = ((step - 1) / (totalSteps - 1)) * 100;
+
+  if (isRestoring) {
+    return (
+      <div className='fixed inset-0 bg-white/90 backdrop-blur-md z-[100] flex flex-col items-center justify-center gap-6'>
+        <div className='relative'>
+          <div className='w-20 h-20 border-4 border-primary/20 border-t-primary rounded-full animate-spin' />
+          <Heart className='absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-8 h-8 text-primary animate-pulse' />
+        </div>
+        <div className='text-center space-y-2'>
+          <h2 className='text-2xl font-heading font-bold italic text-gray-900'>
+            Retour de paiement...
+          </h2>
+          <p className='text-gray-500 animate-pulse'>
+            Nous préparons votre espace personnel.
+          </p>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className='max-w-6xl mx-auto px-4 pb-40 pt-8'>
@@ -1455,39 +1600,45 @@ export default function CreateWizard() {
                     </div>
                   </div>
 
-                  {clientSecret ? (
-                    <Elements
-                      stripe={stripePromise}
-                      options={{
-                        clientSecret,
-                        appearance: { theme: "stripe" },
-                      }}
-                    >
-                      <CheckoutForm
-                        onSuccess={handleFinalize}
-                        totalPrice={calculateTotal()}
-                        email={formData.email}
-                        disabled={
-                          !formData.name1 ||
-                          !formData.name2 ||
-                          !formData.date ||
-                          !formData.billingFirstName ||
-                          !formData.billingLastName ||
-                          !formData.email ||
-                          !formData.password ||
-                          !formData.phone ||
-                          !formData.address ||
-                          !formData.postalCode ||
-                          !formData.city ||
-                          !formData.termsAccepted
-                        }
-                      />
-                    </Elements>
-                  ) : (
-                    <div className='w-full flex justify-center py-8'>
-                      <Spinner className='text-primary' />
-                    </div>
-                  )}
+                  <div
+                    id='payment-section'
+                    className='scroll-mt-32'
+                  >
+                    {clientSecret ? (
+                      <Elements
+                        stripe={stripePromise}
+                        options={{
+                          clientSecret,
+                          appearance: { theme: "stripe" },
+                        }}
+                      >
+                        <CheckoutForm
+                          onSuccess={handleFinalize}
+                          totalPrice={calculateTotal()}
+                          email={formData.email}
+                          formDataToSave={formData}
+                          disabled={
+                            !formData.name1 ||
+                            !formData.name2 ||
+                            !formData.date ||
+                            !formData.billingFirstName ||
+                            !formData.billingLastName ||
+                            !formData.email ||
+                            !formData.password ||
+                            !formData.phone ||
+                            !formData.address ||
+                            !formData.postalCode ||
+                            !formData.city ||
+                            !formData.termsAccepted
+                          }
+                        />
+                      </Elements>
+                    ) : (
+                      <div className='w-full flex justify-center py-8'>
+                        <Spinner className='text-primary' />
+                      </div>
+                    )}
+                  </div>
                 </div>
               </div>
             </div>

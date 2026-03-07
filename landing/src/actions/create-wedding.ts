@@ -17,9 +17,9 @@ interface CreateWeddingData {
 }
 
 export async function createWedding(data: CreateWeddingData) {
-  console.log("💍 Starting Wedding Provisioning (Password Flow)...", {
-    ...data,
-    password: "***",
+  console.log("💍 Starting Wedding Provisioning (V2 Architecture)...", {
+    email: data.email,
+    plan: data.plan,
   });
 
   if (!data.password) {
@@ -29,67 +29,93 @@ export async function createWedding(data: CreateWeddingData) {
     };
   }
 
-  // FORCE CREATE USER WITH PASSWORD
-  const { data: authData, error: authError } =
-    await supabaseAdmin.auth.admin.createUser({
-      email: data.email,
-      password: data.password,
-      email_confirm: true, // Auto-confirm email so they can login immediately
-      user_metadata: {
-        first_name: data.firstName,
-        last_name: data.lastName,
-      },
-    });
+  let userId: string;
 
-  if (authError) {
-    console.error("Auth Create Error:", authError);
-    // Custom friendly French errors
-    if (
-      authError.code === "email_exists" ||
-      authError.message.includes("already been registered")
-    ) {
-      return {
-        success: false,
-        error:
-          "Un compte existe déjà avec cette adresse email. Veuillez vous connecter ou utiliser un autre email.",
-      };
-    }
-    if (authError.message.includes("Password should be at least")) {
-      return {
-        success: false,
-        error: "Le mot de passe doit contenir au moins 6 caractères.",
-      };
-    }
-    return { success: false, error: authError.message };
-  }
+  // 1. CHERCHER OU CRÉER L'UTILISATEUR (Multi-tenant)
+  const { data: searchData, error: searchError } =
+    await supabaseAdmin.auth.admin.listUsers();
 
-  const userId = authData.user.id;
-
-  if (!userId)
+  if (searchError) {
     return {
       success: false,
-      error: "La création de l'utilisateur a échoué (ID introuvable)",
+      error: "Impossible de vérifier l'existence du compte.",
     };
-
-  // 2. Create Profile
-  const { error: profileError } = await supabaseAdmin.from("profiles").insert({
-    id: userId,
-    first_name: data.firstName,
-    last_name: data.lastName,
-    partner_name: data.partnerName,
-    wedding_date: data.weddingDate || null,
-  });
-
-  if (profileError) {
-    console.error("Profile Creation Error:", profileError);
-    // Optional: Delete user if profile creation fails
-    await supabaseAdmin.auth.admin.deleteUser(userId);
-    return { success: false, error: "Failed to create wedding profile." };
   }
+
+  const existingUser = searchData?.users.find((u) => u.email === data.email);
+
+  if (existingUser) {
+    // Si l'utilisateur existe déjà, on empêche la création par mot de passe car
+    // dans ce flux de checkout, c'est censé être une création asynchrone pour les nouveaux.
+    // L'idéal est qu'il se logue **avant**, mais pour l'instant on respecte l'UI existante :
+    return {
+      success: false,
+      error:
+        "Un compte existe déjà avec cette adresse email. Veuillez vous connecter.",
+    };
+  } else {
+    // FORCE CREATE USER WITH PASSWORD
+    const { data: authData, error: authError } =
+      await supabaseAdmin.auth.admin.createUser({
+        email: data.email,
+        password: data.password,
+        email_confirm: true, // Auto-confirm email so they can login immediately
+        user_metadata: {
+          first_name: data.firstName,
+          last_name: data.lastName,
+        },
+      });
+
+    if (authError) {
+      console.error("Auth Create Error:", authError);
+      if (authError.message.includes("Password should be at least")) {
+        return {
+          success: false,
+          error: "Le mot de passe doit contenir au moins 6 caractères.",
+        };
+      }
+      return { success: false, error: authError.message };
+    }
+
+    userId = authData.user.id;
+
+    // Create Profile entity since it's a new user
+    const { error: profileError } = await supabaseAdmin
+      .from("profiles")
+      .insert({
+        id: userId,
+        first_name: data.firstName,
+        last_name: data.lastName,
+      });
+
+    if (profileError) {
+      console.error("Profile Creation Error:", profileError);
+      await supabaseAdmin.auth.admin.deleteUser(userId);
+      return { success: false, error: "Failed to create user profile." };
+    }
+  }
+
+  // 2. CREATE WEDDING (The Event)
+  const { data: weddingData, error: weddingError } = await supabaseAdmin
+    .from("weddings")
+    .insert({
+      user_id: userId,
+      partner_name: data.partnerName,
+      wedding_date: data.weddingDate || null,
+    })
+    .select("id")
+    .single();
+
+  if (weddingError || !weddingData) {
+    console.error("Wedding Creation Error:", weddingError);
+    return { success: false, error: "Failed to create wedding entity." };
+  }
+
+  const weddingId = weddingData.id;
 
   // 3. Create Settings
   const { error: settingsError } = await supabaseAdmin.from("settings").insert({
-    wedding_id: userId,
+    wedding_id: weddingId,
     is_module_rsvp_meal_enabled: data.modules.includes("rsvp"),
     is_module_gallery_enabled: data.modules.includes("gallery"),
     is_module_schedule_enabled: data.modules.includes("program"),
@@ -105,7 +131,7 @@ export async function createWedding(data: CreateWeddingData) {
 
   // 4. Create Site Record (Static Template Approach)
   const { error: siteError } = await supabaseAdmin.from("sites").insert({
-    wedding_id: userId,
+    wedding_id: weddingId,
     plan_id: data.plan,
     theme_id: data.themeId,
     modules: data.modules,
@@ -114,26 +140,19 @@ export async function createWedding(data: CreateWeddingData) {
     status: "draft",
   });
 
-  if (siteError) {
-    console.error("Site Creation Error:", siteError);
-    // Non-fatal, can be created later or retried
-  }
+  if (siteError) console.error("Site Creation Error:", siteError);
 
   // 5. Record Purchases (Wallet)
-  // We record everything they selected as "purchased" or "active" in their account
   const purchaseItems: {
     wedding_id: string;
     item_type: string;
     item_id: string;
   }[] = [];
 
-  // Plan
-  // purchaseItems.push({ wedding_id: userId, item_type: 'plan', item_id: 'essential' }); // Logic needed for plan ID
-
   // Modules
   data.modules.forEach((m) => {
     purchaseItems.push({
-      wedding_id: userId,
+      wedding_id: weddingId,
       item_type: "module",
       item_id: m,
     });
@@ -148,10 +167,15 @@ export async function createWedding(data: CreateWeddingData) {
     }
   }
 
-  console.log("✅ Wedding Provisioned! UserId:", userId);
+  console.log(
+    "✅ Wedding Provisioned! WeddingId:",
+    weddingId,
+    "UserId:",
+    userId,
+  );
 
   // Return success (Frontend will redirect to dashboard login)
-  return { success: true, userId, email: data.email };
+  return { success: true, userId, weddingId, email: data.email };
 }
 
 function generateWeddingCode(n1: string, n2: string): string {

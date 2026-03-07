@@ -15,6 +15,7 @@ interface CheckoutFormProps {
   disabled: boolean;
   totalPrice: number;
   email: string;
+  formDataToSave: any;
 }
 
 export function CheckoutForm({
@@ -22,6 +23,7 @@ export function CheckoutForm({
   disabled,
   totalPrice,
   email,
+  formDataToSave,
 }: CheckoutFormProps) {
   const stripe = useStripe();
   const elements = useElements();
@@ -67,13 +69,18 @@ export function CheckoutForm({
         }
       }
 
+      // Save form data to localStorage before redirecting to Stripe
+      localStorage.setItem(
+        "checkout_form_data",
+        JSON.stringify(formDataToSave),
+      );
+
       // 2. Confirm the PaymentIntent with the PaymentElement
-      // We use `redirect: "if_required"` so we can manually handle the success flow
-      // and call `onSuccess` right away to provision the Supabase user.
       const { error, paymentIntent } = await stripe.confirmPayment({
         elements,
         confirmParams: {
-          return_url: `${window.location.origin}/auth/login`,
+          // Point back to the current window so that useEffect picks it up on success
+          return_url: window.location.href,
         },
         redirect: "if_required",
       });
@@ -81,12 +88,10 @@ export function CheckoutForm({
       if (error) {
         setErrorMessage(error.message || "Une erreur inattendue est survenue.");
       } else if (paymentIntent && paymentIntent.status === "succeeded") {
-        // Payment succeeded! Let's trigger the actual account creation
+        // Payment succeeded without a redirect
         await onSuccess();
       } else {
-        // Some other status like processing or requires_action (3DS)
-        // In a real prod environment with 3DS, redirect="always" might be preferred,
-        // but that requires using webhooks to provision the server.
+        // Other states
         setErrorMessage(
           "Le paiement nécessite une validation supplémentaire non supportée dans ce POC.",
         );
