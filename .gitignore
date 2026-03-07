@@ -40,7 +40,9 @@ yarn-error.log*
 *.swp
 *.swo
 
-# AI / Generated files
+# Supabase
+supabase/.temp/
+supabase/.branch/
 _bmad/
 _bmad-output/
 .agent/
