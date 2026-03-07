@@ -86,6 +86,7 @@ export async function createWedding(data: CreateWeddingData) {
         id: userId,
         first_name: data.firstName,
         last_name: data.lastName,
+        partner_name: data.partnerName,
       });
 
     if (profileError) {

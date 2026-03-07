@@ -19,6 +19,7 @@ create table public.profiles (
   id uuid references auth.users not null primary key,
   first_name text,
   last_name text,
+  partner_name text,
   stripe_customer_id text,
   created_at timestamp with time zone default timezone('utc'::text, now()) not null
 );
