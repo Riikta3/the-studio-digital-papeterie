@@ -14,12 +14,14 @@ interface CheckoutFormProps {
   onSuccess: () => Promise<void>;
   disabled: boolean;
   totalPrice: number;
+  email: string;
 }
 
 export function CheckoutForm({
   onSuccess,
   disabled,
   totalPrice,
+  email,
 }: CheckoutFormProps) {
   const stripe = useStripe();
   const elements = useElements();
@@ -45,7 +47,27 @@ export function CheckoutForm({
     setErrorMessage("");
 
     try {
-      // Confirm the PaymentIntent with the PaymentElement
+      // 1. Pre-flight email check
+      if (email) {
+        const checkRes = await fetch("/api/check-email", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ email }),
+        });
+        const checkData = await checkRes.json();
+
+        if (checkRes.status === 409) {
+          setErrorMessage(checkData.error || "Email déjà utilisé.");
+          setIsProcessing(false);
+          return;
+        } else if (!checkRes.ok) {
+          setErrorMessage("Impossible de vérifier l'email.");
+          setIsProcessing(false);
+          return;
+        }
+      }
+
+      // 2. Confirm the PaymentIntent with the PaymentElement
       // We use `redirect: "if_required"` so we can manually handle the success flow
       // and call `onSuccess` right away to provision the Supabase user.
       const { error, paymentIntent } = await stripe.confirmPayment({

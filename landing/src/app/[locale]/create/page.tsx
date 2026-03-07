@@ -285,13 +285,15 @@ export default function CreateWizard() {
             }),
           });
           const data = await res.json();
-          if (data.clientSecret) {
+          if (res.ok && data.clientSecret) {
             setClientSecret(data.clientSecret);
-          } else if (data.amount === 0) {
+          } else if (res.ok && data.amount === 0) {
             // Free plan logic if implemented
             console.log("Free plan, no stripe required");
           } else {
-            toast.error("Erreur lors de l'initialisation du paiement.");
+            toast.error(
+              data.error || "Erreur lors de l'initialisation du paiement.",
+            );
           }
         } catch (error) {
           console.error("Failed to fetch payment intent:", error);
@@ -1464,6 +1466,7 @@ export default function CreateWizard() {
                       <CheckoutForm
                         onSuccess={handleFinalize}
                         totalPrice={calculateTotal()}
+                        email={formData.email}
                         disabled={
                           !formData.name1 ||
                           !formData.name2 ||
