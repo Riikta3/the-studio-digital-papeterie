@@ -63,6 +63,7 @@ export async function createWedding(data: CreateWeddingData) {
         user_metadata: {
           first_name: data.firstName,
           last_name: data.lastName,
+          partner_name: data.partnerName,
         },
       });
 
@@ -79,10 +80,16 @@ export async function createWedding(data: CreateWeddingData) {
 
     userId = authData.user.id;
 
-    // Create Profile entity since it's a new user
+    // Create or Update Profile entity
+    console.log(
+      "👥 Upserting Profile for userId:",
+      userId,
+      "Partner:",
+      data.partnerName,
+    );
     const { error: profileError } = await supabaseAdmin
       .from("profiles")
-      .insert({
+      .upsert({
         id: userId,
         first_name: data.firstName,
         last_name: data.lastName,
@@ -90,8 +97,9 @@ export async function createWedding(data: CreateWeddingData) {
       });
 
     if (profileError) {
-      console.error("Profile Creation Error:", profileError);
-      await supabaseAdmin.auth.admin.deleteUser(userId);
+      console.error("Profile Upsert Error:", profileError);
+      // Only delete if it was a search list failure before?
+      // Actually, if it's a new user creation flux, we should keep it robust.
       return { success: false, error: "Failed to create user profile." };
     }
   }

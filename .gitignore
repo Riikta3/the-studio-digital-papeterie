@@ -42,7 +42,10 @@ yarn-error.log*
 
 # Supabase
 supabase/.temp/
-supabase/.branch/
+supabase/.branches/
+dashboard/supabase/.temp/
+landing/supabase/.temp/
+builder/supabase/.temp/
 _bmad/
 _bmad-output/
 .agent/

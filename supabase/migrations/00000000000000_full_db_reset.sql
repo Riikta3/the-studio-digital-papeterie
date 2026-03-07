@@ -1,5 +1,5 @@
--- Migration: Schema V2 (1 User = N Weddings)
--- Consolidated Initial Migration
+ -- Migration: Schema V2 (1 User = N Weddings)
+-- Warning: DESTRUCTIVE MIGRATION. Drops all data.
 
 drop table if exists public.email_logs cascade;
 drop table if exists public.email_campaigns cascade;
@@ -14,13 +14,12 @@ drop table if exists public.tables cascade;
 drop table if exists public.weddings cascade;
 drop table if exists public.profiles cascade;
 
-create extension if not exists "uuid-ossp";
-
 -- 1. PROFILES (Linked to Auth Users)
 create table public.profiles (
   id uuid references auth.users not null primary key,
   first_name text,
   last_name text,
+  partner_name text,
   stripe_customer_id text,
   created_at timestamp with time zone default timezone('utc'::text, now()) not null
 );
@@ -227,6 +226,23 @@ create table public.billing (
 alter table public.billing enable row level security;
 create policy "Users can view own billing" on public.billing for select using (auth.uid() = user_id);
 
+-- 11. PROJECTS (Deprecated but kept for previous implementations?)
+create table public.projects (
+  id uuid default gen_random_uuid() primary key,
+  wedding_id uuid references public.weddings(id) on delete cascade not null,
+  state jsonb default '{}'::jsonb, 
+  theme_id text,
+  status text check (status in ('draft', 'published')) default 'draft',
+  created_at timestamp with time zone default timezone('utc'::text, now()) not null,
+  updated_at timestamp with time zone default timezone('utc'::text, now()) not null,
+  unique(wedding_id)
+);
+
+alter table public.projects enable row level security;
+create policy "Users can manage own project" on public.projects for all using (
+  exists (select 1 from public.weddings where id = wedding_id and user_id = auth.uid())
+);
+
 -- INDEXES
 create index idx_weddings_user_id on public.weddings(user_id);
 create index idx_sites_wedding_id on public.sites(wedding_id);
@@ -240,3 +256,4 @@ create index idx_email_campaigns_wedding_id on public.email_campaigns(wedding_id
 create index idx_email_logs_wedding_id on public.email_logs(wedding_id);
 create index idx_email_logs_campaign_id on public.email_logs(campaign_id);
 create index idx_billing_user_id on public.billing(user_id);
+create index idx_projects_wedding_id on public.projects(wedding_id);

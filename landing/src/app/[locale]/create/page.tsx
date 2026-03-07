@@ -4,7 +4,6 @@ import { createWedding } from "@/actions/create-wedding";
 import { ALL_LANGUAGES, POPULAR_LANGUAGE_IDS } from "@/data/languages";
 import { Link, useRouter } from "@/navigation";
 import { ModuleSelector } from "@shared/components/modules/ModuleSelector";
-import { Spinner } from "@shared/components/ui/spinner";
 import { APP_MODULES } from "@shared/data/modules";
 import { Elements } from "@stripe/react-stripe-js";
 import { loadStripe } from "@stripe/stripe-js";
@@ -18,12 +17,14 @@ import {
   Heart,
   Image as ImageIcon,
   LifeBuoy,
+  Loader2,
   MapPin,
   Music,
   Sparkles,
   Video,
   X,
 } from "lucide-react";
+import { useSearchParams } from "next/navigation";
 import { use, useCallback, useEffect, useRef, useState } from "react";
 import { toast } from "sonner";
 import { CheckoutForm } from "./CheckoutForm";
@@ -164,11 +165,30 @@ export default function CreateWizard({
 }) {
   const resolvedParams = use(searchParams);
   const router = useRouter();
-  const [step, setStep] = useState(1);
+  const searchParamsHook = useSearchParams();
+  const [step, setStep] = useState(() => {
+    if (typeof window !== "undefined") {
+      if (window.location.search.includes("payment_intent_client_secret"))
+        return 6;
+      if (sessionStorage.getItem("temporary_payment_confirmed") === "true")
+        return 6;
+    }
+    return 1;
+  });
   const [loading, setLoading] = useState(false);
   const [clientSecret, setClientSecret] = useState<string | null>(null);
+  const [isPaymentConfirmed, setIsPaymentConfirmed] = useState(() => {
+    if (typeof window !== "undefined") {
+      return sessionStorage.getItem("temporary_payment_confirmed") === "true";
+    }
+    return false;
+  });
   const [isRestoring, setIsRestoring] = useState(() => {
-    return !!resolvedParams.payment_intent_client_secret;
+    return (
+      !!resolvedParams.payment_intent_client_secret ||
+      (typeof window !== "undefined" &&
+        sessionStorage.getItem("temporary_payment_confirmed") === "true")
+    );
   });
   const processedRedirectRef = useRef(false);
 
@@ -210,10 +230,6 @@ export default function CreateWizard({
     if (intentSecret) {
       processedRedirectRef.current = true;
 
-      // 1. Immediately clean URL to stop infinite loops
-      const newUrl = window.location.pathname + window.location.hash;
-      window.history.replaceState({}, document.title, newUrl);
-
       // 2. Restore state
       const savedData = localStorage.getItem("checkout_form_data");
       if (savedData) {
@@ -235,58 +251,41 @@ export default function CreateWizard({
             const stripe = await stripePromise;
             if (!stripe) return;
 
-            const { paymentIntent } =
-              await stripe.retrievePaymentIntent(intentSecret);
-            if (paymentIntent?.status === "succeeded") {
-              toast.info("Validation du paiement en cours...");
+            try {
+              console.log(
+                "🔍 Verifying Stripe Payment Status for Intent:",
+                intentSecret,
+              );
+              const { paymentIntent } =
+                await stripe.retrievePaymentIntent(intentSecret);
+              console.log("💳 Payment Intent Status:", paymentIntent?.status);
 
-              // Direct creation call to avoid stale closure issues
-              const finalizeWithData = async (data: typeof formData) => {
-                setLoading(true);
-                try {
-                  const result = await createWedding({
-                    email: data.email,
-                    password: data.password,
-                    firstName: data.name1,
-                    lastName: data.billingLastName || data.name1,
-                    partnerName: data.name2,
-                    weddingDate: data.date,
-                    themeId: data.theme,
-                    modules: data.modules,
-                    extras: data.extras,
-                    languages: data.languages,
-                    plan: data.plan,
-                  });
-                  if (result.success) {
-                    localStorage.removeItem("checkout_form_data");
-                    toast.success("Votre espace a été créé ! 💍");
-                    const dashboardUrlStr =
-                      process.env.NEXT_PUBLIC_DASHBOARD_URL;
-                    if (dashboardUrlStr) {
-                      const targetUrl = new URL("/auth/login", dashboardUrlStr);
-                      setTimeout(() => {
-                        window.location.href = targetUrl.toString();
-                      }, 1200);
-                    }
-                  } else {
-                    toast.error("Erreur post-paiement: " + result.error);
-                  }
-                } catch (e) {
-                  console.error(e);
-                  toast.error("Erreur technique post-paiement.");
-                } finally {
-                  setLoading(false);
-                }
-              };
+              // Clean URL only after we have the status to avoid missing it on re-renders
+              const newUrl = window.location.pathname + window.location.hash;
+              window.history.replaceState({}, document.title, newUrl);
 
-              setTimeout(() => {
-                finalizeWithData(parsedData);
-              }, 600);
-            } else if (paymentIntent?.status === "processing") {
-              toast.info("Votre paiement est en cours de traitement.");
-            } else {
+              if (paymentIntent?.status === "succeeded") {
+                console.log(
+                  "✅ Payment Succeeded! Persisting to sessionStorage",
+                );
+                toast.success("Paiement validé !");
+                setIsPaymentConfirmed(true);
+                sessionStorage.setItem("temporary_payment_confirmed", "true");
+              } else if (paymentIntent?.status === "processing") {
+                toast.info("Votre paiement est en cours de traitement.");
+              } else {
+                console.warn(
+                  "❌ Payment failed or not succeeded:",
+                  paymentIntent?.status,
+                );
+                toast.error(
+                  "Le paiement a échoué ou a été annulé. Veuillez réessayer.",
+                );
+              }
+            } catch (err) {
+              console.error("🔥 Error retrieving payment intent:", err);
               toast.error(
-                "Le paiement a échoué ou a été annulé. Veuillez réessayer.",
+                "Erreur lors de la récupération du statut du paiement.",
               );
             }
           };
@@ -295,16 +294,24 @@ export default function CreateWizard({
         } catch (e) {
           console.error("Failed to restore form data", e);
         } finally {
-          // Always stop restoration loading state
           setTimeout(() => setIsRestoring(false), 500);
         }
       } else {
         setIsRestoring(false);
       }
     } else {
+      // If we are not restoring via URL, but we have session storage confirmed, we stay on step 6
+      if (
+        typeof window !== "undefined" &&
+        sessionStorage.getItem("temporary_payment_confirmed") === "true"
+      ) {
+        setStep(6);
+        const savedData = localStorage.getItem("checkout_form_data");
+        if (savedData) setFormData(JSON.parse(savedData));
+      }
       setIsRestoring(false);
     }
-  }, [createWedding]);
+  }, [searchParamsHook, createWedding]);
 
   const nextStep = () => setStep((s) => s + 1);
   const prevStep = () => setStep((s) => s - 1);
@@ -459,6 +466,7 @@ export default function CreateWizard({
         if (result.success) {
           // Cleanup
           localStorage.removeItem("checkout_form_data");
+          sessionStorage.removeItem("temporary_payment_confirmed");
 
           toast.success("Votre espace a été créé avec succès ! 💍", {
             description: "Redirection vers votre tableau de bord...",
@@ -1604,7 +1612,35 @@ export default function CreateWizard({
                     id='payment-section'
                     className='scroll-mt-32'
                   >
-                    {clientSecret ? (
+                    {isPaymentConfirmed ? (
+                      <div className='text-center py-8 bg-green-50/50 rounded-3xl border border-green-100 p-8'>
+                        <div className='w-16 h-16 bg-green-100 text-green-600 rounded-full flex items-center justify-center mx-auto mb-4'>
+                          <Check className='w-8 h-8' />
+                        </div>
+                        <h3 className='text-xl font-heading font-bold text-gray-900 mb-2'>
+                          Paiement Validé !
+                        </h3>
+                        <p className='text-gray-600 mb-8 max-w-sm mx-auto'>
+                          Votre paiement a été confirmé par Stripe/PayPal.
+                          Veuillez cliquer ci-dessous pour finaliser la création
+                          de votre projet.
+                        </p>
+                        <button
+                          onClick={handleFinalize}
+                          disabled={loading}
+                          className='w-full bg-primary text-white py-4 rounded-2xl font-bold text-lg shadow-xl hover:brightness-110 transition-all flex items-center justify-center gap-3 disabled:opacity-50'
+                        >
+                          {loading ? (
+                            <Loader2 className='w-6 h-6 animate-spin' />
+                          ) : (
+                            <>
+                              Confirmer & Créer mon compte
+                              <ChevronRight className='w-5 h-5' />
+                            </>
+                          )}
+                        </button>
+                      </div>
+                    ) : clientSecret ? (
                       <Elements
                         stripe={stripePromise}
                         options={{
@@ -1634,8 +1670,11 @@ export default function CreateWizard({
                         />
                       </Elements>
                     ) : (
-                      <div className='w-full flex justify-center py-8'>
-                        <Spinner className='text-primary' />
+                      <div className='w-full flex flex-col items-center justify-center py-12 gap-4'>
+                        <Loader2 className='w-10 h-10 text-primary animate-spin' />
+                        <p className='text-[#D4A574] font-medium animate-pulse'>
+                          Initialisation du paiement sécurisé...
+                        </p>
                       </div>
                     )}
                   </div>

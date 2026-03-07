@@ -76,26 +76,19 @@ export function CheckoutForm({
       );
 
       // 2. Confirm the PaymentIntent with the PaymentElement
-      const { error, paymentIntent } = await stripe.confirmPayment({
+      const { error } = await stripe.confirmPayment({
         elements,
         confirmParams: {
-          // Point back to the current window so that useEffect picks it up on success
           return_url: window.location.href,
         },
-        redirect: "if_required",
       });
 
       if (error) {
         setErrorMessage(error.message || "Une erreur inattendue est survenue.");
-      } else if (paymentIntent && paymentIntent.status === "succeeded") {
-        // Payment succeeded without a redirect
-        await onSuccess();
-      } else {
-        // Other states
-        setErrorMessage(
-          "Le paiement nécessite une validation supplémentaire non supportée dans ce POC.",
-        );
       }
+      // Note: If successful and a redirect is required, Stripe will handle it.
+      // If no redirect is required (e.g., payment already succeeded), we could handle it,
+      // but for this flow, we rely on the redirect to page.tsx for consistency.
     } catch (err: any) {
       setErrorMessage(err.message || "Une erreur inattendue est survenue.");
     } finally {
