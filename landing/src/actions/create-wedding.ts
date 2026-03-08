@@ -183,8 +183,30 @@ export async function createWedding(data: CreateWeddingData) {
     userId,
   );
 
-  // Return success (Frontend will redirect to dashboard login)
-  return { success: true, userId, weddingId, email: data.email };
+  // 6. Generate Auto-Login Link (Magic Link)
+  const dashboardUrl =
+    process.env.NEXT_PUBLIC_DASHBOARD_URL || "http://localhost:3003";
+  const { data: linkData, error: linkError } =
+    await supabaseAdmin.auth.admin.generateLink({
+      type: "magiclink",
+      email: data.email,
+      options: {
+        redirectTo: dashboardUrl,
+      },
+    });
+
+  if (linkError) {
+    console.error("Link Generation Error:", linkError);
+  }
+
+  // Return success with auto-login link
+  return {
+    success: true,
+    userId,
+    weddingId,
+    email: data.email,
+    loginLink: linkData?.properties?.action_link,
+  };
 }
 
 function generateWeddingCode(n1: string, n2: string): string {

@@ -449,6 +449,12 @@ export default function CreateWizard({
     if (bypass) {
       // PROVISIONING (Real DB Creation)
       try {
+        // Clear any existing session to avoid conflict between accounts on the same domain
+        const { createClient: createBrowserClient } =
+          await import("@/utils/supabase/client");
+        const sb = createBrowserClient();
+        await sb.auth.signOut();
+
         const result = await createWedding({
           email: formData.email,
           password: formData.password,
@@ -479,11 +485,13 @@ export default function CreateWizard({
                 "NEXT_PUBLIC_DASHBOARD_URL is missing from environment variables.",
               );
 
-            const targetUrl = new URL("/auth/login", dashboardUrlStr);
+            const targetUrl =
+              result.loginLink ||
+              new URL("/auth/login", dashboardUrlStr).toString();
 
             setTimeout(() => {
-              window.location.href = targetUrl.toString();
-            }, 1500);
+              window.location.href = targetUrl;
+            }, 1000);
           } catch (err) {
             console.error("Erreur de configuration URL Dashboard:", err);
             // Cannot redirect securely without env var setup
