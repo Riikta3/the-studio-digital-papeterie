@@ -1,3 +1,4 @@
+import { SpeedInsights } from "@vercel/speed-insights/next";
 import type { Metadata } from "next";
 import { NextIntlClientProvider } from "next-intl";
 import { getMessages } from "next-intl/server";
@@ -41,6 +42,7 @@ export default async function LocaleLayout({
         {children}
         <CookieConsent />
         <Toaster />
+        <SpeedInsights />
       </ThemeProvider>
     </NextIntlClientProvider>
   );
