@@ -20,28 +20,18 @@ interface WelcomePopupProps {
 export function WelcomePopup({ slug }: WelcomePopupProps) {
   const t = useTranslations("WelcomePopup");
   const searchParams = useSearchParams();
-  const [isOpen, setIsOpen] = useState(false);
+
+  // Initialize state directly from searchParams to avoid "setState in effect" warning
+  const isFirst = searchParams.get("first") === "true";
+  const [isOpen, setIsOpen] = useState(isFirst);
 
   useEffect(() => {
-    const isFirst = searchParams.get("first") === "true";
     if (isFirst) {
-      setIsOpen(true);
       // Clean URL immediately to avoid re-triggering and fix lint potential
       const newUrl = window.location.pathname;
       window.history.replaceState({}, "", newUrl);
     }
-  }, [searchParams]);
-
-  const getSiteUrl = (slug: string) => {
-    const isDev =
-      typeof window !== "undefined" && window.location.hostname === "localhost";
-    const baseUrl = isDev
-      ? "http://localhost:3002"
-      : "https://the-studio.digital";
-    return `${baseUrl}/fr/invitation/${slug}`;
-  };
-
-  const siteUrl = slug ? getSiteUrl(slug) : "#";
+  }, [isFirst]);
 
   const handleClose = () => {
     setIsOpen(false);
@@ -69,7 +59,14 @@ export function WelcomePopup({ slug }: WelcomePopupProps) {
 
           <div className='flex flex-col w-full gap-3 pt-4'>
             <Button
-              onClick={() => window.open(siteUrl, "_blank")}
+              onClick={() => {
+                if (!slug) return;
+                const isDev = window.location.hostname === "localhost";
+                const baseUrl = isDev
+                  ? "http://localhost:3002"
+                  : "https://the-studio.digital";
+                window.open(`${baseUrl}/fr/invitation/${slug}`, "_blank");
+              }}
               className='w-full py-6 rounded-2xl bg-primary text-white hover:bg-primary/90 transition-all text-lg font-medium shadow-lg shadow-primary/20 gap-2'
               disabled={!slug}
             >

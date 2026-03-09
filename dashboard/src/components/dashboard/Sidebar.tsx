@@ -162,24 +162,29 @@ export function Sidebar({ slug }: { slug: string | null }) {
             })}
           </nav>
 
+  const [siteUrl, setSiteUrl] = useState<string>("#");
+
+  useEffect(() => {
+    if (slug) {
+      const isDev = window.location.hostname === "localhost";
+      const baseUrl = isDev
+        ? "http://localhost:3002"
+        : "https://the-studio.digital";
+      setSiteUrl(`${baseUrl}/fr/invitation/${slug}`);
+    } else {
+      setSiteUrl("#");
+    }
+  }, [slug]);
+
           {/* Builder Link */}
           <div className='mb-6'>
             <a
-              href={
-                slug
-                  ? `${
-                      typeof window !== "undefined" &&
-                      window.location.hostname === "localhost"
-                        ? "http://localhost:3002"
-                        : "https://the-studio.digital"
-                    }/fr/invitation/${slug}`
-                  : "#"
-              }
+              href={siteUrl}
               target='_blank'
               rel='noopener noreferrer'
               className={cn(
                 "flex items-center justify-center gap-2 w-full px-3 py-2.5 bg-primary text-white rounded-lg text-sm font-medium hover:bg-primary/90 transition-all shadow-sm whitespace-nowrap",
-                !slug && "opacity-50 cursor-not-allowed pointer-events-none",
+                (!slug || siteUrl === "#") && "opacity-50 cursor-not-allowed pointer-events-none",
               )}
             >
               <Grid size={16} />
