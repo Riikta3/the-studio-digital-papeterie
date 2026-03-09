@@ -90,8 +90,8 @@ export default function PlanPage() {
             className={cn(
               "w-full mt-8 rounded-full py-3 text-sm font-semibold transition-all text-center",
               plan === "experience"
-                ? "bg-[#455e4e] text-white shadow-md"
-                : "bg-card border border-[#455e4e] text-[#455e4e] group-hover:bg-[#455e4e] group-hover:text-white",
+                ? "bg-primary text-primary-foreground shadow-md"
+                : "bg-card border border-primary text-primary group-hover:bg-primary group-hover:text-primary-foreground",
             )}
           >
             {plan === "experience" ? "Sélectionné" : "Choisir"}
@@ -154,8 +154,8 @@ export default function PlanPage() {
             className={cn(
               "w-full mt-8 rounded-full py-3 text-sm font-semibold transition-all text-center",
               plan === "premium"
-                ? "bg-[#455e4e] text-white shadow-md"
-                : "bg-card border border-[#455e4e] text-[#455e4e] group-hover:bg-[#455e4e] group-hover:text-white",
+                ? "bg-primary text-primary-foreground shadow-md"
+                : "bg-card border border-primary text-primary group-hover:bg-primary group-hover:text-primary-foreground",
             )}
           >
             {plan === "premium" ? "Sélectionné" : "Choisir"}

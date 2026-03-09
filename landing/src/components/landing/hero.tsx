@@ -4,31 +4,11 @@ import { Link } from "@/navigation";
 import { motion } from "framer-motion";
 import { ArrowRight, ChevronDown } from "lucide-react";
 import { useTranslations } from "next-intl";
-import Image from "next/image";
 
 export function Hero() {
   const t = useTranslations("Hero");
   return (
     <section className='relative flex min-h-screen w-full items-center justify-center overflow-hidden pt-20'>
-      {/* Background Decor */}
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 1.2, ease: "easeOut" }}
-        className='absolute inset-0 z-0 pointer-events-none overflow-hidden'
-      >
-        <Image
-          src='/hero-bg.png'
-          alt=''
-          fill
-          priority
-          className='object-cover opacity-60' /* Removed mix-blend for cleaner look with new colors */
-        />
-
-        {/* Center Overlay to ensure text readability */}
-        <div className='absolute inset-0 bg-background/20 bg-[radial-gradient(ellipse_at_center,var(--tw-gradient-stops))] from-transparent via-background/40 to-background/90' />
-      </motion.div>
-
       {/* Global Grain Overlay for "Paper Feel" */}
       <div className='fixed inset-0 pointer-events-none z-[100] opacity-[0.04] mix-blend-multiply bg-noise' />
 
