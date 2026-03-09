@@ -38,7 +38,7 @@ const navItems = [
   { key: "settings", href: "/settings", icon: Settings },
 ];
 
-export function Sidebar() {
+export function Sidebar({ slug }: { slug: string | null }) {
   const t = useTranslations("Sidebar");
   const pathname = usePathname();
   const [isOpen, setIsOpen] = useState(false);
@@ -165,13 +165,25 @@ export function Sidebar() {
           {/* Builder Link */}
           <div className='mb-6'>
             <a
-              href='http://localhost:3001'
+              href={
+                slug
+                  ? `${
+                      typeof window !== "undefined" &&
+                      window.location.hostname === "localhost"
+                        ? "http://localhost:3002"
+                        : "https://the-studio.digital"
+                    }/fr/invitation/${slug}`
+                  : "#"
+              }
               target='_blank'
               rel='noopener noreferrer'
-              className='flex items-center justify-center gap-2 w-full px-3 py-2.5 bg-primary text-white rounded-lg text-sm font-medium hover:bg-primary/90 transition-all shadow-sm whitespace-nowrap'
+              className={cn(
+                "flex items-center justify-center gap-2 w-full px-3 py-2.5 bg-primary text-white rounded-lg text-sm font-medium hover:bg-primary/90 transition-all shadow-sm whitespace-nowrap",
+                !slug && "opacity-50 cursor-not-allowed pointer-events-none",
+              )}
             >
               <Grid size={16} />
-              <span>Voir mon faire-part</span>
+              <span>{t("view_site")}</span>
             </a>
           </div>
 

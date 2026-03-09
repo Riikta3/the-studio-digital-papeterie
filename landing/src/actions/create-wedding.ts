@@ -1,6 +1,7 @@
 "use server";
 
 import { supabaseAdmin } from "@/lib/supabase-admin";
+import { APP_MODULES } from "@shared/data/modules";
 
 interface CreateWeddingData {
   email: string;
@@ -127,8 +128,8 @@ export async function createWedding(data: CreateWeddingData) {
     wedding_id: weddingId,
     is_module_rsvp_meal_enabled: data.modules.includes("rsvp"),
     is_module_gallery_enabled: data.modules.includes("gallery"),
-    is_module_schedule_enabled: data.modules.includes("program"),
-    is_module_accommodation_enabled: data.modules.includes("travel"),
+    is_module_schedule_enabled: data.modules.includes("timeline"),
+    is_module_accommodation_enabled: data.modules.includes("accommodation"),
     theme_config: { themeId: data.themeId },
     wedding_code: generateWeddingCode(data.firstName, data.partnerName),
   });
@@ -139,17 +140,66 @@ export async function createWedding(data: CreateWeddingData) {
   }
 
   // 4. Create Site Record (Static Template Approach)
-  const { error: siteError } = await supabaseAdmin.from("sites").insert({
-    wedding_id: weddingId,
-    plan_id: data.plan,
-    theme_id: data.themeId,
-    modules: data.modules,
-    languages: data.languages,
-    extras: data.extras,
-    status: "draft",
+  // Sort modules by predefined order
+  const sortedModules = [...data.modules].sort((a, b) => {
+    const orderA = APP_MODULES.find((m: any) => m.id === a)?.defaultOrder || 99;
+    const orderB = APP_MODULES.find((m: any) => m.id === b)?.defaultOrder || 99;
+    return orderA - orderB;
   });
 
-  if (siteError) console.error("Site Creation Error:", siteError);
+  // Generate a unique slug
+  const baseSlug = generateSlug(data.firstName, data.partnerName);
+  let finalSlug = baseSlug;
+  let isUnique = false;
+  let attempts = 0;
+
+  while (!isUnique && attempts < 5) {
+    const { data: existingSite } = await supabaseAdmin
+      .from("sites")
+      .select("id")
+      .eq("slug", finalSlug)
+      .maybeSingle();
+
+    if (!existingSite) {
+      isUnique = true;
+    } else {
+      attempts++;
+      finalSlug = `${baseSlug}-${Math.floor(1000 + Math.random() * 9000)}`;
+    }
+  }
+
+  const { data: siteData, error: siteError } = await supabaseAdmin
+    .from("sites")
+    .insert({
+      wedding_id: weddingId,
+      plan_id: data.plan,
+      theme_id: data.themeId,
+      modules: sortedModules,
+      languages: data.languages,
+      extras: data.extras,
+      slug: finalSlug,
+      status: "draft",
+    })
+    .select("id")
+    .single();
+
+  if (siteError || !siteData) {
+    console.error("Site Creation Error:", siteError);
+  } else {
+    // 4.5 Insert into site_modules (New Registry Architecture)
+    const siteId = siteData.id;
+    const siteModulesEntries = sortedModules.map((modId, index) => ({
+      site_id: siteId,
+      module_id: modId,
+      position: index + 1,
+    }));
+
+    const { error: smError } = await supabaseAdmin
+      .from("site_modules")
+      .insert(siteModulesEntries);
+
+    if (smError) console.error("Site Modules Registry Error:", smError);
+  }
 
   // 5. Record Purchases (Wallet)
   const purchaseItems: {
@@ -184,14 +234,24 @@ export async function createWedding(data: CreateWeddingData) {
   );
 
   // 6. Generate Auto-Login Link (Magic Link)
-  const dashboardUrl =
-    process.env.NEXT_PUBLIC_DASHBOARD_URL || "http://localhost:3003";
+  const isProd = process.env.NODE_ENV === "production";
+  const dashboardUrl = isProd
+    ? process.env.NEXT_PUBLIC_DASHBOARD_URL || "https://the-studio.digital"
+    : "http://localhost:3003";
+
+  console.log(
+    "📍 Environment:",
+    process.env.NODE_ENV,
+    "Redirection URL:",
+    dashboardUrl,
+  );
+
   const { data: linkData, error: linkError } =
     await supabaseAdmin.auth.admin.generateLink({
       type: "magiclink",
       email: data.email,
       options: {
-        redirectTo: dashboardUrl,
+        redirectTo: `${dashboardUrl}/fr?first=true`,
       },
     });
 
@@ -217,4 +277,17 @@ function generateWeddingCode(n1: string, n2: string): string {
       .substring(0, 4);
   const year = new Date().getFullYear();
   return `${clean(n1)}&${clean(n2)}${year}`;
+}
+
+function generateSlug(n1: string, n2: string): string {
+  const clean = (s: string) =>
+    s
+      .toLowerCase()
+      .normalize("NFD")
+      .replace(/[\u0300-\u036f]/g, "") // remove accents
+      .replace(/[^a-z0-9]/g, "-") // replace non-alphanumeric with hyphens
+      .replace(/-+/g, "-") // collapse multiple hyphens
+      .replace(/^-|-$/g, ""); // remove leading/trailing hyphens
+
+  return `${clean(n1)}-et-${clean(n2)}`;
 }

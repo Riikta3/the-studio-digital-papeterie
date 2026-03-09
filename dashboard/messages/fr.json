@@ -225,5 +225,11 @@
     "filter_clear": "Effacer filtres",
     "results_count": "{count} résultat(s)",
     "no_results_filters": "Aucun résultat pour ces filtres."
+  },
+  "WelcomePopup": {
+    "title": "Bienvenue sur The Studio ! ✨",
+    "description": "Félicitations pour votre mariage. Votre faire-part numérique est prêt et n'attend plus que vous.",
+    "view_site_btn": "Voir mon faire-part",
+    "start_config_btn": "Commencer la configuration"
   }
 }

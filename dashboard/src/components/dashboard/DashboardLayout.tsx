@@ -2,38 +2,145 @@
 
 import { createClient } from "@/utils/supabase/client";
 import { usePathname } from "next/navigation";
-import { useEffect, useState } from "react";
+import { Suspense, useCallback, useEffect, useRef, useState } from "react";
 import { Sidebar } from "./Sidebar";
+import { WelcomePopup } from "./WelcomePopup";
 
 export function DashboardLayout({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
   const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
   const [isLoading, setIsLoading] = useState<boolean>(true);
+  const [slug, setSlug] = useState<string | null>(null);
+
+  // Use a ref to prevent multiple concurrent fetchSlug calls for the same user
+  const fetchingSlugForRef = useRef<string | null>(null);
+
+  const supabase = createClient();
+
+  const fetchSlug = useCallback(
+    async (userId: string) => {
+      if (fetchingSlugForRef.current === userId) return;
+      fetchingSlugForRef.current = userId;
+
+      console.log("🔍 [fetchSlug] Started for:", userId);
+      try {
+        // 1. Fetch Wedding
+        const { data: wedding, error: wError } = await supabase
+          .from("weddings")
+          .select("id")
+          .eq("user_id", userId)
+          .maybeSingle();
+
+        console.log("🔍 [fetchSlug] Wedding query finished:", {
+          wedding,
+          wError,
+        });
+
+        if (wError) {
+          console.error("❌ [fetchSlug] Wedding Error:", wError);
+          return;
+        }
+
+        if (wedding) {
+          // 2. Fetch Site Slug
+          const { data: site, error: sError } = await supabase
+            .from("sites")
+            .select("slug")
+            .eq("wedding_id", wedding.id)
+            .maybeSingle();
+
+          console.log("🔍 [fetchSlug] Site query finished:", { site, sError });
+
+          if (sError) {
+            console.error("❌ [fetchSlug] Site Error:", sError);
+          }
+          if (site?.slug) {
+            console.log("✅ [fetchSlug] Slug found:", site.slug);
+            setSlug(site.slug);
+          } else {
+            console.warn(
+              "⚠️ [fetchSlug] No slug found for wedding:",
+              wedding.id,
+            );
+          }
+        } else {
+          console.warn("⚠️ [fetchSlug] No wedding found for user:", userId);
+        }
+      } catch (err) {
+        console.error("💥 [fetchSlug] Unexpected crash:", err);
+      } finally {
+        fetchingSlugForRef.current = null;
+      }
+    },
+    [supabase],
+  );
 
   useEffect(() => {
-    const supabase = createClient();
+    let mounted = true;
 
-    const checkAuth = async () => {
-      const {
-        data: { user },
-      } = await supabase.auth.getUser();
-      setIsAuthenticated(!!user);
-      setIsLoading(false);
+    const initAuth = async () => {
+      console.log("🚀 [initAuth] Starting check...");
+      try {
+        const {
+          data: { user },
+        } = await supabase.auth.getUser();
+        if (!mounted) return;
+
+        console.log("🚀 [initAuth] User found:", !!user);
+        const authenticated = !!user;
+        setIsAuthenticated(authenticated);
+
+        if (authenticated && user) {
+          // Trigger fetch but don't await to avoid blocking layout
+          fetchSlug(user.id);
+        }
+      } catch (err) {
+        console.error("💥 [initAuth] Failed:", err);
+      } finally {
+        if (mounted) {
+          console.log("🚀 [initAuth] Setting isLoading to false");
+          setIsLoading(false);
+        }
+      }
     };
 
-    checkAuth();
+    initAuth();
 
-    // Listen for auth changes
     const {
       data: { subscription },
-    } = supabase.auth.onAuthStateChange((_event, session) => {
-      setIsAuthenticated(!!session?.user);
+    } = supabase.auth.onAuthStateChange((event, session) => {
+      console.log("🔔 [authChange] Event:", event);
+      if (!mounted) return;
+
+      const authenticated = !!session?.user;
+      setIsAuthenticated(authenticated);
+
+      if (authenticated && session?.user) {
+        fetchSlug(session.user.id);
+      } else {
+        setSlug(null);
+      }
+
+      console.log("🔔 [authChange] Setting isLoading to false");
+      setIsLoading(false);
     });
 
-    return () => subscription.unsubscribe();
-  }, []);
+    return () => {
+      mounted = false;
+      subscription.unsubscribe();
+    };
+  }, [supabase, fetchSlug]);
 
-  // Pages that should never have sidebar (even if authenticated)
+  // Debug state log
+  useEffect(() => {
+    console.log("🏥 [Layout State] Active:", {
+      isAuthenticated,
+      isLoading,
+      slug,
+      pathname,
+    });
+  }, [isAuthenticated, isLoading, slug, pathname]);
+
   const isAuthPage =
     pathname.includes("/login") ||
     pathname.includes("/register") ||
@@ -43,10 +150,8 @@ export function DashboardLayout({ children }: { children: React.ReactNode }) {
   const isAlwaysFullScreen =
     pathname.startsWith("/rsvp") || pathname === "/preview" || isAuthPage;
 
-  // Show sidebar only if authenticated and not on full-screen pages
   const showSidebar = isAuthenticated && !isAlwaysFullScreen;
 
-  // Show loading state or hide content during auth check to prevent flash
   if (isLoading) {
     if (
       !isAuthPage &&
@@ -55,12 +160,16 @@ export function DashboardLayout({ children }: { children: React.ReactNode }) {
     ) {
       return (
         <div className='fixed inset-0 z-[100] flex items-center justify-center bg-[#FDFBF7]'>
-          {/* Simple loading spinner or just background */}
-          <div className='animate-spin rounded-full h-8 w-8 border-b-2 border-primary'></div>
+          <div className='flex flex-col items-center gap-4'>
+            <div className='animate-spin rounded-full h-8 w-8 border-b-2 border-primary'></div>
+            <p className='text-xs text-gray-400'>
+              Initialisation de votre espace...
+            </p>
+          </div>
         </div>
       );
     }
-    return null; // or a loading spinner if you prefer
+    return null;
   }
 
   if (!showSidebar) {
@@ -69,7 +178,10 @@ export function DashboardLayout({ children }: { children: React.ReactNode }) {
 
   return (
     <div className='min-h-screen bg-[#FDFBF7]'>
-      <Sidebar />
+      <Suspense fallback={null}>
+        <WelcomePopup slug={slug || undefined} />
+      </Suspense>
+      <Sidebar slug={slug} />
       <main className='md:ml-64 min-h-screen transition-all'>{children}</main>
     </div>
   );
