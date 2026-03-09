@@ -120,8 +120,8 @@ export function PricingPreview() {
                   className={cn(
                     "w-full rounded-full py-3 text-sm font-semibold transition-all text-center",
                     plan.highlight
-                      ? "bg-[#455e4e] text-white hover:bg-[#354a3d] shadow-md hover:shadow-lg"
-                      : "bg-card border border-[#455e4e] text-[#455e4e] hover:bg-[#455e4e] hover:text-white",
+                      ? "bg-primary text-primary-foreground hover:bg-primary/90 shadow-md hover:shadow-lg"
+                      : "bg-card border border-primary text-primary hover:bg-primary hover:text-primary-foreground",
                   )}
                 >
                   {plan.cta}

@@ -12,7 +12,7 @@ html {
     --foreground: 0 0% 16%;
     --card: 0 0% 100%;
     --card-foreground: 0 0% 16%;
-    --primary: 145 19% 36%;
+    --primary: 344 53% 35%;
     --primary-foreground: 0 0% 98%;
     --secondary: 210 20% 96%;
     --secondary-foreground: 220 10% 10%;
@@ -22,7 +22,7 @@ html {
     /* Gris perle neutre */
     --accent-foreground: 220 10% 10%;
     --border: 40 10% 88%;
-    --ring: 145 19% 36%;
+    --ring: 344 53% 35%;
     --radius: 1rem;
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 210 40% 98%;
@@ -36,7 +36,7 @@ html {
     --foreground: 0 0% 16%;
     --card: 0 0% 100%;
     --card-foreground: 0 0% 16%;
-    --primary: 145 19% 36%;
+    --primary: 344 53% 35%;
     --primary-foreground: 0 0% 98%;
     --secondary: 24 33% 92%;
     --secondary-foreground: 0 0% 16%;
@@ -45,7 +45,7 @@ html {
     --accent: 25 25% 60%;
     --accent-foreground: 0 0% 98%;
     --border: 40 10% 88%;
-    --ring: 145 19% 36%;
+    --ring: 344 53% 35%;
     --radius: 1rem;
     --font-heading: var(--font-cormorant);
     --font-body: var(--font-inter);
