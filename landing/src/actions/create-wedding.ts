@@ -289,5 +289,6 @@ function generateSlug(n1: string, n2: string): string {
       .replace(/-+/g, "-") // collapse multiple hyphens
       .replace(/^-|-$/g, ""); // remove leading/trailing hyphens
 
-  return `${clean(n1)}-et-${clean(n2)}`;
+  const randomHash = Math.random().toString(36).substring(2, 6);
+  return `${clean(n1)}-et-${clean(n2)}-${randomHash}`;
 }
