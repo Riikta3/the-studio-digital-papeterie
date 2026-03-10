@@ -149,7 +149,7 @@ export default async function InvitationPage({ params }: InvitationPageProps) {
       {/* --- DYNAMIC MODULES RENDERER --- */}
       <main
         id='modules'
-        className='max-w-4xl mx-auto py-20 px-4 relative z-10 scroll-mt-20'
+        className='max-w-4xl mx-auto py-20 px-4 relative z-10'
       >
         <ModuleRenderer
           modules={siteConfig.modules}
