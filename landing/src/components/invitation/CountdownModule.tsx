@@ -8,11 +8,15 @@ interface CountdownData {
   targetDate: string; // ISO String format
 }
 
+function getDefaultWeddingDate(): string {
+  const d = new Date();
+  d.setMonth(d.getMonth() + 9);
+  d.setDate(d.getDate() + 4);
+  return d.toISOString();
+}
+
 const MOCK_COUNTDOWN: CountdownData = {
-  // Set mock date to exactly 1 year from now for demonstration
-  targetDate: new Date(
-    new Date().setFullYear(new Date().getFullYear() + 1),
-  ).toISOString(),
+  targetDate: getDefaultWeddingDate(),
 };
 
 interface TimeRemaining {

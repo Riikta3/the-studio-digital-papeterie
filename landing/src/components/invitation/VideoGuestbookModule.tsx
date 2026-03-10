@@ -7,7 +7,13 @@ import { useRef, useState } from "react";
 const MAX_FILE_SIZE = 50 * 1024 * 1024; // 50MB
 const ALLOWED_TYPES = ["video/mp4", "video/quicktime", "video/webm"];
 
-export function VideoGuestbookModule({ weddingId }: { weddingId: string }) {
+export function VideoGuestbookModule({
+  weddingId,
+  config,
+}: {
+  weddingId: string;
+  config?: Record<string, any> | null;
+}) {
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [videoFile, setVideoFile] = useState<File | null>(null);
   const [previewUrl, setPreviewUrl] = useState<string | null>(null);

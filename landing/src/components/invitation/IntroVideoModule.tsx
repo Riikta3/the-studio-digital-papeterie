@@ -22,8 +22,15 @@ const MOCK_INTRO_VIDEO: IntroVideoData = {
   videoType: "embed",
 };
 
-export function IntroVideoModule({ weddingId }: { weddingId: string }) {
-  const data = MOCK_INTRO_VIDEO;
+export function IntroVideoModule({
+  weddingId,
+  config,
+}: {
+  weddingId: string;
+  config?: Record<string, any> | null;
+}) {
+  const data: IntroVideoData =
+    config?.videoUrl ? (config as IntroVideoData) : MOCK_INTRO_VIDEO;
   const [isPlaying, setIsPlaying] = useState(false);
 
   if (!data.videoUrl) return null;

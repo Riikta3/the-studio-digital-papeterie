@@ -21,8 +21,15 @@ const MOCK_PHOTO_SHARE: PhotoShareData = {
   appUrlLabel: "Partager mes photos",
 };
 
-export function PhotoShareModule({ weddingId }: { weddingId: string }) {
-  const data = MOCK_PHOTO_SHARE;
+export function PhotoShareModule({
+  weddingId,
+  config,
+}: {
+  weddingId: string;
+  config?: Record<string, any> | null;
+}) {
+  const data: PhotoShareData =
+    config?.appUrl ? (config as PhotoShareData) : MOCK_PHOTO_SHARE;
 
   return (
     <section className='w-full'>

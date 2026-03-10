@@ -34,33 +34,33 @@ const MOCK_ACCOMMODATIONS: AccommodationData = {
   title: "Logements",
   subtitle: "Où dormir ?",
   description:
-    "Pour profiter pleinement de la fête en toute sécurité, voici nos suggestions d'hébergements à proximité du domaine.",
+    "Pour profiter pleinement de la fête en toute sérénité, voici nos suggestions d'hébergements à proximité du domaine.",
   options: [
     {
       id: "1",
       type: "Hotel",
-      name: "Le Grand Chalet",
-      distance: "À 5 minutes du domaine",
+      name: "Ibis Melun",
+      distance: "À 15 minutes du domaine",
       description:
-        "Hôtel 4 étoiles avec vue panoramique et un spa pour vous détendre.",
-      url: "https://booking.com",
+        "Hôtel confortable idéalement situé à Melun, avec navette disponible sur demande pour rejoindre le château.",
+      url: "https://all.accor.com",
       urlLabel: "Réserver une chambre",
     },
     {
       id: "2",
       type: "House",
-      name: "Les Colombes Airbnb",
-      distance: "À 10 minutes (village voisin)",
+      name: "Gîte de Maincy",
+      distance: "À 5 minutes (village voisin)",
       description:
-        "Idéal pour les familles ou groupes d'amis. Gîte indépendant très spacieux avec 3 chambres.",
+        "Idéal pour les familles ou groupes d'amis. Gîte spacieux avec 4 chambres au cœur du village de Maincy.",
       url: "https://airbnb.com",
       urlLabel: "Voir sur Airbnb",
     },
     {
       id: "3",
       type: "Hotel",
-      name: "Auberge de la Forêt",
-      distance: "Sur place",
+      name: "Hôtel de la Brie",
+      distance: "À 20 minutes",
       description:
         "Nous avons pré-réservé quelques chambres pour nos invités. Contactez-nous rapidement pour bloquer la vôtre.",
     },
@@ -80,9 +80,17 @@ function getIcon(type: AccommodationType) {
   }
 }
 
-export function AccommodationModule({ weddingId }: { weddingId: string }) {
-  // In the future: await fetchAccommodationData(weddingId)
-  const data = MOCK_ACCOMMODATIONS;
+export function AccommodationModule({
+  weddingId,
+  config,
+}: {
+  weddingId: string;
+  config?: Record<string, any> | null;
+}) {
+  const data: AccommodationData =
+    config?.options && Array.isArray(config.options) && config.options.length > 0
+      ? (config as AccommodationData)
+      : MOCK_ACCOMMODATIONS;
 
   if (!data.options || data.options.length === 0) return null;
 

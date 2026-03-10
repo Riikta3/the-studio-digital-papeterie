@@ -7,11 +7,13 @@ import { useState } from "react";
 export function RsvpModule({
   weddingId,
   extras,
+  config,
 }: {
   weddingId: string;
   extras?: {
     rsvp_deadline?: string;
   };
+  config?: Record<string, any> | null;
 }) {
   const [formData, setFormData] = useState({
     name: "",
@@ -60,7 +62,8 @@ export function RsvpModule({
     );
   }
 
-  const deadline = extras?.rsvp_deadline || "1er Avril 2026";
+  const deadline =
+    config?.rsvp_deadline || extras?.rsvp_deadline || "14 Novembre 2026";
 
   return (
     <section className='w-full'>

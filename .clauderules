@@ -1,0 +1,16 @@
+# Règles du projet The Studio Digital
+
+## Architecture
+- Ce projet est un monorepo structuré : `dashboard` (app), `landing` (site vitrine), et `shared` (code commun).
+- Toujours vérifier si une fonction peut être mise dans `shared` avant de la dupliquer.
+- Utiliser les conventions Next.js (App Router si présent).
+
+## Stack Technique
+- Base de données : Supabase (utiliser les types générés si disponibles).
+- Style : Tailwind CSS.
+- Langage : TypeScript (mode strict).
+
+## Comportement de Claude
+- Avant de modifier un fichier dans `supabase/`, explique l'impact sur le schéma.
+- Si tu modifies le dossier `shared`, vérifie que cela ne casse pas `dashboard` ou `landing`.
+- Toujours proposer un plan avant de faire des modifications massives.

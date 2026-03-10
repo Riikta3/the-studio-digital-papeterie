@@ -1,10 +1,10 @@
+import { supabaseAdmin } from "@/lib/supabase-admin";
 import { AccommodationModule } from "./AccommodationModule";
 import { CountdownModule } from "./CountdownModule";
 import { Divider } from "./Divider";
 import { DressCodeModule } from "./DressCodeModule";
 import { FaqModule } from "./FaqModule";
 import { GalleryModule } from "./GalleryModule";
-import { GenericInfoModule } from "./GenericInfoModule";
 import { GiftListModule } from "./GiftListModule";
 import { GuestbookModule } from "./GuestbookModule";
 import { IntroVideoModule } from "./IntroVideoModule";
@@ -35,45 +35,41 @@ const MODULE_COMPONENTS: Record<string, React.ComponentType<any>> = {
   "video-guestbook": VideoGuestbookModule,
 };
 
-export function ModuleRenderer({
+export async function ModuleRenderer({
   modules,
   weddingId,
+  siteId,
   weddingDate,
   extras,
 }: {
   modules: string[];
   weddingId: string;
+  siteId: string;
   weddingDate?: string | null;
   extras?: any;
 }) {
   if (!modules || modules.length === 0) return null;
 
+  // Fetch all module configs for this site in a single query
+  const { data: siteModules } = await supabaseAdmin
+    .from("site_modules")
+    .select("module_id, config")
+    .eq("site_id", siteId);
+
+  const configMap: Record<string, Record<string, any> | null> = {};
+  (siteModules || []).forEach(({ module_id, config }) => {
+    configMap[module_id] = config ?? null;
+  });
+
+  // Only keep modules that have a registered component
+  const knownModules = modules.filter((id) => MODULE_COMPONENTS[id]);
+
   return (
     <div className='flex flex-col w-full'>
-      {modules.map((moduleId, index) => {
+      {knownModules.map((moduleId, index) => {
         const ModuleComponent = MODULE_COMPONENTS[moduleId];
-        const isLast = index === modules.length - 1;
-
-        if (!ModuleComponent) {
-          // Fallback to a nice generic info module for things like guestbook, menu, transport
-          const fallbackTitles: Record<string, string> = {
-            guestbook: "Livre d'Or",
-            accommodation: "Hébergement",
-            transport: "Transport",
-            menu: "Menu",
-          };
-
-          return (
-            <div key={moduleId}>
-              <GenericInfoModule
-                id={moduleId}
-                title={fallbackTitles[moduleId] || moduleId}
-                weddingId={weddingId}
-              />
-              {!isLast && <Divider />}
-            </div>
-          );
-        }
+        const isLast = index === knownModules.length - 1;
+        const config = configMap[moduleId] ?? null;
 
         return (
           <div key={moduleId}>
@@ -81,6 +77,7 @@ export function ModuleRenderer({
               weddingId={weddingId}
               weddingDate={weddingDate}
               extras={extras}
+              config={config}
             />
             {!isLast && <Divider />}
           </div>

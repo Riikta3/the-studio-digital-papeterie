@@ -84,7 +84,7 @@ export default async function InvitationPage({ params }: InvitationPageProps) {
   // 3. Fetch Sites config (Modules, Theme, Extras)
   const { data: siteConfig, error: siteError } = await supabaseAdmin
     .from("sites")
-    .select("theme_id, modules, plan_id, extras, languages")
+    .select("id, theme_id, modules, plan_id, extras, languages")
     .eq("wedding_id", weddingId)
     .single();
 
@@ -154,6 +154,7 @@ export default async function InvitationPage({ params }: InvitationPageProps) {
         <ModuleRenderer
           modules={siteConfig.modules}
           weddingId={weddingId}
+          siteId={siteConfig.id}
           weddingDate={profile.wedding_date}
           extras={siteConfig.extras}
         />

@@ -1,5 +1,3 @@
-// Make sure you remove "use client" from the top of the file!
-import { supabaseAdmin } from "@/lib/supabase-admin";
 import { MapPin } from "lucide-react";
 
 interface EventData {
@@ -11,44 +9,44 @@ interface EventData {
   order_index: number;
 }
 
-export async function TimelineModule({ weddingId }: { weddingId: string }) {
-  // Fetch real events from database
-  const { data: events, error } = await supabaseAdmin
-    .from("events")
-    .select("*")
-    .eq("wedding_id", weddingId)
-    .order("order_index", { ascending: true });
+const MOCK_EVENTS: EventData[] = [
+  {
+    id: "mock-1",
+    time: "15:00",
+    title: "Cérémonie Civile",
+    location: "Mairie du 8e arrondissement, Paris",
+    description: "Merci d'arriver 15 minutes en avance.",
+    order_index: 1,
+  },
+  {
+    id: "mock-2",
+    time: "17:30",
+    title: "Vin d'Honneur",
+    location: "Jardins du Palais Royal, Paris 1er",
+    description: "Cocktails et petits fours dans les jardins.",
+    order_index: 2,
+  },
+  {
+    id: "mock-3",
+    time: "20:00",
+    title: "Dîner & Soirée",
+    location: "Château de Vaux-le-Vicomte, Maincy (77)",
+    description: "Dress code élégant. Préparez-vous à danser !",
+    order_index: 3,
+  },
+];
 
-  const MOCK_EVENTS = [
-    {
-      id: "mock-1",
-      time: "14:30",
-      title: "Cérémonie Religieuse",
-      location: "Église Sainte-Marie",
-      description: "Merci d'arriver 15 minutes en avance.",
-      order_index: 1,
-    },
-    {
-      id: "mock-2",
-      time: "17:00",
-      title: "Vin d'Honneur",
-      location: "Château de la Roche",
-      description: "Cocktails et petits fours dans les jardins.",
-      order_index: 2,
-    },
-    {
-      id: "mock-3",
-      time: "20:00",
-      title: "Dîner & Soirée",
-      location: "Salle des Fêtes du Château",
-      description: "Dress code élégant. Préparez-vous à danser !",
-      order_index: 3,
-    },
-  ];
-
-  // If table doesn't exist yet or there's an error, fallback to mock data for design purposes
-  const displayEvents =
-    error || !events || events.length === 0 ? MOCK_EVENTS : events;
+export function TimelineModule({
+  weddingId,
+  config,
+}: {
+  weddingId: string;
+  config?: Record<string, any> | null;
+}) {
+  const events: EventData[] =
+    config?.events && Array.isArray(config.events) && config.events.length > 0
+      ? config.events
+      : MOCK_EVENTS;
 
   return (
     <section className='w-full'>
@@ -67,7 +65,7 @@ export async function TimelineModule({ weddingId }: { weddingId: string }) {
         <div className='absolute left-8 md:left-1/2 top-4 bottom-4 w-px bg-primary/20 -translate-x-1/2 z-0 md:hidden' />
 
         <div className='space-y-12 md:space-y-16'>
-          {displayEvents.map((event: EventData, i: number) => {
+          {events.map((event: EventData, i: number) => {
             const isEven = i % 2 === 0;
 
             return (

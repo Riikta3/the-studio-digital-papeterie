@@ -4,32 +4,34 @@ import { motion } from "framer-motion";
 import { ExternalLink, MapPin, Navigation } from "lucide-react";
 import Image from "next/image";
 
-// --- Data Types for Future DB ---
 export interface LocationData {
-  id: string;
+  id?: string;
   name: string;
   address: string;
   description?: string;
   imageUrl?: string;
   imageOrientation?: "portrait" | "landscape";
-  googleMapsUrl?: string; // Kept for backwards compatibility but we build dynamic URL
-  wazeUrl?: string;
 }
 
 const MOCK_LOCATION: LocationData = {
-  id: "loc-1",
-  name: "Pavillon Royal",
-  address: "Carrefour du bout des lacs, 1 Rte de Suresnes, 75116 Paris",
+  name: "Château de Vaux-le-Vicomte",
+  address: "Allée Maincy, 77950 Maincy",
   description:
-    "Un domaine enchanteur du XVIIIe siècle au cœur d'un parc boisé privé. Le stationnement est assuré sur place.",
+    "Un chef-d'œuvre du XVIIe siècle niché dans un écrin de verdure, à 55 km au sud-est de Paris. Stationnement gratuit sur place.",
   imageUrl:
     "https://images.unsplash.com/photo-1519225421980-715cb0215aed?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80",
-  imageOrientation: "landscape", // "landscape", "portrait", or remove.
+  imageOrientation: "landscape",
 };
 
-export function MapModule({ weddingId }: { weddingId: string }) {
-  // In the future: await fetchLocationData(weddingId)
-  const location = MOCK_LOCATION;
+export function MapModule({
+  weddingId,
+  config,
+}: {
+  weddingId: string;
+  config?: Record<string, any> | null;
+}) {
+  const location: LocationData =
+    config?.name ? (config as LocationData) : MOCK_LOCATION;
 
   if (!location) return null;
 
@@ -65,7 +67,6 @@ export function MapModule({ weddingId }: { weddingId: string }) {
                 className='object-cover'
                 sizes='(max-width: 768px) 100vw, 40vw'
               />
-              {/* Overlay gradient fades to right on desktop */}
               <div className='absolute inset-0 bg-gradient-to-t from-background/50 via-transparent to-transparent md:bg-gradient-to-r md:from-transparent md:to-background/90' />
             </div>
           )}
@@ -86,7 +87,7 @@ export function MapModule({ weddingId }: { weddingId: string }) {
 
           {/* Location Content Container */}
           <div
-            className={`w-full p-10 md:p-14 flex flex-col gap-10 justify-between 
+            className={`w-full p-10 md:p-14 flex flex-col gap-10 justify-between
               ${!location.imageUrl ? "text-center items-center" : isPortrait ? "flex-1 md:py-16" : "md:flex-row items-center"}
             `}
           >

@@ -26,8 +26,16 @@ const DEFAULT_PLAYLIST_TEXT = {
     "Aidez le DJ à préparer la soirée parfaite ! Recherchez et proposez jusqu'à 3 titres qui vous feront danser jusqu'au bout de la nuit. (Note : les musiques proposées ne seront pas forcément toutes jouées lors de la soirée).",
 };
 
-export function PlaylistModule({ weddingId }: { weddingId: string }) {
-  const data = DEFAULT_PLAYLIST_TEXT;
+export function PlaylistModule({
+  weddingId,
+  config,
+}: {
+  weddingId: string;
+  config?: Record<string, any> | null;
+}) {
+  const data: PlaylistData = config?.description
+    ? { ...DEFAULT_PLAYLIST_TEXT, ...config }
+    : DEFAULT_PLAYLIST_TEXT;
   const [searchQuery, setSearchQuery] = useState("");
   const [isSearching, setIsSearching] = useState(false);
   const [results, setResults] = useState<Track[]>([]);

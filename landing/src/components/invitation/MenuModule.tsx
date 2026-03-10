@@ -63,9 +63,17 @@ const MOCK_MENU: MenuData = {
   footer: ["Vins & Champagne inclus", "Café & Thé"],
 };
 
-export function MenuModule({ weddingId }: { weddingId: string }) {
-  // In the future: const menu = await fetchMenu(weddingId);
-  const menu = MOCK_MENU;
+export function MenuModule({
+  weddingId,
+  config,
+}: {
+  weddingId: string;
+  config?: Record<string, any> | null;
+}) {
+  const menu: MenuData =
+    config?.sections && Array.isArray(config.sections) && config.sections.length > 0
+      ? (config as MenuData)
+      : MOCK_MENU;
 
   if (!menu || menu.sections.length === 0) return null;
 

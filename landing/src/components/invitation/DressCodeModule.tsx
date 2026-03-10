@@ -16,8 +16,15 @@ const MOCK_DRESS_CODE: DressCodeData = {
     "Pour que la fête soit belle, nous vous invitons à porter une touche de vert sapin ou de doré dans vos tenues. Laissez parler votre créativité !",
 };
 
-export function DressCodeModule({ weddingId }: { weddingId: string }) {
-  const data = MOCK_DRESS_CODE;
+export function DressCodeModule({
+  weddingId,
+  config,
+}: {
+  weddingId: string;
+  config?: Record<string, any> | null;
+}) {
+  const data: DressCodeData =
+    config?.description ? (config as DressCodeData) : MOCK_DRESS_CODE;
 
   return (
     <section className='w-full'>

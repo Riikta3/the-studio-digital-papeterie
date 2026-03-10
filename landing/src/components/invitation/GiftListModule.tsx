@@ -9,6 +9,7 @@ export interface GiftListProps {
     gift_list_url?: string;
     gift_list_label?: string;
   };
+  config?: Record<string, any> | null;
 }
 
 const DEFAULT_GIFT_TEXT = {
@@ -18,10 +19,19 @@ const DEFAULT_GIFT_TEXT = {
     "Votre présence à nos côtés est le plus beau des cadeaux. Si vous souhaitez toutefois nous accompagner dans nos futurs projets ou notre voyage de noces, vous trouverez ci-dessous les options pour participer.",
 };
 
-export function GiftListModule({ weddingId, extras }: GiftListProps) {
-  const data = DEFAULT_GIFT_TEXT;
-  const giftUrl = extras?.gift_list_url || "https://millemercismariage.com"; // Fallback pour la démo
-  const giftLabel = extras?.gift_list_label || "Contribuer à notre projet";
+export function GiftListModule({ weddingId, extras, config }: GiftListProps) {
+  const data = {
+    ...DEFAULT_GIFT_TEXT,
+    ...(config?.description ? { description: config.description } : {}),
+  };
+  const giftUrl =
+    config?.gift_list_url ||
+    extras?.gift_list_url ||
+    "https://millemercismariage.com";
+  const giftLabel =
+    config?.gift_list_label ||
+    extras?.gift_list_label ||
+    "Contribuer à notre projet";
 
   return (
     <section className='w-full'>

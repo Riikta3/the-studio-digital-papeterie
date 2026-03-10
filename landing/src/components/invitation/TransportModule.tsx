@@ -4,7 +4,6 @@ import { Button } from "@shared/components/ui/button";
 import { motion } from "framer-motion";
 import { Bus, Car, ExternalLink, Plane, Ship, Train } from "lucide-react";
 
-// --- Data Types for Future DB ---
 export type TransportIconType = "Train" | "Plane" | "Bus" | "Car" | "Ship";
 
 export interface TransportOption {
@@ -16,8 +15,8 @@ export interface TransportOption {
 
 export interface TransportData {
   options: TransportOption[];
-  carpoolUrl?: string; // Optional: Si les mariés ont un lien de covoiturage (ex: Togetzer)
-  carpoolLinkLabel?: string; // The text on the button
+  carpoolUrl?: string;
+  carpoolLinkLabel?: string;
   carpoolDescription?: string;
 }
 
@@ -28,80 +27,57 @@ const MOCK_TRANSPORT: TransportData = {
       iconType: "Train",
       title: "En Train",
       description:
-        "Gare TGV de Paris Montparnasse (à 45min en navette du domaine).",
+        "Gare de Lyon → Melun en 35 min (Transilien R), puis taxi ou navette jusqu'au château (10 min).",
     },
     {
       id: "trans-2",
-      iconType: "Plane",
-      title: "En Avion",
+      iconType: "Car",
+      title: "En Voiture",
       description:
-        "Aéroport de Paris-Orly (ORY) situé à 1h15 du lieu de réception.",
+        "Depuis Paris : A6 direction Lyon, sortie Melun/Vaux-le-Vicomte. Parking gratuit et surveillé sur place.",
     },
     {
       id: "trans-3",
       iconType: "Bus",
       title: "Navettes Prévues",
       description:
-        "Des navettes privées feront l'aller-retour entre les hôtels du centre-ville et le domaine à 2h00, 3h30 et 5h00 du matin.",
+        "Des navettes privées feront l'aller-retour depuis Paris 8e et les hôtels partenaires à 2h00, 3h30 et 5h00 du matin.",
     },
   ],
   carpoolUrl: "https://togetzer.com/",
   carpoolLinkLabel: "Accéder au tableau",
   carpoolDescription:
-    "Pour limiter notre empreinte écologique et faciliter les trajets, nous avons mis en place un tableau de covoiturage. N'hésitez à proposer ou chercher une place !",
+    "Pour limiter notre empreinte écologique et faciliter les trajets, nous avons mis en place un tableau de covoiturage. N'hésitez pas à proposer ou chercher une place !",
 };
 
-// Helper function to render the correct Lucide icon
 const getIcon = (type: TransportIconType) => {
   switch (type) {
     case "Train":
-      return (
-        <Train
-          className='w-6 h-6 text-primary'
-          strokeWidth={1.5}
-        />
-      );
+      return <Train className='w-6 h-6 text-primary' strokeWidth={1.5} />;
     case "Plane":
-      return (
-        <Plane
-          className='w-6 h-6 text-primary'
-          strokeWidth={1.5}
-        />
-      );
+      return <Plane className='w-6 h-6 text-primary' strokeWidth={1.5} />;
     case "Bus":
-      return (
-        <Bus
-          className='w-6 h-6 text-primary'
-          strokeWidth={1.5}
-        />
-      );
+      return <Bus className='w-6 h-6 text-primary' strokeWidth={1.5} />;
     case "Car":
-      return (
-        <Car
-          className='w-6 h-6 text-primary'
-          strokeWidth={1.5}
-        />
-      );
+      return <Car className='w-6 h-6 text-primary' strokeWidth={1.5} />;
     case "Ship":
-      return (
-        <Ship
-          className='w-6 h-6 text-primary'
-          strokeWidth={1.5}
-        />
-      );
+      return <Ship className='w-6 h-6 text-primary' strokeWidth={1.5} />;
     default:
-      return (
-        <Car
-          className='w-6 h-6 text-primary'
-          strokeWidth={1.5}
-        />
-      );
+      return <Car className='w-6 h-6 text-primary' strokeWidth={1.5} />;
   }
 };
 
-export function TransportModule({ weddingId }: { weddingId: string }) {
-  // In the future: await fetchTransportData(weddingId)
-  const data = MOCK_TRANSPORT;
+export function TransportModule({
+  weddingId,
+  config,
+}: {
+  weddingId: string;
+  config?: Record<string, any> | null;
+}) {
+  const data: TransportData =
+    config?.options && Array.isArray(config.options)
+      ? (config as TransportData)
+      : MOCK_TRANSPORT;
 
   if (!data || (data.options.length === 0 && !data.carpoolUrl)) return null;
 
@@ -156,7 +132,6 @@ export function TransportModule({ weddingId }: { weddingId: string }) {
             transition={{ duration: 0.8, delay: 0.2, ease: "easeOut" }}
             className={`relative overflow-hidden bg-secondary rounded-[3rem] border border-border shadow-[0_8px_30px_-12px_rgba(0,0,0,0.04)] flex flex-col items-center text-center p-12 lg:p-14 ${data.options.length > 0 ? "md:col-span-5" : "col-span-12 max-w-md mx-auto w-full"}`}
           >
-            {/* Background Pattern mimicking screenshot lines */}
             <div
               className='absolute inset-0 opacity-[0.15] pointer-events-none'
               style={{
@@ -170,10 +145,7 @@ export function TransportModule({ weddingId }: { weddingId: string }) {
 
             <div className='relative z-10 w-full flex flex-col items-center h-full'>
               <div className='w-20 h-20 bg-card rounded-full flex items-center justify-center shadow-sm border border-border mt-4 mb-10'>
-                <Car
-                  className='w-7 h-7 text-primary'
-                  strokeWidth={1.5}
-                />
+                <Car className='w-7 h-7 text-primary' strokeWidth={1.5} />
               </div>
 
               <h4 className='font-heading text-4xl text-foreground mb-6'>

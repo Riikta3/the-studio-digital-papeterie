@@ -28,31 +28,40 @@ const DEFAULT_FAQ_DATA: FaqData = {
       id: "q1",
       question: "La cérémonie se déroulera-t-elle en extérieur ?",
       answer:
-        "Le cocktail et le dîner se dérouleront en extérieur dans les jardins du château. Nous vous conseillons de prévoir un petit châle pour la fin de soirée.",
+        "Le vin d'honneur et le dîner se dérouleront dans les jardins du Château de Vaux-le-Vicomte. Nous vous conseillons de prévoir un petit châle ou une veste pour la fin de soirée en décembre.",
     },
     {
       id: "q2",
       question: "Quelles chaussures privilégier ?",
       answer:
-        "Attention aux talons aiguilles ! Une grande partie des festivités aura lieu sur l'herbe et les graviers, privilégiez des talons carrés ou compensés.",
+        "Attention aux talons aiguilles ! Une grande partie des festivités aura lieu sur les allées gravillonnées du château — privilégiez des talons carrés ou compensés.",
     },
     {
       id: "q3",
-      question: "Y aura-t-il des navettes pour le retour ?",
+      question: "Y aura-t-il des navettes depuis Paris ?",
       answer:
-        "Oui, un système de navette est organisé vers les hôtels principaux à 2h, 3h et 4h du matin. Pensez à l'indiquer dans le formulaire RSVP !",
+        "Oui, des navettes privées partiront depuis le 8e arrondissement de Paris à partir de 14h, et des retours sont prévus à 2h, 3h30 et 5h du matin. Indiquez-le dans votre RSVP !",
     },
     {
       id: "q4",
       question: "Où pouvons-nous nous garer ?",
       answer:
-        "Un parking privé et surveillé est à votre disposition à l'entrée du domaine. Suivez simplement les panneaux à votre arrivée.",
+        "Un grand parking gratuit et surveillé est disponible à l'entrée du domaine. Suivez la signalétique à votre arrivée.",
     },
   ],
 };
 
-export function FaqModule({ weddingId }: { weddingId: string }) {
-  const data = DEFAULT_FAQ_DATA;
+export function FaqModule({
+  weddingId,
+  config,
+}: {
+  weddingId: string;
+  config?: Record<string, any> | null;
+}) {
+  const data: FaqData =
+    config?.questions && Array.isArray(config.questions) && config.questions.length > 0
+      ? (config as FaqData)
+      : DEFAULT_FAQ_DATA;
   const [openIndex, setOpenIndex] = useState<number | null>(null);
 
   if (!data.questions || data.questions.length === 0) return null;

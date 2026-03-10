@@ -4,7 +4,13 @@ import { motion } from "framer-motion";
 import { Heart, PenTool, Send } from "lucide-react";
 import { useState } from "react";
 
-export function GuestbookModule({ weddingId }: { weddingId: string }) {
+export function GuestbookModule({
+  weddingId,
+  config,
+}: {
+  weddingId: string;
+  config?: Record<string, any> | null;
+}) {
   const [formData, setFormData] = useState({
     name: "",
     message: "",

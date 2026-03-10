@@ -51,3 +51,8 @@ _bmad-output/
 .agent/
 .claude/
 .cursor/
+
+# Claude
+CLAUDE.md
+.claudeignore
+.claudrules
