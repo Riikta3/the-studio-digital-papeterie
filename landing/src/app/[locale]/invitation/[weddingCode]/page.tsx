@@ -157,6 +157,8 @@ export default async function InvitationPage({ params }: InvitationPageProps) {
           siteId={siteConfig.id}
           weddingDate={profile.wedding_date}
           extras={siteConfig.extras}
+          partner1={profile.first_name}
+          partner2={profile.partner_name || ""}
         />
       </main>
 

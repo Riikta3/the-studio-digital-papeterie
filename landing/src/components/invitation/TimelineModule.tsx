@@ -94,23 +94,21 @@ export function TimelineModule({
                       : "md:pl-20 md:text-left text-left"
                   }`}
                 >
-                  <div className='bg-card border border-border shadow-xl hover:border-primary/30 transition-colors p-8 rounded-[2rem]'>
+                  <div className='bg-card border border-border shadow-xl hover:border-primary/30 transition-colors p-10 rounded-[2rem]'>
                     <h4 className='font-heading text-2xl md:text-3xl mb-3 text-foreground'>
                       {event.title}
                     </h4>
                     {event.description && (
-                      <p className='text-muted-foreground font-light text-[14px] leading-relaxed mb-5 max-w-sm mr-auto ml-0 md:max-w-none md:mx-0'>
+                      <p className='text-muted-foreground font-light text-[14px] leading-relaxed mb-5'>
                         {event.description}
                       </p>
                     )}
                     {event.location && (
-                      <div
-                        className={`flex items-center gap-2 text-[10px] font-bold uppercase tracking-[0.15em] text-muted-foreground ${
-                          isEven ? "md:justify-end" : "justify-start"
-                        }`}
-                      >
-                        <MapPin className='w-3.5 h-3.5 opacity-70' />
-                        {event.location}
+                      <div className={`flex ${isEven ? "md:justify-end justify-start" : "justify-start"}`}>
+                        <div className='flex items-start gap-1.5'>
+                          <MapPin className='w-3.5 h-3.5 text-primary/50 shrink-0 mt-0.5' />
+                          <span className='text-[10px] font-bold uppercase tracking-[0.15em] text-muted-foreground leading-tight'>{event.location}</span>
+                        </div>
                       </div>
                     )}
                   </div>

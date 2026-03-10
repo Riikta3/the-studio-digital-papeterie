@@ -3,6 +3,7 @@
 import { AnimatePresence, motion } from "framer-motion";
 import { ChevronLeft, ChevronRight, X } from "lucide-react";
 import { useEffect, useState } from "react";
+import { createPortal } from "react-dom";
 
 const MOCK_IMAGES = [
   "https://images.unsplash.com/photo-1511285560929-80b456fea0bc?auto=format&fit=crop&q=80&w=1600",
@@ -47,6 +48,7 @@ export function GalleryModule({
 
   const [[current, direction], setCurrent] = useState([0, 0]);
   const [lightboxOpen, setLightboxOpen] = useState(false);
+  const [paused, setPaused] = useState(false);
 
   const paginate = (newDirection: number) => {
     setCurrent(([prev]) => [
@@ -59,6 +61,13 @@ export function GalleryModule({
     const dir = index > current ? 1 : -1;
     setCurrent([index, dir]);
   };
+
+  // Autoplay — pauses on hover or when lightbox is open
+  useEffect(() => {
+    if (count <= 1 || paused || lightboxOpen) return;
+    const interval = setInterval(() => paginate(1), 4000);
+    return () => clearInterval(interval);
+  }, [count, paused, lightboxOpen, current]);
 
   // Keyboard navigation
   useEffect(() => {
@@ -95,7 +104,11 @@ export function GalleryModule({
         className='max-w-5xl mx-auto px-4'
       >
         {/* Main Carousel Frame */}
-        <div className='relative group'>
+        <div
+          className='relative group'
+          onMouseEnter={() => setPaused(true)}
+          onMouseLeave={() => setPaused(false)}
+        >
           {/* Counter */}
           <div className='absolute top-5 right-5 z-20 flex items-center gap-1.5 bg-black/30 backdrop-blur-sm rounded-full px-4 py-1.5'>
             <span className='text-white font-bold text-xs tracking-[0.2em]'>
@@ -207,15 +220,15 @@ export function GalleryModule({
         )}
       </motion.div>
 
-      {/* Lightbox */}
-      <AnimatePresence>
-        {lightboxOpen && (
+      {/* Lightbox — portalisé sur document.body pour échapper à tout stacking context */}
+      {lightboxOpen && createPortal(
+        <AnimatePresence>
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.3 }}
-            className='fixed inset-0 z-50 flex items-center justify-center bg-black/90 backdrop-blur-md'
+            className='fixed inset-0 z-[99999] flex items-center justify-center bg-black/90 backdrop-blur-md'
             onClick={() => setLightboxOpen(false)}
           >
             {/* Close */}
@@ -255,11 +268,7 @@ export function GalleryModule({
             )}
 
             {/* Image */}
-            <AnimatePresence
-              initial={false}
-              custom={direction}
-              mode='sync'
-            >
+            <AnimatePresence initial={false} custom={direction} mode='sync'>
               <motion.div
                 key={current}
                 custom={direction}
@@ -280,8 +289,9 @@ export function GalleryModule({
               </motion.div>
             </AnimatePresence>
           </motion.div>
-        )}
-      </AnimatePresence>
+        </AnimatePresence>,
+        document.body
+      )}
     </section>
   );
 }

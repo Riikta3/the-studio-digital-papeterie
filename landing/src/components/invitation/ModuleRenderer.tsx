@@ -41,12 +41,16 @@ export async function ModuleRenderer({
   siteId,
   weddingDate,
   extras,
+  partner1,
+  partner2,
 }: {
   modules: string[];
   weddingId: string;
   siteId: string;
   weddingDate?: string | null;
   extras?: any;
+  partner1?: string;
+  partner2?: string;
 }) {
   if (!modules || modules.length === 0) return null;
 
@@ -78,6 +82,8 @@ export async function ModuleRenderer({
               weddingDate={weddingDate}
               extras={extras}
               config={config}
+              partner1={partner1}
+              partner2={partner2}
             />
             {!isLast && <Divider />}
           </div>

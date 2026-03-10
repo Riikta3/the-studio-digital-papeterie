@@ -18,7 +18,7 @@ const MOCK_INTRO_VIDEO: IntroVideoData = {
   description:
     "Avant le grand jour, nous tenions à vous adresser ce message...",
   // To test upload mode, change videoType to "upload" and provide an mp4 url.
-  videoUrl: "https://www.youtube.com/embed/dQw4w9WgXcQ",
+  videoUrl: "https://www.youtube.com/embed/450p7goxZqg",
   videoType: "embed",
 };
 
