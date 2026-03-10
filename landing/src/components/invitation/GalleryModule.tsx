@@ -1,8 +1,8 @@
 "use client";
 
-import { AnimatePresence, motion } from "framer-motion";
+import { AnimatePresence, motion, useInView } from "framer-motion";
 import { ChevronLeft, ChevronRight, X } from "lucide-react";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 
 const MOCK_IMAGES = [
@@ -46,6 +46,9 @@ export function GalleryModule({
   const images = rawImages.slice(0, 12);
   const count = images.length;
 
+  const sectionRef = useRef<HTMLElement>(null);
+  const isInView = useInView(sectionRef, { margin: "-20%" });
+
   const [[current, direction], setCurrent] = useState([0, 0]);
   const [lightboxOpen, setLightboxOpen] = useState(false);
   const [paused, setPaused] = useState(false);
@@ -62,12 +65,12 @@ export function GalleryModule({
     setCurrent([index, dir]);
   };
 
-  // Autoplay — pauses on hover or when lightbox is open
+  // Autoplay — démarre uniquement quand la galerie est visible, pause au hover ou lightbox
   useEffect(() => {
-    if (count <= 1 || paused || lightboxOpen) return;
+    if (count <= 1 || paused || lightboxOpen || !isInView) return;
     const interval = setInterval(() => paginate(1), 4000);
     return () => clearInterval(interval);
-  }, [count, paused, lightboxOpen, current]);
+  }, [count, paused, lightboxOpen, isInView, current]);
 
   // Keyboard navigation
   useEffect(() => {
@@ -85,7 +88,7 @@ export function GalleryModule({
   const pad = (n: number) => String(n).padStart(2, "0");
 
   return (
-    <section className='w-full'>
+    <section ref={sectionRef} className='w-full'>
       {/* Title */}
       <div className='text-center mb-16 space-y-4 px-4'>
         <h2 className='text-xs md:text-sm font-bold uppercase tracking-[0.2em] text-muted-foreground'>
