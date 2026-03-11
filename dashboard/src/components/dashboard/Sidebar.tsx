@@ -20,6 +20,7 @@ import {
   LogOut,
   Menu,
   MessageSquare,
+  Send,
   Settings,
   Users,
   X,
@@ -32,6 +33,7 @@ import { LanguageSwitcher } from "./LanguageSwitcher";
 const navItems = [
   { key: "home", href: "/", icon: Home },
   { key: "guests", href: "/guests", icon: Users },
+  { key: "rsvp_responses", href: "/rsvp-responses", icon: Send },
   { key: "messages", href: "/messages", icon: MessageSquare },
   { key: "seating_plan", href: "/seating-plan", icon: Grid },
   { key: "billing", href: "/billing", icon: CreditCard },

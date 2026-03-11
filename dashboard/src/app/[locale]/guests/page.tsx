@@ -21,7 +21,7 @@ export default async function GuestsPage() {
   const { data: households, error } = await supabase
     .from("households")
     .select(
-      "*, guests(id, first_name, last_name, email, relation_type, status, is_child, is_plus_one, dietary_requirements, dietary_details)",
+      "*, guests(id, first_name, last_name, email, status, is_child, is_plus_one, dietary_requirements)",
     )
     .order("created_at", { ascending: false });
 

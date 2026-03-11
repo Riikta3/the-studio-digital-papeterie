@@ -135,9 +135,64 @@
     "language_title": "Langue de la plateforme",
     "language_desc": "Choisissez la langue de l'interface d'administration."
   },
+  "RsvpResponses": {
+    "title": "Réponses RSVP",
+    "subtitle": "Liste des invités ayant répondu via l'invitation en ligne.",
+    "search_placeholder": "Rechercher un invité...",
+    "filter": {
+      "all": "Tous",
+      "attending": "Présents",
+      "declined": "Absents"
+    },
+    "stats": {
+      "total": "Total Réponses",
+      "responses_received": "Formulaires reçus",
+      "attending": "Présents",
+      "will_be_present": "Seront là",
+      "declined": "Absents",
+      "wont_come": "Ne viendront pas",
+      "total_guests": "Personnes attendues",
+      "persons_expected": "Invité(s) + accompagnants"
+    },
+    "col": {
+      "name": "Nom",
+      "attendance": "Présence",
+      "guests": "Personnes",
+      "dietary": "Régime / Allergies",
+      "message": "Message",
+      "note": "Note interne",
+      "date": "Date"
+    },
+    "present": "Présent",
+    "absent": "Absent",
+    "no_results": "Aucune réponse pour le moment.",
+    "responses": "réponse(s)",
+    "admin_note": "Note interne (mariés)",
+    "admin_note_placeholder": "Ajouter une note privée sur cet invité...",
+    "participants": "Liste nominative",
+    "organizer": "Invité(e)",
+    "first_name": "Prénom",
+    "last_name": "Nom",
+    "add_participant": "Ajouter un accompagnant",
+    "all_participants_added": "Tous les accompagnants ont été renseignés",
+    "save": "Enregistrer",
+    "saving": "Enregistrement...",
+    "saved": "Modifications enregistrées",
+    "save_error": "Erreur lors de l'enregistrement",
+    "delete_dialog": {
+      "title": "Supprimer cette réponse ?",
+      "description": "La réponse de « {name} » sera définitivement supprimée. Cette action est irréversible."
+    },
+    "confirm_delete": "Supprimer",
+    "deleting": "Suppression...",
+    "cancel": "Annuler",
+    "deleted": "Réponse supprimée",
+    "delete_error": "Erreur lors de la suppression"
+  },
   "Sidebar": {
     "home": "Accueil",
     "guests": "Invités",
+    "rsvp_responses": "Réponses RSVP",
     "messages": "Messages",
     "seating_plan": "Plan de Table",
     "billing": "Facturation",

@@ -1,5 +1,6 @@
 "use client";
 
+import { submitRsvp } from "@/actions/submit-rsvp";
 import { AnimatePresence, motion } from "framer-motion";
 import { Check, Heart, Send, X } from "lucide-react";
 import { useState } from "react";
@@ -30,10 +31,20 @@ export function RsvpModule({
     e.preventDefault();
     setStatus("submitting");
 
-    // Simulate API call for now
-    setTimeout(() => {
+    try {
+      await submitRsvp({
+        weddingId,
+        name: formData.name,
+        attendance: formData.attendance === "yes",
+        guestCount: formData.attendance === "yes" ? parseInt(formData.guests) || 0 : 0,
+        dietary: formData.dietary,
+        message: formData.message,
+      });
       setStatus("success");
-    }, 1500);
+    } catch {
+      setStatus("idle");
+      alert("Une erreur est survenue. Merci de réessayer.");
+    }
   };
 
   if (status === "success") {
