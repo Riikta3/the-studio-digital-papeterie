@@ -1,7 +1,8 @@
 import { getEnabledModules } from "@/actions/module-config-actions";
+import { LockedModuleCard } from "@/components/modules/LockedModuleCard";
 import { Link } from "@/navigation";
 import { APP_MODULES } from "@shared/data/modules";
-import { ChevronRight, Lock, Settings2 } from "lucide-react";
+import { ChevronRight, Settings2 } from "lucide-react";
 import { getTranslations } from "next-intl/server";
 
 export default async function ModulesPage() {
@@ -72,27 +73,22 @@ export default async function ModulesPage() {
       {/* Locked / non-purchased modules */}
       {lockedModules.length > 0 && (
         <div className="space-y-3">
-          <h2 className="text-xs font-bold uppercase tracking-[0.2em] text-muted-foreground mb-4">
-            {t("locked_section")}
-          </h2>
-          {lockedModules.map((module) => {
-            const Icon = module.icon;
-            return (
-              <div
-                key={module.id}
-                className="flex items-center gap-4 p-4 bg-white rounded-xl border border-dashed border-border opacity-50"
-              >
-                <div className="w-10 h-10 bg-muted rounded-lg flex items-center justify-center text-muted-foreground shrink-0">
-                  <Icon size={18} />
-                </div>
-                <div className="flex-1 min-w-0">
-                  <p className="font-medium text-sm text-foreground">{module.name}</p>
-                  <p className="text-xs text-muted-foreground truncate">{module.description}</p>
-                </div>
-                <Lock size={14} className="text-muted-foreground shrink-0" />
-              </div>
-            );
-          })}
+          <div className="flex items-center justify-between mb-4">
+            <h2 className="text-xs font-bold uppercase tracking-[0.2em] text-muted-foreground">
+              {t("locked_section")}
+            </h2>
+            <span className="text-xs text-muted-foreground">
+              {t("module_price")}
+            </span>
+          </div>
+          {lockedModules.map((module) => (
+            <LockedModuleCard
+              key={module.id}
+              id={module.id}
+              name={module.name}
+              description={module.description}
+            />
+          ))}
         </div>
       )}
     </div>

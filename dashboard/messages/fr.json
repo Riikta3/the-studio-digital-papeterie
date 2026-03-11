@@ -379,6 +379,9 @@
     "question": "Question",
     "field_question": "Question",
     "field_answer": "Réponse",
-    "add_question": "Ajouter une question"
+    "add_question": "Ajouter une question",
+    "module_price": "10 € / module",
+    "buy_module_title": "Ajouter un module",
+    "buy_module_desc": "Activez ce module pour 10 € — disponible immédiatement sur votre faire-part."
   }
 }
