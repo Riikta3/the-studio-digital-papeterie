@@ -1,5 +1,6 @@
 "use client";
 
+import { usePlaylist } from "./PlaylistContext";
 import { AnimatePresence, motion } from "framer-motion";
 import { Check, Music, Plus, Search, Trash2 } from "lucide-react";
 import { useEffect, useState } from "react";
@@ -10,7 +11,6 @@ export interface PlaylistData {
   description: string;
 }
 
-// Track type definition
 export interface Track {
   id: string;
   title: string;
@@ -40,16 +40,19 @@ export function PlaylistModule({
   const [isSearching, setIsSearching] = useState(false);
   const [results, setResults] = useState<Track[]>([]);
   const [addedTracks, setAddedTracks] = useState<Map<string, Track>>(new Map());
+  const { setTracks } = usePlaylist();
 
   useEffect(() => {
-    // We use an AbortController in case the user types fast and we want to cancel the previous request
+    setTracks(Array.from(addedTracks.values()));
+  }, [addedTracks, setTracks]);
+
+  useEffect(() => {
     const controller = new AbortController();
     const signal = controller.signal;
 
     if (searchQuery.trim().length > 1) {
       setIsSearching(true);
 
-      // Add a slight debounce to avoid hammering the API on every keystroke
       const timer = setTimeout(async () => {
         try {
           const res = await fetch(
@@ -62,8 +65,6 @@ export function PlaylistModule({
           setResults(json.results || []);
         } catch (error: any) {
           if (error.name !== "AbortError") {
-            console.error("Erreur Spotify:", error);
-            // Fallback pour la démo si l'API crashe
             setResults([]);
           }
         } finally {
@@ -83,7 +84,7 @@ export function PlaylistModule({
 
   const handleAddTrack = (track: Track) => {
     setAddedTracks((prev) => {
-      if (prev.size >= 3) return prev; // Limit to 3
+      if (prev.size >= 3) return prev;
       const newMap = new Map(prev);
       newMap.set(track.id, track);
       return newMap;
@@ -115,7 +116,6 @@ export function PlaylistModule({
         </h3>
 
         <div className='bg-card rounded-[2rem] p-8 md:p-12 border border-border shadow-xl max-w-2xl mx-auto flex flex-col items-center transition-all duration-500'>
-          {/* Header Icon & Text */}
           <div className='w-16 h-16 bg-secondary rounded-full flex items-center justify-center mb-6 text-primary shrink-0'>
             <Music className='w-6 h-6 opacity-80' />
           </div>
@@ -123,7 +123,7 @@ export function PlaylistModule({
             {data.description}
           </p>
 
-          {/* Search Input Container */}
+          {/* Search Input */}
           <div className='w-full max-w-md relative'>
             <div className='relative flex items-center'>
               <Search className='absolute left-5 w-5 h-5 text-muted-foreground opacity-60' />
@@ -133,7 +133,7 @@ export function PlaylistModule({
                 onChange={(e) => setSearchQuery(e.target.value)}
                 placeholder={
                   addedTracks.size >= 3
-                    ? "Limite de 3 mondes atteinte"
+                    ? "Limite de 3 titres atteinte"
                     : "Rechercher un titre, un artiste..."
                 }
                 disabled={addedTracks.size >= 3}
@@ -141,7 +141,6 @@ export function PlaylistModule({
               />
             </div>
 
-            {/* Simulated Search Progress */}
             <AnimatePresence>
               {isSearching && (
                 <motion.div
@@ -150,24 +149,15 @@ export function PlaylistModule({
                   exit={{ opacity: 0 }}
                   className='absolute right-6 top-1/2 -translate-y-1/2 flex gap-1'
                 >
-                  <span
-                    className='w-1.5 h-1.5 bg-primary/40 rounded-full animate-bounce'
-                    style={{ animationDelay: "0ms" }}
-                  />
-                  <span
-                    className='w-1.5 h-1.5 bg-primary/40 rounded-full animate-bounce'
-                    style={{ animationDelay: "150ms" }}
-                  />
-                  <span
-                    className='w-1.5 h-1.5 bg-primary/40 rounded-full animate-bounce'
-                    style={{ animationDelay: "300ms" }}
-                  />
+                  <span className='w-1.5 h-1.5 bg-primary/40 rounded-full animate-bounce' style={{ animationDelay: "0ms" }} />
+                  <span className='w-1.5 h-1.5 bg-primary/40 rounded-full animate-bounce' style={{ animationDelay: "150ms" }} />
+                  <span className='w-1.5 h-1.5 bg-primary/40 rounded-full animate-bounce' style={{ animationDelay: "300ms" }} />
                 </motion.div>
               )}
             </AnimatePresence>
           </div>
 
-          {/* Search Results Dropdown-style List */}
+          {/* Search Results */}
           <AnimatePresence>
             {results.length > 0 && !isSearching && (
               <motion.div
@@ -188,14 +178,11 @@ export function PlaylistModule({
                         transition={{ delay: index * 0.05 }}
                         className='flex items-center gap-4 p-4 hover:bg-secondary transition-colors group'
                       >
-                        {/* Album Cover */}
                         <img
                           src={track.coverUrl}
                           alt={track.title}
                           className='w-12 h-12 rounded-lg object-cover shadow-sm'
                         />
-
-                        {/* Track Info */}
                         <div className='flex-1 text-left min-w-0'>
                           <h4 className='font-semibold text-foreground truncate text-sm'>
                             {track.title}
@@ -204,8 +191,6 @@ export function PlaylistModule({
                             {track.artist}
                           </p>
                         </div>
-
-                        {/* Add Button */}
                         <button
                           onClick={() => handleAddTrack(track)}
                           disabled={isAdded || addedTracks.size >= 3}
@@ -219,21 +204,11 @@ export function PlaylistModule({
                         >
                           <AnimatePresence mode='wait'>
                             {isAdded ? (
-                              <motion.div
-                                key='check'
-                                initial={{ scale: 0 }}
-                                animate={{ scale: 1 }}
-                                exit={{ scale: 0 }}
-                              >
+                              <motion.div key='check' initial={{ scale: 0 }} animate={{ scale: 1 }} exit={{ scale: 0 }}>
                                 <Check className='w-5 h-5' />
                               </motion.div>
                             ) : (
-                              <motion.div
-                                key='plus'
-                                initial={{ scale: 0 }}
-                                animate={{ scale: 1 }}
-                                exit={{ scale: 0 }}
-                              >
+                              <motion.div key='plus' initial={{ scale: 0 }} animate={{ scale: 1 }} exit={{ scale: 0 }}>
                                 <Plus className='w-5 h-5 opacity-70' />
                               </motion.div>
                             )}
@@ -247,7 +222,7 @@ export function PlaylistModule({
             )}
           </AnimatePresence>
 
-          {/* Display Added Tracks */}
+          {/* Added Tracks */}
           <AnimatePresence>
             {addedTracks.size > 0 && (
               <motion.div
@@ -260,7 +235,7 @@ export function PlaylistModule({
                   Titres proposés pour la soirée ({addedTracks.size}/3)
                 </h4>
                 <div className='flex flex-col gap-3'>
-                  {Array.from(addedTracks.values()).map((track, i) => (
+                  {Array.from(addedTracks.values()).map((track) => (
                     <motion.div
                       key={track.id}
                       initial={{ opacity: 0, y: 10 }}
@@ -282,11 +257,9 @@ export function PlaylistModule({
                           {track.artist}
                         </p>
                       </div>
-
                       <button
                         onClick={() => handleRemoveTrack(track.id)}
                         className='w-8 h-8 rounded-full flex items-center justify-center text-muted-foreground hover:bg-[#FEE2E2] hover:text-[#EF4444] transition-all bg-secondary shrink-0'
-                        title='Retirer ce titre'
                       >
                         <Trash2 className='w-4 h-4' />
                       </button>

@@ -22,6 +22,7 @@ import {
 } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
 import { ChevronRight, GripVertical, Settings2 } from "lucide-react";
+import { useTranslations } from "next-intl";
 import { useState } from "react";
 import { toast } from "sonner";
 
@@ -111,7 +112,7 @@ interface SortableModulesListProps {
 
 export function SortableModulesList({ initialIds }: SortableModulesListProps) {
   const [ids, setIds] = useState(initialIds);
-  const [isSaving, setIsSaving] = useState(false);
+  const t = useTranslations("Modules");
 
   const sensors = useSensors(
     useSensor(PointerSensor, { activationConstraint: { distance: 5 } }),
@@ -130,25 +131,17 @@ export function SortableModulesList({ initialIds }: SortableModulesListProps) {
     setIds(newIds);
 
     // Persist in background
-    setIsSaving(true);
     try {
       await updateModulesOrder(newIds);
+      toast.success(t("order_saved"));
     } catch {
-      // Rollback on error
       setIds(ids);
-      toast.error("Impossible de sauvegarder l'ordre. Veuillez réessayer.");
-    } finally {
-      setIsSaving(false);
+      toast.error(t("order_save_error"));
     }
   };
 
   return (
-    <div className="relative">
-      {isSaving && (
-        <p className="absolute -top-6 right-0 text-xs text-muted-foreground animate-pulse">
-          Sauvegarde...
-        </p>
-      )}
+    <div>
       <DndContext
         sensors={sensors}
         collisionDetection={closestCenter}

@@ -2,6 +2,7 @@ import { InvitationFooter } from "@/components/invitation/InvitationFooter";
 import { InvitationPageClient } from "@/components/invitation/InvitationPageClient";
 import { ScrollToModules } from "@/components/invitation/ScrollToModules";
 import { ModuleRenderer } from "@/components/invitation/ModuleRenderer";
+import { ModulesWrapper } from "@/components/invitation/ModulesWrapper";
 import { ScrollToTop } from "@/components/invitation/ScrollToTop";
 import { supabaseAdmin } from "@/lib/supabase-admin";
 import { notFound } from "next/navigation";
@@ -137,20 +138,22 @@ export default async function InvitationPage({ params }: InvitationPageProps) {
       </header>
 
       {/* --- DYNAMIC MODULES RENDERER --- */}
-      <main
-        id='modules'
-        className='max-w-4xl mx-auto py-20 px-4 relative z-10'
-      >
-        <ModuleRenderer
-          modules={siteConfig.modules}
-          weddingId={weddingId}
-          siteId={siteConfig.id}
-          weddingDate={profile.wedding_date}
-          extras={siteConfig.extras}
-          partner1={profile.first_name}
-          partner2={profile.partner_name || ""}
-        />
-      </main>
+      <ModulesWrapper>
+        <main
+          id='modules'
+          className='max-w-4xl mx-auto py-20 px-4 relative z-10'
+        >
+          <ModuleRenderer
+            modules={siteConfig.modules}
+            weddingId={weddingId}
+            siteId={siteConfig.id}
+            weddingDate={profile.wedding_date}
+            extras={siteConfig.extras}
+            partner1={profile.first_name}
+            partner2={profile.partner_name || ""}
+          />
+        </main>
+      </ModulesWrapper>
 
       {/* --- PREMIUM FOOTER --- */}
       <InvitationFooter profile={profile} />

@@ -213,6 +213,7 @@
     "home": "Accueil",
     "guests": "Invités",
     "rsvp_responses": "Réponses RSVP",
+    "playlist": "Playlist",
     "messages": "Messages",
     "seating_plan": "Plan de Table",
     "billing": "Facturation",
@@ -392,8 +393,25 @@
     "transport_type_bus": "Bus / Navette",
     "transport_type_car": "Voiture",
     "transport_type_ship": "Bateau",
+    "order_saved": "Ordre des modules mis à jour",
+    "order_save_error": "Impossible de sauvegarder l'ordre. Veuillez réessayer.",
     "module_price": "10 € / module",
     "buy_module_title": "Ajouter un module",
     "buy_module_desc": "Activez ce module pour 10 € — disponible immédiatement sur votre faire-part."
+  },
+  "Playlist": {
+    "title": "Playlist Collaborative",
+    "subtitle": "Suggestions musicales de vos invités",
+    "anonymous": "Invité anonyme",
+    "stats": {
+      "suggestions": "Suggestions",
+      "guests_submitted": "invités ont proposé des titres",
+      "tracks": "Titres proposés",
+      "tracks_proposed": "au total"
+    },
+    "empty": {
+      "title": "Aucune suggestion pour le moment",
+      "description": "Les suggestions musicales de vos invités apparaîtront ici une fois qu'ils auront rempli la playlist collaborative sur votre faire-part."
+    }
   }
 }

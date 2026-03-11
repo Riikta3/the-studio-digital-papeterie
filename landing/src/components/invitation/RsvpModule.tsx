@@ -1,6 +1,8 @@
 "use client";
 
 import { submitRsvp } from "@/actions/submit-rsvp";
+import { submitPlaylistSuggestions } from "@/actions/submit-playlist";
+import { usePlaylist } from "./PlaylistContext";
 import { DIETARY_OPTIONS_FR } from "@shared/data/dietary-options";
 import { AnimatePresence, motion } from "framer-motion";
 import { Check, CheckCircle2, Heart, Send, X } from "lucide-react";
@@ -28,6 +30,7 @@ export function RsvpModule({
   const [status, setStatus] = useState<"idle" | "submitting" | "success">(
     "idle",
   );
+  const { tracks } = usePlaylist();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -43,6 +46,15 @@ export function RsvpModule({
         dietary: formData.dietary,
         message: formData.message,
       });
+
+      if (tracks.length > 0) {
+        await submitPlaylistSuggestions({
+          weddingId,
+          guestName: `${formData.firstName} ${formData.lastName}`.trim(),
+          tracks,
+        });
+      }
+
       setStatus("success");
     } catch {
       setStatus("idle");
