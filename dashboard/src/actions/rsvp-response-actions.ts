@@ -16,6 +16,7 @@ export async function updateRsvpResponse({
   respondent_first_name,
   respondent_last_name,
   attendance,
+  dietary,
 }: {
   id: string;
   admin_note: string;
@@ -23,6 +24,7 @@ export async function updateRsvpResponse({
   respondent_first_name?: string;
   respondent_last_name?: string;
   attendance?: boolean | null;
+  dietary?: string;
 }) {
   const supabase = await createClient();
 
@@ -52,6 +54,7 @@ export async function updateRsvpResponse({
       ...(respondent_first_name !== undefined && { respondent_first_name: respondent_first_name.trim() }),
       ...(respondent_last_name !== undefined && { respondent_last_name: respondent_last_name.trim() }),
       ...(attendance !== undefined && { attendance }),
+      ...(dietary !== undefined && { dietary: dietary.trim() || null }),
     })
     .eq("id", id)
     .eq("wedding_id", wedding.id);
@@ -132,6 +135,10 @@ export async function createRsvpResponse({
 }
 
 export async function deleteRsvpResponse(id: string) {
+  return deleteRsvpResponses([id]);
+}
+
+export async function deleteRsvpResponses(ids: string[]) {
   const supabase = await createClient();
 
   const { data: { user } } = await supabase.auth.getUser();
@@ -148,7 +155,7 @@ export async function deleteRsvpResponse(id: string) {
   const { error } = await supabase
     .from("rsvp_responses")
     .delete()
-    .eq("id", id)
+    .in("id", ids)
     .eq("wedding_id", wedding.id);
 
   if (error) throw new Error(error.message);

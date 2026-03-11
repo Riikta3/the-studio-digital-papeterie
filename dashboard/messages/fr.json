@@ -185,6 +185,12 @@
     "saved": "Modifications enregistrées",
     "save_error": "Erreur lors de l'enregistrement",
     "add_response": "Ajouter une réponse",
+    "export": "Exporter",
+    "exporting": "Export...",
+    "import": "Importer",
+    "importing": "Import...",
+    "import_error": "Erreur lors de l'import",
+    "template": "Modèle",
     "create_dialog": {
       "title": "Ajouter une réponse RSVP",
       "description": "Saisissez manuellement la réponse d'un invité.",

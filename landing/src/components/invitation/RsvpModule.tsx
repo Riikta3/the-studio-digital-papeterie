@@ -1,8 +1,9 @@
 "use client";
 
 import { submitRsvp } from "@/actions/submit-rsvp";
+import { DIETARY_OPTIONS_FR } from "@shared/data/dietary-options";
 import { AnimatePresence, motion } from "framer-motion";
-import { Check, Heart, Send, X } from "lucide-react";
+import { Check, CheckCircle2, Heart, Send, X } from "lucide-react";
 import { useState } from "react";
 
 export function RsvpModule({
@@ -236,13 +237,59 @@ export function RsvpModule({
                     <label className='text-[10px] uppercase tracking-[0.2em] font-bold text-muted-foreground ml-4'>
                       Régime alimentaire & Allergies
                     </label>
+                    {/* Tag pills */}
+                    <div className='flex flex-wrap gap-2'>
+                      {DIETARY_OPTIONS_FR.map((opt) => {
+                        const selected = formData.dietary
+                          .split(",")
+                          .map((v) => v.trim())
+                          .includes(opt);
+                        return (
+                          <button
+                            key={opt}
+                            type='button'
+                            onClick={() => {
+                              const current = formData.dietary
+                                .split(",")
+                                .map((v) => v.trim())
+                                .filter(Boolean);
+                              const next = selected
+                                ? current.filter((v) => v !== opt)
+                                : [...current, opt];
+                              setFormData({ ...formData, dietary: next.join(", ") });
+                            }}
+                            className={`inline-flex items-center gap-1.5 px-4 py-2 rounded-full border text-xs transition-all duration-200 ${
+                              selected
+                                ? "bg-primary/10 border-primary/50 text-primary font-medium"
+                                : "bg-transparent border-border/60 text-muted-foreground hover:border-primary/40"
+                            }`}
+                          >
+                            {selected && <CheckCircle2 className='w-3 h-3' />}
+                            {opt}
+                          </button>
+                        );
+                      })}
+                    </div>
+                    {/* Free text for "Autre" */}
                     <input
                       type='text'
-                      value={formData.dietary}
-                      onChange={(e) =>
-                        setFormData({ ...formData, dietary: e.target.value })
+                      value={
+                        formData.dietary
+                          .split(",")
+                          .map((v) => v.trim())
+                          .find((v) => !DIETARY_OPTIONS_FR.includes(v as any)) ?? ""
                       }
-                      placeholder='Végétarien, sans gluten, etc.'
+                      onChange={(e) => {
+                        const base = formData.dietary
+                          .split(",")
+                          .map((v) => v.trim())
+                          .filter((v) => DIETARY_OPTIONS_FR.includes(v as any));
+                        const parts = e.target.value.trim()
+                          ? [...base, e.target.value.trim()]
+                          : base;
+                        setFormData({ ...formData, dietary: parts.join(", ") });
+                      }}
+                      placeholder='Autre allergie ou précision...'
                       className='w-full bg-transparent border border-border/70 text-foreground placeholder:text-muted-foreground/40 rounded-full py-4 px-8 focus:outline-none focus:ring-1 focus:ring-primary/50 focus:border-primary/70 transition-all font-light'
                     />
                   </div>
