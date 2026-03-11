@@ -1,8 +1,9 @@
 import { InvitationFooter } from "@/components/invitation/InvitationFooter";
+import { InvitationPageClient } from "@/components/invitation/InvitationPageClient";
+import { ScrollToModules } from "@/components/invitation/ScrollToModules";
 import { ModuleRenderer } from "@/components/invitation/ModuleRenderer";
 import { ScrollToTop } from "@/components/invitation/ScrollToTop";
 import { supabaseAdmin } from "@/lib/supabase-admin";
-import { ChevronDown } from "lucide-react";
 import { notFound } from "next/navigation";
 
 export const revalidate = 0;
@@ -99,11 +100,12 @@ export default async function InvitationPage({ params }: InvitationPageProps) {
   // Actually, the next-theme ThemeProvider takes care of it natively if we pass the right id.
 
   return (
+    <InvitationPageClient hasIntro>
     <div
       className={`${themeClass} min-h-screen bg-background text-foreground font-sans`}
     >
       {/* --- HERO SECTION --- (We will extract this to a component) */}
-      <header className='relative h-screen flex items-center justify-center overflow-hidden'>
+      <header className='relative h-[100svh] flex items-center justify-center overflow-hidden'>
         {/* Background image could come from extras logic later */}
         <div
           className='absolute inset-0 bg-cover bg-center z-0 scale-105'
@@ -131,19 +133,7 @@ export default async function InvitationPage({ params }: InvitationPageProps) {
           )}
         </div>
         {/* Animated Scroll Arrow */}
-        <div className='absolute bottom-12 left-1/2 -translate-x-1/2 z-10'>
-          <div className='animate-bounce cursor-pointer'>
-            <a
-              href='#modules'
-              className='flex flex-col items-center gap-2 text-white/70 hover:text-white transition-colors'
-            >
-              <span className='text-[10px] uppercase tracking-widest font-medium'>
-                Découvrir
-              </span>
-              <ChevronDown className='w-5 h-5' />
-            </a>
-          </div>
-        </div>
+        <ScrollToModules />
       </header>
 
       {/* --- DYNAMIC MODULES RENDERER --- */}
@@ -168,5 +158,6 @@ export default async function InvitationPage({ params }: InvitationPageProps) {
       {/* --- SCROLL TO TOP FLOATING ACTION BUTTON --- */}
       <ScrollToTop />
     </div>
+    </InvitationPageClient>
   );
 }

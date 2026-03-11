@@ -55,7 +55,7 @@ export function GalleryModule({
 
   const paginate = (newDirection: number) => {
     setCurrent(([prev]) => [
-      ((prev + newDirection) % count + count) % count,
+      (((prev + newDirection) % count) + count) % count,
       newDirection,
     ]);
   };
@@ -88,7 +88,10 @@ export function GalleryModule({
   const pad = (n: number) => String(n).padStart(2, "0");
 
   return (
-    <section ref={sectionRef} className='w-full'>
+    <section
+      ref={sectionRef}
+      className='w-full'
+    >
       {/* Title */}
       <div className='text-center mb-16 space-y-4 px-4'>
         <h2 className='text-xs md:text-sm font-bold uppercase tracking-[0.2em] text-muted-foreground'>
@@ -156,22 +159,34 @@ export function GalleryModule({
           {/* Arrow — Left */}
           {count > 1 && (
             <button
-              onClick={(e) => { e.stopPropagation(); paginate(-1); }}
+              onClick={(e) => {
+                e.stopPropagation();
+                paginate(-1);
+              }}
               className='absolute left-4 top-1/2 -translate-y-1/2 z-20 w-11 h-11 flex items-center justify-center rounded-full bg-white/10 backdrop-blur-sm border border-white/20 text-white opacity-0 group-hover:opacity-100 hover:bg-white/25 transition-all duration-300'
               aria-label='Photo précédente'
             >
-              <ChevronLeft className='w-5 h-5' strokeWidth={1.5} />
+              <ChevronLeft
+                className='w-5 h-5'
+                strokeWidth={1.5}
+              />
             </button>
           )}
 
           {/* Arrow — Right */}
           {count > 1 && (
             <button
-              onClick={(e) => { e.stopPropagation(); paginate(1); }}
+              onClick={(e) => {
+                e.stopPropagation();
+                paginate(1);
+              }}
               className='absolute right-4 top-1/2 -translate-y-1/2 z-20 w-11 h-11 flex items-center justify-center rounded-full bg-white/10 backdrop-blur-sm border border-white/20 text-white opacity-0 group-hover:opacity-100 hover:bg-white/25 transition-all duration-300'
               aria-label='Photo suivante'
             >
-              <ChevronRight className='w-5 h-5' strokeWidth={1.5} />
+              <ChevronRight
+                className='w-5 h-5'
+                strokeWidth={1.5}
+              />
             </button>
           )}
         </div>
@@ -202,19 +217,19 @@ export function GalleryModule({
 
         {/* Thumbnail strip */}
         {count > 1 && (
-          <div className='flex gap-2 md:gap-3 mt-5 overflow-x-auto pb-1 scrollbar-hide justify-center'>
+          <div className='flex gap-2 md:gap-3 mt-6 overflow-x-auto pb-2 pt-1 scrollbar-hide justify-center'>
             {images.map((src, i) => (
               <button
                 key={i}
                 onClick={() => goTo(i)}
-                className={`relative shrink-0 w-14 h-14 md:w-16 md:h-16 rounded-xl overflow-hidden border-2 transition-all duration-300 ${
+                className={`relative shrink-0 w-14 h-14 md:w-16 md:h-16 mt-1 rounded-xl overflow-hidden transition-all duration-300 ${
                   i === current
-                    ? "border-primary shadow-md scale-105"
-                    : "border-transparent opacity-50 hover:opacity-80 hover:scale-[1.02]"
+                    ? "ring-2 ring-primary ring-offset-2 shadow-md scale-105"
+                    : "opacity-50 hover:opacity-80 hover:scale-[1.02]"
                 }`}
               >
                 <div
-                  className='absolute inset-0 bg-cover bg-center'
+                  className='absolute inset-0 bg-cover bg-top'
                   style={{ backgroundImage: `url(${src})` }}
                 />
               </button>
@@ -224,77 +239,97 @@ export function GalleryModule({
       </motion.div>
 
       {/* Lightbox — portalisé sur document.body pour échapper à tout stacking context */}
-      {lightboxOpen && createPortal(
-        <AnimatePresence>
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.3 }}
-            className='fixed inset-0 z-[99999] flex items-center justify-center bg-black/90 backdrop-blur-md'
-            onClick={() => setLightboxOpen(false)}
-          >
-            {/* Close */}
-            <button
+      {lightboxOpen &&
+        createPortal(
+          <AnimatePresence>
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.3 }}
+              className='fixed inset-0 z-[99999] flex items-center justify-center bg-black/90 backdrop-blur-md'
               onClick={() => setLightboxOpen(false)}
-              className='absolute top-6 right-6 w-10 h-10 flex items-center justify-center rounded-full border border-white/20 text-white/70 hover:text-white hover:bg-white/10 transition-all z-50'
-              aria-label='Fermer'
             >
-              <X className='w-5 h-5' strokeWidth={1.5} />
-            </button>
-
-            {/* Counter */}
-            <div className='absolute top-6 left-1/2 -translate-x-1/2 text-white/50 text-xs tracking-[0.25em] font-medium'>
-              {pad(current + 1)} / {pad(count)}
-            </div>
-
-            {/* Prev */}
-            {count > 1 && (
+              {/* Close */}
               <button
-                onClick={(e) => { e.stopPropagation(); paginate(-1); }}
-                className='absolute left-4 md:left-8 w-11 h-11 flex items-center justify-center rounded-full border border-white/20 text-white/70 hover:text-white hover:bg-white/10 transition-all z-50'
-                aria-label='Photo précédente'
+                onClick={() => setLightboxOpen(false)}
+                className='absolute top-6 right-6 w-10 h-10 flex items-center justify-center rounded-full border border-white/20 text-white/70 hover:text-white hover:bg-white/10 transition-all z-50'
+                aria-label='Fermer'
               >
-                <ChevronLeft className='w-5 h-5' strokeWidth={1.5} />
-              </button>
-            )}
-
-            {/* Next */}
-            {count > 1 && (
-              <button
-                onClick={(e) => { e.stopPropagation(); paginate(1); }}
-                className='absolute right-4 md:right-8 w-11 h-11 flex items-center justify-center rounded-full border border-white/20 text-white/70 hover:text-white hover:bg-white/10 transition-all z-50'
-                aria-label='Photo suivante'
-              >
-                <ChevronRight className='w-5 h-5' strokeWidth={1.5} />
-              </button>
-            )}
-
-            {/* Image */}
-            <AnimatePresence initial={false} custom={direction} mode='sync'>
-              <motion.div
-                key={current}
-                custom={direction}
-                variants={slideVariants}
-                initial='enter'
-                animate='center'
-                exit='exit'
-                transition={{ duration: 0.5, ease: [0.32, 0, 0.67, 0] }}
-                className='relative max-w-5xl w-full max-h-[80vh] flex items-center justify-center px-16 md:px-24 pointer-events-none'
-                onClick={(e) => e.stopPropagation()}
-              >
-                <img
-                  src={images[current]}
-                  alt={`Photo de mariage ${current + 1}`}
-                  className='max-w-full max-h-[80vh] object-contain rounded-2xl shadow-2xl pointer-events-auto'
-                  onClick={(e) => e.stopPropagation()}
+                <X
+                  className='w-5 h-5'
+                  strokeWidth={1.5}
                 />
-              </motion.div>
-            </AnimatePresence>
-          </motion.div>
-        </AnimatePresence>,
-        document.body
-      )}
+              </button>
+
+              {/* Counter */}
+              <div className='absolute top-6 left-1/2 -translate-x-1/2 text-white/50 text-xs tracking-[0.25em] font-medium'>
+                {pad(current + 1)} / {pad(count)}
+              </div>
+
+              {/* Prev */}
+              {count > 1 && (
+                <button
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    paginate(-1);
+                  }}
+                  className='absolute left-4 md:left-8 w-11 h-11 flex items-center justify-center rounded-full border border-white/20 text-white/70 hover:text-white hover:bg-white/10 transition-all z-50'
+                  aria-label='Photo précédente'
+                >
+                  <ChevronLeft
+                    className='w-5 h-5'
+                    strokeWidth={1.5}
+                  />
+                </button>
+              )}
+
+              {/* Next */}
+              {count > 1 && (
+                <button
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    paginate(1);
+                  }}
+                  className='absolute right-4 md:right-8 w-11 h-11 flex items-center justify-center rounded-full border border-white/20 text-white/70 hover:text-white hover:bg-white/10 transition-all z-50'
+                  aria-label='Photo suivante'
+                >
+                  <ChevronRight
+                    className='w-5 h-5'
+                    strokeWidth={1.5}
+                  />
+                </button>
+              )}
+
+              {/* Image */}
+              <AnimatePresence
+                initial={false}
+                custom={direction}
+                mode='sync'
+              >
+                <motion.div
+                  key={current}
+                  custom={direction}
+                  variants={slideVariants}
+                  initial='enter'
+                  animate='center'
+                  exit='exit'
+                  transition={{ duration: 0.5, ease: [0.32, 0, 0.67, 0] }}
+                  className='relative max-w-5xl w-full max-h-[80vh] flex items-center justify-center px-16 md:px-24 pointer-events-none'
+                  onClick={(e) => e.stopPropagation()}
+                >
+                  <img
+                    src={images[current]}
+                    alt={`Photo de mariage ${current + 1}`}
+                    className='max-w-full max-h-[80vh] object-contain rounded-2xl shadow-2xl pointer-events-auto'
+                    onClick={(e) => e.stopPropagation()}
+                  />
+                </motion.div>
+              </AnimatePresence>
+            </motion.div>
+          </AnimatePresence>,
+          document.body,
+        )}
     </section>
   );
 }

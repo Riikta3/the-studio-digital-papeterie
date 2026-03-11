@@ -62,7 +62,7 @@ export function TimelineModule({
       <div className='relative max-w-4xl mx-auto px-4 md:px-0'>
         {/* Subtle Central Line */}
         <div className='absolute left-8 md:left-1/2 top-4 bottom-4 w-px bg-primary/20 md:-translate-x-1/2 z-0 hidden md:block' />
-        <div className='absolute left-8 md:left-1/2 top-4 bottom-4 w-px bg-primary/20 -translate-x-1/2 z-0 md:hidden' />
+        <div className='absolute left-12 top-4 bottom-4 w-px bg-primary/20 -translate-x-1/2 z-0 md:hidden' />
 
         <div className='space-y-12 md:space-y-16'>
           {events.map((event: EventData, i: number) => {
@@ -80,7 +80,7 @@ export function TimelineModule({
                 <div className='hidden md:block w-1/2' />
 
                 {/* Center Node (Just Time, no dots) */}
-                <div className='absolute left-8 md:left-1/2 md:-translate-x-1/2 -translate-x-1/2 flex items-center justify-center z-10 w-24 bg-background py-4'>
+                <div className='absolute left-12 md:left-1/2 md:-translate-x-1/2 -translate-x-1/2 flex items-center justify-center z-10 w-24 bg-background py-4'>
                   <span className='text-[10px] md:text-xs font-bold uppercase tracking-[0.2em] text-primary border border-border bg-card px-4 py-1.5 rounded-full shadow-[0_2px_10px_-3px_rgba(0,0,0,0.04)] mb-0'>
                     {event.time}
                   </span>
