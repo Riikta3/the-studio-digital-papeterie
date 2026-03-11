@@ -916,11 +916,11 @@ function TransportForm({
                       "flex items-center gap-1.5 px-3 py-1.5 rounded-full border text-xs font-bold transition-colors",
                       opt.iconType === tt
                         ? "bg-primary/10 border-primary text-primary"
-                        : "border-border text-muted-foreground hover:border-primary/30"
+                        : "bg-white border-border text-muted-foreground hover:border-primary/30"
                     )}
                   >
                     {TRANSPORT_ICONS[tt]}
-                    {tt}
+                    {t(`transport_type_${tt.toLowerCase()}`)}
                   </button>
                 ))}
               </div>
