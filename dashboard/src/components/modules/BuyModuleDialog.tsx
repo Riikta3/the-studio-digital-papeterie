@@ -18,7 +18,15 @@ import { Suspense } from "react";
 import { useCallback, useEffect, useState } from "react";
 import { toast } from "sonner";
 
-const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY!);
+export const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY!);
+
+// ─── Types ─────────────────────────────────────────────────────────────────
+
+export interface PendingActivation {
+  moduleId: string;
+  moduleName: string;
+  paymentIntentId: string;
+}
 
 // ─── Inner payment form (CB) ───────────────────────────────────────────────
 
@@ -142,7 +150,8 @@ function ConfirmActivation({ moduleName, moduleId, paymentIntentId, onSuccess }:
         <div>
           <p className="font-medium text-sm text-green-800">Paiement confirmé</p>
           <p className="text-xs text-green-700 mt-0.5">
-            Votre paiement pour <span className="font-medium">{moduleName}</span> a bien été reçu. Cliquez sur le bouton ci-dessous pour activer le module.
+            Votre paiement pour <span className="font-medium">{moduleName}</span> a bien été reçu.
+            Cliquez sur le bouton ci-dessous pour activer le module.
           </p>
         </div>
       </div>
@@ -206,15 +215,13 @@ function SuccessState({
   );
 }
 
-// ─── Redirect return hook (PayPal / Klarna) ────────────────────────────────
+// ─── Redirect return handler (singleton — mounted once at page level) ──────
 
-interface RedirectReturn {
-  moduleId: string;
-  moduleName: string;
-  paymentIntentId: string;
-}
-
-function useRedirectReturn(onPendingActivation: (data: RedirectReturn) => void) {
+function RedirectReturnInner({
+  onPendingActivation,
+}: {
+  onPendingActivation: (data: PendingActivation) => void;
+}) {
   const searchParams = useSearchParams();
 
   useEffect(() => {
@@ -224,7 +231,7 @@ function useRedirectReturn(onPendingActivation: (data: RedirectReturn) => void) 
 
     if (!clientSecret || !modulePending) return;
 
-    // Clean up URL immediately to avoid loops on refresh
+    // Clean URL immediately to avoid loops on refresh
     const clean = new URL(window.location.href);
     clean.searchParams.delete("payment_intent");
     clean.searchParams.delete("payment_intent_client_secret");
@@ -247,10 +254,10 @@ function useRedirectReturn(onPendingActivation: (data: RedirectReturn) => void) 
         return;
       }
 
-      const module = APP_MODULES.find((m) => m.id === modulePending);
+      const mod = APP_MODULES.find((m) => m.id === modulePending);
       onPendingActivation({
         moduleId: modulePending!,
-        moduleName: module?.name ?? modulePending!,
+        moduleName: mod?.name ?? modulePending!,
         paymentIntentId: paymentIntent.id,
       });
     }
@@ -258,15 +265,25 @@ function useRedirectReturn(onPendingActivation: (data: RedirectReturn) => void) 
     handleReturn();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  return null;
 }
 
-function RedirectReturnHandler({
+/**
+ * Mount this ONCE at the page level (not inside each dialog).
+ * It detects PayPal/Klarna redirects and triggers the confirmation dialog
+ * for the correct module.
+ */
+export function ModuleRedirectReturnHandler({
   onPendingActivation,
 }: {
-  onPendingActivation: (data: RedirectReturn) => void;
+  onPendingActivation: (data: PendingActivation) => void;
 }) {
-  useRedirectReturn(onPendingActivation);
-  return null;
+  return (
+    <Suspense fallback={null}>
+      <RedirectReturnInner onPendingActivation={onPendingActivation} />
+    </Suspense>
+  );
 }
 
 // ─── Main dialog ───────────────────────────────────────────────────────────
@@ -276,6 +293,9 @@ interface BuyModuleDialogProps {
   onOpenChange: (open: boolean) => void;
   moduleId: string;
   moduleName: string;
+  /** Pre-filled after a PayPal/Klarna redirect — skips payment form */
+  pendingActivation?: PendingActivation | null;
+  onClearPending?: () => void;
 }
 
 export function BuyModuleDialog({
@@ -283,25 +303,20 @@ export function BuyModuleDialog({
   onOpenChange,
   moduleId,
   moduleName,
+  pendingActivation,
+  onClearPending,
 }: BuyModuleDialogProps) {
   const router = useRouter();
   const [clientSecret, setClientSecret] = useState<string | null>(null);
   const [isLoadingIntent, setIsLoadingIntent] = useState(false);
   const [succeeded, setSucceeded] = useState(false);
 
-  // Pending activation after PayPal/Klarna redirect
-  const [pendingActivation, setPendingActivation] = useState<RedirectReturn | null>(null);
-
   const handleSuccess = useCallback(() => {
     setSucceeded(true);
-    setPendingActivation(null);
-    toast.success(`Module "${moduleName}" activé !`);
-  }, [moduleName]);
-
-  const handlePendingActivation = useCallback((data: RedirectReturn) => {
-    setPendingActivation(data);
-    onOpenChange(true); // open dialog in confirmation state
-  }, [onOpenChange]);
+    onClearPending?.();
+    const name = pendingActivation?.moduleName ?? moduleName;
+    toast.success(`Module "${name}" activé !`);
+  }, [moduleName, pendingActivation, onClearPending]);
 
   const createIntent = useCallback(async () => {
     setIsLoadingIntent(true);
@@ -331,7 +346,6 @@ export function BuyModuleDialog({
     if (!open) {
       setSucceeded(false);
       setClientSecret(null);
-      // Keep pendingActivation so the dialog can reopen in confirmation state
     }
   }, [open, succeeded, pendingActivation, createIntent]);
 
@@ -340,12 +354,15 @@ export function BuyModuleDialog({
     router.refresh();
   };
 
+  const activeModuleId = pendingActivation?.moduleId ?? moduleId;
+  const activeModuleName = pendingActivation?.moduleName ?? moduleName;
+
   const renderContent = () => {
     if (succeeded) {
       return (
         <SuccessState
-          moduleName={pendingActivation?.moduleName ?? moduleName}
-          moduleId={pendingActivation?.moduleId ?? moduleId}
+          moduleName={activeModuleName}
+          moduleId={activeModuleId}
           onClose={handleClose}
         />
       );
@@ -388,23 +405,18 @@ export function BuyModuleDialog({
   };
 
   return (
-    <>
-      <Suspense fallback={null}>
-        <RedirectReturnHandler onPendingActivation={handlePendingActivation} />
-      </Suspense>
-      <Dialog open={open} onOpenChange={onOpenChange}>
-        <DialogContent className="sm:max-w-md">
-          <DialogHeader>
-            <DialogTitle>Ajouter un module</DialogTitle>
-            <DialogDescription>
-              {pendingActivation
-                ? "Votre paiement a été reçu. Confirmez l'activation du module."
-                : "Activez ce module pour 10 € — disponible immédiatement sur votre faire-part."}
-            </DialogDescription>
-          </DialogHeader>
-          {renderContent()}
-        </DialogContent>
-      </Dialog>
-    </>
+    <Dialog open={open} onOpenChange={onOpenChange}>
+      <DialogContent className="sm:max-w-md">
+        <DialogHeader>
+          <DialogTitle>Ajouter un module</DialogTitle>
+          <DialogDescription>
+            {pendingActivation
+              ? "Votre paiement a été reçu. Confirmez l'activation du module."
+              : "Activez ce module pour 10 € — disponible immédiatement sur votre faire-part."}
+          </DialogDescription>
+        </DialogHeader>
+        {renderContent()}
+      </DialogContent>
+    </Dialog>
   );
 }

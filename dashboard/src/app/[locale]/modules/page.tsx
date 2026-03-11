@@ -1,5 +1,5 @@
 import { getEnabledModules } from "@/actions/module-config-actions";
-import { LockedModuleCard } from "@/components/modules/LockedModuleCard";
+import { LockedModulesList } from "@/components/modules/LockedModuleCard";
 import { Link } from "@/navigation";
 import { APP_MODULES } from "@shared/data/modules";
 import { ChevronRight, Settings2 } from "lucide-react";
@@ -81,14 +81,13 @@ export default async function ModulesPage() {
               {t("module_price")}
             </span>
           </div>
-          {lockedModules.map((module) => (
-            <LockedModuleCard
-              key={module.id}
-              id={module.id}
-              name={module.name}
-              description={module.description}
-            />
-          ))}
+          <LockedModulesList
+            modules={lockedModules.map((m) => ({
+              id: m.id,
+              name: m.name,
+              description: m.description,
+            }))}
+          />
         </div>
       )}
     </div>
