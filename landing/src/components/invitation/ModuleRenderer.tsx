@@ -54,19 +54,33 @@ export async function ModuleRenderer({
 }) {
   if (!modules || modules.length === 0) return null;
 
-  // Fetch all module configs for this site in a single query
-  const { data: siteModules, error: siteModulesError } = await supabaseAdmin
+  // Fetch all module configs + positions for this site in a single query
+  const { data: siteModules } = await supabaseAdmin
     .from("site_modules")
-    .select("module_id, config")
+    .select("module_id, config, position")
     .eq("site_id", siteId);
 
   const configMap: Record<string, Record<string, unknown> | null> = {};
-  (siteModules || []).forEach(({ module_id, config }) => {
+  const positionMap: Record<string, number> = {};
+  (siteModules || []).forEach(({ module_id, config, position }) => {
     configMap[module_id] = config ?? null;
+    positionMap[module_id] = position;
   });
 
-  // Only keep modules that have a registered component
-  const knownModules = modules.filter((id) => MODULE_COMPONENTS[id]);
+  console.log("[ModuleRenderer] raw modules from sites.modules:", modules);
+  console.log("[ModuleRenderer] siteModules rows:", siteModules);
+  console.log("[ModuleRenderer] positionMap from site_modules:", positionMap);
+
+  // Only keep modules that have a registered component, sorted by position
+  const knownModules = modules
+    .filter((id) => MODULE_COMPONENTS[id])
+    .sort((a, b) => {
+      const posA = positionMap[a] ?? 99;
+      const posB = positionMap[b] ?? 99;
+      return posA - posB;
+    });
+
+  console.log("[ModuleRenderer] final sorted order:", knownModules);
 
   return (
     <div className='flex flex-col w-full'>

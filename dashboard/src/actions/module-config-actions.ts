@@ -1,6 +1,7 @@
 "use server";
 
 import { createClient } from "@/utils/supabase/server";
+import { APP_MODULES } from "@shared/data/modules";
 import { revalidatePath } from "next/cache";
 
 export async function updateModuleConfig({
@@ -43,10 +44,11 @@ export async function updateModuleConfig({
     .maybeSingle();
 
   if (!existing) {
-    // Row doesn't exist — insert with position from modules table default
+    const defaultPosition =
+      APP_MODULES.find((m) => m.id === moduleId)?.defaultOrder ?? 99;
     const { error: insertError } = await supabase
       .from("site_modules")
-      .insert({ site_id: site.id, module_id: moduleId, config, position: 0 });
+      .insert({ site_id: site.id, module_id: moduleId, config, position: defaultPosition });
     if (insertError) throw new Error(insertError.message);
   } else {
     const { error: updateError } = await supabase
