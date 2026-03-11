@@ -58,10 +58,13 @@ export function FaqModule({
   weddingId: string;
   config?: Record<string, any> | null;
 }) {
-  const data: FaqData =
-    config?.questions && Array.isArray(config.questions) && config.questions.length > 0
-      ? (config as FaqData)
-      : DEFAULT_FAQ_DATA;
+  const data: FaqData = {
+    ...DEFAULT_FAQ_DATA,
+    ...config,
+    questions: (config?.questions && Array.isArray(config.questions) && config.questions.length > 0)
+      ? config.questions as FaqData["questions"]
+      : DEFAULT_FAQ_DATA.questions,
+  };
   const [openIndex, setOpenIndex] = useState<number | null>(null);
 
   if (!data.questions || data.questions.length === 0) return null;

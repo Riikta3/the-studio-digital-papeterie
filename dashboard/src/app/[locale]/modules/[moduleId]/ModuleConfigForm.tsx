@@ -1,6 +1,9 @@
 "use client";
 
 import { updateModuleConfig } from "@/actions/module-config-actions";
+import { deleteGalleryImage, saveGalleryConfig, uploadGalleryImage } from "@/actions/gallery-actions";
+import { uploadIntroVideo, uploadVenueImage } from "@/actions/media-upload-actions";
+import { DatePicker } from "@/components/ui/date-picker";
 import { Button } from "@shared/components/ui/button";
 import { Input } from "@shared/components/ui/input";
 import { Label } from "@shared/components/ui/label";
@@ -9,14 +12,17 @@ import { cn } from "@shared/lib/utils";
 import {
   Bus,
   Car,
+  ImagePlus,
   Plane,
   Plus,
   Ship,
   Train,
   Trash2,
+  X,
 } from "lucide-react";
+import Image from "next/image";
 import { useTranslations } from "next-intl";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { toast } from "sonner";
 
 // ─── Types ────────────────────────────────────────────────────────────────────
@@ -192,13 +198,21 @@ function RsvpForm({
 }) {
   const t = useTranslations("Modules");
   const [saving, setSaving] = useState(false);
-  const [deadline, setDeadline] = useState(str(config?.rsvp_deadline));
+  const [deadline, setDeadline] = useState<Date | undefined>(() => {
+    const raw = str(config?.rsvp_deadline);
+    if (!raw) return undefined;
+    const d = new Date(raw);
+    return isNaN(d.getTime()) ? undefined : d;
+  });
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
     setSaving(true);
     try {
-      await onSave({ rsvp_deadline: deadline });
+      const formatted = deadline
+        ? deadline.toLocaleDateString("fr-FR", { day: "numeric", month: "long", year: "numeric" })
+        : "";
+      await onSave({ rsvp_deadline: formatted });
     } finally {
       setSaving(false);
     }
@@ -207,14 +221,13 @@ function RsvpForm({
   return (
     <form onSubmit={handleSubmit} className="space-y-5">
       <FieldGroup label={t("field_rsvp_deadline")}>
-        <Input
+        <DatePicker
           value={deadline}
-          onChange={(e) => setDeadline(e.target.value)}
-          placeholder="ex: 14 Novembre 2026"
+          onChange={setDeadline}
+          placeholder="Choisir une date limite"
         />
-        <p className="text-xs text-muted-foreground">{t("field_rsvp_deadline_hint")}</p>
       </FieldGroup>
-      <FormActions saving={saving} onReset={() => setDeadline("")} />
+      <FormActions saving={saving} onReset={() => setDeadline(undefined)} />
     </form>
   );
 }
@@ -227,15 +240,40 @@ function MapForm({
   config: Record<string, unknown> | null;
   onSave: (data: Record<string, unknown>) => Promise<void>;
 }) {
+  const MAP_DEFAULTS = {
+    name: "Château de Vaux-le-Vicomte",
+    address: "Allée Maincy, 77950 Maincy",
+    description: "Un chef-d'œuvre du XVIIe siècle niché dans un écrin de verdure, à 55 km au sud-est de Paris. Stationnement gratuit sur place.",
+    imageUrl: "",
+    imageOrientation: "landscape" as const,
+  };
   const t = useTranslations("Modules");
   const [saving, setSaving] = useState(false);
-  const [name, setName] = useState(str(config?.name));
-  const [address, setAddress] = useState(str(config?.address));
-  const [description, setDescription] = useState(str(config?.description));
-  const [imageUrl, setImageUrl] = useState(str(config?.imageUrl));
+  const [uploading, setUploading] = useState(false);
+  const [name, setName] = useState(str(config?.name, MAP_DEFAULTS.name));
+  const [address, setAddress] = useState(str(config?.address, MAP_DEFAULTS.address));
+  const [description, setDescription] = useState(str(config?.description, MAP_DEFAULTS.description));
+  const [imageUrl, setImageUrl] = useState(str(config?.imageUrl, MAP_DEFAULTS.imageUrl));
   const [imageOrientation, setImageOrientation] = useState<"portrait" | "landscape">(
-    strAs<"portrait" | "landscape">(config?.imageOrientation, "landscape")
+    strAs<"portrait" | "landscape">(config?.imageOrientation, MAP_DEFAULTS.imageOrientation)
   );
+  const venueFileRef = useRef<HTMLInputElement>(null);
+
+  async function handleVenueUpload(files: FileList | null) {
+    if (!files?.[0]) return;
+    setUploading(true);
+    try {
+      const fd = new FormData();
+      fd.append("file", files[0]);
+      const { url } = await uploadVenueImage(fd);
+      setImageUrl(url);
+      toast.success("Photo uploadée");
+    } catch (e) {
+      toast.error(e instanceof Error ? e.message : "Erreur upload");
+    } finally {
+      setUploading(false);
+    }
+  }
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
@@ -258,7 +296,27 @@ function MapForm({
       <FieldGroup label={t("field_description")}>
         <Textarea rows={3} value={description} onChange={(e) => setDescription(e.target.value)} />
       </FieldGroup>
-      <FieldGroup label={t("field_image_url")}>
+      <FieldGroup label="Photo du lieu">
+        <input ref={venueFileRef} type="file" accept="image/jpeg,image/jpg,image/png" className="hidden" onChange={(e) => handleVenueUpload(e.target.files)} />
+        {imageUrl ? (
+          <div className="relative w-full aspect-video rounded-xl overflow-hidden border border-border bg-muted">
+            <Image src={imageUrl} alt="Photo du lieu" fill className="object-cover" sizes="600px" />
+            <button type="button" onClick={() => setImageUrl("")} className="absolute top-2 right-2 w-7 h-7 rounded-full bg-black/60 text-white flex items-center justify-center hover:bg-red-500 transition-colors">
+              <X size={13} />
+            </button>
+          </div>
+        ) : (
+          <button
+            type="button"
+            onClick={() => venueFileRef.current?.click()}
+            disabled={uploading}
+            className="w-full flex flex-col items-center gap-2 py-6 rounded-xl border-2 border-dashed border-border hover:border-primary/40 hover:bg-primary/5 transition-colors text-muted-foreground"
+          >
+            <ImagePlus size={20} />
+            <span className="text-xs font-medium">{uploading ? "Upload..." : "Ajouter une photo (JPG/PNG, max 10 Mo)"}</span>
+          </button>
+        )}
+        <p className="text-xs text-muted-foreground">Ou coller une URL directement :</p>
         <Input value={imageUrl} onChange={(e) => setImageUrl(e.target.value)} placeholder="https://..." />
       </FieldGroup>
       <FieldGroup label={t("field_image_orientation")}>
@@ -283,7 +341,9 @@ function MapForm({
       <FormActions
         saving={saving}
         onReset={() => {
-          setName(""); setAddress(""); setDescription(""); setImageUrl(""); setImageOrientation("landscape");
+          setName(MAP_DEFAULTS.name); setAddress(MAP_DEFAULTS.address);
+          setDescription(MAP_DEFAULTS.description); setImageUrl(MAP_DEFAULTS.imageUrl);
+          setImageOrientation(MAP_DEFAULTS.imageOrientation);
         }}
       />
     </form>
@@ -298,15 +358,41 @@ function IntroVideoForm({
   config: Record<string, unknown> | null;
   onSave: (data: Record<string, unknown>) => Promise<void>;
 }) {
+  const VIDEO_DEFAULTS = {
+    title: "Notre Histoire",
+    subtitle: "Un petit mot pour vous",
+    description: "Avant le grand jour, nous tenions à vous adresser ce message...",
+    videoUrl: "",
+    videoType: "embed" as const,
+  };
   const t = useTranslations("Modules");
   const [saving, setSaving] = useState(false);
-  const [title, setTitle] = useState(str(config?.title, "Notre Histoire"));
-  const [subtitle, setSubtitle] = useState(str(config?.subtitle, "Un petit mot pour vous"));
-  const [description, setDescription] = useState(str(config?.description));
-  const [videoUrl, setVideoUrl] = useState(str(config?.videoUrl));
+  const [uploading, setUploading] = useState(false);
+  const [title, setTitle] = useState(str(config?.title, VIDEO_DEFAULTS.title));
+  const [subtitle, setSubtitle] = useState(str(config?.subtitle, VIDEO_DEFAULTS.subtitle));
+  const [description, setDescription] = useState(str(config?.description, VIDEO_DEFAULTS.description));
+  const [videoUrl, setVideoUrl] = useState(str(config?.videoUrl, VIDEO_DEFAULTS.videoUrl));
   const [videoType, setVideoType] = useState<"embed" | "upload">(
-    strAs<"embed" | "upload">(config?.videoType, "embed")
+    strAs<"embed" | "upload">(config?.videoType, VIDEO_DEFAULTS.videoType)
   );
+  const videoFileRef = useRef<HTMLInputElement>(null);
+
+  async function handleVideoUpload(files: FileList | null) {
+    if (!files?.[0]) return;
+    setUploading(true);
+    try {
+      const fd = new FormData();
+      fd.append("file", files[0]);
+      const { url } = await uploadIntroVideo(fd);
+      setVideoUrl(url);
+      setVideoType("upload");
+      toast.success("Vidéo uploadée");
+    } catch (e) {
+      toast.error(e instanceof Error ? e.message : "Erreur upload");
+    } finally {
+      setUploading(false);
+    }
+  }
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
@@ -329,8 +415,9 @@ function IntroVideoForm({
       <FieldGroup label={t("field_description")}>
         <Textarea rows={2} value={description} onChange={(e) => setDescription(e.target.value)} />
       </FieldGroup>
-      <FieldGroup label={t("field_video_type")}>
-        <div className="flex gap-3">
+
+      <FieldGroup label="Source vidéo">
+        <div className="flex gap-3 mb-3">
           {(["embed", "upload"] as const).map((vt) => (
             <button
               key={vt}
@@ -343,24 +430,54 @@ function IntroVideoForm({
                   : "border-border text-muted-foreground hover:border-primary/30"
               )}
             >
-              {t(`video_type_${vt}`)}
+              {vt === "embed" ? "Lien YouTube / Vimeo" : "Uploader un fichier"}
             </button>
           ))}
         </div>
+
+        {videoType === "embed" ? (
+          <>
+            <Input
+              value={videoUrl}
+              onChange={(e) => setVideoUrl(e.target.value)}
+              placeholder="https://youtu.be/... ou https://www.youtube.com/watch?v=..."
+            />
+            <p className="text-xs text-muted-foreground">Coller un lien YouTube ou Vimeo</p>
+          </>
+        ) : (
+          <>
+            <input ref={videoFileRef} type="file" accept="video/mp4,video/quicktime,video/webm" className="hidden" onChange={(e) => handleVideoUpload(e.target.files)} />
+            {videoUrl && videoType === "upload" ? (
+              <div className="flex items-center gap-3 p-3 bg-secondary rounded-xl border border-border">
+                <div className="w-8 h-8 rounded-lg bg-primary/10 flex items-center justify-center shrink-0">
+                  <ImagePlus size={14} className="text-primary" />
+                </div>
+                <p className="text-xs text-foreground flex-1 truncate">{videoUrl.split("/").pop()}</p>
+                <button type="button" onClick={() => setVideoUrl("")} className="text-muted-foreground hover:text-red-500 transition-colors shrink-0">
+                  <X size={14} />
+                </button>
+              </div>
+            ) : (
+              <button
+                type="button"
+                onClick={() => videoFileRef.current?.click()}
+                disabled={uploading}
+                className="w-full flex flex-col items-center gap-2 py-6 rounded-xl border-2 border-dashed border-border hover:border-primary/40 hover:bg-primary/5 transition-colors text-muted-foreground"
+              >
+                <ImagePlus size={20} />
+                <span className="text-xs font-medium">{uploading ? "Upload en cours..." : "Uploader une vidéo (MP4, MOV, WebM — max 100 Mo)"}</span>
+              </button>
+            )}
+          </>
+        )}
       </FieldGroup>
-      <FieldGroup label={t("field_video_url")}>
-        <Input
-          value={videoUrl}
-          onChange={(e) => setVideoUrl(e.target.value)}
-          placeholder={videoType === "embed" ? "https://www.youtube.com/embed/..." : "https://...mp4"}
-        />
-        <p className="text-xs text-muted-foreground">{t(`video_url_hint_${videoType}`)}</p>
-      </FieldGroup>
+
       <FormActions
         saving={saving}
         onReset={() => {
-          setTitle("Notre Histoire"); setSubtitle("Un petit mot pour vous");
-          setDescription(""); setVideoUrl(""); setVideoType("embed");
+          setTitle(VIDEO_DEFAULTS.title); setSubtitle(VIDEO_DEFAULTS.subtitle);
+          setDescription(VIDEO_DEFAULTS.description); setVideoUrl(VIDEO_DEFAULTS.videoUrl);
+          setVideoType(VIDEO_DEFAULTS.videoType);
         }}
       />
     </form>
@@ -453,6 +570,12 @@ function PlaylistForm({
 }
 
 // --- Timeline ---
+const TIMELINE_DEFAULTS: TimelineEvent[] = [
+  { id: "tl-1", time: "15:00", title: "Cérémonie Civile", location: "Mairie du 8e, Paris", description: "Merci d'arriver 15 min en avance." },
+  { id: "tl-2", time: "17:30", title: "Vin d'Honneur", location: "Jardins du Château", description: "Profitez de la terrasse et des jardins." },
+  { id: "tl-3", time: "20:00", title: "Dîner & Soirée", location: "Grande Salle du Château", description: "Le bal s'ouvre avec la première danse des mariés." },
+];
+
 function TimelineForm({
   config,
   onSave,
@@ -464,9 +587,7 @@ function TimelineForm({
   const [saving, setSaving] = useState(false);
   const [events, setEvents] = useState<TimelineEvent[]>(() => {
     const raw = arr<TimelineEvent>(config?.events);
-    return raw.length > 0
-      ? raw
-      : [{ id: genId(), time: "15:00", title: "Cérémonie", location: "", description: "" }];
+    return raw.length > 0 ? raw : TIMELINE_DEFAULTS;
   });
 
   function addEvent() {
@@ -553,13 +674,24 @@ function TimelineForm({
       </button>
       <FormActions
         saving={saving}
-        onReset={() => setEvents([{ id: genId(), time: "15:00", title: "Cérémonie", location: "", description: "" }])}
+        onReset={() => setEvents(TIMELINE_DEFAULTS)}
       />
     </form>
   );
 }
 
 // --- Accommodation ---
+const ACCOMMODATION_DEFAULTS = {
+  title: "Logements",
+  subtitle: "Où dormir ?",
+  description: "Pour profiter pleinement de la fête en toute sérénité, voici nos suggestions d'hébergements à proximité du domaine.",
+  options: [
+    { id: "1", type: "Hotel" as const, name: "Ibis Melun", distance: "À 15 minutes du domaine", description: "Hôtel confortable idéalement situé à Melun, avec navette disponible sur demande pour rejoindre le château.", url: "https://all.accor.com", urlLabel: "Réserver une chambre" },
+    { id: "2", type: "House" as const, name: "Gîte de Maincy", distance: "À 5 minutes (village voisin)", description: "Idéal pour les familles ou groupes d'amis. Gîte spacieux avec 4 chambres au cœur du village de Maincy.", url: "https://airbnb.com", urlLabel: "Voir sur Airbnb" },
+    { id: "3", type: "Hotel" as const, name: "Hôtel de la Brie", distance: "À 20 minutes", description: "Nous avons pré-réservé quelques chambres pour nos invités. Contactez-nous rapidement pour bloquer la vôtre." },
+  ],
+};
+
 function AccommodationForm({
   config,
   onSave,
@@ -569,10 +701,13 @@ function AccommodationForm({
 }) {
   const t = useTranslations("Modules");
   const [saving, setSaving] = useState(false);
-  const [title, setTitle] = useState(str(config?.title, "Logements"));
-  const [subtitle, setSubtitle] = useState(str(config?.subtitle, "Où dormir ?"));
-  const [description, setDescription] = useState(str(config?.description));
-  const [options, setOptions] = useState<AccommodationOption[]>(() => arr<AccommodationOption>(config?.options));
+  const [title, setTitle] = useState(str(config?.title, ACCOMMODATION_DEFAULTS.title));
+  const [subtitle, setSubtitle] = useState(str(config?.subtitle, ACCOMMODATION_DEFAULTS.subtitle));
+  const [description, setDescription] = useState(str(config?.description, ACCOMMODATION_DEFAULTS.description));
+  const [options, setOptions] = useState<AccommodationOption[]>(() => {
+    const raw = arr<AccommodationOption>(config?.options);
+    return raw.length > 0 ? raw : ACCOMMODATION_DEFAULTS.options;
+  });
 
   function addOption() {
     setOptions([
@@ -682,7 +817,10 @@ function AccommodationForm({
       </button>
       <FormActions
         saving={saving}
-        onReset={() => { setTitle("Logements"); setSubtitle("Où dormir ?"); setDescription(""); setOptions([]); }}
+        onReset={() => {
+          setTitle(ACCOMMODATION_DEFAULTS.title); setSubtitle(ACCOMMODATION_DEFAULTS.subtitle);
+          setDescription(ACCOMMODATION_DEFAULTS.description); setOptions(ACCOMMODATION_DEFAULTS.options);
+        }}
       />
     </form>
   );
@@ -697,6 +835,17 @@ const TRANSPORT_ICONS: Record<string, React.ReactNode> = {
   Ship: <Ship size={14} />,
 };
 
+const TRANSPORT_DEFAULTS = {
+  options: [
+    { id: "trans-1", iconType: "Train" as const, title: "En Train", description: "Gare de Lyon → Melun en 35 min (Transilien R), puis taxi ou navette jusqu'au château (10 min)." },
+    { id: "trans-2", iconType: "Car" as const, title: "En Voiture", description: "Depuis Paris : A6 direction Lyon, sortie Melun/Vaux-le-Vicomte. Parking gratuit et surveillé sur place." },
+    { id: "trans-3", iconType: "Bus" as const, title: "Navettes Prévues", description: "Des navettes privées feront l'aller-retour depuis Paris 8e et les hôtels partenaires à 2h00, 3h30 et 5h00 du matin." },
+  ],
+  carpoolUrl: "https://togetzer.com/",
+  carpoolLinkLabel: "Accéder au tableau",
+  carpoolDescription: "Pour limiter notre empreinte écologique et faciliter les trajets, nous avons mis en place un tableau de covoiturage. N'hésitez pas à proposer ou chercher une place !",
+};
+
 function TransportForm({
   config,
   onSave,
@@ -706,10 +855,13 @@ function TransportForm({
 }) {
   const t = useTranslations("Modules");
   const [saving, setSaving] = useState(false);
-  const [options, setOptions] = useState<TransportOption[]>(() => arr<TransportOption>(config?.options));
-  const [carpoolUrl, setCarpoolUrl] = useState(str(config?.carpoolUrl));
-  const [carpoolLinkLabel, setCarpoolLinkLabel] = useState(str(config?.carpoolLinkLabel, "Accéder au tableau"));
-  const [carpoolDescription, setCarpoolDescription] = useState(str(config?.carpoolDescription));
+  const [options, setOptions] = useState<TransportOption[]>(() => {
+    const raw = arr<TransportOption>(config?.options);
+    return raw.length > 0 ? raw : TRANSPORT_DEFAULTS.options;
+  });
+  const [carpoolUrl, setCarpoolUrl] = useState(str(config?.carpoolUrl, TRANSPORT_DEFAULTS.carpoolUrl));
+  const [carpoolLinkLabel, setCarpoolLinkLabel] = useState(str(config?.carpoolLinkLabel, TRANSPORT_DEFAULTS.carpoolLinkLabel));
+  const [carpoolDescription, setCarpoolDescription] = useState(str(config?.carpoolDescription, TRANSPORT_DEFAULTS.carpoolDescription));
 
   function addOption() {
     setOptions([...options, { id: genId(), iconType: "Car", title: "", description: "" }]);
@@ -803,13 +955,28 @@ function TransportForm({
       </FieldGroup>
       <FormActions
         saving={saving}
-        onReset={() => { setOptions([]); setCarpoolUrl(""); setCarpoolLinkLabel("Accéder au tableau"); setCarpoolDescription(""); }}
+        onReset={() => {
+          setOptions(TRANSPORT_DEFAULTS.options);
+          setCarpoolUrl(TRANSPORT_DEFAULTS.carpoolUrl);
+          setCarpoolLinkLabel(TRANSPORT_DEFAULTS.carpoolLinkLabel);
+          setCarpoolDescription(TRANSPORT_DEFAULTS.carpoolDescription);
+        }}
       />
     </form>
   );
 }
 
 // --- Menu ---
+const MENU_DEFAULTS = {
+  sections: [
+    { id: "sec-1", title: "Pour commencer", items: [{ title: "Velouté de butternut au lait de coco", description: "Éclats de châtaignes et huile de truffe" }] },
+    { id: "sec-2", title: "Le Plat", items: [{ title: "Filet de bœuf Wellington", description: "Jus corsé au vin rouge, accompagné de sa mousseline de pommes de terre truffée et petits légumes glacés" }] },
+    { id: "sec-3", title: "La Note Sucrée", items: [{ title: "Pièce montée traditionnelle" }, { title: "Farandole de mignardises" }] },
+  ],
+  dietaryNote: "Toutes nos viandes sont d'origine certifiée. En cas d'allergies, d'intolérances ou de régime spécifique (végétarien, halal, sans gluten), merci de le préciser lors de votre RSVP.",
+  footer: ["Vins & Champagne inclus", "Café & Thé"],
+};
+
 function MenuForm({
   config,
   onSave,
@@ -821,12 +988,12 @@ function MenuForm({
   const [saving, setSaving] = useState(false);
   const [sections, setSections] = useState<MenuSection[]>(() => {
     const raw = arr<MenuSection>(config?.sections);
-    return raw.length > 0 ? raw : [{ id: genId(), title: "Pour commencer", items: [{ title: "", description: "" }] }];
+    return raw.length > 0 ? raw : MENU_DEFAULTS.sections;
   });
-  const [dietaryNote, setDietaryNote] = useState(str(config?.dietaryNote));
+  const [dietaryNote, setDietaryNote] = useState(str(config?.dietaryNote, MENU_DEFAULTS.dietaryNote));
   const [footer, setFooter] = useState<string[]>(() => {
     const raw = arr<string>(config?.footer);
-    return raw.length > 0 ? raw : ["Vins & Champagne inclus", "Café & Thé"];
+    return raw.length > 0 ? raw : MENU_DEFAULTS.footer;
   });
 
   function addSection() {
@@ -981,8 +1148,9 @@ function MenuForm({
       <FormActions
         saving={saving}
         onReset={() => {
-          setSections([{ id: genId(), title: "Pour commencer", items: [{ title: "", description: "" }] }]);
-          setDietaryNote(""); setFooter(["Vins & Champagne inclus", "Café & Thé"]);
+          setSections(MENU_DEFAULTS.sections);
+          setDietaryNote(MENU_DEFAULTS.dietaryNote);
+          setFooter(MENU_DEFAULTS.footer);
         }}
       />
     </form>
@@ -990,6 +1158,17 @@ function MenuForm({
 }
 
 // --- FAQ ---
+const FAQ_DEFAULTS = {
+  title: "FAQ",
+  subtitle: "Infos Pratiques",
+  description: "Vous avez des questions ? Nous avons les réponses !",
+  questions: [
+    { id: "faq-1", question: "La cérémonie se déroulera-t-elle en extérieur ?", answer: "La cérémonie religieuse aura lieu dans la chapelle du château. Le vin d'honneur se tiendra dans les jardins (en cas de pluie, une tente est prévue)." },
+    { id: "faq-2", question: "Les enfants sont-ils les bienvenus ?", answer: "Nous adorons vos enfants ! Les enfants de moins de 12 ans sont les bienvenus. Un espace kids avec baby-sitter sera disponible pendant le dîner." },
+    { id: "faq-3", question: "Y a-t-il un parking sur place ?", answer: "Oui, un parking gratuit et surveillé est disponible sur le domaine. Comptez 10 min à pied depuis le parking jusqu'à la salle." },
+  ],
+};
+
 function FaqForm({
   config,
   onSave,
@@ -999,10 +1178,13 @@ function FaqForm({
 }) {
   const t = useTranslations("Modules");
   const [saving, setSaving] = useState(false);
-  const [title, setTitle] = useState(str(config?.title, "FAQ"));
-  const [subtitle, setSubtitle] = useState(str(config?.subtitle, "Infos Pratiques"));
-  const [description, setDescription] = useState(str(config?.description));
-  const [questions, setQuestions] = useState<FaqItem[]>(() => arr<FaqItem>(config?.questions));
+  const [title, setTitle] = useState(str(config?.title, FAQ_DEFAULTS.title));
+  const [subtitle, setSubtitle] = useState(str(config?.subtitle, FAQ_DEFAULTS.subtitle));
+  const [description, setDescription] = useState(str(config?.description, FAQ_DEFAULTS.description));
+  const [questions, setQuestions] = useState<FaqItem[]>(() => {
+    const raw = arr<FaqItem>(config?.questions);
+    return raw.length > 0 ? raw : FAQ_DEFAULTS.questions;
+  });
 
   function addQuestion() {
     setQuestions([...questions, { id: genId(), question: "", answer: "" }]);
@@ -1075,9 +1257,174 @@ function FaqForm({
       </button>
       <FormActions
         saving={saving}
-        onReset={() => { setTitle("FAQ"); setSubtitle("Infos Pratiques"); setDescription(""); setQuestions([]); }}
+        onReset={() => {
+          setTitle(FAQ_DEFAULTS.title); setSubtitle(FAQ_DEFAULTS.subtitle);
+          setDescription(FAQ_DEFAULTS.description); setQuestions(FAQ_DEFAULTS.questions);
+        }}
       />
     </form>
+  );
+}
+
+// --- Gallery ---
+const MAX_FILE_SIZE = 5 * 1024 * 1024; // 5MB
+const ALLOWED_TYPES = ["image/jpeg", "image/jpg", "image/png"];
+const MAX_IMAGES = 12;
+
+function GalleryForm({
+  config,
+}: {
+  config: Record<string, unknown> | null;
+  onSave: (data: Record<string, unknown>) => Promise<void>;
+}) {
+  const [images, setImages] = useState<string[]>(() => arr<string>(config?.images));
+  const [uploading, setUploading] = useState(false);
+  const [saving, setSaving] = useState(false);
+  const fileInputRef = useRef<HTMLInputElement>(null);
+
+  async function handleFiles(files: FileList | null) {
+    if (!files || files.length === 0) return;
+    const remaining = MAX_IMAGES - images.length;
+    if (remaining <= 0) {
+      toast.error(`Maximum ${MAX_IMAGES} photos`);
+      return;
+    }
+
+    const toUpload = Array.from(files).slice(0, remaining);
+    const invalid = toUpload.filter((f) => !ALLOWED_TYPES.includes(f.type) || f.size > MAX_FILE_SIZE);
+    if (invalid.length > 0) {
+      toast.error("Certains fichiers sont invalides (JPG/PNG, max 5 Mo)");
+      return;
+    }
+
+    setUploading(true);
+    try {
+      const urls: string[] = [];
+      for (const file of toUpload) {
+        const fd = new FormData();
+        fd.append("file", file);
+        const { url } = await uploadGalleryImage(fd);
+        urls.push(url);
+      }
+      const updated = [...images, ...urls];
+      setImages(updated);
+      await saveGalleryConfig(updated);
+      toast.success(`${urls.length} photo${urls.length > 1 ? "s" : ""} ajoutée${urls.length > 1 ? "s" : ""}`);
+    } catch (e) {
+      toast.error(e instanceof Error ? e.message : "Erreur upload");
+    } finally {
+      setUploading(false);
+    }
+  }
+
+  async function handleDelete(url: string) {
+    setSaving(true);
+    try {
+      await deleteGalleryImage(url);
+      const updated = images.filter((u) => u !== url);
+      setImages(updated);
+      await saveGalleryConfig(updated);
+      toast.success("Photo supprimée");
+    } catch (e) {
+      toast.error(e instanceof Error ? e.message : "Erreur suppression");
+    } finally {
+      setSaving(false);
+    }
+  }
+
+  async function handleReorder(from: number, to: number) {
+    const updated = [...images];
+    const [moved] = updated.splice(from, 1);
+    updated.splice(to, 0, moved);
+    setImages(updated);
+    await saveGalleryConfig(updated);
+  }
+
+  return (
+    <div className="space-y-6">
+      {/* Upload zone */}
+      <div
+        className={cn(
+          "border-2 border-dashed border-border rounded-xl p-8 text-center transition-colors cursor-pointer hover:border-primary/40 hover:bg-primary/5",
+          images.length >= MAX_IMAGES && "opacity-50 cursor-not-allowed pointer-events-none"
+        )}
+        onClick={() => fileInputRef.current?.click()}
+        onDragOver={(e) => e.preventDefault()}
+        onDrop={(e) => { e.preventDefault(); handleFiles(e.dataTransfer.files); }}
+      >
+        <input
+          ref={fileInputRef}
+          type="file"
+          accept="image/jpeg,image/jpg,image/png"
+          multiple
+          className="hidden"
+          onChange={(e) => handleFiles(e.target.files)}
+        />
+        <div className="flex flex-col items-center gap-3">
+          <div className="w-12 h-12 rounded-full bg-secondary flex items-center justify-center">
+            <ImagePlus size={20} className="text-primary" />
+          </div>
+          <div>
+            <p className="text-sm font-medium text-foreground">
+              {uploading ? "Upload en cours..." : "Glisser des photos ou cliquer pour parcourir"}
+            </p>
+            <p className="text-xs text-muted-foreground mt-1">
+              JPG, JPEG, PNG — max 5 Mo par photo — {images.length}/{MAX_IMAGES} photos
+            </p>
+          </div>
+        </div>
+      </div>
+
+      {/* Photo grid */}
+      {images.length > 0 && (
+        <div className="grid grid-cols-3 sm:grid-cols-4 gap-3">
+          {images.map((url, idx) => (
+            <div key={url} className="relative group aspect-square rounded-xl overflow-hidden border border-border bg-muted">
+              <Image
+                src={url}
+                alt={`Photo ${idx + 1}`}
+                fill
+                className="object-cover"
+                sizes="150px"
+              />
+              <div className="absolute inset-0 bg-black/0 group-hover:bg-black/30 transition-colors" />
+              <button
+                type="button"
+                onClick={() => handleDelete(url)}
+                disabled={saving}
+                className="absolute top-1.5 right-1.5 w-6 h-6 rounded-full bg-black/60 text-white flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity hover:bg-red-500"
+              >
+                <X size={12} />
+              </button>
+              {/* Move left */}
+              {idx > 0 && (
+                <button
+                  type="button"
+                  onClick={() => handleReorder(idx, idx - 1)}
+                  className="absolute bottom-1.5 left-1.5 w-6 h-6 rounded-full bg-black/60 text-white flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity text-xs font-bold"
+                >
+                  ←
+                </button>
+              )}
+              {/* Move right */}
+              {idx < images.length - 1 && (
+                <button
+                  type="button"
+                  onClick={() => handleReorder(idx, idx + 1)}
+                  className="absolute bottom-1.5 right-1.5 w-6 h-6 rounded-full bg-black/60 text-white flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity text-xs font-bold"
+                >
+                  →
+                </button>
+              )}
+            </div>
+          ))}
+        </div>
+      )}
+
+      {images.length === 0 && (
+        <p className="text-xs text-muted-foreground text-center">Aucune photo ajoutée — les photos de démonstration s&apos;afficheront sur le site.</p>
+      )}
+    </div>
   );
 }
 
@@ -1122,6 +1469,8 @@ export function ModuleConfigForm({
       return <MenuForm {...props} />;
     case "faq":
       return <FaqForm {...props} />;
+    case "gallery":
+      return <GalleryForm {...props} />;
     default:
       return (
         <p className="text-sm text-muted-foreground">{t("no_config_needed")}</p>

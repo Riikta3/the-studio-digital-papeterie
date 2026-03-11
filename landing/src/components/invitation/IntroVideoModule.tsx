@@ -29,11 +29,26 @@ export function IntroVideoModule({
   weddingId: string;
   config?: Record<string, any> | null;
 }) {
-  const data: IntroVideoData =
-    config?.videoUrl ? (config as IntroVideoData) : MOCK_INTRO_VIDEO;
+  const data: IntroVideoData = {
+    ...MOCK_INTRO_VIDEO,
+    ...(config ? Object.fromEntries(Object.entries(config).filter(([, v]) => v !== "" && v !== null && v !== undefined)) : {}),
+  } as IntroVideoData;
   const [isPlaying, setIsPlaying] = useState(false);
 
   if (!data.videoUrl) return null;
+
+  // Normalize YouTube URLs to embed format
+  const normalizeVideoUrl = (url: string): string => {
+    // youtu.be/ID or youtu.be/ID?si=...
+    const shortMatch = url.match(/youtu\.be\/([a-zA-Z0-9_-]{11})/);
+    if (shortMatch) return `https://www.youtube.com/embed/${shortMatch[1]}`;
+    // youtube.com/watch?v=ID
+    const watchMatch = url.match(/youtube\.com\/watch\?.*v=([a-zA-Z0-9_-]{11})/);
+    if (watchMatch) return `https://www.youtube.com/embed/${watchMatch[1]}`;
+    return url;
+  };
+
+  const videoUrl = data.videoType !== "upload" ? normalizeVideoUrl(data.videoUrl) : data.videoUrl;
 
   return (
     <section className='w-full'>
@@ -107,9 +122,9 @@ export function IntroVideoModule({
                 ) : (
                   <iframe
                     src={
-                      data.videoUrl.includes("?")
-                        ? `${data.videoUrl}&autoplay=1`
-                        : `${data.videoUrl}?autoplay=1`
+                      videoUrl.includes("?")
+                        ? `${videoUrl}&autoplay=1`
+                        : `${videoUrl}?autoplay=1`
                     }
                     title='Video des mariés'
                     allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture'

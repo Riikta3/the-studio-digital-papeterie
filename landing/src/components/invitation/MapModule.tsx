@@ -30,8 +30,10 @@ export function MapModule({
   weddingId: string;
   config?: Record<string, any> | null;
 }) {
-  const location: LocationData =
-    config?.name ? (config as LocationData) : MOCK_LOCATION;
+  const location: LocationData = {
+    ...MOCK_LOCATION,
+    ...(config ? Object.fromEntries(Object.entries(config).filter(([, v]) => v !== "" && v !== null && v !== undefined)) : {}),
+  } as LocationData;
 
   if (!location) return null;
 

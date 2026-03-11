@@ -34,18 +34,35 @@ export async function updateModuleConfig({
 
   if (!site) throw new Error("Site not found");
 
-  const { error } = await supabase
+  // Check if the row exists first
+  const { data: existing, error: fetchError } = await supabase
     .from("site_modules")
-    .update({ config })
+    .select("id, position")
     .eq("site_id", site.id)
-    .eq("module_id", moduleId);
+    .eq("module_id", moduleId)
+    .maybeSingle();
 
-  if (error) throw new Error(error.message);
+  if (!existing) {
+    // Row doesn't exist — insert with position from modules table default
+    const { error: insertError } = await supabase
+      .from("site_modules")
+      .insert({ site_id: site.id, module_id: moduleId, config, position: 0 });
+    if (insertError) throw new Error(insertError.message);
+  } else {
+    const { error: updateError } = await supabase
+      .from("site_modules")
+      .update({ config })
+      .eq("id", existing.id);
+    if (updateError) throw new Error(updateError.message);
+  }
 
   for (const locale of ["fr", "en", "de", "es", "pt", "it", "ar", "zh", "ja"]) {
     revalidatePath(`/${locale}/modules`);
     revalidatePath(`/${locale}/modules/${moduleId}`);
   }
+
+  // Also revalidate the invitation page on landing (all slugs)
+  revalidatePath("/", "layout");
 }
 
 export async function getModuleConfig(moduleId: string) {

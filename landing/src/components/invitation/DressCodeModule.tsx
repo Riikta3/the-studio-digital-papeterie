@@ -23,8 +23,10 @@ export function DressCodeModule({
   weddingId: string;
   config?: Record<string, any> | null;
 }) {
-  const data: DressCodeData =
-    config?.description ? (config as DressCodeData) : MOCK_DRESS_CODE;
+  const data: DressCodeData = {
+    ...MOCK_DRESS_CODE,
+    ...(config ? Object.fromEntries(Object.entries(config).filter(([, v]) => v !== "" && v !== null && v !== undefined)) : {}),
+  } as DressCodeData;
 
   return (
     <section className='w-full'>

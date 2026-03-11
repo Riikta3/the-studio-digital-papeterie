@@ -7,7 +7,7 @@ import { notFound, redirect } from "next/navigation";
 import { ModuleConfigForm } from "./ModuleConfigForm";
 
 // Modules that have no configurable fields
-const NON_CONFIGURABLE = ["countdown", "guestbook", "gallery", "video-guestbook"];
+const NON_CONFIGURABLE = ["countdown", "guestbook", "video-guestbook"];
 
 export default async function ModuleConfigPage({
   params,
@@ -38,7 +38,7 @@ export default async function ModuleConfigPage({
       <div className="mb-8">
         <Link
           href="/modules"
-          className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition-colors mb-6"
+          className="inline-flex items-center gap-2 text-sm font-medium text-foreground bg-white border border-border rounded-full px-4 py-2 hover:border-primary/40 hover:shadow-sm transition-all mb-6"
         >
           <ArrowLeft size={14} />
           {t("back")}

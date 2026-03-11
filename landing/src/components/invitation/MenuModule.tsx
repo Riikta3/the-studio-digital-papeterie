@@ -70,10 +70,16 @@ export function MenuModule({
   weddingId: string;
   config?: Record<string, any> | null;
 }) {
-  const menu: MenuData =
-    config?.sections && Array.isArray(config.sections) && config.sections.length > 0
-      ? (config as MenuData)
-      : MOCK_MENU;
+  const menu: MenuData = {
+    ...MOCK_MENU,
+    ...config,
+    sections: (config?.sections && Array.isArray(config.sections) && config.sections.length > 0)
+      ? config.sections as MenuData["sections"]
+      : MOCK_MENU.sections,
+    footer: (config?.footer && Array.isArray(config.footer) && config.footer.length > 0)
+      ? config.footer as string[]
+      : MOCK_MENU.footer,
+  };
 
   if (!menu || menu.sections.length === 0) return null;
 

@@ -45,7 +45,7 @@ export function TimelineModule({
 }) {
   const events: EventData[] =
     config?.events && Array.isArray(config.events) && config.events.length > 0
-      ? config.events
+      ? (config.events as EventData[])
       : MOCK_EVENTS;
 
   return (

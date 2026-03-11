@@ -8,11 +8,13 @@ export default async function ModulesPage() {
   const t = await getTranslations("Modules");
   const enabledIds = await getEnabledModules();
 
-  const enabledModules = APP_MODULES.filter((m) => enabledIds.includes(m.id));
-  const lockedModules = APP_MODULES.filter((m) => !enabledIds.includes(m.id));
+  // Modules hidden entirely from the config list
+  const HIDDEN_FROM_CONFIG = ["countdown"];
+  // Modules without configurable fields (shown as non-clickable)
+  const NON_CONFIGURABLE = ["guestbook", "video-guestbook"];
 
-  // Modules without configurable fields
-  const NON_CONFIGURABLE = ["countdown", "guestbook", "gallery", "video-guestbook"];
+  const enabledModules = APP_MODULES.filter((m) => enabledIds.includes(m.id) && !HIDDEN_FROM_CONFIG.includes(m.id));
+  const lockedModules = APP_MODULES.filter((m) => !enabledIds.includes(m.id) && !HIDDEN_FROM_CONFIG.includes(m.id));
 
   return (
     <div className="p-6 md:p-10 max-w-3xl mx-auto">

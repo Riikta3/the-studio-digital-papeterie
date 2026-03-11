@@ -87,10 +87,13 @@ export function AccommodationModule({
   weddingId: string;
   config?: Record<string, any> | null;
 }) {
-  const data: AccommodationData =
-    config?.options && Array.isArray(config.options) && config.options.length > 0
-      ? (config as AccommodationData)
-      : MOCK_ACCOMMODATIONS;
+  const data: AccommodationData = {
+    ...MOCK_ACCOMMODATIONS,
+    ...(config ? Object.fromEntries(Object.entries(config).filter(([, v]) => v !== "" && v !== null && v !== undefined)) : {}),
+    options: (config?.options && Array.isArray(config.options) && config.options.length > 0)
+      ? config.options as AccommodationData["options"]
+      : MOCK_ACCOMMODATIONS.options,
+  };
 
   if (!data.options || data.options.length === 0) return null;
 

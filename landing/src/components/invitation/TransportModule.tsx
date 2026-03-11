@@ -74,10 +74,13 @@ export function TransportModule({
   weddingId: string;
   config?: Record<string, any> | null;
 }) {
-  const data: TransportData =
-    config?.options && Array.isArray(config.options)
-      ? (config as TransportData)
-      : MOCK_TRANSPORT;
+  const data: TransportData = {
+    ...MOCK_TRANSPORT,
+    ...(config ? Object.fromEntries(Object.entries(config).filter(([, v]) => v !== "" && v !== null && v !== undefined)) : {}),
+    options: (config?.options && Array.isArray(config.options) && config.options.length > 0)
+      ? config.options as TransportData["options"]
+      : MOCK_TRANSPORT.options,
+  };
 
   if (!data || (data.options.length === 0 && !data.carpoolUrl)) return null;
 

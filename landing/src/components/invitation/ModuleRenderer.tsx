@@ -55,12 +55,12 @@ export async function ModuleRenderer({
   if (!modules || modules.length === 0) return null;
 
   // Fetch all module configs for this site in a single query
-  const { data: siteModules } = await supabaseAdmin
+  const { data: siteModules, error: siteModulesError } = await supabaseAdmin
     .from("site_modules")
     .select("module_id, config")
     .eq("site_id", siteId);
 
-  const configMap: Record<string, Record<string, any> | null> = {};
+  const configMap: Record<string, Record<string, unknown> | null> = {};
   (siteModules || []).forEach(({ module_id, config }) => {
     configMap[module_id] = config ?? null;
   });
