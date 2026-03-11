@@ -20,6 +20,7 @@ import {
   LogOut,
   Menu,
   MessageSquare,
+  Puzzle,
   Send,
   Settings,
   Users,
@@ -38,6 +39,10 @@ const navItems = [
   { key: "seating_plan", href: "/seating-plan", icon: Grid },
   { key: "billing", href: "/billing", icon: CreditCard },
   { key: "settings", href: "/settings", icon: Settings },
+];
+
+const configNavItems = [
+  { key: "modules", href: "/modules", icon: Puzzle },
 ];
 
 export function Sidebar({ slug }: { slug: string | null }) {
@@ -128,12 +133,8 @@ export function Sidebar({ slug }: { slug: string | null }) {
           </div>
 
           {/* Navigation */}
-          <nav className='space-y-2 flex-1'>
+          <nav className='space-y-1 flex-1'>
             {navItems.map((item) => {
-              // Match exact path or subpath (for guests/...)
-              // Since pathname now includes locale (e.g. /fr/guests), we can't simple compare equal
-              // But items.href are root paths e.g. /guests
-
               const isActive =
                 item.href === "/"
                   ? pathname === "/" ||
@@ -162,6 +163,33 @@ export function Sidebar({ slug }: { slug: string | null }) {
                 </Link>
               );
             })}
+
+            {/* Configuration section */}
+            <div className='pt-4'>
+              <p className='px-4 pb-1 text-[10px] font-bold uppercase tracking-[0.2em] text-muted-foreground/50'>
+                {t("config_section")}
+              </p>
+              {configNavItems.map((item) => {
+                const isActive = pathname.includes(item.href);
+                const Icon = item.icon;
+                return (
+                  <Link
+                    key={item.href}
+                    href={item.href}
+                    onClick={handleLinkClick}
+                    className={cn(
+                      "flex items-center gap-3 px-4 py-3 rounded-lg text-sm font-medium transition-colors",
+                      isActive
+                        ? "bg-primary/10 text-primary"
+                        : "text-muted-foreground hover:bg-gray-50 hover:text-foreground",
+                    )}
+                  >
+                    <Icon size={20} />
+                    {t(item.key)}
+                  </Link>
+                );
+              })}
+            </div>
           </nav>
 
           {/* Builder Link */}
