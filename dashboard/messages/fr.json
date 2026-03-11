@@ -142,11 +142,14 @@
     "filter": {
       "all": "Tous",
       "attending": "Présents",
-      "declined": "Absents"
+      "declined": "Absents",
+      "pending": "En attente"
     },
     "stats": {
       "total": "Total Réponses",
       "responses_received": "Formulaires reçus",
+      "pending": "En attente",
+      "awaiting_response": "Sans réponse",
       "attending": "Présents",
       "will_be_present": "Seront là",
       "declined": "Absents",
@@ -163,8 +166,9 @@
       "note": "Note interne",
       "date": "Date"
     },
-    "present": "Présent",
+    "present": "Confirmé",
     "absent": "Absent",
+    "pending": "En attente",
     "no_results": "Aucune réponse pour le moment.",
     "responses": "réponse(s)",
     "admin_note": "Note interne (mariés)",

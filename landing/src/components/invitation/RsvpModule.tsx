@@ -17,7 +17,8 @@ export function RsvpModule({
   config?: Record<string, any> | null;
 }) {
   const [formData, setFormData] = useState({
-    name: "",
+    firstName: "",
+    lastName: "",
     attendance: "" as "yes" | "no" | "",
     guests: "0",
     dietary: "",
@@ -34,7 +35,8 @@ export function RsvpModule({
     try {
       await submitRsvp({
         weddingId,
-        name: formData.name,
+        firstName: formData.firstName,
+        lastName: formData.lastName,
         attendance: formData.attendance === "yes",
         guestCount: formData.attendance === "yes" ? parseInt(formData.guests) || 0 : 0,
         dietary: formData.dietary,
@@ -103,21 +105,38 @@ export function RsvpModule({
             onSubmit={handleSubmit}
             className='space-y-10 text-left'
           >
-            {/* Nom & Prénom */}
-            <div className='space-y-3'>
-              <label className='text-[10px] uppercase tracking-[0.2em] font-bold text-muted-foreground ml-4'>
-                Prénom & Nom
-              </label>
-              <input
-                required
-                type='text'
-                value={formData.name}
-                onChange={(e) =>
-                  setFormData({ ...formData, name: e.target.value })
-                }
-                placeholder='Ex: Jean Dupont'
-                className='w-full bg-muted/50 border border-border text-foreground placeholder:text-muted-foreground/30 rounded-full py-4 px-8 focus:outline-none focus:ring-1 focus:ring-primary/40 focus:border-primary/60 transition-all font-light'
-              />
+            {/* Prénom & Nom */}
+            <div className='grid grid-cols-2 gap-4'>
+              <div className='space-y-3'>
+                <label className='text-[10px] uppercase tracking-[0.2em] font-bold text-muted-foreground ml-4'>
+                  Prénom
+                </label>
+                <input
+                  required
+                  type='text'
+                  value={formData.firstName}
+                  onChange={(e) =>
+                    setFormData({ ...formData, firstName: e.target.value })
+                  }
+                  placeholder='Jean'
+                  className='w-full bg-transparent border border-border/70 text-foreground placeholder:text-muted-foreground/40 rounded-full py-4 px-8 focus:outline-none focus:ring-1 focus:ring-primary/50 focus:border-primary/70 transition-all font-light'
+                />
+              </div>
+              <div className='space-y-3'>
+                <label className='text-[10px] uppercase tracking-[0.2em] font-bold text-muted-foreground ml-4'>
+                  Nom
+                </label>
+                <input
+                  required
+                  type='text'
+                  value={formData.lastName}
+                  onChange={(e) =>
+                    setFormData({ ...formData, lastName: e.target.value })
+                  }
+                  placeholder='Dupont'
+                  className='w-full bg-transparent border border-border/70 text-foreground placeholder:text-muted-foreground/40 rounded-full py-4 px-8 focus:outline-none focus:ring-1 focus:ring-primary/50 focus:border-primary/70 transition-all font-light'
+                />
+              </div>
             </div>
 
             {/* Attendance Selection */}
@@ -209,7 +228,7 @@ export function RsvpModule({
                       onChange={(e) =>
                         setFormData({ ...formData, guests: e.target.value })
                       }
-                      className='w-full bg-muted/50 border border-border text-foreground rounded-full py-4 px-8 focus:outline-none focus:ring-1 focus:ring-primary/40 focus:border-primary/60 transition-all font-light'
+                      className='w-full bg-transparent border border-border/70 text-foreground rounded-full py-4 px-8 focus:outline-none focus:ring-1 focus:ring-primary/50 focus:border-primary/70 transition-all font-light'
                     />
                   </div>
 
@@ -224,7 +243,7 @@ export function RsvpModule({
                         setFormData({ ...formData, dietary: e.target.value })
                       }
                       placeholder='Végétarien, sans gluten, etc.'
-                      className='w-full bg-muted/50 border border-border text-foreground placeholder:text-muted-foreground/30 rounded-full py-4 px-8 focus:outline-none focus:ring-1 focus:ring-primary/40 focus:border-primary/60 transition-all font-light'
+                      className='w-full bg-transparent border border-border/70 text-foreground placeholder:text-muted-foreground/40 rounded-full py-4 px-8 focus:outline-none focus:ring-1 focus:ring-primary/50 focus:border-primary/70 transition-all font-light'
                     />
                   </div>
                 </motion.div>
@@ -243,7 +262,7 @@ export function RsvpModule({
                   setFormData({ ...formData, message: e.target.value })
                 }
                 placeholder='Laissez-nous un message...'
-                className='w-full bg-muted/50 border border-border text-foreground placeholder:text-muted-foreground/30 rounded-3xl py-4 px-8 focus:outline-none focus:ring-1 focus:ring-primary/40 focus:border-primary/60 transition-all font-light resize-none'
+                className='w-full bg-transparent border border-border/70 text-foreground placeholder:text-muted-foreground/40 rounded-3xl py-4 px-8 focus:outline-none focus:ring-1 focus:ring-primary/50 focus:border-primary/70 transition-all font-light resize-none'
               />
             </div>
 
@@ -252,10 +271,11 @@ export function RsvpModule({
               type='submit'
               disabled={
                 status === "submitting" ||
-                !formData.name ||
+                !formData.firstName ||
+                !formData.lastName ||
                 !formData.attendance
               }
-              className='w-full bg-primary hover:bg-primary/90 disabled:bg-[#CCCCCC] text-primary-foreground py-5 rounded-full font-bold text-xs uppercase tracking-[0.3em] transition-all duration-300 shadow-xl shadow-primary/10 flex items-center justify-center gap-3 overflow-hidden group'
+              className='w-full bg-primary hover:bg-primary/90 disabled:bg-primary/30 disabled:cursor-not-allowed text-primary-foreground py-4 md:py-5 rounded-full font-bold text-[10px] md:text-xs uppercase tracking-[0.15em] md:tracking-[0.3em] transition-all duration-300 shadow-xl shadow-primary/10 flex items-center justify-center gap-2 group'
             >
               <span className='relative z-10'>
                 {status === "submitting"

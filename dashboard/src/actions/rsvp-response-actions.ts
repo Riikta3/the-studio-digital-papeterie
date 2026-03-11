@@ -15,12 +15,14 @@ export async function updateRsvpResponse({
   participants,
   respondent_first_name,
   respondent_last_name,
+  attendance,
 }: {
   id: string;
   admin_note: string;
   participants: Participant[];
   respondent_first_name?: string;
   respondent_last_name?: string;
+  attendance?: boolean | null;
 }) {
   const supabase = await createClient();
 
@@ -39,17 +41,26 @@ export async function updateRsvpResponse({
   const { error } = await supabase
     .from("rsvp_responses")
     .update({
-      admin_note,
-      participants,
-      ...(respondent_first_name !== undefined && { respondent_first_name }),
-      ...(respondent_last_name !== undefined && { respondent_last_name }),
+      admin_note: admin_note.trim(),
+      participants: participants.map((p) => ({
+        ...p,
+        first_name: p.first_name.trim(),
+        last_name: p.last_name.trim(),
+        relation_type: p.relation_type?.trim(),
+      })),
+      guest_count: participants.length,
+      ...(respondent_first_name !== undefined && { respondent_first_name: respondent_first_name.trim() }),
+      ...(respondent_last_name !== undefined && { respondent_last_name: respondent_last_name.trim() }),
+      ...(attendance !== undefined && { attendance }),
     })
     .eq("id", id)
     .eq("wedding_id", wedding.id);
 
   if (error) throw new Error(error.message);
 
-  revalidatePath("/rsvp-responses");
+  for (const locale of ["fr", "en", "de", "es", "pt", "it", "ar", "zh", "ja"]) {
+    revalidatePath(`/${locale}/rsvp-responses`);
+  }
 }
 
 export async function deleteRsvpResponse(id: string) {
@@ -74,5 +85,7 @@ export async function deleteRsvpResponse(id: string) {
 
   if (error) throw new Error(error.message);
 
-  revalidatePath("/rsvp-responses");
+  for (const locale of ["fr", "en", "de", "es", "pt", "it", "ar", "zh", "ja"]) {
+    revalidatePath(`/${locale}/rsvp-responses`);
+  }
 }

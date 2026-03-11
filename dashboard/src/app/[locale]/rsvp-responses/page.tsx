@@ -33,11 +33,18 @@ export default async function RsvpResponsesPage() {
 
   // Stats
   const total = responses.length;
-  const attending = responses.filter((r: any) => r.attendance).length;
-  const declined = responses.filter((r: any) => !r.attendance).length;
+  const attending = responses.filter((r: any) => r.attendance === true).length;
+  const declined = responses.filter((r: any) => r.attendance === false).length;
+  const pending = responses.filter((r: any) => r.attendance === null).length;
+  // Total persons = 1 respondent + actual participants list (or guest_count if list not filled yet)
   const totalGuests = responses
-    .filter((r: any) => r.attendance)
-    .reduce((acc: number, r: any) => acc + (r.guest_count ?? 0), 0);
+    .filter((r: any) => r.attendance === true)
+    .reduce((acc: number, r: any) => {
+      const count = r.participants && r.participants.length > 0
+        ? 1 + r.participants.length
+        : 1 + (r.guest_count ?? 0);
+      return acc + count;
+    }, 0);
 
   return (
     <div className="min-h-screen p-6 md:p-12 max-w-7xl mx-auto space-y-8 bg-[#FDFBF7]">
@@ -52,11 +59,16 @@ export default async function RsvpResponsesPage() {
       </header>
 
       {/* Stats */}
-      <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
+      <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-5">
         <div className="bg-white/50 border border-gray-100 shadow-sm rounded-xl p-5">
           <p className="text-sm font-medium text-muted-foreground mb-1">{t("stats.total")}</p>
           <p className="text-2xl font-bold font-heading">{total}</p>
           <p className="text-xs text-muted-foreground mt-0.5">{t("stats.responses_received")}</p>
+        </div>
+        <div className="bg-amber-50/50 border border-amber-100 shadow-sm rounded-xl p-5">
+          <p className="text-sm font-medium text-amber-700 mb-1">{t("stats.pending")}</p>
+          <p className="text-2xl font-bold font-heading text-amber-700">{pending}</p>
+          <p className="text-xs text-amber-600/80 mt-0.5">{t("stats.awaiting_response")}</p>
         </div>
         <div className="bg-green-50/50 border border-green-100 shadow-sm rounded-xl p-5">
           <p className="text-sm font-medium text-green-700 mb-1">{t("stats.attending")}</p>
@@ -70,7 +82,7 @@ export default async function RsvpResponsesPage() {
         </div>
         <div className="bg-primary/5 border border-primary/10 shadow-sm rounded-xl p-5">
           <p className="text-sm font-medium text-primary mb-1">{t("stats.total_guests")}</p>
-          <p className="text-2xl font-bold font-heading text-primary">{totalGuests + attending}</p>
+          <p className="text-2xl font-bold font-heading text-primary">{totalGuests}</p>
           <p className="text-xs text-primary/70 mt-0.5">{t("stats.persons_expected")}</p>
         </div>
       </div>

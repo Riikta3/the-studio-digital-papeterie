@@ -4,7 +4,8 @@ import { supabaseAdmin } from "@/lib/supabase-admin";
 
 export interface RsvpPayload {
   weddingId: string;
-  name: string;
+  firstName: string;
+  lastName: string;
   attendance: boolean;
   guestCount: number;
   dietary: string;
@@ -12,13 +13,20 @@ export interface RsvpPayload {
 }
 
 export async function submitRsvp(payload: RsvpPayload) {
+  const firstName = payload.firstName.trim();
+  const lastName = payload.lastName.trim();
+  const dietary = payload.dietary.trim();
+  const message = payload.message.trim();
+
   const { error } = await supabaseAdmin.from("rsvp_responses").insert({
     wedding_id: payload.weddingId,
-    name: payload.name,
+    name: `${firstName} ${lastName}`.trim(),
+    respondent_first_name: firstName,
+    respondent_last_name: lastName,
     attendance: payload.attendance,
     guest_count: payload.guestCount,
-    dietary: payload.dietary || null,
-    message: payload.message || null,
+    dietary: dietary || null,
+    message: message || null,
   });
 
   if (error) {
