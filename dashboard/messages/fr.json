@@ -175,6 +175,7 @@
     "admin_note_placeholder": "Ajouter une note privée sur cet invité...",
     "participants": "Liste nominative",
     "organizer": "Invité(e)",
+    "relation": "Lien de parenté",
     "first_name": "Prénom",
     "last_name": "Nom",
     "add_participant": "Ajouter un accompagnant",
@@ -183,6 +184,15 @@
     "saving": "Enregistrement...",
     "saved": "Modifications enregistrées",
     "save_error": "Erreur lors de l'enregistrement",
+    "add_response": "Ajouter une réponse",
+    "create_dialog": {
+      "title": "Ajouter une réponse RSVP",
+      "description": "Saisissez manuellement la réponse d'un invité.",
+      "confirm": "Créer"
+    },
+    "created": "Réponse créée",
+    "create_error": "Erreur lors de la création",
+    "creating": "Création...",
     "delete_dialog": {
       "title": "Supprimer cette réponse ?",
       "description": "La réponse de « {name} » sera définitivement supprimée. Cette action est irréversible."

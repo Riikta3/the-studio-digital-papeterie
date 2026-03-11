@@ -1,6 +1,7 @@
 "use client";
 
 import {
+  createRsvpResponse,
   deleteRsvpResponse,
   updateRsvpResponse,
   type Participant,
@@ -31,6 +32,15 @@ import {
   Users,
   XCircle,
 } from "lucide-react";
+import { Input } from "@shared/components/ui/input";
+import { Textarea } from "@shared/components/ui/textarea";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 import { useTranslations } from "next-intl";
 import React, { useState } from "react";
 import { toast } from "sonner";
@@ -146,8 +156,6 @@ function ExpandPanelContent({
 
   const inputCls =
     "bg-white border border-border rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-1 focus:ring-primary/40 placeholder:text-muted-foreground/40 w-full";
-  const selectCls =
-    "bg-white border border-border rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-1 focus:ring-primary/40 text-foreground w-full";
 
   return (
     <tr className='border-b border-border'>
@@ -265,70 +273,34 @@ function ExpandPanelContent({
                   <div className='space-y-2'>
                     {/* Respondent — editable */}
                     <div className='grid grid-cols-[1fr_1fr_1fr_auto] gap-2 items-center min-w-0'>
-                      <input
-                        value={respondentFirstName}
-                        onChange={(e) => setRespondentFirstName(e.target.value)}
-                        placeholder={t("first_name")}
-                        className={inputCls}
-                      />
-                      <input
-                        value={respondentLastName}
-                        onChange={(e) => setRespondentLastName(e.target.value)}
-                        placeholder={t("last_name")}
-                        className={inputCls}
-                      />
-                      <select
-                        className={selectCls}
-                        disabled
-                      >
-                        <option value=''>{t("organizer")}</option>
-                      </select>
-                      {/* spacer to align with trash buttons below */}
+                      <input value={respondentFirstName} onChange={(e) => setRespondentFirstName(e.target.value)} placeholder={t("first_name")} className={inputCls} />
+                      <input value={respondentLastName} onChange={(e) => setRespondentLastName(e.target.value)} placeholder={t("last_name")} className={inputCls} />
+                      <Select disabled>
+                        <SelectTrigger className="bg-white h-9 text-muted-foreground">
+                          <SelectValue placeholder={t("organizer")} />
+                        </SelectTrigger>
+                        <SelectContent>
+                          <SelectItem value="organizer">{t("organizer")}</SelectItem>
+                        </SelectContent>
+                      </Select>
                       <div className='w-6' />
                     </div>
 
                     {/* Companions */}
                     {participants.map((p, i) => (
-                      <div
-                        key={i}
-                        className='grid grid-cols-[1fr_1fr_1fr_auto] gap-2 items-center min-w-0'
-                      >
-                        <input
-                          value={p.first_name}
-                          onChange={(e) =>
-                            updateParticipant(i, "first_name", e.target.value)
-                          }
-                          placeholder={t("first_name")}
-                          className={inputCls}
-                        />
-                        <input
-                          value={p.last_name}
-                          onChange={(e) =>
-                            updateParticipant(i, "last_name", e.target.value)
-                          }
-                          placeholder={t("last_name")}
-                          className={inputCls}
-                        />
-                        <select
-                          value={p.relation_type ?? ""}
-                          onChange={(e) =>
-                            updateParticipant(
-                              i,
-                              "relation_type",
-                              e.target.value,
-                            )
-                          }
-                          className={selectCls}
-                        >
-                          {RELATION_OPTIONS.map((o) => (
-                            <option
-                              key={o.value}
-                              value={o.value}
-                            >
-                              {o.label}
-                            </option>
-                          ))}
-                        </select>
+                      <div key={i} className='grid grid-cols-[1fr_1fr_1fr_auto] gap-2 items-center min-w-0'>
+                        <input value={p.first_name} onChange={(e) => updateParticipant(i, "first_name", e.target.value)} placeholder={t("first_name")} className={inputCls} />
+                        <input value={p.last_name} onChange={(e) => updateParticipant(i, "last_name", e.target.value)} placeholder={t("last_name")} className={inputCls} />
+                        <Select value={p.relation_type ?? ""} onValueChange={(v) => updateParticipant(i, "relation_type", v)}>
+                          <SelectTrigger className="bg-white h-9">
+                            <SelectValue placeholder={t("relation")} />
+                          </SelectTrigger>
+                          <SelectContent>
+                            {RELATION_OPTIONS.filter(o => o.value !== "").map((o) => (
+                              <SelectItem key={o.value} value={o.value}>{o.label}</SelectItem>
+                            ))}
+                          </SelectContent>
+                        </Select>
                         <button
                           onClick={() => removeParticipant(i)}
                           className='text-muted-foreground/40 hover:text-red-500 transition-colors'
@@ -394,6 +366,18 @@ export function RsvpResponsesTable({
     name: string;
   } | null>(null);
   const [deleting, setDeleting] = useState(false);
+  const [createOpen, setCreateOpen] = useState(false);
+  const [creating, setCreating] = useState(false);
+  const [createForm, setCreateForm] = useState({
+    firstName: "",
+    lastName: "",
+    attendance: null as boolean | null,
+    guestCount: "0",
+    dietary: "",
+    message: "",
+    adminNote: "",
+    participants: [] as Participant[],
+  });
 
   const toggleSort = (key: SortKey) => {
     setSort((prev) =>
@@ -441,34 +425,34 @@ export function RsvpResponsesTable({
   return (
     <div className='space-y-4'>
       {/* Search + Filters */}
-      <div className='flex flex-col sm:flex-row gap-3'>
-        <div className='relative flex-1'>
+      <div className='flex flex-col sm:flex-row gap-4 justify-between items-center bg-white p-4 rounded-xl border border-border shadow-sm'>
+        <div className='relative w-full sm:max-w-sm'>
           <Search className='absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground' />
           <input
             type='text'
             value={search}
             onChange={(e) => setSearch(e.target.value)}
             placeholder={t("search_placeholder")}
-            className='w-full pl-9 pr-4 py-2.5 rounded-lg border border-border bg-white text-sm focus:outline-none focus:ring-1 focus:ring-primary/40'
+            className='w-full pl-9 pr-4 py-2 rounded-lg border border-gray-200 bg-gray-50/50 text-sm focus:outline-none focus:ring-1 focus:ring-primary/40'
           />
         </div>
-        <div className='flex gap-2'>
-          {(["all", "attending", "declined", "pending"] as Filter[]).map(
-            (f) => (
-              <button
-                key={f}
-                onClick={() => setFilter(f)}
-                className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
-                  filter === f
-                    ? "bg-primary text-white"
-                    : "bg-white border border-border text-muted-foreground hover:bg-gray-50"
-                }`}
-              >
-                {t(`filter.${f}`)}
-              </button>
-            ),
-          )}
+        <div className='flex gap-2 w-full sm:w-auto overflow-x-auto pb-2 sm:pb-0'>
+          {(["all", "attending", "declined", "pending"] as Filter[]).map((f) => (
+            <Button
+              key={f}
+              variant={filter === f ? "default" : "outline"}
+              size='sm'
+              onClick={() => setFilter(f)}
+              className='whitespace-nowrap'
+            >
+              {t(`filter.${f}`)}
+            </Button>
+          ))}
         </div>
+        <Button size='sm' onClick={() => setCreateOpen(true)} className='gap-2 whitespace-nowrap shrink-0'>
+          <Plus className='h-4 w-4' />
+          {t("add_response")}
+        </Button>
       </div>
 
       {/* Table */}
@@ -487,33 +471,33 @@ export function RsvpResponsesTable({
                 <tr className='border-b border-border bg-gray-50/50'>
                   <th className='w-10 px-3 py-3.5' />
                   <th
-                    className='text-left px-4 py-3.5 font-medium text-muted-foreground cursor-pointer select-none hover:text-foreground'
+                    className='w-[18%] text-left px-4 py-3.5 font-medium text-muted-foreground cursor-pointer select-none hover:text-foreground'
                     onClick={() => toggleSort("name")}
                   >
                     {t("col.name")} <SortIcon col='name' />
                   </th>
                   <th
-                    className='text-left px-4 py-3.5 font-medium text-muted-foreground cursor-pointer select-none hover:text-foreground'
+                    className='w-[16%] text-left px-4 py-3.5 font-medium text-muted-foreground cursor-pointer select-none hover:text-foreground'
                     onClick={() => toggleSort("attendance")}
                   >
                     {t("col.attendance")} <SortIcon col='attendance' />
                   </th>
-                  <th className='text-left px-4 py-3.5 font-medium text-muted-foreground'>
+                  <th className='w-[8%] text-left px-4 py-3.5 font-medium text-muted-foreground'>
                     {t("col.guests")}
                   </th>
-                  <th className='text-left px-4 py-3.5 font-medium text-muted-foreground hidden md:table-cell'>
+                  <th className='w-[20%] text-left px-4 py-3.5 font-medium text-muted-foreground hidden md:table-cell'>
                     {t("col.dietary")}
                   </th>
-                  <th className='text-left px-4 py-3.5 font-medium text-muted-foreground hidden lg:table-cell'>
+                  <th className='w-[22%] text-left px-4 py-3.5 font-medium text-muted-foreground hidden lg:table-cell'>
                     {t("col.note")}
                   </th>
                   <th
-                    className='text-left px-4 py-3.5 font-medium text-muted-foreground cursor-pointer select-none hover:text-foreground'
+                    className='w-[10%] text-left px-4 py-3.5 font-medium text-muted-foreground cursor-pointer select-none hover:text-foreground'
                     onClick={() => toggleSort("submitted_at")}
                   >
                     {t("col.date")} <SortIcon col='submitted_at' />
                   </th>
-                  <th className='px-4 py-3.5 w-10' />
+                  <th className='w-10 px-4 py-3.5' />
                 </tr>
               </thead>
               <tbody>
@@ -543,7 +527,9 @@ export function RsvpResponsesTable({
                       {/* Name */}
                       <td className='px-4 py-4 font-medium text-foreground'>
                         <div className='flex items-center gap-2'>
-                          {r.name}
+                          {r.respondent_first_name && r.respondent_last_name
+                            ? `${r.respondent_first_name} ${r.respondent_last_name}`
+                            : r.name}
                           {r.admin_note && (
                             <NotebookPen className='h-3.5 w-3.5 text-primary/60 shrink-0' />
                           )}
@@ -585,20 +571,26 @@ export function RsvpResponsesTable({
                       </td>
 
                       {/* Dietary */}
-                      <td className='px-4 py-4 text-muted-foreground hidden md:table-cell max-w-[160px]'>
+                      <td className='px-4 py-4 text-muted-foreground hidden md:table-cell'>
                         <span className='truncate block'>
-                          {r.dietary || (
-                            <span className='text-muted-foreground/30'>—</span>
-                          )}
+                          {r.dietary
+                            ? r.dietary.length > 30
+                              ? r.dietary.slice(0, 30) + "…"
+                              : r.dietary
+                            : <span className='text-muted-foreground/30'>—</span>}
                         </span>
                       </td>
 
                       {/* Admin note preview */}
-                      <td className='px-4 py-4 text-muted-foreground hidden lg:table-cell max-w-[180px]'>
+                      <td className='px-4 py-4 text-muted-foreground hidden lg:table-cell'>
                         {r.admin_note ? (
-                          <span className='inline-flex items-center gap-1.5'>
+                          <span title={r.admin_note} className='inline-flex items-center gap-1.5 overflow-hidden cursor-help'>
                             <MessageSquare className='h-3.5 w-3.5 shrink-0 text-primary/50' />
-                            <span className='truncate'>{r.admin_note}</span>
+                            <span className='truncate block'>
+                              {r.admin_note.length > 30
+                                ? r.admin_note.slice(0, 30) + "…"
+                                : r.admin_note}
+                            </span>
                           </span>
                         ) : (
                           <span className='text-muted-foreground/30'>—</span>
@@ -703,6 +695,133 @@ export function RsvpResponsesTable({
               }}
             >
               {deleting ? t("deleting") : t("confirm_delete")}
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
+
+      {/* Create response dialog */}
+      <Dialog open={createOpen} onOpenChange={(open) => {
+        if (!open) {
+          setCreateOpen(false);
+          setCreateForm({ firstName: "", lastName: "", attendance: null, guestCount: "0", dietary: "", message: "", adminNote: "", participants: [] });
+        }
+      }}>
+        <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto">
+          <DialogHeader>
+            <DialogTitle>{t("create_dialog.title")}</DialogTitle>
+            <DialogDescription>{t("create_dialog.description")}</DialogDescription>
+          </DialogHeader>
+
+          <div className="space-y-5 py-2">
+            {/* Prénom / Nom */}
+            <div className="grid grid-cols-2 gap-3">
+              <div className="space-y-1.5">
+                <label className="text-[10px] font-semibold text-muted-foreground uppercase tracking-widest">{t("first_name")}</label>
+                <Input className="bg-white" value={createForm.firstName} onChange={(e) => setCreateForm({ ...createForm, firstName: e.target.value })} placeholder="Jean" />
+              </div>
+              <div className="space-y-1.5">
+                <label className="text-[10px] font-semibold text-muted-foreground uppercase tracking-widest">{t("last_name")}</label>
+                <Input className="bg-white" value={createForm.lastName} onChange={(e) => setCreateForm({ ...createForm, lastName: e.target.value })} placeholder="Dupont" />
+              </div>
+            </div>
+
+            {/* Présence */}
+            <div className="space-y-1.5">
+              <label className="text-[10px] font-semibold text-muted-foreground uppercase tracking-widest">{t("col.attendance")}</label>
+              <div className="flex gap-2">
+                {([
+                  { value: null, label: t("pending"), cls: createForm.attendance === null ? "bg-white border-amber-300 text-amber-700 font-medium" : "bg-white border-border text-muted-foreground hover:border-amber-200" },
+                  { value: true, label: t("present"), cls: createForm.attendance === true ? "bg-white border-green-300 text-green-700 font-medium" : "bg-white border-border text-muted-foreground hover:border-green-200" },
+                  { value: false, label: t("absent"), cls: createForm.attendance === false ? "bg-white border-red-300 text-red-700 font-medium" : "bg-white border-border text-muted-foreground hover:border-red-200" },
+                ] as { value: boolean | null; label: string; cls: string }[]).map((opt) => (
+                  <button key={String(opt.value)} type="button" onClick={() => setCreateForm({ ...createForm, attendance: opt.value })} className={`px-3 py-1.5 rounded-lg border text-xs transition-colors ${opt.cls}`}>
+                    {opt.label}
+                  </button>
+                ))}
+              </div>
+            </div>
+
+            {/* Régime */}
+            <div className="space-y-1.5">
+              <label className="text-[10px] font-semibold text-muted-foreground uppercase tracking-widest">{t("col.dietary")}</label>
+              <Input className="bg-white" value={createForm.dietary} onChange={(e) => setCreateForm({ ...createForm, dietary: e.target.value })} placeholder="Végétarien, sans gluten..." />
+            </div>
+
+            {/* Note interne */}
+            <div className="space-y-1.5">
+              <label className="text-[10px] font-semibold text-muted-foreground uppercase tracking-widest flex items-center gap-1">
+                <NotebookPen className="h-3 w-3" />{t("admin_note")}
+              </label>
+              <Textarea className="bg-white" rows={2} value={createForm.adminNote} onChange={(e) => setCreateForm({ ...createForm, adminNote: e.target.value })} placeholder={t("admin_note_placeholder")} />
+            </div>
+
+            {/* Accompagnants */}
+            <div className="space-y-2">
+              <label className="text-[10px] font-semibold text-muted-foreground uppercase tracking-widest flex items-center gap-1">
+                <UserPlus className="h-3 w-3" />{t("add_participant")}
+              </label>
+
+              {/* Accompagnants */}
+              {createForm.participants.map((p, i) => (
+                <div key={i} className="grid grid-cols-[1fr_1fr_1fr_auto] gap-2 items-center">
+                  <Input className="bg-white" value={p.first_name} onChange={(e) => setCreateForm((f) => ({ ...f, participants: f.participants.map((x, idx) => idx === i ? { ...x, first_name: e.target.value } : x) }))} placeholder={t("first_name")} />
+                  <Input className="bg-white" value={p.last_name} onChange={(e) => setCreateForm((f) => ({ ...f, participants: f.participants.map((x, idx) => idx === i ? { ...x, last_name: e.target.value } : x) }))} placeholder={t("last_name")} />
+                  <Select
+                    value={p.relation_type ?? ""}
+                    onValueChange={(v) => setCreateForm((f) => ({ ...f, participants: f.participants.map((x, idx) => idx === i ? { ...x, relation_type: v } : x) }))}
+                  >
+                    <SelectTrigger className="bg-white h-9">
+                      <SelectValue placeholder={t("relation")} />
+                    </SelectTrigger>
+                    <SelectContent>
+                      {RELATION_OPTIONS.filter(o => o.value !== "").map((o) => (
+                        <SelectItem key={o.value} value={o.value}>{o.label}</SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                  <button type="button" onClick={() => setCreateForm((f) => ({ ...f, participants: f.participants.filter((_, idx) => idx !== i) }))} className="text-muted-foreground/40 hover:text-red-500 transition-colors">
+                    <Trash2 className="h-4 w-4" />
+                  </button>
+                </div>
+              ))}
+
+              <button type="button" onClick={() => setCreateForm((f) => ({ ...f, participants: [...f.participants, { first_name: "", last_name: "", relation_type: "" }] }))} className="flex items-center gap-1.5 text-xs text-primary hover:text-primary/80 transition-colors mt-1">
+                <Plus className="h-3.5 w-3.5" />{t("add_participant")}
+              </button>
+            </div>
+          </div>
+
+          <DialogFooter className="gap-2 sm:gap-0">
+            <Button variant="outline" onClick={() => setCreateOpen(false)}>{t("cancel")}</Button>
+            <Button
+              disabled={creating || !createForm.firstName || !createForm.lastName}
+              onClick={async () => {
+                setCreating(true);
+                try {
+                  const newResponse = await createRsvpResponse({
+                    firstName: createForm.firstName,
+                    lastName: createForm.lastName,
+                    attendance: createForm.attendance,
+                    guestCount: createForm.participants.length,
+                    dietary: createForm.dietary,
+                    message: "",
+                    adminNote: createForm.adminNote,
+                    participants: createForm.participants,
+                  });
+                  setResponses((prev) => [newResponse, ...prev]);
+                  toast.success(t("created"));
+                  setCreateOpen(false);
+                  setCreateForm({ firstName: "", lastName: "", attendance: null, guestCount: "0", dietary: "", message: "", adminNote: "", participants: [] });
+                } catch {
+                  toast.error(t("create_error"));
+                } finally {
+                  setCreating(false);
+                }
+              }}
+            >
+              {creating && <Loader2 className="h-4 w-4 animate-spin mr-2" />}
+              {creating ? t("creating") : t("create_dialog.confirm")}
             </Button>
           </DialogFooter>
         </DialogContent>
