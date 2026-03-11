@@ -148,25 +148,36 @@ function DressCodeForm({
   const DEFAULTS = {
     title: "Dress Code",
     subtitle: "Tenue de Soirée",
+    mode: "global" as "global" | "split",
     description: "Pour que la fête soit belle, nous vous invitons à porter une touche de vert sapin ou de doré dans vos tenues.",
+    description_men: "",
+    description_women: "",
   };
   const t = useTranslations("Modules");
   const [saving, setSaving] = useState(false);
   const [title, setTitle] = useState(str(config?.title, DEFAULTS.title));
   const [subtitle, setSubtitle] = useState(str(config?.subtitle, DEFAULTS.subtitle));
+  const [mode, setMode] = useState<"global" | "split">(
+    (config?.mode as "global" | "split") ?? DEFAULTS.mode
+  );
   const [description, setDescription] = useState(str(config?.description, DEFAULTS.description));
+  const [descriptionMen, setDescriptionMen] = useState(str(config?.description_men, DEFAULTS.description_men));
+  const [descriptionWomen, setDescriptionWomen] = useState(str(config?.description_women, DEFAULTS.description_women));
 
   function resetToDefaults() {
     setTitle(DEFAULTS.title);
     setSubtitle(DEFAULTS.subtitle);
+    setMode(DEFAULTS.mode);
     setDescription(DEFAULTS.description);
+    setDescriptionMen(DEFAULTS.description_men);
+    setDescriptionWomen(DEFAULTS.description_women);
   }
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
     setSaving(true);
     try {
-      await onSave({ title, subtitle, description });
+      await onSave({ title, subtitle, mode, description, description_men: descriptionMen, description_women: descriptionWomen });
     } finally {
       setSaving(false);
     }
@@ -180,9 +191,49 @@ function DressCodeForm({
       <FieldGroup label={t("field_subtitle")}>
         <Input value={subtitle} onChange={(e) => setSubtitle(e.target.value)} />
       </FieldGroup>
-      <FieldGroup label={t("field_description")}>
-        <Textarea rows={4} value={description} onChange={(e) => setDescription(e.target.value)} />
+
+      {/* Mode selector */}
+      <FieldGroup label={t("dresscode_mode")}>
+        <div className="flex gap-2">
+          {(["global", "split"] as const).map((m) => (
+            <button
+              key={m}
+              type="button"
+              onClick={() => setMode(m)}
+              className={cn(
+                "flex-1 py-2 rounded-xl border text-sm font-medium transition-colors",
+                mode === m
+                  ? "bg-primary/10 border-primary text-primary"
+                  : "bg-white border-border text-muted-foreground hover:border-primary/30"
+              )}
+            >
+              {t(m === "global" ? "dresscode_mode_global" : "dresscode_mode_split")}
+            </button>
+          ))}
+        </div>
       </FieldGroup>
+
+      {mode === "global" ? (
+        <FieldGroup label={t("field_description")}>
+          <Textarea rows={4} value={description} onChange={(e) => setDescription(e.target.value)} />
+        </FieldGroup>
+      ) : (
+        <div className="space-y-4">
+          <div className="bg-[#FDFBF7] border border-border/60 rounded-xl p-4 space-y-3 [&_textarea]:bg-white">
+            <p className="text-xs font-bold uppercase tracking-wider text-muted-foreground">
+              {t("dresscode_men")}
+            </p>
+            <Textarea rows={3} value={descriptionMen} onChange={(e) => setDescriptionMen(e.target.value)} placeholder={t("dresscode_men_placeholder")} />
+          </div>
+          <div className="bg-[#FDFBF7] border border-border/60 rounded-xl p-4 space-y-3 [&_textarea]:bg-white">
+            <p className="text-xs font-bold uppercase tracking-wider text-muted-foreground">
+              {t("dresscode_women")}
+            </p>
+            <Textarea rows={3} value={descriptionWomen} onChange={(e) => setDescriptionWomen(e.target.value)} placeholder={t("dresscode_women_placeholder")} />
+          </div>
+        </div>
+      )}
+
       <FormActions saving={saving} onReset={resetToDefaults} />
     </form>
   );

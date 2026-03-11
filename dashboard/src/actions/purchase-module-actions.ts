@@ -108,8 +108,8 @@ export async function activatePurchasedModule({
   // 9. Record the billing entry with the PaymentIntent ID for idempotency checks
   await supabaseAdmin.from("billing").insert({
     user_id: user.id,
-    amount: 10,
-    currency: "eur",
+    amount: 1000,
+    currency: "EUR",
     status: "succeeded",
     plan_name: `Module: ${moduleId}`,
     payment_method: paymentIntent.payment_method_types?.[0] ?? "card",

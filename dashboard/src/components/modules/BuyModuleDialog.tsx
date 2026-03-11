@@ -316,7 +316,9 @@ export function BuyModuleDialog({
     onClearPending?.();
     const name = pendingActivation?.moduleName ?? moduleName;
     toast.success(`Module "${name}" activé !`);
-  }, [moduleName, pendingActivation, onClearPending]);
+    // Refresh immediately so the page re-fetches server data in the background
+    router.refresh();
+  }, [moduleName, pendingActivation, onClearPending, router]);
 
   const createIntent = useCallback(async () => {
     setIsLoadingIntent(true);
@@ -351,7 +353,6 @@ export function BuyModuleDialog({
 
   const handleClose = () => {
     onOpenChange(false);
-    router.refresh();
   };
 
   const activeModuleId = pendingActivation?.moduleId ?? moduleId;
