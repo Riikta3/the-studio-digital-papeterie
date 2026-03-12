@@ -12,19 +12,26 @@ export async function getSettings() {
 
   if (!user) return null;
 
+  // Resolve actual wedding id (wedding.id != user.id)
+  const { data: wedding } = await supabase
+    .from("weddings")
+    .select("id")
+    .eq("user_id", user.id)
+    .single();
+
+  if (!wedding) return null;
+
   const { data, error } = await supabase
     .from("settings")
     .select("*")
-    .eq("wedding_id", user.id)
+    .eq("wedding_id", wedding.id)
     .single();
 
   if (error) {
-    // Code PGRST116: JSON object requested, multiple (or no) rows returned
     if (error.code === "PGRST116") {
-      console.log("No settings found for user, creating default settings...");
       const { data: newSettings, error: insertError } = await supabase
         .from("settings")
-        .insert([{ wedding_id: user.id }])
+        .insert([{ wedding_id: wedding.id }])
         .select()
         .single();
 
@@ -74,11 +81,33 @@ export async function updateSettings(formData: FormData) {
   }
 
   const wedding_code = formData.get("wedding_code");
+  const guest_code = formData.get("guest_code");
+
+  const updates: Record<string, string | null> = {};
+
+  if (wedding_code !== null) {
+    updates.wedding_code = (wedding_code as string).trim() || null;
+  }
+  if (guest_code !== null) {
+    updates.guest_code = (guest_code as string).trim()
+      ? (guest_code as string).trim().toUpperCase()
+      : null;
+  }
+
+  const value = updates.wedding_code; // kept for legacy compat below
+
+  const { data: wedding } = await supabase
+    .from("weddings")
+    .select("id")
+    .eq("user_id", user.id)
+    .single();
+
+  if (!wedding) return { success: false, error: "Mariage introuvable" };
 
   const { error } = await supabase
     .from("settings")
-    .update({ wedding_code })
-    .eq("wedding_id", user.id);
+    .update(Object.keys(updates).length ? updates : { wedding_code: value })
+    .eq("wedding_id", wedding.id);
 
   if (error) {
     return { success: false, error: error.message };

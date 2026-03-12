@@ -1,5 +1,6 @@
 import { InvitationFooter } from "@/components/invitation/InvitationFooter";
 import { InvitationPageClient } from "@/components/invitation/InvitationPageClient";
+import { GuestCodeGate } from "@/components/invitation/GuestCodeGate";
 import { ScrollToModules } from "@/components/invitation/ScrollToModules";
 import { ModuleRenderer } from "@/components/invitation/ModuleRenderer";
 import { ModulesWrapper } from "@/components/invitation/ModulesWrapper";
@@ -83,7 +84,16 @@ export default async function InvitationPage({ params }: InvitationPageProps) {
     wedding_date: wedding.wedding_date,
   };
 
-  // 3. Fetch Sites config (Modules, Theme, Extras)
+  // 3. Fetch guest code from settings
+  const { data: settingsData } = await supabaseAdmin
+    .from("settings")
+    .select("guest_code")
+    .eq("wedding_id", weddingId)
+    .single();
+
+  const guestCode = settingsData?.guest_code ?? null;
+
+  // 4. Fetch Sites config (Modules, Theme, Extras)
   const { data: siteConfig, error: siteError } = await supabaseAdmin
     .from("sites")
     .select("id, theme_id, modules, plan_id, extras, languages")
@@ -100,7 +110,8 @@ export default async function InvitationPage({ params }: InvitationPageProps) {
   if (siteConfig.theme_id === "modern") themeClass = "theme-minimalist"; // mapping modern to minimalist in globals if needed, let's keep it theme-id
   // Actually, the next-theme ThemeProvider takes care of it natively if we pass the right id.
 
-  return (
+  const partnerNames = `${profile.first_name} & ${profile.partner_name}`;
+  const invitationContent = (
     <InvitationPageClient hasIntro>
     <div
       className={`${themeClass} min-h-screen bg-background text-foreground font-sans`}
@@ -163,4 +174,14 @@ export default async function InvitationPage({ params }: InvitationPageProps) {
     </div>
     </InvitationPageClient>
   );
+
+  if (guestCode) {
+    return (
+      <GuestCodeGate weddingCode={guestCode} partnerNames={partnerNames}>
+        {invitationContent}
+      </GuestCodeGate>
+    );
+  }
+
+  return invitationContent;
 }

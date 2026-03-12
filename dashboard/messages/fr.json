@@ -2,7 +2,7 @@
   "Dashboard": {
     "greeting": "Bonjour, {name}",
     "settings": "Réglages",
-    "view_site": "Voir mon site",
+    "view_site": "Voir mon faire-part",
     "wedding_space": "Espace Mariés",
     "responses": "Réponses",
     "guests_confirmed": "{count} invités confirmés sur {total}",
@@ -220,7 +220,7 @@
     "settings": "Réglages",
     "config_section": "Configuration",
     "modules": "Mes Modules",
-    "view_site": "Voir mon Site",
+    "view_site": "Voir mon faire-part",
     "logout": "Déconnexion",
     "logout_confirmation": {
       "title": "Confirmer la déconnexion",

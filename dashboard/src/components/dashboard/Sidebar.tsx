@@ -17,6 +17,7 @@ import {
   CreditCard,
   Grid,
   Home,
+  Mail,
   LogOut,
   Menu,
   MessageSquare,
@@ -211,7 +212,7 @@ export function Sidebar({ slug }: { slug: string | null }) {
                 !slug && "opacity-50 cursor-not-allowed pointer-events-none",
               )}
             >
-              <Grid size={16} />
+              <Mail size={16} />
               <span>{t("view_site")}</span>
             </button>
           </div>
