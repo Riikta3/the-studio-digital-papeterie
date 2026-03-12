@@ -11,6 +11,7 @@ export function DashboardLayout({ children }: { children: React.ReactNode }) {
   const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [slug, setSlug] = useState<string | null>(null);
+  const [showWelcome, setShowWelcome] = useState(false);
 
   // Use a ref to prevent multiple concurrent fetchSlug calls for the same user
   const fetchingSlugForRef = useRef<string | null>(null);
@@ -91,8 +92,17 @@ export function DashboardLayout({ children }: { children: React.ReactNode }) {
         setIsAuthenticated(authenticated);
 
         if (authenticated && user) {
-          // Trigger fetch but don't await to avoid blocking layout
           fetchSlug(user.id);
+          // Check is_new flag
+          const { data: profile } = await supabase
+            .from("profiles")
+            .select("is_new")
+            .eq("id", user.id)
+            .single();
+          if (profile?.is_new) {
+            setShowWelcome(true);
+            await supabase.from("profiles").update({ is_new: false }).eq("id", user.id);
+          }
         }
       } catch (err) {
         console.error("💥 [initAuth] Failed:", err);
@@ -178,9 +188,7 @@ export function DashboardLayout({ children }: { children: React.ReactNode }) {
 
   return (
     <div className='min-h-screen bg-[#FDFBF7]'>
-      <Suspense fallback={null}>
-        <WelcomePopup slug={slug || undefined} />
-      </Suspense>
+      <WelcomePopup slug={slug || undefined} isOpen={showWelcome} onClose={() => setShowWelcome(false)} />
       <Sidebar slug={slug} />
       <main className='md:ml-64 min-h-screen transition-all'>{children}</main>
     </div>

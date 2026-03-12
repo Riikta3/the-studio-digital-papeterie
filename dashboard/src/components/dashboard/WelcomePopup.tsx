@@ -10,38 +10,18 @@ import {
 } from "@shared/components/ui/dialog";
 import { ExternalLink, PartyPopper } from "lucide-react";
 import { useTranslations } from "next-intl";
-import { useSearchParams } from "next/navigation";
-import { useEffect, useState } from "react";
 
 interface WelcomePopupProps {
   slug?: string;
+  isOpen: boolean;
+  onClose: () => void;
 }
 
-export function WelcomePopup({ slug }: WelcomePopupProps) {
+export function WelcomePopup({ slug, isOpen, onClose }: WelcomePopupProps) {
   const t = useTranslations("WelcomePopup");
-  const searchParams = useSearchParams();
-
-  // Initialize state directly from searchParams to avoid "setState in effect" warning
-  const isFirst = searchParams.get("first") === "true";
-  const [isOpen, setIsOpen] = useState(isFirst);
-
-  useEffect(() => {
-    if (isFirst) {
-      // Clean URL immediately to avoid re-triggering and fix lint potential
-      const newUrl = window.location.pathname;
-      window.history.replaceState({}, "", newUrl);
-    }
-  }, [isFirst]);
-
-  const handleClose = () => {
-    setIsOpen(false);
-  };
 
   return (
-    <Dialog
-      open={isOpen}
-      onOpenChange={setIsOpen}
-    >
+    <Dialog open={isOpen} onOpenChange={(open) => !open && onClose()}>
       <DialogContent className='sm:max-w-md border-none bg-white p-0 overflow-hidden rounded-3xl'>
         <div className='bg-primary/5 p-8 flex flex-col items-center text-center space-y-4'>
           <div className='w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mb-2'>
@@ -77,7 +57,7 @@ export function WelcomePopup({ slug }: WelcomePopupProps) {
 
             <Button
               variant='ghost'
-              onClick={handleClose}
+              onClick={onClose}
               className='w-full py-6 rounded-2xl text-gray-500 hover:text-gray-900 hover:bg-gray-50 transition-colors text-base'
             >
               {t("start_config_btn")}
