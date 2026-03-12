@@ -4,6 +4,7 @@ import { cn } from "@shared/lib/utils";
 import {
   BedDouble,
   Bus,
+  Camera,
   Car,
   Check,
   ChevronLeft,
@@ -20,6 +21,7 @@ import {
   Minus,
   Music,
   Navigation,
+  PenTool,
   Plane,
   Play,
   Plus,
@@ -31,6 +33,7 @@ import {
   TentTree,
   Trash2,
   Utensils,
+  Video,
   Wine,
   X,
 } from "lucide-react";
@@ -998,7 +1001,7 @@ function FaqPreview({ config }: { config: Record<string, unknown> }) {
           Questions <span className="italic text-primary opacity-80">Fréquentes</span>
         </h3>
       </div>
-      <div className="space-y-3 max-w-sm mx-auto">
+      <div className="space-y-3">
         {questions.map((faq, index) => (
           <div key={faq.id} className="bg-card rounded-[1.25rem] border border-border overflow-hidden">
             <button
@@ -1013,12 +1016,21 @@ function FaqPreview({ config }: { config: Record<string, unknown> }) {
                 {openIndex === index ? <Minus className="h-3 w-3" /> : <Plus className="h-3 w-3 opacity-70" />}
               </div>
             </button>
-            {openIndex === index && (
-              <div className="px-5 pb-5">
-                <div className="h-px w-full bg-border mb-4" />
-                <p className="text-muted-foreground text-sm leading-relaxed font-light">{faq.answer}</p>
-              </div>
-            )}
+            <AnimatePresence>
+              {openIndex === index && (
+                <motion.div
+                  initial={{ height: 0, opacity: 0 }}
+                  animate={{ height: "auto", opacity: 1 }}
+                  exit={{ height: 0, opacity: 0 }}
+                  transition={{ duration: 0.3, ease: "easeInOut" }}
+                >
+                  <div className="px-5 pb-5">
+                    <div className="h-px w-full bg-border mb-4" />
+                    <p className="text-muted-foreground text-sm leading-relaxed font-light">{faq.answer}</p>
+                  </div>
+                </motion.div>
+              )}
+            </AnimatePresence>
           </div>
         ))}
       </div>
@@ -1274,6 +1286,95 @@ function GalleryPreview({ config }: { config: Record<string, unknown> }) {
   );
 }
 
+// ─── Guestbook Preview ────────────────────────────────────────────────────────
+
+function GuestbookPreview() {
+  return (
+    <div className="text-center">
+      <p className="text-xs font-bold uppercase tracking-[0.2em] text-muted-foreground mb-4">
+        Livre d'Or
+      </p>
+      <h3 className="font-heading text-4xl italic text-foreground mb-8">Un mot doux</h3>
+
+      <div className="bg-card rounded-[2rem] p-8 border border-border shadow-xl">
+        <div className="w-14 h-14 bg-secondary rounded-full flex items-center justify-center mx-auto mb-6 text-primary opacity-80">
+          <PenTool className="w-6 h-6" />
+        </div>
+
+        <p className="text-muted-foreground text-sm leading-relaxed font-light mb-8 max-w-xs mx-auto">
+          Laissez une petite trace de votre passage. Vos messages seront gardés précieusement et transmis uniquement aux mariés.
+        </p>
+
+        <div className="space-y-4 text-left">
+          <div className="space-y-2">
+            <label className="text-[10px] uppercase tracking-[0.2em] font-bold text-muted-foreground ml-4">Votre Nom</label>
+            <div className="w-full bg-muted/50 border border-border rounded-full py-3 px-6 text-sm text-muted-foreground/40 font-light">
+              Comment devons-nous vous appeler ?
+            </div>
+          </div>
+          <div className="space-y-2">
+            <label className="text-[10px] uppercase tracking-[0.2em] font-bold text-muted-foreground ml-4">Votre Message</label>
+            <div className="w-full bg-muted/50 border border-border rounded-[1.25rem] py-4 px-6 text-sm text-muted-foreground/40 font-light h-24">
+              Écrivez votre mot doux ici...
+            </div>
+          </div>
+          <div className="w-full bg-primary/80 text-primary-foreground py-4 rounded-full font-bold text-xs uppercase tracking-[0.3em] flex items-center justify-center gap-2">
+            Envoyer mon message
+            <Send className="w-4 h-4" />
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+// ─── VideoGuestbook Preview ───────────────────────────────────────────────────
+
+function VideoGuestbookPreview() {
+  return (
+    <div className="text-center">
+      <p className="text-xs font-bold uppercase tracking-[0.2em] text-muted-foreground mb-4">
+        Souvenir Inoubliable
+      </p>
+      <h3 className="font-heading text-4xl text-foreground mb-8">
+        Livre d'Or <span className="italic text-primary opacity-80">Vidéo</span>
+      </h3>
+
+      <div className="bg-card rounded-[2rem] p-8 border border-border shadow-xl">
+        <div className="space-y-6">
+          <div className="w-16 h-16 bg-secondary rounded-full flex items-center justify-center mx-auto text-primary">
+            <Camera className="w-8 h-8" />
+          </div>
+
+          <div className="space-y-2 max-w-xs mx-auto">
+            <p className="text-muted-foreground text-sm leading-relaxed font-light">
+              Laissez-nous un petit mot, une anecdote ou vos vœux directement en vidéo.
+            </p>
+            <p className="text-[10px] uppercase tracking-[0.15em] font-bold text-muted-foreground/50">
+              Capture directe ou upload (Max 50Mo)
+            </p>
+          </div>
+
+          <div className="relative aspect-[9/16] max-w-[160px] mx-auto rounded-[1.5rem] overflow-hidden border-4 border-muted bg-muted flex items-center justify-center">
+            <div className="flex flex-col items-center gap-2 text-muted-foreground/30">
+              <Video className="w-10 h-10" />
+              <span className="text-[10px] uppercase tracking-widest font-bold">Vidéo</span>
+            </div>
+          </div>
+
+          <div className="w-full bg-primary/80 text-primary-foreground py-4 rounded-full font-bold text-xs uppercase tracking-[0.3em] flex items-center justify-center gap-2">
+            Cliquer pour Enregistrer
+          </div>
+        </div>
+
+        <p className="mt-8 text-[10px] text-muted-foreground/40 italic">
+          Votre vidéo sera envoyée en privé uniquement aux futurs mariés.
+        </p>
+      </div>
+    </div>
+  );
+}
+
 // ─── Main component ───────────────────────────────────────────────────────────
 
 interface ModulePreviewProps {
@@ -1296,6 +1397,8 @@ export function ModulePreview({ moduleId, config }: ModulePreviewProps) {
       case "menu": return <MenuPreview config={config} />;
       case "faq": return <FaqPreview config={config} />;
       case "gallery": return <GalleryPreview config={config} />;
+      case "guestbook": return <GuestbookPreview />;
+      case "video-guestbook": return <VideoGuestbookPreview />;
       default: return null;
     }
   }

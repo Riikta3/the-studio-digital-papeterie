@@ -34,7 +34,7 @@ export function ModuleConfigWithPreview({ moduleId, initialConfig }: Props) {
   return (
     <div className="flex gap-8 items-start">
       {/* Form — left column, fixed width */}
-      <div className="w-full xl:w-[480px] shrink-0">
+      <div className="w-full xl:w-[560px] shrink-0">
         <div className="bg-white rounded-2xl border border-border shadow-sm p-6 md:p-8">
           <ModuleConfigForm
             moduleId={moduleId}

@@ -251,7 +251,7 @@ export async function createWedding(data: CreateWeddingData) {
       type: "magiclink",
       email: data.email,
       options: {
-        redirectTo: `${dashboardUrl}/fr?first=true`,
+        redirectTo: `${dashboardUrl}/auth/confirm?next=${encodeURIComponent("/fr?first=true")}`,
       },
     });
 
