@@ -608,7 +608,13 @@ export default function CreateWizard({
               {plans.map((plan) => (
                 <motion.div
                   key={plan.id}
-                  onClick={() => setFormData({ ...formData, plan: plan.id })}
+                  onClick={() => {
+                    if (formData.plan === plan.id) {
+                      nextStep();
+                    } else {
+                      setFormData({ ...formData, plan: plan.id });
+                    }
+                  }}
                   whileHover={{ y: -8 }}
                   className={`relative p-8 rounded-[2rem] border transition-all cursor-pointer flex flex-col h-full bg-white group ${
                     formData.plan === plan.id

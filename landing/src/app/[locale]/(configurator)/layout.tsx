@@ -1,5 +1,6 @@
 "use client";
 
+import { cn } from "@/lib/utils";
 import { Link, usePathname, useRouter } from "@/navigation";
 import { selectTotalPrice, useOrderStore } from "@/stores/use-order-store";
 import { AnimatePresence, motion } from "framer-motion";
@@ -133,15 +134,17 @@ export default function ConfiguratorLayout({
             </div>
           </div>
 
-          <Link href={nextStep}>
-            <button
-              className='group flex items-center gap-2 rounded-full bg-primary text-primary-foreground px-6 py-3 font-semibold shadow-lg hover:scale-105 active:scale-95 transition-all'
-              disabled={!plan && currentStepIndex === 0}
-            >
-              <span>{isLastStep ? "Finaliser" : "Continuer"}</span>
-              <ArrowRight className='w-4 h-4 transition-transform group-hover:translate-x-1' />
-            </button>
-          </Link>
+          <button
+            onClick={() => router.push(nextStep)}
+            disabled={currentStepIndex === 0 && !plan}
+            className={cn(
+              'group flex items-center gap-2 rounded-full bg-primary text-primary-foreground px-6 py-3 font-semibold shadow-lg transition-all hover:scale-105 active:scale-95',
+              currentStepIndex === 0 && !plan && 'opacity-40 cursor-not-allowed pointer-events-none',
+            )}
+          >
+            <span>{isLastStep ? "Finaliser" : "Continuer"}</span>
+            <ArrowRight className='w-4 h-4 transition-transform group-hover:translate-x-1' />
+          </button>
         </div>
       </div>
     </div>

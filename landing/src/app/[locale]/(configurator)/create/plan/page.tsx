@@ -10,7 +10,7 @@ import { useEffect } from "react";
 export default function PlanPage() {
   const { plan, setPlan } = useOrderStore();
   const searchParams = useSearchParams();
-  const router = useRouter(); // Initialize router
+  const router = useRouter();
 
   useEffect(() => {
     const selected = searchParams.get("selected");
@@ -20,8 +20,11 @@ export default function PlanPage() {
   }, [searchParams, setPlan]);
 
   const handleSelect = (p: PlanType) => {
-    setPlan(p);
-    router.push("/create/theme"); // Auto-advance
+    if (plan === p) {
+      router.push("/create/theme");
+    } else {
+      setPlan(p);
+    }
   };
 
   return (

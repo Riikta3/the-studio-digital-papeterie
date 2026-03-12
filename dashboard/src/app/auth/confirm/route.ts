@@ -32,9 +32,10 @@ export async function GET(request: NextRequest) {
     });
 
     if (!error) {
-      // Redirect using the 'next' query param or default to '/'
       const redirectTo = request.nextUrl.clone();
-      redirectTo.pathname = next;
+      const nextUrl = new URL(next, request.nextUrl.origin);
+      redirectTo.pathname = nextUrl.pathname;
+      redirectTo.search = nextUrl.search;
       redirectTo.searchParams.delete("token_hash");
       redirectTo.searchParams.delete("type");
       return NextResponse.redirect(redirectTo);
@@ -65,7 +66,9 @@ export async function GET(request: NextRequest) {
 
     if (!error) {
       const redirectTo = request.nextUrl.clone();
-      redirectTo.pathname = next; // Usually /update-password
+      const nextUrl = new URL(next, request.nextUrl.origin);
+      redirectTo.pathname = nextUrl.pathname;
+      redirectTo.search = nextUrl.search;
       redirectTo.searchParams.delete("code");
       return NextResponse.redirect(redirectTo);
     }
