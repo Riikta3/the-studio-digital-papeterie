@@ -7,6 +7,8 @@ export interface TrackPayload {
   title: string;
   artist: string;
   coverUrl: string;
+  uri?: string;
+  spotifyUrl?: string;
 }
 
 export async function submitPlaylistSuggestions({

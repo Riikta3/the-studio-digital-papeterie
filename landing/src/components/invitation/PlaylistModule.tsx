@@ -17,6 +17,7 @@ export interface Track {
   artist: string;
   coverUrl: string;
   uri?: string;
+  spotifyUrl?: string;
 }
 
 const DEFAULT_PLAYLIST_TEXT = {

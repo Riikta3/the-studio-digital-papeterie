@@ -5,6 +5,19 @@ import { resolve } from "path";
 const withNextIntl = createNextIntlPlugin("./src/i18n.ts");
 
 const nextConfig: NextConfig = {
+  async headers() {
+    return [
+      {
+        source: "/(.*)",
+        headers: [
+          {
+            key: "Content-Security-Policy",
+            value: "frame-src 'self' https://open.spotify.com;",
+          },
+        ],
+      },
+    ];
+  },
   images: {
     remotePatterns: [
       {
