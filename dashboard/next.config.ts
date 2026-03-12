@@ -17,7 +17,7 @@ const nextConfig: NextConfig = {
         headers: [
           {
             key: "Content-Security-Policy",
-            value: "frame-src 'self' https://open.spotify.com;",
+            value: "frame-src 'self' https://open.spotify.com https://www.youtube.com https://player.vimeo.com https://maps.google.com; media-src 'self' blob: https://*.supabase.co https:;",
           },
         ],
       },

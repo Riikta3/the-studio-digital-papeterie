@@ -4,7 +4,7 @@ import { APP_MODULES } from "@shared/data/modules";
 import { ArrowLeft } from "lucide-react";
 import { getTranslations } from "next-intl/server";
 import { notFound, redirect } from "next/navigation";
-import { ModuleConfigForm } from "./ModuleConfigForm";
+import { ModuleConfigWithPreview } from "./ModuleConfigWithPreview";
 
 // Modules that have no configurable fields
 const NON_CONFIGURABLE = ["countdown", "guestbook", "video-guestbook"];
@@ -34,7 +34,7 @@ export default async function ModuleConfigPage({
   }
 
   return (
-    <div className="p-6 md:p-10 max-w-3xl mx-auto">
+    <div className="p-6 md:p-10 xl:p-12 max-w-[1400px] mx-auto">
       <div className="mb-8">
         <Link
           href="/modules"
@@ -43,15 +43,13 @@ export default async function ModuleConfigPage({
           <ArrowLeft size={14} />
           {t("back")}
         </Link>
-        <h1 className="font-heading text-4xl md:text-5xl italic text-foreground mb-2">
+        <h1 className="font-heading text-4xl md:text-5xl italic text-foreground mb-2 text-center">
           {moduleInfo.name}
         </h1>
-        <p className="text-muted-foreground text-sm">{moduleInfo.description}</p>
+        <p className="text-muted-foreground text-sm text-center">{moduleInfo.description}</p>
       </div>
 
-      <div className="bg-white rounded-2xl border border-border shadow-sm p-6 md:p-8">
-        <ModuleConfigForm moduleId={moduleId} initialConfig={config} />
-      </div>
+      <ModuleConfigWithPreview moduleId={moduleId} initialConfig={config} />
     </div>
   );
 }

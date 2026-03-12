@@ -15,29 +15,15 @@ const MOCK_IMAGES = [
 ];
 
 const carouselVariants = {
-  enter: (direction: number) => ({
-    opacity: 0,
-    scale: 1.03,
-    x: direction > 0 ? 30 : -30,
-  }),
-  center: { opacity: 1, scale: 1, x: 0 },
-  exit: (direction: number) => ({
-    opacity: 0,
-    scale: 0.97,
-    x: direction < 0 ? 30 : -30,
-  }),
+  enter: { opacity: 0 },
+  center: { opacity: 1 },
+  exit: { opacity: 0 },
 };
 
 const lightboxVariants = {
-  enter: (direction: number) => ({
-    opacity: 0,
-    x: direction > 0 ? 80 : -80,
-  }),
-  center: { opacity: 1, x: 0 },
-  exit: (direction: number) => ({
-    opacity: 0,
-    x: direction < 0 ? 80 : -80,
-  }),
+  enter: { opacity: 0 },
+  center: { opacity: 1 },
+  exit: { opacity: 0 },
 };
 
 export function GalleryModule({
@@ -161,7 +147,7 @@ export function GalleryModule({
                 initial='enter'
                 animate='center'
                 exit='exit'
-                transition={{ duration: 0.5, ease: [0.32, 0, 0.67, 0] }}
+                transition={{ duration: 0.6, ease: "easeInOut" }}
                 className='absolute inset-0'
               >
                 <div
@@ -315,7 +301,7 @@ export function GalleryModule({
                     initial='enter'
                     animate='center'
                     exit='exit'
-                    transition={{ duration: 0.35, ease: [0.32, 0, 0.67, 0] }}
+                    transition={{ duration: 0.6, ease: "easeInOut" }}
                     className='absolute flex items-center justify-center w-full h-full px-16 md:px-24'
                   >
                     <img

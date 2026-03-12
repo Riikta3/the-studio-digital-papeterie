@@ -38,7 +38,7 @@ import {
 import { CSS } from "@dnd-kit/utilities";
 import Image from "next/image";
 import { useTranslations } from "next-intl";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { toast } from "sonner";
 
 // ─── Types ────────────────────────────────────────────────────────────────────
@@ -157,9 +157,11 @@ function FieldGroup({
 function DressCodeForm({
   config,
   onSave,
+  onPreview,
 }: {
   config: Record<string, unknown> | null;
   onSave: (data: Record<string, unknown>) => Promise<void>;
+  onPreview?: (data: Record<string, unknown>) => void;
 }) {
   const DEFAULTS = {
     title: "Dress Code",
@@ -179,6 +181,10 @@ function DressCodeForm({
   const [description, setDescription] = useState(str(config?.description, DEFAULTS.description));
   const [descriptionMen, setDescriptionMen] = useState(str(config?.description_men, DEFAULTS.description_men));
   const [descriptionWomen, setDescriptionWomen] = useState(str(config?.description_women, DEFAULTS.description_women));
+
+  useEffect(() => {
+    onPreview?.({ title, subtitle, mode, description, description_men: descriptionMen, description_women: descriptionWomen });
+  }, [title, subtitle, mode, description, descriptionMen, descriptionWomen, onPreview]);
 
   function resetToDefaults() {
     setTitle(DEFAULTS.title);
@@ -259,9 +265,11 @@ function DressCodeForm({
 function RsvpForm({
   config,
   onSave,
+  onPreview,
 }: {
   config: Record<string, unknown> | null;
   onSave: (data: Record<string, unknown>) => Promise<void>;
+  onPreview?: (data: Record<string, unknown>) => void;
 }) {
   const t = useTranslations("Modules");
   const [saving, setSaving] = useState(false);
@@ -271,6 +279,13 @@ function RsvpForm({
     const d = new Date(raw);
     return isNaN(d.getTime()) ? undefined : d;
   });
+
+  useEffect(() => {
+    const formatted = deadline
+      ? deadline.toLocaleDateString("fr-FR", { day: "numeric", month: "long", year: "numeric" })
+      : "";
+    onPreview?.({ rsvp_deadline: formatted });
+  }, [deadline, onPreview]);
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
@@ -303,9 +318,11 @@ function RsvpForm({
 function MapForm({
   config,
   onSave,
+  onPreview,
 }: {
   config: Record<string, unknown> | null;
   onSave: (data: Record<string, unknown>) => Promise<void>;
+  onPreview?: (data: Record<string, unknown>) => void;
 }) {
   const MAP_DEFAULTS = {
     name: "Château de Vaux-le-Vicomte",
@@ -325,6 +342,10 @@ function MapForm({
     strAs<"portrait" | "landscape">(config?.imageOrientation, MAP_DEFAULTS.imageOrientation)
   );
   const venueFileRef = useRef<HTMLInputElement>(null);
+
+  useEffect(() => {
+    onPreview?.({ name, address, description, imageUrl, imageOrientation });
+  }, [name, address, description, imageUrl, imageOrientation, onPreview]);
 
   async function handleVenueUpload(files: FileList | null) {
     if (!files?.[0]) return;
@@ -423,9 +444,11 @@ function MapForm({
 function IntroVideoForm({
   config,
   onSave,
+  onPreview,
 }: {
   config: Record<string, unknown> | null;
   onSave: (data: Record<string, unknown>) => Promise<void>;
+  onPreview?: (data: Record<string, unknown>) => void;
 }) {
   const VIDEO_DEFAULTS = {
     title: "Notre Histoire",
@@ -456,6 +479,11 @@ function IntroVideoForm({
   const [confirmDelete, setConfirmDelete] = useState(false);
   const videoFileRef = useRef<HTMLInputElement>(null);
 
+  useEffect(() => {
+    const videoUrl = videoType === "upload" ? uploadedUrl : embedUrl;
+    onPreview?.({ title, subtitle, description, videoUrl, videoType, ...(videoType === "upload" && uploadedName ? { videoName: uploadedName } : {}) });
+  }, [title, subtitle, description, videoType, embedUrl, uploadedUrl, uploadedName, onPreview]);
+
   async function handleVideoUpload(files: FileList | null) {
     if (!files?.[0]) return;
     setUploading(true);
@@ -467,7 +495,9 @@ function IntroVideoForm({
       setUploadedUrl(url);
       setUploadedName(file.name);
       setVideoType("upload");
-      toast.success("Vidéo uploadée");
+      // Auto-save immediately so the URL is persisted even without clicking "Enregistrer"
+      await onSave({ title, subtitle, description, videoUrl: url, videoType: "upload", videoName: file.name });
+      toast.success("Vidéo uploadée et enregistrée");
     } catch (e) {
       toast.error(e instanceof Error ? e.message : "Erreur upload");
     } finally {
@@ -604,9 +634,11 @@ function IntroVideoForm({
 function GiftListForm({
   config,
   onSave,
+  onPreview,
 }: {
   config: Record<string, unknown> | null;
   onSave: (data: Record<string, unknown>) => Promise<void>;
+  onPreview?: (data: Record<string, unknown>) => void;
 }) {
   const t = useTranslations("Modules");
   const [saving, setSaving] = useState(false);
@@ -615,6 +647,10 @@ function GiftListForm({
   );
   const [giftListUrl, setGiftListUrl] = useState(str(config?.gift_list_url));
   const [giftListLabel, setGiftListLabel] = useState(str(config?.gift_list_label, "Contribuer à notre projet"));
+
+  useEffect(() => {
+    onPreview?.({ description, gift_list_url: giftListUrl, gift_list_label: giftListLabel });
+  }, [description, giftListUrl, giftListLabel, onPreview]);
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
@@ -652,15 +688,21 @@ function GiftListForm({
 function PlaylistForm({
   config,
   onSave,
+  onPreview,
 }: {
   config: Record<string, unknown> | null;
   onSave: (data: Record<string, unknown>) => Promise<void>;
+  onPreview?: (data: Record<string, unknown>) => void;
 }) {
   const t = useTranslations("Modules");
   const [saving, setSaving] = useState(false);
   const [description, setDescription] = useState(
     str(config?.description, "Aidez le DJ à préparer la soirée parfaite ! Recherchez et proposez jusqu'à 3 titres qui vous feront danser jusqu'au bout de la nuit.")
   );
+
+  useEffect(() => {
+    onPreview?.({ description });
+  }, [description, onPreview]);
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
@@ -695,9 +737,11 @@ const TIMELINE_DEFAULTS: TimelineEvent[] = [
 function TimelineForm({
   config,
   onSave,
+  onPreview,
 }: {
   config: Record<string, unknown> | null;
   onSave: (data: Record<string, unknown>) => Promise<void>;
+  onPreview?: (data: Record<string, unknown>) => void;
 }) {
   const t = useTranslations("Modules");
   const [saving, setSaving] = useState(false);
@@ -705,6 +749,10 @@ function TimelineForm({
     const raw = arr<TimelineEvent>(config?.events);
     return raw.length > 0 ? raw : TIMELINE_DEFAULTS;
   });
+
+  useEffect(() => {
+    onPreview?.({ events });
+  }, [events, onPreview]);
 
   function addEvent() {
     setEvents([...events, { id: genId(), time: "", title: "", location: "", description: "" }]);
@@ -811,9 +859,11 @@ const ACCOMMODATION_DEFAULTS = {
 function AccommodationForm({
   config,
   onSave,
+  onPreview,
 }: {
   config: Record<string, unknown> | null;
   onSave: (data: Record<string, unknown>) => Promise<void>;
+  onPreview?: (data: Record<string, unknown>) => void;
 }) {
   const t = useTranslations("Modules");
   const [saving, setSaving] = useState(false);
@@ -824,6 +874,10 @@ function AccommodationForm({
     const raw = arr<AccommodationOption>(config?.options);
     return raw.length > 0 ? raw : ACCOMMODATION_DEFAULTS.options;
   });
+
+  useEffect(() => {
+    onPreview?.({ title, subtitle, description, options });
+  }, [title, subtitle, description, options, onPreview]);
 
   function addOption() {
     setOptions([
@@ -965,9 +1019,11 @@ const TRANSPORT_DEFAULTS = {
 function TransportForm({
   config,
   onSave,
+  onPreview,
 }: {
   config: Record<string, unknown> | null;
   onSave: (data: Record<string, unknown>) => Promise<void>;
+  onPreview?: (data: Record<string, unknown>) => void;
 }) {
   const t = useTranslations("Modules");
   const [saving, setSaving] = useState(false);
@@ -975,9 +1031,14 @@ function TransportForm({
     const raw = arr<TransportOption>(config?.options);
     return raw.length > 0 ? raw : TRANSPORT_DEFAULTS.options;
   });
+  const [carpoolEnabled, setCarpoolEnabled] = useState(!!config?.carpoolUrl);
   const [carpoolUrl, setCarpoolUrl] = useState(str(config?.carpoolUrl, TRANSPORT_DEFAULTS.carpoolUrl));
   const [carpoolLinkLabel, setCarpoolLinkLabel] = useState(str(config?.carpoolLinkLabel, TRANSPORT_DEFAULTS.carpoolLinkLabel));
   const [carpoolDescription, setCarpoolDescription] = useState(str(config?.carpoolDescription, TRANSPORT_DEFAULTS.carpoolDescription));
+
+  useEffect(() => {
+    onPreview?.({ options, carpoolUrl: carpoolEnabled ? carpoolUrl : "", carpoolLinkLabel, carpoolDescription });
+  }, [options, carpoolEnabled, carpoolUrl, carpoolLinkLabel, carpoolDescription, onPreview]);
 
   function addOption() {
     setOptions([...options, { id: genId(), iconType: "Car", title: "", description: "" }]);
@@ -995,7 +1056,7 @@ function TransportForm({
     e.preventDefault();
     setSaving(true);
     try {
-      await onSave({ options, carpoolUrl, carpoolLinkLabel, carpoolDescription });
+      await onSave({ options, carpoolUrl: carpoolEnabled ? carpoolUrl : "", carpoolLinkLabel, carpoolDescription });
     } finally {
       setSaving(false);
     }
@@ -1059,20 +1120,40 @@ function TransportForm({
         {t("add_transport")}
       </button>
 
-      <SectionHeader title={t("carpool_section")} />
-      <FieldGroup label={t("field_carpool_url")}>
-        <Input value={carpoolUrl} onChange={(e) => setCarpoolUrl(e.target.value)} placeholder="https://togetzer.com/..." />
-      </FieldGroup>
-      <FieldGroup label={t("field_carpool_label")}>
-        <Input value={carpoolLinkLabel} onChange={(e) => setCarpoolLinkLabel(e.target.value)} placeholder="Accéder au tableau" />
-      </FieldGroup>
-      <FieldGroup label={t("field_carpool_description")}>
-        <Textarea rows={2} value={carpoolDescription} onChange={(e) => setCarpoolDescription(e.target.value)} />
-      </FieldGroup>
+      <div className="flex items-center justify-between py-2">
+        <SectionHeader title={t("carpool_section")} />
+        <button
+          type="button"
+          onClick={() => setCarpoolEnabled(!carpoolEnabled)}
+          className={cn(
+            "relative inline-flex h-5 w-9 shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200",
+            carpoolEnabled ? "bg-primary" : "bg-muted-foreground/30"
+          )}
+        >
+          <span className={cn(
+            "pointer-events-none inline-block h-4 w-4 transform rounded-full bg-white shadow ring-0 transition duration-200",
+            carpoolEnabled ? "translate-x-4" : "translate-x-0"
+          )} />
+        </button>
+      </div>
+      {carpoolEnabled && (
+        <div className="space-y-4">
+          <FieldGroup label={t("field_carpool_url")}>
+            <Input value={carpoolUrl} onChange={(e) => setCarpoolUrl(e.target.value)} placeholder="https://togetzer.com/..." />
+          </FieldGroup>
+          <FieldGroup label={t("field_carpool_label")}>
+            <Input value={carpoolLinkLabel} onChange={(e) => setCarpoolLinkLabel(e.target.value)} placeholder="Accéder au tableau" />
+          </FieldGroup>
+          <FieldGroup label={t("field_carpool_description")}>
+            <Textarea rows={2} value={carpoolDescription} onChange={(e) => setCarpoolDescription(e.target.value)} />
+          </FieldGroup>
+        </div>
+      )}
       <FormActions
         saving={saving}
         onReset={() => {
           setOptions(TRANSPORT_DEFAULTS.options);
+          setCarpoolEnabled(false);
           setCarpoolUrl(TRANSPORT_DEFAULTS.carpoolUrl);
           setCarpoolLinkLabel(TRANSPORT_DEFAULTS.carpoolLinkLabel);
           setCarpoolDescription(TRANSPORT_DEFAULTS.carpoolDescription);
@@ -1096,9 +1177,11 @@ const MENU_DEFAULTS = {
 function MenuForm({
   config,
   onSave,
+  onPreview,
 }: {
   config: Record<string, unknown> | null;
   onSave: (data: Record<string, unknown>) => Promise<void>;
+  onPreview?: (data: Record<string, unknown>) => void;
 }) {
   const t = useTranslations("Modules");
   const [saving, setSaving] = useState(false);
@@ -1111,6 +1194,10 @@ function MenuForm({
     const raw = arr<string>(config?.footer);
     return raw.length > 0 ? raw : MENU_DEFAULTS.footer;
   });
+
+  useEffect(() => {
+    onPreview?.({ sections, dietaryNote, footer });
+  }, [sections, dietaryNote, footer, onPreview]);
 
   function addSection() {
     setSections([...sections, { id: genId(), title: "", items: [{ title: "" }] }]);
@@ -1288,9 +1375,11 @@ const FAQ_DEFAULTS = {
 function FaqForm({
   config,
   onSave,
+  onPreview,
 }: {
   config: Record<string, unknown> | null;
   onSave: (data: Record<string, unknown>) => Promise<void>;
+  onPreview?: (data: Record<string, unknown>) => void;
 }) {
   const t = useTranslations("Modules");
   const [saving, setSaving] = useState(false);
@@ -1301,6 +1390,10 @@ function FaqForm({
     const raw = arr<FaqItem>(config?.questions);
     return raw.length > 0 ? raw : FAQ_DEFAULTS.questions;
   });
+
+  useEffect(() => {
+    onPreview?.({ title, subtitle, description, questions });
+  }, [title, subtitle, description, questions, onPreview]);
 
   function addQuestion() {
     setQuestions([...questions, { id: genId(), question: "", answer: "" }]);
@@ -1583,9 +1676,11 @@ function SortableGalleryItem({
 export function ModuleConfigForm({
   moduleId,
   initialConfig,
+  onPreview,
 }: {
   moduleId: string;
   initialConfig: Record<string, unknown> | null;
+  onPreview?: (data: Record<string, unknown>) => void;
 }) {
   const t = useTranslations("Modules");
 
@@ -1594,7 +1689,7 @@ export function ModuleConfigForm({
     toast.success(t("saved"));
   }
 
-  const props = { config: initialConfig, onSave: handleSave };
+  const props = { config: initialConfig, onSave: handleSave, onPreview };
 
   switch (moduleId) {
     case "dress-code":
