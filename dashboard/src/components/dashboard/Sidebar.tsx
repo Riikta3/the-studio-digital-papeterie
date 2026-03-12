@@ -171,7 +171,7 @@ export function Sidebar({ slug }: { slug: string | null }) {
                 const isDev = window.location.hostname === "localhost";
                 const baseUrl = isDev
                   ? "http://localhost:3002"
-                  : process.env.NEXT_PUBLIC_DASHBOARD_URL ||
+                  : process.env.NEXT_PUBLIC_LANDING_URL ||
                     "https://the-studio.digital";
                 window.open(`${baseUrl}/fr/invitation/${slug}`, "_blank");
               }}
