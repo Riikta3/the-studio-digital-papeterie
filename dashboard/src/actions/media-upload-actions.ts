@@ -59,3 +59,17 @@ export async function uploadIntroVideo(formData: FormData): Promise<{ url: strin
   const { data: { publicUrl } } = supabaseAdmin.storage.from("videos").getPublicUrl(filename);
   return { url: publicUrl };
 }
+
+export async function deleteIntroVideo(url: string): Promise<void> {
+  const weddingId = await getWeddingId();
+
+  // Extract path from URL: .../videos/weddingId/filename
+  const match = url.match(/videos\/(.+)$/);
+  if (!match) throw new Error("URL invalide");
+
+  const path = match[1];
+  if (!path.startsWith(weddingId + "/")) throw new Error("Accès refusé");
+
+  const { error } = await supabaseAdmin.storage.from("videos").remove([path]);
+  if (error) throw new Error(error.message);
+}

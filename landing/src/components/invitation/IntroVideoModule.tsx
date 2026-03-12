@@ -35,6 +35,7 @@ export function IntroVideoModule({
   } as IntroVideoData;
   const [isPlaying, setIsPlaying] = useState(false);
 
+
   if (!data.videoUrl) return null;
 
   // Normalize YouTube URLs to embed format
@@ -48,7 +49,13 @@ export function IntroVideoModule({
     return url;
   };
 
-  const videoUrl = data.videoType !== "upload" ? normalizeVideoUrl(data.videoUrl) : data.videoUrl;
+  // Auto-detect: if URL points to a storage file (supabase, .mp4/.webm/.mov), treat as upload
+  const isUpload =
+    data.videoType === "upload" ||
+    /\.(mp4|webm|mov)(\?|$)/i.test(data.videoUrl) ||
+    data.videoUrl.includes("/storage/v1/object/");
+
+  const videoUrl = isUpload ? data.videoUrl : normalizeVideoUrl(data.videoUrl);
 
   return (
     <section className='w-full'>
@@ -111,7 +118,7 @@ export function IntroVideoModule({
                 transition={{ duration: 0.5 }}
                 className='absolute inset-0 bg-black'
               >
-                {data.videoType === "upload" ? (
+                {isUpload ? (
                   <video
                     src={data.videoUrl}
                     autoPlay

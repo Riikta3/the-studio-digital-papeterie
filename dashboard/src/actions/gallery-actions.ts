@@ -83,7 +83,7 @@ export async function saveGalleryConfig(imageUrls: string[]): Promise<void> {
     .single();
   if (!wedding) throw new Error("Mariage introuvable");
 
-  const site = (wedding.sites as { id: string }[])?.[0];
+  const site = wedding.sites as unknown as { id: string } | null;
   if (!site) throw new Error("Site introuvable");
 
   const { data: existing } = await supabase

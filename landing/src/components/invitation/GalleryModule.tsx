@@ -14,21 +14,29 @@ const MOCK_IMAGES = [
   "https://images.unsplash.com/photo-1532712938310-34cb3982ef74?auto=format&fit=crop&q=80&w=1600",
 ];
 
-const slideVariants = {
+const carouselVariants = {
   enter: (direction: number) => ({
     opacity: 0,
     scale: 1.03,
     x: direction > 0 ? 30 : -30,
   }),
-  center: {
-    opacity: 1,
-    scale: 1,
-    x: 0,
-  },
+  center: { opacity: 1, scale: 1, x: 0 },
   exit: (direction: number) => ({
     opacity: 0,
     scale: 0.97,
     x: direction < 0 ? 30 : -30,
+  }),
+};
+
+const lightboxVariants = {
+  enter: (direction: number) => ({
+    opacity: 0,
+    x: direction > 0 ? 80 : -80,
+  }),
+  center: { opacity: 1, x: 0 },
+  exit: (direction: number) => ({
+    opacity: 0,
+    x: direction < 0 ? 80 : -80,
   }),
 };
 
@@ -53,6 +61,9 @@ export function GalleryModule({
   const [lightboxOpen, setLightboxOpen] = useState(false);
   const [paused, setPaused] = useState(false);
 
+  // Swipe tracking for lightbox
+  const touchStartX = useRef<number | null>(null);
+
   const paginate = (newDirection: number) => {
     setCurrent(([prev]) => [
       (((prev + newDirection) % count) + count) % count,
@@ -63,6 +74,17 @@ export function GalleryModule({
   const goTo = (index: number) => {
     const dir = index > current ? 1 : -1;
     setCurrent([index, dir]);
+  };
+
+  const handleTouchStart = (e: React.TouchEvent) => {
+    touchStartX.current = e.touches[0].clientX;
+  };
+
+  const handleTouchEnd = (e: React.TouchEvent) => {
+    if (touchStartX.current === null) return;
+    const diff = touchStartX.current - e.changedTouches[0].clientX;
+    if (Math.abs(diff) > 40) paginate(diff > 0 ? 1 : -1);
+    touchStartX.current = null;
   };
 
   // Autoplay — démarre uniquement quand la galerie est visible, pause au hover ou lightbox
@@ -131,26 +153,21 @@ export function GalleryModule({
             className='relative w-full aspect-[4/3] md:aspect-[16/9] rounded-[2rem] overflow-hidden bg-card border border-border shadow-2xl cursor-zoom-in'
             onClick={() => setLightboxOpen(true)}
           >
-            <AnimatePresence
-              initial={false}
-              custom={direction}
-              mode='sync'
-            >
+            <AnimatePresence initial={false} custom={direction} mode='popLayout'>
               <motion.div
                 key={current}
                 custom={direction}
-                variants={slideVariants}
+                variants={carouselVariants}
                 initial='enter'
                 animate='center'
                 exit='exit'
-                transition={{ duration: 0.6, ease: [0.32, 0, 0.67, 0] }}
+                transition={{ duration: 0.5, ease: [0.32, 0, 0.67, 0] }}
                 className='absolute inset-0'
               >
                 <div
                   className='absolute inset-0 bg-cover bg-center'
                   style={{ backgroundImage: `url(${images[current]})` }}
                 />
-                {/* Subtle vignette */}
                 <div className='absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-transparent pointer-events-none' />
               </motion.div>
             </AnimatePresence>
@@ -238,7 +255,7 @@ export function GalleryModule({
         )}
       </motion.div>
 
-      {/* Lightbox — portalisé sur document.body pour échapper à tout stacking context */}
+      {/* Lightbox — portalisé sur document.body */}
       {lightboxOpen &&
         createPortal(
           <AnimatePresence>
@@ -246,86 +263,84 @@ export function GalleryModule({
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
-              transition={{ duration: 0.3 }}
-              className='fixed inset-0 z-[99999] flex items-center justify-center bg-black/90 backdrop-blur-md'
+              transition={{ duration: 0.25 }}
+              className='fixed inset-0 z-[99999] flex items-center justify-center bg-black/92 backdrop-blur-md'
               onClick={() => setLightboxOpen(false)}
+              onTouchStart={handleTouchStart}
+              onTouchEnd={handleTouchEnd}
             >
               {/* Close */}
               <button
                 onClick={() => setLightboxOpen(false)}
-                className='absolute top-6 right-6 w-10 h-10 flex items-center justify-center rounded-full border border-white/20 text-white/70 hover:text-white hover:bg-white/10 transition-all z-50'
+                className='absolute top-5 right-5 w-10 h-10 flex items-center justify-center rounded-full bg-zinc-900/70 text-white hover:bg-zinc-900 transition-all z-50'
                 aria-label='Fermer'
               >
-                <X
-                  className='w-5 h-5'
-                  strokeWidth={1.5}
-                />
+                <X className='w-5 h-5' strokeWidth={2} />
               </button>
 
               {/* Counter */}
-              <div className='absolute top-6 left-1/2 -translate-x-1/2 text-white/50 text-xs tracking-[0.25em] font-medium'>
+              <div className='absolute top-6 left-1/2 -translate-x-1/2 text-white text-xs tracking-[0.25em] font-medium select-none bg-zinc-900/70 rounded-full px-3 py-1'>
                 {pad(current + 1)} / {pad(count)}
               </div>
 
               {/* Prev */}
               {count > 1 && (
                 <button
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    paginate(-1);
-                  }}
-                  className='absolute left-4 md:left-8 w-11 h-11 flex items-center justify-center rounded-full border border-white/20 text-white/70 hover:text-white hover:bg-white/10 transition-all z-50'
+                  onClick={(e) => { e.stopPropagation(); paginate(-1); }}
+                  className='absolute left-3 md:left-6 z-50 w-12 h-12 flex items-center justify-center rounded-full bg-zinc-900/70 text-white hover:bg-zinc-900 transition-all'
                   aria-label='Photo précédente'
                 >
-                  <ChevronLeft
-                    className='w-5 h-5'
-                    strokeWidth={1.5}
-                  />
+                  <ChevronLeft className='w-6 h-6' strokeWidth={2} />
                 </button>
               )}
 
               {/* Next */}
               {count > 1 && (
                 <button
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    paginate(1);
-                  }}
-                  className='absolute right-4 md:right-8 w-11 h-11 flex items-center justify-center rounded-full border border-white/20 text-white/70 hover:text-white hover:bg-white/10 transition-all z-50'
+                  onClick={(e) => { e.stopPropagation(); paginate(1); }}
+                  className='absolute right-3 md:right-6 z-50 w-12 h-12 flex items-center justify-center rounded-full bg-zinc-900/70 text-white hover:bg-zinc-900 transition-all'
                   aria-label='Photo suivante'
                 >
-                  <ChevronRight
-                    className='w-5 h-5'
-                    strokeWidth={1.5}
-                  />
+                  <ChevronRight className='w-6 h-6' strokeWidth={2} />
                 </button>
               )}
 
-              {/* Image */}
-              <AnimatePresence
-                initial={false}
-                custom={direction}
-                mode='sync'
-              >
-                <motion.div
-                  key={current}
-                  custom={direction}
-                  variants={slideVariants}
-                  initial='enter'
-                  animate='center'
-                  exit='exit'
-                  transition={{ duration: 0.5, ease: [0.32, 0, 0.67, 0] }}
-                  className='relative max-w-5xl w-full max-h-[80vh] flex items-center justify-center px-16 md:px-24 pointer-events-none'
-                  onClick={(e) => e.stopPropagation()}
-                >
-                  <img
-                    src={images[current]}
-                    alt={`Photo de mariage ${current + 1}`}
-                    className='max-w-full max-h-[80vh] object-contain rounded-2xl shadow-2xl pointer-events-auto'
-                    onClick={(e) => e.stopPropagation()}
-                  />
-                </motion.div>
-              </AnimatePresence>
+              {/* Image — sliding container (pointer-events-none pour laisser passer les clics aux boutons) */}
+              <div className='absolute inset-0 flex items-center justify-center overflow-hidden pointer-events-none'>
+                <AnimatePresence initial={false} custom={direction} mode='popLayout'>
+                  <motion.div
+                    key={current}
+                    custom={direction}
+                    variants={lightboxVariants}
+                    initial='enter'
+                    animate='center'
+                    exit='exit'
+                    transition={{ duration: 0.35, ease: [0.32, 0, 0.67, 0] }}
+                    className='absolute flex items-center justify-center w-full h-full px-16 md:px-24'
+                  >
+                    <img
+                      src={images[current]}
+                      alt={`Photo de mariage ${current + 1}`}
+                      className='max-w-full max-h-[85vh] object-contain rounded-xl shadow-2xl select-none'
+                      draggable={false}
+                    />
+                  </motion.div>
+                </AnimatePresence>
+              </div>
+
+              {/* Dot indicators */}
+              {count > 1 && (
+                <div className='absolute bottom-6 left-1/2 -translate-x-1/2 flex gap-2 z-50'>
+                  {images.map((_, i) => (
+                    <button
+                      key={i}
+                      onClick={(e) => { e.stopPropagation(); goTo(i); }}
+                      className={`w-2 h-2 rounded-full transition-all duration-300 ${i === current ? "bg-zinc-900/70 scale-125" : "bg-zinc-900/40 hover:bg-zinc-900/70"}`}
+                      aria-label={`Photo ${i + 1}`}
+                    />
+                  ))}
+                </div>
+              )}
             </motion.div>
           </AnimatePresence>,
           document.body,

@@ -1,6 +1,7 @@
 "use server";
 
 import { createClient } from "@/utils/supabase/server";
+import { translateSupabaseError } from "@/lib/supabase-errors";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 
@@ -154,7 +155,7 @@ export async function updateEmail(formData: FormData) {
   const { error } = await supabase.auth.updateUser({ email });
 
   if (error) {
-    return { success: false, error: error.message };
+    return { success: false, error: translateSupabaseError(error.message) };
   }
 
   return {
@@ -182,7 +183,7 @@ export async function updatePassword(formData: FormData) {
   const { error } = await supabase.auth.updateUser({ password });
 
   if (error) {
-    return { success: false, error: error.message };
+    return { success: false, error: translateSupabaseError(error.message) };
   }
 
   return { success: true, message: "Mot de passe mis à jour avec succès" };

@@ -2,7 +2,7 @@
 
 import { updateModuleConfig } from "@/actions/module-config-actions";
 import { deleteGalleryImage, saveGalleryConfig, uploadGalleryImage } from "@/actions/gallery-actions";
-import { uploadIntroVideo, uploadVenueImage } from "@/actions/media-upload-actions";
+import { deleteIntroVideo, uploadIntroVideo, uploadVenueImage } from "@/actions/media-upload-actions";
 import { DatePicker } from "@/components/ui/date-picker";
 import { Button } from "@shared/components/ui/button";
 import { Input } from "@shared/components/ui/input";
@@ -12,6 +12,7 @@ import { cn } from "@shared/lib/utils";
 import {
   Bus,
   Car,
+  GripVertical,
   ImagePlus,
   Plane,
   Plus,
@@ -20,6 +21,21 @@ import {
   Trash2,
   X,
 } from "lucide-react";
+import {
+  DndContext,
+  closestCenter,
+  PointerSensor,
+  useSensor,
+  useSensors,
+  DragEndEvent,
+} from "@dnd-kit/core";
+import {
+  SortableContext,
+  rectSortingStrategy,
+  useSortable,
+  arrayMove,
+} from "@dnd-kit/sortable";
+import { CSS } from "@dnd-kit/utilities";
 import Image from "next/image";
 import { useTranslations } from "next-intl";
 import { useRef, useState } from "react";
@@ -360,6 +376,8 @@ function MapForm({
           <button
             type="button"
             onClick={() => venueFileRef.current?.click()}
+            onDragOver={(e) => e.preventDefault()}
+            onDrop={(e) => { e.preventDefault(); handleVenueUpload(e.dataTransfer.files); }}
             disabled={uploading}
             className="w-full flex flex-col items-center gap-2 py-6 rounded-xl border-2 border-dashed border-border hover:border-primary/40 hover:bg-primary/5 transition-colors text-muted-foreground"
           >
@@ -422,20 +440,32 @@ function IntroVideoForm({
   const [title, setTitle] = useState(str(config?.title, VIDEO_DEFAULTS.title));
   const [subtitle, setSubtitle] = useState(str(config?.subtitle, VIDEO_DEFAULTS.subtitle));
   const [description, setDescription] = useState(str(config?.description, VIDEO_DEFAULTS.description));
-  const [videoUrl, setVideoUrl] = useState(str(config?.videoUrl, VIDEO_DEFAULTS.videoUrl));
   const [videoType, setVideoType] = useState<"embed" | "upload">(
     strAs<"embed" | "upload">(config?.videoType, VIDEO_DEFAULTS.videoType)
   );
+  // Separate state per mode — switching tabs never mixes values
+  const [embedUrl, setEmbedUrl] = useState(
+    config?.videoType === "upload" ? "" : str(config?.videoUrl, "")
+  );
+  const [uploadedUrl, setUploadedUrl] = useState(
+    config?.videoType === "upload" ? str(config?.videoUrl, "") : ""
+  );
+  const [uploadedName, setUploadedName] = useState(
+    config?.videoType === "upload" ? str(config?.videoName, "") : ""
+  );
+  const [confirmDelete, setConfirmDelete] = useState(false);
   const videoFileRef = useRef<HTMLInputElement>(null);
 
   async function handleVideoUpload(files: FileList | null) {
     if (!files?.[0]) return;
     setUploading(true);
     try {
+      const file = files[0];
       const fd = new FormData();
-      fd.append("file", files[0]);
+      fd.append("file", file);
       const { url } = await uploadIntroVideo(fd);
-      setVideoUrl(url);
+      setUploadedUrl(url);
+      setUploadedName(file.name);
       setVideoType("upload");
       toast.success("Vidéo uploadée");
     } catch (e) {
@@ -449,7 +479,18 @@ function IntroVideoForm({
     e.preventDefault();
     setSaving(true);
     try {
-      await onSave({ title, subtitle, description, videoUrl, videoType });
+      // Si on sauvegarde en mode embed et qu'une vidéo uploadée existe → la supprimer du bucket
+      if (videoType === "embed" && uploadedUrl) {
+        try { await deleteIntroVideo(uploadedUrl); } catch {}
+        setUploadedUrl("");
+        setUploadedName("");
+      }
+      // Si on sauvegarde en mode upload et qu'un lien embed existe → le vider
+      if (videoType === "upload" && embedUrl) {
+        setEmbedUrl("");
+      }
+      const videoUrl = videoType === "upload" ? uploadedUrl : embedUrl;
+      await onSave({ title, subtitle, description, videoUrl, videoType, ...(videoType === "upload" && uploadedName ? { videoName: uploadedName } : {}) });
     } finally {
       setSaving(false);
     }
@@ -489,8 +530,8 @@ function IntroVideoForm({
         {videoType === "embed" ? (
           <>
             <Input
-              value={videoUrl}
-              onChange={(e) => setVideoUrl(e.target.value)}
+              value={embedUrl}
+              onChange={(e) => setEmbedUrl(e.target.value)}
               placeholder="https://youtu.be/... ou https://www.youtube.com/watch?v=..."
             />
             <p className="text-xs text-muted-foreground">Coller un lien YouTube ou Vimeo</p>
@@ -498,13 +539,13 @@ function IntroVideoForm({
         ) : (
           <>
             <input ref={videoFileRef} type="file" accept="video/mp4,video/quicktime,video/webm" className="hidden" onChange={(e) => handleVideoUpload(e.target.files)} />
-            {videoUrl && videoType === "upload" ? (
+            {uploadedUrl ? (
               <div className="flex items-center gap-3 p-3 bg-secondary rounded-xl border border-border">
                 <div className="w-8 h-8 rounded-lg bg-primary/10 flex items-center justify-center shrink-0">
                   <ImagePlus size={14} className="text-primary" />
                 </div>
-                <p className="text-xs text-foreground flex-1 truncate">{videoUrl.split("/").pop()}</p>
-                <button type="button" onClick={() => setVideoUrl("")} className="text-muted-foreground hover:text-red-500 transition-colors shrink-0">
+                <p className="text-xs text-foreground flex-1 truncate">{uploadedName || uploadedUrl.split("/").pop()}</p>
+                <button type="button" onClick={() => setConfirmDelete(true)} className="text-muted-foreground hover:text-red-500 transition-colors shrink-0">
                   <X size={14} />
                 </button>
               </div>
@@ -512,6 +553,8 @@ function IntroVideoForm({
               <button
                 type="button"
                 onClick={() => videoFileRef.current?.click()}
+                onDragOver={(e) => e.preventDefault()}
+                onDrop={(e) => { e.preventDefault(); handleVideoUpload(e.dataTransfer.files); }}
                 disabled={uploading}
                 className="w-full flex flex-col items-center gap-2 py-6 rounded-xl border-2 border-dashed border-border hover:border-primary/40 hover:bg-primary/5 transition-colors text-muted-foreground"
               >
@@ -527,10 +570,32 @@ function IntroVideoForm({
         saving={saving}
         onReset={() => {
           setTitle(VIDEO_DEFAULTS.title); setSubtitle(VIDEO_DEFAULTS.subtitle);
-          setDescription(VIDEO_DEFAULTS.description); setVideoUrl(VIDEO_DEFAULTS.videoUrl);
+          setDescription(VIDEO_DEFAULTS.description);
+          setEmbedUrl(""); setUploadedUrl(""); setUploadedName("");
           setVideoType(VIDEO_DEFAULTS.videoType);
         }}
       />
+
+      {confirmDelete && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 backdrop-blur-sm">
+          <div className="bg-card border border-border rounded-2xl shadow-xl p-6 max-w-sm w-full mx-4 space-y-4">
+            <p className="font-semibold text-foreground text-sm">Supprimer cette vidéo ?</p>
+            <p className="text-xs text-muted-foreground">Cette action est irréversible — la vidéo sera effacée et vos invités ne pourront plus la visionner.</p>
+            <div className="flex gap-3 pt-1">
+              <button type="button" onClick={() => setConfirmDelete(false)} className="flex-1 py-2 rounded-xl border border-border text-sm text-muted-foreground hover:bg-secondary transition-colors">
+                Annuler
+              </button>
+              <button type="button" onClick={async () => {
+                setConfirmDelete(false);
+                try { await deleteIntroVideo(uploadedUrl); } catch {}
+                setUploadedUrl(""); setUploadedName("");
+              }} className="flex-1 py-2 rounded-xl bg-red-500 hover:bg-red-600 text-white text-sm font-medium transition-colors">
+                Supprimer
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </form>
   );
 }
@@ -1383,10 +1448,14 @@ function GalleryForm({
     }
   }
 
-  async function handleReorder(from: number, to: number) {
-    const updated = [...images];
-    const [moved] = updated.splice(from, 1);
-    updated.splice(to, 0, moved);
+  const sensors = useSensors(useSensor(PointerSensor, { activationConstraint: { distance: 5 } }));
+
+  async function handleDragEnd(event: DragEndEvent) {
+    const { active, over } = event;
+    if (!over || active.id === over.id) return;
+    const oldIndex = images.indexOf(active.id as string);
+    const newIndex = images.indexOf(over.id as string);
+    const updated = arrayMove(images, oldIndex, newIndex);
     setImages(updated);
     await saveGalleryConfig(updated);
   }
@@ -1426,55 +1495,85 @@ function GalleryForm({
         </div>
       </div>
 
-      {/* Photo grid */}
+      {/* Photo grid with drag & drop */}
       {images.length > 0 && (
-        <div className="grid grid-cols-3 sm:grid-cols-4 gap-3">
-          {images.map((url, idx) => (
-            <div key={url} className="relative group aspect-square rounded-xl overflow-hidden border border-border bg-muted">
-              <Image
-                src={url}
-                alt={`Photo ${idx + 1}`}
-                fill
-                className="object-cover"
-                sizes="150px"
-              />
-              <div className="absolute inset-0 bg-black/0 group-hover:bg-black/30 transition-colors" />
-              <button
-                type="button"
-                onClick={() => handleDelete(url)}
-                disabled={saving}
-                className="absolute top-1.5 right-1.5 w-6 h-6 rounded-full bg-black/60 text-white flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity hover:bg-red-500"
-              >
-                <X size={12} />
-              </button>
-              {/* Move left */}
-              {idx > 0 && (
-                <button
-                  type="button"
-                  onClick={() => handleReorder(idx, idx - 1)}
-                  className="absolute bottom-1.5 left-1.5 w-6 h-6 rounded-full bg-black/60 text-white flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity text-xs font-bold"
-                >
-                  ←
-                </button>
-              )}
-              {/* Move right */}
-              {idx < images.length - 1 && (
-                <button
-                  type="button"
-                  onClick={() => handleReorder(idx, idx + 1)}
-                  className="absolute bottom-1.5 right-1.5 w-6 h-6 rounded-full bg-black/60 text-white flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity text-xs font-bold"
-                >
-                  →
-                </button>
-              )}
+        <p className="text-xs text-muted-foreground flex items-center gap-1.5">
+          <GripVertical size={12} className="shrink-0" />
+          Glissez les photos pour modifier leur ordre d&apos;affichage.
+        </p>
+      )}
+      {images.length > 0 && (
+        <DndContext sensors={sensors} collisionDetection={closestCenter} onDragEnd={handleDragEnd}>
+          <SortableContext items={images} strategy={rectSortingStrategy}>
+            <div className="grid grid-cols-3 sm:grid-cols-4 gap-3">
+              {images.map((url, idx) => (
+                <SortableGalleryItem
+                  key={url}
+                  url={url}
+                  idx={idx}
+                  onDelete={handleDelete}
+                  saving={saving}
+                />
+              ))}
             </div>
-          ))}
-        </div>
+          </SortableContext>
+        </DndContext>
       )}
 
       {images.length === 0 && (
         <p className="text-xs text-muted-foreground text-center">Aucune photo ajoutée — les photos de démonstration s&apos;afficheront sur le site.</p>
       )}
+    </div>
+  );
+}
+
+function SortableGalleryItem({
+  url,
+  idx,
+  onDelete,
+  saving,
+}: {
+  url: string;
+  idx: number;
+  onDelete: (url: string) => void;
+  saving: boolean;
+}) {
+  const { attributes, listeners, setNodeRef, transform, transition, isDragging } = useSortable({ id: url });
+  const style = {
+    transform: CSS.Transform.toString(transform),
+    transition,
+    opacity: isDragging ? 0.5 : 1,
+    zIndex: isDragging ? 10 : undefined,
+  };
+
+  return (
+    <div
+      ref={setNodeRef}
+      style={style}
+      className="relative group aspect-square rounded-xl overflow-hidden border border-border bg-muted"
+    >
+      <Image
+        src={url}
+        alt={`Photo ${idx + 1}`}
+        fill
+        className="object-cover"
+        sizes="150px"
+      />
+      {/* Drag handle overlay */}
+      <div
+        {...attributes}
+        {...listeners}
+        className="absolute inset-0 cursor-grab active:cursor-grabbing"
+      />
+      <div className="absolute inset-0 bg-black/0 group-hover:bg-black/30 transition-colors pointer-events-none" />
+      <button
+        type="button"
+        onClick={() => onDelete(url)}
+        disabled={saving}
+        className="absolute top-1.5 right-1.5 w-6 h-6 rounded-full bg-black/60 text-white flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity hover:bg-red-500 z-10"
+      >
+        <X size={12} />
+      </button>
     </div>
   );
 }
