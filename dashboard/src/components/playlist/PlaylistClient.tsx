@@ -2,7 +2,7 @@
 
 import { useState, useTransition, useEffect, useRef } from "react";
 import {
-  Check, X, Play, Music2, ExternalLink, CheckCheck,
+  Check, X, Play, Music2, CheckCheck,
   ChevronDown, Search, Plus, Trash2, ArrowUpDown, Loader2,
 } from "lucide-react";
 import { toast } from "sonner";
@@ -53,6 +53,8 @@ export function PlaylistClient({ suggestions, weddingId }: Props) {
   const [addSearching, setAddSearching] = useState(false);
   const [addingId, setAddingId] = useState<string | null>(null);
   const [deletingKey, setDeletingKey] = useState<string | null>(null);
+  const [confirmDelete, setConfirmDelete] = useState<{ suggestion: PlaylistSuggestion; track: Track } | null>(null);
+  const [confirmBatch, setConfirmBatch] = useState<TrackStatus | null>(null);
   const addInputRef = useRef<HTMLInputElement>(null);
 
   const makeKey = (suggestionId: string, trackId: string) => `${suggestionId}::${trackId}`;
@@ -83,7 +85,7 @@ export function PlaylistClient({ suggestions, weddingId }: Props) {
     startTransition(async () => { await updateTrackStatus(suggestion.id, track.id, status); });
   };
 
-  const handleBatch = (status: TrackStatus) => {
+  const executeBatch = (status: TrackStatus) => {
     const items = [...selected].map((key) => {
       const [suggestionId, trackId] = key.split("::");
       return { suggestionId, trackId };
@@ -96,14 +98,18 @@ export function PlaylistClient({ suggestions, weddingId }: Props) {
     }));
     applyOptimistic(updates);
     setSelected(new Set());
+    setConfirmBatch(null);
     if (status === "accepted") toast.success(`${count} titre${count > 1 ? "s" : ""} accepté${count > 1 ? "s" : ""}`, { duration: 2000 });
     else if (status === "rejected") toast.error(`${count} titre${count > 1 ? "s" : ""} refusé${count > 1 ? "s" : ""}`, { duration: 2000 });
     else toast(`${count} titre${count > 1 ? "s" : ""} réinitialisé${count > 1 ? "s" : ""}`, { duration: 2000 });
     startTransition(async () => { await batchUpdateTrackStatus(items, status); });
   };
 
-  const handleDelete = async (suggestion: PlaylistSuggestion, track: Track) => {
+  const handleDelete = async () => {
+    if (!confirmDelete) return;
+    const { suggestion, track } = confirmDelete;
     const key = makeKey(suggestion.id, track.id);
+    setConfirmDelete(null);
     setDeletingKey(key);
     try {
       await deleteTrack(suggestion.id, track.id);
@@ -420,19 +426,19 @@ export function PlaylistClient({ suggestions, weddingId }: Props) {
                 </span>
                 <div className="flex items-center gap-2 ml-auto">
                   <button
-                    onClick={() => handleBatch("accepted")}
+                    onClick={() => setConfirmBatch("accepted")}
                     className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium bg-green-500 text-white hover:bg-green-600 transition-colors"
                   >
                     <CheckCheck size={13} /> Accepter
                   </button>
                   <button
-                    onClick={() => handleBatch("rejected")}
+                    onClick={() => setConfirmBatch("rejected")}
                     className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium bg-red-500 text-white hover:bg-red-600 transition-colors"
                   >
                     <X size={13} /> Refuser
                   </button>
                   <button
-                    onClick={() => handleBatch("pending")}
+                    onClick={() => setConfirmBatch("pending")}
                     className="px-3 py-1.5 rounded-lg text-xs font-medium border border-border text-muted-foreground hover:bg-gray-50 transition-colors"
                   >
                     Réinitialiser
@@ -500,17 +506,6 @@ export function PlaylistClient({ suggestions, weddingId }: Props) {
 
                     {/* Actions */}
                     <div className="flex items-center gap-1.5 shrink-0">
-                      {track.spotifyUrl && (
-                        <a
-                          href={track.spotifyUrl}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="p-1.5 rounded-lg text-muted-foreground hover:text-[#1DB954] hover:bg-[#1DB954]/10 transition-colors"
-                          title="Ouvrir dans Spotify"
-                        >
-                          <ExternalLink size={14} />
-                        </a>
-                      )}
                       <button
                         onClick={() => handleStatusToggle(suggestion, track, "accepted")}
                         className={cn(
@@ -532,7 +527,7 @@ export function PlaylistClient({ suggestions, weddingId }: Props) {
                         <X size={15} />
                       </button>
                       <button
-                        onClick={() => handleDelete(suggestion, track)}
+                        onClick={() => setConfirmDelete({ suggestion, track })}
                         disabled={isDeleting}
                         className="p-1.5 rounded-lg text-muted-foreground hover:bg-red-50 hover:text-red-500 transition-colors disabled:opacity-40"
                         title="Supprimer"
@@ -571,6 +566,79 @@ export function PlaylistClient({ suggestions, weddingId }: Props) {
           </div>
         </div>
       )}
+
+      {/* Confirm delete modal */}
+      {confirmDelete && (
+        <ConfirmModal
+          title="Supprimer ce titre ?"
+          description={`"${confirmDelete.track.title}" sera définitivement retiré de la playlist.`}
+          confirmLabel="Supprimer"
+          confirmClassName="bg-red-500 hover:bg-red-600"
+          onCancel={() => setConfirmDelete(null)}
+          onConfirm={handleDelete}
+        />
+      )}
+
+      {/* Confirm batch modal */}
+      {confirmBatch && (
+        <ConfirmModal
+          title={
+            confirmBatch === "accepted" ? "Accepter la sélection ?" :
+            confirmBatch === "rejected" ? "Refuser la sélection ?" :
+            "Réinitialiser la sélection ?"
+          }
+          description={`${selected.size} titre${selected.size > 1 ? "s" : ""} seront ${
+            confirmBatch === "accepted" ? "marqués comme acceptés" :
+            confirmBatch === "rejected" ? "marqués comme refusés" :
+            "remis en attente"
+          }.`}
+          confirmLabel="Confirmer"
+          confirmClassName={
+            confirmBatch === "accepted" ? "bg-green-500 hover:bg-green-600" :
+            confirmBatch === "rejected" ? "bg-red-500 hover:bg-red-600" :
+            "bg-foreground hover:bg-foreground/80"
+          }
+          onCancel={() => setConfirmBatch(null)}
+          onConfirm={() => executeBatch(confirmBatch)}
+        />
+      )}
+    </div>
+  );
+}
+
+function ConfirmModal({
+  title, description, confirmLabel, confirmClassName, onCancel, onConfirm,
+}: {
+  title: string;
+  description: string;
+  confirmLabel: string;
+  confirmClassName: string;
+  onCancel: () => void;
+  onConfirm: () => void;
+}) {
+  return (
+    <div className="fixed inset-0 z-50 flex items-center justify-center">
+      <div className="absolute inset-0 bg-black/50" onClick={onCancel} />
+      <div className="relative bg-white rounded-xl shadow-xl p-6 max-w-sm w-full mx-4 space-y-4">
+        <div className="space-y-1.5">
+          <h3 className="text-base font-semibold text-foreground">{title}</h3>
+          <p className="text-sm text-muted-foreground">{description}</p>
+        </div>
+        <div className="flex justify-end gap-2 pt-2">
+          <button
+            onClick={onCancel}
+            className="px-4 py-2 rounded-lg text-sm border border-border text-muted-foreground hover:bg-gray-50 transition-colors"
+          >
+            Annuler
+          </button>
+          <button
+            onClick={onConfirm}
+            className={cn("px-4 py-2 rounded-lg text-sm font-medium text-white transition-colors", confirmClassName)}
+          >
+            {confirmLabel}
+          </button>
+        </div>
+      </div>
     </div>
   );
 }

@@ -26,15 +26,35 @@ export default function PlaylistLoading() {
         </div>
       </div>
 
-      {/* Filter pills */}
-      <div className="flex gap-2 animate-pulse">
-        {[56, 76, 80, 68].map((w, i) => (
-          <div key={i} className="h-8 bg-gray-100 rounded-full" style={{ width: w }} />
-        ))}
+      {/* Toolbar — search + add button */}
+      <div className="flex gap-3 animate-pulse">
+        <div className="h-9 flex-1 bg-gray-100 rounded-lg" />
+        <div className="h-9 w-36 bg-gray-100 rounded-lg shrink-0" />
+      </div>
+
+      {/* Filters + sort */}
+      <div className="flex items-center justify-between animate-pulse">
+        <div className="flex gap-2">
+          {[64, 80, 80, 72].map((w, i) => (
+            <div key={i} className="h-8 bg-gray-100 rounded-full" style={{ width: w }} />
+          ))}
+        </div>
+        <div className="flex items-center gap-1.5">
+          <div className="h-3 w-10 bg-gray-100 rounded" />
+          {[44, 44, 52, 52].map((w, i) => (
+            <div key={i} className="h-7 bg-gray-100 rounded-md" style={{ width: w }} />
+          ))}
+        </div>
       </div>
 
       {/* Tracks list */}
       <div className="bg-white border border-border rounded-xl overflow-hidden animate-pulse">
+        {/* Header row */}
+        <div className="flex items-center gap-3 px-5 py-2.5 border-b border-border bg-gray-50/60">
+          <div className="w-4 h-4 bg-gray-200 rounded" />
+          <div className="h-3 w-20 bg-gray-100 rounded" />
+        </div>
+
         <div className="divide-y divide-border">
           {Array.from({ length: 7 }).map((_, i) => (
             <div
@@ -42,16 +62,18 @@ export default function PlaylistLoading() {
               className="flex items-center gap-4 px-5 py-3"
               style={{ opacity: 1 - i * 0.1 }}
             >
+              {/* Checkbox */}
+              <div className="w-4 h-4 bg-gray-100 rounded shrink-0" />
               {/* Cover */}
               <div className="w-11 h-11 bg-gray-100 rounded-lg shrink-0" />
               {/* Info */}
               <div className="flex-1 space-y-1.5">
                 <div className="h-3.5 bg-gray-200/70 rounded" style={{ width: `${40 + (i % 3) * 15}%` }} />
                 <div className="h-3 bg-gray-100 rounded" style={{ width: `${30 + (i % 4) * 10}%` }} />
-                <div className="h-2.5 bg-gray-100/60 rounded w-24" />
+                <div className="h-2.5 bg-gray-100/60 rounded" style={{ width: `${50 + (i % 3) * 8}%` }} />
               </div>
               {/* Action buttons */}
-              <div className="flex items-center gap-2 shrink-0">
+              <div className="flex items-center gap-1.5 shrink-0">
                 <div className="w-7 h-7 bg-gray-100 rounded-lg" />
                 <div className="w-7 h-7 bg-gray-100 rounded-lg" />
                 <div className="w-7 h-7 bg-gray-100 rounded-lg" />
