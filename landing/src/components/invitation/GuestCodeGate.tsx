@@ -70,7 +70,7 @@ export function GuestCodeGate({ weddingCode, partnerNames, children }: GuestCode
             placeholder="CODE INVITÉ"
             maxLength={20}
             autoComplete="off"
-            className={`w-full text-center font-mono tracking-[0.3em] uppercase text-lg px-4 py-3.5 rounded-xl border bg-card text-foreground placeholder:text-muted-foreground/40 focus:outline-none focus:ring-2 transition-all ${
+            className={`w-full text-center tracking-[0.3em] uppercase text-lg px-4 py-3.5 rounded-xl border bg-card text-foreground placeholder:text-muted-foreground/40 focus:outline-none focus:ring-2 transition-all ${
               error
                 ? "border-red-400 focus:ring-red-200 animate-shake"
                 : "border-border focus:ring-primary/30 focus:border-primary/50"

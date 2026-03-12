@@ -66,7 +66,7 @@ export default function SettingsForm({
           </div>
           <div className="flex-1 min-w-0">
             <p className="text-xs text-muted-foreground">Code actif</p>
-            <p className="font-mono font-bold tracking-widest text-foreground text-sm">
+            <p className="font-bold tracking-widest text-foreground text-sm">
               {currentCode}
             </p>
           </div>
@@ -104,7 +104,7 @@ export default function SettingsForm({
             value={inputValue}
             onChange={(e) => setInputValue(e.target.value.toUpperCase())}
             placeholder="ex. MARIAGE2026"
-            className="uppercase tracking-widest font-mono"
+            className="uppercase tracking-widest"
             maxLength={20}
           />
           <p className="text-xs text-muted-foreground">
