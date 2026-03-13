@@ -47,6 +47,17 @@
   "Common": {
     "loading": "Caricamento..."
   },
+  "HowItWorks": {
+    "eyebrow": "Simple & rapide",
+    "title": "En 3 étapes",
+    "titleAccent": "c'est prêt",
+    "step1Title": "Choisissez un design",
+    "step1Desc": "Parcourez nos thèmes et trouvez celui qui vous ressemble.",
+    "step2Title": "Personnalisez",
+    "step2Desc": "Textes, photos, modules — tout se configure en quelques minutes.",
+    "step3Title": "Envoyez le lien",
+    "step3Desc": "Partagez par SMS, WhatsApp ou email. Vos invités reçoivent une expérience unique."
+  },
   "DemoSection": {
     "eyebrow": "Voir en vrai",
     "title": "Une invitation",
