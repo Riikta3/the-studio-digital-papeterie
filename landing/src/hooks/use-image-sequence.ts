@@ -51,6 +51,7 @@ export function useImageSequence({
 
   const startLoop = useCallback(() => {
     stopLoop();
+    lastTimeRef.current = 0;
     const interval = 1000 / fps;
     const tick = (now: number) => {
       if (now - lastTimeRef.current >= interval) {
@@ -99,21 +100,28 @@ export function useImageSequence({
     canvas.width = canvas.offsetWidth || window.innerWidth;
     canvas.height = canvas.offsetHeight || window.innerHeight;
 
+    let cancelled = false;
+
     // prefers-reduced-motion: show first frame statically
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
       const img = new Image();
       img.onload = () => {
+        if (cancelled) return;
         framesRef.current[0] = img;
         drawFrame(0);
         setReady(true);
       };
       img.src = getFramePath(0);
-      return;
+      return () => {
+        cancelled = true;
+        stopLoop();
+      };
     }
 
     // Load first frame, then stream the rest
     const firstImg = new Image();
     firstImg.onload = () => {
+      if (cancelled) return;
       framesRef.current[0] = firstImg;
       drawFrame(0);
       setReady(true);
@@ -121,6 +129,7 @@ export function useImageSequence({
         const img = new Image();
         const idx = i;
         img.onload = () => {
+          if (cancelled) return;
           framesRef.current[idx] = img;
         };
         img.src = getFramePath(idx);
@@ -129,7 +138,10 @@ export function useImageSequence({
     };
     firstImg.src = getFramePath(0);
 
-    return () => stopLoop();
+    return () => {
+      cancelled = true;
+      stopLoop();
+    };
   // getFramePath must be a stable reference — pass module-level functions or useCallback
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [frameCount, getFramePath]);
