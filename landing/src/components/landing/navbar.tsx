@@ -14,6 +14,14 @@ import { useTranslations } from "next-intl";
 import Image from "next/image";
 import { useState } from "react";
 
+// Note: scrollTo only works when navbar is rendered on the home page.
+// If Navbar is ever moved to a shared layout, these should become href="/#anchor" Links.
+const NAV_LINKS = [
+  { key: "themes" as const, anchor: "themes" },
+  { key: "demo" as const, anchor: "apercu" },
+  { key: "pricing" as const, anchor: "comparatif" },
+] as const;
+
 export function Navbar() {
   const t = useTranslations("Navbar");
   const { scrollY } = useScroll();
@@ -24,6 +32,11 @@ export function Navbar() {
     setIsScrolled(latest > 50);
   });
 
+  const scrollTo = (anchor: string) => {
+    setIsMobileMenuOpen(false);
+    document.getElementById(anchor)?.scrollIntoView({ behavior: "smooth" });
+  };
+
   return (
     <motion.header
       className={cn(
@@ -31,91 +44,77 @@ export function Navbar() {
         isScrolled ? "py-4" : "py-6",
       )}
     >
-      <div className='container mx-auto px-4'>
+      <div className="container mx-auto px-4">
         <div
           className={cn(
-            "mx-auto flex items-center justify-between rounded-full px-6 transition-all duration-300",
+            "mx-auto flex items-center justify-between px-6 transition-all duration-300",
             isScrolled
-              ? "bg-card/80 backdrop-blur-md shadow-sm border border-border/20 py-3 max-w-7xl"
+              ? "rounded-full bg-card/80 backdrop-blur-md shadow-sm border border-border/20 py-3 max-w-7xl"
               : "bg-transparent py-2 max-w-7xl",
           )}
         >
           {/* Logo */}
           <Link
-            href='/'
-            className='flex items-center gap-2 z-50 shrink-0'
+            href="/"
+            className="flex items-center gap-2 z-50 shrink-0"
             onClick={() => setIsMobileMenuOpen(false)}
           >
-            <div className='relative h-12 w-32'>
+            <div className="relative h-12 w-32">
               <Image
-                src='/images/logo.png'
-                alt='The Studio Digital Papeterie, les faire-part digitales'
+                src="/images/logo.png"
+                alt="The Studio Digital Papeterie"
                 fill
-                className='object-contain mix-blend-multiply'
+                className="object-contain mix-blend-multiply"
                 priority
               />
             </div>
           </Link>
 
-          {/* Desktop Nav Links */}
-          <nav className='hidden lg:flex items-center gap-8'>
-            <Link
-              href='#modeles'
-              className='text-sm font-medium text-muted-foreground hover:text-primary transition-colors'
-            >
-              {t("themes")}
-            </Link>
-            <Link
-              href='#temoignages'
-              className='text-sm font-medium text-muted-foreground hover:text-primary transition-colors'
-            >
-              {t("testimonials")}
-            </Link>
-            <Link
-              href='#fonctionnalites'
-              className='text-sm font-medium text-muted-foreground hover:text-primary transition-colors'
-            >
-              {t("features")}
-            </Link>
-            <Link
-              href='#tarifs'
-              className='text-sm font-medium text-muted-foreground hover:text-primary transition-colors'
-            >
-              {t("pricing")}
-            </Link>
+          {/* Desktop Nav */}
+          <nav className="hidden lg:flex items-center gap-8">
+            {NAV_LINKS.map(({ key, anchor }) => (
+              <button
+                key={key}
+                onClick={() => scrollTo(anchor)}
+                className="text-sm font-medium text-muted-foreground hover:text-primary transition-colors"
+              >
+                {t(key)}
+              </button>
+            ))}
           </nav>
 
-          {/* Desktop Actions (Clean & Minimalist) */}
-          <div className='hidden lg:flex items-center gap-6 shrink-0'>
+          {/* Desktop Actions */}
+          <div className="hidden lg:flex items-center gap-6 shrink-0">
             <Link
-              href='/login'
-              className='text-sm font-medium text-muted-foreground hover:text-foreground transition-colors'
+              href="/login"
+              className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors"
             >
               {t("login")}
             </Link>
-
             <LanguageSwitcher />
-
             <Link
-              href='/create'
-              className='rounded-full bg-primary px-6 py-2.5 text-sm font-semibold text-white shadow-md transition-transform hover:scale-105 active:scale-95 whitespace-nowrap'
+              href="/create"
+              className="rounded-full bg-primary px-6 py-2.5 text-sm font-semibold text-primary-foreground shadow-md transition-transform hover:scale-105 active:scale-95 whitespace-nowrap"
             >
               {t("createButton")}
             </Link>
           </div>
 
-          {/* Mobile Menu Button */}
-          <div className='flex items-center gap-4 lg:hidden z-50'>
+          {/* Mobile — CTA pill + burger */}
+          <div className="flex items-center gap-3 lg:hidden z-50">
+            <Link
+              href="/create"
+              onClick={() => setIsMobileMenuOpen(false)}
+              className="rounded-full bg-primary px-4 py-2 text-xs font-semibold text-primary-foreground shadow-md active:scale-95 whitespace-nowrap"
+            >
+              {t("createButton")}
+            </Link>
             <button
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-              className='p-2 text-foreground'
-              aria-label='Toggle menu'
+              className="p-2 text-foreground"
+              aria-label="Toggle menu"
             >
-              {isMobileMenuOpen ? (
-                <X className='h-6 w-6' />
-              ) : (
-                <Menu className='h-6 w-6' />
-              )}
+              {isMobileMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
             </button>
           </div>
         </div>
@@ -129,55 +128,29 @@ export function Navbar() {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -20 }}
             transition={{ duration: 0.2 }}
-            className='fixed inset-0 z-40 flex flex-col bg-background pt-24 px-6 lg:hidden overflow-y-auto'
+            className="fixed inset-0 z-40 flex flex-col bg-background pt-24 px-6 lg:hidden overflow-y-auto"
           >
-            <nav className='flex flex-col gap-6 items-center pb-8'>
-              {/* Language Switcher moved here */}
-              <div className='mb-4'>
+            <nav className="flex flex-col gap-6 items-center pb-8">
+              <div className="mb-4">
                 <LanguageSwitcher />
               </div>
-
+              {NAV_LINKS.map(({ key, anchor }) => (
+                <button
+                  key={key}
+                  onClick={() => scrollTo(anchor)}
+                  className="text-2xl font-heading font-medium text-foreground hover:text-primary transition-colors"
+                >
+                  {t(key)}
+                </button>
+              ))}
+              <div className="w-12 h-[1px] bg-border my-2" />
               <Link
-                href='#fonctionnalites'
+                href="/login"
                 onClick={() => setIsMobileMenuOpen(false)}
-                className='text-lg font-heading font-medium text-foreground hover:text-primary'
-              >
-                {t("features")}
-              </Link>
-              <Link
-                href='#apercu'
-                onClick={() => setIsMobileMenuOpen(false)}
-                className='text-lg font-heading font-medium text-foreground hover:text-primary'
-              >
-                {t("dashboard")}
-              </Link>
-              <Link
-                href='#modeles'
-                onClick={() => setIsMobileMenuOpen(false)}
-                className='text-lg font-heading font-medium text-foreground hover:text-primary'
-              >
-                {t("themes")}
-              </Link>
-
-              <div className='w-12 h-[1px] bg-border my-2' />
-
-              <Link
-                href='/login'
-                onClick={() => setIsMobileMenuOpen(false)}
-                className='text-lg font-heading font-medium text-muted-foreground hover:text-primary'
+                className="text-lg font-heading font-medium text-muted-foreground hover:text-primary"
               >
                 {t("login")}
               </Link>
-
-              <div className='mt-8 flex flex-col w-full gap-4'>
-                <Link
-                  href='/create'
-                  onClick={() => setIsMobileMenuOpen(false)}
-                  className='w-full rounded-full bg-primary px-6 py-4 text-base font-semibold text-primary-foreground shadow-lg active:scale-95 text-center'
-                >
-                  {t("createButton")}
-                </Link>
-              </div>
             </nav>
           </motion.div>
         )}
