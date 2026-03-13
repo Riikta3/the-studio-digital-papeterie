@@ -1,44 +1,27 @@
-import { About } from "@/components/landing/about";
-import { DashboardPreview } from "@/components/landing/dashboard-preview";
-import { Examples } from "@/components/landing/examples";
-import { FAQ } from "@/components/landing/faq";
-import { Features } from "@/components/landing/features";
-import { Footer } from "@/components/landing/footer";
+import { DemoSection } from "@/components/landing/demo-section";
+import { HowItWorks } from "@/components/landing/how-it-works";
+import { Catalogue } from "@/components/landing/catalogue";
+import { PricingComparison } from "@/components/landing/pricing-comparison";
+import { ValueCards } from "@/components/landing/value-cards";
+import { Customization } from "@/components/landing/customization";
+import { Testimonials } from "@/components/landing/testimonials";
 import { Hero } from "@/components/landing/hero";
 import { Navbar } from "@/components/landing/navbar";
-import { PricingPreview } from "@/components/landing/pricing";
-import { Testimonials } from "@/components/landing/testimonials";
+import { Footer } from "@/components/landing/footer";
 import { ScrollToTop } from "@/components/ui/scroll-to-top";
 
 export default function Home() {
   return (
-    <main className='min-h-screen w-full relative'>
+    <main className="min-h-screen w-full relative">
       <Navbar />
-
-      {/* 1. La Promesse (Hero) */}
       <Hero />
-
-      {/* 2. La Preuve Visuelle (Dashboard Preview) : On montre tout de suite */}
-      <DashboardPreview />
-
-      {/* 3. Les Exemples (Themes) */}
-      <Examples />
-
-      {/* 4. L'Argumentaire Rationnel (Features) */}
-      <Features />
-
-      {/* 5. La Preuve Sociale (Testimonials) */}
+      <DemoSection />
+      <HowItWorks />
+      <Catalogue />
+      <PricingComparison />
+      <ValueCards />
+      <Customization />
       <Testimonials />
-
-      {/* 6. L'Histoire (About) */}
-      <About />
-
-      {/* 7. L'Offre (Pricing) */}
-      <PricingPreview />
-
-      {/* 8. Les Derniers Doutes (FAQ) */}
-      <FAQ />
-
       <Footer />
       <ScrollToTop />
     </main>
