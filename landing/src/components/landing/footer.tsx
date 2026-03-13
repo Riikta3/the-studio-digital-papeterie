@@ -1,141 +1,84 @@
 import { Link } from "@/navigation";
+import { getTranslations } from "next-intl/server";
+import Image from "next/image";
 
-export function Footer() {
+export async function Footer() {
+  const t = await getTranslations("Footer");
+
   return (
-    <footer className='border-t border-border/40 bg-background/50 py-12 backdrop-blur-sm'>
-      <div className='container mx-auto px-4'>
-        <div className='grid gap-8 md:grid-cols-4'>
-          <div className='space-y-4'>
-            <h3 className='font-heading text-xl font-bold'>
-              The Studio Digital Papeterie
-            </h3>
-            <p className='text-sm text-muted-foreground'>
-              L'alliance parfaite entre tradition et modernité. Vos invitations
-              de mariage, sublimées par le digital.
+    <footer className="bg-primary text-primary-foreground">
+      <div className="container mx-auto px-4 py-16">
+        {/* Top row */}
+        <div className="flex flex-col md:flex-row justify-between gap-10 mb-12">
+          {/* Logo + tagline + social */}
+          <div className="flex flex-col gap-4 max-w-[220px]">
+            <div className="relative h-10 w-28">
+              <Image
+                src="/images/logo.png"
+                alt="The Studio Digital Papeterie"
+                fill
+                className="object-contain brightness-0 invert"
+              />
+            </div>
+            <p className="text-sm italic text-primary-foreground/60 font-heading leading-relaxed">
+              {t("tagline")}
             </p>
+            <div className="flex gap-3 mt-2">
+              {(["ig", "pi", "tk"] as const).map((s) => (
+                <div
+                  key={s}
+                  className="w-8 h-8 rounded-full border border-primary-foreground/20 flex items-center justify-center text-xs text-primary-foreground/60 hover:border-primary-foreground/50 hover:text-primary-foreground transition-colors cursor-pointer"
+                >
+                  {s}
+                </div>
+              ))}
+            </div>
           </div>
 
-          <div>
-            <h4 className='mb-4 font-semibold'>Produit</h4>
-            <ul className='space-y-2 text-sm text-muted-foreground'>
-              <li>
-                <Link
-                  href='/#fonctionnalites'
-                  className='hover:text-primary'
-                >
-                  Fonctionnalités
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href='/#modeles'
-                  className='hover:text-primary'
-                >
-                  Thèmes
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href='/#tarifs'
-                  className='hover:text-primary'
-                >
-                  Tarifs
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href='/#modeles'
-                  className='hover:text-primary'
-                >
-                  Exemples
-                </Link>
-              </li>
-            </ul>
-          </div>
-
-          <div>
-            <h4 className='mb-4 font-semibold'>Support</h4>
-            <ul className='space-y-2 text-sm text-muted-foreground'>
-              <li>
-                <Link
-                  href='/#faq'
-                  className='hover:text-primary'
-                >
-                  FAQ
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href='mailto:hello@thestudio.com'
-                  className='hover:text-primary'
-                >
-                  Contact
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href='/legal/cgv'
-                  className='hover:text-primary'
-                >
-                  Conditions Générales
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href='/legal/privacy'
-                  className='hover:text-primary'
-                >
-                  Politique de Confidentialité
-                </Link>
-              </li>
-            </ul>
-          </div>
-
-          <div>
-            <h4 className='mb-4 font-semibold'>Réseaux</h4>
-            <ul className='space-y-2 text-sm text-muted-foreground'>
-              <li>
-                <Link
-                  href='https://instagram.com'
-                  target='_blank'
-                  rel='noopener noreferrer'
-                  className='hover:text-primary'
-                >
-                  Instagram
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href='https://pinterest.com'
-                  target='_blank'
-                  rel='noopener noreferrer'
-                  className='hover:text-primary'
-                >
-                  Pinterest
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href='https://tiktok.com'
-                  target='_blank'
-                  rel='noopener noreferrer'
-                  className='hover:text-primary'
-                >
-                  TikTok
-                </Link>
-              </li>
-            </ul>
+          {/* 3 columns */}
+          <div className="grid grid-cols-2 md:grid-cols-3 gap-8">
+            {/* Produit */}
+            <div>
+              <h4 className="text-[10px] uppercase tracking-[0.2em] text-primary-foreground/40 font-medium mb-4">
+                {t("colProduct")}
+              </h4>
+              <ul className="flex flex-col gap-3">
+                <li><Link href="/#themes" className="text-sm text-primary-foreground/70 hover:text-primary-foreground transition-colors">{t("linkThemes")}</Link></li>
+                <li><Link href="/#apercu" className="text-sm text-primary-foreground/70 hover:text-primary-foreground transition-colors">{t("linkDemo")}</Link></li>
+                <li><Link href="/#comparatif" className="text-sm text-primary-foreground/70 hover:text-primary-foreground transition-colors">{t("linkPricing")}</Link></li>
+                <li>
+                  <a href="mailto:hello@thestudio-papeterie.fr" className="text-sm text-primary-foreground/70 hover:text-primary-foreground transition-colors">
+                    {t("linkBespoke")}
+                  </a>
+                </li>
+              </ul>
+            </div>
+            {/* Mariés */}
+            <div>
+              <h4 className="text-[10px] uppercase tracking-[0.2em] text-primary-foreground/40 font-medium mb-4">
+                {t("colMarries")}
+              </h4>
+              <ul className="flex flex-col gap-3">
+                <li><Link href="/login" className="text-sm text-primary-foreground/70 hover:text-primary-foreground transition-colors">{t("linkLogin")}</Link></li>
+                <li><Link href="/create" className="text-sm text-primary-foreground/70 hover:text-primary-foreground transition-colors">{t("linkCreate")}</Link></li>
+              </ul>
+            </div>
+            {/* Légal */}
+            <div>
+              <h4 className="text-[10px] uppercase tracking-[0.2em] text-primary-foreground/40 font-medium mb-4">
+                {t("colLegal")}
+              </h4>
+              <ul className="flex flex-col gap-3">
+                <li><Link href="/legal/cgv" className="text-sm text-primary-foreground/70 hover:text-primary-foreground transition-colors">{t("linkCGV")}</Link></li>
+                <li><Link href="/legal/privacy" className="text-sm text-primary-foreground/70 hover:text-primary-foreground transition-colors">{t("linkPrivacy")}</Link></li>
+              </ul>
+            </div>
           </div>
         </div>
 
-        <div className='mt-12 flex flex-col items-center justify-between border-t border-border/40 pt-8 text-xs text-muted-foreground md:flex-row'>
-          <p>
-            &copy; {new Date().getFullYear()} The Studio Digital Papeterie. Tous
-            droits réservés.
-          </p>
-          <div className='mt-4 flex gap-4 md:mt-0'>
-            <span>Fait avec amour à Paris</span>
-          </div>
+        {/* Bottom */}
+        <div className="border-t border-primary-foreground/10 pt-8 text-center text-xs text-primary-foreground/30 tracking-wide">
+          {t("copyright", { year: new Date().getFullYear() })}
         </div>
       </div>
     </footer>
