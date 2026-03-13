@@ -46,5 +46,108 @@
   },
   "Common": {
     "loading": "جار التحميل..."
+  },
+  "DemoSection": {
+    "eyebrow": "Voir en vrai",
+    "title": "Une invitation",
+    "titleAccent": "comme la vôtre",
+    "subtitle": "Ouvrez une vraie invitation et vivez l'expérience de vos invités.",
+    "ctaButton": "Voir la démo live",
+    "ctaSubtext": "Ouvrir une vraie invitation"
+  },
+  "PricingComparison": {
+    "eyebrow": "Pour 200 invités",
+    "title": "La différence",
+    "titleAccent": "qui compte",
+    "paperLabel": "Papier traditionnel",
+    "paperDetails": "Impression + timbres + enveloppes",
+    "studioLabel": "The Studio",
+    "studioDetails": "Tout inclus, illimité",
+    "studioFrom": "À partir de",
+    "savingBadge": "Économisez {amount}€",
+    "feature1": "Envoi instantané",
+    "feature2": "Modifiable",
+    "feature3": "RSVP intégré",
+    "feature4": "Zéro papier"
+  },
+  "ValueCards": {
+    "eyebrow": "Pourquoi The Studio",
+    "title": "Tout ce dont",
+    "titleAccent": "vous avez besoin",
+    "card1Title": "Design élégant",
+    "card1Desc": "Thèmes créés par des graphistes, pour un rendu haut de gamme.",
+    "card2Title": "Envoi instantané",
+    "card2Desc": "Partagez le lien en un clic, vos invités l'ouvrent immédiatement.",
+    "card3Title": "Écologique",
+    "card3Desc": "Zéro papier, zéro timbre, zéro gaspillage.",
+    "card4Title": "Modifiable",
+    "card4Desc": "Changez les infos à tout moment, même après l'envoi.",
+    "card5Title": "Sur-mesure",
+    "card5Desc": "Modules au choix, langues multiples, votre histoire racontée à votre façon."
+  },
+  "Customization": {
+    "eyebrow": "Aller plus loin",
+    "title": "Personnalisation",
+    "titleAccent": "sur-mesure",
+    "subtitle": "Chaque mariage est unique. Votre invitation aussi.",
+    "feature1Title": "Programme",
+    "feature1Desc": "Déroulé de la journée, horaires, lieux.",
+    "feature2Title": "Galerie photos",
+    "feature2Desc": "Partagez vos plus belles photos en avant-première.",
+    "feature3Title": "Liste de cadeaux",
+    "feature3Desc": "Intégrez votre liste directement dans l'invitation.",
+    "bespokeBadge": "100% sur-mesure",
+    "bespokeTitle": "Un projet unique ?",
+    "bespokeDesc": "Pour les mariages d'exception, nous proposons une création entièrement sur-mesure sur rendez-vous.",
+    "bespokeButton": "Nous contacter",
+    "bespokeEmail": "hello@thestudio-papeterie.fr"
+  },
+  "Testimonials": {
+    "eyebrow": "Ils nous ont fait confiance",
+    "badge": "Déjà 130+ invitations envoyées",
+    "title": "Ce qu'ils",
+    "titleAccent": "en pensent"
+  },
+  "Catalogue": {
+    "eyebrow": "Les thèmes",
+    "title": "Trouvez",
+    "titleAccent": "votre style",
+    "filterAll": "Tous",
+    "filterEnvelope": "Enveloppe",
+    "filterCurtains": "Rideaux",
+    "filterDoors": "Portes",
+    "badgeNew": "Nouveau",
+    "themes": {
+      "floral": "Floral",
+      "boho": "Bohème",
+      "minimalist": "Minimaliste",
+      "royal": "Royal",
+      "modern": "Modern",
+      "champetre": "Champêtre",
+      "voyage": "Voyage",
+      "bridgerton": "Bridgerton",
+      "oriental": "Oriental"
+    }
+  },
+  "CookieConsent": {
+    "bannerText": "Nous utilisons des cookies pour améliorer votre expérience utilisateur et analyser le trafic.",
+    "acceptButton": "Accepter",
+    "declineButton": "Refuser",
+    "learnMore": "En savoir plus"
+  },
+  "Footer": {
+    "tagline": "Le faire-part réinventé au digital.",
+    "colProduct": "Produit",
+    "colMarries": "Mariés",
+    "colLegal": "Légal",
+    "linkThemes": "Thèmes",
+    "linkDemo": "Démo",
+    "linkPricing": "Tarifs",
+    "linkBespoke": "Sur-mesure",
+    "linkLogin": "Se connecter",
+    "linkCreate": "Créer mon invitation",
+    "linkCGV": "CGV",
+    "linkPrivacy": "Confidentialité",
+    "copyright": "© {year} The Studio · Fait avec ♥ en France"
   }
 }

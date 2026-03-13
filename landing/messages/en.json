@@ -4,19 +4,62 @@
     "features": "Features",
     "dashboard": "Dashboard",
     "themes": "Themes",
-    "testimonials": "Testimonials",
+    "demo": "Demo",
     "pricing": "Pricing",
     "faq": "FAQ",
-    "createButton": "Create my invite",
+    "testimonials": "Testimonials",
+    "createButton": "Create my invitation",
     "login": "Couple's Area"
   },
   "Hero": {
-    "titleLine1": "Your wedding",
-    "titleLine2": "starts here.",
-    "description": "Create an exceptional digital invitation that combines the elegance of paper with the magic of the web. A magical experience for your guests, without the waste.",
-    "createButton": "Create my invite",
+    "eyebrow": "Digital invitation",
+    "titleLine1": "The invitation",
+    "titleLine2": "reinvented for digital",
+    "description": "For lovers, big celebrations and invitations that mark the beginning of a beautiful story.",
+    "createButton": "Create my invitation",
     "demoButton": "View demo",
+    "discoverThemes": "Discover themes",
     "discover": "Discover"
+  },
+  "DemoSection": {
+    "eyebrow": "See it real",
+    "title": "An invitation",
+    "titleAccent": "like yours",
+    "subtitle": "Open a real invitation and experience what your guests will experience.",
+    "ctaButton": "See live demo",
+    "ctaSubtext": "Open a real invitation"
+  },
+  "HowItWorks": {
+    "eyebrow": "Simple & quick",
+    "title": "In 3 steps",
+    "titleAccent": "it's ready",
+    "step1Title": "Choose a design",
+    "step1Desc": "Browse our themes and find the one that matches you.",
+    "step2Title": "Customize",
+    "step2Desc": "Texts, photos, modules — everything configures in minutes.",
+    "step3Title": "Send the link",
+    "step3Desc": "Share via SMS, WhatsApp or email. Your guests receive a unique experience."
+  },
+  "Catalogue": {
+    "eyebrow": "The themes",
+    "title": "Find",
+    "titleAccent": "your style",
+    "filterAll": "All",
+    "filterEnvelope": "Envelope",
+    "filterCurtains": "Curtains",
+    "filterDoors": "Doors",
+    "badgeNew": "New",
+    "themes": {
+      "floral": "Floral",
+      "boho": "Boho",
+      "minimalist": "Minimalist",
+      "royal": "Royal",
+      "modern": "Modern",
+      "champetre": "Country",
+      "voyage": "Travel",
+      "bridgerton": "Bridgerton",
+      "oriental": "Oriental"
+    }
   },
   "Features": {
     "titleLine1": "The elegance of paper,",
@@ -30,6 +73,59 @@
     "rsvpDesc": "No more lost reply cards. Track attendance, dietary requirements, and plus-ones in real-time.",
     "langTitle": "International Multi-language",
     "langDesc": "Welcome guests from all over the world. Your site is available in French, English, Spanish, Italian, German, Portuguese, Arabic, Chinese, and Japanese."
+  },
+  "PricingComparison": {
+    "eyebrow": "For 200 guests",
+    "title": "The difference",
+    "titleAccent": "that matters",
+    "paperLabel": "Traditional paper",
+    "paperDetails": "Printing + stamps + envelopes",
+    "studioLabel": "The Studio",
+    "studioDetails": "All included, unlimited",
+    "studioFrom": "From",
+    "savingBadge": "Save {amount}€",
+    "feature1": "Instant sending",
+    "feature2": "Editable",
+    "feature3": "Built-in RSVP",
+    "feature4": "Zero paper"
+  },
+  "ValueCards": {
+    "eyebrow": "Why The Studio",
+    "title": "Everything you",
+    "titleAccent": "need",
+    "card1Title": "Elegant design",
+    "card1Desc": "Themes created by designers, for a premium look.",
+    "card2Title": "Instant sending",
+    "card2Desc": "Share the link in one click, your guests open it immediately.",
+    "card3Title": "Eco-friendly",
+    "card3Desc": "Zero paper, zero stamp, zero waste.",
+    "card4Title": "Editable",
+    "card4Desc": "Change info anytime, even after sending.",
+    "card5Title": "Bespoke",
+    "card5Desc": "Modules of your choice, multiple languages, your story told your way."
+  },
+  "Customization": {
+    "eyebrow": "Go further",
+    "title": "Customization",
+    "titleAccent": "bespoke",
+    "subtitle": "Every wedding is unique. Your invitation too.",
+    "feature1Title": "Schedule",
+    "feature1Desc": "Day timeline, times, venues.",
+    "feature2Title": "Photo gallery",
+    "feature2Desc": "Share your best photos in preview.",
+    "feature3Title": "Gift list",
+    "feature3Desc": "Integrate your wishlist directly in the invitation.",
+    "bespokeBadge": "100% bespoke",
+    "bespokeTitle": "A unique project?",
+    "bespokeDesc": "For exceptional weddings, we offer fully custom creation by appointment.",
+    "bespokeButton": "Contact us",
+    "bespokeEmail": "hello@thestudio-papeterie.fr"
+  },
+  "Testimonials": {
+    "eyebrow": "They trusted us",
+    "badge": "Already 130+ invitations sent",
+    "title": "What they",
+    "titleAccent": "think"
   },
   "FAQ": {
     "titleLine1": "Frequently Asked",
@@ -53,5 +149,20 @@
     "acceptButton": "Accept",
     "declineButton": "Decline",
     "learnMore": "Learn more"
+  },
+  "Footer": {
+    "tagline": "The invitation reinvented for digital.",
+    "colProduct": "Product",
+    "colMarries": "Couples",
+    "colLegal": "Legal",
+    "linkThemes": "Themes",
+    "linkDemo": "Demo",
+    "linkPricing": "Pricing",
+    "linkBespoke": "Bespoke",
+    "linkLogin": "Log in",
+    "linkCreate": "Create my invitation",
+    "linkCGV": "Terms",
+    "linkPrivacy": "Privacy",
+    "copyright": "© {year} The Studio · Made with ♥ in France"
   }
 }
