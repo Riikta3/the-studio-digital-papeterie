@@ -1,6 +1,7 @@
+import { MessageCard } from "@/components/dashboard/MessageCard";
 import { redirect } from "@/navigation";
 import { createClient } from "@/utils/supabase/server";
-import { MessageSquare, Quote } from "lucide-react";
+import { MessageSquare } from "lucide-react";
 
 export default async function MessagesPage() {
   const supabase = await createClient();
@@ -70,28 +71,13 @@ export default async function MessagesPage() {
               }).format(new Date(r.submitted_at));
 
               return (
-                <div
+                <MessageCard
                   key={r.id}
-                  className="break-inside-avoid bg-white border border-border rounded-2xl p-6 shadow-sm flex flex-col gap-4"
-                >
-                  <Quote className="w-5 h-5 text-primary/30 shrink-0" />
-                  <p className="text-foreground font-light leading-relaxed italic text-sm flex-1">
-                    {r.message}
-                  </p>
-                  <div className="flex items-center justify-between pt-3 border-t border-border/50">
-                    <div className="flex items-center gap-2.5">
-                      <div className="w-7 h-7 rounded-full bg-primary/10 flex items-center justify-center text-[11px] font-semibold text-primary uppercase">
-                        {name.charAt(0)}
-                      </div>
-                      <span className="text-sm font-medium text-foreground">
-                        {name}
-                      </span>
-                    </div>
-                    <span className="text-[11px] text-muted-foreground/60">
-                      {date}
-                    </span>
-                  </div>
-                </div>
+                  id={r.id}
+                  name={name}
+                  message={r.message}
+                  date={date}
+                />
               );
             })}
           </div>
