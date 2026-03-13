@@ -18,7 +18,7 @@ import { useState } from "react";
 // If Navbar is ever moved to a shared layout, these should become href="/#anchor" Links.
 const NAV_LINKS = [
   { key: "themes" as const, anchor: "themes" },
-  { key: "demo" as const, anchor: "apercu" },
+  { key: "demo" as const, anchor: "themes" },
   { key: "pricing" as const, anchor: "comparatif" },
 ] as const;
 

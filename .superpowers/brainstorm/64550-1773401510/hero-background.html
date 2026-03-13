@@ -1,0 +1,60 @@
+<h2>Traitement visuel du fond Hero</h2>
+<p class="subtitle">L'animation d'enveloppe existe déjà (34 frames desktop). Comment l'intégrer en fond de Hero ?</p>
+
+<div class="cards">
+
+  <div class="card" data-choice="A" onclick="toggleSelect(this)">
+    <div class="card-image" style="background:#1a1006; height:200px; position:relative; overflow:hidden; display:flex; align-items:center; justify-content:center;">
+      <!-- Simule : vidéo plein écran + overlay sombre -->
+      <div style="position:absolute;inset:0;background:linear-gradient(135deg,rgba(26,16,6,0.7) 0%,rgba(26,16,6,0.4) 50%,rgba(26,16,6,0.75) 100%);"></div>
+      <div style="position:relative;z-index:2;text-align:center;color:#fdfbf7;padding:0 20px;">
+        <div style="font-family:serif;font-size:22px;font-weight:500;letter-spacing:-0.5px;line-height:1.1;text-shadow:0 2px 8px rgba(0,0,0,0.4);">Le faire-part<br><em style="color:#c9a96e;">réinventé au digital</em></div>
+        <div style="font-size:10px;margin-top:12px;opacity:0.75;letter-spacing:2px;text-transform:uppercase;">overlay sombre 60-75%</div>
+      </div>
+      <div style="position:absolute;inset:0;background:radial-gradient(ellipse at center, rgba(201,169,110,0.08) 0%, transparent 70%);"></div>
+    </div>
+    <div class="card-body">
+      <h3>A — Overlay sombre profond</h3>
+      <p>Fond quasi-noir avec overlay 60–75%. Effet cinématographique, contraste maximal. Texte blanc éclatant, très haut de gamme.</p>
+    </div>
+  </div>
+
+  <div class="card" data-choice="B" onclick="toggleSelect(this)">
+    <div class="card-image" style="background:#fdfbf7; height:200px; position:relative; overflow:hidden; display:flex; align-items:center; justify-content:center;">
+      <!-- Simule : vidéo en fond clair + overlay léger crème -->
+      <div style="position:absolute;inset:0;background:linear-gradient(to bottom, rgba(253,251,247,0.15) 0%, rgba(253,251,247,0.65) 100%);"></div>
+      <div style="position:absolute;inset:0;background:radial-gradient(ellipse at center, rgba(253,251,247,0) 20%, rgba(253,251,247,0.8) 100%);"></div>
+      <!-- Simulate envelope shape -->
+      <div style="position:absolute;width:120px;height:80px;border:1.5px solid rgba(180,150,100,0.35);background:rgba(255,255,255,0.2);transform:rotate(-4deg);"></div>
+      <div style="position:relative;z-index:2;text-align:center;color:#1a1006;padding:0 20px;">
+        <div style="font-family:serif;font-size:22px;font-weight:500;letter-spacing:-0.5px;line-height:1.1;">Le faire-part<br><em style="color:#9a7a40;">réinventé au digital</em></div>
+        <div style="font-size:10px;margin-top:12px;opacity:0.5;letter-spacing:2px;text-transform:uppercase;">overlay crème 15-65%</div>
+      </div>
+    </div>
+    <div class="card-body">
+      <h3>B — Overlay clair vaporeux</h3>
+      <p>Fond crème (#FDFBF7) avec fade radial doux. Garde la tonalité papier du site, texto sombre. Plus doux, moins dramatique.</p>
+    </div>
+  </div>
+
+  <div class="card" data-choice="C" onclick="toggleSelect(this)">
+    <div class="card-image" style="background:linear-gradient(160deg,#1a1006 0%,#2c1a08 50%,#fdfbf7 100%); height:200px; position:relative; overflow:hidden; display:flex; align-items:center; justify-content:center;">
+      <!-- Simule : split sombre en haut, clair en bas -->
+      <div style="position:absolute;inset:0;background:linear-gradient(to bottom, rgba(26,16,6,0.0) 0%, rgba(253,251,247,0.85) 80%);"></div>
+      <div style="position:relative;z-index:2;text-align:center;padding:0 20px;">
+        <div style="font-family:serif;font-size:22px;font-weight:500;letter-spacing:-0.5px;line-height:1.1;color:#fdfbf7;text-shadow:0 1px 6px rgba(0,0,0,0.5);">Le faire-part<br><em style="color:#c9a96e;">réinventé au digital</em></div>
+        <div style="font-size:10px;margin-top:12px;opacity:0.6;letter-spacing:2px;text-transform:uppercase;color:#fdfbf7;">dégradé vertical</div>
+      </div>
+    </div>
+    <div class="card-body">
+      <h3>C — Dégradé vertical sombre → clair</h3>
+      <p>Fond sombre en haut (texte blanc), fondu vers le fond crème du site en bas. Transition naturelle vers la suite de la page.</p>
+    </div>
+  </div>
+
+</div>
+
+<div class="section" style="margin-top:24px;padding:16px;background:rgba(201,169,110,0.08);border-radius:8px;border:1px solid rgba(201,169,110,0.2);">
+  <p class="label">Note technique</p>
+  <p style="font-size:13px;margin-top:6px;color:#666;">L'animation sera une <strong>séquence d'images WebP en boucle</strong> (déjà dans <code>/videos/desktop/</code>, 34 frames) — pas une vraie vidéo HTML5. Même technique que l'intro de la page invitation.</p>
+</div>

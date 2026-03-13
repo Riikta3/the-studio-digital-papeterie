@@ -107,7 +107,7 @@ export function Hero() {
 
               <button
                 onClick={() =>
-                  document.getElementById("apercu")?.scrollIntoView({ behavior: "smooth" })
+                  document.getElementById("themes")?.scrollIntoView({ behavior: "smooth" })
                 }
                 className="rounded-full border border-primary/40 px-8 py-4 text-base font-medium text-primary transition-all hover:bg-primary/5 active:scale-95"
               >

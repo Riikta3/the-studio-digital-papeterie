@@ -1,0 +1,162 @@
+<style>
+  .nav-mock {
+    background: transparent;
+    padding: 16px 32px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 1px solid transparent;
+    font-family: Georgia, serif;
+  }
+  .nav-mock.scrolled {
+    background: rgba(253,251,247,0.85);
+    backdrop-filter: blur(12px);
+    border-color: rgba(136,32,64,0.1);
+  }
+  .nav-logo {
+    font-family: Georgia, serif;
+    font-size: 15px;
+    font-weight: 500;
+    color: #292929;
+    letter-spacing: 0.5px;
+  }
+  .nav-logo span { color: #882040; }
+  .nav-links { display: flex; gap: 28px; align-items: center; }
+  .nav-link { font-size: 12px; color: #6b7280; letter-spacing: 0.5px; }
+  .nav-link.active { color: #292929; }
+  .nav-cta {
+    background: #882040;
+    color: #fdfbf7;
+    padding: 8px 20px;
+    border-radius: 999px;
+    font-size: 12px;
+    font-weight: 600;
+  }
+  .nav-cta-ghost {
+    border: 1px solid rgba(136,32,64,0.35);
+    color: #882040;
+    padding: 7px 18px;
+    border-radius: 999px;
+    font-size: 12px;
+    font-weight: 500;
+  }
+  .nav-burger { font-size: 18px; color: #292929; cursor: pointer; }
+  .nav-dot { width: 5px; height: 5px; background: #882040; border-radius: 50%; }
+  .nav-section {
+    border-radius: 10px;
+    overflow: hidden;
+    border: 1px solid rgba(136,32,64,0.12);
+    margin-bottom: 4px;
+  }
+  .nav-label {
+    font-size: 10px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: #aaa;
+    padding: 8px 16px 4px;
+    background: rgba(253,251,247,0.6);
+  }
+  .login-link { font-size: 12px; color: #6b7280; }
+</style>
+
+<h2>Design de la Navbar</h2>
+<p class="subtitle">Épurée, haut de gamme — 3 approches. La navbar se transforme au scroll dans tous les cas.</p>
+
+<div class="cards">
+
+  <div class="card" data-choice="A" onclick="toggleSelect(this)">
+    <div class="card-image" style="padding:0;background:#fdfbf7;">
+      <!-- État initial (haut de page) -->
+      <div class="nav-label">Au haut de page</div>
+      <div class="nav-mock" style="background:transparent;">
+        <div class="nav-logo">The <span>Studio</span></div>
+        <div class="nav-links">
+          <span class="nav-link">Thèmes</span>
+          <span class="nav-link">Démo</span>
+          <span class="nav-link">Tarifs</span>
+        </div>
+        <div style="display:flex;gap:10px;align-items:center;">
+          <span class="login-link">Espace Mariés</span>
+          <div class="nav-cta">Créer →</div>
+        </div>
+      </div>
+      <!-- État scrollé -->
+      <div class="nav-label">Après scroll</div>
+      <div class="nav-mock scrolled">
+        <div class="nav-logo">The <span>Studio</span></div>
+        <div class="nav-links">
+          <span class="nav-link">Thèmes</span>
+          <span class="nav-link">Démo</span>
+          <span class="nav-link">Tarifs</span>
+        </div>
+        <div style="display:flex;gap:10px;align-items:center;">
+          <span class="login-link">Espace Mariés</span>
+          <div class="nav-cta">Créer →</div>
+        </div>
+      </div>
+    </div>
+    <div class="card-body">
+      <h3>A — Minimaliste 3 liens</h3>
+      <p>Logo · 3 liens (Thèmes, Démo, Tarifs) · Connexion · CTA. Épuré, focus sur l'essentiel. Menu burger sur mobile.</p>
+    </div>
+  </div>
+
+  <div class="card" data-choice="B" onclick="toggleSelect(this)">
+    <div class="card-image" style="padding:0;background:#fdfbf7;">
+      <div class="nav-label">Au haut de page — transparent</div>
+      <div class="nav-mock" style="background:transparent;">
+        <div class="nav-logo">The <span>Studio</span></div>
+        <div style="display:flex;align-items:center;gap:6px;">
+          <div class="nav-dot"></div>
+          <div class="nav-dot" style="background:#aaa;width:4px;height:4px;"></div>
+          <div class="nav-dot" style="background:#aaa;width:4px;height:4px;"></div>
+        </div>
+        <div class="nav-cta">Créer mon invitation</div>
+      </div>
+      <div class="nav-label">Après scroll — pill flottant</div>
+      <div class="nav-mock scrolled" style="border-radius:999px;max-width:580px;margin:8px auto;padding:10px 24px;">
+        <div class="nav-logo" style="font-size:13px;">The <span>Studio</span></div>
+        <div class="nav-links" style="gap:20px;">
+          <span class="nav-link">Démo</span>
+          <span class="nav-link">Thèmes</span>
+          <span class="nav-link">Tarifs</span>
+        </div>
+        <div class="nav-cta" style="padding:6px 16px;font-size:11px;">Créer →</div>
+      </div>
+    </div>
+    <div class="card-body">
+      <h3>B — Logo seul + pill flottant</h3>
+      <p>En haut : logo + CTA seulement (ultra-épuré). Au scroll : une navbar pill flottante apparaît avec les liens. Très haut de gamme.</p>
+    </div>
+  </div>
+
+  <div class="card" data-choice="C" onclick="toggleSelect(this)">
+    <div class="card-image" style="padding:0;background:#fdfbf7;">
+      <div class="nav-label">Desktop — centré</div>
+      <div class="nav-mock" style="justify-content:center;gap:40px;background:transparent;">
+        <span class="nav-link">Thèmes</span>
+        <span class="nav-link">Démo</span>
+        <div class="nav-logo" style="font-size:17px;">The <span>Studio</span></div>
+        <span class="nav-link">Tarifs</span>
+        <div class="nav-cta" style="padding:7px 18px;font-size:11px;">Créer</div>
+      </div>
+      <div class="nav-label">Mobile — burger discret</div>
+      <div class="nav-mock" style="background:transparent;">
+        <div class="nav-logo">The <span>Studio</span></div>
+        <div style="display:flex;gap:12px;align-items:center;">
+          <div class="nav-cta" style="padding:7px 16px;font-size:11px;">Créer</div>
+          <div class="nav-burger">☰</div>
+        </div>
+      </div>
+    </div>
+    <div class="card-body">
+      <h3>C — Logo centré symétrique</h3>
+      <p>Logo au centre, liens symétriques des deux côtés. Style maison de haute couture. Mobile : logo à gauche + CTA + burger.</p>
+    </div>
+  </div>
+
+</div>
+
+<div class="section" style="margin-top:16px;padding:12px 16px;background:rgba(136,32,64,0.05);border-radius:8px;font-size:13px;color:#555;">
+  💡 <strong>Ma recommandation :</strong> B. La navbar pill flottante est devenue un standard du luxe web (Loro Piana, Jacquemus). Très distinctive.
+</div>

@@ -1,0 +1,189 @@
+<style>
+  .mock-section {
+    background: #fdfbf7;
+    border-radius: 10px;
+    overflow: hidden;
+    min-height: 200px;
+  }
+  .footer-mock {
+    padding: 20px 20px 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+  .footer-logo {
+    font-family: Georgia, serif;
+    font-size: 15px;
+    font-weight: 500;
+    color: #292929;
+  }
+  .footer-logo span { color: #882040; }
+  .footer-tagline { font-size: 11px; color: #aaa; line-height: 1.5; max-width: 200px; font-style: italic; font-family: Georgia, serif; }
+  .footer-col-title { font-size: 10px; letter-spacing: 2px; text-transform: uppercase; color: #882040; margin-bottom: 8px; }
+  .footer-link { font-size: 11px; color: #6b7280; line-height: 2; display: block; }
+  .footer-grid { display: grid; grid-template-columns: 1.5fr 1fr 1fr; gap: 16px; width: 100%; }
+  .footer-divider { height: 1px; background: rgba(136,32,64,0.1); width: 100%; }
+  .footer-bottom { display: flex; justify-content: space-between; align-items: center; font-size: 10px; color: #aaa; }
+  .footer-social { display: flex; gap: 10px; }
+  .social-icon { width: 26px; height: 26px; border-radius: 50%; border: 1px solid rgba(136,32,64,0.2); display: flex; align-items: center; justify-content: center; font-size: 11px; }
+
+  /* Burger overlay */
+  .burger-mock {
+    background: #fdfbf7;
+    padding: 24px 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+  .burger-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
+  .burger-logo { font-family: Georgia, serif; font-size: 14px; color: #292929; }
+  .burger-logo span { color: #882040; }
+  .burger-close { font-size: 18px; color: #aaa; }
+  .burger-item {
+    padding: 14px 0;
+    border-bottom: 1px solid rgba(136,32,64,0.08);
+    font-family: Georgia, serif;
+    font-size: 18px;
+    font-weight: 500;
+    color: #292929;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .burger-item-arrow { color: #ccc; font-size: 14px; }
+  .burger-sub { font-size: 11px; color: #aaa; margin-top: 2px; font-family: sans-serif; font-weight: 400; }
+  .burger-cta {
+    background: #882040;
+    color: #fdfbf7;
+    padding: 14px;
+    border-radius: 999px;
+    text-align: center;
+    font-size: 13px;
+    font-weight: 600;
+    margin-top: 20px;
+  }
+
+  /* Minimal footer */
+  .footer-minimal {
+    padding: 24px 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 14px;
+    text-align: center;
+  }
+</style>
+
+<h2>Footer + Menu Burger Mobile</h2>
+<p class="subtitle">Dernière section de la page + navigation mobile. Quelle organisation ?</p>
+
+<div class="cards">
+
+  <div class="card" data-choice="A" onclick="toggleSelect(this)">
+    <div class="card-image" style="padding:0">
+      <div class="mock-section">
+        <!-- Footer structuré 3 colonnes -->
+        <div class="footer-mock" style="background:#1a100a;">
+          <div style="display:flex;justify-content:space-between;align-items:flex-start;width:100%;">
+            <div>
+              <div class="footer-logo" style="color:#fdfbf7;">The <span>Studio</span></div>
+              <div class="footer-tagline" style="color:rgba(253,251,247,0.4);">Le faire-part réinventé au digital.</div>
+            </div>
+            <div class="footer-social">
+              <div class="social-icon" style="border-color:rgba(253,251,247,0.15);color:rgba(253,251,247,0.6);">in</div>
+              <div class="social-icon" style="border-color:rgba(253,251,247,0.15);color:rgba(253,251,247,0.6);">ig</div>
+            </div>
+          </div>
+          <div class="footer-grid" style="border-top:1px solid rgba(253,251,247,0.08);padding-top:14px;">
+            <div>
+              <div class="footer-col-title" style="color:rgba(253,251,247,0.3);">Produit</div>
+              <span class="footer-link" style="color:rgba(253,251,247,0.6);">Thèmes</span>
+              <span class="footer-link" style="color:rgba(253,251,247,0.6);">Démo</span>
+              <span class="footer-link" style="color:rgba(253,251,247,0.6);">Tarifs</span>
+            </div>
+            <div>
+              <div class="footer-col-title" style="color:rgba(253,251,247,0.3);">Mariés</div>
+              <span class="footer-link" style="color:rgba(253,251,247,0.6);">Se connecter</span>
+              <span class="footer-link" style="color:rgba(253,251,247,0.6);">Sur-mesure</span>
+            </div>
+            <div>
+              <div class="footer-col-title" style="color:rgba(253,251,247,0.3);">Légal</div>
+              <span class="footer-link" style="color:rgba(253,251,247,0.6);">CGV</span>
+              <span class="footer-link" style="color:rgba(253,251,247,0.6);">Confidentialité</span>
+            </div>
+          </div>
+          <div style="border-top:1px solid rgba(253,251,247,0.08);padding-top:10px;font-size:9px;color:rgba(253,251,247,0.25);text-align:center;">© 2026 The Studio · Fait avec ♥ en France</div>
+        </div>
+      </div>
+    </div>
+    <div class="card-body">
+      <h3>A — Footer sombre structuré</h3>
+      <p>Fond bordeaux-noir, 3 colonnes, réseaux sociaux. Contraste avec le reste de la page, clôture l'expérience de façon premium.</p>
+    </div>
+  </div>
+
+  <div class="card" data-choice="B" onclick="toggleSelect(this)">
+    <div class="card-image" style="padding:0">
+      <div class="mock-section">
+        <!-- Footer minimal centré + Burger élégant -->
+        <div class="footer-minimal" style="background:#fdfbf7;border-top:1px solid rgba(136,32,64,0.1);">
+          <div class="footer-logo">The <span style="color:#882040;">Studio</span></div>
+          <div style="display:flex;gap:20px;">
+            <span class="footer-link">Thèmes</span>
+            <span class="footer-link">Démo</span>
+            <span class="footer-link">Tarifs</span>
+            <span class="footer-link">Contact</span>
+          </div>
+          <div class="footer-social">
+            <div class="social-icon">in</div>
+            <div class="social-icon">ig</div>
+            <div class="social-icon">pi</div>
+          </div>
+          <div style="font-size:9px;color:#ccc;">© 2026 The Studio · CGV · Confidentialité</div>
+        </div>
+        <!-- Burger preview -->
+        <div class="burger-mock" style="border-top:2px solid rgba(136,32,64,0.1);">
+          <div class="burger-header">
+            <div class="burger-logo">The <span>Studio</span></div>
+            <div class="burger-close">✕</div>
+          </div>
+          <div class="burger-item">Thèmes <span class="burger-item-arrow">→</span></div>
+          <div class="burger-item">Démo <span class="burger-item-arrow">→</span></div>
+          <div class="burger-item">Tarifs <span class="burger-item-arrow">→</span></div>
+          <div class="burger-cta">Créer mon invitation</div>
+        </div>
+      </div>
+    </div>
+    <div class="card-body">
+      <h3>B — Footer clair + burger éditorial</h3>
+      <p>Footer léger dans les tons crème, burger avec items en grande typo serif. Cohérent avec le reste du site, très élégant.</p>
+    </div>
+  </div>
+
+  <div class="card" data-choice="C" onclick="toggleSelect(this)">
+    <div class="card-image" style="padding:0">
+      <div class="mock-section">
+        <!-- Footer CTA final -->
+        <div style="background:linear-gradient(160deg,#fdf5f7,#fdfbf7);padding:24px 20px;text-align:center;display:flex;flex-direction:column;align-items:center;gap:12px;">
+          <div style="font-size:10px;letter-spacing:3px;text-transform:uppercase;color:#882040;font-family:Georgia,serif;">Prêts à commencer ?</div>
+          <div style="font-family:Georgia,serif;font-size:18px;color:#292929;font-weight:500;">Créez votre invitation<br><em style="color:#882040;">dès aujourd'hui</em></div>
+          <div style="background:#882040;color:#fdfbf7;padding:12px 28px;border-radius:999px;font-size:12px;font-weight:600;">Créer mon invitation →</div>
+          <div style="height:1px;background:rgba(136,32,64,0.1);width:100%;margin:4px 0;"></div>
+          <div style="display:flex;gap:16px;font-size:10px;color:#aaa;">
+            <span>Thèmes</span><span>Démo</span><span>Tarifs</span><span>Contact</span><span>CGV</span>
+          </div>
+          <div style="font-size:9px;color:#ccc;">© 2026 The Studio</div>
+        </div>
+      </div>
+    </div>
+    <div class="card-body">
+      <h3>C — Footer avec CTA final</h3>
+      <p>Le footer devient une dernière opportunité de conversion : grand titre + bouton CTA avant les liens légaux. Stratégie "last chance".</p>
+    </div>
+  </div>
+
+</div>
+
+<div class="section" style="margin-top:16px;padding:12px 16px;background:rgba(136,32,64,0.05);border-radius:8px;font-size:13px;color:#555;">
+  💡 <strong>Ma recommandation :</strong> A pour le footer (clôture premium, rupture visuelle), B pour le burger (grande typo serif, très haut de gamme).
+</div>

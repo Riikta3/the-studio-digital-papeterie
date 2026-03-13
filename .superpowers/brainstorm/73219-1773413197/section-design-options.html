@@ -1,0 +1,349 @@
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400;1,600&family=Inter:wght@300;400;500;600&display=swap');
+
+  /* ---- Design tokens (landing) ---- */
+  :root {
+    --cream: #FDFBF7;
+    --primary: #882040;
+    --foreground: #292929;
+    --muted: #6b7280;
+    --border: rgba(136,32,64,0.15);
+  }
+
+  /* ---- Theme previews inside phone ---- */
+  .t-floral   { background: linear-gradient(160deg,#fdf5f7 0%,#f0d8dc 100%); --accent:#882040; --font:'Cormorant Garamond',serif; }
+  .t-boho     { background: linear-gradient(160deg,#fdf8f5 0%,#f0e0d5 100%); --accent:#c0735a; --font:'Cormorant Garamond',serif; }
+  .t-royal    { background: linear-gradient(160deg,#1b2a41 0%,#2d4566 100%); --accent:#c9a96e; --font:'Cormorant Garamond',serif; }
+  .t-minimalist { background: linear-gradient(160deg,#f8f8f8 0%,#e8e8e8 100%); --accent:#222; --font:'Inter',sans-serif; }
+  .t-modern   { background: linear-gradient(160deg,#f3effe 0%,#ddd0f5 100%); --accent:#7c3aed; --font:'Inter',sans-serif; }
+
+  /* ---- Shared layout ---- */
+  .wrapper {
+    font-family: 'Inter', sans-serif;
+    background: var(--cream);
+    padding: 0;
+  }
+  .section-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 13px;
+    font-style: italic;
+    color: var(--primary);
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    margin: 0 0 4px;
+  }
+  .section-h2 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 22px;
+    color: var(--foreground);
+    margin: 0 0 16px;
+    line-height: 1.2;
+  }
+  .section-h2 em { color: var(--primary); font-style: italic; }
+
+  /* ---- Phone frame ---- */
+  .phone {
+    width: 130px;
+    height: 240px;
+    border-radius: 22px;
+    border: 2px solid rgba(136,32,64,0.25);
+    background: #fff;
+    overflow: hidden;
+    box-shadow: 0 12px 40px rgba(0,0,0,0.15);
+    flex-shrink: 0;
+    position: relative;
+  }
+  .phone-inner {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    padding: 12px;
+    position: relative;
+    overflow: hidden;
+  }
+  .phone-names {
+    font-family: var(--font, 'Cormorant Garamond', serif);
+    font-size: 13px;
+    font-style: italic;
+    color: var(--accent, #882040);
+    text-align: center;
+    line-height: 1.3;
+  }
+  .phone-amp {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 22px;
+    font-style: italic;
+    color: var(--accent, #882040);
+    opacity: 0.4;
+    line-height: 1;
+  }
+  .phone-date {
+    font-size: 8px;
+    color: rgba(0,0,0,0.45);
+    letter-spacing: 0.1em;
+    text-align: center;
+  }
+  .phone-label {
+    font-size: 7px;
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    color: var(--accent, #882040);
+    opacity: 0.6;
+    text-align: center;
+  }
+
+  /* ---- Opening icons (envelope / curtains / doors) ---- */
+  .open-icon {
+    width: 36px;
+    height: 28px;
+    position: relative;
+    margin-bottom: 4px;
+  }
+
+  /* cards */
+  .cards-row { display: flex; gap: 10px; flex-wrap: wrap; }
+  .card-mockup {
+    background: #fff;
+    border: 1.5px solid #e5e7eb;
+    border-radius: 12px;
+    overflow: hidden;
+    cursor: pointer;
+    transition: border-color 0.2s, box-shadow 0.2s;
+  }
+  .card-mockup:hover { border-color: var(--primary); box-shadow: 0 4px 12px rgba(136,32,64,0.12); }
+  .card-mockup.selected { border-color: var(--primary); box-shadow: 0 0 0 3px rgba(136,32,64,0.15); }
+  .card-mockup .card-image { background: #f9f7f4; padding: 16px; display: flex; align-items: center; justify-content: center; min-height: 80px; }
+  .card-mockup .card-body { padding: 10px 12px; border-top: 1px solid #f0ece8; }
+  .card-mockup .card-body h3 { font-size: 12px; font-weight: 600; margin: 0 0 2px; color: var(--foreground); }
+  .card-mockup .card-body p { font-size: 10px; color: var(--muted); margin: 0; }
+
+  /* theme dots */
+  .theme-dot {
+    width: 20px; height: 20px; border-radius: 50%;
+    border: 2px solid transparent;
+    cursor: pointer;
+    transition: transform 0.2s, border-color 0.2s;
+    flex-shrink: 0;
+  }
+  .theme-dot:hover { transform: scale(1.2); }
+  .theme-dot.active { border-color: var(--primary); transform: scale(1.15); }
+
+  /* layout helpers */
+  .flex-row { display: flex; align-items: flex-start; gap: 20px; }
+  .flex-col { display: flex; flex-direction: column; gap: 12px; }
+  .label-sm { font-size: 9px; text-transform: uppercase; letter-spacing: 0.15em; color: var(--muted); margin-bottom: 4px; }
+
+  .option-badge {
+    font-size: 9px; font-weight: 700; text-transform: uppercase;
+    letter-spacing: 0.1em;
+    background: rgba(136,32,64,0.08); color: var(--primary);
+    border-radius: 20px; padding: 3px 8px; display: inline-block; margin-bottom: 6px;
+  }
+
+  /* Section container */
+  .mock-section {
+    background: var(--cream);
+    border-radius: 12px;
+    padding: 18px 20px;
+    border: 1px solid rgba(136,32,64,0.1);
+  }
+</style>
+
+<h2>Redesign — DemoSection + Catalogue</h2>
+<p class="subtitle">3 approches différentes pour combiner le sélecteur de thème et l'aperçu téléphone. Cliquez pour choisir.</p>
+
+<div class="cards">
+
+  <!-- OPTION A : deux sections empilées, téléphone réactif -->
+  <div class="card" data-choice="A" onclick="toggleSelect(this)">
+    <div class="card-image" style="padding:0;background:#fdfbf7;">
+      <div style="padding:16px 20px;">
+
+        <!-- Catalogue -->
+        <div class="mock-section" style="margin-bottom:10px;">
+          <div class="section-title">Les thèmes</div>
+          <div class="section-h2">Trouvez <em>votre style</em></div>
+
+          <!-- Niveau 1 : ouverture -->
+          <div class="label-sm">Type d'animation</div>
+          <div style="display:flex;gap:6px;margin-bottom:10px;">
+            <div style="background:#882040;color:#fdfbf7;font-size:9px;font-weight:700;padding:4px 10px;border-radius:20px;cursor:pointer;">✉ Enveloppe</div>
+            <div style="background:#fff;color:#888;font-size:9px;padding:4px 10px;border-radius:20px;border:1px solid #e5e7eb;cursor:pointer;">✨ Rideaux</div>
+            <div style="background:#fff;color:#888;font-size:9px;padding:4px 10px;border-radius:20px;border:1px solid #e5e7eb;cursor:pointer;">🚪 Portes</div>
+          </div>
+
+          <!-- Niveau 2 : thèmes couleur -->
+          <div class="label-sm">Thème de couleur</div>
+          <div style="display:flex;gap:6px;">
+            <div style="width:36px;height:36px;border-radius:8px;background:linear-gradient(135deg,#fdf5f7,#f0d8dc);border:2px solid #882040;cursor:pointer;font-size:8px;display:flex;align-items:flex-end;justify-content:center;padding-bottom:3px;color:#882040;font-weight:600;">Floral</div>
+            <div style="width:36px;height:36px;border-radius:8px;background:linear-gradient(135deg,#fdf8f5,#f0e0d5);border:1px solid #e5e7eb;cursor:pointer;"></div>
+            <div style="width:36px;height:36px;border-radius:8px;background:linear-gradient(135deg,#1b2a41,#2d4566);border:1px solid #e5e7eb;cursor:pointer;"></div>
+            <div style="width:36px;height:36px;border-radius:8px;background:linear-gradient(135deg,#f8f8f8,#e8e8e8);border:1px solid #e5e7eb;cursor:pointer;"></div>
+          </div>
+        </div>
+
+        <!-- DemoSection empilée en dessous -->
+        <div class="mock-section">
+          <div class="section-title">Voir en vrai</div>
+          <div style="display:flex;align-items:center;gap:12px;">
+            <div class="phone" style="width:80px;height:150px;border-radius:14px;">
+              <div class="phone-inner t-floral">
+                <div class="phone-label">Nous nous marions</div>
+                <div class="phone-amp">&</div>
+                <div class="phone-names">Sophie & Thomas</div>
+                <div class="phone-date">14 juin 2026</div>
+              </div>
+            </div>
+            <div>
+              <div style="font-family:'Cormorant Garamond',serif;font-size:13px;font-weight:600;color:#292929;margin-bottom:4px;">Aperçu live</div>
+              <div style="font-size:9px;color:#888;line-height:1.5;">Le téléphone se met<br>à jour en sélectionnant<br>un thème ci-dessus.</div>
+              <div style="margin-top:8px;background:#882040;color:#fdfbf7;font-size:9px;font-weight:700;padding:5px 10px;border-radius:20px;display:inline-block;">Voir la démo →</div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+    <div class="card-body">
+      <h3>A — Deux sections empilées</h3>
+      <p>Catalogue en haut avec sélecteur 2 niveaux, aperçu téléphone juste en dessous. Scroll naturel, sections distinctes.</p>
+    </div>
+  </div>
+
+  <!-- OPTION B : section unifiée, téléphone à droite -->
+  <div class="card" data-choice="B" onclick="toggleSelect(this)">
+    <div class="card-image" style="padding:0;background:#fdfbf7;">
+      <div style="padding:16px 20px;">
+        <div class="mock-section">
+          <div class="section-title">Trouvez votre style</div>
+          <div class="section-h2">Personnalisez <em>votre invitation</em></div>
+
+          <div style="display:flex;gap:16px;align-items:flex-start;">
+            <!-- Gauche : sélecteur -->
+            <div style="flex:1;">
+              <div class="label-sm" style="margin-bottom:6px;">1 — Type d'ouverture</div>
+              <div style="display:flex;flex-direction:column;gap:5px;margin-bottom:12px;">
+                <div style="display:flex;align-items:center;gap:8px;padding:7px 10px;border-radius:8px;background:#882040;cursor:pointer;">
+                  <span style="font-size:12px;">✉</span>
+                  <span style="font-size:10px;font-weight:600;color:#fdfbf7;">Enveloppe</span>
+                </div>
+                <div style="display:flex;align-items:center;gap:8px;padding:7px 10px;border-radius:8px;border:1px solid #e5e7eb;cursor:pointer;">
+                  <span style="font-size:12px;">✨</span>
+                  <span style="font-size:10px;color:#888;">Rideaux</span>
+                </div>
+                <div style="display:flex;align-items:center;gap:8px;padding:7px 10px;border-radius:8px;border:1px solid #e5e7eb;cursor:pointer;">
+                  <span style="font-size:12px;">🚪</span>
+                  <span style="font-size:10px;color:#888;">Portes</span>
+                </div>
+              </div>
+
+              <div class="label-sm" style="margin-bottom:6px;">2 — Couleur</div>
+              <div style="display:flex;gap:5px;flex-wrap:wrap;">
+                <div style="width:28px;height:28px;border-radius:6px;background:linear-gradient(135deg,#fdf5f7,#f0d8dc);border:2px solid #882040;cursor:pointer;"></div>
+                <div style="width:28px;height:28px;border-radius:6px;background:linear-gradient(135deg,#fdf8f5,#f0e0d5);border:1px solid #e5e7eb;cursor:pointer;"></div>
+                <div style="width:28px;height:28px;border-radius:6px;background:linear-gradient(135deg,#1b2a41,#2d4566);border:1px solid #e5e7eb;cursor:pointer;"></div>
+                <div style="width:28px;height:28px;border-radius:6px;background:linear-gradient(135deg,#f8f8f8,#e8e8e8);border:1px solid #e5e7eb;cursor:pointer;"></div>
+                <div style="width:28px;height:28px;border-radius:6px;background:linear-gradient(135deg,#f3effe,#ddd0f5);border:1px solid #e5e7eb;cursor:pointer;"></div>
+              </div>
+            </div>
+
+            <!-- Droite : téléphone -->
+            <div style="display:flex;flex-direction:column;align-items:center;gap:8px;">
+              <div class="phone">
+                <div class="phone-inner t-floral">
+                  <div class="phone-label">Nous nous marions</div>
+                  <div class="phone-amp">&</div>
+                  <div class="phone-names">Sophie & Thomas</div>
+                  <div class="phone-date">14 juin 2026</div>
+                </div>
+              </div>
+              <div style="background:#882040;color:#fdfbf7;font-size:8px;font-weight:700;padding:4px 10px;border-radius:20px;cursor:pointer;">Voir la démo →</div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+    <div class="card-body">
+      <h3>B — Bloc unifié (sélecteur + téléphone)</h3>
+      <p>Tout en un seul bloc : liste d'ouverture + swatches couleur à gauche, téléphone à droite. Expérience configurateur.</p>
+    </div>
+  </div>
+
+  <!-- OPTION C : grande section immersive, téléphone centré -->
+  <div class="card" data-choice="C" onclick="toggleSelect(this)">
+    <div class="card-image" style="padding:0;background:#fdfbf7;">
+      <div style="padding:16px 20px;">
+        <div class="mock-section" style="text-align:center;">
+          <div class="section-title">Trouvez votre style</div>
+          <div class="section-h2" style="margin-bottom:14px;">Choisissez <em>votre invitation</em></div>
+
+          <!-- Step 1 : ouverture (tabs centrés) -->
+          <div class="label-sm" style="margin-bottom:6px;">Étape 1 — Animation d'ouverture</div>
+          <div style="display:flex;justify-content:center;gap:8px;margin-bottom:14px;">
+            <div style="display:flex;flex-direction:column;align-items:center;gap:4px;padding:8px 12px;border-radius:10px;background:#882040;cursor:pointer;min-width:52px;">
+              <span style="font-size:16px;">✉</span>
+              <span style="font-size:8px;font-weight:700;color:#fdfbf7;">Enveloppe</span>
+            </div>
+            <div style="display:flex;flex-direction:column;align-items:center;gap:4px;padding:8px 12px;border-radius:10px;border:1px solid #e5e7eb;cursor:pointer;min-width:52px;">
+              <span style="font-size:16px;">✨</span>
+              <span style="font-size:8px;color:#888;">Rideaux</span>
+            </div>
+            <div style="display:flex;flex-direction:column;align-items:center;gap:4px;padding:8px 12px;border-radius:10px;border:1px solid #e5e7eb;cursor:pointer;min-width:52px;">
+              <span style="font-size:16px;">🚪</span>
+              <span style="font-size:8px;color:#888;">Portes</span>
+            </div>
+          </div>
+
+          <!-- Téléphone centré -->
+          <div style="display:flex;justify-content:center;margin-bottom:14px;">
+            <div class="phone" style="transform:rotate(-2deg);">
+              <div class="phone-inner t-floral">
+                <div class="phone-label">Nous nous marions</div>
+                <div class="phone-amp">&</div>
+                <div class="phone-names">Sophie & Thomas</div>
+                <div class="phone-date">14 juin 2026</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Step 2 : thèmes couleur (row de swatches avec label) -->
+          <div class="label-sm" style="margin-bottom:6px;">Étape 2 — Couleur du thème</div>
+          <div style="display:flex;justify-content:center;gap:8px;flex-wrap:wrap;">
+            <div style="display:flex;flex-direction:column;align-items:center;gap:3px;cursor:pointer;">
+              <div style="width:32px;height:32px;border-radius:8px;background:linear-gradient(135deg,#fdf5f7,#f0d8dc);border:2px solid #882040;"></div>
+              <span style="font-size:7px;color:#882040;font-weight:600;">Floral</span>
+            </div>
+            <div style="display:flex;flex-direction:column;align-items:center;gap:3px;cursor:pointer;">
+              <div style="width:32px;height:32px;border-radius:8px;background:linear-gradient(135deg,#fdf8f5,#f0e0d5);border:1px solid #e5e7eb;"></div>
+              <span style="font-size:7px;color:#888;">Bohème</span>
+            </div>
+            <div style="display:flex;flex-direction:column;align-items:center;gap:3px;cursor:pointer;">
+              <div style="width:32px;height:32px;border-radius:8px;background:linear-gradient(135deg,#1b2a41,#2d4566);border:1px solid #e5e7eb;"></div>
+              <span style="font-size:7px;color:#888;">Royal</span>
+            </div>
+            <div style="display:flex;flex-direction:column;align-items:center;gap:3px;cursor:pointer;">
+              <div style="width:32px;height:32px;border-radius:8px;background:linear-gradient(135deg,#f8f8f8,#e8e8e8);border:1px solid #e5e7eb;"></div>
+              <span style="font-size:7px;color:#888;">Minimaliste</span>
+            </div>
+            <div style="display:flex;flex-direction:column;align-items:center;gap:3px;cursor:pointer;">
+              <div style="width:32px;height:32px;border-radius:8px;background:linear-gradient(135deg,#f3effe,#ddd0f5);border:1px solid #e5e7eb;"></div>
+              <span style="font-size:7px;color:#888;">Modern</span>
+            </div>
+          </div>
+
+          <div style="margin-top:12px;background:#882040;color:#fdfbf7;font-size:9px;font-weight:700;padding:6px 14px;border-radius:20px;display:inline-block;cursor:pointer;">Voir la démo live →</div>
+        </div>
+      </div>
+    </div>
+    <div class="card-body">
+      <h3>C — Section guidée étape par étape</h3>
+      <p>Flux linéaire : animation → téléphone centré → couleur → CTA. Plus pédagogique, tout sur une seule colonne centrée.</p>
+    </div>
+  </div>
+
+</div>

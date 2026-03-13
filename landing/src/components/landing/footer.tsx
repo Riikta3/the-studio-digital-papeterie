@@ -44,7 +44,7 @@ export async function Footer() {
               </h4>
               <ul className="flex flex-col gap-3">
                 <li><Link href="/#themes" className="text-sm text-primary-foreground/70 hover:text-primary-foreground transition-colors">{t("linkThemes")}</Link></li>
-                <li><Link href="/#apercu" className="text-sm text-primary-foreground/70 hover:text-primary-foreground transition-colors">{t("linkDemo")}</Link></li>
+                <li><Link href="/#themes" className="text-sm text-primary-foreground/70 hover:text-primary-foreground transition-colors">{t("linkDemo")}</Link></li>
                 <li><Link href="/#comparatif" className="text-sm text-primary-foreground/70 hover:text-primary-foreground transition-colors">{t("linkPricing")}</Link></li>
                 <li>
                   <a href="mailto:hello@thestudio-papeterie.fr" className="text-sm text-primary-foreground/70 hover:text-primary-foreground transition-colors">

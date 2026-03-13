@@ -1,0 +1,310 @@
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400;1,600&family=Cinzel:wght@400;600&family=Playfair+Display:ital,wght@1,400&family=Inter:wght@300;400;500;600&display=swap');
+  :root { --cream:#FDFBF7; --primary:#882040; --fg:#292929; --muted:#6b7280; }
+
+  /* ---- Phone ---- */
+  .phone {
+    width:120px; height:220px; border-radius:22px;
+    border:2px solid rgba(136,32,64,0.3); overflow:hidden;
+    box-shadow:0 16px 48px rgba(0,0,0,0.2); flex-shrink:0;
+    position:relative;
+  }
+  .phone-inner {
+    width:100%; height:100%;
+    display:flex; flex-direction:column;
+    align-items:center; justify-content:center;
+    gap:5px; padding:14px; position:relative;
+  }
+  .phone-notch {
+    position:absolute; top:8px; left:50%; transform:translateX(-50%);
+    width:32px; height:4px; border-radius:4px; background:rgba(0,0,0,0.15);
+  }
+  .phone-label { font-size:6px; text-transform:uppercase; letter-spacing:0.2em; opacity:0.6; }
+  .phone-amp   { font-size:26px; font-style:italic; opacity:0.3; line-height:1; }
+  .phone-names { font-size:12px; font-style:italic; text-align:center; line-height:1.3; font-weight:500; }
+  .phone-date  { font-size:7px; letter-spacing:0.12em; opacity:0.45; }
+  .phone-divider { width:24px; height:1px; opacity:0.25; }
+
+  /* Theme variants for phone */
+  .pi-envelope-rouge { background:linear-gradient(160deg,#3a0a14 0%,#7a1a2e 60%,#c04060 100%); color:#fdf0f0; }
+  .pi-envelope-rouge .phone-amp, .pi-envelope-rouge .phone-names, .pi-envelope-rouge .phone-label { color:#f9c8d4; }
+  .pi-envelope-rouge .phone-divider { background:#f9c8d4; }
+
+  .pi-envelope-noire { background:linear-gradient(160deg,#0a0a0a 0%,#1a1a1a 60%,#2d2d2d 100%); color:#e8e0d4; }
+  .pi-envelope-noire .phone-amp, .pi-envelope-noire .phone-names, .pi-envelope-noire .phone-label { color:#c9a96e; }
+  .pi-envelope-noire .phone-divider { background:#c9a96e; }
+
+  .pi-envelope-blanche { background:linear-gradient(160deg,#fff 0%,#fdf8f5 60%,#f5ede5 100%); color:#292929; }
+  .pi-envelope-blanche .phone-amp, .pi-envelope-blanche .phone-names, .pi-envelope-blanche .phone-label { color:#882040; }
+  .pi-envelope-blanche .phone-divider { background:#882040; }
+
+  .pi-envelope-royal { background:linear-gradient(160deg,#1b2a41 0%,#243550 60%,#2d4566 100%); color:#e8dcc8; }
+  .pi-envelope-royal .phone-amp, .pi-envelope-royal .phone-names, .pi-envelope-royal .phone-label { color:#c9a96e; }
+  .pi-envelope-royal .phone-divider { background:#c9a96e; }
+
+  .pi-envelope-sceau { background:linear-gradient(160deg,#fdf8f0 0%,#f5e8d5 60%,#e8d0b0 100%); color:#292929; }
+  .pi-envelope-sceau .phone-amp, .pi-envelope-sceau .phone-names, .pi-envelope-sceau .phone-label { color:#8b5e3c; }
+  .pi-envelope-sceau .phone-divider { background:#8b5e3c; }
+
+  /* Portes */
+  .pi-portes-royal { background:linear-gradient(160deg,#1b2a41,#2d4566); color:#e8dcc8; }
+  .pi-portes-royal .phone-amp, .pi-portes-royal .phone-names, .pi-portes-royal .phone-label { color:#c9a96e; }
+  .pi-portes-royal .phone-divider { background:#c9a96e; }
+
+  .pi-portes-oriental { background:linear-gradient(160deg,#3a1a08,#6b3318,#c06030); color:#fdf0e0; }
+  .pi-portes-oriental .phone-amp, .pi-portes-oriental .phone-names, .pi-portes-oriental .phone-label { color:#f0c080; }
+  .pi-portes-oriental .phone-divider { background:#f0c080; }
+
+  .pi-portes-boho { background:linear-gradient(160deg,#f5ede5,#e8d5c5,#d4b89a); color:#4a3020; }
+  .pi-portes-boho .phone-amp, .pi-portes-boho .phone-names, .pi-portes-boho .phone-label { color:#8b5e3c; }
+  .pi-portes-boho .phone-divider { background:#8b5e3c; }
+
+  /* Rideaux */
+  .pi-rideaux-theatre { background:linear-gradient(160deg,#1a0a14,#3a0a20,#6a1a35); color:#f5e8d0; }
+  .pi-rideaux-theatre .phone-amp, .pi-rideaux-theatre .phone-names, .pi-rideaux-theatre .phone-label { color:#e8c87a; }
+  .pi-rideaux-theatre .phone-divider { background:#e8c87a; }
+
+  .pi-rideaux-voilage { background:linear-gradient(160deg,#f5f0f8,#ede5f5,#ddd0f0); color:#3a2855; }
+  .pi-rideaux-voilage .phone-amp, .pi-rideaux-voilage .phone-names, .pi-rideaux-voilage .phone-label { color:#7c50c8; }
+  .pi-rideaux-voilage .phone-divider { background:#7c50c8; }
+
+  .pi-rideaux-royal { background:linear-gradient(160deg,#0a1428,#1a2a48,#2a4068); color:#e0d0b8; }
+  .pi-rideaux-royal .phone-amp, .pi-rideaux-royal .phone-names, .pi-rideaux-royal .phone-label { color:#d4a860; }
+  .pi-rideaux-royal .phone-divider { background:#d4a860; }
+
+  /* ---- Layout ---- */
+  .mock-box {
+    background:var(--cream); border-radius:14px;
+    padding:18px 20px; border:1px solid rgba(136,32,64,0.1);
+    font-family:'Inter',sans-serif;
+  }
+  .eyebrow { font-family:'Cormorant Garamond',serif; font-style:italic; font-size:11px; color:var(--primary); letter-spacing:0.2em; text-transform:uppercase; margin:0 0 2px; }
+  .heading  { font-family:'Cormorant Garamond',serif; font-size:20px; color:var(--fg); margin:0 0 14px; line-height:1.2; }
+  .heading em { color:var(--primary); font-style:italic; }
+  .step-label { font-size:8px; font-weight:700; text-transform:uppercase; letter-spacing:0.15em; color:var(--muted); margin-bottom:6px; }
+
+  /* Opening type pills (niveau 1) */
+  .lvl1-pill {
+    display:inline-flex; align-items:center; gap:4px;
+    padding:5px 12px; border-radius:20px; font-size:9px; font-weight:600;
+    cursor:pointer; transition:all 0.15s; border:1px solid #e5e7eb;
+    color:var(--muted); background:#fff;
+  }
+  .lvl1-pill.active { background:var(--primary); color:#fdfbf7; border-color:var(--primary); }
+
+  /* Sub-type cards (niveau 2) */
+  .subtype-grid { display:flex; gap:5px; flex-wrap:wrap; margin-bottom:12px; }
+  .subtype-card {
+    display:flex; flex-direction:column; align-items:center; gap:3px;
+    padding:6px 8px; border-radius:10px; border:1.5px solid #e5e7eb;
+    cursor:pointer; transition:all 0.15s; background:#fff; min-width:52px;
+  }
+  .subtype-card.active { border-color:var(--primary); background:rgba(136,32,64,0.04); }
+  .subtype-card .preview { width:42px; height:30px; border-radius:6px; }
+  .subtype-card .name { font-size:8px; font-weight:600; color:var(--fg); }
+
+  /* Theme swatches (niveau 3) */
+  .swatch { display:flex; flex-direction:column; align-items:center; gap:3px; cursor:pointer; }
+  .swatch-dot { width:26px; height:26px; border-radius:7px; border:2px solid transparent; transition:all 0.15s; }
+  .swatch-dot.active { border-color:var(--primary); transform:scale(1.15); box-shadow:0 0 0 3px rgba(136,32,64,0.15); }
+  .swatch-name { font-size:7px; color:var(--muted); font-weight:500; }
+  .swatch-name.active { color:var(--primary); font-weight:700; }
+
+  .cta-btn { background:var(--primary); color:#fdfbf7; font-size:9px; font-weight:700; padding:6px 14px; border-radius:20px; display:inline-block; cursor:pointer; }
+
+  .divider-line { width:100%; height:1px; background:rgba(136,32,64,0.08); margin:10px 0; }
+
+  /* Font overrides for phone names per style */
+  .font-cinzel .phone-names, .font-cinzel .phone-amp, .font-cinzel .phone-label { font-family:'Cinzel',serif; font-style:normal; letter-spacing:0.08em; }
+  .font-cormorant .phone-names, .font-cormorant .phone-amp { font-family:'Cormorant Garamond',serif; }
+  .font-inter .phone-names, .font-inter .phone-amp { font-family:'Inter',sans-serif; font-style:normal; font-size:10px; }
+</style>
+
+<h2>Design A — 3 niveaux de sélection</h2>
+<p class="subtitle">Ouverture → Sous-type → Thème du site. Cliquez sur une option pour voir l'aperçu correspondant.</p>
+
+<div class="mockup">
+  <div class="mockup-header">Aperçu de la section</div>
+  <div class="mockup-body" style="background:#fdfbf7;">
+    <div class="mock-box">
+      <div class="eyebrow">Créez votre invitation</div>
+      <div class="heading">Choisissez <em>votre style</em></div>
+
+      <div style="display:flex;gap:16px;align-items:flex-start;">
+
+        <!-- ===== Colonne gauche : sélecteurs ===== -->
+        <div style="flex:1;display:flex;flex-direction:column;gap:12px;">
+
+          <!-- Niveau 1 : Type d'ouverture -->
+          <div>
+            <div class="step-label">① Animation d'introduction</div>
+            <div style="display:flex;gap:5px;">
+              <div class="lvl1-pill active" onclick="selectOpening('envelope',this)">✉ Enveloppe</div>
+              <div class="lvl1-pill" onclick="selectOpening('portes',this)">🚪 Portes</div>
+              <div class="lvl1-pill" onclick="selectOpening('rideaux',this)">✨ Rideaux</div>
+            </div>
+          </div>
+
+          <!-- Niveau 2 : Sous-type d'ouverture -->
+          <div>
+            <div class="step-label">② Style d'ouverture</div>
+
+            <!-- Enveloppe -->
+            <div class="subtype-grid" id="sub-envelope">
+              <div class="subtype-card active" onclick="selectSubtype('envelope-rouge',this)">
+                <div class="preview" style="background:linear-gradient(135deg,#3a0a14,#c04060);"></div>
+                <div class="name">Rouge</div>
+              </div>
+              <div class="subtype-card" onclick="selectSubtype('envelope-noire',this)">
+                <div class="preview" style="background:linear-gradient(135deg,#0a0a0a,#2d2d2d);"></div>
+                <div class="name">Noire</div>
+              </div>
+              <div class="subtype-card" onclick="selectSubtype('envelope-blanche',this)">
+                <div class="preview" style="background:linear-gradient(135deg,#fff,#f5ede5);border:1px solid #eee;"></div>
+                <div class="name">Blanche</div>
+              </div>
+              <div class="subtype-card" onclick="selectSubtype('envelope-royal',this)">
+                <div class="preview" style="background:linear-gradient(135deg,#1b2a41,#2d4566);"></div>
+                <div class="name">Royal</div>
+              </div>
+              <div class="subtype-card" onclick="selectSubtype('envelope-sceau',this)">
+                <div class="preview" style="background:linear-gradient(135deg,#fdf8f0,#e8d0b0);border:1px solid #eee;"></div>
+                <div class="name">Sceau</div>
+              </div>
+            </div>
+
+            <!-- Portes (caché par défaut) -->
+            <div class="subtype-grid" id="sub-portes" style="display:none;">
+              <div class="subtype-card active" onclick="selectSubtype('portes-royal',this)">
+                <div class="preview" style="background:linear-gradient(135deg,#1b2a41,#2d4566);"></div>
+                <div class="name">Royal</div>
+              </div>
+              <div class="subtype-card" onclick="selectSubtype('portes-oriental',this)">
+                <div class="preview" style="background:linear-gradient(135deg,#3a1a08,#c06030);"></div>
+                <div class="name">Oriental</div>
+              </div>
+              <div class="subtype-card" onclick="selectSubtype('portes-boho',this)">
+                <div class="preview" style="background:linear-gradient(135deg,#f5ede5,#d4b89a);border:1px solid #eee;"></div>
+                <div class="name">Bohème</div>
+              </div>
+            </div>
+
+            <!-- Rideaux (caché par défaut) -->
+            <div class="subtype-grid" id="sub-rideaux" style="display:none;">
+              <div class="subtype-card active" onclick="selectSubtype('rideaux-theatre',this)">
+                <div class="preview" style="background:linear-gradient(135deg,#1a0a14,#6a1a35);"></div>
+                <div class="name">Théâtre</div>
+              </div>
+              <div class="subtype-card" onclick="selectSubtype('rideaux-voilage',this)">
+                <div class="preview" style="background:linear-gradient(135deg,#f5f0f8,#ddd0f0);border:1px solid #eee;"></div>
+                <div class="name">Voilage</div>
+              </div>
+              <div class="subtype-card" onclick="selectSubtype('rideaux-royal',this)">
+                <div class="preview" style="background:linear-gradient(135deg,#0a1428,#2a4068);"></div>
+                <div class="name">Royal</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="divider-line"></div>
+
+          <!-- Niveau 3 : Thème du site -->
+          <div>
+            <div class="step-label">③ Thème du site (couleurs &amp; polices)</div>
+            <div style="display:flex;gap:5px;flex-wrap:wrap;">
+              <div class="swatch"><div class="swatch-dot active" style="background:linear-gradient(135deg,#fdf5f7,#f0d8dc);"></div><div class="swatch-name active">Floral</div></div>
+              <div class="swatch"><div class="swatch-dot" style="background:linear-gradient(135deg,#fdf8f5,#f0e0d5);"></div><div class="swatch-name">Bohème</div></div>
+              <div class="swatch"><div class="swatch-dot" style="background:linear-gradient(135deg,#1b2a41,#2d4566);"></div><div class="swatch-name">Royal</div></div>
+              <div class="swatch"><div class="swatch-dot" style="background:linear-gradient(135deg,#fdf5e8,#f0d8a0);"></div><div class="swatch-name">Oriental</div></div>
+              <div class="swatch"><div class="swatch-dot" style="background:linear-gradient(135deg,#f8f8f8,#e0e0e0);"></div><div class="swatch-name">Minimal</div></div>
+              <div class="swatch"><div class="swatch-dot" style="background:linear-gradient(135deg,#eef5e8,#d5e8c8);"></div><div class="swatch-name">Champêtre</div></div>
+              <div class="swatch"><div class="swatch-dot" style="background:linear-gradient(135deg,#f3effe,#ddd0f5);"></div><div class="swatch-name">Modern</div></div>
+              <div class="swatch"><div class="swatch-dot" style="background:linear-gradient(135deg,#e8f0f8,#c8daf0);"></div><div class="swatch-name">Voyage</div></div>
+            </div>
+          </div>
+
+          <div style="margin-top:4px;">
+            <div class="cta-btn">Voir la démo live →</div>
+          </div>
+        </div>
+
+        <!-- ===== Colonne droite : téléphone ===== -->
+        <div style="display:flex;flex-direction:column;align-items:center;gap:8px;padding-top:20px;">
+          <div class="phone" style="transform:rotate(-3deg);" id="phone-preview">
+            <div class="phone-inner pi-envelope-rouge font-cormorant" id="phone-inner">
+              <div class="phone-notch"></div>
+              <div class="phone-label">Nous nous marions</div>
+              <div class="phone-divider" style="background:currentColor;"></div>
+              <div class="phone-amp">&</div>
+              <div class="phone-names">Sophie<br>& Thomas</div>
+              <div class="phone-date">14 · 06 · 2026</div>
+            </div>
+          </div>
+          <div style="font-size:7px;color:var(--muted);text-align:center;max-width:90px;line-height:1.6;">
+            Aperçu en live<br>selon votre sélection
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+const phoneInner = document.getElementById('phone-inner');
+
+const subtypeClasses = {
+  'envelope-rouge':   { bg:'pi-envelope-rouge',  font:'font-cormorant' },
+  'envelope-noire':   { bg:'pi-envelope-noire',   font:'font-cormorant' },
+  'envelope-blanche': { bg:'pi-envelope-blanche', font:'font-cormorant' },
+  'envelope-royal':   { bg:'pi-envelope-royal',   font:'font-cinzel'    },
+  'envelope-sceau':   { bg:'pi-envelope-sceau',   font:'font-cormorant' },
+  'portes-royal':     { bg:'pi-portes-royal',     font:'font-cinzel'    },
+  'portes-oriental':  { bg:'pi-portes-oriental',  font:'font-cormorant' },
+  'portes-boho':      { bg:'pi-portes-boho',      font:'font-cormorant' },
+  'rideaux-theatre':  { bg:'pi-rideaux-theatre',  font:'font-cormorant' },
+  'rideaux-voilage':  { bg:'pi-rideaux-voilage',  font:'font-inter'     },
+  'rideaux-royal':    { bg:'pi-rideaux-royal',    font:'font-cinzel'    },
+};
+
+let currentOpening = 'envelope';
+
+function selectOpening(type, el) {
+  // Update pills
+  document.querySelectorAll('.lvl1-pill').forEach(p => p.classList.remove('active'));
+  el.classList.add('active');
+  currentOpening = type;
+
+  // Show/hide sub-grids
+  ['envelope','portes','rideaux'].forEach(t => {
+    document.getElementById('sub-'+t).style.display = t === type ? 'flex' : 'none';
+  });
+
+  // Auto-select first subtype
+  const firstSub = document.querySelector('#sub-'+type+' .subtype-card');
+  if (firstSub) {
+    document.querySelectorAll('#sub-'+type+' .subtype-card').forEach(c => c.classList.remove('active'));
+    firstSub.classList.add('active');
+    const key = type + '-' + firstSub.querySelector('.name').textContent.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'');
+    updatePhone(type + '-' + firstSub.querySelector('.name').textContent.toLowerCase()
+      .replace('é','e').replace('è','e').replace('â','a').replace('ô','o').replace('û','u').replace('î','i').replace('ê','e').replace('à','a'));
+  }
+}
+
+function selectSubtype(key, el) {
+  const parentGrid = el.closest('.subtype-grid');
+  parentGrid.querySelectorAll('.subtype-card').forEach(c => c.classList.remove('active'));
+  el.classList.add('active');
+  updatePhone(key);
+}
+
+function updatePhone(key) {
+  const config = subtypeClasses[key];
+  if (!config) return;
+  // Remove all bg classes
+  Object.values(subtypeClasses).forEach(c => {
+    phoneInner.classList.remove(c.bg, c.font);
+  });
+  phoneInner.classList.add(config.bg, config.font);
+}
+</script>

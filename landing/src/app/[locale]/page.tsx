@@ -1,4 +1,3 @@
-import { DemoSection } from "@/components/landing/demo-section";
 import { HowItWorks } from "@/components/landing/how-it-works";
 import { Catalogue } from "@/components/landing/catalogue";
 import { PricingComparison } from "@/components/landing/pricing-comparison";
@@ -15,7 +14,6 @@ export default function Home() {
     <main className="min-h-screen w-full relative">
       <Navbar />
       <Hero />
-      <DemoSection />
       <HowItWorks />
       <Catalogue />
       <PricingComparison />

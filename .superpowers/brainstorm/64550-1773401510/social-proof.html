@@ -1,0 +1,179 @@
+<style>
+  .mock-section {
+    background: #fdfbf7;
+    border-radius: 10px;
+    padding: 20px 16px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 14px;
+    min-height: 200px;
+  }
+  .section-eyebrow {
+    font-size: 10px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: #882040;
+    font-family: Georgia, serif;
+  }
+  .section-title {
+    font-family: Georgia, serif;
+    font-size: 18px;
+    font-weight: 500;
+    color: #292929;
+    text-align: center;
+    line-height: 1.2;
+    margin-top: -6px;
+  }
+  .stars { color: #882040; font-size: 11px; letter-spacing: 2px; }
+  .testi-card {
+    border: 1px solid rgba(136,32,64,0.12);
+    border-radius: 10px;
+    padding: 12px 14px;
+    background: #fff;
+    font-size: 11px;
+    color: #555;
+    line-height: 1.6;
+  }
+  .testi-author {
+    font-size: 10px;
+    color: #882040;
+    margin-top: 8px;
+    font-style: italic;
+    font-family: Georgia, serif;
+  }
+  .badge-count {
+    background: rgba(136,32,64,0.08);
+    border: 1px solid rgba(136,32,64,0.2);
+    color: #882040;
+    font-size: 11px;
+    font-weight: 600;
+    padding: 6px 14px;
+    border-radius: 999px;
+    letter-spacing: 0.3px;
+  }
+  .avatar-row {
+    display: flex;
+    gap: -4px;
+  }
+  .avatar {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    border: 2px solid #fdfbf7;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 13px;
+    margin-left: -6px;
+  }
+  .avatar:first-child { margin-left: 0; }
+</style>
+
+<h2>Preuve Sociale — Témoignages</h2>
+<p class="subtitle">Bloc témoignages + badge "130+ invitations envoyées". Quel format ?</p>
+
+<div class="cards">
+
+  <div class="card" data-choice="A" onclick="toggleSelect(this)">
+    <div class="card-image" style="padding:0">
+      <div class="mock-section">
+        <div class="section-eyebrow">Ils nous ont fait confiance</div>
+        <div class="section-title">Ce qu'ils en pensent</div>
+        <!-- Badge + avatars -->
+        <div style="display:flex;align-items:center;gap:10px;">
+          <div class="avatar-row">
+            <div class="avatar" style="background:#f0d8dc;">👰</div>
+            <div class="avatar" style="background:#e8dcc8;">💍</div>
+            <div class="avatar" style="background:#dce8f5;">🎊</div>
+            <div class="avatar" style="background:#e8f0dc;">💐</div>
+          </div>
+          <div class="badge-count">130+ invitations envoyées ✨</div>
+        </div>
+        <!-- 2 témoignages -->
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;width:100%;">
+          <div class="testi-card">
+            <div class="stars">★★★★★</div>
+            <div style="margin-top:6px;">"Nos invités ont été bluffés par l'ouverture de l'enveloppe. Magique !"</div>
+            <div class="testi-author">— Sophie & Thomas, Paris</div>
+          </div>
+          <div class="testi-card">
+            <div class="stars">★★★★★</div>
+            <div style="margin-top:6px;">"Simple, rapide, et tellement plus beau que du papier. On recommande !"</div>
+            <div class="testi-author">— Marie & Jules, Lyon</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="card-body">
+      <h3>A — Grille 2 colonnes + badge</h3>
+      <p>Badge "130+" proéminent avec avatars, puis 2 témoignages côte à côte. Compact, efficace, tout visible d'un coup.</p>
+    </div>
+  </div>
+
+  <div class="card" data-choice="B" onclick="toggleSelect(this)">
+    <div class="card-image" style="padding:0">
+      <div class="mock-section">
+        <div class="section-eyebrow">Déjà 130+ mariages</div>
+        <div class="section-title">"Le plus beau faire-part<br><em style="color:#882040;">que j'aie jamais reçu"</em></div>
+        <!-- Grande citation centrale -->
+        <div style="text-align:center;max-width:280px;">
+          <div style="font-size:32px;color:rgba(136,32,64,0.2);font-family:Georgia,serif;line-height:1;">"</div>
+          <div style="font-size:12px;color:#555;line-height:1.7;margin-top:-8px;">Nos invités ont tous réagi immédiatement. L'ouverture de l'enveloppe les a vraiment surpris. On ne pensait pas que c'était possible en digital !</div>
+          <div style="font-size:10px;color:#882040;font-style:italic;font-family:Georgia,serif;margin-top:8px;">— Sophie & Thomas · Mariage juin 2025</div>
+          <div class="stars" style="margin-top:6px;">★★★★★</div>
+        </div>
+        <!-- Dots navigation -->
+        <div style="display:flex;gap:6px;">
+          <div style="width:18px;height:4px;border-radius:2px;background:#882040;"></div>
+          <div style="width:6px;height:4px;border-radius:2px;background:rgba(136,32,64,0.2);"></div>
+          <div style="width:6px;height:4px;border-radius:2px;background:rgba(136,32,64,0.2);"></div>
+        </div>
+      </div>
+    </div>
+    <div class="card-body">
+      <h3>B — Grande citation centrale</h3>
+      <p>Une seule grande citation mise en scène, très lisible. Carrousel avec dots. Plus émotionnel, correspond à l'esthétique haut de gamme.</p>
+    </div>
+  </div>
+
+  <div class="card" data-choice="C" onclick="toggleSelect(this)">
+    <div class="card-image" style="padding:0">
+      <div class="mock-section" style="background:linear-gradient(160deg,#1b1010,#2d1018);">
+        <div class="section-eyebrow" style="color:#c9876e;">Ils en parlent</div>
+        <div class="section-title" style="color:#fdfbf7;">130+ histoires<br><em style="color:#c9876e;">commencent ici</em></div>
+        <!-- Stats row -->
+        <div style="display:flex;gap:20px;justify-content:center;width:100%;">
+          <div style="text-align:center;">
+            <div style="font-family:Georgia,serif;font-size:22px;font-weight:600;color:#fdfbf7;">130+</div>
+            <div style="font-size:9px;color:rgba(253,251,247,0.5);letter-spacing:1px;text-transform:uppercase;">Invitations</div>
+          </div>
+          <div style="width:1px;background:rgba(253,251,247,0.1);"></div>
+          <div style="text-align:center;">
+            <div style="font-family:Georgia,serif;font-size:22px;font-weight:600;color:#fdfbf7;">5★</div>
+            <div style="font-size:9px;color:rgba(253,251,247,0.5);letter-spacing:1px;text-transform:uppercase;">Note moy.</div>
+          </div>
+          <div style="width:1px;background:rgba(253,251,247,0.1);"></div>
+          <div style="text-align:center;">
+            <div style="font-family:Georgia,serif;font-size:22px;font-weight:600;color:#fdfbf7;">9</div>
+            <div style="font-size:9px;color:rgba(253,251,247,0.5);letter-spacing:1px;text-transform:uppercase;">Thèmes</div>
+          </div>
+        </div>
+        <!-- Témoignage sur fond sombre -->
+        <div style="border:1px solid rgba(253,251,247,0.1);border-radius:10px;padding:12px;max-width:100%;">
+          <div style="font-size:11px;color:rgba(253,251,247,0.8);line-height:1.6;font-style:italic;">"Nos invités ont été bluffés. Magique et tellement élégant !"</div>
+          <div style="font-size:10px;color:#c9876e;margin-top:6px;font-family:Georgia,serif;">— Sophie & Thomas</div>
+        </div>
+      </div>
+    </div>
+    <div class="card-body">
+      <h3>C — Section sombre avec stats</h3>
+      <p>Fond sombre contrasté, stats chiffrées en gros + citation. Crée une rupture visuelle forte dans la page, style "magazine de luxe".</p>
+    </div>
+  </div>
+
+</div>
+
+<div class="section" style="margin-top:16px;padding:12px 16px;background:rgba(136,32,64,0.05);border-radius:8px;font-size:13px;color:#555;">
+  💡 <strong>Ma recommandation :</strong> B. La grande citation centrale est plus mémorable et correspond au ton émotionnel du projet. Le C est séduisant mais peut sembler hors-thème sur un fond sombre.
+</div>

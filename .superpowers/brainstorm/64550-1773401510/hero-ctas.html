@@ -1,0 +1,151 @@
+<style>
+  .hero-preview {
+    background: linear-gradient(to bottom, #fdfbf7 0%, #f5ede3 100%);
+    border-radius: 10px;
+    padding: 36px 24px 28px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+    min-height: 200px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+  }
+  /* Simule l'effet vaporeux de l'enveloppe en fond */
+  .hero-preview::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse at 50% 40%, rgba(201,169,110,0.18) 0%, transparent 65%);
+    pointer-events: none;
+  }
+  .hero-title {
+    font-family: Georgia, serif;
+    font-size: 24px;
+    font-weight: 500;
+    line-height: 1.15;
+    color: #292929;
+    letter-spacing: -0.5px;
+    position: relative;
+  }
+  .hero-title em { color: #882040; }
+  .hero-sub {
+    font-size: 13px;
+    color: #6b7280;
+    max-width: 340px;
+    line-height: 1.6;
+    position: relative;
+  }
+  /* Boutons */
+  .btn-main {
+    background: #882040;
+    color: #fdfbf7;
+    padding: 12px 28px;
+    border-radius: 999px;
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 0.3px;
+    white-space: nowrap;
+    box-shadow: 0 4px 16px rgba(136,32,64,0.3);
+    display: inline-block;
+  }
+  .btn-outline {
+    border: 1px solid rgba(136,32,64,0.4);
+    color: #882040;
+    padding: 11px 22px;
+    border-radius: 999px;
+    font-size: 12px;
+    font-weight: 500;
+    white-space: nowrap;
+    display: inline-block;
+  }
+  .btn-ghost {
+    color: #6b7280;
+    font-size: 11px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    border-bottom: 1px solid rgba(107,114,128,0.4);
+    padding-bottom: 2px;
+    white-space: nowrap;
+    display: inline-block;
+  }
+  .btn-row { display: flex; align-items: center; gap: 12px; justify-content: center; flex-wrap: wrap; position: relative; }
+  .btn-col { display: flex; flex-direction: column; align-items: center; gap: 10px; position: relative; }
+  .sep { color: #ccc; font-size: 11px; }
+</style>
+
+<h2>Disposition des 3 boutons CTA</h2>
+<p class="subtitle">Fond validé : B (papier vaporeux). Comment organiser les 3 actions ?</p>
+
+<div class="cards">
+
+  <div class="card" data-choice="A" onclick="toggleSelect(this)">
+    <div class="card-image" style="padding:0">
+      <div class="hero-preview">
+        <div class="hero-title">Le faire-part<br><em>réinventé au digital</em></div>
+        <div class="hero-sub">Pour les amoureux, les grandes fêtes et les invitations qui marquent le début d'une belle histoire.</div>
+        <!-- Layout A : 1 gros + 2 petits en ligne -->
+        <div class="btn-col" style="gap:14px">
+          <div class="btn-main">Créer mon invitation →</div>
+          <div class="btn-row">
+            <div class="btn-ghost">Voir une démo</div>
+            <div class="sep">·</div>
+            <div class="btn-ghost">Découvrir les thèmes</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="card-body">
+      <h3>A — Hiérarchie verticale</h3>
+      <p>1 CTA principal dominant, 2 liens discrets en dessous. Clair, focus sur la conversion. Recommandé pour les landing pages.</p>
+    </div>
+  </div>
+
+  <div class="card" data-choice="B" onclick="toggleSelect(this)">
+    <div class="card-image" style="padding:0">
+      <div class="hero-preview">
+        <div class="hero-title">Le faire-part<br><em>réinventé au digital</em></div>
+        <div class="hero-sub">Pour les amoureux, les grandes fêtes et les invitations qui marquent le début d'une belle histoire.</div>
+        <!-- Layout B : 3 boutons en ligne -->
+        <div class="btn-row" style="gap:10px">
+          <div class="btn-main">Créer mon invitation</div>
+          <div class="btn-outline">Voir une démo</div>
+          <div class="btn-outline" style="border-color:rgba(107,114,128,0.35);color:#6b7280;">Découvrir les thèmes</div>
+        </div>
+      </div>
+    </div>
+    <div class="card-body">
+      <h3>B — 3 boutons en ligne</h3>
+      <p>Tous les choix visibles d'un coup. Risque de diluer l'attention. Adapté si les 3 actions ont une vraie valeur équivalente.</p>
+    </div>
+  </div>
+
+  <div class="card" data-choice="C" onclick="toggleSelect(this)">
+    <div class="card-image" style="padding:0">
+      <div class="hero-preview">
+        <div class="hero-title">Le faire-part<br><em>réinventé au digital</em></div>
+        <div class="hero-sub">Pour les amoureux, les grandes fêtes et les invitations qui marquent le début d'une belle histoire.</div>
+        <!-- Layout C : 2 boutons principaux + scroll indicator -->
+        <div class="btn-row" style="gap:12px">
+          <div class="btn-main">Créer mon invitation →</div>
+          <div class="btn-outline">Voir une démo</div>
+        </div>
+        <div style="margin-top:6px;display:flex;flex-direction:column;align-items:center;gap:4px;">
+          <div style="font-size:10px;letter-spacing:2px;text-transform:uppercase;color:#aaa;">Découvrir les thèmes</div>
+          <div style="color:#ccc;font-size:16px;">↓</div>
+        </div>
+      </div>
+    </div>
+    <div class="card-body">
+      <h3>C — 2 + scroll anchor</h3>
+      <p>2 CTA forts en priorité, "Découvrir les thèmes" devient un scroll indicator discret en bas. Invite à explorer naturellement.</p>
+    </div>
+  </div>
+
+</div>
+
+<div class="section" style="margin-top:16px;padding:12px 16px;background:rgba(136,32,64,0.05);border-radius:8px;font-size:13px;color:#555;">
+  💡 <strong>Ma recommandation :</strong> A ou C. Le CTA principal "Créer mon invitation" doit dominer — c'est lui qui convertit.
+</div>

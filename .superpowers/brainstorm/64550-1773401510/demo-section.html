@@ -1,0 +1,250 @@
+<style>
+  .demo-mock {
+    background: #fdfbf7;
+    border-radius: 10px;
+    padding: 24px 20px;
+    min-height: 220px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 14px;
+  }
+  .section-label {
+    font-size: 10px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: #882040;
+    font-family: Georgia, serif;
+  }
+  .section-title {
+    font-family: Georgia, serif;
+    font-size: 20px;
+    font-weight: 500;
+    color: #292929;
+    text-align: center;
+    line-height: 1.2;
+  }
+  .section-title em { color: #882040; }
+
+  /* Mockup phone */
+  .phone-mock {
+    width: 72px;
+    height: 126px;
+    border: 2px solid rgba(136,32,64,0.3);
+    border-radius: 12px;
+    background: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+    flex-shrink: 0;
+  }
+  .phone-screen {
+    width: 62px;
+    height: 116px;
+    border-radius: 10px;
+    overflow: hidden;
+    background: linear-gradient(160deg, #fdf5f7 0%, #fdfbf7 100%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+    padding: 8px;
+  }
+  .phone-envelope {
+    width: 36px;
+    height: 24px;
+    border: 1.5px solid rgba(136,32,64,0.4);
+    border-radius: 2px;
+    background: #fff;
+    position: relative;
+  }
+  .phone-envelope::after {
+    content: '';
+    position: absolute;
+    top: 0; left: 0;
+    border-left: 18px solid transparent;
+    border-right: 18px solid transparent;
+    border-top: 12px solid rgba(136,32,64,0.15);
+  }
+  .step-pill {
+    background: #882040;
+    color: #fdfbf7;
+    font-size: 9px;
+    padding: 3px 10px;
+    border-radius: 999px;
+    letter-spacing: 0.5px;
+    text-align: center;
+  }
+  .step-dot {
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: rgba(136,32,64,0.2);
+    flex-shrink: 0;
+  }
+  .step-dot.active { background: #882040; }
+
+  /* Carrousel tabs */
+  .tab-bar {
+    display: flex;
+    gap: 0;
+    border: 1px solid rgba(136,32,64,0.2);
+    border-radius: 999px;
+    overflow: hidden;
+    width: 100%;
+  }
+  .tab {
+    flex: 1;
+    padding: 6px 4px;
+    font-size: 10px;
+    text-align: center;
+    color: #6b7280;
+    background: transparent;
+    white-space: nowrap;
+  }
+  .tab.active {
+    background: #882040;
+    color: #fdfbf7;
+    font-weight: 600;
+  }
+
+  /* Split layout */
+  .split-demo {
+    display: flex;
+    gap: 16px;
+    width: 100%;
+    align-items: center;
+  }
+  .panel-left {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  .panel-step {
+    padding: 8px 12px;
+    border-radius: 8px;
+    border: 1px solid rgba(136,32,64,0.15);
+    font-size: 11px;
+    color: #555;
+    cursor: pointer;
+  }
+  .panel-step.active {
+    border-color: #882040;
+    background: rgba(136,32,64,0.05);
+    color: #882040;
+    font-weight: 600;
+  }
+</style>
+
+<h2>Section "Démo Immédiate"</h2>
+<p class="subtitle">Juste après le Hero — montrer le produit en action avant tout. Quel format ?</p>
+
+<div class="cards">
+
+  <div class="card" data-choice="A" onclick="toggleSelect(this)">
+    <div class="card-image" style="padding:0">
+      <div class="demo-mock">
+        <div class="section-label">Le produit en action</div>
+        <div class="section-title">Vivez l'expérience<br><em>de vos invités</em></div>
+        <!-- Tabs + phone centré -->
+        <div class="tab-bar" style="max-width:300px;">
+          <div class="tab active">Enveloppe</div>
+          <div class="tab">Invitation</div>
+          <div class="tab">Programme</div>
+          <div class="tab">RSVP</div>
+        </div>
+        <div style="display:flex;gap:20px;align-items:flex-end;">
+          <div class="phone-mock" style="width:88px;height:154px;">
+            <div class="phone-screen" style="width:78px;height:144px;">
+              <div class="phone-envelope"></div>
+              <div style="font-size:8px;color:#882040;font-style:italic;text-align:center;font-family:Georgia,serif;margin-top:4px;">Sophie & Thomas</div>
+              <div style="font-size:7px;color:#aaa;text-align:center;">Touchez pour ouvrir</div>
+            </div>
+          </div>
+          <div style="display:flex;gap:6px;">
+            <div class="step-dot active"></div>
+            <div class="step-dot"></div>
+            <div class="step-dot"></div>
+            <div class="step-dot"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="card-body">
+      <h3>A — Carrousel avec tabs</h3>
+      <p>Tabs en haut (Enveloppe → Invitation → Programme → RSVP), téléphone au centre qui change de contenu. Intuitif, montre le parcours invité.</p>
+    </div>
+  </div>
+
+  <div class="card" data-choice="B" onclick="toggleSelect(this)">
+    <div class="card-image" style="padding:0">
+      <div class="demo-mock">
+        <div class="section-label">Expérience complète</div>
+        <div class="section-title">De l'enveloppe<br><em>au souvenir</em></div>
+        <!-- Split : étapes à gauche, preview à droite -->
+        <div class="split-demo">
+          <div class="panel-left">
+            <div class="panel-step active">① Ouverture enveloppe</div>
+            <div class="panel-step">② L'invitation</div>
+            <div class="panel-step">③ Le programme</div>
+            <div class="panel-step">④ RSVP en 1 clic</div>
+            <div class="panel-step" style="border-color:#aaa;color:#aaa;font-size:10px;">⚙ Back-office mariés</div>
+          </div>
+          <div class="phone-mock">
+            <div class="phone-screen">
+              <div class="phone-envelope"></div>
+              <div style="font-size:7px;color:#882040;font-style:italic;font-family:Georgia,serif;">Sophie & Thomas</div>
+              <div style="font-size:6px;color:#aaa;">14 juin 2026</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="card-body">
+      <h3>B — Split étapes + preview</h3>
+      <p>Liste d'étapes cliquables à gauche, preview téléphone à droite. Inclut "Back-office mariés" comme 5e étape. Montre la simplicité de gestion.</p>
+    </div>
+  </div>
+
+  <div class="card" data-choice="C" onclick="toggleSelect(this)">
+    <div class="card-image" style="padding:0">
+      <div class="demo-mock" style="gap:10px;">
+        <div class="section-label">Voir en vrai</div>
+        <div class="section-title">Une invitation<br><em>comme la vôtre</em></div>
+        <!-- Lien vers démo réelle + vignettes -->
+        <div style="display:flex;gap:12px;align-items:center;">
+          <div class="phone-mock" style="transform:rotate(-4deg);">
+            <div class="phone-screen">
+              <div style="font-size:7px;color:#882040;font-style:italic;font-family:Georgia,serif;text-align:center;">Sophie & Thomas</div>
+              <div style="font-size:6px;color:#aaa;text-align:center;margin-top:2px;">14 juin 2026</div>
+              <div style="width:36px;height:1px;background:rgba(136,32,64,0.2);margin:4px auto;"></div>
+              <div style="font-size:6px;color:#999;text-align:center;">Château de Versailles</div>
+            </div>
+          </div>
+          <div style="display:flex;flex-direction:column;gap:8px;">
+            <div style="background:#882040;color:#fdfbf7;padding:10px 16px;border-radius:8px;font-size:12px;font-weight:600;text-align:center;">Voir la démo live →</div>
+            <div style="font-size:11px;color:#6b7280;text-align:center;">Ouvrir une vraie invitation</div>
+          </div>
+        </div>
+        <!-- 3 vignettes thèmes -->
+        <div style="display:flex;gap:6px;margin-top:4px;">
+          <div style="width:56px;height:36px;background:linear-gradient(135deg,#fdf5f7,#f0d8dc);border-radius:4px;border:1px solid rgba(136,32,64,0.15);"></div>
+          <div style="width:56px;height:36px;background:linear-gradient(135deg,#f5f3ee,#e8e0d0);border-radius:4px;border:1px solid rgba(136,32,64,0.15);"></div>
+          <div style="width:56px;height:36px;background:linear-gradient(135deg,#f0f5fb,#dce8f5);border-radius:4px;border:1px solid rgba(136,32,64,0.15);"></div>
+        </div>
+      </div>
+    </div>
+    <div class="card-body">
+      <h3>C — CTA vers démo réelle</h3>
+      <p>Un gros bouton "Voir la démo live" qui ouvre une vraie invitation (page <code>/invitation/[weddingCode]</code>). Plus direct, moins de friction.</p>
+    </div>
+  </div>
+
+</div>
+
+<div class="section" style="margin-top:16px;padding:12px 16px;background:rgba(136,32,64,0.05);border-radius:8px;font-size:13px;color:#555;">
+  💡 <strong>Ma recommandation :</strong> B. Le split avec le back-office en 5e étape répond directement à l'objection "est-ce que c'est simple à gérer ?" — valeur ajoutée forte pour la conversion.
+</div>

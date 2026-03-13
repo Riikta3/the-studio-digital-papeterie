@@ -1,0 +1,190 @@
+<style>
+  .hero-mock {
+    height: 220px;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 8px;
+  }
+  /* Simule l'animation d'enveloppe avec un placeholder stylisé */
+  .envelope-bg {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, #e8ddd0 0%, #f5ede3 40%, #ddd0c4 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .envelope-shape {
+    width: 140px;
+    height: 96px;
+    position: relative;
+  }
+  .envelope-body {
+    width: 100%;
+    height: 100%;
+    background: #fdfbf7;
+    border: 1.5px solid rgba(136,32,64,0.25);
+    border-radius: 2px;
+    position: absolute;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.12);
+  }
+  .envelope-flap {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 0;
+    height: 0;
+    border-left: 70px solid transparent;
+    border-right: 70px solid transparent;
+    border-top: 52px solid rgba(136,32,64,0.15);
+  }
+  .envelope-seal {
+    position: absolute;
+    width: 22px;
+    height: 22px;
+    background: #882040;
+    border-radius: 50%;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -40%);
+    box-shadow: 0 2px 6px rgba(136,32,64,0.4);
+  }
+
+  .hero-text {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+    padding: 0 24px;
+  }
+  .hero-title {
+    font-family: 'Georgia', serif;
+    font-size: 20px;
+    font-weight: 500;
+    letter-spacing: -0.3px;
+    line-height: 1.15;
+  }
+  .hero-sub {
+    font-size: 10px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-top: 10px;
+    opacity: 0.55;
+  }
+  .cta-row {
+    display: flex;
+    gap: 8px;
+    margin-top: 14px;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+  .btn-primary {
+    padding: 7px 16px;
+    border-radius: 999px;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    white-space: nowrap;
+  }
+  .btn-ghost {
+    padding: 6px 12px;
+    font-size: 10px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    white-space: nowrap;
+    border-bottom: 1px solid currentColor;
+    padding-bottom: 2px;
+  }
+</style>
+
+<h2>Traitement de l'overlay — couleurs réelles du projet</h2>
+<p class="subtitle">Fond = animation d'enveloppe WebP. Quelle ambiance pour le Hero ?</p>
+
+<div class="cards">
+
+  <div class="card" data-choice="A" onclick="toggleSelect(this)">
+    <div class="card-image" style="padding:0">
+      <div class="hero-mock">
+        <div class="envelope-bg"></div>
+        <!-- overlay sombre -->
+        <div style="position:absolute;inset:0;background:linear-gradient(135deg,rgba(41,16,22,0.72) 0%,rgba(41,16,22,0.55) 50%,rgba(41,16,22,0.78) 100%);"></div>
+        <div style="position:absolute;inset:0;background:radial-gradient(ellipse at center,rgba(136,32,64,0.15) 0%,transparent 65%);"></div>
+        <div class="hero-text">
+          <div class="hero-title" style="color:#fdfbf7;text-shadow:0 2px 12px rgba(0,0,0,0.5);">
+            Le faire-part<br><em style="color:#c9876e;">réinventé au digital</em>
+          </div>
+          <div class="hero-sub" style="color:#fdfbf7;">Pour les amoureux</div>
+          <div class="cta-row">
+            <div class="btn-primary" style="background:#882040;color:#fdfbf7;">Créer mon invitation</div>
+            <div class="btn-ghost" style="color:rgba(253,251,247,0.7);border-color:rgba(253,251,247,0.35);">Voir une démo</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="card-body">
+      <h3>A — Nuit romantique</h3>
+      <p>Overlay bordeaux-noir 55–75%. Texte blanc, accent chaud. Dramatique et luxueux. Contraste maximal sur le CTA rose bordeaux.</p>
+    </div>
+  </div>
+
+  <div class="card" data-choice="B" onclick="toggleSelect(this)">
+    <div class="card-image" style="padding:0">
+      <div class="hero-mock">
+        <div class="envelope-bg"></div>
+        <!-- overlay crème radial -->
+        <div style="position:absolute;inset:0;background:radial-gradient(ellipse at center,rgba(253,251,247,0.0) 5%,rgba(253,251,247,0.88) 75%);"></div>
+        <div class="hero-text">
+          <div class="hero-title" style="color:#292929;">
+            Le faire-part<br><em style="color:#882040;">réinventé au digital</em>
+          </div>
+          <div class="hero-sub" style="color:#6b7280;">Pour les amoureux</div>
+          <div class="cta-row">
+            <div class="btn-primary" style="background:#882040;color:#fdfbf7;">Créer mon invitation</div>
+            <div class="btn-ghost" style="color:#882040;border-color:rgba(136,32,64,0.4);">Voir une démo</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="card-body">
+      <h3>B — Papier vaporeux</h3>
+      <p>Fade radial crème depuis les bords. L'enveloppe est visible au centre. Texte sombre sur fond clair. Cohérent avec le reste du site.</p>
+    </div>
+  </div>
+
+  <div class="card" data-choice="C" onclick="toggleSelect(this)">
+    <div class="card-image" style="padding:0">
+      <div class="hero-mock">
+        <div class="envelope-bg"></div>
+        <!-- gradient vertical sombre → crème -->
+        <div style="position:absolute;inset:0;background:linear-gradient(to bottom,rgba(41,16,22,0.82) 0%,rgba(41,16,22,0.40) 45%,rgba(253,251,247,0.92) 100%);"></div>
+        <div class="hero-text" style="margin-top:-30px;">
+          <div class="hero-title" style="color:#fdfbf7;text-shadow:0 1px 8px rgba(0,0,0,0.6);">
+            Le faire-part<br><em style="color:#e8a090;">réinventé au digital</em>
+          </div>
+          <div class="hero-sub" style="color:rgba(253,251,247,0.65);">Pour les amoureux</div>
+          <div class="cta-row">
+            <div class="btn-primary" style="background:#882040;color:#fdfbf7;">Créer mon invitation</div>
+            <div class="btn-ghost" style="color:rgba(253,251,247,0.7);border-color:rgba(253,251,247,0.35);">Voir une démo</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="card-body">
+      <h3>C — Fondu sombre → site</h3>
+      <p>Sombre en haut (texte blanc), fondu vers le crème du site en bas. Transition fluide vers la section suivante, pas de rupture visuelle.</p>
+    </div>
+  </div>
+
+</div>
+
+<div class="section" style="margin-top:20px;padding:14px 16px;background:rgba(136,32,64,0.06);border-radius:8px;border:1px solid rgba(136,32,64,0.15);">
+  <p class="label">Rappel couleurs projet</p>
+  <div style="display:flex;gap:10px;margin-top:8px;flex-wrap:wrap;">
+    <div style="display:flex;align-items:center;gap:6px;font-size:12px;"><div style="width:14px;height:14px;border-radius:3px;background:hsl(40,33%,98%);border:1px solid #ccc;"></div> background #FDFBF7</div>
+    <div style="display:flex;align-items:center;gap:6px;font-size:12px;"><div style="width:14px;height:14px;border-radius:3px;background:hsl(344,53%,35%);"></div> primary #882040</div>
+    <div style="display:flex;align-items:center;gap:6px;font-size:12px;"><div style="width:14px;height:14px;border-radius:3px;background:hsl(0,0%,16%);"></div> foreground #292929</div>
+    <div style="display:flex;align-items:center;gap:6px;font-size:12px;font-style:italic;"><div style="width:14px;height:14px;border-radius:3px;background:hsl(344,53%,35%);"></div> font: Cormorant Garamond</div>
+  </div>
+</div>

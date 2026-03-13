@@ -1,0 +1,114 @@
+<style>
+  .recap-row {
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+    padding: 14px 0;
+    border-bottom: 1px solid rgba(136,32,64,0.08);
+  }
+  .recap-row:last-child { border-bottom: none; }
+  .recap-num {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    background: #882040;
+    color: #fdfbf7;
+    font-size: 11px;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+  .recap-section { font-size: 10px; letter-spacing: 2px; text-transform: uppercase; color: #882040; margin-bottom: 3px; }
+  .recap-choice { font-family: Georgia, serif; font-size: 14px; font-weight: 500; color: #292929; }
+  .recap-detail { font-size: 11px; color: #888; margin-top: 3px; line-height: 1.5; }
+  .check { color: #882040; font-weight: 700; margin-right: 4px; }
+</style>
+
+<h2>Design validé — The Studio</h2>
+<p class="subtitle">Récapitulatif de tous tes choix. Prêt pour l'implémentation.</p>
+
+<div style="background:#fdfbf7;border-radius:10px;padding:16px 20px;border:1px solid rgba(136,32,64,0.12);">
+
+  <div class="recap-row">
+    <div class="recap-num">1</div>
+    <div>
+      <div class="recap-section">Hero — Fond</div>
+      <div class="recap-choice"><span class="check">✓</span> Overlay vaporeux crème</div>
+      <div class="recap-detail">Séquence WebP enveloppe en boucle · fade radial depuis les bords · texte sombre sur fond clair · cohérent avec le reste du site</div>
+    </div>
+  </div>
+
+  <div class="recap-row">
+    <div class="recap-num">2</div>
+    <div>
+      <div class="recap-section">Hero — CTAs</div>
+      <div class="recap-choice"><span class="check">✓</span> 2 boutons + scroll anchor discret</div>
+      <div class="recap-detail">"Créer mon invitation →" (pill bordeaux) · "Voir une démo" (outline) · "Découvrir les thèmes ↓" en scroll indicator en bas</div>
+    </div>
+  </div>
+
+  <div class="recap-row">
+    <div class="recap-num">3</div>
+    <div>
+      <div class="recap-section">Navbar</div>
+      <div class="recap-choice"><span class="check">✓</span> Minimaliste 3 liens</div>
+      <div class="recap-detail">Logo · Thèmes · Démo · Tarifs · Espace Mariés · CTA "Créer" · Pill avec backdrop-blur au scroll · Burger sur mobile</div>
+    </div>
+  </div>
+
+  <div class="recap-row">
+    <div class="recap-num">4</div>
+    <div>
+      <div class="recap-section">Démo Immédiate</div>
+      <div class="recap-choice"><span class="check">✓</span> CTA vers démo réelle</div>
+      <div class="recap-detail">Téléphone incliné + gros bouton "Voir la démo live →" qui ouvre <code>/invitation/[weddingCode]</code> · 3 vignettes de thèmes en dessous</div>
+    </div>
+  </div>
+
+  <div class="recap-row">
+    <div class="recap-num">5</div>
+    <div>
+      <div class="recap-section">Catalogue Thématique</div>
+      <div class="recap-choice"><span class="check">✓</span> Tabs d'ouverture + grille masonry</div>
+      <div class="recap-detail">Tabs soulignés : Tous · ✉ Enveloppe · ✨ Rideaux · 🚪 Portes · Grille masonry irrégulière style magazine · badge "Nouveau" sur certains thèmes</div>
+    </div>
+  </div>
+
+  <div class="recap-row">
+    <div class="recap-num">6</div>
+    <div>
+      <div class="recap-section">Comparatif Papier vs Digital</div>
+      <div class="recap-choice"><span class="check">✓</span> 2 cards prix + badge économie</div>
+      <div class="recap-detail">Card "Papier 860€" vs card "The Studio 149€" · Badge bordeaux "Économisez 711€" · ligne d'avantages en dessous (instantané, modifiable, RSVP, écolo)</div>
+    </div>
+  </div>
+
+  <div class="recap-row">
+    <div class="recap-num">7</div>
+    <div>
+      <div class="recap-section">Témoignages</div>
+      <div class="recap-choice"><span class="check">✓</span> Grande citation centrale en carrousel</div>
+      <div class="recap-detail">Guillemets décoratifs · citation pleine largeur · nom + date du mariage · étoiles · navigation par dots · badge "130+ invitations envoyées"</div>
+    </div>
+  </div>
+
+  <div class="recap-row">
+    <div class="recap-num">8</div>
+    <div>
+      <div class="recap-section">Footer</div>
+      <div class="recap-choice"><span class="check">✓</span> Fond bordeaux (#882040) structuré 3 colonnes</div>
+      <div class="recap-detail">Fond primary bordeaux · logo + tagline · réseaux sociaux · 3 colonnes (Produit, Mariés, Légal) · copyright en bas</div>
+    </div>
+  </div>
+
+</div>
+
+<div style="margin-top:16px;padding:14px 16px;background:rgba(136,32,64,0.06);border-radius:8px;border:1px solid rgba(136,32,64,0.15);">
+  <p class="label">Sections à implémenter (dans l'ordre)</p>
+  <div style="font-size:12px;color:#555;margin-top:8px;line-height:2;">
+    1. Navbar · 2. Hero · 3. Démo Immédiate · 4. Comment ça marche (3 étapes) · 5. Catalogue + filtres · 6. Comparatif prix · 7. Valeur ajoutée (5 cartes) · 8. Personnalisation sur-mesure · 9. Témoignages · 10. Footer
+  </div>
+</div>

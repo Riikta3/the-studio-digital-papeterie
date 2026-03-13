@@ -1,0 +1,234 @@
+<style>
+  .mock-section {
+    background: #fdfbf7;
+    border-radius: 10px;
+    padding: 20px 16px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 14px;
+    min-height: 200px;
+  }
+  .section-eyebrow {
+    font-size: 10px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: #882040;
+    font-family: Georgia, serif;
+  }
+  .section-title {
+    font-family: Georgia, serif;
+    font-size: 18px;
+    font-weight: 500;
+    color: #292929;
+    text-align: center;
+    line-height: 1.2;
+    margin-top: -6px;
+  }
+
+  /* Tableau */
+  .compare-table { width: 100%; border-collapse: collapse; font-size: 11px; }
+  .compare-table th {
+    padding: 8px 10px;
+    text-align: center;
+    font-size: 10px;
+    letter-spacing: 0.5px;
+  }
+  .compare-table td {
+    padding: 7px 10px;
+    border-top: 1px solid rgba(136,32,64,0.08);
+    text-align: center;
+  }
+  .col-studio { background: rgba(136,32,64,0.05); }
+  .col-studio th { color: #882040; font-weight: 700; }
+  .check { color: #882040; font-size: 13px; }
+  .cross { color: #ccc; font-size: 13px; }
+  .neutral { color: #aaa; font-size: 11px; }
+
+  /* Calculateur */
+  .calc-box {
+    width: 100%;
+    border: 1px solid rgba(136,32,64,0.15);
+    border-radius: 10px;
+    overflow: hidden;
+  }
+  .calc-header {
+    background: rgba(136,32,64,0.06);
+    padding: 8px 14px;
+    font-size: 10px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: #882040;
+    text-align: center;
+  }
+  .calc-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 8px 14px;
+    border-top: 1px solid rgba(136,32,64,0.08);
+    font-size: 11px;
+  }
+  .calc-label { color: #555; }
+  .calc-paper { color: #999; text-decoration: line-through; }
+  .calc-studio { color: #882040; font-weight: 700; }
+
+  /* Cards prix visuelles */
+  .price-cards { display: flex; gap: 10px; width: 100%; }
+  .price-card {
+    flex: 1;
+    border-radius: 10px;
+    padding: 14px 12px;
+    text-align: center;
+    border: 1px solid rgba(136,32,64,0.12);
+  }
+  .price-card.highlighted {
+    border-color: #882040;
+    background: rgba(136,32,64,0.04);
+  }
+  .price-tag { font-family: Georgia, serif; font-size: 22px; font-weight: 600; color: #292929; }
+  .price-tag.studio { color: #882040; }
+  .price-desc { font-size: 10px; color: #aaa; margin-top: 4px; }
+  .price-label { font-size: 10px; font-weight: 600; color: #555; margin-bottom: 6px; letter-spacing: 0.5px; text-transform: uppercase; }
+  .saving-badge {
+    background: #882040;
+    color: #fdfbf7;
+    font-size: 9px;
+    padding: 3px 8px;
+    border-radius: 999px;
+    margin-top: 8px;
+    display: inline-block;
+  }
+</style>
+
+<h2>Bloc Comparatif + Calculateur</h2>
+<p class="subtitle">Conversion clé — montrer que The Studio est moins cher ET mieux. Quel format ?</p>
+
+<div class="cards">
+
+  <div class="card" data-choice="A" onclick="toggleSelect(this)">
+    <div class="card-image" style="padding:0">
+      <div class="mock-section">
+        <div class="section-eyebrow">La comparaison</div>
+        <div class="section-title">Papier vs Digital</div>
+        <!-- Tableau comparatif -->
+        <table class="compare-table">
+          <thead>
+            <tr>
+              <th style="text-align:left;color:#aaa;">Critère</th>
+              <th>📄 Papier</th>
+              <th class="col-studio">✨ The Studio</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td style="text-align:left;color:#555;font-size:10px;">Vitesse d'envoi</td>
+              <td><span class="cross">✗</span> 3 semaines</td>
+              <td class="col-studio"><span class="check">✓</span> Instantané</td>
+            </tr>
+            <tr>
+              <td style="text-align:left;color:#555;font-size:10px;">Coût (200 invités)</td>
+              <td><span class="calc-paper">860€</span></td>
+              <td class="col-studio"><span class="calc-studio">149€</span></td>
+            </tr>
+            <tr>
+              <td style="text-align:left;color:#555;font-size:10px;">Modifiable</td>
+              <td><span class="cross">✗</span></td>
+              <td class="col-studio"><span class="check">✓</span> Illimité</td>
+            </tr>
+            <tr>
+              <td style="text-align:left;color:#555;font-size:10px;">Écologique</td>
+              <td><span class="cross">✗</span></td>
+              <td class="col-studio"><span class="check">✓</span> Zéro papier</td>
+            </tr>
+            <tr>
+              <td style="text-align:left;color:#555;font-size:10px;">RSVP intégré</td>
+              <td><span class="cross">✗</span></td>
+              <td class="col-studio"><span class="check">✓</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div class="card-body">
+      <h3>A — Tableau comparatif</h3>
+      <p>Tableau clair 3 colonnes. Factuel, rassurant. Facile à lire en scan rapide. Le coût s'affiche directement dans le tableau.</p>
+    </div>
+  </div>
+
+  <div class="card" data-choice="B" onclick="toggleSelect(this)">
+    <div class="card-image" style="padding:0">
+      <div class="mock-section">
+        <div class="section-eyebrow">Pour 200 invités</div>
+        <div class="section-title">La différence<br>qui compte</div>
+        <!-- 2 price cards + calculateur -->
+        <div class="price-cards">
+          <div class="price-card">
+            <div class="price-label">📄 Papier</div>
+            <div class="price-tag">860€</div>
+            <div class="price-desc">Impression + timbres<br>+ enveloppes</div>
+          </div>
+          <div class="price-card highlighted">
+            <div class="price-label" style="color:#882040;">✨ The Studio</div>
+            <div class="price-tag studio">149€</div>
+            <div class="price-desc">Tout inclus,<br>illimité</div>
+            <div class="saving-badge">Économisez 711€</div>
+          </div>
+        </div>
+        <!-- Mini liste d'avantages -->
+        <div style="font-size:10px;color:#555;text-align:center;line-height:1.8;">
+          ✓ Envoi instantané &nbsp;·&nbsp; ✓ Modifiable &nbsp;·&nbsp; ✓ RSVP intégré &nbsp;·&nbsp; ✓ Zéro papier
+        </div>
+      </div>
+    </div>
+    <div class="card-body">
+      <h3>B — Cards prix + badge économie</h3>
+      <p>2 grandes cards côte à côte avec le prix en gros. Badge "Économisez 711€" très visible. Plus émotionnel, plus impactant que le tableau.</p>
+    </div>
+  </div>
+
+  <div class="card" data-choice="C" onclick="toggleSelect(this)">
+    <div class="card-image" style="padding:0">
+      <div class="mock-section">
+        <div class="section-eyebrow">Calculateur</div>
+        <div class="section-title">Combien ça coûte<br>vraiment ?</div>
+        <!-- Slider + résultat -->
+        <div style="width:100%;padding:0 4px;">
+          <div style="display:flex;justify-content:space-between;font-size:10px;color:#aaa;margin-bottom:4px;">
+            <span>Nombre d'invités</span>
+            <span style="color:#882040;font-weight:600;">200 invités</span>
+          </div>
+          <!-- Fake slider -->
+          <div style="height:4px;background:rgba(136,32,64,0.15);border-radius:2px;position:relative;">
+            <div style="position:absolute;left:0;top:0;height:4px;width:65%;background:#882040;border-radius:2px;"></div>
+            <div style="position:absolute;left:63%;top:-5px;width:14px;height:14px;background:#882040;border-radius:50%;box-shadow:0 2px 6px rgba(136,32,64,0.4);"></div>
+          </div>
+        </div>
+        <div class="calc-box" style="width:100%;">
+          <div class="calc-header">Votre économie</div>
+          <div class="calc-row">
+            <span class="calc-label">📄 Papier traditionnel</span>
+            <span class="calc-paper">860€</span>
+          </div>
+          <div class="calc-row">
+            <span class="calc-label">✨ The Studio</span>
+            <span class="calc-studio">149€</span>
+          </div>
+          <div class="calc-row" style="background:rgba(136,32,64,0.05);">
+            <span style="font-size:11px;font-weight:600;color:#292929;">Vous économisez</span>
+            <span style="font-size:14px;font-weight:700;color:#882040;">711€ 🎉</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="card-body">
+      <h3>C — Calculateur interactif</h3>
+      <p>Slider pour ajuster le nombre d'invités, le calcul se met à jour en temps réel. Très engageant, crée un moment "wow" personnalisé.</p>
+    </div>
+  </div>
+
+</div>
+
+<div class="section" style="margin-top:16px;padding:12px 16px;background:rgba(136,32,64,0.05);border-radius:8px;font-size:13px;color:#555;">
+  💡 <strong>Ma recommandation :</strong> C. Le calculateur interactif est le format le plus engageant — chaque visiteur voit son économie personnalisée. Fort levier de conversion.
+</div>

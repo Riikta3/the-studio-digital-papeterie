@@ -1,0 +1,305 @@
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400;1,600&family=Inter:wght@300;400;500;600&display=swap');
+  :root { --cream:#FDFBF7; --primary:#882040; --fg:#292929; --muted:#6b7280; }
+
+  .phone {
+    width: 120px; height: 220px;
+    border-radius: 22px;
+    border: 2px solid rgba(136,32,64,0.25);
+    overflow: hidden;
+    box-shadow: 0 12px 40px rgba(0,0,0,0.18);
+    flex-shrink: 0;
+  }
+  .phone-inner {
+    width:100%; height:100%;
+    display:flex; flex-direction:column;
+    align-items:center; justify-content:center;
+    gap:5px; padding:14px;
+  }
+  .t-floral   { background:linear-gradient(160deg,#fdf5f7,#f0d8dc); --a:#882040; --f:'Cormorant Garamond',serif; }
+  .t-boho     { background:linear-gradient(160deg,#fdf8f5,#f0e0d5); --a:#b56b4a; --f:'Cormorant Garamond',serif; }
+  .t-royal    { background:linear-gradient(160deg,#1b2a41,#2d4566); --a:#c9a96e; --f:'Cormorant Garamond',serif; }
+  .t-minimalist { background:linear-gradient(160deg,#f8f8f8,#e0e0e0); --a:#222; --f:'Inter',sans-serif; }
+  .t-modern   { background:linear-gradient(160deg,#f3effe,#ddd0f5); --a:#7c3aed; --f:'Inter',sans-serif; }
+  .t-oriental { background:linear-gradient(160deg,#fdf5e8,#f0d8a0); --a:#b07020; --f:'Cormorant Garamond',serif; }
+  .t-champetre{ background:linear-gradient(160deg,#eef5e8,#d5e8c8); --a:#3a6e3a; --f:'Cormorant Garamond',serif; }
+
+  .phone-label { font-size:6px; text-transform:uppercase; letter-spacing:0.18em; color:var(--a,#882040); opacity:0.7; }
+  .phone-amp   { font-family:var(--f,'Cormorant Garamond',serif); font-size:24px; font-style:italic; color:var(--a,#882040); opacity:0.35; line-height:1; }
+  .phone-names { font-family:var(--f,'Cormorant Garamond',serif); font-size:11px; font-style:italic; color:var(--a,#882040); text-align:center; line-height:1.3; }
+  .phone-date  { font-size:7px; color:rgba(0,0,0,0.38); letter-spacing:0.1em; }
+
+  .mock-box {
+    background:var(--cream); border-radius:14px;
+    padding:16px 18px; border:1px solid rgba(136,32,64,0.1);
+  }
+  .eyebrow { font-family:'Cormorant Garamond',serif; font-style:italic; font-size:11px; color:var(--primary); letter-spacing:0.2em; text-transform:uppercase; margin:0 0 2px; }
+  .heading { font-family:'Cormorant Garamond',serif; font-size:19px; color:var(--fg); margin:0 0 12px; line-height:1.2; }
+  .heading em { color:var(--primary); font-style:italic; }
+  .step-label { font-size:8px; font-weight:700; text-transform:uppercase; letter-spacing:0.15em; color:var(--muted); margin-bottom:5px; }
+
+  /* Opening pills */
+  .open-pill {
+    display:inline-flex; align-items:center; gap:5px;
+    padding:5px 11px; border-radius:20px; font-size:9px; font-weight:600;
+    cursor:pointer; transition:all 0.15s; border:1px solid #e5e7eb;
+    color:var(--muted); background:#fff;
+  }
+  .open-pill.active { background:var(--primary); color:#fdfbf7; border-color:var(--primary); }
+
+  /* Theme swatches */
+  .swatch {
+    display:flex; flex-direction:column; align-items:center; gap:3px; cursor:pointer;
+  }
+  .swatch-dot {
+    width:30px; height:30px; border-radius:8px;
+    border:2px solid transparent; transition:all 0.15s;
+  }
+  .swatch-dot.active { border-color:var(--primary); transform:scale(1.12); box-shadow:0 0 0 3px rgba(136,32,64,0.15); }
+  .swatch-name { font-size:7px; color:var(--muted); font-weight:500; }
+  .swatch-name.active { color:var(--primary); font-weight:700; }
+
+  .cta-btn {
+    background:var(--primary); color:#fdfbf7;
+    font-size:9px; font-weight:700; padding:6px 14px;
+    border-radius:20px; display:inline-block; cursor:pointer;
+  }
+</style>
+
+<h2>Redesign — 3 niveaux de choix</h2>
+<p class="subtitle">Ouverture indépendante du thème. 3 layouts différents — cliquez pour choisir.</p>
+
+<div class="cards">
+
+  <!-- ===== OPTION A : Bloc configurateur (sélecteurs gauche, téléphone droite) ===== -->
+  <div class="card" data-choice="A" onclick="toggleSelect(this)">
+    <div class="card-image" style="padding:0;background:#fdfbf7;">
+      <div style="padding:14px 16px;">
+        <div class="mock-box">
+          <div class="eyebrow">Créez votre invitation</div>
+          <div class="heading">Choisissez <em>votre style</em></div>
+
+          <div style="display:flex;gap:14px;align-items:flex-start;">
+
+            <!-- Sélecteurs -->
+            <div style="flex:1;display:flex;flex-direction:column;gap:12px;">
+
+              <!-- Étape 1 : Ouverture -->
+              <div>
+                <div class="step-label">① Animation d'ouverture</div>
+                <div style="display:flex;gap:5px;flex-wrap:wrap;">
+                  <div class="open-pill active">✉ Enveloppe</div>
+                  <div class="open-pill">✨ Rideaux</div>
+                  <div class="open-pill">🚪 Portes</div>
+                </div>
+              </div>
+
+              <!-- Étape 2 : Thème -->
+              <div>
+                <div class="step-label">② Thème du site</div>
+                <div style="display:flex;gap:6px;flex-wrap:wrap;">
+                  <div class="swatch">
+                    <div class="swatch-dot active" style="background:linear-gradient(135deg,#fdf5f7,#f0d8dc);"></div>
+                    <div class="swatch-name active">Floral</div>
+                  </div>
+                  <div class="swatch">
+                    <div class="swatch-dot" style="background:linear-gradient(135deg,#fdf8f5,#f0e0d5);"></div>
+                    <div class="swatch-name">Bohème</div>
+                  </div>
+                  <div class="swatch">
+                    <div class="swatch-dot" style="background:linear-gradient(135deg,#1b2a41,#2d4566);"></div>
+                    <div class="swatch-name">Royal</div>
+                  </div>
+                  <div class="swatch">
+                    <div class="swatch-dot" style="background:linear-gradient(135deg,#fdf5e8,#f0d8a0);"></div>
+                    <div class="swatch-name">Oriental</div>
+                  </div>
+                  <div class="swatch">
+                    <div class="swatch-dot" style="background:linear-gradient(135deg,#f8f8f8,#e0e0e0);"></div>
+                    <div class="swatch-name">Minimal</div>
+                  </div>
+                  <div class="swatch">
+                    <div class="swatch-dot" style="background:linear-gradient(135deg,#eef5e8,#d5e8c8);"></div>
+                    <div class="swatch-name">Champêtre</div>
+                  </div>
+                  <div class="swatch">
+                    <div class="swatch-dot" style="background:linear-gradient(135deg,#f3effe,#ddd0f5);"></div>
+                    <div class="swatch-name">Modern</div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="cta-btn" style="text-align:center;">Voir la démo live →</div>
+            </div>
+
+            <!-- Téléphone -->
+            <div style="display:flex;flex-direction:column;align-items:center;gap:6px;">
+              <div class="phone" style="transform:rotate(-3deg);">
+                <div class="phone-inner t-floral">
+                  <div class="phone-label">Nous nous marions</div>
+                  <div class="phone-amp">&</div>
+                  <div class="phone-names">Sophie<br>& Thomas</div>
+                  <div class="phone-date">14 juin 2026</div>
+                </div>
+              </div>
+              <div style="font-size:7px;color:var(--muted);text-align:center;max-width:80px;line-height:1.5;">Aperçu mis à jour en live</div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="card-body">
+      <h3>A — Configurateur compact (2 cols)</h3>
+      <p>Sélecteurs à gauche, téléphone à droite. Tout visible d'un coup. Style outil de configuration.</p>
+    </div>
+  </div>
+
+  <!-- ===== OPTION B : Étapes verticales centrées, téléphone flottant ===== -->
+  <div class="card" data-choice="B" onclick="toggleSelect(this)">
+    <div class="card-image" style="padding:0;background:#fdfbf7;">
+      <div style="padding:14px 16px;">
+        <div class="mock-box" style="text-align:center;">
+          <div class="eyebrow">Votre invitation</div>
+          <div class="heading" style="margin-bottom:16px;">Créez <em>votre style</em></div>
+
+          <!-- Ligne : ouverture + téléphone + thème -->
+          <div style="display:flex;align-items:center;justify-content:center;gap:14px;">
+
+            <!-- Étape 1 -->
+            <div style="display:flex;flex-direction:column;gap:5px;align-items:flex-end;">
+              <div class="step-label" style="text-align:right;">① Ouverture</div>
+              <div class="open-pill active" style="justify-content:flex-end;">✉ Enveloppe</div>
+              <div class="open-pill" style="justify-content:flex-end;">✨ Rideaux</div>
+              <div class="open-pill" style="justify-content:flex-end;">🚪 Portes</div>
+            </div>
+
+            <!-- Téléphone centré -->
+            <div style="display:flex;flex-direction:column;align-items:center;gap:6px;">
+              <div class="phone">
+                <div class="phone-inner t-floral">
+                  <div class="phone-label">Nous nous marions</div>
+                  <div class="phone-amp">&</div>
+                  <div class="phone-names">Sophie<br>& Thomas</div>
+                  <div class="phone-date">14 juin 2026</div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Étape 2 -->
+            <div style="display:flex;flex-direction:column;gap:5px;align-items:flex-start;">
+              <div class="step-label">② Thème</div>
+              <div style="display:grid;grid-template-columns:1fr 1fr;gap:4px;">
+                <div class="swatch"><div class="swatch-dot active" style="background:linear-gradient(135deg,#fdf5f7,#f0d8dc);width:24px;height:24px;"></div><div class="swatch-name active">Floral</div></div>
+                <div class="swatch"><div class="swatch-dot" style="background:linear-gradient(135deg,#fdf8f5,#f0e0d5);width:24px;height:24px;"></div><div class="swatch-name">Bohème</div></div>
+                <div class="swatch"><div class="swatch-dot" style="background:linear-gradient(135deg,#1b2a41,#2d4566);width:24px;height:24px;"></div><div class="swatch-name">Royal</div></div>
+                <div class="swatch"><div class="swatch-dot" style="background:linear-gradient(135deg,#fdf5e8,#f0d8a0);width:24px;height:24px;"></div><div class="swatch-name">Oriental</div></div>
+                <div class="swatch"><div class="swatch-dot" style="background:linear-gradient(135deg,#f8f8f8,#e0e0e0);width:24px;height:24px;"></div><div class="swatch-name">Minimal</div></div>
+                <div class="swatch"><div class="swatch-dot" style="background:linear-gradient(135deg,#eef5e8,#d5e8c8);width:24px;height:24px;"></div><div class="swatch-name">Champêtre</div></div>
+              </div>
+            </div>
+
+          </div>
+
+          <div style="margin-top:14px;" class="cta-btn">Voir la démo live →</div>
+        </div>
+      </div>
+    </div>
+    <div class="card-body">
+      <h3>B — Symétrique (ouverture ← téléphone → thème)</h3>
+      <p>Téléphone centré, ouvertures à gauche, thèmes à droite. Visuel fort, équilibré.</p>
+    </div>
+  </div>
+
+  <!-- ===== OPTION C : Étapes séquentielles avec grande grille de thèmes ===== -->
+  <div class="card" data-choice="C" onclick="toggleSelect(this)">
+    <div class="card-image" style="padding:0;background:#fdfbf7;">
+      <div style="padding:14px 16px;">
+        <div class="mock-box">
+          <div class="eyebrow">Créez votre invitation</div>
+          <div class="heading">Trouvez <em>votre style</em></div>
+
+          <!-- Step 1 : ouverture (grande cards) -->
+          <div class="step-label">① Choisissez votre animation d'intro</div>
+          <div style="display:flex;gap:6px;margin-bottom:12px;">
+            <div style="flex:1;border-radius:10px;background:#882040;padding:8px 6px;text-align:center;cursor:pointer;">
+              <div style="font-size:16px;margin-bottom:3px;">✉</div>
+              <div style="font-size:8px;font-weight:700;color:#fdfbf7;">Enveloppe</div>
+              <div style="font-size:7px;color:rgba(255,255,255,0.6);margin-top:2px;">L'enveloppe s'ouvre</div>
+            </div>
+            <div style="flex:1;border-radius:10px;border:1px solid #e5e7eb;padding:8px 6px;text-align:center;cursor:pointer;">
+              <div style="font-size:16px;margin-bottom:3px;">✨</div>
+              <div style="font-size:8px;font-weight:600;color:#888;">Rideaux</div>
+              <div style="font-size:7px;color:#bbb;margin-top:2px;">Le rideau se lève</div>
+            </div>
+            <div style="flex:1;border-radius:10px;border:1px solid #e5e7eb;padding:8px 6px;text-align:center;cursor:pointer;">
+              <div style="font-size:16px;margin-bottom:3px;">🚪</div>
+              <div style="font-size:8px;font-weight:600;color:#888;">Portes</div>
+              <div style="font-size:7px;color:#bbb;margin-top:2px;">Les portes s'ouvrent</div>
+            </div>
+          </div>
+
+          <!-- Step 2 : grille thèmes + téléphone côte à côte -->
+          <div class="step-label">② Choisissez votre thème</div>
+          <div style="display:flex;gap:10px;align-items:flex-start;">
+
+            <!-- Grille thèmes -->
+            <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:5px;flex:1;">
+              <div style="border-radius:8px;overflow:hidden;border:2px solid #882040;cursor:pointer;">
+                <div style="height:28px;background:linear-gradient(135deg,#fdf5f7,#f0d8dc);"></div>
+                <div style="padding:2px 4px;background:#fff;font-size:7px;font-weight:600;color:#882040;">Floral</div>
+              </div>
+              <div style="border-radius:8px;overflow:hidden;border:1px solid #e5e7eb;cursor:pointer;">
+                <div style="height:28px;background:linear-gradient(135deg,#fdf8f5,#f0e0d5);"></div>
+                <div style="padding:2px 4px;background:#fff;font-size:7px;color:#888;">Bohème</div>
+              </div>
+              <div style="border-radius:8px;overflow:hidden;border:1px solid #e5e7eb;cursor:pointer;">
+                <div style="height:28px;background:linear-gradient(135deg,#1b2a41,#2d4566);"></div>
+                <div style="padding:2px 4px;background:#fff;font-size:7px;color:#888;">Royal</div>
+              </div>
+              <div style="border-radius:8px;overflow:hidden;border:1px solid #e5e7eb;cursor:pointer;">
+                <div style="height:28px;background:linear-gradient(135deg,#fdf5e8,#f0d8a0);"></div>
+                <div style="padding:2px 4px;background:#fff;font-size:7px;color:#888;">Oriental</div>
+              </div>
+              <div style="border-radius:8px;overflow:hidden;border:1px solid #e5e7eb;cursor:pointer;">
+                <div style="height:28px;background:linear-gradient(135deg,#f8f8f8,#e0e0e0);"></div>
+                <div style="padding:2px 4px;background:#fff;font-size:7px;color:#888;">Minimal</div>
+              </div>
+              <div style="border-radius:8px;overflow:hidden;border:1px solid #e5e7eb;cursor:pointer;">
+                <div style="height:28px;background:linear-gradient(135deg,#eef5e8,#d5e8c8);"></div>
+                <div style="padding:2px 4px;background:#fff;font-size:7px;color:#888;">Champêtre</div>
+              </div>
+              <div style="border-radius:8px;overflow:hidden;border:1px solid #e5e7eb;cursor:pointer;">
+                <div style="height:28px;background:linear-gradient(135deg,#f3effe,#ddd0f5);"></div>
+                <div style="padding:2px 4px;background:#fff;font-size:7px;color:#888;">Modern</div>
+              </div>
+              <div style="border-radius:8px;overflow:hidden;border:1px solid #e5e7eb;cursor:pointer;">
+                <div style="height:28px;background:linear-gradient(135deg,#f5f3ee,#e0d0c0);"></div>
+                <div style="padding:2px 4px;background:#fff;font-size:7px;color:#888;">Voyage</div>
+              </div>
+            </div>
+
+            <!-- Téléphone -->
+            <div style="display:flex;flex-direction:column;align-items:center;gap:5px;">
+              <div class="phone" style="width:80px;height:148px;border-radius:14px;transform:rotate(-2deg);">
+                <div class="phone-inner t-floral">
+                  <div class="phone-label">Nous nous marions</div>
+                  <div class="phone-amp" style="font-size:18px;">&</div>
+                  <div class="phone-names" style="font-size:9px;">Sophie<br>& Thomas</div>
+                  <div class="phone-date" style="font-size:6px;">14 juin 2026</div>
+                </div>
+              </div>
+              <div class="cta-btn" style="font-size:7px;padding:4px 8px;">Voir la démo →</div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="card-body">
+      <h3>C — Séquentiel (grandes cards ouverture + grille thèmes)</h3>
+      <p>Étape 1 : 3 grandes cards d'animation avec description. Étape 2 : grille de thèmes + téléphone à droite.</p>
+    </div>
+  </div>
+
+</div>

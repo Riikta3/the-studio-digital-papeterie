@@ -1,0 +1,105 @@
+<style>
+  .mock-section {
+    background: #fdfbf7;
+    border-radius: 10px;
+    overflow: hidden;
+    min-height: 200px;
+  }
+  .footer-logo { font-family: Georgia, serif; font-size: 15px; font-weight: 500; }
+  .footer-col-title { font-size: 10px; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 8px; }
+  .footer-link { font-size: 11px; line-height: 2; display: block; }
+  .footer-grid { display: grid; grid-template-columns: 1.5fr 1fr 1fr; gap: 16px; width: 100%; }
+  .social-icon { width: 26px; height: 26px; border-radius: 50%; border: 1px solid; display: flex; align-items: center; justify-content: center; font-size: 11px; }
+  .footer-social { display: flex; gap: 8px; }
+</style>
+
+<h2>Footer — Couleurs inversées</h2>
+<p class="subtitle">Structure A (3 colonnes) avec fond crème et accents bordeaux. Sélectionne ta préférence.</p>
+
+<div class="cards">
+
+  <div class="card" data-choice="A" onclick="toggleSelect(this)">
+    <div class="card-image" style="padding:0">
+      <div class="mock-section">
+        <div style="background:#fdfbf7;padding:22px 20px;display:flex;flex-direction:column;gap:16px;border-top:2px solid rgba(136,32,64,0.15);">
+          <div style="display:flex;justify-content:space-between;align-items:flex-start;">
+            <div>
+              <div class="footer-logo" style="color:#292929;">The <span style="color:#882040;">Studio</span></div>
+              <div style="font-size:11px;color:#aaa;font-style:italic;font-family:Georgia,serif;margin-top:4px;max-width:160px;">Le faire-part réinventé au digital.</div>
+            </div>
+            <div class="footer-social">
+              <div class="social-icon" style="border-color:rgba(136,32,64,0.25);color:#882040;">in</div>
+              <div class="social-icon" style="border-color:rgba(136,32,64,0.25);color:#882040;">ig</div>
+            </div>
+          </div>
+          <div class="footer-grid" style="border-top:1px solid rgba(136,32,64,0.1);padding-top:14px;">
+            <div>
+              <div class="footer-col-title" style="color:#882040;">Produit</div>
+              <span class="footer-link" style="color:#555;">Thèmes</span>
+              <span class="footer-link" style="color:#555;">Démo</span>
+              <span class="footer-link" style="color:#555;">Tarifs</span>
+            </div>
+            <div>
+              <div class="footer-col-title" style="color:#882040;">Mariés</div>
+              <span class="footer-link" style="color:#555;">Se connecter</span>
+              <span class="footer-link" style="color:#555;">Sur-mesure</span>
+            </div>
+            <div>
+              <div class="footer-col-title" style="color:#882040;">Légal</div>
+              <span class="footer-link" style="color:#555;">CGV</span>
+              <span class="footer-link" style="color:#555;">Confidentialité</span>
+            </div>
+          </div>
+          <div style="border-top:1px solid rgba(136,32,64,0.1);padding-top:10px;font-size:9px;color:#bbb;text-align:center;">© 2026 The Studio · Fait avec ♥ en France</div>
+        </div>
+      </div>
+    </div>
+    <div class="card-body">
+      <h3>A — Crème + accents bordeaux</h3>
+      <p>Fond crème (#FDFBF7), titres bordeaux, liens gris. Cohérent avec le reste du site. Séparé par une fine bordure bordeaux en haut.</p>
+    </div>
+  </div>
+
+  <div class="card" data-choice="B" onclick="toggleSelect(this)">
+    <div class="card-image" style="padding:0">
+      <div class="mock-section">
+        <div style="background:#f5ede3;padding:22px 20px;display:flex;flex-direction:column;gap:16px;border-top:2px solid rgba(136,32,64,0.2);">
+          <div style="display:flex;justify-content:space-between;align-items:flex-start;">
+            <div>
+              <div class="footer-logo" style="color:#292929;">The <span style="color:#882040;">Studio</span></div>
+              <div style="font-size:11px;color:#9a7a65;font-style:italic;font-family:Georgia,serif;margin-top:4px;max-width:160px;">Le faire-part réinventé au digital.</div>
+            </div>
+            <div class="footer-social">
+              <div class="social-icon" style="border-color:rgba(136,32,64,0.3);color:#882040;">in</div>
+              <div class="social-icon" style="border-color:rgba(136,32,64,0.3);color:#882040;">ig</div>
+            </div>
+          </div>
+          <div class="footer-grid" style="border-top:1px solid rgba(136,32,64,0.12);padding-top:14px;">
+            <div>
+              <div class="footer-col-title" style="color:#882040;">Produit</div>
+              <span class="footer-link" style="color:#6b5a50;">Thèmes</span>
+              <span class="footer-link" style="color:#6b5a50;">Démo</span>
+              <span class="footer-link" style="color:#6b5a50;">Tarifs</span>
+            </div>
+            <div>
+              <div class="footer-col-title" style="color:#882040;">Mariés</div>
+              <span class="footer-link" style="color:#6b5a50;">Se connecter</span>
+              <span class="footer-link" style="color:#6b5a50;">Sur-mesure</span>
+            </div>
+            <div>
+              <div class="footer-col-title" style="color:#882040;">Légal</div>
+              <span class="footer-link" style="color:#6b5a50;">CGV</span>
+              <span class="footer-link" style="color:#6b5a50;">Confidentialité</span>
+            </div>
+          </div>
+          <div style="border-top:1px solid rgba(136,32,64,0.1);padding-top:10px;font-size:9px;color:#b0967e;text-align:center;">© 2026 The Studio · Fait avec ♥ en France</div>
+        </div>
+      </div>
+    </div>
+    <div class="card-body">
+      <h3>B — Sable chaud + bordeaux</h3>
+      <p>Fond légèrement plus chaud (#F5EDE3), tons terre. Donne un aspect plus chaleureux et "papeterie artisanale".</p>
+    </div>
+  </div>
+
+</div>
