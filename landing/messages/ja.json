@@ -146,7 +146,9 @@
     "themeChampetre": "Champêtre",
     "themeModern": "Modern",
     "themeVoyage": "Voyage",
-    "ctaButton": "Voir la démo live",
+    "ctaHint": "実際の招待状を見てみませんか？",
+    "ctaButton": "実際の招待状を見る",
+    "ctaLive": "ライブデモ",
     "phoneCaption": "Aperçu en live selon votre sélection"
   },
   "CookieConsent": {

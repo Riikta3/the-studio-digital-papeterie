@@ -147,7 +147,9 @@
     "themeChampetre": "Champêtre",
     "themeModern": "Modern",
     "themeVoyage": "Voyage",
-    "ctaButton": "Voir la démo live",
+    "ctaHint": "¿Quieres ver el resultado final?",
+    "ctaButton": "Ver una invitación real",
+    "ctaLive": "demo en vivo",
     "phoneCaption": "Aperçu en live selon votre sélection"
   },
   "CookieConsent": {

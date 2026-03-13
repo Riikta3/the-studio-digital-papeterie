@@ -67,7 +67,9 @@
     "themeChampetre": "Champêtre",
     "themeModern": "Modern",
     "themeVoyage": "Voyage",
-    "ctaButton": "Voir la démo live",
+    "ctaHint": "Curieux de voir le résultat final ?",
+    "ctaButton": "Voir le résultat",
+    "ctaLive": "démo live",
     "phoneCaption": "Aperçu en live selon votre sélection"
   },
   "Features": {
