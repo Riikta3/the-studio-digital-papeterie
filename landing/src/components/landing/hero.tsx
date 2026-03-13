@@ -119,7 +119,7 @@ export function Hero() {
       </div>
 
       {/* Scroll anchor — Découvrir les thèmes */}
-      <div className="absolute bottom-12 left-1/2 -translate-x-1/2">
+      <div className="hidden sm:block absolute bottom-12 left-1/2 -translate-x-1/2">
         <motion.div
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
