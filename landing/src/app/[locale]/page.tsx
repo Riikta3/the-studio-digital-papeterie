@@ -1,4 +1,5 @@
 import { HowItWorks } from "@/components/landing/how-it-works";
+import { ProductDemo } from "@/components/landing/product-demo";
 import { Catalogue } from "@/components/landing/catalogue";
 import { PricingComparison } from "@/components/landing/pricing-comparison";
 import { ValueCards } from "@/components/landing/value-cards";
@@ -14,6 +15,7 @@ export default function Home() {
     <main className="min-h-screen w-full relative">
       <Navbar />
       <Hero />
+      <ProductDemo />
       <HowItWorks />
       <Catalogue />
       <PricingComparison />
