@@ -29,9 +29,11 @@ const lightboxVariants = {
 export function GalleryModule({
   weddingId,
   config,
+  isDemo = false,
 }: {
   weddingId: string;
   config?: Record<string, any> | null;
+  isDemo?: boolean;
 }) {
   const rawImages: string[] =
     config?.images && Array.isArray(config.images) && config.images.length > 0
@@ -136,8 +138,8 @@ export function GalleryModule({
 
           {/* Main Image */}
           <div
-            className='relative w-full aspect-[4/3] md:aspect-[16/9] rounded-[2rem] overflow-hidden bg-card border border-border shadow-2xl cursor-zoom-in'
-            onClick={() => setLightboxOpen(true)}
+            className={`relative w-full aspect-[4/3] md:aspect-[16/9] rounded-[2rem] overflow-hidden bg-card border border-border shadow-2xl ${isDemo ? "cursor-default" : "cursor-zoom-in"}`}
+            onClick={() => !isDemo && setLightboxOpen(true)}
           >
             <AnimatePresence initial={false} custom={direction} mode='popLayout'>
               <motion.div
@@ -241,8 +243,8 @@ export function GalleryModule({
         )}
       </motion.div>
 
-      {/* Lightbox — portalisé sur document.body */}
-      {lightboxOpen &&
+      {/* Lightbox — portalisé sur document.body (désactivé en mode démo) */}
+      {!isDemo && lightboxOpen &&
         createPortal(
           <AnimatePresence>
             <motion.div

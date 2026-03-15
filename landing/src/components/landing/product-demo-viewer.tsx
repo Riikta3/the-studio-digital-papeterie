@@ -119,8 +119,7 @@ function MobileFrame({
           <iframe
             ref={iframeRef}
             src={iframeUrl}
-            className="border-none block"
-            style={{ width: "100%", height: 560, zoom: 276 / 390 }}
+            className="border-none block w-full h-full"
             title={`Démo ${theme}`}
             onLoad={onLoad}
           />
@@ -130,24 +129,48 @@ function MobileFrame({
   );
 }
 
+const DESKTOP_VIEWPORT = 1024;
+const DESKTOP_SCREEN_H = 420;
+
 function DesktopFrame({
   iframeUrl,
   iframeRef,
   theme,
   loading,
   onLoad,
+  onScaleChange,
 }: {
   iframeUrl: string;
   iframeRef: React.RefObject<HTMLIFrameElement | null>;
   theme: string;
   loading: boolean;
   onLoad: () => void;
+  onScaleChange?: (scale: number) => void;
 }) {
+  const wrapperRef = useRef<HTMLDivElement>(null);
+  const [screenW, setScreenW] = useState(0);
   const urlPath = iframeUrl.split("/invitation/")[1]?.split("?")[0] || "";
   const displayUrl = `thestudio.wedding/invitation/${urlPath}`;
 
+  useEffect(() => {
+    const el = wrapperRef.current;
+    if (!el) return;
+    const ro = new ResizeObserver(() => {
+      setScreenW(el.offsetWidth);
+    });
+    ro.observe(el);
+    setScreenW(el.offsetWidth);
+    return () => ro.disconnect();
+  }, []);
+
+  const scale = screenW > 0 ? screenW / DESKTOP_VIEWPORT : 1;
+
+  useEffect(() => {
+    if (screenW > 0) onScaleChange?.(scale);
+  }, [scale, screenW, onScaleChange]);
+
   return (
-    <div>
+    <div ref={wrapperRef}>
       <div
         style={{
           background: "#1c1c1e",
@@ -164,7 +187,7 @@ function DesktopFrame({
             <span className="text-[8px] text-white/35 font-mono truncate">{displayUrl}</span>
           </div>
         </div>
-        <div className="rounded-b-[6px] overflow-hidden bg-background relative border border-[#3a3a3c]" style={{ width: 304, height: 480 }}>
+        <div className="rounded-b-[6px] overflow-hidden bg-background relative border border-[#3a3a3c]" style={{ height: DESKTOP_SCREEN_H }}>
           {loading && (
             <div className="absolute inset-0 bg-background z-10 flex items-center justify-center">
               <div className="w-8 h-8 border border-primary/30 border-t-primary rounded-full animate-spin" />
@@ -173,15 +196,14 @@ function DesktopFrame({
           <iframe
             ref={iframeRef}
             src={iframeUrl}
-            className="border-none block"
-            style={{ width: "100%", height: 480, zoom: 304 / 1024 }}
+            className="border-none block w-full h-full"
             title={`Démo ${theme}`}
             onLoad={onLoad}
           />
         </div>
       </div>
-      <div className="mx-auto" style={{ width: 120, height: 18, background: "linear-gradient(180deg, #3a3a3c, #2a2a2c)", clipPath: "polygon(10% 0%, 90% 0%, 100% 100%, 0% 100%)" }} />
-      <div className="mx-auto" style={{ width: 320, height: 8, background: "linear-gradient(180deg, #3a3a3c, #2a2a2c)", borderRadius: "0 0 4px 4px", boxShadow: "0 2px 8px rgba(0,0,0,0.2)" }} />
+      <div className="mx-auto" style={{ width: Math.round(screenW * 0.35), height: 18, background: "linear-gradient(180deg, #3a3a3c, #2a2a2c)", clipPath: "polygon(10% 0%, 90% 0%, 100% 100%, 0% 100%)" }} />
+      <div className="mx-auto" style={{ width: screenW + 16, height: 8, background: "linear-gradient(180deg, #3a3a3c, #2a2a2c)", borderRadius: "0 0 4px 4px", boxShadow: "0 2px 8px rgba(0,0,0,0.2)" }} />
     </div>
   );
 }
@@ -193,24 +215,32 @@ export function ProductDemoViewer() {
   const [device, setDevice] = useState<"mobile" | "desktop">("mobile");
   const [iframeLoading, setIframeLoading] = useState(true);
   const [fullscreen, setFullscreen] = useState(false);
+  const [desktopScale, setDesktopScale] = useState(1);
   const iframeRef = useRef<HTMLIFrameElement>(null);
   const fullscreenIframeRef = useRef<HTMLIFrameElement>(null);
 
   const iframeUrl = `/fr/invitation/${DEMO_CODES[activeAnimation]}?demo=true&device=${device}`;
 
-  const sendTheme = useCallback((theme: ThemeKey, animation: AnimationKey, ref?: React.RefObject<HTMLIFrameElement | null>) => {
+  const sendTheme = useCallback((theme: ThemeKey, animation: AnimationKey, ref?: React.RefObject<HTMLIFrameElement | null>, desktopScale?: number) => {
     const iframe = (ref ?? iframeRef).current;
     if (!iframe?.contentWindow) return;
     iframe.contentWindow.postMessage(
       {
         type: "SET_THEME",
         theme,
+        device,
         heroAsset: THEME_HERO_ASSETS[theme],
         animationSequence: ANIMATION_SEQUENCES[animation],
       },
       window.location.origin
     );
-  }, []);
+    if (desktopScale !== undefined) {
+      iframe.contentWindow.postMessage(
+        { type: "SET_DESKTOP_SCALE", scale: desktopScale },
+        window.location.origin
+      );
+    }
+  }, [device]);
 
   // Lock body scroll when fullscreen is open
   useEffect(() => {
@@ -234,14 +264,16 @@ export function ProductDemoViewer() {
       prevAnimationRef.current = activeAnimation;
       return; // animation change → iframe reloads → handleIframeLoad will send theme
     }
-    const timeout = setTimeout(() => sendTheme(activeTheme, activeAnimation), 300);
+    const scale = device === "desktop" ? desktopScale : undefined;
+    const timeout = setTimeout(() => sendTheme(activeTheme, activeAnimation, undefined, scale), 300);
     return () => clearTimeout(timeout);
-  }, [activeTheme, activeAnimation, sendTheme]);
+  }, [activeTheme, activeAnimation, sendTheme, device, desktopScale]);
 
   const handleIframeLoad = useCallback(() => {
     setIframeLoading(false);
-    setTimeout(() => sendTheme(activeTheme, activeAnimation), 100);
-  }, [sendTheme, activeTheme, activeAnimation]);
+    const scale = device === "desktop" ? desktopScale : undefined;
+    setTimeout(() => sendTheme(activeTheme, activeAnimation, undefined, scale), 100);
+  }, [sendTheme, activeTheme, activeAnimation, device, desktopScale]);
 
   return (
     <div>
@@ -320,13 +352,25 @@ export function ProductDemoViewer() {
           onLoad={handleIframeLoad}
         />
       ) : (
-        <DesktopFrame
-          iframeUrl={iframeUrl}
-          iframeRef={iframeRef}
-          theme={THEME_LABELS[activeTheme]}
-          loading={iframeLoading}
-          onLoad={handleIframeLoad}
-        />
+        <div className="max-w-3xl mx-auto w-full">
+          <DesktopFrame
+            iframeUrl={iframeUrl}
+            iframeRef={iframeRef}
+            theme={THEME_LABELS[activeTheme]}
+            loading={iframeLoading}
+            onLoad={handleIframeLoad}
+            onScaleChange={(s) => {
+              setDesktopScale(s);
+              // If iframe already loaded, push the scale immediately
+              if (!iframeLoading && iframeRef.current?.contentWindow) {
+                iframeRef.current.contentWindow.postMessage(
+                  { type: "SET_DESKTOP_SCALE", scale: s },
+                  window.location.origin
+                );
+              }
+            }}
+          />
+        </div>
       )}
 
       {/* Device toggle + fullscreen — below the frame */}
@@ -372,7 +416,7 @@ export function ProductDemoViewer() {
         <div className="fixed inset-0 z-[9998] bg-black/80 backdrop-blur-sm flex items-center justify-center">
           <button
             onClick={() => setFullscreen(false)}
-            className="absolute top-4 right-4 z-10 w-10 h-10 rounded-full bg-white/10 hover:bg-white/20 border border-white/20 flex items-center justify-center text-white transition-colors"
+            className="absolute top-4 right-4 z-10 w-10 h-10 rounded-full bg-zinc-900 hover:bg-zinc-800 border border-zinc-700 flex items-center justify-center text-white shadow-lg transition-colors"
           >
             <X className="w-5 h-5" />
           </button>

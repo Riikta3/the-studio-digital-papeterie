@@ -54,11 +54,10 @@ export function HeroBackground({
     const canvas = canvasRef.current;
     if (!canvas) return;
 
-    // Size canvas to its actual rendered size, redraw on resize
+    // Size canvas to its layout size (offsetWidth/Height), unaffected by CSS transforms
     const sizeCanvas = () => {
-      const rect = canvas.getBoundingClientRect();
-      const w = rect.width || canvas.offsetWidth || window.innerWidth;
-      const h = rect.height || canvas.offsetHeight || window.innerHeight;
+      const w = canvas.offsetWidth || window.innerWidth;
+      const h = canvas.offsetHeight || window.innerHeight;
       if (canvas.width !== w || canvas.height !== h) {
         canvas.width = w;
         canvas.height = h;

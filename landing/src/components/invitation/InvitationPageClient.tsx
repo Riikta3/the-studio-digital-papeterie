@@ -22,6 +22,7 @@ export function InvitationPageClient({
   const [activeTheme, setActiveTheme] = useState(initialTheme);
   const [heroAsset, setHeroAsset] = useState<{ frames: number; sequencePath: string | null }>({ frames: 0, sequencePath: null });
   const [animationSequence, setAnimationSequence] = useState<AnimationSequence | null>(null);
+  const [forceDesktop, setForceDesktop] = useState(false);
 
   // Lock scroll while intro is active
   useEffect(() => {
@@ -33,7 +34,7 @@ export function InvitationPageClient({
     };
   }, [introDone, hasIntro]);
 
-  // Listen for theme changes via postMessage in demo mode
+  // Listen for theme changes and scale commands via postMessage in demo mode
   useEffect(() => {
     if (!isDemo) return;
     const handler = (e: MessageEvent) => {
@@ -46,6 +47,23 @@ export function InvitationPageClient({
         if (e.data.animationSequence) {
           setAnimationSequence(e.data.animationSequence);
         }
+        if (e.data.device === "desktop") {
+          setForceDesktop(true);
+        }
+      }
+      if (e.data?.type === "SET_DESKTOP_SCALE" && typeof e.data.scale === "number") {
+        const scale = e.data.scale;
+        document.documentElement.style.width = "1024px";
+        document.documentElement.style.transformOrigin = "top left";
+        document.documentElement.style.transform = `scale(${scale})`;
+        document.documentElement.style.overflowX = "hidden";
+        document.body.style.width = "1024px";
+        document.body.style.overflowX = "hidden";
+        // Set --vh to real iframe height (unaffected by scale) so hero fills screen
+        const realH = window.visualViewport?.height ?? window.innerHeight;
+        const cssH = realH / scale;
+        document.documentElement.style.setProperty("--real-vh", `${cssH}px`);
+        setForceDesktop(true);
       }
     };
     window.addEventListener("message", handler);
@@ -60,6 +78,7 @@ export function InvitationPageClient({
             <InvitationIntro
               onComplete={() => setIntroDone(true)}
               autoplay={isDemo}
+              forceDesktop={forceDesktop}
               {...(animationSequence ?? {})}
             />
           )}

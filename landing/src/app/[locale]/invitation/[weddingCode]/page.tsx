@@ -7,6 +7,7 @@ import { ModulesWrapper } from "@/components/invitation/ModulesWrapper";
 import { ScrollToTop } from "@/components/invitation/ScrollToTop";
 import { supabaseAdmin } from "@/lib/supabase-admin";
 import { notFound } from "next/navigation";
+import type { Viewport } from "next";
 
 export const revalidate = 0;
 
@@ -15,7 +16,15 @@ interface InvitationPageProps {
     locale: string;
     weddingCode: string;
   }>;
-  searchParams: Promise<{ demo?: string }>;
+  searchParams: Promise<{ demo?: string; device?: string }>;
+}
+
+export async function generateViewport({ searchParams }: InvitationPageProps): Promise<Viewport> {
+  const { device } = await searchParams;
+  if (device === "desktop") {
+    return { width: 1024, initialScale: 1 };
+  }
+  return { width: "device-width", initialScale: 1 };
 }
 
 export default async function InvitationPage({ params, searchParams }: InvitationPageProps) {

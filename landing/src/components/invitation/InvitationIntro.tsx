@@ -35,6 +35,8 @@ interface InvitationIntroProps {
   onComplete: () => void;
   /** Auto-start playback without waiting for user click (e.g. demo mode) */
   autoplay?: boolean;
+  /** Force desktop sequence regardless of window.innerWidth (e.g. desktop iframe preview) */
+  forceDesktop?: boolean;
   /** Override desktop sequence path prefix (without frame number + extension) */
   desktopPath?: string;
   /** Override mobile sequence path prefix (without frame number + extension) */
@@ -50,6 +52,7 @@ type State = "idle" | "loading" | "playing" | "done";
 export function InvitationIntro({
   onComplete,
   autoplay = false,
+  forceDesktop = false,
   desktopPath = DEFAULT_DESKTOP_PATH,
   mobilePath = DEFAULT_MOBILE_PATH,
   desktopFrameCount = DEFAULT_DESKTOP_FRAME_COUNT,
@@ -66,28 +69,45 @@ export function InvitationIntro({
 
   // Detect mobile + load first frame immediately for preview
   useEffect(() => {
-    isMobileRef.current = window.innerWidth < 768;
+    isMobileRef.current = !forceDesktop && window.innerWidth < 768;
     const isMobile = isMobileRef.current;
     const basePath = isMobile ? mobilePath : desktopPath;
 
     const canvas = canvasRef.current;
     if (!canvas) return;
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
+
+    const sizeAndDraw = (img: HTMLImageElement) => {
+      const vvw = window.visualViewport?.width ?? window.innerWidth;
+      const vvh = window.visualViewport?.height ?? window.innerHeight;
+      canvas.width = vvw;
+      canvas.height = vvh;
+      const ctx = canvas.getContext("2d");
+      if (!ctx) return;
+      const scale = Math.max(vvw / img.naturalWidth, vvh / img.naturalHeight);
+      const sw = img.naturalWidth * scale;
+      const sh = img.naturalHeight * scale;
+      ctx.clearRect(0, 0, vvw, vvh);
+      ctx.drawImage(img, (vvw - sw) / 2, (vvh - sh) / 2, sw, sh);
+    };
 
     const img = new Image();
     img.onload = () => {
       framesRef.current[0] = img;
-      const ctx = canvas.getContext("2d");
-      if (!ctx) return;
-      const scale = Math.max(canvas.width / img.naturalWidth, canvas.height / img.naturalHeight);
-      const sw = img.naturalWidth * scale;
-      const sh = img.naturalHeight * scale;
-      ctx.drawImage(img, (canvas.width - sw) / 2, (canvas.height - sh) / 2, sw, sh);
+      sizeAndDraw(img);
       setFirstFrameReady(true);
+
+      // Re-draw when visual viewport changes (e.g. after SET_DESKTOP_SCALE applies transform)
+      const onVVResize = () => sizeAndDraw(img);
+      window.visualViewport?.addEventListener("resize", onVVResize);
+      (img as any)._vvCleanup = () => window.visualViewport?.removeEventListener("resize", onVVResize);
     };
     img.src = buildPath(basePath, 0);
-  }, [desktopPath, mobilePath]);
+
+    return () => {
+      const img0 = framesRef.current[0] as any;
+      img0?._vvCleanup?.();
+    };
+  }, [desktopPath, mobilePath, forceDesktop]);
 
   // Resize handler — resize canvas and redraw current frame
   useEffect(() => {
@@ -97,8 +117,8 @@ export function InvitationIntro({
       timeout = setTimeout(() => {
         const canvas = canvasRef.current;
         if (!canvas) return;
-        canvas.width = window.innerWidth;
-        canvas.height = window.innerHeight;
+        canvas.width = window.visualViewport?.width ?? window.innerWidth;
+        canvas.height = window.visualViewport?.height ?? window.innerHeight;
         const img = framesRef.current[currentFrameRef.current];
         if (!img) return;
         const ctx = canvas.getContext("2d");
