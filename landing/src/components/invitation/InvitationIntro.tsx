@@ -33,6 +33,8 @@ function preloadFramesBackground(basePath: string, count: number, store: HTMLIma
 
 interface InvitationIntroProps {
   onComplete: () => void;
+  /** Auto-start playback without waiting for user click (e.g. demo mode) */
+  autoplay?: boolean;
   /** Override desktop sequence path prefix (without frame number + extension) */
   desktopPath?: string;
   /** Override mobile sequence path prefix (without frame number + extension) */
@@ -47,6 +49,7 @@ type State = "idle" | "loading" | "playing" | "done";
 
 export function InvitationIntro({
   onComplete,
+  autoplay = false,
   desktopPath = DEFAULT_DESKTOP_PATH,
   mobilePath = DEFAULT_MOBILE_PATH,
   desktopFrameCount = DEFAULT_DESKTOP_FRAME_COUNT,
@@ -188,6 +191,13 @@ export function InvitationIntro({
     runSequence();
   }, [state, drawFrame, runSequence, mobilePath, desktopPath, mobileFrameCount, desktopFrameCount]);
 
+  // Autoplay: trigger as soon as first frame is ready
+  useEffect(() => {
+    if (autoplay && firstFrameReady && state === "idle") {
+      handlePlay();
+    }
+  }, [autoplay, firstFrameReady, state, handlePlay]);
+
   useEffect(() => {
     return () => {
       if (rafRef.current !== null) cancelAnimationFrame(rafRef.current);
@@ -218,9 +228,9 @@ export function InvitationIntro({
             transition={{ duration: 0.5, ease: "easeOut" }}
           />
 
-          {/* Clickable overlay — entire screen triggers play */}
+          {/* Clickable overlay — entire screen triggers play (hidden in autoplay mode) */}
           <AnimatePresence>
-            {(state === "idle" || state === "loading") && (
+            {!autoplay && (state === "idle" || state === "loading") && (
               <motion.div
                 key="play-btn"
                 initial={{ opacity: 0 }}

@@ -59,6 +59,7 @@ export function InvitationPageClient({
           {hasIntro && !introDone && (
             <InvitationIntro
               onComplete={() => setIntroDone(true)}
+              autoplay={isDemo}
               {...(animationSequence ?? {})}
             />
           )}
