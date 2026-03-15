@@ -2,6 +2,7 @@
 
 import { Link } from "@/navigation";
 import { Button } from "@shared/components/ui/button";
+import Image from "next/image";
 import { Input } from "@shared/components/ui/input";
 import { Label } from "@shared/components/ui/label";
 import { Eye, EyeOff } from "lucide-react";
@@ -38,42 +39,20 @@ export default function LoginPage() {
           {/* Subtle glow */}
           <div className='absolute inset-0 rounded-3xl bg-gradient-to-br from-primary/0 via-primary/[0.02] to-primary/0 pointer-events-none' />
 
-          {/* Header with refined ornamental touch */}
+          {/* Header */}
           <div className='relative text-center space-y-6'>
-            {/* Top ornament */}
-            <div className='flex items-center justify-center gap-4'>
-              <div className='h-[1px] w-16 bg-gradient-to-r from-transparent via-primary/30 to-transparent' />
-              <svg
-                width='8'
-                height='8'
-                viewBox='0 0 8 8'
-                fill='none'
-                className='text-primary/50'
-              >
-                <circle
-                  cx='4'
-                  cy='4'
-                  r='3'
-                  fill='currentColor'
-                />
-              </svg>
-              <div className='h-[1px] w-16 bg-gradient-to-r from-transparent via-primary/30 to-transparent' />
+            <div className='flex justify-center'>
+              <Image
+                src='/logo-the-studio-rectangulaire.svg'
+                alt='The Studio Digital Papeterie'
+                width={260}
+                height={80}
+                className='h-16 w-auto object-contain'
+                priority
+              />
             </div>
 
-            <div className='space-y-3'>
-              <h1 className='font-heading text-6xl font-light text-gray-900 tracking-wide'>
-                The Studio
-              </h1>
-              <div className='flex items-center justify-center gap-3'>
-                <div className='h-[1px] w-8 bg-gradient-to-r from-transparent to-primary/40' />
-                <p className='text-[10px] uppercase tracking-[0.35em] text-primary/60 font-medium'>
-                  Digital Papeterie
-                </p>
-                <div className='h-[1px] w-8 bg-gradient-to-l from-transparent to-primary/40' />
-              </div>
-            </div>
-
-            <p className='text-sm text-gray-500 font-light pt-4 tracking-wide'>
+            <p className='text-sm text-gray-500 font-light tracking-wide'>
               Accédez à votre espace privé
             </p>
           </div>

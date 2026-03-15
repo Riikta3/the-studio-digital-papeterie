@@ -38,11 +38,11 @@ export default function ComingSoonPage() {
       <div className='relative z-10 flex flex-col items-center gap-8 max-w-lg'>
         {/* Logo */}
         <Image
-          src='/images/logo.png'
-          alt='The Studio Digital Papeterie'
-          width={280}
-          height={64}
-          className='h-16 w-auto object-contain opacity-90'
+          src='/images/logo-the-studio-rectangulaire.svg'
+          alt='The Studio Digital Papeterie — Faire-part digital haut de gamme'
+          width={400}
+          height={100}
+          className='h-32 w-auto object-contain opacity-90'
           priority
         />
 

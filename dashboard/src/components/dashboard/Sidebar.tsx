@@ -78,11 +78,11 @@ export function Sidebar({ slug }: { slug: string | null }) {
           </Button>
           <span className='font-heading text-lg font-bold'>
             <Image
-              src='/logo.png'
-              alt='The Studio'
+              src='/logo-the-studio-rectangulaire.svg'
+              alt='The Studio Digital Papeterie'
               width={300}
               height={90}
-              className='h-8 w-auto object-contain'
+              className='h-7 w-auto object-contain'
               priority
             />
           </span>
@@ -108,10 +108,10 @@ export function Sidebar({ slug }: { slug: string | null }) {
           {/* Logo & Close Button */}
           <div className='mb-10 pl-2 flex justify-between items-start'>
             <div>
-              <div className='relative w-40 h-12'>
+              <div className='relative w-56 h-14'>
                 <Image
-                  src='/logo.png'
-                  alt='The Studio'
+                  src='/logo-the-studio-rectangulaire.svg'
+                  alt='The Studio Digital Papeterie'
                   fill
                   className='object-contain object-left'
                   sizes='(max-width: 768px) 100vw, 200px'

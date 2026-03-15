@@ -20,8 +20,8 @@ export default function CreateLayout({
             className='flex items-center hover:opacity-80 transition-opacity'
           >
             <Image
-              src='/images/logo.png'
-              alt='The Studio'
+              src='/images/logo-the-studio-digital-papeterie.svg'
+              alt='The Studio Digital Papeterie'
               width={200}
               height={60}
               className='object-contain h-12 w-auto'
