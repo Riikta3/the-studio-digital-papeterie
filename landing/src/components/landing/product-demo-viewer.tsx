@@ -170,7 +170,7 @@ function DesktopFrame({
             <span className="text-[8px] text-white/35 font-mono truncate">{displayUrl}</span>
           </div>
         </div>
-        {/* Inner screen: 304px wide, scaled iframe at 900px → scale 0.338 → height 1420px scaled to 480px */}
+        {/* Inner screen: 304px wide, scaled iframe at 1024px → scale ≈0.297 → height 1617px scaled to 480px */}
         <div className="rounded-b-[6px] overflow-hidden bg-background relative border border-[#3a3a3c]" style={{ width: 304, height: 480 }}>
           {loading && (
             <div className="absolute inset-0 bg-background z-10 flex items-center justify-center">
@@ -182,10 +182,10 @@ function DesktopFrame({
             src={iframeUrl}
             className="border-none block"
             style={{
-              width: 900,
-              height: 1420,
+              width: 1024,
+              height: Math.round(480 / (304 / 1024)),
               transformOrigin: "top left",
-              transform: `scale(${304 / 900})`,
+              transform: `scale(${304 / 1024})`,
             }}
             title={`Démo ${theme}`}
             onLoad={onLoad}
@@ -322,9 +322,10 @@ export function ProductDemoViewer() {
         </div>
       </div>
 
-      {/* Device frame */}
+      {/* Device frame — key forces remount on device switch so iframe gets correct viewport */}
       {device === "mobile" ? (
         <MobileFrame
+          key="mobile"
           iframeUrl={iframeUrl}
           iframeRef={iframeRef}
           theme={THEME_LABELS[activeTheme]}
@@ -333,6 +334,7 @@ export function ProductDemoViewer() {
         />
       ) : (
         <DesktopFrame
+          key="desktop"
           iframeUrl={iframeUrl}
           iframeRef={iframeRef}
           theme={THEME_LABELS[activeTheme]}
