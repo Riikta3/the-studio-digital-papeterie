@@ -2,7 +2,7 @@
 
 import { useTranslations } from "next-intl";
 import { useState, useRef, useEffect, useCallback } from "react";
-import { Monitor, Smartphone, ExternalLink, Expand, X } from "lucide-react";
+import { Monitor, Smartphone, Expand, X } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 type AnimationKey = "envelope" | "doors" | "curtains";
@@ -341,8 +341,8 @@ export function ProductDemoViewer() {
         />
       )}
 
-      {/* Device toggle + actions — below the frame */}
-      <div className="flex items-center justify-center gap-3 mt-6">
+      {/* Device toggle + fullscreen — below the frame */}
+      <div className="flex flex-col items-center gap-3 mt-10">
         <div className="inline-flex bg-card border border-border rounded-full p-1 gap-0.5 shadow-sm">
           <button
             onClick={() => setDevice("mobile")}
@@ -372,20 +372,11 @@ export function ProductDemoViewer() {
 
         <button
           onClick={() => setFullscreen(true)}
-          className="flex items-center gap-1.5 px-4 py-1.5 rounded-full text-xs font-medium bg-card border border-border text-muted-foreground hover:text-foreground hover:border-primary/30 transition-all shadow-sm"
+          className="flex items-center gap-2 px-5 py-2.5 rounded-full border border-primary/30 text-primary text-sm font-medium bg-card hover:bg-primary/5 transition-colors shadow-sm"
         >
           <Expand className="w-3.5 h-3.5" />
           {t("openFullscreen")}
         </button>
-
-        <a
-          href={`/fr/invitation/${DEMO_CODES[activeAnimation]}`}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="flex items-center gap-1.5 px-4 py-1.5 rounded-full text-xs font-medium bg-card border border-border text-muted-foreground hover:text-foreground hover:border-primary/30 transition-all shadow-sm"
-        >
-          <ExternalLink className="w-3.5 h-3.5" />
-        </a>
       </div>
 
       {/* Fullscreen overlay */}
