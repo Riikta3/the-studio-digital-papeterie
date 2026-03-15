@@ -120,10 +120,10 @@ function MobileFrame({
           <iframe
             ref={iframeRef}
             src={iframeUrl}
+            width={390}
+            height={790}
             className="border-none absolute top-0 left-0"
             style={{
-              width: 390,
-              height: 790,
               transformOrigin: "top left",
               transform: `scale(${276 / 390})`,
             }}
@@ -180,10 +180,10 @@ function DesktopFrame({
           <iframe
             ref={iframeRef}
             src={iframeUrl}
+            width={1024}
+            height={Math.round(480 / (304 / 1024))}
             className="border-none absolute top-0 left-0"
             style={{
-              width: 1024,
-              height: Math.round(480 / (304 / 1024)),
               transformOrigin: "top left",
               transform: `scale(${304 / 1024})`,
             }}
