@@ -43,6 +43,7 @@ export async function ModuleRenderer({
   extras,
   partner1,
   partner2,
+  isDemo,
 }: {
   modules: string[];
   weddingId: string;
@@ -51,6 +52,7 @@ export async function ModuleRenderer({
   extras?: any;
   partner1?: string;
   partner2?: string;
+  isDemo?: boolean;
 }) {
   if (!modules || modules.length === 0) return null;
 
@@ -98,6 +100,7 @@ export async function ModuleRenderer({
               config={config}
               partner1={partner1}
               partner2={partner2}
+              isDemo={isDemo}
             />
             {!isLast && <Divider />}
           </div>
