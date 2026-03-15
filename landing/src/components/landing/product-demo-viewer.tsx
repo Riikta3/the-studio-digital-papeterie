@@ -110,7 +110,6 @@ function MobileFrame({
           <div className="w-2.5 h-2.5 rounded-full bg-[#2a2a2c] border border-[#333]" />
           <div className="w-9 h-1 bg-[#2a2a2c] rounded" />
         </div>
-        {/* Inner screen: clip to 276×560, iframe renders at 390px then scaled down */}
         <div className="rounded-[32px] overflow-hidden bg-background relative" style={{ width: 276, height: 560 }}>
           {loading && (
             <div className="absolute inset-0 bg-background z-10 flex items-center justify-center">
@@ -120,13 +119,8 @@ function MobileFrame({
           <iframe
             ref={iframeRef}
             src={iframeUrl}
-            width={390}
-            height={790}
-            className="border-none absolute top-0 left-0"
-            style={{
-              transformOrigin: "top left",
-              transform: `scale(${276 / 390})`,
-            }}
+            className="border-none block"
+            style={{ width: "100%", height: 560, zoom: 276 / 390 }}
             title={`Démo ${theme}`}
             onLoad={onLoad}
           />
@@ -170,7 +164,6 @@ function DesktopFrame({
             <span className="text-[8px] text-white/35 font-mono truncate">{displayUrl}</span>
           </div>
         </div>
-        {/* Inner screen: clip to 304×480, iframe renders at 1024px then scaled down */}
         <div className="rounded-b-[6px] overflow-hidden bg-background relative border border-[#3a3a3c]" style={{ width: 304, height: 480 }}>
           {loading && (
             <div className="absolute inset-0 bg-background z-10 flex items-center justify-center">
@@ -180,13 +173,8 @@ function DesktopFrame({
           <iframe
             ref={iframeRef}
             src={iframeUrl}
-            width={1024}
-            height={Math.round(480 / (304 / 1024))}
-            className="border-none absolute top-0 left-0"
-            style={{
-              transformOrigin: "top left",
-              transform: `scale(${304 / 1024})`,
-            }}
+            className="border-none block"
+            style={{ width: "100%", height: 480, zoom: 304 / 1024 }}
             title={`Démo ${theme}`}
             onLoad={onLoad}
           />
