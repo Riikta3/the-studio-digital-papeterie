@@ -2,7 +2,7 @@
 
 import { useTranslations } from "next-intl";
 import { useState, useRef, useEffect, useCallback } from "react";
-import { Monitor, Smartphone, ExternalLink } from "lucide-react";
+import { Monitor, Smartphone, ExternalLink, Expand, X } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 type AnimationKey = "envelope" | "doors" | "curtains";
@@ -204,12 +204,14 @@ export function ProductDemoViewer() {
   const [activeTheme, setActiveTheme] = useState<ThemeKey>("floral");
   const [device, setDevice] = useState<"mobile" | "desktop">("mobile");
   const [iframeLoading, setIframeLoading] = useState(true);
+  const [fullscreen, setFullscreen] = useState(false);
   const iframeRef = useRef<HTMLIFrameElement>(null);
+  const fullscreenIframeRef = useRef<HTMLIFrameElement>(null);
 
   const iframeUrl = `/fr/invitation/${DEMO_CODES[activeAnimation]}?demo=true`;
 
-  const sendTheme = useCallback((theme: ThemeKey, animation: AnimationKey) => {
-    const iframe = iframeRef.current;
+  const sendTheme = useCallback((theme: ThemeKey, animation: AnimationKey, ref?: React.RefObject<HTMLIFrameElement | null>) => {
+    const iframe = (ref ?? iframeRef).current;
     if (!iframe?.contentWindow) return;
     iframe.contentWindow.postMessage(
       {
@@ -221,6 +223,16 @@ export function ProductDemoViewer() {
       window.location.origin
     );
   }, []);
+
+  // Lock body scroll when fullscreen is open
+  useEffect(() => {
+    if (fullscreen) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "";
+    }
+    return () => { document.body.style.overflow = ""; };
+  }, [fullscreen]);
 
   // Reset loading when animation or device changes (iframe remounts)
   useEffect(() => {
@@ -310,8 +322,27 @@ export function ProductDemoViewer() {
         </div>
       </div>
 
-      {/* Step 3 — Device */}
-      <div className="flex justify-center mb-7">
+      {/* Device frame */}
+      {device === "mobile" ? (
+        <MobileFrame
+          iframeUrl={iframeUrl}
+          iframeRef={iframeRef}
+          theme={THEME_LABELS[activeTheme]}
+          loading={iframeLoading}
+          onLoad={handleIframeLoad}
+        />
+      ) : (
+        <DesktopFrame
+          iframeUrl={iframeUrl}
+          iframeRef={iframeRef}
+          theme={THEME_LABELS[activeTheme]}
+          loading={iframeLoading}
+          onLoad={handleIframeLoad}
+        />
+      )}
+
+      {/* Device toggle + actions — below the frame */}
+      <div className="flex items-center justify-center gap-3 mt-6">
         <div className="inline-flex bg-card border border-border rounded-full p-1 gap-0.5 shadow-sm">
           <button
             onClick={() => setDevice("mobile")}
@@ -338,39 +369,45 @@ export function ProductDemoViewer() {
             {t("deviceDesktop")}
           </button>
         </div>
-      </div>
 
-      {/* Device frame */}
-      {device === "mobile" ? (
-        <MobileFrame
-          iframeUrl={iframeUrl}
-          iframeRef={iframeRef}
-          theme={THEME_LABELS[activeTheme]}
-          loading={iframeLoading}
-          onLoad={handleIframeLoad}
-        />
-      ) : (
-        <DesktopFrame
-          iframeUrl={iframeUrl}
-          iframeRef={iframeRef}
-          theme={THEME_LABELS[activeTheme]}
-          loading={iframeLoading}
-          onLoad={handleIframeLoad}
-        />
-      )}
+        <button
+          onClick={() => setFullscreen(true)}
+          className="flex items-center gap-1.5 px-4 py-1.5 rounded-full text-xs font-medium bg-card border border-border text-muted-foreground hover:text-foreground hover:border-primary/30 transition-all shadow-sm"
+        >
+          <Expand className="w-3.5 h-3.5" />
+          {t("openFullscreen")}
+        </button>
 
-      {/* Open fullscreen */}
-      <div className="flex justify-center mt-5">
         <a
           href={`/fr/invitation/${DEMO_CODES[activeAnimation]}`}
           target="_blank"
           rel="noopener noreferrer"
-          className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full border border-primary/30 text-primary text-sm font-medium bg-card hover:bg-primary/5 transition-colors shadow-sm"
+          className="flex items-center gap-1.5 px-4 py-1.5 rounded-full text-xs font-medium bg-card border border-border text-muted-foreground hover:text-foreground hover:border-primary/30 transition-all shadow-sm"
         >
-          {t("openFullscreen")}
           <ExternalLink className="w-3.5 h-3.5" />
         </a>
       </div>
+
+      {/* Fullscreen overlay */}
+      {fullscreen && (
+        <div className="fixed inset-0 z-[9998] bg-black/80 backdrop-blur-sm flex items-center justify-center">
+          <button
+            onClick={() => setFullscreen(false)}
+            className="absolute top-4 right-4 z-10 w-10 h-10 rounded-full bg-white/10 hover:bg-white/20 border border-white/20 flex items-center justify-center text-white transition-colors"
+          >
+            <X className="w-5 h-5" />
+          </button>
+          <div className="w-full h-full">
+            <iframe
+              ref={fullscreenIframeRef}
+              src={iframeUrl}
+              className="w-full h-full border-none block"
+              title={`Démo ${THEME_LABELS[activeTheme]} plein écran`}
+              onLoad={() => setTimeout(() => sendTheme(activeTheme, activeAnimation, fullscreenIframeRef), 100)}
+            />
+          </div>
+        </div>
+      )}
     </div>
   );
 }
