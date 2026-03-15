@@ -49,6 +49,7 @@ builder/supabase/.temp/
 _bmad/
 _bmad-output/
 .agent/
+.superpowers/
 .claude/
 .cursor/
 
