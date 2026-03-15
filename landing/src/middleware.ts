@@ -5,8 +5,6 @@ import { routing } from "./navigation";
 
 const intlMiddleware = createMiddleware(routing);
 
-const LOCALES = ["fr", "en", "de", "es", "pt", "it", "ar", "zh", "ja"];
-
 export function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
 
@@ -19,13 +17,15 @@ export function middleware(request: NextRequest) {
     return NextResponse.next();
   }
 
-  // Maintenance mode redirect
+  // Maintenance mode redirect — MAINTENANCE_MODE is baked at build time, toggling requires a redeploy
   if (process.env.MAINTENANCE_MODE === "true") {
     const segments = pathname.split("/").filter(Boolean);
-    const locale = LOCALES.includes(segments[0]) ? segments[0] : "fr";
+    const locale = (routing.locales as readonly string[]).includes(segments[0])
+      ? segments[0]
+      : routing.defaultLocale;
     const target = `/${locale}/coming-soon`;
 
-    if (!pathname.endsWith("/coming-soon")) {
+    if (pathname !== target) {
       return NextResponse.redirect(new URL(target, request.url));
     }
   }
