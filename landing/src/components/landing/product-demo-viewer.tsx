@@ -177,13 +177,18 @@ export function ProductDemoViewer() {
     );
   }, []);
 
-  // Reset loading when animation changes (new iframe src)
+  // Reset loading when animation or device changes (iframe remounts)
   useEffect(() => {
     setIframeLoading(true);
-  }, [activeAnimation]);
+  }, [activeAnimation, device]);
 
-  // Send theme after iframe loads or theme changes
+  // Send theme on theme-only changes (iframe stays alive, no reload)
+  const prevAnimationRef = useRef(activeAnimation);
   useEffect(() => {
+    if (prevAnimationRef.current !== activeAnimation) {
+      prevAnimationRef.current = activeAnimation;
+      return; // animation change → iframe reloads → handleIframeLoad will send theme
+    }
     const timeout = setTimeout(() => sendTheme(activeTheme), 300);
     return () => clearTimeout(timeout);
   }, [activeTheme, activeAnimation, sendTheme]);
