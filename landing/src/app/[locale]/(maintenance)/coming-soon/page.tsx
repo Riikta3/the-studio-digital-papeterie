@@ -31,15 +31,14 @@ export default function ComingSoonPage() {
       {/* Contenu */}
       <div className="relative z-10 flex flex-col items-center gap-8 max-w-lg">
         {/* Logo */}
-        <div className="relative h-10 w-auto min-w-[7rem]">
-          <Image
-            src="/images/logo.png"
-            alt="The Studio Digital Papeterie"
-            fill
-            className="object-contain opacity-80"
-            priority
-          />
-        </div>
+        <Image
+          src="/images/logo.png"
+          alt="The Studio Digital Papeterie"
+          width={180}
+          height={40}
+          className="h-10 w-auto object-contain opacity-80"
+          priority
+        />
 
         <Divider />
 
