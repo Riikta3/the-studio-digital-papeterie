@@ -7,17 +7,20 @@ import { DIETARY_OPTIONS_FR } from "@shared/data/dietary-options";
 import { AnimatePresence, motion } from "framer-motion";
 import { Check, CheckCircle2, Heart, Send, X } from "lucide-react";
 import { useState } from "react";
+import { cn } from "@/lib/utils";
 
 export function RsvpModule({
   weddingId,
   extras,
   config,
+  isDemo = false,
 }: {
   weddingId: string;
   extras?: {
     rsvp_deadline?: string;
   };
   config?: Record<string, any> | null;
+  isDemo?: boolean;
 }) {
   const [formData, setFormData] = useState({
     firstName: "",
@@ -34,6 +37,7 @@ export function RsvpModule({
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    if (isDemo) return;
     setStatus("submitting");
 
     try {
@@ -329,17 +333,23 @@ export function RsvpModule({
             <button
               type='submit'
               disabled={
+                isDemo ||
                 status === "submitting" ||
                 !formData.firstName ||
                 !formData.lastName ||
                 !formData.attendance
               }
-              className='w-full bg-primary hover:bg-primary/90 disabled:bg-primary/30 disabled:cursor-not-allowed text-primary-foreground py-4 md:py-5 rounded-full font-bold text-[10px] md:text-xs uppercase tracking-[0.15em] md:tracking-[0.3em] transition-all duration-300 shadow-xl shadow-primary/10 flex items-center justify-center gap-2 group'
+              className={cn(
+                'w-full bg-primary hover:bg-primary/90 disabled:bg-primary/30 disabled:cursor-not-allowed text-primary-foreground py-4 md:py-5 rounded-full font-bold text-[10px] md:text-xs uppercase tracking-[0.15em] md:tracking-[0.3em] transition-all duration-300 shadow-xl shadow-primary/10 flex items-center justify-center gap-2 group',
+                isDemo && 'opacity-60'
+              )}
             >
               <span className='relative z-10'>
-                {status === "submitting"
-                  ? "Envoi en cours..."
-                  : "Confirmer ma réponse"}
+                {isDemo
+                  ? "Aperçu uniquement"
+                  : status === "submitting"
+                    ? "Envoi en cours..."
+                    : "Confirmer ma réponse"}
               </span>
               <Send
                 className={`w-4 h-4 transition-transform duration-300 ${status === "submitting" ? "translate-x-10 opacity-0" : "group-hover:translate-x-1"}`}
