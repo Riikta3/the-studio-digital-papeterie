@@ -17,9 +17,10 @@ import { useState } from "react";
 // Note: scrollTo only works when navbar is rendered on the home page.
 // If Navbar is ever moved to a shared layout, these should become href="/#anchor" Links.
 const NAV_LINKS = [
-  { key: "themes" as const, anchor: "themes" },
-  { key: "demo" as const, anchor: "themes" },
+  { key: "demo" as const, anchor: "demo-viewer" },
+  { key: "features" as const, anchor: "comment-ca-marche" },
   { key: "pricing" as const, anchor: "comparatif" },
+  { key: "testimonials" as const, anchor: "temoignages" },
 ] as const;
 
 export function Navbar() {
