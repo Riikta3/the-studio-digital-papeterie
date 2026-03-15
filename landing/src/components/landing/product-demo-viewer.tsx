@@ -110,7 +110,7 @@ function MobileFrame({
           <div className="w-2.5 h-2.5 rounded-full bg-[#2a2a2c] border border-[#333]" />
           <div className="w-9 h-1 bg-[#2a2a2c] rounded" />
         </div>
-        {/* Inner screen: 276px wide, scaled iframe at 390px → scale 0.708 → height 790px scaled to 560px */}
+        {/* Inner screen: clip to 276×560, iframe renders at 390px then scaled down */}
         <div className="rounded-[32px] overflow-hidden bg-background relative" style={{ width: 276, height: 560 }}>
           {loading && (
             <div className="absolute inset-0 bg-background z-10 flex items-center justify-center">
@@ -120,7 +120,7 @@ function MobileFrame({
           <iframe
             ref={iframeRef}
             src={iframeUrl}
-            className="border-none block"
+            className="border-none absolute top-0 left-0"
             style={{
               width: 390,
               height: 790,
@@ -170,7 +170,7 @@ function DesktopFrame({
             <span className="text-[8px] text-white/35 font-mono truncate">{displayUrl}</span>
           </div>
         </div>
-        {/* Inner screen: 304px wide, scaled iframe at 1024px → scale ≈0.297 → height 1617px scaled to 480px */}
+        {/* Inner screen: clip to 304×480, iframe renders at 1024px then scaled down */}
         <div className="rounded-b-[6px] overflow-hidden bg-background relative border border-[#3a3a3c]" style={{ width: 304, height: 480 }}>
           {loading && (
             <div className="absolute inset-0 bg-background z-10 flex items-center justify-center">
@@ -180,7 +180,7 @@ function DesktopFrame({
           <iframe
             ref={iframeRef}
             src={iframeUrl}
-            className="border-none block"
+            className="border-none absolute top-0 left-0"
             style={{
               width: 1024,
               height: Math.round(480 / (304 / 1024)),
