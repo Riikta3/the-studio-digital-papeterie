@@ -56,7 +56,7 @@ export function InvitationPageClient({
     <InvitationDemoContext.Provider value={{ isDemo, activeTheme, heroAsset, animationSequence }}>
       <>
         <AnimatePresence>
-          {hasIntro && !introDone && (
+          {hasIntro && !introDone && (!isDemo || animationSequence !== null) && (
             <InvitationIntro
               onComplete={() => setIntroDone(true)}
               autoplay={isDemo}
