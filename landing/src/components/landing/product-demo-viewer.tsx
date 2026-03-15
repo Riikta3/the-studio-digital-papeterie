@@ -14,17 +14,47 @@ const DEMO_CODES: Record<AnimationKey, string> = {
   curtains: "demo-curtains",
 };
 
+type AnimationSequence = {
+  desktopPath: string;
+  mobilePath: string;
+  desktopFrameCount: number;
+  mobileFrameCount: number;
+};
+
+const ANIMATION_SEQUENCES: Record<AnimationKey, AnimationSequence> = {
+  envelope: {
+    desktopPath: "/videos/desktop/Animation enveloppe personnalisée_",
+    mobilePath:  "/videos/demo/envelop/Mobile Test 2_",
+    desktopFrameCount: 34,
+    mobileFrameCount:  53,
+  },
+  doors: {
+    desktopPath: "/videos/demo/door/Vidéo porte s'ouvrant naturellement_",
+    mobilePath:  "/videos/demo/door/Vidéo porte s'ouvrant naturellement_",
+    desktopFrameCount: 82,
+    mobileFrameCount:  82,
+  },
+  curtains: {
+    desktopPath: "/videos/demo/curtain/Vidéo prête portrait_",
+    mobilePath:  "/videos/demo/curtain/Vidéo prête portrait_",
+    desktopFrameCount: 82,
+    mobileFrameCount:  82,
+  },
+};
+
 type HeroAsset = {
   frames: number;
   sequencePath: string | null;
 };
 
+const DEMO_HERO: HeroAsset = { frames: 82, sequencePath: "/videos/demo/themes/test/Bohemian Bird Video_" };
+
 const THEME_HERO_ASSETS: Record<ThemeKey, HeroAsset> = {
-  boho:       { frames: 82, sequencePath: "/videos/demo/themes/test/Bohemian Bird Video_" },
-  floral:     { frames: 0,  sequencePath: null },
-  royal:      { frames: 0,  sequencePath: null },
-  minimalist: { frames: 0,  sequencePath: null },
-  modern:     { frames: 0,  sequencePath: null },
+  boho:       DEMO_HERO,
+  floral:     DEMO_HERO,
+  royal:      DEMO_HERO,
+  minimalist: DEMO_HERO,
+  modern:     DEMO_HERO,
 };
 
 const ANIMATIONS: { key: AnimationKey; icon: string }[] = [
@@ -164,7 +194,7 @@ export function ProductDemoViewer() {
 
   const iframeUrl = `/fr/invitation/${DEMO_CODES[activeAnimation]}?demo=true`;
 
-  const sendTheme = useCallback((theme: ThemeKey) => {
+  const sendTheme = useCallback((theme: ThemeKey, animation: AnimationKey) => {
     const iframe = iframeRef.current;
     if (!iframe?.contentWindow) return;
     iframe.contentWindow.postMessage(
@@ -172,6 +202,7 @@ export function ProductDemoViewer() {
         type: "SET_THEME",
         theme,
         heroAsset: THEME_HERO_ASSETS[theme],
+        animationSequence: ANIMATION_SEQUENCES[animation],
       },
       window.location.origin
     );
@@ -189,14 +220,14 @@ export function ProductDemoViewer() {
       prevAnimationRef.current = activeAnimation;
       return; // animation change → iframe reloads → handleIframeLoad will send theme
     }
-    const timeout = setTimeout(() => sendTheme(activeTheme), 300);
+    const timeout = setTimeout(() => sendTheme(activeTheme, activeAnimation), 300);
     return () => clearTimeout(timeout);
   }, [activeTheme, activeAnimation, sendTheme]);
 
   const handleIframeLoad = useCallback(() => {
     setIframeLoading(false);
-    setTimeout(() => sendTheme(activeTheme), 100);
-  }, [sendTheme, activeTheme]);
+    setTimeout(() => sendTheme(activeTheme, activeAnimation), 100);
+  }, [sendTheme, activeTheme, activeAnimation]);
 
   return (
     <div>

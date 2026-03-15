@@ -6,52 +6,52 @@ import { useCallback, useEffect, useRef, useState } from "react";
 
 // ─── Constants ────────────────────────────────────────────────────────────────
 
-const DESKTOP_FRAME_COUNT = 34;
-const MOBILE_FRAME_COUNT = 53;
+const DEFAULT_DESKTOP_PATH = "/videos/desktop/Animation enveloppe personnalisée_";
+const DEFAULT_MOBILE_PATH = "/videos/mobile/Mobile Test 2_";
+const DEFAULT_DESKTOP_FRAME_COUNT = 34;
+const DEFAULT_MOBILE_FRAME_COUNT = 53;
 const FPS = 24;
 const FADE_START_RATIO = 0.82;
 
-function getFramePath(isMobile: boolean, index: number): string {
-  if (isMobile) {
-    return `/videos/mobile/Mobile Test 2_${String(index).padStart(3, "0")}.webp`;
-  }
-  return `/videos/desktop/Animation enveloppe personnalisée_${String(index).padStart(3, "0")}.webp`;
-}
-
 // ─── Preloader ────────────────────────────────────────────────────────────────
 
+function buildPath(basePath: string, index: number): string {
+  return `${basePath}${String(index).padStart(3, "0")}.webp`;
+}
+
 // Load all frames in background — each resolves independently into the array
-function preloadFramesBackground(isMobile: boolean, count: number, store: HTMLImageElement[]) {
+function preloadFramesBackground(basePath: string, count: number, store: HTMLImageElement[]) {
   for (let i = 0; i < count; i++) {
     const img = new Image();
     const idx = i;
     img.onload = () => { store[idx] = img; };
-    img.src = getFramePath(isMobile, idx);
+    img.src = buildPath(basePath, idx);
   }
-}
-
-// Load only the first N frames and wait for them
-function preloadFirstFrames(isMobile: boolean, count: number, store: HTMLImageElement[]): Promise<void> {
-  const promises = Array.from({ length: count }, (_, i) => {
-    return new Promise<void>((resolve) => {
-      const img = new Image();
-      img.onload = () => { store[i] = img; resolve(); };
-      img.onerror = () => resolve(); // don't block on error
-      img.src = getFramePath(isMobile, i);
-    });
-  });
-  return Promise.all(promises).then(() => {});
 }
 
 // ─── Component ────────────────────────────────────────────────────────────────
 
 interface InvitationIntroProps {
   onComplete: () => void;
+  /** Override desktop sequence path prefix (without frame number + extension) */
+  desktopPath?: string;
+  /** Override mobile sequence path prefix (without frame number + extension) */
+  mobilePath?: string;
+  /** Override desktop frame count */
+  desktopFrameCount?: number;
+  /** Override mobile frame count */
+  mobileFrameCount?: number;
 }
 
 type State = "idle" | "loading" | "playing" | "done";
 
-export function InvitationIntro({ onComplete }: InvitationIntroProps) {
+export function InvitationIntro({
+  onComplete,
+  desktopPath = DEFAULT_DESKTOP_PATH,
+  mobilePath = DEFAULT_MOBILE_PATH,
+  desktopFrameCount = DEFAULT_DESKTOP_FRAME_COUNT,
+  mobileFrameCount = DEFAULT_MOBILE_FRAME_COUNT,
+}: InvitationIntroProps) {
   const [state, setState] = useState<State>("idle");
   const [overlayOpacity, setOverlayOpacity] = useState(0);
   const [firstFrameReady, setFirstFrameReady] = useState(false);
@@ -65,6 +65,7 @@ export function InvitationIntro({ onComplete }: InvitationIntroProps) {
   useEffect(() => {
     isMobileRef.current = window.innerWidth < 768;
     const isMobile = isMobileRef.current;
+    const basePath = isMobile ? mobilePath : desktopPath;
 
     const canvas = canvasRef.current;
     if (!canvas) return;
@@ -82,8 +83,8 @@ export function InvitationIntro({ onComplete }: InvitationIntroProps) {
       ctx.drawImage(img, (canvas.width - sw) / 2, (canvas.height - sh) / 2, sw, sh);
       setFirstFrameReady(true);
     };
-    img.src = getFramePath(isMobile, 0);
-  }, []);
+    img.src = buildPath(basePath, 0);
+  }, [desktopPath, mobilePath]);
 
   // Resize handler — resize canvas and redraw current frame
   useEffect(() => {
@@ -125,7 +126,7 @@ export function InvitationIntro({ onComplete }: InvitationIntroProps) {
 
   const runSequence = useCallback(() => {
     const isMobile = isMobileRef.current;
-    const totalFrames = isMobile ? MOBILE_FRAME_COUNT : DESKTOP_FRAME_COUNT;
+    const totalFrames = isMobile ? mobileFrameCount : desktopFrameCount;
     const frameDuration = 1000 / FPS;
     let frame = 0;
     let lastTime = 0;
@@ -160,14 +161,15 @@ export function InvitationIntro({ onComplete }: InvitationIntroProps) {
     };
 
     rafRef.current = requestAnimationFrame(tick);
-  }, [drawFrame, onComplete]);
+  }, [drawFrame, onComplete, mobileFrameCount, desktopFrameCount]);
 
   const handlePlay = useCallback(async () => {
     if (state !== "idle") return;
     setState("loading");
 
     const isMobile = isMobileRef.current;
-    const totalCount = isMobile ? MOBILE_FRAME_COUNT : DESKTOP_FRAME_COUNT;
+    const basePath = isMobile ? mobilePath : desktopPath;
+    const totalCount = isMobile ? mobileFrameCount : desktopFrameCount;
 
     // Frame 0 already loaded at mount — wait for frames 1–5, load rest in background
     const firstBatch = Array.from({ length: 5 }, (_, i) => i + 1);
@@ -176,15 +178,15 @@ export function InvitationIntro({ onComplete }: InvitationIntroProps) {
       const img = new Image();
       img.onload = () => { framesRef.current[i] = img; resolve(); };
       img.onerror = () => resolve();
-      img.src = getFramePath(isMobile, i);
+      img.src = buildPath(basePath, i);
     })));
-    preloadFramesBackground(isMobile, totalCount, framesRef.current);
+    preloadFramesBackground(basePath, totalCount, framesRef.current);
 
     // Canvas already sized + frame 0 already drawn at mount — go straight to playing
     drawFrame(0);
     setState("playing");
     runSequence();
-  }, [state, drawFrame, runSequence]);
+  }, [state, drawFrame, runSequence, mobilePath, desktopPath, mobileFrameCount, desktopFrameCount]);
 
   useEffect(() => {
     return () => {

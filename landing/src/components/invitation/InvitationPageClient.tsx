@@ -3,7 +3,7 @@
 import { motion, AnimatePresence } from "framer-motion";
 import { useEffect, useState } from "react";
 import { InvitationIntro } from "./InvitationIntro";
-import { InvitationDemoContext } from "./InvitationDemoContext";
+import { InvitationDemoContext, type AnimationSequence } from "./InvitationDemoContext";
 
 interface InvitationPageClientProps {
   children: React.ReactNode;
@@ -21,6 +21,7 @@ export function InvitationPageClient({
   const [introDone, setIntroDone] = useState(!hasIntro);
   const [activeTheme, setActiveTheme] = useState(initialTheme);
   const [heroAsset, setHeroAsset] = useState<{ frames: number; sequencePath: string | null }>({ frames: 0, sequencePath: null });
+  const [animationSequence, setAnimationSequence] = useState<AnimationSequence | null>(null);
 
   // Lock scroll while intro is active
   useEffect(() => {
@@ -42,6 +43,9 @@ export function InvitationPageClient({
         if (e.data.heroAsset && typeof e.data.heroAsset.frames === "number") {
           setHeroAsset(e.data.heroAsset);
         }
+        if (e.data.animationSequence) {
+          setAnimationSequence(e.data.animationSequence);
+        }
       }
     };
     window.addEventListener("message", handler);
@@ -49,11 +53,14 @@ export function InvitationPageClient({
   }, [isDemo]);
 
   return (
-    <InvitationDemoContext.Provider value={{ isDemo, activeTheme, heroAsset }}>
+    <InvitationDemoContext.Provider value={{ isDemo, activeTheme, heroAsset, animationSequence }}>
       <>
         <AnimatePresence>
           {hasIntro && !introDone && (
-            <InvitationIntro onComplete={() => setIntroDone(true)} />
+            <InvitationIntro
+              onComplete={() => setIntroDone(true)}
+              {...(animationSequence ?? {})}
+            />
           )}
         </AnimatePresence>
 
