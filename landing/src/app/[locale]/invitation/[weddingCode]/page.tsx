@@ -15,10 +15,13 @@ interface InvitationPageProps {
     locale: string;
     weddingCode: string;
   }>;
+  searchParams: Promise<{ demo?: string }>;
 }
 
-export default async function InvitationPage({ params }: InvitationPageProps) {
+export default async function InvitationPage({ params, searchParams }: InvitationPageProps) {
   const { weddingCode } = await params;
+  const { demo } = await searchParams;
+  const isDemo = demo === "true";
 
   if (!weddingCode) {
     return notFound();
@@ -112,7 +115,7 @@ export default async function InvitationPage({ params }: InvitationPageProps) {
 
   const partnerNames = `${profile.first_name} & ${profile.partner_name}`;
   const invitationContent = (
-    <InvitationPageClient hasIntro>
+    <InvitationPageClient hasIntro isDemo={isDemo}>
     <div
       className={`${themeClass} min-h-screen bg-background text-foreground font-sans`}
     >
@@ -162,6 +165,7 @@ export default async function InvitationPage({ params }: InvitationPageProps) {
             extras={siteConfig.extras}
             partner1={profile.first_name}
             partner2={profile.partner_name || ""}
+            isDemo={isDemo}
           />
         </main>
       </ModulesWrapper>
@@ -175,7 +179,7 @@ export default async function InvitationPage({ params }: InvitationPageProps) {
     </InvitationPageClient>
   );
 
-  if (guestCode) {
+  if (guestCode && !isDemo) {
     return (
       <GuestCodeGate weddingCode={guestCode} partnerNames={partnerNames}>
         {invitationContent}
