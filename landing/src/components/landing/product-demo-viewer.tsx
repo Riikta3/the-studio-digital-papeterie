@@ -208,7 +208,7 @@ export function ProductDemoViewer() {
   const iframeRef = useRef<HTMLIFrameElement>(null);
   const fullscreenIframeRef = useRef<HTMLIFrameElement>(null);
 
-  const iframeUrl = `/fr/invitation/${DEMO_CODES[activeAnimation]}?demo=true`;
+  const iframeUrl = `/fr/invitation/${DEMO_CODES[activeAnimation]}?demo=true&device=${device}`;
 
   const sendTheme = useCallback((theme: ThemeKey, animation: AnimationKey, ref?: React.RefObject<HTMLIFrameElement | null>) => {
     const iframe = (ref ?? iframeRef).current;
@@ -322,10 +322,9 @@ export function ProductDemoViewer() {
         </div>
       </div>
 
-      {/* Device frame — key forces remount on device switch so iframe gets correct viewport */}
+      {/* Device frame */}
       {device === "mobile" ? (
         <MobileFrame
-          key="mobile"
           iframeUrl={iframeUrl}
           iframeRef={iframeRef}
           theme={THEME_LABELS[activeTheme]}
@@ -334,7 +333,6 @@ export function ProductDemoViewer() {
         />
       ) : (
         <DesktopFrame
-          key="desktop"
           iframeUrl={iframeUrl}
           iframeRef={iframeRef}
           theme={THEME_LABELS[activeTheme]}
