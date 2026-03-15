@@ -1,6 +1,10 @@
 -- Demo weddings — one per animation type
 -- These are read-only demo entries used by ProductDemoViewer
 
+-- Add is_demo flag to sites table
+alter table public.sites
+  add column if not exists is_demo boolean default false;
+
 DO $$
 DECLARE
   uid_envelope  uuid := '00000000-0000-0000-0000-000000000001';
@@ -39,7 +43,7 @@ BEGIN
   ON CONFLICT (id) DO NOTHING;
 
   -- ── Sites ─────────────────────────────────────────────────────────────────
-  INSERT INTO sites (id, wedding_id, slug, theme_id, plan_id, modules, extras, languages)
+  INSERT INTO sites (id, wedding_id, slug, theme_id, plan_id, modules, extras, languages, is_demo)
   VALUES
     (
       sid_envelope, wid_envelope,
@@ -48,7 +52,8 @@ BEGIN
       'premium',
       '{"countdown","timeline","menu","gallery","rsvp"}',
       '{}',
-      '{"fr"}'
+      '{"fr"}',
+      true
     ),
     (
       sid_doors, wid_doors,
@@ -57,7 +62,8 @@ BEGIN
       'premium',
       '{"countdown","timeline","menu","gallery","rsvp"}',
       '{}',
-      '{"fr"}'
+      '{"fr"}',
+      true
     ),
     (
       sid_curtains, wid_curtains,
@@ -66,7 +72,8 @@ BEGIN
       'premium',
       '{"countdown","timeline","menu","gallery","rsvp"}',
       '{}',
-      '{"fr"}'
+      '{"fr"}',
+      true
     )
   ON CONFLICT (id) DO NOTHING;
 

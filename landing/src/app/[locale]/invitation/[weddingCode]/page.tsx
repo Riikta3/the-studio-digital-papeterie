@@ -21,7 +21,6 @@ interface InvitationPageProps {
 export default async function InvitationPage({ params, searchParams }: InvitationPageProps) {
   const { weddingCode } = await params;
   const { demo } = await searchParams;
-  const isDemo = demo === "true";
 
   if (!weddingCode) {
     return notFound();
@@ -99,7 +98,7 @@ export default async function InvitationPage({ params, searchParams }: Invitatio
   // 4. Fetch Sites config (Modules, Theme, Extras)
   const { data: siteConfig, error: siteError } = await supabaseAdmin
     .from("sites")
-    .select("id, theme_id, modules, plan_id, extras, languages")
+    .select("id, theme_id, modules, plan_id, extras, languages, is_demo")
     .eq("wedding_id", weddingId)
     .single();
 
@@ -107,6 +106,8 @@ export default async function InvitationPage({ params, searchParams }: Invitatio
     console.error("Site config not found:", siteError);
     return notFound();
   }
+
+  const isDemo = demo === "true" && siteConfig.is_demo === true;
 
   // Define actual Theme class (e.g., 'theme-floral', 'theme-minimalist') mapping
   let themeClass = `theme-${siteConfig.theme_id}`;
