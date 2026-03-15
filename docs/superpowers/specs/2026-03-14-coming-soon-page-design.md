@@ -34,9 +34,9 @@ No middleware exists yet — create from scratch.
 In next-intl 4.x, only one `middleware` function can be exported. The maintenance logic must be embedded as a wrapper around the next-intl middleware. The pattern:
 
 ```ts
-import createMiddleware from 'next-intl/middleware';
-import { routing } from './navigation'; // routing object exported from navigation.ts
-import { NextRequest, NextResponse } from 'next/server';
+import createMiddleware from "next-intl/middleware";
+import { routing } from "./navigation"; // routing object exported from navigation.ts
+import { NextRequest, NextResponse } from "next/server";
 
 const intlMiddleware = createMiddleware(routing);
 
@@ -45,22 +45,22 @@ export function middleware(request: NextRequest) {
 
   // Exempt API routes, static files, _next internals
   if (
-    pathname.startsWith('/api/') ||
-    pathname.startsWith('/_next/') ||
-    pathname.includes('.')
+    pathname.startsWith("/api/") ||
+    pathname.startsWith("/_next/") ||
+    pathname.includes(".")
   ) {
     return NextResponse.next();
   }
 
   // Maintenance mode redirect
-  if (process.env.MAINTENANCE_MODE === 'true') {
+  if (process.env.MAINTENANCE_MODE === "true") {
     // Detect locale from first path segment (fallback to 'fr')
-    const segments = pathname.split('/').filter(Boolean);
-    const locales = ['fr','en','de','es','pt','it','ar','zh','ja'];
-    const locale = locales.includes(segments[0]) ? segments[0] : 'fr';
+    const segments = pathname.split("/").filter(Boolean);
+    const locales = ["fr", "en", "de", "es", "pt", "it", "ar", "zh", "ja"];
+    const locale = locales.includes(segments[0]) ? segments[0] : "fr";
     const target = `/${locale}/coming-soon`;
 
-    if (pathname !== target && !pathname.endsWith('/coming-soon')) {
+    if (pathname !== target && !pathname.endsWith("/coming-soon")) {
       return NextResponse.redirect(new URL(target, request.url));
     }
   }
@@ -69,7 +69,7 @@ export function middleware(request: NextRequest) {
 }
 
 export const config = {
-  matcher: ['/((?!_next/static|_next/image|favicon.ico).*)'],
+  matcher: ["/((?!_next/static|_next/image|favicon.ico).*)"],
 };
 ```
 
@@ -89,6 +89,7 @@ The `(maintenance)/layout.tsx` provides only the bare minimum: font variables on
 Server component. Static, no client interactivity.
 
 **Visual design:**
+
 - Background: `#FDFBF7` crème chaud (`bg-background`)
 - Grain texture overlay (`bg-noise`)
 - Radial gradient halo crème centré (inline style)
@@ -97,8 +98,9 @@ Server component. Static, no client interactivity.
 - Typographie body: Inter (`font-body`)
 
 **Content:**
+
 - Logo: `<Image src="/images/logo.png">` — `h-10 w-auto opacity-80`
-- Eyebrow: `"Faire-part digitaux haut de gamme"` — `text-[0.6rem] uppercase tracking-[0.28em] text-primary`
+- Eyebrow: `"Faire-part digital haut de gamme"` — `text-[0.6rem] uppercase tracking-[0.28em] text-primary`
 - Séparateur: deux traits `h-px w-14 bg-primary/30` + losange `rotate-45 w-1.5 h-1.5 bg-primary/50`
 - Titre H1: `"Quelque chose de beau arrive."` — `font-heading text-[clamp(3rem,8vw,5.5rem)] font-medium leading-[0.95]`, le mot "beau" en `<em>` avec `italic text-primary font-semibold`
 - Sous-titre: `"L'art du faire-part repensé pour l'ère digitale — bientôt disponible."` — `font-heading italic text-muted-foreground`
@@ -124,8 +126,8 @@ Copy is minimal and French-only. No `messages/*.json` entries required.
 
 ## Environment Variables
 
-| Variable | `main` | `prod` (Vercel) |
-|---|---|---|
-| `MAINTENANCE_MODE` | unset / `false` | `true` |
+| Variable           | `main`          | `prod` (Vercel) |
+| ------------------ | --------------- | --------------- |
+| `MAINTENANCE_MODE` | unset / `false` | `true`          |
 
 > Changing this variable in Vercel requires a **redeploy** to take effect (Edge middleware values are baked at build time).

@@ -11,7 +11,7 @@ import "../globals.css";
 
 export const metadata: Metadata = {
   title: "The Studio Digital Papeterie",
-  description: "Faire-part digitaux haut de gamme",
+  description: "Faire-part digital haut de gamme",
 };
 
 import { Toaster } from "@shared/components/ui/sonner";
