@@ -1,41 +1,30 @@
 "use client";
 
 import { useTranslations } from "next-intl";
-import { useState } from "react";
+import { useState, useRef, useEffect, useCallback } from "react";
 import { Monitor, Smartphone, ExternalLink } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 type AnimationKey = "envelope" | "doors" | "curtains";
 type ThemeKey = "floral" | "royal" | "boho" | "minimalist" | "modern";
 
-type DemoEntry = {
-  url: string | null;
-  couple: string;
+const DEMO_CODES: Record<AnimationKey, string> = {
+  envelope: "demo-envelope",
+  doors:    "demo-doors",
+  curtains: "demo-curtains",
 };
 
-// url indexed by [animation][theme] — fill in as demo links become available
-const DEMO_URLS: Record<AnimationKey, Record<ThemeKey, DemoEntry>> = {
-  envelope: {
-    floral:     { url: null, couple: "Sophie & Thomas" },
-    royal:      { url: null, couple: "Camille & Antoine" },
-    boho:       { url: null, couple: "Léa & Hugo" },
-    minimalist: { url: null, couple: "Marie & Julien" },
-    modern:     { url: null, couple: "Clara & Maxime" },
-  },
-  doors: {
-    floral:     { url: null, couple: "Sophie & Thomas" },
-    royal:      { url: null, couple: "Camille & Antoine" },
-    boho:       { url: null, couple: "Léa & Hugo" },
-    minimalist: { url: null, couple: "Marie & Julien" },
-    modern:     { url: null, couple: "Clara & Maxime" },
-  },
-  curtains: {
-    floral:     { url: null, couple: "Sophie & Thomas" },
-    royal:      { url: null, couple: "Camille & Antoine" },
-    boho:       { url: null, couple: "Léa & Hugo" },
-    minimalist: { url: null, couple: "Marie & Julien" },
-    modern:     { url: null, couple: "Clara & Maxime" },
-  },
+type HeroAsset = {
+  frames: number;
+  sequencePath: string | null;
+};
+
+const THEME_HERO_ASSETS: Record<ThemeKey, HeroAsset> = {
+  boho:       { frames: 82, sequencePath: "/videos/demo/themes/test/Bohemian Bird Video_" },
+  floral:     { frames: 0,  sequencePath: null },
+  royal:      { frames: 0,  sequencePath: null },
+  minimalist: { frames: 0,  sequencePath: null },
+  modern:     { frames: 0,  sequencePath: null },
 };
 
 const ANIMATIONS: { key: AnimationKey; icon: string }[] = [
@@ -60,17 +49,19 @@ const THEME_LABELS: Record<ThemeKey, string> = {
   modern: "Modern",
 };
 
-function Placeholder({ couple, theme }: { couple: string; theme: string }) {
-  return (
-    <div className="absolute inset-0 flex flex-col items-center justify-center gap-4 bg-secondary/30 px-8">
-      <span className="text-4xl opacity-40">💌</span>
-      <p className="font-heading text-xl italic text-foreground text-center">{couple}</p>
-      <p className="text-xs text-muted-foreground">Thème {theme} — bientôt disponible</p>
-    </div>
-  );
-}
-
-function MobileFrame({ url, couple, theme }: { url: string | null; couple: string; theme: string }) {
+function MobileFrame({
+  iframeUrl,
+  iframeRef,
+  theme,
+  loading,
+  onLoad,
+}: {
+  iframeUrl: string;
+  iframeRef: React.RefObject<HTMLIFrameElement | null>;
+  theme: string;
+  loading: boolean;
+  onLoad: () => void;
+}) {
   return (
     <div className="flex justify-center">
       <div
@@ -80,8 +71,7 @@ function MobileFrame({ url, couple, theme }: { url: string | null; couple: strin
           borderRadius: 44,
           padding: "14px 12px 20px",
           width: 300,
-          boxShadow:
-            "inset 0 0 0 1px rgba(255,255,255,0.06), 0 0 0 1.5px rgba(0,0,0,0.35), 0 32px 80px rgba(0,0,0,0.28)",
+          boxShadow: "inset 0 0 0 1px rgba(255,255,255,0.06), 0 0 0 1.5px rgba(0,0,0,0.35), 0 32px 80px rgba(0,0,0,0.28)",
         }}
       >
         <div className="absolute left-[-3px] top-[90px] w-[3px] h-8 rounded-l bg-[#2a2a2c] shadow-[0_38px_0_#2a2a2c,0_76px_0_#2a2a2c]" />
@@ -91,21 +81,39 @@ function MobileFrame({ url, couple, theme }: { url: string | null; couple: strin
           <div className="w-9 h-1 bg-[#2a2a2c] rounded" />
         </div>
         <div className="rounded-[32px] overflow-hidden h-[560px] bg-background relative">
-          {url ? (
-            <iframe src={url} className="w-full h-full border-none block" title={`Démo ${theme}`} />
-          ) : (
-            <Placeholder couple={couple} theme={theme} />
+          {loading && (
+            <div className="absolute inset-0 bg-background z-10 flex items-center justify-center">
+              <div className="w-8 h-8 border border-primary/30 border-t-primary rounded-full animate-spin" />
+            </div>
           )}
+          <iframe
+            ref={iframeRef}
+            src={iframeUrl}
+            className="w-full h-full border-none block"
+            title={`Démo ${theme}`}
+            onLoad={onLoad}
+          />
         </div>
       </div>
     </div>
   );
 }
 
-function DesktopFrame({ url, couple, theme }: { url: string | null; couple: string; theme: string }) {
-  const displayUrl = url
-    ? `thestudio.wedding${url}`
-    : `thestudio.wedding/invitation/demo-${theme.toLowerCase()}`;
+function DesktopFrame({
+  iframeUrl,
+  iframeRef,
+  theme,
+  loading,
+  onLoad,
+}: {
+  iframeUrl: string;
+  iframeRef: React.RefObject<HTMLIFrameElement | null>;
+  theme: string;
+  loading: boolean;
+  onLoad: () => void;
+}) {
+  const urlPath = iframeUrl.split("/invitation/")[1]?.split("?")[0] || "";
+  const displayUrl = `thestudio.wedding/invitation/${urlPath}`;
 
   return (
     <div>
@@ -114,8 +122,7 @@ function DesktopFrame({ url, couple, theme }: { url: string | null; couple: stri
           background: "#1c1c1e",
           borderRadius: 12,
           padding: 8,
-          boxShadow:
-            "inset 0 0 0 1px rgba(255,255,255,0.06), 0 0 0 1.5px rgba(0,0,0,0.4), 0 24px 60px rgba(0,0,0,0.3)",
+          boxShadow: "inset 0 0 0 1px rgba(255,255,255,0.06), 0 0 0 1.5px rgba(0,0,0,0.4), 0 24px 60px rgba(0,0,0,0.3)",
         }}
       >
         <div className="h-[22px] bg-[#2a2a2c] rounded-t-[6px] flex items-center px-2.5 gap-1.5 mb-px">
@@ -127,32 +134,22 @@ function DesktopFrame({ url, couple, theme }: { url: string | null; couple: stri
           </div>
         </div>
         <div className="rounded-b-[6px] overflow-hidden h-[480px] bg-background relative border border-[#3a3a3c]">
-          {url ? (
-            <iframe src={url} className="w-full h-full border-none block" title={`Démo ${theme}`} />
-          ) : (
-            <Placeholder couple={couple} theme={theme} />
+          {loading && (
+            <div className="absolute inset-0 bg-background z-10 flex items-center justify-center">
+              <div className="w-8 h-8 border border-primary/30 border-t-primary rounded-full animate-spin" />
+            </div>
           )}
+          <iframe
+            ref={iframeRef}
+            src={iframeUrl}
+            className="w-full h-full border-none block"
+            title={`Démo ${theme}`}
+            onLoad={onLoad}
+          />
         </div>
       </div>
-      <div
-        className="mx-auto"
-        style={{
-          width: 120,
-          height: 18,
-          background: "linear-gradient(180deg, #3a3a3c, #2a2a2c)",
-          clipPath: "polygon(10% 0%, 90% 0%, 100% 100%, 0% 100%)",
-        }}
-      />
-      <div
-        className="mx-auto"
-        style={{
-          width: 320,
-          height: 8,
-          background: "linear-gradient(180deg, #3a3a3c, #2a2a2c)",
-          borderRadius: "0 0 4px 4px",
-          boxShadow: "0 2px 8px rgba(0,0,0,0.2)",
-        }}
-      />
+      <div className="mx-auto" style={{ width: 120, height: 18, background: "linear-gradient(180deg, #3a3a3c, #2a2a2c)", clipPath: "polygon(10% 0%, 90% 0%, 100% 100%, 0% 100%)" }} />
+      <div className="mx-auto" style={{ width: 320, height: 8, background: "linear-gradient(180deg, #3a3a3c, #2a2a2c)", borderRadius: "0 0 4px 4px", boxShadow: "0 2px 8px rgba(0,0,0,0.2)" }} />
     </div>
   );
 }
@@ -162,8 +159,39 @@ export function ProductDemoViewer() {
   const [activeAnimation, setActiveAnimation] = useState<AnimationKey>("envelope");
   const [activeTheme, setActiveTheme] = useState<ThemeKey>("floral");
   const [device, setDevice] = useState<"mobile" | "desktop">("mobile");
+  const [iframeLoading, setIframeLoading] = useState(true);
+  const iframeRef = useRef<HTMLIFrameElement>(null);
 
-  const demo = DEMO_URLS[activeAnimation][activeTheme];
+  const iframeUrl = `/fr/invitation/${DEMO_CODES[activeAnimation]}?demo=true`;
+
+  const sendTheme = useCallback((theme: ThemeKey) => {
+    const iframe = iframeRef.current;
+    if (!iframe?.contentWindow) return;
+    iframe.contentWindow.postMessage(
+      {
+        type: "SET_THEME",
+        theme,
+        heroAsset: THEME_HERO_ASSETS[theme],
+      },
+      window.location.origin
+    );
+  }, []);
+
+  // Reset loading when animation changes (new iframe src)
+  useEffect(() => {
+    setIframeLoading(true);
+  }, [activeAnimation]);
+
+  // Send theme after iframe loads or theme changes
+  useEffect(() => {
+    const timeout = setTimeout(() => sendTheme(activeTheme), 300);
+    return () => clearTimeout(timeout);
+  }, [activeTheme, activeAnimation, sendTheme]);
+
+  const handleIframeLoad = useCallback(() => {
+    setIframeLoading(false);
+    setTimeout(() => sendTheme(activeTheme), 100);
+  }, [sendTheme, activeTheme]);
 
   return (
     <div>
@@ -264,25 +292,35 @@ export function ProductDemoViewer() {
 
       {/* Device frame */}
       {device === "mobile" ? (
-        <MobileFrame url={demo.url} couple={demo.couple} theme={THEME_LABELS[activeTheme]} />
+        <MobileFrame
+          iframeUrl={iframeUrl}
+          iframeRef={iframeRef}
+          theme={THEME_LABELS[activeTheme]}
+          loading={iframeLoading}
+          onLoad={handleIframeLoad}
+        />
       ) : (
-        <DesktopFrame url={demo.url} couple={demo.couple} theme={THEME_LABELS[activeTheme]} />
+        <DesktopFrame
+          iframeUrl={iframeUrl}
+          iframeRef={iframeRef}
+          theme={THEME_LABELS[activeTheme]}
+          loading={iframeLoading}
+          onLoad={handleIframeLoad}
+        />
       )}
 
       {/* Open fullscreen */}
-      {demo.url && (
-        <div className="flex justify-center mt-5">
-          <a
-            href={demo.url}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full border border-primary/30 text-primary text-sm font-medium bg-card hover:bg-primary/5 transition-colors shadow-sm"
-          >
-            {t("openFullscreen")}
-            <ExternalLink className="w-3.5 h-3.5" />
-          </a>
-        </div>
-      )}
+      <div className="flex justify-center mt-5">
+        <a
+          href={`/fr/invitation/${DEMO_CODES[activeAnimation]}`}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full border border-primary/30 text-primary text-sm font-medium bg-card hover:bg-primary/5 transition-colors shadow-sm"
+        >
+          {t("openFullscreen")}
+          <ExternalLink className="w-3.5 h-3.5" />
+        </a>
+      </div>
     </div>
   );
 }
