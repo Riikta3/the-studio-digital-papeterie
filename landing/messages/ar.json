@@ -89,7 +89,11 @@
     "demosSub": "Choisissez un thème et explorez une vraie invitation — comme la vivrait l'un de vos invités.",
     "openFullscreen": "Ouvrir en plein écran",
     "deviceMobile": "Mobile",
-    "deviceDesktop": "Desktop"
+    "deviceDesktop": "Desktop",
+    "animationLabel": "① Animation",
+    "animationEnvelope": "Enveloppe",
+    "animationDoors": "Portes",
+    "animationCurtains": "Rideaux"
   },
   "PricingComparison": {
     "eyebrow": "Pour 200 invités",

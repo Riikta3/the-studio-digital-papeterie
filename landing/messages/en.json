@@ -51,7 +51,11 @@
     "demosSub": "Choose a theme and explore a real invitation — exactly as your guests would experience it.",
     "openFullscreen": "Open full screen",
     "deviceMobile": "Mobile",
-    "deviceDesktop": "Desktop"
+    "deviceDesktop": "Desktop",
+    "animationLabel": "① Animation",
+    "animationEnvelope": "Enveloppe",
+    "animationDoors": "Portes",
+    "animationCurtains": "Rideaux"
   },
   "HowItWorks": {
     "eyebrow": "Simple & quick",
