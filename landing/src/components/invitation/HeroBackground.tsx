@@ -53,9 +53,23 @@ export function HeroBackground({
 
     const canvas = canvasRef.current;
     if (!canvas) return;
-    const rect = canvas.getBoundingClientRect();
-    canvas.width = rect.width || window.innerWidth;
-    canvas.height = rect.height || window.innerHeight;
+
+    // Size canvas to its actual rendered size, redraw on resize
+    const sizeCanvas = () => {
+      const rect = canvas.getBoundingClientRect();
+      const w = rect.width || canvas.offsetWidth || window.innerWidth;
+      const h = rect.height || canvas.offsetHeight || window.innerHeight;
+      if (canvas.width !== w || canvas.height !== h) {
+        canvas.width = w;
+        canvas.height = h;
+      }
+    };
+    sizeCanvas();
+    const ro = new ResizeObserver(() => {
+      sizeCanvas();
+      if (framesRef.current[0]) drawFrame(0);
+    });
+    ro.observe(canvas);
 
     let cancelled = false;
     let loaded = 0;
@@ -105,6 +119,7 @@ export function HeroBackground({
 
     return () => {
       cancelled = true;
+      ro.disconnect();
       if (rafRef.current !== null) cancelAnimationFrame(rafRef.current);
       framesRef.current = [];
     };
