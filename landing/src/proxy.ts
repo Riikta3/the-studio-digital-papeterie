@@ -7,6 +7,11 @@ const intlMiddleware = createMiddleware(routing);
 export default function proxy(request: NextRequest) {
   const { pathname } = request.nextUrl;
 
+  // Redirect /coming-soon → / when maintenance mode is off
+  if (process.env.MAINTENANCE_MODE !== "true" && pathname.endsWith("/coming-soon")) {
+    return NextResponse.redirect(new URL("/", request.url));
+  }
+
   // Maintenance mode redirect — MAINTENANCE_MODE is baked at build time, toggling requires a redeploy
   if (process.env.MAINTENANCE_MODE === "true") {
     const segments = pathname.split("/").filter(Boolean);
