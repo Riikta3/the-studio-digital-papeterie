@@ -1,9 +1,8 @@
 // landing/src/middleware.ts
-import createMiddleware from "next-intl/middleware";
+// Note: this project uses next-intl via createNextIntlPlugin (next.config.mjs),
+// NOT via createMiddleware. This middleware only handles maintenance mode redirect.
 import { NextRequest, NextResponse } from "next/server";
 import { routing } from "./navigation";
-
-const intlMiddleware = createMiddleware(routing);
 
 export function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
@@ -30,7 +29,7 @@ export function middleware(request: NextRequest) {
     }
   }
 
-  return intlMiddleware(request);
+  return NextResponse.next();
 }
 
 export const config = {
