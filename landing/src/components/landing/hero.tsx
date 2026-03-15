@@ -5,38 +5,19 @@ import { Link } from "@/navigation";
 import { motion } from "framer-motion";
 import { ArrowRight, ChevronDown } from "lucide-react";
 import { useTranslations } from "next-intl";
-import { useEffect, useRef } from "react";
 
-const DESKTOP_FRAME_COUNT = 34;
-const MOBILE_FRAME_COUNT = 53;
+const FRAME_COUNT = 66;
 
-// Module-level stable functions — safe to pass as getFramePath without useCallback
-function getDesktopFrame(i: number) {
-  return `/videos/desktop/Animation enveloppe personnalisée_${String(i).padStart(3, "0")}.webp`;
-}
-function getMobileFrame(i: number) {
-  return `/videos/mobile/Mobile Test 2_${String(i).padStart(3, "0")}.webp`;
+function getFrame(i: number) {
+  return `/videos/landing/hero/Amélioration vidéo - Online Video Cutter_${String(i).padStart(3, "0")}.webp`;
 }
 
 export function Hero() {
   const t = useTranslations("Hero");
-  // Use ref instead of state to avoid double-initialization of the hook on mobile
-  const isMobileRef = useRef(false);
-  const frameCountRef = useRef(DESKTOP_FRAME_COUNT);
-  const getFramePathRef = useRef(getDesktopFrame);
-
-  useEffect(() => {
-    isMobileRef.current = window.innerWidth < 768;
-    if (isMobileRef.current) {
-      frameCountRef.current = MOBILE_FRAME_COUNT;
-      getFramePathRef.current = getMobileFrame;
-    }
-  }, []);
-
   const { canvasRef } = useImageSequence({
-    frameCount: frameCountRef.current,
+    frameCount: FRAME_COUNT,
     fps: 24,
-    getFramePath: getFramePathRef.current,
+    getFramePath: getFrame,
     loop: true,
   });
 

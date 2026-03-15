@@ -5,21 +5,60 @@ import { useState } from "react";
 import { Monitor, Smartphone, ExternalLink } from "lucide-react";
 import { cn } from "@/lib/utils";
 
-type DemoTheme = {
-  key: string;
-  labelKey: string;
-  couple: string;
-  dotColors: [string, string];
+type AnimationKey = "envelope" | "doors" | "curtains";
+type ThemeKey = "floral" | "royal" | "boho" | "minimalist" | "modern";
+
+type DemoEntry = {
   url: string | null;
+  couple: string;
 };
 
-const DEMO_THEMES: DemoTheme[] = [
-  { key: "floral",     labelKey: "Floral",      couple: "Sophie & Thomas",   dotColors: ["#c97a90", "#8b2040"], url: null },
-  { key: "royal",      labelKey: "Royal",        couple: "Camille & Antoine", dotColors: ["#c9a96e", "#2d3a6b"], url: null },
-  { key: "boho",       labelKey: "Bohème",       couple: "Léa & Hugo",        dotColors: ["#c4a882", "#8b5e3c"], url: null },
-  { key: "minimalist", labelKey: "Minimaliste",  couple: "Marie & Julien",    dotColors: ["#999999", "#222222"], url: null },
-  { key: "modern",     labelKey: "Modern",       couple: "Clara & Maxime",    dotColors: ["#b07acc", "#4a1570"], url: null },
+// url indexed by [animation][theme] — fill in as demo links become available
+const DEMO_URLS: Record<AnimationKey, Record<ThemeKey, DemoEntry>> = {
+  envelope: {
+    floral:     { url: null, couple: "Sophie & Thomas" },
+    royal:      { url: null, couple: "Camille & Antoine" },
+    boho:       { url: null, couple: "Léa & Hugo" },
+    minimalist: { url: null, couple: "Marie & Julien" },
+    modern:     { url: null, couple: "Clara & Maxime" },
+  },
+  doors: {
+    floral:     { url: null, couple: "Sophie & Thomas" },
+    royal:      { url: null, couple: "Camille & Antoine" },
+    boho:       { url: null, couple: "Léa & Hugo" },
+    minimalist: { url: null, couple: "Marie & Julien" },
+    modern:     { url: null, couple: "Clara & Maxime" },
+  },
+  curtains: {
+    floral:     { url: null, couple: "Sophie & Thomas" },
+    royal:      { url: null, couple: "Camille & Antoine" },
+    boho:       { url: null, couple: "Léa & Hugo" },
+    minimalist: { url: null, couple: "Marie & Julien" },
+    modern:     { url: null, couple: "Clara & Maxime" },
+  },
+};
+
+const ANIMATIONS: { key: AnimationKey; icon: string }[] = [
+  { key: "envelope", icon: "✉️" },
+  { key: "doors",    icon: "🚪" },
+  { key: "curtains", icon: "🎭" },
 ];
+
+const THEMES: { key: ThemeKey; dotColors: [string, string] }[] = [
+  { key: "floral",     dotColors: ["#c97a90", "#8b2040"] },
+  { key: "royal",      dotColors: ["#c9a96e", "#2d3a6b"] },
+  { key: "boho",       dotColors: ["#c4a882", "#8b5e3c"] },
+  { key: "minimalist", dotColors: ["#999999", "#222222"] },
+  { key: "modern",     dotColors: ["#b07acc", "#4a1570"] },
+];
+
+const THEME_LABELS: Record<ThemeKey, string> = {
+  floral: "Floral",
+  royal: "Royal",
+  boho: "Bohème",
+  minimalist: "Minimaliste",
+  modern: "Modern",
+};
 
 function Placeholder({ couple, theme }: { couple: string; theme: string }) {
   return (
@@ -45,15 +84,12 @@ function MobileFrame({ url, couple, theme }: { url: string | null; couple: strin
             "inset 0 0 0 1px rgba(255,255,255,0.06), 0 0 0 1.5px rgba(0,0,0,0.35), 0 32px 80px rgba(0,0,0,0.28)",
         }}
       >
-        {/* Side buttons */}
         <div className="absolute left-[-3px] top-[90px] w-[3px] h-8 rounded-l bg-[#2a2a2c] shadow-[0_38px_0_#2a2a2c,0_76px_0_#2a2a2c]" />
         <div className="absolute right-[-3px] top-[120px] w-[3px] h-[60px] rounded-r bg-[#2a2a2c]" />
-        {/* Notch */}
         <div className="w-[88px] h-7 bg-[#1c1c1e] rounded-b-[20px] mx-auto relative z-10 flex items-center justify-center gap-1.5 mb-[-6px]">
           <div className="w-2.5 h-2.5 rounded-full bg-[#2a2a2c] border border-[#333]" />
           <div className="w-9 h-1 bg-[#2a2a2c] rounded" />
         </div>
-        {/* Screen */}
         <div className="rounded-[32px] overflow-hidden h-[560px] bg-background relative">
           {url ? (
             <iframe src={url} className="w-full h-full border-none block" title={`Démo ${theme}`} />
@@ -82,7 +118,6 @@ function DesktopFrame({ url, couple, theme }: { url: string | null; couple: stri
             "inset 0 0 0 1px rgba(255,255,255,0.06), 0 0 0 1.5px rgba(0,0,0,0.4), 0 24px 60px rgba(0,0,0,0.3)",
         }}
       >
-        {/* Menu bar */}
         <div className="h-[22px] bg-[#2a2a2c] rounded-t-[6px] flex items-center px-2.5 gap-1.5 mb-px">
           <div className="w-2.5 h-2.5 rounded-full bg-[#ff5f57]" />
           <div className="w-2.5 h-2.5 rounded-full bg-[#febc2e]" />
@@ -91,7 +126,6 @@ function DesktopFrame({ url, couple, theme }: { url: string | null; couple: stri
             <span className="text-[8px] text-white/35 font-mono truncate">{displayUrl}</span>
           </div>
         </div>
-        {/* Content */}
         <div className="rounded-b-[6px] overflow-hidden h-[480px] bg-background relative border border-[#3a3a3c]">
           {url ? (
             <iframe src={url} className="w-full h-full border-none block" title={`Démo ${theme}`} />
@@ -100,7 +134,6 @@ function DesktopFrame({ url, couple, theme }: { url: string | null; couple: stri
           )}
         </div>
       </div>
-      {/* Mac neck + foot */}
       <div
         className="mx-auto"
         style={{
@@ -126,10 +159,11 @@ function DesktopFrame({ url, couple, theme }: { url: string | null; couple: stri
 
 export function ProductDemoViewer() {
   const t = useTranslations("ProductDemo");
-  const [activeTheme, setActiveTheme] = useState(0);
+  const [activeAnimation, setActiveAnimation] = useState<AnimationKey>("envelope");
+  const [activeTheme, setActiveTheme] = useState<ThemeKey>("floral");
   const [device, setDevice] = useState<"mobile" | "desktop">("mobile");
 
-  const demo = DEMO_THEMES[activeTheme];
+  const demo = DEMO_URLS[activeAnimation][activeTheme];
 
   return (
     <div>
@@ -145,29 +179,60 @@ export function ProductDemoViewer() {
         <p className="text-muted-foreground mt-3 max-w-lg mx-auto">{t("demosSub")}</p>
       </div>
 
-      {/* Theme selector */}
-      <div className="flex gap-2 justify-center flex-wrap mb-7">
-        {DEMO_THEMES.map((theme, i) => (
-          <button
-            key={theme.key}
-            onClick={() => setActiveTheme(i)}
-            className={cn(
-              "flex items-center gap-2 px-4 py-2 rounded-full border text-sm font-medium transition-all",
-              i === activeTheme
-                ? "bg-primary text-primary-foreground border-primary shadow-lg shadow-primary/20"
-                : "bg-card text-muted-foreground border-border hover:border-primary/30 hover:text-foreground"
-            )}
-          >
-            <span
-              className="w-2.5 h-2.5 rounded-full flex-shrink-0"
-              style={{ background: `linear-gradient(135deg, ${theme.dotColors[0]}, ${theme.dotColors[1]})` }}
-            />
-            {theme.labelKey}
-          </button>
-        ))}
+      {/* Step 1 — Animation */}
+      <div className="mb-6">
+        <p className="text-center text-xs uppercase tracking-[0.2em] text-muted-foreground font-medium mb-3">
+          {t("animationLabel")}
+        </p>
+        <div className="flex gap-2 justify-center flex-wrap">
+          {ANIMATIONS.map(({ key, icon }) => (
+            <button
+              key={key}
+              onClick={() => setActiveAnimation(key)}
+              className={cn(
+                "flex items-center gap-2 px-5 py-2.5 rounded-full border text-sm font-medium transition-all",
+                key === activeAnimation
+                  ? "bg-primary text-primary-foreground border-primary shadow-lg shadow-primary/20"
+                  : "bg-card text-muted-foreground border-border hover:border-primary/30 hover:text-foreground"
+              )}
+            >
+              <span>{icon}</span>
+              {key === "envelope" && t("animationEnvelope")}
+              {key === "doors" && t("animationDoors")}
+              {key === "curtains" && t("animationCurtains")}
+            </button>
+          ))}
+        </div>
       </div>
 
-      {/* Device toggle */}
+      {/* Step 2 — Theme */}
+      <div className="mb-6">
+        <p className="text-center text-xs uppercase tracking-[0.2em] text-muted-foreground font-medium mb-3">
+          ② Thème
+        </p>
+        <div className="flex gap-2 justify-center flex-wrap">
+          {THEMES.map(({ key, dotColors }) => (
+            <button
+              key={key}
+              onClick={() => setActiveTheme(key)}
+              className={cn(
+                "flex items-center gap-2 px-4 py-2 rounded-full border text-sm font-medium transition-all",
+                key === activeTheme
+                  ? "bg-primary text-primary-foreground border-primary shadow-lg shadow-primary/20"
+                  : "bg-card text-muted-foreground border-border hover:border-primary/30 hover:text-foreground"
+              )}
+            >
+              <span
+                className="w-2.5 h-2.5 rounded-full flex-shrink-0"
+                style={{ background: `linear-gradient(135deg, ${dotColors[0]}, ${dotColors[1]})` }}
+              />
+              {THEME_LABELS[key]}
+            </button>
+          ))}
+        </div>
+      </div>
+
+      {/* Step 3 — Device */}
       <div className="flex justify-center mb-7">
         <div className="inline-flex bg-card border border-border rounded-full p-1 gap-0.5 shadow-sm">
           <button
@@ -199,12 +264,12 @@ export function ProductDemoViewer() {
 
       {/* Device frame */}
       {device === "mobile" ? (
-        <MobileFrame url={demo.url} couple={demo.couple} theme={demo.labelKey} />
+        <MobileFrame url={demo.url} couple={demo.couple} theme={THEME_LABELS[activeTheme]} />
       ) : (
-        <DesktopFrame url={demo.url} couple={demo.couple} theme={demo.labelKey} />
+        <DesktopFrame url={demo.url} couple={demo.couple} theme={THEME_LABELS[activeTheme]} />
       )}
 
-      {/* Open fullscreen — only shown when url is not null */}
+      {/* Open fullscreen */}
       {demo.url && (
         <div className="flex justify-center mt-5">
           <a

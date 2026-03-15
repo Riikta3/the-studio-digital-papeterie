@@ -43,6 +43,7 @@ export async function ModuleRenderer({
   extras,
   partner1,
   partner2,
+  isDemo,
 }: {
   modules: string[];
   weddingId: string;
@@ -51,6 +52,7 @@ export async function ModuleRenderer({
   extras?: any;
   partner1?: string;
   partner2?: string;
+  isDemo?: boolean;
 }) {
   if (!modules || modules.length === 0) return null;
 
@@ -67,10 +69,6 @@ export async function ModuleRenderer({
     positionMap[module_id] = position;
   });
 
-  console.log("[ModuleRenderer] raw modules from sites.modules:", modules);
-  console.log("[ModuleRenderer] siteModules rows:", siteModules);
-  console.log("[ModuleRenderer] positionMap from site_modules:", positionMap);
-
   // Only keep modules that have a registered component, sorted by position
   const knownModules = modules
     .filter((id) => MODULE_COMPONENTS[id])
@@ -79,8 +77,6 @@ export async function ModuleRenderer({
       const posB = positionMap[b] ?? 99;
       return posA - posB;
     });
-
-  console.log("[ModuleRenderer] final sorted order:", knownModules);
 
   return (
     <div className='flex flex-col w-full'>
@@ -98,6 +94,7 @@ export async function ModuleRenderer({
               config={config}
               partner1={partner1}
               partner2={partner2}
+              {...(moduleId === "rsvp" ? { isDemo } : {})}
             />
             {!isLast && <Divider />}
           </div>

@@ -1,5 +1,6 @@
 import { InvitationFooter } from "@/components/invitation/InvitationFooter";
 import { InvitationPageClient } from "@/components/invitation/InvitationPageClient";
+import { InvitationHero } from "@/components/invitation/InvitationHero";
 import { GuestCodeGate } from "@/components/invitation/GuestCodeGate";
 import { ScrollToModules } from "@/components/invitation/ScrollToModules";
 import { ModuleRenderer } from "@/components/invitation/ModuleRenderer";
@@ -15,10 +16,12 @@ interface InvitationPageProps {
     locale: string;
     weddingCode: string;
   }>;
+  searchParams: Promise<{ demo?: string }>;
 }
 
-export default async function InvitationPage({ params }: InvitationPageProps) {
+export default async function InvitationPage({ params, searchParams }: InvitationPageProps) {
   const { weddingCode } = await params;
+  const { demo } = await searchParams;
 
   if (!weddingCode) {
     return notFound();
@@ -96,7 +99,7 @@ export default async function InvitationPage({ params }: InvitationPageProps) {
   // 4. Fetch Sites config (Modules, Theme, Extras)
   const { data: siteConfig, error: siteError } = await supabaseAdmin
     .from("sites")
-    .select("id, theme_id, modules, plan_id, extras, languages")
+    .select("id, theme_id, modules, plan_id, extras, languages, is_demo")
     .eq("wedding_id", weddingId)
     .single();
 
@@ -105,48 +108,19 @@ export default async function InvitationPage({ params }: InvitationPageProps) {
     return notFound();
   }
 
-  // Define actual Theme class (e.g., 'theme-floral', 'theme-minimalist') mapping
-  let themeClass = `theme-${siteConfig.theme_id}`;
-  if (siteConfig.theme_id === "modern") themeClass = "theme-minimalist"; // mapping modern to minimalist in globals if needed, let's keep it theme-id
-  // Actually, the next-theme ThemeProvider takes care of it natively if we pass the right id.
+  const isDemo = demo === "true" && siteConfig.is_demo === true;
 
   const partnerNames = `${profile.first_name} & ${profile.partner_name}`;
   const invitationContent = (
-    <InvitationPageClient hasIntro>
+    <InvitationPageClient hasIntro isDemo={isDemo} initialTheme={siteConfig.theme_id}>
     <div
-      className={`${themeClass} min-h-screen bg-background text-foreground font-sans`}
+      className="min-h-screen bg-background text-foreground font-sans"
     >
-      {/* --- HERO SECTION --- (We will extract this to a component) */}
-      <header className='relative h-[100svh] flex items-center justify-center overflow-hidden'>
-        {/* Background image could come from extras logic later */}
-        <div
-          className='absolute inset-0 bg-cover bg-center z-0 scale-105'
-          style={{
-            backgroundImage:
-              "url('https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&q=80&w=2000')",
-          }}
-        />
-        <div className='absolute inset-0 bg-black/30 z-0' />{" "}
-        {/* Dark overlay for better text readability */}
-        <div className='relative z-10 text-center space-y-6 px-4 text-white'>
-          <h4 className='uppercase tracking-widest text-sm font-bold text-white/80 mb-4'>
-            Nous nous marions
-          </h4>
-          <h1 className='font-heading text-6xl md:text-8xl italic drop-shadow-lg'>
-            {profile.first_name} <span className='text-primary/70'>&</span>{" "}
-            {profile.partner_name}
-          </h1>
-          {profile.wedding_date && (
-            <p className='text-xl md:text-2xl font-light mt-4 text-white/90 drop-shadow-md'>
-              {new Intl.DateTimeFormat("fr-FR", {
-                dateStyle: "long",
-              }).format(new Date(profile.wedding_date))}
-            </p>
-          )}
-        </div>
-        {/* Animated Scroll Arrow */}
-        <ScrollToModules />
-      </header>
+      <InvitationHero
+        firstName={profile.first_name}
+        partnerName={profile.partner_name || ""}
+        weddingDate={profile.wedding_date}
+      />
 
       {/* --- DYNAMIC MODULES RENDERER --- */}
       <ModulesWrapper>
@@ -162,6 +136,7 @@ export default async function InvitationPage({ params }: InvitationPageProps) {
             extras={siteConfig.extras}
             partner1={profile.first_name}
             partner2={profile.partner_name || ""}
+            isDemo={isDemo}
           />
         </main>
       </ModulesWrapper>
@@ -175,7 +150,7 @@ export default async function InvitationPage({ params }: InvitationPageProps) {
     </InvitationPageClient>
   );
 
-  if (guestCode) {
+  if (guestCode && !isDemo) {
     return (
       <GuestCodeGate weddingCode={guestCode} partnerNames={partnerNames}>
         {invitationContent}
