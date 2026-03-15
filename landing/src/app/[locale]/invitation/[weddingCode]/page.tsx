@@ -109,16 +109,11 @@ export default async function InvitationPage({ params, searchParams }: Invitatio
 
   const isDemo = demo === "true" && siteConfig.is_demo === true;
 
-  // Define actual Theme class (e.g., 'theme-floral', 'theme-minimalist') mapping
-  let themeClass = `theme-${siteConfig.theme_id}`;
-  if (siteConfig.theme_id === "modern") themeClass = "theme-minimalist"; // mapping modern to minimalist in globals if needed, let's keep it theme-id
-  // Actually, the next-theme ThemeProvider takes care of it natively if we pass the right id.
-
   const partnerNames = `${profile.first_name} & ${profile.partner_name}`;
   const invitationContent = (
-    <InvitationPageClient hasIntro isDemo={isDemo}>
+    <InvitationPageClient hasIntro isDemo={isDemo} initialTheme={siteConfig.theme_id}>
     <div
-      className={`${themeClass} min-h-screen bg-background text-foreground font-sans`}
+      className="min-h-screen bg-background text-foreground font-sans"
     >
       {/* --- HERO SECTION --- (We will extract this to a component) */}
       <header className='relative h-[100svh] flex items-center justify-center overflow-hidden'>
