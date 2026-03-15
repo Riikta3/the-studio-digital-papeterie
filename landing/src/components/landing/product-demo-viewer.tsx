@@ -110,7 +110,8 @@ function MobileFrame({
           <div className="w-2.5 h-2.5 rounded-full bg-[#2a2a2c] border border-[#333]" />
           <div className="w-9 h-1 bg-[#2a2a2c] rounded" />
         </div>
-        <div className="rounded-[32px] overflow-hidden h-[560px] bg-background relative">
+        {/* Inner screen: 276px wide, scaled iframe at 390px → scale 0.708 → height 790px scaled to 560px */}
+        <div className="rounded-[32px] overflow-hidden bg-background relative" style={{ width: 276, height: 560 }}>
           {loading && (
             <div className="absolute inset-0 bg-background z-10 flex items-center justify-center">
               <div className="w-8 h-8 border border-primary/30 border-t-primary rounded-full animate-spin" />
@@ -119,7 +120,13 @@ function MobileFrame({
           <iframe
             ref={iframeRef}
             src={iframeUrl}
-            className="w-full h-full border-none block"
+            className="border-none block"
+            style={{
+              width: 390,
+              height: 790,
+              transformOrigin: "top left",
+              transform: `scale(${276 / 390})`,
+            }}
             title={`Démo ${theme}`}
             onLoad={onLoad}
           />
@@ -163,7 +170,8 @@ function DesktopFrame({
             <span className="text-[8px] text-white/35 font-mono truncate">{displayUrl}</span>
           </div>
         </div>
-        <div className="rounded-b-[6px] overflow-hidden h-[480px] bg-background relative border border-[#3a3a3c]">
+        {/* Inner screen: 304px wide, scaled iframe at 900px → scale 0.338 → height 1420px scaled to 480px */}
+        <div className="rounded-b-[6px] overflow-hidden bg-background relative border border-[#3a3a3c]" style={{ width: 304, height: 480 }}>
           {loading && (
             <div className="absolute inset-0 bg-background z-10 flex items-center justify-center">
               <div className="w-8 h-8 border border-primary/30 border-t-primary rounded-full animate-spin" />
@@ -172,7 +180,13 @@ function DesktopFrame({
           <iframe
             ref={iframeRef}
             src={iframeUrl}
-            className="w-full h-full border-none block"
+            className="border-none block"
+            style={{
+              width: 900,
+              height: 1420,
+              transformOrigin: "top left",
+              transform: `scale(${304 / 900})`,
+            }}
             title={`Démo ${theme}`}
             onLoad={onLoad}
           />
