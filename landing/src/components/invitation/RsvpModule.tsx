@@ -352,7 +352,7 @@ export function RsvpModule({
                     : "Confirmer ma réponse"}
               </span>
               <Send
-                className={`w-4 h-4 transition-transform duration-300 ${status === "submitting" ? "translate-x-10 opacity-0" : "group-hover:translate-x-1"}`}
+                className={`w-4 h-4 transition-transform duration-300 ${status === "submitting" ? "translate-x-10 opacity-0" : !isDemo ? "group-hover:translate-x-1" : ""}`}
               />
             </button>
           </form>
