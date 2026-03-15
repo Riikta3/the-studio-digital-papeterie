@@ -2,7 +2,6 @@ import { InvitationFooter } from "@/components/invitation/InvitationFooter";
 import { InvitationPageClient } from "@/components/invitation/InvitationPageClient";
 import { InvitationHero } from "@/components/invitation/InvitationHero";
 import { GuestCodeGate } from "@/components/invitation/GuestCodeGate";
-import { ScrollToModules } from "@/components/invitation/ScrollToModules";
 import { ModuleRenderer } from "@/components/invitation/ModuleRenderer";
 import { ModulesWrapper } from "@/components/invitation/ModulesWrapper";
 import { ScrollToTop } from "@/components/invitation/ScrollToTop";
