@@ -34,9 +34,9 @@ export default function ComingSoonPage() {
         <Image
           src="/images/logo.png"
           alt="The Studio Digital Papeterie"
-          width={180}
-          height={40}
-          className="h-10 w-auto object-contain opacity-80"
+          width={280}
+          height={64}
+          className="h-16 w-auto object-contain opacity-90"
           priority
         />
 

@@ -3,6 +3,7 @@
 import { motion } from "framer-motion";
 import { useTranslations } from "next-intl";
 import { Palette, Settings2, Send } from "lucide-react";
+import { Link } from "@/navigation";
 
 const STEPS = [
   { icon: Palette, titleKey: "step1Title", descKey: "step1Desc", number: "01" },
@@ -61,6 +62,21 @@ export function HowItWorks() {
             </motion.div>
           ))}
         </div>
+
+        <motion.div
+          initial={{ opacity: 0, y: 16 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6, delay: 0.4 }}
+          className="flex justify-center mt-12"
+        >
+          <Link
+            href="/create"
+            className="inline-flex items-center px-8 py-3.5 bg-primary text-primary-foreground font-medium tracking-wide text-sm rounded-full hover:bg-primary/90 transition-colors"
+          >
+            {t("createButton")}
+          </Link>
+        </motion.div>
       </div>
     </section>
   );

@@ -62,7 +62,8 @@
     "step2Title": "Customize",
     "step2Desc": "Texts, photos, modules — everything configures in minutes.",
     "step3Title": "Send the link",
-    "step3Desc": "Share via SMS, WhatsApp or email. Your guests receive a unique experience."
+    "step3Desc": "Share via SMS, WhatsApp or email. Your guests receive a unique experience.",
+    "createButton": "Create my invitation"
   },
   "Catalogue": {
     "eyebrow": "Créez votre invitation",

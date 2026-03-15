@@ -1,6 +1,5 @@
 import { HowItWorks } from "@/components/landing/how-it-works";
 import { ProductDemo } from "@/components/landing/product-demo";
-import { Catalogue } from "@/components/landing/catalogue";
 import { PricingComparison } from "@/components/landing/pricing-comparison";
 import { ValueCards } from "@/components/landing/value-cards";
 import { Customization } from "@/components/landing/customization";
@@ -17,7 +16,6 @@ export default function Home() {
       <Hero />
       <ProductDemo />
       <HowItWorks />
-      <Catalogue />
       <PricingComparison />
       <ValueCards />
       <Customization />
