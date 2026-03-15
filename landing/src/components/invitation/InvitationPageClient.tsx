@@ -49,7 +49,7 @@ export function InvitationPageClient({
   }, [isDemo]);
 
   return (
-    <InvitationDemoContext.Provider value={{ isDemo, heroAsset }}>
+    <InvitationDemoContext.Provider value={{ isDemo, activeTheme, heroAsset }}>
       <>
         <AnimatePresence>
           {hasIntro && !introDone && (

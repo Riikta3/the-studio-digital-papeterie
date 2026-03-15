@@ -9,11 +9,13 @@ interface HeroAsset {
 
 interface DemoContextValue {
   isDemo: boolean;
+  activeTheme: string;
   heroAsset: HeroAsset;
 }
 
 export const InvitationDemoContext = createContext<DemoContextValue>({
   isDemo: false,
+  activeTheme: "floral",
   heroAsset: { frames: 0, sequencePath: null },
 });
 

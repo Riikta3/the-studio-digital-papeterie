@@ -29,8 +29,6 @@ export default async function InvitationPage({ params, searchParams }: Invitatio
   // Handle URL encoding (e.g. converting %26 back to &)
   const decodedCode = decodeURIComponent(weddingCode);
 
-  console.log("💍 Fetching invitation for code:", decodedCode);
-
   // 1. Find Wedding ID via Site Slug or Settings Code
   // Try slug first (friendly URL)
   const { data: siteBySlug } = await supabaseAdmin
