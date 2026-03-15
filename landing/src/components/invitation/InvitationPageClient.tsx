@@ -3,6 +3,7 @@
 import { motion, AnimatePresence } from "framer-motion";
 import { useEffect, useState } from "react";
 import { InvitationIntro } from "./InvitationIntro";
+import { InvitationDemoContext } from "./InvitationDemoContext";
 
 interface InvitationPageClientProps {
   children: React.ReactNode;
@@ -19,6 +20,7 @@ export function InvitationPageClient({
 }: InvitationPageClientProps) {
   const [introDone, setIntroDone] = useState(!hasIntro);
   const [activeTheme, setActiveTheme] = useState(initialTheme);
+  const [heroAsset, setHeroAsset] = useState<{ frames: number; sequencePath: string | null }>({ frames: 0, sequencePath: null });
 
   // Lock scroll while intro is active
   useEffect(() => {
@@ -37,6 +39,9 @@ export function InvitationPageClient({
       if (e.origin !== window.location.origin) return;
       if (e.data?.type === "SET_THEME" && typeof e.data.theme === "string") {
         setActiveTheme(e.data.theme);
+        if (e.data.heroAsset && typeof e.data.heroAsset.frames === "number") {
+          setHeroAsset(e.data.heroAsset);
+        }
       }
     };
     window.addEventListener("message", handler);
@@ -44,23 +49,25 @@ export function InvitationPageClient({
   }, [isDemo]);
 
   return (
-    <>
-      <AnimatePresence>
-        {hasIntro && !introDone && (
-          <InvitationIntro onComplete={() => setIntroDone(true)} />
-        )}
-      </AnimatePresence>
+    <InvitationDemoContext.Provider value={{ isDemo, heroAsset }}>
+      <>
+        <AnimatePresence>
+          {hasIntro && !introDone && (
+            <InvitationIntro onComplete={() => setIntroDone(true)} />
+          )}
+        </AnimatePresence>
 
-      {/* Site content fades in from white once intro is done */}
-      <motion.div
-        initial={hasIntro ? { opacity: 0 } : false}
-        animate={{ opacity: introDone ? 1 : 0 }}
-        transition={{ duration: 0.6, ease: "easeOut" }}
-        style={{ pointerEvents: introDone ? "auto" : "none", visibility: introDone ? "visible" : "hidden" }}
-        className={`theme-${activeTheme}`}
-      >
-        {children}
-      </motion.div>
-    </>
+        {/* Site content fades in from white once intro is done */}
+        <motion.div
+          initial={hasIntro ? { opacity: 0 } : false}
+          animate={{ opacity: introDone ? 1 : 0 }}
+          transition={{ duration: 0.6, ease: "easeOut" }}
+          style={{ pointerEvents: introDone ? "auto" : "none", visibility: introDone ? "visible" : "hidden" }}
+          className={`theme-${activeTheme}`}
+        >
+          {children}
+        </motion.div>
+      </>
+    </InvitationDemoContext.Provider>
   );
 }

@@ -2,10 +2,10 @@
 
 import { Link } from "@/navigation";
 import { Button } from "@shared/components/ui/button";
-import Image from "next/image";
 import { Input } from "@shared/components/ui/input";
 import { Label } from "@shared/components/ui/label";
 import { Eye, EyeOff } from "lucide-react";
+import Image from "next/image";
 import { useActionState, useEffect, useState } from "react";
 import { login } from "./actions";
 
@@ -35,7 +35,7 @@ export default function LoginPage() {
 
       <div className='relative w-full max-w-md'>
         {/* Elegant card container with golden border */}
-        <div className='relative bg-white/90 backdrop-blur-md rounded-3xl shadow-[0_20px_60px_rgba(0,0,0,0.08)] border border-primary/10 p-14 space-y-10'>
+        <div className='relative bg-white/90 backdrop-blur-md rounded-3xl shadow-[0_20px_60px_rgba(0,0,0,0.08)] border border-primary/10 p-14 pt-7 space-b-10'>
           {/* Subtle glow */}
           <div className='absolute inset-0 rounded-3xl bg-gradient-to-br from-primary/0 via-primary/[0.02] to-primary/0 pointer-events-none' />
 
@@ -45,9 +45,9 @@ export default function LoginPage() {
               <Image
                 src='/logo-the-studio-rectangulaire.svg'
                 alt='The Studio Digital Papeterie'
-                width={260}
-                height={80}
-                className='h-16 w-auto object-contain'
+                width={360}
+                height={110}
+                className='h-28 w-auto object-contain'
                 priority
               />
             </div>

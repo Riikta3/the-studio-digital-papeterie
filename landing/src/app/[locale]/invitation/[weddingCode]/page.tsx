@@ -1,5 +1,6 @@
 import { InvitationFooter } from "@/components/invitation/InvitationFooter";
 import { InvitationPageClient } from "@/components/invitation/InvitationPageClient";
+import { InvitationHero } from "@/components/invitation/InvitationHero";
 import { GuestCodeGate } from "@/components/invitation/GuestCodeGate";
 import { ScrollToModules } from "@/components/invitation/ScrollToModules";
 import { ModuleRenderer } from "@/components/invitation/ModuleRenderer";
@@ -115,37 +116,11 @@ export default async function InvitationPage({ params, searchParams }: Invitatio
     <div
       className="min-h-screen bg-background text-foreground font-sans"
     >
-      {/* --- HERO SECTION --- (We will extract this to a component) */}
-      <header className='relative h-[100svh] flex items-center justify-center overflow-hidden'>
-        {/* Background image could come from extras logic later */}
-        <div
-          className='absolute inset-0 bg-cover bg-center z-0 scale-105'
-          style={{
-            backgroundImage:
-              "url('https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&q=80&w=2000')",
-          }}
-        />
-        <div className='absolute inset-0 bg-black/30 z-0' />{" "}
-        {/* Dark overlay for better text readability */}
-        <div className='relative z-10 text-center space-y-6 px-4 text-white'>
-          <h4 className='uppercase tracking-widest text-sm font-bold text-white/80 mb-4'>
-            Nous nous marions
-          </h4>
-          <h1 className='font-heading text-6xl md:text-8xl italic drop-shadow-lg'>
-            {profile.first_name} <span className='text-primary/70'>&</span>{" "}
-            {profile.partner_name}
-          </h1>
-          {profile.wedding_date && (
-            <p className='text-xl md:text-2xl font-light mt-4 text-white/90 drop-shadow-md'>
-              {new Intl.DateTimeFormat("fr-FR", {
-                dateStyle: "long",
-              }).format(new Date(profile.wedding_date))}
-            </p>
-          )}
-        </div>
-        {/* Animated Scroll Arrow */}
-        <ScrollToModules />
-      </header>
+      <InvitationHero
+        firstName={profile.first_name}
+        partnerName={profile.partner_name || ""}
+        weddingDate={profile.wedding_date}
+      />
 
       {/* --- DYNAMIC MODULES RENDERER --- */}
       <ModulesWrapper>
