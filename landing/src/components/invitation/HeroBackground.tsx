@@ -9,7 +9,7 @@ interface HeroBackgroundProps {
   sequencePath: string | null;
   /** Fallback photo URL when no sequence available */
   fallbackUrl?: string;
-  /** If true, plays in infinite slow loop (demo ambiance mode). If false, plays once. */
+  /** If true, plays in infinite slow loop (demo ambiance mode). If false, shows first frame statically (single-play not yet implemented). */
   loop?: boolean;
 }
 
@@ -53,9 +53,11 @@ export function HeroBackground({
 
     const canvas = canvasRef.current;
     if (!canvas) return;
-    canvas.width = canvas.offsetWidth || window.innerWidth;
-    canvas.height = canvas.offsetHeight || window.innerHeight;
+    const rect = canvas.getBoundingClientRect();
+    canvas.width = rect.width || window.innerWidth;
+    canvas.height = rect.height || window.innerHeight;
 
+    let cancelled = false;
     let loaded = 0;
     let loopStarted = false;
 
@@ -83,9 +85,10 @@ export function HeroBackground({
       const img = new Image();
       const idx = i;
       img.onload = () => {
+        if (cancelled) return;
         framesRef.current[idx] = img;
         loaded++;
-        if (loaded === 1) {
+        if (idx === 0) {
           drawFrame(0);
           setReady(true);
         }
@@ -94,12 +97,14 @@ export function HeroBackground({
         }
       };
       img.onerror = () => {
+        if (cancelled) return;
         loaded++;
       };
       img.src = getFrameSrc(sequencePath, i);
     }
 
     return () => {
+      cancelled = true;
       if (rafRef.current !== null) cancelAnimationFrame(rafRef.current);
       framesRef.current = [];
     };
@@ -109,7 +114,7 @@ export function HeroBackground({
   if (!sequencePath || frames === 0) {
     return (
       <div
-        className="absolute inset-0 bg-cover bg-center z-0 scale-105"
+        className="absolute inset-0 bg-cover bg-center z-0"
         style={{ backgroundImage: `url('${fallbackUrl}')` }}
       />
     );
@@ -126,7 +131,7 @@ export function HeroBackground({
       )}
       <canvas
         ref={canvasRef}
-        className="absolute inset-0 w-full h-full object-cover z-0"
+        className="absolute inset-0 w-full h-full z-0"
         style={{ opacity: ready ? 1 : 0, transition: "opacity 0.3s ease" }}
       />
     </>
