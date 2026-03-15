@@ -34,6 +34,7 @@ export function InvitationPageClient({
   useEffect(() => {
     if (!isDemo) return;
     const handler = (e: MessageEvent) => {
+      if (e.origin !== window.location.origin) return;
       if (e.data?.type === "SET_THEME" && typeof e.data.theme === "string") {
         setActiveTheme(e.data.theme);
       }
