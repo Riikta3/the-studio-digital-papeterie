@@ -77,17 +77,17 @@ export function InvitationIntro({
     if (!canvas) return;
 
     const sizeAndDraw = (img: HTMLImageElement) => {
-      const vvw = window.visualViewport?.width ?? window.innerWidth;
-      const vvh = window.visualViewport?.height ?? window.innerHeight;
-      canvas.width = vvw;
-      canvas.height = vvh;
+      const w = canvas.offsetWidth || window.innerWidth;
+      const h = canvas.offsetHeight || window.innerHeight;
+      canvas.width = w;
+      canvas.height = h;
       const ctx = canvas.getContext("2d");
       if (!ctx) return;
-      const scale = Math.max(vvw / img.naturalWidth, vvh / img.naturalHeight);
+      const scale = Math.max(w / img.naturalWidth, h / img.naturalHeight);
       const sw = img.naturalWidth * scale;
       const sh = img.naturalHeight * scale;
-      ctx.clearRect(0, 0, vvw, vvh);
-      ctx.drawImage(img, (vvw - sw) / 2, (vvh - sh) / 2, sw, sh);
+      ctx.clearRect(0, 0, w, h);
+      ctx.drawImage(img, (w - sw) / 2, (h - sh) / 2, sw, sh);
     };
 
     const img = new Image();
@@ -109,16 +109,17 @@ export function InvitationIntro({
     };
   }, [desktopPath, mobilePath, forceDesktop]);
 
-  // Resize handler — resize canvas and redraw current frame
+  // Resize handler — use ResizeObserver to catch CSS dimension changes
   useEffect(() => {
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+    
     let timeout: ReturnType<typeof setTimeout>;
-    const handleResize = () => {
+    const ro = new ResizeObserver(() => {
       clearTimeout(timeout);
       timeout = setTimeout(() => {
-        const canvas = canvasRef.current;
-        if (!canvas) return;
-        canvas.width = window.visualViewport?.width ?? window.innerWidth;
-        canvas.height = window.visualViewport?.height ?? window.innerHeight;
+        canvas.width = canvas.offsetWidth || window.innerWidth;
+        canvas.height = canvas.offsetHeight || window.innerHeight;
         const img = framesRef.current[currentFrameRef.current];
         if (!img) return;
         const ctx = canvas.getContext("2d");
@@ -126,11 +127,13 @@ export function InvitationIntro({
         const scale = Math.max(canvas.width / img.naturalWidth, canvas.height / img.naturalHeight);
         const sw = img.naturalWidth * scale;
         const sh = img.naturalHeight * scale;
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
         ctx.drawImage(img, (canvas.width - sw) / 2, (canvas.height - sh) / 2, sw, sh);
-      }, 100);
-    };
-    window.addEventListener("resize", handleResize);
-    return () => { window.removeEventListener("resize", handleResize); clearTimeout(timeout); };
+      }, 50);
+    });
+    
+    ro.observe(canvas);
+    return () => { ro.disconnect(); clearTimeout(timeout); };
   }, []);
 
   const drawFrame = useCallback((index: number) => {
@@ -232,6 +235,7 @@ export function InvitationIntro({
           className="fixed inset-0 z-[9999] bg-white"
           exit={{ opacity: 0 }}
           transition={{ duration: 0.6, ease: "easeInOut" }}
+          style={{ height: autoplay ? "var(--real-vh, 100svh)" : "100svh" }}
         >
           {/* Canvas — shown immediately once first frame is drawn */}
           <canvas
