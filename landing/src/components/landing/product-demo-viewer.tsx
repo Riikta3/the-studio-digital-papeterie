@@ -122,18 +122,23 @@ function MobileFrame({
         style={{
           background: "#1c1c1e",
           borderRadius: 44,
-          padding: "14px 12px 20px",
+          padding: "12px 12px",
           width: 300,
           boxShadow: "inset 0 0 0 1px rgba(255,255,255,0.06), 0 0 0 1.5px rgba(0,0,0,0.35), 0 32px 80px rgba(0,0,0,0.28)",
         }}
       >
         <div className="absolute left-[-3px] top-[90px] w-[3px] h-8 rounded-l bg-[#2a2a2c] shadow-[0_38px_0_#2a2a2c,0_76px_0_#2a2a2c]" />
         <div className="absolute right-[-3px] top-[120px] w-[3px] h-[60px] rounded-r bg-[#2a2a2c]" />
-        <div className="w-[88px] h-7 bg-[#1c1c1e] rounded-b-[20px] mx-auto relative z-10 flex items-center justify-center gap-1.5 mb-[-6px]">
-          <div className="w-2.5 h-2.5 rounded-full bg-[#2a2a2c] border border-[#333]" />
-          <div className="w-9 h-1 bg-[#2a2a2c] rounded" />
-        </div>
+        {/* Dynamic Island style notch inside the screen area */}
         <div ref={screenRef} className="rounded-[32px] overflow-hidden bg-background relative" style={{ width: 276, height: 560 }}>
+          {/* Dynamic Island Component */}
+          <div className="absolute top-2 left-1/2 -translate-x-1/2 w-[85px] h-[22px] bg-black rounded-full z-20 flex items-center justify-between px-2.5 shadow-sm">
+             {/* Camera lens */}
+             <div className="w-2.5 h-2.5 rounded-full bg-[#111] border border-[#222] shadow-[inset_0_1px_2px_rgba(255,255,255,0.1)]" />
+             {/* Sensor */}
+             <div className="w-1.5 h-1.5 rounded-full bg-[#0a0a0a]" />
+          </div>
+
           {loading && (
             <div className="absolute inset-0 bg-background z-10 flex items-center justify-center">
               <div className="w-8 h-8 border border-primary/30 border-t-primary rounded-full animate-spin" />
