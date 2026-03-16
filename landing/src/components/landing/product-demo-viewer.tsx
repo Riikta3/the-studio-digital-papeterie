@@ -87,21 +87,14 @@ function MobileFrame({
   theme,
   loading,
   onLoad,
-  onScaleReady,
 }: {
   iframeUrl: string;
   iframeRef: React.RefObject<HTMLIFrameElement | null>;
   theme: string;
   loading: boolean;
   onLoad: () => void;
-  onScaleReady?: (scale: number) => void;
 }) {
   const screenRef = useRef<HTMLDivElement>(null);
-  const mobileScale = 276 / MOBILE_VIEWPORT;
-
-  useEffect(() => {
-    onScaleReady?.(mobileScale);
-  }, [mobileScale, onScaleReady]);
 
   // Forward mouse wheel events to iframe scroll
   useEffect(() => {
@@ -116,41 +109,51 @@ function MobileFrame({
   }, [iframeRef]);
 
   return (
-    <div className="flex justify-center px-4">
-      <div
-        className="relative flex-shrink-0"
-        style={{
-          background: "#1c1c1e",
-          borderRadius: 44,
-          padding: "12px 12px",
-          width: 300,
-          boxShadow: "inset 0 0 0 1px rgba(255,255,255,0.06), 0 0 0 1.5px rgba(0,0,0,0.35), 0 32px 80px rgba(0,0,0,0.28)",
-        }}
+    <div className="flex justify-center w-full px-4 md:px-0 py-10">
+      <div 
+        style={{ width: 422 * 0.85, height: 876 * 0.85 }} 
+        className="relative mx-auto"
       >
-        <div className="absolute left-[-3px] top-[90px] w-[3px] h-8 rounded-l bg-[#2a2a2c] shadow-[0_38px_0_#2a2a2c,0_76px_0_#2a2a2c]" />
-        <div className="absolute right-[-3px] top-[120px] w-[3px] h-[60px] rounded-r bg-[#2a2a2c]" />
-        {/* Dynamic Island style notch inside the screen area */}
-        <div ref={screenRef} className="rounded-[32px] overflow-hidden bg-background relative" style={{ width: 276, height: 560 }}>
-          {/* Dynamic Island Component */}
-          <div className="absolute top-2 left-1/2 -translate-x-1/2 w-[85px] h-[22px] bg-black rounded-full z-20 flex items-center justify-between px-2.5 shadow-sm">
-             {/* Camera lens */}
-             <div className="w-2.5 h-2.5 rounded-full bg-[#111] border border-[#222] shadow-[inset_0_1px_2px_rgba(255,255,255,0.1)]" />
-             {/* Sensor */}
-             <div className="w-1.5 h-1.5 rounded-full bg-[#0a0a0a]" />
-          </div>
-
-          {loading && (
-            <div className="absolute inset-0 bg-background z-10 flex items-center justify-center">
-              <div className="w-8 h-8 border border-primary/30 border-t-primary rounded-full animate-spin" />
+        <div
+          className="absolute top-0 left-0"
+          style={{
+            background: "#1c1c1e",
+            borderRadius: 56,
+            padding: "16px",
+            width: 422,
+            height: 876,
+            boxShadow: "inset 0 0 0 1px rgba(255,255,255,0.06), 0 0 0 1.5px rgba(0,0,0,0.35), 0 32px 80px rgba(0,0,0,0.28)",
+            transform: "scale(0.85)",
+            transformOrigin: "top left",
+          }}
+        >
+          {/* Hardware buttons */}
+          <div className="absolute left-[-3px] top-[140px] w-[3px] h-8 rounded-l bg-[#2a2a2c] shadow-[0_50px_0_#2a2a2c,0_100px_0_#2a2a2c]" />
+          <div className="absolute right-[-3px] top-[180px] w-[3px] h-[70px] rounded-r bg-[#2a2a2c]" />
+          
+          {/* Dynamic Island style notch inside the screen area */}
+          <div ref={screenRef} className="rounded-[40px] overflow-hidden bg-background relative" style={{ width: 390, height: 844 }}>
+            {/* Dynamic Island Component */}
+            <div className="absolute top-3 left-1/2 -translate-x-1/2 w-[110px] h-[30px] bg-black rounded-full z-20 flex items-center justify-between px-3 shadow-sm">
+               {/* Camera lens */}
+               <div className="w-3.5 h-3.5 rounded-full bg-[#111] border border-[#222] shadow-[inset_0_1px_2px_rgba(255,255,255,0.1)]" />
+               {/* Sensor */}
+               <div className="w-2 h-2 rounded-full bg-[#0a0a0a]" />
             </div>
-          )}
-          <iframe
-            ref={iframeRef}
-            src={iframeUrl}
-            className="border-none block w-full h-full"
-            title={`Démo ${theme}`}
-            onLoad={onLoad}
-          />
+
+            {loading && (
+              <div className="absolute inset-0 bg-background z-10 flex items-center justify-center">
+                <div className="w-8 h-8 border border-primary/30 border-t-primary rounded-full animate-spin" />
+              </div>
+            )}
+            <iframe
+              ref={iframeRef}
+              src={iframeUrl}
+              className="border-none block w-full h-full"
+              title={`Démo ${theme}`}
+              onLoad={onLoad}
+            />
+          </div>
         </div>
       </div>
     </div>
@@ -166,14 +169,12 @@ function DesktopFrame({
   theme,
   loading,
   onLoad,
-  onScaleChange,
 }: {
   iframeUrl: string;
   iframeRef: React.RefObject<HTMLIFrameElement | null>;
   theme: string;
   loading: boolean;
   onLoad: () => void;
-  onScaleChange?: (scale: number) => void;
 }) {
   const wrapperRef = useRef<HTMLDivElement>(null);
   const screenRef = useRef<HTMLDivElement>(null);
@@ -205,10 +206,6 @@ function DesktopFrame({
   }, []);
 
   const scale = screenW > 0 ? screenW / DESKTOP_VIEWPORT : 1;
-
-  useEffect(() => {
-    if (screenW > 0) onScaleChange?.(scale);
-  }, [scale, screenW, onScaleChange]);
 
   return (
     <div ref={wrapperRef}>
@@ -260,14 +257,30 @@ export function ProductDemoViewer() {
   const [device, setDevice] = useState<"mobile" | "desktop">("mobile");
   const [iframeLoading, setIframeLoading] = useState(true);
   const [fullscreen, setFullscreen] = useState(false);
-  const [desktopScale, setDesktopScale] = useState(1);
-  const [mobileScale, setMobileScale] = useState(276 / 390);
   const iframeRef = useRef<HTMLIFrameElement>(null);
   const fullscreenIframeRef = useRef<HTMLIFrameElement>(null);
 
+  // Sync state upward from the iframe
+  useEffect(() => {
+    const handler = (e: MessageEvent) => {
+      // Validate origin if possible; allow "*" since iframe and window share origin but just to be safe
+      if (e.data?.type === "SYNC_ANIMATION" && e.data?.animation) {
+        setActiveAnimation(e.data.animation);
+      }
+      if (e.data?.type === "SYNC_THEME" && e.data?.theme) {
+        setActiveTheme(e.data.theme);
+      }
+      if (e.data?.type === "SYNC_DEVICE" && (e.data?.device === "mobile" || e.data?.device === "desktop")) {
+        setDevice(e.data.device);
+      }
+    };
+    window.addEventListener("message", handler);
+    return () => window.removeEventListener("message", handler);
+  }, []);
+
   const iframeUrl = `/fr/invitation/${DEMO_CODES[activeAnimation]}?demo=true&device=${device}`;
 
-  const sendTheme = useCallback((theme: ThemeKey, animation: AnimationKey, ref?: React.RefObject<HTMLIFrameElement | null>, desktopScale?: number) => {
+  const sendTheme = useCallback((theme: ThemeKey, animation: AnimationKey, ref?: React.RefObject<HTMLIFrameElement | null>) => {
     const iframe = (ref ?? iframeRef).current;
     if (!iframe?.contentWindow) return;
     iframe.contentWindow.postMessage(
@@ -280,12 +293,6 @@ export function ProductDemoViewer() {
       },
       window.location.origin
     );
-    if (desktopScale !== undefined) {
-      iframe.contentWindow.postMessage(
-        { type: device === "mobile" ? "SET_MOBILE_SCALE" : "SET_DESKTOP_SCALE", scale: desktopScale },
-        window.location.origin
-      );
-    }
   }, [device]);
 
   // Lock body scroll when fullscreen is open
@@ -310,16 +317,14 @@ export function ProductDemoViewer() {
       prevAnimationRef.current = activeAnimation;
       return; // animation change → iframe reloads → handleIframeLoad will send theme
     }
-    const scale = device === "desktop" ? desktopScale : mobileScale;
-    const timeout = setTimeout(() => sendTheme(activeTheme, activeAnimation, undefined, scale), 300);
+    const timeout = setTimeout(() => sendTheme(activeTheme, activeAnimation), 300);
     return () => clearTimeout(timeout);
-  }, [activeTheme, activeAnimation, sendTheme, device, desktopScale, mobileScale]);
+  }, [activeTheme, activeAnimation, sendTheme, device]);
 
   const handleIframeLoad = useCallback(() => {
     setIframeLoading(false);
-    const scale = device === "desktop" ? desktopScale : mobileScale;
-    setTimeout(() => sendTheme(activeTheme, activeAnimation, undefined, scale), 100);
-  }, [sendTheme, activeTheme, activeAnimation, device, desktopScale, mobileScale]);
+    setTimeout(() => sendTheme(activeTheme, activeAnimation), 100);
+  }, [sendTheme, activeTheme, activeAnimation, device]);
 
   return (
     <div>
@@ -335,59 +340,6 @@ export function ProductDemoViewer() {
         <p className="text-muted-foreground mt-3 max-w-lg mx-auto">{t("demosSub")}</p>
       </div>
 
-      {/* Step 1 — Animation */}
-      <div className="mb-6">
-        <p className="text-center text-xs uppercase tracking-[0.2em] text-muted-foreground font-medium mb-3">
-          {t("animationLabel")}
-        </p>
-        <div className="flex gap-2 justify-center flex-wrap">
-          {ANIMATIONS.map(({ key, icon }) => (
-            <button
-              key={key}
-              onClick={() => setActiveAnimation(key)}
-              className={cn(
-                "flex items-center gap-2 px-5 py-2.5 rounded-full border text-sm font-medium transition-all",
-                key === activeAnimation
-                  ? "bg-primary text-primary-foreground border-primary shadow-lg shadow-primary/20"
-                  : "bg-card text-muted-foreground border-border hover:border-primary/30 hover:text-foreground"
-              )}
-            >
-              <span>{icon}</span>
-              {key === "envelope" && t("animationEnvelope")}
-              {key === "doors" && t("animationDoors")}
-              {key === "curtains" && t("animationCurtains")}
-            </button>
-          ))}
-        </div>
-      </div>
-
-      {/* Step 2 — Theme */}
-      <div className="mb-6">
-        <p className="text-center text-xs uppercase tracking-[0.2em] text-muted-foreground font-medium mb-3">
-          ② Thème
-        </p>
-        <div className="flex gap-2 justify-center flex-wrap">
-          {THEMES.map(({ key, dotColors }) => (
-            <button
-              key={key}
-              onClick={() => setActiveTheme(key)}
-              className={cn(
-                "flex items-center gap-2 px-4 py-2 rounded-full border text-sm font-medium transition-all",
-                key === activeTheme
-                  ? "bg-primary text-primary-foreground border-primary shadow-lg shadow-primary/20"
-                  : "bg-card text-muted-foreground border-border hover:border-primary/30 hover:text-foreground"
-              )}
-            >
-              <span
-                className="w-2.5 h-2.5 rounded-full flex-shrink-0"
-                style={{ background: `linear-gradient(135deg, ${dotColors[0]}, ${dotColors[1]})` }}
-              />
-              {THEME_LABELS[key]}
-            </button>
-          ))}
-        </div>
-      </div>
-
       {/* Device frame */}
       {device === "mobile" ? (
         <MobileFrame
@@ -396,7 +348,6 @@ export function ProductDemoViewer() {
           theme={THEME_LABELS[activeTheme]}
           loading={iframeLoading}
           onLoad={handleIframeLoad}
-          onScaleReady={setMobileScale}
         />
       ) : (
         <div className="max-w-3xl mx-auto w-full">
@@ -406,49 +357,12 @@ export function ProductDemoViewer() {
             theme={THEME_LABELS[activeTheme]}
             loading={iframeLoading}
             onLoad={handleIframeLoad}
-            onScaleChange={(s) => {
-              setDesktopScale(s);
-              // If iframe already loaded, push the scale immediately
-              if (!iframeLoading && iframeRef.current?.contentWindow) {
-                iframeRef.current.contentWindow.postMessage(
-                  { type: "SET_DESKTOP_SCALE", scale: s },
-                  window.location.origin
-                );
-              }
-            }}
           />
         </div>
       )}
 
       {/* Device toggle + fullscreen — below the frame */}
       <div className="flex flex-col items-center gap-3 mt-10">
-        <div className="inline-flex bg-card border border-border rounded-full p-1 gap-0.5 shadow-sm">
-          <button
-            onClick={() => setDevice("mobile")}
-            className={cn(
-              "flex items-center gap-1.5 px-4 py-1.5 rounded-full text-xs font-medium transition-all",
-              device === "mobile"
-                ? "bg-primary text-primary-foreground shadow-md shadow-primary/20"
-                : "text-muted-foreground hover:text-foreground"
-            )}
-          >
-            <Smartphone className="w-3.5 h-3.5" />
-            {t("deviceMobile")}
-          </button>
-          <button
-            onClick={() => setDevice("desktop")}
-            className={cn(
-              "flex items-center gap-1.5 px-4 py-1.5 rounded-full text-xs font-medium transition-all",
-              device === "desktop"
-                ? "bg-primary text-primary-foreground shadow-md shadow-primary/20"
-                : "text-muted-foreground hover:text-foreground"
-            )}
-          >
-            <Monitor className="w-3.5 h-3.5" />
-            {t("deviceDesktop")}
-          </button>
-        </div>
-
         <button
           onClick={() => setFullscreen(true)}
           className="flex items-center gap-2 px-5 py-2.5 rounded-full border border-primary/30 text-primary text-sm font-medium bg-card hover:bg-primary/5 transition-colors shadow-sm"

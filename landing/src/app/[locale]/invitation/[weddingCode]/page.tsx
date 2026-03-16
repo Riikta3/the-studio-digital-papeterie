@@ -121,7 +121,7 @@ export default async function InvitationPage({ params, searchParams }: Invitatio
 
   const partnerNames = `${profile.first_name} & ${profile.partner_name}`;
   const invitationContent = (
-    <InvitationPageClient hasIntro isDemo={isDemo} initialTheme={siteConfig.theme_id}>
+    <InvitationPageClient hasIntro isDemo={isDemo} initialTheme={siteConfig.theme_id} weddingSlug={weddingCode}>
     <div
       className="bg-background text-foreground font-sans"
     >
