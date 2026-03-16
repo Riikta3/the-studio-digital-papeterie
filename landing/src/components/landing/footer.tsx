@@ -2,6 +2,7 @@ import { Link } from "@/navigation";
 import { Instagram } from "lucide-react";
 import { getTranslations } from "next-intl/server";
 import Image from "next/image";
+import { EmailLink } from "@/components/ui/EmailLink";
 
 export async function Footer() {
   const t = await getTranslations("Footer");
@@ -126,12 +127,12 @@ export async function Footer() {
                   </Link>
                 </li>
                 <li>
-                  <a
-                    href='mailto:hello@thestudio-papeterie.fr'
+                  <EmailLink
+                    email={t("linkBespokeEmail") || "contact@thestudiopapeteriedigitale.com"}
                     className='text-sm text-primary-foreground/70 hover:text-primary-foreground transition-colors'
                   >
                     {t("linkBespoke")}
-                  </a>
+                  </EmailLink>
                 </li>
               </ul>
             </div>

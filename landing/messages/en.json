@@ -159,7 +159,7 @@
     "bespokeTitle": "A unique project?",
     "bespokeDesc": "For exceptional weddings, we offer fully custom creation by appointment.",
     "bespokeButton": "Contact us",
-    "bespokeEmail": "hello@thestudio-papeterie.fr"
+    "bespokeEmail": "contact@thestudiopapeteriedigitale.com"
   },
   "Testimonials": {
     "eyebrow": "They trusted us",
@@ -201,6 +201,7 @@
     "linkPricing": "Pricing",
     "linkTestimonials": "Testimonials",
     "linkBespoke": "Bespoke",
+    "linkBespokeEmail": "contact@thestudiopapeteriedigitale.com",
     "linkLogin": "Log in",
     "linkCreate": "Create my invitation",
     "linkCGV": "Terms",

@@ -1,6 +1,7 @@
 // landing/src/app/[locale]/(maintenance)/coming-soon/page.tsx
 import type { Metadata } from "next";
 import Image from "next/image";
+import { EmailLink } from "@/components/ui/EmailLink";
 
 export const metadata: Metadata = {
   title: "Bientôt disponible — The Studio Digital Papeterie",
@@ -72,12 +73,12 @@ export default function ComingSoonPage() {
         {/* Contact */}
         <p className='text-xs text-muted-foreground'>
           Une question ?{" "}
-          <a
-            href='mailto:contact@thestudiopapeteriedigitale.com'
+          <EmailLink
+            email="contact@thestudiopapeteriedigitale.com"
             className='text-primary border-b border-primary/30 hover:opacity-70 transition-opacity'
           >
             contact@thestudiopapeteriedigitale.com
-          </a>
+          </EmailLink>
         </p>
       </div>
 

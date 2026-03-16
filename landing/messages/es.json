@@ -141,7 +141,7 @@
     "bespokeTitle": "Un projet unique ?",
     "bespokeDesc": "Pour les mariages d'exception, nous proposons une création entièrement sur-mesure sur rendez-vous.",
     "bespokeButton": "Nous contacter",
-    "bespokeEmail": "hello@thestudio-papeterie.fr"
+    "bespokeEmail": "contact@thestudiopapeteriedigitale.com"
   },
   "Testimonials": {
     "eyebrow": "Ils nous ont fait confiance",
@@ -188,18 +188,21 @@
     "learnMore": "En savoir plus"
   },
   "Footer": {
-    "tagline": "Le faire-part réinventé au digital.",
-    "colProduct": "Produit",
-    "colMarries": "Mariés",
-    "colLegal": "Légal",
-    "linkThemes": "Thèmes",
-    "linkDemo": "Démo",
-    "linkPricing": "Tarifs",
-    "linkBespoke": "Sur-mesure",
-    "linkLogin": "Se connecter",
-    "linkCreate": "Créer mon invitation",
-    "linkCGV": "CGV",
-    "linkPrivacy": "Confidentialité",
-    "copyright": "© {year} The Studio Papeterie Digitale · Fait avec ♥ en France"
+    "tagline": "La invitación digital reinventada.",
+    "colProduct": "Productos",
+    "colMarries": "Parejas",
+    "colLegal": "Legal",
+    "linkThemes": "Temas",
+    "linkDemo": "Demo",
+    "linkFeatures": "Funcionalidades",
+    "linkTestimonials": "Testimonios",
+    "linkPricing": "Precios",
+    "linkBespoke": "A medida",
+    "linkBespokeEmail": "contact@thestudiopapeteriedigitale.com",
+    "linkLogin": "Acceso",
+    "linkCreate": "Crear mi invitación",
+    "linkCGV": "Términos y Condiciones",
+    "linkPrivacy": "Privacidad",
+    "copyright": "© {year} The Studio Papeterie Digitale · Hecho con ♥ en España"
   }
 }
