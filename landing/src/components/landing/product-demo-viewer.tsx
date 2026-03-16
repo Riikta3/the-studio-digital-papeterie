@@ -326,9 +326,9 @@ export function ProductDemoViewer() {
     return () => observer.disconnect();
   }, [hasTriggered]);
 
-  // Reset trigger when animation changes so it can play again if remounted/re-scrolled? 
+  // Reset trigger when animation changes so it can play again if remounted/re-scrolled?
   // Actually, usually we want it to play once when it appears.
-  // But if the user switches animation, the iframe reloads. 
+  // But if the user switches animation, the iframe reloads.
   // Let's reset hasTriggered when activeAnimation changes so the new iframe gets the play command.
   useEffect(() => {
     setHasTriggered(false);
@@ -421,7 +421,7 @@ export function ProductDemoViewer() {
   const handleIframeLoad = useCallback(() => {
     setIframeLoading(false);
     setTimeout(() => sendTheme(activeTheme, activeAnimation), 100);
-    
+
     // If we're already in view when the iframe loads, trigger playback
     if (containerRef.current) {
       const rect = containerRef.current.getBoundingClientRect();
@@ -463,7 +463,7 @@ export function ProductDemoViewer() {
           onLoad={handleIframeLoad}
         />
       ) : (
-        <div className='max-w-3xl mx-auto w-full'>
+        <div className='max-w-3xl mx-auto mt-10 w-full'>
           <DesktopFrame
             iframeUrl={iframeUrl}
             iframeRef={iframeRef}
