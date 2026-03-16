@@ -197,12 +197,14 @@
     "colLegal": "Légal",
     "linkThemes": "Thèmes",
     "linkDemo": "Démo",
+    "linkFeatures": "Fonctionnalités",
     "linkPricing": "Tarifs",
+    "linkTestimonials": "Témoignages",
     "linkBespoke": "Sur-mesure",
     "linkLogin": "Se connecter",
     "linkCreate": "Créer mon invitation",
     "linkCGV": "CGV",
     "linkPrivacy": "Confidentialité",
-    "copyright": "© {year} The Studio · Fait avec ♥ en France"
+    "copyright": "© {year} The Studio Papeterie Digitale · Fait avec ♥ en France"
   }
 }
