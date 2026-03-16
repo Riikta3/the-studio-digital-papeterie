@@ -2,12 +2,12 @@ import { InvitationFooter } from "@/components/invitation/InvitationFooter";
 import { InvitationPageClient } from "@/components/invitation/InvitationPageClient";
 import { InvitationHero } from "@/components/invitation/InvitationHero";
 import { GuestCodeGate } from "@/components/invitation/GuestCodeGate";
-import { ScrollToModules } from "@/components/invitation/ScrollToModules";
 import { ModuleRenderer } from "@/components/invitation/ModuleRenderer";
 import { ModulesWrapper } from "@/components/invitation/ModulesWrapper";
 import { ScrollToTop } from "@/components/invitation/ScrollToTop";
 import { supabaseAdmin } from "@/lib/supabase-admin";
 import { notFound } from "next/navigation";
+import type { Viewport } from "next";
 
 export const revalidate = 0;
 
@@ -16,7 +16,18 @@ interface InvitationPageProps {
     locale: string;
     weddingCode: string;
   }>;
-  searchParams: Promise<{ demo?: string }>;
+  searchParams: Promise<{ demo?: string; device?: string }>;
+}
+
+export async function generateViewport({ searchParams }: InvitationPageProps): Promise<Viewport> {
+  const { device } = await searchParams;
+  if (device === "desktop") {
+    return { width: 1024, initialScale: 1 };
+  }
+  if (device === "mobile") {
+    return { width: 390, initialScale: 1 };
+  }
+  return { width: "device-width", initialScale: 1 };
 }
 
 export default async function InvitationPage({ params, searchParams }: InvitationPageProps) {
@@ -29,8 +40,6 @@ export default async function InvitationPage({ params, searchParams }: Invitatio
 
   // Handle URL encoding (e.g. converting %26 back to &)
   const decodedCode = decodeURIComponent(weddingCode);
-
-  console.log("💍 Fetching invitation for code:", decodedCode);
 
   // 1. Find Wedding ID via Site Slug or Settings Code
   // Try slug first (friendly URL)
@@ -112,9 +121,9 @@ export default async function InvitationPage({ params, searchParams }: Invitatio
 
   const partnerNames = `${profile.first_name} & ${profile.partner_name}`;
   const invitationContent = (
-    <InvitationPageClient hasIntro isDemo={isDemo} initialTheme={siteConfig.theme_id}>
+    <InvitationPageClient hasIntro isDemo={isDemo} initialTheme={siteConfig.theme_id} weddingSlug={weddingCode}>
     <div
-      className="min-h-screen bg-background text-foreground font-sans"
+      className="bg-background text-foreground font-sans"
     >
       <InvitationHero
         firstName={profile.first_name}

@@ -140,7 +140,7 @@
     "bespokeTitle": "Un projet unique ?",
     "bespokeDesc": "Pour les mariages d'exception, nous proposons une création entièrement sur-mesure sur rendez-vous.",
     "bespokeButton": "Nous contacter",
-    "bespokeEmail": "hello@thestudio-papeterie.fr"
+    "bespokeEmail": "contact@thestudiopapeteriedigitale.com"
   },
   "Testimonials": {
     "eyebrow": "Ils nous ont fait confiance",
@@ -187,18 +187,22 @@
     "learnMore": "En savoir plus"
   },
   "Footer": {
-    "tagline": "Le faire-part réinventé au digital.",
-    "colProduct": "Produit",
-    "colMarries": "Mariés",
-    "colLegal": "Légal",
-    "linkThemes": "Thèmes",
-    "linkDemo": "Démo",
-    "linkPricing": "Tarifs",
-    "linkBespoke": "Sur-mesure",
-    "linkLogin": "Se connecter",
-    "linkCreate": "Créer mon invitation",
-    "linkCGV": "CGV",
-    "linkPrivacy": "Confidentialité",
-    "copyright": "© {year} The Studio · Fait avec ♥ en France"
+    "tagline": "デジタルで再発明された招待状。",
+    "colProduct": "プロダクト",
+    "colMarries": "カップル",
+    "colLegal": "法的情報",
+    "linkThemes": "テーマ",
+    "linkDemo": "デモ",
+    "linkFeatures": "機能",
+    "linkTestimonials": "お客様の声",
+    "linkFAQ": "よくある質問",
+    "linkPricing": "料金",
+    "linkBespoke": "オーダーメイド",
+    "linkBespokeEmail": "contact@thestudiopapeteriedigitale.com",
+    "linkLogin": "ログイン",
+    "linkCreate": "招待状を作成",
+    "linkCGV": "利用規約",
+    "linkPrivacy": "プライバシーポリシー",
+    "copyright": "© {year} The Studio Papeterie Digitale · フランスで♥を込めて制作"
   }
 }

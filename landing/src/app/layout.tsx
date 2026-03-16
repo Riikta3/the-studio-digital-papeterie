@@ -57,7 +57,7 @@ export default async function RootLayout({
       className={`${playfair.variable} ${inter.variable} ${cormorant.variable} ${cinzel.variable} ${epilogue.variable}`}
     >
       <body
-        className='min-h-screen bg-background text-foreground bg-noise'
+        className='w-full overflow-x-hidden bg-background text-foreground bg-noise'
         suppressHydrationWarning
       >
         {children}

@@ -6,6 +6,7 @@ import { Customization } from "@/components/landing/customization";
 import { Testimonials } from "@/components/landing/testimonials";
 import { Hero } from "@/components/landing/hero";
 import { Navbar } from "@/components/landing/navbar";
+import { FAQ } from "@/components/landing/faq";
 import { Footer } from "@/components/landing/footer";
 import { ScrollToTop } from "@/components/ui/scroll-to-top";
 
@@ -20,6 +21,7 @@ export default function Home() {
       <ValueCards />
       <Customization />
       <Testimonials />
+      <FAQ />
       <Footer />
       <ScrollToTop />
     </main>

@@ -197,7 +197,7 @@ export default function CreateWizard({
     plan: "essential",
     theme: "",
     languages: ["fr"] as string[],
-    modules: ["rsvp", "program", "gallery"] as string[],
+    modules: ["rsvp", "timeline", "gallery"] as string[],
     extras: [] as string[],
     // Personalization
     name1: "",

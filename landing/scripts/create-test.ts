@@ -78,16 +78,15 @@ async function createTestInvitation() {
     const allModules = [
       "rsvp",
       "gallery",
-      "program",
-      "travel",
+      "timeline",
+      "transport",
       "map",
-      "music",
-      "gifts",
-      "video",
-      "messages",
+      "playlist",
+      "gift-list",
+      "intro-video",
+      "guestbook",
       "menu",
-      "dress",
-      "photos",
+      "dress-code",
     ];
 
     // Create site

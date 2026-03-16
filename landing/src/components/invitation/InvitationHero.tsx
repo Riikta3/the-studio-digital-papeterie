@@ -18,7 +18,10 @@ export function InvitationHero({
   const { isDemo, heroAsset } = useInvitationDemo();
 
   return (
-    <header className="relative h-[100svh] flex items-center justify-center overflow-hidden">
+    <header
+      className="relative flex items-center justify-center overflow-hidden"
+      style={{ height: isDemo ? "var(--real-vh, 100svh)" : "100svh" }}
+    >
       <HeroBackground
         frames={isDemo ? heroAsset.frames : 0}
         sequencePath={isDemo ? heroAsset.sequencePath : null}

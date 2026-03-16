@@ -3,6 +3,7 @@
 import { motion } from "framer-motion";
 import { useTranslations } from "next-intl";
 import { CalendarDays, Images, Gift, Mail } from "lucide-react";
+import { EmailLink } from "@/components/ui/EmailLink";
 
 const FEATURES = [
   { icon: CalendarDays, titleKey: "feature1Title", descKey: "feature1Desc" },
@@ -67,13 +68,13 @@ export function Customization() {
             {t("bespokeTitle")}
           </h3>
           <p className="text-muted-foreground text-sm mb-6">{t("bespokeDesc")}</p>
-          <a
-            href={`mailto:${t("bespokeEmail")}`}
+          <EmailLink
+            email={t("bespokeEmail")}
             className="inline-flex items-center gap-2 rounded-full bg-primary px-8 py-3 text-sm font-semibold text-primary-foreground hover:opacity-90 transition-opacity"
           >
             <Mail className="w-4 h-4" />
             {t("bespokeButton")}
-          </a>
+          </EmailLink>
         </motion.div>
       </div>
     </section>

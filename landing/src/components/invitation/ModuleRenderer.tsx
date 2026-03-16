@@ -94,7 +94,7 @@ export async function ModuleRenderer({
               config={config}
               partner1={partner1}
               partner2={partner2}
-              {...(moduleId === "rsvp" ? { isDemo } : {})}
+              {...(moduleId === "rsvp" || moduleId === "gallery" ? { isDemo } : {})}
             />
             {!isLast && <Divider />}
           </div>

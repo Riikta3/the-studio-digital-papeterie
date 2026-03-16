@@ -6,10 +6,10 @@ import { motion } from "framer-motion";
 import { ArrowRight, ChevronDown } from "lucide-react";
 import { useTranslations } from "next-intl";
 
-const FRAME_COUNT = 66;
+const FRAME_COUNT = 82;
 
 function getFrame(i: number) {
-  return `/videos/landing/hero/Amélioration vidéo - Online Video Cutter_${String(i).padStart(3, "0")}.webp`;
+  return `/videos/landing/hero/the-studio-digital-papeterie-hero-${String(i).padStart(3, "0")}.webp`;
 }
 
 export function Hero() {
