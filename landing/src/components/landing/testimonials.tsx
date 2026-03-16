@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion";
 import { useTranslations } from "next-intl";
+import { ChevronLeft, ChevronRight } from "lucide-react";
 import { useCallback, useEffect, useRef, useState } from "react";
 
 // Static data — not translated (exception i18n documentée dans la spec)
@@ -33,6 +34,10 @@ export function Testimonials() {
 
   const next = useCallback(() => {
     setCurrent((c) => (c + 1) % TESTIMONIALS.length);
+  }, []);
+
+  const prev = useCallback(() => {
+    setCurrent((c) => (c - 1 + TESTIMONIALS.length) % TESTIMONIALS.length);
   }, []);
 
   useEffect(() => {
@@ -71,48 +76,82 @@ export function Testimonials() {
           </h2>
         </div>
 
-        <div className="max-w-2xl mx-auto text-center relative">
-          <div className="font-heading text-[80px] text-primary/15 leading-none select-none absolute -top-4 left-0">
-            "
-          </div>
-          <motion.div
-            key={current}
-            initial={{ opacity: 0, y: 12 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
-            className="relative z-10 px-8"
+        <div className="max-w-4xl mx-auto flex items-center justify-between gap-4 md:gap-8">
+          <button
+            onClick={prev}
+            className="p-3 rounded-full border border-primary/20 text-primary/40 hover:text-primary hover:border-primary/40 transition-colors hidden md:flex items-center justify-center shrink-0"
+            aria-label="Témoignage précédent"
           >
-            <p className="font-heading text-xl md:text-2xl italic text-foreground/80 leading-relaxed mb-8">
-              {testimonial.text}
-            </p>
-            <div className="flex flex-col items-center gap-1">
-              <div className="flex gap-0.5 text-primary mb-2">
-                {[1, 2, 3, 4, 5].map((s) => (
-                  <span key={s} className="text-sm">★</span>
-                ))}
-              </div>
-              <p className="font-heading italic text-primary font-medium">
-                {testimonial.names}
-              </p>
-              <p className="text-xs text-muted-foreground">{testimonial.date}</p>
+            <ChevronLeft className="w-6 h-6" />
+          </button>
+
+          <div className="max-w-2xl mx-auto text-center relative flex-1">
+            <div className="font-heading text-[80px] text-primary/15 leading-none select-none absolute -top-4 left-0">
+              "
             </div>
-          </motion.div>
+            <motion.div
+              key={current}
+              initial={{ opacity: 0, y: 12 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5 }}
+              className="relative z-10 px-8"
+            >
+              <p className="font-heading text-xl md:text-2xl italic text-foreground/80 leading-relaxed mb-8">
+                {testimonial.text}
+              </p>
+              <div className="flex flex-col items-center gap-1">
+                <div className="flex gap-0.5 text-primary mb-2">
+                  {[1, 2, 3, 4, 5].map((s) => (
+                    <span key={s} className="text-sm">★</span>
+                  ))}
+                </div>
+                <p className="font-heading italic text-primary font-medium">
+                  {testimonial.names}
+                </p>
+                <p className="text-xs text-muted-foreground">{testimonial.date}</p>
+              </div>
+            </motion.div>
+          </div>
+
+          <button
+            onClick={next}
+            className="p-3 rounded-full border border-primary/20 text-primary/40 hover:text-primary hover:border-primary/40 transition-colors hidden md:flex items-center justify-center shrink-0"
+            aria-label="Témoignage suivant"
+          >
+            <ChevronRight className="w-6 h-6" />
+          </button>
         </div>
 
         {/* Dots navigation — pause on hover/focus (WCAG 2.2.2) */}
         <div className="flex justify-center gap-3 mt-10">
-          {TESTIMONIALS.map((_, i) => (
-            <button
-              key={i}
-              onClick={() => goTo(i)}
-              aria-label={`Témoignage ${i + 1}`}
-              className={`transition-all duration-300 rounded-full ${
-                i === current
-                  ? "w-6 h-2 bg-primary"
-                  : "w-2 h-2 bg-primary/20 hover:bg-primary/40"
-              }`}
-            />
-          ))}
+          <button
+            onClick={prev}
+            className="p-2 text-primary/40 hover:text-primary transition-colors md:hidden"
+            aria-label="Témoignage précédent"
+          >
+            <ChevronLeft className="w-5 h-5" />
+          </button>
+          <div className="flex items-center gap-3">
+            {TESTIMONIALS.map((_, i) => (
+              <button
+                key={i}
+                onClick={() => goTo(i)}
+                aria-label={`Témoignage ${i + 1}`}
+                className={`transition-all duration-300 rounded-full ${
+                  i === current
+                    ? "w-6 h-2 bg-primary"
+                    : "w-2 h-2 bg-primary/20 hover:bg-primary/40"
+                }`}
+              />
+            ))}
+          </div>
+          <button
+            onClick={next}
+            className="p-2 text-primary/40 hover:text-primary transition-colors md:hidden"
+            aria-label="Témoignage suivant"
+          >
+            <ChevronRight className="w-5 h-5" />
+          </button>
         </div>
       </div>
     </section>
