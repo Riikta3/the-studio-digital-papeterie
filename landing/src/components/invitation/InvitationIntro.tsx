@@ -232,10 +232,12 @@ export function InvitationIntro({
       {state !== "done" && (
         <motion.div
           key="intro"
-          className="fixed inset-0 z-[9999] bg-white"
+          className="fixed inset-0 z-[9999] bg-white touch-none"
           exit={{ opacity: 0 }}
           transition={{ duration: 0.6, ease: "easeInOut" }}
           style={{ height: autoplay ? "var(--real-vh, 100svh)" : "100svh" }}
+          onWheel={(e) => e.preventDefault()}
+          onTouchMove={(e) => e.preventDefault()}
         >
           {/* Canvas — shown immediately once first frame is drawn */}
           <canvas

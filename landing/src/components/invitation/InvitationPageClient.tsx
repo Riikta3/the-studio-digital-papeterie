@@ -27,10 +27,13 @@ export function InvitationPageClient({
   // Lock scroll while intro is active
   useEffect(() => {
     if (!hasIntro || introDone) return;
-    const prev = document.body.style.overflow;
+    const prevBody = document.body.style.overflow;
+    const prevHtml = document.documentElement.style.overflow;
     document.body.style.overflow = "hidden";
+    document.documentElement.style.overflow = "hidden";
     return () => {
-      document.body.style.overflow = prev;
+      document.body.style.overflow = prevBody;
+      document.documentElement.style.overflow = prevHtml;
     };
   }, [introDone, hasIntro]);
 
@@ -51,38 +54,44 @@ export function InvitationPageClient({
           setForceDesktop(true);
         }
       }
-      if (e.data?.type === "SET_MOBILE_SCALE" && typeof e.data.scale === "number") {
-        const scale = e.data.scale;
-        document.documentElement.style.width = "390px";
-        document.documentElement.style.transformOrigin = "top left";
-        document.documentElement.style.transform = `scale(${scale})`;
-        document.documentElement.style.overflowX = "hidden";
-        document.documentElement.style.scrollbarWidth = "none";
-        document.body.style.width = "390px";
-        document.body.style.minHeight = "unset";
-        document.body.style.overflowX = "hidden";
-        document.body.style.scrollbarWidth = "none";
-        const realH = window.visualViewport?.height ?? window.innerHeight;
-        const cssH = realH / scale;
-        document.documentElement.style.setProperty("--real-vh", `${cssH}px`);
-      }
-      if (e.data?.type === "SET_DESKTOP_SCALE" && typeof e.data.scale === "number") {
-        const scale = e.data.scale;
-        document.documentElement.style.width = "1024px";
-        document.documentElement.style.transformOrigin = "top left";
-        document.documentElement.style.transform = `scale(${scale})`;
-        document.documentElement.style.overflowX = "hidden";
-        document.documentElement.style.scrollbarWidth = "none";
-        document.body.style.width = "1024px";
-        document.body.style.minHeight = "unset";
-        document.body.style.overflowX = "hidden";
-        document.body.style.scrollbarWidth = "none";
-        // Set --vh to real iframe height (unaffected by scale) so hero fills screen
-        const realH = window.visualViewport?.height ?? window.innerHeight;
-        const cssH = realH / scale;
-        document.documentElement.style.setProperty("--real-vh", `${cssH}px`);
-        setForceDesktop(true);
-      }
+        if (e.data?.type === "SET_MOBILE_SCALE" && typeof e.data.scale === "number") {
+          const scale = e.data.scale;
+          document.documentElement.style.width = "390px";
+          document.documentElement.style.transformOrigin = "top left";
+          document.documentElement.style.transform = `scale(${scale})`;
+          document.documentElement.style.overflowX = "hidden";
+          document.documentElement.style.scrollbarWidth = "none";
+          // Fix height bounds after scale
+          document.documentElement.style.height = `${100 / scale}%`;
+          
+          document.body.style.width = "390px";
+          document.body.style.minHeight = "unset";
+          document.body.style.overflowX = "hidden";
+          document.body.style.scrollbarWidth = "none";
+          const realH = window.visualViewport?.height ?? window.innerHeight;
+          const cssH = realH / scale;
+          document.documentElement.style.setProperty("--real-vh", `${cssH}px`);
+        }
+        if (e.data?.type === "SET_DESKTOP_SCALE" && typeof e.data.scale === "number") {
+          const scale = e.data.scale;
+          document.documentElement.style.width = "1024px";
+          document.documentElement.style.transformOrigin = "top left";
+          document.documentElement.style.transform = `scale(${scale})`;
+          document.documentElement.style.overflowX = "hidden";
+          document.documentElement.style.scrollbarWidth = "none";
+          // Fix height bounds after scale
+          document.documentElement.style.height = `${100 / scale}%`;
+
+          document.body.style.width = "1024px";
+          document.body.style.minHeight = "unset";
+          document.body.style.overflowX = "hidden";
+          document.body.style.scrollbarWidth = "none";
+          // Set --vh to real iframe height (unaffected by scale) so hero fills screen
+          const realH = window.visualViewport?.height ?? window.innerHeight;
+          const cssH = realH / scale;
+          document.documentElement.style.setProperty("--real-vh", `${cssH}px`);
+          setForceDesktop(true);
+        }
     };
     window.addEventListener("message", handler);
     return () => window.removeEventListener("message", handler);
