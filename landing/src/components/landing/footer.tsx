@@ -127,6 +127,14 @@ export async function Footer() {
                   </Link>
                 </li>
                 <li>
+                  <Link
+                    href='/#faq'
+                    className='text-sm text-primary-foreground/70 hover:text-primary-foreground transition-colors'
+                  >
+                    {t("linkFAQ") || "FAQ"}
+                  </Link>
+                </li>
+                <li>
                   <EmailLink
                     email={t("linkBespokeEmail") || "contact@thestudiopapeteriedigitale.com"}
                     className='text-sm text-primary-foreground/70 hover:text-primary-foreground transition-colors'

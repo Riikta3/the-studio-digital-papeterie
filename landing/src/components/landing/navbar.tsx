@@ -21,6 +21,7 @@ const NAV_LINKS = [
   { key: "features" as const, anchor: "comment-ca-marche" },
   { key: "pricing" as const, anchor: "comparatif" },
   { key: "testimonials" as const, anchor: "temoignages" },
+  { key: "faq" as const, anchor: "faq" },
 ] as const;
 
 export function Navbar() {
