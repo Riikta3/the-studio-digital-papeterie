@@ -294,6 +294,39 @@ export function ProductDemoViewer() {
   const iframeRef = useRef<HTMLIFrameElement>(null);
   const fullscreenIframeRef = useRef<HTMLIFrameElement>(null);
 
+  const containerRef = useRef<HTMLDivElement>(null);
+  const [hasTriggered, setHasTriggered] = useState(false);
+
+  // Simple IntersectionObserver to trigger play when visible
+  useEffect(() => {
+    const el = containerRef.current;
+    if (!el) return;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting && !hasTriggered) {
+          setHasTriggered(true);
+          iframeRef.current?.contentWindow?.postMessage(
+            { type: "PLAY_INTRO" },
+            window.location.origin,
+          );
+        }
+      },
+      { threshold: 0.15 },
+    );
+
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, [hasTriggered]);
+
+  // Reset trigger when animation changes so it can play again if remounted/re-scrolled? 
+  // Actually, usually we want it to play once when it appears.
+  // But if the user switches animation, the iframe reloads. 
+  // Let's reset hasTriggered when activeAnimation changes so the new iframe gets the play command.
+  useEffect(() => {
+    setHasTriggered(false);
+  }, [activeAnimation, device]);
+
   // Sync state upward from the iframe
   useEffect(() => {
     const handler = (e: MessageEvent) => {
@@ -381,10 +414,23 @@ export function ProductDemoViewer() {
   const handleIframeLoad = useCallback(() => {
     setIframeLoading(false);
     setTimeout(() => sendTheme(activeTheme, activeAnimation), 100);
+    
+    // If we're already in view when the iframe loads, trigger playback
+    if (containerRef.current) {
+      const rect = containerRef.current.getBoundingClientRect();
+      const isInView = rect.top < window.innerHeight && rect.bottom > 0;
+      if (isInView) {
+        setHasTriggered(true);
+        iframeRef.current?.contentWindow?.postMessage(
+          { type: "PLAY_INTRO" },
+          window.location.origin,
+        );
+      }
+    }
   }, [sendTheme, activeTheme, activeAnimation, device]);
 
   return (
-    <div>
+    <div ref={containerRef}>
       {/* Header */}
       <div className='text-center '>
         <p className='text-xs uppercase tracking-[0.3em] text-primary font-medium mb-3'>

@@ -338,6 +338,7 @@ export function InvitationPageClient({
   const [activeTheme, setActiveTheme] = useState(initialTheme);
   const [heroAsset, setHeroAsset] = useState<{ frames: number; sequencePath: string | null }>({ frames: 0, sequencePath: null });
   const [isDesktop, setIsDesktop] = useState(false);
+  const [shouldPlay, setShouldPlay] = useState(false);
 
   useEffect(() => {
     const checkSize = () => setIsDesktop(window.innerWidth >= 768);
@@ -407,24 +408,27 @@ export function InvitationPageClient({
     if (!isDemo) return;
     const handler = (e: MessageEvent) => {
       if (e.origin !== window.location.origin) return;
-      if (e.data?.type === "SET_THEME" && typeof e.data.theme === "string") {
-        setActiveTheme(e.data.theme);
-        if (e.data.heroAsset && typeof e.data.heroAsset.frames === "number") {
-          setHeroAsset(e.data.heroAsset);
+        if (e.data?.type === "SET_THEME" && typeof e.data.theme === "string") {
+          setActiveTheme(e.data.theme);
+          if (e.data.heroAsset && typeof e.data.heroAsset.frames === "number") {
+            setHeroAsset(e.data.heroAsset);
+          }
+          if (e.data.animationSequence) {
+            setAnimationSequence(e.data.animationSequence);
+          }
+          if (e.data.device === "desktop") {
+            setIsDesktop(true);
+          } else if (e.data.device === "mobile") {
+            setIsDesktop(false);
+          }
         }
-        if (e.data.animationSequence) {
-          setAnimationSequence(e.data.animationSequence);
+        if (e.data?.type === "PLAY_INTRO") {
+          setShouldPlay(true);
         }
-        if (e.data.device === "desktop") {
-          setIsDesktop(true);
-        } else if (e.data.device === "mobile") {
-          setIsDesktop(false);
-        }
-      }
-    };
-    window.addEventListener("message", handler);
-    return () => window.removeEventListener("message", handler);
-  }, [isDemo]);
+      };
+      window.addEventListener("message", handler);
+      return () => window.removeEventListener("message", handler);
+    }, [isDemo]);
 
   return (
     <InvitationDemoContext.Provider value={{ isDemo, activeTheme, heroAsset, animationSequence }}>
@@ -433,7 +437,7 @@ export function InvitationPageClient({
           {hasIntro && !introDone && (!isDemo || animationSequence !== null) && (
             <InvitationIntro
               onComplete={() => setIntroDone(true)}
-              autoplay={isDemo}
+              autoplay={isDemo && shouldPlay}
               forceDesktop={isDesktop}
               {...(animationSequence ?? {})}
             />
