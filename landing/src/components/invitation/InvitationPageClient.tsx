@@ -5,6 +5,7 @@ import { useEffect, useState, useRef, useCallback } from "react";
 import { InvitationIntro } from "./InvitationIntro";
 import { InvitationDemoContext, type AnimationSequence } from "./InvitationDemoContext";
 import { cn } from "@/lib/utils";
+import { Expand, X, Mail, DoorOpen, GalleryHorizontalEnd } from "lucide-react";
 import { useTranslations } from "next-intl";
 
 // Shared data for demo controls
@@ -24,10 +25,10 @@ const THEME_LABELS: Record<string, string> = {
   romantic: "Romantique",
 };
 
-const ANIMATIONS: { key: string; icon: string }[] = [
-  { key: "envelope", icon: "✉️" },
-  { key: "doors", icon: "🚪" },
-  { key: "curtains", icon: "🎭" },
+const ANIMATIONS: { key: string; icon: React.ReactNode }[] = [
+  { key: "envelope", icon: <Mail className="w-4 h-4" /> },
+  { key: "doors", icon: <DoorOpen className="w-4 h-4" /> },
+  { key: "curtains", icon: <GalleryHorizontalEnd className="w-4 h-4" /> },
 ];
 
 const ANIMATION_SEQUENCES: Record<string, AnimationSequence> = {
@@ -66,7 +67,9 @@ function FloatingDemoControls({
   setActiveTheme,
   activeDevice,
   onToggleDevice,
-  isDesktop
+  isDesktop,
+  defaultTheme,
+  defaultAnimation
 }: {
   activeAnimation: string;
   setActiveAnimation: (a: string) => void;
@@ -75,10 +78,54 @@ function FloatingDemoControls({
   activeDevice: "mobile" | "desktop";
   onToggleDevice: () => void;
   isDesktop?: boolean;
+  defaultTheme: string;
+  defaultAnimation: string;
 }) {
   const t = useTranslations("ProductDemo");
   const [expanded, setExpanded] = useState<"none" | "animation" | "theme" | "device">("none");
   const panelRef = useRef<HTMLDivElement>(null);
+  const [isNativeMobile, setIsNativeMobile] = useState(false);
+  const [showHint, setShowHint] = useState(false);
+
+  useEffect(() => {
+    // Detect if user is on a real mobile device natively
+    const checkMobile = () => {
+      if (typeof window !== "undefined") {
+        const isMobileAgent = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+        setIsNativeMobile(isMobileAgent || window.innerWidth <= 450);
+      }
+    };
+    checkMobile();
+
+    // Show hint only if the URL contains ?hint=true (one-time setup from parent)
+    const params = new URLSearchParams(window.location.search);
+    if (params.get("hint") === "true") {
+      const timer = setTimeout(() => setShowHint(true), 1500);
+      return () => clearTimeout(timer);
+    }
+  }, []);
+
+  useEffect(() => {
+    if (showHint) {
+      const handleUserInteraction = () => {
+        setShowHint(false);
+      };
+      
+      // Delay listener so the initial render doesn't trigger it immediately
+      const delay = setTimeout(() => {
+        document.addEventListener("mousedown", handleUserInteraction);
+        document.addEventListener("touchstart", handleUserInteraction);
+        document.addEventListener("wheel", handleUserInteraction);
+      }, 100);
+
+      return () => {
+        clearTimeout(delay);
+        document.removeEventListener("mousedown", handleUserInteraction);
+        document.removeEventListener("touchstart", handleUserInteraction);
+        document.removeEventListener("wheel", handleUserInteraction);
+      };
+    }
+  }, [showHint]);
 
   useEffect(() => {
     const handleClickOutside = (e: MouseEvent) => {
@@ -88,77 +135,113 @@ function FloatingDemoControls({
     };
     if (expanded !== "none") {
       document.addEventListener("mousedown", handleClickOutside);
+      setShowHint(false); // Hide hint as soon as user interacts with controls
     }
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, [expanded]);
 
   return (
     <div
-      className="left-1/2 -translate-x-1/2 z-[9999]"
-      style={{
-        position: "fixed",
-        bottom: "calc(env(safe-area-inset-bottom, 0px) + 24px)"
-      }}
+      className="fixed bottom-[calc(env(safe-area-inset-bottom,0px)+24px)] left-0 right-0 flex flex-col items-center pointer-events-none z-[9999]"
       ref={panelRef}
     >
-      <div className="flex items-center gap-1.5 p-1.5 bg-background/85 backdrop-blur-xl border border-border shadow-[0_8px_32px_rgba(0,0,0,0.12)] rounded-[2rem] transition-all">
-        {/* Device Selector */}
-        <div>
-          <button
-            onClick={() => setExpanded(expanded === "device" ? "none" : "device")}
-            className={cn(
-              "flex items-center justify-center w-9 h-9 sm:w-10 sm:h-10 rounded-full transition-all",
-              expanded === "device" ? "bg-primary text-primary-foreground" : "hover:bg-primary/10 text-foreground"
-            )}
-            title="Appareil"
+      <AnimatePresence>
+        {showHint && (
+          <motion.div
+            initial={{ opacity: 0, y: 15, scale: 0.9 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            exit={{ opacity: 0, y: 10, scale: 0.9 }}
+            className="mb-3 bg-primary text-primary-foreground px-5 py-3 rounded-[1.25rem] shadow-2xl flex flex-col items-center cursor-pointer pointer-events-auto w-[240px] max-w-[calc(100vw-32px)] text-center leading-snug z-50 relative"
+            onClick={() => setShowHint(false)}
           >
-            {activeDevice === "mobile" ? (
-               <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect width="14" height="20" x="5" y="2" rx="2" ry="2"/><path d="M12 18h.01"/></svg>
-            ) : (
-               <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect width="20" height="14" x="2" y="3" rx="2"/><line x1="8" x2="16" y1="21" y2="21"/><line x1="12" x2="12" y1="17" y2="21"/></svg>
-            )}
-          </button>
-          
-          {expanded === "device" && (
-            <div className="absolute bottom-full left-1/2 -translate-x-1/2 mb-3 bg-card border border-border shadow-xl rounded-2xl p-2 w-40 flex flex-col gap-1">
-              <div className="px-3 py-1.5 text-[10px] uppercase font-bold tracking-wider text-muted-foreground">Appareil</div>
-              <button
-                onClick={() => { if (activeDevice !== "mobile") onToggleDevice(); setExpanded("none"); }}
-                className={cn(
-                  "flex items-center gap-3 px-3 py-2 rounded-xl text-sm font-medium text-left transition-all",
-                  activeDevice === "mobile" ? "bg-primary/10 text-primary" : "hover:bg-muted text-foreground"
-                )}
-              >
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect width="14" height="20" x="5" y="2" rx="2" ry="2"/><path d="M12 18h.01"/></svg>
-                <span>Mobile</span>
-              </button>
-              <button
-                onClick={() => { if (activeDevice !== "desktop") onToggleDevice(); setExpanded("none"); }}
-                className={cn(
-                  "flex items-center gap-3 px-3 py-2 rounded-xl text-sm font-medium text-left transition-all",
-                  activeDevice === "desktop" ? "bg-primary/10 text-primary" : "hover:bg-muted text-foreground"
-                )}
-              >
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect width="20" height="14" x="2" y="3" rx="2"/><line x1="8" x2="16" y1="21" y2="21"/><line x1="12" x2="12" y1="17" y2="21"/></svg>
-                <span>Bureau</span>
-              </button>
-            </div>
-          )}
-        </div>
+            <span className="text-[13px] font-semibold tracking-tight">
+              Créez l'invitation qui vous ressemble
+            </span>
+            <div className="absolute top-full left-1/2 -translate-x-1/2 border-[8px] border-transparent border-t-primary" />
+          </motion.div>
+        )}
+      </AnimatePresence>
 
-        <div className="w-px h-6 bg-border mx-1" />
+      <motion.div 
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: showHint ? 1.5 : 0.3 }}
+        className={cn(
+          "flex items-center gap-2.5 p-2 bg-white/70 backdrop-blur-2xl border border-white/40 text-foreground rounded-full transition-all duration-700 pointer-events-auto",
+          "shadow-[0_12px_40px_-8px_rgba(0,0,0,0.15),0_0_0_1px_rgba(0,0,0,0.02)] scale-100",
+          showHint && "ring-2 ring-primary/20 ring-offset-0 animate-pulse-slow"
+        )}
+      >
+        {/* Device Selector (Hidden on Native Mobile) */}
+        {!isNativeMobile && (
+          <>
+            <div>
+              <button
+                onClick={() => setExpanded(expanded === "device" ? "none" : "device")}
+                className={cn(
+                  "flex items-center justify-center w-9 h-9 sm:w-10 sm:h-10 rounded-full transition-all",
+                  expanded === "device" ? "bg-primary text-primary-foreground" : "hover:bg-primary/10 text-foreground"
+                )}
+                title="Appareil"
+              >
+                {activeDevice === "mobile" ? (
+                   <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect width="14" height="20" x="5" y="2" rx="2" ry="2"/><path d="M12 18h.01"/></svg>
+                ) : (
+                   <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect width="20" height="14" x="2" y="3" rx="2"/><line x1="8" x2="16" y1="21" y2="21"/><line x1="12" x2="12" y1="17" y2="21"/></svg>
+                )}
+              </button>
+              
+              {expanded === "device" && (
+                <div className="absolute bottom-full left-1/2 -translate-x-1/2 mb-3 bg-card border border-border shadow-xl rounded-2xl p-2 w-40 flex flex-col gap-1">
+                  <div className="px-3 py-1.5 text-[10px] uppercase font-bold tracking-wider text-muted-foreground">Appareil</div>
+                  <button
+                    onClick={() => { if (activeDevice !== "mobile") onToggleDevice(); setExpanded("none"); }}
+                    className={cn(
+                      "flex items-center gap-3 px-3 py-2 rounded-xl text-sm font-medium text-left transition-all",
+                      activeDevice === "mobile" ? "bg-primary/10 text-primary" : "hover:bg-muted text-foreground"
+                    )}
+                  >
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect width="14" height="20" x="5" y="2" rx="2" ry="2"/><path d="M12 18h.01"/></svg>
+                    <span>Mobile</span>
+                  </button>
+                  <button
+                    onClick={() => { if (activeDevice !== "desktop") onToggleDevice(); setExpanded("none"); }}
+                    className={cn(
+                      "flex items-center gap-3 px-3 py-2 rounded-xl text-sm font-medium text-left transition-all",
+                      activeDevice === "desktop" ? "bg-primary/10 text-primary" : "hover:bg-muted text-foreground"
+                    )}
+                  >
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect width="20" height="14" x="2" y="3" rx="2"/><line x1="8" x2="16" y1="21" y2="21"/><line x1="12" x2="12" y1="17" y2="21"/></svg>
+                    <span>Bureau</span>
+                  </button>
+                </div>
+              )}
+            </div>
+
+            <div className="w-px h-6 bg-zinc-200 mx-1" />
+          </>
+        )}
 
         {/* Animation Selector */}
         <div>
           <button
             onClick={() => setExpanded(expanded === "animation" ? "none" : "animation")}
             className={cn(
-              "flex items-center gap-2 px-4 py-2 rounded-full text-sm font-medium transition-all",
-              expanded === "animation" ? "bg-primary text-primary-foreground" : "hover:bg-primary/10 text-foreground"
+              "flex items-center gap-2.5 px-4 py-2.5 rounded-full text-sm font-medium transition-all shadow-sm border",
+              expanded === "animation" 
+                ? "bg-primary text-primary-foreground border-primary shadow-md" 
+                : "bg-white/50 hover:bg-white/80 text-foreground border-zinc-200/50 hover:border-zinc-300"
             )}
           >
-            <span className="text-base">{ANIMATIONS.find((a) => a.key === activeAnimation)?.icon || "✉️"}</span>
-            <span className="hidden sm:inline">{t("animationLabel")}</span>
+            <div className={cn(
+              "flex items-center justify-center p-1 rounded-full",
+              expanded === "animation" 
+                ? "bg-white/20" 
+                : (activeAnimation !== defaultAnimation ? "bg-primary/15 text-primary" : "bg-black/5 text-muted-foreground/60")
+            )}>
+              {ANIMATIONS.find((a) => a.key === activeAnimation)?.icon}
+            </div>
+            <span className="hidden sm:inline font-semibold tracking-wide">{t("animationLabel")}</span>
           </button>
 
           {expanded === "animation" && (
@@ -169,11 +252,16 @@ function FloatingDemoControls({
                   key={key}
                   onClick={() => { setActiveAnimation(key); setExpanded("none"); }}
                   className={cn(
-                    "flex items-center gap-3 px-3 py-2 rounded-xl text-sm font-medium text-left transition-all",
-                    key === activeAnimation ? "bg-primary/10 text-primary" : "hover:bg-muted text-foreground"
+                    "flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium text-left transition-all",
+                    key === activeAnimation ? "bg-primary text-primary-foreground shadow-md" : "hover:bg-muted text-foreground"
                   )}
                 >
-                  <span className="text-xl">{icon}</span>
+                  <span className={cn(
+                    "flex items-center justify-center p-1.5 rounded-md",
+                    key === activeAnimation ? "bg-primary-foreground/20" : "bg-muted-foreground/10 text-muted-foreground"
+                  )}>
+                    {icon}
+                  </span>
                   <span>
                     {key === "envelope" && t("animationEnvelope")}
                     {key === "doors" && t("animationDoors")}
@@ -185,24 +273,31 @@ function FloatingDemoControls({
           )}
         </div>
 
-        <div className="w-px h-6 bg-border mx-1" />
+        <div className="w-px h-6 bg-zinc-200 mx-1" />
 
         {/* Theme Selector */}
         <div>
           <button
             onClick={() => setExpanded(expanded === "theme" ? "none" : "theme")}
             className={cn(
-              "flex items-center gap-2 px-4 py-2 rounded-full text-sm font-medium transition-all",
-              expanded === "theme" ? "bg-primary text-primary-foreground" : "hover:bg-primary/10 text-foreground"
+              "flex items-center gap-2.5 px-4 py-2.5 rounded-full text-sm font-medium transition-all shadow-sm border",
+              expanded === "theme" 
+                ? "bg-primary text-primary-foreground border-primary shadow-md" 
+                : "bg-white/50 hover:bg-white/80 text-foreground border-zinc-200/50 hover:border-zinc-300"
             )}
           >
-            <span
-              className="w-3.5 h-3.5 rounded-full shadow-sm"
-              style={{
-                background: `linear-gradient(135deg, ${THEMES.find((t) => t.key === activeTheme)?.dotColors[0] || "#fff"}, ${THEMES.find((t) => t.key === activeTheme)?.dotColors[1] || "#ccc"})`,
-              }}
-            />
-            <span className="hidden sm:inline">{THEME_LABELS[activeTheme] || activeTheme}</span>
+            <div className={cn(
+              "w-6 h-6 rounded-full flex items-center justify-center",
+              expanded === "theme" ? "bg-white/20" : "bg-primary/5"
+            )}>
+              <span
+                className="w-3.5 h-3.5 rounded-full shadow-[inset_0_1px_2px_rgba(0,0,0,0.2)]"
+                style={{
+                  background: `linear-gradient(135deg, ${THEMES.find((t) => t.key === activeTheme)?.dotColors[0] || "#fff"}, ${THEMES.find((t) => t.key === activeTheme)?.dotColors[1] || "#ccc"})`,
+                }}
+              />
+            </div>
+            <span className="hidden sm:inline font-semibold tracking-wide">{THEME_LABELS[activeTheme] || activeTheme}</span>
           </button>
 
           {expanded === "theme" && (
@@ -227,7 +322,7 @@ function FloatingDemoControls({
             </div>
           )}
         </div>
-      </div>
+      </motion.div>
     </div>
   );
 }
@@ -263,9 +358,9 @@ export function InvitationPageClient({
   // Active animation key derived from sequence path or fallback to envelope
   const currentAnimationKey = (() => {
     if (!animationSequence) return "envelope";
-    const path = animationSequence.desktopPath || animationSequence.mobilePath || "";
-    if (path.includes("portes")) return "doors";
-    if (path.includes("rideaux")) return "curtains";
+    const path = (animationSequence.desktopPath || animationSequence.mobilePath || "").toLowerCase();
+    if (path.includes("porte")) return "doors";
+    if (path.includes("curtain") || path.includes("portrait")) return "curtains";
     return "envelope";
   })();
 
@@ -366,6 +461,12 @@ export function InvitationPageClient({
             activeDevice={isDesktop ? "desktop" : "mobile"}
             onToggleDevice={handleDeviceToggle}
             isDesktop={isDesktop}
+            defaultTheme={initialTheme}
+            defaultAnimation={(() => {
+              if (weddingSlug.includes("door") || weddingSlug === "emma-lucas") return "doors";
+              if (weddingSlug.includes("curtain") || weddingSlug === "sarah-david") return "curtains";
+              return "envelope";
+            })()}
           />
         )}
       </>

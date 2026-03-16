@@ -315,7 +315,15 @@ export function ProductDemoViewer() {
     return () => window.removeEventListener("message", handler);
   }, []);
 
-  const iframeUrl = `/fr/invitation/${DEMO_CODES[activeAnimation]}?demo=true&device=${device}`;
+  const [hasCustomized, setHasCustomized] = useState(false);
+
+  useEffect(() => {
+    if (activeAnimation !== "envelope" || activeTheme !== "floral") {
+      setHasCustomized(true);
+    }
+  }, [activeAnimation, activeTheme]);
+
+  const iframeUrl = `/fr/invitation/${DEMO_CODES[activeAnimation]}?demo=true&device=${device}${!hasCustomized ? "&hint=true" : ""}`;
 
   const sendTheme = useCallback(
     (
@@ -378,16 +386,17 @@ export function ProductDemoViewer() {
   return (
     <div>
       {/* Header */}
-      <div className='text-center mb-10'>
+      <div className='text-center '>
         <p className='text-xs uppercase tracking-[0.3em] text-primary font-medium mb-3'>
           {t("demosEyebrow")}
         </p>
         <h2 className='font-heading text-4xl md:text-5xl font-medium text-foreground leading-tight'>
-          {t("demosTitleLine1")}{" "}
-          <span className='italic text-primary'>{t("demosTitleLine2")}</span>
+          Voyez le produit{" "}
+          <span className='italic text-primary'>en direct</span>
         </h2>
-        <p className='text-muted-foreground mt-3 max-w-lg mx-auto'>
-          {t("demosSub")}
+        <p className='text-muted-foreground mt-4 max-w-xl mx-auto text-balance'>
+          Choisissez un thème et explorez une vraie invitation — comme la
+          vivrait l'un de vos invités.
         </p>
       </div>
 
