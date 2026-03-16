@@ -45,8 +45,8 @@
     "step4Desc": "Photos, vidéos, musique — vos invités vivent l'ambiance avant même d'arriver.",
     "step5Title": "RSVP en ligne",
     "step5Desc": "Présence, accompagnants, régimes — tout dans votre tableau de bord en temps réel.",
-    "demosEyebrow": "Exemples réels",
-    "demosTitleLine1": "Voyez le produit",
+    "demosEyebrow": "Envie d'une démo ?",
+    "demosTitleLine1": "Découvrez le faire-part",
     "demosTitleLine2": "en direct",
     "demosSub": "Choisissez un thème et explorez une vraie invitation — comme la vivrait l'un de vos invités.",
     "openFullscreen": "Ouvrir en plein écran",
@@ -130,7 +130,7 @@
     "feature4": "Zéro papier"
   },
   "ValueCards": {
-    "eyebrow": "Pourquoi The Studio",
+    "eyebrow": "Pourquoi choisir The Studio Papeterie Digitale ?",
     "title": "Tout ce dont",
     "titleAccent": "vous avez besoin",
     "card1Title": "Design élégant",
@@ -142,7 +142,9 @@
     "card4Title": "Modifiable",
     "card4Desc": "Changez les infos à tout moment, même après l'envoi.",
     "card5Title": "Sur-mesure",
-    "card5Desc": "Modules au choix, langues multiples, votre histoire racontée à votre façon."
+    "card5Desc": "Modules au choix, langues multiples, votre histoire racontée à votre façon.",
+    "card6Title": "Livraison Immédiate",
+    "card6Desc": "Votre faire-part digital est accessible instantanément après votre paiement."
   },
   "Customization": {
     "eyebrow": "Aller plus loin",
