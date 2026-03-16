@@ -444,7 +444,7 @@ export function ProductDemoViewer() {
           {t("demosEyebrow")}
         </p>
         <h2 className='font-heading text-4xl md:text-5xl font-medium text-foreground leading-tight'>
-          Voyez le produit{" "}
+          Découvrez le faire-part{" "}
           <span className='italic text-primary'>en direct</span>
         </h2>
         <p className='text-muted-foreground mt-4 max-w-xl mx-auto text-balance'>

@@ -17,8 +17,8 @@ export default function Home() {
       <Hero />
       <ProductDemo />
       <HowItWorks />
-      <PricingComparison />
       <ValueCards />
+      <PricingComparison />
       <Customization />
       <Testimonials />
       <FAQ />

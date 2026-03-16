@@ -2,14 +2,15 @@
 
 import { motion } from "framer-motion";
 import { useTranslations } from "next-intl";
-import { Sparkles, Zap, Leaf, RefreshCw, Wand2 } from "lucide-react";
+import { Sparkles, Zap, Leaf, RefreshCw, Wand2, Rocket } from "lucide-react";
 
 const CARDS = [
   { icon: Sparkles, titleKey: "card1Title", descKey: "card1Desc" },
+  { icon: Rocket, titleKey: "card6Title", descKey: "card6Desc" },
   { icon: Zap, titleKey: "card2Title", descKey: "card2Desc" },
   { icon: Leaf, titleKey: "card3Title", descKey: "card3Desc" },
-  { icon: RefreshCw, titleKey: "card4Title", descKey: "card4Desc" },
   { icon: Wand2, titleKey: "card5Title", descKey: "card5Desc" },
+  { icon: RefreshCw, titleKey: "card4Title", descKey: "card4Desc" },
 ] as const;
 
 export function ValueCards() {
@@ -34,7 +35,7 @@ export function ValueCards() {
           </h2>
         </motion.div>
 
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
+        <div className="grid grid-cols-2 md:grid-cols-3 gap-4 lg:gap-6">
           {CARDS.map(({ icon: Icon, titleKey, descKey }, i) => (
             <motion.div
               key={titleKey}
