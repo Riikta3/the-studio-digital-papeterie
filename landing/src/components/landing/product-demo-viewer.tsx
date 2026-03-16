@@ -289,6 +289,13 @@ export function ProductDemoViewer() {
     useState<AnimationKey>("envelope");
   const [activeTheme, setActiveTheme] = useState<ThemeKey>("floral");
   const [device, setDevice] = useState<"mobile" | "desktop">("mobile");
+
+  // Default to desktop if on a large screen
+  useEffect(() => {
+    if (window.innerWidth >= DESKTOP_VIEWPORT) {
+      setDevice("desktop");
+    }
+  }, []);
   const [iframeLoading, setIframeLoading] = useState(true);
   const [fullscreen, setFullscreen] = useState(false);
   const iframeRef = useRef<HTMLIFrameElement>(null);

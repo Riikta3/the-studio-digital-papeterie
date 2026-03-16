@@ -52,7 +52,7 @@
     "openFullscreen": "Open full screen",
     "deviceMobile": "Mobile",
     "deviceDesktop": "Desktop",
-    "animationLabel": "① Animation",
+    "animationLabel": "Animation",
     "animationEnvelope": "Enveloppe",
     "animationDoors": "Portes",
     "animationCurtains": "Rideaux"
@@ -73,7 +73,7 @@
     "eyebrow": "Créez votre invitation",
     "title": "Choisissez",
     "titleAccent": "votre style",
-    "step1Label": "① Animation d'introduction",
+    "step1Label": "Animation d'introduction",
     "step2Label": "② Style d'ouverture",
     "step3Label": "③ Thème du site (couleurs & polices)",
     "openingEnvelope": "Enveloppe",
