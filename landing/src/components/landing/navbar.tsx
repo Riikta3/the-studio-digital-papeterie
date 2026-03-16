@@ -135,6 +135,13 @@ export function Navbar() {
             transition={{ duration: 0.2 }}
             className='fixed inset-0 z-40 flex flex-col bg-background pt-24 px-6 lg:hidden overflow-y-auto'
           >
+            <button
+              onClick={() => setIsMobileMenuOpen(false)}
+              className='absolute top-5 right-5 p-2 text-foreground'
+              aria-label='Fermer le menu'
+            >
+              <X className='h-6 w-6' />
+            </button>
             <nav className='flex flex-col gap-6 items-center pb-8'>
               <div className='mb-4'>
                 <LanguageSwitcher />

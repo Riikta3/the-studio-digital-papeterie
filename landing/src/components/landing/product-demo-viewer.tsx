@@ -79,23 +79,46 @@ const THEME_LABELS: Record<ThemeKey, string> = {
   modern: "Modern",
 };
 
+const MOBILE_VIEWPORT = 390;
+
 function MobileFrame({
   iframeUrl,
   iframeRef,
   theme,
   loading,
   onLoad,
+  onScaleReady,
 }: {
   iframeUrl: string;
   iframeRef: React.RefObject<HTMLIFrameElement | null>;
   theme: string;
   loading: boolean;
   onLoad: () => void;
+  onScaleReady?: (scale: number) => void;
 }) {
+  const screenRef = useRef<HTMLDivElement>(null);
+  const mobileScale = 276 / MOBILE_VIEWPORT;
+
+  useEffect(() => {
+    onScaleReady?.(mobileScale);
+  }, [mobileScale, onScaleReady]);
+
+  // Forward mouse wheel events to iframe scroll
+  useEffect(() => {
+    const el = screenRef.current;
+    if (!el) return;
+    const handleWheel = (e: WheelEvent) => {
+      e.preventDefault();
+      iframeRef.current?.contentWindow?.scrollBy({ top: e.deltaY, behavior: "auto" });
+    };
+    el.addEventListener("wheel", handleWheel, { passive: false });
+    return () => el.removeEventListener("wheel", handleWheel);
+  }, [iframeRef]);
+
   return (
-    <div className="flex justify-center">
+    <div className="flex justify-center px-4">
       <div
-        className="relative"
+        className="relative flex-shrink-0"
         style={{
           background: "#1c1c1e",
           borderRadius: 44,
@@ -110,7 +133,7 @@ function MobileFrame({
           <div className="w-2.5 h-2.5 rounded-full bg-[#2a2a2c] border border-[#333]" />
           <div className="w-9 h-1 bg-[#2a2a2c] rounded" />
         </div>
-        <div className="rounded-[32px] overflow-hidden bg-background relative" style={{ width: 276, height: 560 }}>
+        <div ref={screenRef} className="rounded-[32px] overflow-hidden bg-background relative" style={{ width: 276, height: 560 }}>
           {loading && (
             <div className="absolute inset-0 bg-background z-10 flex items-center justify-center">
               <div className="w-8 h-8 border border-primary/30 border-t-primary rounded-full animate-spin" />
@@ -148,9 +171,22 @@ function DesktopFrame({
   onScaleChange?: (scale: number) => void;
 }) {
   const wrapperRef = useRef<HTMLDivElement>(null);
+  const screenRef = useRef<HTMLDivElement>(null);
   const [screenW, setScreenW] = useState(0);
   const urlPath = iframeUrl.split("/invitation/")[1]?.split("?")[0] || "";
   const displayUrl = `thestudio.wedding/invitation/${urlPath}`;
+
+  // Forward mouse wheel events to iframe scroll
+  useEffect(() => {
+    const el = screenRef.current;
+    if (!el) return;
+    const handleWheel = (e: WheelEvent) => {
+      e.preventDefault();
+      iframeRef.current?.contentWindow?.scrollBy({ top: e.deltaY, behavior: "auto" });
+    };
+    el.addEventListener("wheel", handleWheel, { passive: false });
+    return () => el.removeEventListener("wheel", handleWheel);
+  }, [iframeRef]);
 
   useEffect(() => {
     const el = wrapperRef.current;
@@ -187,7 +223,11 @@ function DesktopFrame({
             <span className="text-[8px] text-white/35 font-mono truncate">{displayUrl}</span>
           </div>
         </div>
-        <div className="rounded-b-[6px] overflow-hidden bg-background relative border border-[#3a3a3c]" style={{ height: DESKTOP_SCREEN_H }}>
+        <div
+          ref={screenRef}
+          className="rounded-b-[6px] overflow-hidden bg-background relative border border-[#3a3a3c]"
+          style={{ height: DESKTOP_SCREEN_H }}
+        >
           {loading && (
             <div className="absolute inset-0 bg-background z-10 flex items-center justify-center">
               <div className="w-8 h-8 border border-primary/30 border-t-primary rounded-full animate-spin" />
@@ -216,6 +256,7 @@ export function ProductDemoViewer() {
   const [iframeLoading, setIframeLoading] = useState(true);
   const [fullscreen, setFullscreen] = useState(false);
   const [desktopScale, setDesktopScale] = useState(1);
+  const [mobileScale, setMobileScale] = useState(276 / 390);
   const iframeRef = useRef<HTMLIFrameElement>(null);
   const fullscreenIframeRef = useRef<HTMLIFrameElement>(null);
 
@@ -236,7 +277,7 @@ export function ProductDemoViewer() {
     );
     if (desktopScale !== undefined) {
       iframe.contentWindow.postMessage(
-        { type: "SET_DESKTOP_SCALE", scale: desktopScale },
+        { type: device === "mobile" ? "SET_MOBILE_SCALE" : "SET_DESKTOP_SCALE", scale: desktopScale },
         window.location.origin
       );
     }
@@ -264,16 +305,16 @@ export function ProductDemoViewer() {
       prevAnimationRef.current = activeAnimation;
       return; // animation change → iframe reloads → handleIframeLoad will send theme
     }
-    const scale = device === "desktop" ? desktopScale : undefined;
+    const scale = device === "desktop" ? desktopScale : mobileScale;
     const timeout = setTimeout(() => sendTheme(activeTheme, activeAnimation, undefined, scale), 300);
     return () => clearTimeout(timeout);
-  }, [activeTheme, activeAnimation, sendTheme, device, desktopScale]);
+  }, [activeTheme, activeAnimation, sendTheme, device, desktopScale, mobileScale]);
 
   const handleIframeLoad = useCallback(() => {
     setIframeLoading(false);
-    const scale = device === "desktop" ? desktopScale : undefined;
+    const scale = device === "desktop" ? desktopScale : mobileScale;
     setTimeout(() => sendTheme(activeTheme, activeAnimation, undefined, scale), 100);
-  }, [sendTheme, activeTheme, activeAnimation, device, desktopScale]);
+  }, [sendTheme, activeTheme, activeAnimation, device, desktopScale, mobileScale]);
 
   return (
     <div>
@@ -350,6 +391,7 @@ export function ProductDemoViewer() {
           theme={THEME_LABELS[activeTheme]}
           loading={iframeLoading}
           onLoad={handleIframeLoad}
+          onScaleReady={setMobileScale}
         />
       ) : (
         <div className="max-w-3xl mx-auto w-full">

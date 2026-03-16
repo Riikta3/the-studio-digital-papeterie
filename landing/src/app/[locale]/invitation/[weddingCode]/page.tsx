@@ -24,6 +24,9 @@ export async function generateViewport({ searchParams }: InvitationPageProps): P
   if (device === "desktop") {
     return { width: 1024, initialScale: 1 };
   }
+  if (device === "mobile") {
+    return { width: 390, initialScale: 1 };
+  }
   return { width: "device-width", initialScale: 1 };
 }
 
@@ -120,7 +123,7 @@ export default async function InvitationPage({ params, searchParams }: Invitatio
   const invitationContent = (
     <InvitationPageClient hasIntro isDemo={isDemo} initialTheme={siteConfig.theme_id}>
     <div
-      className="min-h-screen bg-background text-foreground font-sans"
+      className="bg-background text-foreground font-sans"
     >
       <InvitationHero
         firstName={profile.first_name}
