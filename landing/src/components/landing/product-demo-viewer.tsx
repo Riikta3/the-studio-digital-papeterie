@@ -242,8 +242,8 @@ function DesktopFrame({
           />
         </div>
       </div>
-      <div className="mx-auto" style={{ width: Math.round(screenW * 0.35), height: 18, background: "linear-gradient(180deg, #3a3a3c, #2a2a2c)", clipPath: "polygon(10% 0%, 90% 0%, 100% 100%, 0% 100%)" }} />
-      <div className="mx-auto" style={{ width: screenW + 16, height: 8, background: "linear-gradient(180deg, #3a3a3c, #2a2a2c)", borderRadius: "0 0 4px 4px", boxShadow: "0 2px 8px rgba(0,0,0,0.2)" }} />
+      <div className="mx-auto" style={{ width: Math.round(screenW * 0.20), height: 18, background: "linear-gradient(180deg, #3a3a3c, #2a2a2c)", clipPath: "polygon(15% 0%, 85% 0%, 100% 100%, 0% 100%)" }} />
+      <div className="mx-auto" style={{ width: Math.round(screenW * 0.25), height: 8, background: "linear-gradient(180deg, #3a3a3c, #2a2a2c)", borderRadius: "0 0 4px 4px", boxShadow: "0 2px 8px rgba(0,0,0,0.2)" }} />
     </div>
   );
 }
