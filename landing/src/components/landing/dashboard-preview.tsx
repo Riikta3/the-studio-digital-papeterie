@@ -17,7 +17,7 @@ export function DashboardPreview() {
   const t = useTranslations("Dashboard");
 
   return (
-    <section className='py-24 overflow-hidden bg-background relative'>
+    <section className='py-24 overflow-hidden bg-secondary/30 relative'>
       <div className='container mx-auto px-4'>
         {/* Header Centré - Comme les autres composants */}
         <motion.div

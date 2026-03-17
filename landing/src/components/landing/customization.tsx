@@ -16,7 +16,7 @@ export function Customization() {
   const t = useTranslations("Customization");
 
   return (
-    <section id="sur-mesure" className="py-24 bg-secondary/30 relative overflow-hidden">
+    <section id="sur-mesure" className="py-24 bg-background relative overflow-hidden">
       {/* Background patterns could go here if needed, but keeping it clean for now */}
       <div className="container mx-auto px-4">
         {/* Header Centré */}
