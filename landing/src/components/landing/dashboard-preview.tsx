@@ -1,143 +1,133 @@
 "use client";
 
+import { Link } from "@/navigation";
 import { motion } from "framer-motion";
-import { Edit2, Eye } from "lucide-react";
+import { ArrowRight, CheckCircle2, Edit3, Eye, Users } from "lucide-react";
 import { useTranslations } from "next-intl";
+import Image from "next/image";
+
+const FEATURES = [
+  { icon: CheckCircle2, key: "feature1" },
+  { icon: Users, key: "feature2" },
+  { icon: Edit3, key: "feature3" },
+  { icon: Eye, key: "feature4" },
+] as const;
 
 export function DashboardPreview() {
-  const t = useTranslations("DashboardPreview");
+  const t = useTranslations("Dashboard");
 
   return (
-    <section
-      id='apercu'
-      className='py-32 bg-[#F9F6F2] overflow-hidden relative'
-    >
-      {/* Background Decor */}
-      <div className='absolute inset-0 pointer-events-none'>
-        <div className='absolute top-0 right-0 w-[500px] h-[500px] bg-primary/5 rounded-full blur-[100px] -translate-y-1/2 translate-x-1/2' />
-        <div className='absolute bottom-0 left-0 w-[500px] h-[500px] bg-secondary/10 rounded-full blur-[100px] translate-y-1/2 -translate-x-1/2' />
-      </div>
-
-      <div className='container mx-auto px-4 relative z-10'>
-        <div className='mb-20 text-center max-w-3xl mx-auto'>
-          <h2 className='font-heading text-4xl md:text-5xl font-medium text-foreground mb-6'>
-            Votre papeterie, <br />
-            <span className='text-primary italic'>vivante et interactive.</span>
-          </h2>
-          <p className='text-muted-foreground text-lg'>
-            Fini les allers-retour. Modifiez votre texte, changez les couleurs
-            et visualisez le résultat instantanément sur tous les écrans.
+    <section className='py-24 overflow-hidden bg-background relative'>
+      <div className='container mx-auto px-4'>
+        {/* Header Centré - Comme les autres composants */}
+        <motion.div
+          initial={{ opacity: 0, y: 24 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.8 }}
+          className='text-center mb-16'
+        >
+          <p className='text-xs uppercase tracking-[0.3em] text-primary font-medium mb-3'>
+            {t("eyebrow")}
           </p>
+          <h2 className='font-heading text-4xl md:text-6xl font-medium text-foreground leading-tight max-w-4xl mx-auto'>
+            {t("title")}
+          </h2>
+          <p className='mt-6 text-muted-foreground/80 max-w-2xl mx-auto leading-relaxed text-lg'>
+            {t("subtitle")}
+          </p>
+        </motion.div>
+
+        {/* Grille de Features Centrée */}
+        <div className='flex flex-wrap justify-center gap-6 md:gap-12 mb-16'>
+          {FEATURES.map(({ icon: Icon, key }, i) => (
+            <motion.div
+              key={key}
+              initial={{ opacity: 0, y: 10 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: i * 0.1 }}
+              className='flex items-center gap-3 group'
+            >
+              <div className='w-10 h-10 rounded-full bg-primary/5 flex items-center justify-center flex-shrink-0 group-hover:bg-primary/10 transition-colors duration-300'>
+                <Icon
+                  className='w-5 h-5 text-primary'
+                  strokeWidth={1.5}
+                />
+              </div>
+              <span className='text-sm font-medium text-foreground/70'>
+                {t(key)}
+              </span>
+            </motion.div>
+          ))}
         </div>
 
-        {/* The Scene Composition - Multi Device */}
-        <div className='relative max-w-6xl mx-auto h-[500px] md:h-[600px] flex items-center justify-center'>
-          {/* 1. Desktop Monitor (Background) */}
+        {/* Screenshot Preview - Centré et Large */}
+        <div className='max-w-5xl mx-auto relative'>
           <motion.div
-            initial={{ x: 100, opacity: 0 }}
-            whileInView={{ x: 50, opacity: 1 }}
-            transition={{ duration: 1, delay: 0.2, ease: "easeOut" }}
+            initial={{ opacity: 0, scale: 0.95, y: 40 }}
+            whileInView={{ opacity: 1, scale: 1, y: 0 }}
             viewport={{ once: true }}
-            className='absolute hidden md:flex flex-col items-center z-0 right-[20%] top-[30%] -translate-y-1/2 scale-[0.85]'
-          >
-            {/* Monitor Head */}
-            <div className='w-[800px] aspect-[16/10] bg-black rounded-[20px] shadow-2xl border-[16px] border-black overflow-hidden ring-1 ring-white/10 relative z-10'>
-              {/* Screen Content */}
-              <div className='flex w-full h-full overflow-hidden bg-white rounded-[4px]'>
-                {/* Split View */}
-                <div className='w-1/2 h-full relative border-r border-gray-100'>
-                  <div
-                    className='absolute inset-0 bg-cover bg-center'
-                    style={{
-                      backgroundImage:
-                        "url('/images/landing/invite-closeup.png')",
-                    }}
-                  />
-                </div>
-                <div className='w-1/2 h-full flex flex-col items-center justify-center p-12 text-center space-y-6 bg-white'>
-                  <div className='font-heading text-5xl text-primary italic'>
-                    Sarah & Michael
-                  </div>
-                  <p className='font-body text-base text-gray-500 leading-relaxed max-w-sm'>
-                    Nous sommes heureux de vous inviter à célébrer notre union
-                    dans un cadre exceptionnel...
-                  </p>
-                  <div className='flex gap-4 pt-4'>
-                    <div className='h-2.5 w-32 bg-gray-100 rounded-full' />
-                    <div className='h-2.5 w-16 bg-primary/10 rounded-full' />
-                  </div>
-                  <button className='mt-4 px-8 py-3 bg-primary text-white rounded-full text-sm font-medium opacity-50 cursor-default shadow-sm'>
-                    Confirmer ma présence
-                  </button>
-                </div>
-              </div>
-            </div>
-
-            {/* Monitor Stand */}
-            <div className='w-[200px] h-[60px] bg-gradient-to-b from-[#d1d5db] to-[#9ca3af] -mt-6 rounded-b-2xl shadow-[0_10px_30px_-10px_rgba(0,0,0,0.3)] z-0 relative'>
-              <div className='absolute top-0 left-0 w-full h-4 bg-black/20 blur-md' />{" "}
-              {/* Shadow under screen */}
-            </div>
-          </motion.div>
-
-          {/* 2. The Phone Device (Foreground) */}
-          <motion.div
-            initial={{ y: 50, opacity: 0 }}
-            whileInView={{ y: 0, opacity: 1 }}
             transition={{ duration: 1, ease: "easeOut" }}
-            viewport={{ once: true }}
-            className='relative w-[280px] md:w-[320px] aspect-[9/19] bg-black rounded-[45px] shadow-[0_50px_100px_-20px_rgba(0,0,0,0.4)] border-[8px] border-slate-900 overflow-hidden ring-1 ring-white/20 z-10 md:-translate-x-12'
+            className='relative p-2 bg-gradient-to-tr from-primary/20 via-primary/5 to-transparent rounded-[2.5rem] shadow-2xl overflow-hidden'
           >
-            {/* Screen Content */}
-            <div className='w-full h-full bg-[#FAFAFA] relative overflow-hidden flex flex-col'>
-              {/* Fake Header */}
-              <div className='h-14 bg-transparent absolute top-0 w-full z-20 flex justify-center pt-2'>
-                <div className='w-24 h-6 bg-black rounded-b-[16px]' />{" "}
-                {/* Notch */}
-              </div>
-
-              {/* Invitation Preview */}
-              <div className='flex-1 flex flex-col items-center justify-center p-6 text-center space-y-5 bg-hero-pattern bg-cover relative'>
-                <div className='font-heading text-3xl text-primary italic relative z-10 mt-8'>
-                  Sarah & Michael
-                </div>
-
-                {/* Photo Placeholder - Real Image */}
-                <div className='w-full aspect-[4/5] relative rounded-lg overflow-hidden shadow-md'>
-                  <div
-                    className='absolute inset-0 bg-cover bg-center'
-                    style={{
-                      backgroundImage:
-                        "url('/images/landing/invite-closeup.png')",
-                    }}
-                  />
-                </div>
-
-                <p className='font-body text-xs text-gray-500 leading-relaxed relative z-10'>
-                  Nous sommes heureux de vous inviter à célébrer notre union...
-                </p>
-                <button className='bg-primary text-white rounded-full px-5 py-2.5 text-xs font-medium shadow-lg hover:scale-105 transition-transform relative z-10'>
-                  Confirmer ma présence
-                </button>
-              </div>
-
-              {/* Floating Edit Switch (Centered Key Feature) */}
-              <motion.div
-                initial={{ y: 100, x: "-50%" }}
-                animate={{ y: 0, x: "-50%" }}
-                transition={{ delay: 1, duration: 0.8, type: "spring" }}
-                className='absolute bottom-6 left-1/2 bg-white/90 backdrop-blur-xl border border-white/50 shadow-2xl rounded-full p-1.5 flex gap-1 z-30 ring-1 ring-black/5 w-fit'
-              >
-                <div className='flex items-center gap-2 px-3 py-1.5 bg-primary text-white rounded-full shadow-sm text-[10px] font-semibold whitespace-nowrap'>
-                  <Edit2 className='w-3 h-3' /> Édition
-                </div>
-                <div className='flex items-center gap-2 px-3 py-1.5 text-muted-foreground hover:bg-black/5 rounded-full transition-colors text-[10px] font-medium cursor-pointer whitespace-nowrap'>
-                  <Eye className='w-3 h-3' /> Aperçu
-                </div>
-              </motion.div>
+            <div className='relative rounded-[2rem] overflow-hidden border-4 border-white bg-white shadow-xl'>
+              <Image
+                src='/images/dashboard-preview.png'
+                alt='Dashboard Preview'
+                width={1400}
+                height={900}
+                className='w-full h-auto transform hover:scale-105 transition-transform duration-1000'
+                priority
+              />
             </div>
+
+            {/* Decorative Floating Element */}
+            {/* <motion.div
+              animate={{ y: [0, -10, 0] }}
+              transition={{
+                duration: 4,
+                repeat: Infinity,
+                ease: "easeInOut",
+              }}
+              className='absolute bottom-6 left-6 bg-white/90 backdrop-blur-md p-4 md:p-6 rounded-2xl shadow-xl border border-border/40 hidden md:block'
+            >
+              <div className='flex items-center gap-4'>
+                <div className='w-10 h-10 rounded-full bg-green-50 flex items-center justify-center'>
+                  <CheckCircle2 className='w-5 h-5 text-green-600' />
+                </div>
+                <div>
+                  <p className='text-[10px] text-muted-foreground uppercase tracking-widest font-bold'>
+                    RSVP Validé
+                  </p>
+                  <p className='text-sm font-heading text-foreground'>
+                    Sophie & Marc
+                  </p>
+                </div>
+              </div>
+            </motion.div> */}
           </motion.div>
+
+          {/* Background Glow */}
+          <div className='absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full bg-primary/10 blur-[120px] rounded-full -z-10' />
         </div>
+
+        {/* CTA Final */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6, delay: 0.4 }}
+          className='flex justify-center mt-16'
+        >
+          <Link
+            href='/create'
+            className='group inline-flex items-center gap-3 rounded-full bg-primary px-10 py-5 text-base font-medium text-primary-foreground shadow-xl hover:shadow-2xl hover:-translate-y-1 transition-all duration-300 active:scale-95'
+          >
+            {t("demoButton")}
+            <ArrowRight className='w-5 h-5 transition-transform group-hover:translate-x-1' />
+          </Link>
+        </motion.div>
       </div>
     </section>
   );
