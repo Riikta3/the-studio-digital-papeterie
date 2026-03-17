@@ -4,7 +4,7 @@ import { motion } from "framer-motion";
 import { useTranslations } from "next-intl";
 import { Check } from "lucide-react";
 
-const PAPER_PRICE = 860;
+const PAPER_PRICE = 645;
 const STUDIO_PRICE = 149;
 const SAVING = PAPER_PRICE - STUDIO_PRICE;
 
