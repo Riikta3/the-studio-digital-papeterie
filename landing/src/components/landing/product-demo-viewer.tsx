@@ -288,13 +288,11 @@ export function ProductDemoViewer() {
   const [activeAnimation, setActiveAnimation] =
     useState<AnimationKey>("envelope");
   const [activeTheme, setActiveTheme] = useState<ThemeKey>("floral");
-  const [device, setDevice] = useState<"mobile" | "desktop">("mobile");
+  const [device, setDevice] = useState<"mobile" | "desktop" | null>(null);
 
-  // Default to desktop if on a large screen
+  // Detect device once on mount to avoid layout shift (from mobile-first default)
   useEffect(() => {
-    if (window.innerWidth >= DESKTOP_VIEWPORT) {
-      setDevice("desktop");
-    }
+    setDevice(window.innerWidth >= DESKTOP_VIEWPORT ? "desktop" : "mobile");
   }, []);
   const [iframeLoading, setIframeLoading] = useState(true);
   const [fullscreen, setFullscreen] = useState(false);
@@ -363,7 +361,7 @@ export function ProductDemoViewer() {
     }
   }, [activeAnimation, activeTheme]);
 
-  const iframeUrl = `/fr/invitation/${DEMO_CODES[activeAnimation]}?demo=true&device=${device}${!hasCustomized ? "&hint=true" : ""}`;
+  const iframeUrl = `/fr/invitation/${DEMO_CODES[activeAnimation]}?demo=true&device=${device || "mobile"}${!hasCustomized ? "&hint=true" : ""}`;
 
   const sendTheme = useCallback(
     (
@@ -454,7 +452,11 @@ export function ProductDemoViewer() {
       </div>
 
       {/* Device frame */}
-      {device === "mobile" ? (
+      {device === null ? (
+        <div className="flex justify-center w-full py-10">
+          <div className="w-8 h-8 border border-primary/30 border-t-primary rounded-full animate-spin" />
+        </div>
+      ) : device === "mobile" ? (
         <MobileFrame
           iframeUrl={iframeUrl}
           iframeRef={iframeRef}
