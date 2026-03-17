@@ -2,15 +2,15 @@
 
 import { motion } from "framer-motion";
 import { useTranslations } from "next-intl";
-import { Sparkles, Zap, Leaf, RefreshCw, Wand2, Rocket } from "lucide-react";
+import { Sparkles, Rocket, Share2, Leaf, Palette, RefreshCw } from "lucide-react";
 
 const CARDS = [
   { icon: Sparkles, titleKey: "card1Title", descKey: "card1Desc" },
-  { icon: Rocket, titleKey: "card6Title", descKey: "card6Desc" },
-  { icon: Zap, titleKey: "card2Title", descKey: "card2Desc" },
-  { icon: Leaf, titleKey: "card3Title", descKey: "card3Desc" },
-  { icon: Wand2, titleKey: "card5Title", descKey: "card5Desc" },
-  { icon: RefreshCw, titleKey: "card4Title", descKey: "card4Desc" },
+  { icon: Rocket, titleKey: "card2Title", descKey: "card2Desc" },
+  { icon: Share2, titleKey: "card3Title", descKey: "card3Desc" },
+  { icon: Leaf, titleKey: "card4Title", descKey: "card4Desc" },
+  { icon: Palette, titleKey: "card5Title", descKey: "card5Desc" },
+  { icon: RefreshCw, titleKey: "card6Title", descKey: "card6Desc" },
 ] as const;
 
 export function ValueCards() {
