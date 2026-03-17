@@ -130,6 +130,16 @@
     "bespokeButton": "Prendre rendez-vous",
     "bespokeEmail": "contact@thestudiopapeteriedigitale.com"
   },
+  "Dashboard": {
+    "eyebrow": "Votre espace mariés",
+    "title": "Gérez votre mariage en toute simplicité",
+    "subtitle": "Accès à un espace pour les futurs mariés après paiement",
+    "feature1": "Gestion RSVP",
+    "feature2": "Gestion invités",
+    "feature3": "Modification des infos",
+    "feature4": "Accès et modification invitation",
+    "demoButton": "Voir une démo du dashboard"
+  },
   "Testimonials": {
     "eyebrow": "Ils nous ont fait confiance",
     "badge": "Déjà 130+ invitations envoyées",

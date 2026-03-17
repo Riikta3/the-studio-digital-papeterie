@@ -3,6 +3,7 @@ import { ProductDemo } from "@/components/landing/product-demo";
 import { PricingComparison } from "@/components/landing/pricing-comparison";
 import { ValueCards } from "@/components/landing/value-cards";
 import { Customization } from "@/components/landing/customization";
+import { DashboardPreview } from "@/components/landing/dashboard-preview";
 import { Testimonials } from "@/components/landing/testimonials";
 import { Hero } from "@/components/landing/hero";
 import { Navbar } from "@/components/landing/navbar";
@@ -20,6 +21,7 @@ export default function Home() {
       <ValueCards />
       <PricingComparison />
       <Customization />
+      <DashboardPreview />
       <Testimonials />
       <FAQ />
       <Footer />
