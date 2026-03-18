@@ -1,128 +1,216 @@
 "use client";
 
 import { cn } from "@/lib/utils";
-import { useRouter } from "@/navigation";
 import { useOrderStore } from "@/stores/use-order-store";
-import { Check } from "lucide-react";
+import { useState } from "react";
+import { ThemeDemoOverlay } from "@/components/configurator/ThemeDemoOverlay";
 
-// Theme Configuration
-const THEMES = [
+type ThemeConfig = {
+  id: string;
+  name: string;
+  description: string;
+  accentColor: string;
+  bgGradient: string;
+  coupleFont: string;
+  coupleWeight?: string;
+  coupleLetterSpacing?: string;
+  coupleStyle?: "italic" | "normal";
+  dateColor?: string;
+  placeColor?: string;
+  placeFont: string;
+  placeStyle?: "italic" | "normal";
+  placeExtra?: Record<string, string>;
+};
+
+const THEMES: ThemeConfig[] = [
   {
     id: "theme-floral",
     name: "Floral",
-    color: "#D4A373", // Beige/Gold
-    font: "Playfair Display",
-    bgPreview: "bg-[#FAFAF9]",
     description: "Romantique et intemporel, inspiré par la nature.",
+    accentColor: "#c97a90",
+    bgGradient: "linear-gradient(160deg, #fdf6f0, #f0d9cc)",
+    coupleFont: "'Playfair Display', Georgia, serif",
+    placeFont: "Georgia, serif",
+    placeStyle: "italic",
   },
   {
     id: "theme-minimalist",
     name: "Minimalist",
-    color: "#27272a", // Zinc-800
-    font: "Inter",
-    bgPreview: "bg-white",
     description: "L'élégance pure. Less is more.",
+    accentColor: "#27272a",
+    bgGradient: "linear-gradient(160deg, #f5f5f5, #e5e5e5)",
+    coupleFont: "system-ui, sans-serif",
+    coupleWeight: "300",
+    coupleLetterSpacing: "0.08em",
+    dateColor: "#888",
+    placeFont: "system-ui, sans-serif",
+    placeColor: "#bbb",
+    placeExtra: { textTransform: "uppercase", letterSpacing: "0.12em", fontSize: "10px" },
   },
   {
     id: "theme-boho",
     name: "Boho",
-    color: "#A98467", // Earthy brown
-    font: "Cormorant Garamond",
-    bgPreview: "bg-[#FDF6F0]",
     description: "Chaleureux, libre et sauvage.",
+    accentColor: "#a98467",
+    bgGradient: "linear-gradient(160deg, #fdf0e5, #e8c99a)",
+    coupleFont: "Georgia, serif",
+    coupleStyle: "italic",
+    placeFont: "Georgia, serif",
+    placeStyle: "italic",
+    placeColor: "#c4a882",
   },
   {
     id: "theme-royal",
     name: "Royal",
-    color: "#1e3a8a", // Deep Blue
-    font: "Cinzel",
-    bgPreview: "bg-[#F0F4FF]",
     description: "Sophistiqué et majestueux pour un mariage princier.",
+    accentColor: "#1e3a8a",
+    bgGradient: "linear-gradient(160deg, #eef2ff, #c7d4f5)",
+    coupleFont: "Georgia, serif",
+    placeFont: "Georgia, serif",
+    placeColor: "#4a68c4",
   },
   {
     id: "theme-modern",
     name: "Modern",
-    color: "#be185d", // Pink-700
-    font: "Montserrat",
-    bgPreview: "bg-[#FFF0F5]",
     description: "Audacieux, vibrant et contemporain.",
+    accentColor: "#be185d",
+    bgGradient: "linear-gradient(160deg, #fff0f5, #f5c8db)",
+    coupleFont: "'Montserrat', system-ui, sans-serif",
+    coupleWeight: "800",
+    placeFont: "'Montserrat', system-ui, sans-serif",
+    placeColor: "#e879a8",
+    placeExtra: { textTransform: "uppercase", letterSpacing: "0.2em", fontSize: "9px" },
   },
 ];
 
 export default function ThemePage() {
   const { theme, setTheme } = useOrderStore();
-  const router = useRouter();
-
-  const handleSelect = (id: string) => {
-    setTheme(id);
-    router.push("/create/modules");
-  };
+  const [demoTheme, setDemoTheme] = useState<ThemeConfig | null>(null);
 
   return (
-    <div className='flex flex-col gap-8'>
-      <div className='text-center space-y-4'>
-        <h1 className='font-heading text-4xl font-bold md:text-5xl'>
-          L'ambiance de votre{" "}
-          <span className='italic text-primary'>Mariage</span>
-        </h1>
-        <p className='text-muted-foreground text-lg max-w-xl mx-auto'>
-          Sélectionnez le style qui vous ressemble. Vous pourrez personnaliser
-          les photos et textes plus tard.
-        </p>
-      </div>
+    <>
+      <div className="flex flex-col gap-4">
+        <div className="text-center space-y-2 px-4">
+          <h1 className="font-heading text-3xl font-bold md:text-4xl lg:text-5xl">
+            L&apos;ambiance de votre{" "}
+            <span className="italic text-primary">Mariage</span>
+          </h1>
+          <p className="text-muted-foreground text-sm max-w-md mx-auto">
+            Glissez pour explorer. Prévisualisez en plein écran avant de choisir.
+          </p>
+        </div>
 
-      <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-4'>
-        {THEMES.map((t) => (
-          <div
-            key={t.id}
-            onClick={() => handleSelect(t.id)}
-            className={cn(
-              "group relative cursor-pointer overflow-hidden rounded-3xl border-2 transition-all duration-300 hover:shadow-xl",
-              theme === t.id
-                ? "border-primary ring-2 ring-primary/20 ring-offset-2"
-                : "border-border/50 hover:border-primary/50",
-            )}
-          >
-            {/* Visual Preview */}
-            <div
-              className={cn(
-                "h-40 w-full flex items-center justify-center relative overflow-hidden",
-                t.bgPreview,
-              )}
-            >
-              {/* Fake UI Elements for Preview */}
-              <div className='absolute inset-0 opacity-10 bg-[radial-gradient(#000_1px,transparent_1px)] [background-size:16px_16px]' />
-
-              <div className='text-center z-10 p-4'>
-                <span
-                  className='text-2xl font-bold'
-                  style={{ color: t.color, fontFamily: t.font }}
-                >
-                  {t.name}
-                </span>
+        {/* Horizontal carousel */}
+        <div className="flex gap-4 overflow-x-auto snap-x snap-mandatory scroll-smooth pb-6 px-4 md:px-6 scrollbar-hide">
+          {THEMES.map((t) => {
+            const isSelected = theme === t.id;
+            return (
+              <div
+                key={t.id}
+                className={cn(
+                  "flex-none w-[252px] md:w-[290px] snap-start rounded-[22px] overflow-hidden border-2 bg-card transition-all duration-200",
+                  isSelected
+                    ? "border-primary shadow-[0_0_0_4px_rgba(124,45,62,0.09),0_8px_28px_rgba(124,45,62,0.13)]"
+                    : "border-border/50 shadow-sm",
+                )}
+              >
+                {/* Fake invitation preview */}
                 <div
-                  className='mt-2 h-1 w-12 mx-auto rounded-full'
-                  style={{ backgroundColor: t.color }}
-                />
-              </div>
-
-              {theme === t.id && (
-                <div className='absolute top-4 right-4 bg-primary text-primary-foreground p-1.5 rounded-full shadow-lg animate-in fade-in zoom-in duration-300'>
-                  <Check className='w-4 h-4' />
+                  className="relative h-[210px] md:h-[240px] flex flex-col items-center justify-center gap-2 overflow-hidden"
+                  style={{ background: t.bgGradient }}
+                >
+                  <div className="absolute inset-0 opacity-[0.05] bg-[radial-gradient(#000_1px,transparent_1px)] [background-size:18px_18px]" />
+                  {isSelected && (
+                    <div className="absolute top-3 left-3 z-10 bg-primary text-primary-foreground text-[10px] font-bold px-3 py-1 rounded-full flex items-center gap-1 font-sans">
+                      ✓ Sélectionné
+                    </div>
+                  )}
+                  <span
+                    className="relative z-10 text-[21px] font-bold text-center px-4"
+                    style={{
+                      color: t.accentColor,
+                      fontFamily: t.coupleFont,
+                      fontWeight: t.coupleWeight ?? "700",
+                      letterSpacing: t.coupleLetterSpacing,
+                      fontStyle: t.coupleStyle ?? "normal",
+                    }}
+                  >
+                    Sophie &amp; Pierre
+                  </span>
+                  <div className="relative z-10 h-[2px] w-8 rounded-full" style={{ background: t.accentColor }} />
+                  <span
+                    className="relative z-10 text-[10px] uppercase tracking-[0.18em] font-sans"
+                    style={{ color: t.dateColor ?? t.accentColor, opacity: 0.65 }}
+                  >
+                    14 Juin 2026
+                  </span>
+                  <span
+                    className="relative z-10 text-[11px]"
+                    style={{
+                      color: t.placeColor ?? t.accentColor,
+                      fontFamily: t.placeFont,
+                      fontStyle: t.placeStyle ?? "normal",
+                      opacity: 0.5,
+                      ...(t.placeExtra ?? {}),
+                    }}
+                  >
+                    Château des Roses
+                  </span>
+                  <button
+                    onClick={() => setDemoTheme(t)}
+                    className="absolute bottom-3 left-1/2 -translate-x-1/2 z-10 whitespace-nowrap text-[11px] font-bold text-primary px-4 py-1.5 rounded-full bg-white/90 backdrop-blur-sm border border-primary/20 shadow-sm font-sans"
+                  >
+                    ▶ Voir la démo
+                  </button>
                 </div>
-              )}
-            </div>
 
-            {/* Info */}
-            <div className='p-6 bg-card'>
-              <h3 className='font-semibold text-lg mb-1'>{t.name}</h3>
-              <p className='text-muted-foreground text-sm line-clamp-2'>
-                {t.description}
-              </p>
-            </div>
-          </div>
-        ))}
+                {/* Card footer */}
+                <div className="p-4 border-t border-border/30">
+                  <h3 className="font-semibold text-[15px] mb-0.5" style={{ color: t.accentColor }}>
+                    {t.name}
+                  </h3>
+                  <p className="text-muted-foreground text-[11px] mb-3 line-clamp-1 font-sans">
+                    {t.description}
+                  </p>
+                  <button
+                    onClick={() => setTheme(t.id)}
+                    className={cn(
+                      "w-full py-2.5 rounded-full text-[12px] font-bold font-sans transition-colors",
+                      isSelected
+                        ? "bg-[#455e4e] text-white"
+                        : "bg-primary text-primary-foreground hover:bg-primary/90",
+                    )}
+                  >
+                    {isSelected ? "✓ Sélectionné" : "Choisir ce thème"}
+                  </button>
+                </div>
+              </div>
+            );
+          })}
+        </div>
+
+        {/* Scroll dots */}
+        <div className="flex justify-center gap-1.5 pb-2">
+          {THEMES.map((t) => (
+            <div
+              key={t.id}
+              className={cn(
+                "h-[5px] rounded-full transition-all duration-200",
+                theme === t.id ? "w-4 bg-primary" : "w-[5px] bg-border",
+              )}
+            />
+          ))}
+        </div>
       </div>
-    </div>
+
+      {demoTheme && (
+        <ThemeDemoOverlay
+          themeId={demoTheme.id}
+          themeName={demoTheme.name}
+          onClose={() => setDemoTheme(null)}
+          onSelect={() => setTheme(demoTheme.id)}
+        />
+      )}
+    </>
   );
 }
