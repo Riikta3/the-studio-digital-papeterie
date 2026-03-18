@@ -67,7 +67,7 @@ export function ThemeDemoOverlay({
   };
 
   return (
-    <div className="fixed inset-0 z-[9999] flex flex-col bg-[#FDFBF7]">
+    <div className="fixed inset-0 z-[9999] flex flex-col bg-background">
       {/* Top bar */}
       <div className="flex items-center justify-between px-4 h-[52px] border-b border-border/40 bg-background/90 backdrop-blur-md flex-shrink-0">
         <button
@@ -85,7 +85,7 @@ export function ThemeDemoOverlay({
       {/* Iframe */}
       <div className="flex-1 relative overflow-hidden">
         {loading && (
-          <div className="absolute inset-0 flex items-center justify-center bg-[#FDFBF7] z-10">
+          <div className="absolute inset-0 flex items-center justify-center bg-background z-10">
             <div className="w-8 h-8 border-2 border-primary/20 border-t-primary rounded-full animate-spin" />
           </div>
         )}

@@ -1,18 +1,14 @@
 "use client";
 
-import { cn } from "@/lib/utils";
-import { useOrderStore } from "@/stores/use-order-store";
 import { useState } from "react";
+import { useOrderStore } from "@/stores/use-order-store";
+import { ConfiguratorCarousel, type CarouselCard } from "@/components/configurator/ConfiguratorCarousel";
+import { ThemeDemoOverlay } from "@/components/configurator/ThemeDemoOverlay";
+import { cn } from "@/lib/utils";
 
 type Variant = { id: string; name: string; desc: string };
-type Category = {
-  id: string;
-  name: string;
-  variants: Variant[];
-  icon: React.ReactNode;
-};
+type Category = { id: string; name: string; variants: Variant[]; icon: React.ReactNode };
 
-// SVG icons for each category
 const EnvelopeIcon = () => (
   <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
     <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/>
@@ -41,61 +37,50 @@ const FloralIcon = () => (
 
 const CATEGORIES: Category[] = [
   {
-    id: "envelope",
-    name: "Enveloppe",
-    icon: <EnvelopeIcon />,
+    id: "envelope", name: "Enveloppe", icon: <EnvelopeIcon />,
     variants: [
-      { id: "envelope-classic",  name: "Classique",  desc: "Ouverture élégante et sobre" },
-      { id: "envelope-kraft",    name: "Kraft",       desc: "Texture papier naturel" },
-      { id: "envelope-luxury",   name: "Luxe",        desc: "Fermeture cire, finition premium" },
-      { id: "envelope-vintage",  name: "Vintage",     desc: "Style rétro avec cachet de cire" },
+      { id: "envelope-classic", name: "Classique", desc: "Ouverture élégante et sobre" },
+      { id: "envelope-kraft",   name: "Kraft",     desc: "Texture papier naturel" },
+      { id: "envelope-luxury",  name: "Luxe",      desc: "Fermeture cire, finition premium" },
+      { id: "envelope-vintage", name: "Vintage",   desc: "Style rétro avec cachet de cire" },
     ],
   },
   {
-    id: "door",
-    name: "Porte",
-    icon: <DoorIcon />,
+    id: "door", name: "Porte", icon: <DoorIcon />,
     variants: [
-      { id: "door-royal",      name: "Royal",       desc: "Grande porte dorée majestueuse" },
-      { id: "door-classic",    name: "Classique",   desc: "Porte en bois sobre et élégante" },
-      { id: "door-authentic",  name: "Authentique", desc: "Porte rustique en bois brut" },
-      { id: "door-modern",     name: "Moderne",     desc: "Porte vitrée contemporaine" },
-      { id: "door-japanese",   name: "Japonaise",   desc: "Porte coulissante en bois clair" },
+      { id: "door-royal",     name: "Royal",       desc: "Grande porte dorée majestueuse" },
+      { id: "door-classic",   name: "Classique",   desc: "Porte en bois sobre et élégante" },
+      { id: "door-authentic", name: "Authentique", desc: "Porte rustique en bois brut" },
+      { id: "door-modern",    name: "Moderne",     desc: "Porte vitrée contemporaine" },
+      { id: "door-japanese",  name: "Japonaise",   desc: "Porte coulissante en bois clair" },
     ],
   },
   {
-    id: "curtain",
-    name: "Rideau",
-    icon: <CurtainIcon />,
+    id: "curtain", name: "Rideau", icon: <CurtainIcon />,
     variants: [
-      { id: "curtain-velvet",  name: "Velours",     desc: "Rideau de velours bordeaux" },
-      { id: "curtain-linen",   name: "Lin",          desc: "Tissu naturel aérien" },
-      { id: "curtain-silk",    name: "Soie",         desc: "Reflets soyeux et lumineux" },
+      { id: "curtain-velvet", name: "Velours", desc: "Rideau de velours bordeaux" },
+      { id: "curtain-linen",  name: "Lin",     desc: "Tissu naturel aérien" },
+      { id: "curtain-silk",   name: "Soie",    desc: "Reflets soyeux et lumineux" },
     ],
   },
   {
-    id: "book",
-    name: "Livre",
-    icon: <BookIcon />,
+    id: "book", name: "Livre", icon: <BookIcon />,
     variants: [
-      { id: "book-leather",    name: "Cuir",         desc: "Couverture en cuir gravé" },
-      { id: "book-floral",     name: "Floral",       desc: "Illustrations botaniques" },
-      { id: "book-modern",     name: "Moderne",      desc: "Couverture épurée et graphique" },
+      { id: "book-leather", name: "Cuir",    desc: "Couverture en cuir gravé" },
+      { id: "book-floral",  name: "Floral",  desc: "Illustrations botaniques" },
+      { id: "book-modern",  name: "Moderne", desc: "Couverture épurée et graphique" },
     ],
   },
   {
-    id: "floral",
-    name: "Floral",
-    icon: <FloralIcon />,
+    id: "floral", name: "Floral", icon: <FloralIcon />,
     variants: [
-      { id: "floral-roses",    name: "Roses",        desc: "Pétales de rose qui s'envolent" },
-      { id: "floral-wildflower", name: "Champêtre",  desc: "Fleurs des champs printanières" },
-      { id: "floral-peony",    name: "Pivoines",     desc: "Bouquet de pivoines romantiques" },
+      { id: "floral-roses",      name: "Roses",     desc: "Pétales de rose qui s'envolent" },
+      { id: "floral-wildflower", name: "Champêtre", desc: "Fleurs des champs printanières" },
+      { id: "floral-peony",      name: "Pivoines",  desc: "Bouquet de pivoines romantiques" },
     ],
   },
 ];
 
-// Placeholder background colors per category
 const BG: Record<string, string> = {
   envelope: "#f5ede6",
   door:     "#ece8f0",
@@ -105,12 +90,39 @@ const BG: Record<string, string> = {
 };
 
 export default function AnimationPage() {
-  const { animation, setAnimation } = useOrderStore();
+  const { animation, setAnimation, theme } = useOrderStore();
   const [activeCategory, setActiveCategory] = useState("envelope");
+  const [showDemo, setShowDemo] = useState(false);
 
   const currentCategory = CATEGORIES.find((c) => c.id === activeCategory)!;
 
+  const cards: CarouselCard[] = currentCategory.variants.map((v) => ({
+    id: v.id,
+    title: v.name,
+    description: v.desc,
+    actionLabel: "Choisir cette animation",
+    selectedLabel: "✓ Sélectionné",
+    previewContent: (
+      <div
+        className="h-full flex items-center justify-center"
+        style={{ background: BG[activeCategory] }}
+      >
+        <div className="absolute inset-0 opacity-[0.05] bg-[radial-gradient(#000_1px,transparent_1px)] [background-size:18px_18px]" />
+        <span className="relative z-10 opacity-20 scale-[2.5] text-foreground">
+          {currentCategory.icon}
+        </span>
+        <button
+          onClick={(e) => { e.stopPropagation(); setShowDemo(true); }}
+          className="absolute bottom-3 left-1/2 -translate-x-1/2 z-10 whitespace-nowrap text-[11px] font-bold text-primary px-4 py-1.5 rounded-full bg-white/90 backdrop-blur-sm border border-primary/20 shadow-sm font-sans"
+        >
+          ▶ Voir la démo
+        </button>
+      </div>
+    ),
+  }));
+
   return (
+    <>
     <div className="flex flex-col gap-4">
       <div className="text-center space-y-2 px-4 pb-2">
         <h1 className="font-heading text-3xl font-bold md:text-4xl lg:text-5xl">
@@ -134,54 +146,27 @@ export default function AnimationPage() {
                 : "border-border bg-card text-muted-foreground hover:border-primary/40",
             )}
           >
-            <span className={cn(activeCategory === cat.id ? "text-primary-foreground" : "text-muted-foreground")}>
-              {cat.icon}
-            </span>
+            {cat.icon}
             {cat.name}
           </button>
         ))}
       </div>
 
-      {/* Variants grid */}
-      <div className="grid grid-cols-2 gap-3 px-4 max-w-lg mx-auto w-full">
-        {currentCategory.variants.map((v) => {
-          const isSelected = animation === v.id;
-          return (
-            <button
-              key={v.id}
-              onClick={() => setAnimation(v.id)}
-              className={cn(
-                "text-left rounded-2xl border-2 overflow-hidden transition-all duration-150",
-                isSelected
-                  ? "border-primary shadow-[0_0_0_3px_rgba(124,45,62,0.1)]"
-                  : "border-border hover:border-primary/40",
-              )}
-            >
-              {/* Placeholder preview */}
-              <div
-                className="relative h-[100px] flex items-center justify-center"
-                style={{ background: BG[activeCategory] }}
-              >
-                <div className="absolute inset-0 opacity-[0.04] bg-[radial-gradient(#000_1px,transparent_1px)] [background-size:16px_16px]" />
-                {isSelected && (
-                  <div className="absolute top-2 right-2 z-10 w-5 h-5 rounded-full bg-primary flex items-center justify-center">
-                    <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
-                      <polyline points="20 6 9 17 4 12" />
-                    </svg>
-                  </div>
-                )}
-                <span className="relative z-10 text-muted-foreground/40">
-                  {currentCategory.icon}
-                </span>
-              </div>
-              <div className="p-3 bg-card">
-                <p className="text-[13px] font-bold font-sans">{v.name}</p>
-                <p className="text-[10px] text-muted-foreground font-sans mt-0.5 line-clamp-1">{v.desc}</p>
-              </div>
-            </button>
-          );
-        })}
-      </div>
+      <ConfiguratorCarousel
+        cards={cards}
+        selectedId={animation}
+        onSelect={(id) => setAnimation(id)}
+      />
     </div>
+
+    {showDemo && (
+      <ThemeDemoOverlay
+        themeId={theme || "theme-floral"}
+        themeName="Aperçu"
+        onClose={() => setShowDemo(false)}
+        onSelect={() => setShowDemo(false)}
+      />
+    )}
+    </>
   );
 }

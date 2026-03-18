@@ -1,11 +1,14 @@
 "use client";
 
+import { useState } from "react";
 import { cn } from "@/lib/utils";
 import { useOrderStore } from "@/stores/use-order-store";
+import { ChevronDown } from "lucide-react";
 
 const LANGUAGE_PRICE = 15;
 
-const LANGUAGES = [
+const ALL_LANGUAGES = [
+  { code: "fr", flag: "🇫🇷", name: "Français" },
   { code: "en", flag: "🇬🇧", name: "Anglais" },
   { code: "es", flag: "🇪🇸", name: "Espagnol" },
   { code: "de", flag: "🇩🇪", name: "Allemand" },
@@ -17,9 +20,18 @@ const LANGUAGES = [
 ];
 
 export default function LanguagesPage() {
-  const { languages, toggleLanguage } = useOrderStore();
+  const { primaryLanguage, setPrimaryLanguage, languages, toggleLanguage } = useOrderStore();
+  const [dropdownOpen, setDropdownOpen] = useState(false);
 
   const total = languages.length * LANGUAGE_PRICE;
+  const primaryLang = ALL_LANGUAGES.find((l) => l.code === primaryLanguage) ?? ALL_LANGUAGES[0];
+  const extraLanguages = ALL_LANGUAGES.filter((l) => l.code !== primaryLanguage);
+
+  function selectPrimary(code: string) {
+    setPrimaryLanguage(code);
+    if (languages.includes(code)) toggleLanguage(code);
+    setDropdownOpen(false);
+  }
 
   return (
     <div className="flex flex-col gap-4">
@@ -28,35 +40,60 @@ export default function LanguagesPage() {
           Langues de votre <span className="italic text-primary">site</span>
         </h1>
         <p className="text-muted-foreground text-sm max-w-sm mx-auto font-sans">
-          Le français est inclus. Ajoutez d&apos;autres langues à 15€ chacune.
+          Langue principale incluse, +{LANGUAGE_PRICE}€ par langue supplémentaire.
         </p>
       </div>
 
-      <div className="max-w-lg mx-auto w-full px-4 flex flex-col gap-3">
-        {/* Included */}
+      <div className="max-w-lg mx-auto w-full px-4 flex flex-col gap-4">
+
+        {/* Dropdown langue principale */}
         <div>
           <p className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground/60 font-sans mb-2">
-            Langue incluse
+            Langue principale — incluse
           </p>
-          <div className="flex items-center gap-3 p-4 rounded-2xl border-2 border-border bg-card">
-            <span className="text-2xl">🇫🇷</span>
-            <div className="flex-1">
-              <p className="text-sm font-bold">Français</p>
-              <p className="text-xs text-muted-foreground font-sans">Langue principale de votre site</p>
-            </div>
-            <span className="text-[10px] font-bold uppercase tracking-wider px-3 py-1 rounded-full bg-emerald-50 text-emerald-700 font-sans">
-              Inclus
-            </span>
+          <div className="relative">
+            <button
+              onClick={() => setDropdownOpen((v) => !v)}
+              className="w-full flex items-center gap-3 p-4 rounded-2xl border-2 border-primary bg-primary/5 transition-all"
+            >
+              <span className="text-2xl">{primaryLang.flag}</span>
+              <div className="flex-1 text-left">
+                <p className="text-sm font-bold">{primaryLang.name}</p>
+                <p className="text-[10px] text-primary font-sans">Langue principale · incluse</p>
+              </div>
+              <ChevronDown className={cn("w-4 h-4 text-muted-foreground transition-transform duration-200", dropdownOpen && "rotate-180")} />
+            </button>
+
+            {dropdownOpen && (
+              <div className="absolute top-full left-0 right-0 mt-1 z-20 bg-card border border-border rounded-2xl shadow-lg overflow-hidden">
+                {ALL_LANGUAGES.map((lang) => (
+                  <button
+                    key={lang.code}
+                    onClick={() => selectPrimary(lang.code)}
+                    className={cn(
+                      "w-full flex items-center gap-3 px-4 py-3 text-left hover:bg-muted/50 transition-colors border-b border-border/40 last:border-b-0",
+                      lang.code === primaryLanguage && "bg-primary/5 text-primary",
+                    )}
+                  >
+                    <span className="text-xl">{lang.flag}</span>
+                    <span className="text-sm font-bold">{lang.name}</span>
+                    {lang.code === primaryLanguage && (
+                      <span className="ml-auto text-[10px] font-bold text-primary font-sans">✓ Sélectionné</span>
+                    )}
+                  </button>
+                ))}
+              </div>
+            )}
           </div>
         </div>
 
-        {/* Additional languages */}
+        {/* Grille 2 colonnes extras */}
         <div>
           <p className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground/60 font-sans mb-2">
-            Langues supplémentaires — 15€ chacune
+            Langues supplémentaires — {LANGUAGE_PRICE}€ chacune
           </p>
           <div className="grid grid-cols-2 gap-2">
-            {LANGUAGES.map((lang) => {
+            {extraLanguages.map((lang) => {
               const isSelected = languages.includes(lang.code);
               return (
                 <button
@@ -75,8 +112,8 @@ export default function LanguagesPage() {
                     <p className="text-[10px] text-muted-foreground font-sans">+{LANGUAGE_PRICE}€</p>
                   </div>
                   {isSelected && (
-                    <div className="w-4 h-4 rounded-full bg-primary flex items-center justify-center flex-shrink-0">
-                      <svg width="8" height="8" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="3.5" strokeLinecap="round" strokeLinejoin="round">
+                    <div className="w-4 h-4 rounded-full border-2 border-primary/40 bg-primary/15 flex items-center justify-center flex-shrink-0">
+                      <svg width="8" height="8" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3.5" strokeLinecap="round" strokeLinejoin="round" className="text-primary">
                         <polyline points="20 6 9 17 4 12" />
                       </svg>
                     </div>
@@ -96,6 +133,7 @@ export default function LanguagesPage() {
             <span className="text-sm font-bold text-primary font-sans">+{total}€</span>
           </div>
         )}
+
       </div>
     </div>
   );

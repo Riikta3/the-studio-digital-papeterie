@@ -19,6 +19,7 @@ export interface OrderState {
   animation: string;        // e.g. "envelope-classic"
   theme: string;            // e.g. "theme-floral"
   modules: string[];
+  primaryLanguage: string;  // e.g. "fr"
   languages: string[];      // extra language codes e.g. ["en", "es"]
   adultsOnly: boolean;
   extras: string[];
@@ -28,6 +29,7 @@ export interface OrderState {
   setAnimation: (animation: string) => void;
   setTheme: (theme: string) => void;
   toggleModule: (module: string) => void;
+  setPrimaryLanguage: (code: string) => void;
   toggleLanguage: (code: string) => void;
   setAdultsOnly: (value: boolean) => void;
   toggleExtra: (extra: string) => void;
@@ -50,6 +52,7 @@ export const useOrderStore = create<OrderState>()(
       animation: "",
       theme: "theme-floral",
       modules: [],
+      primaryLanguage: "fr",
       languages: [],
       adultsOnly: false,
       extras: [],
@@ -63,6 +66,7 @@ export const useOrderStore = create<OrderState>()(
         email: "",
       },
       setPlan: (plan) => set({ plan }),
+      setPrimaryLanguage: (code) => set({ primaryLanguage: code }),
       setAnimation: (animation) => set({ animation }),
       setTheme: (theme) => set({ theme }),
       toggleModule: (module) =>

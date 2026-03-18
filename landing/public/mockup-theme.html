@@ -1,0 +1,674 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Maquette — Step 2 : Thème</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400;1,600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --primary: #8B1A2F;
+    --cream: #FDFBF7;
+    --border: #e8e2d9;
+    --muted: #9b8f83;
+    --foreground: #1a1410;
+  }
+
+  body {
+    font-family: 'Inter', sans-serif;
+    background: var(--cream);
+    color: var(--foreground);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* ─── HEADER ─── */
+  header {
+    background: white;
+    border-bottom: 1px solid var(--border);
+    padding: 12px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+  .back { font-size: 20px; color: var(--muted); cursor: pointer; padding: 4px 8px; }
+  .close-btn { font-size: 16px; color: var(--muted); cursor: pointer; padding: 4px 8px; }
+
+  .stepper { display: flex; gap: 5px; align-items: center; }
+  .step-pill {
+    font-size: 10px; font-weight: 600;
+    padding: 4px 11px; border-radius: 20px; white-space: nowrap;
+  }
+  .step-pill.done   { background: #ede8e0; color: var(--muted); cursor: pointer; }
+  .step-pill.active { background: var(--primary); color: white; }
+  .step-pill.future { color: #ccc; }
+
+  /* ─── MAIN ─── */
+  main { flex: 1; padding-bottom: 100px; }
+
+  .step-title { text-align: center; padding: 32px 20px 24px; }
+  .step-title h2 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 28px; font-weight: 600; line-height: 1.2;
+  }
+  .step-title h2 em { color: var(--primary); font-style: italic; }
+  .step-title p { font-size: 13px; color: var(--muted); margin-top: 6px; }
+
+  /* ─── MOBILE carousel ─── */
+  .carousel-wrapper { display: block; }
+  .carousel-track {
+    display: flex; gap: 12px;
+    padding: 4px 20px 16px;
+    overflow-x: auto; scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch; scrollbar-width: none;
+  }
+  .carousel-track::-webkit-scrollbar { display: none; }
+
+  /* ─── DESKTOP grid ─── */
+  .desktop-grid {
+    display: none;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 16px; padding: 4px 40px 16px;
+    max-width: 1300px; margin: 0 auto;
+  }
+
+  @media (min-width: 768px) {
+    .carousel-wrapper, .carousel-dots { display: none !important; }
+    .desktop-grid { display: grid; }
+    .step-title { padding: 40px 40px 28px; }
+    .step-title h2 { font-size: 36px; }
+  }
+
+  /* ─── CARD (shared) ─── */
+  .theme-card {
+    flex: 0 0 calc(100% - 40px);
+    scroll-snap-align: center;
+    border-radius: 20px; overflow: hidden;
+    border: 2px solid var(--border);
+    background: white; cursor: pointer;
+    transition: border-color 0.25s, box-shadow 0.25s;
+    position: relative; display: flex; flex-direction: column;
+  }
+  .desktop-grid .theme-card { flex: none; }
+  .theme-card:hover { border-color: rgba(139,26,47,0.4); }
+  .theme-card.selected {
+    border-color: var(--primary);
+    box-shadow: 0 0 0 3px rgba(139,26,47,0.12);
+  }
+
+  /* Image */
+  .theme-img {
+    width: 100%; aspect-ratio: 3/4;
+    position: relative; overflow: hidden;
+    display: flex; align-items: flex-end;
+  }
+  .theme-img .gradient-overlay {
+    position: absolute; inset: 0;
+    background: linear-gradient(to top, rgba(0,0,0,0.6) 0%, rgba(0,0,0,0.05) 55%, transparent 100%);
+  }
+  .theme-img .img-text {
+    position: relative; z-index: 2;
+    padding: 14px 14px 10px; color: white;
+  }
+  .theme-img .img-text h3 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 22px; font-weight: 600; line-height: 1;
+  }
+  .theme-img .img-text p { font-size: 11px; opacity: 0.85; margin-top: 3px; }
+
+  /* Selected badge */
+  .selected-badge {
+    position: absolute; top: 10px; right: 10px;
+    background: var(--primary); color: white;
+    font-size: 9px; font-weight: 700;
+    letter-spacing: 0.06em; text-transform: uppercase;
+    padding: 4px 10px; border-radius: 20px;
+    z-index: 5; display: none;
+  }
+  .theme-card.selected .selected-badge { display: block; }
+
+  /* Card bottom */
+  .theme-info { padding: 12px 14px; display: flex; flex-direction: column; gap: 8px; flex: 1; }
+  .theme-info-top { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
+  .theme-info-text h4 { font-size: 14px; font-weight: 600; }
+  .theme-info-text p { font-size: 11px; color: var(--muted); margin-top: 1px; }
+
+  .btn-choisir {
+    flex-shrink: 0;
+    border: 1.5px solid var(--primary); color: var(--primary);
+    background: white; border-radius: 50px;
+    padding: 6px 14px; font-size: 11px; font-weight: 600;
+    cursor: pointer; transition: all 0.2s; white-space: nowrap;
+  }
+  .theme-card.selected .btn-choisir { background: var(--primary); color: white; }
+
+  /* Demo button */
+  .btn-demo {
+    width: 100%; background: transparent;
+    border: 1.5px solid var(--border); color: var(--muted);
+    border-radius: 50px; padding: 7px 14px;
+    font-size: 11px; font-weight: 600; cursor: pointer;
+    transition: all 0.2s; display: flex;
+    align-items: center; justify-content: center; gap: 5px;
+  }
+  .btn-demo:hover { border-color: var(--primary); color: var(--primary); }
+
+  /* Dots */
+  .carousel-dots { display: flex; justify-content: center; gap: 6px; padding: 4px 0 8px; }
+  .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--border); transition: all 0.2s; cursor: pointer; }
+  .dot.active { background: var(--primary); width: 18px; border-radius: 4px; }
+
+  /* Theme gradients (placeholders) */
+  .floral     { background: linear-gradient(160deg, #f2e0c8 0%, #e0b896 50%, #c89870 100%); }
+  .minimalist { background: linear-gradient(160deg, #6b6b68 0%, #3a3a38 100%); }
+  .boho       { background: linear-gradient(160deg, #d4a88a 0%, #b8845e 50%, #9e6b3e 100%); }
+  .royal      { background: linear-gradient(160deg, #3b5fc0 0%, #1e3a8a 60%, #0f2060 100%); }
+  .modern     { background: linear-gradient(160deg, #e8358a 0%, #be185d 60%, #8a0f40 100%); }
+
+  /* ─── FOOTER ─── */
+  footer {
+    position: fixed; bottom: 0; left: 0; right: 0;
+    background: white; border-top: 1px solid var(--border);
+    padding: 14px 24px 28px;
+    display: flex; align-items: center; justify-content: space-between;
+    z-index: 100;
+  }
+  @media (min-width: 768px) { footer { padding: 14px 40px; } }
+  .footer-total span:first-child {
+    display: block; font-size: 10px; font-weight: 600;
+    letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted);
+  }
+  .footer-total span:last-child {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 24px; font-weight: 700; color: var(--primary);
+  }
+  .btn-continue {
+    background: var(--primary); color: white; border: none;
+    border-radius: 50px; padding: 13px 28px;
+    font-size: 14px; font-weight: 600; cursor: pointer;
+  }
+
+  /* ─── DEMO OVERLAY ─── */
+  .demo-overlay {
+    display: none; position: fixed; inset: 0; z-index: 200;
+    background: #111; flex-direction: column;
+  }
+  .demo-overlay.open {
+    display: flex;
+    animation: slideUp 0.32s cubic-bezier(0.4,0,0.2,1);
+  }
+  @keyframes slideUp {
+    from { transform: translateY(6%); opacity: 0; }
+    to   { transform: translateY(0);  opacity: 1; }
+  }
+
+  /* Top bar */
+  .demo-topbar {
+    background: #1a1a1a; border-bottom: 1px solid #333;
+    padding: 12px 16px;
+    display: flex; align-items: center; justify-content: space-between;
+    flex-shrink: 0; gap: 12px;
+  }
+  .demo-topbar-left { display: flex; align-items: center; gap: 10px; }
+  .demo-theme-dot {
+    width: 10px; height: 10px; border-radius: 50%;
+    background: var(--primary); flex-shrink: 0;
+  }
+  .demo-topbar .label {
+    font-size: 12px; font-weight: 600; color: white;
+  }
+  .demo-topbar .sublabel {
+    font-size: 11px; color: #888; margin-top: 1px;
+  }
+  .demo-topbar-right { display: flex; align-items: center; gap: 8px; }
+
+  .btn-select-demo {
+    background: var(--primary); color: white; border: none;
+    border-radius: 50px; padding: 8px 18px;
+    font-size: 12px; font-weight: 600; cursor: pointer;
+    white-space: nowrap;
+  }
+  .btn-close-demo {
+    background: #2a2a2a; border: 1px solid #3a3a3a; color: #aaa;
+    border-radius: 50px; padding: 8px 14px;
+    font-size: 12px; font-weight: 600; cursor: pointer;
+    display: flex; align-items: center; gap: 5px;
+  }
+  .btn-close-demo:hover { color: white; }
+
+  /* iPhone frame wrapper */
+  .demo-content {
+    flex: 1; overflow: hidden;
+    display: flex; align-items: center; justify-content: center;
+    padding: 20px;
+    position: relative;
+  }
+
+  /* Mobile: iframe plein écran */
+  .iframe-fullscreen {
+    width: 100%; height: 100%;
+    border: none; display: block;
+    background: white;
+  }
+
+  /* iPhone shell (desktop) */
+  .iphone-shell {
+    display: none;
+    position: relative;
+    width: 358px; height: 680px;
+    background: #1c1c1e;
+    border-radius: 48px;
+    padding: 14px;
+    box-shadow: inset 0 0 0 1px rgba(255,255,255,0.06),
+                0 0 0 1.5px rgba(0,0,0,0.4),
+                0 32px 80px rgba(0,0,0,0.5);
+    flex-shrink: 0;
+  }
+  /* Hardware buttons */
+  .iphone-shell::before {
+    content: '';
+    position: absolute;
+    left: -3px; top: 120px;
+    width: 3px; height: 30px;
+    background: #2a2a2c; border-radius: 2px 0 0 2px;
+    box-shadow: 0 46px 0 #2a2a2c, 0 92px 0 #2a2a2c;
+  }
+  .iphone-shell::after {
+    content: '';
+    position: absolute;
+    right: -3px; top: 155px;
+    width: 3px; height: 60px;
+    background: #2a2a2c; border-radius: 0 2px 2px 0;
+  }
+  .iphone-screen {
+    width: 100%; height: 100%;
+    border-radius: 36px; overflow: hidden;
+    background: white; position: relative;
+  }
+  /* Dynamic island */
+  .iphone-screen::before {
+    content: '';
+    position: absolute;
+    top: 10px; left: 50%; transform: translateX(-50%);
+    width: 100px; height: 28px;
+    background: #000; border-radius: 20px;
+    z-index: 10;
+  }
+  .iphone-screen iframe {
+    width: 100%; height: 100%;
+    border: none; display: block;
+  }
+
+  /* Desktop: macbook frame */
+  .macbook-shell {
+    display: none;
+    flex-direction: column;
+    width: 100%; max-width: 900px;
+  }
+  .macbook-screen-wrap {
+    background: #1c1c1e;
+    border-radius: 10px 10px 0 0;
+    padding: 8px 8px 0;
+    box-shadow: inset 0 0 0 1px rgba(255,255,255,0.06),
+                0 0 0 1.5px rgba(0,0,0,0.4),
+                0 24px 60px rgba(0,0,0,0.4);
+  }
+  .macbook-titlebar {
+    height: 24px; background: #2a2a2c;
+    border-radius: 4px 4px 0 0;
+    display: flex; align-items: center; padding: 0 10px; gap: 6px;
+  }
+  .macbook-dot { width: 10px; height: 10px; border-radius: 50%; }
+  .macbook-urlbar {
+    flex: 1; margin: 0 12px;
+    background: #3a3a3c; border-radius: 4px;
+    height: 14px; display: flex; align-items: center; padding: 0 8px;
+  }
+  .macbook-urlbar span { font-size: 8px; color: rgba(255,255,255,0.35); font-family: monospace; }
+  .macbook-iframe-wrap {
+    height: 480px; overflow: hidden;
+    border: 1px solid #3a3a3c; background: white;
+  }
+  .macbook-iframe-wrap iframe { width: 100%; height: 100%; border: none; }
+  .macbook-base {
+    height: 18px; margin: 0 auto;
+    width: 55%; clip-path: polygon(8% 0%, 92% 0%, 100% 100%, 0% 100%);
+    background: linear-gradient(180deg, #3a3a3c, #2a2a2c);
+  }
+  .macbook-foot {
+    height: 6px; margin: 0 auto; width: 62%;
+    background: #2a2a2c; border-radius: 0 0 4px 4px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+  }
+
+  /* Show correct frames per device */
+  @media (max-width: 767px) {
+    .iphone-shell { display: none; }
+    .macbook-shell { display: none; }
+    .iframe-fullscreen { display: block !important; }
+  }
+  @media (min-width: 768px) and (max-width: 1099px) {
+    .iframe-fullscreen { display: none !important; }
+    .iphone-shell { display: block; }
+    .macbook-shell { display: none; }
+  }
+  @media (min-width: 1100px) {
+    .iframe-fullscreen { display: none !important; }
+    .iphone-shell { display: none; }
+    .macbook-shell { display: flex; }
+  }
+
+  /* Loading spinner */
+  .iframe-loader {
+    position: absolute; inset: 0; background: white;
+    display: flex; align-items: center; justify-content: center;
+    z-index: 5;
+  }
+  .spinner {
+    width: 28px; height: 28px; border-radius: 50%;
+    border: 2px solid rgba(139,26,47,0.2);
+    border-top-color: var(--primary);
+    animation: spin 0.8s linear infinite;
+  }
+  @keyframes spin { to { transform: rotate(360deg); } }
+</style>
+</head>
+<body>
+
+<!-- ─── HEADER ─── -->
+<header>
+  <span class="back">‹</span>
+  <div class="stepper">
+    <span class="step-pill done">Offre</span>
+    <span class="step-pill active">Thème</span>
+    <span class="step-pill future">Modules</span>
+    <span class="step-pill future">Extras</span>
+    <span class="step-pill future">Paiement</span>
+  </div>
+  <span class="close-btn">✕</span>
+</header>
+
+<!-- ─── MAIN ─── -->
+<main>
+  <div class="step-title">
+    <h2>L'ambiance de votre <em>Mariage</em></h2>
+    <p>Faites défiler et choisissez le style qui vous ressemble.</p>
+  </div>
+
+  <!-- MOBILE carousel -->
+  <div class="carousel-wrapper">
+    <div class="carousel-track" id="track"></div>
+  </div>
+  <div class="carousel-dots" id="dots"></div>
+
+  <!-- DESKTOP grid -->
+  <div class="desktop-grid" id="desktopGrid"></div>
+</main>
+
+<!-- ─── FOOTER ─── -->
+<footer>
+  <div class="footer-total">
+    <span>Total estimé</span>
+    <span>175€</span>
+  </div>
+  <button class="btn-continue">Continuer →</button>
+</footer>
+
+<!-- ─── DEMO OVERLAY ─── -->
+<div class="demo-overlay" id="demoOverlay">
+
+  <div class="demo-topbar">
+    <div class="demo-topbar-left">
+      <div class="demo-theme-dot" id="demoDot"></div>
+      <div>
+        <div class="label" id="demoLabel">Thème Floral</div>
+        <div class="sublabel">Aperçu de l'invitation</div>
+      </div>
+    </div>
+    <div class="demo-topbar-right">
+      <button class="btn-select-demo" id="btnSelect" onclick="selectFromDemo()">Choisir ce thème</button>
+      <button class="btn-close-demo" onclick="closeDemo()">✕ Fermer</button>
+    </div>
+  </div>
+
+  <div class="demo-content">
+    <!-- Mobile: plein écran -->
+    <div style="position:relative;width:100%;height:100%;display:flex;align-items:center;justify-content:center;">
+      <!-- Fullscreen mobile -->
+      <iframe
+        id="iframeMobile"
+        class="iframe-fullscreen"
+        style="display:none;"
+        src=""
+        title="Démo thème"
+      ></iframe>
+
+      <!-- iPhone frame (tablette) -->
+      <div class="iphone-shell">
+        <div class="iphone-screen">
+          <iframe id="iframePhone" src="" title="Démo" style="width:100%;height:100%;border:none;display:block;"></iframe>
+        </div>
+      </div>
+
+      <!-- MacBook frame (desktop) -->
+      <div class="macbook-shell">
+        <div class="macbook-screen-wrap">
+          <div class="macbook-titlebar">
+            <div class="macbook-dot" style="background:#ff5f57"></div>
+            <div class="macbook-dot" style="background:#febc2e"></div>
+            <div class="macbook-dot" style="background:#28c840"></div>
+            <div class="macbook-urlbar">
+              <span id="macUrl">thestudio.wedding/invitation/demo-envelope</span>
+            </div>
+          </div>
+          <div class="macbook-iframe-wrap">
+            <div class="iframe-loader" id="loader"><div class="spinner"></div></div>
+            <iframe id="iframeDesktop" src="" title="Démo desktop" style="width:100%;height:100%;border:none;display:block;" onload="hideLoader()"></iframe>
+          </div>
+        </div>
+        <div class="macbook-base"></div>
+        <div class="macbook-foot"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+const THEMES = [
+  {
+    id: 'floral',
+    name: 'Floral',
+    desc: 'Romantique et intemporel',
+    longDesc: 'Inspiré par la nature en fleurs',
+    dotColor: '#c97a90',
+  },
+  {
+    id: 'minimalist',
+    name: 'Minimaliste',
+    desc: 'L\'élégance pure',
+    longDesc: 'Less is more, épuré et chic',
+    dotColor: '#888888',
+  },
+  {
+    id: 'boho',
+    name: 'Bohème',
+    desc: 'Chaleureux et libre',
+    longDesc: 'Sauvage, libre et authentique',
+    dotColor: '#c4a882',
+  },
+  {
+    id: 'royal',
+    name: 'Royal',
+    desc: 'Sophistiqué et majestueux',
+    longDesc: 'Pour un mariage princier',
+    dotColor: '#2d3a6b',
+  },
+  {
+    id: 'modern',
+    name: 'Moderne',
+    desc: 'Audacieux et contemporain',
+    longDesc: 'Vibrant et tendance',
+    dotColor: '#be185d',
+  },
+];
+
+let selectedTheme = 'floral';
+let currentDemoTheme = null;
+
+function buildCard(theme) {
+  const isSelected = theme.id === selectedTheme;
+  const card = document.createElement('div');
+  card.className = 'theme-card' + (isSelected ? ' selected' : '');
+  card.dataset.theme = theme.id;
+  card.innerHTML = `
+    <div class="selected-badge">✓ Sélectionné</div>
+    <div class="theme-img ${theme.id}">
+      <div class="gradient-overlay"></div>
+      <div class="img-text">
+        <h3>${theme.name}</h3>
+        <p>${theme.desc}</p>
+      </div>
+    </div>
+    <div class="theme-info">
+      <div class="theme-info-top">
+        <div class="theme-info-text">
+          <h4>${theme.name}</h4>
+          <p>${theme.longDesc}</p>
+        </div>
+        <button class="btn-choisir">${isSelected ? 'Sélectionné' : 'Choisir'}</button>
+      </div>
+      <button class="btn-demo">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+        Voir la démo
+      </button>
+    </div>
+  `;
+  card.querySelector('.btn-choisir').addEventListener('click', e => {
+    e.stopPropagation();
+    if (selectedTheme === theme.id) {
+      // Déjà sélectionné → étape suivante
+      alert('→ Navigation vers Modules');
+    } else {
+      selectTheme(theme.id);
+    }
+  });
+  card.querySelector('.btn-demo').addEventListener('click', e => { e.stopPropagation(); openDemo(theme.id); });
+  card.addEventListener('click', () => selectTheme(theme.id));
+  return card;
+}
+
+function renderCards() {
+  const track = document.getElementById('track');
+  const grid  = document.getElementById('desktopGrid');
+  track.innerHTML = '';
+  grid.innerHTML  = '';
+  THEMES.forEach(t => {
+    track.appendChild(buildCard(t));
+    grid.appendChild(buildCard(t));
+  });
+  renderDots();
+}
+
+function renderDots() {
+  const dots = document.getElementById('dots');
+  dots.innerHTML = '';
+  THEMES.forEach((_, i) => {
+    const d = document.createElement('div');
+    d.className = 'dot' + (i === 0 ? ' active' : '');
+    d.addEventListener('click', () => goTo(i));
+    dots.appendChild(d);
+  });
+}
+
+function selectTheme(id) {
+  selectedTheme = id;
+  renderCards();
+  const idx = THEMES.findIndex(t => t.id === id);
+  if (idx >= 0) goTo(idx);
+}
+
+function goTo(index) {
+  const track = document.getElementById('track');
+  const card  = track.querySelectorAll('.theme-card')[index];
+  if (card) card.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
+}
+
+document.getElementById('track').addEventListener('scroll', () => {
+  const track = document.getElementById('track');
+  const cardW = (track.querySelector('.theme-card')?.offsetWidth || 0) + 12;
+  const idx = Math.round(track.scrollLeft / cardW);
+  document.querySelectorAll('#dots .dot').forEach((d, i) => d.classList.toggle('active', i === idx));
+});
+
+// ─── DEMO OVERLAY ───
+const DEMO_URL = '/fr/invitation/demo-envelope?demo=true';
+
+function sendTheme(iframe, themeId) {
+  if (!iframe || !iframe.contentWindow) return;
+  iframe.contentWindow.postMessage(
+    { type: 'SET_THEME', theme: themeId, device: window.innerWidth >= 1100 ? 'desktop' : 'mobile' },
+    window.location.origin
+  );
+}
+
+function openDemo(themeId) {
+  currentDemoTheme = themeId;
+  const theme = THEMES.find(t => t.id === themeId);
+
+  document.getElementById('demoLabel').textContent = 'Thème ' + theme.name;
+  document.getElementById('demoDot').style.background = theme.dotColor;
+  document.getElementById('macUrl').textContent = 'thestudio.wedding/invitation/demo-envelope';
+  document.getElementById('loader').style.display = 'flex';
+
+  const isMobile = window.innerWidth < 768;
+  const isTablet = window.innerWidth >= 768 && window.innerWidth < 1100;
+  const isDesktop = window.innerWidth >= 1100;
+
+  if (isMobile) {
+    const iframe = document.getElementById('iframeMobile');
+    iframe.style.display = 'block';
+    iframe.src = DEMO_URL;
+    iframe.onload = () => sendTheme(iframe, themeId);
+  } else if (isTablet) {
+    const iframe = document.getElementById('iframePhone');
+    iframe.src = DEMO_URL;
+    iframe.onload = () => sendTheme(iframe, themeId);
+  } else {
+    const iframe = document.getElementById('iframeDesktop');
+    iframe.src = DEMO_URL;
+    iframe.onload = () => { hideLoader(); sendTheme(iframe, themeId); };
+  }
+
+  document.getElementById('demoOverlay').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function hideLoader() {
+  document.getElementById('loader').style.display = 'none';
+}
+
+function closeDemo() {
+  document.getElementById('demoOverlay').classList.remove('open');
+  document.body.style.overflow = '';
+  // Reset iframes
+  document.getElementById('iframeMobile').src = '';
+  document.getElementById('iframeMobile').style.display = 'none';
+  document.getElementById('iframePhone').src = '';
+  document.getElementById('iframeDesktop').src = '';
+}
+
+function selectFromDemo() {
+  selectTheme(currentDemoTheme);
+  closeDemo();
+}
+
+renderCards();
+</script>
+</body>
+</html>
