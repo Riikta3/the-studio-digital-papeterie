@@ -4,23 +4,23 @@ import { Expand, X } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { useCallback, useEffect, useRef, useState } from "react";
 
-type AnimationKey = "envelope" | "doors" | "curtains";
-type ThemeKey = "floral" | "royal" | "boho" | "minimalist" | "modern";
+export type AnimationKey = "envelope" | "doors" | "curtains";
+export type ThemeKey = "floral" | "royal" | "boho" | "minimalist" | "modern";
 
-const DEMO_CODES: Record<AnimationKey, string> = {
+export const DEMO_CODES: Record<AnimationKey, string> = {
   envelope: "demo-envelope",
   doors: "demo-doors",
   curtains: "demo-curtains",
 };
 
-type AnimationSequence = {
+export type AnimationSequence = {
   desktopPath: string;
   mobilePath: string;
   desktopFrameCount: number;
   mobileFrameCount: number;
 };
 
-const ANIMATION_SEQUENCES: Record<AnimationKey, AnimationSequence> = {
+export const ANIMATION_SEQUENCES: Record<AnimationKey, AnimationSequence> = {
   envelope: {
     desktopPath: "/videos/desktop/Animation enveloppe personnalisée_",
     mobilePath: "/videos/demo/envelop/Mobile Test 2_",
@@ -41,7 +41,7 @@ const ANIMATION_SEQUENCES: Record<AnimationKey, AnimationSequence> = {
   },
 };
 
-type HeroAsset = {
+export type HeroAsset = {
   frames: number;
   sequencePath: string | null;
 };
@@ -51,7 +51,7 @@ const DEMO_HERO: HeroAsset = {
   sequencePath: "/videos/demo/themes/test/Bohemian Bird Video_",
 };
 
-const THEME_HERO_ASSETS: Record<ThemeKey, HeroAsset> = {
+export const THEME_HERO_ASSETS: Record<ThemeKey, HeroAsset> = {
   boho: DEMO_HERO,
   floral: DEMO_HERO,
   royal: DEMO_HERO,
