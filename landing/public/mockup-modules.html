@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Maquette — Step 3 : Modules</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400;1,600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --primary: #8B1A2F;
+    --cream: #FDFBF7;
+    --border: #e8e2d9;
+    --muted: #9b8f83;
+    --fg: #1a1410;
+    --green: #2d6a4f;
+    --green-bg: #edf7f2;
+    --green-border: #a8d5be;
+    --red-bg: #fdf0f2;
+    --red-border: #f0b8c0;
+  }
+  body { font-family: 'Inter', sans-serif; background: var(--cream); color: var(--fg); min-height: 100vh; }
+
+  /* PAGE NAV */
+  .page-nav {
+    background: #f0ece4; border-bottom: 1px solid var(--border);
+    padding: 14px 20px; display: flex; align-items: center;
+    justify-content: space-between; flex-wrap: wrap; gap: 10px;
+    position: sticky; top: 0; z-index: 200;
+  }
+  .page-nav h1 { font-family: 'Cormorant Garamond', serif; font-size: 16px; font-weight: 600; }
+  .opts { display: flex; gap: 6px; }
+  .opt-btn {
+    padding: 6px 16px; border-radius: 50px; border: 2px solid var(--border);
+    font-size: 11px; font-weight: 600; cursor: pointer;
+    background: white; color: var(--muted); transition: all 0.2s;
+  }
+  .opt-btn.active { background: var(--primary); color: white; border-color: var(--primary); }
+  .plan-btns { display: flex; gap: 6px; align-items: center; font-size: 11px; color: var(--muted); }
+  .plan-btn {
+    padding: 5px 12px; border-radius: 20px; border: 1.5px solid var(--border);
+    font-size: 11px; font-weight: 600; cursor: pointer;
+    background: white; color: var(--muted); transition: all 0.2s;
+  }
+  .plan-btn.active { background: var(--primary); color: white; border-color: var(--primary); }
+
+  /* WIZARD SHELL */
+  .wizard { display: none; max-width: 480px; margin: 0 auto; padding-bottom: 90px; }
+  .wizard.active { display: block; }
+
+  .wiz-header {
+    background: white; border-bottom: 1px solid var(--border);
+    padding: 12px 20px; display: flex; align-items: center;
+    justify-content: space-between;
+  }
+  .back  { font-size: 20px; color: var(--muted); cursor: pointer; padding: 4px 8px; }
+  .close { font-size: 16px; color: var(--muted); cursor: pointer; padding: 4px 8px; }
+  .stepper { display: flex; gap: 5px; }
+  .sp { font-size: 10px; font-weight: 600; padding: 4px 11px; border-radius: 20px; white-space: nowrap; }
+  .sp.done   { background: #ede8e0; color: var(--muted); }
+  .sp.active { background: var(--primary); color: white; }
+  .sp.future { color: #ccc; }
+
+  .wiz-body { padding: 22px 16px 20px; }
+
+  .step-title { text-align: center; margin-bottom: 14px; }
+  .step-title h2 { font-family: 'Cormorant Garamond', serif; font-size: 26px; font-weight: 600; }
+  .step-title h2 em { color: var(--primary); font-style: italic; }
+  .step-title p { font-size: 12px; color: var(--muted); margin-top: 4px; }
+
+  /* COUNTER */
+  .counter-bar { display: flex; align-items: center; justify-content: center; gap: 8px; margin-bottom: 18px; flex-wrap: wrap; }
+  .cpill {
+    display: flex; align-items: center; gap: 5px;
+    background: white; border: 1.5px solid var(--border);
+    border-radius: 50px; padding: 6px 14px; font-size: 11px;
+  }
+  .cpill .n { font-weight: 700; font-size: 15px; color: var(--fg); }
+  .cpill .l { color: var(--muted); }
+  .ipill {
+    display: flex; align-items: center; gap: 4px;
+    background: var(--green-bg); border: 1.5px solid var(--green-border);
+    border-radius: 50px; padding: 6px 12px;
+    font-size: 11px; font-weight: 600; color: var(--green);
+  }
+  .epill {
+    display: none; align-items: center; gap: 4px;
+    background: var(--red-bg); border: 1.5px solid var(--red-border);
+    border-radius: 50px; padding: 6px 12px;
+    font-size: 11px; font-weight: 600; color: var(--primary);
+  }
+  .epill.show { display: flex; }
+
+  /* BADGES */
+  .badge {
+    font-size: 8px; font-weight: 700; letter-spacing: 0.04em;
+    text-transform: uppercase; padding: 2px 7px; border-radius: 20px; white-space: nowrap;
+  }
+  .bi { background: var(--green-bg); color: var(--green); border: 1px solid var(--green-border); }
+  .be { background: var(--red-bg); color: var(--primary); border: 1px solid var(--red-border); }
+
+  /* SVG icons helper */
+  svg.ic { width: 18px; height: 18px; stroke-width: 1.8; fill: none; stroke: currentColor; stroke-linecap: round; stroke-linejoin: round; flex-shrink: 0; }
+
+  /* ── OPTION A — grille 2 cols ── */
+  .grid-a { display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; }
+  .ca {
+    background: white; border: 2px solid var(--border); border-radius: 14px;
+    padding: 12px 10px; cursor: pointer; transition: all 0.18s;
+    display: flex; flex-direction: column; gap: 7px;
+    position: relative; user-select: none;
+  }
+  .ca:hover { border-color: rgba(139,26,47,0.4); }
+  .ca.sel { border-color: var(--primary); background: #fdf8f9; box-shadow: 0 0 0 3px rgba(139,26,47,0.07); }
+  .ca.sel.inc { border-color: var(--green); background: var(--green-bg); box-shadow: 0 0 0 3px rgba(45,106,79,0.07); }
+  .ca .iw {
+    width: 36px; height: 36px; border-radius: 10px; flex-shrink: 0;
+    background: #f0ece4; display: flex; align-items: center; justify-content: center;
+    color: var(--muted); transition: all 0.18s;
+  }
+  .ca.sel .iw { background: var(--primary); color: white; }
+  .ca.sel.inc .iw { background: var(--green); color: white; }
+  .ca .cn { font-size: 12px; font-weight: 600; line-height: 1.3; }
+  .ca.sel .cn { color: var(--primary); }
+  .ca.sel.inc .cn { color: var(--green); }
+  .ca .cd { font-size: 10px; color: var(--muted); line-height: 1.4; }
+  .ca .badgepos { position: absolute; top: 7px; right: 7px; }
+
+  /* ── OPTION B — liste ── */
+  .list-b { display: flex; flex-direction: column; gap: 7px; }
+  .cb {
+    background: white; border: 2px solid var(--border); border-radius: 14px;
+    padding: 12px 14px; cursor: pointer; transition: all 0.18s;
+    display: flex; align-items: center; gap: 12px;
+    user-select: none;
+  }
+  .cb:hover { border-color: rgba(139,26,47,0.4); }
+  .cb.sel { border-color: var(--primary); background: #fdf8f9; box-shadow: 0 0 0 3px rgba(139,26,47,0.07); }
+  .cb.sel.inc { border-color: var(--green); background: var(--green-bg); box-shadow: 0 0 0 3px rgba(45,106,79,0.07); }
+  .cb .iw {
+    width: 38px; height: 38px; border-radius: 11px; flex-shrink: 0;
+    background: #f0ece4; display: flex; align-items: center; justify-content: center;
+    color: var(--muted); transition: all 0.18s;
+  }
+  .cb.sel .iw { background: var(--primary); color: white; }
+  .cb.sel.inc .iw { background: var(--green); color: white; }
+  .cb .ct { flex: 1; min-width: 0; }
+  .cb .cn { font-size: 13px; font-weight: 600; }
+  .cb.sel .cn { color: var(--primary); }
+  .cb.sel.inc .cn { color: var(--green); }
+  .cb .cd { font-size: 11px; color: var(--muted); margin-top: 1px; }
+  .cb .cr { display: flex; align-items: center; gap: 6px; flex-shrink: 0; }
+  .chk {
+    width: 22px; height: 22px; border-radius: 50%;
+    border: 2px solid var(--border); display: flex; align-items: center;
+    justify-content: center; transition: all 0.18s; color: transparent; flex-shrink: 0;
+  }
+  .cb.sel .chk { background: var(--primary); border-color: var(--primary); color: white; }
+  .cb.sel.inc .chk { background: var(--green); border-color: var(--green); color: white; }
+  .chk svg { width: 11px; height: 11px; stroke-width: 2.5; }
+
+  /* ── OPTION C — grille 3 cols par catégorie ── */
+  .grid-c { display: flex; flex-direction: column; gap: 18px; }
+  .sec-label {
+    font-size: 10px; font-weight: 700; letter-spacing: 0.1em;
+    text-transform: uppercase; color: var(--muted); margin-bottom: 8px;
+  }
+  .cards-c { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
+  .cc {
+    background: white; border: 2px solid var(--border); border-radius: 14px;
+    padding: 12px 8px 10px; cursor: pointer; transition: all 0.18s;
+    display: flex; flex-direction: column; align-items: center;
+    gap: 6px; position: relative; user-select: none; text-align: center;
+  }
+  .cc:hover { border-color: rgba(139,26,47,0.4); }
+  .cc.sel { border-color: var(--primary); background: #fdf8f9; box-shadow: 0 0 0 3px rgba(139,26,47,0.07); }
+  .cc.sel.inc { border-color: var(--green); background: var(--green-bg); box-shadow: 0 0 0 3px rgba(45,106,79,0.07); }
+  .cc .iw {
+    width: 40px; height: 40px; border-radius: 12px;
+    background: #f0ece4; display: flex; align-items: center; justify-content: center;
+    color: var(--muted); transition: all 0.18s;
+  }
+  .cc.sel .iw { background: var(--primary); color: white; }
+  .cc.sel.inc .iw { background: var(--green); color: white; }
+  .cc .cn { font-size: 11px; font-weight: 600; line-height: 1.3; }
+  .cc.sel .cn { color: var(--primary); }
+  .cc.sel.inc .cn { color: var(--green); }
+  .cc .badgepos { position: absolute; top: 6px; right: 6px; }
+  .badge-sm { font-size: 7px; font-weight: 700; text-transform: uppercase; padding: 2px 5px; border-radius: 20px; }
+
+  /* FOOTER */
+  .wiz-footer {
+    position: fixed; bottom: 0; left: 0; right: 0;
+    background: white; border-top: 1px solid var(--border);
+    padding: 13px 20px 28px;
+    display: flex; align-items: center; justify-content: space-between; z-index: 100;
+  }
+  .ftotal span:first-child { display: block; font-size: 10px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); }
+  .price { font-family: 'Cormorant Garamond', serif; font-size: 24px; font-weight: 700; color: var(--primary); }
+  .btn-cont {
+    background: var(--primary); color: white; border: none;
+    border-radius: 50px; padding: 12px 24px; font-size: 13px; font-weight: 600; cursor: pointer;
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<div class="page-nav">
+  <h1>Step 3 — Modules</h1>
+  <div class="opts">
+    <button class="opt-btn active" onclick="showOpt('A')">Option A</button>
+    <button class="opt-btn" onclick="showOpt('B')">Option B</button>
+    <button class="opt-btn" onclick="showOpt('C')">Option C</button>
+  </div>
+  <div class="plan-btns">
+    Plan :
+    <button class="plan-btn active" id="pExp" onclick="setPlan('exp')">Expérience</button>
+    <button class="plan-btn" id="pPrem" onclick="setPlan('prem')">Premium</button>
+  </div>
+</div>
+
+<!-- OPTION A -->
+<div class="wizard active" id="wA">
+  <div class="wiz-header">
+    <span class="back">‹</span>
+    <div class="stepper">
+      <span class="sp done">Offre</span><span class="sp done">Thème</span>
+      <span class="sp active">Modules</span><span class="sp future">Extras</span><span class="sp future">Paiement</span>
+    </div>
+    <span class="close">✕</span>
+  </div>
+  <div class="wiz-body">
+    <div class="step-title">
+      <h2>Vos <em>Modules</em></h2>
+      <p id="stA"></p>
+    </div>
+    <div class="counter-bar">
+      <div class="cpill"><span class="n" id="cntA">0</span><span class="l">sélectionnés</span></div>
+      <div class="ipill" id="ipA"><svg class="ic" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg><span id="itA"></span></div>
+      <div class="epill" id="epA"><svg class="ic" viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg><span id="etA"></span></div>
+    </div>
+    <div class="grid-a" id="gA"></div>
+  </div>
+</div>
+
+<!-- OPTION B -->
+<div class="wizard" id="wB">
+  <div class="wiz-header">
+    <span class="back">‹</span>
+    <div class="stepper">
+      <span class="sp done">Offre</span><span class="sp done">Thème</span>
+      <span class="sp active">Modules</span><span class="sp future">Extras</span><span class="sp future">Paiement</span>
+    </div>
+    <span class="close">✕</span>
+  </div>
+  <div class="wiz-body">
+    <div class="step-title">
+      <h2>Vos <em>Modules</em></h2>
+      <p id="stB"></p>
+    </div>
+    <div class="counter-bar">
+      <div class="cpill"><span class="n" id="cntB">0</span><span class="l">sélectionnés</span></div>
+      <div class="ipill" id="ipB"><svg class="ic" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg><span id="itB"></span></div>
+      <div class="epill" id="epB"><svg class="ic" viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg><span id="etB"></span></div>
+    </div>
+    <div class="list-b" id="gB"></div>
+  </div>
+</div>
+
+<!-- OPTION C -->
+<div class="wizard" id="wC">
+  <div class="wiz-header">
+    <span class="back">‹</span>
+    <div class="stepper">
+      <span class="sp done">Offre</span><span class="sp done">Thème</span>
+      <span class="sp active">Modules</span><span class="sp future">Extras</span><span class="sp future">Paiement</span>
+    </div>
+    <span class="close">✕</span>
+  </div>
+  <div class="wiz-body">
+    <div class="step-title">
+      <h2>Vos <em>Modules</em></h2>
+      <p id="stC"></p>
+    </div>
+    <div class="counter-bar">
+      <div class="cpill"><span class="n" id="cntC">0</span><span class="l">sélectionnés</span></div>
+      <div class="ipill" id="ipC"><svg class="ic" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg><span id="itC"></span></div>
+      <div class="epill" id="epC"><svg class="ic" viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg><span id="etC"></span></div>
+    </div>
+    <div class="grid-c" id="gC"></div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<div class="wiz-footer">
+  <div class="ftotal">
+    <span>Total estimé</span>
+    <span class="price" id="totalPrice">175€</span>
+  </div>
+  <button class="btn-cont">Continuer →</button>
+</div>
+
+<script>
+// SVG paths inline (Lucide compatible)
+const ICONS = {
+  timer:          `<svg class="ic" viewBox="0 0 24 24"><circle cx="12" cy="13" r="8"/><polyline points="12 9 12 13 14 15"/><path d="M9 3h6"/><path d="M12 3v2"/></svg>`,
+  calendar:       `<svg class="ic" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>`,
+  'check-square': `<svg class="ic" viewBox="0 0 24 24"><polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>`,
+  'map-pin':      `<svg class="ic" viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>`,
+  shirt:          `<svg class="ic" viewBox="0 0 24 24"><path d="M20.38 3.46 16 2a4 4 0 0 1-8 0L3.62 3.46a2 2 0 0 0-1.34 2.23l.58 3.57a1 1 0 0 0 .99.84H6v10c0 1.1.9 2 2 2h8a2 2 0 0 0 2-2V10h2.15a1 1 0 0 0 .99-.84l.58-3.57a2 2 0 0 0-1.34-2.23z"/></svg>`,
+  utensils:       `<svg class="ic" viewBox="0 0 24 24"><path d="M3 2v7c0 1.1.9 2 2 2h4a2 2 0 0 0 2-2V2"/><path d="M7 2v20"/><path d="M21 15V2v0a5 5 0 0 0-5 5v6c0 1.1.9 2 2 2h3zm0 0v7"/></svg>`,
+  hotel:          `<svg class="ic" viewBox="0 0 24 24"><path d="M18 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2z"/><path d="M9 22v-4h6v4"/><path d="M8 6h.01M16 6h.01M12 6h.01M12 10h.01M8 10h.01M16 10h.01M12 14h.01M8 14h.01M16 14h.01"/></svg>`,
+  bus:            `<svg class="ic" viewBox="0 0 24 24"><path d="M8 6v6"/><path d="M16 6v6"/><path d="M2 12h19.6"/><path d="M18 18h2a1 1 0 0 0 1-1v-6a9 9 0 0 0-9-9H9a9 9 0 0 0-9 9v6a1 1 0 0 0 1 1h2"/><circle cx="8" cy="18" r="2"/><circle cx="16" cy="18" r="2"/><path d="M8 20h8"/></svg>`,
+  info:           `<svg class="ic" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>`,
+  gift:           `<svg class="ic" viewBox="0 0 24 24"><polyline points="20 12 20 22 4 22 4 12"/><rect x="2" y="7" width="20" height="5"/><line x1="12" y1="22" x2="12" y2="7"/><path d="M12 7H7.5a2.5 2.5 0 0 1 0-5C11 2 12 7 12 7z"/><path d="M12 7h4.5a2.5 2.5 0 0 0 0-5C13 2 12 7 12 7z"/></svg>`,
+  image:          `<svg class="ic" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="9" cy="9" r="2"/><polyline points="21 15 16 10 5 21"/></svg>`,
+  'message-sq':   `<svg class="ic" viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>`,
+  music:          `<svg class="ic" viewBox="0 0 24 24"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg>`,
+  'play-circle':  `<svg class="ic" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polygon points="10 8 16 12 10 16 10 8"/></svg>`,
+  video:          `<svg class="ic" viewBox="0 0 24 24"><polygon points="23 7 16 12 23 17 23 7"/><rect x="1" y="5" width="15" height="14" rx="2"/></svg>`,
+  check:          `<svg class="ic" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>`,
+};
+
+const MODULES = [
+  { id:'countdown',      label:'Compte à rebours',   icon:'timer',       desc:'Décompte avant le jour J',             group:'Essentiel' },
+  { id:'timeline',       label:'Programme du jour',  icon:'calendar',    desc:'Horaires et lieux des cérémonies',     group:'Essentiel' },
+  { id:'rsvp',           label:'Gestion RSVP',        icon:'check-square',desc:'Formulaire de réponse en ligne',      group:'Essentiel' },
+  { id:'map',            label:'Plan & Accès',         icon:'map-pin',     desc:'Intégration Google Maps / Waze',      group:'Essentiel' },
+  { id:'dress-code',     label:'Dress Code',           icon:'shirt',       desc:'Recommandations vestimentaires',      group:'Pratique'  },
+  { id:'menu',           label:'Menu & Régimes',       icon:'utensils',    desc:'Détail du repas et allergies',        group:'Pratique'  },
+  { id:'accommodation',  label:'Hébergements',         icon:'hotel',       desc:"Suggestions d'hôtels à proximité",   group:'Pratique'  },
+  { id:'transport',      label:'Navettes',             icon:'bus',         desc:'Infos logistiques pour les invités',  group:'Pratique'  },
+  { id:'faq',            label:'FAQ / Pratique',       icon:'info',        desc:'Infos pratiques pour les invités',    group:'Pratique'  },
+  { id:'gift-list',      label:'Liste de mariage',    icon:'gift',        desc:'Lien vers votre cagnotte ou liste',   group:'Souvenir'  },
+  { id:'gallery',        label:'Galerie Photo',        icon:'image',       desc:'Partagez vos plus beaux souvenirs',   group:'Souvenir'  },
+  { id:'guestbook',      label:"Livre d'or",           icon:'message-sq',  desc:'Vos invités laissent un petit mot',   group:'Souvenir'  },
+  { id:'playlist',       label:'Musique',              icon:'music',       desc:'Playlist collaborative pour le DJ',   group:'Souvenir'  },
+  { id:'intro-video',    label:"Vidéo d'intro",        icon:'play-circle', desc:'Un message vidéo des mariés',         group:'Souvenir'  },
+  { id:'video-gb',       label:"Livre d'or vidéo",    icon:'video',       desc:'Messages vidéo de vos invités',       group:'Souvenir'  },
+];
+
+let selected = [];
+let plan = 'exp';
+let opt = 'A';
+
+function showOpt(o) {
+  opt = o;
+  ['A','B','C'].forEach(x => document.getElementById('w'+x).classList.toggle('active', x===o));
+  document.querySelectorAll('.opt-btn').forEach((b,i) => b.classList.toggle('active', ['A','B','C'][i]===o));
+}
+
+function setPlan(p) {
+  plan = p;
+  document.getElementById('pExp').classList.toggle('active', p==='exp');
+  document.getElementById('pPrem').classList.toggle('active', p==='prem');
+  render();
+}
+
+function toggle(id) {
+  selected = selected.includes(id) ? selected.filter(s=>s!==id) : [...selected, id];
+  render();
+}
+
+function isIncl(id) { return plan==='prem' || (selected.includes(id) && selected.indexOf(id)<4); }
+function isExtra(id){ return plan==='exp' && selected.includes(id) && selected.indexOf(id)>=4; }
+
+function updateCounters() {
+  const n = selected.length;
+  const extra = plan==='exp' ? Math.max(0,n-4) : 0;
+  const incl  = plan==='exp' ? Math.min(n,4) : n;
+  document.getElementById('totalPrice').textContent = (175+extra*5)+'€';
+  ['A','B','C'].forEach(o => {
+    document.getElementById('cnt'+o).textContent = n;
+    document.getElementById('it'+o).textContent = plan==='prem' ? `${n} inclus` : `${incl}/4 inclus`;
+    document.getElementById('ip'+o).style.display = plan==='exp'?'flex':'none';
+    const ep = document.getElementById('ep'+o);
+    ep.classList.toggle('show', extra>0);
+    document.getElementById('et'+o).textContent = `+${extra*5}€`;
+    document.getElementById('st'+o).textContent = plan==='prem'
+      ? 'Tout est inclus — faites-vous plaisir !'
+      : '4 modules inclus · Au-delà, +5€ par module';
+  });
+}
+
+function ic(name) { return ICONS[name] || ICONS['info']; }
+
+/* OPTION A */
+function renderA() {
+  const g = document.getElementById('gA'); g.innerHTML='';
+  MODULES.forEach(m => {
+    const sel=selected.includes(m.id), incl=isIncl(m.id), extra=isExtra(m.id);
+    const d=document.createElement('div');
+    d.className=`ca${sel?' sel':''}${sel&&incl?' inc':''}`;
+    d.onclick=()=>toggle(m.id);
+    d.innerHTML=`
+      ${sel?`<div class="badgepos"><span class="badge ${incl?'bi':'be'}">${incl?'Inclus':'+5€'}</span></div>`:''}
+      <div class="iw">${ic(m.icon)}</div>
+      <div class="cn">${m.label}</div>
+      <div class="cd">${m.desc}</div>`;
+    g.appendChild(d);
+  });
+}
+
+/* OPTION B */
+function renderB() {
+  const g=document.getElementById('gB'); g.innerHTML='';
+  MODULES.forEach(m => {
+    const sel=selected.includes(m.id), incl=isIncl(m.id), extra=isExtra(m.id);
+    const d=document.createElement('div');
+    d.className=`cb${sel?' sel':''}${sel&&incl?' inc':''}`;
+    d.onclick=()=>toggle(m.id);
+    d.innerHTML=`
+      <div class="iw">${ic(m.icon)}</div>
+      <div class="ct">
+        <div class="cn">${m.label}</div>
+        <div class="cd">${m.desc}</div>
+      </div>
+      <div class="cr">
+        ${sel?`<span class="badge ${incl?'bi':'be'}">${incl?'Inclus':'+5€'}</span>`:''}
+        <div class="chk">${ICONS.check}</div>
+      </div>`;
+    g.appendChild(d);
+  });
+}
+
+/* OPTION C */
+function renderC() {
+  const g=document.getElementById('gC'); g.innerHTML='';
+  const groups=[...new Set(MODULES.map(m=>m.group))];
+  groups.forEach(grp => {
+    const mods=MODULES.filter(m=>m.group===grp);
+    const sec=document.createElement('div');
+    sec.innerHTML=`<div class="sec-label">${grp}</div>`;
+    const row=document.createElement('div');
+    row.className='cards-c';
+    mods.forEach(m => {
+      const sel=selected.includes(m.id), incl=isIncl(m.id);
+      const d=document.createElement('div');
+      d.className=`cc${sel?' sel':''}${sel&&incl?' inc':''}`;
+      d.onclick=()=>toggle(m.id);
+      d.innerHTML=`
+        ${sel?`<div class="badgepos"><span class="badge-sm ${incl?'bi':'be'}">${incl?'✓':'+5€'}</span></div>`:''}
+        <div class="iw">${ic(m.icon)}</div>
+        <div class="cn">${m.label}</div>`;
+      row.appendChild(d);
+    });
+    sec.appendChild(row);
+    g.appendChild(sec);
+  });
+}
+
+function render() { renderA(); renderB(); renderC(); updateCounters(); }
+setPlan('exp');
+render();
+</script>
+</body>
+</html>

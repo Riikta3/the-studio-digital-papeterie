@@ -1,55 +1,15 @@
 "use client";
 
 import { cn } from "@/lib/utils";
-import { useOrderStore, type PlanType } from "@/stores/use-order-store";
-
-type PlanConfig = {
-  id: PlanType;
-  name: string;
-  price: number;
-  badge?: string;
-  tagline: string;
-  features: string[];
-  accentColor: string;
-};
-
-const PLANS: PlanConfig[] = [
-  {
-    id: "experience",
-    name: "Essentiel",
-    price: 175,
-    tagline: "Tout ce qu'il faut pour une invitation parfaite.",
-    features: [
-      "Site d'invitation personnalisé",
-      "4 modules inclus",
-      "1 langue incluse",
-      "Animation d'entrée",
-      "RSVP en ligne",
-      "Accès à vie",
-    ],
-    accentColor: "#7c2d3e",
-  },
-  {
-    id: "premium",
-    name: "Premium",
-    price: 575,
-    badge: "Le plus complet",
-    tagline: "L'expérience ultime, sans limite.",
-    features: [
-      "Tout du pack Essentiel",
-      "Modules illimités",
-      "Toutes les langues incluses",
-      "Illustration sur mesure",
-      "Musique personnalisée",
-      "Domaine personnalisé inclus",
-      "Support prioritaire",
-    ],
-    accentColor: "#7c2d3e",
-  },
-];
+import { useOrderStore } from "@/stores/use-order-store";
+import { useConfiguratorStep } from "@/hooks/use-configurator-step";
 
 export default function PlanPage() {
   const { plan, setPlan } = useOrderStore();
+  const { goToNextStep } = useConfiguratorStep();
+
+  const premiumSelected = plan === "premium";
+  const essentialSelected = plan === "experience";
 
   return (
     <div className="flex flex-col gap-4">
@@ -58,64 +18,89 @@ export default function PlanPage() {
           Choisissez votre{" "}
           <span className="italic text-primary">offre</span>
         </h1>
-        <p className="text-muted-foreground text-sm max-w-sm mx-auto">
+        <p className="text-muted-foreground text-sm max-w-sm mx-auto font-sans">
           Un paiement unique. Accès à vie garanti.
         </p>
       </div>
 
       <div className="flex flex-col gap-3 max-w-lg mx-auto w-full px-4">
-        {PLANS.map((p) => {
-          const isSelected = plan === p.id;
-          return (
-            <button
-              key={p.id}
-              onClick={() => setPlan(p.id)}
-              className={cn(
-                "w-full text-left rounded-2xl border-2 p-5 transition-all duration-200",
-                isSelected
-                  ? "border-primary bg-primary/5 shadow-md"
-                  : "border-border bg-card hover:border-primary/40",
-              )}
-            >
-              <div className="flex items-start justify-between gap-4">
-                <div className="flex-1">
-                  <div className="flex items-center gap-2 mb-1">
-                    <span className="font-heading text-lg font-bold">{p.name}</span>
-                    {p.badge && (
-                      <span className="text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full bg-primary text-primary-foreground font-sans">
-                        {p.badge}
-                      </span>
-                    )}
-                  </div>
-                  <p className="text-muted-foreground text-xs font-sans mb-3">{p.tagline}</p>
-                  <ul className="space-y-1.5">
-                    {p.features.map((f) => (
-                      <li key={f} className="flex items-center gap-2 text-xs font-sans text-foreground/80">
-                        <span className="w-1.5 h-1.5 rounded-full bg-primary flex-shrink-0" />
-                        {f}
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-                <div className="flex flex-col items-end gap-2 flex-shrink-0">
-                  <span className="font-heading text-2xl font-bold text-primary">{p.price}€</span>
-                  <div
-                    className={cn(
-                      "w-5 h-5 rounded-full border-2 flex items-center justify-center transition-colors",
-                      isSelected ? "border-primary bg-primary" : "border-border",
-                    )}
-                  >
-                    {isSelected && (
-                      <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
-                        <polyline points="20 6 9 17 4 12" />
-                      </svg>
-                    )}
-                  </div>
-                </div>
-              </div>
-            </button>
-          );
-        })}
+
+        {/* Premium — hero card */}
+        <div
+          className={cn(
+            "rounded-2xl border-2 p-5 transition-all duration-200 relative",
+            premiumSelected
+              ? "border-primary bg-primary/5 shadow-md"
+              : "border-border bg-card",
+          )}
+        >
+          {/* Badge */}
+          <div className="absolute -top-3 left-1/2 -translate-x-1/2">
+            <span className="text-[10px] font-bold uppercase tracking-wider px-3 py-1 rounded-full bg-primary text-primary-foreground font-sans whitespace-nowrap">
+              ⭐ Recommandé
+            </span>
+          </div>
+
+          <div className="flex items-start justify-between gap-4 mb-3">
+            <div>
+              <p className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground/60 font-sans mb-1">Premium</p>
+              <span className="font-heading text-3xl font-bold text-primary">575€</span>
+            </div>
+            <ul className="text-xs font-sans text-foreground/70 space-y-1 text-right">
+              <li>Modules illimités</li>
+              <li>Domaine offert</li>
+              <li>Support 7j/7</li>
+            </ul>
+          </div>
+
+          <p className="text-xs text-muted-foreground font-sans mb-4">
+            La sérénité totale. Aucune limite.
+          </p>
+
+          <button
+            onClick={() => { setPlan("premium"); goToNextStep(); }}
+            className={cn(
+              "w-full py-3 rounded-full text-sm font-bold font-sans transition-colors",
+              premiumSelected
+                ? "bg-primary/80 text-primary-foreground"
+                : "bg-primary text-primary-foreground hover:bg-primary/90",
+            )}
+          >
+            {premiumSelected ? "✓ Sélectionné" : "Choisir Premium"}
+          </button>
+        </div>
+
+        {/* Essentiel — compact row */}
+        <div
+          className={cn(
+            "rounded-2xl border-2 px-5 py-4 transition-all duration-200 flex items-center gap-4",
+            essentialSelected
+              ? "border-primary bg-primary/5 shadow-sm"
+              : "border-border bg-card",
+          )}
+        >
+          <div className="flex-1 min-w-0">
+            <p className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground/60 font-sans mb-0.5">Expérience</p>
+            <span className="font-heading text-xl font-bold text-primary">175€</span>
+            <div className="flex gap-3 mt-1">
+              <span className="text-[10px] text-muted-foreground font-sans">4 modules</span>
+              <span className="text-[10px] text-muted-foreground font-sans">+5€/extra</span>
+            </div>
+          </div>
+
+          <button
+            onClick={() => { setPlan("experience"); goToNextStep(); }}
+            className={cn(
+              "flex-shrink-0 px-5 py-2 rounded-full text-sm font-bold font-sans border-2 transition-colors",
+              essentialSelected
+                ? "border-primary bg-primary text-primary-foreground"
+                : "border-primary text-primary bg-transparent hover:bg-primary/5",
+            )}
+          >
+            {essentialSelected ? "✓ Choisi" : "Choisir"}
+          </button>
+        </div>
+
       </div>
     </div>
   );

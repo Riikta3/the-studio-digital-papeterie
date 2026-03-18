@@ -160,7 +160,7 @@ export default function ModulesPage() {
               <div
                 className={cn(
                   "w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0 transition-colors",
-                  isSelected ? "bg-primary text-primary-foreground" : "bg-muted text-muted-foreground",
+                  isSelected ? "bg-primary/15 text-primary" : "bg-muted text-muted-foreground",
                 )}
               >
                 <Icon className="w-5 h-5" />
@@ -172,11 +172,11 @@ export default function ModulesPage() {
               <div
                 className={cn(
                   "w-5 h-5 rounded-full border-2 flex items-center justify-center flex-shrink-0 transition-colors",
-                  isSelected ? "border-primary bg-primary" : "border-border",
+                  isSelected ? "border-primary/40 bg-primary/15" : "border-border",
                 )}
               >
                 {isSelected && (
-                  <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
+                  <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" className="text-primary">
                     <polyline points="20 6 9 17 4 12" />
                   </svg>
                 )}

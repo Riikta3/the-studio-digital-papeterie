@@ -1,8 +1,8 @@
 "use client";
 
-import { cn } from "@/lib/utils";
-import { useOrderStore } from "@/stores/use-order-store";
 import { useState } from "react";
+import { useOrderStore } from "@/stores/use-order-store";
+import { ConfiguratorCarousel, type CarouselCard } from "@/components/configurator/ConfiguratorCarousel";
 import { ThemeDemoOverlay } from "@/components/configurator/ThemeDemoOverlay";
 
 type ThemeConfig = {
@@ -83,9 +83,66 @@ const THEMES: ThemeConfig[] = [
   },
 ];
 
+function ThemePreview({ t, onDemo }: { t: ThemeConfig; onDemo: () => void }) {
+  return (
+    <div
+      className="relative h-full flex flex-col items-center justify-center gap-2"
+      style={{ background: t.bgGradient }}
+    >
+      <div className="absolute inset-0 opacity-[0.05] bg-[radial-gradient(#000_1px,transparent_1px)] [background-size:18px_18px]" />
+      <span
+        className="relative z-10 text-[21px] font-bold text-center px-4"
+        style={{
+          color: t.accentColor,
+          fontFamily: t.coupleFont,
+          fontWeight: t.coupleWeight ?? "700",
+          letterSpacing: t.coupleLetterSpacing,
+          fontStyle: t.coupleStyle ?? "normal",
+        }}
+      >
+        Sophie & Pierre
+      </span>
+      <div className="relative z-10 h-[2px] w-8 rounded-full" style={{ background: t.accentColor }} />
+      <span
+        className="relative z-10 text-[10px] uppercase tracking-[0.18em] font-sans"
+        style={{ color: t.dateColor ?? t.accentColor, opacity: 0.65 }}
+      >
+        14 Juin 2026
+      </span>
+      <span
+        className="relative z-10 text-[11px]"
+        style={{
+          color: t.placeColor ?? t.accentColor,
+          fontFamily: t.placeFont,
+          fontStyle: t.placeStyle ?? "normal",
+          opacity: 0.5,
+          ...(t.placeExtra ?? {}),
+        }}
+      >
+        Château des Roses
+      </span>
+      <button
+        onClick={(e) => { e.stopPropagation(); onDemo(); }}
+        className="absolute bottom-3 left-1/2 -translate-x-1/2 z-10 whitespace-nowrap text-[11px] font-bold text-primary px-4 py-1.5 rounded-full bg-white/90 backdrop-blur-sm border border-primary/20 shadow-sm font-sans"
+      >
+        ▶ Voir la démo
+      </button>
+    </div>
+  );
+}
+
 export default function ThemePage() {
   const { theme, setTheme } = useOrderStore();
   const [demoTheme, setDemoTheme] = useState<ThemeConfig | null>(null);
+
+  const cards: CarouselCard[] = THEMES.map((t) => ({
+    id: t.id,
+    title: t.name,
+    description: t.description,
+    actionLabel: "Choisir ce thème",
+    selectedLabel: "✓ Sélectionné",
+    previewContent: <ThemePreview t={t} onDemo={() => setDemoTheme(t)} />,
+  }));
 
   return (
     <>
@@ -100,107 +157,11 @@ export default function ThemePage() {
           </p>
         </div>
 
-        {/* Horizontal carousel */}
-        <div className="flex gap-4 overflow-x-auto snap-x snap-mandatory scroll-smooth pb-6 px-4 md:px-6 scrollbar-hide">
-          {THEMES.map((t) => {
-            const isSelected = theme === t.id;
-            return (
-              <div
-                key={t.id}
-                className={cn(
-                  "flex-none w-[252px] md:w-[290px] snap-start rounded-[22px] overflow-hidden border-2 bg-card transition-all duration-200",
-                  isSelected
-                    ? "border-primary shadow-[0_0_0_4px_rgba(124,45,62,0.09),0_8px_28px_rgba(124,45,62,0.13)]"
-                    : "border-border/50 shadow-sm",
-                )}
-              >
-                {/* Fake invitation preview */}
-                <div
-                  className="relative h-[210px] md:h-[240px] flex flex-col items-center justify-center gap-2 overflow-hidden"
-                  style={{ background: t.bgGradient }}
-                >
-                  <div className="absolute inset-0 opacity-[0.05] bg-[radial-gradient(#000_1px,transparent_1px)] [background-size:18px_18px]" />
-                  {isSelected && (
-                    <div className="absolute top-3 left-3 z-10 bg-primary text-primary-foreground text-[10px] font-bold px-3 py-1 rounded-full flex items-center gap-1 font-sans">
-                      ✓ Sélectionné
-                    </div>
-                  )}
-                  <span
-                    className="relative z-10 text-[21px] font-bold text-center px-4"
-                    style={{
-                      color: t.accentColor,
-                      fontFamily: t.coupleFont,
-                      fontWeight: t.coupleWeight ?? "700",
-                      letterSpacing: t.coupleLetterSpacing,
-                      fontStyle: t.coupleStyle ?? "normal",
-                    }}
-                  >
-                    Sophie &amp; Pierre
-                  </span>
-                  <div className="relative z-10 h-[2px] w-8 rounded-full" style={{ background: t.accentColor }} />
-                  <span
-                    className="relative z-10 text-[10px] uppercase tracking-[0.18em] font-sans"
-                    style={{ color: t.dateColor ?? t.accentColor, opacity: 0.65 }}
-                  >
-                    14 Juin 2026
-                  </span>
-                  <span
-                    className="relative z-10 text-[11px]"
-                    style={{
-                      color: t.placeColor ?? t.accentColor,
-                      fontFamily: t.placeFont,
-                      fontStyle: t.placeStyle ?? "normal",
-                      opacity: 0.5,
-                      ...(t.placeExtra ?? {}),
-                    }}
-                  >
-                    Château des Roses
-                  </span>
-                  <button
-                    onClick={() => setDemoTheme(t)}
-                    className="absolute bottom-3 left-1/2 -translate-x-1/2 z-10 whitespace-nowrap text-[11px] font-bold text-primary px-4 py-1.5 rounded-full bg-white/90 backdrop-blur-sm border border-primary/20 shadow-sm font-sans"
-                  >
-                    ▶ Voir la démo
-                  </button>
-                </div>
-
-                {/* Card footer */}
-                <div className="p-4 border-t border-border/30">
-                  <h3 className="font-semibold text-[15px] mb-0.5" style={{ color: t.accentColor }}>
-                    {t.name}
-                  </h3>
-                  <p className="text-muted-foreground text-[11px] mb-3 line-clamp-1 font-sans">
-                    {t.description}
-                  </p>
-                  <button
-                    onClick={() => setTheme(t.id)}
-                    className={cn(
-                      "w-full py-2.5 rounded-full text-[12px] font-bold font-sans transition-colors",
-                      isSelected
-                        ? "bg-[#455e4e] text-white"
-                        : "bg-primary text-primary-foreground hover:bg-primary/90",
-                    )}
-                  >
-                    {isSelected ? "✓ Sélectionné" : "Choisir ce thème"}
-                  </button>
-                </div>
-              </div>
-            );
-          })}
-        </div>
-
-        {/* Scroll dots */}
-        <div className="flex justify-center gap-1.5 pb-2">
-          {THEMES.map((t) => (
-            <div
-              key={t.id}
-              className={cn(
-                "h-[5px] rounded-full transition-all duration-200",
-                theme === t.id ? "w-4 bg-primary" : "w-[5px] bg-border",
-              )}
-            />
-          ))}
-        </div>
+        <ConfiguratorCarousel
+          cards={cards}
+          selectedId={theme}
+          onSelect={(id) => setTheme(id)}
+        />
       </div>
 
       {demoTheme && (
