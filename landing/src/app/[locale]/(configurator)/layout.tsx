@@ -9,9 +9,12 @@ import React, { useEffect } from "react";
 
 const STEPS = [
   "/create/plan",
+  "/create/animation",
   "/create/theme",
   "/create/modules",
+  "/create/languages",
   "/create/extras",
+  "/create/wedding",
   "/create/checkout",
 ];
 
@@ -34,11 +37,14 @@ export default function ConfiguratorLayout({
   const isLastStep = currentStepIndex === STEPS.length - 1;
 
   const STEP_TITLES: Record<string, string> = {
-    "/create/plan": "Votre Offre",
-    "/create/theme": "Design & Thème",
-    "/create/modules": "Fonctionnalités",
-    "/create/extras": "Options & Extras",
-    "/create/checkout": "Récapitulatif",
+    "/create/plan":      "Votre Offre",
+    "/create/animation": "Animation d'entrée",
+    "/create/theme":     "Design & Thème",
+    "/create/modules":   "Fonctionnalités",
+    "/create/languages": "Langues",
+    "/create/extras":    "Options & Extras",
+    "/create/wedding":   "Votre Mariage",
+    "/create/checkout":  "Récapitulatif",
   };
 
   // Validate Navigation (Prevent skipping steps)
