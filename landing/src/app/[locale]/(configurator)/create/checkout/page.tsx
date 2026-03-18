@@ -1,281 +1,335 @@
 "use client";
 
-import { processCheckout } from "@/actions/checkout-actions";
-import { ScratchReveal } from "@/components/ui/scratch-reveal";
+import { useState } from "react";
 import { useRouter } from "@/navigation";
 import { selectTotalPrice, useOrderStore } from "@/stores/use-order-store";
-import { AnimatePresence, motion } from "framer-motion";
-import {
-  Check,
-  CreditCard,
-  Edit2,
-  Eye,
-  Loader2,
-  Sparkles,
-  X,
-} from "lucide-react";
-import { useSearchParams } from "next/navigation";
-import { useState } from "react";
+import { processCheckout } from "@/actions/checkout-actions";
+import { cn } from "@/lib/utils";
+import { Edit2, Eye, CreditCard, Loader2 } from "lucide-react";
+import { ThemeDemoOverlay } from "@/components/configurator/ThemeDemoOverlay";
+
+const THEME_NAMES: Record<string, string> = {
+  "theme-floral":     "Floral",
+  "theme-minimalist": "Minimalist",
+  "theme-boho":       "Boho",
+  "theme-royal":      "Royal",
+  "theme-modern":     "Modern",
+};
+
+const PAYMENT_METHODS = [
+  { id: "card",   label: "Carte" },
+  { id: "apple",  label: "Apple Pay" },
+  { id: "google", label: "Google Pay" },
+  { id: "paypal", label: "PayPal" },
+] as const;
+
+type PaymentMethod = (typeof PAYMENT_METHODS)[number]["id"];
 
 export default function CheckoutPage() {
-  const { plan, theme, modules } = useOrderStore();
-  const totalPrice = useOrderStore(selectTotalPrice);
   const router = useRouter();
-  const searchParams = useSearchParams();
-  const [isPreviewOpen, setIsPreviewOpen] = useState(false);
+  const { plan, animation, theme, modules, languages, extras, adultsOnly, weddingInfo } = useOrderStore();
+  const totalPrice = useOrderStore(selectTotalPrice);
+
+  const [showPreview, setShowPreview] = useState(false);
+  const [payMethod, setPayMethod] = useState<PaymentMethod>("card");
   const [isLoading, setIsLoading] = useState(false);
 
-  // Helper to format currency
-  const formatPrice = (p: number) => `${p}€`;
-
-  // Dynamic Guest Name
-  const guestName = searchParams.get("guest");
+  // Billing form state
+  const [billing, setBilling] = useState({
+    firstName: "",
+    lastName: "",
+    address: "",
+    zip: "",
+    city: "",
+    country: "France",
+  });
 
   async function handlePayment() {
     setIsLoading(true);
     try {
-      // Call Server Action
       const result = await processCheckout({
         plan: plan || "unknown",
         amount: totalPrice,
         period: "lifetime",
       });
-
       if (result.error) {
-        // Fallback if sonner is not installed, but it usually is in this stack
         alert("Erreur: " + result.error);
       } else {
-        // Success
-        // Redirect to Dashboard or Success Page
-        // Assuming NEXT_PUBLIC_DASHBOARD_URL is set, but we might just redirect to a local success page
-
-        // Redirect to success page or dashboard
-        try {
-          const dashboardUrlStr = process.env.NEXT_PUBLIC_DASHBOARD_URL;
-          if (!dashboardUrlStr)
-            throw new Error(
-              "NEXT_PUBLIC_DASHBOARD_URL is missing from environment variables.",
-            );
-
-          const targetUrl = new URL(dashboardUrlStr);
-          targetUrl.pathname = "/fr/billing";
-          targetUrl.searchParams.set("success", "true");
-
-          setTimeout(() => {
-            window.location.href = targetUrl.toString();
-          }, 2000);
-        } catch (e) {
-          console.error("Invalid or missing NEXT_PUBLIC_DASHBOARD_URL:", e);
-          // Cannot redirect without knowing the dashboard URL securely
+        const dashboardUrl = process.env.NEXT_PUBLIC_DASHBOARD_URL;
+        if (dashboardUrl) {
+          const target = new URL(dashboardUrl);
+          target.pathname = "/fr/billing";
+          target.searchParams.set("success", "true");
+          setTimeout(() => { window.location.href = target.toString(); }, 1500);
         }
       }
-    } catch (error) {
-      console.error(error);
+    } catch {
       alert("Une erreur est survenue.");
     } finally {
       setIsLoading(false);
     }
   }
 
+  const RecapRow = ({
+    label, value, href, children,
+  }: {
+    label: string;
+    value?: string;
+    href?: string;
+    children?: React.ReactNode;
+  }) => (
+    <div className="flex items-start gap-3 px-4 py-3 border-b border-border/40 last:border-b-0">
+      <div className="flex-1 min-w-0">
+        <p className="text-[10px] font-bold uppercase tracking-wider text-muted-foreground/60 font-sans">{label}</p>
+        {value && <p className="text-sm font-semibold mt-0.5">{value}</p>}
+        {children}
+      </div>
+      {href && (
+        <button
+          onClick={() => router.push(href)}
+          className="w-7 h-7 rounded-full border border-border flex items-center justify-center flex-shrink-0 hover:border-primary transition-colors"
+        >
+          <Edit2 className="w-3 h-3 text-muted-foreground" />
+        </button>
+      )}
+    </div>
+  );
+
   return (
-    <div className='flex flex-col gap-8 pb-32'>
-      <div className='text-center space-y-4'>
-        <h1 className='font-heading text-4xl font-bold md:text-5xl'>
-          Récapitulatif &{" "}
-          <span className='italic text-primary'>Finalisation</span>
-        </h1>
-        <p className='text-muted-foreground text-lg max-w-xl mx-auto'>
-          Vérifiez vos choix avant de valider votre commande.
+    <>
+      <div className="flex flex-col gap-5 max-w-lg mx-auto px-4">
+        <div className="text-center space-y-2 pb-2">
+          <h1 className="font-heading text-3xl font-bold md:text-4xl">
+            Votre commande est <span className="italic text-primary">prête</span>
+          </h1>
+          <p className="text-muted-foreground text-sm font-sans">
+            Vérifiez vos choix et finalisez votre site d&apos;invitation.
+          </p>
+        </div>
+
+        {/* Récap */}
+        <div className="bg-card border-2 border-border/60 rounded-2xl overflow-hidden">
+          <RecapRow
+            label="Les mariés"
+            value={`${weddingInfo.partner1 || "—"} & ${weddingInfo.partner2 || "—"} · ${weddingInfo.day || "—"} ${weddingInfo.month || ""} ${weddingInfo.year || ""}`}
+            href="/create/wedding"
+          />
+          <RecapRow label="Offre" value={`Pack ${plan === "premium" ? "Premium" : "Essentiel"} — ${plan === "premium" ? "575" : "175"}€`} href="/create/plan" />
+          <RecapRow label="Animation & Thème" value={`${animation || "—"} · ${THEME_NAMES[theme] || "—"}`} href="/create/animation" />
+          <RecapRow label="Modules" href="/create/modules">
+            <div className="flex flex-wrap gap-1 mt-1">
+              {modules.slice(0, 4).map((m) => (
+                <span key={m} className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-primary/10 text-primary font-sans">{m}</span>
+              ))}
+              {modules.length > 4 && (
+                <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-muted text-muted-foreground font-sans">+{modules.length - 4}</span>
+              )}
+            </div>
+          </RecapRow>
+          {(languages.length > 0 || extras.length > 0 || adultsOnly) && (
+            <RecapRow label="Options" href="/create/extras">
+              <div className="flex flex-wrap gap-1 mt-1">
+                {languages.map((l) => (
+                  <span key={l} className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-primary/10 text-primary font-sans">{l.toUpperCase()} +15€</span>
+                ))}
+                {extras.map((e) => (
+                  <span key={e} className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-primary/10 text-primary font-sans">{e}</span>
+                ))}
+                {adultsOnly && (
+                  <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-muted text-muted-foreground font-sans">Adults Only</span>
+                )}
+              </div>
+            </RecapRow>
+          )}
+        </div>
+
+        {/* Aperçu */}
+        <button
+          onClick={() => setShowPreview(true)}
+          className="w-full flex items-center justify-center gap-2 py-3.5 rounded-2xl border-2 border-primary text-primary font-bold text-sm font-sans hover:bg-primary/5 transition-colors"
+        >
+          <Eye className="w-4 h-4" />
+          Voir l&apos;aperçu de mon site
+        </button>
+
+        {/* Separator */}
+        <div className="flex items-center gap-3">
+          <div className="flex-1 h-px bg-border" />
+          <span className="text-[10px] font-bold uppercase tracking-wider text-muted-foreground/50 font-sans">Paiement</span>
+          <div className="flex-1 h-px bg-border" />
+        </div>
+
+        {/* Billing */}
+        <div>
+          <p className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground/60 font-sans mb-2">
+            Informations de facturation
+          </p>
+          <div className="bg-card border-2 border-border rounded-2xl overflow-hidden">
+            <div className="flex border-b border-border/60">
+              <div className="flex-1 px-4 py-3 border-r border-border/60">
+                <p className="text-[10px] font-bold uppercase tracking-wider text-muted-foreground/60 font-sans mb-1">Prénom</p>
+                <input
+                  type="text"
+                  placeholder="Sophie"
+                  value={billing.firstName}
+                  onChange={(e) => setBilling({ ...billing, firstName: e.target.value })}
+                  className="w-full text-sm font-sans bg-transparent outline-none placeholder:text-muted-foreground/40"
+                />
+              </div>
+              <div className="flex-1 px-4 py-3">
+                <p className="text-[10px] font-bold uppercase tracking-wider text-muted-foreground/60 font-sans mb-1">Nom</p>
+                <input
+                  type="text"
+                  placeholder="Dupont"
+                  value={billing.lastName}
+                  onChange={(e) => setBilling({ ...billing, lastName: e.target.value })}
+                  className="w-full text-sm font-sans bg-transparent outline-none placeholder:text-muted-foreground/40"
+                />
+              </div>
+            </div>
+            <div className="px-4 py-3 border-b border-border/60">
+              <p className="text-[10px] font-bold uppercase tracking-wider text-muted-foreground/60 font-sans mb-1">Adresse</p>
+              <input
+                type="text"
+                placeholder="12 rue des Roses"
+                value={billing.address}
+                onChange={(e) => setBilling({ ...billing, address: e.target.value })}
+                className="w-full text-sm font-sans bg-transparent outline-none placeholder:text-muted-foreground/40"
+              />
+            </div>
+            <div className="flex border-b border-border/60">
+              <div className="w-[90px] px-4 py-3 border-r border-border/60">
+                <p className="text-[10px] font-bold uppercase tracking-wider text-muted-foreground/60 font-sans mb-1">Code postal</p>
+                <input
+                  type="text"
+                  placeholder="75001"
+                  value={billing.zip}
+                  onChange={(e) => setBilling({ ...billing, zip: e.target.value })}
+                  className="w-full text-sm font-sans bg-transparent outline-none placeholder:text-muted-foreground/40"
+                />
+              </div>
+              <div className="flex-1 px-4 py-3">
+                <p className="text-[10px] font-bold uppercase tracking-wider text-muted-foreground/60 font-sans mb-1">Ville</p>
+                <input
+                  type="text"
+                  placeholder="Paris"
+                  value={billing.city}
+                  onChange={(e) => setBilling({ ...billing, city: e.target.value })}
+                  className="w-full text-sm font-sans bg-transparent outline-none placeholder:text-muted-foreground/40"
+                />
+              </div>
+            </div>
+            <div className="px-4 py-3">
+              <p className="text-[10px] font-bold uppercase tracking-wider text-muted-foreground/60 font-sans mb-1">Pays</p>
+              <select
+                value={billing.country}
+                onChange={(e) => setBilling({ ...billing, country: e.target.value })}
+                className="w-full text-sm font-sans bg-transparent outline-none text-foreground"
+              >
+                {["France","Belgique","Suisse","Luxembourg","Canada","Autre"].map((c) => (
+                  <option key={c}>{c}</option>
+                ))}
+              </select>
+            </div>
+          </div>
+        </div>
+
+        {/* Total */}
+        <div className="flex items-center justify-between px-5 py-4 bg-card border-2 border-border rounded-2xl">
+          <div>
+            <p className="text-sm font-semibold font-sans">Total à régler</p>
+            <p className="text-[10px] text-muted-foreground font-sans">Paiement unique · Accès à vie</p>
+          </div>
+          <span className="font-heading text-3xl font-bold text-primary">{totalPrice}€</span>
+        </div>
+
+        {/* Payment methods */}
+        <div>
+          <p className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground/60 font-sans mb-2">
+            Mode de paiement
+          </p>
+          <div className="flex gap-2 mb-3">
+            {PAYMENT_METHODS.map((m) => (
+              <button
+                key={m.id}
+                onClick={() => setPayMethod(m.id)}
+                className={cn(
+                  "flex-1 py-2.5 rounded-xl border-2 text-[11px] font-bold font-sans transition-all",
+                  payMethod === m.id
+                    ? "border-primary bg-primary/5 text-primary"
+                    : "border-border text-muted-foreground hover:border-primary/30",
+                )}
+              >
+                {m.label}
+              </button>
+            ))}
+          </div>
+
+          {payMethod === "card" && (
+            <div className="bg-card border-2 border-border rounded-2xl overflow-hidden mb-3">
+              <div className="px-4 py-3 border-b border-border/60">
+                <p className="text-[10px] font-bold uppercase tracking-wider text-muted-foreground/60 font-sans mb-1">Numéro de carte</p>
+                <input type="text" placeholder="1234  5678  9012  3456" className="w-full text-sm font-sans bg-transparent outline-none placeholder:text-muted-foreground/40" readOnly />
+              </div>
+              <div className="flex">
+                <div className="flex-1 px-4 py-3 border-r border-border/60">
+                  <p className="text-[10px] font-bold uppercase tracking-wider text-muted-foreground/60 font-sans mb-1">Expiration</p>
+                  <input type="text" placeholder="MM / AA" className="w-full text-sm font-sans bg-transparent outline-none placeholder:text-muted-foreground/40" readOnly />
+                </div>
+                <div className="w-[100px] px-4 py-3">
+                  <p className="text-[10px] font-bold uppercase tracking-wider text-muted-foreground/60 font-sans mb-1">CVC</p>
+                  <input type="text" placeholder="•••" className="w-full text-sm font-sans bg-transparent outline-none placeholder:text-muted-foreground/40" readOnly />
+                </div>
+              </div>
+              <div className="px-4 py-3">
+                <p className="text-[10px] font-bold uppercase tracking-wider text-muted-foreground/60 font-sans mb-1">Nom sur la carte</p>
+                <input type="text" placeholder="Sophie Dupont" className="w-full text-sm font-sans bg-transparent outline-none placeholder:text-muted-foreground/40" readOnly />
+              </div>
+            </div>
+          )}
+
+          {(payMethod === "apple" || payMethod === "google" || payMethod === "paypal") && (
+            <div className="bg-muted/30 rounded-2xl p-4 text-center mb-3">
+              <p className="text-sm text-muted-foreground font-sans">
+                {payMethod === "apple" && "Apple Pay sera activé via Stripe au moment du paiement."}
+                {payMethod === "google" && "Google Pay sera activé via Stripe au moment du paiement."}
+                {payMethod === "paypal" && "Vous serez redirigé vers PayPal pour finaliser le paiement."}
+              </p>
+            </div>
+          )}
+        </div>
+
+        {/* Stripe badge */}
+        <p className="text-center text-[11px] text-muted-foreground/60 font-sans flex items-center justify-center gap-1.5">
+          <CreditCard className="w-3.5 h-3.5" />
+          Paiement sécurisé par Stripe
+        </p>
+
+        {/* Pay button */}
+        <button
+          onClick={handlePayment}
+          disabled={isLoading}
+          className="w-full py-4 rounded-2xl bg-primary text-primary-foreground font-bold text-base font-sans flex items-center justify-center gap-2 shadow-lg disabled:opacity-60 disabled:cursor-not-allowed hover:bg-primary/90 transition-colors"
+        >
+          {isLoading ? <Loader2 className="w-5 h-5 animate-spin" /> : <CreditCard className="w-5 h-5" />}
+          {isLoading ? "Traitement..." : `Payer ${totalPrice}€`}
+        </button>
+
+        <p className="text-center text-[10px] text-muted-foreground/50 font-sans leading-relaxed">
+          En validant, vous acceptez nos CGV et notre politique de confidentialité.<br />
+          Paiement unique · Sans abonnement · Accès à vie garanti.
         </p>
       </div>
 
-      <div className='grid gap-8 md:grid-cols-3'>
-        {/* LEFT: ORDER SUMMARY */}
-        <div className='md:col-span-2 space-y-6'>
-          {/* 1. PLAN */}
-          <div className='bg-card border border-border/50 rounded-3xl p-6 shadow-sm flex items-start justify-between group hover:border-primary/20 transition-colors'>
-            <div>
-              <h3 className='font-heading text-xl font-bold mb-1'>
-                Votre Offre
-              </h3>
-              <p className='text-muted-foreground capitalize'>
-                Pack {plan || "Expérience"}
-              </p>
-              <ul className='mt-2 space-y-1 text-sm text-muted-foreground/80'>
-                <li className='flex items-center gap-2'>
-                  <Check className='w-3 h-3 text-primary' />
-                  {plan === "premium" ? "Tout illimité" : "L'essentiel inclus"}
-                </li>
-              </ul>
-            </div>
-            <button
-              onClick={() => router.push("/create/plan")}
-              className='p-2 rounded-full hover:bg-muted text-muted-foreground hover:text-primary transition-colors'
-              title='Modifier le plan'
-            >
-              <Edit2 className='w-4 h-4' />
-            </button>
-          </div>
-
-          {/* 2. THEME */}
-          <div className='bg-card border border-border/50 rounded-3xl p-6 shadow-sm flex items-start justify-between group hover:border-primary/20 transition-colors'>
-            <div>
-              <h3 className='font-heading text-xl font-bold mb-1'>Design</h3>
-              <div className='flex items-center gap-3'>
-                <div className='w-6 h-6 rounded-full bg-primary/20' />
-                <p className='text-muted-foreground capitalize'>
-                  {theme?.replace("theme-", "") || "Non sélectionné"}
-                </p>
-              </div>
-            </div>
-            <button
-              onClick={() => router.push("/create/theme")}
-              className='p-2 rounded-full hover:bg-muted text-muted-foreground hover:text-primary transition-colors'
-              title='Modifier le thème'
-            >
-              <Edit2 className='w-4 h-4' />
-            </button>
-          </div>
-
-          {/* 3. MODULES & EXTRAS */}
-          <div className='bg-card border border-border/50 rounded-3xl p-6 shadow-sm flex items-start justify-between group hover:border-primary/20 transition-colors'>
-            <div>
-              <h3 className='font-heading text-xl font-bold mb-1'>Options</h3>
-              <p className='text-muted-foreground'>
-                Modules inclus par défaut ({modules.length})
-              </p>
-            </div>
-            <button
-              onClick={() => router.push("/create/modules")}
-              className='p-2 rounded-full hover:bg-muted text-muted-foreground hover:text-primary transition-colors'
-              title='Modifier les options'
-            >
-              <Edit2 className='w-4 h-4' />
-            </button>
-          </div>
-        </div>
-
-        {/* RIGHT: TOTAL & ACTIONS */}
-        <div className='md:col-span-1 space-y-6'>
-          <div className='bg-card border border-border rounded-3xl p-6 shadow-lg sticky top-24'>
-            <h3 className='font-heading text-2xl font-bold mb-6'>Total</h3>
-
-            <div className='flex justify-between items-end mb-2'>
-              <span className='text-muted-foreground'>Montant à régler</span>
-              <span className='font-heading text-4xl font-bold text-primary'>
-                {formatPrice(totalPrice)}
-              </span>
-            </div>
-            <p className='text-xs text-muted-foreground mb-8 text-right'>
-              Paiement unique, accès à vie.
-            </p>
-
-            <div className='space-y-3'>
-              <button
-                onClick={() => setIsPreviewOpen(true)}
-                className='w-full flex items-center justify-center gap-2 rounded-xl border-2 border-primary/20 bg-background py-3 text-sm font-semibold text-foreground hover:bg-muted transition-all active:scale-95'
-              >
-                <Eye className='w-4 h-4' />
-                Voir l'aperçu
-              </button>
-
-              <button
-                onClick={handlePayment}
-                disabled={isLoading}
-                className='w-full flex items-center justify-center gap-2 rounded-xl bg-primary py-4 text-sm font-semibold text-primary-foreground shadow-lg hover:shadow-xl hover:scale-[1.02] active:scale-95 transition-all disabled:opacity-70 disabled:cursor-not-allowed'
-              >
-                {isLoading ? (
-                  <Loader2 className='w-4 h-4 animate-spin' />
-                ) : (
-                  <CreditCard className='w-4 h-4' />
-                )}
-                {isLoading
-                  ? "Traitement..."
-                  : `Payer ${formatPrice(totalPrice)}`}
-              </button>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      {/* PREVIEW MODAL */}
-      <AnimatePresence>
-        {isPreviewOpen && (
-          <div className='fixed inset-0 z-[100] flex items-center justify-center p-4 md:p-8'>
-            {/* Backdrop */}
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              onClick={() => setIsPreviewOpen(false)}
-              className='absolute inset-0 bg-background/80 backdrop-blur-md'
-            />
-
-            {/* Modal Content */}
-            <motion.div
-              initial={{ opacity: 0, scale: 0.95, y: 20 }}
-              animate={{ opacity: 1, scale: 1, y: 0 }}
-              exit={{ opacity: 0, scale: 0.95, y: 20 }}
-              className='relative w-full max-w-4xl max-h-full overflow-hidden rounded-3xl border border-border bg-card shadow-2xl flex flex-col'
-            >
-              {/* Toolbar */}
-              <div className='flex items-center justify-between border-b border-border p-4 bg-muted/30'>
-                <div className='flex items-center gap-2'>
-                  <Sparkles className='w-5 h-5 text-primary' />
-                  <span className='font-heading font-bold'>Aperçu Direct</span>
-                </div>
-                <button
-                  onClick={() => setIsPreviewOpen(false)}
-                  className='rounded-full p-2 hover:bg-muted transition-colors'
-                >
-                  <X className='w-5 h-5' />
-                </button>
-              </div>
-
-              {/* Fake Phone/Web Preview */}
-              <div className='flex-1 overflow-y-auto bg-muted/10 p-8 flex justify-center'>
-                <div className='w-[375px] h-[667px] bg-white rounded-[3rem] border-8 border-gray-900 shadow-2xl overflow-hidden relative'>
-                  <div className='absolute top-0 w-full h-full flex flex-col items-center justify-center text-center p-6 space-y-6'>
-                    <span className='text-xs uppercase tracking-widest text-gray-400'>
-                      {theme?.replace("theme-", "") || "Nom du Thème"}
-                    </span>
-
-                    {/* Dynamic Guest Name */}
-                    <p className='text-lg font-medium text-gray-600 animate-in fade-in slide-in-from-bottom-2'>
-                      {guestName ? `Bonjour ${guestName},` : "Cher invité,"}
-                    </p>
-
-                    <h1 className='font-heading text-4xl text-gray-800'>
-                      Sophie & Marc
-                    </h1>
-
-                    {/* Scratch Reveal for Date */}
-                    <div className='relative'>
-                      <ScratchReveal
-                        width={250}
-                        height={60}
-                        minScratchPercentage={40}
-                        className='mx-auto rounded-xl overflow-hidden shadow-sm'
-                        onRevealComplete={() => console.log("Date Revealed!")}
-                      >
-                        <div className='flex items-center justify-center w-full h-full bg-white text-primary font-bold text-xl border border-primary/20'>
-                          24 Août 2026
-                        </div>
-                      </ScratchReveal>
-                    </div>
-
-                    <div className='w-16 h-[1px] bg-gray-300' />
-                    <p className='text-sm text-gray-600'>
-                      Ceci est un aperçu simplifié. Votre site sera entièrement
-                      interactif une fois créé.
-                    </p>
-                  </div>
-                </div>
-              </div>
-            </motion.div>
-          </div>
-        )}
-      </AnimatePresence>
-    </div>
+      {/* Preview overlay */}
+      {showPreview && (
+        <ThemeDemoOverlay
+          themeId={theme}
+          themeName={THEME_NAMES[theme] ?? "Floral"}
+          onClose={() => setShowPreview(false)}
+          onSelect={() => setShowPreview(false)}
+        />
+      )}
+    </>
   );
 }
