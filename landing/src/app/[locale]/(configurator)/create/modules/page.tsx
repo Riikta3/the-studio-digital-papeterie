@@ -2,7 +2,6 @@
 
 import { cn } from "@/lib/utils";
 import { useOrderStore } from "@/stores/use-order-store";
-import { AnimatePresence, motion } from "framer-motion";
 import {
   Bus,
   CalendarDays,
@@ -116,121 +115,73 @@ const MODULES = [
 export default function ModulesPage() {
   const { modules, toggleModule, plan } = useOrderStore();
 
-  const isIncluded = (index: number) => {
-    if (plan === "premium") return true;
-    // In Experience plan, first 4 selected are included.
-    // However, the logic here is tricky because selections are unordered in the store usually.
-    // We will just simplify display: Count how many are selected.
-    // If selected count <= 4, all selected are "included".
-    // If selected count > 4, the "last" ones added pay.
-    // BUT visually, we just want to show the user "4 included".
-    return true;
-  };
-
-  const selectedCount = modules.length;
-  const extraCount = plan === "experience" ? Math.max(0, selectedCount - 4) : 0;
+  const extraCount = plan === "experience" ? Math.max(0, modules.length - 4) : 0;
+  const extraCost = extraCount * 5;
 
   return (
-    <div className='flex flex-col gap-8'>
-      <div className='text-center space-y-4'>
-        <h1 className='font-heading text-4xl font-bold md:text-5xl'>
-          Vos <span className='italic text-primary'>Modules</span>
+    <div className="flex flex-col gap-4">
+      <div className="text-center space-y-2 px-4 pb-2">
+        <h1 className="font-heading text-3xl font-bold md:text-4xl lg:text-5xl">
+          Vos <span className="italic text-primary">fonctionnalités</span>
         </h1>
-        <p className='text-muted-foreground text-lg max-w-xl mx-auto'>
+        <p className="text-muted-foreground text-sm max-w-sm mx-auto font-sans">
           {plan === "premium"
-            ? "Tout est inclus dans votre offre Premium. Faites-vous plaisir !"
-            : `4 modules sont inclus dans votre offre. Au-delà, +5€ par module.`}
+            ? "Tous les modules sont inclus dans votre offre."
+            : "4 modules inclus. +5€ par module supplémentaire."}
         </p>
-
-        {/* Counter Badge */}
-        <div className='inline-flex items-center gap-2 bg-muted/50 px-4 py-2 rounded-full border border-border'>
-          <span
-            className={cn(
-              "font-bold",
-              extraCount > 0 ? "text-primary" : "text-foreground",
-            )}
-          >
-            {selectedCount}
-          </span>
-          <span className='text-muted-foreground text-sm'>sélectionnés</span>
-          {extraCount > 0 && (
-            <motion.span
-              initial={{ scale: 0 }}
-              animate={{ scale: 1 }}
-              className='ml-2 text-xs font-bold text-white bg-primary px-2 py-0.5 rounded-full'
-            >
-              +{extraCount * 5}€
-            </motion.span>
-          )}
-        </div>
       </div>
 
-      <div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mt-4'>
-        {MODULES.map((module) => {
-          const isSelected = modules.includes(module.id);
-          const Icon = module.icon;
+      {/* Counter badge */}
+      {plan === "experience" && modules.length > 0 && (
+        <div className="flex justify-center">
+          <span className="font-sans text-xs font-bold px-4 py-1.5 rounded-full bg-primary/10 text-primary">
+            {modules.length} sélectionné{modules.length > 1 ? "s" : ""}
+            {extraCost > 0 ? ` · +${extraCost}€` : " · inclus"}
+          </span>
+        </div>
+      )}
 
+      {/* List */}
+      <div className="flex flex-col gap-2 max-w-lg mx-auto w-full px-4">
+        {MODULES.map((mod) => {
+          const isSelected = modules.includes(mod.id);
+          const Icon = mod.icon;
           return (
-            <div
-              key={module.id}
-              onClick={() => toggleModule(module.id)}
+            <button
+              key={mod.id}
+              onClick={() => toggleModule(mod.id)}
               className={cn(
-                "group relative cursor-pointer rounded-2xl border p-4 transition-all duration-200 select-none",
+                "w-full text-left flex items-center gap-3 p-4 rounded-2xl border-2 transition-all duration-150",
                 isSelected
-                  ? "border-primary bg-primary/5 shadow-md"
-                  : "border-border bg-card hover:border-primary/30 hover:bg-muted/30",
+                  ? "border-primary bg-primary/5"
+                  : "border-border bg-card hover:border-primary/30",
               )}
             >
-              <div className='flex items-start gap-4'>
-                <div
-                  className={cn(
-                    "p-3 rounded-xl transition-colors",
-                    isSelected
-                      ? "bg-primary text-white"
-                      : "bg-muted text-muted-foreground group-hover:text-primary",
-                  )}
-                >
-                  <Icon className='w-6 h-6' />
-                </div>
-
-                <div className='flex-1'>
-                  <div className='flex justify-between items-center mb-1'>
-                    <h3
-                      className={cn(
-                        "font-heading font-semibold",
-                        isSelected && "text-primary",
-                      )}
-                    >
-                      {module.label}
-                    </h3>
-                    {isSelected && (
-                      <motion.div
-                        initial={{ scale: 0 }}
-                        animate={{ scale: 1 }}
-                        className='text-primary'
-                      >
-                        <Check className='w-4 h-4' />
-                      </motion.div>
-                    )}
-                  </div>
-                  <p className='text-xs text-muted-foreground leading-relaxed'>
-                    {module.desc}
-                  </p>
-                </div>
+              <div
+                className={cn(
+                  "w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0 transition-colors",
+                  isSelected ? "bg-primary text-primary-foreground" : "bg-muted text-muted-foreground",
+                )}
+              >
+                <Icon className="w-5 h-5" />
               </div>
-
-              {/* +5€ Animation Bubble when selecting 5th+ module in Experience plan */}
-              <AnimatePresence>
-                {isSelected &&
-                  plan === "experience" &&
-                  selectedCount > 4 &&
-                  // Simple visual trick: If this is selected and we are over limit,
-                  // we don't know exactly WHICH one caused the overage without time tracking,
-                  // but generally showing it's a paid slot is good.
-                  // For this MVP, let's keep it simple.
-                  null}
-              </AnimatePresence>
-            </div>
+              <div className="flex-1 min-w-0">
+                <p className="text-sm font-bold">{mod.label}</p>
+                <p className="text-xs text-muted-foreground font-sans mt-0.5 line-clamp-1">{mod.desc}</p>
+              </div>
+              <div
+                className={cn(
+                  "w-5 h-5 rounded-full border-2 flex items-center justify-center flex-shrink-0 transition-colors",
+                  isSelected ? "border-primary bg-primary" : "border-border",
+                )}
+              >
+                {isSelected && (
+                  <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
+                    <polyline points="20 6 9 17 4 12" />
+                  </svg>
+                )}
+              </div>
+            </button>
           );
         })}
       </div>
