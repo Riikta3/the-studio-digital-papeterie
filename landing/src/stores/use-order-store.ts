@@ -89,7 +89,7 @@ export const useOrderStore = create<OrderState>()(
           weddingInfo: { ...state.weddingInfo, ...info },
         })),
     }),
-    { name: "order-store" }
+    { name: "order-store-v2" }
   )
 );
 
