@@ -181,3 +181,12 @@ html {
     background-repeat: repeat;
   }
 }
+
+/* Utility — hide scrollbar while keeping scroll functionality */
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
