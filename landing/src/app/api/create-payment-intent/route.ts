@@ -97,9 +97,9 @@ export async function POST(req: Request) {
     }
 
     const stripePayload: Stripe.PaymentIntentCreateParams = {
-      amount: Math.round(finalStripeAmount * 100), // Convert to cents
+      amount: Math.round(finalStripeAmount * 100),
       currency: "eur",
-      payment_method_types: ["card", "paypal", "klarna"],
+      automatic_payment_methods: { enabled: true },
       metadata: {
         plan: items.plan || "unknown",
       },
