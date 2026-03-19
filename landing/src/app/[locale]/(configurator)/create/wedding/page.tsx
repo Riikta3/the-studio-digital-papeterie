@@ -9,8 +9,36 @@ const MONTHS = [
   "Juillet","Août","Septembre","Octobre","Novembre","Décembre",
 ];
 
+const TODAY = new Date();
+const CURRENT_YEAR = TODAY.getFullYear();
+const CURRENT_MONTH = TODAY.getMonth() + 1; // 1-based
+const CURRENT_DAY = TODAY.getDate();
+
+function isDateInPast(day: string, month: string, year: string): boolean {
+  const y = parseInt(year);
+  const m = MONTHS.indexOf(month) + 1;
+  const d = parseInt(day);
+  if (!y || !m || !d) return false;
+  if (y < CURRENT_YEAR) return true;
+  if (y === CURRENT_YEAR && m < CURRENT_MONTH) return true;
+  if (y === CURRENT_YEAR && m === CURRENT_MONTH && d < CURRENT_DAY) return true;
+  return false;
+}
+
 export default function WeddingPage() {
   const { weddingInfo, setWeddingInfo } = useOrderStore();
+
+  const dateInPast = isDateInPast(weddingInfo.day, weddingInfo.month, weddingInfo.year);
+
+  function handleDayChange(val: string) {
+    const n = parseInt(val);
+    if (val === "" || (n >= 1 && n <= 31)) setWeddingInfo({ day: val === "" ? "" : String(n) });
+  }
+
+  function handleYearChange(val: string) {
+    const n = parseInt(val);
+    if (val === "" || n >= CURRENT_YEAR) setWeddingInfo({ year: val === "" ? "" : String(n) });
+  }
 
 return (
     <div className="flex flex-col gap-5">
@@ -71,7 +99,7 @@ return (
                   min="1"
                   max="31"
                   value={weddingInfo.day}
-                  onChange={(e) => setWeddingInfo({ day: e.target.value })}
+                  onChange={(e) => handleDayChange(e.target.value)}
                   className="w-full text-sm font-sans bg-transparent outline-none placeholder:text-muted-foreground/40"
                 />
               </div>
@@ -92,13 +120,19 @@ return (
                 <p className="text-[10px] font-bold uppercase tracking-wider text-muted-foreground/60 font-sans mb-1">Année</p>
                 <input
                   type="number"
-                  placeholder="2026"
+                  placeholder={String(CURRENT_YEAR)}
+                  min={CURRENT_YEAR}
                   value={weddingInfo.year}
-                  onChange={(e) => setWeddingInfo({ year: e.target.value })}
+                  onChange={(e) => handleYearChange(e.target.value)}
                   className="w-full text-sm font-sans bg-transparent outline-none placeholder:text-muted-foreground/40"
                 />
               </div>
             </div>
+            {dateInPast && (
+              <div className="px-4 py-2 bg-red-50 border-t border-red-100">
+                <p className="text-[11px] text-red-500 font-sans">La date doit être dans le futur.</p>
+              </div>
+            )}
             <div className="px-4 py-3">
               <p className="text-[10px] font-bold uppercase tracking-wider text-muted-foreground/60 font-sans mb-1">Lieu de la cérémonie</p>
               <input
