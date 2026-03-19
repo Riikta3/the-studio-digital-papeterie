@@ -84,7 +84,7 @@ export function Examples() {
 
         <div className='mt-8 text-center md:hidden'>
           <Link
-            href='/create/theme'
+            href='/studio/theme'
             className='text-primary font-semibold hover:underline underline-offset-4 flex items-center gap-2 mx-auto justify-center'
           >
             Voir tous les thèmes <ArrowRight className='w-4 h-4' />

@@ -3,14 +3,14 @@
 import { useRouter, usePathname } from "@/navigation";
 
 const STEPS = [
-  "/create/plan",
-  "/create/animation",
-  "/create/theme",
-  "/create/modules",
-  "/create/languages",
-  "/create/extras",
-  "/create/wedding",
-  "/create/checkout",
+  "/studio/plan",
+  "/studio/animation",
+  "/studio/theme",
+  "/studio/modules",
+  "/studio/languages",
+  "/studio/extras",
+  "/studio/wedding",
+  "/studio/checkout",
 ];
 
 export function useConfiguratorStep() {

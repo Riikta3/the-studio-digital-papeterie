@@ -113,7 +113,7 @@ export function PricingPreview() {
               </ul>
 
               <Link
-                href={`/create/plan?selected=${plan.highlight ? "premium" : "experience"}`}
+                href={`/studio/plan?selected=${plan.highlight ? "premium" : "experience"}`}
                 className='mt-auto'
               >
                 <div

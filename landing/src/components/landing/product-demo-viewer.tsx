@@ -288,12 +288,8 @@ export function ProductDemoViewer() {
   const [activeAnimation, setActiveAnimation] =
     useState<AnimationKey>("envelope");
   const [activeTheme, setActiveTheme] = useState<ThemeKey>("floral");
-  const [device, setDevice] = useState<"mobile" | "desktop" | null>(null);
+  const [device, setDevice] = useState<"mobile" | "desktop">("mobile");
 
-  // Detect device once on mount to avoid layout shift (from mobile-first default)
-  useEffect(() => {
-    setDevice(window.innerWidth >= DESKTOP_VIEWPORT ? "desktop" : "mobile");
-  }, []);
   const [iframeLoading, setIframeLoading] = useState(true);
   const [fullscreen, setFullscreen] = useState(false);
   const iframeRef = useRef<HTMLIFrameElement>(null);
@@ -361,7 +357,7 @@ export function ProductDemoViewer() {
     }
   }, [activeAnimation, activeTheme]);
 
-  const iframeUrl = `/fr/invitation/${DEMO_CODES[activeAnimation]}?demo=true&device=${device || "mobile"}${!hasCustomized ? "&hint=true" : ""}`;
+  const iframeUrl = `/fr/invitation/${DEMO_CODES[activeAnimation]}?demo=true&device=${device}${!hasCustomized ? "&hint=true" : ""}`;
 
   const sendTheme = useCallback(
     (
@@ -446,17 +442,14 @@ export function ProductDemoViewer() {
           <span className='italic text-primary'>en direct</span>
         </h2>
         <p className='text-muted-foreground mt-4 max-w-xl mx-auto text-balance'>
-          Choisissez un thème et explorez une vraie invitation — comme la
-          vivrait l'un de vos invités.
+          Choisissez un thème et parcourez une véritable invitation digitale.
+          Voyez comment l'élégance du papier se transforme en une expérience
+          numérique unique pour vos proches.
         </p>
       </div>
 
       {/* Device frame */}
-      {device === null ? (
-        <div className="flex justify-center w-full py-10">
-          <div className="w-8 h-8 border border-primary/30 border-t-primary rounded-full animate-spin" />
-        </div>
-      ) : device === "mobile" ? (
+      {device === "mobile" ? (
         <MobileFrame
           iframeUrl={iframeUrl}
           iframeRef={iframeRef}
