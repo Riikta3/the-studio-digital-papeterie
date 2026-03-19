@@ -3,7 +3,7 @@
 import { useImageSequence } from "@/hooks/use-image-sequence";
 import { Link } from "@/navigation";
 import { motion } from "framer-motion";
-import { ArrowRight, ChevronDown } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 import { useTranslations } from "next-intl";
 
 const FRAME_COUNT = 82;
@@ -20,10 +20,6 @@ export function Hero() {
     getFramePath: getFrame,
     loop: true,
   });
-
-  const scrollToThemes = () => {
-    document.getElementById("themes")?.scrollIntoView({ behavior: "smooth" });
-  };
 
   return (
     <section className='relative flex min-h-screen w-full items-center justify-center overflow-hidden pt-20'>
@@ -77,7 +73,7 @@ export function Hero() {
           <div className='mt-6 flex flex-col items-center gap-6'>
             <div className='flex flex-col sm:flex-row items-center gap-4'>
               <Link
-                href='/create'
+                href='/studio/plan'
                 className='group relative overflow-hidden rounded-full bg-primary px-8 py-4 text-base font-medium text-primary-foreground shadow-xl transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl active:scale-95'
               >
                 <span className='relative z-10 flex items-center gap-3'>
@@ -89,7 +85,7 @@ export function Hero() {
               <button
                 onClick={() =>
                   document
-                    .getElementById("themes")
+                    .getElementById("demo-viewer")
                     ?.scrollIntoView({ behavior: "smooth" })
                 }
                 className='rounded-full border border-primary/40 px-8 py-4 text-base font-medium text-primary transition-all hover:bg-primary/5 active:scale-95'
@@ -101,29 +97,6 @@ export function Hero() {
         </motion.div>
       </div>
 
-      {/* Scroll anchor — Découvrir les thèmes */}
-      <div className='hidden sm:block absolute bottom-12 left-1/2 -translate-x-1/2'>
-        <motion.div
-          initial={{ opacity: 0, y: 10 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{
-            delay: 1.5,
-            duration: 1,
-            repeat: Infinity,
-            repeatType: "reverse",
-          }}
-        >
-          <button
-            onClick={scrollToThemes}
-            className='flex flex-col items-center gap-2 text-muted-foreground hover:text-primary transition-colors'
-          >
-            <span className='text-[10px] uppercase tracking-widest font-medium'>
-              {t("discoverThemes")}
-            </span>
-            <ChevronDown className='w-5 h-5' />
-          </button>
-        </motion.div>
-      </div>
     </section>
   );
 }

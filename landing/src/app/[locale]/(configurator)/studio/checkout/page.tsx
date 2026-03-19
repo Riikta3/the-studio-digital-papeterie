@@ -112,11 +112,11 @@ export default function CheckoutPage() {
           <RecapRow
             label="Les mariés"
             value={`${weddingInfo.partner1 || "—"} & ${weddingInfo.partner2 || "—"} · ${weddingInfo.day || "—"} ${weddingInfo.month || ""} ${weddingInfo.year || ""}`}
-            href="/create/wedding"
+            href="/studio/wedding"
           />
-          <RecapRow label="Offre" value={`Pack ${plan === "premium" ? "Premium" : "Essentiel"} — ${plan === "premium" ? "575" : "175"}€`} href="/create/plan" />
-          <RecapRow label="Animation & Thème" value={`${animation || "—"} · ${THEME_NAMES[theme] || "—"}`} href="/create/animation" />
-          <RecapRow label="Modules" href="/create/modules">
+          <RecapRow label="Offre" value={`Pack ${plan === "premium" ? "Premium" : "Essentiel"} — ${plan === "premium" ? "575" : "175"}€`} href="/studio/plan" />
+          <RecapRow label="Animation & Thème" value={`${animation || "—"} · ${THEME_NAMES[theme] || "—"}`} href="/studio/animation" />
+          <RecapRow label="Modules" href="/studio/modules">
             <div className="flex flex-wrap gap-1 mt-1">
               {modules.slice(0, 4).map((m) => (
                 <span key={m} className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-primary/10 text-primary font-sans">{m}</span>
@@ -127,7 +127,7 @@ export default function CheckoutPage() {
             </div>
           </RecapRow>
           {(languages.length > 0 || extras.length > 0 || adultsOnly) && (
-            <RecapRow label="Options" href="/create/extras">
+            <RecapRow label="Options" href="/studio/extras">
               <div className="flex flex-wrap gap-1 mt-1">
                 {languages.map((l) => (
                   <span key={l} className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-primary/10 text-primary font-sans">{l.toUpperCase()} +15€</span>

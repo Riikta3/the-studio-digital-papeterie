@@ -8,14 +8,14 @@ import { ArrowRight, ChevronLeft, X } from "lucide-react";
 import React, { useEffect } from "react";
 
 const STEPS = [
-  "/create/plan",
-  "/create/animation",
-  "/create/theme",
-  "/create/modules",
-  "/create/languages",
-  "/create/extras",
-  "/create/wedding",
-  "/create/checkout",
+  "/studio/plan",
+  "/studio/animation",
+  "/studio/theme",
+  "/studio/modules",
+  "/studio/languages",
+  "/studio/extras",
+  "/studio/wedding",
+  "/studio/checkout",
 ];
 
 export default function ConfiguratorLayout({
@@ -37,20 +37,20 @@ export default function ConfiguratorLayout({
   const isLastStep = currentStepIndex === STEPS.length - 1;
 
   const STEP_TITLES: Record<string, string> = {
-    "/create/plan":      "Votre Offre",
-    "/create/animation": "Animation d'entrée",
-    "/create/theme":     "Design & Thème",
-    "/create/modules":   "Fonctionnalités",
-    "/create/languages": "Langues",
-    "/create/extras":    "Options & Extras",
-    "/create/wedding":   "Votre Mariage",
-    "/create/checkout":  "Récapitulatif",
+    "/studio/plan":      "Votre Offre",
+    "/studio/animation": "Animation d'entrée",
+    "/studio/theme":     "Design & Thème",
+    "/studio/modules":   "Fonctionnalités",
+    "/studio/languages": "Langues",
+    "/studio/extras":    "Options & Extras",
+    "/studio/wedding":   "Votre Mariage",
+    "/studio/checkout":  "Récapitulatif",
   };
 
   // Validate Navigation (Prevent skipping steps)
   useEffect(() => {
     if (currentStepIndex > 0 && !plan) {
-      router.push("/create/plan");
+      router.push("/studio/plan");
     }
   }, [currentStepIndex, plan, router]);
 

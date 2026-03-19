@@ -161,7 +161,7 @@ export async function Footer() {
                 </li>
                 <li>
                   <Link
-                    href='/create'
+                    href='/studio/plan'
                     className='text-sm text-primary-foreground/70 hover:text-primary-foreground transition-colors'
                   >
                     {t("linkCreate")}
