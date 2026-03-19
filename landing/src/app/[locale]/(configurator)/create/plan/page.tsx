@@ -58,12 +58,12 @@ export default function PlanPage() {
           </p>
 
           <button
-            onClick={() => { setPlan("premium"); goToNextStep(); }}
+            onClick={() => premiumSelected ? goToNextStep() : setPlan("premium")}
             className={cn(
-              "w-full py-3 rounded-full text-sm font-bold font-sans transition-colors",
+              "w-full py-3 rounded-full text-sm font-bold font-sans border-2 transition-colors",
               premiumSelected
-                ? "bg-primary/80 text-primary-foreground"
-                : "bg-primary text-primary-foreground hover:bg-primary/90",
+                ? "border-primary bg-primary text-primary-foreground"
+                : "border-primary bg-transparent text-primary hover:bg-primary/5",
             )}
           >
             {premiumSelected ? "✓ Sélectionné" : "Choisir Premium"}
@@ -89,7 +89,7 @@ export default function PlanPage() {
           </div>
 
           <button
-            onClick={() => { setPlan("experience"); goToNextStep(); }}
+            onClick={() => essentialSelected ? goToNextStep() : setPlan("experience")}
             className={cn(
               "flex-shrink-0 px-5 py-2 rounded-full text-sm font-bold font-sans border-2 transition-colors",
               essentialSelected
@@ -97,7 +97,7 @@ export default function PlanPage() {
                 : "border-primary text-primary bg-transparent hover:bg-primary/5",
             )}
           >
-            {essentialSelected ? "✓ Choisi" : "Choisir"}
+            {essentialSelected ? "✓ Continuer" : "Choisir"}
           </button>
         </div>
 
