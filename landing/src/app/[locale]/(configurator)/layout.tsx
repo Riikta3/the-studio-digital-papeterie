@@ -5,7 +5,7 @@ import { Link, usePathname, useRouter } from "@/navigation";
 import { selectTotalPrice, useOrderStore } from "@/stores/use-order-store";
 import { AnimatePresence, motion } from "framer-motion";
 import { ArrowRight, ChevronLeft, X } from "lucide-react";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 
 const STEPS = [
   "/studio/plan",
@@ -27,6 +27,9 @@ export default function ConfiguratorLayout({
   const router = useRouter();
   const totalPrice = useOrderStore(selectTotalPrice);
   const plan = useOrderStore((state) => state.plan);
+  const weddingInfo = useOrderStore((state) => state.weddingInfo);
+  const [isMounted, setIsMounted] = useState(false);
+  useEffect(() => { setIsMounted(true); }, []);
 
   // Calculate Progress
   const currentStepIndex = STEPS.findIndex((step) => pathname.includes(step));
@@ -35,6 +38,17 @@ export default function ConfiguratorLayout({
   // Determine Next Step
   const nextStep = STEPS[currentStepIndex + 1] || STEPS[STEPS.length - 1];
   const isLastStep = currentStepIndex === STEPS.length - 1;
+
+  const isWeddingStep = pathname.includes("/studio/wedding");
+  const isWeddingValid =
+    !!weddingInfo.partner1.trim() &&
+    !!weddingInfo.partner2.trim() &&
+    !!weddingInfo.day &&
+    !!weddingInfo.month &&
+    !!weddingInfo.year &&
+    !!weddingInfo.venue.trim() &&
+    !!weddingInfo.email.trim() &&
+    weddingInfo.password.length >= 8;
 
   const STEP_TITLES: Record<string, string> = {
     "/studio/plan":      "Votre Offre",
@@ -102,18 +116,7 @@ export default function ConfiguratorLayout({
 
       {/* MAIN CONTENT */}
       <main className='flex-1 container mx-auto px-4 pt-24 pb-32 z-10 max-w-4xl relative'>
-        <AnimatePresence mode='wait'>
-          <motion.div
-            key={pathname}
-            initial={{ opacity: 0, x: 20 }}
-            animate={{ opacity: 1, x: 0 }}
-            exit={{ opacity: 0, x: -20 }}
-            transition={{ duration: 0.3, ease: "easeOut" }}
-            className='h-full'
-          >
-            {children}
-          </motion.div>
-        </AnimatePresence>
+        {children}
       </main>
 
       {/* STICKY FOOTER */}
@@ -142,13 +145,13 @@ export default function ConfiguratorLayout({
 
           <button
             onClick={() => router.push(nextStep)}
-            disabled={currentStepIndex === 0 && !plan}
+            disabled={(currentStepIndex === 0 && !plan) || (isWeddingStep && !isWeddingValid)}
             className={cn(
               'group flex items-center gap-2 rounded-full bg-primary text-primary-foreground px-6 py-3 font-semibold shadow-lg transition-all hover:scale-105 active:scale-95',
-              currentStepIndex === 0 && !plan && 'opacity-40 cursor-not-allowed pointer-events-none',
+              ((currentStepIndex === 0 && !plan) || (isWeddingStep && !isWeddingValid)) && 'opacity-40 cursor-not-allowed pointer-events-none',
             )}
           >
-            <span>{isLastStep ? "Finaliser" : "Continuer"}</span>
+            <span>{isLastStep ? "Finaliser" : currentStepIndex === 0 ? "Commencer la création" : "Continuer"}</span>
             <ArrowRight className='w-4 h-4 transition-transform group-hover:translate-x-1' />
           </button>
         </div>

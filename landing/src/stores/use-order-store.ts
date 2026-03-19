@@ -12,6 +12,7 @@ export interface WeddingInfo {
   year: string;
   venue: string;
   email: string;
+  password: string;
 }
 
 export interface OrderState {
@@ -64,6 +65,7 @@ export const useOrderStore = create<OrderState>()(
         year: "",
         venue: "",
         email: "",
+        password: "",
       },
       setPlan: (plan) => set({ plan }),
       setPrimaryLanguage: (code) => set({ primaryLanguage: code }),

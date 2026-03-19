@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { StepTransition } from "@/components/configurator/StepTransition";
 import { useOrderStore } from "@/stores/use-order-store";
 import { ConfiguratorCarousel, type CarouselCard } from "@/components/configurator/ConfiguratorCarousel";
 import { ThemeDemoOverlay } from "@/components/configurator/ThemeDemoOverlay";
@@ -131,6 +132,7 @@ function ThemePreview({ t, onDemo }: { t: ThemeConfig; onDemo: () => void }) {
   );
 }
 
+
 export default function ThemePage() {
   const { theme, setTheme } = useOrderStore();
   const [demoTheme, setDemoTheme] = useState<ThemeConfig | null>(null);
@@ -145,6 +147,7 @@ export default function ThemePage() {
   }));
 
   return (
+    <StepTransition>
     <>
       <div className="flex flex-col gap-4">
         <div className="text-center space-y-2 px-4">
@@ -173,5 +176,6 @@ export default function ThemePage() {
         />
       )}
     </>
+    </StepTransition>
   );
 }
