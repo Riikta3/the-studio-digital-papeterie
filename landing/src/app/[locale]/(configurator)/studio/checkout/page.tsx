@@ -1,13 +1,16 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { StepTransition } from "@/components/configurator/StepTransition";
 import { useRouter } from "@/navigation";
 import { selectTotalPrice, useOrderStore } from "@/stores/use-order-store";
-import { processCheckout } from "@/actions/checkout-actions";
 import { cn } from "@/lib/utils";
 import { Edit2, Eye, CreditCard, Loader2 } from "lucide-react";
 import { ThemeDemoOverlay } from "@/components/configurator/ThemeDemoOverlay";
+import { Elements, PaymentElement, useStripe, useElements } from "@stripe/react-stripe-js";
+import { loadStripe } from "@stripe/stripe-js";
+
+const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY!);
 
 const THEME_NAMES: Record<string, string> = {
   "theme-floral":     "Floral",
@@ -17,14 +20,50 @@ const THEME_NAMES: Record<string, string> = {
   "theme-modern":     "Modern",
 };
 
-const PAYMENT_METHODS = [
-  { id: "card",   label: "Carte" },
-  { id: "apple",  label: "Apple Pay" },
-  { id: "google", label: "Google Pay" },
-  { id: "paypal", label: "PayPal" },
-] as const;
+function StripePaymentForm({ totalPrice, onSuccess }: { totalPrice: number; onSuccess: () => void }) {
+  const stripe = useStripe();
+  const elements = useElements();
+  const [isLoading, setIsLoading] = useState(false);
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
-type PaymentMethod = (typeof PAYMENT_METHODS)[number]["id"];
+  async function handleSubmit(e: React.FormEvent) {
+    e.preventDefault();
+    if (!stripe || !elements) return;
+
+    setIsLoading(true);
+    setErrorMessage(null);
+
+    const { error } = await stripe.confirmPayment({
+      elements,
+      confirmParams: {
+        return_url: `${window.location.origin}/fr/studio/checkout?payment_success=true`,
+      },
+    });
+
+    if (error) {
+      setErrorMessage(error.message ?? "Une erreur est survenue.");
+      setIsLoading(false);
+    }
+    // Si succès, Stripe redirige vers return_url
+  }
+
+  return (
+    <form onSubmit={handleSubmit} className="flex flex-col gap-4">
+      <PaymentElement />
+      {errorMessage && (
+        <p className="text-sm text-red-500 font-sans">{errorMessage}</p>
+      )}
+      <button
+        type="submit"
+        disabled={!stripe || isLoading}
+        className="w-full py-4 rounded-2xl bg-primary text-primary-foreground font-bold text-base font-sans flex items-center justify-center gap-2 shadow-lg disabled:opacity-60 disabled:cursor-not-allowed hover:bg-primary/90 transition-colors"
+      >
+        {isLoading ? <Loader2 className="w-5 h-5 animate-spin" /> : <CreditCard className="w-5 h-5" />}
+        {isLoading ? "Traitement..." : `Payer ${totalPrice}€`}
+      </button>
+    </form>
+  );
+}
 
 export default function CheckoutPage() {
   const router = useRouter();
@@ -32,44 +71,32 @@ export default function CheckoutPage() {
   const totalPrice = useOrderStore(selectTotalPrice);
 
   const [showPreview, setShowPreview] = useState(false);
-  const [payMethod, setPayMethod] = useState<PaymentMethod>("card");
-  const [isLoading, setIsLoading] = useState(false);
+  const [clientSecret, setClientSecret] = useState<string | null>(null);
+  const [fetchError, setFetchError] = useState<string | null>(null);
 
-  // Billing form state
-  const [billing, setBilling] = useState({
-    firstName: "",
-    lastName: "",
-    address: "",
-    zip: "",
-    city: "",
-    country: "France",
-  });
-
-  async function handlePayment() {
-    setIsLoading(true);
-    try {
-      const result = await processCheckout({
-        plan: plan || "unknown",
-        amount: totalPrice,
-        period: "lifetime",
-      });
-      if (result.error) {
-        alert("Erreur: " + result.error);
-      } else {
-        const dashboardUrl = process.env.NEXT_PUBLIC_DASHBOARD_URL;
-        if (dashboardUrl) {
-          const target = new URL(dashboardUrl);
-          target.pathname = "/fr/billing";
-          target.searchParams.set("success", "true");
-          setTimeout(() => { window.location.href = target.toString(); }, 1500);
+  useEffect(() => {
+    async function fetchIntent() {
+      try {
+        const res = await fetch("/api/create-payment-intent", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            items: { plan, modules, languages, extras },
+            email: weddingInfo.email,
+          }),
+        });
+        const data = await res.json();
+        if (data.clientSecret) {
+          setClientSecret(data.clientSecret);
+        } else {
+          setFetchError(data.error ?? "Impossible d'initialiser le paiement.");
         }
+      } catch {
+        setFetchError("Erreur de connexion au serveur de paiement.");
       }
-    } catch {
-      alert("Une erreur est survenue.");
-    } finally {
-      setIsLoading(false);
     }
-  }
+    fetchIntent();
+  }, [plan, modules, languages, extras, weddingInfo.email]);
 
   const RecapRow = ({
     label, value, href, children,
@@ -154,88 +181,6 @@ export default function CheckoutPage() {
           Voir l&apos;aperçu de mon site
         </button>
 
-        {/* Separator */}
-        <div className="flex items-center gap-3">
-          <div className="flex-1 h-px bg-border" />
-          <span className="text-[10px] font-bold uppercase tracking-wider text-muted-foreground/50 font-sans">Paiement</span>
-          <div className="flex-1 h-px bg-border" />
-        </div>
-
-        {/* Billing */}
-        <div>
-          <p className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground/60 font-sans mb-2">
-            Informations de facturation
-          </p>
-          <div className="bg-card border-2 border-border rounded-2xl overflow-hidden">
-            <div className="flex border-b border-border/60">
-              <div className="flex-1 px-4 py-3 border-r border-border/60">
-                <p className="text-[10px] font-bold uppercase tracking-wider text-muted-foreground/60 font-sans mb-1">Prénom</p>
-                <input
-                  type="text"
-                  placeholder="Sophie"
-                  value={billing.firstName}
-                  onChange={(e) => setBilling({ ...billing, firstName: e.target.value })}
-                  className="w-full text-sm font-sans bg-transparent outline-none placeholder:text-muted-foreground/40"
-                />
-              </div>
-              <div className="flex-1 px-4 py-3">
-                <p className="text-[10px] font-bold uppercase tracking-wider text-muted-foreground/60 font-sans mb-1">Nom</p>
-                <input
-                  type="text"
-                  placeholder="Dupont"
-                  value={billing.lastName}
-                  onChange={(e) => setBilling({ ...billing, lastName: e.target.value })}
-                  className="w-full text-sm font-sans bg-transparent outline-none placeholder:text-muted-foreground/40"
-                />
-              </div>
-            </div>
-            <div className="px-4 py-3 border-b border-border/60">
-              <p className="text-[10px] font-bold uppercase tracking-wider text-muted-foreground/60 font-sans mb-1">Adresse</p>
-              <input
-                type="text"
-                placeholder="12 rue des Roses"
-                value={billing.address}
-                onChange={(e) => setBilling({ ...billing, address: e.target.value })}
-                className="w-full text-sm font-sans bg-transparent outline-none placeholder:text-muted-foreground/40"
-              />
-            </div>
-            <div className="flex border-b border-border/60">
-              <div className="w-[90px] px-4 py-3 border-r border-border/60">
-                <p className="text-[10px] font-bold uppercase tracking-wider text-muted-foreground/60 font-sans mb-1">Code postal</p>
-                <input
-                  type="text"
-                  placeholder="75001"
-                  value={billing.zip}
-                  onChange={(e) => setBilling({ ...billing, zip: e.target.value })}
-                  className="w-full text-sm font-sans bg-transparent outline-none placeholder:text-muted-foreground/40"
-                />
-              </div>
-              <div className="flex-1 px-4 py-3">
-                <p className="text-[10px] font-bold uppercase tracking-wider text-muted-foreground/60 font-sans mb-1">Ville</p>
-                <input
-                  type="text"
-                  placeholder="Paris"
-                  value={billing.city}
-                  onChange={(e) => setBilling({ ...billing, city: e.target.value })}
-                  className="w-full text-sm font-sans bg-transparent outline-none placeholder:text-muted-foreground/40"
-                />
-              </div>
-            </div>
-            <div className="px-4 py-3">
-              <p className="text-[10px] font-bold uppercase tracking-wider text-muted-foreground/60 font-sans mb-1">Pays</p>
-              <select
-                value={billing.country}
-                onChange={(e) => setBilling({ ...billing, country: e.target.value })}
-                className="w-full text-sm font-sans bg-transparent outline-none text-foreground"
-              >
-                {["France","Belgique","Suisse","Luxembourg","Canada","Autre"].map((c) => (
-                  <option key={c}>{c}</option>
-                ))}
-              </select>
-            </div>
-          </div>
-        </div>
-
         {/* Total */}
         <div className="flex items-center justify-between px-5 py-4 bg-card border-2 border-border rounded-2xl">
           <div>
@@ -245,77 +190,31 @@ export default function CheckoutPage() {
           <span className="font-heading text-3xl font-bold text-primary">{totalPrice}€</span>
         </div>
 
-        {/* Payment methods */}
-        <div>
-          <p className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground/60 font-sans mb-2">
-            Mode de paiement
-          </p>
-          <div className="flex gap-2 mb-3">
-            {PAYMENT_METHODS.map((m) => (
-              <button
-                key={m.id}
-                onClick={() => setPayMethod(m.id)}
-                className={cn(
-                  "flex-1 py-2.5 rounded-xl border-2 text-[11px] font-bold font-sans transition-all",
-                  payMethod === m.id
-                    ? "border-primary bg-primary/5 text-primary"
-                    : "border-border text-muted-foreground hover:border-primary/30",
-                )}
-              >
-                {m.label}
-              </button>
-            ))}
-          </div>
-
-          {payMethod === "card" && (
-            <div className="bg-card border-2 border-border rounded-2xl overflow-hidden mb-3">
-              <div className="px-4 py-3 border-b border-border/60">
-                <p className="text-[10px] font-bold uppercase tracking-wider text-muted-foreground/60 font-sans mb-1">Numéro de carte</p>
-                <input type="text" placeholder="1234  5678  9012  3456" className="w-full text-sm font-sans bg-transparent outline-none placeholder:text-muted-foreground/40" readOnly />
-              </div>
-              <div className="flex">
-                <div className="flex-1 px-4 py-3 border-r border-border/60">
-                  <p className="text-[10px] font-bold uppercase tracking-wider text-muted-foreground/60 font-sans mb-1">Expiration</p>
-                  <input type="text" placeholder="MM / AA" className="w-full text-sm font-sans bg-transparent outline-none placeholder:text-muted-foreground/40" readOnly />
-                </div>
-                <div className="w-[100px] px-4 py-3">
-                  <p className="text-[10px] font-bold uppercase tracking-wider text-muted-foreground/60 font-sans mb-1">CVC</p>
-                  <input type="text" placeholder="•••" className="w-full text-sm font-sans bg-transparent outline-none placeholder:text-muted-foreground/40" readOnly />
-                </div>
-              </div>
-              <div className="px-4 py-3">
-                <p className="text-[10px] font-bold uppercase tracking-wider text-muted-foreground/60 font-sans mb-1">Nom sur la carte</p>
-                <input type="text" placeholder="Sophie Dupont" className="w-full text-sm font-sans bg-transparent outline-none placeholder:text-muted-foreground/40" readOnly />
-              </div>
-            </div>
-          )}
-
-          {(payMethod === "apple" || payMethod === "google" || payMethod === "paypal") && (
-            <div className="bg-muted/30 rounded-2xl p-4 text-center mb-3">
-              <p className="text-sm text-muted-foreground font-sans">
-                {payMethod === "apple" && "Apple Pay sera activé via Stripe au moment du paiement."}
-                {payMethod === "google" && "Google Pay sera activé via Stripe au moment du paiement."}
-                {payMethod === "paypal" && "Vous serez redirigé vers PayPal pour finaliser le paiement."}
-              </p>
-            </div>
-          )}
+        {/* Separator */}
+        <div className="flex items-center gap-3">
+          <div className="flex-1 h-px bg-border" />
+          <span className="text-[10px] font-bold uppercase tracking-wider text-muted-foreground/50 font-sans">Paiement sécurisé</span>
+          <div className="flex-1 h-px bg-border" />
         </div>
 
-        {/* Stripe badge */}
-        <p className="text-center text-[11px] text-muted-foreground/60 font-sans flex items-center justify-center gap-1.5">
-          <CreditCard className="w-3.5 h-3.5" />
-          Paiement sécurisé par Stripe
-        </p>
-
-        {/* Pay button */}
-        <button
-          onClick={handlePayment}
-          disabled={isLoading}
-          className="w-full py-4 rounded-2xl bg-primary text-primary-foreground font-bold text-base font-sans flex items-center justify-center gap-2 shadow-lg disabled:opacity-60 disabled:cursor-not-allowed hover:bg-primary/90 transition-colors"
-        >
-          {isLoading ? <Loader2 className="w-5 h-5 animate-spin" /> : <CreditCard className="w-5 h-5" />}
-          {isLoading ? "Traitement..." : `Payer ${totalPrice}€`}
-        </button>
+        {/* Stripe Elements */}
+        {fetchError ? (
+          <div className="rounded-2xl bg-red-50 border border-red-100 px-4 py-3">
+            <p className="text-sm text-red-500 font-sans">{fetchError}</p>
+          </div>
+        ) : !clientSecret ? (
+          <div className="flex flex-col items-center gap-3 py-8">
+            <Loader2 className="w-8 h-8 text-primary animate-spin" />
+            <p className="text-sm text-muted-foreground font-sans animate-pulse">Initialisation du paiement sécurisé...</p>
+          </div>
+        ) : (
+          <Elements
+            stripe={stripePromise}
+            options={{ clientSecret, appearance: { theme: "stripe" }, wallets: { applePay: "auto", googlePay: "auto" } }}
+          >
+            <StripePaymentForm totalPrice={totalPrice} onSuccess={() => {}} />
+          </Elements>
+        )}
 
         <p className="text-center text-[10px] text-muted-foreground/50 font-sans leading-relaxed">
           En validant, vous acceptez nos CGV et notre politique de confidentialité.<br />
