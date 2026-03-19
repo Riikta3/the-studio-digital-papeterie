@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { StepTransition } from "@/components/configurator/StepTransition";
 import { useRouter } from "@/navigation";
 import { selectTotalPrice, useOrderStore } from "@/stores/use-order-store";
 import { processCheckout } from "@/actions/checkout-actions";
@@ -96,6 +97,7 @@ export default function CheckoutPage() {
   );
 
   return (
+    <StepTransition>
     <>
       <div className="flex flex-col gap-5 max-w-lg mx-auto px-4">
         <div className="text-center space-y-2 pb-2">
@@ -331,5 +333,6 @@ export default function CheckoutPage() {
         />
       )}
     </>
+    </StepTransition>
   );
 }

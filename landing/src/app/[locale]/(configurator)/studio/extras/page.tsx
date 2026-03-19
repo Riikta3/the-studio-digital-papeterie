@@ -2,6 +2,7 @@
 "use client";
 
 import { cn } from "@/lib/utils";
+import { StepTransition } from "@/components/configurator/StepTransition";
 import { useOrderStore } from "@/stores/use-order-store";
 import { Music, Palette, Video, Globe, Ban } from "lucide-react";
 
@@ -40,6 +41,7 @@ export default function ExtrasPage() {
   const { adultsOnly, setAdultsOnly, extras, toggleExtra } = useOrderStore();
 
   return (
+    <StepTransition>
     <div className="flex flex-col gap-4">
       <div className="text-center space-y-2 px-4 pb-2">
         <h1 className="font-heading text-3xl font-bold md:text-4xl lg:text-5xl">
@@ -144,5 +146,6 @@ export default function ExtrasPage() {
         </div>
       </div>
     </div>
+    </StepTransition>
   );
 }
