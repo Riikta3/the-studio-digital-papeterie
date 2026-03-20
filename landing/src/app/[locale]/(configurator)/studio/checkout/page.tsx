@@ -49,7 +49,7 @@ function StripePaymentForm({ totalPrice, onSuccess }: { totalPrice: number; onSu
 
   return (
     <form onSubmit={handleSubmit} className="flex flex-col gap-4">
-      <PaymentElement />
+      <PaymentElement options={{ wallets: { applePay: "auto", googlePay: "auto" } }} />
       {errorMessage && (
         <p className="text-sm text-red-500 font-sans">{errorMessage}</p>
       )}
@@ -210,7 +210,7 @@ export default function CheckoutPage() {
         ) : (
           <Elements
             stripe={stripePromise}
-            options={{ clientSecret, appearance: { theme: "stripe" }, wallets: { applePay: "auto", googlePay: "auto" } }}
+            options={{ clientSecret, appearance: { theme: "stripe" } }}
           >
             <StripePaymentForm totalPrice={totalPrice} onSuccess={() => {}} />
           </Elements>
