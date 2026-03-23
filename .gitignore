@@ -57,3 +57,6 @@ _bmad-output/
 CLAUDE.md
 .claudeignore
 .claudrules
+skills-lock.json
+.continue
+.agents
