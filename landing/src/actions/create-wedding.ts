@@ -15,6 +15,7 @@ interface CreateWeddingData {
   extras: string[];
   languages: string[];
   plan: string;
+  adultsOnly?: boolean;
 }
 
 export async function createWedding(data: CreateWeddingData) {
@@ -132,6 +133,7 @@ export async function createWedding(data: CreateWeddingData) {
     is_module_accommodation_enabled: data.modules.includes("accommodation"),
     theme_config: { themeId: data.themeId },
     wedding_code: generateWeddingCode(data.firstName, data.partnerName),
+    adults_only: data.adultsOnly ?? false,
   });
 
   if (settingsError) {

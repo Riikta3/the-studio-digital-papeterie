@@ -1,8 +1,9 @@
 "use client";
 
+import { useState } from "react";
 import { StepTransition } from "@/components/configurator/StepTransition";
 import { useOrderStore } from "@/stores/use-order-store";
-import { HeadphonesIcon, ShieldCheck, Sparkles } from "lucide-react";
+import { HeadphonesIcon, ShieldCheck, Sparkles, Eye, EyeOff } from "lucide-react";
 
 const MONTHS = [
   "Janvier",
@@ -37,7 +38,34 @@ function isDateInPast(day: string, month: string, year: string): boolean {
 }
 
 export default function WeddingPage() {
-  const { weddingInfo, setWeddingInfo } = useOrderStore();
+  const { weddingInfo, setWeddingInfo, setEmailExists } = useOrderStore();
+  const [showPassword, setShowPassword] = useState(false);
+  const [emailError, setEmailError] = useState<string | null>(null);
+  const [emailChecking, setEmailChecking] = useState(false);
+
+  async function handleEmailBlur() {
+    const email = weddingInfo.email.trim();
+    if (!email || !email.includes("@")) return;
+    setEmailChecking(true);
+    setEmailError(null);
+    setEmailExists(false);
+    try {
+      const res = await fetch("/api/check-email", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email }),
+      });
+      if (res.status === 409) {
+        const data = await res.json();
+        setEmailError(data.error);
+        setEmailExists(true);
+      }
+    } catch {
+      // silently ignore network errors
+    } finally {
+      setEmailChecking(false);
+    }
+  }
 
   const dateInPast = isDateInPast(
     weddingInfo.day,
@@ -201,21 +229,37 @@ export default function WeddingPage() {
                   type='email'
                   placeholder='sophie@exemple.fr'
                   value={weddingInfo.email}
-                  onChange={(e) => setWeddingInfo({ email: e.target.value })}
+                  onChange={(e) => { setWeddingInfo({ email: e.target.value }); setEmailError(null); setEmailExists(false); }}
+                  onBlur={handleEmailBlur}
                   className='w-full text-sm font-sans bg-transparent outline-none placeholder:text-muted-foreground/40'
                 />
+                {emailChecking && (
+                  <p className='text-[10px] text-muted-foreground/50 font-sans mt-1'>Vérification…</p>
+                )}
+                {emailError && (
+                  <p className='text-[10px] text-red-500 font-sans mt-1'>{emailError}</p>
+                )}
               </div>
               <div className='px-4 py-3'>
                 <p className='text-[10px] font-bold uppercase tracking-wider text-muted-foreground/60 font-sans mb-1'>
                   Mot de passe
                 </p>
-                <input
-                  type='password'
-                  placeholder='••••••••'
-                  value={weddingInfo.password}
-                  onChange={(e) => setWeddingInfo({ password: e.target.value })}
-                  className='w-full text-sm font-sans bg-transparent outline-none placeholder:text-muted-foreground/40'
-                />
+                <div className='flex items-center gap-2'>
+                  <input
+                    type={showPassword ? 'text' : 'password'}
+                    placeholder='••••••••'
+                    value={weddingInfo.password}
+                    onChange={(e) => setWeddingInfo({ password: e.target.value })}
+                    className='flex-1 text-sm font-sans bg-transparent outline-none placeholder:text-muted-foreground/40'
+                  />
+                  <button
+                    type='button'
+                    onClick={() => setShowPassword((v) => !v)}
+                    className='text-muted-foreground/40 hover:text-muted-foreground transition-colors flex-shrink-0'
+                  >
+                    {showPassword ? <EyeOff className='w-4 h-4' /> : <Eye className='w-4 h-4' />}
+                  </button>
+                </div>
                 <p className='text-[10px] text-muted-foreground/50 font-sans mt-1'>
                   8 caractères minimum
                 </p>

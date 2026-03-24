@@ -25,6 +25,10 @@ export interface OrderState {
   adultsOnly: boolean;
   extras: string[];
   weddingInfo: WeddingInfo;
+  _hasHydrated: boolean;
+  setHasHydrated: (value: boolean) => void;
+  emailExists: boolean;
+  setEmailExists: (value: boolean) => void;
 
   setPlan: (plan: PlanType) => void;
   setAnimation: (animation: string) => void;
@@ -57,6 +61,10 @@ export const useOrderStore = create<OrderState>()(
       languages: [],
       adultsOnly: false,
       extras: [],
+      _hasHydrated: false,
+      setHasHydrated: (value) => set({ _hasHydrated: value }),
+      emailExists: false,
+      setEmailExists: (value) => set({ emailExists: value }),
       weddingInfo: {
         partner1: "",
         partner2: "",
@@ -95,7 +103,12 @@ export const useOrderStore = create<OrderState>()(
           weddingInfo: { ...state.weddingInfo, ...info },
         })),
     }),
-    { name: "order-store-v2" }
+    {
+      name: "order-store-v2",
+      onRehydrateStorage: () => (state) => {
+        state?.setHasHydrated(true);
+      },
+    }
   )
 );
 
