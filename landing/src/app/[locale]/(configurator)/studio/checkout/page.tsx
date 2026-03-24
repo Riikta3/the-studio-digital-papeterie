@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import { useSearchParams } from "next/navigation";
 import { StepTransition } from "@/components/configurator/StepTransition";
 import { useRouter } from "@/navigation";
 import { selectTotalPrice, useOrderStore } from "@/stores/use-order-store";
@@ -9,6 +10,7 @@ import { Edit2, Eye, CreditCard, Loader2 } from "lucide-react";
 import { ThemeDemoOverlay } from "@/components/configurator/ThemeDemoOverlay";
 import { Elements, PaymentElement, useStripe, useElements } from "@stripe/react-stripe-js";
 import { loadStripe } from "@stripe/stripe-js";
+import { createWedding } from "@/actions/create-wedding";
 
 const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY!);
 
@@ -67,14 +69,69 @@ function StripePaymentForm({ totalPrice, onSuccess }: { totalPrice: number; onSu
 
 export default function CheckoutPage() {
   const router = useRouter();
+  const searchParams = useSearchParams();
   const { plan, animation, theme, modules, languages, extras, adultsOnly, weddingInfo } = useOrderStore();
   const totalPrice = useOrderStore(selectTotalPrice);
+
+  const isPaymentSuccess = searchParams.get("payment_success") === "true";
+  const hasHydrated = useOrderStore((state) => state._hasHydrated);
 
   const [showPreview, setShowPreview] = useState(false);
   const [clientSecret, setClientSecret] = useState<string | null>(null);
   const [fetchError, setFetchError] = useState<string | null>(null);
+  const [isProvisioning, setIsProvisioning] = useState(false);
+  const [provisionError, setProvisionError] = useState<string | null>(null);
 
+  // Handle return from PayPal/Stripe redirect after payment
+  // Wait for Zustand to rehydrate from localStorage before provisioning
   useEffect(() => {
+    if (!isPaymentSuccess || !hasHydrated) return;
+
+    async function provision() {
+      setIsProvisioning(true);
+      const nameParts = weddingInfo.partner1.trim().split(" ");
+      const firstName = nameParts[0] || weddingInfo.partner1;
+      const lastName = nameParts.slice(1).join(" ") || "";
+      const MONTHS_FR = ["Janvier","Février","Mars","Avril","Mai","Juin","Juillet","Août","Septembre","Octobre","Novembre","Décembre"];
+      const monthIndex = MONTHS_FR.indexOf(weddingInfo.month) + 1; // 1-based, 0 if not found
+      const weddingDate =
+        weddingInfo.day && monthIndex > 0 && weddingInfo.year
+          ? `${weddingInfo.year}-${String(monthIndex).padStart(2, "0")}-${String(weddingInfo.day).padStart(2, "0")}`
+          : undefined;
+
+      const result = await createWedding({
+        email: weddingInfo.email,
+        password: weddingInfo.password,
+        firstName,
+        lastName,
+        partnerName: weddingInfo.partner2,
+        weddingDate,
+        themeId: theme,
+        modules,
+        extras,
+        languages,
+        plan: plan ?? "experience",
+        adultsOnly,
+      });
+
+      if (result.success && result.loginLink) {
+        window.location.href = result.loginLink;
+      } else if (result.success) {
+        router.push("/studio/success");
+      } else {
+        setProvisionError(result.error ?? "Une erreur est survenue.");
+        setIsProvisioning(false);
+      }
+    }
+
+    provision();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isPaymentSuccess, hasHydrated]);
+
+  // Fetch payment intent (only when not in payment success state)
+  useEffect(() => {
+    if (isPaymentSuccess) return;
+
     async function fetchIntent() {
       try {
         const res = await fetch("/api/create-payment-intent", {
@@ -96,7 +153,7 @@ export default function CheckoutPage() {
       }
     }
     fetchIntent();
-  }, [plan, modules, languages, extras, weddingInfo.email]);
+  }, [isPaymentSuccess, plan, modules, languages, extras, weddingInfo.email]);
 
   const RecapRow = ({
     label, value, href, children,
@@ -122,6 +179,29 @@ export default function CheckoutPage() {
       )}
     </div>
   );
+
+  // Show provisioning screen after payment redirect
+  if (isPaymentSuccess) {
+    return (
+      <StepTransition>
+        <div className="flex flex-col items-center justify-center min-h-[60vh] gap-6 text-center px-4">
+          {provisionError ? (
+            <div className="bg-red-50 border border-red-100 rounded-2xl p-6 max-w-sm">
+              <p className="text-red-500 font-sans text-sm">{provisionError}</p>
+            </div>
+          ) : (
+            <>
+              <Loader2 className="w-12 h-12 text-primary animate-spin" />
+              <div>
+                <p className="font-heading text-2xl font-bold">Création de votre site...</p>
+                <p className="text-muted-foreground text-sm font-sans mt-2">Cela prend quelques secondes.</p>
+              </div>
+            </>
+          )}
+        </div>
+      </StepTransition>
+    );
+  }
 
   return (
     <StepTransition>
