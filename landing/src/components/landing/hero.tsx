@@ -73,7 +73,7 @@ export function Hero() {
           <div className='mt-6 flex flex-col items-center gap-6'>
             <div className='flex flex-col sm:flex-row items-center gap-4'>
               <Link
-                href='/studio/plan'
+                href='/studio/start'
                 className='group relative overflow-hidden rounded-full bg-primary px-8 py-4 text-base font-medium text-primary-foreground shadow-xl transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl active:scale-95'
               >
                 <span className='relative z-10 flex items-center gap-3'>

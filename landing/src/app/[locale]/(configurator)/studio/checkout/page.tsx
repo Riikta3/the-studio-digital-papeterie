@@ -221,9 +221,9 @@ export default function CheckoutPage() {
           <RecapRow
             label="Les mariés"
             value={`${weddingInfo.partner1 || "—"} & ${weddingInfo.partner2 || "—"} · ${weddingInfo.day || "—"} ${weddingInfo.month || ""} ${weddingInfo.year || ""}`}
-            href="/studio/wedding"
+            href="/studio/start"
           />
-          <RecapRow label="Offre" value={`Pack ${plan === "premium" ? "Premium" : "Essentiel"} — ${plan === "premium" ? "575" : "175"}€`} href="/studio/plan" />
+          <RecapRow label="Offre" value={`Pack ${plan === "premium" ? "Premium" : "Essentiel"} — ${plan === "premium" ? "575" : "175"}€`} href="/studio/start" />
           <RecapRow label="Animation & Thème" value={`${animation || "—"} · ${THEME_NAMES[theme] || "—"}`} href="/studio/animation" />
           <RecapRow label="Modules" href="/studio/modules">
             <div className="flex flex-wrap gap-1 mt-1">
@@ -236,7 +236,7 @@ export default function CheckoutPage() {
             </div>
           </RecapRow>
           {(languages.length > 0 || extras.length > 0 || adultsOnly) && (
-            <RecapRow label="Options" href="/studio/extras">
+            <RecapRow label="Options" href="/studio/options">
               <div className="flex flex-wrap gap-1 mt-1">
                 {languages.map((l) => (
                   <span key={l} className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-primary/10 text-primary font-sans">{l.toUpperCase()} +15€</span>

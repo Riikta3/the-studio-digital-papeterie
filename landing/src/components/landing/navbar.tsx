@@ -95,7 +95,7 @@ export function Navbar() {
             </Link>
             <LanguageSwitcher />
             <Link
-              href='/studio/plan'
+              href='/studio/start'
               className='rounded-full bg-primary px-6 py-2.5 text-sm font-semibold text-primary-foreground shadow-md transition-transform hover:scale-105 active:scale-95 whitespace-nowrap'
             >
               {t("createButton")}
@@ -105,7 +105,7 @@ export function Navbar() {
           {/* Mobile — CTA pill + burger */}
           <div className='flex items-center gap-3 lg:hidden z-50'>
             <Link
-              href='/studio/plan'
+              href='/studio/start'
               onClick={() => setIsMobileMenuOpen(false)}
               className='rounded-full bg-primary px-4 py-2 text-xs font-semibold text-primary-foreground shadow-md active:scale-95 whitespace-nowrap'
             >
