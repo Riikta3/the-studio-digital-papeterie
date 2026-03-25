@@ -1,0 +1,189 @@
+{
+  "name": "WF5 — Supabase DB Monitor",
+  "nodes": [
+    {
+      "id": "wf5-trigger",
+      "name": "Schedule Trigger",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1,
+      "position": [240, 400],
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "cronExpression",
+              "expression": "0 7 * * *"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "wf5-count-purchases",
+      "name": "Count Purchases 48h",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4,
+      "position": [480, 400],
+      "parameters": {
+        "method": "GET",
+        "url": "https://pftvcpxwbprmphhgwvxc.supabase.co/rest/v1/purchases?created_at=gte.={{ new Date(Date.now() - 48*60*60*1000).toISOString() }}&select=id",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Prefer",
+              "value": "count=exact"
+            },
+            {
+              "name": "Authorization",
+              "value": "Bearer SUPABASE_SERVICE_ROLE_KEY_PLACEHOLDER"
+            }
+          ]
+        },
+        "options": {
+          "response": {
+            "response": {
+              "includeResponseHeaders": true,
+              "responseFormat": "json",
+              "fullResponse": true
+            }
+          }
+        }
+      },
+      "continueOnFail": true,
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "2",
+          "name": "supabase-rest"
+        }
+      }
+    },
+    {
+      "id": "wf5-extract-count",
+      "name": "Extract Count",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [720, 400],
+      "parameters": {
+        "jsCode": "const headers = $input.first().json.headers;\nconst contentRange = headers['content-range'] || '*/0';\nconst total = parseInt(contentRange.split('/')[1]) || 0;\nconst today = new Date();\nconst dayOfWeek = today.getDay();\nconst isWeekday = dayOfWeek >= 1 && dayOfWeek <= 5;\nreturn [{ json: { count: total, isWeekday } }];"
+      }
+    },
+    {
+      "id": "wf5-if-zero-weekday",
+      "name": "Zero + Weekday",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2,
+      "position": [960, 400],
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict"
+          },
+          "conditions": [
+            {
+              "id": "cond-count",
+              "leftValue": "={{ $json.count }}",
+              "rightValue": 0,
+              "operator": {
+                "type": "number",
+                "operation": "equals"
+              }
+            },
+            {
+              "id": "cond-weekday",
+              "leftValue": "={{ $json.isWeekday }}",
+              "rightValue": true,
+              "operator": {
+                "type": "boolean",
+                "operation": "true"
+              }
+            }
+          ],
+          "combinator": "and"
+        }
+      }
+    },
+    {
+      "id": "wf5-alert-no-conversion",
+      "name": "Alert No Conversion",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4,
+      "position": [1200, 300],
+      "parameters": {
+        "method": "POST",
+        "url": "https://api.resend.com/emails",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "{\n  \"from\": \"contact@thestudiopapeteriedigitale.fr\",\n  \"to\": [\"contact@thestudiopapeteriedigitale.fr\"],\n  \"subject\": \"⚠️ Aucune conversion depuis 48h — The Studio\",\n  \"html\": \"<p style='font-family:sans-serif'>Aucun achat enregistré dans les 48 dernières heures.</p><p style='font-family:sans-serif'>Timestamp : {{ $now }}</p>\"\n}",
+        "options": {
+          "response": {
+            "response": {
+              "includeResponseHeaders": true,
+              "responseFormat": "json",
+              "fullResponse": true
+            }
+          }
+        }
+      },
+      "continueOnFail": true,
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "1",
+          "name": "resend-api"
+        }
+      }
+    }
+  ],
+  "connections": {
+    "Schedule Trigger": {
+      "main": [
+        [
+          {
+            "node": "Count Purchases 48h",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Count Purchases 48h": {
+      "main": [
+        [
+          {
+            "node": "Extract Count",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Extract Count": {
+      "main": [
+        [
+          {
+            "node": "Zero + Weekday",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Zero + Weekday": {
+      "main": [
+        [
+          {
+            "node": "Alert No Conversion",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        []
+      ]
+    }
+  },
+  "active": false,
+  "settings": {},
+  "id": "wf5"
+}
