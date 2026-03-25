@@ -3,7 +3,7 @@
 import { useRouter, usePathname } from "@/navigation";
 
 const STEPS = [
-  "/studio/plan",
+  "/studio/start",
   "/studio/animation",
   "/studio/theme",
   "/studio/modules",

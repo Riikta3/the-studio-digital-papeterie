@@ -28,7 +28,7 @@ export async function ProductDemoSteps() {
           {t("subtitle")}
         </p>
         <Link
-          href="/studio/plan"
+          href="/studio/start"
           className="inline-flex items-center gap-3 rounded-full bg-primary px-8 py-3.5 font-heading text-base font-semibold italic text-primary-foreground shadow-lg transition-all hover:-translate-y-0.5 hover:shadow-xl active:scale-95"
         >
           {t("createButton")}

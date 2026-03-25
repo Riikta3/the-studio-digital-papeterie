@@ -79,7 +79,7 @@ export function HowItWorks() {
           className='flex justify-center mt-12'
         >
           <Link
-            href='/studio/plan'
+            href='/studio/start'
             className='inline-flex items-center px-8 py-3.5 bg-primary text-primary-foreground font-medium tracking-wide text-sm rounded-full hover:bg-primary/90 transition-colors'
           >
             {t("createButton")}

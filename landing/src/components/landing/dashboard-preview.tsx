@@ -121,7 +121,7 @@ export function DashboardPreview() {
           className='flex justify-center mt-16'
         >
           <Link
-            href='/studio/plan'
+            href='/studio/start'
             className='group inline-flex items-center gap-3 rounded-full bg-primary px-10 py-5 text-base font-medium text-primary-foreground shadow-xl hover:shadow-2xl hover:-translate-y-1 transition-all duration-300 active:scale-95'
           >
             {t("demoButton")}
