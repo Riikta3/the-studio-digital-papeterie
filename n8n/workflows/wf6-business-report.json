@@ -1,0 +1,337 @@
+{
+  "name": "WF6 — Business Report Hebdomadaire",
+  "nodes": [
+    {
+      "id": "wf6-trigger",
+      "name": "Schedule Trigger",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1,
+      "position": [240, 500],
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "cronExpression",
+              "expression": "30 7 * * 1"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "wf6-compute-week",
+      "name": "Compute Week Range",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [480, 500],
+      "parameters": {
+        "jsCode": "const now = new Date();\nconst dayOfWeek = now.getUTCDay();\nconst daysToLastMonday = dayOfWeek === 1 ? 7 : (dayOfWeek === 0 ? 6 : dayOfWeek - 1);\nconst lastMonday = new Date(now);\nlastMonday.setUTCDate(now.getUTCDate() - daysToLastMonday);\nlastMonday.setUTCHours(0, 0, 0, 0);\nconst startOfWeekISO = lastMonday.toISOString();\nconst startOfWeekUnix = Math.floor(lastMonday.getTime() / 1000);\nconst weekLabel = lastMonday.toLocaleDateString('fr-FR', { day: '2-digit', month: 'long', year: 'numeric' });\nreturn [{ json: { startOfWeekISO, startOfWeekUnix, weekLabel } }];"
+      }
+    },
+    {
+      "id": "wf6-weddings",
+      "name": "Weddings this week",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4,
+      "position": [720, 200],
+      "parameters": {
+        "method": "GET",
+        "url": "=https://pftvcpxwbprmphhgwvxc.supabase.co/rest/v1/weddings?created_at=gte.{{ $('Compute Week Range').item.json.startOfWeekISO }}&select=id",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Prefer",
+              "value": "count=exact"
+            },
+            {
+              "name": "Authorization",
+              "value": "Bearer SUPABASE_SERVICE_ROLE_KEY_PLACEHOLDER"
+            }
+          ]
+        },
+        "options": {
+          "response": {
+            "response": {
+              "includeResponseHeaders": true,
+              "responseFormat": "json",
+              "fullResponse": true
+            }
+          }
+        }
+      },
+      "continueOnFail": true,
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "2",
+          "name": "supabase-rest"
+        }
+      }
+    },
+    {
+      "id": "wf6-purchases",
+      "name": "Purchases this week",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4,
+      "position": [720, 400],
+      "parameters": {
+        "method": "GET",
+        "url": "=https://pftvcpxwbprmphhgwvxc.supabase.co/rest/v1/purchases?created_at=gte.{{ $('Compute Week Range').item.json.startOfWeekISO }}&select=id,amount",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Prefer",
+              "value": "count=exact"
+            },
+            {
+              "name": "Authorization",
+              "value": "Bearer SUPABASE_SERVICE_ROLE_KEY_PLACEHOLDER"
+            }
+          ]
+        },
+        "options": {
+          "response": {
+            "response": {
+              "includeResponseHeaders": true,
+              "responseFormat": "json",
+              "fullResponse": true
+            }
+          }
+        }
+      },
+      "continueOnFail": true,
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "2",
+          "name": "supabase-rest"
+        }
+      }
+    },
+    {
+      "id": "wf6-rsvps",
+      "name": "RSVPs this week",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4,
+      "position": [720, 600],
+      "parameters": {
+        "method": "GET",
+        "url": "=https://pftvcpxwbprmphhgwvxc.supabase.co/rest/v1/rsvp_responses?submitted_at=gte.{{ $('Compute Week Range').item.json.startOfWeekISO }}&select=id",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Prefer",
+              "value": "count=exact"
+            },
+            {
+              "name": "Authorization",
+              "value": "Bearer SUPABASE_SERVICE_ROLE_KEY_PLACEHOLDER"
+            }
+          ]
+        },
+        "options": {
+          "response": {
+            "response": {
+              "includeResponseHeaders": true,
+              "responseFormat": "json",
+              "fullResponse": true
+            }
+          }
+        }
+      },
+      "continueOnFail": true,
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "2",
+          "name": "supabase-rest"
+        }
+      }
+    },
+    {
+      "id": "wf6-stripe-revenue",
+      "name": "Stripe Revenue",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4,
+      "position": [720, 800],
+      "parameters": {
+        "method": "GET",
+        "url": "=https://api.stripe.com/v1/payment_intents?created[gte]={{ $('Compute Week Range').item.json.startOfWeekUnix }}&limit=100",
+        "options": {
+          "response": {
+            "response": {
+              "includeResponseHeaders": true,
+              "responseFormat": "json",
+              "fullResponse": true
+            }
+          }
+        }
+      },
+      "continueOnFail": true,
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "3",
+          "name": "stripe-api"
+        }
+      }
+    },
+    {
+      "id": "wf6-merge",
+      "name": "Merge",
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 3,
+      "position": [960, 500],
+      "parameters": {
+        "mode": "append"
+      }
+    },
+    {
+      "id": "wf6-compute-totals",
+      "name": "Compute Totals + Format HTML",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [1200, 500],
+      "parameters": {
+        "jsCode": "const items = $input.all();\nfunction extractCount(item) {\n  const cr = item.json.headers?.['content-range'] || '*/0';\n  return parseInt(cr.split('/')[1]) || 0;\n}\nconst weddingsCount = extractCount(items[0]);\nconst purchasesArray = Array.isArray(items[1].json.body) ? items[1].json.body : [];\nconst purchasesCount = extractCount(items[1]);\nconst purchasesAmount = purchasesArray.reduce((sum, p) => sum + (p.amount || 0), 0) / 100;\nconst rsvpCount = extractCount(items[2]);\nconst stripeData = items[3].json?.body?.data || [];\nconst stripeRevenue = stripeData.filter(pi => pi.status === 'succeeded').reduce((sum, pi) => sum + pi.amount, 0) / 100;\nconst weekLabel = $('Compute Week Range').item.json.weekLabel;\nconst html = `<table style=\"font-family:sans-serif;border-collapse:collapse;width:100%;max-width:600px\"><thead><tr style=\"background:#f4f0eb\"><th style=\"padding:12px;text-align:left;border-bottom:2px solid #d4c9be\">Métrique</th><th style=\"padding:12px;text-align:right;border-bottom:2px solid #d4c9be\">Semaine</th></tr></thead><tbody><tr><td style=\"padding:10px 12px\">Nouveaux mariages</td><td style=\"padding:10px 12px;text-align:right\"><strong>${weddingsCount}</strong></td></tr><tr style=\"background:#fafafa\"><td style=\"padding:10px 12px\">Achats (Supabase)</td><td style=\"padding:10px 12px;text-align:right\"><strong>${purchasesCount}</strong> — ${purchasesAmount.toFixed(2)} €</td></tr><tr><td style=\"padding:10px 12px\">Revenus Stripe confirmés</td><td style=\"padding:10px 12px;text-align:right\"><strong>${stripeRevenue.toFixed(2)} €</strong></td></tr><tr style=\"background:#fafafa\"><td style=\"padding:10px 12px\">RSVPs soumis</td><td style=\"padding:10px 12px;text-align:right\"><strong>${rsvpCount}</strong></td></tr></tbody></table>`;\nreturn [{ json: { html, weekLabel } }];"
+      }
+    },
+    {
+      "id": "wf6-send-report",
+      "name": "Send Report",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4,
+      "position": [1440, 500],
+      "parameters": {
+        "method": "POST",
+        "url": "https://api.resend.com/emails",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"from\": \"contact@thestudiopapeteriedigitale.fr\",\n  \"to\": [\"contact@thestudiopapeteriedigitale.fr\"],\n  \"subject\": \"📊 Rapport hebdo — Semaine du {{ $json.weekLabel }}\",\n  \"html\": {{ JSON.stringify($json.html) }}\n}",
+        "options": {
+          "response": {
+            "response": {
+              "includeResponseHeaders": true,
+              "responseFormat": "json",
+              "fullResponse": true
+            }
+          }
+        }
+      },
+      "continueOnFail": true,
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "1",
+          "name": "resend-api"
+        }
+      }
+    }
+  ],
+  "connections": {
+    "Schedule Trigger": {
+      "main": [
+        [
+          {
+            "node": "Compute Week Range",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Compute Week Range": {
+      "main": [
+        [
+          {
+            "node": "Weddings this week",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Purchases this week",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "RSVPs this week",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Stripe Revenue",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Weddings this week": {
+      "main": [
+        [
+          {
+            "node": "Merge",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Purchases this week": {
+      "main": [
+        [
+          {
+            "node": "Merge",
+            "type": "main",
+            "index": 1
+          }
+        ]
+      ]
+    },
+    "RSVPs this week": {
+      "main": [
+        [
+          {
+            "node": "Merge",
+            "type": "main",
+            "index": 2
+          }
+        ]
+      ]
+    },
+    "Stripe Revenue": {
+      "main": [
+        [
+          {
+            "node": "Merge",
+            "type": "main",
+            "index": 3
+          }
+        ]
+      ]
+    },
+    "Merge": {
+      "main": [
+        [
+          {
+            "node": "Compute Totals + Format HTML",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Compute Totals + Format HTML": {
+      "main": [
+        [
+          {
+            "node": "Send Report",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {},
+  "id": "wf6"
+}
