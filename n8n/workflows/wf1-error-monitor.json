@@ -1,0 +1,245 @@
+{
+  "name": "WF1 — Error Monitor",
+  "nodes": [
+    {
+      "id": "wf1-trigger",
+      "name": "Schedule Trigger",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1,
+      "position": [240, 400],
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "minutes",
+              "minutesInterval": 15
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "wf1-check-supabase",
+      "name": "Check Supabase",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4,
+      "position": [480, 200],
+      "parameters": {
+        "method": "GET",
+        "url": "https://pftvcpxwbprmphhgwvxc.supabase.co/rest/v1/",
+        "options": {
+          "response": {
+            "response": {
+              "includeResponseHeaders": true,
+              "responseFormat": "json",
+              "fullResponse": true
+            }
+          }
+        }
+      },
+      "continueOnFail": true,
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "2",
+          "name": "supabase-rest"
+        }
+      }
+    },
+    {
+      "id": "wf1-check-landing",
+      "name": "Check Landing 3002",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4,
+      "position": [480, 400],
+      "parameters": {
+        "method": "GET",
+        "url": "http://localhost:3002",
+        "options": {
+          "response": {
+            "response": {
+              "includeResponseHeaders": true,
+              "responseFormat": "text",
+              "fullResponse": true
+            }
+          }
+        }
+      },
+      "continueOnFail": true
+    },
+    {
+      "id": "wf1-check-dashboard",
+      "name": "Check Dashboard 3003",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4,
+      "position": [480, 600],
+      "parameters": {
+        "method": "GET",
+        "url": "http://localhost:3003",
+        "options": {
+          "response": {
+            "response": {
+              "includeResponseHeaders": true,
+              "responseFormat": "text",
+              "fullResponse": true
+            }
+          }
+        }
+      },
+      "continueOnFail": true
+    },
+    {
+      "id": "wf1-merge",
+      "name": "Merge Results",
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 3,
+      "position": [720, 400],
+      "parameters": {
+        "mode": "append"
+      }
+    },
+    {
+      "id": "wf1-if",
+      "name": "Check Status Code",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2,
+      "position": [960, 400],
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict"
+          },
+          "conditions": [
+            {
+              "id": "cond-status",
+              "leftValue": "={{ $json.statusCode }}",
+              "rightValue": 200,
+              "operator": {
+                "type": "number",
+                "operation": "notEquals"
+              }
+            }
+          ],
+          "combinator": "and"
+        }
+      }
+    },
+    {
+      "id": "wf1-send-alert",
+      "name": "Send Alert",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4,
+      "position": [1200, 300],
+      "parameters": {
+        "method": "POST",
+        "url": "https://api.resend.com/emails",
+        "sendHeaders": false,
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": []
+        },
+        "specifyBody": "json",
+        "jsonBody": "{\n  \"from\": \"contact@thestudiopapeteriedigitale.fr\",\n  \"to\": [\"contact@thestudiopapeteriedigitale.fr\"],\n  \"subject\": \"🔴 Service en erreur — The Studio\",\n  \"html\": \"<p><strong>Service en erreur détecté</strong></p><p>Status: {{ $json.statusCode }}<br>Timestamp: {{ $now }}</p>\"\n}",
+        "options": {
+          "response": {
+            "response": {
+              "includeResponseHeaders": true,
+              "responseFormat": "json",
+              "fullResponse": true
+            }
+          }
+        }
+      },
+      "continueOnFail": true,
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "1",
+          "name": "resend-api"
+        }
+      }
+    }
+  ],
+  "connections": {
+    "Schedule Trigger": {
+      "main": [
+        [
+          {
+            "node": "Check Supabase",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Check Landing 3002",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Check Dashboard 3003",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Check Supabase": {
+      "main": [
+        [
+          {
+            "node": "Merge Results",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Check Landing 3002": {
+      "main": [
+        [
+          {
+            "node": "Merge Results",
+            "type": "main",
+            "index": 1
+          }
+        ]
+      ]
+    },
+    "Check Dashboard 3003": {
+      "main": [
+        [
+          {
+            "node": "Merge Results",
+            "type": "main",
+            "index": 2
+          }
+        ]
+      ]
+    },
+    "Merge Results": {
+      "main": [
+        [
+          {
+            "node": "Check Status Code",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Check Status Code": {
+      "main": [
+        [
+          {
+            "node": "Send Alert",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        []
+      ]
+    }
+  },
+  "active": false,
+  "settings": {},
+  "id": "wf1"
+}

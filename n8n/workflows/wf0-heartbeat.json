@@ -1,0 +1,65 @@
+{
+  "name": "WF0 — Heartbeat",
+  "nodes": [
+    {
+      "id": "wf0-trigger",
+      "name": "Schedule Trigger",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1,
+      "position": [240, 300],
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "minutes",
+              "minutesInterval": 30
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "wf0-http",
+      "name": "Check Resend Domains",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4,
+      "position": [480, 300],
+      "parameters": {
+        "method": "GET",
+        "url": "https://api.resend.com/domains",
+        "options": {
+          "response": {
+            "response": {
+              "includeResponseHeaders": true,
+              "responseFormat": "json",
+              "fullResponse": true
+            }
+          }
+        }
+      },
+      "continueOnFail": true,
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "1",
+          "name": "resend-api"
+        }
+      }
+    }
+  ],
+  "connections": {
+    "Schedule Trigger": {
+      "main": [
+        [
+          {
+            "node": "Check Resend Domains",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {},
+  "id": "wf0"
+}
