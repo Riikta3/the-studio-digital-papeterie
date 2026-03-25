@@ -1,0 +1,842 @@
+{
+  "name": "WF3 — UI Scraping hebdomadaire",
+  "active": false,
+  "settings": {},
+  "nodes": [
+    {
+      "id": "trigger-schedule",
+      "name": "Schedule Trigger",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1,
+      "position": [0, 300],
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "cronExpression",
+              "expression": "0 8 * * 1"
+            }
+          ]
+        }
+      }
+    },
+
+    {
+      "id": "http-minted",
+      "name": "GET minted.com",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4,
+      "position": [260, 0],
+      "parameters": {
+        "url": "https://www.minted.com",
+        "method": "GET",
+        "options": {
+          "response": {
+            "response": {
+              "responseFormat": "text"
+            }
+          }
+        },
+        "headers": {
+          "parameters": [
+            {
+              "name": "User-Agent",
+              "value": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36"
+            }
+          ]
+        }
+      },
+      "continueOnFail": true
+    },
+    {
+      "id": "html-minted",
+      "name": "Extract minted.com",
+      "type": "n8n-nodes-base.htmlExtract",
+      "typeVersion": 1,
+      "position": [480, 0],
+      "parameters": {
+        "sourceData": "json",
+        "dataPropertyName": "data",
+        "extractionValues": {
+          "values": [
+            { "key": "title", "cssSelector": "title", "returnValue": "text" },
+            { "key": "description", "cssSelector": "meta[name=\"description\"]", "returnValue": "attribute", "attribute": "content" },
+            { "key": "ogImage", "cssSelector": "meta[property=\"og:image\"]", "returnValue": "attribute", "attribute": "content" }
+          ]
+        }
+      }
+    },
+    {
+      "id": "set-minted-url",
+      "name": "Add siteUrl minted",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3,
+      "position": [700, 0],
+      "parameters": {
+        "mode": "manual",
+        "includeOtherFields": true,
+        "fields": {
+          "values": [
+            { "name": "siteUrl", "type": "stringValue", "string": "https://www.minted.com" }
+          ]
+        }
+      }
+    },
+    {
+      "id": "if-minted",
+      "name": "Site OK minted",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2,
+      "position": [920, 0],
+      "parameters": {
+        "conditions": {
+          "options": { "caseSensitive": true, "leftValue": "", "typeValidation": "strict" },
+          "conditions": [
+            {
+              "id": "cond-minted",
+              "leftValue": "={{ $json.title }}",
+              "rightValue": "",
+              "operator": { "type": "string", "operation": "notEmpty" }
+            }
+          ],
+          "combinator": "and"
+        }
+      }
+    },
+    {
+      "id": "fallback-minted",
+      "name": "Fallback minted",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3,
+      "position": [1140, 100],
+      "parameters": {
+        "mode": "manual",
+        "includeOtherFields": false,
+        "fields": {
+          "values": [
+            { "name": "title", "type": "stringValue", "string": "Site indisponible" },
+            { "name": "description", "type": "stringValue", "string": "-" },
+            { "name": "ogImage", "type": "stringValue", "string": "" },
+            { "name": "siteUrl", "type": "stringValue", "string": "https://www.minted.com" }
+          ]
+        }
+      }
+    },
+
+    {
+      "id": "http-papier",
+      "name": "GET papier.com",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4,
+      "position": [260, 180],
+      "parameters": {
+        "url": "https://www.papier.com",
+        "method": "GET",
+        "options": {
+          "response": {
+            "response": {
+              "responseFormat": "text"
+            }
+          }
+        },
+        "headers": {
+          "parameters": [
+            {
+              "name": "User-Agent",
+              "value": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36"
+            }
+          ]
+        }
+      },
+      "continueOnFail": true
+    },
+    {
+      "id": "html-papier",
+      "name": "Extract papier.com",
+      "type": "n8n-nodes-base.htmlExtract",
+      "typeVersion": 1,
+      "position": [480, 180],
+      "parameters": {
+        "sourceData": "json",
+        "dataPropertyName": "data",
+        "extractionValues": {
+          "values": [
+            { "key": "title", "cssSelector": "title", "returnValue": "text" },
+            { "key": "description", "cssSelector": "meta[name=\"description\"]", "returnValue": "attribute", "attribute": "content" },
+            { "key": "ogImage", "cssSelector": "meta[property=\"og:image\"]", "returnValue": "attribute", "attribute": "content" }
+          ]
+        }
+      }
+    },
+    {
+      "id": "set-papier-url",
+      "name": "Add siteUrl papier",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3,
+      "position": [700, 180],
+      "parameters": {
+        "mode": "manual",
+        "includeOtherFields": true,
+        "fields": {
+          "values": [
+            { "name": "siteUrl", "type": "stringValue", "string": "https://www.papier.com" }
+          ]
+        }
+      }
+    },
+    {
+      "id": "if-papier",
+      "name": "Site OK papier",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2,
+      "position": [920, 180],
+      "parameters": {
+        "conditions": {
+          "options": { "caseSensitive": true, "leftValue": "", "typeValidation": "strict" },
+          "conditions": [
+            {
+              "id": "cond-papier",
+              "leftValue": "={{ $json.title }}",
+              "rightValue": "",
+              "operator": { "type": "string", "operation": "notEmpty" }
+            }
+          ],
+          "combinator": "and"
+        }
+      }
+    },
+    {
+      "id": "fallback-papier",
+      "name": "Fallback papier",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3,
+      "position": [1140, 280],
+      "parameters": {
+        "mode": "manual",
+        "includeOtherFields": false,
+        "fields": {
+          "values": [
+            { "name": "title", "type": "stringValue", "string": "Site indisponible" },
+            { "name": "description", "type": "stringValue", "string": "-" },
+            { "name": "ogImage", "type": "stringValue", "string": "" },
+            { "name": "siteUrl", "type": "stringValue", "string": "https://www.papier.com" }
+          ]
+        }
+      }
+    },
+
+    {
+      "id": "http-zola",
+      "name": "GET zola.com",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4,
+      "position": [260, 360],
+      "parameters": {
+        "url": "https://www.zola.com",
+        "method": "GET",
+        "options": {
+          "response": {
+            "response": {
+              "responseFormat": "text"
+            }
+          }
+        },
+        "headers": {
+          "parameters": [
+            {
+              "name": "User-Agent",
+              "value": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36"
+            }
+          ]
+        }
+      },
+      "continueOnFail": true
+    },
+    {
+      "id": "html-zola",
+      "name": "Extract zola.com",
+      "type": "n8n-nodes-base.htmlExtract",
+      "typeVersion": 1,
+      "position": [480, 360],
+      "parameters": {
+        "sourceData": "json",
+        "dataPropertyName": "data",
+        "extractionValues": {
+          "values": [
+            { "key": "title", "cssSelector": "title", "returnValue": "text" },
+            { "key": "description", "cssSelector": "meta[name=\"description\"]", "returnValue": "attribute", "attribute": "content" },
+            { "key": "ogImage", "cssSelector": "meta[property=\"og:image\"]", "returnValue": "attribute", "attribute": "content" }
+          ]
+        }
+      }
+    },
+    {
+      "id": "set-zola-url",
+      "name": "Add siteUrl zola",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3,
+      "position": [700, 360],
+      "parameters": {
+        "mode": "manual",
+        "includeOtherFields": true,
+        "fields": {
+          "values": [
+            { "name": "siteUrl", "type": "stringValue", "string": "https://www.zola.com" }
+          ]
+        }
+      }
+    },
+    {
+      "id": "if-zola",
+      "name": "Site OK zola",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2,
+      "position": [920, 360],
+      "parameters": {
+        "conditions": {
+          "options": { "caseSensitive": true, "leftValue": "", "typeValidation": "strict" },
+          "conditions": [
+            {
+              "id": "cond-zola",
+              "leftValue": "={{ $json.title }}",
+              "rightValue": "",
+              "operator": { "type": "string", "operation": "notEmpty" }
+            }
+          ],
+          "combinator": "and"
+        }
+      }
+    },
+    {
+      "id": "fallback-zola",
+      "name": "Fallback zola",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3,
+      "position": [1140, 460],
+      "parameters": {
+        "mode": "manual",
+        "includeOtherFields": false,
+        "fields": {
+          "values": [
+            { "name": "title", "type": "stringValue", "string": "Site indisponible" },
+            { "name": "description", "type": "stringValue", "string": "-" },
+            { "name": "ogImage", "type": "stringValue", "string": "" },
+            { "name": "siteUrl", "type": "stringValue", "string": "https://www.zola.com" }
+          ]
+        }
+      }
+    },
+
+    {
+      "id": "http-withjoy",
+      "name": "GET withjoy.com",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4,
+      "position": [260, 540],
+      "parameters": {
+        "url": "https://withjoy.com",
+        "method": "GET",
+        "options": {
+          "response": {
+            "response": {
+              "responseFormat": "text"
+            }
+          }
+        },
+        "headers": {
+          "parameters": [
+            {
+              "name": "User-Agent",
+              "value": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36"
+            }
+          ]
+        }
+      },
+      "continueOnFail": true
+    },
+    {
+      "id": "html-withjoy",
+      "name": "Extract withjoy.com",
+      "type": "n8n-nodes-base.htmlExtract",
+      "typeVersion": 1,
+      "position": [480, 540],
+      "parameters": {
+        "sourceData": "json",
+        "dataPropertyName": "data",
+        "extractionValues": {
+          "values": [
+            { "key": "title", "cssSelector": "title", "returnValue": "text" },
+            { "key": "description", "cssSelector": "meta[name=\"description\"]", "returnValue": "attribute", "attribute": "content" },
+            { "key": "ogImage", "cssSelector": "meta[property=\"og:image\"]", "returnValue": "attribute", "attribute": "content" }
+          ]
+        }
+      }
+    },
+    {
+      "id": "set-withjoy-url",
+      "name": "Add siteUrl withjoy",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3,
+      "position": [700, 540],
+      "parameters": {
+        "mode": "manual",
+        "includeOtherFields": true,
+        "fields": {
+          "values": [
+            { "name": "siteUrl", "type": "stringValue", "string": "https://withjoy.com" }
+          ]
+        }
+      }
+    },
+    {
+      "id": "if-withjoy",
+      "name": "Site OK withjoy",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2,
+      "position": [920, 540],
+      "parameters": {
+        "conditions": {
+          "options": { "caseSensitive": true, "leftValue": "", "typeValidation": "strict" },
+          "conditions": [
+            {
+              "id": "cond-withjoy",
+              "leftValue": "={{ $json.title }}",
+              "rightValue": "",
+              "operator": { "type": "string", "operation": "notEmpty" }
+            }
+          ],
+          "combinator": "and"
+        }
+      }
+    },
+    {
+      "id": "fallback-withjoy",
+      "name": "Fallback withjoy",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3,
+      "position": [1140, 640],
+      "parameters": {
+        "mode": "manual",
+        "includeOtherFields": false,
+        "fields": {
+          "values": [
+            { "name": "title", "type": "stringValue", "string": "Site indisponible" },
+            { "name": "description", "type": "stringValue", "string": "-" },
+            { "name": "ogImage", "type": "stringValue", "string": "" },
+            { "name": "siteUrl", "type": "stringValue", "string": "https://withjoy.com" }
+          ]
+        }
+      }
+    },
+
+    {
+      "id": "http-artifact",
+      "name": "GET artifactuprising.com",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4,
+      "position": [260, 720],
+      "parameters": {
+        "url": "https://www.artifactuprising.com",
+        "method": "GET",
+        "options": {
+          "response": {
+            "response": {
+              "responseFormat": "text"
+            }
+          }
+        },
+        "headers": {
+          "parameters": [
+            {
+              "name": "User-Agent",
+              "value": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36"
+            }
+          ]
+        }
+      },
+      "continueOnFail": true
+    },
+    {
+      "id": "html-artifact",
+      "name": "Extract artifactuprising.com",
+      "type": "n8n-nodes-base.htmlExtract",
+      "typeVersion": 1,
+      "position": [480, 720],
+      "parameters": {
+        "sourceData": "json",
+        "dataPropertyName": "data",
+        "extractionValues": {
+          "values": [
+            { "key": "title", "cssSelector": "title", "returnValue": "text" },
+            { "key": "description", "cssSelector": "meta[name=\"description\"]", "returnValue": "attribute", "attribute": "content" },
+            { "key": "ogImage", "cssSelector": "meta[property=\"og:image\"]", "returnValue": "attribute", "attribute": "content" }
+          ]
+        }
+      }
+    },
+    {
+      "id": "set-artifact-url",
+      "name": "Add siteUrl artifact",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3,
+      "position": [700, 720],
+      "parameters": {
+        "mode": "manual",
+        "includeOtherFields": true,
+        "fields": {
+          "values": [
+            { "name": "siteUrl", "type": "stringValue", "string": "https://www.artifactuprising.com" }
+          ]
+        }
+      }
+    },
+    {
+      "id": "if-artifact",
+      "name": "Site OK artifact",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2,
+      "position": [920, 720],
+      "parameters": {
+        "conditions": {
+          "options": { "caseSensitive": true, "leftValue": "", "typeValidation": "strict" },
+          "conditions": [
+            {
+              "id": "cond-artifact",
+              "leftValue": "={{ $json.title }}",
+              "rightValue": "",
+              "operator": { "type": "string", "operation": "notEmpty" }
+            }
+          ],
+          "combinator": "and"
+        }
+      }
+    },
+    {
+      "id": "fallback-artifact",
+      "name": "Fallback artifact",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3,
+      "position": [1140, 820],
+      "parameters": {
+        "mode": "manual",
+        "includeOtherFields": false,
+        "fields": {
+          "values": [
+            { "name": "title", "type": "stringValue", "string": "Site indisponible" },
+            { "name": "description", "type": "stringValue", "string": "-" },
+            { "name": "ogImage", "type": "stringValue", "string": "" },
+            { "name": "siteUrl", "type": "stringValue", "string": "https://www.artifactuprising.com" }
+          ]
+        }
+      }
+    },
+
+    {
+      "id": "http-paperless",
+      "name": "GET paperless-post.com",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4,
+      "position": [260, 900],
+      "parameters": {
+        "url": "https://www.paperless-post.com",
+        "method": "GET",
+        "options": {
+          "response": {
+            "response": {
+              "responseFormat": "text"
+            }
+          }
+        },
+        "headers": {
+          "parameters": [
+            {
+              "name": "User-Agent",
+              "value": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36"
+            }
+          ]
+        }
+      },
+      "continueOnFail": true
+    },
+    {
+      "id": "html-paperless",
+      "name": "Extract paperless-post.com",
+      "type": "n8n-nodes-base.htmlExtract",
+      "typeVersion": 1,
+      "position": [480, 900],
+      "parameters": {
+        "sourceData": "json",
+        "dataPropertyName": "data",
+        "extractionValues": {
+          "values": [
+            { "key": "title", "cssSelector": "title", "returnValue": "text" },
+            { "key": "description", "cssSelector": "meta[name=\"description\"]", "returnValue": "attribute", "attribute": "content" },
+            { "key": "ogImage", "cssSelector": "meta[property=\"og:image\"]", "returnValue": "attribute", "attribute": "content" }
+          ]
+        }
+      }
+    },
+    {
+      "id": "set-paperless-url",
+      "name": "Add siteUrl paperless",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3,
+      "position": [700, 900],
+      "parameters": {
+        "mode": "manual",
+        "includeOtherFields": true,
+        "fields": {
+          "values": [
+            { "name": "siteUrl", "type": "stringValue", "string": "https://www.paperless-post.com" }
+          ]
+        }
+      }
+    },
+    {
+      "id": "if-paperless",
+      "name": "Site OK paperless",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2,
+      "position": [920, 900],
+      "parameters": {
+        "conditions": {
+          "options": { "caseSensitive": true, "leftValue": "", "typeValidation": "strict" },
+          "conditions": [
+            {
+              "id": "cond-paperless",
+              "leftValue": "={{ $json.title }}",
+              "rightValue": "",
+              "operator": { "type": "string", "operation": "notEmpty" }
+            }
+          ],
+          "combinator": "and"
+        }
+      }
+    },
+    {
+      "id": "fallback-paperless",
+      "name": "Fallback paperless",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3,
+      "position": [1140, 1000],
+      "parameters": {
+        "mode": "manual",
+        "includeOtherFields": false,
+        "fields": {
+          "values": [
+            { "name": "title", "type": "stringValue", "string": "Site indisponible" },
+            { "name": "description", "type": "stringValue", "string": "-" },
+            { "name": "ogImage", "type": "stringValue", "string": "" },
+            { "name": "siteUrl", "type": "stringValue", "string": "https://www.paperless-post.com" }
+          ]
+        }
+      }
+    },
+
+    {
+      "id": "merge-all",
+      "name": "Merge All Sites",
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 3,
+      "position": [1380, 460],
+      "parameters": {
+        "mode": "append",
+        "numberInputs": 6
+      }
+    },
+
+    {
+      "id": "code-format-html",
+      "name": "Format Digest HTML",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [1600, 460],
+      "parameters": {
+        "jsCode": "const items = $input.all();\nconst today = new Date().toLocaleDateString('fr-FR', { day: '2-digit', month: 'long', year: 'numeric' });\nconst rows = items.map(item => {\n  const d = item.json;\n  const img = d.ogImage ? `<img src=\"${d.ogImage}\" style=\"max-width:80px;max-height:50px;object-fit:cover\" />` : '';\n  const link = d.siteUrl ? `<a href=\"${d.siteUrl}\" style=\"color:#7c5c3e\">${d.siteUrl.replace('https://www.','').replace('https://','')}</a>` : '-';\n  return `<tr><td style=\"padding:8px 12px\">${link}</td><td style=\"padding:8px 12px;font-size:13px\">${d.description || '-'}</td><td style=\"padding:8px 12px;text-align:center\">${img}</td></tr>`;\n}).join('');\nconst html = `<p style=\"font-family:sans-serif\">Inspiration UI de la semaine :</p><table style=\"font-family:sans-serif;border-collapse:collapse;width:100%;max-width:700px\"><thead><tr style=\"background:#f4f0eb\"><th style=\"padding:8px 12px;text-align:left\">Site</th><th style=\"padding:8px 12px;text-align:left\">Description</th><th style=\"padding:8px 12px;text-align:center\">Aperçu</th></tr></thead><tbody>${rows}</tbody></table>`;\nreturn [{ json: { html, today } }];"
+      }
+    },
+
+    {
+      "id": "http-send-digest",
+      "name": "Send Digest",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4,
+      "position": [1820, 460],
+      "parameters": {
+        "url": "https://api.resend.com/emails",
+        "method": "POST",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Content-Type",
+              "value": "application/json"
+            }
+          ]
+        },
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "from",
+              "value": "contact@thestudiopapeteriedigitale.fr"
+            },
+            {
+              "name": "to",
+              "value": "=[\"contact@thestudiopapeteriedigitale.fr\"]"
+            },
+            {
+              "name": "subject",
+              "value": "=🎨 Inspiration UI — Semaine du {{ $json.today }}"
+            },
+            {
+              "name": "html",
+              "value": "={{ $json.html }}"
+            }
+          ]
+        }
+      },
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "1",
+          "name": "resend-api"
+        }
+      }
+    }
+  ],
+  "connections": {
+    "Schedule Trigger": {
+      "main": [
+        [
+          { "node": "GET minted.com", "type": "main", "index": 0 },
+          { "node": "GET papier.com", "type": "main", "index": 0 },
+          { "node": "GET zola.com", "type": "main", "index": 0 },
+          { "node": "GET withjoy.com", "type": "main", "index": 0 },
+          { "node": "GET artifactuprising.com", "type": "main", "index": 0 },
+          { "node": "GET paperless-post.com", "type": "main", "index": 0 }
+        ]
+      ]
+    },
+
+    "GET minted.com": {
+      "main": [[{ "node": "Extract minted.com", "type": "main", "index": 0 }]]
+    },
+    "Extract minted.com": {
+      "main": [[{ "node": "Add siteUrl minted", "type": "main", "index": 0 }]]
+    },
+    "Add siteUrl minted": {
+      "main": [[{ "node": "Site OK minted", "type": "main", "index": 0 }]]
+    },
+    "Site OK minted": {
+      "main": [
+        [{ "node": "Merge All Sites", "type": "main", "index": 0 }],
+        [{ "node": "Fallback minted", "type": "main", "index": 0 }]
+      ]
+    },
+    "Fallback minted": {
+      "main": [[{ "node": "Merge All Sites", "type": "main", "index": 0 }]]
+    },
+
+    "GET papier.com": {
+      "main": [[{ "node": "Extract papier.com", "type": "main", "index": 0 }]]
+    },
+    "Extract papier.com": {
+      "main": [[{ "node": "Add siteUrl papier", "type": "main", "index": 0 }]]
+    },
+    "Add siteUrl papier": {
+      "main": [[{ "node": "Site OK papier", "type": "main", "index": 0 }]]
+    },
+    "Site OK papier": {
+      "main": [
+        [{ "node": "Merge All Sites", "type": "main", "index": 1 }],
+        [{ "node": "Fallback papier", "type": "main", "index": 0 }]
+      ]
+    },
+    "Fallback papier": {
+      "main": [[{ "node": "Merge All Sites", "type": "main", "index": 1 }]]
+    },
+
+    "GET zola.com": {
+      "main": [[{ "node": "Extract zola.com", "type": "main", "index": 0 }]]
+    },
+    "Extract zola.com": {
+      "main": [[{ "node": "Add siteUrl zola", "type": "main", "index": 0 }]]
+    },
+    "Add siteUrl zola": {
+      "main": [[{ "node": "Site OK zola", "type": "main", "index": 0 }]]
+    },
+    "Site OK zola": {
+      "main": [
+        [{ "node": "Merge All Sites", "type": "main", "index": 2 }],
+        [{ "node": "Fallback zola", "type": "main", "index": 0 }]
+      ]
+    },
+    "Fallback zola": {
+      "main": [[{ "node": "Merge All Sites", "type": "main", "index": 2 }]]
+    },
+
+    "GET withjoy.com": {
+      "main": [[{ "node": "Extract withjoy.com", "type": "main", "index": 0 }]]
+    },
+    "Extract withjoy.com": {
+      "main": [[{ "node": "Add siteUrl withjoy", "type": "main", "index": 0 }]]
+    },
+    "Add siteUrl withjoy": {
+      "main": [[{ "node": "Site OK withjoy", "type": "main", "index": 0 }]]
+    },
+    "Site OK withjoy": {
+      "main": [
+        [{ "node": "Merge All Sites", "type": "main", "index": 3 }],
+        [{ "node": "Fallback withjoy", "type": "main", "index": 0 }]
+      ]
+    },
+    "Fallback withjoy": {
+      "main": [[{ "node": "Merge All Sites", "type": "main", "index": 3 }]]
+    },
+
+    "GET artifactuprising.com": {
+      "main": [[{ "node": "Extract artifactuprising.com", "type": "main", "index": 0 }]]
+    },
+    "Extract artifactuprising.com": {
+      "main": [[{ "node": "Add siteUrl artifact", "type": "main", "index": 0 }]]
+    },
+    "Add siteUrl artifact": {
+      "main": [[{ "node": "Site OK artifact", "type": "main", "index": 0 }]]
+    },
+    "Site OK artifact": {
+      "main": [
+        [{ "node": "Merge All Sites", "type": "main", "index": 4 }],
+        [{ "node": "Fallback artifact", "type": "main", "index": 0 }]
+      ]
+    },
+    "Fallback artifact": {
+      "main": [[{ "node": "Merge All Sites", "type": "main", "index": 4 }]]
+    },
+
+    "GET paperless-post.com": {
+      "main": [[{ "node": "Extract paperless-post.com", "type": "main", "index": 0 }]]
+    },
+    "Extract paperless-post.com": {
+      "main": [[{ "node": "Add siteUrl paperless", "type": "main", "index": 0 }]]
+    },
+    "Add siteUrl paperless": {
+      "main": [[{ "node": "Site OK paperless", "type": "main", "index": 0 }]]
+    },
+    "Site OK paperless": {
+      "main": [
+        [{ "node": "Merge All Sites", "type": "main", "index": 5 }],
+        [{ "node": "Fallback paperless", "type": "main", "index": 0 }]
+      ]
+    },
+    "Fallback paperless": {
+      "main": [[{ "node": "Merge All Sites", "type": "main", "index": 5 }]]
+    },
+
+    "Merge All Sites": {
+      "main": [[{ "node": "Format Digest HTML", "type": "main", "index": 0 }]]
+    },
+    "Format Digest HTML": {
+      "main": [[{ "node": "Send Digest", "type": "main", "index": 0 }]]
+    }
+  }
+}
