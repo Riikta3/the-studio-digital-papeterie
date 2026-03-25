@@ -1,0 +1,255 @@
+{
+  "name": "WF4 — Tests E2E Playwright",
+  "nodes": [
+    {
+      "id": "wf4-schedule-trigger",
+      "name": "Schedule Trigger",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1,
+      "position": [240, 300],
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "cronExpression",
+              "expression": "0 6 * * *"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "wf4-webhook-trigger",
+      "name": "Webhook Trigger",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 1,
+      "position": [240, 500],
+      "parameters": {
+        "path": "run-e2e",
+        "httpMethod": "POST"
+      }
+    },
+    {
+      "id": "wf4-execute-command",
+      "name": "Execute Command",
+      "type": "n8n-nodes-base.executeCommand",
+      "typeVersion": 1,
+      "position": [500, 400],
+      "parameters": {
+        "command": "cd /Users/tarik.klezo/Documents/perso/the-studio-digital-papeterie/landing && npx playwright test --reporter=json > /tmp/pw-output.json 2>&1; echo \"EXIT_CODE:$?\" >> /tmp/pw-output.json"
+      }
+    },
+    {
+      "id": "wf4-read-file",
+      "name": "Read Results File",
+      "type": "n8n-nodes-base.readWriteFile",
+      "typeVersion": 1,
+      "position": [760, 400],
+      "parameters": {
+        "operation": "read",
+        "fileName": "/tmp/pw-output.json"
+      }
+    },
+    {
+      "id": "wf4-parse-results",
+      "name": "Parse Results",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [1020, 400],
+      "parameters": {
+        "jsCode": "// Read binary data from Read/Write Files from Disk node\nconst binaryItem = $input.first().binary.data;\nconst raw = Buffer.from(binaryItem.data, 'base64').toString('utf-8');\nconst lines = raw.trim().split('\\n');\nconst exitLine = lines[lines.length - 1];\nconst exitCode = parseInt((exitLine.match(/EXIT_CODE:(\\d+)/) || [])[1] || '1');\n\nconst jsonText = lines.slice(0, -1).join('\\n');\nlet failedTests = [];\nlet unexpected = 0;\n\ntry {\n  const report = JSON.parse(jsonText);\n  unexpected = report.stats?.unexpected || 0;\n  function walkSuites(suites) {\n    for (const suite of (suites || [])) {\n      for (const spec of (suite.specs || [])) {\n        for (const test of (spec.tests || [])) {\n          if (test.status !== 'passed' && test.status !== 'skipped') {\n            failedTests.push({\n              title: spec.title,\n              error: test.results?.[0]?.error?.message?.slice(0, 200) || 'unknown error'\n            });\n          }\n        }\n      }\n      walkSuites(suite.suites);\n    }\n  }\n  walkSuites(report.suites);\n} catch(e) {\n  failedTests = [{ title: 'JSON parse error', error: e.message }];\n  unexpected = 1;\n}\n\nreturn [{ json: { exitCode, unexpected, failedTests, count: failedTests.length, timestamp: new Date().toISOString() } }];"
+      }
+    },
+    {
+      "id": "wf4-if-tests-failed",
+      "name": "Tests Failed?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2,
+      "position": [1280, 400],
+      "parameters": {
+        "combineOperation": "any",
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict"
+          },
+          "conditions": [
+            {
+              "id": "cond-exit-code",
+              "leftValue": "={{ $json.exitCode }}",
+              "rightValue": 0,
+              "operator": {
+                "type": "number",
+                "operation": "notEquals"
+              }
+            },
+            {
+              "id": "cond-unexpected",
+              "leftValue": "={{ $json.unexpected }}",
+              "rightValue": 0,
+              "operator": {
+                "type": "number",
+                "operation": "gt"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "wf4-format-alert",
+      "name": "Format Alert HTML",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [1540, 280],
+      "parameters": {
+        "jsCode": "const { failedTests, timestamp, count } = $input.first().json;\nconst rows = failedTests.map(t =>\n  `<tr><td style=\"padding:8px 12px;color:#dc2626;font-family:sans-serif\">${t.title}</td><td style=\"padding:8px 12px;font-size:12px;color:#666;font-family:sans-serif\">${t.error}</td></tr>`\n).join('');\nconst html = `<p style=\"font-family:sans-serif\"><strong>${count} test(s) E2E ont échoué</strong></p><table style=\"border-collapse:collapse;width:100%\"><thead><tr style=\"background:#fee2e2\"><th style=\"padding:8px 12px;text-align:left;font-family:sans-serif\">Test</th><th style=\"padding:8px 12px;text-align:left;font-family:sans-serif\">Erreur</th></tr></thead><tbody>${rows}</tbody></table><p style=\"font-family:sans-serif;color:#888;font-size:12px\">Timestamp : ${timestamp}</p>`;\nreturn [{ json: { html, count } }];"
+      }
+    },
+    {
+      "id": "wf4-alert-email",
+      "name": "Alert E2E",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4,
+      "position": [1800, 280],
+      "parameters": {
+        "method": "POST",
+        "url": "https://api.resend.com/emails",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Content-Type",
+              "value": "application/json"
+            }
+          ]
+        },
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "from",
+              "value": "contact@thestudiopapeteriedigitale.fr"
+            },
+            {
+              "name": "to",
+              "value": "[\"contact@thestudiopapeteriedigitale.fr\"]"
+            },
+            {
+              "name": "subject",
+              "value": "🔴 Tests E2E échoués — {{ $json.count }} test(s) KO — The Studio"
+            },
+            {
+              "name": "html",
+              "value": "={{ $json.html }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "1",
+          "name": "resend-api"
+        }
+      }
+    },
+    {
+      "id": "wf4-no-op",
+      "name": "No Operation",
+      "type": "n8n-nodes-base.noOp",
+      "typeVersion": 1,
+      "position": [1540, 520],
+      "parameters": {}
+    }
+  ],
+  "connections": {
+    "Schedule Trigger": {
+      "main": [
+        [
+          {
+            "node": "Execute Command",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Webhook Trigger": {
+      "main": [
+        [
+          {
+            "node": "Execute Command",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Execute Command": {
+      "main": [
+        [
+          {
+            "node": "Read Results File",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Read Results File": {
+      "main": [
+        [
+          {
+            "node": "Parse Results",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Parse Results": {
+      "main": [
+        [
+          {
+            "node": "Tests Failed?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Tests Failed?": {
+      "main": [
+        [
+          {
+            "node": "Format Alert HTML",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "No Operation",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Format Alert HTML": {
+      "main": [
+        [
+          {
+            "node": "Alert E2E",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {}
+}
