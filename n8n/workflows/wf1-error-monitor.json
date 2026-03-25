@@ -140,7 +140,7 @@
           "parameters": []
         },
         "specifyBody": "json",
-        "jsonBody": "{\n  \"from\": \"contact@thestudiopapeteriedigitale.fr\",\n  \"to\": [\"contact@thestudiopapeteriedigitale.fr\"],\n  \"subject\": \"🔴 Service en erreur — The Studio\",\n  \"html\": \"<p><strong>Service en erreur détecté</strong></p><p>Status: {{ $json.statusCode }}<br>Timestamp: {{ $now }}</p>\"\n}",
+        "jsonBody": "{\n  \"from\": \"contact@thestudiopapeteriedigitale.com\",\n  \"to\": [\"contact@thestudiopapeteriedigitale.com\"],\n  \"subject\": \"🔴 Service en erreur — The Studio\",\n  \"html\": \"<p><strong>Service en erreur détecté</strong></p><p>Status: {{ $json.statusCode }}<br>Timestamp: {{ $now }}</p>\"\n}",
         "options": {
           "response": {
             "response": {
