@@ -32,11 +32,11 @@
     {
       "id": "wf4-execute-command",
       "name": "Execute Command",
-      "type": "n8n-nodes-base.executeCommand",
-      "typeVersion": 1,
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
       "position": [500, 400],
       "parameters": {
-        "command": "cd /Users/tarik.klezo/Documents/perso/the-studio-digital-papeterie/landing && npx playwright test --reporter=json > /tmp/pw-output.json 2>&1; echo \"EXIT_CODE:$?\" >> /tmp/pw-output.json"
+        "jsCode": "const { execSync } = require('child_process');\ntry {\n  execSync('cd /Users/tarik.klezo/Documents/perso/the-studio-digital-papeterie/landing && npx playwright test --reporter=json > /Users/tarik.klezo/.n8n-files/pw-output.json 2>&1; echo \"EXIT_CODE:$?\" >> /Users/tarik.klezo/.n8n-files/pw-output.json', { shell: '/bin/zsh' });\n} catch(e) {\n  // ignore — exit code captured in file\n}\nreturn [{ json: { done: true } }];"
       }
     },
     {
@@ -47,7 +47,7 @@
       "position": [760, 400],
       "parameters": {
         "operation": "read",
-        "fileName": "/tmp/pw-output.json"
+        "fileName": "/Users/tarik.klezo/.n8n-files/pw-output.json"
       }
     },
     {
@@ -130,11 +130,11 @@
           "parameters": [
             {
               "name": "from",
-              "value": "contact@thestudiopapeteriedigitale.fr"
+              "value": "contact@thestudiopapeteriedigitale.com"
             },
             {
               "name": "to",
-              "value": "[\"contact@thestudiopapeteriedigitale.fr\"]"
+              "value": "[\"contact@thestudiopapeteriedigitale.com\"]"
             },
             {
               "name": "subject",

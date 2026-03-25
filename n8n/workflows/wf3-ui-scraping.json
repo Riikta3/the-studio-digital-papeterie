@@ -679,11 +679,11 @@
           "parameters": [
             {
               "name": "from",
-              "value": "contact@thestudiopapeteriedigitale.fr"
+              "value": "contact@thestudiopapeteriedigitale.com"
             },
             {
               "name": "to",
-              "value": "=[\"contact@thestudiopapeteriedigitale.fr\"]"
+              "value": "=[\"contact@thestudiopapeteriedigitale.com\"]"
             },
             {
               "name": "subject",

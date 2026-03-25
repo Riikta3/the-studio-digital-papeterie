@@ -150,7 +150,7 @@
         "nodeCredentialType": "resendApi",
         "sendBody": true,
         "specifyBody": "json",
-        "jsonBody": "={\n  \"from\": \"contact@thestudiopapeteriedigitale.fr\",\n  \"to\": [\"{{ $json.email }}\"],\n  \"subject\": \"✅ Votre commande est confirmée — The Studio\",\n  \"html\": \"<p style='font-family:sans-serif'>Bonjour,</p><p style='font-family:sans-serif'>Votre paiement de <strong>{{ $json.amount }} {{ $json.currency }}</strong> a bien été reçu.</p><p style='font-family:sans-serif'>— L'équipe The Studio</p>\"\n}",
+        "jsonBody": "={\n  \"from\": \"contact@thestudiopapeteriedigitale.com\",\n  \"to\": [\"{{ $json.email }}\"],\n  \"subject\": \"✅ Votre commande est confirmée — The Studio\",\n  \"html\": \"<p style='font-family:sans-serif'>Bonjour,</p><p style='font-family:sans-serif'>Votre paiement de <strong>{{ $json.amount }} {{ $json.currency }}</strong> a bien été reçu.</p><p style='font-family:sans-serif'>— L'équipe The Studio</p>\"\n}",
         "options": {}
       },
       "credentials": {
@@ -228,7 +228,7 @@
         "nodeCredentialType": "resendApi",
         "sendBody": true,
         "specifyBody": "json",
-        "jsonBody": "={\n  \"from\": \"contact@thestudiopapeteriedigitale.fr\",\n  \"to\": [\"contact@thestudiopapeteriedigitale.fr\"],\n  \"subject\": \"⚠️ Paiement échoué — The Studio\",\n  \"html\": \"<p style='font-family:sans-serif'><strong>Paiement échoué</strong></p><ul style='font-family:sans-serif'><li>Client : {{ $json.email }}</li><li>Montant : {{ $json.amount }} {{ $json.currency }}</li><li>Raison : {{ $json.reason }}</li></ul>\"\n}",
+        "jsonBody": "={\n  \"from\": \"contact@thestudiopapeteriedigitale.com\",\n  \"to\": [\"contact@thestudiopapeteriedigitale.com\"],\n  \"subject\": \"⚠️ Paiement échoué — The Studio\",\n  \"html\": \"<p style='font-family:sans-serif'><strong>Paiement échoué</strong></p><ul style='font-family:sans-serif'><li>Client : {{ $json.email }}</li><li>Montant : {{ $json.amount }} {{ $json.currency }}</li><li>Raison : {{ $json.reason }}</li></ul>\"\n}",
         "options": {}
       },
       "credentials": {

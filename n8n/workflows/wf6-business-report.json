@@ -206,7 +206,7 @@
         "url": "https://api.resend.com/emails",
         "sendBody": true,
         "specifyBody": "json",
-        "jsonBody": "={\n  \"from\": \"contact@thestudiopapeteriedigitale.fr\",\n  \"to\": [\"contact@thestudiopapeteriedigitale.fr\"],\n  \"subject\": \"📊 Rapport hebdo — Semaine du {{ $json.weekLabel }}\",\n  \"html\": {{ JSON.stringify($json.html) }}\n}",
+        "jsonBody": "={\n  \"from\": \"contact@thestudiopapeteriedigitale.com\",\n  \"to\": [\"contact@thestudiopapeteriedigitale.com\"],\n  \"subject\": \"📊 Rapport hebdo — Semaine du {{ $json.weekLabel }}\",\n  \"html\": {{ JSON.stringify($json.html) }}\n}",
         "options": {
           "response": {
             "response": {

@@ -65,7 +65,7 @@
       "typeVersion": 2,
       "position": [720, 400],
       "parameters": {
-        "jsCode": "const headers = $input.first().json.headers;\nconst contentRange = headers['content-range'] || '*/0';\nconst total = parseInt(contentRange.split('/')[1]) || 0;\nconst today = new Date();\nconst dayOfWeek = today.getDay();\nconst isWeekday = dayOfWeek >= 1 && dayOfWeek <= 5;\nreturn [{ json: { count: total, isWeekday } }];"
+        "jsCode": "const item = $input.first().json;\nconst headers = item.headers || {};\nconst contentRange = headers['content-range'] || headers['Content-Range'] || '*/0';\nconst total = parseInt(contentRange.split('/')[1]) || 0;\nconst today = new Date();\nconst dayOfWeek = today.getDay();\nconst isWeekday = dayOfWeek >= 1 && dayOfWeek <= 5;\nreturn [{ json: { count: total, isWeekday } }];"
       }
     },
     {
@@ -116,7 +116,7 @@
         "url": "https://api.resend.com/emails",
         "sendBody": true,
         "specifyBody": "json",
-        "jsonBody": "{\n  \"from\": \"contact@thestudiopapeteriedigitale.fr\",\n  \"to\": [\"contact@thestudiopapeteriedigitale.fr\"],\n  \"subject\": \"⚠️ Aucune conversion depuis 48h — The Studio\",\n  \"html\": \"<p style='font-family:sans-serif'>Aucun achat enregistré dans les 48 dernières heures.</p><p style='font-family:sans-serif'>Timestamp : {{ $now }}</p>\"\n}",
+        "jsonBody": "{\n  \"from\": \"contact@thestudiopapeteriedigitale.com\",\n  \"to\": [\"contact@thestudiopapeteriedigitale.com\"],\n  \"subject\": \"⚠️ Aucune conversion depuis 48h — The Studio\",\n  \"html\": \"<p style='font-family:sans-serif'>Aucun achat enregistré dans les 48 dernières heures.</p><p style='font-family:sans-serif'>Timestamp : {{ $now }}</p>\"\n}",
         "options": {
           "response": {
             "response": {
