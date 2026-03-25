@@ -6,7 +6,10 @@
       "name": "Stripe Webhook",
       "type": "n8n-nodes-base.webhook",
       "typeVersion": 2,
-      "position": [240, 300],
+      "position": [
+        240,
+        300
+      ],
       "parameters": {
         "httpMethod": "POST",
         "path": "stripe-events",
@@ -21,7 +24,10 @@
       "name": "Verify Stripe Signature",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
-      "position": [480, 300],
+      "position": [
+        480,
+        300
+      ],
       "parameters": {
         "jsCode": "const crypto = require('crypto');\n\n// En n8n 2.x, avec \"Raw Body\" ON, le corps brut est dans binary.data (base64)\nconst binaryData = $input.first().binary?.data;\nconst rawBody = binaryData\n  ? Buffer.from(binaryData.data, 'base64').toString('utf-8')\n  : JSON.stringify($input.first().body);\n\nconst sigHeader = $input.first().headers['stripe-signature'];\nconst secret = process.env.STRIPE_WEBHOOK_SECRET_N8N || '';\n\nconst parts = Object.fromEntries(\n  sigHeader.split(',').map(p => p.split('='))\n);\nconst timestamp = parts.t;\nconst expectedSig = parts.v1;\n\nif (!timestamp || !expectedSig) {\n  throw new Error('Missing stripe-signature fields');\n}\n\nconst payload = `${timestamp}.${rawBody}`;\nconst computedSig = crypto\n  .createHmac('sha256', secret)\n  .update(payload, 'utf8')\n  .digest('hex');\n\nconst computedBuf = Buffer.from(computedSig, 'hex');\nconst expectedBuf = Buffer.from(expectedSig, 'hex');\n\nif (computedBuf.length !== expectedBuf.length || !crypto.timingSafeEqual(computedBuf, expectedBuf)) {\n  throw new Error('Stripe signature mismatch');\n}\n\nconst event = JSON.parse(rawBody);\nreturn [{ json: event }];"
       }
@@ -31,7 +37,10 @@
       "name": "Event Type",
       "type": "n8n-nodes-base.switch",
       "typeVersion": 3,
-      "position": [720, 300],
+      "position": [
+        720,
+        300
+      ],
       "parameters": {
         "mode": "rules",
         "rules": {
@@ -88,7 +97,10 @@
       "name": "Expand Charges",
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
-      "position": [960, 160],
+      "position": [
+        960,
+        160
+      ],
       "parameters": {
         "method": "GET",
         "url": "=https://api.stripe.com/v1/payment_intents/{{ $json.data.object.id }}?expand[]=charges",
@@ -114,7 +126,10 @@
       "name": "Extract Client Email",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
-      "position": [1200, 160],
+      "position": [
+        1200,
+        160
+      ],
       "parameters": {
         "jsCode": "const pi = $input.first().json;\nconst email =\n  pi.charges?.data?.[0]?.billing_details?.email ||\n  pi.receipt_email ||\n  'client inconnu';\nconst amount = (pi.amount / 100).toFixed(2);\nconst currency = (pi.currency || 'eur').toUpperCase();\nreturn [{ json: { email, amount, currency, paymentIntentId: pi.id } }];"
       }
@@ -124,7 +139,10 @@
       "name": "Email Client Confirmation",
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
-      "position": [1440, 160],
+      "position": [
+        1440,
+        160
+      ],
       "parameters": {
         "method": "POST",
         "url": "https://api.resend.com/emails",
@@ -147,12 +165,14 @@
       "name": "Log to Supabase",
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
-      "position": [1680, 160],
+      "position": [
+        1680,
+        160
+      ],
       "parameters": {
         "method": "POST",
         "url": "https://pftvcpxwbprmphhgwvxc.supabase.co/rest/v1/stripe_events",
-        "authentication": "predefinedCredentialType",
-        "nodeCredentialType": "supabaseApi",
+        "authentication": "genericCredentialType",
         "sendHeaders": true,
         "headerParameters": {
           "parameters": [
@@ -162,18 +182,19 @@
             },
             {
               "name": "Authorization",
-              "value": "Bearer SUPABASE_SERVICE_ROLE_KEY_PLACEHOLDER"
+              "value": "=Bearer {{.httpHeaderAuth.value}}"
             }
           ]
         },
         "sendBody": true,
         "specifyBody": "json",
         "jsonBody": "={\n  \"stripe_event_id\": \"{{ $('Verify Stripe Signature').item.json.id }}\",\n  \"event_type\": \"payment_intent.succeeded\",\n  \"payment_intent_id\": \"{{ $json.paymentIntentId }}\",\n  \"customer_email\": \"{{ $json.email }}\",\n  \"amount_cents\": {{ $('Expand Charges').item.json.amount }},\n  \"currency\": \"{{ $json.currency }}\",\n  \"status\": \"succeeded\"\n}",
-        "options": {}
+        "options": {},
+        "genericAuthType": "httpHeaderAuth"
       },
       "credentials": {
-        "supabaseApi": {
-          "id": "supabase-rest",
+        "httpHeaderAuth": {
+          "id": "2",
           "name": "supabase-rest"
         }
       }
@@ -183,7 +204,10 @@
       "name": "Extract Failure Info",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
-      "position": [960, 440],
+      "position": [
+        960,
+        440
+      ],
       "parameters": {
         "jsCode": "const obj = $input.first().json.data.object;\nconst email =\n  obj.last_payment_error?.payment_method?.billing_details?.email ||\n  obj.receipt_email ||\n  'email inconnu';\nconst amount = (obj.amount / 100).toFixed(2);\nconst currency = (obj.currency || 'eur').toUpperCase();\nconst reason = obj.last_payment_error?.message || 'raison inconnue';\nreturn [{ json: { email, amount, currency, reason } }];"
       }
@@ -193,7 +217,10 @@
       "name": "Alert Admin Echec",
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
-      "position": [1200, 440],
+      "position": [
+        1200,
+        440
+      ],
       "parameters": {
         "method": "POST",
         "url": "https://api.resend.com/emails",
