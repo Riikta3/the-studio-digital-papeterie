@@ -232,14 +232,6 @@ const CATEGORIES: Category[] = [
   },
 ];
 
-const BG: Record<string, string> = {
-  envelope: "#f5ede6",
-  door: "#ece8f0",
-  curtain: "#e8eff5",
-  book: "#e8f0ec",
-  floral: "#f5e8ec",
-};
-
 export default function AnimationPage() {
   const { animation, setAnimation, theme } = useOrderStore();
   const [activeCategory, setActiveCategory] = useState("envelope");
@@ -254,12 +246,9 @@ export default function AnimationPage() {
     actionLabel: "Choisir cette animation",
     selectedLabel: "✓ Sélectionné",
     previewContent: (
-      <div
-        className='h-full flex items-center justify-center'
-        style={{ background: BG[activeCategory] }}
-      >
-        <div className='absolute inset-0 opacity-[0.05] bg-[radial-gradient(#000_1px,transparent_1px)] [background-size:18px_18px]' />
-        <span className='relative z-10 opacity-20 scale-[2.5] text-foreground'>
+      <div className="relative h-full flex items-center justify-center bg-primary/7">
+        <div className="absolute inset-0 opacity-[0.05] bg-[radial-gradient(#000_1px,transparent_1px)] [background-size:18px_18px]" />
+        <span className="relative z-10 opacity-20 scale-[2.5] text-foreground">
           {currentCategory.icon}
         </span>
         <button
@@ -267,7 +256,7 @@ export default function AnimationPage() {
             e.stopPropagation();
             setShowDemo(true);
           }}
-          className='absolute bottom-3 left-1/2 -translate-x-1/2 z-10 whitespace-nowrap text-[11px] font-bold text-primary px-4 py-1.5 rounded-full bg-white/90 backdrop-blur-sm border border-primary/20 shadow-sm font-sans'
+          className="absolute bottom-3 left-1/2 -translate-x-1/2 z-10 whitespace-nowrap text-[11px] font-bold text-primary px-4 py-1.5 rounded-full bg-white/90 backdrop-blur-sm border border-primary/20 shadow-sm font-sans"
         >
           ▶ Voir la démo
         </button>
