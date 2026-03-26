@@ -48,7 +48,7 @@ export const EXTRA_PRICES: Record<string, number> = {
   "custom-domain": 65,
 };
 
-const LANGUAGE_PRICE = 15;
+export const LANGUAGE_PRICE = 15;
 
 export const useOrderStore = create<OrderState>()(
   persist(

@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import { useSearchParams } from "next/navigation";
 import { StepTransition } from "@/components/configurator/StepTransition";
 import { useRouter } from "@/navigation";
-import { selectTotalPrice, useOrderStore, EXTRA_PRICES } from "@/stores/use-order-store";
+import { selectTotalPrice, useOrderStore, EXTRA_PRICES, LANGUAGE_PRICE } from "@/stores/use-order-store";
 import { cn } from "@/lib/utils";
 import { Edit2, Eye, CreditCard, Loader2 } from "lucide-react";
 import { ThemeDemoOverlay } from "@/components/configurator/ThemeDemoOverlay";
@@ -251,7 +251,7 @@ export default function CheckoutPage() {
               <RecapRow label="Options" href="/studio/options">
                 <div className="flex flex-wrap gap-1 mt-1">
                   {languages.map((l) => (
-                    <span key={l} className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-primary/10 text-primary font-sans">{l.toUpperCase()} +15€</span>
+                    <span key={l} className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-primary/10 text-primary font-sans">{l.toUpperCase()} +{LANGUAGE_PRICE}€</span>
                   ))}
                   {extras.map((e) => (
                     <span key={e} className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-primary/10 text-primary font-sans">{e}</span>
@@ -282,7 +282,7 @@ export default function CheckoutPage() {
               {languages.map((l) => (
                 <div key={l} className="flex items-center justify-between px-4 py-3 border-b border-border/40">
                   <span className="text-sm text-muted-foreground font-sans">Langue : {l.toUpperCase()}</span>
-                  <span className="text-sm font-semibold text-muted-foreground font-sans">+15€</span>
+                  <span className="text-sm font-semibold text-muted-foreground font-sans">+{LANGUAGE_PRICE}€</span>
                 </div>
               ))}
               {extras.map((e) => (
