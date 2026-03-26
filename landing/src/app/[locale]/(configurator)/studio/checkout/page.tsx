@@ -236,6 +236,7 @@ export default function CheckoutPage() {
         languages,
         plan: plan ?? "experience",
         adultsOnly,
+        animationId: animation,
       });
 
       if (result.success && result.loginLink) {
