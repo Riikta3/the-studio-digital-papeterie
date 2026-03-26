@@ -69,6 +69,8 @@ interface InvitationPageClientProps {
   hasIntro?: boolean;
   isDemo?: boolean;
   initialTheme?: string;
+  // TODO: use animationId to select intro animation sequence
+  animationId?: string;
   weddingSlug?: string;
 }
 

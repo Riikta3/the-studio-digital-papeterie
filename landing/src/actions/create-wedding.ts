@@ -16,6 +16,7 @@ interface CreateWeddingData {
   languages: string[];
   plan: string;
   adultsOnly?: boolean;
+  animationId?: string;
 }
 
 export async function createWedding(data: CreateWeddingData) {
@@ -179,6 +180,7 @@ export async function createWedding(data: CreateWeddingData) {
       modules: sortedModules,
       languages: data.languages,
       extras: data.extras,
+      animation_id: data.animationId || "envelope-classic",
       slug: finalSlug,
       status: "draft",
     })
