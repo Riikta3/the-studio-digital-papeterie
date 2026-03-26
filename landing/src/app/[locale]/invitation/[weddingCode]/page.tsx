@@ -1,6 +1,6 @@
-import { InvitationFooter } from "@/components/invitation/InvitationFooter";
+import { InvitationFooter } from "@/components/invitation/themes/theme-minimalist/InvitationFooter";
 import { InvitationPageClient } from "@/components/invitation/InvitationPageClient";
-import { InvitationHero } from "@/components/invitation/InvitationHero";
+import { InvitationHero } from "@/components/invitation/themes/theme-minimalist/InvitationHero";
 import { GuestCodeGate } from "@/components/invitation/GuestCodeGate";
 import { ModuleRenderer } from "@/components/invitation/ModuleRenderer";
 import { ModulesWrapper } from "@/components/invitation/ModulesWrapper";

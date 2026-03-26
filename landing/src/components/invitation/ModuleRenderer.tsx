@@ -1,20 +1,20 @@
 import { supabaseAdmin } from "@/lib/supabase-admin";
-import { AccommodationModule } from "./AccommodationModule";
-import { CountdownModule } from "./CountdownModule";
-import { Divider } from "./Divider";
-import { DressCodeModule } from "./DressCodeModule";
-import { FaqModule } from "./FaqModule";
-import { GalleryModule } from "./GalleryModule";
-import { GiftListModule } from "./GiftListModule";
-import { GuestbookModule } from "./GuestbookModule";
-import { IntroVideoModule } from "./IntroVideoModule";
-import { MapModule } from "./MapModule";
-import { MenuModule } from "./MenuModule";
-import { PlaylistModule } from "./PlaylistModule";
-import { RsvpModule } from "./RsvpModule";
-import { TimelineModule } from "./TimelineModule";
-import { TransportModule } from "./TransportModule";
-import { VideoGuestbookModule } from "./VideoGuestbookModule";
+import { AccommodationModule } from "./themes/theme-minimalist/AccommodationModule";
+import { CountdownModule } from "./themes/theme-minimalist/CountdownModule";
+import { Divider } from "./themes/theme-minimalist/Divider";
+import { DressCodeModule } from "./themes/theme-minimalist/DressCodeModule";
+import { FaqModule } from "./themes/theme-minimalist/FaqModule";
+import { GalleryModule } from "./themes/theme-minimalist/GalleryModule";
+import { GiftListModule } from "./themes/theme-minimalist/GiftListModule";
+import { GuestbookModule } from "./themes/theme-minimalist/GuestbookModule";
+import { IntroVideoModule } from "./themes/theme-minimalist/IntroVideoModule";
+import { MapModule } from "./themes/theme-minimalist/MapModule";
+import { MenuModule } from "./themes/theme-minimalist/MenuModule";
+import { PlaylistModule } from "./themes/theme-minimalist/PlaylistModule";
+import { RsvpModule } from "./themes/theme-minimalist/RsvpModule";
+import { TimelineModule } from "./themes/theme-minimalist/TimelineModule";
+import { TransportModule } from "./themes/theme-minimalist/TransportModule";
+import { VideoGuestbookModule } from "./themes/theme-minimalist/VideoGuestbookModule";
 
 // Define a map of module IDs to their respective React components
 const MODULE_COMPONENTS: Record<string, React.ComponentType<any>> = {
