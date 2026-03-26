@@ -147,6 +147,8 @@ export default function ModulesPage() {
       <div className="flex flex-col gap-2 max-w-lg mx-auto w-full px-4">
         {MODULES.map((mod) => {
           const isSelected = modules.includes(mod.id);
+          const selectedIndex = modules.indexOf(mod.id);
+          const isExtra = plan === "experience" && isSelected && selectedIndex >= 4;
           const Icon = mod.icon;
           return (
             <button
@@ -159,24 +161,25 @@ export default function ModulesPage() {
                   : "border-border bg-card hover:border-primary/30",
               )}
             >
-              <div
-                className={cn(
-                  "w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0 transition-colors",
-                  isSelected ? "bg-primary/15 text-primary" : "bg-muted text-muted-foreground",
-                )}
-              >
+              <div className={cn(
+                "w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0 transition-colors",
+                isSelected ? "bg-primary/15 text-primary" : "bg-muted text-muted-foreground"
+              )}>
                 <Icon className="w-5 h-5" />
               </div>
               <div className="flex-1 min-w-0">
                 <p className="text-sm font-bold">{mod.label}</p>
                 <p className="text-xs text-muted-foreground font-sans mt-0.5 line-clamp-1">{mod.desc}</p>
               </div>
-              <div
-                className={cn(
-                  "w-5 h-5 rounded-full border-2 flex items-center justify-center flex-shrink-0 transition-colors",
-                  isSelected ? "border-primary/40 bg-primary/15" : "border-border",
-                )}
-              >
+              {isExtra && (
+                <span className="text-[10px] font-bold text-primary bg-primary/10 px-2 py-0.5 rounded-full font-sans flex-shrink-0">
+                  +5€
+                </span>
+              )}
+              <div className={cn(
+                "w-5 h-5 rounded-full border-2 flex items-center justify-center flex-shrink-0 transition-colors",
+                isSelected ? "border-primary/40 bg-primary/15" : "border-border"
+              )}>
                 {isSelected && (
                   <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" className="text-primary">
                     <polyline points="20 6 9 17 4 12" />
