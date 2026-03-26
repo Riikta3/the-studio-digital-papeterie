@@ -1,8 +1,5 @@
-// landing/src/components/invitation/module-registry.ts
 import type React from "react";
 
-// Interface partagée par TOUS les composants de modules, tous thèmes confondus.
-// Chaque composant peut ignorer les props dont il n'a pas besoin.
 export interface ModuleProps {
   weddingId: string;
   weddingDate?: string | null;
@@ -18,8 +15,37 @@ export type ThemeModuleRegistry = Record<
   Record<string, React.ComponentType<ModuleProps>>
 >;
 
-// Sera complété en Task 6 une fois tous les composants créés
-export const THEME_MODULE_COMPONENTS: ThemeModuleRegistry = {};
+import * as Minimalist from "./themes/theme-minimalist";
+import * as Floral from "./themes/theme-floral";
+import * as Boho from "./themes/theme-boho";
+import * as Royal from "./themes/theme-royal";
+import * as Modern from "./themes/theme-modern";
+
+const buildMap = (theme: any): Record<string, React.ComponentType<ModuleProps>> => ({
+  countdown: theme.CountdownModule,
+  rsvp: theme.RsvpModule,
+  gallery: theme.GalleryModule,
+  map: theme.MapModule,
+  timeline: theme.TimelineModule,
+  "dress-code": theme.DressCodeModule,
+  "gift-list": theme.GiftListModule,
+  guestbook: theme.GuestbookModule,
+  accommodation: theme.AccommodationModule,
+  transport: theme.TransportModule,
+  menu: theme.MenuModule,
+  playlist: theme.PlaylistModule,
+  faq: theme.FaqModule,
+  "intro-video": theme.IntroVideoModule,
+  "video-guestbook": theme.VideoGuestbookModule,
+});
+
+export const THEME_MODULE_COMPONENTS: ThemeModuleRegistry = {
+  "theme-minimalist": buildMap(Minimalist),
+  "theme-floral": buildMap(Floral),
+  "theme-boho": buildMap(Boho),
+  "theme-royal": buildMap(Royal),
+  "theme-modern": buildMap(Modern),
+};
 
 export const DEFAULT_THEME = "theme-minimalist";
 
