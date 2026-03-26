@@ -53,7 +53,7 @@ export default function OptionsPage() {
           </p>
         </div>
 
-        <div className="flex flex-col gap-5 max-w-lg mx-auto w-full px-4">
+        <div className="flex flex-col gap-5 max-w-lg mx-auto w-full px-4 md:[display:grid] md:gap-8 md:items-start md:max-w-4xl md:mx-auto md:px-8 md:[grid-template-columns:1.1fr_0.5fr_1.4fr]">
 
           {/* ── LANGUES ── */}
           <div>
