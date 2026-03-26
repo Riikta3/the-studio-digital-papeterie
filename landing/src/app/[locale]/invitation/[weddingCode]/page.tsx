@@ -1,10 +1,6 @@
-import { InvitationFooter } from "@/components/invitation/themes/theme-minimalist/InvitationFooter";
 import { InvitationPageClient } from "@/components/invitation/InvitationPageClient";
-import { InvitationHero } from "@/components/invitation/themes/theme-minimalist/InvitationHero";
+import { ThemedInvitationLayout } from "@/components/invitation/ThemedInvitationLayout";
 import { GuestCodeGate } from "@/components/invitation/GuestCodeGate";
-import { ModuleRenderer } from "@/components/invitation/ModuleRenderer";
-import { ModulesWrapper } from "@/components/invitation/ModulesWrapper";
-import { ScrollToTop } from "@/components/invitation/ScrollToTop";
 import { supabaseAdmin } from "@/lib/supabase-admin";
 import { notFound } from "next/navigation";
 import type { Viewport } from "next";
@@ -108,7 +104,7 @@ export default async function InvitationPage({ params, searchParams }: Invitatio
   // 4. Fetch Sites config (Modules, Theme, Extras)
   const { data: siteConfig, error: siteError } = await supabaseAdmin
     .from("sites")
-    .select("id, theme_id, modules, plan_id, extras, languages, is_demo")
+    .select("id, theme_id, animation_id, modules, plan_id, extras, languages, is_demo")
     .eq("wedding_id", weddingId)
     .single();
 
@@ -121,41 +117,19 @@ export default async function InvitationPage({ params, searchParams }: Invitatio
 
   const partnerNames = `${profile.first_name} & ${profile.partner_name}`;
   const invitationContent = (
-    <InvitationPageClient hasIntro isDemo={isDemo} initialTheme={siteConfig.theme_id} weddingSlug={weddingCode}>
-    <div
-      className="bg-background text-foreground font-sans"
-    >
-      <InvitationHero
-        firstName={profile.first_name}
-        partnerName={profile.partner_name || ""}
-        weddingDate={profile.wedding_date}
-      />
-
-      {/* --- DYNAMIC MODULES RENDERER --- */}
-      <ModulesWrapper>
-        <main
-          id='modules'
-          className='max-w-4xl mx-auto py-20 px-4 relative z-10'
-        >
-          <ModuleRenderer
-            modules={siteConfig.modules}
-            weddingId={weddingId}
-            siteId={siteConfig.id}
-            weddingDate={profile.wedding_date}
-            extras={siteConfig.extras}
-            partner1={profile.first_name}
-            partner2={profile.partner_name || ""}
-            isDemo={isDemo}
-          />
-        </main>
-      </ModulesWrapper>
-
-      {/* --- PREMIUM FOOTER --- */}
-      <InvitationFooter profile={profile} />
-
-      {/* --- SCROLL TO TOP FLOATING ACTION BUTTON --- */}
-      <ScrollToTop />
-    </div>
+    <InvitationPageClient hasIntro isDemo={isDemo} initialTheme={siteConfig.theme_id} animationId={siteConfig.animation_id ?? undefined} weddingSlug={weddingCode}>
+    <ThemedInvitationLayout
+      themeId={siteConfig.theme_id ?? "theme-minimalist"}
+      firstName={profile.first_name}
+      partnerName={profile.partner_name || ""}
+      weddingDate={profile.wedding_date}
+      profile={profile}
+      modules={siteConfig.modules}
+      weddingId={weddingId}
+      siteId={siteConfig.id}
+      extras={siteConfig.extras}
+      isDemo={isDemo}
+    />
     </InvitationPageClient>
   );
 
