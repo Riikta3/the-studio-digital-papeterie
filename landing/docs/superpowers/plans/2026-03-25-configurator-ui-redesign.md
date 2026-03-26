@@ -440,7 +440,7 @@ return (
 
         <p className="text-center text-[10px] text-muted-foreground/50 font-sans leading-relaxed">
           En validant, vous acceptez nos CGV et notre politique de confidentialité.<br />
-          Paiement unique · Sans abonnement · Accès à vie garanti.
+          Paiement unique · Sans abonnement
         </p>
       </div>
 

@@ -189,6 +189,7 @@ export async function createWedding(data: CreateWeddingData) {
 
   if (siteError || !siteData) {
     console.error("Site Creation Error:", siteError);
+    return { success: false, error: `Failed to create site: ${siteError?.message}` };
   } else {
     // 4.5 Insert into site_modules (New Registry Architecture)
     const siteId = siteData.id;
@@ -255,7 +256,7 @@ export async function createWedding(data: CreateWeddingData) {
       type: "magiclink",
       email: data.email,
       options: {
-        redirectTo: `${dashboardUrl}/auth/confirm?next=${encodeURIComponent("/fr?first=true")}`,
+        redirectTo: `${dashboardUrl}/auth/confirm?next=${encodeURIComponent(`/fr?first=true${finalSlug ? `&slug=${finalSlug}` : ""}`)}`,
       },
     });
 

@@ -1,16 +1,17 @@
 "use client";
 
 import { createClient } from "@/utils/supabase/client";
-import { usePathname } from "next/navigation";
+import { usePathname, useSearchParams } from "next/navigation";
 import { Suspense, useCallback, useEffect, useRef, useState } from "react";
 import { Sidebar } from "./Sidebar";
 import { WelcomePopup } from "./WelcomePopup";
 
 export function DashboardLayout({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
+  const searchParams = useSearchParams();
   const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
   const [isLoading, setIsLoading] = useState<boolean>(true);
-  const [slug, setSlug] = useState<string | null>(null);
+  const [slug, setSlug] = useState<string | null>(() => searchParams.get("slug"));
   const [showWelcome, setShowWelcome] = useState(false);
 
   // Use a ref to prevent multiple concurrent fetchSlug calls for the same user
