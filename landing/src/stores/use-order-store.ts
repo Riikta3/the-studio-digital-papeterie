@@ -41,7 +41,7 @@ export interface OrderState {
   setWeddingInfo: (info: Partial<WeddingInfo>) => void;
 }
 
-const EXTRA_PRICES: Record<string, number> = {
+export const EXTRA_PRICES: Record<string, number> = {
   "custom-music": 10,
   "custom-illustration": 45,
   "animated-video": 55,

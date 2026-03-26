@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import { useSearchParams } from "next/navigation";
 import { StepTransition } from "@/components/configurator/StepTransition";
 import { useRouter } from "@/navigation";
-import { selectTotalPrice, useOrderStore } from "@/stores/use-order-store";
+import { selectTotalPrice, useOrderStore, EXTRA_PRICES } from "@/stores/use-order-store";
 import { cn } from "@/lib/utils";
 import { Edit2, Eye, CreditCard, Loader2 } from "lucide-react";
 import { ThemeDemoOverlay } from "@/components/configurator/ThemeDemoOverlay";
@@ -20,6 +20,13 @@ const THEME_NAMES: Record<string, string> = {
   "theme-boho":       "Boho",
   "theme-royal":      "Royal",
   "theme-modern":     "Modern",
+};
+
+const EXTRA_NAMES: Record<string, string> = {
+  "custom-music": "Musique personnalisée",
+  "custom-illustration": "Illustration sur mesure",
+  "animated-video": "Vidéo animée",
+  "custom-domain": "Domaine personnalisé",
 };
 
 function StripePaymentForm({ totalPrice, onSuccess }: { totalPrice: number; onSuccess: () => void }) {
@@ -206,103 +213,159 @@ export default function CheckoutPage() {
   return (
     <StepTransition>
     <>
-      <div className="flex flex-col gap-5 max-w-lg mx-auto px-4">
-        <div className="text-center space-y-2 pb-2">
-          <h1 className="font-heading text-3xl font-bold md:text-4xl">
-            Votre commande est <span className="italic text-primary">prête</span>
-          </h1>
-          <p className="text-muted-foreground text-sm font-sans">
-            Vérifiez vos choix et finalisez votre site d&apos;invitation.
-          </p>
-        </div>
-
-        {/* Récap */}
-        <div className="bg-card border-2 border-border/60 rounded-2xl overflow-hidden">
-          <RecapRow
-            label="Les mariés"
-            value={`${weddingInfo.partner1 || "—"} & ${weddingInfo.partner2 || "—"} · ${weddingInfo.day || "—"} ${weddingInfo.month || ""} ${weddingInfo.year || ""}`}
-            href="/studio/start"
-          />
-          <RecapRow label="Offre" value={`Pack ${plan === "premium" ? "Premium" : "Essentiel"} — ${plan === "premium" ? "575" : "175"}€`} href="/studio/start" />
-          <RecapRow label="Animation & Thème" value={`${animation || "—"} · ${THEME_NAMES[theme] || "—"}`} href="/studio/animation" />
-          <RecapRow label="Modules" href="/studio/modules">
-            <div className="flex flex-wrap gap-1 mt-1">
-              {modules.slice(0, 4).map((m) => (
-                <span key={m} className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-primary/10 text-primary font-sans">{m}</span>
-              ))}
-              {modules.length > 4 && (
-                <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-muted text-muted-foreground font-sans">+{modules.length - 4}</span>
-              )}
-            </div>
-          </RecapRow>
-          {(languages.length > 0 || extras.length > 0 || adultsOnly) && (
-            <RecapRow label="Options" href="/studio/options">
-              <div className="flex flex-wrap gap-1 mt-1">
-                {languages.map((l) => (
-                  <span key={l} className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-primary/10 text-primary font-sans">{l.toUpperCase()} +15€</span>
-                ))}
-                {extras.map((e) => (
-                  <span key={e} className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-primary/10 text-primary font-sans">{e}</span>
-                ))}
-                {adultsOnly && (
-                  <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-muted text-muted-foreground font-sans">Adults Only</span>
-                )}
-              </div>
-            </RecapRow>
-          )}
-        </div>
-
-        {/* Aperçu */}
-        <button
-          onClick={() => setShowPreview(true)}
-          className="w-full flex items-center justify-center gap-2 py-3.5 rounded-2xl border-2 border-primary text-primary font-bold text-sm font-sans hover:bg-primary/5 transition-colors"
-        >
-          <Eye className="w-4 h-4" />
-          Voir l&apos;aperçu de mon site
-        </button>
-
-        {/* Total */}
-        <div className="flex items-center justify-between px-5 py-4 bg-card border-2 border-border rounded-2xl">
-          <div>
-            <p className="text-sm font-semibold font-sans">Total à régler</p>
-            <p className="text-[10px] text-muted-foreground font-sans">Paiement unique · Accès à vie</p>
-          </div>
-          <span className="font-heading text-3xl font-bold text-primary">{totalPrice}€</span>
-        </div>
-
-        {/* Separator */}
-        <div className="flex items-center gap-3">
-          <div className="flex-1 h-px bg-border" />
-          <span className="text-[10px] font-bold uppercase tracking-wider text-muted-foreground/50 font-sans">Paiement sécurisé</span>
-          <div className="flex-1 h-px bg-border" />
-        </div>
-
-        {/* Stripe Elements */}
-        {fetchError ? (
-          <div className="rounded-2xl bg-red-50 border border-red-100 px-4 py-3">
-            <p className="text-sm text-red-500 font-sans">{fetchError}</p>
-          </div>
-        ) : !clientSecret ? (
-          <div className="flex flex-col items-center gap-3 py-8">
-            <Loader2 className="w-8 h-8 text-primary animate-spin" />
-            <p className="text-sm text-muted-foreground font-sans animate-pulse">Initialisation du paiement sécurisé...</p>
-          </div>
-        ) : (
-          <Elements
-            stripe={stripePromise}
-            options={{ clientSecret, appearance: { theme: "stripe" } }}
-          >
-            <StripePaymentForm totalPrice={totalPrice} onSuccess={() => {}} />
-          </Elements>
-        )}
-
-        <p className="text-center text-[10px] text-muted-foreground/50 font-sans leading-relaxed">
-          En validant, vous acceptez nos CGV et notre politique de confidentialité.<br />
-          Paiement unique · Sans abonnement · Accès à vie garanti.
+      {/* Title — full width above grid */}
+      <div className="text-center space-y-2 pb-2 max-w-lg mx-auto px-4 md:max-w-4xl">
+        <h1 className="font-heading text-3xl font-bold md:text-4xl">
+          Votre commande est <span className="italic text-primary">prête</span>
+        </h1>
+        <p className="text-muted-foreground text-sm font-sans">
+          Vérifiez vos choix et finalisez votre site d&apos;invitation.
         </p>
       </div>
 
-      {/* Preview overlay */}
+      {/* 2-col grid on desktop */}
+      <div className="flex flex-col gap-5 max-w-lg mx-auto px-4 md:max-w-4xl md:grid md:grid-cols-2 md:gap-10 md:items-start">
+
+        {/* LEFT COL: recap + pricing + preview + total */}
+        <div className="flex flex-col gap-4">
+
+          {/* Recap */}
+          <div className="bg-card border-2 border-border/60 rounded-2xl overflow-hidden">
+            <RecapRow
+              label="Les mariés"
+              value={`${weddingInfo.partner1 || "—"} & ${weddingInfo.partner2 || "—"} · ${weddingInfo.day || "—"} ${weddingInfo.month || ""} ${weddingInfo.year || ""}`}
+              href="/studio/start"
+            />
+            <RecapRow label="Animation & Thème" value={`${animation || "—"} · ${THEME_NAMES[theme] || "—"}`} href="/studio/animation" />
+            <RecapRow label="Modules" href="/studio/modules">
+              <div className="flex flex-wrap gap-1 mt-1">
+                {modules.slice(0, 4).map((m) => (
+                  <span key={m} className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-primary/10 text-primary font-sans">{m}</span>
+                ))}
+                {modules.length > 4 && (
+                  <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-muted text-muted-foreground font-sans">+{modules.length - 4}</span>
+                )}
+              </div>
+            </RecapRow>
+            {(languages.length > 0 || extras.length > 0 || adultsOnly) && (
+              <RecapRow label="Options" href="/studio/options">
+                <div className="flex flex-wrap gap-1 mt-1">
+                  {languages.map((l) => (
+                    <span key={l} className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-primary/10 text-primary font-sans">{l.toUpperCase()} +15€</span>
+                  ))}
+                  {extras.map((e) => (
+                    <span key={e} className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-primary/10 text-primary font-sans">{e}</span>
+                  ))}
+                  {adultsOnly && (
+                    <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-muted text-muted-foreground font-sans">Adults Only</span>
+                  )}
+                </div>
+              </RecapRow>
+            )}
+          </div>
+
+          {/* Pricing breakdown */}
+          {plan && (
+            <div className="rounded-2xl border border-border/60 bg-card overflow-hidden">
+              <div className="flex items-center justify-between px-4 py-3 border-b border-border/40">
+                <span className="text-sm font-bold">Pack {plan === "premium" ? "Premium" : "Essentiel"}</span>
+                <span className="text-sm font-bold">{plan === "premium" ? "575" : "175"}€</span>
+              </div>
+              {plan === "experience" && modules.length > 4 && (
+                <div className="flex items-center justify-between px-4 py-3 border-b border-border/40">
+                  <span className="text-sm text-muted-foreground font-sans">
+                    {modules.length - 4} module{modules.length - 4 > 1 ? "s" : ""} supplémentaire{modules.length - 4 > 1 ? "s" : ""}
+                  </span>
+                  <span className="text-sm font-semibold text-muted-foreground font-sans">+{(modules.length - 4) * 5}€</span>
+                </div>
+              )}
+              {languages.map((l) => (
+                <div key={l} className="flex items-center justify-between px-4 py-3 border-b border-border/40">
+                  <span className="text-sm text-muted-foreground font-sans">Langue : {l.toUpperCase()}</span>
+                  <span className="text-sm font-semibold text-muted-foreground font-sans">+15€</span>
+                </div>
+              ))}
+              {extras.map((e) => (
+                <div key={e} className="flex items-center justify-between px-4 py-3 border-b border-border/40 last:border-b-0">
+                  <span className="text-sm text-muted-foreground font-sans">{EXTRA_NAMES[e] ?? e}</span>
+                  <span className="text-sm font-semibold text-muted-foreground font-sans">+{EXTRA_PRICES[e] ?? 0}€</span>
+                </div>
+              ))}
+            </div>
+          )}
+
+          {/* Preview button */}
+          <button
+            onClick={() => setShowPreview(true)}
+            className="w-full flex items-center justify-center gap-2 py-3.5 rounded-2xl border-2 border-primary text-primary font-bold text-sm font-sans hover:bg-primary/5 transition-colors"
+          >
+            <Eye className="w-4 h-4" />
+            Voir l&apos;aperçu de mon site
+          </button>
+
+          {/* Total */}
+          <div className="flex items-center justify-between px-5 py-4 bg-card border-2 border-border rounded-2xl">
+            <div>
+              <p className="text-sm font-semibold font-sans">Total à régler</p>
+              <p className="text-[10px] text-muted-foreground font-sans">Paiement unique · Accès à vie</p>
+            </div>
+            <span className="font-heading text-3xl font-bold text-primary">{totalPrice}€</span>
+          </div>
+
+          {/* Guarantees — desktop only */}
+          <div className="hidden md:flex flex-col gap-2">
+            {[
+              "Paiement unique — sans abonnement",
+              "Accès immédiat après confirmation",
+              "Support par email sous 24h",
+            ].map((g) => (
+              <div key={g} className="flex items-center gap-2 text-xs text-muted-foreground font-sans">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="text-primary flex-shrink-0"><polyline points="20 6 9 17 4 12"/></svg>
+                {g}
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* RIGHT COL: Stripe payment */}
+        <div className="flex flex-col gap-5">
+          <h2 className="hidden md:block font-heading text-xl font-bold">Paiement sécurisé</h2>
+
+          {/* Separator — mobile only */}
+          <div className="flex items-center gap-3 md:hidden">
+            <div className="flex-1 h-px bg-border" />
+            <span className="text-[10px] font-bold uppercase tracking-wider text-muted-foreground/50 font-sans">Paiement sécurisé</span>
+            <div className="flex-1 h-px bg-border" />
+          </div>
+
+          {/* Stripe Elements */}
+          {fetchError ? (
+            <div className="rounded-2xl bg-red-50 border border-red-100 px-4 py-3">
+              <p className="text-sm text-red-500 font-sans">{fetchError}</p>
+            </div>
+          ) : !clientSecret ? (
+            <div className="flex flex-col items-center gap-3 py-8">
+              <Loader2 className="w-8 h-8 text-primary animate-spin" />
+              <p className="text-sm text-muted-foreground font-sans animate-pulse">Initialisation du paiement sécurisé...</p>
+            </div>
+          ) : (
+            <Elements
+              stripe={stripePromise}
+              options={{ clientSecret, appearance: { theme: "stripe" } }}
+            >
+              <StripePaymentForm totalPrice={totalPrice} onSuccess={() => {}} />
+            </Elements>
+          )}
+
+          <p className="text-center text-[10px] text-muted-foreground/50 font-sans leading-relaxed">
+            En validant, vous acceptez nos CGV et notre politique de confidentialité.<br />
+            Paiement unique · Sans abonnement · Accès à vie garanti.
+          </p>
+        </div>
+
+      </div>
+
+      {/* Preview overlay — OUTSIDE grid, at fragment level */}
       {showPreview && (
         <ThemeDemoOverlay
           themeId={theme}
