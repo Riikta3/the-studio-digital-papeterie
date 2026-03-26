@@ -121,76 +121,95 @@ export default function ModulesPage() {
 
   return (
     <StepTransition>
-    <div className="flex flex-col gap-4">
-      <div className="text-center space-y-2 px-4 pb-2">
-        <h1 className="font-heading text-3xl font-bold md:text-4xl lg:text-5xl">
-          Vos <span className="italic text-primary">fonctionnalités</span>
-        </h1>
-        <p className="text-muted-foreground text-sm max-w-sm mx-auto font-sans">
-          {plan === "premium"
-            ? "Tous les modules sont inclus dans votre offre."
-            : "4 modules inclus. +5€ par module supplémentaire."}
-        </p>
-      </div>
+      <div className="flex flex-col gap-4">
 
-      {/* Counter badge */}
-      {plan === "experience" && modules.length > 0 && (
+        <div className="text-center space-y-2 px-4 pb-2">
+          <h1 className="font-heading text-3xl font-bold md:text-4xl lg:text-5xl">
+            Vos <span className="italic text-primary">fonctionnalités</span>
+          </h1>
+          <p className="text-muted-foreground text-sm max-w-sm mx-auto font-sans">
+            {plan === "premium"
+              ? "Tous les modules sont inclus dans votre offre."
+              : "Choisissez au minimum 4 modules. +5€ par module supplémentaire."}
+          </p>
+        </div>
+
+        {/* Counter badge */}
         <div className="flex justify-center">
-          <span className="font-sans text-xs font-bold px-4 py-1.5 rounded-full bg-primary/10 text-primary">
-            {modules.length} sélectionné{modules.length > 1 ? "s" : ""}
-            {extraCost > 0 ? ` · +${extraCost}€` : " · inclus"}
+          <span className={cn(
+            "font-sans text-xs font-bold px-4 py-1.5 rounded-full transition-colors",
+            modules.length === 0
+              ? "bg-muted text-muted-foreground"
+              : plan === "experience" && modules.length < 4
+                ? "bg-amber-50 text-amber-600 border border-amber-200"
+                : "bg-primary/10 text-primary",
+          )}>
+            {modules.length === 0
+              ? plan === "experience" ? "Sélectionnez au moins 4 modules" : "Aucun module sélectionné"
+              : plan === "experience"
+                ? modules.length < 4
+                  ? `${modules.length} / 4 modules minimum`
+                  : `${modules.length} sélectionné${modules.length > 1 ? "s" : ""}${extraCost > 0 ? ` · +${extraCost}€` : " · inclus"}`
+                : `${modules.length} sélectionné${modules.length > 1 ? "s" : ""}`}
           </span>
         </div>
-      )}
 
-      {/* List */}
-      <div className="flex flex-col gap-2 max-w-lg mx-auto w-full px-4">
-        {MODULES.map((mod) => {
-          const isSelected = modules.includes(mod.id);
-          const selectedIndex = modules.indexOf(mod.id);
-          const isExtra = plan === "experience" && isSelected && selectedIndex >= 4;
-          const Icon = mod.icon;
-          return (
-            <button
-              key={mod.id}
-              onClick={() => toggleModule(mod.id)}
-              className={cn(
-                "w-full text-left flex items-center gap-3 p-4 rounded-2xl border-2 transition-all duration-150",
-                isSelected
-                  ? "border-primary bg-primary/5"
-                  : "border-border bg-card hover:border-primary/30",
-              )}
-            >
-              <div className={cn(
-                "w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0 transition-colors",
-                isSelected ? "bg-primary/15 text-primary" : "bg-muted text-muted-foreground"
-              )}>
-                <Icon className="w-5 h-5" />
-              </div>
-              <div className="flex-1 min-w-0">
-                <p className="text-sm font-bold">{mod.label}</p>
-                <p className="text-xs text-muted-foreground font-sans mt-0.5 line-clamp-1">{mod.desc}</p>
-              </div>
-              {isExtra && (
-                <span className="text-[10px] font-bold text-primary bg-primary/10 px-2 py-0.5 rounded-full font-sans flex-shrink-0">
-                  +5€
-                </span>
-              )}
-              <div className={cn(
-                "w-5 h-5 rounded-full border-2 flex items-center justify-center flex-shrink-0 transition-colors",
-                isSelected ? "border-primary/40 bg-primary/15" : "border-border"
-              )}>
-                {isSelected && (
-                  <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" className="text-primary">
-                    <polyline points="20 6 9 17 4 12" />
-                  </svg>
+        {/* Grid 2 cols */}
+        <div className="grid grid-cols-2 gap-3 px-4 max-w-2xl mx-auto w-full">
+          {MODULES.map((mod) => {
+            const isSelected = modules.includes(mod.id);
+            const selectedIndex = modules.indexOf(mod.id);
+            const isExtra = plan === "experience" && isSelected && selectedIndex >= 4;
+            const Icon = mod.icon;
+            return (
+              <button
+                key={mod.id}
+                onClick={() => toggleModule(mod.id)}
+                className={cn(
+                  "text-left p-4 rounded-[20px] border-2 flex flex-col gap-3 transition-all duration-150 relative",
+                  isSelected
+                    ? "border-primary bg-primary/5 shadow-[0_0_0_4px_rgba(124,45,62,0.06)]"
+                    : "border-border/50 bg-card hover:border-primary/30 shadow-sm",
                 )}
-              </div>
-            </button>
-          );
-        })}
+              >
+                {/* Icon */}
+                <div className={cn(
+                  "w-10 h-10 rounded-xl flex items-center justify-center transition-colors",
+                  isSelected ? "bg-primary/15 text-primary" : "bg-muted text-muted-foreground",
+                )}>
+                  <Icon className="w-5 h-5" />
+                </div>
+
+                {/* Text */}
+                <div className="flex-1">
+                  <p className="text-[13px] font-bold leading-tight">{mod.label}</p>
+                  <p className="text-[11px] text-muted-foreground font-sans mt-1 line-clamp-2 leading-relaxed">{mod.desc}</p>
+                </div>
+
+                {/* Bottom row */}
+                <div className="flex items-center justify-between">
+                  {isExtra ? (
+                    <span className="text-[10px] font-bold text-primary bg-primary/10 px-2 py-0.5 rounded-full font-sans">+5€</span>
+                  ) : (
+                    <span />
+                  )}
+                  <div className={cn(
+                    "w-5 h-5 rounded-full border-2 flex items-center justify-center flex-shrink-0 transition-colors",
+                    isSelected ? "border-primary bg-primary" : "border-border",
+                  )}>
+                    {isSelected && (
+                      <svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="3.5" strokeLinecap="round" strokeLinejoin="round">
+                        <polyline points="20 6 9 17 4 12" />
+                      </svg>
+                    )}
+                  </div>
+                </div>
+              </button>
+            );
+          })}
+        </div>
+
       </div>
-    </div>
     </StepTransition>
   );
 }

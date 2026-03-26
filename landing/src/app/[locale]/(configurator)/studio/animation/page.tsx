@@ -1,9 +1,5 @@
 "use client";
 
-import {
-  ConfiguratorCarousel,
-  type CarouselCard,
-} from "@/components/configurator/ConfiguratorCarousel";
 import { StepTransition } from "@/components/configurator/StepTransition";
 import { ThemeDemoOverlay } from "@/components/configurator/ThemeDemoOverlay";
 import { cn } from "@/lib/utils";
@@ -239,31 +235,6 @@ export default function AnimationPage() {
 
   const currentCategory = CATEGORIES.find((c) => c.id === activeCategory)!;
 
-  const cards: CarouselCard[] = currentCategory.variants.map((v) => ({
-    id: v.id,
-    title: v.name,
-    description: v.desc,
-    actionLabel: "Choisir cette animation",
-    selectedLabel: "✓ Sélectionné",
-    previewContent: (
-      <div className="relative h-full flex items-center justify-center bg-primary/7">
-        <div className="absolute inset-0 opacity-[0.05] bg-[radial-gradient(#000_1px,transparent_1px)] [background-size:18px_18px]" />
-        <span className="relative z-10 opacity-20 scale-[2.5] text-foreground">
-          {currentCategory.icon}
-        </span>
-        <button
-          onClick={(e) => {
-            e.stopPropagation();
-            setShowDemo(true);
-          }}
-          className="absolute bottom-3 left-1/2 -translate-x-1/2 z-10 whitespace-nowrap text-[11px] font-bold text-primary px-4 py-1.5 rounded-full bg-white/90 backdrop-blur-sm border border-primary/20 shadow-sm font-sans"
-        >
-          ▶ Voir la démo
-        </button>
-      </div>
-    ),
-  }));
-
   return (
     <StepTransition>
       <>
@@ -297,11 +268,60 @@ export default function AnimationPage() {
             ))}
           </div>
 
-          <ConfiguratorCarousel
-            cards={cards}
-            selectedId={animation}
-            onSelect={(id) => setAnimation(id)}
-          />
+          {/* Grid 2 cols */}
+          <div className="grid grid-cols-2 gap-3 px-4 max-w-2xl mx-auto w-full">
+            {currentCategory.variants.map((v) => {
+              const isSelected = animation === v.id;
+              return (
+                <div
+                  key={v.id}
+                  className={cn(
+                    "rounded-[20px] border-2 bg-card overflow-hidden transition-all duration-200 cursor-pointer",
+                    isSelected
+                      ? "border-primary shadow-[0_0_0_4px_rgba(124,45,62,0.08),0_8px_24px_rgba(124,45,62,0.12)]"
+                      : "border-border/50 shadow-sm hover:border-primary/30",
+                  )}
+                  onClick={() => setAnimation(v.id)}
+                >
+                  {/* Preview */}
+                  <div className="relative h-[180px] md:h-[220px] flex items-center justify-center bg-primary/5">
+                    <div className="absolute inset-0 opacity-[0.04] bg-[radial-gradient(#000_1px,transparent_1px)] [background-size:18px_18px]" />
+                    <span className="relative z-10 opacity-15 scale-[2.5] text-foreground">
+                      {currentCategory.icon}
+                    </span>
+                    {isSelected && (
+                      <div className="absolute top-2.5 left-2.5 z-10 bg-primary/15 text-primary text-[10px] font-bold px-2.5 py-1 rounded-full font-sans border border-primary/20">
+                        ✓ Sélectionné
+                      </div>
+                    )}
+                    <button
+                      onClick={(e) => { e.stopPropagation(); setShowDemo(true); }}
+                      className="absolute bottom-2.5 left-1/2 -translate-x-1/2 z-10 whitespace-nowrap text-[11px] font-bold text-primary px-4 py-1.5 rounded-full bg-white/90 backdrop-blur-sm border border-primary/20 shadow-sm font-sans"
+                    >
+                      ▶ Voir la démo
+                    </button>
+                  </div>
+
+                  {/* Footer */}
+                  <div className="p-3.5 border-t border-border/30">
+                    <h3 className="font-bold text-[14px] mb-0.5">{v.name}</h3>
+                    <p className="text-[11px] text-muted-foreground font-sans line-clamp-1 mb-3">{v.desc}</p>
+                    <button
+                      onClick={(e) => { e.stopPropagation(); setAnimation(v.id); }}
+                      className={cn(
+                        "w-full py-2.5 rounded-full text-[12px] font-bold font-sans border-2 transition-colors",
+                        isSelected
+                          ? "border-primary bg-primary text-primary-foreground"
+                          : "border-primary bg-transparent text-primary hover:bg-primary/5",
+                      )}
+                    >
+                      {isSelected ? "✓ Sélectionné" : "Choisir"}
+                    </button>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
         </div>
 
         {showDemo && (
