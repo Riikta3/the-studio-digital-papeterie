@@ -36,8 +36,12 @@ export default function ConfiguratorLayout({
   const searchParams = useSearchParams();
   const totalPrice = useOrderStore(selectTotalPrice);
   const plan = useOrderStore((state) => state.plan);
+  const animation = useOrderStore((state) => state.animation);
+  const theme = useOrderStore((state) => state.theme);
+  const modules = useOrderStore((state) => state.modules);
   const weddingInfo = useOrderStore((state) => state.weddingInfo);
   const emailExists = useOrderStore((state) => state.emailExists);
+  const resetStore = useOrderStore((state) => state.resetStore);
   const [isMounted, setIsMounted] = useState(false);
   const [showQuitDialog, setShowQuitDialog] = useState(false);
 
@@ -51,7 +55,6 @@ export default function ConfiguratorLayout({
   const isLastStep = currentStepIndex === STEPS.length - 1;
   const isFirstStep = currentStepIndex === 0;
 
-  const isStartStep = pathname.includes("/studio/start");
   const isStartValid =
     !!plan &&
     !!weddingInfo.partner1.trim() &&
@@ -64,21 +67,32 @@ export default function ConfiguratorLayout({
     weddingInfo.password.length >= 8 &&
     !emailExists;
 
-  // Guard: redirect to first step if no plan selected (skip on payment redirect)
+  const isModulesValid = plan === "premium" || modules.length >= 4;
+
+  const isStepValid =
+    pathname.includes("/studio/start")     ? isStartValid :
+    pathname.includes("/studio/animation") ? !!animation :
+    pathname.includes("/studio/theme")     ? !!theme :
+    pathname.includes("/studio/modules")   ? isModulesValid :
+    true; // options + checkout toujours franchissables
+
+  // Guard: redirect to the furthest valid step if the user jumps ahead via URL
   useEffect(() => {
     if (!isMounted) return;
     if (searchParams.get("payment_success")) return;
-    if (currentStepIndex > 0 && !plan) {
+
+    if (currentStepIndex >= 1 && !isStartValid) {
       router.push("/studio/start");
+    } else if (currentStepIndex >= 2 && !animation) {
+      router.push("/studio/animation");
+    } else if (currentStepIndex >= 3 && !theme) {
+      router.push("/studio/theme");
+    } else if (currentStepIndex >= 4 && !isModulesValid) {
+      router.push("/studio/modules");
     }
-  }, [isMounted, currentStepIndex, plan, router, searchParams]);
+  }, [isMounted, currentStepIndex, isStartValid, animation, theme, isModulesValid, router, searchParams]);
 
   const handleQuit = () => {
-    // No dialog on first step — nothing to lose yet
-    if (isFirstStep) {
-      router.push("/");
-      return;
-    }
     setShowQuitDialog(true);
   };
 
@@ -176,10 +190,10 @@ export default function ConfiguratorLayout({
             )}
             <button
               onClick={() => router.push(nextStep)}
-              disabled={isStartStep && !isStartValid}
+              disabled={!isStepValid}
               className={cn(
                 "group flex items-center gap-2 rounded-full bg-primary text-primary-foreground px-6 py-2.5 text-sm font-semibold shadow-lg transition-all hover:scale-105 active:scale-95",
-                (isStartStep && !isStartValid) && "opacity-40 cursor-not-allowed pointer-events-none",
+                !isStepValid && "opacity-40 cursor-not-allowed pointer-events-none",
               )}
             >
               <span>
@@ -234,7 +248,10 @@ export default function ConfiguratorLayout({
                 Continuer
               </button>
               <button
-                onClick={() => router.push("/")}
+                onClick={() => {
+                  router.push("/");
+                  resetStore();
+                }}
                 className='flex-1 py-4 text-sm font-medium text-muted-foreground hover:text-foreground transition-colors'
               >
                 Quitter

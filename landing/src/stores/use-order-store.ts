@@ -39,6 +39,7 @@ export interface OrderState {
   setAdultsOnly: (value: boolean) => void;
   toggleExtra: (extra: string) => void;
   setWeddingInfo: (info: Partial<WeddingInfo>) => void;
+  resetStore: () => void;
 }
 
 export const EXTRA_PRICES: Record<string, number> = {
@@ -102,6 +103,28 @@ export const useOrderStore = create<OrderState>()(
         set((state) => ({
           weddingInfo: { ...state.weddingInfo, ...info },
         })),
+      resetStore: () =>
+        set({
+          plan: null,
+          animation: "",
+          theme: "theme-floral",
+          modules: [],
+          primaryLanguage: "fr",
+          languages: [],
+          adultsOnly: false,
+          extras: [],
+          emailExists: false,
+          weddingInfo: {
+            partner1: "",
+            partner2: "",
+            day: "",
+            month: "",
+            year: "",
+            venue: "",
+            email: "",
+            password: "",
+          },
+        }),
     }),
     {
       name: "order-store-v2",
