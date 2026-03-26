@@ -17,6 +17,18 @@ const CURRENT_MONTH = TODAY.getMonth() + 1;
 const CURRENT_DAY = TODAY.getDate();
 const DEFAULT_YEAR = CURRENT_YEAR + 1;
 
+const PREMIUM_FEATURES = [
+  { text: "Modules illimités", highlight: false },
+  { text: "Nom de domaine inclus", highlight: false },
+  { text: "Support prioritaire par email sous 24h", highlight: true },
+];
+
+const ESSENTIAL_FEATURES = [
+  { text: "4 modules inclus · +5€/module supplémentaire", highlight: false },
+  { text: "Extras à la carte", highlight: false },
+  { text: "Support standard", highlight: false },
+];
+
 function isDateInPast(day: string, month: string, year: string): boolean {
   const y = parseInt(year);
   const m = MONTHS.indexOf(month) + 1;
@@ -115,7 +127,17 @@ export default function StartPage() {
                 <div className="flex items-center justify-between gap-4 mt-1">
                   <div className="flex-1">
                     <p className="text-sm font-bold mb-0.5">Premium</p>
-                    <p className="text-[11px] text-muted-foreground font-sans">Modules illimités · Domaine inclus · Support prioritaire</p>
+                    <ul className="mt-2 flex flex-col gap-0.5">
+                      {PREMIUM_FEATURES.map((f) => (
+                        <li key={f.text} className="flex items-start gap-1.5">
+                          <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" className="text-primary mt-0.5 flex-shrink-0"><polyline points="20 6 9 17 4 12" /></svg>
+                          <span className={cn(
+                            "text-[11px] font-sans leading-tight",
+                            f.highlight ? "font-bold text-primary" : "text-muted-foreground"
+                          )}>{f.text}</span>
+                        </li>
+                      ))}
+                    </ul>
                   </div>
                   <div className="flex items-center gap-2 flex-shrink-0">
                     <span className="font-heading text-2xl font-bold text-primary">575€</span>
@@ -144,7 +166,14 @@ export default function StartPage() {
                 <div className="flex items-center justify-between gap-4">
                   <div className="flex-1">
                     <p className="text-sm font-bold mb-0.5">Essentiel</p>
-                    <p className="text-[11px] text-muted-foreground font-sans">4 modules inclus · Extras à la carte · Support standard</p>
+                    <ul className="mt-2 flex flex-col gap-0.5">
+                      {ESSENTIAL_FEATURES.map((f) => (
+                        <li key={f.text} className="flex items-start gap-1.5">
+                          <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" className="text-muted-foreground/40 mt-0.5 flex-shrink-0"><polyline points="20 6 9 17 4 12" /></svg>
+                          <span className="text-[11px] font-sans text-muted-foreground leading-tight">{f.text}</span>
+                        </li>
+                      ))}
+                    </ul>
                   </div>
                   <div className="flex items-center gap-2 flex-shrink-0">
                     <span className="font-heading text-2xl font-bold text-primary">175€</span>
