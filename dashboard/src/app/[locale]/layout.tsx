@@ -4,6 +4,7 @@ import type { Metadata } from "next";
 import { NextIntlClientProvider } from "next-intl";
 import { getMessages } from "next-intl/server";
 import { Cormorant_Garamond, DM_Sans } from "next/font/google";
+import { Suspense } from "react";
 import "../globals.css";
 
 const cormorant = Cormorant_Garamond({
@@ -42,7 +43,7 @@ export default async function RootLayout({
         className={`${cormorant.variable} ${dmSans.variable} font-body bg-[#FDFBF7] text-gray-900 antialiased`}
       >
         <NextIntlClientProvider messages={messages}>
-          <DashboardLayout>{children}</DashboardLayout>
+          <Suspense><DashboardLayout>{children}</DashboardLayout></Suspense>
           <Toaster />
         </NextIntlClientProvider>
       </body>

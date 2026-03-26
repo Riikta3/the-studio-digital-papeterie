@@ -25,27 +25,28 @@
 
 ## File Map
 
-| Action | File | Purpose |
-|--------|------|---------|
-| **Modify** | `landing/src/stores/use-order-store.ts` | Add animation, languages, adultsOnly, weddingInfo fields |
-| **Modify** | `landing/src/app/[locale]/(configurator)/layout.tsx` | Update STEPS array to 8 steps, update STEP_TITLES |
-| **Modify** | `landing/src/app/globals.css` | Add scrollbar-hide utility |
-| **Modify** | `landing/src/components/landing/product-demo-viewer.tsx` | Export ANIMATION_SEQUENCES, THEME_HERO_ASSETS, DEMO_CODES, types |
-| **Create** | `landing/src/components/configurator/ThemeDemoOverlay.tsx` | Fullscreen overlay with live invitation iframe + SET_THEME |
-| **Modify** | `landing/src/app/[locale]/(configurator)/create/plan/page.tsx` | Keep logic, redesign visuals (stacked rows) |
-| **Create** | `landing/src/app/[locale]/(configurator)/create/animation/page.tsx` | New step: category tabs + variant grid |
-| **Modify** | `landing/src/app/[locale]/(configurator)/create/theme/page.tsx` | Horizontal scroll carousel + ThemeDemoOverlay |
-| **Modify** | `landing/src/app/[locale]/(configurator)/create/modules/page.tsx` | Redesign: list rows with SVG icons |
-| **Create** | `landing/src/app/[locale]/(configurator)/create/languages/page.tsx` | New step: language selection grid |
-| **Modify** | `landing/src/app/[locale]/(configurator)/create/extras/page.tsx` | Toggle Adults Only + 4 premium options grid |
-| **Create** | `landing/src/app/[locale]/(configurator)/create/wedding/page.tsx` | New step: couple names, date, venue, account creation |
-| **Modify** | `landing/src/app/[locale]/(configurator)/create/checkout/page.tsx` | Full rewrite: recap + billing form + Stripe Elements |
+| Action     | File                                                                | Purpose                                                          |
+| ---------- | ------------------------------------------------------------------- | ---------------------------------------------------------------- |
+| **Modify** | `landing/src/stores/use-order-store.ts`                             | Add animation, languages, adultsOnly, weddingInfo fields         |
+| **Modify** | `landing/src/app/[locale]/(configurator)/layout.tsx`                | Update STEPS array to 8 steps, update STEP_TITLES                |
+| **Modify** | `landing/src/app/globals.css`                                       | Add scrollbar-hide utility                                       |
+| **Modify** | `landing/src/components/landing/product-demo-viewer.tsx`            | Export ANIMATION_SEQUENCES, THEME_HERO_ASSETS, DEMO_CODES, types |
+| **Create** | `landing/src/components/configurator/ThemeDemoOverlay.tsx`          | Fullscreen overlay with live invitation iframe + SET_THEME       |
+| **Modify** | `landing/src/app/[locale]/(configurator)/create/plan/page.tsx`      | Keep logic, redesign visuals (stacked rows)                      |
+| **Create** | `landing/src/app/[locale]/(configurator)/create/animation/page.tsx` | New step: category tabs + variant grid                           |
+| **Modify** | `landing/src/app/[locale]/(configurator)/create/theme/page.tsx`     | Horizontal scroll carousel + ThemeDemoOverlay                    |
+| **Modify** | `landing/src/app/[locale]/(configurator)/create/modules/page.tsx`   | Redesign: list rows with SVG icons                               |
+| **Create** | `landing/src/app/[locale]/(configurator)/create/languages/page.tsx` | New step: language selection grid                                |
+| **Modify** | `landing/src/app/[locale]/(configurator)/create/extras/page.tsx`    | Toggle Adults Only + 4 premium options grid                      |
+| **Create** | `landing/src/app/[locale]/(configurator)/create/wedding/page.tsx`   | New step: couple names, date, venue, account creation            |
+| **Modify** | `landing/src/app/[locale]/(configurator)/create/checkout/page.tsx`  | Full rewrite: recap + billing form + Stripe Elements             |
 
 ---
 
 ## Task 1: Extend Zustand store
 
 **Files:**
+
 - Modify: `landing/src/stores/use-order-store.ts`
 
 - [ ] **Step 1: Read the current store**
@@ -75,10 +76,10 @@ export interface WeddingInfo {
 
 export interface OrderState {
   plan: PlanType;
-  animation: string;        // e.g. "envelope-classic"
-  theme: string;            // e.g. "theme-floral"
+  animation: string; // e.g. "envelope-classic"
+  theme: string; // e.g. "theme-floral"
   modules: string[];
-  languages: string[];      // extra language codes e.g. ["en", "es"]
+  languages: string[]; // extra language codes e.g. ["en", "es"]
   adultsOnly: boolean;
   extras: string[];
   weddingInfo: WeddingInfo;
@@ -148,8 +149,8 @@ export const useOrderStore = create<OrderState>()(
           weddingInfo: { ...state.weddingInfo, ...info },
         })),
     }),
-    { name: "order-store" }
-  )
+    { name: "order-store" },
+  ),
 );
 
 export const selectTotalPrice = (state: OrderState) => {
@@ -157,15 +158,13 @@ export const selectTotalPrice = (state: OrderState) => {
     state.plan === "experience" ? 175 : state.plan === "premium" ? 575 : 0;
 
   const moduleSurcharge =
-    state.plan === "experience"
-      ? Math.max(0, state.modules.length - 4) * 5
-      : 0;
+    state.plan === "experience" ? Math.max(0, state.modules.length - 4) * 5 : 0;
 
   const languagesTotal = state.languages.length * LANGUAGE_PRICE;
 
   const extrasTotal = state.extras.reduce(
     (sum, extra) => sum + (EXTRA_PRICES[extra] ?? 0),
-    0
+    0,
   );
 
   return basePrice + moduleSurcharge + languagesTotal + extrasTotal;
@@ -192,6 +191,7 @@ git commit -m "feat: extend order store with animation, languages, adultsOnly, w
 ## Task 2: Add scrollbar-hide utility + update layout
 
 **Files:**
+
 - Modify: `landing/src/app/globals.css`
 - Modify: `landing/src/app/[locale]/(configurator)/layout.tsx`
 
@@ -228,14 +228,14 @@ const STEPS = [
 
 // inside the component:
 const STEP_TITLES: Record<string, string> = {
-  "/create/plan":      "Votre Offre",
+  "/create/plan": "Votre Offre",
   "/create/animation": "Animation d'entrée",
-  "/create/theme":     "Design & Thème",
-  "/create/modules":   "Fonctionnalités",
+  "/create/theme": "Design & Thème",
+  "/create/modules": "Fonctionnalités",
   "/create/languages": "Langues",
-  "/create/extras":    "Options & Extras",
-  "/create/wedding":   "Votre Mariage",
-  "/create/checkout":  "Récapitulatif",
+  "/create/extras": "Options & Extras",
+  "/create/wedding": "Votre Mariage",
+  "/create/checkout": "Récapitulatif",
 };
 ```
 
@@ -259,6 +259,7 @@ git commit -m "feat: update configurator layout to 8 steps, add scrollbar-hide u
 ## Task 3: Export constants from ProductDemoViewer
 
 **Files:**
+
 - Modify: `landing/src/components/landing/product-demo-viewer.tsx`
 
 - [ ] **Step 1: Check what is already exported**
@@ -270,6 +271,7 @@ grep "^export" landing/src/components/landing/product-demo-viewer.tsx
 - [ ] **Step 2: Add export keyword to these constants (if not already exported)**
 
 Find and add `export` to:
+
 ```tsx
 export const ANIMATION_SEQUENCES: Record<AnimationKey, AnimationSequence> = { ... }
 export const THEME_HERO_ASSETS: Record<ThemeKey, HeroAsset> = { ... }
@@ -295,6 +297,7 @@ git commit -m "feat: export ProductDemoViewer constants for reuse"
 ## Task 4: Create ThemeDemoOverlay component
 
 **Files:**
+
 - Create: `landing/src/components/configurator/ThemeDemoOverlay.tsx`
 
 - [ ] **Step 1: Create the component**
@@ -314,11 +317,11 @@ import {
 import { cn } from "@/lib/utils";
 
 const THEME_KEY_MAP: Record<string, ThemeKey> = {
-  "theme-floral":     "floral",
+  "theme-floral": "floral",
   "theme-minimalist": "minimalist",
-  "theme-boho":       "boho",
-  "theme-royal":      "royal",
-  "theme-modern":     "modern",
+  "theme-boho": "boho",
+  "theme-royal": "royal",
+  "theme-modern": "modern",
 };
 
 const DEFAULT_ANIMATION: AnimationKey = "envelope";
@@ -346,7 +349,9 @@ export function ThemeDemoOverlay({
 
   useEffect(() => {
     document.body.style.overflow = "hidden";
-    return () => { document.body.style.overflow = ""; };
+    return () => {
+      document.body.style.overflow = "";
+    };
   }, []);
 
   const sendTheme = () => {
@@ -370,48 +375,51 @@ export function ThemeDemoOverlay({
   };
 
   return (
-    <div className="fixed inset-0 z-[9999] flex flex-col bg-[#FDFBF7]">
+    <div className='fixed inset-0 z-[9999] flex flex-col bg-[#FDFBF7]'>
       {/* Top bar */}
-      <div className="flex items-center justify-between px-4 h-[52px] border-b border-border/40 bg-background/90 backdrop-blur-md flex-shrink-0">
+      <div className='flex items-center justify-between px-4 h-[52px] border-b border-border/40 bg-background/90 backdrop-blur-md flex-shrink-0'>
         <button
           onClick={onClose}
-          className="flex items-center gap-1.5 text-sm font-bold text-primary font-sans"
+          className='flex items-center gap-1.5 text-sm font-bold text-primary font-sans'
         >
           ‹ Retour
         </button>
-        <span className="text-sm font-bold text-foreground font-sans truncate px-2">
+        <span className='text-sm font-bold text-foreground font-sans truncate px-2'>
           Prévisualisation — {themeName}
         </span>
-        <div className="w-16" />
+        <div className='w-16' />
       </div>
 
       {/* Iframe */}
-      <div className="flex-1 relative overflow-hidden">
+      <div className='flex-1 relative overflow-hidden'>
         {loading && (
-          <div className="absolute inset-0 flex items-center justify-center bg-[#FDFBF7] z-10">
-            <div className="w-8 h-8 border-2 border-primary/20 border-t-primary rounded-full animate-spin" />
+          <div className='absolute inset-0 flex items-center justify-center bg-[#FDFBF7] z-10'>
+            <div className='w-8 h-8 border-2 border-primary/20 border-t-primary rounded-full animate-spin' />
           </div>
         )}
         <iframe
           ref={iframeRef}
           src={iframeSrc}
-          className="w-full h-full border-none block"
+          className='w-full h-full border-none block'
           title={`Démo ${themeName}`}
           onLoad={handleLoad}
         />
       </div>
 
       {/* Bottom bar */}
-      <div className="flex gap-3 px-4 py-3 border-t border-border/40 bg-background/90 backdrop-blur-md flex-shrink-0">
+      <div className='flex gap-3 px-4 py-3 border-t border-border/40 bg-background/90 backdrop-blur-md flex-shrink-0'>
         <button
           onClick={onClose}
-          className="px-5 py-3 rounded-full border border-border text-sm text-muted-foreground font-sans"
+          className='px-5 py-3 rounded-full border border-border text-sm text-muted-foreground font-sans'
         >
           Retour
         </button>
         <button
-          onClick={() => { onSelect(); onClose(); }}
-          className="flex-1 py-3 rounded-full bg-primary text-primary-foreground text-sm font-bold font-sans"
+          onClick={() => {
+            onSelect();
+            onClose();
+          }}
+          className='flex-1 py-3 rounded-full bg-primary text-primary-foreground text-sm font-bold font-sans'
         >
           ✓ Choisir ce thème
         </button>
@@ -439,6 +447,7 @@ git commit -m "feat: add ThemeDemoOverlay component"
 ## Task 5: Redesign Plan page (Step 1)
 
 **Files:**
+
 - Modify: `landing/src/app/[locale]/(configurator)/create/plan/page.tsx`
 
 - [ ] **Step 1: Replace the plan page**
@@ -499,18 +508,17 @@ export default function PlanPage() {
   const { plan, setPlan } = useOrderStore();
 
   return (
-    <div className="flex flex-col gap-4">
-      <div className="text-center space-y-2 px-4 pb-2">
-        <h1 className="font-heading text-3xl font-bold md:text-4xl lg:text-5xl">
-          Choisissez votre{" "}
-          <span className="italic text-primary">offre</span>
+    <div className='flex flex-col gap-4'>
+      <div className='text-center space-y-2 px-4 pb-2'>
+        <h1 className='font-heading text-3xl font-bold md:text-4xl lg:text-5xl'>
+          Choisissez votre <span className='italic text-primary'>offre</span>
         </h1>
-        <p className="text-muted-foreground text-sm max-w-sm mx-auto">
-          Un paiement unique. Accès à vie garanti.
+        <p className='text-muted-foreground text-sm max-w-sm mx-auto'>
+          Un paiement unique.
         </p>
       </div>
 
-      <div className="flex flex-col gap-3 max-w-lg mx-auto w-full px-4">
+      <div className='flex flex-col gap-3 max-w-lg mx-auto w-full px-4'>
         {PLANS.map((p) => {
           const isSelected = plan === p.id;
           return (
@@ -524,37 +532,57 @@ export default function PlanPage() {
                   : "border-border bg-card hover:border-primary/40",
               )}
             >
-              <div className="flex items-start justify-between gap-4">
-                <div className="flex-1">
-                  <div className="flex items-center gap-2 mb-1">
-                    <span className="font-heading text-lg font-bold">{p.name}</span>
+              <div className='flex items-start justify-between gap-4'>
+                <div className='flex-1'>
+                  <div className='flex items-center gap-2 mb-1'>
+                    <span className='font-heading text-lg font-bold'>
+                      {p.name}
+                    </span>
                     {p.badge && (
-                      <span className="text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full bg-primary text-primary-foreground font-sans">
+                      <span className='text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full bg-primary text-primary-foreground font-sans'>
                         {p.badge}
                       </span>
                     )}
                   </div>
-                  <p className="text-muted-foreground text-xs font-sans mb-3">{p.tagline}</p>
-                  <ul className="space-y-1.5">
+                  <p className='text-muted-foreground text-xs font-sans mb-3'>
+                    {p.tagline}
+                  </p>
+                  <ul className='space-y-1.5'>
                     {p.features.map((f) => (
-                      <li key={f} className="flex items-center gap-2 text-xs font-sans text-foreground/80">
-                        <span className="w-1.5 h-1.5 rounded-full bg-primary flex-shrink-0" />
+                      <li
+                        key={f}
+                        className='flex items-center gap-2 text-xs font-sans text-foreground/80'
+                      >
+                        <span className='w-1.5 h-1.5 rounded-full bg-primary flex-shrink-0' />
                         {f}
                       </li>
                     ))}
                   </ul>
                 </div>
-                <div className="flex flex-col items-end gap-2 flex-shrink-0">
-                  <span className="font-heading text-2xl font-bold text-primary">{p.price}€</span>
+                <div className='flex flex-col items-end gap-2 flex-shrink-0'>
+                  <span className='font-heading text-2xl font-bold text-primary'>
+                    {p.price}€
+                  </span>
                   <div
                     className={cn(
                       "w-5 h-5 rounded-full border-2 flex items-center justify-center transition-colors",
-                      isSelected ? "border-primary bg-primary" : "border-border",
+                      isSelected
+                        ? "border-primary bg-primary"
+                        : "border-border",
                     )}
                   >
                     {isSelected && (
-                      <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
-                        <polyline points="20 6 9 17 4 12" />
+                      <svg
+                        width='10'
+                        height='10'
+                        viewBox='0 0 24 24'
+                        fill='none'
+                        stroke='white'
+                        strokeWidth='3'
+                        strokeLinecap='round'
+                        strokeLinejoin='round'
+                      >
+                        <polyline points='20 6 9 17 4 12' />
                       </svg>
                     )}
                   </div>
@@ -587,6 +615,7 @@ git commit -m "feat: redesign plan step with stacked rows"
 ## Task 6: Create Animation page (Step 2)
 
 **Files:**
+
 - Create: `landing/src/app/[locale]/(configurator)/create/animation/page.tsx`
 
 - [ ] **Step 1: Create the page**
@@ -609,28 +638,108 @@ type Category = {
 
 // SVG icons for each category
 const EnvelopeIcon = () => (
-  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-    <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/>
+  <svg
+    width='18'
+    height='18'
+    viewBox='0 0 24 24'
+    fill='none'
+    stroke='currentColor'
+    strokeWidth='2'
+    strokeLinecap='round'
+    strokeLinejoin='round'
+  >
+    <path d='M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z' />
+    <polyline points='22,6 12,13 2,6' />
   </svg>
 );
 const DoorIcon = () => (
-  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-    <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/>
+  <svg
+    width='18'
+    height='18'
+    viewBox='0 0 24 24'
+    fill='none'
+    stroke='currentColor'
+    strokeWidth='2'
+    strokeLinecap='round'
+    strokeLinejoin='round'
+  >
+    <path d='M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z' />
+    <polyline points='9 22 9 12 15 12 15 22' />
   </svg>
 );
 const CurtainIcon = () => (
-  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-    <line x1="12" y1="2" x2="12" y2="22"/><path d="M2 4c3 4 3 8 0 12"/><path d="M22 4c-3 4-3 8 0 12"/>
+  <svg
+    width='18'
+    height='18'
+    viewBox='0 0 24 24'
+    fill='none'
+    stroke='currentColor'
+    strokeWidth='2'
+    strokeLinecap='round'
+    strokeLinejoin='round'
+  >
+    <line
+      x1='12'
+      y1='2'
+      x2='12'
+      y2='22'
+    />
+    <path d='M2 4c3 4 3 8 0 12' />
+    <path d='M22 4c-3 4-3 8 0 12' />
   </svg>
 );
 const BookIcon = () => (
-  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-    <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/>
+  <svg
+    width='18'
+    height='18'
+    viewBox='0 0 24 24'
+    fill='none'
+    stroke='currentColor'
+    strokeWidth='2'
+    strokeLinecap='round'
+    strokeLinejoin='round'
+  >
+    <path d='M4 19.5A2.5 2.5 0 0 1 6.5 17H20' />
+    <path d='M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z' />
   </svg>
 );
 const FloralIcon = () => (
-  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-    <path d="M12 2a9 9 0 0 1 0 18A9 9 0 0 1 12 2z"/><path d="M12 8a3 3 0 0 1 0 8 3 3 0 0 1 0-8z"/><line x1="12" y1="2" x2="12" y2="6"/><line x1="12" y1="18" x2="12" y2="22"/><line x1="4.22" y1="4.22" x2="7.05" y2="7.05"/><line x1="16.95" y1="16.95" x2="19.78" y2="19.78"/>
+  <svg
+    width='18'
+    height='18'
+    viewBox='0 0 24 24'
+    fill='none'
+    stroke='currentColor'
+    strokeWidth='2'
+    strokeLinecap='round'
+    strokeLinejoin='round'
+  >
+    <path d='M12 2a9 9 0 0 1 0 18A9 9 0 0 1 12 2z' />
+    <path d='M12 8a3 3 0 0 1 0 8 3 3 0 0 1 0-8z' />
+    <line
+      x1='12'
+      y1='2'
+      x2='12'
+      y2='6'
+    />
+    <line
+      x1='12'
+      y1='18'
+      x2='12'
+      y2='22'
+    />
+    <line
+      x1='4.22'
+      y1='4.22'
+      x2='7.05'
+      y2='7.05'
+    />
+    <line
+      x1='16.95'
+      y1='16.95'
+      x2='19.78'
+      y2='19.78'
+    />
   </svg>
 );
 
@@ -640,10 +749,22 @@ const CATEGORIES: Category[] = [
     name: "Enveloppe",
     icon: <EnvelopeIcon />,
     variants: [
-      { id: "envelope-classic",  name: "Classique",  desc: "Ouverture élégante et sobre" },
-      { id: "envelope-kraft",    name: "Kraft",       desc: "Texture papier naturel" },
-      { id: "envelope-luxury",   name: "Luxe",        desc: "Fermeture cire, finition premium" },
-      { id: "envelope-vintage",  name: "Vintage",     desc: "Style rétro avec cachet de cire" },
+      {
+        id: "envelope-classic",
+        name: "Classique",
+        desc: "Ouverture élégante et sobre",
+      },
+      { id: "envelope-kraft", name: "Kraft", desc: "Texture papier naturel" },
+      {
+        id: "envelope-luxury",
+        name: "Luxe",
+        desc: "Fermeture cire, finition premium",
+      },
+      {
+        id: "envelope-vintage",
+        name: "Vintage",
+        desc: "Style rétro avec cachet de cire",
+      },
     ],
   },
   {
@@ -651,11 +772,31 @@ const CATEGORIES: Category[] = [
     name: "Porte",
     icon: <DoorIcon />,
     variants: [
-      { id: "door-royal",      name: "Royal",       desc: "Grande porte dorée majestueuse" },
-      { id: "door-classic",    name: "Classique",   desc: "Porte en bois sobre et élégante" },
-      { id: "door-authentic",  name: "Authentique", desc: "Porte rustique en bois brut" },
-      { id: "door-modern",     name: "Moderne",     desc: "Porte vitrée contemporaine" },
-      { id: "door-japanese",   name: "Japonaise",   desc: "Porte coulissante en bois clair" },
+      {
+        id: "door-royal",
+        name: "Royal",
+        desc: "Grande porte dorée majestueuse",
+      },
+      {
+        id: "door-classic",
+        name: "Classique",
+        desc: "Porte en bois sobre et élégante",
+      },
+      {
+        id: "door-authentic",
+        name: "Authentique",
+        desc: "Porte rustique en bois brut",
+      },
+      {
+        id: "door-modern",
+        name: "Moderne",
+        desc: "Porte vitrée contemporaine",
+      },
+      {
+        id: "door-japanese",
+        name: "Japonaise",
+        desc: "Porte coulissante en bois clair",
+      },
     ],
   },
   {
@@ -663,9 +804,13 @@ const CATEGORIES: Category[] = [
     name: "Rideau",
     icon: <CurtainIcon />,
     variants: [
-      { id: "curtain-velvet",  name: "Velours",     desc: "Rideau de velours bordeaux" },
-      { id: "curtain-linen",   name: "Lin",          desc: "Tissu naturel aérien" },
-      { id: "curtain-silk",    name: "Soie",         desc: "Reflets soyeux et lumineux" },
+      {
+        id: "curtain-velvet",
+        name: "Velours",
+        desc: "Rideau de velours bordeaux",
+      },
+      { id: "curtain-linen", name: "Lin", desc: "Tissu naturel aérien" },
+      { id: "curtain-silk", name: "Soie", desc: "Reflets soyeux et lumineux" },
     ],
   },
   {
@@ -673,9 +818,13 @@ const CATEGORIES: Category[] = [
     name: "Livre",
     icon: <BookIcon />,
     variants: [
-      { id: "book-leather",    name: "Cuir",         desc: "Couverture en cuir gravé" },
-      { id: "book-floral",     name: "Floral",       desc: "Illustrations botaniques" },
-      { id: "book-modern",     name: "Moderne",      desc: "Couverture épurée et graphique" },
+      { id: "book-leather", name: "Cuir", desc: "Couverture en cuir gravé" },
+      { id: "book-floral", name: "Floral", desc: "Illustrations botaniques" },
+      {
+        id: "book-modern",
+        name: "Moderne",
+        desc: "Couverture épurée et graphique",
+      },
     ],
   },
   {
@@ -683,9 +832,21 @@ const CATEGORIES: Category[] = [
     name: "Floral",
     icon: <FloralIcon />,
     variants: [
-      { id: "floral-roses",    name: "Roses",        desc: "Pétales de rose qui s'envolent" },
-      { id: "floral-wildflower", name: "Champêtre",  desc: "Fleurs des champs printanières" },
-      { id: "floral-peony",    name: "Pivoines",     desc: "Bouquet de pivoines romantiques" },
+      {
+        id: "floral-roses",
+        name: "Roses",
+        desc: "Pétales de rose qui s'envolent",
+      },
+      {
+        id: "floral-wildflower",
+        name: "Champêtre",
+        desc: "Fleurs des champs printanières",
+      },
+      {
+        id: "floral-peony",
+        name: "Pivoines",
+        desc: "Bouquet de pivoines romantiques",
+      },
     ],
   },
 ];
@@ -693,10 +854,10 @@ const CATEGORIES: Category[] = [
 // Placeholder background colors per category
 const BG: Record<string, string> = {
   envelope: "#f5ede6",
-  door:     "#ece8f0",
-  curtain:  "#e8eff5",
-  book:     "#e8f0ec",
-  floral:   "#f5e8ec",
+  door: "#ece8f0",
+  curtain: "#e8eff5",
+  book: "#e8f0ec",
+  floral: "#f5e8ec",
 };
 
 export default function AnimationPage() {
@@ -706,18 +867,19 @@ export default function AnimationPage() {
   const currentCategory = CATEGORIES.find((c) => c.id === activeCategory)!;
 
   return (
-    <div className="flex flex-col gap-4">
-      <div className="text-center space-y-2 px-4 pb-2">
-        <h1 className="font-heading text-3xl font-bold md:text-4xl lg:text-5xl">
-          L&apos;animation d&apos;<em className="italic text-primary">Entrée</em>
+    <div className='flex flex-col gap-4'>
+      <div className='text-center space-y-2 px-4 pb-2'>
+        <h1 className='font-heading text-3xl font-bold md:text-4xl lg:text-5xl'>
+          L&apos;animation d&apos;
+          <em className='italic text-primary'>Entrée</em>
         </h1>
-        <p className="text-muted-foreground text-sm max-w-sm mx-auto">
+        <p className='text-muted-foreground text-sm max-w-sm mx-auto'>
           Comment vos invités découvriront votre invitation.
         </p>
       </div>
 
       {/* Category tabs */}
-      <div className="flex gap-2 overflow-x-auto scrollbar-hide px-4 pb-1 justify-center flex-wrap">
+      <div className='flex gap-2 overflow-x-auto scrollbar-hide px-4 pb-1 justify-center flex-wrap'>
         {CATEGORIES.map((cat) => (
           <button
             key={cat.id}
@@ -729,7 +891,13 @@ export default function AnimationPage() {
                 : "border-border bg-card text-muted-foreground hover:border-primary/40",
             )}
           >
-            <span className={cn(activeCategory === cat.id ? "text-primary-foreground" : "text-muted-foreground")}>
+            <span
+              className={cn(
+                activeCategory === cat.id
+                  ? "text-primary-foreground"
+                  : "text-muted-foreground",
+              )}
+            >
               {cat.icon}
             </span>
             {cat.name}
@@ -738,7 +906,7 @@ export default function AnimationPage() {
       </div>
 
       {/* Variants grid */}
-      <div className="grid grid-cols-2 gap-3 px-4 max-w-lg mx-auto w-full">
+      <div className='grid grid-cols-2 gap-3 px-4 max-w-lg mx-auto w-full'>
         {currentCategory.variants.map((v) => {
           const isSelected = animation === v.id;
           return (
@@ -754,24 +922,35 @@ export default function AnimationPage() {
             >
               {/* Placeholder preview */}
               <div
-                className="relative h-[100px] flex items-center justify-center"
+                className='relative h-[100px] flex items-center justify-center'
                 style={{ background: BG[activeCategory] }}
               >
-                <div className="absolute inset-0 opacity-[0.04] bg-[radial-gradient(#000_1px,transparent_1px)] [background-size:16px_16px]" />
+                <div className='absolute inset-0 opacity-[0.04] bg-[radial-gradient(#000_1px,transparent_1px)] [background-size:16px_16px]' />
                 {isSelected && (
-                  <div className="absolute top-2 right-2 z-10 w-5 h-5 rounded-full bg-primary flex items-center justify-center">
-                    <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
-                      <polyline points="20 6 9 17 4 12" />
+                  <div className='absolute top-2 right-2 z-10 w-5 h-5 rounded-full bg-primary flex items-center justify-center'>
+                    <svg
+                      width='10'
+                      height='10'
+                      viewBox='0 0 24 24'
+                      fill='none'
+                      stroke='white'
+                      strokeWidth='3'
+                      strokeLinecap='round'
+                      strokeLinejoin='round'
+                    >
+                      <polyline points='20 6 9 17 4 12' />
                     </svg>
                   </div>
                 )}
-                <span className="relative z-10 text-muted-foreground/40">
+                <span className='relative z-10 text-muted-foreground/40'>
                   {currentCategory.icon}
                 </span>
               </div>
-              <div className="p-3 bg-card">
-                <p className="text-[13px] font-bold font-sans">{v.name}</p>
-                <p className="text-[10px] text-muted-foreground font-sans mt-0.5 line-clamp-1">{v.desc}</p>
+              <div className='p-3 bg-card'>
+                <p className='text-[13px] font-bold font-sans'>{v.name}</p>
+                <p className='text-[10px] text-muted-foreground font-sans mt-0.5 line-clamp-1'>
+                  {v.desc}
+                </p>
               </div>
             </button>
           );
@@ -801,6 +980,7 @@ git commit -m "feat: add animation entry step with category tabs and variant gri
 ## Task 7: Redesign Theme page (Step 3)
 
 **Files:**
+
 - Modify: `landing/src/app/[locale]/(configurator)/create/theme/page.tsx`
 
 - [ ] **Step 1: Replace the theme page**
@@ -854,7 +1034,11 @@ const THEMES: ThemeConfig[] = [
     dateColor: "#888",
     placeFont: "system-ui, sans-serif",
     placeColor: "#bbb",
-    placeExtra: { textTransform: "uppercase", letterSpacing: "0.12em", fontSize: "10px" },
+    placeExtra: {
+      textTransform: "uppercase",
+      letterSpacing: "0.12em",
+      fontSize: "10px",
+    },
   },
   {
     id: "theme-boho",
@@ -888,7 +1072,11 @@ const THEMES: ThemeConfig[] = [
     coupleWeight: "800",
     placeFont: "'Montserrat', system-ui, sans-serif",
     placeColor: "#e879a8",
-    placeExtra: { textTransform: "uppercase", letterSpacing: "0.2em", fontSize: "9px" },
+    placeExtra: {
+      textTransform: "uppercase",
+      letterSpacing: "0.2em",
+      fontSize: "9px",
+    },
   },
 ];
 
@@ -898,19 +1086,20 @@ export default function ThemePage() {
 
   return (
     <>
-      <div className="flex flex-col gap-4">
-        <div className="text-center space-y-2 px-4">
-          <h1 className="font-heading text-3xl font-bold md:text-4xl lg:text-5xl">
+      <div className='flex flex-col gap-4'>
+        <div className='text-center space-y-2 px-4'>
+          <h1 className='font-heading text-3xl font-bold md:text-4xl lg:text-5xl'>
             L&apos;ambiance de votre{" "}
-            <span className="italic text-primary">Mariage</span>
+            <span className='italic text-primary'>Mariage</span>
           </h1>
-          <p className="text-muted-foreground text-sm max-w-md mx-auto">
-            Glissez pour explorer. Prévisualisez en plein écran avant de choisir.
+          <p className='text-muted-foreground text-sm max-w-md mx-auto'>
+            Glissez pour explorer. Prévisualisez en plein écran avant de
+            choisir.
           </p>
         </div>
 
         {/* Horizontal carousel */}
-        <div className="flex gap-4 overflow-x-auto snap-x snap-mandatory scroll-smooth pb-6 px-4 md:px-6 scrollbar-hide">
+        <div className='flex gap-4 overflow-x-auto snap-x snap-mandatory scroll-smooth pb-6 px-4 md:px-6 scrollbar-hide'>
           {THEMES.map((t) => {
             const isSelected = theme === t.id;
             return (
@@ -925,17 +1114,17 @@ export default function ThemePage() {
               >
                 {/* Fake invitation preview */}
                 <div
-                  className="relative h-[210px] md:h-[240px] flex flex-col items-center justify-center gap-2 overflow-hidden"
+                  className='relative h-[210px] md:h-[240px] flex flex-col items-center justify-center gap-2 overflow-hidden'
                   style={{ background: t.bgGradient }}
                 >
-                  <div className="absolute inset-0 opacity-[0.05] bg-[radial-gradient(#000_1px,transparent_1px)] [background-size:18px_18px]" />
+                  <div className='absolute inset-0 opacity-[0.05] bg-[radial-gradient(#000_1px,transparent_1px)] [background-size:18px_18px]' />
                   {isSelected && (
-                    <div className="absolute top-3 left-3 z-10 bg-primary text-primary-foreground text-[10px] font-bold px-3 py-1 rounded-full flex items-center gap-1 font-sans">
+                    <div className='absolute top-3 left-3 z-10 bg-primary text-primary-foreground text-[10px] font-bold px-3 py-1 rounded-full flex items-center gap-1 font-sans'>
                       ✓ Sélectionné
                     </div>
                   )}
                   <span
-                    className="relative z-10 text-[21px] font-bold text-center px-4"
+                    className='relative z-10 text-[21px] font-bold text-center px-4'
                     style={{
                       color: t.accentColor,
                       fontFamily: t.coupleFont,
@@ -946,15 +1135,21 @@ export default function ThemePage() {
                   >
                     Sophie &amp; Pierre
                   </span>
-                  <div className="relative z-10 h-[2px] w-8 rounded-full" style={{ background: t.accentColor }} />
+                  <div
+                    className='relative z-10 h-[2px] w-8 rounded-full'
+                    style={{ background: t.accentColor }}
+                  />
                   <span
-                    className="relative z-10 text-[10px] uppercase tracking-[0.18em] font-sans"
-                    style={{ color: t.dateColor ?? t.accentColor, opacity: 0.65 }}
+                    className='relative z-10 text-[10px] uppercase tracking-[0.18em] font-sans'
+                    style={{
+                      color: t.dateColor ?? t.accentColor,
+                      opacity: 0.65,
+                    }}
                   >
                     14 Juin 2026
                   </span>
                   <span
-                    className="relative z-10 text-[11px]"
+                    className='relative z-10 text-[11px]'
                     style={{
                       color: t.placeColor ?? t.accentColor,
                       fontFamily: t.placeFont,
@@ -967,18 +1162,21 @@ export default function ThemePage() {
                   </span>
                   <button
                     onClick={() => setDemoTheme(t)}
-                    className="absolute bottom-3 left-1/2 -translate-x-1/2 z-10 whitespace-nowrap text-[11px] font-bold text-primary px-4 py-1.5 rounded-full bg-white/90 backdrop-blur-sm border border-primary/20 shadow-sm font-sans"
+                    className='absolute bottom-3 left-1/2 -translate-x-1/2 z-10 whitespace-nowrap text-[11px] font-bold text-primary px-4 py-1.5 rounded-full bg-white/90 backdrop-blur-sm border border-primary/20 shadow-sm font-sans'
                   >
                     ▶ Voir la démo
                   </button>
                 </div>
 
                 {/* Card footer */}
-                <div className="p-4 border-t border-border/30">
-                  <h3 className="font-semibold text-[15px] mb-0.5" style={{ color: t.accentColor }}>
+                <div className='p-4 border-t border-border/30'>
+                  <h3
+                    className='font-semibold text-[15px] mb-0.5'
+                    style={{ color: t.accentColor }}
+                  >
                     {t.name}
                   </h3>
-                  <p className="text-muted-foreground text-[11px] mb-3 line-clamp-1 font-sans">
+                  <p className='text-muted-foreground text-[11px] mb-3 line-clamp-1 font-sans'>
                     {t.description}
                   </p>
                   <button
@@ -999,7 +1197,7 @@ export default function ThemePage() {
         </div>
 
         {/* Scroll dots */}
-        <div className="flex justify-center gap-1.5 pb-2">
+        <div className='flex justify-center gap-1.5 pb-2'>
           {THEMES.map((t) => (
             <div
               key={t.id}
@@ -1044,6 +1242,7 @@ git commit -m "feat: redesign theme step with horizontal carousel and demo overl
 ## Task 8: Redesign Modules page (Step 4)
 
 **Files:**
+
 - Modify: `landing/src/app/[locale]/(configurator)/create/modules/page.tsx`
 
 - [ ] **Step 1: Read the current modules page to get the MODULES data array**
@@ -1069,16 +1268,17 @@ import { useOrderStore } from "@/stores/use-order-store";
 export default function ModulesPage() {
   const { modules, toggleModule, plan } = useOrderStore();
 
-  const extraCount = plan === "experience" ? Math.max(0, modules.length - 4) : 0;
+  const extraCount =
+    plan === "experience" ? Math.max(0, modules.length - 4) : 0;
   const extraCost = extraCount * 5;
 
   return (
-    <div className="flex flex-col gap-4">
-      <div className="text-center space-y-2 px-4 pb-2">
-        <h1 className="font-heading text-3xl font-bold md:text-4xl lg:text-5xl">
-          Vos <span className="italic text-primary">fonctionnalités</span>
+    <div className='flex flex-col gap-4'>
+      <div className='text-center space-y-2 px-4 pb-2'>
+        <h1 className='font-heading text-3xl font-bold md:text-4xl lg:text-5xl'>
+          Vos <span className='italic text-primary'>fonctionnalités</span>
         </h1>
-        <p className="text-muted-foreground text-sm max-w-sm mx-auto font-sans">
+        <p className='text-muted-foreground text-sm max-w-sm mx-auto font-sans'>
           {plan === "premium"
             ? "Tous les modules sont inclus dans votre offre."
             : "4 modules inclus. +5€ par module supplémentaire."}
@@ -1087,8 +1287,8 @@ export default function ModulesPage() {
 
       {/* Counter badge */}
       {plan === "experience" && modules.length > 0 && (
-        <div className="flex justify-center">
-          <span className="font-sans text-xs font-bold px-4 py-1.5 rounded-full bg-primary/10 text-primary">
+        <div className='flex justify-center'>
+          <span className='font-sans text-xs font-bold px-4 py-1.5 rounded-full bg-primary/10 text-primary'>
             {modules.length} sélectionné{modules.length > 1 ? "s" : ""}
             {extraCost > 0 ? ` · +${extraCost}€` : " · inclus"}
           </span>
@@ -1096,7 +1296,7 @@ export default function ModulesPage() {
       )}
 
       {/* List */}
-      <div className="flex flex-col gap-2 max-w-lg mx-auto w-full px-4">
+      <div className='flex flex-col gap-2 max-w-lg mx-auto w-full px-4'>
         {MODULES.map((mod) => {
           const isSelected = modules.includes(mod.id);
           const Icon = mod.icon;
@@ -1114,14 +1314,18 @@ export default function ModulesPage() {
               <div
                 className={cn(
                   "w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0 transition-colors",
-                  isSelected ? "bg-primary text-primary-foreground" : "bg-muted text-muted-foreground",
+                  isSelected
+                    ? "bg-primary text-primary-foreground"
+                    : "bg-muted text-muted-foreground",
                 )}
               >
-                <Icon className="w-5 h-5" />
+                <Icon className='w-5 h-5' />
               </div>
-              <div className="flex-1 min-w-0">
-                <p className="text-sm font-bold">{mod.label}</p>
-                <p className="text-xs text-muted-foreground font-sans mt-0.5 line-clamp-1">{mod.desc}</p>
+              <div className='flex-1 min-w-0'>
+                <p className='text-sm font-bold'>{mod.label}</p>
+                <p className='text-xs text-muted-foreground font-sans mt-0.5 line-clamp-1'>
+                  {mod.desc}
+                </p>
               </div>
               <div
                 className={cn(
@@ -1130,8 +1334,17 @@ export default function ModulesPage() {
                 )}
               >
                 {isSelected && (
-                  <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
-                    <polyline points="20 6 9 17 4 12" />
+                  <svg
+                    width='10'
+                    height='10'
+                    viewBox='0 0 24 24'
+                    fill='none'
+                    stroke='white'
+                    strokeWidth='3'
+                    strokeLinecap='round'
+                    strokeLinejoin='round'
+                  >
+                    <polyline points='20 6 9 17 4 12' />
                   </svg>
                 )}
               </div>
@@ -1162,6 +1375,7 @@ git commit -m "feat: redesign modules step as list rows with SVG icons"
 ## Task 9: Create Languages page (Step 5)
 
 **Files:**
+
 - Create: `landing/src/app/[locale]/(configurator)/create/languages/page.tsx`
 
 - [ ] **Step 1: Create the languages page**
@@ -1192,29 +1406,31 @@ export default function LanguagesPage() {
   const total = languages.length * LANGUAGE_PRICE;
 
   return (
-    <div className="flex flex-col gap-4">
-      <div className="text-center space-y-2 px-4 pb-2">
-        <h1 className="font-heading text-3xl font-bold md:text-4xl lg:text-5xl">
-          Langues de votre <span className="italic text-primary">site</span>
+    <div className='flex flex-col gap-4'>
+      <div className='text-center space-y-2 px-4 pb-2'>
+        <h1 className='font-heading text-3xl font-bold md:text-4xl lg:text-5xl'>
+          Langues de votre <span className='italic text-primary'>site</span>
         </h1>
-        <p className="text-muted-foreground text-sm max-w-sm mx-auto font-sans">
+        <p className='text-muted-foreground text-sm max-w-sm mx-auto font-sans'>
           Le français est inclus. Ajoutez d&apos;autres langues à 15€ chacune.
         </p>
       </div>
 
-      <div className="max-w-lg mx-auto w-full px-4 flex flex-col gap-3">
+      <div className='max-w-lg mx-auto w-full px-4 flex flex-col gap-3'>
         {/* Included */}
         <div>
-          <p className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground/60 font-sans mb-2">
+          <p className='text-[10px] font-bold uppercase tracking-widest text-muted-foreground/60 font-sans mb-2'>
             Langue incluse
           </p>
-          <div className="flex items-center gap-3 p-4 rounded-2xl border-2 border-border bg-card">
-            <span className="text-2xl">🇫🇷</span>
-            <div className="flex-1">
-              <p className="text-sm font-bold">Français</p>
-              <p className="text-xs text-muted-foreground font-sans">Langue principale de votre site</p>
+          <div className='flex items-center gap-3 p-4 rounded-2xl border-2 border-border bg-card'>
+            <span className='text-2xl'>🇫🇷</span>
+            <div className='flex-1'>
+              <p className='text-sm font-bold'>Français</p>
+              <p className='text-xs text-muted-foreground font-sans'>
+                Langue principale de votre site
+              </p>
             </div>
-            <span className="text-[10px] font-bold uppercase tracking-wider px-3 py-1 rounded-full bg-emerald-50 text-emerald-700 font-sans">
+            <span className='text-[10px] font-bold uppercase tracking-wider px-3 py-1 rounded-full bg-emerald-50 text-emerald-700 font-sans'>
               Inclus
             </span>
           </div>
@@ -1222,10 +1438,10 @@ export default function LanguagesPage() {
 
         {/* Additional languages */}
         <div>
-          <p className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground/60 font-sans mb-2">
+          <p className='text-[10px] font-bold uppercase tracking-widest text-muted-foreground/60 font-sans mb-2'>
             Langues supplémentaires — 15€ chacune
           </p>
-          <div className="grid grid-cols-2 gap-2">
+          <div className='grid grid-cols-2 gap-2'>
             {LANGUAGES.map((lang) => {
               const isSelected = languages.includes(lang.code);
               return (
@@ -1239,15 +1455,26 @@ export default function LanguagesPage() {
                       : "border-border bg-card hover:border-primary/30",
                   )}
                 >
-                  <span className="text-xl flex-shrink-0">{lang.flag}</span>
-                  <div className="flex-1 min-w-0">
-                    <p className="text-sm font-bold truncate">{lang.name}</p>
-                    <p className="text-[10px] text-muted-foreground font-sans">+{LANGUAGE_PRICE}€</p>
+                  <span className='text-xl flex-shrink-0'>{lang.flag}</span>
+                  <div className='flex-1 min-w-0'>
+                    <p className='text-sm font-bold truncate'>{lang.name}</p>
+                    <p className='text-[10px] text-muted-foreground font-sans'>
+                      +{LANGUAGE_PRICE}€
+                    </p>
                   </div>
                   {isSelected && (
-                    <div className="w-4 h-4 rounded-full bg-primary flex items-center justify-center flex-shrink-0">
-                      <svg width="8" height="8" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="3.5" strokeLinecap="round" strokeLinejoin="round">
-                        <polyline points="20 6 9 17 4 12" />
+                    <div className='w-4 h-4 rounded-full bg-primary flex items-center justify-center flex-shrink-0'>
+                      <svg
+                        width='8'
+                        height='8'
+                        viewBox='0 0 24 24'
+                        fill='none'
+                        stroke='white'
+                        strokeWidth='3.5'
+                        strokeLinecap='round'
+                        strokeLinejoin='round'
+                      >
+                        <polyline points='20 6 9 17 4 12' />
                       </svg>
                     </div>
                   )}
@@ -1259,11 +1486,14 @@ export default function LanguagesPage() {
 
         {/* Total */}
         {languages.length > 0 && (
-          <div className="flex items-center justify-between px-4 py-3 rounded-2xl bg-primary/5 border border-primary/20">
-            <span className="text-sm font-sans text-muted-foreground">
-              {languages.length} langue{languages.length > 1 ? "s" : ""} supplémentaire{languages.length > 1 ? "s" : ""}
+          <div className='flex items-center justify-between px-4 py-3 rounded-2xl bg-primary/5 border border-primary/20'>
+            <span className='text-sm font-sans text-muted-foreground'>
+              {languages.length} langue{languages.length > 1 ? "s" : ""}{" "}
+              supplémentaire{languages.length > 1 ? "s" : ""}
             </span>
-            <span className="text-sm font-bold text-primary font-sans">+{total}€</span>
+            <span className='text-sm font-bold text-primary font-sans'>
+              +{total}€
+            </span>
           </div>
         )}
       </div>
@@ -1290,6 +1520,7 @@ git commit -m "feat: add languages step with included French and extra language 
 ## Task 10: Redesign Extras page (Step 6)
 
 **Files:**
+
 - Modify: `landing/src/app/[locale]/(configurator)/create/extras/page.tsx`
 
 - [ ] **Step 1: Replace the extras page**
@@ -1338,40 +1569,44 @@ export default function ExtrasPage() {
   const { adultsOnly, setAdultsOnly, extras, toggleExtra } = useOrderStore();
 
   return (
-    <div className="flex flex-col gap-4">
-      <div className="text-center space-y-2 px-4 pb-2">
-        <h1 className="font-heading text-3xl font-bold md:text-4xl lg:text-5xl">
-          Options <span className="italic text-primary">supplémentaires</span>
+    <div className='flex flex-col gap-4'>
+      <div className='text-center space-y-2 px-4 pb-2'>
+        <h1 className='font-heading text-3xl font-bold md:text-4xl lg:text-5xl'>
+          Options <span className='italic text-primary'>supplémentaires</span>
         </h1>
-        <p className="text-muted-foreground text-sm max-w-sm mx-auto font-sans">
+        <p className='text-muted-foreground text-sm max-w-sm mx-auto font-sans'>
           Personnalisez encore plus votre expérience.
         </p>
       </div>
 
-      <div className="flex flex-col gap-4 max-w-lg mx-auto w-full px-4">
+      <div className='flex flex-col gap-4 max-w-lg mx-auto w-full px-4'>
         {/* Adults Only toggle */}
         <div>
-          <p className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground/60 font-sans mb-2">
+          <p className='text-[10px] font-bold uppercase tracking-widest text-muted-foreground/60 font-sans mb-2'>
             Préférences
           </p>
           <button
             onClick={() => setAdultsOnly(!adultsOnly)}
             className={cn(
               "w-full flex items-center gap-3 p-4 rounded-2xl border-2 transition-all duration-150 text-left",
-              adultsOnly ? "border-primary bg-primary/5" : "border-border bg-card hover:border-primary/30",
+              adultsOnly
+                ? "border-primary bg-primary/5"
+                : "border-border bg-card hover:border-primary/30",
             )}
           >
             <div
               className={cn(
                 "w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0 transition-colors",
-                adultsOnly ? "bg-primary text-primary-foreground" : "bg-muted text-muted-foreground",
+                adultsOnly
+                  ? "bg-primary text-primary-foreground"
+                  : "bg-muted text-muted-foreground",
               )}
             >
-              <Ban className="w-5 h-5" />
+              <Ban className='w-5 h-5' />
             </div>
-            <div className="flex-1">
-              <p className="text-sm font-bold">Mariage Adults Only</p>
-              <p className="text-xs text-muted-foreground font-sans mt-0.5">
+            <div className='flex-1'>
+              <p className='text-sm font-bold'>Mariage Adults Only</p>
+              <p className='text-xs text-muted-foreground font-sans mt-0.5'>
                 Indique poliment que les enfants ne sont pas conviés.
               </p>
             </div>
@@ -1391,18 +1626,19 @@ export default function ExtrasPage() {
             </div>
           </button>
           {adultsOnly && (
-            <p className="mt-2 px-4 py-3 rounded-xl bg-muted/40 text-xs text-muted-foreground font-sans italic leading-relaxed">
-              &ldquo;Bien que nous adorions vos enfants, ce mariage sera une célébration entre adultes uniquement.&rdquo;
+            <p className='mt-2 px-4 py-3 rounded-xl bg-muted/40 text-xs text-muted-foreground font-sans italic leading-relaxed'>
+              &ldquo;Bien que nous adorions vos enfants, ce mariage sera une
+              célébration entre adultes uniquement.&rdquo;
             </p>
           )}
         </div>
 
         {/* Premium options grid */}
         <div>
-          <p className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground/60 font-sans mb-2">
+          <p className='text-[10px] font-bold uppercase tracking-widest text-muted-foreground/60 font-sans mb-2'>
             Options premium
           </p>
-          <div className="grid grid-cols-2 gap-3">
+          <div className='grid grid-cols-2 gap-3'>
             {EXTRAS.map((ex) => {
               const isSelected = extras.includes(ex.id);
               const Icon = ex.icon;
@@ -1412,29 +1648,48 @@ export default function ExtrasPage() {
                   onClick={() => toggleExtra(ex.id)}
                   className={cn(
                     "text-left p-4 rounded-2xl border-2 flex flex-col gap-3 transition-all duration-150 relative",
-                    isSelected ? "border-primary bg-primary/5" : "border-border bg-card hover:border-primary/30",
+                    isSelected
+                      ? "border-primary bg-primary/5"
+                      : "border-border bg-card hover:border-primary/30",
                   )}
                 >
                   {isSelected && (
-                    <div className="absolute top-2.5 right-2.5 w-5 h-5 rounded-full bg-primary flex items-center justify-center">
-                      <svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="3.5" strokeLinecap="round" strokeLinejoin="round">
-                        <polyline points="20 6 9 17 4 12" />
+                    <div className='absolute top-2.5 right-2.5 w-5 h-5 rounded-full bg-primary flex items-center justify-center'>
+                      <svg
+                        width='9'
+                        height='9'
+                        viewBox='0 0 24 24'
+                        fill='none'
+                        stroke='white'
+                        strokeWidth='3.5'
+                        strokeLinecap='round'
+                        strokeLinejoin='round'
+                      >
+                        <polyline points='20 6 9 17 4 12' />
                       </svg>
                     </div>
                   )}
                   <div
                     className={cn(
                       "w-9 h-9 rounded-xl flex items-center justify-center transition-colors",
-                      isSelected ? "bg-primary text-primary-foreground" : "bg-muted text-muted-foreground",
+                      isSelected
+                        ? "bg-primary text-primary-foreground"
+                        : "bg-muted text-muted-foreground",
                     )}
                   >
-                    <Icon className="w-4 h-4" />
+                    <Icon className='w-4 h-4' />
                   </div>
                   <div>
-                    <p className="text-[13px] font-bold leading-tight">{ex.name}</p>
-                    <p className="text-[10px] text-muted-foreground font-sans mt-1 line-clamp-2 leading-relaxed">{ex.desc}</p>
+                    <p className='text-[13px] font-bold leading-tight'>
+                      {ex.name}
+                    </p>
+                    <p className='text-[10px] text-muted-foreground font-sans mt-1 line-clamp-2 leading-relaxed'>
+                      {ex.desc}
+                    </p>
                   </div>
-                  <p className="text-sm font-bold text-primary font-sans mt-auto">+{ex.price}€</p>
+                  <p className='text-sm font-bold text-primary font-sans mt-auto'>
+                    +{ex.price}€
+                  </p>
                 </button>
               );
             })}
@@ -1464,6 +1719,7 @@ git commit -m "feat: redesign extras step with Adults Only toggle and premium op
 ## Task 11: Create Wedding page (Step 7)
 
 **Files:**
+
 - Create: `landing/src/app/[locale]/(configurator)/create/wedding/page.tsx`
 
 - [ ] **Step 1: Create the wedding info page**
@@ -1476,8 +1732,18 @@ import { cn } from "@/lib/utils";
 import { useOrderStore } from "@/stores/use-order-store";
 
 const MONTHS = [
-  "Janvier","Février","Mars","Avril","Mai","Juin",
-  "Juillet","Août","Septembre","Octobre","Novembre","Décembre",
+  "Janvier",
+  "Février",
+  "Mars",
+  "Avril",
+  "Mai",
+  "Juin",
+  "Juillet",
+  "Août",
+  "Septembre",
+  "Octobre",
+  "Novembre",
+  "Décembre",
 ];
 
 export default function WeddingPage() {
@@ -1496,63 +1762,74 @@ export default function WeddingPage() {
   const previewVenue = weddingInfo.venue || "Château des Roses, Provence";
 
   return (
-    <div className="flex flex-col gap-5">
-      <div className="text-center space-y-2 px-4 pb-2">
-        <h1 className="font-heading text-3xl font-bold md:text-4xl lg:text-5xl">
-          Parlez-nous de votre <span className="italic text-primary">mariage</span>
+    <div className='flex flex-col gap-5'>
+      <div className='text-center space-y-2 px-4 pb-2'>
+        <h1 className='font-heading text-3xl font-bold md:text-4xl lg:text-5xl'>
+          Parlez-nous de votre{" "}
+          <span className='italic text-primary'>mariage</span>
         </h1>
-        <p className="text-muted-foreground text-sm max-w-sm mx-auto font-sans">
+        <p className='text-muted-foreground text-sm max-w-sm mx-auto font-sans'>
           Ces informations personaliseront votre site d&apos;invitation.
         </p>
       </div>
 
       {/* Live preview */}
       <div
-        className="mx-4 rounded-2xl relative overflow-hidden py-6 text-center"
+        className='mx-4 rounded-2xl relative overflow-hidden py-6 text-center'
         style={{ background: "linear-gradient(160deg, #fdf6f0, #f0d9cc)" }}
       >
-        <div className="absolute inset-0 opacity-[0.04] bg-[radial-gradient(#000_1px,transparent_1px)] [background-size:18px_18px]" />
-        <p className="relative z-10 text-xl font-bold text-[#c97a90]" style={{ fontFamily: "Georgia, serif" }}>
+        <div className='absolute inset-0 opacity-[0.04] bg-[radial-gradient(#000_1px,transparent_1px)] [background-size:18px_18px]' />
+        <p
+          className='relative z-10 text-xl font-bold text-[#c97a90]'
+          style={{ fontFamily: "Georgia, serif" }}
+        >
           {previewNames}
         </p>
-        <div className="relative z-10 w-6 h-[1.5px] bg-[#c97a90] opacity-50 mx-auto my-2" />
-        <p className="relative z-10 text-[10px] uppercase tracking-widest text-[#c4a882] font-sans">
+        <div className='relative z-10 w-6 h-[1.5px] bg-[#c97a90] opacity-50 mx-auto my-2' />
+        <p className='relative z-10 text-[10px] uppercase tracking-widest text-[#c4a882] font-sans'>
           {previewDate}
         </p>
-        <p className="relative z-10 text-xs italic text-[#c4a882] mt-1" style={{ fontFamily: "Georgia, serif" }}>
+        <p
+          className='relative z-10 text-xs italic text-[#c4a882] mt-1'
+          style={{ fontFamily: "Georgia, serif" }}
+        >
           {previewVenue}
         </p>
-        <p className="relative z-10 text-[10px] text-muted-foreground/50 font-sans mt-3">
+        <p className='relative z-10 text-[10px] text-muted-foreground/50 font-sans mt-3'>
           Aperçu de votre invitation
         </p>
       </div>
 
-      <div className="flex flex-col gap-4 max-w-lg mx-auto w-full px-4">
+      <div className='flex flex-col gap-4 max-w-lg mx-auto w-full px-4'>
         {/* Partners */}
         <div>
-          <p className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground/60 font-sans mb-2">
+          <p className='text-[10px] font-bold uppercase tracking-widest text-muted-foreground/60 font-sans mb-2'>
             Les mariés
           </p>
-          <div className="bg-card border-2 border-border rounded-2xl overflow-hidden">
-            <div className="flex border-b border-border/60">
-              <div className="flex-1 px-4 py-3">
-                <p className="text-[10px] font-bold uppercase tracking-wider text-muted-foreground/60 font-sans mb-1">Prénom marié·e 1</p>
+          <div className='bg-card border-2 border-border rounded-2xl overflow-hidden'>
+            <div className='flex border-b border-border/60'>
+              <div className='flex-1 px-4 py-3'>
+                <p className='text-[10px] font-bold uppercase tracking-wider text-muted-foreground/60 font-sans mb-1'>
+                  Prénom marié·e 1
+                </p>
                 <input
-                  type="text"
-                  placeholder="Sophie"
+                  type='text'
+                  placeholder='Sophie'
                   value={weddingInfo.partner1}
                   onChange={(e) => setWeddingInfo({ partner1: e.target.value })}
-                  className="w-full text-sm font-heading bg-transparent outline-none placeholder:text-muted-foreground/40 placeholder:italic"
+                  className='w-full text-sm font-heading bg-transparent outline-none placeholder:text-muted-foreground/40 placeholder:italic'
                 />
               </div>
-              <div className="flex-1 px-4 py-3 border-l border-border/60">
-                <p className="text-[10px] font-bold uppercase tracking-wider text-muted-foreground/60 font-sans mb-1">Prénom marié·e 2</p>
+              <div className='flex-1 px-4 py-3 border-l border-border/60'>
+                <p className='text-[10px] font-bold uppercase tracking-wider text-muted-foreground/60 font-sans mb-1'>
+                  Prénom marié·e 2
+                </p>
                 <input
-                  type="text"
-                  placeholder="Pierre"
+                  type='text'
+                  placeholder='Pierre'
                   value={weddingInfo.partner2}
                   onChange={(e) => setWeddingInfo({ partner2: e.target.value })}
-                  className="w-full text-sm font-heading bg-transparent outline-none placeholder:text-muted-foreground/40 placeholder:italic"
+                  className='w-full text-sm font-heading bg-transparent outline-none placeholder:text-muted-foreground/40 placeholder:italic'
                 />
               </div>
             </div>
@@ -1561,55 +1838,68 @@ export default function WeddingPage() {
 
         {/* Date */}
         <div>
-          <p className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground/60 font-sans mb-2">
+          <p className='text-[10px] font-bold uppercase tracking-widest text-muted-foreground/60 font-sans mb-2'>
             Date & lieu
           </p>
-          <div className="bg-card border-2 border-border rounded-2xl overflow-hidden">
-            <div className="flex border-b border-border/60">
-              <div className="w-[72px] px-4 py-3 border-r border-border/60">
-                <p className="text-[10px] font-bold uppercase tracking-wider text-muted-foreground/60 font-sans mb-1">Jour</p>
+          <div className='bg-card border-2 border-border rounded-2xl overflow-hidden'>
+            <div className='flex border-b border-border/60'>
+              <div className='w-[72px] px-4 py-3 border-r border-border/60'>
+                <p className='text-[10px] font-bold uppercase tracking-wider text-muted-foreground/60 font-sans mb-1'>
+                  Jour
+                </p>
                 <input
-                  type="number"
-                  placeholder="14"
-                  min="1"
-                  max="31"
+                  type='number'
+                  placeholder='14'
+                  min='1'
+                  max='31'
                   value={weddingInfo.day}
                   onChange={(e) => setWeddingInfo({ day: e.target.value })}
-                  className="w-full text-sm font-sans bg-transparent outline-none placeholder:text-muted-foreground/40"
+                  className='w-full text-sm font-sans bg-transparent outline-none placeholder:text-muted-foreground/40'
                 />
               </div>
-              <div className="flex-1 px-4 py-3 border-r border-border/60">
-                <p className="text-[10px] font-bold uppercase tracking-wider text-muted-foreground/60 font-sans mb-1">Mois</p>
+              <div className='flex-1 px-4 py-3 border-r border-border/60'>
+                <p className='text-[10px] font-bold uppercase tracking-wider text-muted-foreground/60 font-sans mb-1'>
+                  Mois
+                </p>
                 <select
                   value={weddingInfo.month}
                   onChange={(e) => setWeddingInfo({ month: e.target.value })}
-                  className="w-full text-sm font-sans bg-transparent outline-none text-foreground"
+                  className='w-full text-sm font-sans bg-transparent outline-none text-foreground'
                 >
-                  <option value="">—</option>
+                  <option value=''>—</option>
                   {MONTHS.map((m) => (
-                    <option key={m} value={m}>{m}</option>
+                    <option
+                      key={m}
+                      value={m}
+                    >
+                      {m}
+                    </option>
                   ))}
                 </select>
               </div>
-              <div className="w-[80px] px-4 py-3">
-                <p className="text-[10px] font-bold uppercase tracking-wider text-muted-foreground/60 font-sans mb-1">Année</p>
+              <div className='w-[80px] px-4 py-3'>
+                <p className='text-[10px] font-bold uppercase tracking-wider text-muted-foreground/60 font-sans mb-1'>
+                  Année
+                </p>
                 <input
-                  type="number"
-                  placeholder="2026"
+                  type='number'
+                  placeholder='2026'
                   value={weddingInfo.year}
                   onChange={(e) => setWeddingInfo({ year: e.target.value })}
-                  className="w-full text-sm font-sans bg-transparent outline-none placeholder:text-muted-foreground/40"
+                  className='w-full text-sm font-sans bg-transparent outline-none placeholder:text-muted-foreground/40'
                 />
               </div>
             </div>
-            <div className="px-4 py-3">
-              <p className="text-[10px] font-bold uppercase tracking-wider text-muted-foreground/60 font-sans mb-1">Lieu de la cérémonie</p>
+            <div className='px-4 py-3'>
+              <p className='text-[10px] font-bold uppercase tracking-wider text-muted-foreground/60 font-sans mb-1'>
+                Lieu de la cérémonie
+              </p>
               <input
-                type="text"
-                placeholder="Château des Roses, Provence"
+                type='text'
+                placeholder='Château des Roses, Provence'
                 value={weddingInfo.venue}
                 onChange={(e) => setWeddingInfo({ venue: e.target.value })}
-                className="w-full text-sm font-sans bg-transparent outline-none placeholder:text-muted-foreground/40 placeholder:italic"
+                className='w-full text-sm font-sans bg-transparent outline-none placeholder:text-muted-foreground/40 placeholder:italic'
               />
             </div>
           </div>
@@ -1617,41 +1907,52 @@ export default function WeddingPage() {
 
         {/* Account */}
         <div>
-          <p className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground/60 font-sans mb-2">
+          <p className='text-[10px] font-bold uppercase tracking-widest text-muted-foreground/60 font-sans mb-2'>
             Votre compte
           </p>
-          <div className="bg-card border-2 border-border rounded-2xl overflow-hidden">
-            <div className="px-4 py-3 border-b border-border/60">
-              <p className="text-[10px] font-bold uppercase tracking-wider text-muted-foreground/60 font-sans mb-1">Adresse email</p>
+          <div className='bg-card border-2 border-border rounded-2xl overflow-hidden'>
+            <div className='px-4 py-3 border-b border-border/60'>
+              <p className='text-[10px] font-bold uppercase tracking-wider text-muted-foreground/60 font-sans mb-1'>
+                Adresse email
+              </p>
               <input
-                type="email"
-                placeholder="sophie@exemple.fr"
+                type='email'
+                placeholder='sophie@exemple.fr'
                 value={weddingInfo.email}
                 onChange={(e) => setWeddingInfo({ email: e.target.value })}
-                className="w-full text-sm font-sans bg-transparent outline-none placeholder:text-muted-foreground/40"
+                className='w-full text-sm font-sans bg-transparent outline-none placeholder:text-muted-foreground/40'
               />
             </div>
-            <div className="px-4 py-3">
-              <p className="text-[10px] font-bold uppercase tracking-wider text-muted-foreground/60 font-sans mb-1">Mot de passe</p>
+            <div className='px-4 py-3'>
+              <p className='text-[10px] font-bold uppercase tracking-wider text-muted-foreground/60 font-sans mb-1'>
+                Mot de passe
+              </p>
               <input
-                type="password"
-                placeholder="••••••••"
-                className="w-full text-sm font-sans bg-transparent outline-none placeholder:text-muted-foreground/40"
+                type='password'
+                placeholder='••••••••'
+                className='w-full text-sm font-sans bg-transparent outline-none placeholder:text-muted-foreground/40'
               />
-              <p className="text-[10px] text-muted-foreground/50 font-sans mt-1">8 caractères minimum</p>
+              <p className='text-[10px] text-muted-foreground/50 font-sans mt-1'>
+                8 caractères minimum
+              </p>
             </div>
           </div>
         </div>
 
         {/* Trust row */}
-        <div className="flex gap-3 pt-1">
+        <div className='flex gap-3 pt-1'>
           {[
             { label: "Personnalise votre site" },
             { label: "Accès sécurisé à votre espace" },
             { label: "Support disponible après achat" },
           ].map((item) => (
-            <div key={item.label} className="flex-1 border border-border rounded-xl p-3 text-center">
-              <p className="text-[10px] text-muted-foreground/70 font-sans leading-tight">{item.label}</p>
+            <div
+              key={item.label}
+              className='flex-1 border border-border rounded-xl p-3 text-center'
+            >
+              <p className='text-[10px] text-muted-foreground/70 font-sans leading-tight'>
+                {item.label}
+              </p>
             </div>
           ))}
         </div>
@@ -1679,6 +1980,7 @@ git commit -m "feat: add wedding info step with live preview and account creatio
 ## Task 12: Redesign Checkout page (Step 8)
 
 **Files:**
+
 - Modify: `landing/src/app/[locale]/(configurator)/create/checkout/page.tsx`
 
 - [ ] **Step 1: Install Stripe packages if not yet present**
@@ -1688,6 +1990,7 @@ cd landing && npm list @stripe/stripe-js @stripe/react-stripe-js 2>/dev/null | h
 ```
 
 If not installed:
+
 ```bash
 cd landing && npm install @stripe/stripe-js @stripe/react-stripe-js
 ```
@@ -1699,6 +2002,7 @@ grep "STRIPE" landing/.env.local 2>/dev/null || grep "STRIPE" .env.local 2>/dev/
 ```
 
 If missing, add to `landing/.env.local`:
+
 ```
 NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY=pk_test_YOUR_KEY_HERE
 ```
@@ -1718,16 +2022,16 @@ import { Edit2, Eye, CreditCard, Loader2 } from "lucide-react";
 import { ThemeDemoOverlay } from "@/components/configurator/ThemeDemoOverlay";
 
 const THEME_NAMES: Record<string, string> = {
-  "theme-floral":     "Floral",
+  "theme-floral": "Floral",
   "theme-minimalist": "Minimalist",
-  "theme-boho":       "Boho",
-  "theme-royal":      "Royal",
-  "theme-modern":     "Modern",
+  "theme-boho": "Boho",
+  "theme-royal": "Royal",
+  "theme-modern": "Modern",
 };
 
 const PAYMENT_METHODS = [
-  { id: "card",   label: "Carte" },
-  { id: "apple",  label: "Apple Pay" },
+  { id: "card", label: "Carte" },
+  { id: "apple", label: "Apple Pay" },
   { id: "google", label: "Google Pay" },
   { id: "paypal", label: "PayPal" },
 ] as const;
@@ -1736,7 +2040,16 @@ type PaymentMethod = (typeof PAYMENT_METHODS)[number]["id"];
 
 export default function CheckoutPage() {
   const router = useRouter();
-  const { plan, animation, theme, modules, languages, extras, adultsOnly, weddingInfo } = useOrderStore();
+  const {
+    plan,
+    animation,
+    theme,
+    modules,
+    languages,
+    extras,
+    adultsOnly,
+    weddingInfo,
+  } = useOrderStore();
   const totalPrice = useOrderStore(selectTotalPrice);
 
   const [showPreview, setShowPreview] = useState(false);
@@ -1769,7 +2082,9 @@ export default function CheckoutPage() {
           const target = new URL(dashboardUrl);
           target.pathname = "/fr/billing";
           target.searchParams.set("success", "true");
-          setTimeout(() => { window.location.href = target.toString(); }, 1500);
+          setTimeout(() => {
+            window.location.href = target.toString();
+          }, 1500);
         }
       }
     } catch {
@@ -1780,25 +2095,30 @@ export default function CheckoutPage() {
   }
 
   const RecapRow = ({
-    label, value, href, children,
+    label,
+    value,
+    href,
+    children,
   }: {
     label: string;
     value?: string;
     href?: string;
     children?: React.ReactNode;
   }) => (
-    <div className="flex items-start gap-3 px-4 py-3 border-b border-border/40 last:border-b-0">
-      <div className="flex-1 min-w-0">
-        <p className="text-[10px] font-bold uppercase tracking-wider text-muted-foreground/60 font-sans">{label}</p>
-        {value && <p className="text-sm font-semibold mt-0.5">{value}</p>}
+    <div className='flex items-start gap-3 px-4 py-3 border-b border-border/40 last:border-b-0'>
+      <div className='flex-1 min-w-0'>
+        <p className='text-[10px] font-bold uppercase tracking-wider text-muted-foreground/60 font-sans'>
+          {label}
+        </p>
+        {value && <p className='text-sm font-semibold mt-0.5'>{value}</p>}
         {children}
       </div>
       {href && (
         <button
           onClick={() => router.push(href)}
-          className="w-7 h-7 rounded-full border border-border flex items-center justify-center flex-shrink-0 hover:border-primary transition-colors"
+          className='w-7 h-7 rounded-full border border-border flex items-center justify-center flex-shrink-0 hover:border-primary transition-colors'
         >
-          <Edit2 className="w-3 h-3 text-muted-foreground" />
+          <Edit2 className='w-3 h-3 text-muted-foreground' />
         </button>
       )}
     </div>
@@ -1806,46 +2126,80 @@ export default function CheckoutPage() {
 
   return (
     <>
-      <div className="flex flex-col gap-5 max-w-lg mx-auto px-4">
-        <div className="text-center space-y-2 pb-2">
-          <h1 className="font-heading text-3xl font-bold md:text-4xl">
-            Votre commande est <span className="italic text-primary">prête</span>
+      <div className='flex flex-col gap-5 max-w-lg mx-auto px-4'>
+        <div className='text-center space-y-2 pb-2'>
+          <h1 className='font-heading text-3xl font-bold md:text-4xl'>
+            Votre commande est{" "}
+            <span className='italic text-primary'>prête</span>
           </h1>
-          <p className="text-muted-foreground text-sm font-sans">
+          <p className='text-muted-foreground text-sm font-sans'>
             Vérifiez vos choix et finalisez votre site d&apos;invitation.
           </p>
         </div>
 
         {/* Récap */}
-        <div className="bg-card border-2 border-border/60 rounded-2xl overflow-hidden">
+        <div className='bg-card border-2 border-border/60 rounded-2xl overflow-hidden'>
           <RecapRow
-            label="Les mariés"
+            label='Les mariés'
             value={`${weddingInfo.partner1 || "—"} & ${weddingInfo.partner2 || "—"} · ${weddingInfo.day || "—"} ${weddingInfo.month || ""} ${weddingInfo.year || ""}`}
-            href="/create/wedding"
+            href='/create/wedding'
           />
-          <RecapRow label="Offre" value={`Pack ${plan === "premium" ? "Premium" : "Essentiel"} — ${plan === "premium" ? "575" : "175"}€`} href="/create/plan" />
-          <RecapRow label="Animation & Thème" value={`${animation || "—"} · ${THEME_NAMES[theme] || "—"}`} href="/create/animation" />
-          <RecapRow label="Modules" href="/create/modules">
-            <div className="flex flex-wrap gap-1 mt-1">
+          <RecapRow
+            label='Offre'
+            value={`Pack ${plan === "premium" ? "Premium" : "Essentiel"} — ${plan === "premium" ? "575" : "175"}€`}
+            href='/create/plan'
+          />
+          <RecapRow
+            label='Animation & Thème'
+            value={`${animation || "—"} · ${THEME_NAMES[theme] || "—"}`}
+            href='/create/animation'
+          />
+          <RecapRow
+            label='Modules'
+            href='/create/modules'
+          >
+            <div className='flex flex-wrap gap-1 mt-1'>
               {modules.slice(0, 4).map((m) => (
-                <span key={m} className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-primary/10 text-primary font-sans">{m}</span>
+                <span
+                  key={m}
+                  className='text-[10px] font-bold px-2 py-0.5 rounded-full bg-primary/10 text-primary font-sans'
+                >
+                  {m}
+                </span>
               ))}
               {modules.length > 4 && (
-                <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-muted text-muted-foreground font-sans">+{modules.length - 4}</span>
+                <span className='text-[10px] font-bold px-2 py-0.5 rounded-full bg-muted text-muted-foreground font-sans'>
+                  +{modules.length - 4}
+                </span>
               )}
             </div>
           </RecapRow>
           {(languages.length > 0 || extras.length > 0 || adultsOnly) && (
-            <RecapRow label="Options" href="/create/extras">
-              <div className="flex flex-wrap gap-1 mt-1">
+            <RecapRow
+              label='Options'
+              href='/create/extras'
+            >
+              <div className='flex flex-wrap gap-1 mt-1'>
                 {languages.map((l) => (
-                  <span key={l} className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-primary/10 text-primary font-sans">{l.toUpperCase()} +15€</span>
+                  <span
+                    key={l}
+                    className='text-[10px] font-bold px-2 py-0.5 rounded-full bg-primary/10 text-primary font-sans'
+                  >
+                    {l.toUpperCase()} +15€
+                  </span>
                 ))}
                 {extras.map((e) => (
-                  <span key={e} className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-primary/10 text-primary font-sans">{e}</span>
+                  <span
+                    key={e}
+                    className='text-[10px] font-bold px-2 py-0.5 rounded-full bg-primary/10 text-primary font-sans'
+                  >
+                    {e}
+                  </span>
                 ))}
                 {adultsOnly && (
-                  <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-muted text-muted-foreground font-sans">Adults Only</span>
+                  <span className='text-[10px] font-bold px-2 py-0.5 rounded-full bg-muted text-muted-foreground font-sans'>
+                    Adults Only
+                  </span>
                 )}
               </div>
             </RecapRow>
@@ -1855,87 +2209,120 @@ export default function CheckoutPage() {
         {/* Aperçu */}
         <button
           onClick={() => setShowPreview(true)}
-          className="w-full flex items-center justify-center gap-2 py-3.5 rounded-2xl border-2 border-primary text-primary font-bold text-sm font-sans hover:bg-primary/5 transition-colors"
+          className='w-full flex items-center justify-center gap-2 py-3.5 rounded-2xl border-2 border-primary text-primary font-bold text-sm font-sans hover:bg-primary/5 transition-colors'
         >
-          <Eye className="w-4 h-4" />
+          <Eye className='w-4 h-4' />
           Voir l&apos;aperçu de mon site
         </button>
 
         {/* Separator */}
-        <div className="flex items-center gap-3">
-          <div className="flex-1 h-px bg-border" />
-          <span className="text-[10px] font-bold uppercase tracking-wider text-muted-foreground/50 font-sans">Paiement</span>
-          <div className="flex-1 h-px bg-border" />
+        <div className='flex items-center gap-3'>
+          <div className='flex-1 h-px bg-border' />
+          <span className='text-[10px] font-bold uppercase tracking-wider text-muted-foreground/50 font-sans'>
+            Paiement
+          </span>
+          <div className='flex-1 h-px bg-border' />
         </div>
 
         {/* Billing */}
         <div>
-          <p className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground/60 font-sans mb-2">
+          <p className='text-[10px] font-bold uppercase tracking-widest text-muted-foreground/60 font-sans mb-2'>
             Informations de facturation
           </p>
-          <div className="bg-card border-2 border-border rounded-2xl overflow-hidden">
-            <div className="flex border-b border-border/60">
-              <div className="flex-1 px-4 py-3 border-r border-border/60">
-                <p className="text-[10px] font-bold uppercase tracking-wider text-muted-foreground/60 font-sans mb-1">Prénom</p>
+          <div className='bg-card border-2 border-border rounded-2xl overflow-hidden'>
+            <div className='flex border-b border-border/60'>
+              <div className='flex-1 px-4 py-3 border-r border-border/60'>
+                <p className='text-[10px] font-bold uppercase tracking-wider text-muted-foreground/60 font-sans mb-1'>
+                  Prénom
+                </p>
                 <input
-                  type="text"
-                  placeholder="Sophie"
+                  type='text'
+                  placeholder='Sophie'
                   value={billing.firstName}
-                  onChange={(e) => setBilling({ ...billing, firstName: e.target.value })}
-                  className="w-full text-sm font-sans bg-transparent outline-none placeholder:text-muted-foreground/40"
+                  onChange={(e) =>
+                    setBilling({ ...billing, firstName: e.target.value })
+                  }
+                  className='w-full text-sm font-sans bg-transparent outline-none placeholder:text-muted-foreground/40'
                 />
               </div>
-              <div className="flex-1 px-4 py-3">
-                <p className="text-[10px] font-bold uppercase tracking-wider text-muted-foreground/60 font-sans mb-1">Nom</p>
+              <div className='flex-1 px-4 py-3'>
+                <p className='text-[10px] font-bold uppercase tracking-wider text-muted-foreground/60 font-sans mb-1'>
+                  Nom
+                </p>
                 <input
-                  type="text"
-                  placeholder="Dupont"
+                  type='text'
+                  placeholder='Dupont'
                   value={billing.lastName}
-                  onChange={(e) => setBilling({ ...billing, lastName: e.target.value })}
-                  className="w-full text-sm font-sans bg-transparent outline-none placeholder:text-muted-foreground/40"
+                  onChange={(e) =>
+                    setBilling({ ...billing, lastName: e.target.value })
+                  }
+                  className='w-full text-sm font-sans bg-transparent outline-none placeholder:text-muted-foreground/40'
                 />
               </div>
             </div>
-            <div className="px-4 py-3 border-b border-border/60">
-              <p className="text-[10px] font-bold uppercase tracking-wider text-muted-foreground/60 font-sans mb-1">Adresse</p>
+            <div className='px-4 py-3 border-b border-border/60'>
+              <p className='text-[10px] font-bold uppercase tracking-wider text-muted-foreground/60 font-sans mb-1'>
+                Adresse
+              </p>
               <input
-                type="text"
-                placeholder="12 rue des Roses"
+                type='text'
+                placeholder='12 rue des Roses'
                 value={billing.address}
-                onChange={(e) => setBilling({ ...billing, address: e.target.value })}
-                className="w-full text-sm font-sans bg-transparent outline-none placeholder:text-muted-foreground/40"
+                onChange={(e) =>
+                  setBilling({ ...billing, address: e.target.value })
+                }
+                className='w-full text-sm font-sans bg-transparent outline-none placeholder:text-muted-foreground/40'
               />
             </div>
-            <div className="flex border-b border-border/60">
-              <div className="w-[90px] px-4 py-3 border-r border-border/60">
-                <p className="text-[10px] font-bold uppercase tracking-wider text-muted-foreground/60 font-sans mb-1">Code postal</p>
+            <div className='flex border-b border-border/60'>
+              <div className='w-[90px] px-4 py-3 border-r border-border/60'>
+                <p className='text-[10px] font-bold uppercase tracking-wider text-muted-foreground/60 font-sans mb-1'>
+                  Code postal
+                </p>
                 <input
-                  type="text"
-                  placeholder="75001"
+                  type='text'
+                  placeholder='75001'
                   value={billing.zip}
-                  onChange={(e) => setBilling({ ...billing, zip: e.target.value })}
-                  className="w-full text-sm font-sans bg-transparent outline-none placeholder:text-muted-foreground/40"
+                  onChange={(e) =>
+                    setBilling({ ...billing, zip: e.target.value })
+                  }
+                  className='w-full text-sm font-sans bg-transparent outline-none placeholder:text-muted-foreground/40'
                 />
               </div>
-              <div className="flex-1 px-4 py-3">
-                <p className="text-[10px] font-bold uppercase tracking-wider text-muted-foreground/60 font-sans mb-1">Ville</p>
+              <div className='flex-1 px-4 py-3'>
+                <p className='text-[10px] font-bold uppercase tracking-wider text-muted-foreground/60 font-sans mb-1'>
+                  Ville
+                </p>
                 <input
-                  type="text"
-                  placeholder="Paris"
+                  type='text'
+                  placeholder='Paris'
                   value={billing.city}
-                  onChange={(e) => setBilling({ ...billing, city: e.target.value })}
-                  className="w-full text-sm font-sans bg-transparent outline-none placeholder:text-muted-foreground/40"
+                  onChange={(e) =>
+                    setBilling({ ...billing, city: e.target.value })
+                  }
+                  className='w-full text-sm font-sans bg-transparent outline-none placeholder:text-muted-foreground/40'
                 />
               </div>
             </div>
-            <div className="px-4 py-3">
-              <p className="text-[10px] font-bold uppercase tracking-wider text-muted-foreground/60 font-sans mb-1">Pays</p>
+            <div className='px-4 py-3'>
+              <p className='text-[10px] font-bold uppercase tracking-wider text-muted-foreground/60 font-sans mb-1'>
+                Pays
+              </p>
               <select
                 value={billing.country}
-                onChange={(e) => setBilling({ ...billing, country: e.target.value })}
-                className="w-full text-sm font-sans bg-transparent outline-none text-foreground"
+                onChange={(e) =>
+                  setBilling({ ...billing, country: e.target.value })
+                }
+                className='w-full text-sm font-sans bg-transparent outline-none text-foreground'
               >
-                {["France","Belgique","Suisse","Luxembourg","Canada","Autre"].map((c) => (
+                {[
+                  "France",
+                  "Belgique",
+                  "Suisse",
+                  "Luxembourg",
+                  "Canada",
+                  "Autre",
+                ].map((c) => (
                   <option key={c}>{c}</option>
                 ))}
               </select>
@@ -1944,20 +2331,24 @@ export default function CheckoutPage() {
         </div>
 
         {/* Total */}
-        <div className="flex items-center justify-between px-5 py-4 bg-card border-2 border-border rounded-2xl">
+        <div className='flex items-center justify-between px-5 py-4 bg-card border-2 border-border rounded-2xl'>
           <div>
-            <p className="text-sm font-semibold font-sans">Total à régler</p>
-            <p className="text-[10px] text-muted-foreground font-sans">Paiement unique · Accès à vie</p>
+            <p className='text-sm font-semibold font-sans'>Total à régler</p>
+            <p className='text-[10px] text-muted-foreground font-sans'>
+              Paiement unique · Accès à vie
+            </p>
           </div>
-          <span className="font-heading text-3xl font-bold text-primary">{totalPrice}€</span>
+          <span className='font-heading text-3xl font-bold text-primary'>
+            {totalPrice}€
+          </span>
         </div>
 
         {/* Payment methods */}
         <div>
-          <p className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground/60 font-sans mb-2">
+          <p className='text-[10px] font-bold uppercase tracking-widest text-muted-foreground/60 font-sans mb-2'>
             Mode de paiement
           </p>
-          <div className="flex gap-2 mb-3">
+          <div className='flex gap-2 mb-3'>
             {PAYMENT_METHODS.map((m) => (
               <button
                 key={m.id}
@@ -1975,42 +2366,75 @@ export default function CheckoutPage() {
           </div>
 
           {payMethod === "card" && (
-            <div className="bg-card border-2 border-border rounded-2xl overflow-hidden mb-3">
-              <div className="px-4 py-3 border-b border-border/60">
-                <p className="text-[10px] font-bold uppercase tracking-wider text-muted-foreground/60 font-sans mb-1">Numéro de carte</p>
-                <input type="text" placeholder="1234  5678  9012  3456" className="w-full text-sm font-sans bg-transparent outline-none placeholder:text-muted-foreground/40" readOnly />
+            <div className='bg-card border-2 border-border rounded-2xl overflow-hidden mb-3'>
+              <div className='px-4 py-3 border-b border-border/60'>
+                <p className='text-[10px] font-bold uppercase tracking-wider text-muted-foreground/60 font-sans mb-1'>
+                  Numéro de carte
+                </p>
+                <input
+                  type='text'
+                  placeholder='1234  5678  9012  3456'
+                  className='w-full text-sm font-sans bg-transparent outline-none placeholder:text-muted-foreground/40'
+                  readOnly
+                />
               </div>
-              <div className="flex">
-                <div className="flex-1 px-4 py-3 border-r border-border/60">
-                  <p className="text-[10px] font-bold uppercase tracking-wider text-muted-foreground/60 font-sans mb-1">Expiration</p>
-                  <input type="text" placeholder="MM / AA" className="w-full text-sm font-sans bg-transparent outline-none placeholder:text-muted-foreground/40" readOnly />
+              <div className='flex'>
+                <div className='flex-1 px-4 py-3 border-r border-border/60'>
+                  <p className='text-[10px] font-bold uppercase tracking-wider text-muted-foreground/60 font-sans mb-1'>
+                    Expiration
+                  </p>
+                  <input
+                    type='text'
+                    placeholder='MM / AA'
+                    className='w-full text-sm font-sans bg-transparent outline-none placeholder:text-muted-foreground/40'
+                    readOnly
+                  />
                 </div>
-                <div className="w-[100px] px-4 py-3">
-                  <p className="text-[10px] font-bold uppercase tracking-wider text-muted-foreground/60 font-sans mb-1">CVC</p>
-                  <input type="text" placeholder="•••" className="w-full text-sm font-sans bg-transparent outline-none placeholder:text-muted-foreground/40" readOnly />
+                <div className='w-[100px] px-4 py-3'>
+                  <p className='text-[10px] font-bold uppercase tracking-wider text-muted-foreground/60 font-sans mb-1'>
+                    CVC
+                  </p>
+                  <input
+                    type='text'
+                    placeholder='•••'
+                    className='w-full text-sm font-sans bg-transparent outline-none placeholder:text-muted-foreground/40'
+                    readOnly
+                  />
                 </div>
               </div>
-              <div className="px-4 py-3">
-                <p className="text-[10px] font-bold uppercase tracking-wider text-muted-foreground/60 font-sans mb-1">Nom sur la carte</p>
-                <input type="text" placeholder="Sophie Dupont" className="w-full text-sm font-sans bg-transparent outline-none placeholder:text-muted-foreground/40" readOnly />
+              <div className='px-4 py-3'>
+                <p className='text-[10px] font-bold uppercase tracking-wider text-muted-foreground/60 font-sans mb-1'>
+                  Nom sur la carte
+                </p>
+                <input
+                  type='text'
+                  placeholder='Sophie Dupont'
+                  className='w-full text-sm font-sans bg-transparent outline-none placeholder:text-muted-foreground/40'
+                  readOnly
+                />
               </div>
             </div>
           )}
 
-          {(payMethod === "apple" || payMethod === "google" || payMethod === "paypal") && (
-            <div className="bg-muted/30 rounded-2xl p-4 text-center mb-3">
-              <p className="text-sm text-muted-foreground font-sans">
-                {payMethod === "apple" && "Apple Pay sera activé via Stripe au moment du paiement."}
-                {payMethod === "google" && "Google Pay sera activé via Stripe au moment du paiement."}
-                {payMethod === "paypal" && "Vous serez redirigé vers PayPal pour finaliser le paiement."}
+          {(payMethod === "apple" ||
+            payMethod === "google" ||
+            payMethod === "paypal") && (
+            <div className='bg-muted/30 rounded-2xl p-4 text-center mb-3'>
+              <p className='text-sm text-muted-foreground font-sans'>
+                {payMethod === "apple" &&
+                  "Apple Pay sera activé via Stripe au moment du paiement."}
+                {payMethod === "google" &&
+                  "Google Pay sera activé via Stripe au moment du paiement."}
+                {payMethod === "paypal" &&
+                  "Vous serez redirigé vers PayPal pour finaliser le paiement."}
               </p>
             </div>
           )}
         </div>
 
         {/* Stripe badge */}
-        <p className="text-center text-[11px] text-muted-foreground/60 font-sans flex items-center justify-center gap-1.5">
-          <CreditCard className="w-3.5 h-3.5" />
+        <p className='text-center text-[11px] text-muted-foreground/60 font-sans flex items-center justify-center gap-1.5'>
+          <CreditCard className='w-3.5 h-3.5' />
           Paiement sécurisé par Stripe
         </p>
 
@@ -2018,15 +2442,21 @@ export default function CheckoutPage() {
         <button
           onClick={handlePayment}
           disabled={isLoading}
-          className="w-full py-4 rounded-2xl bg-primary text-primary-foreground font-bold text-base font-sans flex items-center justify-center gap-2 shadow-lg disabled:opacity-60 disabled:cursor-not-allowed hover:bg-primary/90 transition-colors"
+          className='w-full py-4 rounded-2xl bg-primary text-primary-foreground font-bold text-base font-sans flex items-center justify-center gap-2 shadow-lg disabled:opacity-60 disabled:cursor-not-allowed hover:bg-primary/90 transition-colors'
         >
-          {isLoading ? <Loader2 className="w-5 h-5 animate-spin" /> : <CreditCard className="w-5 h-5" />}
+          {isLoading ? (
+            <Loader2 className='w-5 h-5 animate-spin' />
+          ) : (
+            <CreditCard className='w-5 h-5' />
+          )}
           {isLoading ? "Traitement..." : `Payer ${totalPrice}€`}
         </button>
 
-        <p className="text-center text-[10px] text-muted-foreground/50 font-sans leading-relaxed">
-          En validant, vous acceptez nos CGV et notre politique de confidentialité.<br />
-          Paiement unique · Sans abonnement · Accès à vie garanti.
+        <p className='text-center text-[10px] text-muted-foreground/50 font-sans leading-relaxed'>
+          En validant, vous acceptez nos CGV et notre politique de
+          confidentialité.
+          <br />
+          Paiement unique · Sans abonnement
         </p>
       </div>
 

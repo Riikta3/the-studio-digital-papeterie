@@ -9,6 +9,15 @@ export async function GET(request: NextRequest) {
   const next = searchParams.get("next") ?? "/update-password";
 
   if (token_hash && type) {
+    const redirectTo = request.nextUrl.clone();
+    const nextUrl = new URL(next, request.nextUrl.origin);
+    redirectTo.pathname = nextUrl.pathname;
+    redirectTo.search = nextUrl.search;
+    redirectTo.searchParams.delete("token_hash");
+    redirectTo.searchParams.delete("type");
+
+    const response = NextResponse.redirect(redirectTo);
+
     const supabase = createServerClient(
       process.env.NEXT_PUBLIC_SUPABASE_URL!,
       process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
@@ -19,7 +28,7 @@ export async function GET(request: NextRequest) {
           },
           setAll(cookiesToSet) {
             cookiesToSet.forEach(({ name, value, options }) =>
-              request.cookies.set(name, value),
+              response.cookies.set(name, value, options),
             );
           },
         },
@@ -32,19 +41,21 @@ export async function GET(request: NextRequest) {
     });
 
     if (!error) {
-      const redirectTo = request.nextUrl.clone();
-      const nextUrl = new URL(next, request.nextUrl.origin);
-      redirectTo.pathname = nextUrl.pathname;
-      redirectTo.search = nextUrl.search;
-      redirectTo.searchParams.delete("token_hash");
-      redirectTo.searchParams.delete("type");
-      return NextResponse.redirect(redirectTo);
+      return response;
     }
   }
 
   // If no token_hash (PKCE Code Flow)
   const code = searchParams.get("code");
   if (code) {
+    const redirectTo = request.nextUrl.clone();
+    const nextUrl = new URL(next, request.nextUrl.origin);
+    redirectTo.pathname = nextUrl.pathname;
+    redirectTo.search = nextUrl.search;
+    redirectTo.searchParams.delete("code");
+
+    const response = NextResponse.redirect(redirectTo);
+
     const supabase = createServerClient(
       process.env.NEXT_PUBLIC_SUPABASE_URL!,
       process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
@@ -55,7 +66,7 @@ export async function GET(request: NextRequest) {
           },
           setAll(cookiesToSet) {
             cookiesToSet.forEach(({ name, value, options }) =>
-              request.cookies.set(name, value),
+              response.cookies.set(name, value, options),
             );
           },
         },
@@ -65,12 +76,7 @@ export async function GET(request: NextRequest) {
     const { error } = await supabase.auth.exchangeCodeForSession(code);
 
     if (!error) {
-      const redirectTo = request.nextUrl.clone();
-      const nextUrl = new URL(next, request.nextUrl.origin);
-      redirectTo.pathname = nextUrl.pathname;
-      redirectTo.search = nextUrl.search;
-      redirectTo.searchParams.delete("code");
-      return NextResponse.redirect(redirectTo);
+      return response;
     }
   }
 
