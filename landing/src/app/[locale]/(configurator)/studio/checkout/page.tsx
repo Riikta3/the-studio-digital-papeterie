@@ -18,7 +18,7 @@ import {
 } from "@stripe/react-stripe-js";
 import { loadStripe } from "@stripe/stripe-js";
 import { APP_MODULES } from "@shared/data/modules";
-import { CreditCard, Edit2, Eye, Loader2 } from "lucide-react";
+import { CreditCard, Edit2, Eye, EyeOff, Loader2 } from "lucide-react";
 import { useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 
@@ -188,6 +188,7 @@ export default function CheckoutPage() {
   const hasHydrated = useOrderStore((state) => state._hasHydrated);
 
   const [showPreview, setShowPreview] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
   const [clientSecret, setClientSecret] = useState<string | null>(null);
   const [fetchError, setFetchError] = useState<string | null>(null);
   const [isProvisioning, setIsProvisioning] = useState(false);
@@ -384,6 +385,29 @@ export default function CheckoutPage() {
                     <span className='text-[10px] font-bold px-2 py-0.5 rounded-full bg-muted text-muted-foreground font-sans'>
                       +{modules.length - 4}
                     </span>
+                  )}
+                </div>
+              </RecapRow>
+              <RecapRow
+                label='Compte'
+                value={weddingInfo.email || "—"}
+                href='/studio/start'
+              />
+              <RecapRow
+                label='Mot de passe'
+                href='/studio/start'
+              >
+                <div className='flex items-center gap-2 mt-0.5'>
+                  <span className='text-sm font-semibold tracking-widest'>
+                    {showPassword ? (weddingInfo.password || "—") : (weddingInfo.password ? "••••••••" : "—")}
+                  </span>
+                  {weddingInfo.password && (
+                    <button
+                      onClick={() => setShowPassword((v) => !v)}
+                      className='text-muted-foreground hover:text-primary transition-colors'
+                    >
+                      {showPassword ? <EyeOff className='w-3.5 h-3.5' /> : <Eye className='w-3.5 h-3.5' />}
+                    </button>
                   )}
                 </div>
               </RecapRow>

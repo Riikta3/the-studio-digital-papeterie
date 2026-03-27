@@ -239,17 +239,10 @@ export async function createWedding(data: CreateWeddingData) {
   );
 
   // 6. Generate Auto-Login Link (Magic Link)
-  const isProd = process.env.NODE_ENV === "production";
-  const dashboardUrl = isProd
-    ? process.env.NEXT_PUBLIC_DASHBOARD_URL || "https://the-studio.digital"
-    : "http://localhost:3003";
+  const dashboardUrl =
+    process.env.NEXT_PUBLIC_DASHBOARD_URL || "http://localhost:3003";
 
-  console.log(
-    "📍 Environment:",
-    process.env.NODE_ENV,
-    "Redirection URL:",
-    dashboardUrl,
-  );
+  console.log("📍 Dashboard redirect URL:", dashboardUrl);
 
   const { data: linkData, error: linkError } =
     await supabaseAdmin.auth.admin.generateLink({
@@ -263,6 +256,8 @@ export async function createWedding(data: CreateWeddingData) {
   if (linkError) {
     console.error("Link Generation Error:", linkError);
   }
+
+  console.log("🔗 action_link:", linkData?.properties?.action_link);
 
   // Return success with auto-login link
   return {
