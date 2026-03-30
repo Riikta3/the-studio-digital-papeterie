@@ -188,23 +188,19 @@ export default function ConfiguratorLayout({
                 <span className='hidden sm:inline'>Retour</span>
               </button>
             )}
-            <button
-              onClick={() => router.push(nextStep)}
-              disabled={!isStepValid}
-              className={cn(
-                "group flex items-center gap-2 rounded-full bg-primary text-primary-foreground px-6 py-2.5 text-sm font-semibold shadow-lg transition-all hover:scale-105 active:scale-95",
-                !isStepValid && "opacity-40 cursor-not-allowed pointer-events-none",
-              )}
-            >
-              <span>
-                {isLastStep
-                  ? "Finaliser"
-                  : isFirstStep
-                    ? "Commencer"
-                    : "Continuer"}
-              </span>
-              <ArrowRight className='w-4 h-4 transition-transform group-hover:translate-x-1' />
-            </button>
+            {!isLastStep && (
+              <button
+                onClick={() => router.push(nextStep)}
+                disabled={!isStepValid}
+                className={cn(
+                  "group flex items-center gap-2 rounded-full bg-primary text-primary-foreground px-6 py-2.5 text-sm font-semibold shadow-lg transition-all hover:scale-105 active:scale-95",
+                  !isStepValid && "opacity-40 cursor-not-allowed pointer-events-none",
+                )}
+              >
+                <span>{isFirstStep ? "Commencer" : "Continuer"}</span>
+                <ArrowRight className='w-4 h-4 transition-transform group-hover:translate-x-1' />
+              </button>
+            )}
           </div>
         </div>
       </div>
