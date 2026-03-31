@@ -16,7 +16,6 @@ type Variant = { id: string; name: string; desc: string };
 type Category = {
   id: string;
   name: string;
-  emoji: string;
   variants: Variant[];
 };
 
@@ -24,7 +23,6 @@ const CATEGORIES: Category[] = [
   {
     id: "envelope",
     name: "Enveloppe",
-    emoji: "✉️",
     variants: [
       { id: "envelope-classic", name: "Classique", desc: "Ouverture élégante et sobre" },
       { id: "envelope-kraft", name: "Kraft", desc: "Texture papier naturel" },
@@ -35,7 +33,6 @@ const CATEGORIES: Category[] = [
   {
     id: "door",
     name: "Porte",
-    emoji: "🚪",
     variants: [
       { id: "door-royal", name: "Royal", desc: "Grande porte dorée majestueuse" },
       { id: "door-floral", name: "Floral", desc: "Porte ornée de fleurs printanières" },
@@ -47,7 +44,6 @@ const CATEGORIES: Category[] = [
   {
     id: "curtain",
     name: "Rideau",
-    emoji: "🎭",
     variants: [
       { id: "curtain-velvet", name: "Velours", desc: "Rideau de velours bordeaux" },
       { id: "curtain-linen", name: "Lin", desc: "Tissu naturel aérien" },
@@ -57,7 +53,6 @@ const CATEGORIES: Category[] = [
   {
     id: "book",
     name: "Livre",
-    emoji: "📖",
     variants: [
       { id: "book-leather", name: "Cuir", desc: "Couverture en cuir gravé" },
       { id: "book-floral", name: "Floral", desc: "Illustrations botaniques" },
@@ -67,7 +62,6 @@ const CATEGORIES: Category[] = [
   {
     id: "floral",
     name: "Floral",
-    emoji: "🌸",
     variants: [
       { id: "floral-roses", name: "Roses", desc: "Pétales de rose qui s'envolent" },
       { id: "floral-wildflower", name: "Champêtre", desc: "Fleurs des champs printanières" },
@@ -115,7 +109,6 @@ export default function AnimationPage() {
                   : "bg-background text-muted-foreground border-border hover:border-foreground/30 hover:text-foreground",
               )}
             >
-              <span className="text-base leading-none">{cat.emoji}</span>
               {cat.name}
             </button>
           ))}
@@ -160,8 +153,7 @@ export default function AnimationPage() {
                       />
                     ) : (
                       <div className="w-full h-full flex flex-col items-center justify-center gap-2 bg-gradient-to-br from-primary/5 to-primary/10">
-                        <span className="text-4xl opacity-30">{currentCategory.emoji}</span>
-                        <span className="text-[11px] text-muted-foreground font-sans">Bientôt</span>
+                        <span className="text-[11px] text-muted-foreground font-sans">Bientôt disponible</span>
                       </div>
                     )}
 

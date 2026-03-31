@@ -14,24 +14,9 @@ interface AssetEntry {
 }
 
 const ANIMATION_ASSET_MAP: Record<string, AssetEntry> = {
+  // Only include entries where actual asset files exist in public/videos/animation/
   "door-floral":        { category: "doors",   variant: "floral",     fileSlug: "porte-florale"   },
   "door-royal":         { category: "doors",   variant: "royal",      fileSlug: "porte-royal"     },
-  "door-classic":       { category: "doors",   variant: "classic",    fileSlug: "porte-classic"   },
-  "door-authentic":     { category: "doors",   variant: "authentic",  fileSlug: "porte-authentic" },
-  "door-modern":        { category: "doors",   variant: "modern",     fileSlug: "porte-modern"    },
-  "envelope-classic":   { category: "envelop", variant: "classic",    fileSlug: "envelop-classic" },
-  "envelope-kraft":     { category: "envelop", variant: "kraft",      fileSlug: "envelop-kraft"   },
-  "envelope-luxury":    { category: "envelop", variant: "luxury",     fileSlug: "envelop-luxury"  },
-  "envelope-vintage":   { category: "envelop", variant: "vintage",    fileSlug: "envelop-vintage" },
-  "curtain-velvet":     { category: "curtain", variant: "velvet",     fileSlug: "rideau-velvet"   },
-  "curtain-linen":      { category: "curtain", variant: "linen",      fileSlug: "rideau-linen"    },
-  "curtain-silk":       { category: "curtain", variant: "silk",       fileSlug: "rideau-silk"     },
-  "book-leather":       { category: "book",    variant: "leather",    fileSlug: "book-leather"    },
-  "book-floral":        { category: "book",    variant: "floral",     fileSlug: "book-floral"     },
-  "book-modern":        { category: "book",    variant: "modern",     fileSlug: "book-modern"     },
-  "floral-roses":       { category: "floral",  variant: "roses",      fileSlug: "floral-roses"    },
-  "floral-wildflower":  { category: "floral",  variant: "wildflower", fileSlug: "floral-wildflower" },
-  "floral-peony":       { category: "floral",  variant: "peony",      fileSlug: "floral-peony"    },
 };
 
 function assetEntry(animationId: string): AssetEntry | null {
