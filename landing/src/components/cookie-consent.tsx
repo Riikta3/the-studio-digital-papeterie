@@ -12,18 +12,15 @@ export function CookieConsent() {
   const pathname = usePathname();
   const [isVisible, setIsVisible] = useState(false);
 
-  if (pathname?.includes("/coming-soon")) return null;
-
   useEffect(() => {
-    // Check if user has already made a choice
+    if (pathname?.includes("/coming-soon")) return;
     const consent = localStorage.getItem("cookie_consent");
-    if (!consent) {
-      setIsVisible(true);
-    }
-  }, []);
+    if (!consent) setIsVisible(true);
+  }, [pathname]);
 
   const handleAccept = () => {
     localStorage.setItem("cookie_consent", "accepted");
+    window.dispatchEvent(new Event("cookie_consent_updated"));
     setIsVisible(false);
   };
 
