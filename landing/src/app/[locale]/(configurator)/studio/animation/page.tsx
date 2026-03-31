@@ -171,7 +171,7 @@ export default function AnimationPage() {
                           e.stopPropagation();
                           setPreviewVariant(v);
                         }}
-                        className="absolute bottom-0 inset-x-0 flex items-center justify-center gap-1.5 py-2.5 bg-gradient-to-t from-black/60 via-black/30 to-transparent text-white text-[11px] font-semibold font-sans opacity-0 group-hover:opacity-100 transition-opacity duration-200"
+                        className="absolute bottom-0 inset-x-0 flex items-center justify-center gap-1.5 py-2.5 bg-gradient-to-t from-black/60 via-black/30 to-transparent text-white text-[11px] font-semibold font-sans transition-opacity duration-200"
                       >
                         <Eye className="w-3.5 h-3.5" />
                         Voir la démo
