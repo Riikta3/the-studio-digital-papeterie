@@ -57,17 +57,17 @@ export default function ConfiguratorLayout({
 
   const isStartValid =
     !!plan &&
-    !!weddingInfo.partner1.trim() &&
-    !!weddingInfo.partner2.trim() &&
-    !!weddingInfo.day &&
-    !!weddingInfo.month &&
-    !!weddingInfo.year &&
-    !!weddingInfo.venue.trim() &&
-    !!weddingInfo.email.trim() &&
-    weddingInfo.password.length >= 8 &&
+    !!(weddingInfo?.partner1 ?? "").trim() &&
+    !!(weddingInfo?.partner2 ?? "").trim() &&
+    !!weddingInfo?.day &&
+    !!weddingInfo?.month &&
+    !!weddingInfo?.year &&
+    !!(weddingInfo?.venue ?? "").trim() &&
+    !!(weddingInfo?.email ?? "").trim() &&
+    (weddingInfo?.password ?? "").length >= 8 &&
     !emailExists;
 
-  const isModulesValid = plan === "premium" || modules.length >= 4;
+  const isModulesValid = plan === "premium" || (modules ?? []).length >= 4;
 
   const isStepValid =
     pathname.includes("/studio/start")     ? isStartValid :

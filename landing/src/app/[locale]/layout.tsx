@@ -1,10 +1,9 @@
-import { Analytics } from "@vercel/analytics/react";
-import { SpeedInsights } from "@vercel/speed-insights/next";
 import type { Metadata } from "next";
 import { NextIntlClientProvider } from "next-intl";
 import { getMessages } from "next-intl/server";
 import type { ReactNode } from "react";
 
+import { ConditionalAnalytics } from "@/components/conditional-analytics";
 import { CookieConsent } from "@/components/cookie-consent";
 import { ThemeProvider } from "@/components/theme-provider";
 import "../globals.css";
@@ -42,9 +41,8 @@ export default async function LocaleLayout({
       >
         {children}
         <CookieConsent />
+        <ConditionalAnalytics />
         <Toaster />
-        <SpeedInsights />
-        <Analytics />
       </ThemeProvider>
     </NextIntlClientProvider>
   );

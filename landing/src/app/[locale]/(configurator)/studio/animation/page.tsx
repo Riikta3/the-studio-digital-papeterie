@@ -1,191 +1,55 @@
 "use client";
 
 import { StepTransition } from "@/components/configurator/StepTransition";
-import { ThemeDemoOverlay } from "@/components/configurator/ThemeDemoOverlay";
+import {
+  AnimationPreviewOverlay,
+  getAnimationPreview,
+  getAnimationFrames,
+} from "@/components/configurator/AnimationPreviewOverlay";
 import { cn } from "@/lib/utils";
 import { useOrderStore } from "@/stores/use-order-store";
 import { useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import { Eye, Check } from "lucide-react";
 
 type Variant = { id: string; name: string; desc: string };
 type Category = {
   id: string;
   name: string;
+  emoji: string;
   variants: Variant[];
-  icon: React.ReactNode;
 };
-
-const EnvelopeIcon = () => (
-  <svg
-    width='18'
-    height='18'
-    viewBox='0 0 24 24'
-    fill='none'
-    stroke='currentColor'
-    strokeWidth='2'
-    strokeLinecap='round'
-    strokeLinejoin='round'
-  >
-    <path d='M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z' />
-    <polyline points='22,6 12,13 2,6' />
-  </svg>
-);
-const DoorIcon = () => (
-  <svg
-    width='18'
-    height='18'
-    viewBox='0 0 24 24'
-    fill='none'
-    stroke='currentColor'
-    strokeWidth='2'
-    strokeLinecap='round'
-    strokeLinejoin='round'
-  >
-    <path d='M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z' />
-    <polyline points='9 22 9 12 15 12 15 22' />
-  </svg>
-);
-const CurtainIcon = () => (
-  <svg
-    width='18'
-    height='18'
-    viewBox='0 0 24 24'
-    fill='none'
-    stroke='currentColor'
-    strokeWidth='2'
-    strokeLinecap='round'
-    strokeLinejoin='round'
-  >
-    <line
-      x1='12'
-      y1='2'
-      x2='12'
-      y2='22'
-    />
-    <path d='M2 4c3 4 3 8 0 12' />
-    <path d='M22 4c-3 4-3 8 0 12' />
-  </svg>
-);
-const BookIcon = () => (
-  <svg
-    width='18'
-    height='18'
-    viewBox='0 0 24 24'
-    fill='none'
-    stroke='currentColor'
-    strokeWidth='2'
-    strokeLinecap='round'
-    strokeLinejoin='round'
-  >
-    <path d='M4 19.5A2.5 2.5 0 0 1 6.5 17H20' />
-    <path d='M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z' />
-  </svg>
-);
-const FloralIcon = () => (
-  <svg
-    width='18'
-    height='18'
-    viewBox='0 0 24 24'
-    fill='none'
-    stroke='currentColor'
-    strokeWidth='2'
-    strokeLinecap='round'
-    strokeLinejoin='round'
-  >
-    <path d='M12 2a9 9 0 0 1 0 18A9 9 0 0 1 12 2z' />
-    <path d='M12 8a3 3 0 0 1 0 8 3 3 0 0 1 0-8z' />
-    <line
-      x1='12'
-      y1='2'
-      x2='12'
-      y2='6'
-    />
-    <line
-      x1='12'
-      y1='18'
-      x2='12'
-      y2='22'
-    />
-    <line
-      x1='4.22'
-      y1='4.22'
-      x2='7.05'
-      y2='7.05'
-    />
-    <line
-      x1='16.95'
-      y1='16.95'
-      x2='19.78'
-      y2='19.78'
-    />
-  </svg>
-);
 
 const CATEGORIES: Category[] = [
   {
     id: "envelope",
     name: "Enveloppe",
-    icon: <EnvelopeIcon />,
+    emoji: "✉️",
     variants: [
-      {
-        id: "envelope-classic",
-        name: "Classique",
-        desc: "Ouverture élégante et sobre",
-      },
+      { id: "envelope-classic", name: "Classique", desc: "Ouverture élégante et sobre" },
       { id: "envelope-kraft", name: "Kraft", desc: "Texture papier naturel" },
-      {
-        id: "envelope-luxury",
-        name: "Luxe",
-        desc: "Fermeture cire, finition premium",
-      },
-      {
-        id: "envelope-vintage",
-        name: "Vintage",
-        desc: "Style rétro avec cachet de cire",
-      },
+      { id: "envelope-luxury", name: "Luxe", desc: "Fermeture cire, finition premium" },
+      { id: "envelope-vintage", name: "Vintage", desc: "Style rétro avec cachet de cire" },
     ],
   },
   {
     id: "door",
     name: "Porte",
-    icon: <DoorIcon />,
+    emoji: "🚪",
     variants: [
-      {
-        id: "door-royal",
-        name: "Royal",
-        desc: "Grande porte dorée majestueuse",
-      },
-      {
-        id: "door-classic",
-        name: "Classique",
-        desc: "Porte en bois sobre et élégante",
-      },
-      {
-        id: "door-authentic",
-        name: "Authentique",
-        desc: "Porte rustique en bois brut",
-      },
-      {
-        id: "door-modern",
-        name: "Moderne",
-        desc: "Porte vitrée contemporaine",
-      },
-      {
-        id: "door-japanese",
-        name: "Japonaise",
-        desc: "Porte coulissante en bois clair",
-      },
+      { id: "door-royal", name: "Royal", desc: "Grande porte dorée majestueuse" },
+      { id: "door-floral", name: "Floral", desc: "Porte ornée de fleurs printanières" },
+      { id: "door-classic", name: "Classique", desc: "Porte en bois sobre et élégante" },
+      { id: "door-authentic", name: "Authentique", desc: "Porte rustique en bois brut" },
+      { id: "door-modern", name: "Moderne", desc: "Porte vitrée contemporaine" },
     ],
   },
   {
     id: "curtain",
     name: "Rideau",
-    icon: <CurtainIcon />,
+    emoji: "🎭",
     variants: [
-      {
-        id: "curtain-velvet",
-        name: "Velours",
-        desc: "Rideau de velours bordeaux",
-      },
+      { id: "curtain-velvet", name: "Velours", desc: "Rideau de velours bordeaux" },
       { id: "curtain-linen", name: "Lin", desc: "Tissu naturel aérien" },
       { id: "curtain-silk", name: "Soie", desc: "Reflets soyeux et lumineux" },
     ],
@@ -193,145 +57,172 @@ const CATEGORIES: Category[] = [
   {
     id: "book",
     name: "Livre",
-    icon: <BookIcon />,
+    emoji: "📖",
     variants: [
       { id: "book-leather", name: "Cuir", desc: "Couverture en cuir gravé" },
       { id: "book-floral", name: "Floral", desc: "Illustrations botaniques" },
-      {
-        id: "book-modern",
-        name: "Moderne",
-        desc: "Couverture épurée et graphique",
-      },
+      { id: "book-modern", name: "Moderne", desc: "Couverture épurée et graphique" },
     ],
   },
   {
     id: "floral",
     name: "Floral",
-    icon: <FloralIcon />,
+    emoji: "🌸",
     variants: [
-      {
-        id: "floral-roses",
-        name: "Roses",
-        desc: "Pétales de rose qui s'envolent",
-      },
-      {
-        id: "floral-wildflower",
-        name: "Champêtre",
-        desc: "Fleurs des champs printanières",
-      },
-      {
-        id: "floral-peony",
-        name: "Pivoines",
-        desc: "Bouquet de pivoines romantiques",
-      },
+      { id: "floral-roses", name: "Roses", desc: "Pétales de rose qui s'envolent" },
+      { id: "floral-wildflower", name: "Champêtre", desc: "Fleurs des champs printanières" },
+      { id: "floral-peony", name: "Pivoines", desc: "Bouquet de pivoines romantiques" },
     ],
   },
 ];
 
 export default function AnimationPage() {
-  const { animation, setAnimation, theme } = useOrderStore();
+  const { animation, setAnimation } = useOrderStore();
   const [activeCategory, setActiveCategory] = useState("envelope");
-  const [showDemo, setShowDemo] = useState(false);
+  const [previewVariant, setPreviewVariant] = useState<Variant | null>(null);
 
   const currentCategory = CATEGORIES.find((c) => c.id === activeCategory)!;
+
+  const defaultDevice =
+    typeof window !== "undefined" && window.innerWidth < 768 ? "mobile" : "desktop";
 
   return (
     <StepTransition>
       <>
-        <div className='flex flex-col gap-4'>
-          <div className='text-center space-y-2 px-4 pb-2'>
-            <h1 className='font-heading text-3xl font-bold md:text-4xl lg:text-5xl'>
-              Animation d&apos;
-              <em className='italic text-primary'>ouverture</em>
-            </h1>
-            <p className='text-muted-foreground text-sm max-w-sm mx-auto'>
-              Comment vos invités découvriront votre invitation.
-            </p>
-          </div>
+        {/* ── Hero title ── */}
+        <div className="text-center space-y-2 px-4 pb-6 pt-2">
+          <p className="text-[11px] font-sans font-semibold uppercase tracking-[0.2em] text-primary/60">
+            Étape 2 sur 6
+          </p>
+          <h1 className="font-heading text-4xl font-bold md:text-5xl">
+            Animation d&apos;<em className="italic text-primary">ouverture</em>
+          </h1>
+          <p className="text-muted-foreground text-sm max-w-xs mx-auto leading-relaxed">
+            La première chose que verront vos invités.
+          </p>
+        </div>
 
-          {/* Category tabs */}
-          <div className='flex gap-2 overflow-x-auto scrollbar-hide px-4 pb-1 justify-center flex-wrap'>
-            {CATEGORIES.map((cat) => (
-              <button
-                key={cat.id}
-                onClick={() => setActiveCategory(cat.id)}
-                className={cn(
-                  "flex-none flex items-center gap-1.5 px-4 py-2 rounded-full border-2 text-xs font-bold font-sans transition-all duration-150 whitespace-nowrap",
-                  activeCategory === cat.id
-                    ? "border-primary bg-primary text-primary-foreground"
-                    : "border-border bg-card text-muted-foreground hover:border-primary/40",
-                )}
-              >
-                {cat.icon}
-                {cat.name}
-              </button>
-            ))}
-          </div>
+        {/* ── Category pills ── */}
+        <div className="flex gap-2 overflow-x-auto scrollbar-hide px-4 pb-4">
+          {CATEGORIES.map((cat) => (
+            <button
+              key={cat.id}
+              onClick={() => setActiveCategory(cat.id)}
+              className={cn(
+                "flex-none flex items-center gap-2 px-4 py-2 rounded-full text-sm font-medium font-sans transition-all duration-200 whitespace-nowrap border",
+                activeCategory === cat.id
+                  ? "bg-foreground text-background border-foreground shadow-sm"
+                  : "bg-background text-muted-foreground border-border hover:border-foreground/30 hover:text-foreground",
+              )}
+            >
+              <span className="text-base leading-none">{cat.emoji}</span>
+              {cat.name}
+            </button>
+          ))}
+        </div>
 
-          {/* Grid 2 cols */}
-          <div className="grid grid-cols-2 gap-3 px-4 max-w-2xl mx-auto w-full">
+        {/* ── Variant grid ── */}
+        <AnimatePresence mode="wait">
+          <motion.div
+            key={activeCategory}
+            initial={{ opacity: 0, y: 8 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -8 }}
+            transition={{ duration: 0.22, ease: "easeOut" }}
+            className="grid grid-cols-2 gap-3 px-4 max-w-2xl mx-auto w-full"
+          >
             {currentCategory.variants.map((v) => {
+              const { frames, fps } = getAnimationFrames(v.id);
+              const previewImg = getAnimationPreview(v.id);
               const isSelected = animation === v.id;
+              const hasPreview = !!previewImg || frames.length > 0;
+
               return (
-                <div
+                <motion.div
                   key={v.id}
+                  layout
                   className={cn(
-                    "rounded-[20px] border-2 bg-card overflow-hidden transition-all duration-200 cursor-pointer",
+                    "group relative rounded-2xl border overflow-hidden cursor-pointer transition-all duration-200",
                     isSelected
-                      ? "border-primary shadow-[0_0_0_4px_rgba(124,45,62,0.08),0_8px_24px_rgba(124,45,62,0.12)]"
-                      : "border-border/50 shadow-sm hover:border-primary/30",
+                      ? "border-primary shadow-[0_0_0_2px_hsl(var(--primary)/0.15),0_4px_20px_hsl(var(--primary)/0.1)]"
+                      : "border-border/60 hover:border-border shadow-sm hover:shadow-md",
                   )}
                   onClick={() => setAnimation(v.id)}
                 >
-                  {/* Preview */}
-                  <div className="relative h-[180px] md:h-[220px] flex items-center justify-center bg-primary/5">
-                    <div className="absolute inset-0 opacity-[0.04] bg-[radial-gradient(#000_1px,transparent_1px)] [background-size:18px_18px]" />
-                    <span className="relative z-10 opacity-15 scale-[2.5] text-foreground">
-                      {currentCategory.icon}
-                    </span>
-                    {isSelected && (
-                      <div className="absolute top-2.5 left-2.5 z-10 bg-primary/15 text-primary text-[10px] font-bold px-2.5 py-1 rounded-full font-sans border border-primary/20">
-                        ✓ Sélectionné
+                  {/* Preview image */}
+                  <div className="relative aspect-[3/4] bg-muted overflow-hidden">
+                    {previewImg ? (
+                      // eslint-disable-next-line @next/next/no-img-element
+                      <img
+                        src={previewImg}
+                        alt={v.name}
+                        className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                      />
+                    ) : (
+                      <div className="w-full h-full flex flex-col items-center justify-center gap-2 bg-gradient-to-br from-primary/5 to-primary/10">
+                        <span className="text-4xl opacity-30">{currentCategory.emoji}</span>
+                        <span className="text-[11px] text-muted-foreground font-sans">Bientôt</span>
                       </div>
                     )}
-                    <button
-                      onClick={(e) => { e.stopPropagation(); setShowDemo(true); }}
-                      className="absolute bottom-2.5 left-1/2 -translate-x-1/2 z-10 whitespace-nowrap text-[11px] font-bold text-primary px-4 py-1.5 rounded-full bg-white/90 backdrop-blur-sm border border-primary/20 shadow-sm font-sans"
-                    >
-                      ▶ Voir la démo
-                    </button>
+
+                    {/* Selected badge */}
+                    {isSelected && (
+                      <div className="absolute top-2.5 right-2.5 w-6 h-6 rounded-full bg-primary flex items-center justify-center shadow-md">
+                        <Check className="w-3.5 h-3.5 text-primary-foreground" strokeWidth={2.5} />
+                      </div>
+                    )}
+
+                    {/* Preview button (only if has media) */}
+                    {hasPreview && (
+                      <button
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          setPreviewVariant(v);
+                        }}
+                        className="absolute bottom-0 inset-x-0 flex items-center justify-center gap-1.5 py-2.5 bg-gradient-to-t from-black/60 via-black/30 to-transparent text-white text-[11px] font-semibold font-sans opacity-0 group-hover:opacity-100 transition-opacity duration-200"
+                      >
+                        <Eye className="w-3.5 h-3.5" />
+                        Voir la démo
+                      </button>
+                    )}
                   </div>
 
                   {/* Footer */}
-                  <div className="p-3.5 border-t border-border/30">
-                    <h3 className="font-bold text-[14px] mb-0.5">{v.name}</h3>
-                    <p className="text-[11px] text-muted-foreground font-sans line-clamp-1 mb-3">{v.desc}</p>
-                    <button
-                      onClick={(e) => { e.stopPropagation(); setAnimation(v.id); }}
-                      className={cn(
-                        "w-full py-2.5 rounded-full text-[12px] font-bold font-sans border-2 transition-colors",
-                        isSelected
-                          ? "border-primary bg-primary text-primary-foreground"
-                          : "border-primary bg-transparent text-primary hover:bg-primary/5",
-                      )}
-                    >
-                      {isSelected ? "✓ Sélectionné" : "Choisir"}
-                    </button>
+                  <div className={cn(
+                    "px-3.5 py-3 border-t transition-colors duration-200",
+                    isSelected ? "border-primary/20 bg-primary/[0.03]" : "border-border/40 bg-card",
+                  )}>
+                    <p className={cn(
+                      "font-heading text-[15px] font-bold leading-none mb-0.5",
+                      isSelected ? "text-primary" : "text-foreground",
+                    )}>
+                      {v.name}
+                    </p>
+                    <p className="text-[11px] text-muted-foreground font-sans line-clamp-1">
+                      {v.desc}
+                    </p>
                   </div>
-                </div>
+                </motion.div>
               );
             })}
-          </div>
-        </div>
+          </motion.div>
+        </AnimatePresence>
 
-        {showDemo && (
-          <ThemeDemoOverlay
-            themeId={theme || "theme-floral"}
-            themeName='Aperçu'
-            onClose={() => setShowDemo(false)}
-            onSelect={() => setShowDemo(false)}
-          />
-        )}
+        {/* ── preview overlay ── */}
+        <AnimatePresence>
+          {previewVariant && (
+            <AnimationPreviewOverlay
+              animationId={previewVariant.id}
+              animationName={`${currentCategory.name} — ${previewVariant.name}`}
+              initialDevice={defaultDevice}
+              onClose={() => setPreviewVariant(null)}
+              onSelect={() => {
+                setAnimation(previewVariant.id);
+                setPreviewVariant(null);
+              }}
+            />
+          )}
+        </AnimatePresence>
       </>
     </StepTransition>
   );

@@ -18,7 +18,7 @@ import {
 } from "@stripe/react-stripe-js";
 import { loadStripe } from "@stripe/stripe-js";
 import { APP_MODULES } from "@shared/data/modules";
-import { CreditCard, Edit2, Eye, Loader2 } from "lucide-react";
+import { CreditCard, Edit2, Eye, EyeOff, Loader2 } from "lucide-react";
 import { useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 
@@ -112,7 +112,7 @@ function StripePaymentForm({
           <input
             type='checkbox'
             checked={agreedToTerms}
-            onChange={(e) => setAgreedToTerms(e.target.checked)}
+            onChange={(e) => { setAgreedToTerms(e.target.checked); if (e.target.checked) setErrorMessage(null); }}
             className='sr-only'
           />
           <div
@@ -188,70 +188,53 @@ export default function CheckoutPage() {
   const hasHydrated = useOrderStore((state) => state._hasHydrated);
 
   const [showPreview, setShowPreview] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
   const [clientSecret, setClientSecret] = useState<string | null>(null);
   const [fetchError, setFetchError] = useState<string | null>(null);
   const [isProvisioning, setIsProvisioning] = useState(false);
   const [provisionError, setProvisionError] = useState<string | null>(null);
+  const [agreedToTermsAfterPayment, setAgreedToTermsAfterPayment] = useState(false);
 
-  // Handle return from PayPal/Stripe redirect after payment
-  // Wait for Zustand to rehydrate from localStorage before provisioning
-  useEffect(() => {
-    if (!isPaymentSuccess || !hasHydrated) return;
+  async function provision() {
+    setIsProvisioning(true);
+    const nameParts = weddingInfo.partner1.trim().split(" ");
+    const firstName = nameParts[0] || weddingInfo.partner1;
+    const lastName = nameParts.slice(1).join(" ") || "";
+    const MONTHS_FR = [
+      "Janvier", "Février", "Mars", "Avril", "Mai", "Juin",
+      "Juillet", "Août", "Septembre", "Octobre", "Novembre", "Décembre",
+    ];
+    const monthIndex = MONTHS_FR.indexOf(weddingInfo.month) + 1;
+    const weddingDate =
+      weddingInfo.day && monthIndex > 0 && weddingInfo.year
+        ? `${weddingInfo.year}-${String(monthIndex).padStart(2, "0")}-${String(weddingInfo.day).padStart(2, "0")}`
+        : undefined;
 
-    async function provision() {
-      setIsProvisioning(true);
-      const nameParts = weddingInfo.partner1.trim().split(" ");
-      const firstName = nameParts[0] || weddingInfo.partner1;
-      const lastName = nameParts.slice(1).join(" ") || "";
-      const MONTHS_FR = [
-        "Janvier",
-        "Février",
-        "Mars",
-        "Avril",
-        "Mai",
-        "Juin",
-        "Juillet",
-        "Août",
-        "Septembre",
-        "Octobre",
-        "Novembre",
-        "Décembre",
-      ];
-      const monthIndex = MONTHS_FR.indexOf(weddingInfo.month) + 1; // 1-based, 0 if not found
-      const weddingDate =
-        weddingInfo.day && monthIndex > 0 && weddingInfo.year
-          ? `${weddingInfo.year}-${String(monthIndex).padStart(2, "0")}-${String(weddingInfo.day).padStart(2, "0")}`
-          : undefined;
+    const result = await createWedding({
+      email: weddingInfo.email,
+      password: weddingInfo.password,
+      firstName,
+      lastName,
+      partnerName: weddingInfo.partner2,
+      weddingDate,
+      themeId: theme,
+      modules,
+      extras,
+      languages,
+      plan: plan ?? "experience",
+      adultsOnly,
+      animationId: animation,
+    });
 
-      const result = await createWedding({
-        email: weddingInfo.email,
-        password: weddingInfo.password,
-        firstName,
-        lastName,
-        partnerName: weddingInfo.partner2,
-        weddingDate,
-        themeId: theme,
-        modules,
-        extras,
-        languages,
-        plan: plan ?? "experience",
-        adultsOnly,
-        animationId: animation,
-      });
-
-      if (result.success && result.loginLink) {
-        window.location.href = result.loginLink;
-      } else if (result.success) {
-        router.push("/studio/success");
-      } else {
-        setProvisionError(result.error ?? "Une erreur est survenue.");
-        setIsProvisioning(false);
-      }
+    if (result.success && result.loginLink) {
+      window.location.href = result.loginLink;
+    } else if (result.success) {
+      router.push("/studio/success");
+    } else {
+      setProvisionError(result.error ?? "Une erreur est survenue.");
+      setIsProvisioning(false);
     }
-
-    provision();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isPaymentSuccess, hasHydrated]);
+  }
 
   // Fetch payment intent (only when not in payment success state)
   useEffect(() => {
@@ -310,7 +293,7 @@ export default function CheckoutPage() {
     </div>
   );
 
-  // Show provisioning screen after payment redirect
+  // Show CGV confirmation screen after PayPal redirect, then provisioning
   if (isPaymentSuccess) {
     return (
       <StepTransition>
@@ -319,18 +302,60 @@ export default function CheckoutPage() {
             <div className='bg-red-50 border border-red-100 rounded-2xl p-6 max-w-sm'>
               <p className='text-red-500 font-sans text-sm'>{provisionError}</p>
             </div>
-          ) : (
+          ) : isProvisioning ? (
             <>
               <Loader2 className='w-12 h-12 text-primary animate-spin' />
               <div>
-                <p className='font-heading text-2xl font-bold'>
-                  Création de votre site...
-                </p>
-                <p className='text-muted-foreground text-sm font-sans mt-2'>
-                  Cela prend quelques secondes.
-                </p>
+                <p className='font-heading text-2xl font-bold'>Création de votre site...</p>
+                <p className='text-muted-foreground text-sm font-sans mt-2'>Cela prend quelques secondes.</p>
               </div>
             </>
+          ) : (
+            <div className='flex flex-col items-center gap-6 max-w-sm w-full'>
+              <div className='w-14 h-14 rounded-full bg-green-50 flex items-center justify-center'>
+                <svg width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='currentColor' strokeWidth='2.5' strokeLinecap='round' strokeLinejoin='round' className='text-green-500'>
+                  <polyline points='20 6 9 17 4 12' />
+                </svg>
+              </div>
+              <div>
+                <p className='font-heading text-2xl font-bold'>Paiement confirmé !</p>
+                <p className='text-muted-foreground text-sm font-sans mt-2'>Acceptez les conditions pour finaliser la création de votre site.</p>
+              </div>
+              <label className='flex items-start gap-3 cursor-pointer group text-left w-full bg-card border border-border/60 rounded-2xl p-4'>
+                <div className='relative mt-0.5 flex-shrink-0'>
+                  <input
+                    type='checkbox'
+                    checked={agreedToTermsAfterPayment}
+                    onChange={(e) => setAgreedToTermsAfterPayment(e.target.checked)}
+                    className='sr-only'
+                  />
+                  <div className={`w-5 h-5 rounded-md border-2 flex items-center justify-center transition-all ${agreedToTermsAfterPayment ? "bg-primary border-primary" : "border-border group-hover:border-primary/50"}`}>
+                    {agreedToTermsAfterPayment && (
+                      <svg width='10' height='8' viewBox='0 0 10 8' fill='none' className='text-primary-foreground'>
+                        <polyline points='1 4 3.5 6.5 9 1' stroke='currentColor' strokeWidth='1.8' strokeLinecap='round' strokeLinejoin='round' />
+                      </svg>
+                    )}
+                  </div>
+                </div>
+                <span className='text-xs text-muted-foreground font-sans leading-relaxed'>
+                  J&apos;accepte les{" "}
+                  <a href='/cgv' target='_blank' rel='noopener noreferrer' className='underline underline-offset-2 hover:text-primary transition-colors' onClick={(e) => e.stopPropagation()}>
+                    Conditions Générales de Vente
+                  </a>{" "}
+                  et la{" "}
+                  <a href='/politique-de-confidentialite' target='_blank' rel='noopener noreferrer' className='underline underline-offset-2 hover:text-primary transition-colors' onClick={(e) => e.stopPropagation()}>
+                    politique de confidentialité
+                  </a>
+                </span>
+              </label>
+              <button
+                onClick={provision}
+                disabled={!agreedToTermsAfterPayment}
+                className='w-full py-4 rounded-2xl bg-primary text-primary-foreground font-bold text-base font-sans flex items-center justify-center gap-2 shadow-lg disabled:opacity-40 disabled:cursor-not-allowed hover:bg-primary/90 transition-colors'
+              >
+                Créer mon site
+              </button>
+            </div>
           )}
         </div>
       </StepTransition>
@@ -384,6 +409,29 @@ export default function CheckoutPage() {
                     <span className='text-[10px] font-bold px-2 py-0.5 rounded-full bg-muted text-muted-foreground font-sans'>
                       +{modules.length - 4}
                     </span>
+                  )}
+                </div>
+              </RecapRow>
+              <RecapRow
+                label='Compte'
+                value={weddingInfo.email || "—"}
+                href='/studio/start'
+              />
+              <RecapRow
+                label='Mot de passe'
+                href='/studio/start'
+              >
+                <div className='flex items-center gap-2 mt-0.5'>
+                  <span className='text-sm font-semibold tracking-widest'>
+                    {showPassword ? (weddingInfo.password || "—") : (weddingInfo.password ? "••••••••" : "—")}
+                  </span>
+                  {weddingInfo.password && (
+                    <button
+                      onClick={() => setShowPassword((v) => !v)}
+                      className='text-muted-foreground hover:text-primary transition-colors'
+                    >
+                      {showPassword ? <EyeOff className='w-3.5 h-3.5' /> : <Eye className='w-3.5 h-3.5' />}
+                    </button>
                   )}
                 </div>
               </RecapRow>
