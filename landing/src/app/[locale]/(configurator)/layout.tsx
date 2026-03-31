@@ -1,6 +1,7 @@
 "use client";
 
 import { cn } from "@/lib/utils";
+import { LivePreviewPanel } from "@/components/configurator/LivePreviewPanel";
 import { usePathname, useRouter } from "@/navigation";
 import { selectTotalPrice, useOrderStore } from "@/stores/use-order-store";
 import { motion } from "framer-motion";
@@ -153,7 +154,7 @@ export default function ConfiguratorLayout({
       </header>
 
       {/* MAIN CONTENT */}
-      <main className='flex-1 container mx-auto px-4 pt-20 pb-32 z-10 max-w-4xl relative'>
+      <main className='flex-1 container mx-auto px-4 pt-20 pb-[150px] md:pb-32 z-10 max-w-4xl relative md:pr-[52px]'>
         {children}
       </main>
 
@@ -208,6 +209,9 @@ export default function ConfiguratorLayout({
           </div>
         </div>
       </div>
+
+      {/* LIVE PREVIEW PANEL */}
+      <LivePreviewPanel />
 
       {/* QUIT CONFIRMATION DIALOG */}
       {showQuitDialog && (
