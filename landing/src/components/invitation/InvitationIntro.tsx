@@ -45,6 +45,8 @@ interface InvitationIntroProps {
   desktopFrameCount?: number;
   /** Override mobile frame count */
   mobileFrameCount?: number;
+  /** Loop the sequence instead of calling onComplete (e.g. demo/preview mode) */
+  loop?: boolean;
 }
 
 type State = "idle" | "loading" | "playing" | "done";
@@ -57,6 +59,7 @@ export function InvitationIntro({
   mobilePath = DEFAULT_MOBILE_PATH,
   desktopFrameCount = DEFAULT_DESKTOP_FRAME_COUNT,
   mobileFrameCount = DEFAULT_MOBILE_FRAME_COUNT,
+  loop = false,
 }: InvitationIntroProps) {
   const [state, setState] = useState<State>("idle");
   const [overlayOpacity, setOverlayOpacity] = useState(0);
@@ -180,6 +183,11 @@ export function InvitationIntro({
 
       if (frame < totalFrames) {
         rafRef.current = requestAnimationFrame(tick);
+      } else if (loop) {
+        frame = 0;
+        lastTime = 0;
+        setOverlayOpacity(0);
+        rafRef.current = requestAnimationFrame(tick);
       } else {
         setOverlayOpacity(1);
         setTimeout(onComplete, 400);
@@ -187,7 +195,7 @@ export function InvitationIntro({
     };
 
     rafRef.current = requestAnimationFrame(tick);
-  }, [drawFrame, onComplete, mobileFrameCount, desktopFrameCount]);
+  }, [drawFrame, onComplete, mobileFrameCount, desktopFrameCount, loop]);
 
   const handlePlay = useCallback(async () => {
     if (state !== "idle") return;
