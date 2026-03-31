@@ -4,11 +4,15 @@ import { Link } from "@/navigation";
 import { Button } from "@shared/components/ui/button";
 import { AnimatePresence, motion } from "framer-motion";
 import { useTranslations } from "next-intl";
+import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 
 export function CookieConsent() {
   const t = useTranslations("CookieConsent");
+  const pathname = usePathname();
   const [isVisible, setIsVisible] = useState(false);
+
+  if (pathname?.includes("/coming-soon")) return null;
 
   useEffect(() => {
     // Check if user has already made a choice
