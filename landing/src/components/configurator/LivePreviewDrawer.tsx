@@ -44,7 +44,7 @@ export function LivePreviewDrawer({ theme, animation, modules, partner1, partner
       </AnimatePresence>
 
       <motion.div
-        className="fixed bottom-0 left-0 right-0 z-[49] bg-background rounded-t-2xl border-t border-border/60 shadow-[0_-4px_24px_rgba(0,0,0,0.10)]"
+        className="fixed bottom-0 left-0 right-0 z-[51] bg-background rounded-t-2xl border-t border-border/60 shadow-[0_-4px_24px_rgba(0,0,0,0.10)]"
         animate={{ height: isExpanded ? `${EXPANDED_VH * 100}vh` : COLLAPSED_H }}
         transition={{ type: "spring", stiffness: 300, damping: 35 }}
         style={{ overflow: "hidden" }}

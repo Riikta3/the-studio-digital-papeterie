@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Eye, EyeOff } from "lucide-react";
 import { InvitationPreviewScaled } from "./InvitationPreviewScaled";
@@ -10,19 +10,27 @@ interface LivePreviewSidebarProps {
   partner1: string; partner2: string; weddingDate: string; venue: string;
 }
 
-const SIDEBAR_OPEN_WIDTH = 280;
 const SIDEBAR_CLOSED_WIDTH = 44;
-const PREVIEW_CONTAINER_WIDTH = SIDEBAR_OPEN_WIDTH - 24;
 
 export function LivePreviewSidebar({ theme, animation, modules, partner1, partner2, weddingDate, venue }: LivePreviewSidebarProps) {
   const [isOpen, setIsOpen] = useState(false);
+  const [sidebarOpenWidth, setSidebarOpenWidth] = useState(400);
+
+  useEffect(() => {
+    const update = () => setSidebarOpenWidth(Math.round(window.innerWidth * 0.30));
+    update();
+    window.addEventListener("resize", update);
+    return () => window.removeEventListener("resize", update);
+  }, []);
+
+  const previewContainerWidth = sidebarOpenWidth - 24;
   const displayPartner1 = partner1 || "Sophie";
   const displayPartner2 = partner2 || "Pierre";
 
   return (
     <motion.div
       className="fixed top-14 right-0 bottom-20 z-40 flex flex-col bg-background border-l border-border/40 shadow-[-4px_0_20px_rgba(0,0,0,0.06)]"
-      animate={{ width: isOpen ? SIDEBAR_OPEN_WIDTH : SIDEBAR_CLOSED_WIDTH }}
+      animate={{ width: isOpen ? sidebarOpenWidth : SIDEBAR_CLOSED_WIDTH }}
       transition={{ type: "spring", stiffness: 320, damping: 36 }}
       style={{ overflow: "hidden" }}
     >
@@ -55,7 +63,7 @@ export function LivePreviewSidebar({ theme, animation, modules, partner1, partne
             </p>
             <InvitationPreviewScaled theme={theme} animation={animation} modules={modules}
               partner1={partner1} partner2={partner2} weddingDate={weddingDate} venue={venue}
-              isExpanded={isOpen} containerWidth={PREVIEW_CONTAINER_WIDTH} />
+              isExpanded={isOpen} containerWidth={previewContainerWidth} />
           </motion.div>
         )}
       </AnimatePresence>

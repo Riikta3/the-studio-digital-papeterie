@@ -3,7 +3,6 @@
 import { InvitationDemoContext } from "@/components/invitation/InvitationDemoContext";
 import { getModuleComponent } from "@/components/invitation/module-registry";
 import { ModulesWrapper } from "@/components/invitation/ModulesWrapper";
-import { InvitationIntro } from "@/components/invitation/InvitationIntro";
 import { getAnimationPreview } from "@/components/configurator/AnimationPreviewOverlay";
 import { InvitationHero as HeroFloral } from "@/components/invitation/themes/theme-floral/InvitationHero";
 import { InvitationHero as HeroMinimalist } from "@/components/invitation/themes/theme-minimalist/InvitationHero";
@@ -45,26 +44,29 @@ export function InvitationPreviewScaled({
 
   return (
     <InvitationDemoContext.Provider value={{ isDemo: true, activeTheme: theme, heroAsset: { frames: 0, sequencePath: null }, animationSequence: null }}>
-      <div style={{ width: containerWidth, height: Math.round(containerWidth * 1.6), overflow: "hidden", position: "relative" }}>
-        <div style={{ width: VIRTUAL_WIDTH, transformOrigin: "top left", transform: `scale(${scale})`, pointerEvents: "none", userSelect: "none" }}>
-          {isExpanded ? (
-            <InvitationIntro onComplete={() => {}} autoplay loop forceDesktop={false} />
-          ) : animationPreviewImg ? (
-            // eslint-disable-next-line @next/next/no-img-element
-            <img src={animationPreviewImg} alt="Animation preview" style={{ width: VIRTUAL_WIDTH, height: "auto", display: "block" }} />
-          ) : (
-            <div style={{ width: VIRTUAL_WIDTH, height: 180, background: "linear-gradient(135deg,#fdf6f0,#f0d9cc)", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 11, color: "#c97a90", fontStyle: "italic" }}>
-              {animation ? animation.replace(/-/g, " ") : "Animation"}
-            </div>
-          )}
+      <div style={{ width: containerWidth, overflow: "hidden", position: "relative" }}>
+        <div style={{ width: VIRTUAL_WIDTH, transformOrigin: "top left", transform: `scale(${scale})` }}>
+          <div style={{ pointerEvents: "none", userSelect: "none" }}>
+            {/* Badge animation — InvitationIntro skippé (fixed/inset-0, incompatible avec preview scalée) */}
+            {animationPreviewImg ? (
+              // eslint-disable-next-line @next/next/no-img-element
+              <img src={animationPreviewImg} alt="Animation preview" style={{ width: VIRTUAL_WIDTH, height: "auto", display: "block" }} />
+            ) : (
+              <div style={{ width: VIRTUAL_WIDTH, height: 140, background: "linear-gradient(135deg,#fdf6f0,#f0d9cc)", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 11, color: "#c97a90", fontStyle: "italic" }}>
+                {animation ? animation.replace(/-/g, " ") : "Animation d'ouverture"}
+              </div>
+            )}
+          </div>
           <InvitationHero firstName={partner1 || "Sophie"} partnerName={partner2 || "Pierre"} weddingDate={isoDate} />
-          <ModulesWrapper>
-            {modules.map((moduleId) => {
-              const ModuleComponent = getModuleComponent(theme, moduleId);
-              if (!ModuleComponent) return null;
-              return <ModuleComponent key={moduleId} weddingId="preview" partner1={partner1 || "Sophie"} partner2={partner2 || "Pierre"} weddingDate={isoDate} isDemo />;
-            })}
-          </ModulesWrapper>
+          <div style={{ pointerEvents: "none", userSelect: "none" }}>
+            <ModulesWrapper>
+              {modules.map((moduleId) => {
+                const ModuleComponent = getModuleComponent(theme, moduleId);
+                if (!ModuleComponent) return null;
+                return <ModuleComponent key={moduleId} weddingId="preview" partner1={partner1 || "Sophie"} partner2={partner2 || "Pierre"} weddingDate={isoDate} isDemo />;
+              })}
+            </ModulesWrapper>
+          </div>
         </div>
       </div>
     </InvitationDemoContext.Provider>
