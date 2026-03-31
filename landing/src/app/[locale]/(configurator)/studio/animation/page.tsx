@@ -97,7 +97,7 @@ export default function AnimationPage() {
         </div>
 
         {/* ── Category pills ── */}
-        <div className="flex gap-2 overflow-x-auto scrollbar-hide px-4 pb-4">
+        <div className="flex gap-2 overflow-x-auto scrollbar-hide px-4 pb-4 justify-center">
           {CATEGORIES.map((cat) => (
             <button
               key={cat.id}
@@ -171,9 +171,9 @@ export default function AnimationPage() {
                           e.stopPropagation();
                           setPreviewVariant(v);
                         }}
-                        className="absolute bottom-0 inset-x-0 flex items-center justify-center gap-1.5 py-2.5 bg-gradient-to-t from-black/60 via-black/30 to-transparent text-white text-[11px] font-semibold font-sans transition-opacity duration-200"
+                        className="absolute bottom-2.5 left-1/2 -translate-x-1/2 z-10 whitespace-nowrap flex items-center gap-1.5 text-[11px] font-bold text-primary px-4 py-1.5 rounded-full bg-white/90 backdrop-blur-sm border border-primary/20 shadow-sm font-sans"
                       >
-                        <Eye className="w-3.5 h-3.5" />
+                        <Eye className="w-3 h-3" />
                         Voir la démo
                       </button>
                     )}
