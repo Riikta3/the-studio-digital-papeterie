@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { createPortal } from "react-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import { X, ChevronLeft, Check, Monitor, Smartphone } from "lucide-react";
 import { cn } from "@/lib/utils";
@@ -85,12 +86,17 @@ export function AnimationPreviewOverlay({
     };
   }, []);
 
+  const [mounted, setMounted] = useState(false);
+  useEffect(() => { setMounted(true); }, []);
+
   const handleSelect = () => {
     onSelect();
     onClose();
   };
 
-  return (
+  if (!mounted) return null;
+
+  return createPortal(
     <>
       {/* ── MOBILE : Bottom Sheet ──────────────────────────────────────────── */}
       <div className="md:hidden fixed inset-0 z-[9999]">
@@ -348,6 +354,7 @@ export function AnimationPreviewOverlay({
           </div>
         </motion.div>
       </div>
-    </>
+    </>,
+    document.body
   );
 }
