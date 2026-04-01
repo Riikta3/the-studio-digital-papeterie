@@ -51,10 +51,10 @@ export function TimelineModule({
   return (
     <section className='w-full'>
       <div className='text-center mb-20 space-y-4'>
-        <h2 className='text-xs md:text-sm font-bold uppercase tracking-[0.2em] text-[#1a1a2e]/60'>
+        <h2 className='text-xs md:text-sm font-bold uppercase tracking-[0.2em] text-[#0E2F44]/60'>
           Programme
         </h2>
-        <h3 className='font-heading text-5xl md:text-6xl italic text-[#1a1a2e]'>
+        <h3 className='font-heading text-5xl md:text-6xl italic text-[#0E2F44]'>
           Le Jour J
         </h3>
       </div>
@@ -80,8 +80,8 @@ export function TimelineModule({
                 <div className='hidden md:block w-1/2' />
 
                 {/* Center Node (Just Time, no dots) */}
-                <div className='absolute left-0 md:left-1/2 md:-translate-x-1/2 flex items-center justify-center z-10 w-24 bg-[#fff0f5] py-4'>
-                  <span className='text-[10px] md:text-xs font-bold uppercase tracking-[0.2em] text-[#be185d] border border-[#be185d]/20 bg-white px-4 py-1.5 rounded-full shadow-[0_2px_10px_-3px_rgba(0,0,0,0.04)] mb-0'>
+                <div className='absolute left-0 md:left-1/2 md:-translate-x-1/2 flex items-center justify-center z-10 w-24 bg-[#FFFCFB] py-4'>
+                  <span className='text-[10px] md:text-xs font-bold uppercase tracking-[0.2em] text-[#D35400] border border-[#D35400]/20 bg-[#FFFCFB] px-4 py-1.5 rounded-full shadow-[0_2px_10px_-3px_rgba(0,0,0,0.04)] mb-0'>
                     {event.time}
                   </span>
                 </div>
@@ -94,12 +94,12 @@ export function TimelineModule({
                       : "md:pl-20 md:text-left text-left"
                   }`}
                 >
-                  <div className='bg-white border border-[#be185d]/20 shadow-xl hover:border-primary/30 transition-colors p-10 rounded-[2rem]'>
-                    <h4 className='font-heading text-2xl md:text-3xl mb-3 text-[#1a1a2e]'>
+                  <div className='bg-white border border-[#D35400]/20 shadow-xl hover:border-primary/30 transition-colors p-10 rounded-[2rem]'>
+                    <h4 className='font-heading text-2xl md:text-3xl mb-3 text-[#0E2F44]'>
                       {event.title}
                     </h4>
                     {event.description && (
-                      <p className='text-[#1a1a2e]/60 font-light text-[14px] leading-relaxed mb-5'>
+                      <p className='text-[#0E2F44]/60 font-light text-[14px] leading-relaxed mb-5'>
                         {event.description}
                       </p>
                     )}
@@ -107,7 +107,7 @@ export function TimelineModule({
                       <div className={`flex ${isEven ? "md:justify-end justify-start" : "justify-start"}`}>
                         <div className='flex items-start gap-1.5'>
                           <MapPin className='w-3.5 h-3.5 text-primary/50 shrink-0 mt-0.5' />
-                          <span className='text-[10px] font-bold uppercase tracking-[0.15em] text-[#1a1a2e]/60 leading-tight'>{event.location}</span>
+                          <span className='text-[10px] font-bold uppercase tracking-[0.15em] text-[#0E2F44]/60 leading-tight'>{event.location}</span>
                         </div>
                       </div>
                     )}

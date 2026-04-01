@@ -80,9 +80,9 @@ export function FaqModule({
       >
         {/* Title Section */}
         <div className='text-center mb-12'>
-          <h2 className='font-heading text-4xl md:text-5xl text-[#1a1a2e]'>
+          <h2 className='font-heading text-4xl md:text-5xl text-[#0E2F44]'>
             Questions{" "}
-            <span className='italic text-[#be185d] opacity-80'>Fréquentes</span>
+            <span className='italic text-[#D35400] opacity-80'>Fréquentes</span>
           </h2>
         </div>
 
@@ -95,21 +95,21 @@ export function FaqModule({
               whileInView={{ opacity: 1, scale: 1 }}
               viewport={{ once: true }}
               transition={{ delay: index * 0.05 }}
-              className='bg-white rounded-[1.5rem] border border-[#be185d]/20 shadow-[0_4px_20px_-10px_rgba(0,0,0,0.05)] overflow-hidden transition-all duration-300'
+              className='bg-[#FFFCFB] rounded-[1.5rem] border border-[#D35400]/20 shadow-[0_4px_20px_-10px_rgba(0,0,0,0.05)] overflow-hidden transition-all duration-300'
             >
               <button
                 onClick={() => setOpenIndex(openIndex === index ? null : index)}
                 className='flex w-full items-center justify-between p-7 text-left transition-colors hover:bg-muted'
               >
-                <span className='font-heading text-xl md:text-2xl text-[#1a1a2e] pr-8 leading-snug'>
+                <span className='font-heading text-xl md:text-2xl text-[#0E2F44] pr-8 leading-snug'>
                   {faq.question}
                 </span>
                 <div
                   className={cn(
                     "flex h-9 w-9 shrink-0 items-center justify-center rounded-full border transition-all duration-300",
                     openIndex === index
-                      ? "bg-[#be185d] border-[#be185d] text-white rotate-180"
-                      : "border-primary/30 text-[#be185d]",
+                      ? "bg-[#D35400] border-[#D35400] text-white rotate-180"
+                      : "border-primary/30 text-[#D35400]",
                   )}
                 >
                   {openIndex === index ? (
@@ -130,7 +130,7 @@ export function FaqModule({
                   >
                     <div className='px-7 pb-8 pt-0'>
                       <div className='h-px w-full bg-[#EAEAEA] mb-6' />
-                      <p className='text-[#1a1a2e]/60 text-base leading-relaxed font-light'>
+                      <p className='text-[#2E4053]/60 text-base leading-relaxed font-light'>
                         {faq.answer}
                       </p>
                     </div>

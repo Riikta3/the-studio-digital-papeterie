@@ -71,25 +71,25 @@ export function VideoGuestbookModule({
         <motion.div
           initial={{ opacity: 0, scale: 0.95 }}
           animate={{ opacity: 1, scale: 1 }}
-          className='max-w-2xl mx-auto bg-white rounded-[2.5rem] p-12 md:p-16 border border-[#be185d]/20 shadow-xl text-center'
+          className='max-w-2xl mx-auto bg-white rounded-[2.5rem] p-12 md:p-16 border border-[#D35400]/20 shadow-xl text-center'
         >
-          <div className='w-20 h-20 bg-secondary rounded-full flex items-center justify-center mx-auto mb-8 text-[#be185d]'>
+          <div className='w-20 h-20 bg-secondary rounded-full flex items-center justify-center mx-auto mb-8 text-[#D35400]'>
             <Video
               className='w-8 h-8'
               fill='none'
               stroke='currentColor'
             />
           </div>
-          <h3 className='font-heading text-4xl italic text-[#1a1a2e] mb-4'>
+          <h3 className='font-heading text-4xl italic text-[#0E2F44] mb-4'>
             Souvenir Enregistré
           </h3>
-          <p className='text-[#1a1a2e]/60 text-lg font-light leading-relaxed'>
+          <p className='text-[#0E2F44]/60 text-lg font-light leading-relaxed'>
             Merci pour ce message vidéo ! Les mariés seront ravis de découvrir
             votre surprise.
           </p>
           <button
             onClick={() => setStatus("idle")}
-            className='mt-10 text-xs font-bold uppercase tracking-widest text-[#be185d] underline'
+            className='mt-10 text-xs font-bold uppercase tracking-widest text-[#D35400] underline'
           >
             Envoyer une autre vidéo
           </button>
@@ -107,22 +107,22 @@ export function VideoGuestbookModule({
         transition={{ duration: 0.8, ease: "easeOut" }}
         className='max-w-4xl mx-auto px-4 text-center'
       >
-        <p className='text-xs md:text-sm font-bold uppercase tracking-[0.2em] text-[#1a1a2e]/60 mb-4'>
+        <p className='text-xs md:text-sm font-bold uppercase tracking-[0.2em] text-[#0E2F44]/60 mb-4'>
           Souvenir Inoubliable
         </p>
-        <h2 className='font-heading text-5xl md:text-6xl text-[#1a1a2e] mb-8'>
+        <h2 className='font-heading text-5xl md:text-6xl text-[#0E2F44] mb-8'>
           Livre d'Or{" "}
-          <span className='italic text-[#be185d] opacity-80'>Vidéo</span>
+          <span className='italic text-[#D35400] opacity-80'>Vidéo</span>
         </h2>
 
-        <div className='bg-white rounded-[2.5rem] p-8 md:p-16 border border-[#be185d]/20 shadow-xl max-w-2xl mx-auto'>
+        <div className='bg-white rounded-[2.5rem] p-8 md:p-16 border border-[#D35400]/20 shadow-xl max-w-2xl mx-auto'>
           {!previewUrl ? (
             <div className='space-y-8'>
-              <div className='w-20 h-20 bg-secondary rounded-full flex items-center justify-center mx-auto text-[#be185d]'>
+              <div className='w-20 h-20 bg-secondary rounded-full flex items-center justify-center mx-auto text-[#D35400]'>
                 <Camera className='w-10 h-10' />
               </div>
               <div className='space-y-4 max-w-sm mx-auto'>
-                <p className='text-[#1a1a2e]/60 text-base md:text-lg leading-relaxed font-light'>
+                <p className='text-[#0E2F44]/60 text-base md:text-lg leading-relaxed font-light'>
                   Laissez-nous un petit mot, une anecdote ou vos vœux
                   directement en vidéo.
                 </p>
@@ -142,7 +142,7 @@ export function VideoGuestbookModule({
 
               <button
                 onClick={() => fileInputRef.current?.click()}
-                className='w-full bg-[#be185d] hover:bg-primary/90 text-white py-5 rounded-full font-bold text-xs uppercase tracking-[0.3em] transition-all duration-300 shadow-xl shadow-primary/10 flex items-center justify-center gap-3'
+                className='w-full bg-[#D35400] hover:bg-primary/90 text-white py-5 rounded-full font-bold text-xs uppercase tracking-[0.3em] transition-all duration-300 shadow-xl shadow-primary/10 flex items-center justify-center gap-3'
               >
                 Cliquer pour Enregistrer
               </button>
@@ -177,7 +177,7 @@ export function VideoGuestbookModule({
                 <button
                   onClick={handleSubmit}
                   disabled={status === "submitting"}
-                  className='w-full bg-[#be185d] hover:bg-primary/90 disabled:bg-[#CCCCCC] text-white py-5 rounded-full font-bold text-xs uppercase tracking-[0.3em] transition-all duration-100 flex items-center justify-center gap-3'
+                  className='w-full bg-[#D35400] hover:bg-primary/90 disabled:bg-[#CCCCCC] text-white py-5 rounded-full font-bold text-xs uppercase tracking-[0.3em] transition-all duration-100 flex items-center justify-center gap-3'
                 >
                   {status === "submitting" ? (
                     <>

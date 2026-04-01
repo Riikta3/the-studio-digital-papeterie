@@ -1,11 +1,13 @@
 "use client";
 import { motion } from "framer-motion";
 import { useRef } from "react";
+
 interface InvitationHeroProps {
   firstName: string;
   partnerName: string;
   weddingDate?: string | null;
 }
+
 export function InvitationHero({
   firstName,
   partnerName,
@@ -22,80 +24,91 @@ export function InvitationHero({
         year: "numeric",
       }).format(new Date(weddingDate))
     : "";
+
   return (
-    <section className='h-[100svh] flex flex-col items-center justify-center relative bg-white'>
-      <div className='absolute inset-0 overflow-hidden'>
-        <video
-          autoPlay
-          loop
-          muted
-          playsInline
-          className='absolute inset-0 w-full h-full object-contain object-[center_75%] pr-5'
-          src='/videos/theme/travel/mariage-voyage-hublot-avion.webm'
-          ref={videoRef}
-          onLoadedMetadata={handleLoadedMetadata}
-        />
-      </div>
+    <section className='h-[100svh] flex flex-col bg-[#FFFCFB] overflow-hidden'>
+
+      {/* ── TEXT — au-dessus de la vidéo dans le flux ─────────────────── */}
       <motion.div
         initial={{ opacity: 0, y: 24 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8, ease: "easeOut" }}
-        className='flex flex-col items-center text-center px-6 mt-6 gap-4 z-10 absolute top-10 left-0 right-0'
+        className='flex flex-col items-center text-center gap-3 pt-10 pb-6 px-8 shrink-0'
       >
+        <p className='text-[9px] uppercase tracking-[0.45em] text-[#1B4F72]/50 font-sans'>
+          Invitation au mariage de
+        </p>
+
         <h1
-          className='text-4xl sm:text-5xl leading-tight text-[#1a1a2e] font-normal'
+          className='text-4xl sm:text-5xl md:text-6xl lg:text-7xl leading-tight text-[#0E2F44] font-normal'
           style={{
             fontFamily: "'Playfair Display', Georgia, serif",
             letterSpacing: "0.02em",
           }}
         >
-          {firstName} <span className='text-[#be185d]'>&</span> {partnerName}
+          {firstName}{" "}
+          <span className='text-[#D35400]'>&</span>{" "}
+          {partnerName}
         </h1>
-        <p className='text-sm text-[#1a1a2e]/60 font-sans font-light tracking-wide'>
-          vous invitent à leur mariage
-        </p>
+
         {formattedDate && (
-          <p className='text-xs uppercase tracking-[0.4em] text-[#be185d]/70 font-sans font-medium mt-1'>
+          <p className='text-xs uppercase tracking-[0.4em] text-[#D35400]/70 font-sans font-medium'>
             le {formattedDate}
           </p>
         )}
+
+        <div className='flex items-center gap-4 mt-1'>
+          <div className='w-10 h-px bg-[#1B4F72]/20' />
+          <div className='w-1.5 h-1.5 rounded-full bg-[#D35400]/50' />
+          <div className='w-10 h-px bg-[#1B4F72]/20' />
+        </div>
       </motion.div>
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 1.2, duration: 0.8 }}
-        className='absolute bottom-8 left-0 right-0 flex justify-center z-10'
-      >
+
+      {/* ── VIDEO — prend le reste de la hauteur ──────────────────────── */}
+      <div className='flex-1 relative overflow-hidden'>
+        <video
+          autoPlay
+          loop
+          muted
+          playsInline
+          className='w-full h-full object-contain object-top'
+          src='/videos/theme/travel/mariage-voyage-hublot-avion.webm'
+          ref={videoRef}
+          onLoadedMetadata={handleLoadedMetadata}
+        />
+
+        {/* Scroll cue */}
         <motion.div
-          animate={{ y: [0, 6, 0] }}
-          transition={{ repeat: Infinity, duration: 1.6, ease: "easeInOut" }}
-          className='flex flex-col items-center gap-1 cursor-pointer'
-          onClick={() =>
-            document
-              .getElementById("modules")
-              ?.scrollIntoView({ behavior: "smooth" })
-          }
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 1.2, duration: 0.8 }}
+          className='absolute bottom-8 left-0 right-0 flex justify-center'
         >
-          <span className='text-[9px] uppercase tracking-[0.3em] text-[#1a1a2e]/40 font-sans'>
-            Découvrir
-          </span>
-          <svg
-            width='16'
-            height='16'
-            viewBox='0 0 16 16'
-            fill='none'
-            className='text-[#1a1a2e]/30'
+          <motion.div
+            animate={{ y: [0, 6, 0] }}
+            transition={{ repeat: Infinity, duration: 1.6, ease: "easeInOut" }}
+            className='flex flex-col items-center gap-1 cursor-pointer'
+            onClick={() =>
+              document
+                .getElementById("modules")
+                ?.scrollIntoView({ behavior: "smooth" })
+            }
           >
-            <path
-              d='M8 3v10M8 13l-4-4M8 13l4-4'
-              stroke='currentColor'
-              strokeWidth='1.5'
-              strokeLinecap='round'
-              strokeLinejoin='round'
-            />
-          </svg>
+            <span className='text-[9px] uppercase tracking-[0.3em] text-[#0E2F44]/40 font-sans'>
+              Découvrir
+            </span>
+            <svg width='16' height='16' viewBox='0 0 16 16' fill='none' className='text-[#0E2F44]/30'>
+              <path
+                d='M8 3v10M8 13l-4-4M8 13l4-4'
+                stroke='currentColor'
+                strokeWidth='1.5'
+                strokeLinecap='round'
+                strokeLinejoin='round'
+              />
+            </svg>
+          </motion.div>
         </motion.div>
-      </motion.div>
+      </div>
     </section>
   );
 }

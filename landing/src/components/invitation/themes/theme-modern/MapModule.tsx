@@ -43,7 +43,7 @@ export function MapModule({
   return (
     <section className='w-full'>
       <div className='text-center mb-20 space-y-4'>
-        <h2 className='text-sm font-bold uppercase tracking-widest text-[#be185d]'>
+        <h2 className='text-sm font-bold uppercase tracking-widest text-[#D35400]'>
           Lieu de Réception
         </h2>
         <h3 className='font-heading text-5xl md:text-6xl italic'>Accès</h3>
@@ -97,10 +97,10 @@ export function MapModule({
             <div
               className={`space-y-6 flex-1 ${!location.imageUrl ? "flex flex-col items-center max-w-2xl mx-auto" : ""}`}
             >
-              <h4 className='font-heading text-3xl md:text-5xl text-[#1a1a2e]/90 leading-tight'>
+              <h4 className='font-heading text-3xl md:text-5xl text-[#0E2F44]/90 leading-tight'>
                 {location.name}
               </h4>
-              <p className='text-[#1a1a2e]/60 font-light text-base md:text-lg leading-relaxed'>
+              <p className='text-[#2E4053]/60 font-light text-base md:text-lg leading-relaxed'>
                 {location.description}
               </p>
 
@@ -110,11 +110,11 @@ export function MapModule({
                 <p
                   className={`font-bold text-[10px] tracking-[0.2em] uppercase text-primary/70 flex items-center gap-3 mb-3 ${!location.imageUrl ? "justify-center" : ""}`}
                 >
-                  <MapPin className='w-4 h-4 text-[#be185d]' />
+                  <MapPin className='w-4 h-4 text-[#D35400]' />
                   Adresse du domaine
                 </p>
                 <div
-                  className={`text-[#1a1a2e]/90 text-base leading-relaxed ${!location.imageUrl ? "pl-0" : "pl-7"}`}
+                  className={`text-[#0E2F44]/90 text-base leading-relaxed ${!location.imageUrl ? "pl-0" : "pl-7"}`}
                 >
                   {location.address.split(",").map((line, ix) => (
                     <span
@@ -150,11 +150,11 @@ export function MapModule({
                 href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(location.address)}`}
                 target='_blank'
                 rel='noopener noreferrer'
-                className='w-full rounded-[2rem] border border-primary/30 bg-transparent hover:bg-primary/5 transition-colors flex items-center justify-center gap-3 py-4 px-6 text-xs font-bold uppercase tracking-widest text-[#1a1a2e]/90'
+                className='w-full rounded-[2rem] border border-primary/30 bg-transparent hover:bg-primary/5 transition-colors flex items-center justify-center gap-3 py-4 px-6 text-xs font-bold uppercase tracking-widest text-[#0E2F44]/90'
               >
                 <Navigation className='w-4 h-4 text-primary/80' />
                 <span>Ouvrir dans Google Maps</span>
-                <ExternalLink className='w-3 h-3 text-[#1a1a2e]/60 ml-1' />
+                <ExternalLink className='w-3 h-3 text-[#0E2F44]/60 ml-1' />
               </a>
             </div>
           </div>

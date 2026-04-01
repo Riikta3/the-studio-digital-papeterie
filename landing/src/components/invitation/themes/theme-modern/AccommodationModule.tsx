@@ -107,13 +107,13 @@ export function AccommodationModule({
         className='max-w-5xl mx-auto px-4'
       >
         <div className='text-center mb-16 space-y-4'>
-          <h2 className='text-xs md:text-sm font-bold uppercase tracking-[0.2em] text-[#1a1a2e]/60'>
+          <h2 className='text-xs md:text-sm font-bold uppercase tracking-[0.2em] text-[#0E2F44]/60'>
             {data.title}
           </h2>
-          <h3 className='font-heading text-5xl md:text-6xl italic text-[#1a1a2e]'>
+          <h3 className='font-heading text-5xl md:text-6xl italic text-[#0E2F44]'>
             {data.subtitle}
           </h3>
-          <p className='text-[#1a1a2e]/60 text-sm md:text-base max-w-2xl mx-auto leading-relaxed font-light'>
+          <p className='text-[#2E4053]/60 text-sm md:text-base max-w-2xl mx-auto leading-relaxed font-light'>
             {data.description}
           </p>
         </div>
@@ -126,21 +126,21 @@ export function AccommodationModule({
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: index * 0.1, duration: 0.6 }}
-              className='bg-white rounded-[2rem] p-8 border border-[#be185d]/20 shadow-xl flex flex-col h-full group hover:border-primary/30 transition-colors'
+              className='bg-[#FFFCFB] rounded-[2rem] p-8 border border-[#D35400]/20 shadow-xl flex flex-col h-full group hover:border-primary/30 transition-colors'
             >
-              <div className='w-14 h-14 bg-secondary rounded-full flex items-center justify-center mb-6 text-[#be185d]'>
+              <div className='w-14 h-14 bg-secondary rounded-full flex items-center justify-center mb-6 text-[#D35400]'>
                 {getIcon(option.type)}
               </div>
 
-              <h4 className='font-heading text-3xl text-[#1a1a2e] mb-3 leading-tight'>
+              <h4 className='font-heading text-3xl text-[#0E2F44] mb-3 leading-tight'>
                 {option.name}
               </h4>
 
-              <div className='flex items-center gap-2 text-[10px] md:text-xs font-bold text-[#1a1a2e]/60 uppercase tracking-widest mb-4'>
+              <div className='flex items-center gap-2 text-[10px] md:text-xs font-bold text-[#2E4053]/60 uppercase tracking-widest mb-4'>
                 <MapPin className='w-3.5 h-3.5 opacity-70' /> {option.distance}
               </div>
 
-              <p className='text-[#1a1a2e]/60 text-[14px] leading-relaxed font-light mb-8 flex-grow'>
+              <p className='text-[#2E4053]/60 text-[14px] leading-relaxed font-light mb-8 flex-grow'>
                 {option.description}
               </p>
 
@@ -149,7 +149,7 @@ export function AccommodationModule({
                   <Button
                     asChild
                     variant='outline'
-                    className='w-full rounded-full h-auto py-3.5 px-4 whitespace-normal text-center text-[10px] sm:text-[11px] font-bold uppercase tracking-[0.15em] border-[#be185d]/20 bg-white text-[#1a1a2e]/60 hover:bg-muted hover:text-primary hover:border-primary/30 transition-all gap-2'
+                    className='w-full rounded-full h-auto py-3.5 px-4 whitespace-normal text-center text-[10px] sm:text-[11px] font-bold uppercase tracking-[0.15em] border-[#D35400]/20 bg-[#FFFCFB] text-[#0E2F44]/60 hover:bg-muted hover:text-primary hover:border-primary/30 transition-all gap-2'
                   >
                     <a
                       href={option.url}

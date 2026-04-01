@@ -42,20 +42,20 @@ export function GiftListModule({ weddingId, extras, config }: GiftListProps) {
         transition={{ duration: 0.8, ease: "easeOut" }}
         className='max-w-4xl mx-auto px-4 text-center'
       >
-        <p className='text-xs md:text-sm font-bold uppercase tracking-[0.2em] text-[#1a1a2e]/60 mb-4'>
+        <p className='text-xs md:text-sm font-bold uppercase tracking-[0.2em] text-[#0E2F44]/60 mb-4'>
           {data.title}
         </p>
-        <h3 className='font-heading text-5xl md:text-6xl italic text-[#1a1a2e] mb-8'>
+        <h3 className='font-heading text-5xl md:text-6xl italic text-[#0E2F44] mb-8'>
           {data.subtitle}
         </h3>
 
-        <div className='bg-white rounded-[2.5rem] p-8 md:p-16 border border-[#be185d]/20 shadow-xl max-w-2xl mx-auto'>
+        <div className='bg-[#FFFCFB] rounded-[2.5rem] p-8 md:p-16 border border-[#D35400]/20 shadow-xl max-w-2xl mx-auto'>
           {/* Header Icon */}
-          <div className='w-20 h-20 bg-secondary rounded-full flex items-center justify-center mx-auto mb-8 text-[#be185d]'>
+          <div className='w-20 h-20 bg-secondary rounded-full flex items-center justify-center mx-auto mb-8 text-[#D35400]'>
             <Gift className='w-8 h-8 opacity-90' />
           </div>
 
-          <p className='text-[#1a1a2e]/60 text-base md:text-lg leading-relaxed font-light mb-12 max-w-md mx-auto'>
+          <p className='text-[#2E4053]/60 text-base md:text-lg leading-relaxed font-light mb-12 max-w-md mx-auto'>
             {data.description}
           </p>
 
@@ -65,30 +65,30 @@ export function GiftListModule({ weddingId, extras, config }: GiftListProps) {
               href={giftUrl}
               target='_blank'
               rel='noopener noreferrer'
-              className='group relative flex items-center gap-5 p-6 rounded-3xl border border-[#be185d]/20 bg-white transition-all duration-300 hover:border-primary hover:shadow-md'
+              className='group relative flex items-center gap-5 p-6 rounded-3xl border border-[#D35400]/20 bg-[#FFFCFB] transition-all duration-300 hover:border-primary hover:shadow-md'
             >
-              <div className='w-12 h-12 rounded-2xl bg-secondary flex items-center justify-center text-[#be185d] group-hover:bg-primary group-hover:text-primary-foreground transition-colors shrink-0'>
+              <div className='w-12 h-12 rounded-2xl bg-secondary flex items-center justify-center text-[#D35400] group-hover:bg-primary group-hover:text-primary-foreground transition-colors shrink-0'>
                 <CreditCard className='w-5 h-5' />
               </div>
               <div className='flex-1 text-left'>
-                <h4 className='font-bold text-xs uppercase tracking-widest text-[#1a1a2e] mb-1'>
+                <h4 className='font-bold text-xs uppercase tracking-widest text-[#0E2F44] mb-1'>
                   Cagnotte en ligne
                 </h4>
-                <p className='text-xs text-[#1a1a2e]/60 font-light'>{giftLabel}</p>
+                <p className='text-xs text-[#2E4053]/60 font-light'>{giftLabel}</p>
               </div>
               <ExternalLink className='w-4 h-4 text-muted-foreground/30 group-hover:text-primary transition-colors shrink-0' />
             </a>
 
             {/* Physical Urn Option */}
-            <div className='flex items-center gap-5 p-6 rounded-3xl border border-dashed border-[#be185d]/20 bg-muted/30'>
-              <div className='w-12 h-12 rounded-2xl bg-white border border-[#be185d]/20 flex items-center justify-center text-[#1a1a2e]/60 shrink-0'>
+            <div className='flex items-center gap-5 p-6 rounded-3xl border border-dashed border-[#D35400]/20 bg-muted/30'>
+              <div className='w-12 h-12 rounded-2xl bg-[#FFFCFB] border border-[#D35400]/20 flex items-center justify-center text-[#0E2F44]/60 shrink-0'>
                 <Heart className='w-5 h-5 opacity-60' />
               </div>
               <div className='flex-1 text-left'>
-                <h4 className='font-bold text-xs uppercase tracking-widest text-[#1a1a2e] mb-1'>
+                <h4 className='font-bold text-xs uppercase tracking-widest text-[#0E2F44] mb-1'>
                   Urne sur place
                 </h4>
-                <p className='text-xs text-[#1a1a2e]/60 font-light'>
+                <p className='text-xs text-[#2E4053]/60 font-light'>
                   Une urne sera disponible le jour J pour vos attentions.
                 </p>
               </div>

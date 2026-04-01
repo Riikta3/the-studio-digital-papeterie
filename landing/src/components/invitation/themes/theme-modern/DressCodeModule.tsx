@@ -49,47 +49,47 @@ export function DressCodeModule({
         transition={{ duration: 0.8, ease: "easeOut" }}
         className="max-w-4xl mx-auto px-4 text-center"
       >
-        <p className="text-xs md:text-sm font-bold uppercase tracking-[0.2em] text-[#1a1a2e]/60 mb-4">
+        <p className="text-xs md:text-sm font-bold uppercase tracking-[0.2em] text-[#0E2F44]/60 mb-4">
           {data.title}
         </p>
-        <h3 className="font-heading text-5xl md:text-6xl italic text-[#1a1a2e] mb-8">
+        <h3 className="font-heading text-5xl md:text-6xl italic text-[#0E2F44] mb-8">
           {data.subtitle}
         </h3>
 
         {isSplit ? (
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 max-w-2xl mx-auto">
             {/* Men */}
-            <div className="bg-white rounded-[2rem] p-8 md:p-10 border border-[#be185d]/20 shadow-xl flex flex-col items-center gap-4">
-              <div className="w-14 h-14 bg-secondary rounded-full flex items-center justify-center text-[#be185d]">
+            <div className="bg-[#FFFCFB] rounded-[2rem] p-8 md:p-10 border border-[#D35400]/20 shadow-xl flex flex-col items-center gap-4">
+              <div className="w-14 h-14 bg-secondary rounded-full flex items-center justify-center text-[#D35400]">
                 <Shirt className="w-5 h-5 opacity-80" />
               </div>
-              <p className="text-xs font-bold uppercase tracking-[0.15em] text-[#1a1a2e]/60">
+              <p className="text-xs font-bold uppercase tracking-[0.15em] text-[#0E2F44]/60">
                 Homme
               </p>
-              <p className="text-[#1a1a2e]/60 text-sm md:text-base leading-relaxed font-light">
+              <p className="text-[#2E4053]/60 text-sm md:text-base leading-relaxed font-light">
                 {data.description_men}
               </p>
             </div>
 
             {/* Women */}
-            <div className="bg-white rounded-[2rem] p-8 md:p-10 border border-[#be185d]/20 shadow-xl flex flex-col items-center gap-4">
-              <div className="w-14 h-14 bg-secondary rounded-full flex items-center justify-center text-[#be185d]">
+            <div className="bg-[#FFFCFB] rounded-[2rem] p-8 md:p-10 border border-[#D35400]/20 shadow-xl flex flex-col items-center gap-4">
+              <div className="w-14 h-14 bg-secondary rounded-full flex items-center justify-center text-[#D35400]">
                 <Shirt className="w-5 h-5 opacity-80" />
               </div>
-              <p className="text-xs font-bold uppercase tracking-[0.15em] text-[#1a1a2e]/60">
+              <p className="text-xs font-bold uppercase tracking-[0.15em] text-[#0E2F44]/60">
                 Femme
               </p>
-              <p className="text-[#1a1a2e]/60 text-sm md:text-base leading-relaxed font-light">
+              <p className="text-[#2E4053]/60 text-sm md:text-base leading-relaxed font-light">
                 {data.description_women}
               </p>
             </div>
           </div>
         ) : (
-          <div className="bg-white rounded-[2rem] p-10 md:p-14 border border-[#be185d]/20 shadow-xl max-w-2xl mx-auto flex flex-col items-center">
-            <div className="w-16 h-16 bg-secondary rounded-full flex items-center justify-center mb-6 text-[#be185d]">
+          <div className="bg-[#FFFCFB] rounded-[2rem] p-10 md:p-14 border border-[#D35400]/20 shadow-xl max-w-2xl mx-auto flex flex-col items-center">
+            <div className="w-16 h-16 bg-secondary rounded-full flex items-center justify-center mb-6 text-[#D35400]">
               <Shirt className="w-6 h-6 opacity-80" />
             </div>
-            <p className="text-[#1a1a2e]/60 text-base md:text-lg leading-relaxed font-light">
+            <p className="text-[#2E4053]/60 text-base md:text-lg leading-relaxed font-light">
               {data.description}
             </p>
           </div>

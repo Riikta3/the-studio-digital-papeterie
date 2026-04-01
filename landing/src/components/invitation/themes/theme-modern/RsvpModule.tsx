@@ -16,20 +16,20 @@ export function RsvpModule({ weddingId, isDemo = false }: ModuleProps) {
     setStatus("success");
   };
 
-  const inputClass = "w-full bg-transparent border-b border-[#be185d]/20 py-3 text-sm text-[#1a1a2e] placeholder:text-[#1a1a2e]/30 focus:outline-none focus:border-[#be185d]/50 transition-colors font-sans";
+  const inputClass = "w-full bg-transparent border-b border-[#D35400]/20 py-3 text-sm text-[#0E2F44] placeholder:text-[#0E2F44]/30 focus:outline-none focus:border-[#D35400]/50 transition-colors font-sans";
 
   return (
-    <section className="w-full py-16 bg-[#fff0f5]">
+    <section className="w-full py-16 bg-[#FFFCFB]">
       <div className="max-w-md mx-auto px-4">
-        <p className="text-[10px] uppercase tracking-[0.4em] text-[#be185d]/60 font-sans mb-2 text-center">Votre réponse</p>
-        <h2 className="text-3xl text-center text-[#1a1a2e] mb-10" style={{ fontFamily:"'Playfair Display', Georgia, serif", fontStyle:"italic" }}>
+        <p className="text-[10px] uppercase tracking-[0.4em] text-[#D35400]/60 font-sans mb-2 text-center">Votre réponse</p>
+        <h2 className="text-3xl text-center text-[#0E2F44] mb-10" style={{ fontFamily:"'Playfair Display', Georgia, serif", fontStyle:"italic" }}>
           Serez-vous des nôtres ?
         </h2>
         <AnimatePresence mode="wait">
           {status==="success" ? (
             <motion.div key="success" initial={{ opacity:0 }} animate={{ opacity:1 }} className="text-center flex flex-col items-center gap-4">
-              <Heart className="w-8 h-8 text-[#be185d]" fill="currentColor" />
-              <p className="text-[#1a1a2e] font-sans text-sm">Merci pour votre réponse.</p>
+              <Heart className="w-8 h-8 text-[#D35400]" fill="currentColor" />
+              <p className="text-[#0E2F44] font-sans text-sm">Merci pour votre réponse.</p>
             </motion.div>
           ) : (
             <motion.form key="form" initial={{ opacity:0 }} animate={{ opacity:1 }} onSubmit={handleSubmit} className="flex flex-col gap-6">
@@ -39,8 +39,8 @@ export function RsvpModule({ weddingId, isDemo = false }: ModuleProps) {
               </div>
               <div className="flex gap-6">
                 {[{val:"yes",label:"Avec joie ✓"},{val:"no",label:"Dans mon cœur"}].map(({val,label})=>(
-                  <label key={val} className="flex items-center gap-2 text-sm text-[#1a1a2e]/70 font-sans cursor-pointer">
-                    <input type="radio" name="attendance" value={val} checked={form.attendance===val} onChange={()=>setForm({...form,attendance:val as "yes"|"no"})} className="accent-[#be185d]" />
+                  <label key={val} className="flex items-center gap-2 text-sm text-[#0E2F44]/70 font-sans cursor-pointer">
+                    <input type="radio" name="attendance" value={val} checked={form.attendance===val} onChange={()=>setForm({...form,attendance:val as "yes"|"no"})} className="accent-[#D35400]" />
                     {label}
                   </label>
                 ))}
@@ -58,7 +58,7 @@ export function RsvpModule({ weddingId, isDemo = false }: ModuleProps) {
               )}
               <textarea className={`${inputClass} resize-none`} rows={3} placeholder="Un message pour les mariés (optionnel)" value={form.message} onChange={e=>setForm({...form,message:e.target.value})} />
               <button type="submit" disabled={status==="submitting"||!form.attendance}
-                className="self-center px-8 py-3 rounded-full border border-[#be185d]/40 text-[#1a1a2e] text-[11px] uppercase tracking-[0.3em] font-sans hover:bg-[#be185d]/10 disabled:opacity-30 transition-colors mt-2">
+                className="self-center px-8 py-3 rounded-full border border-[#D35400]/40 text-[#0E2F44] text-[11px] uppercase tracking-[0.3em] font-sans hover:bg-[#D35400]/10 disabled:opacity-30 transition-colors mt-2">
                 {status==="submitting"?"Envoi en cours...":"Envoyer ma réponse"}
               </button>
             </motion.form>

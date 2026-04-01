@@ -86,7 +86,7 @@ export function MenuModule({
   return (
     <section className='w-full'>
       <div className='text-center mb-20 space-y-4'>
-        <h2 className='text-sm font-bold uppercase tracking-widest text-[#be185d]'>
+        <h2 className='text-sm font-bold uppercase tracking-widest text-[#D35400]'>
           Gastronomie
         </h2>
         <h3 className='font-heading text-5xl md:text-6xl italic'>Le Menu</h3>
@@ -104,7 +104,7 @@ export function MenuModule({
         <div className='absolute inset-4 border border-primary/10 rounded-t-full rounded-b-[3.5rem] -z-10 pointer-events-none' />
 
         <div className='px-8 py-20 md:px-16 md:py-24 text-center'>
-          <Utensils className='w-10 h-10 text-[#be185d] mx-auto mb-16 opacity-70 stroke-[1.5]' />
+          <Utensils className='w-10 h-10 text-[#D35400] mx-auto mb-16 opacity-70 stroke-[1.5]' />
 
           <div className='space-y-16'>
             {menu.sections.map((section) => (
@@ -121,11 +121,11 @@ export function MenuModule({
                 <div className='space-y-8'>
                   {section.items.map((item, idx) => (
                     <div key={idx}>
-                      <p className='font-heading text-3xl md:text-4xl text-[#1a1a2e]/90 transition-colors group-hover:text-primary leading-tight px-4 mb-2'>
+                      <p className='font-heading text-3xl md:text-4xl text-[#0E2F44]/90 transition-colors group-hover:text-primary leading-tight px-4 mb-2'>
                         {item.title}
                       </p>
                       {item.description && (
-                        <p className='italic text-[#1a1a2e]/60 font-light text-base md:text-lg max-w-sm mx-auto'>
+                        <p className='italic text-[#2E4053]/60 font-light text-base md:text-lg max-w-sm mx-auto'>
                           {item.description}
                         </p>
                       )}

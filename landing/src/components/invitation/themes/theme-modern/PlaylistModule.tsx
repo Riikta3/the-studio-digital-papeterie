@@ -109,25 +109,25 @@ export function PlaylistModule({
         transition={{ duration: 0.8, ease: "easeOut" }}
         className='max-w-4xl mx-auto px-4 text-center'
       >
-        <p className='text-xs md:text-sm font-bold uppercase tracking-[0.2em] text-[#1a1a2e]/60 mb-4'>
+        <p className='text-xs md:text-sm font-bold uppercase tracking-[0.2em] text-[#0E2F44]/60 mb-4'>
           {data.title}
         </p>
-        <h3 className='font-heading text-5xl md:text-6xl italic text-[#1a1a2e] mb-8'>
+        <h3 className='font-heading text-5xl md:text-6xl italic text-[#0E2F44] mb-8'>
           {data.subtitle}
         </h3>
 
-        <div className='bg-white rounded-[2rem] p-8 md:p-12 border border-[#be185d]/20 shadow-xl max-w-2xl mx-auto flex flex-col items-center transition-all duration-500'>
-          <div className='w-16 h-16 bg-secondary rounded-full flex items-center justify-center mb-6 text-[#be185d] shrink-0'>
+        <div className='bg-[#FFFCFB] rounded-[2rem] p-8 md:p-12 border border-[#D35400]/20 shadow-xl max-w-2xl mx-auto flex flex-col items-center transition-all duration-500'>
+          <div className='w-16 h-16 bg-secondary rounded-full flex items-center justify-center mb-6 text-[#D35400] shrink-0'>
             <Music className='w-6 h-6 opacity-80' />
           </div>
-          <p className='text-[#1a1a2e]/60 text-base leading-relaxed font-light mb-10'>
+          <p className='text-[#2E4053]/60 text-base leading-relaxed font-light mb-10'>
             {data.description}
           </p>
 
           {/* Search Input */}
           <div className='w-full max-w-md relative'>
             <div className='relative flex items-center'>
-              <Search className='absolute left-5 w-5 h-5 text-[#1a1a2e]/60 opacity-60' />
+              <Search className='absolute left-5 w-5 h-5 text-[#0E2F44]/60 opacity-60' />
               <input
                 type='text'
                 value={searchQuery}
@@ -138,7 +138,7 @@ export function PlaylistModule({
                     : "Rechercher un titre, un artiste..."
                 }
                 disabled={addedTracks.size >= 3}
-                className='w-full bg-white border border-[#be185d]/20 text-[#1a1a2e] placeholder:text-muted-foreground/50 rounded-full py-4 pl-14 pr-6 focus:outline-none focus:ring-1 focus:ring-primary/40 focus:border-primary/60 transition-all font-light shadow-sm hover:border-primary/30 disabled:bg-secondary disabled:cursor-not-allowed disabled:opacity-70'
+                className='w-full bg-[#FFFCFB] border border-[#D35400]/20 text-[#0E2F44] placeholder:text-muted-foreground/50 rounded-full py-4 pl-14 pr-6 focus:outline-none focus:ring-1 focus:ring-primary/40 focus:border-primary/60 transition-all font-light shadow-sm hover:border-primary/30 disabled:bg-secondary disabled:cursor-not-allowed disabled:opacity-70'
               />
             </div>
 
@@ -166,7 +166,7 @@ export function PlaylistModule({
                 animate={{ opacity: 1, height: "auto", y: 0 }}
                 exit={{ opacity: 0, height: 0, overflow: "hidden" }}
                 transition={{ duration: 0.4, ease: "easeOut" }}
-                className='w-full max-w-md mt-6 bg-muted/50 rounded-2xl border border-[#be185d]/20 overflow-hidden'
+                className='w-full max-w-md mt-6 bg-muted/50 rounded-2xl border border-[#D35400]/20 overflow-hidden'
               >
                 <ul className='divide-y divide-border'>
                   {results.map((track, index) => {
@@ -185,10 +185,10 @@ export function PlaylistModule({
                           className='w-12 h-12 rounded-lg object-cover shadow-sm'
                         />
                         <div className='flex-1 text-left min-w-0'>
-                          <h4 className='font-semibold text-[#1a1a2e] truncate text-sm'>
+                          <h4 className='font-semibold text-[#0E2F44] truncate text-sm'>
                             {track.title}
                           </h4>
-                          <p className='text-xs text-[#1a1a2e]/60 truncate mt-0.5'>
+                          <p className='text-xs text-[#2E4053]/60 truncate mt-0.5'>
                             {track.artist}
                           </p>
                         </div>
@@ -197,10 +197,10 @@ export function PlaylistModule({
                           disabled={isAdded || addedTracks.size >= 3}
                           className={`w-10 h-10 rounded-full flex items-center justify-center transition-all shrink-0 ${
                             isAdded
-                              ? "bg-[#be185d] text-white"
+                              ? "bg-[#D35400] text-white"
                               : addedTracks.size >= 3
-                                ? "bg-white border border-[#be185d]/20 text-muted-foreground/50 cursor-not-allowed"
-                                : "bg-white border border-[#be185d]/20 text-[#be185d] hover:border-primary/30 hover:bg-secondary"
+                                ? "bg-[#FFFCFB] border border-[#D35400]/20 text-muted-foreground/50 cursor-not-allowed"
+                                : "bg-[#FFFCFB] border border-[#D35400]/20 text-[#D35400] hover:border-primary/30 hover:bg-secondary"
                           }`}
                         >
                           <AnimatePresence mode='wait'>
@@ -232,7 +232,7 @@ export function PlaylistModule({
                 exit={{ opacity: 0, height: 0 }}
                 className='w-full mt-10'
               >
-                <h4 className='text-xs font-bold uppercase tracking-[0.15em] text-[#1a1a2e]/60 mb-6 text-left w-full pl-2'>
+                <h4 className='text-xs font-bold uppercase tracking-[0.15em] text-[#0E2F44]/60 mb-6 text-left w-full pl-2'>
                   Titres proposés pour la soirée ({addedTracks.size}/3)
                 </h4>
                 <div className='flex flex-col gap-3'>
@@ -243,7 +243,7 @@ export function PlaylistModule({
                       animate={{ opacity: 1, y: 0 }}
                       exit={{ opacity: 0, scale: 0.95 }}
                       transition={{ duration: 0.3 }}
-                      className='flex items-center gap-4 bg-[#fff0f5] border border-[#be185d]/20 p-3 rounded-2xl group transition-all hover:bg-card hover:border-primary/30 hover:shadow-sm'
+                      className='flex items-center gap-4 bg-[#FFFCFB] border border-[#D35400]/20 p-3 rounded-2xl group transition-all hover:bg-card hover:border-primary/30 hover:shadow-sm'
                     >
                       <img
                         src={track.coverUrl}
@@ -251,16 +251,16 @@ export function PlaylistModule({
                         className='w-12 h-12 rounded-lg object-cover shadow-sm'
                       />
                       <div className='flex-1 text-left min-w-0'>
-                        <h5 className='font-semibold text-[#1a1a2e] text-sm truncate'>
+                        <h5 className='font-semibold text-[#0E2F44] text-sm truncate'>
                           {track.title}
                         </h5>
-                        <p className='text-xs text-[#1a1a2e]/60 truncate'>
+                        <p className='text-xs text-[#2E4053]/60 truncate'>
                           {track.artist}
                         </p>
                       </div>
                       <button
                         onClick={() => handleRemoveTrack(track.id)}
-                        className='w-8 h-8 rounded-full flex items-center justify-center text-[#1a1a2e]/60 hover:bg-[#FEE2E2] hover:text-[#EF4444] transition-all bg-secondary shrink-0'
+                        className='w-8 h-8 rounded-full flex items-center justify-center text-[#0E2F44]/60 hover:bg-[#FEE2E2] hover:text-[#EF4444] transition-all bg-secondary shrink-0'
                       >
                         <Trash2 className='w-4 h-4' />
                       </button>
