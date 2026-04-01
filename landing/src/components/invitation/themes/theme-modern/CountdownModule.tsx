@@ -51,7 +51,7 @@ export function CountdownModule({ weddingDate, partner1, partner2 }: ModuleProps
   const googleUrl = `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${encodeURIComponent(title)}&dates=${toStamp(d)}/${toStamp(nd)}`;
 
   return (
-    <section className="w-full py-16 bg-[#fff0f5]">
+    <section className="w-full pt-16 pb-16" style={{ background: "linear-gradient(to bottom, white 0%, #fff0f5 60%)" }}>
       <motion.div initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: "-50px" }} transition={{ duration: 0.9, ease: "easeOut" }}
         className="max-w-2xl mx-auto flex flex-col items-center text-center px-4 gap-8">
         <p className="text-[10px] uppercase tracking-[0.4em] text-[#be185d]/60 font-sans">Le grand jour approche</p>
