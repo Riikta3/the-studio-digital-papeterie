@@ -95,11 +95,12 @@ export default async function InvitationPage({ params, searchParams }: Invitatio
   // 3. Fetch guest code from settings
   const { data: settingsData } = await supabaseAdmin
     .from("settings")
-    .select("guest_code")
+    .select("guest_code, adults_only")
     .eq("wedding_id", weddingId)
     .single();
 
   const guestCode = settingsData?.guest_code ?? null;
+  const adultsOnly = settingsData?.adults_only ?? false;
 
   // 4. Fetch Sites config (Modules, Theme, Extras)
   const { data: siteConfig, error: siteError } = await supabaseAdmin
@@ -127,7 +128,7 @@ export default async function InvitationPage({ params, searchParams }: Invitatio
       modules={siteConfig.modules}
       weddingId={weddingId}
       siteId={siteConfig.id}
-      extras={siteConfig.extras}
+      extras={{ ...(siteConfig.extras ?? {}), adults_only: adultsOnly }}
       isDemo={isDemo}
     />
     </InvitationPageClient>

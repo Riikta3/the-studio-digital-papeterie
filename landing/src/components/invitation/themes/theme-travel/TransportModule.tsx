@@ -151,11 +151,11 @@ export function TransportModule({
                 <Car className='w-7 h-7 text-primary' strokeWidth={1.5} />
               </div>
 
-              <h4 className='font-heading text-4xl text-foreground mb-6'>
+              <h4 className='font-heading text-4xl text-secondary-foreground mb-6'>
                 Covoiturage
               </h4>
 
-              <p className='text-foreground/60 font-light text-[15px] leading-relaxed mb-auto pb-12 max-w-[280px]'>
+              <p className='text-secondary-foreground/60 font-light text-[15px] leading-relaxed mb-auto pb-12 max-w-[280px]'>
                 {data.carpoolDescription}
               </p>
 

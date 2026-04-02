@@ -1280,6 +1280,7 @@ export type Database = {
       }
       settings: {
         Row: {
+          adults_only: boolean
           created_at: string
           id: string
           is_module_accommodation_enabled: boolean | null
@@ -1292,6 +1293,7 @@ export type Database = {
           wedding_id: string
         }
         Insert: {
+          adults_only?: boolean
           created_at?: string
           id?: string
           is_module_accommodation_enabled?: boolean | null
@@ -1304,6 +1306,7 @@ export type Database = {
           wedding_id: string
         }
         Update: {
+          adults_only?: boolean
           created_at?: string
           id?: string
           is_module_accommodation_enabled?: boolean | null
