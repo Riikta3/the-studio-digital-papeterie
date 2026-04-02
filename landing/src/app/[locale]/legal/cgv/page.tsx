@@ -25,7 +25,7 @@ export default function CGVPage() {
           <p>
             Les présentes Conditions Générales de Vente (CGV) régissent les
             relations contractuelles entre{" "}
-            <strong>The Studio Digital Papeterie</strong> (ci-après "le
+            <strong>The Studio Papeterie Digital</strong> (ci-après "le
             Vendeur") et toute personne physique ou morale (ci-après "le
             Client") souhaitant effectuer un achat via le site internet.
           </p>
@@ -97,7 +97,7 @@ export default function CGVPage() {
             7. Propriété Intellectuelle
           </h2>
           <p>
-            Tous les éléments du site The Studio Digital Papeterie sont et
+            Tous les éléments du site The Studio Papeterie Digital sont et
             restent la propriété intellectuelle et exclusive du Vendeur. Le
             Client dispose d'un droit d'usage personnel pour son événement, mais
             nul n'est autorisé à reproduire, exploiter, rediffuser, ou utiliser

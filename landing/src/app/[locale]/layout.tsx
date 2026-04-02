@@ -9,7 +9,7 @@ import { ThemeProvider } from "@/components/theme-provider";
 import "../globals.css";
 
 export const metadata: Metadata = {
-  title: "The Studio Digital Papeterie",
+  title: "The Studio Papeterie Digital",
   description: "Faire-part digital haut de gamme",
 };
 

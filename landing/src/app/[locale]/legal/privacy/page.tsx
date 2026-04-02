@@ -22,7 +22,7 @@ export default function PrivacyPage() {
       <div className='prose prose-gray max-w-none space-y-8'>
         <section>
           <p>
-            The Studio Digital Papeterie s'engage à ce que la collecte et le
+            The Studio Papeterie Digital s'engage à ce que la collecte et le
             traitement de vos données, effectués à partir du site, soient
             conformes au règlement général sur la protection des données (RGPD)
             et à la loi Informatique et Libertés.

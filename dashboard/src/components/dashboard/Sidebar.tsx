@@ -16,8 +16,8 @@ import { cn } from "@shared/lib/utils";
 import {
   CreditCard,
   Home,
-  Mail,
   LogOut,
+  Mail,
   Menu,
   MessageSquare,
   Music2,
@@ -40,7 +40,6 @@ const navItems = [
   { key: "billing", href: "/billing", icon: CreditCard },
   { key: "settings", href: "/settings", icon: Settings },
 ];
-
 
 export function Sidebar({ slug }: { slug: string | null }) {
   const t = useTranslations("Sidebar");
@@ -79,7 +78,7 @@ export function Sidebar({ slug }: { slug: string | null }) {
           <span className='font-heading text-lg font-bold'>
             <Image
               src='/logo-the-studio-rectangulaire.svg'
-              alt='The Studio Digital Papeterie'
+              alt='The Studio Papeterie Digital'
               width={300}
               height={90}
               className='h-7 w-auto object-contain'
@@ -111,7 +110,7 @@ export function Sidebar({ slug }: { slug: string | null }) {
               <div className='relative w-56 h-14'>
                 <Image
                   src='/logo-the-studio-rectangulaire.svg'
-                  alt='The Studio Digital Papeterie'
+                  alt='The Studio Papeterie Digital'
                   fill
                   className='object-contain object-left'
                   sizes='(max-width: 768px) 100vw, 200px'
@@ -160,7 +159,6 @@ export function Sidebar({ slug }: { slug: string | null }) {
                 </Link>
               );
             })}
-
           </nav>
 
           {/* Builder Link */}

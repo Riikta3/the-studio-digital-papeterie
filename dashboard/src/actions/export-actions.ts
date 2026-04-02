@@ -189,8 +189,8 @@ export async function exportGuestsToExcel(
 
     // Prepare data structures
     const workbook = new ExcelJS.Workbook();
-    workbook.creator = "The Studio Digital Papeterie";
-    workbook.lastModifiedBy = "The Studio Digital Papeterie";
+    workbook.creator = "The Studio Papeterie Digital";
+    workbook.lastModifiedBy = "The Studio Papeterie Digital";
     workbook.created = new Date();
     workbook.modified = new Date();
 
@@ -336,7 +336,7 @@ export async function downloadImportTemplate(
 
   try {
     const workbook = new ExcelJS.Workbook();
-    workbook.creator = "The Studio Digital Papeterie";
+    workbook.creator = "The Studio Papeterie Digital";
     workbook.created = new Date();
 
     const worksheet = workbook.addWorksheet(t.sheets.guests || "Invités");

@@ -44,7 +44,7 @@ export default function LoginPage() {
             <div className='flex justify-center'>
               <Image
                 src='/logo-the-studio-rectangulaire.svg'
-                alt='The Studio Digital Papeterie'
+                alt='The Studio Papeterie Digital'
                 width={360}
                 height={110}
                 className='h-28 w-auto object-contain'

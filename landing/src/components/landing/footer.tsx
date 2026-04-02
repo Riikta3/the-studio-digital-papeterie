@@ -1,8 +1,8 @@
+import { EmailLink } from "@/components/ui/EmailLink";
 import { Link } from "@/navigation";
 import { Instagram } from "lucide-react";
 import { getTranslations } from "next-intl/server";
 import Image from "next/image";
-import { EmailLink } from "@/components/ui/EmailLink";
 
 // Triggering rebuild for translations refresh
 export async function Footer() {
@@ -18,7 +18,7 @@ export async function Footer() {
             <div className='relative h-20 w-40'>
               <Image
                 src='/images/logo-the-studio-rectangulaire.svg'
-                alt='The Studio Digital Papeterie — Faire-part digital haut de gamme'
+                alt='The Studio Papeterie Digital — Faire-part digital haut de gamme'
                 fill
                 className='object-contain brightness-0 invert'
               />
@@ -34,7 +34,10 @@ export async function Footer() {
                 className='w-10 h-10 rounded-full border border-primary-foreground/20 flex items-center justify-center text-primary-foreground/60 hover:border-primary-foreground/50 hover:bg-white/10 hover:text-primary-foreground transition-all duration-300'
                 aria-label='Instagram'
               >
-                <Instagram size={20} strokeWidth={1.5} />
+                <Instagram
+                  size={20}
+                  strokeWidth={1.5}
+                />
               </a>
               <a
                 href='https://www.pinterest.fr/thestudiopapeterie'
@@ -137,7 +140,10 @@ export async function Footer() {
                 </li>
                 <li>
                   <EmailLink
-                    email={t("linkBespokeEmail") || "contact@thestudiopapeteriedigitale.com"}
+                    email={
+                      t("linkBespokeEmail") ||
+                      "contact@thestudiopapeteriedigitale.com"
+                    }
                     className='text-sm text-primary-foreground/70 hover:text-primary-foreground transition-colors'
                   >
                     {t("linkBespoke")}

@@ -64,7 +64,7 @@ export function Navbar() {
             <div className='relative h-10 w-36'>
               <Image
                 src='/images/logo-the-studio-rectangulaire.svg'
-                alt='The Studio Digital Papeterie — Faire-part digital haut de gamme'
+                alt='The Studio Papeterie Digital — Faire-part digital haut de gamme'
                 fill
                 className='object-contain mix-blend-multiply'
                 priority

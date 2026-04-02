@@ -55,7 +55,7 @@ export function InvitationFooter({ profile }: { profile: ProfileData }) {
         </div>
 
         <p className='text-[10px] tracking-widest text-[#F5F7F5]/40 uppercase mt-auto'>
-          Design par The Studio Digital Papeterie
+          Design par The Studio Papeterie Digital
         </p>
       </div>
 

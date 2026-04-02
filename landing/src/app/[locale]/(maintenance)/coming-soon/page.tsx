@@ -1,10 +1,10 @@
 // landing/src/app/[locale]/(maintenance)/coming-soon/page.tsx
+import { EmailLink } from "@/components/ui/EmailLink";
 import type { Metadata } from "next";
 import Image from "next/image";
-import { EmailLink } from "@/components/ui/EmailLink";
 
 export const metadata: Metadata = {
-  title: "Bientôt disponible — The Studio Digital Papeterie",
+  title: "Bientôt disponible — The Studio Papeterie Digital",
   description: "L'art du faire-part repensé pour l'ère digitale.",
 };
 
@@ -40,7 +40,7 @@ export default function ComingSoonPage() {
         {/* Logo */}
         <Image
           src='/images/logo-the-studio-rectangulaire.svg'
-          alt='The Studio Digital Papeterie — Faire-part digital haut de gamme'
+          alt='The Studio Papeterie Digital — Faire-part digital haut de gamme'
           width={400}
           height={100}
           className='h-32 w-auto object-contain opacity-90'
@@ -74,7 +74,7 @@ export default function ComingSoonPage() {
         <p className='text-xs text-muted-foreground'>
           Une question ?{" "}
           <EmailLink
-            email="contact@thestudiopapeteriedigitale.com"
+            email='contact@thestudiopapeteriedigitale.com'
             className='text-primary border-b border-primary/30 hover:opacity-70 transition-opacity'
           >
             contact@thestudiopapeteriedigitale.com
@@ -84,7 +84,7 @@ export default function ComingSoonPage() {
 
       {/* Footer */}
       <p className='absolute bottom-8 left-1/2 -translate-x-1/2 text-[0.65rem] uppercase tracking-widest text-muted-foreground/50 whitespace-nowrap'>
-        © The Studio Digital Papeterie
+        © The Studio Papeterie Digital
       </p>
     </main>
   );
