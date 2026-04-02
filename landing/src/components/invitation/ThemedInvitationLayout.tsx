@@ -1,17 +1,17 @@
-import { InvitationHero as MinimalistHero } from "./themes/theme-minimalist/InvitationHero";
-import { InvitationHero as FloralHero } from "./themes/theme-floral/InvitationHero";
-import { InvitationHero as BohoHero } from "./themes/theme-boho/InvitationHero";
-import { InvitationHero as RoyalHero } from "./themes/theme-royal/InvitationHero";
-import { InvitationHero as TravelHero } from "./themes/theme-travel/InvitationHero";
-import { InvitationFooter as MinimalistFooter } from "./themes/theme-minimalist/InvitationFooter";
-import { InvitationFooter as FloralFooter } from "./themes/theme-floral/InvitationFooter";
-import { InvitationFooter as BohoFooter } from "./themes/theme-boho/InvitationFooter";
-import { InvitationFooter as RoyalFooter } from "./themes/theme-royal/InvitationFooter";
-import { InvitationFooter as TravelFooter } from "./themes/theme-travel/InvitationFooter";
+import React from "react";
 import { ModuleRenderer } from "./ModuleRenderer";
 import { ModulesWrapper } from "./ModulesWrapper";
 import { ScrollToTop } from "./ScrollToTop";
-import React from "react";
+import { InvitationFooter as BohoFooter } from "./themes/theme-boho/InvitationFooter";
+import { InvitationHero as BohoHero } from "./themes/theme-boho/InvitationHero";
+import { InvitationFooter as FloralFooter } from "./themes/theme-floral/InvitationFooter";
+import { InvitationHero as FloralHero } from "./themes/theme-floral/InvitationHero";
+import { InvitationFooter as MinimalistFooter } from "./themes/theme-minimalist/InvitationFooter";
+import { InvitationHero as MinimalistHero } from "./themes/theme-minimalist/InvitationHero";
+import { InvitationFooter as RoyalFooter } from "./themes/theme-royal/InvitationFooter";
+import { InvitationHero as RoyalHero } from "./themes/theme-royal/InvitationHero";
+import { InvitationFooter as TravelFooter } from "./themes/theme-travel/InvitationFooter";
+import { InvitationHero as TravelHero } from "./themes/theme-travel/InvitationHero";
 
 const THEME_BG: Record<string, string> = {
   "theme-travel": "#FDFDFA",
@@ -38,7 +38,11 @@ interface ThemedInvitationLayoutProps {
   firstName: string;
   partnerName: string;
   weddingDate?: string | null;
-  profile: { first_name: string; partner_name: string; wedding_date?: string | null };
+  profile: {
+    first_name: string;
+    partner_name: string;
+    wedding_date?: string | null;
+  };
   modules: string[];
   weddingId: string;
   siteId: string;
@@ -63,23 +67,33 @@ export async function ThemedInvitationLayout({
   const bg = THEME_BG[themeId] ?? "";
 
   return (
-    <div className={`font-sans ${themeId}`} style={bg ? { backgroundColor: bg } : {}}>
-      <Hero firstName={firstName} partnerName={partnerName} weddingDate={weddingDate} />
+    <div
+      className={`font-sans ${themeId}`}
+      style={bg ? { backgroundColor: bg } : {}}
+    >
+      <Hero
+        firstName={firstName}
+        partnerName={partnerName}
+        weddingDate={weddingDate}
+      />
       <ModulesWrapper>
-        <div id="modules" style={bg ? { backgroundColor: bg } : {}}>
-        <main className="max-w-4xl mx-auto py-3 px-4 relative z-10">
-          <ModuleRenderer
-            modules={modules}
-            weddingId={weddingId}
-            siteId={siteId}
-            weddingDate={weddingDate}
-            extras={extras}
-            partner1={firstName}
-            partner2={partnerName}
-            isDemo={isDemo}
-            themeId={themeId}
-          />
-        </main>
+        <div
+          id='modules'
+          style={bg ? { backgroundColor: bg } : {}}
+        >
+          <main className='max-w-4xl mx-auto py-3 px-4 relative z-10'>
+            <ModuleRenderer
+              modules={modules}
+              weddingId={weddingId}
+              siteId={siteId}
+              weddingDate={weddingDate}
+              extras={extras}
+              partner1={firstName}
+              partner2={partnerName}
+              isDemo={isDemo}
+              themeId={themeId}
+            />
+          </main>
         </div>
       </ModulesWrapper>
       <Footer profile={profile} />
