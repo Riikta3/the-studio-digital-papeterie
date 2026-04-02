@@ -2,19 +2,19 @@ import { InvitationHero as MinimalistHero } from "./themes/theme-minimalist/Invi
 import { InvitationHero as FloralHero } from "./themes/theme-floral/InvitationHero";
 import { InvitationHero as BohoHero } from "./themes/theme-boho/InvitationHero";
 import { InvitationHero as RoyalHero } from "./themes/theme-royal/InvitationHero";
-import { InvitationHero as ModernHero } from "./themes/theme-modern/InvitationHero";
+import { InvitationHero as TravelHero } from "./themes/theme-travel/InvitationHero";
 import { InvitationFooter as MinimalistFooter } from "./themes/theme-minimalist/InvitationFooter";
 import { InvitationFooter as FloralFooter } from "./themes/theme-floral/InvitationFooter";
 import { InvitationFooter as BohoFooter } from "./themes/theme-boho/InvitationFooter";
 import { InvitationFooter as RoyalFooter } from "./themes/theme-royal/InvitationFooter";
-import { InvitationFooter as ModernFooter } from "./themes/theme-modern/InvitationFooter";
+import { InvitationFooter as TravelFooter } from "./themes/theme-travel/InvitationFooter";
 import { ModuleRenderer } from "./ModuleRenderer";
 import { ModulesWrapper } from "./ModulesWrapper";
 import { ScrollToTop } from "./ScrollToTop";
 import React from "react";
 
 const THEME_BG: Record<string, string> = {
-  "theme-modern": "#FDFDFA",
+  "theme-travel": "#FDFDFA",
 };
 
 const HEROES: Record<string, React.ComponentType<any>> = {
@@ -22,7 +22,7 @@ const HEROES: Record<string, React.ComponentType<any>> = {
   "theme-floral": FloralHero,
   "theme-boho": BohoHero,
   "theme-royal": RoyalHero,
-  "theme-modern": ModernHero,
+  "theme-travel": TravelHero,
 };
 
 const FOOTERS: Record<string, React.ComponentType<any>> = {
@@ -30,7 +30,7 @@ const FOOTERS: Record<string, React.ComponentType<any>> = {
   "theme-floral": FloralFooter,
   "theme-boho": BohoFooter,
   "theme-royal": RoyalFooter,
-  "theme-modern": ModernFooter,
+  "theme-travel": TravelFooter,
 };
 
 interface ThemedInvitationLayoutProps {

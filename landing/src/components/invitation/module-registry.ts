@@ -19,7 +19,7 @@ import * as Minimalist from "./themes/theme-minimalist";
 import * as Floral from "./themes/theme-floral";
 import * as Boho from "./themes/theme-boho";
 import * as Royal from "./themes/theme-royal";
-import * as Modern from "./themes/theme-modern";
+import * as Travel from "./themes/theme-travel";
 
 const buildMap = (theme: any): Record<string, React.ComponentType<ModuleProps>> => ({
   countdown: theme.CountdownModule,
@@ -44,7 +44,7 @@ export const THEME_MODULE_COMPONENTS: ThemeModuleRegistry = {
   "theme-floral": buildMap(Floral),
   "theme-boho": buildMap(Boho),
   "theme-royal": buildMap(Royal),
-  "theme-modern": buildMap(Modern),
+  "theme-travel": buildMap(Travel),
 };
 
 export const DEFAULT_THEME = "theme-minimalist";

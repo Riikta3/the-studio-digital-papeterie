@@ -195,7 +195,7 @@ export function PricingPreview() {
                   The Studio
                 </h4>
                 <span className='text-sm font-medium px-3 py-1 rounded-full bg-primary/10 text-primary'>
-                  Moderne
+                  Digital
                 </span>
               </div>
 

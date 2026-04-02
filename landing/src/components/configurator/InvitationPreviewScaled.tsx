@@ -8,7 +8,7 @@ import { InvitationHero as HeroFloral } from "@/components/invitation/themes/the
 import { InvitationHero as HeroMinimalist } from "@/components/invitation/themes/theme-minimalist/InvitationHero";
 import { InvitationHero as HeroBoho } from "@/components/invitation/themes/theme-boho/InvitationHero";
 import { InvitationHero as HeroRoyal } from "@/components/invitation/themes/theme-royal/InvitationHero";
-import { InvitationHero as HeroModern } from "@/components/invitation/themes/theme-modern/InvitationHero";
+import { InvitationHero as HeroTravel } from "@/components/invitation/themes/theme-travel/InvitationHero";
 import React from "react";
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -17,7 +17,7 @@ const HERO_MAP: Record<string, React.ComponentType<any>> = {
   "theme-minimalist": HeroMinimalist,
   "theme-boho": HeroBoho,
   "theme-royal": HeroRoyal,
-  "theme-modern": HeroModern,
+  "theme-travel": HeroTravel,
 };
 
 const VIRTUAL_WIDTH = 390;

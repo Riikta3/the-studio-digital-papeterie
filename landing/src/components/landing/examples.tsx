@@ -13,10 +13,10 @@ const examples = [
     image: "bg-[url('/images/landing/theme-floral.png')]",
   },
   {
-    title: "Le Moderne",
-    theme: "theme-modern",
+    title: "Le Voyage",
+    theme: "theme-travel",
     color: "bg-slate-50",
-    image: "bg-[url('/images/landing/theme-modern.png')]",
+    image: "bg-[url('/images/landing/theme-travel.png')]",
   },
   {
     title: "Le Romantique",

@@ -36,7 +36,7 @@ export default async function LocaleLayout({
           "theme-minimalist",
           "theme-boho",
           "theme-royal",
-          "theme-modern",
+          "theme-travel",
         ]}
       >
         {children}

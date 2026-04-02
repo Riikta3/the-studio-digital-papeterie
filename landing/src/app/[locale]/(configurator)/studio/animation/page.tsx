@@ -38,7 +38,7 @@ const CATEGORIES: Category[] = [
       { id: "door-floral", name: "Floral", desc: "Porte ornée de fleurs printanières" },
       { id: "door-classic", name: "Classique", desc: "Porte en bois sobre et élégante" },
       { id: "door-authentic", name: "Authentique", desc: "Porte rustique en bois brut" },
-      { id: "door-modern", name: "Moderne", desc: "Porte vitrée contemporaine" },
+      { id: "door-travel", name: "Voyage", desc: "Porte vitrée contemporaine" },
     ],
   },
   {
@@ -56,7 +56,7 @@ const CATEGORIES: Category[] = [
     variants: [
       { id: "book-leather", name: "Cuir", desc: "Couverture en cuir gravé" },
       { id: "book-floral", name: "Floral", desc: "Illustrations botaniques" },
-      { id: "book-modern", name: "Moderne", desc: "Couverture épurée et graphique" },
+      { id: "book-travel", name: "Voyage", desc: "Couverture épurée et graphique" },
     ],
   },
   {

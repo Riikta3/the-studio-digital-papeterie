@@ -18,7 +18,7 @@ const THEME_STYLES: Record<string, { bg: string; color: string }> = {
   "theme-minimalist":  { bg: "linear-gradient(135deg,#f5f5f5,#e5e5e5)", color: "#555" },
   "theme-boho":        { bg: "linear-gradient(135deg,#fdf0e5,#e8c99a)", color: "#a98467" },
   "theme-royal":       { bg: "linear-gradient(135deg,#eef2ff,#c7d4f5)", color: "#1e3a8a" },
-  "theme-modern":      { bg: "linear-gradient(135deg,#fff0f5,#f5c8db)", color: "#be185d" },
+  "theme-travel":      { bg: "linear-gradient(135deg,#fff0f5,#f5c8db)", color: "#be185d" },
 };
 
 export function LivePreviewDrawer({ theme, animation, modules, partner1, partner2, weddingDate, venue }: LivePreviewDrawerProps) {

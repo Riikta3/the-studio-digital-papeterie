@@ -15,7 +15,7 @@ export const THEME_STYLES: Record<string, { bg: string; color: string }> = {
     bg: "linear-gradient(135deg,#eef2ff,#c7d4f5)",
     color: "#1e3a8a",
   },
-  "theme-modern": {
+  "theme-travel": {
     bg: "#FDFDFA",
     color: "#1B4F72",
   },

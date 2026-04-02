@@ -26,7 +26,7 @@ const THEMES: { key: string; dotColors: [string, string] }[] = [
   { key: "floral", dotColors: ["#fef1ee", "#fbdcd5"] },
   { key: "minimal", dotColors: ["#ffffff", "#e5e5e5"] },
   { key: "classic", dotColors: ["#fffaed", "#f3e1b1"] },
-  { key: "modern", dotColors: ["#0a0a0a", "#262626"] },
+  { key: "travel", dotColors: ["#0a0a0a", "#262626"] },
   { key: "romantic", dotColors: ["#fff0f5", "#ffb6c1"] },
 ];
 
@@ -34,7 +34,7 @@ const THEME_LABELS: Record<string, string> = {
   floral: "Floral",
   minimal: "Minimaliste",
   classic: "Classique",
-  modern: "Moderne",
+  travel: "Voyage",
   romantic: "Romantique",
 };
 

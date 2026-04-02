@@ -77,8 +77,8 @@ const SITE_THEMES: SiteTheme[] = [
     fontStyle: "cormorant",
   },
   {
-    key: "modern",
-    labelKey: "themeModern",
+    key: "travel",
+    labelKey: "themeTravel",
     swatchGradient: "linear-gradient(135deg,#f3effe,#ddd0f5)",
     phoneBg: "linear-gradient(160deg,#f3effe 0%,#e5d5f8 60%,#d0b8f0 100%)",
     phoneTextColor: "#1a0a30",

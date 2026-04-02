@@ -71,8 +71,8 @@ const THEMES: ThemeConfig[] = [
     placeColor: "#4a68c4",
   },
   {
-    id: "theme-modern",
-    name: "Modern",
+    id: "theme-travel",
+    name: "Travel",
     description: "Audacieux, vibrant et contemporain.",
     accentColor: "#be185d",
     bgGradient: "linear-gradient(160deg, #fff0f5, #f5c8db)",

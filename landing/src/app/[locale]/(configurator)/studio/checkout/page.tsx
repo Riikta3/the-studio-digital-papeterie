@@ -50,7 +50,7 @@ const THEME_NAMES: Record<string, string> = {
   "theme-minimalist": "Minimalist",
   "theme-boho": "Boho",
   "theme-royal": "Royal",
-  "theme-modern": "Modern",
+  "theme-travel": "Travel",
 };
 
 const EXTRA_NAMES: Record<string, string> = {

@@ -17,10 +17,10 @@ export default function DesignPage() {
       image: "/images/landing/theme-floral.png",
     },
     {
-      id: "modern",
-      name: "Le Minimaliste",
-      description: "Épure et typographie, pour les mariages urbains.",
-      image: "/images/landing/theme-modern.png",
+      id: "travel",
+      name: "Le Voyage",
+      description: "Une invitation aux voyages et aux découvertes.",
+      image: "/images/landing/theme-travel.png",
     },
     {
       id: "romantic",

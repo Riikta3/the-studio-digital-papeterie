@@ -14,7 +14,7 @@ const THEME_KEY_MAP: Record<string, ThemeKey> = {
   "theme-minimalist": "minimalist",
   "theme-boho": "boho",
   "theme-royal": "royal",
-  "theme-modern": "modern",
+  "theme-travel": "travel",
 };
 
 const DEFAULT_ANIMATION: AnimationKey = "envelope";

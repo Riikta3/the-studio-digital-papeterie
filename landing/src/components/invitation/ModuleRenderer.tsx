@@ -4,7 +4,7 @@ import { Divider as MinimalistDivider } from "./themes/theme-minimalist/Divider"
 import { Divider as FloralDivider } from "./themes/theme-floral/Divider";
 import { Divider as BohoDivider } from "./themes/theme-boho/Divider";
 import { Divider as RoyalDivider } from "./themes/theme-royal/Divider";
-import { Divider as ModernDivider } from "./themes/theme-modern/Divider";
+import { Divider as TravelDivider } from "./themes/theme-travel/Divider";
 import React from "react";
 
 const THEME_DIVIDERS: Record<string, React.ComponentType> = {
@@ -12,7 +12,7 @@ const THEME_DIVIDERS: Record<string, React.ComponentType> = {
   "theme-floral": FloralDivider,
   "theme-boho": BohoDivider,
   "theme-royal": RoyalDivider,
-  "theme-modern": ModernDivider,
+  "theme-travel": TravelDivider,
 };
 
 export async function ModuleRenderer({

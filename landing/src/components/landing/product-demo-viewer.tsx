@@ -5,7 +5,7 @@ import { useTranslations } from "next-intl";
 import { useCallback, useEffect, useRef, useState } from "react";
 
 export type AnimationKey = "envelope" | "doors" | "curtains";
-export type ThemeKey = "floral" | "royal" | "boho" | "minimalist" | "modern";
+export type ThemeKey = "floral" | "royal" | "boho" | "minimalist" | "travel";
 
 export const DEMO_CODES: Record<AnimationKey, string> = {
   envelope: "demo-envelope",
@@ -56,7 +56,7 @@ export const THEME_HERO_ASSETS: Record<ThemeKey, HeroAsset> = {
   floral: DEMO_HERO,
   royal: DEMO_HERO,
   minimalist: DEMO_HERO,
-  modern: DEMO_HERO,
+  travel: DEMO_HERO,
 };
 
 const ANIMATIONS: { key: AnimationKey; icon: string }[] = [
@@ -70,7 +70,7 @@ const THEMES: { key: ThemeKey; dotColors: [string, string] }[] = [
   { key: "royal", dotColors: ["#c9a96e", "#2d3a6b"] },
   { key: "boho", dotColors: ["#c4a882", "#8b5e3c"] },
   { key: "minimalist", dotColors: ["#999999", "#222222"] },
-  { key: "modern", dotColors: ["#b07acc", "#4a1570"] },
+  { key: "travel", dotColors: ["#b07acc", "#4a1570"] },
 ];
 
 const THEME_LABELS: Record<ThemeKey, string> = {
@@ -78,7 +78,7 @@ const THEME_LABELS: Record<ThemeKey, string> = {
   royal: "Royal",
   boho: "Bohème",
   minimalist: "Minimaliste",
-  modern: "Modern",
+  travel: "Travel",
 };
 
 const MOBILE_VIEWPORT = 390;
