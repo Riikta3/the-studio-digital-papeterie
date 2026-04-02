@@ -1,6 +1,7 @@
 "use client";
 import { motion } from "framer-motion";
-import { useRef } from "react";
+import { useEffect, useRef } from "react";
+import { useInvitationContext } from "../../InvitationContext";
 
 interface InvitationHeroProps {
   firstName: string;
@@ -13,10 +14,16 @@ export function InvitationHero({
   partnerName,
   weddingDate,
 }: InvitationHeroProps) {
+  const { introDone } = useInvitationContext();
   const videoRef = useRef<HTMLVideoElement>(null);
-  const handleLoadedMetadata = () => {
-    if (videoRef.current) videoRef.current.playbackRate = 1;
-  };
+
+  useEffect(() => {
+    if (!introDone) return;
+    const video = videoRef.current;
+    if (!video) return;
+    video.playbackRate = 1;
+    video.play();
+  }, [introDone]);
   const formattedDate = weddingDate
     ? new Intl.DateTimeFormat("fr-FR", {
         day: "numeric",
@@ -27,7 +34,6 @@ export function InvitationHero({
 
   return (
     <section className='h-[100svh] flex flex-col bg-[#FFFCFB] overflow-hidden'>
-
       {/* ── TEXT — au-dessus de la vidéo dans le flux ─────────────────── */}
       <motion.div
         initial={{ opacity: 0, y: 24 }}
@@ -46,9 +52,7 @@ export function InvitationHero({
             letterSpacing: "0.02em",
           }}
         >
-          {firstName}{" "}
-          <span className='text-[#D35400]'>&</span>{" "}
-          {partnerName}
+          {firstName} <span className='text-[#D35400]'>&</span> {partnerName}
         </h1>
 
         {formattedDate && (
@@ -67,14 +71,12 @@ export function InvitationHero({
       {/* ── VIDEO — prend le reste de la hauteur ──────────────────────── */}
       <div className='flex-1 relative overflow-hidden'>
         <video
-          autoPlay
           loop
           muted
           playsInline
-          className='w-full h-full object-contain object-top'
+          className='w-full h-full pb-10 object-contain object-top'
           src='/videos/theme/travel/mariage-voyage-hublot-avion.webm'
           ref={videoRef}
-          onLoadedMetadata={handleLoadedMetadata}
         />
 
         {/* Scroll cue */}
@@ -87,7 +89,7 @@ export function InvitationHero({
           <motion.div
             animate={{ y: [0, 6, 0] }}
             transition={{ repeat: Infinity, duration: 1.6, ease: "easeInOut" }}
-            className='flex flex-col items-center gap-1 cursor-pointer'
+            className='flex flex-col items-center gap-1 cursor-pointer mt-10'
             onClick={() =>
               document
                 .getElementById("modules")
@@ -97,7 +99,13 @@ export function InvitationHero({
             <span className='text-[9px] uppercase tracking-[0.3em] text-[#0E2F44]/40 font-sans'>
               Découvrir
             </span>
-            <svg width='16' height='16' viewBox='0 0 16 16' fill='none' className='text-[#0E2F44]/30'>
+            <svg
+              width='16'
+              height='16'
+              viewBox='0 0 16 16'
+              fill='none'
+              className='text-[#0E2F44]/30'
+            >
               <path
                 d='M8 3v10M8 13l-4-4M8 13l4-4'
                 stroke='currentColor'

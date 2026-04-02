@@ -18,6 +18,7 @@ import {
   InvitationDemoContext,
   type AnimationSequence,
 } from "./InvitationDemoContext";
+import { InvitationContext } from "./InvitationContext";
 import { InvitationIntro } from "./InvitationIntro";
 
 // Shared data for demo controls
@@ -550,6 +551,7 @@ export function InvitationPageClient({
   }, [isDemo]);
 
   return (
+    <InvitationContext.Provider value={{ introDone }}>
     <InvitationDemoContext.Provider
       value={{ isDemo, activeTheme, heroAsset, animationSequence }}
     >
@@ -606,5 +608,6 @@ export function InvitationPageClient({
         )}
       </>
     </InvitationDemoContext.Provider>
+    </InvitationContext.Provider>
   );
 }
