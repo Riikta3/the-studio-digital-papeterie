@@ -35,7 +35,7 @@ export function GuestbookModule({
         <motion.div
           initial={{ opacity: 0, scale: 0.95 }}
           animate={{ opacity: 1, scale: 1 }}
-          className='max-w-2xl mx-auto bg-background rounded-[2.5rem] p-12 md:p-16 border border-primary/20 shadow-xl text-center'
+          className='max-w-2xl mx-auto bg-card rounded-[2.5rem] p-12 md:p-16 border border-primary/20 shadow-[0_4px_24px_-8px_rgba(0,0,0,0.08)] text-center'
         >
           <div className='w-20 h-20 bg-secondary rounded-full flex items-center justify-center mx-auto mb-8 text-primary'>
             <Heart
@@ -71,12 +71,12 @@ export function GuestbookModule({
           Un mot doux
         </h3>
 
-        <div className='bg-background rounded-[2.5rem] p-8 md:p-16 border border-primary/20 shadow-xl max-w-2xl mx-auto'>
-          <div className='w-16 h-16 bg-secondary rounded-full flex items-center justify-center mx-auto mb-8 text-[#D35400] opacity-80'>
+        <div className='bg-card rounded-[2.5rem] p-8 md:p-16 border border-primary/20 shadow-[0_4px_24px_-8px_rgba(0,0,0,0.08)] max-w-2xl mx-auto'>
+          <div className='w-16 h-16 bg-secondary rounded-full flex items-center justify-center mx-auto mb-8 text-primary opacity-80'>
             <PenTool className='w-6 h-6' />
           </div>
 
-          <p className='text-[#2E4053]/60 text-base md:text-lg leading-relaxed font-light mb-12 max-w-sm mx-auto'>
+          <p className='text-foreground/60 text-base md:text-lg leading-relaxed font-light mb-12 max-w-sm mx-auto'>
             Laissez une petite trace de votre passage. Vos messages seront
             gardés précieusement et transmis uniquement aux mariés.
           </p>
@@ -86,7 +86,7 @@ export function GuestbookModule({
             className='space-y-8 text-left'
           >
             <div className='space-y-3'>
-              <label className='text-[10px] uppercase tracking-[0.2em] font-bold text-[#0E2F44]/60 ml-4'>
+              <label className='text-[10px] uppercase tracking-[0.2em] font-bold text-foreground/60 ml-4'>
                 Votre Nom
               </label>
               <input
@@ -97,12 +97,12 @@ export function GuestbookModule({
                   setFormData({ ...formData, name: e.target.value })
                 }
                 placeholder='Comment devons-nous vous appeler ?'
-                className='w-full bg-muted/50 border border-[#D35400]/20 text-[#0E2F44] placeholder:text-muted-foreground/30 rounded-full py-4 px-8 focus:outline-none focus:ring-1 focus:ring-primary/40 focus:border-primary/60 transition-all font-light'
+                className='w-full bg-muted/50 border border-primary/20 text-foreground placeholder:text-muted-foreground/30 rounded-full py-4 px-8 focus:outline-none focus:ring-1 focus:ring-primary/40 focus:border-primary/60 transition-all font-light'
               />
             </div>
 
             <div className='space-y-3'>
-              <label className='text-[10px] uppercase tracking-[0.2em] font-bold text-[#0E2F44]/60 ml-4'>
+              <label className='text-[10px] uppercase tracking-[0.2em] font-bold text-foreground/60 ml-4'>
                 Votre Message
               </label>
               <textarea
@@ -113,7 +113,7 @@ export function GuestbookModule({
                   setFormData({ ...formData, message: e.target.value })
                 }
                 placeholder='Écrivez votre mot doux ici...'
-                className='w-full bg-muted/50 border border-[#D35400]/20 text-[#0E2F44] placeholder:text-muted-foreground/30 rounded-[2rem] py-5 px-8 focus:outline-none focus:ring-1 focus:ring-primary/40 focus:border-primary/60 transition-all font-light resize-none'
+                className='w-full bg-muted/50 border border-primary/20 text-foreground placeholder:text-muted-foreground/30 rounded-[2rem] py-5 px-8 focus:outline-none focus:ring-1 focus:ring-primary/40 focus:border-primary/60 transition-all font-light resize-none'
               />
             </div>
 
@@ -122,7 +122,7 @@ export function GuestbookModule({
               disabled={
                 status === "submitting" || !formData.name || !formData.message
               }
-              className='w-full bg-[#D35400] hover:bg-primary/90 disabled:bg-[#CCCCCC] text-white py-5 rounded-full font-bold text-xs uppercase tracking-[0.3em] transition-all duration-300 shadow-xl shadow-primary/10 flex items-center justify-center gap-3 group'
+              className='w-full bg-primary hover:bg-primary/90 disabled:bg-muted-foreground/40 text-white py-5 rounded-full font-bold text-xs uppercase tracking-[0.3em] transition-all duration-300 shadow-[0_4px_16px_-6px_rgba(0,0,0,0.12)] shadow-primary/10 flex items-center justify-center gap-3 group'
             >
               <span className='relative z-10'>
                 {status === "submitting"

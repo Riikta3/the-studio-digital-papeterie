@@ -95,7 +95,7 @@ export function FaqModule({
               whileInView={{ opacity: 1, scale: 1 }}
               viewport={{ once: true }}
               transition={{ delay: index * 0.05 }}
-              className='bg-background rounded-[1.5rem] border border-primary/20 shadow-[0_4px_20px_-10px_rgba(0,0,0,0.05)] overflow-hidden transition-all duration-300'
+              className='bg-card rounded-[1.5rem] border border-primary/20 shadow-[0_4px_20px_-10px_rgba(0,0,0,0.05)] overflow-hidden transition-all duration-300'
             >
               <button
                 onClick={() => setOpenIndex(openIndex === index ? null : index)}
@@ -129,7 +129,7 @@ export function FaqModule({
                     transition={{ duration: 0.3, ease: "easeInOut" }}
                   >
                     <div className='px-7 pb-8 pt-0'>
-                      <div className='h-px w-full bg-[#EAEAEA] mb-6' />
+                      <div className='h-px w-full bg-border mb-6' />
                       <p className='text-muted-foreground/60 text-base leading-relaxed font-light'>
                         {faq.answer}
                       </p>

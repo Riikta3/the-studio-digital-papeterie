@@ -94,7 +94,7 @@ export function TimelineModule({
                       : "md:pl-20 md:text-left text-left"
                   }`}
                 >
-                  <div className='bg-background border border-primary/20 shadow-xl hover:border-primary/30 transition-colors p-10 rounded-[2rem]'>
+                  <div className='bg-card border border-primary/20 shadow-[0_4px_24px_-8px_rgba(0,0,0,0.08)] hover:border-primary/30 transition-colors p-10 rounded-[2rem]'>
                     <h4 className='font-heading text-2xl md:text-3xl mb-3 text-foreground'>
                       {event.title}
                     </h4>

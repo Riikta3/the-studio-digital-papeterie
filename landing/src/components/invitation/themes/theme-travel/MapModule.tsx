@@ -150,11 +150,11 @@ export function MapModule({
                 href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(location.address)}`}
                 target='_blank'
                 rel='noopener noreferrer'
-                className='w-full rounded-[2rem] border border-primary/30 bg-transparent hover:bg-primary/5 transition-colors flex items-center justify-center gap-3 py-4 px-6 text-xs font-bold uppercase tracking-widest text-[#0E2F44]/90'
+                className='w-full rounded-[2rem] border border-primary/30 bg-transparent hover:bg-primary/5 transition-colors flex items-center justify-center gap-3 py-4 px-6 text-xs font-bold uppercase tracking-widest text-foreground/90'
               >
                 <Navigation className='w-4 h-4 text-primary/80' />
                 <span>Ouvrir dans Google Maps</span>
-                <ExternalLink className='w-3 h-3 text-[#0E2F44]/60 ml-1' />
+                <ExternalLink className='w-3 h-3 text-foreground/60 ml-1' />
               </a>
             </div>
           </div>

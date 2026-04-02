@@ -49,7 +49,7 @@ export function GiftListModule({ weddingId, extras, config }: GiftListProps) {
           {data.subtitle}
         </h3>
 
-        <div className='bg-background rounded-[2.5rem] p-8 md:p-16 border border-primary/20 shadow-xl max-w-2xl mx-auto'>
+        <div className='bg-card rounded-[2.5rem] p-8 md:p-16 border border-primary/20 shadow-[0_4px_24px_-8px_rgba(0,0,0,0.08)] max-w-2xl mx-auto'>
           {/* Header Icon */}
           <div className='w-20 h-20 bg-secondary rounded-full flex items-center justify-center mx-auto mb-8 text-primary'>
             <Gift className='w-8 h-8 opacity-90' />
@@ -65,7 +65,7 @@ export function GiftListModule({ weddingId, extras, config }: GiftListProps) {
               href={giftUrl}
               target='_blank'
               rel='noopener noreferrer'
-              className='group relative flex items-center gap-5 p-6 rounded-3xl border border-primary/20 bg-background transition-all duration-300 hover:border-primary hover:shadow-md'
+              className='group relative flex items-center gap-5 p-6 rounded-3xl border border-primary/20 bg-card transition-all duration-300 hover:border-primary hover:shadow-md'
             >
               <div className='w-12 h-12 rounded-2xl bg-secondary flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-primary-foreground transition-colors shrink-0'>
                 <CreditCard className='w-5 h-5' />
@@ -81,7 +81,7 @@ export function GiftListModule({ weddingId, extras, config }: GiftListProps) {
 
             {/* Physical Urn Option */}
             <div className='flex items-center gap-5 p-6 rounded-3xl border border-dashed border-primary/20 bg-muted/30'>
-              <div className='w-12 h-12 rounded-2xl bg-background border border-primary/20 flex items-center justify-center text-foreground/60 shrink-0'>
+              <div className='w-12 h-12 rounded-2xl bg-card border border-primary/20 flex items-center justify-center text-foreground/60 shrink-0'>
                 <Heart className='w-5 h-5 opacity-60' />
               </div>
               <div className='flex-1 text-left'>

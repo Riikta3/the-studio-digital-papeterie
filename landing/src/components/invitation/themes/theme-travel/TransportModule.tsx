@@ -108,7 +108,7 @@ export function TransportModule({
             {data.options.map((option) => (
               <div
                 key={option.id}
-                className='group flex flex-col sm:flex-row gap-8 items-start sm:items-center bg-background p-10 py-12 rounded-[2.5rem] border border-primary/20 shadow-xl hover:border-primary/30 transition-colors duration-300'
+                className='group flex flex-col sm:flex-row gap-8 items-start sm:items-center bg-card p-10 py-12 rounded-[2.5rem] border border-primary/20 shadow-[0_4px_24px_-8px_rgba(0,0,0,0.08)] hover:border-primary/30 transition-colors duration-300'
               >
                 <div className='w-16 h-16 bg-white border border-foreground/10 rounded-full flex items-center justify-center shrink-0 shadow-sm transition-transform duration-500'>
                   {getIcon(option.iconType)}
@@ -133,7 +133,7 @@ export function TransportModule({
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-50px" }}
             transition={{ duration: 0.8, delay: 0.2, ease: "easeOut" }}
-            className={`relative overflow-hidden bg-secondary rounded-[3rem] border border-primary/20 shadow-[0_8px_30px_-12px_rgba(0,0,0,0.04)] flex flex-col items-center text-center p-12 lg:p-14 ${data.options.length > 0 ? "md:col-span-5" : "col-span-12 max-w-md mx-auto w-full"}`}
+            className={`relative overflow-hidden bg-secondary rounded-[3rem] border border-primary/20 shadow-[0_4px_24px_-8px_rgba(0,0,0,0.08)] flex flex-col items-center text-center p-12 lg:p-14 ${data.options.length > 0 ? "md:col-span-5" : "col-span-12 max-w-md mx-auto w-full"}`}
           >
             <div
               className='absolute inset-0 opacity-[0.15] pointer-events-none'
@@ -147,7 +147,7 @@ export function TransportModule({
             />
 
             <div className='relative z-10 w-full flex flex-col items-center h-full'>
-              <div className='w-20 h-20 bg-background rounded-full flex items-center justify-center shadow-sm border border-primary/20 mt-4 mb-10'>
+              <div className='w-20 h-20 bg-card rounded-full flex items-center justify-center shadow-sm border border-primary/20 mt-4 mb-10'>
                 <Car className='w-7 h-7 text-primary' strokeWidth={1.5} />
               </div>
 
@@ -163,7 +163,7 @@ export function TransportModule({
                 <Button
                   asChild
                   size='lg'
-                  className='rounded-full h-auto py-3.5 px-8 whitespace-normal text-center text-[10px] sm:text-[11px] font-bold uppercase tracking-[0.15em] border border-primary/20 bg-background text-foreground/60 hover:bg-muted hover:text-primary hover:border-primary/30 transition-all gap-2 shadow-sm'
+                  className='rounded-full h-auto py-3.5 px-8 whitespace-normal text-center text-[10px] sm:text-[11px] font-bold uppercase tracking-[0.15em] border border-primary/20 bg-card text-foreground/60 hover:bg-muted hover:text-primary hover:border-primary/30 transition-all gap-2 shadow-sm'
                 >
                   <a
                     href={data.carpoolUrl}

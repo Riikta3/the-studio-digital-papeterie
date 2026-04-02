@@ -129,7 +129,7 @@ html {
   .theme-travel {
     --background: 60 33% 99%;
     --foreground: 214 51% 16%;
-    --card: 60 33% 99%;
+    --card: 210 40% 98%; /* Bleu horizon très pâle ≈ #F5F8FC */
     --card-foreground: 214 51% 16%;
     --primary: 32 60% 48%; /* Ocre */
     --primary-foreground: 0 0% 98%;

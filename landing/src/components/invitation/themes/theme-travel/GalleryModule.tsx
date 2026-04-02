@@ -138,7 +138,7 @@ export function GalleryModule({
 
           {/* Main Image */}
           <div
-            className={`relative w-full aspect-[4/3] md:aspect-[16/9] rounded-[2rem] overflow-hidden bg-background border border-primary/20 shadow-2xl ${isDemo ? "cursor-default" : "cursor-zoom-in"}`}
+            className={`relative w-full aspect-[4/3] md:aspect-[16/9] rounded-[2rem] overflow-hidden bg-card border border-primary/20 shadow-[0_4px_24px_-8px_rgba(0,0,0,0.08)] ${isDemo ? "cursor-default" : "cursor-zoom-in"}`}
             onClick={() => !isDemo && setLightboxOpen(true)}
           >
             <AnimatePresence initial={false} custom={direction} mode='popLayout'>
@@ -309,7 +309,7 @@ export function GalleryModule({
                     <img
                       src={images[current]}
                       alt={`Photo de mariage ${current + 1}`}
-                      className='max-w-full max-h-[85vh] object-contain rounded-xl shadow-2xl select-none'
+                      className='max-w-full max-h-[85vh] object-contain rounded-xl shadow-[0_4px_24px_-8px_rgba(0,0,0,0.08)] select-none'
                       draggable={false}
                     />
                   </motion.div>

@@ -192,7 +192,7 @@ export function CountdownModule({
                 initial={{ opacity: 0, y: -10, scale: 0.95 }}
                 animate={{ opacity: 1, y: 0, scale: 1 }}
                 exit={{ opacity: 0, y: -10, scale: 0.95 }}
-                className='absolute top-full mt-3 left-1/2 -translate-x-1/2 w-56 bg-background border border-primary/20 rounded-2xl shadow-2xl overflow-hidden'
+                className='absolute top-full mt-3 left-1/2 -translate-x-1/2 w-56 bg-card border border-primary/20 rounded-2xl shadow-[0_4px_24px_-8px_rgba(0,0,0,0.08)] overflow-hidden'
               >
                 <button
                   onClick={() => {
