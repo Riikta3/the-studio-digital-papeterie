@@ -86,7 +86,7 @@ export function MenuModule({
   return (
     <section className='w-full'>
       <div className='text-center mb-20 space-y-4'>
-        <h2 className='text-sm font-bold uppercase tracking-widest text-primary'>
+        <h2 className='text-[11px] sm:text-xs uppercase tracking-[0.4em] text-primary/60 font-sans'>
           Gastronomie
         </h2>
         <h3 className='font-heading text-5xl md:text-6xl italic'>Le Menu</h3>

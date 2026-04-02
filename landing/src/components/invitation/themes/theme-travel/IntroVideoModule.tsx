@@ -66,7 +66,7 @@ export function IntroVideoModule({
         transition={{ duration: 0.8, ease: "easeOut" }}
         className='max-w-4xl mx-auto px-4 text-center'
       >
-        <p className='text-xs md:text-sm font-bold uppercase tracking-[0.2em] text-foreground/60 mb-4'>
+        <p className='text-[11px] sm:text-xs uppercase tracking-[0.4em] text-primary/60 font-sans mb-4'>
           {data.title}
         </p>
         <h3 className='font-heading text-5xl md:text-6xl italic text-foreground mb-4'>
@@ -106,7 +106,7 @@ export function IntroVideoModule({
                   />
                 </div>
 
-                <span className='relative z-10 mt-6 text-[10px] md:text-xs font-bold uppercase tracking-[0.2em] text-foreground/60 opacity-70 group-hover:opacity-100 transition-opacity duration-300'>
+                <span className='relative z-10 mt-6 text-[10px] md:text-xs font-bold uppercase tracking-[0.2em] text-primary opacity-70 group-hover:opacity-100 transition-opacity duration-300'>
                   Lancer la vidéo
                 </span>
               </motion.div>

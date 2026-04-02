@@ -51,7 +51,7 @@ export function TimelineModule({
   return (
     <section className='w-full'>
       <div className='text-center mb-20 space-y-4'>
-        <h2 className='text-xs md:text-sm font-bold uppercase tracking-[0.2em] text-foreground/60'>
+        <h2 className='text-[11px] sm:text-xs uppercase tracking-[0.4em] text-primary/60 font-sans'>
           Programme
         </h2>
         <h3 className='font-heading text-5xl md:text-6xl italic text-foreground'>

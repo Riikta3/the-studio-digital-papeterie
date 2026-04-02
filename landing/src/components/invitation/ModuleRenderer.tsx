@@ -62,7 +62,7 @@ export async function ModuleRenderer({
         const ModuleComponent = getModuleComponent(themeId, moduleId)!;
         const isLast = index === knownModules.length - 1;
         const nextModuleId = knownModules[index + 1];
-        const skipDivider = moduleId === "rsvp" || nextModuleId === "rsvp";
+        const skipDivider = moduleId === "rsvp";
         return (
           <div key={moduleId}>
             <ModuleComponent

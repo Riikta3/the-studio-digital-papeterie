@@ -72,7 +72,7 @@ const FlipUnit = ({ value, label }: { value: number; label: string }) => {
           </motion.div>
         </AnimatePresence>
       </div>
-      <span className='text-[9px] sm:text-[11px] uppercase tracking-[0.25em] text-foreground/80 font-sans font-medium'>
+      <span className='text-[9px] sm:text-[11px] uppercase tracking-[0.4em] text-primary/60 font-sans font-medium'>
         {label}
       </span>
     </div>
