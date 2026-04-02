@@ -85,7 +85,7 @@ export function IntroVideoModule({
                 animate={{ opacity: 1 }}
                 exit={{ opacity: 0 }}
                 transition={{ duration: 0.5 }}
-                className='absolute inset-0 flex flex-col items-center justify-center cursor-pointer bg-white'
+                className='absolute inset-0 flex flex-col items-center justify-center cursor-pointer bg-[#FDFDFA]'
                 onClick={() => setIsPlaying(true)}
               >
                 {/* Decorative Pattern Background */}

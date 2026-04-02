@@ -95,7 +95,7 @@ export function FaqModule({
               whileInView={{ opacity: 1, scale: 1 }}
               viewport={{ once: true }}
               transition={{ delay: index * 0.05 }}
-              className='bg-[#FFFCFB] rounded-[1.5rem] border border-[#D35400]/20 shadow-[0_4px_20px_-10px_rgba(0,0,0,0.05)] overflow-hidden transition-all duration-300'
+              className='bg-[#FDFDFA] rounded-[1.5rem] border border-[#D35400]/20 shadow-[0_4px_20px_-10px_rgba(0,0,0,0.05)] overflow-hidden transition-all duration-300'
             >
               <button
                 onClick={() => setOpenIndex(openIndex === index ? null : index)}

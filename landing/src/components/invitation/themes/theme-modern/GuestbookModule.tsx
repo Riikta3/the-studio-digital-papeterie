@@ -35,7 +35,7 @@ export function GuestbookModule({
         <motion.div
           initial={{ opacity: 0, scale: 0.95 }}
           animate={{ opacity: 1, scale: 1 }}
-          className='max-w-2xl mx-auto bg-[#FFFCFB] rounded-[2.5rem] p-12 md:p-16 border border-[#D35400]/20 shadow-xl text-center'
+          className='max-w-2xl mx-auto bg-[#FDFDFA] rounded-[2.5rem] p-12 md:p-16 border border-[#D35400]/20 shadow-xl text-center'
         >
           <div className='w-20 h-20 bg-secondary rounded-full flex items-center justify-center mx-auto mb-8 text-[#D35400]'>
             <Heart
@@ -71,7 +71,7 @@ export function GuestbookModule({
           Un mot doux
         </h3>
 
-        <div className='bg-[#FFFCFB] rounded-[2.5rem] p-8 md:p-16 border border-[#D35400]/20 shadow-xl max-w-2xl mx-auto'>
+        <div className='bg-[#FDFDFA] rounded-[2.5rem] p-8 md:p-16 border border-[#D35400]/20 shadow-xl max-w-2xl mx-auto'>
           <div className='w-16 h-16 bg-secondary rounded-full flex items-center justify-center mx-auto mb-8 text-[#D35400] opacity-80'>
             <PenTool className='w-6 h-6' />
           </div>

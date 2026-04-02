@@ -71,7 +71,7 @@ export function VideoGuestbookModule({
         <motion.div
           initial={{ opacity: 0, scale: 0.95 }}
           animate={{ opacity: 1, scale: 1 }}
-          className='max-w-2xl mx-auto bg-white rounded-[2.5rem] p-12 md:p-16 border border-[#D35400]/20 shadow-xl text-center'
+          className='max-w-2xl mx-auto bg-[#FDFDFA] rounded-[2.5rem] p-12 md:p-16 border border-[#D35400]/20 shadow-xl text-center'
         >
           <div className='w-20 h-20 bg-secondary rounded-full flex items-center justify-center mx-auto mb-8 text-[#D35400]'>
             <Video
@@ -115,7 +115,7 @@ export function VideoGuestbookModule({
           <span className='italic text-[#D35400] opacity-80'>Vidéo</span>
         </h2>
 
-        <div className='bg-white rounded-[2.5rem] p-8 md:p-16 border border-[#D35400]/20 shadow-xl max-w-2xl mx-auto'>
+        <div className='bg-[#FDFDFA] rounded-[2.5rem] p-8 md:p-16 border border-[#D35400]/20 shadow-xl max-w-2xl mx-auto'>
           {!previewUrl ? (
             <div className='space-y-8'>
               <div className='w-20 h-20 bg-secondary rounded-full flex items-center justify-center mx-auto text-[#D35400]'>

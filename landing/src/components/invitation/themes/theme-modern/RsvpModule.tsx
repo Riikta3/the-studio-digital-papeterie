@@ -19,7 +19,7 @@ export function RsvpModule({ weddingId, isDemo = false }: ModuleProps) {
   const inputClass = "w-full bg-transparent border-b border-[#D35400]/20 py-3 text-sm text-[#0E2F44] placeholder:text-[#0E2F44]/30 focus:outline-none focus:border-[#D35400]/50 transition-colors font-sans";
 
   return (
-    <section className="w-full py-16 bg-[#FFFCFB]">
+    <section className="w-full py-16 bg-[#FDFDFA]">
       <div className="max-w-md mx-auto px-4">
         <p className="text-[10px] uppercase tracking-[0.4em] text-[#D35400]/60 font-sans mb-2 text-center">Votre réponse</p>
         <h2 className="text-3xl text-center text-[#0E2F44] mb-10" style={{ fontFamily:"'Playfair Display', Georgia, serif", fontStyle:"italic" }}>

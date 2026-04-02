@@ -108,7 +108,7 @@ export function TransportModule({
             {data.options.map((option) => (
               <div
                 key={option.id}
-                className='group flex flex-col sm:flex-row gap-8 items-start sm:items-center bg-white p-10 py-12 rounded-[2.5rem] border border-[#D35400]/20 shadow-xl hover:border-primary/30 transition-colors duration-300'
+                className='group flex flex-col sm:flex-row gap-8 items-start sm:items-center bg-[#FDFDFA] p-10 py-12 rounded-[2.5rem] border border-[#D35400]/20 shadow-xl hover:border-primary/30 transition-colors duration-300'
               >
                 <div className='w-16 h-16 bg-muted/40 rounded-full flex items-center justify-center shrink-0 border border-primary/10 transition-transform duration-500'>
                   {getIcon(option.iconType)}
@@ -147,7 +147,7 @@ export function TransportModule({
             />
 
             <div className='relative z-10 w-full flex flex-col items-center h-full'>
-              <div className='w-20 h-20 bg-white rounded-full flex items-center justify-center shadow-sm border border-[#D35400]/20 mt-4 mb-10'>
+              <div className='w-20 h-20 bg-[#FDFDFA] rounded-full flex items-center justify-center shadow-sm border border-[#D35400]/20 mt-4 mb-10'>
                 <Car className='w-7 h-7 text-[#D35400]' strokeWidth={1.5} />
               </div>
 
@@ -163,7 +163,7 @@ export function TransportModule({
                 <Button
                   asChild
                   size='lg'
-                  className='rounded-full h-auto py-3.5 px-8 whitespace-normal text-center text-[10px] sm:text-[11px] font-bold uppercase tracking-[0.15em] border border-[#D35400]/20 bg-white text-[#0E2F44]/60 hover:bg-muted hover:text-primary hover:border-primary/30 transition-all gap-2 shadow-sm'
+                  className='rounded-full h-auto py-3.5 px-8 whitespace-normal text-center text-[10px] sm:text-[11px] font-bold uppercase tracking-[0.15em] border border-[#D35400]/20 bg-[#FDFDFA] text-[#0E2F44]/60 hover:bg-muted hover:text-primary hover:border-primary/30 transition-all gap-2 shadow-sm'
                 >
                   <a
                     href={data.carpoolUrl}

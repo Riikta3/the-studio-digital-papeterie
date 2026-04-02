@@ -59,7 +59,7 @@ export function DressCodeModule({
         {isSplit ? (
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 max-w-2xl mx-auto">
             {/* Men */}
-            <div className="bg-[#FFFCFB] rounded-[2rem] p-8 md:p-10 border border-[#D35400]/20 shadow-xl flex flex-col items-center gap-4">
+            <div className="bg-[#FDFDFA] rounded-[2rem] p-8 md:p-10 border border-[#D35400]/20 shadow-xl flex flex-col items-center gap-4">
               <div className="w-14 h-14 bg-secondary rounded-full flex items-center justify-center text-[#D35400]">
                 <Shirt className="w-5 h-5 opacity-80" />
               </div>
@@ -72,7 +72,7 @@ export function DressCodeModule({
             </div>
 
             {/* Women */}
-            <div className="bg-[#FFFCFB] rounded-[2rem] p-8 md:p-10 border border-[#D35400]/20 shadow-xl flex flex-col items-center gap-4">
+            <div className="bg-[#FDFDFA] rounded-[2rem] p-8 md:p-10 border border-[#D35400]/20 shadow-xl flex flex-col items-center gap-4">
               <div className="w-14 h-14 bg-secondary rounded-full flex items-center justify-center text-[#D35400]">
                 <Shirt className="w-5 h-5 opacity-80" />
               </div>
@@ -85,7 +85,7 @@ export function DressCodeModule({
             </div>
           </div>
         ) : (
-          <div className="bg-[#FFFCFB] rounded-[2rem] p-10 md:p-14 border border-[#D35400]/20 shadow-xl max-w-2xl mx-auto flex flex-col items-center">
+          <div className="bg-[#FDFDFA] rounded-[2rem] p-10 md:p-14 border border-[#D35400]/20 shadow-xl max-w-2xl mx-auto flex flex-col items-center">
             <div className="w-16 h-16 bg-secondary rounded-full flex items-center justify-center mb-6 text-[#D35400]">
               <Shirt className="w-6 h-6 opacity-80" />
             </div>

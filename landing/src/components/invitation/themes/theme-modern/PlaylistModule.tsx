@@ -116,7 +116,7 @@ export function PlaylistModule({
           {data.subtitle}
         </h3>
 
-        <div className='bg-[#FFFCFB] rounded-[2rem] p-8 md:p-12 border border-[#D35400]/20 shadow-xl max-w-2xl mx-auto flex flex-col items-center transition-all duration-500'>
+        <div className='bg-[#FDFDFA] rounded-[2rem] p-8 md:p-12 border border-[#D35400]/20 shadow-xl max-w-2xl mx-auto flex flex-col items-center transition-all duration-500'>
           <div className='w-16 h-16 bg-secondary rounded-full flex items-center justify-center mb-6 text-[#D35400] shrink-0'>
             <Music className='w-6 h-6 opacity-80' />
           </div>
@@ -138,7 +138,7 @@ export function PlaylistModule({
                     : "Rechercher un titre, un artiste..."
                 }
                 disabled={addedTracks.size >= 3}
-                className='w-full bg-[#FFFCFB] border border-[#D35400]/20 text-[#0E2F44] placeholder:text-muted-foreground/50 rounded-full py-4 pl-14 pr-6 focus:outline-none focus:ring-1 focus:ring-primary/40 focus:border-primary/60 transition-all font-light shadow-sm hover:border-primary/30 disabled:bg-secondary disabled:cursor-not-allowed disabled:opacity-70'
+                className='w-full bg-[#FDFDFA] border border-[#D35400]/20 text-[#0E2F44] placeholder:text-muted-foreground/50 rounded-full py-4 pl-14 pr-6 focus:outline-none focus:ring-1 focus:ring-primary/40 focus:border-primary/60 transition-all font-light shadow-sm hover:border-primary/30 disabled:bg-secondary disabled:cursor-not-allowed disabled:opacity-70'
               />
             </div>
 
@@ -199,8 +199,8 @@ export function PlaylistModule({
                             isAdded
                               ? "bg-[#D35400] text-white"
                               : addedTracks.size >= 3
-                                ? "bg-[#FFFCFB] border border-[#D35400]/20 text-muted-foreground/50 cursor-not-allowed"
-                                : "bg-[#FFFCFB] border border-[#D35400]/20 text-[#D35400] hover:border-primary/30 hover:bg-secondary"
+                                ? "bg-[#FDFDFA] border border-[#D35400]/20 text-muted-foreground/50 cursor-not-allowed"
+                                : "bg-[#FDFDFA] border border-[#D35400]/20 text-[#D35400] hover:border-primary/30 hover:bg-secondary"
                           }`}
                         >
                           <AnimatePresence mode='wait'>
@@ -243,7 +243,7 @@ export function PlaylistModule({
                       animate={{ opacity: 1, y: 0 }}
                       exit={{ opacity: 0, scale: 0.95 }}
                       transition={{ duration: 0.3 }}
-                      className='flex items-center gap-4 bg-[#FFFCFB] border border-[#D35400]/20 p-3 rounded-2xl group transition-all hover:bg-card hover:border-primary/30 hover:shadow-sm'
+                      className='flex items-center gap-4 bg-[#FDFDFA] border border-[#D35400]/20 p-3 rounded-2xl group transition-all hover:bg-card hover:border-primary/30 hover:shadow-sm'
                     >
                       <img
                         src={track.coverUrl}

@@ -13,6 +13,10 @@ import { ModulesWrapper } from "./ModulesWrapper";
 import { ScrollToTop } from "./ScrollToTop";
 import React from "react";
 
+const THEME_BG: Record<string, string> = {
+  "theme-modern": "#FDFDFA",
+};
+
 const HEROES: Record<string, React.ComponentType<any>> = {
   "theme-minimalist": MinimalistHero,
   "theme-floral": FloralHero,
@@ -56,12 +60,14 @@ export async function ThemedInvitationLayout({
 }: ThemedInvitationLayoutProps) {
   const Hero = HEROES[themeId] ?? MinimalistHero;
   const Footer = FOOTERS[themeId] ?? MinimalistFooter;
+  const bg = THEME_BG[themeId] ?? "";
 
   return (
-    <div className="font-sans">
+    <div className="font-sans" style={bg ? { backgroundColor: bg } : {}}>
       <Hero firstName={firstName} partnerName={partnerName} weddingDate={weddingDate} />
       <ModulesWrapper>
-        <main id="modules" className="max-w-4xl mx-auto py-20 px-4 relative z-10">
+        <div id="modules" style={bg ? { backgroundColor: bg } : {}}>
+        <main className="max-w-4xl mx-auto py-20 px-4 relative z-10">
           <ModuleRenderer
             modules={modules}
             weddingId={weddingId}
@@ -74,6 +80,7 @@ export async function ThemedInvitationLayout({
             themeId={themeId}
           />
         </main>
+        </div>
       </ModulesWrapper>
       <Footer profile={profile} />
       <ScrollToTop />

@@ -80,8 +80,8 @@ export function TimelineModule({
                 <div className='hidden md:block w-1/2' />
 
                 {/* Center Node (Just Time, no dots) */}
-                <div className='absolute left-0 md:left-1/2 md:-translate-x-1/2 flex items-center justify-center z-10 w-24 bg-[#FFFCFB] py-4'>
-                  <span className='text-[10px] md:text-xs font-bold uppercase tracking-[0.2em] text-[#D35400] border border-[#D35400]/20 bg-[#FFFCFB] px-4 py-1.5 rounded-full shadow-[0_2px_10px_-3px_rgba(0,0,0,0.04)] mb-0'>
+                <div className='absolute left-0 md:left-1/2 md:-translate-x-1/2 flex items-center justify-center z-10 w-24 bg-[#FDFDFA] py-4'>
+                  <span className='text-[10px] md:text-xs font-bold uppercase tracking-[0.2em] text-[#D35400] border border-[#D35400]/20 bg-[#FDFDFA] px-4 py-1.5 rounded-full shadow-[0_2px_10px_-3px_rgba(0,0,0,0.04)] mb-0'>
                     {event.time}
                   </span>
                 </div>
@@ -94,7 +94,7 @@ export function TimelineModule({
                       : "md:pl-20 md:text-left text-left"
                   }`}
                 >
-                  <div className='bg-white border border-[#D35400]/20 shadow-xl hover:border-primary/30 transition-colors p-10 rounded-[2rem]'>
+                  <div className='bg-[#FDFDFA] border border-[#D35400]/20 shadow-xl hover:border-primary/30 transition-colors p-10 rounded-[2rem]'>
                     <h4 className='font-heading text-2xl md:text-3xl mb-3 text-[#0E2F44]'>
                       {event.title}
                     </h4>

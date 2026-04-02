@@ -16,7 +16,7 @@ export const THEME_STYLES: Record<string, { bg: string; color: string }> = {
     color: "#1e3a8a",
   },
   "theme-modern": {
-    bg: "#FFFCFB",
+    bg: "#FDFDFA",
     color: "#1B4F72",
   },
 };

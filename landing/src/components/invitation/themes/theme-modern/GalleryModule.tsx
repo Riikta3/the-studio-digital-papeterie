@@ -138,7 +138,7 @@ export function GalleryModule({
 
           {/* Main Image */}
           <div
-            className={`relative w-full aspect-[4/3] md:aspect-[16/9] rounded-[2rem] overflow-hidden bg-[#FFFCFB] border border-[#D35400]/20 shadow-2xl ${isDemo ? "cursor-default" : "cursor-zoom-in"}`}
+            className={`relative w-full aspect-[4/3] md:aspect-[16/9] rounded-[2rem] overflow-hidden bg-[#FDFDFA] border border-[#D35400]/20 shadow-2xl ${isDemo ? "cursor-default" : "cursor-zoom-in"}`}
             onClick={() => !isDemo && setLightboxOpen(true)}
           >
             <AnimatePresence initial={false} custom={direction} mode='popLayout'>

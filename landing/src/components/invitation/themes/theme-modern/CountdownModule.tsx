@@ -51,7 +51,7 @@ export function CountdownModule({ weddingDate, partner1, partner2 }: ModuleProps
   const googleUrl = `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${encodeURIComponent(title)}&dates=${toStamp(d)}/${toStamp(nd)}`;
 
   return (
-    <section className="w-full pt-16 pb-16" style={{ background: "#FFFCFB" }}>
+    <section className="w-full pt-16 pb-16" style={{ background: "#FDFDFA" }}>
       <motion.div initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: "-50px" }} transition={{ duration: 0.9, ease: "easeOut" }}
         className="max-w-2xl mx-auto flex flex-col items-center text-center px-4 gap-8">
         <p className="text-[10px] uppercase tracking-[0.4em] text-[#D35400]/60 font-sans">Le grand jour approche</p>
@@ -81,14 +81,14 @@ export function CountdownModule({ weddingDate, partner1, partner2 }: ModuleProps
           </button>
           {calOpen && (
             <motion.div initial={{ opacity: 0, y: -6 }} animate={{ opacity: 1, y: 0 }}
-              className="absolute top-full mt-2 left-1/2 -translate-x-1/2 w-48 bg-[#FFFCFB] border border-[#D35400]/20 rounded-2xl shadow-xl overflow-hidden z-50">
+              className="absolute top-full mt-2 left-1/2 -translate-x-1/2 w-48 bg-[#FDFDFA] border border-[#D35400]/20 rounded-2xl shadow-xl overflow-hidden z-50">
               <button onClick={() => { window.open(googleUrl,"_blank"); setCalOpen(false); }}
-                className="w-full px-4 py-3 text-left text-sm text-[#0E2F44] hover:bg-[#FFFCFB] transition-colors border-b border-[#D35400]/10">Google Calendar</button>
+                className="w-full px-4 py-3 text-left text-sm text-[#0E2F44] hover:bg-[#FDFDFA] transition-colors border-b border-[#D35400]/10">Google Calendar</button>
               <button onClick={() => {
                 const blob = new Blob([generateICS(target,title)],{type:"text/calendar"});
                 const url = URL.createObjectURL(blob); const a = document.createElement("a"); a.href=url; a.download="mariage.ics";
                 document.body.appendChild(a); a.click(); document.body.removeChild(a); URL.revokeObjectURL(url); setCalOpen(false);
-              }} className="w-full px-4 py-3 text-left text-sm text-[#0E2F44] hover:bg-[#FFFCFB] transition-colors">Apple / Outlook (.ics)</button>
+              }} className="w-full px-4 py-3 text-left text-sm text-[#0E2F44] hover:bg-[#FDFDFA] transition-colors">Apple / Outlook (.ics)</button>
             </motion.div>
           )}
         </div>

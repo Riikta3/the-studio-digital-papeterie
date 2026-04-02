@@ -33,7 +33,7 @@ export function InvitationHero({
     : "";
 
   return (
-    <section className='h-[100svh] flex flex-col bg-[#FFFCFB] overflow-hidden'>
+    <section className='h-[100svh] flex flex-col bg-[#FDFDFA] overflow-hidden'>
       {/* ── TEXT — au-dessus de la vidéo dans le flux ─────────────────── */}
       <motion.div
         initial={{ opacity: 0, y: 24 }}
