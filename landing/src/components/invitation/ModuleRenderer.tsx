@@ -7,7 +7,7 @@ import { Divider as RoyalDivider } from "./themes/theme-royal/Divider";
 import { Divider as TravelDivider } from "./themes/theme-travel/Divider";
 import React from "react";
 
-const THEME_DIVIDERS: Record<string, React.ComponentType<{ variant?: string }>> = {
+const THEME_DIVIDERS: Record<string, React.ComponentType<any>> = {
   "theme-minimalist": MinimalistDivider,
   "theme-floral": FloralDivider,
   "theme-boho": BohoDivider,
@@ -54,7 +54,7 @@ export async function ModuleRenderer({
     .filter((id) => getModuleComponent(themeId, id) !== null)
     .sort((a, b) => (positionMap[a] ?? 99) - (positionMap[b] ?? 99));
 
-  const DividerComponent = (THEME_DIVIDERS[themeId] ?? MinimalistDivider) as React.ComponentType<{ variant?: string }>;
+  const DividerComponent = (THEME_DIVIDERS[themeId] ?? MinimalistDivider) as React.ComponentType<any>;
 
   return (
     <div className="flex flex-col w-full">
