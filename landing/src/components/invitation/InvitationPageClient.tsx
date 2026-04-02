@@ -551,7 +551,7 @@ export function InvitationPageClient({
   }, [isDemo]);
 
   return (
-    <InvitationContext.Provider value={{ introDone }}>
+    <InvitationContext.Provider value={{ introDone, activeTheme }}>
     <InvitationDemoContext.Provider
       value={{ isDemo, activeTheme, heroAsset, animationSequence }}
     >

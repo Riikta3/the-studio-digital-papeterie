@@ -3,31 +3,19 @@
 import { AnimatePresence, motion } from "framer-motion";
 import { ArrowUp } from "lucide-react";
 import { useEffect, useState } from "react";
+import { useInvitationContext } from "./InvitationContext";
 
 export function ScrollToTop() {
   const [isVisible, setIsVisible] = useState(false);
+  const { activeTheme } = useInvitationContext();
 
-  // Show button when page is scrolled down
   useEffect(() => {
-    const toggleVisibility = () => {
-      // Show when scrolled down 500px
-      if (window.scrollY > 500) {
-        setIsVisible(true);
-      } else {
-        setIsVisible(false);
-      }
-    };
-
+    const toggleVisibility = () => setIsVisible(window.scrollY > 500);
     window.addEventListener("scroll", toggleVisibility);
     return () => window.removeEventListener("scroll", toggleVisibility);
   }, []);
 
-  const scrollToTop = () => {
-    window.scrollTo({
-      top: 0,
-      behavior: "smooth",
-    });
-  };
+  const scrollToTop = () => window.scrollTo({ top: 0, behavior: "smooth" });
 
   return (
     <AnimatePresence>
@@ -38,7 +26,7 @@ export function ScrollToTop() {
           exit={{ opacity: 0, scale: 0.5, y: 20 }}
           transition={{ duration: 0.3 }}
           onClick={scrollToTop}
-          className='fixed bottom-8 right-8 z-50 p-3 rounded-full bg-primary/90 text-primary-foreground shadow-lg hover:bg-primary hover:-translate-y-1 transition-all duration-300'
+          className={`fixed bottom-8 right-8 z-50 p-3 rounded-full shadow-lg hover:-translate-y-1 transition-all duration-300 theme-${activeTheme} bg-primary text-primary-foreground hover:opacity-90`}
           aria-label='Retour en haut'
         >
           <ArrowUp className='w-5 h-5' />

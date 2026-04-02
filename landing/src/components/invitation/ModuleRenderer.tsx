@@ -61,6 +61,8 @@ export async function ModuleRenderer({
       {knownModules.map((moduleId, index) => {
         const ModuleComponent = getModuleComponent(themeId, moduleId)!;
         const isLast = index === knownModules.length - 1;
+        const nextModuleId = knownModules[index + 1];
+        const skipDivider = moduleId === "rsvp" || nextModuleId === "rsvp";
         return (
           <div key={moduleId}>
             <ModuleComponent
@@ -72,7 +74,7 @@ export async function ModuleRenderer({
               partner2={partner2}
               isDemo={isDemo}
             />
-            {!isLast && <DividerComponent variant={index % 2 === 0 ? "plane-path" : "plane-hearts"} />}
+            {!isLast && !skipDivider && <DividerComponent variant={index % 2 === 0 ? "plane-path" : "plane-hearts"} />}
           </div>
         );
       })}
