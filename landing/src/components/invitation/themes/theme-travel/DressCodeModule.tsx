@@ -60,8 +60,8 @@ export function DressCodeModule({
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 max-w-2xl mx-auto">
             {/* Men */}
             <div className="bg-background rounded-[2rem] p-8 md:p-10 border border-primary/20 shadow-xl flex flex-col items-center gap-4">
-              <div className="w-14 h-14 bg-secondary rounded-full flex items-center justify-center text-primary">
-                <Shirt className="w-5 h-5 opacity-80" />
+              <div className="w-14 h-14 bg-white border border-foreground/10 rounded-full flex items-center justify-center text-primary shadow-sm">
+                <Shirt className="w-5 h-5" />
               </div>
               <p className="text-xs font-bold uppercase tracking-[0.15em] text-foreground/60">
                 Homme
@@ -73,8 +73,8 @@ export function DressCodeModule({
 
             {/* Women */}
             <div className="bg-background rounded-[2rem] p-8 md:p-10 border border-primary/20 shadow-xl flex flex-col items-center gap-4">
-              <div className="w-14 h-14 bg-secondary rounded-full flex items-center justify-center text-primary">
-                <Shirt className="w-5 h-5 opacity-80" />
+              <div className="w-14 h-14 bg-white border border-foreground/10 rounded-full flex items-center justify-center text-primary shadow-sm">
+                <Shirt className="w-5 h-5" />
               </div>
               <p className="text-xs font-bold uppercase tracking-[0.15em] text-foreground/60">
                 Femme
@@ -86,8 +86,8 @@ export function DressCodeModule({
           </div>
         ) : (
           <div className="bg-background rounded-[2rem] p-10 md:p-14 border border-primary/20 shadow-xl max-w-2xl mx-auto flex flex-col items-center">
-            <div className="w-16 h-16 bg-secondary rounded-full flex items-center justify-center mb-6 text-primary">
-              <Shirt className="w-6 h-6 opacity-80" />
+            <div className="w-16 h-16 bg-white border border-foreground/10 rounded-full flex items-center justify-center mb-10 text-primary shadow-sm">
+              <Shirt className="w-7 h-7" />
             </div>
             <p className="text-muted-foreground/60 text-base md:text-lg leading-relaxed font-light">
               {data.description}

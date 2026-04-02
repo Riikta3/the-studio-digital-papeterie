@@ -110,7 +110,7 @@ export function TransportModule({
                 key={option.id}
                 className='group flex flex-col sm:flex-row gap-8 items-start sm:items-center bg-background p-10 py-12 rounded-[2.5rem] border border-primary/20 shadow-xl hover:border-primary/30 transition-colors duration-300'
               >
-                <div className='w-16 h-16 bg-muted/40 rounded-full flex items-center justify-center shrink-0 border border-primary/10 transition-transform duration-500'>
+                <div className='w-16 h-16 bg-white border border-foreground/10 rounded-full flex items-center justify-center shrink-0 shadow-sm transition-transform duration-500'>
                   {getIcon(option.iconType)}
                 </div>
                 <div className='flex flex-col justify-center'>

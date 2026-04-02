@@ -128,7 +128,7 @@ export function AccommodationModule({
               transition={{ delay: index * 0.1, duration: 0.6 }}
               className='bg-background rounded-[2rem] p-8 border border-primary/20 shadow-xl flex flex-col h-full group hover:border-primary/30 transition-colors'
             >
-              <div className='w-14 h-14 bg-secondary rounded-full flex items-center justify-center mb-6 text-primary'>
+              <div className='w-14 h-14 bg-white border border-foreground/10 rounded-full flex items-center justify-center mb-6 text-primary shadow-sm group-hover:border-primary/20 transition-colors'>
                 {getIcon(option.type)}
               </div>
 
