@@ -1,7 +1,7 @@
 # Spec — Refonte Landing Page "The Studio"
 
 **Date :** 2026-03-13
-**Projet :** The Studio Digital Papeterie
+**Projet :** The Studio Papeterie Digital
 **Scope :** Refonte complète de la landing page (`landing/src/app/[locale]/page.tsx` et composants associés)
 
 ---

@@ -404,7 +404,7 @@ export function Navbar() {
             <div className='relative h-12 w-32'>
               <Image
                 src='/images/logo.png'
-                alt='The Studio Digital Papeterie'
+                alt='The Studio Papeterie Digital'
                 fill
                 className='object-contain mix-blend-multiply'
                 priority
@@ -1691,7 +1691,7 @@ export async function Footer() {
             <div className='relative h-10 w-28'>
               <Image
                 src='/images/logo.png'
-                alt='The Studio Digital Papeterie'
+                alt='The Studio Papeterie Digital'
                 fill
                 className='object-contain brightness-0 invert'
               />

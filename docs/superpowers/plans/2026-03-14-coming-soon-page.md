@@ -132,7 +132,7 @@ import type { Metadata } from "next";
 import Image from "next/image";
 
 export const metadata: Metadata = {
-  title: "Bientôt disponible — The Studio Digital Papeterie",
+  title: "Bientôt disponible — The Studio Papeterie Digital",
   description: "L'art du faire-part repensé pour l'ère digitale.",
 };
 
@@ -169,7 +169,7 @@ export default function ComingSoonPage() {
         <div className='relative h-10 w-auto min-w-[7rem]'>
           <Image
             src='/images/logo.png'
-            alt='The Studio Digital Papeterie'
+            alt='The Studio Papeterie Digital'
             fill
             className='object-contain opacity-80'
             priority
@@ -213,7 +213,7 @@ export default function ComingSoonPage() {
 
       {/* Footer */}
       <p className='absolute bottom-8 left-1/2 -translate-x-1/2 text-[0.65rem] uppercase tracking-widest text-muted-foreground/50 whitespace-nowrap'>
-        © The Studio Digital Papeterie
+        © The Studio Papeterie Digital
       </p>
     </main>
   );

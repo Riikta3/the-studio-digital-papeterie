@@ -105,7 +105,7 @@ Server component. Static, no client interactivity.
 - Titre H1: `"Quelque chose de beau arrive."` — `font-heading text-[clamp(3rem,8vw,5.5rem)] font-medium leading-[0.95]`, le mot "beau" en `<em>` avec `italic text-primary font-semibold`
 - Sous-titre: `"L'art du faire-part repensé pour l'ère digitale — bientôt disponible."` — `font-heading italic text-muted-foreground`
 - Contact: `"Une question ? contact@thestudiopapeteriedigitale.com"` — `text-xs text-muted-foreground`, lien `mailto:` avec `text-primary`
-- Footer: `"© The Studio Digital Papeterie"` — `absolute bottom-8 text-[0.65rem] uppercase tracking-widest text-muted-foreground/50`
+- Footer: `"© The Studio Papeterie Digital"` — `absolute bottom-8 text-[0.65rem] uppercase tracking-widest text-muted-foreground/50`
 
 **Layout:** `min-h-screen flex flex-col items-center justify-center text-center px-4 relative overflow-hidden`
 
