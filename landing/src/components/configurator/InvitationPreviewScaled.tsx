@@ -44,7 +44,7 @@ export function InvitationPreviewScaled({
 
   return (
     <InvitationDemoContext.Provider value={{ isDemo: true, activeTheme: theme, heroAsset: { frames: 0, sequencePath: null }, animationSequence: null }}>
-      <div style={{ width: containerWidth, overflow: "hidden", position: "relative" }}>
+      <div className={theme} style={{ width: containerWidth, overflow: "hidden", position: "relative" }}>
         <div style={{ width: VIRTUAL_WIDTH, transformOrigin: "top left", transform: `scale(${scale})` }}>
           <div style={{ pointerEvents: "none", userSelect: "none" }}>
             {/* Badge animation — InvitationIntro skippé (fixed/inset-0, incompatible avec preview scalée) */}

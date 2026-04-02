@@ -126,12 +126,12 @@ html {
     /* On passe en light pour le classique 'Papier' */
   }
 
-  .theme-modern {
+  .theme-travel {
     --background: 60 33% 99%;
     --foreground: 214 51% 16%;
     --card: 60 33% 99%;
     --card-foreground: 214 51% 16%;
-    --primary: 18 100% 41%;
+    --primary: 32 60% 48%; /* Ocre */
     --primary-foreground: 0 0% 98%;
     --secondary: 207 37% 26%;
     --secondary-foreground: 0 0% 98%;
@@ -140,7 +140,7 @@ html {
     --accent: 207 55% 90%;
     --accent-foreground: 214 51% 16%;
     --border: 210 20% 88%;
-    --ring: 18 100% 41%;
+    --ring: 32 60% 48%; /* Ocre */
     --radius: 0.75rem;
     --font-heading: var(--font-epilogue);
     --font-body: var(--font-inter);

@@ -63,11 +63,11 @@ export async function ThemedInvitationLayout({
   const bg = THEME_BG[themeId] ?? "";
 
   return (
-    <div className="font-sans" style={bg ? { backgroundColor: bg } : {}}>
+    <div className={`font-sans ${themeId}`} style={bg ? { backgroundColor: bg } : {}}>
       <Hero firstName={firstName} partnerName={partnerName} weddingDate={weddingDate} />
       <ModulesWrapper>
         <div id="modules" style={bg ? { backgroundColor: bg } : {}}>
-        <main className="max-w-4xl mx-auto py-20 px-4 relative z-10">
+        <main className="max-w-4xl mx-auto py-3 px-4 relative z-10">
           <ModuleRenderer
             modules={modules}
             weddingId={weddingId}
