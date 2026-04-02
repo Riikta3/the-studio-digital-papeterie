@@ -72,7 +72,7 @@ export async function ModuleRenderer({
               partner2={partner2}
               isDemo={isDemo}
             />
-            {!isLast && <DividerComponent />}
+            {!isLast && <DividerComponent variant={index % 2 === 0 ? "plane-path" : "plane-hearts"} />}
           </div>
         );
       })}

@@ -3,6 +3,9 @@ import { motion } from "framer-motion";
 import { useEffect, useRef } from "react";
 import { useInvitationContext } from "../../InvitationContext";
 
+const FILTER_ABYSSE =
+  "brightness(0) saturate(100%) invert(22%) sepia(60%) saturate(600%) hue-rotate(178deg) brightness(85%)";
+
 interface InvitationHeroProps {
   firstName: string;
   partnerName: string;
@@ -24,6 +27,7 @@ export function InvitationHero({
     video.playbackRate = 1;
     video.play();
   }, [introDone]);
+
   const formattedDate = weddingDate
     ? new Intl.DateTimeFormat("fr-FR", {
         day: "numeric",
@@ -33,13 +37,23 @@ export function InvitationHero({
     : "";
 
   return (
-    <section className='h-[100svh] flex flex-col bg-[#FDFDFA] overflow-hidden'>
-      {/* ── TEXT — au-dessus de la vidéo dans le flux ─────────────────── */}
+    <section className='h-[100svh] flex flex-col bg-[#FDFDFA] overflow-hidden relative'>
+
+      {/* ── Timbre — haut droite ───────────────────────────────────────── */}
+      <img
+        src='/videos/theme/travel/Image iLoveIMG (6).png'
+        alt=''
+        aria-hidden='true'
+        className='absolute top-3 right-3 w-16 md:w-20 pointer-events-none select-none z-10'
+        style={{ filter: FILTER_ABYSSE, opacity: 0.18 }}
+      />
+
+      {/* ── TEXT ──────────────────────────────────────────────────────── */}
       <motion.div
         initial={{ opacity: 0, y: 24 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8, ease: "easeOut" }}
-        className='flex flex-col items-center text-center gap-3 pt-10 pb-6 px-8 shrink-0'
+        className='flex flex-col items-center text-center gap-3 pt-10 pb-4 px-8 shrink-0 relative z-10'
       >
         <p className='text-[9px] uppercase tracking-[0.45em] text-[#1B4F72]/50 font-sans'>
           Invitation au mariage de
@@ -68,13 +82,25 @@ export function InvitationHero({
         </div>
       </motion.div>
 
-      {/* ── VIDEO — prend le reste de la hauteur ──────────────────────── */}
-      <div className='flex-1 relative overflow-hidden'>
+      {/* ── Avion tracé pointillés — entre texte et vidéo ─────────────── */}
+      <div className='relative shrink-0 flex justify-center items-center py-2 z-10'>
+        <img
+          src='/videos/theme/travel/Image iLoveIMG.png'
+          alt=''
+          aria-hidden='true'
+          className='w-48 md:w-64'
+          style={{ filter: FILTER_ABYSSE, opacity: 0.2 }}
+        />
+      </div>
+
+      {/* ── VIDEO ─────────────────────────────────────────────────────── */}
+      <div className='flex-1 min-h-0 relative overflow-hidden'>
+
         <video
           loop
           muted
           playsInline
-          className='w-full h-full pb-10 object-contain object-top'
+          className='absolute inset-0 w-full h-full object-contain object-top md:max-h-[60vh] md:w-auto md:left-1/2 md:-translate-x-1/2'
           src='/videos/theme/travel/mariage-voyage-hublot-avion.webm'
           ref={videoRef}
         />
@@ -84,12 +110,12 @@ export function InvitationHero({
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 1.2, duration: 0.8 }}
-          className='absolute bottom-8 left-0 right-0 flex justify-center'
+          className='absolute bottom-8 left-0 right-0 flex justify-center z-20'
         >
           <motion.div
             animate={{ y: [0, 6, 0] }}
             transition={{ repeat: Infinity, duration: 1.6, ease: "easeInOut" }}
-            className='flex flex-col items-center gap-1 cursor-pointer mt-10'
+            className='flex flex-col items-center gap-1 cursor-pointer'
             onClick={() =>
               document
                 .getElementById("modules")
@@ -99,13 +125,7 @@ export function InvitationHero({
             <span className='text-[9px] uppercase tracking-[0.3em] text-[#0E2F44]/40 font-sans'>
               Découvrir
             </span>
-            <svg
-              width='16'
-              height='16'
-              viewBox='0 0 16 16'
-              fill='none'
-              className='text-[#0E2F44]/30'
-            >
+            <svg width='16' height='16' viewBox='0 0 16 16' fill='none' className='text-[#0E2F44]/30'>
               <path
                 d='M8 3v10M8 13l-4-4M8 13l4-4'
                 stroke='currentColor'

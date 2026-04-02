@@ -81,22 +81,17 @@ export function InvitationFooter({ profile }: FooterProps) {
 
           {/* Droite — adresse postale */}
           <div className="md:pl-12 flex flex-col gap-6 md:w-56">
-            {/* Faux timbre */}
-            <div className="self-end w-16 h-20 border-2 border-[#D35400]/40 rounded-sm flex flex-col items-center justify-center gap-1 relative">
-              <div className="w-8 h-8 rounded-full border border-[#D35400]/30 flex items-center justify-center">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#D35400" strokeWidth="1.5" strokeLinecap="round">
-                  <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" />
-                </svg>
-              </div>
-              <p className="text-[6px] uppercase tracking-widest text-[#D35400]/50 font-sans">2026</p>
-              {/* Perforation bords */}
-              {[-2, 18, 38, 58].map(top => (
-                <div key={top} className="absolute -left-1.5 w-3 h-3 rounded-full bg-[#0E2F44]" style={{ top }} />
-              ))}
-              {[-2, 18, 38, 58].map(top => (
-                <div key={top} className="absolute -right-1.5 w-3 h-3 rounded-full bg-[#0E2F44]" style={{ top }} />
-              ))}
-            </div>
+            {/* Cadenas cœurs */}
+            <img
+              src="/videos/theme/travel/Image iLoveIMG (7).png"
+              alt=""
+              aria-hidden="true"
+              className="self-end w-20 h-20 object-contain"
+              style={{
+                filter: "brightness(0) saturate(100%) invert(45%) sepia(60%) saturate(600%) hue-rotate(345deg) brightness(95%)",
+                opacity: 0.7,
+              }}
+            />
 
             {/* Destinataire */}
             <div className="space-y-3">
