@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion";
 import { Heart, PenTool, Send } from "lucide-react";
+import { ModuleIconCircle } from "@/components/invitation/ModuleIconCircle";
 import { useState } from "react";
 
 export function GuestbookModule({
@@ -37,12 +38,12 @@ export function GuestbookModule({
           animate={{ opacity: 1, scale: 1 }}
           className='max-w-2xl mx-auto bg-card rounded-[2.5rem] p-12 md:p-16 border border-primary/20 shadow-[0_4px_24px_-8px_rgba(0,0,0,0.08)] text-center'
         >
-          <div className='w-20 h-20 bg-secondary rounded-full flex items-center justify-center mx-auto mb-8 text-primary'>
+          <ModuleIconCircle size="lg" className="mx-auto mb-8">
             <Heart
               className='w-8 h-8'
               fill='currentColor'
             />
-          </div>
+          </ModuleIconCircle>
           <h3 className='font-heading text-4xl italic text-foreground mb-4'>
             Message Envoyé
           </h3>
@@ -72,9 +73,9 @@ export function GuestbookModule({
         </h3>
 
         <div className='bg-card rounded-[2.5rem] p-8 md:p-16 border border-primary/20 shadow-[0_4px_24px_-8px_rgba(0,0,0,0.08)] max-w-2xl mx-auto'>
-          <div className='w-16 h-16 bg-secondary rounded-full flex items-center justify-center mx-auto mb-8 text-primary opacity-80'>
+          <ModuleIconCircle size="md" className="mx-auto mb-8">
             <PenTool className='w-6 h-6' />
-          </div>
+          </ModuleIconCircle>
 
           <p className='text-foreground/60 text-base md:text-lg leading-relaxed font-light mb-12 max-w-sm mx-auto'>
             Laissez une petite trace de votre passage. Vos messages seront
@@ -122,7 +123,7 @@ export function GuestbookModule({
               disabled={
                 status === "submitting" || !formData.name || !formData.message
               }
-              className='w-full bg-primary hover:bg-primary/90 disabled:bg-muted-foreground/40 text-white py-5 rounded-full font-bold text-xs uppercase tracking-[0.3em] transition-all duration-300 shadow-[0_4px_16px_-6px_rgba(0,0,0,0.12)] shadow-primary/10 flex items-center justify-center gap-3 group'
+              className='w-full bg-primary hover:bg-primary/90 disabled:bg-muted-foreground/40 text-primary-foreground py-5 rounded-full font-bold text-xs uppercase tracking-[0.3em] transition-all duration-300 shadow-[0_4px_16px_-6px_rgba(0,0,0,0.12)] shadow-primary/10 flex items-center justify-center gap-3 group'
             >
               <span className='relative z-10'>
                 {status === "submitting"

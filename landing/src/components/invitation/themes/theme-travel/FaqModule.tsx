@@ -108,7 +108,7 @@ export function FaqModule({
                   className={cn(
                     "flex h-9 w-9 shrink-0 items-center justify-center rounded-full border transition-all duration-300",
                     openIndex === index
-                      ? "bg-primary border-primary text-white rotate-180"
+                      ? "bg-primary border-primary text-primary-foreground rotate-180"
                       : "border-primary/30 text-primary",
                   )}
                 >

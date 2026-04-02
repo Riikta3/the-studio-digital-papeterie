@@ -3,6 +3,7 @@
 import { Button } from "@shared/components/ui/button";
 import { motion } from "framer-motion";
 import { Bus, Car, ExternalLink, Plane, Ship, Train } from "lucide-react";
+import { ModuleIconCircle } from "@/components/invitation/ModuleIconCircle";
 
 export type TransportIconType = "Train" | "Plane" | "Bus" | "Car" | "Ship";
 
@@ -110,9 +111,9 @@ export function TransportModule({
                 key={option.id}
                 className='group flex flex-col sm:flex-row gap-8 items-start sm:items-center bg-card p-10 py-12 rounded-[2.5rem] border border-primary/20 shadow-[0_4px_24px_-8px_rgba(0,0,0,0.08)] hover:border-primary/30 transition-colors duration-300'
               >
-                <div className='w-16 h-16 bg-white border border-foreground/10 rounded-full flex items-center justify-center shrink-0 shadow-sm transition-transform duration-500'>
+                <ModuleIconCircle size="md" className="shrink-0 transition-transform duration-500">
                   {getIcon(option.iconType)}
-                </div>
+                </ModuleIconCircle>
                 <div className='flex flex-col justify-center'>
                   <h4 className='font-heading text-3xl text-foreground mb-3'>
                     {option.title}
@@ -147,9 +148,9 @@ export function TransportModule({
             />
 
             <div className='relative z-10 w-full flex flex-col items-center h-full'>
-              <div className='w-20 h-20 bg-card rounded-full flex items-center justify-center shadow-sm border border-primary/20 mt-4 mb-10'>
+              <ModuleIconCircle size="lg" className="mt-4 mb-10">
                 <Car className='w-7 h-7 text-primary' strokeWidth={1.5} />
-              </div>
+              </ModuleIconCircle>
 
               <h4 className='font-heading text-4xl text-secondary-foreground mb-6'>
                 Covoiturage

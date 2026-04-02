@@ -126,12 +126,12 @@ export function GalleryModule({
           onMouseLeave={() => setPaused(false)}
         >
           {/* Counter */}
-          <div className='absolute top-5 right-5 z-20 flex items-center gap-1.5 bg-black/30 backdrop-blur-sm rounded-full px-4 py-1.5'>
-            <span className='text-white font-bold text-xs tracking-[0.2em]'>
+          <div className='absolute top-5 right-5 z-20 flex items-center gap-1.5 bg-foreground/30 backdrop-blur-sm rounded-full px-4 py-1.5'>
+            <span className='text-background font-bold text-xs tracking-[0.2em]'>
               {pad(current + 1)}
             </span>
-            <span className='text-white/40 text-xs'>/</span>
-            <span className='text-white/50 text-xs tracking-[0.15em]'>
+            <span className='text-background/40 text-xs'>/</span>
+            <span className='text-background/50 text-xs tracking-[0.15em]'>
               {pad(count)}
             </span>
           </div>
@@ -168,7 +168,7 @@ export function GalleryModule({
                 e.stopPropagation();
                 paginate(-1);
               }}
-              className='absolute left-4 top-1/2 -translate-y-1/2 z-20 w-11 h-11 flex items-center justify-center rounded-full bg-white/10 backdrop-blur-sm border border-white/20 text-white opacity-0 group-hover:opacity-100 hover:bg-white/25 transition-all duration-300'
+              className='absolute left-4 top-1/2 -translate-y-1/2 z-20 w-11 h-11 flex items-center justify-center rounded-full bg-background/10 backdrop-blur-sm border border-background/20 text-background opacity-0 group-hover:opacity-100 hover:bg-background/25 transition-all duration-300'
               aria-label='Photo précédente'
             >
               <ChevronLeft
@@ -185,7 +185,7 @@ export function GalleryModule({
                 e.stopPropagation();
                 paginate(1);
               }}
-              className='absolute right-4 top-1/2 -translate-y-1/2 z-20 w-11 h-11 flex items-center justify-center rounded-full bg-white/10 backdrop-blur-sm border border-white/20 text-white opacity-0 group-hover:opacity-100 hover:bg-white/25 transition-all duration-300'
+              className='absolute right-4 top-1/2 -translate-y-1/2 z-20 w-11 h-11 flex items-center justify-center rounded-full bg-background/10 backdrop-blur-sm border border-background/20 text-background opacity-0 group-hover:opacity-100 hover:bg-background/25 transition-all duration-300'
               aria-label='Photo suivante'
             >
               <ChevronRight
@@ -252,7 +252,7 @@ export function GalleryModule({
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               transition={{ duration: 0.25 }}
-              className='fixed inset-0 z-[99999] flex items-center justify-center bg-black/92 backdrop-blur-md'
+              className='fixed inset-0 z-[99999] flex items-center justify-center bg-foreground/95 backdrop-blur-md'
               onClick={() => setLightboxOpen(false)}
               onTouchStart={handleTouchStart}
               onTouchEnd={handleTouchEnd}
@@ -260,14 +260,14 @@ export function GalleryModule({
               {/* Close */}
               <button
                 onClick={() => setLightboxOpen(false)}
-                className='absolute top-5 right-5 w-10 h-10 flex items-center justify-center rounded-full bg-zinc-900/70 text-white hover:bg-zinc-900 transition-all z-50'
+                className='absolute top-5 right-5 w-10 h-10 flex items-center justify-center rounded-full bg-foreground/70 text-background hover:bg-foreground transition-all z-50'
                 aria-label='Fermer'
               >
                 <X className='w-5 h-5' strokeWidth={2} />
               </button>
 
               {/* Counter */}
-              <div className='absolute top-6 left-1/2 -translate-x-1/2 text-white text-xs tracking-[0.25em] font-medium select-none bg-zinc-900/70 rounded-full px-3 py-1'>
+              <div className='absolute top-6 left-1/2 -translate-x-1/2 text-background text-xs tracking-[0.25em] font-medium select-none bg-foreground/70 rounded-full px-3 py-1'>
                 {pad(current + 1)} / {pad(count)}
               </div>
 
@@ -275,7 +275,7 @@ export function GalleryModule({
               {count > 1 && (
                 <button
                   onClick={(e) => { e.stopPropagation(); paginate(-1); }}
-                  className='absolute left-3 md:left-6 z-50 w-12 h-12 flex items-center justify-center rounded-full bg-zinc-900/70 text-white hover:bg-zinc-900 transition-all'
+                  className='absolute left-3 md:left-6 z-50 w-12 h-12 flex items-center justify-center rounded-full bg-foreground/70 text-background hover:bg-foreground transition-all'
                   aria-label='Photo précédente'
                 >
                   <ChevronLeft className='w-6 h-6' strokeWidth={2} />
@@ -286,7 +286,7 @@ export function GalleryModule({
               {count > 1 && (
                 <button
                   onClick={(e) => { e.stopPropagation(); paginate(1); }}
-                  className='absolute right-3 md:right-6 z-50 w-12 h-12 flex items-center justify-center rounded-full bg-zinc-900/70 text-white hover:bg-zinc-900 transition-all'
+                  className='absolute right-3 md:right-6 z-50 w-12 h-12 flex items-center justify-center rounded-full bg-foreground/70 text-background hover:bg-foreground transition-all'
                   aria-label='Photo suivante'
                 >
                   <ChevronRight className='w-6 h-6' strokeWidth={2} />
@@ -323,7 +323,7 @@ export function GalleryModule({
                     <button
                       key={i}
                       onClick={(e) => { e.stopPropagation(); goTo(i); }}
-                      className={`w-2 h-2 rounded-full transition-all duration-300 ${i === current ? "bg-zinc-900/70 scale-125" : "bg-zinc-900/40 hover:bg-zinc-900/70"}`}
+                      className={`w-2 h-2 rounded-full transition-all duration-300 ${i === current ? "bg-foreground/70 scale-125" : "bg-foreground/40 hover:bg-foreground/70"}`}
                       aria-label={`Photo ${i + 1}`}
                     />
                   ))}

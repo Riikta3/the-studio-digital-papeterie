@@ -10,6 +10,7 @@ import {
   MapPin,
   TentTree,
 } from "lucide-react";
+import { ModuleIconCircle } from "@/components/invitation/ModuleIconCircle";
 
 export type AccommodationType = "Hotel" | "House" | "Camping" | "Other";
 
@@ -128,9 +129,9 @@ export function AccommodationModule({
               transition={{ delay: index * 0.1, duration: 0.6 }}
               className='bg-card rounded-[2rem] p-8 border border-primary/20 shadow-[0_4px_24px_-8px_rgba(0,0,0,0.08)] flex flex-col h-full group hover:border-primary/30 transition-colors'
             >
-              <div className='w-14 h-14 bg-background border border-foreground/10 rounded-full flex items-center justify-center mb-6 text-primary shadow-sm group-hover:border-primary/20 transition-colors'>
+              <ModuleIconCircle size="md" className="mb-6 group-hover:border-primary/20 transition-colors">
                 {getIcon(option.type)}
-              </div>
+              </ModuleIconCircle>
 
               <h4 className='font-heading text-3xl text-foreground mb-3 leading-tight'>
                 {option.name}

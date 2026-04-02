@@ -9,9 +9,9 @@ import type { ModuleProps } from "../../module-registry";
 const FILTER_NUIT =
   "brightness(0) saturate(100%) invert(13%) sepia(40%) saturate(800%) hue-rotate(178deg) brightness(80%)";
 
-const inputClass = "w-full bg-muted/50 border border-border rounded-full px-5 py-3 text-sm text-foreground placeholder:text-foreground/30 focus:outline-none focus:border-primary/50 focus:bg-white transition-all font-sans";
+const inputClass = "w-full bg-muted/50 border border-border rounded-full px-5 py-3 text-sm text-foreground placeholder:text-foreground/30 focus:outline-none focus:border-primary/50 focus:bg-card transition-all font-sans";
 const selectClass = "w-full bg-muted/50 border border-border rounded-full px-5 py-3 text-sm text-foreground focus:outline-none focus:border-primary/50 transition-all font-sans appearance-none cursor-pointer";
-const textareaClass = "w-full bg-muted/50 border border-border rounded-2xl px-5 py-4 text-sm text-foreground placeholder:text-foreground/30 focus:outline-none focus:border-primary/50 focus:bg-white transition-all font-sans resize-none";
+const textareaClass = "w-full bg-muted/50 border border-border rounded-2xl px-5 py-4 text-sm text-foreground placeholder:text-foreground/30 focus:outline-none focus:border-primary/50 focus:bg-card transition-all font-sans resize-none";
 
 export function RsvpModule({ weddingId, isDemo = false, extras }: ModuleProps) {
   const adultsOnly = extras?.adults_only === true;
@@ -56,11 +56,6 @@ export function RsvpModule({ weddingId, isDemo = false, extras }: ModuleProps) {
           >
             Serez-vous des nôtres ?
           </h2>
-          <div className="flex items-center justify-center gap-4 mt-4">
-            <div className="w-10 h-px bg-muted-foreground/20" />
-            <div className="w-1.5 h-1.5 rounded-full bg-primary/50" />
-            <div className="w-10 h-px bg-muted-foreground/20" />
-          </div>
         </div>
 
         {/* Card */}

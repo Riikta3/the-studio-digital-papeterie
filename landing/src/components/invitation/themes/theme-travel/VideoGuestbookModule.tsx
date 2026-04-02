@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion";
 import { Camera, RefreshCcw, Send, Trash2, Video, X } from "lucide-react";
+import { ModuleIconCircle } from "@/components/invitation/ModuleIconCircle";
 import { useRef, useState } from "react";
 
 const MAX_FILE_SIZE = 50 * 1024 * 1024; // 50MB
@@ -73,13 +74,13 @@ export function VideoGuestbookModule({
           animate={{ opacity: 1, scale: 1 }}
           className='max-w-2xl mx-auto bg-card rounded-[2.5rem] p-12 md:p-16 border border-primary/20 shadow-[0_4px_24px_-8px_rgba(0,0,0,0.08)] text-center'
         >
-          <div className='w-20 h-20 bg-secondary rounded-full flex items-center justify-center mx-auto mb-8 text-primary'>
+          <ModuleIconCircle size="lg" className="mx-auto mb-8">
             <Video
               className='w-8 h-8'
               fill='none'
               stroke='currentColor'
             />
-          </div>
+          </ModuleIconCircle>
           <h3 className='font-heading text-4xl italic text-foreground mb-4'>
             Souvenir Enregistré
           </h3>
@@ -118,9 +119,9 @@ export function VideoGuestbookModule({
         <div className='bg-card rounded-[2.5rem] p-8 md:p-16 border border-primary/20 shadow-[0_4px_24px_-8px_rgba(0,0,0,0.08)] max-w-2xl mx-auto'>
           {!previewUrl ? (
             <div className='space-y-8'>
-              <div className='w-20 h-20 bg-secondary rounded-full flex items-center justify-center mx-auto text-primary'>
+              <ModuleIconCircle size="lg" className="mx-auto">
                 <Camera className='w-10 h-10' />
-              </div>
+              </ModuleIconCircle>
               <div className='space-y-4 max-w-sm mx-auto'>
                 <p className='text-foreground/60 text-base md:text-lg leading-relaxed font-light'>
                   Laissez-nous un petit mot, une anecdote ou vos vœux
@@ -142,7 +143,7 @@ export function VideoGuestbookModule({
 
               <button
                 onClick={() => fileInputRef.current?.click()}
-                className='w-full bg-primary hover:bg-primary/90 text-white py-5 rounded-full font-bold text-xs uppercase tracking-[0.3em] transition-all duration-300 shadow-[0_4px_16px_-6px_rgba(0,0,0,0.12)] shadow-primary/10 flex items-center justify-center gap-3'
+                className='w-full bg-primary hover:bg-primary/90 text-primary-foreground py-5 rounded-full font-bold text-xs uppercase tracking-[0.3em] transition-all duration-300 shadow-[0_4px_16px_-6px_rgba(0,0,0,0.12)] shadow-primary/10 flex items-center justify-center gap-3'
               >
                 Cliquer pour Enregistrer
               </button>
@@ -155,7 +156,7 @@ export function VideoGuestbookModule({
             </div>
           ) : (
             <div className='space-y-8'>
-              <div className='relative aspect-[9/16] max-w-[280px] mx-auto rounded-[2rem] overflow-hidden border-4 border-border bg-black shadow-[0_4px_24px_-8px_rgba(0,0,0,0.08)]'>
+              <div className='relative aspect-[9/16] max-w-[280px] mx-auto rounded-[2rem] overflow-hidden border-4 border-border bg-foreground shadow-[0_4px_24px_-8px_rgba(0,0,0,0.08)]'>
                 <video
                   src={previewUrl}
                   className='w-full h-full object-cover'
@@ -177,7 +178,7 @@ export function VideoGuestbookModule({
                 <button
                   onClick={handleSubmit}
                   disabled={status === "submitting"}
-                  className='w-full bg-primary hover:bg-primary/90 disabled:bg-muted-foreground/40 text-white py-5 rounded-full font-bold text-xs uppercase tracking-[0.3em] transition-all duration-100 flex items-center justify-center gap-3'
+                  className='w-full bg-primary hover:bg-primary/90 disabled:bg-muted-foreground/40 text-primary-foreground py-5 rounded-full font-bold text-xs uppercase tracking-[0.3em] transition-all duration-100 flex items-center justify-center gap-3'
                 >
                   {status === "submitting" ? (
                     <>

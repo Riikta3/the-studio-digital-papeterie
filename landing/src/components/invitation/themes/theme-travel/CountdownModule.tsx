@@ -34,7 +34,7 @@ const FlipUnit = ({ value, label }: { value: number; label: string }) => {
   return (
     <div className='flex flex-col items-center gap-3'>
       <div
-        className='relative h-[80px] sm:h-[110px] bg-foreground rounded-lg shadow-lg shadow-foreground/10 flex flex-col items-center justify-center border border-white/10'
+        className='relative h-[80px] sm:h-[110px] bg-foreground rounded-lg shadow-lg shadow-foreground/10 flex flex-col items-center justify-center border border-background/10'
         style={{ perspective: "500px" }}
       >
         <span className='invisible text-4xl sm:text-6xl font-bold tabular-nums tracking-tight px-3 sm:px-4'>
@@ -48,13 +48,13 @@ const FlipUnit = ({ value, label }: { value: number; label: string }) => {
         </div>
 
         <div className='absolute inset-x-0 bottom-0 h-1/2 bg-foreground rounded-b-lg overflow-hidden flex items-start justify-center pt-[1px]'>
-          <div className='absolute inset-0 bg-black/20 rounded-b-lg pointer-events-none' />
+          <div className='absolute inset-0 bg-foreground/20 rounded-b-lg pointer-events-none' />
           <span className='text-4xl sm:text-6xl font-bold text-background tabular-nums -translate-y-1/2 font-sans tracking-tight drop-shadow-md'>
             {formatted}
           </span>
         </div>
 
-        <div className='absolute inset-x-0 top-1/2 h-[1px] bg-black/40 z-20 shadow-sm' />
+        <div className='absolute inset-x-0 top-1/2 h-[1px] bg-background/40 z-20 shadow-sm' />
 
         <AnimatePresence mode='popLayout'>
           <motion.div

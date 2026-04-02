@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion";
 import { Shirt } from "lucide-react";
+import { ModuleIconCircle } from "@/components/invitation/ModuleIconCircle";
 
 export interface DressCodeData {
   title: string;
@@ -60,9 +61,9 @@ export function DressCodeModule({
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 max-w-2xl mx-auto">
             {/* Men */}
             <div className="bg-card rounded-[2rem] p-8 md:p-10 border border-primary/20 shadow-[0_4px_24px_-8px_rgba(0,0,0,0.08)] flex flex-col items-center gap-4">
-              <div className="w-14 h-14 bg-white border border-foreground/10 rounded-full flex items-center justify-center text-primary shadow-sm">
+              <ModuleIconCircle size="md">
                 <Shirt className="w-5 h-5" />
-              </div>
+              </ModuleIconCircle>
               <p className="text-xs font-bold uppercase tracking-[0.15em] text-foreground/60">
                 Homme
               </p>
@@ -73,9 +74,9 @@ export function DressCodeModule({
 
             {/* Women */}
             <div className="bg-card rounded-[2rem] p-8 md:p-10 border border-primary/20 shadow-[0_4px_24px_-8px_rgba(0,0,0,0.08)] flex flex-col items-center gap-4">
-              <div className="w-14 h-14 bg-white border border-foreground/10 rounded-full flex items-center justify-center text-primary shadow-sm">
+              <ModuleIconCircle size="md">
                 <Shirt className="w-5 h-5" />
-              </div>
+              </ModuleIconCircle>
               <p className="text-xs font-bold uppercase tracking-[0.15em] text-foreground/60">
                 Femme
               </p>
@@ -86,9 +87,9 @@ export function DressCodeModule({
           </div>
         ) : (
           <div className="bg-card rounded-[2rem] p-10 md:p-14 border border-primary/20 shadow-[0_4px_24px_-8px_rgba(0,0,0,0.08)] max-w-2xl mx-auto flex flex-col items-center">
-            <div className="w-16 h-16 bg-white border border-foreground/10 rounded-full flex items-center justify-center mb-10 text-primary shadow-sm">
+            <ModuleIconCircle size="md" className="mb-10">
               <Shirt className="w-7 h-7" />
-            </div>
+            </ModuleIconCircle>
             <p className="text-muted-foreground/60 text-base md:text-lg leading-relaxed font-light">
               {data.description}
             </p>

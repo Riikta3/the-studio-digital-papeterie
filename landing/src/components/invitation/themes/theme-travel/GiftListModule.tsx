@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion";
 import { CreditCard, ExternalLink, Gift, Heart } from "lucide-react";
+import { ModuleIconCircle } from "@/components/invitation/ModuleIconCircle";
 
 export interface GiftListProps {
   weddingId: string;
@@ -51,9 +52,9 @@ export function GiftListModule({ weddingId, extras, config }: GiftListProps) {
 
         <div className='bg-card rounded-[2.5rem] p-8 md:p-16 border border-primary/20 shadow-[0_4px_24px_-8px_rgba(0,0,0,0.08)] max-w-2xl mx-auto'>
           {/* Header Icon */}
-          <div className='w-20 h-20 bg-secondary rounded-full flex items-center justify-center mx-auto mb-8 text-primary'>
+          <ModuleIconCircle size="lg" className="mx-auto mb-8">
             <Gift className='w-8 h-8 opacity-90' />
-          </div>
+          </ModuleIconCircle>
 
           <p className='text-muted-foreground/60 text-base md:text-lg leading-relaxed font-light mb-12 max-w-md mx-auto'>
             {data.description}

@@ -3,6 +3,7 @@
 import { usePlaylist } from "../../PlaylistContext";
 import { AnimatePresence, motion } from "framer-motion";
 import { Check, Music, Plus, Search, Trash2 } from "lucide-react";
+import { ModuleIconCircle } from "@/components/invitation/ModuleIconCircle";
 import { useEffect, useState } from "react";
 
 export interface PlaylistData {
@@ -117,9 +118,9 @@ export function PlaylistModule({
         </h3>
 
         <div className='bg-card rounded-[2rem] p-8 md:p-12 border border-primary/20 shadow-[0_4px_24px_-8px_rgba(0,0,0,0.08)] max-w-2xl mx-auto flex flex-col items-center transition-all duration-500'>
-          <div className='w-16 h-16 bg-secondary rounded-full flex items-center justify-center mb-6 text-primary shrink-0'>
+          <ModuleIconCircle size="md" className="mb-6 shrink-0">
             <Music className='w-6 h-6 opacity-80' />
-          </div>
+          </ModuleIconCircle>
           <p className='text-muted-foreground/60 text-base leading-relaxed font-light mb-10'>
             {data.description}
           </p>
@@ -197,7 +198,7 @@ export function PlaylistModule({
                           disabled={isAdded || addedTracks.size >= 3}
                           className={`w-10 h-10 rounded-full flex items-center justify-center transition-all shrink-0 ${
                             isAdded
-                              ? "bg-primary text-white"
+                              ? "bg-primary text-primary-foreground"
                               : addedTracks.size >= 3
                                 ? "bg-card border border-primary/20 text-muted-foreground/50 cursor-not-allowed"
                                 : "bg-card border border-primary/20 text-primary hover:border-primary/30 hover:bg-secondary"

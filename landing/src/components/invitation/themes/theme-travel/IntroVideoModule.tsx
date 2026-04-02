@@ -116,7 +116,7 @@ export function IntroVideoModule({
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ duration: 0.5 }}
-                className='absolute inset-0 bg-black'
+                className='absolute inset-0 bg-foreground'
               >
                 {isUpload ? (
                   <video
