@@ -35,18 +35,18 @@ export function GuestbookModule({
         <motion.div
           initial={{ opacity: 0, scale: 0.95 }}
           animate={{ opacity: 1, scale: 1 }}
-          className='max-w-2xl mx-auto bg-[#FDFDFA] rounded-[2.5rem] p-12 md:p-16 border border-[#D35400]/20 shadow-xl text-center'
+          className='max-w-2xl mx-auto bg-background rounded-[2.5rem] p-12 md:p-16 border border-primary/20 shadow-xl text-center'
         >
-          <div className='w-20 h-20 bg-secondary rounded-full flex items-center justify-center mx-auto mb-8 text-[#D35400]'>
+          <div className='w-20 h-20 bg-secondary rounded-full flex items-center justify-center mx-auto mb-8 text-primary'>
             <Heart
               className='w-8 h-8'
               fill='currentColor'
             />
           </div>
-          <h3 className='font-heading text-4xl italic text-[#0E2F44] mb-4'>
+          <h3 className='font-heading text-4xl italic text-foreground mb-4'>
             Message Envoyé
           </h3>
-          <p className='text-[#2E4053]/60 text-lg font-light leading-relaxed'>
+          <p className='text-muted-foreground/60 text-lg font-light leading-relaxed'>
             Merci pour votre mot doux. Il a été transmis avec soin aux futurs
             mariés.
           </p>
@@ -64,14 +64,14 @@ export function GuestbookModule({
         transition={{ duration: 0.8, ease: "easeOut" }}
         className='max-w-4xl mx-auto px-4 text-center'
       >
-        <p className='text-xs md:text-sm font-bold uppercase tracking-[0.2em] text-[#0E2F44]/60 mb-4'>
+        <p className='text-xs md:text-sm font-bold uppercase tracking-[0.2em] text-foreground/60 mb-4'>
           Livre d'Or
         </p>
-        <h3 className='font-heading text-5xl md:text-6xl italic text-[#0E2F44] mb-8'>
+        <h3 className='font-heading text-5xl md:text-6xl italic text-foreground mb-8'>
           Un mot doux
         </h3>
 
-        <div className='bg-[#FDFDFA] rounded-[2.5rem] p-8 md:p-16 border border-[#D35400]/20 shadow-xl max-w-2xl mx-auto'>
+        <div className='bg-background rounded-[2.5rem] p-8 md:p-16 border border-primary/20 shadow-xl max-w-2xl mx-auto'>
           <div className='w-16 h-16 bg-secondary rounded-full flex items-center justify-center mx-auto mb-8 text-[#D35400] opacity-80'>
             <PenTool className='w-6 h-6' />
           </div>

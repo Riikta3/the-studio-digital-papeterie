@@ -109,25 +109,25 @@ export function PlaylistModule({
         transition={{ duration: 0.8, ease: "easeOut" }}
         className='max-w-4xl mx-auto px-4 text-center'
       >
-        <p className='text-xs md:text-sm font-bold uppercase tracking-[0.2em] text-[#0E2F44]/60 mb-4'>
+        <p className='text-xs md:text-sm font-bold uppercase tracking-[0.2em] text-foreground/60 mb-4'>
           {data.title}
         </p>
-        <h3 className='font-heading text-5xl md:text-6xl italic text-[#0E2F44] mb-8'>
+        <h3 className='font-heading text-5xl md:text-6xl italic text-foreground mb-8'>
           {data.subtitle}
         </h3>
 
-        <div className='bg-[#FDFDFA] rounded-[2rem] p-8 md:p-12 border border-[#D35400]/20 shadow-xl max-w-2xl mx-auto flex flex-col items-center transition-all duration-500'>
-          <div className='w-16 h-16 bg-secondary rounded-full flex items-center justify-center mb-6 text-[#D35400] shrink-0'>
+        <div className='bg-background rounded-[2rem] p-8 md:p-12 border border-primary/20 shadow-xl max-w-2xl mx-auto flex flex-col items-center transition-all duration-500'>
+          <div className='w-16 h-16 bg-secondary rounded-full flex items-center justify-center mb-6 text-primary shrink-0'>
             <Music className='w-6 h-6 opacity-80' />
           </div>
-          <p className='text-[#2E4053]/60 text-base leading-relaxed font-light mb-10'>
+          <p className='text-muted-foreground/60 text-base leading-relaxed font-light mb-10'>
             {data.description}
           </p>
 
           {/* Search Input */}
           <div className='w-full max-w-md relative'>
             <div className='relative flex items-center'>
-              <Search className='absolute left-5 w-5 h-5 text-[#0E2F44]/60 opacity-60' />
+              <Search className='absolute left-5 w-5 h-5 text-foreground/60 opacity-60' />
               <input
                 type='text'
                 value={searchQuery}

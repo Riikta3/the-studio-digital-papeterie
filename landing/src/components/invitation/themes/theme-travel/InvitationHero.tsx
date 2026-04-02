@@ -37,7 +37,7 @@ export function InvitationHero({
     : "";
 
   return (
-    <section className='h-[100svh] flex flex-col bg-[#FDFDFA] overflow-hidden relative'>
+    <section className='h-[100svh] flex flex-col bg-background overflow-hidden relative'>
 
       {/* ── Timbre — haut droite ───────────────────────────────────────── */}
       <img
@@ -55,30 +55,30 @@ export function InvitationHero({
         transition={{ duration: 0.8, ease: "easeOut" }}
         className='flex flex-col items-center text-center gap-3 pt-10 pb-4 px-8 shrink-0 relative z-10'
       >
-        <p className='text-[9px] uppercase tracking-[0.45em] text-[#1B4F72]/50 font-sans'>
+        <p className='text-[9px] uppercase tracking-[0.45em] text-secondary/50 font-sans'>
           Invitation au mariage de
         </p>
 
         <h1
-          className='text-4xl sm:text-5xl md:text-6xl lg:text-7xl leading-tight text-[#0E2F44] font-normal'
+          className='text-4xl sm:text-5xl md:text-6xl lg:text-7xl leading-tight text-foreground font-normal'
           style={{
             fontFamily: "'Playfair Display', Georgia, serif",
             letterSpacing: "0.02em",
           }}
         >
-          {firstName} <span className='text-[#D35400]'>&</span> {partnerName}
+          {firstName} <span className='text-primary'>&</span> {partnerName}
         </h1>
 
         {formattedDate && (
-          <p className='text-xs uppercase tracking-[0.4em] text-[#D35400]/70 font-sans font-medium'>
+          <p className='text-xs uppercase tracking-[0.4em] text-primary/70 font-sans font-medium'>
             le {formattedDate}
           </p>
         )}
 
         <div className='flex items-center gap-4 mt-1'>
-          <div className='w-10 h-px bg-[#1B4F72]/20' />
-          <div className='w-1.5 h-1.5 rounded-full bg-[#D35400]/50' />
-          <div className='w-10 h-px bg-[#1B4F72]/20' />
+          <div className='w-10 h-px bg-secondary/20' />
+          <div className='w-1.5 h-1.5 rounded-full bg-primary/50' />
+          <div className='w-10 h-px bg-secondary/20' />
         </div>
       </motion.div>
 
@@ -122,10 +122,10 @@ export function InvitationHero({
                 ?.scrollIntoView({ behavior: "smooth" })
             }
           >
-            <span className='text-[9px] uppercase tracking-[0.3em] text-[#0E2F44]/40 font-sans'>
+            <span className='text-[9px] uppercase tracking-[0.3em] text-foreground/40 font-sans'>
               Découvrir
             </span>
-            <svg width='16' height='16' viewBox='0 0 16 16' fill='none' className='text-[#0E2F44]/30'>
+            <svg width='16' height='16' viewBox='0 0 16 16' fill='none' className='text-foreground/30'>
               <path
                 d='M8 3v10M8 13l-4-4M8 13l4-4'
                 stroke='currentColor'

@@ -51,44 +51,44 @@ export function CountdownModule({ weddingDate, partner1, partner2 }: ModuleProps
   const googleUrl = `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${encodeURIComponent(title)}&dates=${toStamp(d)}/${toStamp(nd)}`;
 
   return (
-    <section className="w-full pt-16 pb-16" style={{ background: "#FDFDFA" }}>
+    <section className="w-full pt-16 pb-16 bg-background">
       <motion.div initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: "-50px" }} transition={{ duration: 0.9, ease: "easeOut" }}
         className="max-w-2xl mx-auto flex flex-col items-center text-center px-4 gap-8">
-        <p className="text-[10px] uppercase tracking-[0.4em] text-[#D35400]/60 font-sans">Le grand jour approche</p>
+        <p className="text-[10px] uppercase tracking-[0.4em] text-primary/60 font-sans">Le grand jour approche</p>
         <div className="flex items-start gap-8 sm:gap-12">
           {[{v:time.days,l:"Jours"},{v:time.hours,l:"Heures"},{v:time.minutes,l:"Minutes"},{v:time.seconds,l:"Secondes"}].map((block) => (
             <div key={block.l} className="flex flex-col items-center gap-2">
               <motion.span key={block.v} initial={{ opacity: 0.6, y: 4 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.2 }}
-                className="text-5xl sm:text-6xl text-[#0E2F44] tabular-nums"
+                className="text-5xl sm:text-6xl text-foreground tabular-nums"
                 style={{ fontFamily: "'Playfair Display', Georgia, serif", fontStyle: "italic" }}>
                 {pad(block.v)}
               </motion.span>
-              <span className="text-[9px] uppercase tracking-[0.25em] text-[#D35400]/50 font-sans">{block.l}</span>
+              <span className="text-[9px] uppercase tracking-[0.25em] text-primary/50 font-sans">{block.l}</span>
             </div>
           ))}
         </div>
         <div className="flex items-center gap-4 w-full max-w-xs">
-          <div className="flex-1 h-px bg-[#D35400]/20" />
-          <span className="text-[10px] uppercase tracking-[0.2em] text-[#0E2F44]/50 font-sans whitespace-nowrap">{formattedDate}</span>
-          <div className="flex-1 h-px bg-[#D35400]/20" />
+          <div className="flex-1 h-px bg-primary/20" />
+          <span className="text-[10px] uppercase tracking-[0.2em] text-foreground/50 font-sans whitespace-nowrap">{formattedDate}</span>
+          <div className="flex-1 h-px bg-primary/20" />
         </div>
         <div ref={calRef} className="relative">
           <button onClick={() => setCalOpen(v => !v)}
-            className="flex items-center gap-2 px-6 py-3 rounded-full border border-[#D35400]/30 text-[#0E2F44] text-[11px] uppercase tracking-[0.2em] font-sans hover:bg-[#D35400]/5 transition-colors">
-            <CalendarPlus className="w-3.5 h-3.5 text-[#D35400]" />
+            className="flex items-center gap-2 px-6 py-3 rounded-full border border-primary/30 text-foreground text-[11px] uppercase tracking-[0.2em] font-sans hover:bg-primary/5 transition-colors">
+            <CalendarPlus className="w-3.5 h-3.5 text-primary" />
             Ajouter à mon agenda
-            <ChevronDown className={`w-3 h-3 text-[#D35400]/50 transition-transform ${calOpen?"rotate-180":""}`} />
+            <ChevronDown className={`w-3 h-3 text-primary/50 transition-transform ${calOpen?"rotate-180":""}`} />
           </button>
           {calOpen && (
             <motion.div initial={{ opacity: 0, y: -6 }} animate={{ opacity: 1, y: 0 }}
-              className="absolute top-full mt-2 left-1/2 -translate-x-1/2 w-48 bg-[#FDFDFA] border border-[#D35400]/20 rounded-2xl shadow-xl overflow-hidden z-50">
+              className="absolute top-full mt-2 left-1/2 -translate-x-1/2 w-48 bg-background border border-primary/20 rounded-2xl shadow-xl overflow-hidden z-50">
               <button onClick={() => { window.open(googleUrl,"_blank"); setCalOpen(false); }}
-                className="w-full px-4 py-3 text-left text-sm text-[#0E2F44] hover:bg-[#FDFDFA] transition-colors border-b border-[#D35400]/10">Google Calendar</button>
+                className="w-full px-4 py-3 text-left text-sm text-foreground hover:bg-background transition-colors border-b border-primary/10">Google Calendar</button>
               <button onClick={() => {
                 const blob = new Blob([generateICS(target,title)],{type:"text/calendar"});
                 const url = URL.createObjectURL(blob); const a = document.createElement("a"); a.href=url; a.download="mariage.ics";
                 document.body.appendChild(a); a.click(); document.body.removeChild(a); URL.revokeObjectURL(url); setCalOpen(false);
-              }} className="w-full px-4 py-3 text-left text-sm text-[#0E2F44] hover:bg-[#FDFDFA] transition-colors">Apple / Outlook (.ics)</button>
+              }} className="w-full px-4 py-3 text-left text-sm text-foreground hover:bg-background transition-colors">Apple / Outlook (.ics)</button>
             </motion.div>
           )}
         </div>

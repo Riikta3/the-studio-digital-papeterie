@@ -19,7 +19,7 @@ export function InvitationFooter({ profile }: FooterProps) {
     : null;
 
   return (
-    <footer className="w-full bg-[#0E2F44] overflow-hidden">
+    <footer className="w-full bg-foreground overflow-hidden">
       {/* Bande de timbres décorative */}
       <div className="w-full flex">
         {Array.from({ length: 40 }).map((_, i) => (
@@ -45,15 +45,15 @@ export function InvitationFooter({ profile }: FooterProps) {
         <div className="flex flex-col md:flex-row gap-10 md:gap-0">
 
           {/* Gauche — message */}
-          <div className="flex-1 md:pr-12 md:border-r border-[#FDFDFA]/10 flex flex-col justify-between gap-8">
+          <div className="flex-1 md:pr-12 md:border-r border-background/10 flex flex-col justify-between gap-8">
             <div>
               <p
-                className="text-[10px] uppercase tracking-[0.4em] text-[#D35400] font-sans mb-4"
+                className="text-[10px] uppercase tracking-[0.4em] text-primary font-sans mb-4"
               >
                 À bord du vol ✦ Paris → Pour toujours
               </p>
               <h2
-                className="text-4xl md:text-5xl text-[#FDFDFA] font-normal leading-tight"
+                className="text-4xl md:text-5xl text-background font-normal leading-tight"
                 style={{
                   fontFamily: "'Playfair Display', Georgia, serif",
                   fontStyle: "italic",
@@ -61,20 +61,20 @@ export function InvitationFooter({ profile }: FooterProps) {
               >
                 {profile.first_name}
                 <br />
-                <span className="text-[#D35400]">&</span> {profile.partner_name}
+                <span className="text-primary">&</span> {profile.partner_name}
               </h2>
             </div>
 
             {formattedDate && (
               <div className="flex items-center gap-4">
-                <div className="w-8 h-px bg-[#FDFDFA]/20" />
-                <p className="text-[10px] uppercase tracking-[0.35em] text-[#FDFDFA]/40 font-sans">
+                <div className="w-8 h-px bg-background/20" />
+                <p className="text-[10px] uppercase tracking-[0.35em] text-background/40 font-sans">
                   le {formattedDate}
                 </p>
               </div>
             )}
 
-            <p className="text-[9px] uppercase tracking-[0.25em] text-[#FDFDFA]/20 font-sans mt-auto pt-8">
+            <p className="text-[9px] uppercase tracking-[0.25em] text-background/20 font-sans mt-auto pt-8">
               The Studio Digital Papeterie
             </p>
           </div>
@@ -95,13 +95,13 @@ export function InvitationFooter({ profile }: FooterProps) {
 
             {/* Destinataire */}
             <div className="space-y-3">
-              <p className="text-[11px] text-[#FDFDFA]/70 font-sans font-light leading-relaxed">
+              <p className="text-[11px] text-background/70 font-sans font-light leading-relaxed">
                 Nos invités bien-aimés
               </p>
               <div className="space-y-2">
-                <div className="w-full h-px bg-[#FDFDFA]/10" />
-                <div className="w-full h-px bg-[#FDFDFA]/10" />
-                <div className="w-3/4 h-px bg-[#FDFDFA]/10" />
+                <div className="w-full h-px bg-background/10" />
+                <div className="w-full h-px bg-background/10" />
+                <div className="w-3/4 h-px bg-background/10" />
               </div>
             </div>
 

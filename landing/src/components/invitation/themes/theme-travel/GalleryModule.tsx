@@ -104,10 +104,10 @@ export function GalleryModule({
     >
       {/* Title */}
       <div className='text-center mb-16 space-y-4 px-4'>
-        <h2 className='text-xs md:text-sm font-bold uppercase tracking-[0.2em] text-[#0E2F44]/60'>
+        <h2 className='text-xs md:text-sm font-bold uppercase tracking-[0.2em] text-foreground/60'>
           Souvenirs
         </h2>
-        <h3 className='font-heading text-5xl md:text-6xl italic text-[#0E2F44]'>
+        <h3 className='font-heading text-5xl md:text-6xl italic text-foreground'>
           Galerie
         </h3>
       </div>
@@ -138,7 +138,7 @@ export function GalleryModule({
 
           {/* Main Image */}
           <div
-            className={`relative w-full aspect-[4/3] md:aspect-[16/9] rounded-[2rem] overflow-hidden bg-[#FDFDFA] border border-[#D35400]/20 shadow-2xl ${isDemo ? "cursor-default" : "cursor-zoom-in"}`}
+            className={`relative w-full aspect-[4/3] md:aspect-[16/9] rounded-[2rem] overflow-hidden bg-background border border-primary/20 shadow-2xl ${isDemo ? "cursor-default" : "cursor-zoom-in"}`}
             onClick={() => !isDemo && setLightboxOpen(true)}
           >
             <AnimatePresence initial={false} custom={direction} mode='popLayout'>
@@ -211,7 +211,7 @@ export function GalleryModule({
                 {i === current && (
                   <motion.span
                     layoutId='indicator'
-                    className='absolute inset-0 bg-[#D35400]'
+                    className='absolute inset-0 bg-primary'
                     transition={{ duration: 0.3, ease: "easeOut" }}
                   />
                 )}
@@ -229,7 +229,7 @@ export function GalleryModule({
                 onClick={() => goTo(i)}
                 className={`relative shrink-0 w-14 h-14 md:w-16 md:h-16 mt-1 rounded-xl overflow-hidden transition-all duration-300 ${
                   i === current
-                    ? "ring-2 ring-[#D35400] ring-offset-2 shadow-md scale-105"
+                    ? "ring-2 ring-primary ring-offset-2 shadow-md scale-105"
                     : "opacity-50 hover:opacity-80 hover:scale-[1.02]"
                 }`}
               >
