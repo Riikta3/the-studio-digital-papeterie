@@ -22,11 +22,18 @@ interface VideoIntroProps {
 }
 
 function VideoIntro({ videoSrc, onComplete, autoplay = false }: VideoIntroProps) {
-  const [videoReady, setVideoReady] = useState(false);
+  const [firstFrameReady, setFirstFrameReady] = useState(false);
   const [playing, setPlaying] = useState(false);
-  const [overlayOpacity, setOverlayOpacity] = useState(0);
   const [loading, setLoading] = useState(false);
+  const [endFade, setEndFade] = useState(false);
   const videoRef = useRef<HTMLVideoElement>(null);
+  const readyRef = useRef(false);
+
+  const markReady = useCallback(() => {
+    if (readyRef.current) return;
+    readyRef.current = true;
+    setFirstFrameReady(true);
+  }, []);
 
   const startPlayback = useCallback(async () => {
     const video = videoRef.current;
@@ -40,135 +47,93 @@ function VideoIntro({ videoSrc, onComplete, autoplay = false }: VideoIntroProps)
     }
   }, [playing]);
 
+  // Force seek to frame 0 so the poster frame appears immediately
   useEffect(() => {
-    if (autoplay && videoReady) {
+    const video = videoRef.current;
+    if (!video) return;
+    video.currentTime = 0;
+  }, []);
+
+  useEffect(() => {
+    if (autoplay && firstFrameReady) {
       startPlayback();
     }
-  }, [autoplay, videoReady, startPlayback]);
+  }, [autoplay, firstFrameReady, startPlayback]);
 
   const handleTimeUpdate = useCallback(() => {
     const video = videoRef.current;
     if (!video || !video.duration) return;
     const progress = video.currentTime / video.duration;
     if (progress >= FADE_START_RATIO) {
-      const fadeProgress = (progress - FADE_START_RATIO) / (1 - FADE_START_RATIO);
-      setOverlayOpacity(Math.min(fadeProgress, 1));
+      setEndFade(true);
     }
   }, []);
 
   const handleEnded = useCallback(() => {
-    setOverlayOpacity(1);
-    setTimeout(onComplete, 400);
+    setTimeout(onComplete, 600);
   }, [onComplete]);
 
   return (
     <motion.div
       key="intro-video"
-      className="fixed inset-0 z-[9999] bg-white touch-none overflow-hidden"
+      className="fixed inset-0 z-[9999] touch-none overflow-hidden bg-white"
       exit={{ opacity: 0 }}
       transition={{ duration: 0.6, ease: "easeInOut" }}
       style={{ height: autoplay ? "var(--real-vh, 100svh)" : "100svh" }}
       onWheel={(e) => e.preventDefault()}
       onTouchMove={(e) => e.preventDefault()}
     >
-      <video
+      {/* Video */}
+      <motion.video
         ref={videoRef}
         src={videoSrc}
         className="absolute inset-0 w-full h-full object-cover"
-        style={{ opacity: videoReady ? 1 : 0 }}
+        initial={{ opacity: 0 }}
+        animate={{ opacity: firstFrameReady ? 1 : 0 }}
+        transition={{ duration: 0.4, ease: "easeOut" }}
         playsInline
         muted
         preload="auto"
-        onCanPlayThrough={() => setVideoReady(true)}
+        onLoadedMetadata={markReady}
+        onLoadedData={markReady}
+        onCanPlay={markReady}
         onTimeUpdate={handleTimeUpdate}
         onEnded={handleEnded}
       />
 
-      {/* White overlay */}
+      {/* End fade to white */}
       <motion.div
         className="absolute inset-0 bg-white pointer-events-none"
-        initial={{ opacity: 1 }}
-        animate={{ opacity: videoReady ? overlayOpacity : 1 }}
-        transition={{ duration: 0.5, ease: "easeOut" }}
+        initial={{ opacity: 0 }}
+        animate={{ opacity: endFade ? 1 : 0 }}
+        transition={{ duration: 0.8, ease: "easeIn" }}
       />
 
-      {/* Play button — hidden in autoplay mode */}
+      {/* "Ouvrir" prompt — shown always (not in autoplay), adapts color to bg */}
       <AnimatePresence>
         {!autoplay && !playing && (
           <motion.div
-            key="play-btn"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ delay: 0.6, duration: 0.8, ease: "easeOut" }}
+            key="open-prompt"
+            initial={{ opacity: 0, y: 6 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: 4 }}
+            transition={{ delay: 0.3, duration: 0.6, ease: "easeOut" }}
             className="absolute inset-0 flex flex-col items-center justify-end pb-10 cursor-pointer"
             onClick={startPlayback}
             style={{ WebkitTapHighlightColor: "transparent" }}
           >
-            <motion.div
-              className="flex flex-col items-center gap-3"
-              initial={{ y: 8 }}
-              animate={{ y: 0 }}
-              exit={{ y: 8 }}
-              transition={{ delay: 0.6, duration: 0.8, ease: "easeOut" }}
-            >
-              <div className="w-12 h-12 rounded-full bg-white/20 backdrop-blur-sm border border-white/40 flex items-center justify-center pointer-events-none overflow-hidden">
-                <AnimatePresence mode="wait" initial={false}>
-                  {loading ? (
-                    <motion.div
-                      key="spinner"
-                      initial={{ opacity: 0, scale: 0.6 }}
-                      animate={{ opacity: 1, scale: 1 }}
-                      exit={{ opacity: 0, scale: 0.6 }}
-                      transition={{ duration: 0.2 }}
-                      className="w-4 h-4 border border-white/60 border-t-white rounded-full animate-spin"
-                    />
-                  ) : (
-                    <motion.div
-                      key="play"
-                      initial={{ opacity: 0, scale: 0.6 }}
-                      animate={{ opacity: 1, scale: 1 }}
-                      exit={{ opacity: 0, scale: 0.6 }}
-                      transition={{ duration: 0.2 }}
-                    >
-                      <Play className="w-4 h-4 text-white ml-0.5 opacity-90" strokeWidth={1.5} fill="currentColor" />
-                    </motion.div>
-                  )}
-                </AnimatePresence>
+            <div className="flex flex-col items-center gap-2">
+              <div className={`w-10 h-10 rounded-full backdrop-blur-sm border flex items-center justify-center overflow-hidden transition-colors duration-300 ${firstFrameReady ? "bg-black/25 border-white/25" : "bg-black/10 border-black/15"}`}>
+                {loading ? (
+                  <div className={`w-3.5 h-3.5 rounded-full animate-spin border ${firstFrameReady ? "border-white/50 border-t-white" : "border-black/30 border-t-black/70"}`} />
+                ) : (
+                  <Play className={`w-3.5 h-3.5 ml-0.5 ${firstFrameReady ? "text-white" : "text-black/60"}`} strokeWidth={1.5} fill="currentColor" />
+                )}
               </div>
-              <motion.span
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 0.7 }}
-                transition={{ delay: 1, duration: 0.6 }}
-                className="text-[9px] uppercase tracking-[0.3em] text-white font-light select-none"
-              >
-                <AnimatePresence mode="wait" initial={false}>
-                  {loading ? (
-                    <motion.span
-                      key="loading-label"
-                      initial={{ opacity: 0, y: 4 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      exit={{ opacity: 0, y: -4 }}
-                      transition={{ duration: 0.2 }}
-                      className="block"
-                    >
-                      Chargement…
-                    </motion.span>
-                  ) : (
-                    <motion.span
-                      key="play-label"
-                      initial={{ opacity: 0, y: 4 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      exit={{ opacity: 0, y: -4 }}
-                      transition={{ duration: 0.2 }}
-                      className="block"
-                    >
-                      Lire
-                    </motion.span>
-                  )}
-                </AnimatePresence>
-              </motion.span>
-            </motion.div>
+              <span className={`text-[9px] uppercase tracking-[0.25em] font-light select-none transition-colors duration-300 ${firstFrameReady ? "text-white/60" : "text-black/40"}`}>
+                {loading ? "Chargement…" : "Ouvrir"}
+              </span>
+            </div>
           </motion.div>
         )}
       </AnimatePresence>
