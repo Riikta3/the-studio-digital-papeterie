@@ -559,12 +559,14 @@ export function InvitationPageClient({
         <AnimatePresence>
           {hasIntro &&
             !introDone &&
-            (!isDemo || animationSequence !== null) && (
+            (!isDemo || animationSequence !== null || activeTheme === "theme-travel") && (
               <InvitationIntro
                 onComplete={() => setIntroDone(true)}
                 autoplay={isDemo && shouldPlay}
                 forceDesktop={isDesktop ?? undefined}
-                {...(animationSequence ?? {})}
+                {...(activeTheme === "theme-travel"
+                  ? { videoSrc: "/videos/theme/travel/vintage-envelope-opening.webm" }
+                  : (animationSequence ?? {}))}
               />
             )}
         </AnimatePresence>

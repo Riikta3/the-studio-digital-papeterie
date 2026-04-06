@@ -13,6 +13,169 @@ const DEFAULT_MOBILE_FRAME_COUNT = 53;
 const FPS = 24;
 const FADE_START_RATIO = 0.82;
 
+// ─── Video Intro (webm) ───────────────────────────────────────────────────────
+
+interface VideoIntroProps {
+  videoSrc: string;
+  onComplete: () => void;
+  autoplay?: boolean;
+}
+
+function VideoIntro({ videoSrc, onComplete, autoplay = false }: VideoIntroProps) {
+  const [videoReady, setVideoReady] = useState(false);
+  const [playing, setPlaying] = useState(false);
+  const [overlayOpacity, setOverlayOpacity] = useState(0);
+  const [loading, setLoading] = useState(false);
+  const videoRef = useRef<HTMLVideoElement>(null);
+
+  const startPlayback = useCallback(async () => {
+    const video = videoRef.current;
+    if (!video || playing) return;
+    setLoading(true);
+    try {
+      await video.play();
+      setPlaying(true);
+    } finally {
+      setLoading(false);
+    }
+  }, [playing]);
+
+  useEffect(() => {
+    if (autoplay && videoReady) {
+      startPlayback();
+    }
+  }, [autoplay, videoReady, startPlayback]);
+
+  const handleTimeUpdate = useCallback(() => {
+    const video = videoRef.current;
+    if (!video || !video.duration) return;
+    const progress = video.currentTime / video.duration;
+    if (progress >= FADE_START_RATIO) {
+      const fadeProgress = (progress - FADE_START_RATIO) / (1 - FADE_START_RATIO);
+      setOverlayOpacity(Math.min(fadeProgress, 1));
+    }
+  }, []);
+
+  const handleEnded = useCallback(() => {
+    setOverlayOpacity(1);
+    setTimeout(onComplete, 400);
+  }, [onComplete]);
+
+  return (
+    <motion.div
+      key="intro-video"
+      className="fixed inset-0 z-[9999] bg-white touch-none overflow-hidden"
+      exit={{ opacity: 0 }}
+      transition={{ duration: 0.6, ease: "easeInOut" }}
+      style={{ height: autoplay ? "var(--real-vh, 100svh)" : "100svh" }}
+      onWheel={(e) => e.preventDefault()}
+      onTouchMove={(e) => e.preventDefault()}
+    >
+      <video
+        ref={videoRef}
+        src={videoSrc}
+        className="absolute inset-0 w-full h-full object-cover"
+        style={{ opacity: videoReady ? 1 : 0 }}
+        playsInline
+        muted
+        preload="auto"
+        onCanPlayThrough={() => setVideoReady(true)}
+        onTimeUpdate={handleTimeUpdate}
+        onEnded={handleEnded}
+      />
+
+      {/* White overlay */}
+      <motion.div
+        className="absolute inset-0 bg-white pointer-events-none"
+        initial={{ opacity: 1 }}
+        animate={{ opacity: videoReady ? overlayOpacity : 1 }}
+        transition={{ duration: 0.5, ease: "easeOut" }}
+      />
+
+      {/* Play button — hidden in autoplay mode */}
+      <AnimatePresence>
+        {!autoplay && !playing && (
+          <motion.div
+            key="play-btn"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ delay: 0.6, duration: 0.8, ease: "easeOut" }}
+            className="absolute inset-0 flex flex-col items-center justify-end pb-10 cursor-pointer"
+            onClick={startPlayback}
+            style={{ WebkitTapHighlightColor: "transparent" }}
+          >
+            <motion.div
+              className="flex flex-col items-center gap-3"
+              initial={{ y: 8 }}
+              animate={{ y: 0 }}
+              exit={{ y: 8 }}
+              transition={{ delay: 0.6, duration: 0.8, ease: "easeOut" }}
+            >
+              <div className="w-12 h-12 rounded-full bg-white/20 backdrop-blur-sm border border-white/40 flex items-center justify-center pointer-events-none overflow-hidden">
+                <AnimatePresence mode="wait" initial={false}>
+                  {loading ? (
+                    <motion.div
+                      key="spinner"
+                      initial={{ opacity: 0, scale: 0.6 }}
+                      animate={{ opacity: 1, scale: 1 }}
+                      exit={{ opacity: 0, scale: 0.6 }}
+                      transition={{ duration: 0.2 }}
+                      className="w-4 h-4 border border-white/60 border-t-white rounded-full animate-spin"
+                    />
+                  ) : (
+                    <motion.div
+                      key="play"
+                      initial={{ opacity: 0, scale: 0.6 }}
+                      animate={{ opacity: 1, scale: 1 }}
+                      exit={{ opacity: 0, scale: 0.6 }}
+                      transition={{ duration: 0.2 }}
+                    >
+                      <Play className="w-4 h-4 text-white ml-0.5 opacity-90" strokeWidth={1.5} fill="currentColor" />
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+              </div>
+              <motion.span
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 0.7 }}
+                transition={{ delay: 1, duration: 0.6 }}
+                className="text-[9px] uppercase tracking-[0.3em] text-white font-light select-none"
+              >
+                <AnimatePresence mode="wait" initial={false}>
+                  {loading ? (
+                    <motion.span
+                      key="loading-label"
+                      initial={{ opacity: 0, y: 4 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={{ opacity: 0, y: -4 }}
+                      transition={{ duration: 0.2 }}
+                      className="block"
+                    >
+                      Chargement…
+                    </motion.span>
+                  ) : (
+                    <motion.span
+                      key="play-label"
+                      initial={{ opacity: 0, y: 4 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={{ opacity: 0, y: -4 }}
+                      transition={{ duration: 0.2 }}
+                      className="block"
+                    >
+                      Lire
+                    </motion.span>
+                  )}
+                </AnimatePresence>
+              </motion.span>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </motion.div>
+  );
+}
+
 // ─── Preloader ────────────────────────────────────────────────────────────────
 
 function buildPath(basePath: string, index: number): string {
@@ -47,6 +210,8 @@ interface InvitationIntroProps {
   mobileFrameCount?: number;
   /** Loop the sequence instead of calling onComplete (e.g. demo/preview mode) */
   loop?: boolean;
+  /** Use a single video file (webm/mp4) instead of frame sequence */
+  videoSrc?: string;
 }
 
 type State = "idle" | "loading" | "playing" | "done";
@@ -60,7 +225,11 @@ export function InvitationIntro({
   desktopFrameCount = DEFAULT_DESKTOP_FRAME_COUNT,
   mobileFrameCount = DEFAULT_MOBILE_FRAME_COUNT,
   loop = false,
+  videoSrc,
 }: InvitationIntroProps) {
+  if (videoSrc) {
+    return <VideoIntro videoSrc={videoSrc} onComplete={onComplete} autoplay={autoplay} />;
+  }
   const [state, setState] = useState<State>("idle");
   const [overlayOpacity, setOverlayOpacity] = useState(0);
   const [firstFrameReady, setFirstFrameReady] = useState(false);
