@@ -95,7 +95,6 @@ export function InvitationHero({
 
       {/* ── VIDEO ─────────────────────────────────────────────────────── */}
       <div className='flex-1 min-h-0 relative overflow-hidden'>
-
         <video
           loop
           muted
@@ -104,39 +103,39 @@ export function InvitationHero({
           src='/videos/theme/travel/mariage-voyage-hublot-avion.webm'
           ref={videoRef}
         />
-
-        {/* Scroll cue */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 1.2, duration: 0.8 }}
-          className='absolute bottom-8 left-0 right-0 flex justify-center z-20'
-        >
-          <motion.div
-            animate={{ y: [0, 6, 0] }}
-            transition={{ repeat: Infinity, duration: 1.6, ease: "easeInOut" }}
-            className='flex flex-col items-center gap-1 cursor-pointer'
-            onClick={() =>
-              document
-                .getElementById("modules")
-                ?.scrollIntoView({ behavior: "smooth" })
-            }
-          >
-            <span className='text-[9px] uppercase tracking-[0.3em] text-foreground/40 font-sans'>
-              Découvrir
-            </span>
-            <svg width='16' height='16' viewBox='0 0 16 16' fill='none' className='text-foreground/30'>
-              <path
-                d='M8 3v10M8 13l-4-4M8 13l4-4'
-                stroke='currentColor'
-                strokeWidth='1.5'
-                strokeLinecap='round'
-                strokeLinejoin='round'
-              />
-            </svg>
-          </motion.div>
-        </motion.div>
       </div>
+
+      {/* ── Scroll cue — sous la vidéo ────────────────────────────────── */}
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 1.2, duration: 0.8 }}
+        className='shrink-0 flex justify-center pb-6 pt-2 z-20'
+      >
+        <motion.div
+          animate={{ y: [0, 6, 0] }}
+          transition={{ repeat: Infinity, duration: 1.6, ease: "easeInOut" }}
+          className='flex flex-col items-center gap-1 cursor-pointer'
+          onClick={() =>
+            document
+              .getElementById("modules")
+              ?.scrollIntoView({ behavior: "smooth" })
+          }
+        >
+          <span className='text-[9px] uppercase tracking-[0.3em] text-foreground/40 font-sans'>
+            Découvrir
+          </span>
+          <svg width='16' height='16' viewBox='0 0 16 16' fill='none' className='text-foreground/30'>
+            <path
+              d='M8 3v10M8 13l-4-4M8 13l4-4'
+              stroke='currentColor'
+              strokeWidth='1.5'
+              strokeLinecap='round'
+              strokeLinejoin='round'
+            />
+          </svg>
+        </motion.div>
+      </motion.div>
     </section>
   );
 }
