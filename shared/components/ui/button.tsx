@@ -18,18 +18,31 @@ const buttonVariants = cva(
           "bg-secondary text-secondary-foreground hover:bg-secondary/80",
         ghost: "hover:bg-accent hover:text-accent-foreground",
         link: "text-primary underline-offset-4 hover:underline",
+        "studio-jaune":
+          "bg-studio-jaune text-studio-violet hover:bg-studio-jaune/90",
+        "studio-outline":
+          "border border-studio-lavande text-studio-lavande bg-transparent hover:bg-studio-lavande/10",
+        "studio-violet":
+          "bg-studio-violet text-white hover:bg-studio-violet/90",
       },
       size: {
         default: "h-10 px-4 py-2",
         sm: "h-9 rounded-md px-3",
         lg: "h-11 rounded-md px-8",
         icon: "h-10 w-10",
+        pill: "h-14 px-8 py-3 text-base",
       },
     },
     defaultVariants: {
       variant: "default",
       size: "default",
     },
+    compoundVariants: [
+      {
+        variant: ["studio-jaune", "studio-outline", "studio-violet"],
+        className: "rounded-full font-body",
+      },
+    ],
   },
 );
 

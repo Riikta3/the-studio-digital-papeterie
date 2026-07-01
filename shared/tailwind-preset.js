@@ -35,6 +35,14 @@ module.exports = {
         },
         border: "hsl(var(--border))",
         ring: "hsl(var(--ring))",
+        studio: {
+          violet: "#4B3F72",
+          lavande: "#B7AFD1",
+          jaune: "#F2E5AA",
+          pourpre: "#8C6E8C",
+          beige: "#E6DCC6",
+          beurre: "#FDFBF7",
+        },
       },
       borderRadius: {
         lg: "var(--radius)",

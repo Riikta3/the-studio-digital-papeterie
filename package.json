@@ -2,6 +2,7 @@
   "private": true,
   "workspaces": [
     "landing",
+    "landing-deprecated",
     "dashboard",
     "builder"
   ],
@@ -9,6 +10,8 @@
     "dev:landing": "npm run dev -w landing",
     "build:landing": "npm run build -w landing",
     "start:landing": "npm run start -w landing",
+    "dev:landing-deprecated": "npm run dev -w landing-deprecated",
+    "build:landing-deprecated": "npm run build -w landing-deprecated",
     "dev:dashboard": "npm run dev -w dashboard",
     "build:dashboard": "npm run build -w dashboard",
     "start:dashboard": "npm run start -w dashboard",
