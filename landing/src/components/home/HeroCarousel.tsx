@@ -17,7 +17,7 @@ const REFERENCE_INDEX = 3;
 const INTRO_OVERSHOOT = 2;
 
 // How much the active card grows at rest.
-const ACTIVE_SCALE = 1.12;
+const ACTIVE_SCALE = 1.2;
 
 // Card aspect ratio (w/h) — portrait, smartphone-like.
 const CARD_RATIO = 290 / 540;
@@ -43,10 +43,12 @@ export function HeroCarousel() {
     const measure = () => {
       const vw = el.clientWidth;
       const vh = el.clientHeight;
-      // Reserve room so scale(ACTIVE_SCALE) fits inside the clip box.
-      const maxH = vh / ACTIVE_SCALE;
+      // Reserve room so scale(ACTIVE_SCALE) fits inside the clip box, plus an
+      // extra margin so resting cards are smaller and the grown active card
+      // keeps some breathing space (never touches the edges → no crop).
+      const maxH = (vh * 0.82) / ACTIVE_SCALE;
       // Keep the active card within the viewport width too, with a little margin.
-      const maxW = (vw * 0.86) / ACTIVE_SCALE;
+      const maxW = (vw * 0.78) / ACTIVE_SCALE;
       let cardH = maxH;
       let cardW = cardH * CARD_RATIO;
       if (cardW > maxW) {
@@ -100,7 +102,7 @@ export function HeroCarousel() {
 
       <div
         ref={viewportRef}
-        className="relative flex h-[560px] w-full items-center justify-center overflow-hidden md:h-[640px]"
+        className="relative flex h-[620px] w-full items-center justify-center overflow-hidden md:h-[720px]"
       >
         {/* The sliding track: real side-by-side cards, one shared x transform.
             Anchored so its left edge sits at the viewport center; the negative
@@ -113,7 +115,7 @@ export function HeroCarousel() {
           animate={{ x: restX }}
           transition={
             phase === "intro"
-              ? { duration: 1.6, delay: 0.4, ease: [0.22, 1, 0.36, 1] }
+              ? { duration: 2.2, delay: 0.2, ease: [0.45, 0, 0.65, 0.3] }
               : { type: "spring", stiffness: 300, damping: 34 }
           }
           onAnimationComplete={() => {
@@ -135,11 +137,16 @@ export function HeroCarousel() {
             return (
               <motion.div
                 key={k}
+                initial={{ opacity: 0 }}
                 animate={{
+                  opacity: 1,
                   scale: isActive ? ACTIVE_SCALE : 1,
                   zIndex: isActive ? 10 : 1,
                 }}
-                transition={{ duration: 0.5, ease: "easeOut" }}
+                transition={{
+                  opacity: { duration: 0.2, ease: "easeOut" },
+                  scale: { duration: 0.5, ease: "easeOut" },
+                }}
                 className="absolute overflow-hidden rounded-3xl"
                 style={{
                   width: cardW,

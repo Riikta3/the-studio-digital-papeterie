@@ -8,14 +8,20 @@ import Image from "next/image";
 
 import { HeroCarousel } from "./HeroCarousel";
 
-const fadeUp = {
-  hidden: { opacity: 0, y: 16 },
-  visible: (delay: number) => ({
-    opacity: 1,
-    y: 0,
-    transition: { duration: 0.6, delay, ease: "easeOut" },
-  }),
-};
+// Continuous word-by-word reveal: each block starts after the previous one's
+// last word. Delay of a block = start of previous + (its word count × STAGGER).
+const STAGGER = 0.11;
+const START = 0.2;
+const w = (text: string) => text.split(" ").length;
+
+const D = (() => {
+  const eyebrow = START;
+  const title1 = eyebrow + w("Faire-part digital") * STAGGER;
+  const title2 = title1 + w("Le faire-part") * STAGGER;
+  const subtitle = title2 + w("réinventé") * STAGGER;
+  const cta = subtitle + w("Pensé pour les mariages d'aujourd'hui") * STAGGER;
+  return { eyebrow, title1, title2, subtitle, cta };
+})();
 
 export function Hero() {
   return (
@@ -31,8 +37,8 @@ export function Hero() {
         />
       </div>
 
-      <div className="relative z-10 flex flex-col items-center px-6 pt-8 md:px-12 md:pt-10">
-        <nav className="flex w-full max-w-6xl items-center justify-between">
+      <div className="relative z-10 flex flex-col items-center pt-8 md:pt-10">
+        <nav className="flex w-full max-w-6xl items-center justify-between px-6 md:px-12">
           <Image src="/logo.svg" alt="The Studio Digital Papeterie" width={40} height={42} />
           <button
             type="button"
@@ -43,79 +49,77 @@ export function Hero() {
           </button>
         </nav>
 
-        <motion.div
-          initial="hidden"
-          animate="visible"
-          className="mt-10 flex items-center gap-3 text-sm tracking-luxe text-studio-lavande md:mt-14"
-        >
-          <motion.span
-            custom={0}
-            variants={fadeUp}
-            className="h-px w-8 bg-studio-lavande/50"
-          />
-          <motion.span custom={0.05} variants={fadeUp} className="font-body">
-            Faire-part digital
-          </motion.span>
-          <motion.span
-            custom={0.1}
-            variants={fadeUp}
-            className="h-px w-8 bg-studio-lavande/50"
-          />
-        </motion.div>
+        <div className="flex flex-col items-center px-6 md:px-12">
+          <div className="mt-10 flex items-center gap-3 text-sm tracking-luxe text-studio-lavande md:mt-14">
+            <motion.span
+              initial={{ opacity: 0, y: 24 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.65, delay: D.eyebrow, ease: "easeOut" }}
+              className="h-px w-8 bg-studio-lavande/50"
+            />
+            <SplitText
+              text="Faire-part digital"
+              className="font-body"
+              startDelay={D.eyebrow}
+            />
+            <motion.span
+              initial={{ opacity: 0, y: 24 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{
+                duration: 0.65,
+                delay: D.eyebrow + 2 * STAGGER,
+                ease: "easeOut",
+              }}
+              className="h-px w-8 bg-studio-lavande/50"
+            />
+          </div>
 
-        <h1 className="mt-6 text-center font-heading text-5xl leading-tight md:text-7xl">
+          <h1 className="mt-6 text-center font-heading text-5xl leading-tight md:text-7xl">
+            <SplitText
+              as="span"
+              text="Le faire-part"
+              className="block text-white"
+              startDelay={D.title1}
+            />
+            <SplitText
+              as="span"
+              text="réinventé"
+              className="block text-studio-jaune"
+              startDelay={D.title2}
+            />
+          </h1>
+
           <SplitText
-            text="Le faire-part"
-            className="block"
-            staggerDelay={0.12}
-            fromColor="rgba(255,255,255,0.25)"
-            toColor="rgba(255,255,255,1)"
+            as="p"
+            text="Pensé pour les mariages d'aujourd'hui"
+            className="mt-4 text-center font-body text-lg text-white/80 md:text-xl"
+            startDelay={D.subtitle}
           />
-          <SplitText
-            text="réinventé"
-            className="block"
-            initialDelay={0.28}
-            staggerDelay={0.12}
-            fromColor="rgba(242,229,170,0.25)"
-            toColor="#F2E5AA"
-          />
-        </h1>
 
-        <motion.p
-          initial="hidden"
-          animate="visible"
-          custom={0.65}
-          variants={fadeUp}
-          className="mt-4 text-center font-body text-lg text-white/80 md:text-xl"
-        >
-          Pensé pour les mariages d&apos;aujourd&apos;hui
-        </motion.p>
+          <motion.div
+            initial={{ opacity: 0, y: 24 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.65, delay: D.cta, ease: "easeOut" }}
+            className="mt-8 flex flex-row gap-3 sm:gap-4"
+          >
+            <Button variant="studio-outline" size="pill">
+              Découvrir
+            </Button>
+            <Button variant="studio-jaune" size="pill">
+              Créer le mien <ArrowRight className="ml-2 h-4 w-4" />
+            </Button>
+          </motion.div>
+        </div>
 
-        <motion.div
-          initial="hidden"
-          animate="visible"
-          custom={0.8}
-          variants={fadeUp}
-          className="mt-8 flex flex-row gap-3 sm:gap-4"
-        >
-          <Button variant="studio-outline" size="pill">
-            Découvrir
-          </Button>
-          <Button variant="studio-jaune" size="pill">
-            Créer le mien <ArrowRight className="ml-2 h-4 w-4" />
-          </Button>
-        </motion.div>
-
-        <div className="relative left-1/2 mt-16 w-screen -translate-x-1/2 md:mt-20">
+        <div className="mt-16 w-full md:mt-20">
           <HeroCarousel />
         </div>
 
         <motion.div
-          initial="hidden"
-          animate="visible"
-          custom={1.4}
-          variants={fadeUp}
-          className="relative z-10 mt-12 w-full max-w-3xl"
+          initial={{ opacity: 0, y: 24 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 1.4, ease: "easeOut" }}
+          className="relative z-10 mt-12 w-full max-w-3xl px-6 md:px-12"
         >
           <Button
             variant="studio-violet"
