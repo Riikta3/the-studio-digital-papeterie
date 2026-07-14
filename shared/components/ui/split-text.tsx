@@ -15,8 +15,8 @@ export function SplitText({
   className,
   wordClassName,
   startDelay = 0,
-  stagger = 0.11,
-  duration = 0.65,
+  stagger = 0.2,
+  duration = 0.4,
 }: {
   text: string;
   as?: React.ElementType;
@@ -37,9 +37,16 @@ export function SplitText({
             initial={{ opacity: 0, y: 24 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{
-              delay: startDelay + index * stagger,
-              opacity: { duration: 0.15, ease: "easeOut" },
-              y: { duration, ease: "easeOut" },
+              opacity: {
+                duration: 0.3,
+                delay: startDelay + index * stagger,
+                ease: "easeOut",
+              },
+              y: {
+                duration,
+                delay: startDelay + index * stagger,
+                ease: "easeOut",
+              },
             }}
           >
             {word}

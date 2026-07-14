@@ -10,7 +10,7 @@ import { HeroCarousel } from "./HeroCarousel";
 
 // Continuous word-by-word reveal: each block starts after the previous one's
 // last word. Delay of a block = start of previous + (its word count × STAGGER).
-const STAGGER = 0.11;
+const STAGGER = 0.2;
 const START = 0.2;
 const w = (text: string) => text.split(" ").length;
 
@@ -26,7 +26,12 @@ const D = (() => {
 export function Hero() {
   return (
     <div className="relative bg-studio-jaune">
-      <div className="absolute inset-x-0 top-0 h-[80vh] overflow-hidden bg-studio-violet md:h-[800px]">
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 0.8, ease: "easeOut" }}
+        className="absolute inset-x-0 top-0 h-[80vh] overflow-hidden bg-studio-violet md:h-[800px]"
+      >
         <div
           className="pointer-events-none absolute inset-0 opacity-40 mix-blend-soft-light"
           style={{
@@ -35,7 +40,7 @@ export function Hero() {
             backgroundPosition: "center",
           }}
         />
-      </div>
+      </motion.div>
 
       <div className="relative z-10 flex flex-col items-center pt-8 md:pt-10">
         <nav className="flex w-full max-w-6xl items-center justify-between px-6 md:px-12">
