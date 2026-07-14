@@ -116,7 +116,7 @@ export function Hero() {
           </motion.div>
         </div>
 
-        <div className="mt-16 w-full md:mt-20">
+        <div className="mt-4 w-full md:mt-20">
           <HeroCarousel />
         </div>
 
@@ -124,7 +124,7 @@ export function Hero() {
           initial={{ opacity: 0, y: 24 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 1.4, ease: "easeOut" }}
-          className="relative z-10 mt-12 w-full max-w-3xl px-6 md:px-12"
+          className="relative z-10 mt-4 w-full max-w-3xl px-6 md:px-12"
         >
           <Button
             variant="studio-violet"
