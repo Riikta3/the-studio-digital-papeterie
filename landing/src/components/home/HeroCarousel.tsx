@@ -116,7 +116,7 @@ export function HeroCarousel() {
           transition={
             phase === "intro"
               ? { duration: 2.2, delay: 0.2, ease: [0.45, 0, 0.65, 0.3] }
-              : { type: "spring", stiffness: 300, damping: 34 }
+              : { type: "spring", stiffness: 180, damping: 26 }
           }
           onAnimationComplete={() => {
             if (phase === "intro") setPhase("idle");
