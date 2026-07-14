@@ -8,7 +8,16 @@ import { useEffect, useRef, useState } from "react";
 const SWIPE_THRESHOLD = 40;
 
 const GAP = 10;
-const CARD_COUNT = 6;
+
+const CARD_IMAGES = [
+  { src: "/images/invitation-amalfi.png", alt: "Exemple d'invitation de mariage — thème Amalfi" },
+  { src: "/images/invitation-venise.png", alt: "Exemple d'invitation de mariage — thème Venise" },
+  { src: "/images/invitation-provence.png", alt: "Exemple d'invitation de mariage — thème Provence" },
+  { src: "/images/invitation-toscane.png", alt: "Exemple d'invitation de mariage — thème Toscane" },
+  { src: "/images/invitation-riviera.png", alt: "Exemple d'invitation de mariage — thème Riviera" },
+  { src: "/images/invitation-capri.png", alt: "Exemple d'invitation de mariage — thème Capri" },
+];
+const CARD_COUNT = CARD_IMAGES.length;
 
 // The reference card the intro slides to and highlights.
 const REFERENCE_INDEX = 3;
@@ -157,8 +166,8 @@ export function HeroCarousel() {
                 }}
               >
                 <Image
-                  src="/images/invitation-amalfi.png"
-                  alt="Exemple d'invitation de mariage — thème Amalfi"
+                  src={CARD_IMAGES[cardId].src}
+                  alt={CARD_IMAGES[cardId].alt}
                   fill
                   sizes="(max-width: 768px) 60vw, 290px"
                   className="object-cover"
