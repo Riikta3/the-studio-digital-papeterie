@@ -40,6 +40,20 @@ export function Hero() {
             backgroundPosition: "center",
           }}
         />
+        <Image
+          src="/images/hero-leaf-top.svg"
+          alt=""
+          width={82}
+          height={138}
+          className="pointer-events-none absolute right-0 top-16 h-auto w-24 md:top-24 md:w-40"
+        />
+        <Image
+          src="/images/hero-leaf-bottom.svg"
+          alt=""
+          width={106}
+          height={188}
+          className="pointer-events-none absolute bottom-56 left-2 h-auto w-28 md:bottom-24 md:left-12 md:w-44"
+        />
       </motion.div>
 
       <div className="relative z-10 flex flex-col items-center pt-8 md:pt-10">
@@ -136,12 +150,12 @@ export function Hero() {
           initial={{ opacity: 0, y: 24 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 1.4, ease: "easeOut" }}
-          className="relative z-10 mt-4 w-full max-w-3xl px-6 md:px-12"
+          className="relative z-10 mt-4 flex w-full justify-center px-6 md:px-12"
         >
           <Button
             variant="studio-violet"
             size="pill"
-            className="w-full justify-center"
+            className="text-studio-jaune"
           >
             Tester le thème Dolce Vita <ArrowRight className="ml-2 h-4 w-4" />
           </Button>

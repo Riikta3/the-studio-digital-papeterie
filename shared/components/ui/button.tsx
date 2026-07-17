@@ -21,7 +21,7 @@ const buttonVariants = cva(
         "studio-jaune":
           "bg-studio-jaune text-studio-violet hover:bg-studio-jaune/90",
         "studio-outline":
-          "border border-studio-lavande text-studio-lavande bg-transparent hover:bg-studio-lavande/10",
+          "border border-studio-jaune text-studio-jaune bg-transparent hover:bg-studio-jaune/10",
         "studio-violet":
           "bg-studio-violet text-white hover:bg-studio-violet/90",
       },
