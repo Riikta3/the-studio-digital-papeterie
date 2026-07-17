@@ -25,7 +25,7 @@ const D = (() => {
 
 export function Hero() {
   return (
-    <div className="relative bg-studio-jaune">
+    <div className="relative bg-studio-beurre">
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
@@ -56,18 +56,24 @@ export function Hero() {
 
         <div className="flex flex-col items-center px-6 md:px-12">
           <div className="mt-10 flex items-center gap-3 text-sm tracking-luxe text-studio-lavande md:mt-14">
-            <motion.span
+            <motion.div
               initial={{ opacity: 0, y: 24 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.65, delay: D.eyebrow, ease: "easeOut" }}
-              className="h-px w-8 bg-studio-lavande/50"
-            />
+            >
+              <Image
+                src="/images/eyebrow-separator-left.svg"
+                alt=""
+                width={42}
+                height={1}
+              />
+            </motion.div>
             <SplitText
               text="Faire-part digital"
               className="font-body"
               startDelay={D.eyebrow}
             />
-            <motion.span
+            <motion.div
               initial={{ opacity: 0, y: 24 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{
@@ -75,8 +81,14 @@ export function Hero() {
                 delay: D.eyebrow + 2 * STAGGER,
                 ease: "easeOut",
               }}
-              className="h-px w-8 bg-studio-lavande/50"
-            />
+            >
+              <Image
+                src="/images/eyebrow-separator-right.svg"
+                alt=""
+                width={42}
+                height={1}
+              />
+            </motion.div>
           </div>
 
           <h1 className="mt-6 text-center font-heading text-5xl leading-tight md:text-7xl">

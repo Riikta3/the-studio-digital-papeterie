@@ -41,7 +41,11 @@ module.exports = {
           jaune: "#F2E5AA",
           pourpre: "#8C6E8C",
           beige: "#E6DCC6",
-          beurre: "#FDFBF7",
+          beurre: "#FFF9D6",
+          "card-bg": "#FAF8FC",
+          "card-border-start": "#F1EBF6",
+          "card-border-end": "#BFB0CF",
+          "card-shadow": "#BFB0CF",
         },
       },
       borderRadius: {
@@ -52,6 +56,17 @@ module.exports = {
       fontFamily: {
         heading: ["var(--font-heading)", "serif"],
         body: ["var(--font-body)", "sans-serif"],
+      },
+      // Type scale from the "Typographie" design-system reference:
+      // H1-H3 use font-heading (Libre Caslon Display), H4-H5/p use
+      // font-body (Urbanist) with the matching weight baked in.
+      fontSize: {
+        h1: ["3.375rem", { lineHeight: "1.1", fontWeight: "400" }], // 54px
+        h2: ["2.5rem", { lineHeight: "1.15", fontWeight: "400" }], // 40px
+        h3: ["2rem", { lineHeight: "1.2", fontWeight: "400" }], // 32px
+        h4: ["1rem", { lineHeight: "1.4", fontWeight: "600" }], // 16px, SemiBold
+        h5: ["0.875rem", { lineHeight: "1.4", fontWeight: "400" }], // 14px, Regular
+        "body-p": ["0.875rem", { lineHeight: "1.5", fontWeight: "300" }], // 14px, Light
       },
       letterSpacing: {
         supertitle: "0.2em",
@@ -82,6 +97,8 @@ module.exports = {
       backgroundImage: {
         noise:
           "url(\"data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200' viewBox='0 0 200 200'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/></filter><rect width='200' height='200' filter='url(%23n)' opacity='0.06'/></svg>\")",
+        "card-border-gradient":
+          "linear-gradient(180deg, #F1EBF6 0%, #BFB0CF 100%)",
       },
     },
   },

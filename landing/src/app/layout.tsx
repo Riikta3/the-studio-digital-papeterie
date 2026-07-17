@@ -1,19 +1,20 @@
 import {
-  Cormorant_Garamond,
-  Inter,
+  Libre_Caslon_Display,
+  Urbanist,
 } from "next/font/google";
 
-const inter = Inter({
+const urbanist = Urbanist({
   subsets: ["latin"],
+  weight: ["300", "400", "500", "600", "700"],
   display: "swap",
-  variable: "--font-inter",
+  variable: "--font-body",
 });
 
-const cormorant = Cormorant_Garamond({
+const libreCaslonDisplay = Libre_Caslon_Display({
   subsets: ["latin"],
-  weight: ["400", "500", "600", "700"],
+  weight: ["400"],
   display: "swap",
-  variable: "--font-cormorant",
+  variable: "--font-heading",
 });
 
 export default async function RootLayout({
@@ -31,7 +32,7 @@ export default async function RootLayout({
       lang={locale}
       dir={locale === "ar" ? "rtl" : "ltr"}
       suppressHydrationWarning
-      className={`${inter.variable} ${cormorant.variable}`}
+      className={`${urbanist.variable} ${libreCaslonDisplay.variable}`}
     >
       <body
         className='w-full overflow-x-hidden bg-studio-jaune text-foreground'
