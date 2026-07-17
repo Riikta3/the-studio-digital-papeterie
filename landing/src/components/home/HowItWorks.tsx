@@ -2,10 +2,9 @@
 
 import { studioColors } from "@shared/lib/studio-colors";
 import { cn } from "@shared/lib/utils";
-import { motion, useScroll, useTransform } from "framer-motion";
 import { Link2, Mail, MessageCircle, Send } from "lucide-react";
 import Image from "next/image";
-import { useRef } from "react";
+import { useEffect, useRef } from "react";
 
 // Card visuals (border gradient, shadow tint) come straight from the studio
 // design tokens — Tailwind v3 has no CSS-variable escape hatch for gradient
@@ -151,53 +150,110 @@ const STEPS: Step[] = [
   },
 ];
 
-function StackCard({ step, index }: { step: Step; index: number }) {
-  const cardRef = useRef<HTMLDivElement>(null);
-  const { scrollYProgress } = useScroll({
-    target: cardRef,
-    offset: ["start start", "end start"],
-  });
-  const scale = useTransform(scrollYProgress, [0, 1], [1, 0.94]);
-  const topOffset = 96 + index * 48;
+// Shared sticky anchor for every card in the stack.
+const STICKY_TOP = 96;
 
+// The card itself is the sticky element (no wrapper) — matches the
+// reference stacking-cards implementation. Later cards sit later in the
+// DOM, so they naturally paint over earlier ones without any z-index.
+// All cards share the same sticky top so each one covers the previous
+// exactly and the final pile is perfectly aligned when the section exits.
+function StackCard({ step }: { step: Step }) {
   return (
-    <div ref={cardRef} className="sticky" style={{ top: topOffset }}>
-      <motion.div
-        style={{
-          scale,
-          backgroundImage: CARD_BORDER_GRADIENT,
-          backgroundOrigin: "border-box",
-          backgroundClip: "padding-box, border-box",
-          boxShadow: CARD_SHADOW,
-        }}
-        className="mx-auto flex min-h-[560px] w-full max-w-[370px] flex-col items-start gap-4 rounded-2xl border border-transparent px-4 pt-8 pb-4 text-left md:max-w-2xl md:px-8 lg:max-w-4xl"
-      >
-        <div className="flex items-end gap-4">
-          <span className="font-heading text-7xl leading-none text-studio-violet md:text-8xl">
-            {step.number}
-          </span>
-          <h3 className="font-heading text-h2 text-studio-violet">
-            {step.title.map((line) => (
-              <span key={line} className="block">
-                {line}
-              </span>
-            ))}
-          </h3>
-        </div>
-        <p className="font-body text-sm text-studio-violet/70 md:text-base">
-          {step.description}
-        </p>
-        <div className="flex w-full flex-1 items-center justify-center">
-          {step.content}
-        </div>
-      </motion.div>
+    <div
+      style={{
+        top: STICKY_TOP,
+        backgroundImage: CARD_BORDER_GRADIENT,
+        backgroundOrigin: "border-box",
+        backgroundClip: "padding-box, border-box",
+        boxShadow: CARD_SHADOW,
+        transformOrigin: "top center",
+      }}
+      className="stack-card sticky mx-auto mb-8 flex min-h-[560px] w-full max-w-[370px] flex-col items-start gap-4 rounded-2xl border border-transparent px-4 pt-8 pb-4 text-left last:mb-0 md:max-w-2xl md:px-8 lg:max-w-4xl"
+    >
+      <div className="flex items-end gap-4">
+        <span className="font-heading text-7xl leading-none text-studio-violet md:text-8xl">
+          {step.number}
+        </span>
+        <h3 className="font-heading text-h2 text-studio-violet">
+          {step.title.map((line) => (
+            <span key={line} className="block">
+              {line}
+            </span>
+          ))}
+        </h3>
+      </div>
+      <p className="font-body text-sm text-studio-violet/70 md:text-base">
+        {step.description}
+      </p>
+      <div className="flex w-full flex-1 items-center justify-center">
+        {step.content}
+      </div>
     </div>
   );
 }
 
+// Ported from the reference stacking-cards main.js: one shared scroll
+// listener shrinks each card slightly as it nears the viewport top.
+//
+// It also locks every card to the tallest card's height. Sticky release
+// order at the end of the section depends on card heights: with unequal
+// heights, card bottoms pin to the container bottom as the stack unpins,
+// so a taller first card pokes out above the last one. Equal heights keep
+// the stack perfectly aligned while it scrolls away.
+function useStackCards(containerRef: React.RefObject<HTMLDivElement | null>) {
+  useEffect(() => {
+    const container = containerRef.current;
+    if (!container) return;
+    const cards = Array.from(
+      container.querySelectorAll<HTMLElement>(".stack-card"),
+    );
+
+    const syncHeights = () => {
+      cards.forEach((card) => {
+        card.style.height = "auto";
+      });
+      const tallest = Math.max(...cards.map((card) => card.offsetHeight));
+      cards.forEach((card) => {
+        card.style.height = `${tallest}px`;
+      });
+      // The last card can only reach its pinned spot if the page keeps
+      // scrolling past it. With little content below the section, tall
+      // viewports run out of scroll before the pile completes, leaving
+      // the last card hanging below the others. Reserve exactly the
+      // missing room under the stack (48px of comfort margin).
+      const needed = window.innerHeight - (STICKY_TOP + tallest) + 48;
+      container.style.paddingBottom = `${Math.max(128, needed)}px`;
+    };
+
+    const updateScale = () => {
+      cards.forEach((card) => {
+        const rect = card.getBoundingClientRect();
+        const progress = Math.min(Math.max((120 - rect.top) / 300, 0), 1);
+        const scale = 1 - progress * 0.035;
+        card.style.transform = `scale(${scale.toFixed(3)})`;
+      });
+    };
+
+    syncHeights();
+    updateScale();
+    // Fonts loading in can change card heights after first paint.
+    document.fonts?.ready.then(syncHeights);
+    window.addEventListener("resize", syncHeights);
+    window.addEventListener("scroll", updateScale, { passive: true });
+    return () => {
+      window.removeEventListener("resize", syncHeights);
+      window.removeEventListener("scroll", updateScale);
+    };
+  }, [containerRef]);
+}
+
 export function HowItWorks() {
+  const containerRef = useRef<HTMLDivElement>(null);
+  useStackCards(containerRef);
+
   return (
-    <section className="bg-studio-beurre px-6 pb-32 pt-20 md:px-12">
+    <section className="bg-studio-beurre px-6 pt-20 md:px-12">
       <div className="mx-auto mb-16 max-w-3xl text-center">
         <div className="flex items-center justify-center gap-3 font-body text-h5 tracking-luxe text-studio-pourpre">
           <Image
@@ -221,9 +277,9 @@ export function HowItWorks() {
         </h2>
       </div>
 
-      <div className="flex flex-col gap-8">
-        {STEPS.map((step, index) => (
-          <StackCard key={step.number} step={step} index={index} />
+      <div ref={containerRef} className="pb-32">
+        {STEPS.map((step) => (
+          <StackCard key={step.number} step={step} />
         ))}
       </div>
     </section>
