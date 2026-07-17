@@ -55,7 +55,7 @@ export function Hero() {
         </nav>
 
         <div className="flex flex-col items-center px-6 md:px-12">
-          <div className="mt-10 flex items-center gap-3 text-sm tracking-luxe text-studio-lavande md:mt-14">
+          <div className="mt-10 flex items-center gap-3 font-body text-h5 tracking-luxe text-studio-lavande md:mt-14">
             <motion.div
               initial={{ opacity: 0, y: 24 }}
               animate={{ opacity: 1, y: 0 }}
@@ -91,7 +91,7 @@ export function Hero() {
             </motion.div>
           </div>
 
-          <h1 className="mt-6 text-center font-heading text-5xl leading-tight md:text-7xl">
+          <h1 className="mt-6 text-center font-heading text-h1">
             <SplitText
               as="span"
               text="Le faire-part"
@@ -109,7 +109,7 @@ export function Hero() {
           <SplitText
             as="p"
             text="Pensé pour les mariages d'aujourd'hui"
-            className="mt-4 text-center font-body text-lg text-white/80 md:text-xl"
+            className="mt-4 text-center font-body text-body-p text-white/80"
             startDelay={D.subtitle}
           />
 

@@ -60,13 +60,33 @@ module.exports = {
       // Type scale from the "Typographie" design-system reference:
       // H1-H3 use font-heading (Libre Caslon Display), H4-H5/p use
       // font-body (Urbanist) with the matching weight baked in.
+      // Sizes fluidly scale up on wider viewports via clamp() instead of
+      // fixed px, keeping the same ratios defined in the reference (54/40/32/16/14/14).
       fontSize: {
-        h1: ["3.375rem", { lineHeight: "1.1", fontWeight: "400" }], // 54px
-        h2: ["2.5rem", { lineHeight: "1.15", fontWeight: "400" }], // 40px
-        h3: ["2rem", { lineHeight: "1.2", fontWeight: "400" }], // 32px
-        h4: ["1rem", { lineHeight: "1.4", fontWeight: "600" }], // 16px, SemiBold
-        h5: ["0.875rem", { lineHeight: "1.4", fontWeight: "400" }], // 14px, Regular
-        "body-p": ["0.875rem", { lineHeight: "1.5", fontWeight: "300" }], // 14px, Light
+        h1: [
+          "clamp(2.5rem, 2rem + 2.2vw, 3.375rem)",
+          { lineHeight: "1.1", fontWeight: "400" },
+        ], // 40px → 54px
+        h2: [
+          "clamp(1.875rem, 1.5rem + 1.6vw, 2.5rem)",
+          { lineHeight: "1.15", fontWeight: "400" },
+        ], // 30px → 40px
+        h3: [
+          "clamp(1.5rem, 1.25rem + 1.1vw, 2rem)",
+          { lineHeight: "1.2", fontWeight: "400" },
+        ], // 24px → 32px
+        h4: [
+          "clamp(0.9375rem, 0.875rem + 0.25vw, 1rem)",
+          { lineHeight: "1.4", fontWeight: "600" },
+        ], // 15px → 16px, SemiBold
+        h5: [
+          "clamp(0.8125rem, 0.75rem + 0.25vw, 0.875rem)",
+          { lineHeight: "1.4", fontWeight: "400" },
+        ], // 13px → 14px, Regular
+        "body-p": [
+          "clamp(0.8125rem, 0.75rem + 0.25vw, 0.875rem)",
+          { lineHeight: "1.5", fontWeight: "300" },
+        ], // 13px → 14px, Light
       },
       letterSpacing: {
         supertitle: "0.2em",

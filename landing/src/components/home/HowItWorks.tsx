@@ -37,7 +37,7 @@ function UniverseMock() {
       style={MOCK_BORDER_STYLE}
       className="w-full max-w-sm rounded-2xl border border-transparent bg-white p-5 md:max-w-md lg:max-w-lg"
     >
-      <p className="mb-4 text-center text-sm font-medium text-studio-violet/70">
+      <p className="mb-4 text-center font-body text-h4 text-studio-violet/70">
         Sélectionner un univers
       </p>
       <div className="grid grid-cols-2 gap-3">
@@ -67,7 +67,7 @@ function PersonalizeMock() {
       style={MOCK_BORDER_STYLE}
       className="w-full max-w-sm rounded-2xl border border-transparent bg-white p-5 md:max-w-md lg:max-w-lg"
     >
-      <p className="mb-4 text-center text-sm font-medium text-studio-violet/70">
+      <p className="mb-4 text-center font-body text-h4 text-studio-violet/70">
         Personnalisez votre invitation
       </p>
       <div className="flex flex-col divide-y divide-studio-beige">
@@ -76,7 +76,7 @@ function PersonalizeMock() {
             key={row.label}
             className="flex items-center justify-between py-3"
           >
-            <span className="text-sm text-studio-violet/80">{row.label}</span>
+            <span className="font-body text-h5 text-studio-violet/80">{row.label}</span>
             <span
               className={cn(
                 "flex h-6 w-11 items-center rounded-full p-0.5 transition-colors",
@@ -109,7 +109,7 @@ function ShareMock() {
       style={MOCK_BORDER_STYLE}
       className="w-full max-w-sm rounded-2xl border border-transparent bg-white p-5 md:max-w-md lg:max-w-lg"
     >
-      <p className="mb-4 text-center text-sm font-medium text-studio-violet/70">
+      <p className="mb-4 text-center font-body text-h4 text-studio-violet/70">
         Partager votre invitation
       </p>
       <div className="flex flex-col divide-y divide-studio-beige">
@@ -118,7 +118,7 @@ function ShareMock() {
             key={label}
             className="flex items-center justify-between py-3"
           >
-            <span className="text-sm text-studio-violet/80">{label}</span>
+            <span className="font-body text-h5 text-studio-violet/80">{label}</span>
             <Icon className="h-4 w-4 text-studio-violet/60" />
           </div>
         ))}
@@ -176,7 +176,7 @@ function StackCard({ step, index }: { step: Step; index: number }) {
           <span className="font-heading text-8xl leading-none text-studio-violet md:text-9xl">
             {step.number}
           </span>
-          <h3 className="font-heading text-2xl leading-tight text-studio-violet md:text-4xl">
+          <h3 className="font-heading text-h2 text-studio-violet">
             {step.title.map((line) => (
               <span key={line} className="block">
                 {line}
@@ -184,7 +184,7 @@ function StackCard({ step, index }: { step: Step; index: number }) {
             ))}
           </h3>
         </div>
-        <p className="text-sm text-studio-violet/70 md:text-base">
+        <p className="font-body text-body-p text-studio-violet/70">
           {step.description}
         </p>
         <div className="flex w-full flex-1 items-center justify-center">
@@ -199,7 +199,7 @@ export function HowItWorks() {
   return (
     <section className="bg-studio-beurre px-6 pb-32 pt-20 md:px-12">
       <div className="mx-auto mb-16 max-w-3xl text-center">
-        <div className="flex items-center justify-center gap-3 text-sm tracking-luxe text-studio-pourpre">
+        <div className="flex items-center justify-center gap-3 font-body text-h5 tracking-luxe text-studio-pourpre">
           <Image
             src="/images/eyebrow-separator-left.svg"
             alt=""
@@ -214,7 +214,7 @@ export function HowItWorks() {
             height={1}
           />
         </div>
-        <h2 className="mt-4 font-heading text-3xl text-studio-violet md:text-5xl">
+        <h2 className="mt-4 font-heading text-h1 text-studio-violet">
           Votre faire-part
           <br />
           <span className="text-studio-lavande">en 3 étapes</span>
