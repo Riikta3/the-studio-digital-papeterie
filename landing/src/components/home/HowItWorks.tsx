@@ -215,7 +215,9 @@ export function HowItWorks() {
           />
         </div>
         <h2 className="mt-4 font-heading text-3xl text-studio-violet md:text-5xl">
-          Votre faire-part en 3 étapes
+          Votre faire-part
+          <br />
+          <span className="text-studio-lavande">en 3 étapes</span>
         </h2>
       </div>
 
