@@ -173,7 +173,7 @@ function StackCard({ step, index }: { step: Step; index: number }) {
         className="mx-auto flex min-h-[560px] w-full max-w-[370px] flex-col items-start gap-4 rounded-2xl border border-transparent px-4 pt-8 pb-4 text-left md:max-w-2xl md:px-8 lg:max-w-4xl"
       >
         <div className="flex items-end gap-4">
-          <span className="font-heading text-8xl leading-none text-studio-violet md:text-9xl">
+          <span className="font-heading text-7xl leading-none text-studio-violet md:text-8xl">
             {step.number}
           </span>
           <h3 className="font-heading text-h2 text-studio-violet">
