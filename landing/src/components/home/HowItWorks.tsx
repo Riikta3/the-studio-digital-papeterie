@@ -184,7 +184,7 @@ function StackCard({ step, index }: { step: Step; index: number }) {
             ))}
           </h3>
         </div>
-        <p className="font-body text-body-p text-studio-violet/70">
+        <p className="font-body text-sm text-studio-violet/70 md:text-base">
           {step.description}
         </p>
         <div className="flex w-full flex-1 items-center justify-center">
