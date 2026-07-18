@@ -15,11 +15,11 @@
     "eyebrow": "Faire-part digital",
     "titleLine1": "Le faire-part",
     "titleLine2": "réinventé",
-    "description": "Créer un faire-part mariage digital élégant et personnalisé. Invitations en ligne avec RSVP, programme et design sur-mesure.",
-    "createButton": "Créer mon invitation",
-    "demoButton": "Voir une démo",
-    "discoverThemes": "Découvrir les thèmes",
-    "discover": "Découvrir"
+    "subtitle": "Pensé pour les mariages d'aujourd'hui",
+    "menuAriaLabel": "Ouvrir le menu",
+    "discoverButton": "Découvrir",
+    "createButton": "Créer le mien",
+    "themeCta": "Tester le thème Dolce Vita"
   },
   "DemoSection": {
     "eyebrow": "Voir en vrai",
@@ -59,15 +59,42 @@
   },
   "HowItWorks": {
     "eyebrow": "Simple, rapide et 100% personnalisé",
-    "title": "Un faire-part de mariage digital",
+    "titleLine1": "Votre faire-part",
     "titleAccent": "en 3 étapes",
-    "step1Title": "Choisissez votre univers",
-    "step1Desc": "Explorez notre collection de thème de mariage exclusifs. Du style bohème au minimalisme chic, trouvez le thème qui sublimera votre annonce.",
-    "step2Title": "Personnalisez votre invitation",
-    "step2Desc": "Créez un faire-part à votre image : intégrez vos photos, vos textes et vos modules pratiques (RSVP en ligne, plan d'accès, hébérgement). Tout se configure en quelques clics.",
-    "step3Title": "Diffusez le bonheur",
-    "step3Desc": "Partagez votre faire-part numérique instantanément par SMS, WhatsApp ou email. Offrez à vos invités une expérience interactive unique, accessible partout et tout le temps.",
-    "createButton": "Créer mon faire-part"
+    "universeMockLabel": "Sélectionner un univers",
+    "personalizeMockLabel": "Personnalisez votre invitation",
+    "personalizeMockRows": [
+      "Livre d'or",
+      "Planning",
+      "Menu"
+    ],
+    "shareMockLabel": "Partager votre invitation",
+    "shareMockActions": [
+      "Copier le lien",
+      "Envoyer par mail",
+      "Envoyer par Whatsapp",
+      "Envoyer par SMS"
+    ],
+    "steps": [
+      {
+        "number": "01",
+        "titleLine1": "Choisissez",
+        "titleLine2": "votre univers",
+        "description": "Sélectionnez un design qui vous ressemble. Minimaliste, romantique, audacieux, chaque univers est pensé pour raconter votre histoire."
+      },
+      {
+        "number": "02",
+        "titleLine1": "Personnalisez",
+        "titleLine2": "votre invitation",
+        "description": "Ajoutez vos photos, vos textes et les informations essentielles, RSVP, programme, hébergements… tout se personnalise en quelques clics."
+      },
+      {
+        "number": "03",
+        "titleLine1": "Annoncez",
+        "titleLine2": "le grand jour",
+        "description": "Envoyez votre invitation par SMS, Whatsapp ou e-mail. Vos invités répondent en quelques secondes, où qu'ils soient."
+      }
+    ]
   },
   "Features": {
     "titleLine1": "L'élégance du papier,",
@@ -132,33 +159,31 @@
   },
   "Dashboard": {
     "eyebrow": "Votre espace mariés",
-    "title": "Gérez votre mariage en toute simplicité",
-    "subtitle": "Accès à un espace pour les futurs mariés après paiement",
-    "feature1": "Gestion RSVP",
-    "feature2": "Gestion invités",
-    "feature3": "Modification des infos",
-    "feature4": "Accès et modification invitation",
-    "demoButton": "Voir une démo du dashboard"
+    "titleLine1": "Un seul espace.",
+    "titleAccent": "Tout votre mariage.",
+    "subtitle": "Gérez vos invités, vos réponses RSVP, votre invitation : modifiez, ajustez, mettez à jour votre faire-part quand vous voulez, sans intermédiaire.",
+    "placeholder": "Aperçu du dashboard à venir"
   },
   "Testimonials": {
     "eyebrow": "Ils nous ont fait confiance",
-    "badge": "Déjà 130+ invitations envoyées",
-    "title": "Ce qu'ils",
-    "titleAccent": "en pensent"
-  },
-  "FAQ": {
-    "titleLine1": "Questions",
-    "titleLine2": "Fréquentes",
-    "q1": "Puis-je modifier mon site après l'envoi des invitations ?",
-    "a1": "Absolument ! C'est la magie du digital. Vous pouvez modifier les horaires, ajouter des infos sur l'hébergement ou changer une photo à tout moment. Vos invités verront toujours la version à jour.",
-    "q2": "Est-ce que je dois payer un abonnement mensuel ?",
-    "a2": "Non, jamais. Le paiement est unique. Votre site reste en ligne pendant 12 mois après votre mariage, ce qui vous laisse le temps de partager les photos souvenirs.",
-    "q3": "Comment mes invités confirment-ils leur présence (RSVP) ?",
-    "a3": "Un formulaire simple et élégant est intégré à votre site. Vous recevez les réponses instantanément dans votre tableau de bord (et par email si vous le souhaitez). Vous pouvez exporter la liste des invités en un clic.",
-    "q4": "Puis-je avoir un nom de domaine personnalisé ?",
-    "a4": "Oui ! Avec l'option 'Custom Domain' (+65€) ou incluse dans le pack Premium, vous pouvez avoir une adresse comme www.paula-et-marcos.com.",
-    "q5": "Proposez-vous des faire-part papier assortis ?",
-    "a5": "Nous nous concentrons sur l'expérience digitale pour l'instant, mais nous pouvons vous fournir les fichiers PDF haute définition de votre design pour que vous puissiez les imprimer chez votre imprimeur local."
+    "title": "Ce qu'ils en pensent",
+    "items": [
+      {
+        "quote": "Nos invités ont été bluffés par l'animation de l'enveloppe ! C'est le détail qui a tout changé. Les RSVP nous a sauvé un temps précieux.",
+        "names": "Juliette & Pierre",
+        "date": "Mariés en Septembre 2024"
+      },
+      {
+        "quote": "L'ambiance était magique, avec des lumières scintillantes et une musique envoûtante. Chaque moment a été immortalisé.",
+        "names": "Sophie & Antoine",
+        "date": "Mariés en Juin 2023"
+      },
+      {
+        "quote": "Nous avons découvert des paysages époustouflants lors de notre lune de miel. Les souvenirs de ces aventures resteront gravés.",
+        "names": "Emma & Lucas",
+        "date": "Mariés en Mai 2022"
+      }
+    ]
   },
   "Common": {
     "loading": "Chargement..."
@@ -170,22 +195,188 @@
     "learnMore": "En savoir plus"
   },
   "Footer": {
-    "tagline": "Le faire-part réinventé au digital.",
+    "logoAlt": "The Studio Digital Papeterie",
     "colProduct": "Produit",
-    "colMarries": "Mariés",
+    "colMaries": "Mariés",
     "colLegal": "Légal",
-    "linkThemes": "Thèmes",
-    "linkDemo": "Démo",
-    "linkFeatures": "Fonctionnalités",
-    "linkPricing": "Tarifs",
-    "linkTestimonials": "Témoignages",
-    "linkFAQ": "FAQ",
-    "linkBespoke": "Sur-mesure",
-    "linkBespokeEmail": "contact@thestudiopapeteriedigitale.com",
-    "linkLogin": "Se connecter",
-    "linkCreate": "Créer mon invitation",
-    "linkCGV": "CGV",
-    "linkPrivacy": "Confidentialité",
-    "copyright": "© {year} The Studio Papeterie Digitale · Fait avec ♥ en France"
+    "productLinks": [
+      "Démo",
+      "Fonctionnalités",
+      "Tarifs",
+      "Sur-mesure",
+      "Témoignages",
+      "FAQ"
+    ],
+    "login": "Se connecter",
+    "createButton": "Créer mon invitation",
+    "cgv": "CGV",
+    "privacy": "Confidentialité"
+  },
+  "HeroCarousel": {
+    "prevAriaLabel": "Carte précédente",
+    "nextAriaLabel": "Carte suivante",
+    "cards": [
+      {
+        "alt": "Exemple d'invitation de mariage — thème Amalfi"
+      },
+      {
+        "alt": "Exemple d'invitation de mariage — thème Venise"
+      },
+      {
+        "alt": "Exemple d'invitation de mariage — thème Provence"
+      },
+      {
+        "alt": "Exemple d'invitation de mariage — thème Toscane"
+      },
+      {
+        "alt": "Exemple d'invitation de mariage — thème Riviera"
+      },
+      {
+        "alt": "Exemple d'invitation de mariage — thème Capri"
+      }
+    ]
+  },
+  "Preview": {
+    "eyebrow": "Configurez en direct",
+    "titleLine1": "Explorez",
+    "titleAccent": "chaque création",
+    "subtitle": "Essayez chaque thème et trouvez celui qui raconte votre histoire.",
+    "scrollHint": "Scroll",
+    "discoverButton": "Découvrir",
+    "createButton": "Créer mon invitation",
+    "prevThemesAriaLabel": "Thèmes précédents",
+    "nextThemesAriaLabel": "Thèmes suivants",
+    "themeLabel": "Thème {name}",
+    "themeAlt": "Invitation de mariage — thème {name}",
+    "demoIframeTitle": "Démo invitation — thème {name}"
+  },
+  "WhyUs": {
+    "eyebrow": "Pourquoi choisir The Studio ?",
+    "titleLine1": "L'élégance de la papeterie,",
+    "titleAccent": "la puissance du numérique",
+    "reasons": [
+      {
+        "titleLine1": "Design digne des plus",
+        "titleLine2": "belles papeteries",
+        "description": "L'élégance de la papeterie, sans les contraintes du papier."
+      },
+      {
+        "titleLine1": "Zéro logistique",
+        "titleLine2": "",
+        "description": "Pas d'impression. Pas de timbres. Pas de « Tu as pensé à poster les 150 faire-part ? »"
+      },
+      {
+        "titleLine1": "Toujours à portée de main",
+        "titleLine2": "",
+        "description": "Fini les faire-part dans un tiroir. Vos invités retrouvent toutes les informations en un clic."
+      },
+      {
+        "titleLine1": "Écologique",
+        "titleLine2": "",
+        "description": "Les arbres vous disent merci. Une invitation sans impression ni transport."
+      },
+      {
+        "titleLine1": "Instantané",
+        "titleLine2": "",
+        "description": "Envoyé en un clic, reçu dans la seconde. Pas de délai d'impression, pas d'attente postale."
+      }
+    ]
+  },
+  "Pricing": {
+    "eyebrow": "Pour 150 invités",
+    "titleLine1": "La différence",
+    "titleAccent": "qui compte",
+    "paperLabel": "Papier traditionnel",
+    "paperPrice": "645€",
+    "paperDetails": "Impression + timbres + enveloppes",
+    "studioLabel": "The Studio",
+    "studioPrice": "175€",
+    "studioDetails": "Tout inclus, illimité",
+    "features": "Envoi instantané · Modifiable · RSVP intégré · Zéro papier",
+    "createButton": "Créer mon invitation"
+  },
+  "Atelier": {
+    "eyebrow": "Confiez votre vision à notre Studio",
+    "titleLine1": "Un faire-part",
+    "titleLine2": "aussi unique",
+    "titleLine3": "que votre histoire",
+    "subtitle": "Vous avez une vision. Nous lui donnons vie. Notre Studio conçoit votre invitation digitale avec précision, goût et intention pour refléter l'essence de votre mariage.",
+    "steps": [
+      {
+        "number": "1.",
+        "title": "L'Atelier",
+        "description": "Un échange visio ou téléphonique avec notre directeur artistique pour comprendre votre histoire, vos envies, votre univers et ce qui rend votre mariage unique."
+      },
+      {
+        "number": "2.",
+        "title": "L'Esquisse",
+        "description": "Un moodboard sur-mesure est créé pour valider ensemble l'ambiance, les codes et l'esthétique de votre invitation."
+      },
+      {
+        "number": "3.",
+        "title": "Le Design",
+        "description": "Place à la création. Votre faire-part prend vie dans un design exclusif, pensé dans les moindres détails."
+      },
+      {
+        "number": "4.",
+        "title": "Le Lancement",
+        "description": "Votre invitation est prête. Un lien unique, prêt à être partagé instantanément avec vos invités."
+      }
+    ],
+    "ctaButton": "Prendre rendez-vous"
+  },
+  "Faq": {
+    "eyebrow": "Une question ?",
+    "titleLine1": "Questions",
+    "titleAccent": "Fréquentes",
+    "items": [
+      {
+        "question": "Puis-je modifier mon site après l'envoi des invitations ?",
+        "answer": "Absolument ! C'est la magie du digital. Vous pouvez modifier les horaires, ajouter des infos sur l'hébergement ou changer une photo à tout moment. Vos invités verront toujours la version à jour."
+      },
+      {
+        "question": "Est-ce que je dois payer un abonnement mensuel ?",
+        "answer": "Non, jamais. Le paiement est unique. Votre site reste en ligne pendant 12 mois après votre mariage, ce qui vous laisse le temps de partager les photos souvenirs."
+      },
+      {
+        "question": "Comment mes invités confirment-ils leur présence (RSVP) ?",
+        "answer": "Un formulaire simple et élégant est intégré à votre site. Vous recevez les réponses instantanément dans votre tableau de bord (et par email si vous le souhaitez). Vous pouvez exporter la liste des invités en un clic."
+      },
+      {
+        "question": "Puis-je avoir un nom de domaine personnalisé ?",
+        "answer": "Oui ! Avec l'option « Custom Domain » (+65€) ou incluse dans le pack Premium, vous pouvez avoir une adresse comme www.paula-et-marcos.com."
+      },
+      {
+        "question": "Proposez-vous des faire-part papier assortis ?",
+        "answer": "Nous nous concentrons sur l'expérience digitale pour l'instant, mais nous pouvons vous fournir les fichiers PDF haute définition de votre design pour que vous puissiez les imprimer chez votre imprimeur local."
+      }
+    ]
+  },
+  "FinalCta": {
+    "titleLine1": "Le lieu est choisi, le traiteur aussi.",
+    "titleAccent": "Il reste le faire-part",
+    "createButton": "Créer mon invitation"
+  },
+  "MobileMenu": {
+    "ariaLabel": "Menu de navigation",
+    "closeAriaLabel": "Fermer le menu",
+    "colProduct": "Produit",
+    "colMaries": "Mariés",
+    "productLinks": [
+      "Accueil",
+      "Démo",
+      "Fonctionnalités",
+      "Tarifs",
+      "Sur-mesure",
+      "Témoignages",
+      "FAQ"
+    ],
+    "mariesLinks": [
+      "Se connecter"
+    ],
+    "createButton": "Créer mon invitation"
+  },
+  "ScrollToTop": {
+    "ariaLabel": "Retour en haut"
   }
 }

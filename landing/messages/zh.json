@@ -10,12 +10,14 @@
     "createButton": "创建我的请柬"
   },
   "Hero": {
-    "titleLine1": "您的婚礼",
-    "titleLine2": "从此开始。",
-    "description": "创建一份将纸质优雅与网络魔力相结合的非凡数字请柬。为您的客人带来神奇的体验，而且没有浪费。",
+    "eyebrow": "数字婚礼请柬",
+    "titleLine1": "婚礼请柬，",
+    "titleLine2": "焕然一新",
+    "subtitle": "专为当代婚礼打造",
+    "menuAriaLabel": "打开菜单",
+    "discoverButton": "了解更多",
     "createButton": "创建我的请柬",
-    "demoButton": "查看演示",
-    "discover": "发现"
+    "themeCta": "试用 Dolce Vita 主题"
   },
   "Features": {
     "titleLine1": "纸张的优雅，",
@@ -48,16 +50,43 @@
     "loading": "加载中..."
   },
   "HowItWorks": {
-    "eyebrow": "Simple & rapide",
-    "title": "En 3 étapes",
-    "titleAccent": "c'est prêt",
-    "step1Title": "Choisissez un design",
-    "step1Desc": "Parcourez nos thèmes et trouvez celui qui vous ressemble.",
-    "step2Title": "Personnalisez",
-    "step2Desc": "Textes, photos, modules — tout se configure en quelques minutes.",
-    "step3Title": "Envoyez le lien",
-    "step3Desc": "Partagez par SMS, WhatsApp ou email. Vos invités reçoivent une expérience unique.",
-    "createButton": "Créer mon faire-part"
+    "eyebrow": "简单、快速、100% 个性化",
+    "titleLine1": "您的请柬",
+    "titleAccent": "只需 3 步",
+    "universeMockLabel": "选择风格",
+    "personalizeMockLabel": "个性化您的请柬",
+    "personalizeMockRows": [
+      "留言簿",
+      "流程安排",
+      "菜单"
+    ],
+    "shareMockLabel": "分享您的请柬",
+    "shareMockActions": [
+      "复制链接",
+      "通过邮件发送",
+      "通过 WhatsApp 发送",
+      "通过短信发送"
+    ],
+    "steps": [
+      {
+        "number": "01",
+        "titleLine1": "选择",
+        "titleLine2": "您的风格",
+        "description": "挑选最能代表您的设计。简约、浪漫、大胆——每种风格都为讲述您的故事而设计。"
+      },
+      {
+        "number": "02",
+        "titleLine1": "个性化",
+        "titleLine2": "您的请柬",
+        "description": "添加您的照片、文字和必要信息——RSVP、流程安排、住宿——只需几步即可完成定制。"
+      },
+      {
+        "number": "03",
+        "titleLine1": "宣布",
+        "titleLine2": "重要的日子",
+        "description": "通过短信、WhatsApp 或邮件发送请柬。无论宾客身在何处，都能在几秒内回复。"
+      }
+    ]
   },
   "DemoSection": {
     "eyebrow": "Voir en vrai",
@@ -143,10 +172,25 @@
     "bespokeEmail": "contact@thestudiopapeteriedigitale.com"
   },
   "Testimonials": {
-    "eyebrow": "Ils nous ont fait confiance",
-    "badge": "Déjà 130+ invitations envoyées",
-    "title": "Ce qu'ils",
-    "titleAccent": "en pensent"
+    "eyebrow": "他们信任我们",
+    "title": "他们的真实评价",
+    "items": [
+      {
+        "quote": "我们的宾客都被信封开启动画惊艳到了！正是这个细节改变了一切。RSVP 功能为我们节省了宝贵的时间。",
+        "names": "Juliette 与 Pierre",
+        "date": "2024 年 9 月完婚"
+      },
+      {
+        "quote": "氛围如梦如幻，闪烁的灯光配上迷人的音乐，每一刻都被永久定格。",
+        "names": "Sophie 与 Antoine",
+        "date": "2023 年 6 月完婚"
+      },
+      {
+        "quote": "我们在蜜月旅行中发现了令人惊叹的风景。这些冒险的回忆将永远铭刻在心。",
+        "names": "Emma 与 Lucas",
+        "date": "2022 年 5 月完婚"
+      }
+    ]
   },
   "Catalogue": {
     "eyebrow": "Créez votre invitation",
@@ -187,22 +231,195 @@
     "learnMore": "En savoir plus"
   },
   "Footer": {
-    "tagline": "数字化重塑的婚礼请柬。",
+    "logoAlt": "The Studio Digital Papeterie",
     "colProduct": "产品",
-    "colMarries": "新人",
+    "colMaries": "新人专区",
     "colLegal": "法律信息",
-    "linkThemes": "主题",
-    "linkDemo": "演示",
-    "linkFeatures": "功能",
-    "linkTestimonials": "客户评价",
-    "linkPricing": "价格",
-    "linkFAQ": "常见问题",
-    "linkBespoke": "私人定制",
-    "linkBespokeEmail": "contact@thestudiopapeteriedigitale.com",
-    "linkLogin": "登录",
-    "linkCreate": "创建我的请柬",
-    "linkCGV": "服务条款",
-    "linkPrivacy": "隐私政策",
-    "copyright": "© {year} The Studio Papeterie Digitale · 法国♥制造"
+    "productLinks": [
+      "演示",
+      "功能",
+      "价格",
+      "定制服务",
+      "客户评价",
+      "常见问题"
+    ],
+    "login": "登录",
+    "createButton": "创建我的请柬",
+    "cgv": "条款",
+    "privacy": "隐私政策"
+  },
+  "HeroCarousel": {
+    "prevAriaLabel": "上一张卡片",
+    "nextAriaLabel": "下一张卡片",
+    "cards": [
+      {
+        "alt": "婚礼请柬示例 — 阿马尔菲主题"
+      },
+      {
+        "alt": "婚礼请柬示例 — 威尼斯主题"
+      },
+      {
+        "alt": "婚礼请柬示例 — 普罗旺斯主题"
+      },
+      {
+        "alt": "婚礼请柬示例 — 托斯卡纳主题"
+      },
+      {
+        "alt": "婚礼请柬示例 — 里维埃拉主题"
+      },
+      {
+        "alt": "婚礼请柬示例 — 卡普里主题"
+      }
+    ]
+  },
+  "Preview": {
+    "eyebrow": "实时定制",
+    "titleLine1": "探索",
+    "titleAccent": "每一款设计",
+    "subtitle": "尝试每一种主题，找到最能讲述你们故事的那一款。",
+    "scrollHint": "滑动查看",
+    "discoverButton": "了解更多",
+    "createButton": "创建我的请柬",
+    "prevThemesAriaLabel": "上一组主题",
+    "nextThemesAriaLabel": "下一组主题",
+    "themeLabel": "{name} 主题",
+    "themeAlt": "婚礼请柬 — {name} 主题",
+    "demoIframeTitle": "请柬演示 — {name} 主题"
+  },
+  "WhyUs": {
+    "eyebrow": "为什么选择 The Studio？",
+    "titleLine1": "纸艺的优雅，",
+    "titleAccent": "数字的力量",
+    "reasons": [
+      {
+        "titleLine1": "媲美顶级纸艺工坊",
+        "titleLine2": "的精致设计",
+        "description": "纸艺的优雅，不再受限于纸张。"
+      },
+      {
+        "titleLine1": "零后勤烦恼",
+        "titleLine2": "",
+        "description": "无需印刷，无需邮票，不用再问「150 份请柬寄出去了吗？」"
+      },
+      {
+        "titleLine1": "随时触手可及",
+        "titleLine2": "",
+        "description": "告别被遗忘在抽屉里的请柬。宾客只需一键即可获取所有信息。"
+      },
+      {
+        "titleLine1": "环保低碳",
+        "titleLine2": "",
+        "description": "树木感谢你们。一份无需印刷与运输的请柬。"
+      },
+      {
+        "titleLine1": "即时送达",
+        "titleLine2": "",
+        "description": "一键发送，秒级送达。无需等待印刷，无需邮寄延误。"
+      }
+    ]
+  },
+  "Pricing": {
+    "eyebrow": "适用于 150 位宾客",
+    "titleLine1": "不同之处",
+    "titleAccent": "尽在细节",
+    "paperLabel": "传统纸质请柬",
+    "paperPrice": "645€",
+    "paperDetails": "印刷 + 邮票 + 信封",
+    "studioLabel": "The Studio",
+    "studioPrice": "175€",
+    "studioDetails": "全包无限次使用",
+    "features": "即时发送 · 可随时修改 · 内置 RSVP · 零纸张",
+    "createButton": "创建我的请柬"
+  },
+  "Atelier": {
+    "eyebrow": "把你们的构想交给我们的工作室",
+    "titleLine1": "一份",
+    "titleLine2": "独一无二",
+    "titleLine3": "属于你们故事的请柬",
+    "subtitle": "你们有构想，我们让它成真。我们的工作室以精准的手法、独到的品味和用心的态度，为你们打造完美呈现婚礼精神的数字请柬。",
+    "steps": [
+      {
+        "number": "1.",
+        "title": "沟通交流",
+        "description": "与我们的艺术总监进行视频或电话沟通，了解你们的故事、心愿、风格以及婚礼的独特之处。"
+      },
+      {
+        "number": "2.",
+        "title": "草案构思",
+        "description": "共同创建专属情绪板，确定请柬的氛围、风格元素与美学方向。"
+      },
+      {
+        "number": "3.",
+        "title": "设计制作",
+        "description": "正式进入创作阶段。你们的请柬以独家设计呈现，每个细节都经过精心打磨。"
+      },
+      {
+        "number": "4.",
+        "title": "正式发布",
+        "description": "请柬准备就绪，一个专属链接，随时可即时分享给所有宾客。"
+      }
+    ],
+    "ctaButton": "预约咨询"
+  },
+  "Dashboard": {
+    "eyebrow": "属于新人的专属空间",
+    "titleLine1": "一个空间，",
+    "titleAccent": "掌控整场婚礼。",
+    "subtitle": "管理宾客名单、RSVP 回复、请柬内容：随时修改、调整、更新请柬信息，无需任何中间环节。",
+    "placeholder": "控制面板预览即将上线"
+  },
+  "Faq": {
+    "eyebrow": "还有疑问？",
+    "titleLine1": "常见",
+    "titleAccent": "问题",
+    "items": [
+      {
+        "question": "请柬发出后还能修改网站内容吗？",
+        "answer": "当然可以！这正是数字化的魅力所在。你们可以随时修改时间安排、添加住宿信息或更换照片。宾客看到的将始终是最新版本。"
+      },
+      {
+        "question": "需要支付月费吗？",
+        "answer": "完全不需要，只需一次性付款。婚礼结束后网站将保持在线 12 个月，让你们有充足时间分享美好回忆的照片。"
+      },
+      {
+        "question": "宾客如何确认出席（RSVP）？",
+        "answer": "网站内置了简洁优雅的表单。你们可以在控制面板中实时收到回复（如需要也可通过邮件接收）。宾客名单可一键导出。"
+      },
+      {
+        "question": "可以使用自定义域名吗？",
+        "answer": "可以！选择「自定义域名」服务（+65€），或包含在 Premium 套餐中，你们可以拥有类似 www.paula-et-marcos.com 的专属网址。"
+      },
+      {
+        "question": "是否提供配套的纸质请柬？",
+        "answer": "目前我们专注于数字体验，但可以为你们提供设计的高清 PDF 文件，方便在当地印刷店自行打印。"
+      }
+    ]
+  },
+  "FinalCta": {
+    "titleLine1": "场地已定，餐饮也已安排妥当。",
+    "titleAccent": "只差一份请柬",
+    "createButton": "创建我的请柬"
+  },
+  "ScrollToTop": {
+    "ariaLabel": "返回顶部"
+  },
+  "MobileMenu": {
+    "ariaLabel": "导航菜单",
+    "closeAriaLabel": "关闭菜单",
+    "colProduct": "产品",
+    "colMaries": "新人专区",
+    "productLinks": [
+      "首页",
+      "演示",
+      "功能",
+      "价格",
+      "定制服务",
+      "客户评价",
+      "常见问题"
+    ],
+    "mariesLinks": [
+      "登录"
+    ],
+    "createButton": "创建我的请柬"
   }
 }

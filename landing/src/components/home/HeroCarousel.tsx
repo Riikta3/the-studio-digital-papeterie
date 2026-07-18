@@ -3,21 +3,22 @@
 import { motion, type PanInfo } from "framer-motion";
 import Image from "next/image";
 import { ArrowLeft, ArrowRight } from "lucide-react";
+import { useTranslations } from "next-intl";
 import { useEffect, useRef, useState } from "react";
 
 const SWIPE_THRESHOLD = 40;
 
 const GAP = 10;
 
-const CARD_IMAGES = [
-  { src: "/images/invitation-amalfi.png", alt: "Exemple d'invitation de mariage — thème Amalfi" },
-  { src: "/images/invitation-venise.png", alt: "Exemple d'invitation de mariage — thème Venise" },
-  { src: "/images/invitation-provence.png", alt: "Exemple d'invitation de mariage — thème Provence" },
-  { src: "/images/invitation-toscane.png", alt: "Exemple d'invitation de mariage — thème Toscane" },
-  { src: "/images/invitation-riviera.png", alt: "Exemple d'invitation de mariage — thème Riviera" },
-  { src: "/images/invitation-capri.png", alt: "Exemple d'invitation de mariage — thème Capri" },
+const CARD_IMAGE_SRCS = [
+  "/images/invitation-amalfi.png",
+  "/images/invitation-venise.png",
+  "/images/invitation-provence.png",
+  "/images/invitation-toscane.png",
+  "/images/invitation-riviera.png",
+  "/images/invitation-capri.png",
 ];
-const CARD_COUNT = CARD_IMAGES.length;
+const CARD_COUNT = CARD_IMAGE_SRCS.length;
 
 // The reference card the intro slides to and highlights.
 const REFERENCE_INDEX = 3;
@@ -32,6 +33,8 @@ const ACTIVE_SCALE = 1.2;
 const CARD_RATIO = 290 / 540;
 
 export function HeroCarousel() {
+  const t = useTranslations("HeroCarousel");
+  const cardAlts = t.raw("cards") as { alt: string }[];
   // "intro" = one-shot slide-in; "idle" = manual carousel.
   const [phase, setPhase] = useState<"intro" | "idle">("intro");
   // Unbounded counter → infinite swipe in both directions.
@@ -102,7 +105,7 @@ export function HeroCarousel() {
       <button
         type="button"
         onClick={() => goTo(-1)}
-        aria-label="Carte précédente"
+        aria-label={t("prevAriaLabel")}
         className="absolute left-2 top-1/2 z-20 flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full bg-studio-jaune text-studio-violet shadow-md transition-transform hover:scale-105 disabled:opacity-0 md:left-8"
         disabled={phase !== "idle"}
       >
@@ -166,8 +169,8 @@ export function HeroCarousel() {
                 }}
               >
                 <Image
-                  src={CARD_IMAGES[cardId].src}
-                  alt={CARD_IMAGES[cardId].alt}
+                  src={CARD_IMAGE_SRCS[cardId]}
+                  alt={cardAlts[cardId]?.alt ?? ""}
                   fill
                   sizes="(max-width: 768px) 60vw, 290px"
                   className="object-cover"
@@ -183,7 +186,7 @@ export function HeroCarousel() {
       <button
         type="button"
         onClick={() => goTo(1)}
-        aria-label="Carte suivante"
+        aria-label={t("nextAriaLabel")}
         className="absolute right-2 top-1/2 z-20 flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full bg-studio-jaune text-studio-violet shadow-md transition-transform hover:scale-105 disabled:opacity-0 md:right-8"
         disabled={phase !== "idle"}
       >

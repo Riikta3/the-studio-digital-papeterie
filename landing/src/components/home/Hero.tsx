@@ -4,9 +4,12 @@ import { Button } from "@shared/components/ui/button";
 import { SplitText } from "@shared/components/ui/split-text";
 import { motion } from "framer-motion";
 import { ArrowRight, Menu } from "lucide-react";
+import { useTranslations } from "next-intl";
 import Image from "next/image";
+import { useState } from "react";
 
 import { HeroCarousel } from "./HeroCarousel";
+import { MobileMenu } from "./MobileMenu";
 import { TextureOverlay } from "./TextureOverlay";
 
 // Continuous word-by-word reveal: each block starts after the previous one's
@@ -15,18 +18,24 @@ const STAGGER = 0.2;
 const START = 0.2;
 const w = (text: string) => text.split(" ").length;
 
-const D = (() => {
-  const eyebrow = START;
-  const title1 = eyebrow + w("Faire-part digital") * STAGGER;
-  const title2 = title1 + w("Le faire-part") * STAGGER;
-  const subtitle = title2 + w("réinventé") * STAGGER;
-  const cta = subtitle + w("Pensé pour les mariages d'aujourd'hui") * STAGGER;
-  return { eyebrow, title1, title2, subtitle, cta };
-})();
-
 export function Hero() {
+  const t = useTranslations("Hero");
+  const [menuOpen, setMenuOpen] = useState(false);
+  const eyebrowText = t("eyebrow");
+  const title1Text = t("titleLine1");
+  const subtitleText = t("subtitle");
+
+  const D = (() => {
+    const eyebrow = START;
+    const title1 = eyebrow + w(eyebrowText) * STAGGER;
+    const title2 = title1 + w(title1Text) * STAGGER;
+    const subtitle = title2 + w(t("titleLine2")) * STAGGER;
+    const cta = subtitle + w(subtitleText) * STAGGER;
+    return { eyebrow, title1, title2, subtitle, cta };
+  })();
+
   return (
-    <div className="relative bg-studio-beurre">
+    <div id="accueil" className="relative bg-studio-beurre">
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
@@ -55,12 +64,15 @@ export function Hero() {
           <Image src="/logo.svg" alt="The Studio Digital Papeterie" width={40} height={42} />
           <button
             type="button"
-            aria-label="Ouvrir le menu"
+            onClick={() => setMenuOpen(true)}
+            aria-label={t("menuAriaLabel")}
             className="flex h-12 w-12 items-center justify-center rounded-full bg-studio-jaune text-studio-violet"
           >
             <Menu className="h-5 w-5" />
           </button>
         </nav>
+
+        <MobileMenu open={menuOpen} onClose={() => setMenuOpen(false)} />
 
         <div className="flex flex-col items-center px-6 md:px-12">
           <div className="mt-10 flex items-center gap-3 font-body text-h5 tracking-luxe text-studio-lavande md:mt-14">
@@ -77,7 +89,7 @@ export function Hero() {
               />
             </motion.div>
             <SplitText
-              text="Faire-part digital"
+              text={eyebrowText}
               className="font-body"
               startDelay={D.eyebrow}
             />
@@ -102,13 +114,13 @@ export function Hero() {
           <h1 className="mt-6 text-center font-heading text-h1">
             <SplitText
               as="span"
-              text="Le faire-part"
+              text={title1Text}
               className="block text-white"
               startDelay={D.title1}
             />
             <SplitText
               as="span"
-              text="réinventé"
+              text={t("titleLine2")}
               className="block text-studio-jaune"
               startDelay={D.title2}
             />
@@ -116,7 +128,7 @@ export function Hero() {
 
           <SplitText
             as="p"
-            text="Pensé pour les mariages d'aujourd'hui"
+            text={subtitleText}
             className="mt-4 text-center font-body text-body-p text-white/80"
             startDelay={D.subtitle}
           />
@@ -128,10 +140,10 @@ export function Hero() {
             className="mt-8 flex flex-row gap-3 sm:gap-4"
           >
             <Button variant="studio-outline" size="pill">
-              Découvrir
+              {t("discoverButton")}
             </Button>
             <Button variant="studio-jaune" size="pill">
-              Créer le mien <ArrowRight className="ml-2 h-4 w-4" />
+              {t("createButton")} <ArrowRight className="ml-2 h-4 w-4" />
             </Button>
           </motion.div>
         </div>
@@ -151,7 +163,7 @@ export function Hero() {
             size="pill"
             className="text-studio-jaune"
           >
-            Tester le thème Dolce Vita <ArrowRight className="ml-2 h-4 w-4" />
+            {t("themeCta")} <ArrowRight className="ml-2 h-4 w-4" />
           </Button>
         </motion.div>
       </div>

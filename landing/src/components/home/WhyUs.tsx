@@ -1,46 +1,25 @@
 "use client";
 
 import { Leaf, Palette, Send, Smartphone, Zap } from "lucide-react";
+import { useTranslations } from "next-intl";
 import Image from "next/image";
 
 import { FadeIn } from "./FadeIn";
 
-const REASONS = [
-  {
-    icon: Palette,
-    title: ["Design digne des plus", "belles papeteries"],
-    description:
-      "L'élégance de la papeterie, sans les contraintes du papier.",
-  },
-  {
-    icon: Send,
-    title: ["Zéro logistique"],
-    description:
-      "Pas d'impression. Pas de timbres. Pas de « Tu as pensé à poster les 150 faire-part ? »",
-  },
-  {
-    icon: Smartphone,
-    title: ["Toujours à portée de main"],
-    description:
-      "Fini les faire-part dans un tiroir. Vos invités retrouvent toutes les informations en un clic.",
-  },
-  {
-    icon: Leaf,
-    title: ["Écologique"],
-    description:
-      "Les arbres vous disent merci. Une invitation sans impression ni transport.",
-  },
-  {
-    icon: Zap,
-    title: ["Instantané"],
-    description:
-      "Envoyé en un clic, reçu dans la seconde. Pas de délai d'impression, pas d'attente postale.",
-  },
-];
+const REASON_ICONS = [Palette, Send, Smartphone, Leaf, Zap];
+
+type Reason = {
+  titleLine1: string;
+  titleLine2: string;
+  description: string;
+};
 
 export function WhyUs() {
+  const t = useTranslations("WhyUs");
+  const reasons = t.raw("reasons") as Reason[];
+
   return (
-    <section className="relative overflow-hidden bg-studio-creme px-6 py-20 md:px-12">
+    <section id="fonctionnalites" className="relative overflow-hidden bg-studio-creme px-6 py-20 md:px-12">
       <Image
         src="/images/leaf-top-lavande.svg"
         alt=""
@@ -57,7 +36,7 @@ export function WhyUs() {
             width={42}
             height={1}
           />
-          <span>Pourquoi choisir The Studio ?</span>
+          <span>{t("eyebrow")}</span>
           <Image
             src="/images/eyebrow-separator-right.svg"
             alt=""
@@ -66,32 +45,32 @@ export function WhyUs() {
           />
         </div>
         <h2 className="mt-4 font-heading text-h1 text-studio-violet">
-          L'élégance de la papeterie,
+          {t("titleLine1")}
           <br />
-          <span className="text-studio-lavande">
-            la puissance du numérique
-          </span>
+          <span className="text-studio-lavande">{t("titleAccent")}</span>
         </h2>
       </FadeIn>
 
       <div className="mx-auto flex max-w-2xl flex-col gap-14">
-        {REASONS.map(({ icon: Icon, title, description }) => (
-          <FadeIn key={title[0]}>
-            <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-studio-lavande shadow-sm">
-              <Icon className="h-6 w-6 text-studio-violet" />
-            </div>
-            <h3 className="mt-5 font-heading text-h2 text-studio-violet">
-              {title.map((line) => (
-                <span key={line} className="block">
-                  {line}
-                </span>
-              ))}
-            </h3>
-            <p className="mt-3 max-w-md font-body text-sm text-studio-violet/70 md:text-base">
-              {description}
-            </p>
-          </FadeIn>
-        ))}
+        {reasons.map((reason, i) => {
+          const Icon = REASON_ICONS[i] ?? Palette;
+          return (
+            <FadeIn key={reason.titleLine1}>
+              <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-studio-lavande shadow-sm">
+                <Icon className="h-6 w-6 text-studio-violet" />
+              </div>
+              <h3 className="mt-5 font-heading text-h2 text-studio-violet">
+                <span className="block">{reason.titleLine1}</span>
+                {reason.titleLine2 && (
+                  <span className="block">{reason.titleLine2}</span>
+                )}
+              </h3>
+              <p className="mt-3 max-w-md font-body text-sm text-studio-violet/70 md:text-base">
+                {reason.description}
+              </p>
+            </FadeIn>
+          );
+        })}
       </div>
     </section>
   );

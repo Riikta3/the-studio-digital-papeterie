@@ -10,12 +10,14 @@
     "createButton": "招待状を作成"
   },
   "Hero": {
-    "titleLine1": "あなたの結婚式は",
-    "titleLine2": "ここから始まります。",
-    "description": "紙の優雅さとウェブの魔法を組み合わせた特別なデジタル招待状を作成しましょう。無駄のない、ゲストにとって魔法のような体験を。",
-    "createButton": "招待状を作成",
-    "demoButton": "デモを見る",
-    "discover": "発見する"
+    "eyebrow": "デジタル結婚式招待状",
+    "titleLine1": "結婚式の招待状を",
+    "titleLine2": "再発明する",
+    "subtitle": "今の時代の結婚式のために",
+    "menuAriaLabel": "メニューを開く",
+    "discoverButton": "詳しく見る",
+    "createButton": "作成する",
+    "themeCta": "Dolce Vita テーマを試す"
   },
   "Features": {
     "titleLine1": "紙の優雅さ、",
@@ -48,16 +50,43 @@
     "loading": "読み込み中..."
   },
   "HowItWorks": {
-    "eyebrow": "Simple & rapide",
-    "title": "En 3 étapes",
-    "titleAccent": "c'est prêt",
-    "step1Title": "Choisissez un design",
-    "step1Desc": "Parcourez nos thèmes et trouvez celui qui vous ressemble.",
-    "step2Title": "Personnalisez",
-    "step2Desc": "Textes, photos, modules — tout se configure en quelques minutes.",
-    "step3Title": "Envoyez le lien",
-    "step3Desc": "Partagez par SMS, WhatsApp ou email. Vos invités reçoivent une expérience unique.",
-    "createButton": "Créer mon faire-part"
+    "eyebrow": "シンプル・スピーディー・100%オーダーメイド",
+    "titleLine1": "招待状づくりは",
+    "titleAccent": "たった3ステップ",
+    "universeMockLabel": "スタイルを選ぶ",
+    "personalizeMockLabel": "招待状をカスタマイズ",
+    "personalizeMockRows": [
+      "ゲストブック",
+      "スケジュール",
+      "メニュー"
+    ],
+    "shareMockLabel": "招待状をシェア",
+    "shareMockActions": [
+      "リンクをコピー",
+      "メールで送信",
+      "WhatsAppで送信",
+      "SMSで送信"
+    ],
+    "steps": [
+      {
+        "number": "01",
+        "titleLine1": "選ぶ",
+        "titleLine2": "あなたらしいスタイルを",
+        "description": "自分たちらしいデザインを選びましょう。ミニマル、ロマンチック、大胆——それぞれのスタイルがあなたの物語を語ります。"
+      },
+      {
+        "number": "02",
+        "titleLine1": "カスタマイズする",
+        "titleLine2": "招待状を",
+        "description": "写真やメッセージ、出欠確認・スケジュール・宿泊情報などの重要な情報を数クリックで追加できます。"
+      },
+      {
+        "number": "03",
+        "titleLine1": "発表する",
+        "titleLine2": "特別な日を",
+        "description": "SMS、WhatsApp、メールで招待状を送信。ゲストはどこにいても数秒で返信できます。"
+      }
+    ]
   },
   "DemoSection": {
     "eyebrow": "Voir en vrai",
@@ -143,10 +172,25 @@
     "bespokeEmail": "contact@thestudiopapeteriedigitale.com"
   },
   "Testimonials": {
-    "eyebrow": "Ils nous ont fait confiance",
-    "badge": "Déjà 130+ invitations envoyées",
-    "title": "Ce qu'ils",
-    "titleAccent": "en pensent"
+    "eyebrow": "選んでいただいたご夫婦の声",
+    "title": "利用者の声",
+    "items": [
+      {
+        "quote": "封筒が開くアニメーションにゲストが驚いていました！この演出が全てを変えたんです。出欠確認機能のおかげで貴重な時間を節約できました。",
+        "names": "ジュリエット & ピエール",
+        "date": "2024年9月挙式"
+      },
+      {
+        "quote": "きらめく照明と魅惑的な音楽で、まるで魔法のような雰囲気でした。すべての瞬間が心に刻まれました。",
+        "names": "ソフィー & アントワーヌ",
+        "date": "2023年6月挙式"
+      },
+      {
+        "quote": "新婚旅行で息をのむような絶景に出会いました。その冒険の思い出は永遠に残ります。",
+        "names": "エマ & ルカ",
+        "date": "2022年5月挙式"
+      }
+    ]
   },
   "Catalogue": {
     "eyebrow": "Créez votre invitation",
@@ -187,22 +231,195 @@
     "learnMore": "En savoir plus"
   },
   "Footer": {
-    "tagline": "デジタルで再発明された招待状。",
+    "logoAlt": "The Studio Digital Papeterie",
     "colProduct": "プロダクト",
-    "colMarries": "カップル",
+    "colMaries": "新郎新婦の方へ",
     "colLegal": "法的情報",
-    "linkThemes": "テーマ",
-    "linkDemo": "デモ",
-    "linkFeatures": "機能",
-    "linkTestimonials": "お客様の声",
-    "linkFAQ": "よくある質問",
-    "linkPricing": "料金",
-    "linkBespoke": "オーダーメイド",
-    "linkBespokeEmail": "contact@thestudiopapeteriedigitale.com",
-    "linkLogin": "ログイン",
-    "linkCreate": "招待状を作成",
-    "linkCGV": "利用規約",
-    "linkPrivacy": "プライバシーポリシー",
-    "copyright": "© {year} The Studio Papeterie Digitale · フランスで♥を込めて制作"
+    "productLinks": [
+      "デモ",
+      "機能",
+      "料金",
+      "オーダーメイド",
+      "お客様の声",
+      "よくある質問"
+    ],
+    "login": "ログイン",
+    "createButton": "招待状を作成する",
+    "cgv": "利用規約",
+    "privacy": "プライバシー"
+  },
+  "HeroCarousel": {
+    "prevAriaLabel": "前のカード",
+    "nextAriaLabel": "次のカード",
+    "cards": [
+      {
+        "alt": "結婚式招待状の例 — アマルフィテーマ"
+      },
+      {
+        "alt": "結婚式招待状の例 — ヴェネツィアテーマ"
+      },
+      {
+        "alt": "結婚式招待状の例 — プロヴァンステーマ"
+      },
+      {
+        "alt": "結婚式招待状の例 — トスカーナテーマ"
+      },
+      {
+        "alt": "結婚式招待状の例 — リビエラテーマ"
+      },
+      {
+        "alt": "結婚式招待状の例 — カプリテーマ"
+      }
+    ]
+  },
+  "Preview": {
+    "eyebrow": "リアルタイムでカスタマイズ",
+    "titleLine1": "すべての",
+    "titleAccent": "デザインを見る",
+    "subtitle": "各テーマを試して、お二人の物語にぴったりの一つを見つけてください。",
+    "scrollHint": "スクロール",
+    "discoverButton": "詳しく見る",
+    "createButton": "招待状を作成する",
+    "prevThemesAriaLabel": "前のテーマ",
+    "nextThemesAriaLabel": "次のテーマ",
+    "themeLabel": "{name} テーマ",
+    "themeAlt": "結婚式招待状 — {name} テーマ",
+    "demoIframeTitle": "招待状デモ — {name} テーマ"
+  },
+  "WhyUs": {
+    "eyebrow": "The Studio が選ばれる理由",
+    "titleLine1": "紙の優雅さと、",
+    "titleAccent": "デジタルの力",
+    "reasons": [
+      {
+        "titleLine1": "一流の紙製招待状に",
+        "titleLine2": "匹敵するデザイン",
+        "description": "紙の優雅さを、紙という制約なしで。"
+      },
+      {
+        "titleLine1": "面倒な手間ゼロ",
+        "titleLine2": "",
+        "description": "印刷不要。切手も不要。「150通の招待状、送り忘れてない？」なんて心配もいりません。"
+      },
+      {
+        "titleLine1": "いつでも手元に",
+        "titleLine2": "",
+        "description": "招待状を引き出しにしまい忘れる心配もありません。ゲストはワンクリックで必要な情報を確認できます。"
+      },
+      {
+        "titleLine1": "環境にやさしい",
+        "titleLine2": "",
+        "description": "木々も喜ぶ、印刷も輸送も不要な招待状です。"
+      },
+      {
+        "titleLine1": "瞬時に届く",
+        "titleLine2": "",
+        "description": "ワンクリックで送信、一瞬で届く。印刷の待ち時間も郵送の遅れもありません。"
+      }
+    ]
+  },
+  "Pricing": {
+    "eyebrow": "ゲスト150名の場合",
+    "titleLine1": "その違いが",
+    "titleAccent": "大切なのです",
+    "paperLabel": "従来の紙の招待状",
+    "paperPrice": "645€",
+    "paperDetails": "印刷代 + 切手代 + 封筒代",
+    "studioLabel": "The Studio",
+    "studioPrice": "175€",
+    "studioDetails": "すべて込み、無制限",
+    "features": "即時送信・編集自由・RSVP機能内蔵・ペーパーレス",
+    "createButton": "招待状を作成する"
+  },
+  "Atelier": {
+    "eyebrow": "お二人の想いを私たちのスタジオに",
+    "titleLine1": "お二人の物語のように",
+    "titleLine2": "唯一無二の",
+    "titleLine3": "招待状を",
+    "subtitle": "お二人にはビジョンがあります。私たちがそれを形にします。私たちのスタジオが、精密さとセンス、そして真心を込めて、結婚式の想いを完璧に表現するデジタル招待状を制作します。",
+    "steps": [
+      {
+        "number": "1.",
+        "title": "アトリエ",
+        "description": "アートディレクターとのビデオまたは電話でのやり取りを通じて、お二人の物語、ご希望、スタイル、結婚式の魅力を伺います。"
+      },
+      {
+        "number": "2.",
+        "title": "スケッチ",
+        "description": "オーダーメイドのムードボードを作成し、招待状の雰囲気やコンセプト、デザインの方向性をすり合わせます。"
+      },
+      {
+        "number": "3.",
+        "title": "デザイン",
+        "description": "いよいよ制作の時間です。細部まで丁寧にデザインされた、独自の招待状が形になります。"
+      },
+      {
+        "number": "4.",
+        "title": "公開",
+        "description": "招待状の完成です。専用リンクをすぐにゲストへ共有できます。"
+      }
+    ],
+    "ctaButton": "打ち合わせを予約する"
+  },
+  "Dashboard": {
+    "eyebrow": "新郎新婦専用スペース",
+    "titleLine1": "ひとつの場所で、",
+    "titleAccent": "結婚式のすべてを。",
+    "subtitle": "ゲスト管理、RSVP回答、招待状の編集まで、いつでも自由に更新・調整でき、仲介も不要です。",
+    "placeholder": "ダッシュボードのプレビューは近日公開"
+  },
+  "Faq": {
+    "eyebrow": "ご質問はありますか？",
+    "titleLine1": "よくある",
+    "titleAccent": "ご質問",
+    "items": [
+      {
+        "question": "招待状を送った後でもサイトを編集できますか？",
+        "answer": "もちろんです！それがデジタルの魅力です。日程の変更や宿泊情報の追加、写真の差し替えなど、いつでも自由に更新できます。ゲストには常に最新版が表示されます。"
+      },
+      {
+        "question": "月額料金が発生しますか？",
+        "answer": "いいえ、一切かかりません。お支払いは一度きりです。サイトは結婚式後12か月間公開され、思い出の写真をゆっくり共有していただけます。"
+      },
+      {
+        "question": "ゲストの出欠確認（RSVP）はどのように行いますか？",
+        "answer": "シンプルで洗練されたフォームがサイトに組み込まれています。回答はダッシュボードにリアルタイムで届きます（ご希望によりメール通知も可能）。ゲストリストはワンクリックでエクスポートできます。"
+      },
+      {
+        "question": "独自ドメインを取得できますか？",
+        "answer": "はい！「カスタムドメイン」オプション（+65€）またはPremiumプランに含まれる形で、www.paula-et-marcos.com のような専用アドレスを取得できます。"
+      },
+      {
+        "question": "お揃いの紙の招待状も注文できますか？",
+        "answer": "現在はデジタル体験に注力しておりますが、デザインの高解像度PDFファイルをお渡しすることができますので、お近くの印刷店でプリントしていただけます。"
+      }
+    ]
+  },
+  "FinalCta": {
+    "titleLine1": "会場もケータリングも決まりました。",
+    "titleAccent": "あとは招待状だけです",
+    "createButton": "招待状を作成する"
+  },
+  "ScrollToTop": {
+    "ariaLabel": "トップに戻る"
+  },
+  "MobileMenu": {
+    "ariaLabel": "ナビゲーションメニュー",
+    "closeAriaLabel": "メニューを閉じる",
+    "colProduct": "プロダクト",
+    "colMaries": "新郎新婦",
+    "productLinks": [
+      "ホーム",
+      "デモ",
+      "機能",
+      "料金",
+      "オーダーメイド",
+      "お客様の声",
+      "よくある質問"
+    ],
+    "mariesLinks": [
+      "ログイン"
+    ],
+    "createButton": "招待状を作成する"
   }
 }

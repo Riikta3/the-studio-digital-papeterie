@@ -10,12 +10,14 @@
     "createButton": "Criar convite"
   },
   "Hero": {
-    "titleLine1": "O seu casamento",
-    "titleLine2": "começa aqui.",
-    "description": "Crie um convite digital excepcional que combina a elegância do papel com a magia da web. Uma experiência mágica para os seus convidados, sem desperdício.",
-    "createButton": "Criar convite",
-    "demoButton": "Ver demonstração",
-    "discover": "Descobrir"
+    "eyebrow": "Convite de casamento digital",
+    "titleLine1": "O convite de casamento",
+    "titleLine2": "reinventado",
+    "subtitle": "Pensado para os casamentos de hoje",
+    "menuAriaLabel": "Abrir menu",
+    "discoverButton": "Descobrir",
+    "createButton": "Criar o meu",
+    "themeCta": "Experimentar o tema Dolce Vita"
   },
   "Features": {
     "titleLine1": "A elegância do papel,",
@@ -48,16 +50,43 @@
     "loading": "A carregar..."
   },
   "HowItWorks": {
-    "eyebrow": "Simple & rapide",
-    "title": "En 3 étapes",
-    "titleAccent": "c'est prêt",
-    "step1Title": "Choisissez un design",
-    "step1Desc": "Parcourez nos thèmes et trouvez celui qui vous ressemble.",
-    "step2Title": "Personnalisez",
-    "step2Desc": "Textes, photos, modules — tout se configure en quelques minutes.",
-    "step3Title": "Envoyez le lien",
-    "step3Desc": "Partagez par SMS, WhatsApp ou email. Vos invités reçoivent une expérience unique.",
-    "createButton": "Créer mon faire-part"
+    "eyebrow": "Simples, rápido e 100% personalizado",
+    "titleLine1": "O seu convite",
+    "titleAccent": "em 3 passos",
+    "universeMockLabel": "Selecionar um estilo",
+    "personalizeMockLabel": "Personalize o seu convite",
+    "personalizeMockRows": [
+      "Livro de assinaturas",
+      "Programa",
+      "Menu"
+    ],
+    "shareMockLabel": "Partilhe o seu convite",
+    "shareMockActions": [
+      "Copiar o link",
+      "Enviar por email",
+      "Enviar por WhatsApp",
+      "Enviar por SMS"
+    ],
+    "steps": [
+      {
+        "number": "01",
+        "titleLine1": "Escolha",
+        "titleLine2": "o seu estilo",
+        "description": "Escolha um design que se pareça consigo. Minimalista, romântico, ousado — cada estilo foi pensado para contar a sua história."
+      },
+      {
+        "number": "02",
+        "titleLine1": "Personalize",
+        "titleLine2": "o seu convite",
+        "description": "Adicione as suas fotos, textos e as informações essenciais — RSVP, programa, alojamento — tudo personalizável em poucos cliques."
+      },
+      {
+        "number": "03",
+        "titleLine1": "Anuncie",
+        "titleLine2": "o grande dia",
+        "description": "Envie o seu convite por SMS, WhatsApp ou email. Os seus convidados respondem em segundos, onde quer que estejam."
+      }
+    ]
   },
   "DemoSection": {
     "eyebrow": "Voir en vrai",
@@ -143,10 +172,25 @@
     "bespokeEmail": "contact@thestudiopapeteriedigitale.com"
   },
   "Testimonials": {
-    "eyebrow": "Ils nous ont fait confiance",
-    "badge": "Déjà 130+ invitations envoyées",
-    "title": "Ce qu'ils",
-    "titleAccent": "en pensent"
+    "eyebrow": "Confiaram em nós",
+    "title": "O que dizem",
+    "items": [
+      {
+        "quote": "Os nossos convidados ficaram impressionados com a animação do envelope! Foi o detalhe que mudou tudo. O RSVP poupou-nos um tempo precioso.",
+        "names": "Juliette & Pierre",
+        "date": "Casados em setembro de 2024"
+      },
+      {
+        "quote": "O ambiente foi mágico, com luzes cintilantes e música envolvente. Cada momento foi imortalizado.",
+        "names": "Sophie & Antoine",
+        "date": "Casados em junho de 2023"
+      },
+      {
+        "quote": "Descobrimos paisagens deslumbrantes na nossa lua de mel. As memórias dessas aventuras ficarão gravadas para sempre.",
+        "names": "Emma & Lucas",
+        "date": "Casados em maio de 2022"
+      }
+    ]
   },
   "Catalogue": {
     "eyebrow": "Créez votre invitation",
@@ -187,22 +231,195 @@
     "learnMore": "En savoir plus"
   },
   "Footer": {
-    "tagline": "O convite digital reinventado.",
-    "colProduct": "Produtos",
-    "colMarries": "Casais",
+    "logoAlt": "The Studio Digital Papeterie",
+    "colProduct": "Produto",
+    "colMaries": "Noivos",
     "colLegal": "Legal",
-    "linkThemes": "Temas",
-    "linkDemo": "Demo",
-    "linkFeatures": "Funcionalidades",
-    "linkTestimonials": "Depoimentos",
-    "linkPricing": "Preços",
-    "linkFAQ": "FAQ",
-    "linkBespoke": "Sob medida",
-    "linkBespokeEmail": "contact@thestudiopapeteriedigitale.com",
-    "linkLogin": "Se conectar",
-    "linkCreate": "Criar convite",
-    "linkCGV": "Termos e Condições",
-    "linkPrivacy": "Privacidade",
-    "copyright": "© {year} The Studio Papeterie Digitale · Feito com ♥ em França"
+    "productLinks": [
+      "Demonstração",
+      "Funcionalidades",
+      "Preços",
+      "Sob medida",
+      "Testemunhos",
+      "FAQ"
+    ],
+    "login": "Iniciar sessão",
+    "createButton": "Criar o meu convite",
+    "cgv": "Termos",
+    "privacy": "Privacidade"
+  },
+  "HeroCarousel": {
+    "prevAriaLabel": "Cartão anterior",
+    "nextAriaLabel": "Próximo cartão",
+    "cards": [
+      {
+        "alt": "Exemplo de convite de casamento — tema Amalfi"
+      },
+      {
+        "alt": "Exemplo de convite de casamento — tema Veneza"
+      },
+      {
+        "alt": "Exemplo de convite de casamento — tema Provença"
+      },
+      {
+        "alt": "Exemplo de convite de casamento — tema Toscana"
+      },
+      {
+        "alt": "Exemplo de convite de casamento — tema Riviera"
+      },
+      {
+        "alt": "Exemplo de convite de casamento — tema Capri"
+      }
+    ]
+  },
+  "Preview": {
+    "eyebrow": "Personalize ao vivo",
+    "titleLine1": "Explore",
+    "titleAccent": "cada criação",
+    "subtitle": "Experimente cada tema e encontre o que conta a sua história.",
+    "scrollHint": "Deslize",
+    "discoverButton": "Descobrir",
+    "createButton": "Criar o meu convite",
+    "prevThemesAriaLabel": "Temas anteriores",
+    "nextThemesAriaLabel": "Próximos temas",
+    "themeLabel": "Tema {name}",
+    "themeAlt": "Convite de casamento — tema {name}",
+    "demoIframeTitle": "Demonstração do convite — tema {name}"
+  },
+  "WhyUs": {
+    "eyebrow": "Por que escolher o The Studio?",
+    "titleLine1": "A elegância da papelaria,",
+    "titleAccent": "o poder do digital",
+    "reasons": [
+      {
+        "titleLine1": "Um design digno das melhores",
+        "titleLine2": "papelarias",
+        "description": "A elegância da papelaria, sem as limitações do papel."
+      },
+      {
+        "titleLine1": "Zero logística",
+        "titleLine2": "",
+        "description": "Sem impressão. Sem selos. Sem \"Já enviaste os 150 convites?\""
+      },
+      {
+        "titleLine1": "Sempre à mão",
+        "titleLine2": "",
+        "description": "Chega de convites esquecidos numa gaveta. Os seus convidados encontram todas as informações com um clique."
+      },
+      {
+        "titleLine1": "Ecológico",
+        "titleLine2": "",
+        "description": "As árvores agradecem. Um convite sem impressão nem transporte."
+      },
+      {
+        "titleLine1": "Instantâneo",
+        "titleLine2": "",
+        "description": "Enviado com um clique, recebido num segundo. Sem prazos de impressão, sem espera pelo correio."
+      }
+    ]
+  },
+  "Pricing": {
+    "eyebrow": "Para 150 convidados",
+    "titleLine1": "A diferença",
+    "titleAccent": "que conta",
+    "paperLabel": "Papel tradicional",
+    "paperPrice": "645 €",
+    "paperDetails": "Impressão + selos + envelopes",
+    "studioLabel": "The Studio",
+    "studioPrice": "175 €",
+    "studioDetails": "Tudo incluído, ilimitado",
+    "features": "Envio instantâneo · Editável · RSVP integrado · Zero papel",
+    "createButton": "Criar o meu convite"
+  },
+  "Atelier": {
+    "eyebrow": "Confie a sua visão ao nosso Studio",
+    "titleLine1": "Um convite",
+    "titleLine2": "tão único",
+    "titleLine3": "quanto a sua história",
+    "subtitle": "Tem uma visão. Nós damos-lhe vida. O nosso Studio cria o seu convite digital com precisão, bom gosto e intenção para refletir perfeitamente o espírito do seu casamento.",
+    "steps": [
+      {
+        "number": "1.",
+        "title": "O Atelier",
+        "description": "Uma videochamada ou chamada telefónica com o nosso diretor artístico para compreender a sua história, os seus desejos, o seu estilo e o que torna o seu casamento único."
+      },
+      {
+        "number": "2.",
+        "title": "O Esboço",
+        "description": "É criado um moodboard personalizado para alinharmos o ambiente, os códigos e a estética do seu convite."
+      },
+      {
+        "number": "3.",
+        "title": "O Design",
+        "description": "Chegou a hora da criação. O seu convite ganha vida com um design exclusivo, pensado ao mais ínfimo detalhe."
+      },
+      {
+        "number": "4.",
+        "title": "O Lançamento",
+        "description": "O seu convite está pronto. Um link único, pronto a ser partilhado instantaneamente com os seus convidados."
+      }
+    ],
+    "ctaButton": "Marcar uma reunião"
+  },
+  "Dashboard": {
+    "eyebrow": "O seu espaço de noivos",
+    "titleLine1": "Um único espaço.",
+    "titleAccent": "Todo o seu casamento.",
+    "subtitle": "Gira os seus convidados, as suas respostas RSVP, o seu convite: edite, ajuste e atualize o seu convite sempre que quiser, sem intermediários.",
+    "placeholder": "Pré-visualização do painel brevemente"
+  },
+  "Faq": {
+    "eyebrow": "Alguma pergunta?",
+    "titleLine1": "Perguntas",
+    "titleAccent": "Frequentes",
+    "items": [
+      {
+        "question": "Posso editar o meu site depois de enviar os convites?",
+        "answer": "Com certeza! Essa é a magia do digital. Pode alterar os horários, adicionar informações de alojamento ou mudar uma foto a qualquer momento. Os seus convidados verão sempre a versão mais atual."
+      },
+      {
+        "question": "Tenho de pagar uma subscrição mensal?",
+        "answer": "Não, nunca. O pagamento é único. O seu site permanece online durante 12 meses após o casamento, dando-lhe tempo suficiente para partilhar fotos recordação."
+      },
+      {
+        "question": "Como confirmam os meus convidados a presença (RSVP)?",
+        "answer": "Um formulário simples e elegante está integrado no seu site. Recebe as respostas instantaneamente no seu painel (e por email, se preferir). Pode exportar a lista de convidados com um clique."
+      },
+      {
+        "question": "Posso ter um domínio personalizado?",
+        "answer": "Sim! Com a opção \"Domínio Personalizado\" (+65 €), ou incluída no pacote Premium, pode ter um endereço como www.paula-e-marcos.com."
+      },
+      {
+        "question": "Oferecem convites em papel a condizer?",
+        "answer": "Por enquanto estamos focados na experiência digital, mas podemos fornecer-lhe os ficheiros PDF em alta resolução do seu design para que os imprima na sua gráfica local."
+      }
+    ]
+  },
+  "FinalCta": {
+    "titleLine1": "O local já está escolhido, o catering também.",
+    "titleAccent": "Só falta o convite",
+    "createButton": "Criar o meu convite"
+  },
+  "ScrollToTop": {
+    "ariaLabel": "Voltar ao topo"
+  },
+  "MobileMenu": {
+    "ariaLabel": "Menu de navegação",
+    "closeAriaLabel": "Fechar menu",
+    "colProduct": "Produto",
+    "colMaries": "Noivos",
+    "productLinks": [
+      "Início",
+      "Demonstração",
+      "Funcionalidades",
+      "Preços",
+      "Sob medida",
+      "Testemunhos",
+      "FAQ"
+    ],
+    "mariesLinks": [
+      "Entrar"
+    ],
+    "createButton": "Criar meu convite"
   }
 }

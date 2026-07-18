@@ -10,12 +10,14 @@
     "createButton": "إنشاء دعوتي"
   },
   "Hero": {
-    "titleLine1": "حفل زفافك",
-    "titleLine2": "يبدأ هنا.",
-    "description": "أنشئ دعوة رقمية استثنائية تجمع بين أناقة الورق وسحر الويب. تجربة ساحرة لضيوفك، بدون نفايات.",
-    "createButton": "إنشاء دعوتي",
-    "demoButton": "شاهد العرض",
-    "discover": "اكتشف"
+    "eyebrow": "دعوة زفاف رقمية",
+    "titleLine1": "دعوة الزفاف",
+    "titleLine2": "بحلة جديدة",
+    "subtitle": "مصممة لأعراس اليوم",
+    "menuAriaLabel": "فتح القائمة",
+    "discoverButton": "اكتشف",
+    "createButton": "أنشئ دعوتي",
+    "themeCta": "جرّب نمط Dolce Vita"
   },
   "Features": {
     "titleLine1": "أناقة الورق،",
@@ -48,16 +50,43 @@
     "loading": "جار التحميل..."
   },
   "HowItWorks": {
-    "eyebrow": "Simple & rapide",
-    "title": "En 3 étapes",
-    "titleAccent": "c'est prêt",
-    "step1Title": "Choisissez un design",
-    "step1Desc": "Parcourez nos thèmes et trouvez celui qui vous ressemble.",
-    "step2Title": "Personnalisez",
-    "step2Desc": "Textes, photos, modules — tout se configure en quelques minutes.",
-    "step3Title": "Envoyez le lien",
-    "step3Desc": "Partagez par SMS, WhatsApp ou email. Vos invités reçoivent une expérience unique.",
-    "createButton": "Créer mon faire-part"
+    "eyebrow": "بسيطة، سريعة، ومخصّصة بنسبة 100%",
+    "titleLine1": "دعوتكما",
+    "titleAccent": "في 3 خطوات",
+    "universeMockLabel": "اختر نمطًا",
+    "personalizeMockLabel": "خصّص دعوتك",
+    "personalizeMockRows": [
+      "دفتر الضيوف",
+      "البرنامج",
+      "قائمة الطعام"
+    ],
+    "shareMockLabel": "شارك دعوتك",
+    "shareMockActions": [
+      "نسخ الرابط",
+      "الإرسال عبر البريد الإلكتروني",
+      "الإرسال عبر واتساب",
+      "الإرسال عبر رسالة نصية"
+    ],
+    "steps": [
+      {
+        "number": "01",
+        "titleLine1": "اختر",
+        "titleLine2": "نمطك",
+        "description": "اختر تصميمًا يشبهك. بسيط، رومانسي، جريء — كل نمط مصمم لرواية قصتك."
+      },
+      {
+        "number": "02",
+        "titleLine1": "خصّص",
+        "titleLine2": "دعوتك",
+        "description": "أضف صورك ونصوصك والمعلومات الأساسية — تأكيد الحضور، البرنامج، الإقامة — كل ذلك قابل للتخصيص ببضع نقرات."
+      },
+      {
+        "number": "03",
+        "titleLine1": "أعلنا",
+        "titleLine2": "عن يومكما الكبير",
+        "description": "أرسل دعوتك عبر الرسائل النصية أو واتساب أو البريد الإلكتروني. يرد ضيوفك خلال ثوانٍ، أينما كانوا."
+      }
+    ]
   },
   "DemoSection": {
     "eyebrow": "Voir en vrai",
@@ -143,10 +172,25 @@
     "bespokeEmail": "contact@thestudiopapeteriedigitale.com"
   },
   "Testimonials": {
-    "eyebrow": "Ils nous ont fait confiance",
-    "badge": "Déjà 130+ invitations envoyées",
-    "title": "Ce qu'ils",
-    "titleAccent": "en pensent"
+    "eyebrow": "لقد وثقوا بنا",
+    "title": "ماذا يقولون عنا",
+    "items": [
+      {
+        "quote": "انبهر ضيوفنا بحركة فتح المظروف! كانت هذه التفصيلة التي غيّرت كل شيء. وفّر لنا تأكيد الحضور وقتًا ثمينًا.",
+        "names": "جولييت وبيير",
+        "date": "تزوّجا في سبتمبر 2024"
+      },
+      {
+        "quote": "كانت الأجواء ساحرة، بأضواء متلألئة وموسيقى آسرة. تم توثيق كل لحظة.",
+        "names": "صوفي وأنطوان",
+        "date": "تزوّجا في يونيو 2023"
+      },
+      {
+        "quote": "اكتشفنا مناظر طبيعية خلابة خلال شهر عسلنا. ستبقى ذكريات هذه المغامرات محفورة إلى الأبد.",
+        "names": "إيما ولوكا",
+        "date": "تزوّجا في مايو 2022"
+      }
+    ]
   },
   "Catalogue": {
     "eyebrow": "Créez votre invitation",
@@ -187,22 +231,195 @@
     "learnMore": "En savoir plus"
   },
   "Footer": {
-    "tagline": "دعوة الزفاف المعاد ابتكارها رقمياً.",
-    "colProduct": "المنتجات",
-    "colMarries": "العرسان",
+    "logoAlt": "The Studio Digital Papeterie",
+    "colProduct": "المنتج",
+    "colMaries": "العروسان",
     "colLegal": "قانوني",
-    "linkThemes": "السمات",
-    "linkDemo": "العرض",
-    "linkFeatures": "المميزات",
-    "linkTestimonials": "الشهادات",
-    "linkPricing": "الأسعار",
-    "linkFAQ": "الأسئلة الشائعة",
-    "linkBespoke": "على المقاس",
-    "linkBespokeEmail": "contact@thestudiopapeteriedigitale.com",
-    "linkLogin": "تسجيل الدخول",
-    "linkCreate": "إنشاء دعوتي",
-    "linkCGV": "الشروط والأحكام",
-    "linkPrivacy": "الخصوصية",
-    "copyright": "© {year} ستوديو القرطاسية الرقمية · صنع بـ ♥ في فرنسا"
+    "productLinks": [
+      "عرض توضيحي",
+      "المزايا",
+      "الأسعار",
+      "حسب الطلب",
+      "آراء العملاء",
+      "الأسئلة الشائعة"
+    ],
+    "login": "تسجيل الدخول",
+    "createButton": "أنشئ دعوتي",
+    "cgv": "الشروط",
+    "privacy": "الخصوصية"
+  },
+  "HeroCarousel": {
+    "prevAriaLabel": "البطاقة السابقة",
+    "nextAriaLabel": "البطاقة التالية",
+    "cards": [
+      {
+        "alt": "مثال دعوة زفاف — تصميم أمالفي"
+      },
+      {
+        "alt": "مثال دعوة زفاف — تصميم البندقية"
+      },
+      {
+        "alt": "مثال دعوة زفاف — تصميم بروفانس"
+      },
+      {
+        "alt": "مثال دعوة زفاف — تصميم توسكانا"
+      },
+      {
+        "alt": "مثال دعوة زفاف — تصميم ريفييرا"
+      },
+      {
+        "alt": "مثال دعوة زفاف — تصميم كابري"
+      }
+    ]
+  },
+  "Preview": {
+    "eyebrow": "خصّصي مباشرة",
+    "titleLine1": "استكشفي",
+    "titleAccent": "كل إبداع",
+    "subtitle": "جرّبي كل تصميم واعثري على ما يروي قصتكما.",
+    "scrollHint": "مرّري للأسفل",
+    "discoverButton": "اكتشفي",
+    "createButton": "أنشئي دعوتي",
+    "prevThemesAriaLabel": "التصاميم السابقة",
+    "nextThemesAriaLabel": "التصاميم التالية",
+    "themeLabel": "تصميم {name}",
+    "themeAlt": "دعوة زفاف — تصميم {name}",
+    "demoIframeTitle": "عرض الدعوة — تصميم {name}"
+  },
+  "WhyUs": {
+    "eyebrow": "لماذا تختارين The Studio؟",
+    "titleLine1": "أناقة القرطاسية،",
+    "titleAccent": "وقوة العالم الرقمي",
+    "reasons": [
+      {
+        "titleLine1": "تصميم يليق بأرقى",
+        "titleLine2": "دور القرطاسية",
+        "description": "أناقة القرطاسية، دون قيود الورق."
+      },
+      {
+        "titleLine1": "بلا أي تعقيدات لوجستية",
+        "titleLine2": "",
+        "description": "لا طباعة. لا طوابع بريدية. لا داعي للتساؤل \"هل أرسلنا الـ150 دعوة؟\""
+      },
+      {
+        "titleLine1": "دائماً في متناول اليد",
+        "titleLine2": "",
+        "description": "لا مزيد من الدعوات المنسية في الأدراج. يجد ضيوفكما كل المعلومات بنقرة واحدة."
+      },
+      {
+        "titleLine1": "صديقة للبيئة",
+        "titleLine2": "",
+        "description": "الأشجار تشكركما. دعوة بلا طباعة ولا نقل."
+      },
+      {
+        "titleLine1": "فورية",
+        "titleLine2": "",
+        "description": "تُرسل بنقرة واحدة، وتصل في ثانية. لا وقت انتظار للطباعة ولا للبريد."
+      }
+    ]
+  },
+  "Pricing": {
+    "eyebrow": "لـ150 ضيفاً",
+    "titleLine1": "الفرق",
+    "titleAccent": "الذي يهم",
+    "paperLabel": "الورق التقليدي",
+    "paperPrice": "645 يورو",
+    "paperDetails": "طباعة + طوابع + مغلفات",
+    "studioLabel": "The Studio",
+    "studioPrice": "175 يورو",
+    "studioDetails": "كل شيء مشمول، بلا حدود",
+    "features": "إرسال فوري · قابلة للتعديل · تأكيد حضور مدمج · بلا ورق",
+    "createButton": "أنشئي دعوتي"
+  },
+  "Atelier": {
+    "eyebrow": "أَوكلي رؤيتكما إلى الاستوديو الخاص بنا",
+    "titleLine1": "دعوة",
+    "titleLine2": "فريدة",
+    "titleLine3": "بقدر قصتكما",
+    "subtitle": "لديكما رؤية. نحن نجسّدها. يصمم الاستوديو الخاص بنا دعوتكما الرقمية بدقة وذوق واهتمام ليعكس بشكل مثالي روح زفافكما.",
+    "steps": [
+      {
+        "number": "1.",
+        "title": "الورشة",
+        "description": "مكالمة فيديو أو هاتفية مع مديرنا الفني لفهم قصتكما ورغباتكما وأسلوبكما وما يجعل زفافكما فريداً."
+      },
+      {
+        "number": "2.",
+        "title": "التخطيط الأولي",
+        "description": "يتم إنشاء لوحة إلهام مخصصة معاً لتحديد الأجواء والرموز والجمالية الخاصة بدعوتكما."
+      },
+      {
+        "number": "3.",
+        "title": "التصميم",
+        "description": "حان وقت الإبداع. تنبض دعوتكما بالحياة بتصميم حصري، مدروس حتى أدق التفاصيل."
+      },
+      {
+        "number": "4.",
+        "title": "الإطلاق",
+        "description": "دعوتكما جاهزة. رابط فريد، جاهز للمشاركة فورياً مع ضيوفكما."
+      }
+    ],
+    "ctaButton": "احجزي موعداً"
+  },
+  "Dashboard": {
+    "eyebrow": "مساحة العروسين الخاصة بكما",
+    "titleLine1": "مساحة واحدة.",
+    "titleAccent": "كل تفاصيل زفافكما.",
+    "subtitle": "أداري ضيوفكما وردود تأكيد الحضور ودعوتكما: عدّلي وحدّثي دعوتكما متى شئتما، دون وسيط.",
+    "placeholder": "معاينة لوحة التحكم قريباً"
+  },
+  "Faq": {
+    "eyebrow": "لديك سؤال؟",
+    "titleLine1": "الأسئلة",
+    "titleAccent": "الشائعة",
+    "items": [
+      {
+        "question": "هل يمكنني تعديل موقعي بعد إرسال الدعوات؟",
+        "answer": "بالتأكيد! هذا هو سحر العالم الرقمي. يمكنك تعديل المواعيد أو إضافة معلومات عن الإقامة أو تغيير صورة في أي وقت. سيرى ضيوفكما دائماً أحدث نسخة."
+      },
+      {
+        "question": "هل يجب أن أدفع اشتراكاً شهرياً؟",
+        "answer": "لا، أبداً. الدفع لمرة واحدة فقط. يبقى موقعكما متاحاً على الإنترنت لمدة 12 شهراً بعد الزفاف، مما يمنحكما الوقت الكافي لمشاركة صور الذكريات."
+      },
+      {
+        "question": "كيف يؤكد الضيوف حضورهم (RSVP)؟",
+        "answer": "استمارة بسيطة وأنيقة مدمجة في موقعكما. تصلكما الردود فوراً في لوحة التحكم (وبالبريد الإلكتروني إذا رغبتما). يمكنكما تصدير قائمة الضيوف بنقرة واحدة."
+      },
+      {
+        "question": "هل يمكنني الحصول على اسم نطاق مخصص؟",
+        "answer": "نعم! مع خيار \"النطاق المخصص\" (+65 يورو)، أو ضمن باقة Premium، يمكنكما الحصول على عنوان مثل www.paula-et-marcos.com."
+      },
+      {
+        "question": "هل تقدمون دعوات ورقية مطابقة؟",
+        "answer": "نركز حالياً على التجربة الرقمية، لكن يمكننا تزويدكما بملفات PDF عالية الدقة لتصميمكما لطباعتها لدى مطبعتكما المحلية."
+      }
+    ]
+  },
+  "FinalCta": {
+    "titleLine1": "تم اختيار المكان، وكذلك مزوّد الطعام.",
+    "titleAccent": "لم يتبقَّ سوى الدعوة",
+    "createButton": "أنشئي دعوتي"
+  },
+  "ScrollToTop": {
+    "ariaLabel": "العودة إلى الأعلى"
+  },
+  "MobileMenu": {
+    "ariaLabel": "قائمة التنقل",
+    "closeAriaLabel": "إغلاق القائمة",
+    "colProduct": "المنتج",
+    "colMaries": "العروسان",
+    "productLinks": [
+      "الرئيسية",
+      "عرض توضيحي",
+      "المزايا",
+      "الأسعار",
+      "حسب الطلب",
+      "آراء العملاء",
+      "الأسئلة الشائعة"
+    ],
+    "mariesLinks": [
+      "تسجيل الدخول"
+    ],
+    "createButton": "إنشاء دعوتي"
   }
 }

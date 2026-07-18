@@ -3,6 +3,7 @@
 import { studioColors } from "@shared/lib/studio-colors";
 import { cn } from "@shared/lib/utils";
 import { Link2, Mail, Send } from "lucide-react";
+import { useTranslations } from "next-intl";
 import Image from "next/image";
 import { useEffect, useRef } from "react";
 
@@ -21,12 +22,16 @@ const MOCK_BORDER_STYLE = {
 
 type Step = {
   number: string;
-  title: string[];
+  titleLine1: string;
+  titleLine2: string;
   description: string;
-  content: React.ReactNode;
 };
 
-function UniverseMock() {
+function UniverseMock({
+  label,
+}: {
+  label: string;
+}) {
   const swatches = [
     "bg-studio-pourpre",
     "bg-studio-beige",
@@ -39,7 +44,7 @@ function UniverseMock() {
       className="w-full max-w-sm rounded-2xl border border-transparent bg-white p-5 md:max-w-md lg:max-w-lg"
     >
       <p className="mb-4 text-center font-body text-h4 text-studio-violet/70">
-        Sélectionner un univers
+        {label}
       </p>
       <div className="grid grid-cols-2 gap-3">
         {swatches.map((swatch, i) => (
@@ -57,19 +62,24 @@ function UniverseMock() {
   );
 }
 
-function PersonalizeMock() {
-  const rows = [
-    { label: "Livre d'or", on: true },
-    { label: "Planning", on: true },
-    { label: "Menu", on: false },
-  ];
+function PersonalizeMock({
+  label,
+  rowLabels,
+}: {
+  label: string;
+  rowLabels: string[];
+}) {
+  const rows = rowLabels.map((rowLabel, i) => ({
+    label: rowLabel,
+    on: i < 2,
+  }));
   return (
     <div
       style={MOCK_BORDER_STYLE}
       className="w-full max-w-sm rounded-2xl border border-transparent bg-white p-5 md:max-w-md lg:max-w-lg"
     >
       <p className="mb-4 text-center font-body text-h4 text-studio-violet/70">
-        Personnalisez votre invitation
+        {label}
       </p>
       <div className="flex flex-col divide-y divide-studio-beige">
         {rows.map((row) => (
@@ -119,28 +129,33 @@ function WhatsappIcon({ className }: { className?: string }) {
   );
 }
 
-function ShareMock() {
-  const actions = [
-    { label: "Copier le lien", icon: Link2 },
-    { label: "Envoyer par mail", icon: Mail },
-    { label: "Envoyer par Whatsapp", icon: WhatsappIcon },
-    { label: "Envoyer par SMS", icon: Send },
-  ];
+function ShareMock({
+  label,
+  actionLabels,
+}: {
+  label: string;
+  actionLabels: string[];
+}) {
+  const icons = [Link2, Mail, WhatsappIcon, Send];
+  const actions = actionLabels.map((actionLabel, i) => ({
+    label: actionLabel,
+    icon: icons[i] ?? Link2,
+  }));
   return (
     <div
       style={MOCK_BORDER_STYLE}
       className="w-full max-w-sm rounded-2xl border border-transparent bg-white p-5 md:max-w-md lg:max-w-lg"
     >
       <p className="mb-4 text-center font-body text-h4 text-studio-violet/70">
-        Partager votre invitation
+        {label}
       </p>
       <div className="flex flex-col divide-y divide-studio-beige">
-        {actions.map(({ label, icon: Icon }) => (
+        {actions.map(({ label: actionLabel, icon: Icon }) => (
           <div
-            key={label}
+            key={actionLabel}
             className="flex items-center justify-between py-3"
           >
-            <span className="font-body text-h5 text-studio-violet/80">{label}</span>
+            <span className="font-body text-h5 text-studio-violet/80">{actionLabel}</span>
             <Icon className="h-4 w-4 text-studio-violet/60" />
           </div>
         ))}
@@ -148,30 +163,6 @@ function ShareMock() {
     </div>
   );
 }
-
-const STEPS: Step[] = [
-  {
-    number: "01",
-    title: ["Choisissez", "votre univers"],
-    description:
-      "Sélectionnez un design qui vous ressemble. Minimaliste, romantique, audacieux, chaque univers est pensé pour raconter votre histoire.",
-    content: <UniverseMock />,
-  },
-  {
-    number: "02",
-    title: ["Personnalisez", "votre invitation"],
-    description:
-      "Ajoutez vos photos, vos textes et les informations essentielles, RSVP, programme, hébergements… tout se personnalise en quelques clics.",
-    content: <PersonalizeMock />,
-  },
-  {
-    number: "03",
-    title: ["Annoncez", "le grand jour"],
-    description:
-      "Envoyez votre invitation par SMS, Whatsapp ou e-mail. Vos invités répondent en quelques secondes, où qu'ils soient.",
-    content: <ShareMock />,
-  },
-];
 
 // Shared sticky anchor for every card in the stack.
 const STICKY_TOP = 96;
@@ -181,7 +172,13 @@ const STICKY_TOP = 96;
 // DOM, so they naturally paint over earlier ones without any z-index.
 // All cards share the same sticky top so each one covers the previous
 // exactly and the final pile is perfectly aligned when the section exits.
-function StackCard({ step }: { step: Step }) {
+function StackCard({
+  step,
+  content,
+}: {
+  step: Step;
+  content: React.ReactNode;
+}) {
   return (
     <div
       style={{
@@ -199,18 +196,15 @@ function StackCard({ step }: { step: Step }) {
           {step.number}
         </span>
         <h3 className="font-heading text-h2 text-studio-violet">
-          {step.title.map((line) => (
-            <span key={line} className="block">
-              {line}
-            </span>
-          ))}
+          <span className="block">{step.titleLine1}</span>
+          {step.titleLine2 && <span className="block">{step.titleLine2}</span>}
         </h3>
       </div>
       <p className="font-body text-sm text-studio-violet/70 md:text-base">
         {step.description}
       </p>
       <div className="flex w-full flex-1 items-center justify-center">
-        {step.content}
+        {content}
       </div>
     </div>
   );
@@ -265,8 +259,27 @@ function useStackCards(containerRef: React.RefObject<HTMLDivElement | null>) {
 }
 
 export function HowItWorks() {
+  const t = useTranslations("HowItWorks");
   const containerRef = useRef<HTMLDivElement>(null);
   useStackCards(containerRef);
+
+  const steps = t.raw("steps") as Step[];
+  const personalizeMockRows = t.raw("personalizeMockRows") as string[];
+  const shareMockActions = t.raw("shareMockActions") as string[];
+
+  const mocks = [
+    <UniverseMock key="universe" label={t("universeMockLabel")} />,
+    <PersonalizeMock
+      key="personalize"
+      label={t("personalizeMockLabel")}
+      rowLabels={personalizeMockRows}
+    />,
+    <ShareMock
+      key="share"
+      label={t("shareMockLabel")}
+      actionLabels={shareMockActions}
+    />,
+  ];
 
   return (
     <section className="bg-studio-beurre px-6 pt-20 md:px-12">
@@ -278,7 +291,7 @@ export function HowItWorks() {
             width={42}
             height={1}
           />
-          <span>Simple, rapide et 100% personnalisé</span>
+          <span>{t("eyebrow")}</span>
           <Image
             src="/images/eyebrow-separator-right.svg"
             alt=""
@@ -287,15 +300,15 @@ export function HowItWorks() {
           />
         </div>
         <h2 className="mt-4 font-heading text-h1 text-studio-violet">
-          Votre faire-part
+          {t("titleLine1")}
           <br />
-          <span className="text-studio-lavande">en 3 étapes</span>
+          <span className="text-studio-lavande">{t("titleAccent")}</span>
         </h2>
       </FadeIn>
 
       <div ref={containerRef}>
-        {STEPS.map((step) => (
-          <StackCard key={step.number} step={step} />
+        {steps.map((step, i) => (
+          <StackCard key={step.number} step={step} content={mocks[i]} />
         ))}
       </div>
     </section>

@@ -11,12 +11,14 @@
     "login": "Acceso"
   },
   "Hero": {
-    "titleLine1": "Tu boda",
-    "titleLine2": "comienza aquí.",
-    "description": "Crea una invitación digital excepcional que combina la elegancia del papel con la magia de la web. Una experiencia mágica para tus invitados, sin desperdicios.",
-    "createButton": "Crear mi invitación",
-    "demoButton": "Ver demostración",
-    "discover": "Descubrir"
+    "eyebrow": "Invitación de boda digital",
+    "titleLine1": "La invitación de boda",
+    "titleLine2": "reinventada",
+    "subtitle": "Pensada para las bodas de hoy",
+    "menuAriaLabel": "Abrir menú",
+    "discoverButton": "Descubrir",
+    "createButton": "Crear la mía",
+    "themeCta": "Probar el tema Dolce Vita"
   },
   "Features": {
     "titleLine1": "La elegancia del papel,",
@@ -49,16 +51,43 @@
     "loading": "Cargando..."
   },
   "HowItWorks": {
-    "eyebrow": "Simple & rapide",
-    "title": "En 3 étapes",
-    "titleAccent": "c'est prêt",
-    "step1Title": "Choisissez un design",
-    "step1Desc": "Parcourez nos thèmes et trouvez celui qui vous ressemble.",
-    "step2Title": "Personnalisez",
-    "step2Desc": "Textes, photos, modules — tout se configure en quelques minutes.",
-    "step3Title": "Envoyez le lien",
-    "step3Desc": "Partagez par SMS, WhatsApp ou email. Vos invités reçoivent une expérience unique.",
-    "createButton": "Créer mon faire-part"
+    "eyebrow": "Sencillo, rápido y 100% personalizado",
+    "titleLine1": "Tu invitación",
+    "titleAccent": "en 3 pasos",
+    "universeMockLabel": "Selecciona un estilo",
+    "personalizeMockLabel": "Personaliza tu invitación",
+    "personalizeMockRows": [
+      "Libro de firmas",
+      "Programa",
+      "Menú"
+    ],
+    "shareMockLabel": "Comparte tu invitación",
+    "shareMockActions": [
+      "Copiar el enlace",
+      "Enviar por correo",
+      "Enviar por WhatsApp",
+      "Enviar por SMS"
+    ],
+    "steps": [
+      {
+        "number": "01",
+        "titleLine1": "Elige",
+        "titleLine2": "tu estilo",
+        "description": "Elige un diseño que se parezca a ti. Minimalista, romántico, atrevido: cada estilo está pensado para contar tu historia."
+      },
+      {
+        "number": "02",
+        "titleLine1": "Personaliza",
+        "titleLine2": "tu invitación",
+        "description": "Añade tus fotos, tus textos y la información esencial —RSVP, programa, alojamiento— todo personalizable en unos clics."
+      },
+      {
+        "number": "03",
+        "titleLine1": "Anuncia",
+        "titleLine2": "el gran día",
+        "description": "Envía tu invitación por SMS, WhatsApp o correo electrónico. Tus invitados responden en segundos, estén donde estén."
+      }
+    ]
   },
   "DemoSection": {
     "eyebrow": "Voir en vrai",
@@ -144,10 +173,25 @@
     "bespokeEmail": "contact@thestudiopapeteriedigitale.com"
   },
   "Testimonials": {
-    "eyebrow": "Ils nous ont fait confiance",
-    "badge": "Déjà 130+ invitations envoyées",
-    "title": "Ce qu'ils",
-    "titleAccent": "en pensent"
+    "eyebrow": "Confiaron en nosotros",
+    "title": "Lo que opinan",
+    "items": [
+      {
+        "quote": "¡Nuestros invitados quedaron encantados con la animación del sobre! Fue el detalle que lo cambió todo. El RSVP nos ahorró un tiempo precioso.",
+        "names": "Juliette y Pierre",
+        "date": "Casados en septiembre de 2024"
+      },
+      {
+        "quote": "El ambiente era mágico, con luces centelleantes y una música envolvente. Cada momento quedó inmortalizado.",
+        "names": "Sophie y Antoine",
+        "date": "Casados en junio de 2023"
+      },
+      {
+        "quote": "Descubrimos paisajes impresionantes en nuestra luna de miel. Los recuerdos de esas aventuras quedarán grabados para siempre.",
+        "names": "Emma y Lucas",
+        "date": "Casados en mayo de 2022"
+      }
+    ]
   },
   "Catalogue": {
     "eyebrow": "Créez votre invitation",
@@ -188,22 +232,195 @@
     "learnMore": "En savoir plus"
   },
   "Footer": {
-    "tagline": "La invitación digital reinventada.",
-    "colProduct": "Productos",
-    "colMarries": "Parejas",
+    "logoAlt": "The Studio Digital Papeterie",
+    "colProduct": "Producto",
+    "colMaries": "Novios",
     "colLegal": "Legal",
-    "linkThemes": "Temas",
-    "linkDemo": "Demo",
-    "linkFeatures": "Funcionalidades",
-    "linkTestimonials": "Testimonios",
-    "linkPricing": "Precios",
-    "linkFAQ": "FAQ",
-    "linkBespoke": "A medida",
-    "linkBespokeEmail": "contact@thestudiopapeteriedigitale.com",
-    "linkLogin": "Acceso",
-    "linkCreate": "Crear mi invitación",
-    "linkCGV": "Términos y Condiciones",
-    "linkPrivacy": "Privacidad",
-    "copyright": "© {year} The Studio Papeterie Digitale · Hecho con ♥ en España"
+    "productLinks": [
+      "Demo",
+      "Funcionalidades",
+      "Precios",
+      "A medida",
+      "Opiniones",
+      "FAQ"
+    ],
+    "login": "Iniciar sesión",
+    "createButton": "Crear mi invitación",
+    "cgv": "Condiciones",
+    "privacy": "Privacidad"
+  },
+  "HeroCarousel": {
+    "prevAriaLabel": "Tarjeta anterior",
+    "nextAriaLabel": "Tarjeta siguiente",
+    "cards": [
+      {
+        "alt": "Ejemplo de invitación de boda — tema Amalfi"
+      },
+      {
+        "alt": "Ejemplo de invitación de boda — tema Venecia"
+      },
+      {
+        "alt": "Ejemplo de invitación de boda — tema Provenza"
+      },
+      {
+        "alt": "Ejemplo de invitación de boda — tema Toscana"
+      },
+      {
+        "alt": "Ejemplo de invitación de boda — tema Riviera"
+      },
+      {
+        "alt": "Ejemplo de invitación de boda — tema Capri"
+      }
+    ]
+  },
+  "Preview": {
+    "eyebrow": "Personaliza en directo",
+    "titleLine1": "Explora",
+    "titleAccent": "cada creación",
+    "subtitle": "Prueba cada tema y encuentra el que cuenta tu historia.",
+    "scrollHint": "Desliza",
+    "discoverButton": "Descubrir",
+    "createButton": "Crear mi invitación",
+    "prevThemesAriaLabel": "Temas anteriores",
+    "nextThemesAriaLabel": "Temas siguientes",
+    "themeLabel": "Tema {name}",
+    "themeAlt": "Invitación de boda — tema {name}",
+    "demoIframeTitle": "Demo de invitación — tema {name}"
+  },
+  "WhyUs": {
+    "eyebrow": "¿Por qué elegir The Studio?",
+    "titleLine1": "La elegancia de la papelería,",
+    "titleAccent": "el poder de lo digital",
+    "reasons": [
+      {
+        "titleLine1": "Un diseño digno de la mejor",
+        "titleLine2": "papelería",
+        "description": "La elegancia de la papelería, sin las limitaciones del papel."
+      },
+      {
+        "titleLine1": "Cero logística",
+        "titleLine2": "",
+        "description": "Sin impresión. Sin sellos. Sin \"¿Ya enviaste las 150 invitaciones?\""
+      },
+      {
+        "titleLine1": "Siempre a mano",
+        "titleLine2": "",
+        "description": "Se acabaron las invitaciones olvidadas en un cajón. Tus invitados encuentran toda la información con un clic."
+      },
+      {
+        "titleLine1": "Ecológico",
+        "titleLine2": "",
+        "description": "Los árboles te lo agradecen. Una invitación sin impresión ni transporte."
+      },
+      {
+        "titleLine1": "Instantáneo",
+        "titleLine2": "",
+        "description": "Enviado con un clic, recibido en un segundo. Sin plazos de impresión, sin esperas de correo."
+      }
+    ]
+  },
+  "Pricing": {
+    "eyebrow": "Para 150 invitados",
+    "titleLine1": "La diferencia",
+    "titleAccent": "que importa",
+    "paperLabel": "Papel tradicional",
+    "paperPrice": "645 €",
+    "paperDetails": "Impresión + sellos + sobres",
+    "studioLabel": "The Studio",
+    "studioPrice": "175 €",
+    "studioDetails": "Todo incluido, ilimitado",
+    "features": "Envío instantáneo · Editable · RSVP integrado · Cero papel",
+    "createButton": "Crear mi invitación"
+  },
+  "Atelier": {
+    "eyebrow": "Confía tu visión a nuestro Studio",
+    "titleLine1": "Una invitación",
+    "titleLine2": "tan única",
+    "titleLine3": "como tu historia",
+    "subtitle": "Tienes una visión. Nosotros le damos vida. Nuestro Studio diseña tu invitación digital con precisión, buen gusto e intención para reflejar perfectamente el espíritu de tu boda.",
+    "steps": [
+      {
+        "number": "1.",
+        "title": "El Taller",
+        "description": "Una videollamada o llamada telefónica con nuestro director artístico para entender tu historia, tus deseos, tu estilo y lo que hace única a tu boda."
+      },
+      {
+        "number": "2.",
+        "title": "El Boceto",
+        "description": "Se crea un moodboard a medida para acordar juntos el ambiente, los códigos y la estética de tu invitación."
+      },
+      {
+        "number": "3.",
+        "title": "El Diseño",
+        "description": "Llega la creación. Tu invitación cobra vida con un diseño exclusivo, pensado hasta el más mínimo detalle."
+      },
+      {
+        "number": "4.",
+        "title": "El Lanzamiento",
+        "description": "Tu invitación está lista. Un enlace único, listo para compartir al instante con tus invitados."
+      }
+    ],
+    "ctaButton": "Reservar una cita"
+  },
+  "Dashboard": {
+    "eyebrow": "Tu espacio de novios",
+    "titleLine1": "Un solo espacio.",
+    "titleAccent": "Toda tu boda.",
+    "subtitle": "Gestiona tus invitados, tus respuestas RSVP, tu invitación: modifica, ajusta y actualiza tu invitación cuando quieras, sin intermediarios.",
+    "placeholder": "Vista previa del panel próximamente"
+  },
+  "Faq": {
+    "eyebrow": "¿Alguna pregunta?",
+    "titleLine1": "Preguntas",
+    "titleAccent": "Frecuentes",
+    "items": [
+      {
+        "question": "¿Puedo modificar mi sitio después de enviar las invitaciones?",
+        "answer": "¡Por supuesto! Esa es la magia de lo digital. Puedes cambiar los horarios, añadir información sobre el alojamiento o cambiar una foto en cualquier momento. Tus invitados siempre verán la versión más actual."
+      },
+      {
+        "question": "¿Tengo que pagar una suscripción mensual?",
+        "answer": "No, nunca. El pago es único. Tu sitio permanece en línea durante 12 meses después de tu boda, lo que te da tiempo de sobra para compartir fotos de recuerdo."
+      },
+      {
+        "question": "¿Cómo confirman mis invitados su asistencia (RSVP)?",
+        "answer": "Un formulario simple y elegante está integrado en tu sitio. Recibes las respuestas al instante en tu panel (y por email si lo deseas). Puedes exportar la lista de invitados con un clic."
+      },
+      {
+        "question": "¿Puedo tener un dominio personalizado?",
+        "answer": "¡Sí! Con la opción \"Dominio personalizado\" (+65 €), o incluida en el pack Premium, puedes tener una dirección como www.paula-y-marcos.com."
+      },
+      {
+        "question": "¿Ofrecen invitaciones de papel a juego?",
+        "answer": "Por ahora nos centramos en la experiencia digital, pero podemos proporcionarte los archivos PDF en alta resolución de tu diseño para que los imprimas en tu imprenta local."
+      }
+    ]
+  },
+  "FinalCta": {
+    "titleLine1": "El lugar ya está elegido, el catering también.",
+    "titleAccent": "Solo falta la invitación",
+    "createButton": "Crear mi invitación"
+  },
+  "ScrollToTop": {
+    "ariaLabel": "Volver arriba"
+  },
+  "MobileMenu": {
+    "ariaLabel": "Menú de navegación",
+    "closeAriaLabel": "Cerrar menú",
+    "colProduct": "Producto",
+    "colMaries": "Novios",
+    "productLinks": [
+      "Inicio",
+      "Demo",
+      "Funcionalidades",
+      "Precios",
+      "A medida",
+      "Opiniones",
+      "FAQ"
+    ],
+    "mariesLinks": [
+      "Iniciar sesión"
+    ],
+    "createButton": "Crear mi invitación"
   }
 }

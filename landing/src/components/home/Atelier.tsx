@@ -2,41 +2,24 @@
 
 import { Button } from "@shared/components/ui/button";
 import { ArrowRight } from "lucide-react";
+import { useTranslations } from "next-intl";
 import Image from "next/image";
 
 import { FadeIn } from "./FadeIn";
 import { TextureOverlay } from "./TextureOverlay";
 
-const STEPS = [
-  {
-    number: "1.",
-    title: "L'Atelier",
-    description:
-      "Un échange visio ou téléphonique avec notre directeur artistique pour comprendre votre histoire, vos envies, votre univers et ce qui rend votre mariage unique.",
-  },
-  {
-    number: "2.",
-    title: "L'Esquisse",
-    description:
-      "Un moodboard sur-mesure est créé pour valider ensemble l'ambiance, les codes et l'esthétique de votre invitation.",
-  },
-  {
-    number: "3.",
-    title: "Le Design",
-    description:
-      "Place à la création. Votre faire-part prend vie dans un design exclusif, pensé dans les moindres détails.",
-  },
-  {
-    number: "4.",
-    title: "Le Lancement",
-    description:
-      "Votre invitation est prête. Un lien unique, prêt à être partagé instantanément avec vos invités.",
-  },
-];
+type Step = {
+  number: string;
+  title: string;
+  description: string;
+};
 
 export function Atelier() {
+  const t = useTranslations("Atelier");
+  const steps = t.raw("steps") as Step[];
+
   return (
-    <section className="relative overflow-hidden bg-studio-violet px-6 py-20 md:px-12">
+    <section id="sur-mesure" className="relative overflow-hidden bg-studio-violet px-6 py-20 md:px-12">
       <TextureOverlay />
       <Image
         src="/images/hero-leaf-bottom.svg"
@@ -55,7 +38,7 @@ export function Atelier() {
               width={42}
               height={1}
             />
-            <span>Confiez votre vision à notre Studio</span>
+            <span>{t("eyebrow")}</span>
             <Image
               src="/images/eyebrow-separator-right.svg"
               alt=""
@@ -65,20 +48,20 @@ export function Atelier() {
           </div>
 
           <h2 className="mt-4 text-center font-heading text-h1">
-            <span className="block text-white">Un faire-part</span>
-            <span className="block text-studio-lavande">aussi unique</span>
-            <span className="block text-studio-jaune">que votre histoire</span>
+            <span className="block text-white">{t("titleLine1")}</span>
+            <span className="block text-studio-lavande">
+              {t("titleLine2")}
+            </span>
+            <span className="block text-studio-jaune">{t("titleLine3")}</span>
           </h2>
 
           <p className="mx-auto mt-6 max-w-md text-center font-body text-sm text-white/80 md:text-base">
-            Vous avez une vision. Nous lui donnons vie. Notre Studio conçoit
-            votre invitation digitale avec précision, goût et intention pour
-            refléter l'essence de votre mariage.
+            {t("subtitle")}
           </p>
         </FadeIn>
 
         <div className="mt-14 flex flex-col gap-12">
-          {STEPS.map((step) => (
+          {steps.map((step) => (
             <FadeIn key={step.number}>
               <div className="flex items-center gap-4">
                 <span className="flex h-16 w-16 shrink-0 items-center justify-center rounded-xl bg-studio-jaune font-heading text-3xl text-studio-violet">
@@ -97,7 +80,7 @@ export function Atelier() {
 
         <FadeIn className="mt-12 flex justify-center">
           <Button variant="studio-jaune" size="pill">
-            Prendre rendez-vous <ArrowRight className="ml-2 h-4 w-4" />
+            {t("ctaButton")} <ArrowRight className="ml-2 h-4 w-4" />
           </Button>
         </FadeIn>
       </div>

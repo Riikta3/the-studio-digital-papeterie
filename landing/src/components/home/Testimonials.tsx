@@ -1,32 +1,15 @@
 "use client";
 
+import { useTranslations } from "next-intl";
 import Image from "next/image";
 
 import { FadeIn } from "./FadeIn";
 
-const TESTIMONIALS = [
-  {
-    quote:
-      "Nos invités ont été bluffés par l'animation de l'enveloppe ! C'est le détail qui a tout changé. Les RSVP nous a sauvé un temps précieux.",
-    names: "Juliette & Pierre",
-    date: "Mariés en Septembre 2024",
-  },
-  {
-    quote:
-      "L'ambiance était magique, avec des lumières scintillantes et une musique envoûtante. Chaque moment a été immortalisé.",
-    names: "Sophie & Antoine",
-    date: "Mariés en Juin 2023",
-  },
-  {
-    quote:
-      "Nous avons découvert des paysages époustouflants lors de notre lune de miel. Les souvenirs de ces aventures resteront gravés.",
-    names: "Emma & Lucas",
-    date: "Mariés en Mai 2022",
-  },
-];
-
-// Loop the row so the marquee has no visible seam.
-const MARQUEE_ITEMS = [...TESTIMONIALS, ...TESTIMONIALS];
+type Testimonial = {
+  quote: string;
+  names: string;
+  date: string;
+};
 
 function TestimonialCard({
   quote,
@@ -60,8 +43,13 @@ function TestimonialCard({
 }
 
 export function Testimonials() {
+  const t = useTranslations("Testimonials");
+  const testimonials = t.raw("items") as Testimonial[];
+  // Loop the row so the marquee has no visible seam.
+  const marqueeItems = [...testimonials, ...testimonials];
+
   return (
-    <section className="relative overflow-hidden bg-studio-beurre px-6 py-20 md:px-12">
+    <section id="temoignages" className="relative overflow-hidden bg-studio-beurre px-6 py-20 md:px-12">
       <Image
         src="/images/leaf-top-lavande.svg"
         alt=""
@@ -78,7 +66,7 @@ export function Testimonials() {
             width={42}
             height={1}
           />
-          <span>Ils nous ont fait confiance</span>
+          <span>{t("eyebrow")}</span>
           <Image
             src="/images/eyebrow-separator-right.svg"
             alt=""
@@ -87,7 +75,7 @@ export function Testimonials() {
           />
         </div>
         <h2 className="mt-4 font-heading text-h1 text-studio-violet">
-          Ce qu'ils en pensent
+          {t("title")}
         </h2>
       </FadeIn>
 
@@ -103,7 +91,7 @@ export function Testimonials() {
         }}
       >
         <div className="flex h-max animate-marquee flex-col gap-5">
-          {MARQUEE_ITEMS.map((testimonial, index) => (
+          {marqueeItems.map((testimonial, index) => (
             <TestimonialCard key={index} {...testimonial} />
           ))}
         </div>

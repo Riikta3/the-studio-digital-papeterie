@@ -11,12 +11,14 @@
     "login": "Login"
   },
   "Hero": {
-    "titleLine1": "Ihre Hochzeit",
-    "titleLine2": "beginnt hier.",
-    "description": "Erstellen Sie eine außergewöhnliche digitale Einladung, die die Eleganz von Papier mit der Magie des Webs verbindet. Ein zauberhaftes Erlebnis für Ihre Gäste, ohne Verschwendung.",
-    "createButton": "Einladung erstellen",
-    "demoButton": "Demo ansehen",
-    "discover": "Entdecken"
+    "eyebrow": "Digitale Hochzeitseinladung",
+    "titleLine1": "Die Hochzeitseinladung",
+    "titleLine2": "neu gedacht",
+    "subtitle": "Für Hochzeiten von heute gemacht",
+    "menuAriaLabel": "Menü öffnen",
+    "discoverButton": "Entdecken",
+    "createButton": "Meine erstellen",
+    "themeCta": "Design „Dolce Vita“ testen"
   },
   "Features": {
     "titleLine1": "Die Eleganz von Papier,",
@@ -49,16 +51,43 @@
     "loading": "Laden..."
   },
   "HowItWorks": {
-    "eyebrow": "Simple & rapide",
-    "title": "En 3 étapes",
-    "titleAccent": "c'est prêt",
-    "step1Title": "Choisissez un design",
-    "step1Desc": "Parcourez nos thèmes et trouvez celui qui vous ressemble.",
-    "step2Title": "Personnalisez",
-    "step2Desc": "Textes, photos, modules — tout se configure en quelques minutes.",
-    "step3Title": "Envoyez le lien",
-    "step3Desc": "Partagez par SMS, WhatsApp ou email. Vos invités reçoivent une expérience unique.",
-    "createButton": "Créer mon faire-part"
+    "eyebrow": "Einfach, schnell und 100 % individuell",
+    "titleLine1": "Ihre Einladung",
+    "titleAccent": "in 3 Schritten",
+    "universeMockLabel": "Design auswählen",
+    "personalizeMockLabel": "Personalisieren Sie Ihre Einladung",
+    "personalizeMockRows": [
+      "Gästebuch",
+      "Ablaufplan",
+      "Menü"
+    ],
+    "shareMockLabel": "Einladung teilen",
+    "shareMockActions": [
+      "Link kopieren",
+      "Per E-Mail senden",
+      "Per WhatsApp senden",
+      "Per SMS senden"
+    ],
+    "steps": [
+      {
+        "number": "01",
+        "titleLine1": "Wählen Sie",
+        "titleLine2": "Ihr Design",
+        "description": "Wählen Sie ein Design, das zu Ihnen passt. Minimalistisch, romantisch, kühn — jedes Design erzählt Ihre Geschichte."
+      },
+      {
+        "number": "02",
+        "titleLine1": "Personalisieren Sie",
+        "titleLine2": "Ihre Einladung",
+        "description": "Fügen Sie Ihre Fotos, Texte und alle wichtigen Infos hinzu — RSVP, Ablauf, Unterkünfte — alles mit wenigen Klicks anpassbar."
+      },
+      {
+        "number": "03",
+        "titleLine1": "Verkünden Sie",
+        "titleLine2": "den großen Tag",
+        "description": "Senden Sie Ihre Einladung per SMS, WhatsApp oder E-Mail. Ihre Gäste antworten in Sekunden, egal wo sie sind."
+      }
+    ]
   },
   "DemoSection": {
     "eyebrow": "Voir en vrai",
@@ -144,10 +173,25 @@
     "bespokeEmail": "contact@thestudiopapeteriedigitale.com"
   },
   "Testimonials": {
-    "eyebrow": "Ils nous ont fait confiance",
-    "badge": "Déjà 130+ invitations envoyées",
-    "title": "Ce qu'ils",
-    "titleAccent": "en pensent"
+    "eyebrow": "Sie haben uns vertraut",
+    "title": "Das sagen unsere Paare",
+    "items": [
+      {
+        "quote": "Unsere Gäste waren von der Umschlag-Animation begeistert! Genau dieses Detail hat alles verändert. Die RSVP-Funktion hat uns viel Zeit erspart.",
+        "names": "Juliette & Pierre",
+        "date": "Verheiratet im September 2024"
+      },
+      {
+        "quote": "Die Atmosphäre war magisch, mit funkelnden Lichtern und bezaubernder Musik. Jeder Moment wurde festgehalten.",
+        "names": "Sophie & Antoine",
+        "date": "Verheiratet im Juni 2023"
+      },
+      {
+        "quote": "Auf unserer Flitterwochenreise haben wir atemberaubende Landschaften entdeckt. Die Erinnerungen an diese Abenteuer werden für immer bleiben.",
+        "names": "Emma & Lucas",
+        "date": "Verheiratet im Mai 2022"
+      }
+    ]
   },
   "Catalogue": {
     "eyebrow": "Créez votre invitation",
@@ -188,22 +232,195 @@
     "learnMore": "En savoir plus"
   },
   "Footer": {
-    "tagline": "Die digitale Einladung neu erfunden.",
+    "logoAlt": "The Studio Digital Papeterie",
     "colProduct": "Produkt",
-    "colMarries": "Paare",
+    "colMaries": "Brautpaare",
     "colLegal": "Rechtliches",
-    "linkThemes": "Themen",
-    "linkDemo": "Demo",
-    "linkFeatures": "Funktionen",
-    "linkTestimonials": "Referenzen",
-    "linkPricing": "Preise",
-    "linkFAQ": "FAQ",
-    "linkBespoke": "Maßgeschneidert",
-    "linkBespokeEmail": "contact@thestudiopapeteriedigitale.com",
-    "linkLogin": "Anmelden",
-    "linkCreate": "Einladung erstellen",
-    "linkCGV": "AGB",
-    "linkPrivacy": "Datenschutz",
-    "copyright": "© {year} The Studio Papeterie Digitale · Mit ♥ in Frankreich gemacht"
+    "productLinks": [
+      "Demo",
+      "Funktionen",
+      "Preise",
+      "Maßgeschneidert",
+      "Bewertungen",
+      "FAQ"
+    ],
+    "login": "Anmelden",
+    "createButton": "Meine Einladung erstellen",
+    "cgv": "AGB",
+    "privacy": "Datenschutz"
+  },
+  "HeroCarousel": {
+    "prevAriaLabel": "Vorherige Karte",
+    "nextAriaLabel": "Nächste Karte",
+    "cards": [
+      {
+        "alt": "Beispiel einer Hochzeitseinladung — Design Amalfi"
+      },
+      {
+        "alt": "Beispiel einer Hochzeitseinladung — Design Venedig"
+      },
+      {
+        "alt": "Beispiel einer Hochzeitseinladung — Design Provence"
+      },
+      {
+        "alt": "Beispiel einer Hochzeitseinladung — Design Toskana"
+      },
+      {
+        "alt": "Beispiel einer Hochzeitseinladung — Design Riviera"
+      },
+      {
+        "alt": "Beispiel einer Hochzeitseinladung — Design Capri"
+      }
+    ]
+  },
+  "Preview": {
+    "eyebrow": "Live gestalten",
+    "titleLine1": "Entdecken Sie",
+    "titleAccent": "jede Kreation",
+    "subtitle": "Probieren Sie jedes Design aus und finden Sie das, das Ihre Geschichte erzählt.",
+    "scrollHint": "Scrollen",
+    "discoverButton": "Entdecken",
+    "createButton": "Meine Einladung erstellen",
+    "prevThemesAriaLabel": "Vorherige Designs",
+    "nextThemesAriaLabel": "Nächste Designs",
+    "themeLabel": "Design {name}",
+    "themeAlt": "Hochzeitseinladung — Design {name}",
+    "demoIframeTitle": "Einladungsdemo — Design {name}"
+  },
+  "WhyUs": {
+    "eyebrow": "Warum The Studio wählen?",
+    "titleLine1": "Die Eleganz der Papeterie,",
+    "titleAccent": "die Kraft des Digitalen",
+    "reasons": [
+      {
+        "titleLine1": "Design, das den schönsten",
+        "titleLine2": "Papeterien würdig ist",
+        "description": "Die Eleganz der Papeterie, ohne die Einschränkungen von Papier."
+      },
+      {
+        "titleLine1": "Keine Logistik",
+        "titleLine2": "",
+        "description": "Kein Drucken. Keine Briefmarken. Kein „Hast du daran gedacht, die 150 Einladungen zu verschicken?“"
+      },
+      {
+        "titleLine1": "Immer griffbereit",
+        "titleLine2": "",
+        "description": "Schluss mit Einladungen in der Schublade. Ihre Gäste finden alle Informationen mit einem Klick."
+      },
+      {
+        "titleLine1": "Umweltfreundlich",
+        "titleLine2": "",
+        "description": "Die Bäume danken Ihnen. Eine Einladung ohne Druck und Transport."
+      },
+      {
+        "titleLine1": "Sofortig",
+        "titleLine2": "",
+        "description": "In einem Klick gesendet, in einer Sekunde empfangen. Keine Druckzeit, keine Wartezeit bei der Post."
+      }
+    ]
+  },
+  "Pricing": {
+    "eyebrow": "Für 150 Gäste",
+    "titleLine1": "Der Unterschied,",
+    "titleAccent": "der zählt",
+    "paperLabel": "Traditionelles Papier",
+    "paperPrice": "645 €",
+    "paperDetails": "Druck + Briefmarken + Umschläge",
+    "studioLabel": "The Studio",
+    "studioPrice": "175 €",
+    "studioDetails": "Alles inklusive, unbegrenzt",
+    "features": "Sofortiger Versand · Bearbeitbar · Integriertes RSVP · Kein Papier",
+    "createButton": "Meine Einladung erstellen"
+  },
+  "Atelier": {
+    "eyebrow": "Vertrauen Sie Ihre Vision unserem Studio an",
+    "titleLine1": "Eine Einladung",
+    "titleLine2": "so einzigartig",
+    "titleLine3": "wie Ihre Geschichte",
+    "subtitle": "Sie haben eine Vision. Wir erwecken sie zum Leben. Unser Studio gestaltet Ihre digitale Einladung mit Präzision, Geschmack und Absicht, um den Geist Ihrer Hochzeit perfekt widerzuspiegeln.",
+    "steps": [
+      {
+        "number": "1.",
+        "title": "Das Atelier",
+        "description": "Ein Video- oder Telefongespräch mit unserem künstlerischen Leiter, um Ihre Geschichte, Ihre Wünsche, Ihren Stil und das Besondere an Ihrer Hochzeit zu verstehen."
+      },
+      {
+        "number": "2.",
+        "title": "Der Entwurf",
+        "description": "Gemeinsam wird ein individuelles Moodboard erstellt, um Stimmung, Codes und Ästhetik Ihrer Einladung festzulegen."
+      },
+      {
+        "number": "3.",
+        "title": "Das Design",
+        "description": "Zeit für die Gestaltung. Ihre Einladung nimmt Form an mit einem exklusiven Design, bis ins kleinste Detail durchdacht."
+      },
+      {
+        "number": "4.",
+        "title": "Der Start",
+        "description": "Ihre Einladung ist fertig. Ein einzigartiger Link, bereit, sofort mit Ihren Gästen geteilt zu werden."
+      }
+    ],
+    "ctaButton": "Termin vereinbaren"
+  },
+  "Dashboard": {
+    "eyebrow": "Ihr Brautpaar-Bereich",
+    "titleLine1": "Ein Ort.",
+    "titleAccent": "Ihre ganze Hochzeit.",
+    "subtitle": "Verwalten Sie Ihre Gäste, Ihre RSVP-Antworten, Ihre Einladung: Bearbeiten, anpassen und aktualisieren Sie Ihre Einladung, wann immer Sie möchten, ganz ohne Mittelsmann.",
+    "placeholder": "Dashboard-Vorschau folgt bald"
+  },
+  "Faq": {
+    "eyebrow": "Eine Frage?",
+    "titleLine1": "Häufig gestellte",
+    "titleAccent": "Fragen",
+    "items": [
+      {
+        "question": "Kann ich meine Seite nach dem Versand der Einladungen noch bearbeiten?",
+        "answer": "Absolut! Das ist die Magie des Digitalen. Sie können jederzeit die Uhrzeiten ändern, Informationen zur Unterkunft hinzufügen oder ein Foto austauschen. Ihre Gäste sehen immer die aktuelle Version."
+      },
+      {
+        "question": "Muss ich ein monatliches Abonnement bezahlen?",
+        "answer": "Nein, niemals. Die Zahlung erfolgt einmalig. Ihre Seite bleibt 12 Monate nach Ihrer Hochzeit online, sodass Sie genug Zeit haben, Erinnerungsfotos zu teilen."
+      },
+      {
+        "question": "Wie bestätigen meine Gäste ihre Teilnahme (RSVP)?",
+        "answer": "Ein einfaches, elegantes Formular ist in Ihre Seite integriert. Sie erhalten die Antworten sofort in Ihrem Dashboard (und per E-Mail, wenn Sie möchten). Sie können die Gästeliste mit einem Klick exportieren."
+      },
+      {
+        "question": "Kann ich eine eigene Domain haben?",
+        "answer": "Ja! Mit der Option „Custom Domain“ (+65 €) oder im Premium-Paket enthalten, können Sie eine Adresse wie www.paula-und-marcos.com haben."
+      },
+      {
+        "question": "Bieten Sie passende Papiereinladungen an?",
+        "answer": "Wir konzentrieren uns derzeit auf das digitale Erlebnis, aber wir können Ihnen hochauflösende PDF-Dateien Ihres Designs zur Verfügung stellen, damit Sie sie bei Ihrer örtlichen Druckerei drucken lassen können."
+      }
+    ]
+  },
+  "FinalCta": {
+    "titleLine1": "Der Ort ist gewählt, der Caterer auch.",
+    "titleAccent": "Es fehlt nur noch die Einladung",
+    "createButton": "Meine Einladung erstellen"
+  },
+  "ScrollToTop": {
+    "ariaLabel": "Nach oben"
+  },
+  "MobileMenu": {
+    "ariaLabel": "Navigationsmenü",
+    "closeAriaLabel": "Menü schließen",
+    "colProduct": "Produkt",
+    "colMaries": "Brautpaare",
+    "productLinks": [
+      "Startseite",
+      "Demo",
+      "Funktionen",
+      "Preise",
+      "Maßgeschneidert",
+      "Bewertungen",
+      "FAQ"
+    ],
+    "mariesLinks": [
+      "Anmelden"
+    ],
+    "createButton": "Meine Einladung erstellen"
   }
 }

@@ -9,6 +9,7 @@ import {
   Signal,
   Wifi,
 } from "lucide-react";
+import { useTranslations } from "next-intl";
 import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
 
@@ -41,6 +42,7 @@ const THEMES = [
 type Theme = (typeof THEMES)[number];
 
 function PhoneScreen({ theme }: { theme: Theme }) {
+  const t = useTranslations("Preview");
   const screenRef = useRef<HTMLDivElement>(null);
   const iframeRef = useRef<HTMLIFrameElement>(null);
   const [loading, setLoading] = useState(true);
@@ -112,7 +114,7 @@ function PhoneScreen({ theme }: { theme: Theme }) {
             ref={iframeRef}
             src={DEMO_INVITATION_URL}
             className="block h-full w-full border-none"
-            title={`Démo invitation — thème ${theme.name}`}
+            title={t("demoIframeTitle", { name: theme.name })}
             onLoad={() => setLoading(false)}
           />
         </>
@@ -120,14 +122,14 @@ function PhoneScreen({ theme }: { theme: Theme }) {
         <>
           <Image
             src={theme.image}
-            alt={`Invitation de mariage — thème ${theme.name}`}
+            alt={t("themeAlt", { name: theme.name })}
             fill
             sizes="390px"
             className="object-cover"
             priority
           />
           <span className="absolute bottom-10 left-1/2 z-10 -translate-x-1/2 font-body text-xs uppercase tracking-luxe text-white drop-shadow">
-            Scroll
+            {t("scrollHint")}
           </span>
         </>
       )}
@@ -197,6 +199,7 @@ function ThemeCarousel({
   active: number;
   onSelect: (index: number) => void;
 }) {
+  const t = useTranslations("Preview");
   const trackRef = useRef<HTMLDivElement>(null);
 
   const scrollByCard = (direction: -1 | 1) => {
@@ -210,7 +213,7 @@ function ThemeCarousel({
       <button
         type="button"
         onClick={() => scrollByCard(-1)}
-        aria-label="Thèmes précédents"
+        aria-label={t("prevThemesAriaLabel")}
         className="absolute left-4 top-1/2 z-10 flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full bg-studio-jaune text-studio-violet shadow-md transition-transform hover:scale-105 md:left-8"
       >
         <ArrowLeft className="h-5 w-5" />
@@ -236,14 +239,14 @@ function ThemeCarousel({
             >
               <Image
                 src={theme.image}
-                alt={`Thème ${theme.name}`}
+                alt={t("themeLabel", { name: theme.name })}
                 fill
                 sizes="144px"
                 className="object-cover"
               />
             </div>
             <p className="mt-2 font-body text-h5 text-studio-violet">
-              Thème {theme.name}
+              {t("themeLabel", { name: theme.name })}
             </p>
           </button>
         ))}
@@ -252,7 +255,7 @@ function ThemeCarousel({
       <button
         type="button"
         onClick={() => scrollByCard(1)}
-        aria-label="Thèmes suivants"
+        aria-label={t("nextThemesAriaLabel")}
         className="absolute right-4 top-1/2 z-10 flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full bg-studio-jaune text-studio-violet shadow-md transition-transform hover:scale-105 md:right-8"
       >
         <ArrowRight className="h-5 w-5" />
@@ -276,10 +279,11 @@ function ThemeCarousel({
 }
 
 export function Preview() {
+  const t = useTranslations("Preview");
   const [activeTheme, setActiveTheme] = useState(0);
 
   return (
-    <section className="bg-studio-creme px-6 py-20 md:px-12">
+    <section id="demo" className="bg-studio-creme px-6 py-20 md:px-12">
       <FadeIn className="mx-auto mb-12 max-w-3xl text-center">
         <div className="flex items-center justify-center gap-3 font-body text-h5 tracking-luxe text-studio-pourpre">
           <Image
@@ -288,7 +292,7 @@ export function Preview() {
             width={42}
             height={1}
           />
-          <span>Configurez en direct</span>
+          <span>{t("eyebrow")}</span>
           <Image
             src="/images/eyebrow-separator-right.svg"
             alt=""
@@ -297,12 +301,12 @@ export function Preview() {
           />
         </div>
         <h2 className="mt-4 font-heading text-h1 text-studio-violet">
-          Explorez
+          {t("titleLine1")}
           <br />
-          <span className="text-studio-lavande">chaque création</span>
+          <span className="text-studio-lavande">{t("titleAccent")}</span>
         </h2>
         <p className="mx-auto mt-4 max-w-md font-body text-sm text-studio-violet/70 md:text-base">
-          Essayez chaque thème et trouvez celui qui raconte votre histoire.
+          {t("subtitle")}
         </p>
       </FadeIn>
 
@@ -333,10 +337,10 @@ export function Preview() {
           size="pill"
           className="border-studio-violet text-studio-violet hover:bg-studio-violet/10"
         >
-          Découvrir
+          {t("discoverButton")}
         </Button>
         <Button variant="studio-jaune" size="pill">
-          Créer mon invitation <ArrowRight className="ml-2 h-4 w-4" />
+          {t("createButton")} <ArrowRight className="ml-2 h-4 w-4" />
         </Button>
       </FadeIn>
 

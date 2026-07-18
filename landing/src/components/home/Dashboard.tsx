@@ -1,11 +1,14 @@
 "use client";
 
 import { ImageIcon } from "lucide-react";
+import { useTranslations } from "next-intl";
 import Image from "next/image";
 
 import { FadeIn } from "./FadeIn";
 
 export function Dashboard() {
+  const t = useTranslations("Dashboard");
+
   return (
     <section className="relative overflow-hidden bg-studio-beurre px-6 py-20 md:px-12">
       <div className="mx-auto max-w-3xl text-center">
@@ -17,7 +20,7 @@ export function Dashboard() {
               width={42}
               height={1}
             />
-            <span>Votre espace mariés</span>
+            <span>{t("eyebrow")}</span>
             <Image
               src="/images/eyebrow-separator-right.svg"
               alt=""
@@ -27,15 +30,13 @@ export function Dashboard() {
           </div>
 
           <h2 className="mt-4 font-heading text-h1 text-studio-violet">
-            Un seul espace.
+            {t("titleLine1")}
             <br />
-            <span className="text-studio-lavande">Tout votre mariage.</span>
+            <span className="text-studio-lavande">{t("titleAccent")}</span>
           </h2>
 
           <p className="mx-auto mt-6 max-w-md font-body text-sm text-studio-violet/70 md:text-base">
-            Gérez vos invités, vos réponses RSVP, votre invitation : modifiez,
-            ajustez, mettez à jour votre faire-part quand vous voulez, sans
-            intermédiaire.
+            {t("subtitle")}
           </p>
         </FadeIn>
       </div>
@@ -48,7 +49,7 @@ export function Dashboard() {
         <div className="flex aspect-[16/10] w-full flex-col items-center justify-center gap-3 rounded-2xl border border-studio-lavande/50 bg-white shadow-xl">
           <ImageIcon className="h-10 w-10 text-studio-lavande" />
           <p className="font-body text-h5 text-studio-violet/60">
-            Aperçu du dashboard à venir
+            {t("placeholder")}
           </p>
         </div>
       </FadeIn>

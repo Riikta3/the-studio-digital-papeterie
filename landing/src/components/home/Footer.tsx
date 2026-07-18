@@ -1,25 +1,20 @@
 import { Button } from "@shared/components/ui/button";
 import { ArrowRight } from "lucide-react";
+import { getTranslations } from "next-intl/server";
 import Image from "next/image";
 import Link from "next/link";
 
-const PRODUCT_LINKS = [
-  { label: "Démo", href: "#" },
-  { label: "Fonctionnalités", href: "#" },
-  { label: "Tarifs", href: "#" },
-  { label: "Témoignages", href: "#" },
-  { label: "FAQ", href: "#" },
-  { label: "Sur-mesure", href: "#" },
-];
+import { FooterProductLinks } from "./FooterProductLinks";
 
-const MARIES_LINKS = [{ label: "Se connecter", href: "/login" }];
+export async function Footer() {
+  const t = await getTranslations("Footer");
+  const productLinkLabels = t.raw("productLinks") as string[];
+  const mariesLinks = [{ label: t("login"), href: "/login" }];
+  const legalLinks = [
+    { label: t("cgv"), href: "/legal/cgv" },
+    { label: t("privacy"), href: "/legal/privacy" },
+  ];
 
-const LEGAL_LINKS = [
-  { label: "CGV", href: "/legal/cgv" },
-  { label: "Confidentialité", href: "/legal/privacy" },
-];
-
-export function Footer() {
   return (
     <div className="relative overflow-hidden border-t border-white/10 px-6 py-14 md:px-12">
       <Image
@@ -34,7 +29,7 @@ export function Footer() {
         <div className="col-span-2 md:col-span-1">
           <Image
             src="/logo.svg"
-            alt="The Studio Digital Papeterie"
+            alt={t("logoAlt")}
             width={40}
             height={42}
           />
@@ -42,28 +37,17 @@ export function Footer() {
 
         <nav>
           <p className="font-body text-h5 tracking-luxe text-white/50">
-            Produit
+            {t("colProduct")}
           </p>
-          <ul className="mt-4 flex flex-col gap-3">
-            {PRODUCT_LINKS.map((link) => (
-              <li key={link.label}>
-                <Link
-                  href={link.href}
-                  className="font-body text-sm text-studio-jaune hover:text-white"
-                >
-                  {link.label}
-                </Link>
-              </li>
-            ))}
-          </ul>
+          <FooterProductLinks labels={productLinkLabels} />
         </nav>
 
         <nav>
           <p className="font-body text-h5 tracking-luxe text-white/50">
-            Mariés
+            {t("colMaries")}
           </p>
           <ul className="mt-4 flex flex-col gap-3">
-            {MARIES_LINKS.map((link) => (
+            {mariesLinks.map((link) => (
               <li key={link.label}>
                 <Link
                   href={link.href}
@@ -76,14 +60,14 @@ export function Footer() {
           </ul>
 
           <Button variant="studio-jaune" size="pill" className="mt-4">
-            Créer mon invitation <ArrowRight className="ml-2 h-4 w-4" />
+            {t("createButton")} <ArrowRight className="ml-2 h-4 w-4" />
           </Button>
 
           <p className="mt-8 font-body text-h5 tracking-luxe text-white/50">
-            Légal
+            {t("colLegal")}
           </p>
           <ul className="mt-4 flex flex-col gap-3">
-            {LEGAL_LINKS.map((link) => (
+            {legalLinks.map((link) => (
               <li key={link.label}>
                 <Link
                   href={link.href}

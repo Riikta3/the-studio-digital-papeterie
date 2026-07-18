@@ -3,44 +3,24 @@
 import { cn } from "@shared/lib/utils";
 import { motion } from "framer-motion";
 import { Minus, Plus } from "lucide-react";
+import { useTranslations } from "next-intl";
 import Image from "next/image";
 import { useState } from "react";
 
 import { FadeIn } from "./FadeIn";
 
-const FAQS = [
-  {
-    question: "Puis-je modifier mon site après l'envoi des invitations ?",
-    answer:
-      "Absolument ! C'est la magie du digital. Vous pouvez modifier les horaires, ajouter des infos sur l'hébergement ou changer une photo à tout moment. Vos invités verront toujours la version à jour.",
-  },
-  {
-    question: "Est-ce que je dois payer un abonnement mensuel ?",
-    answer:
-      "Non, jamais. Le paiement est unique. Votre site reste en ligne pendant 12 mois après votre mariage, ce qui vous laisse le temps de partager les photos souvenirs.",
-  },
-  {
-    question: "Comment mes invités confirment-ils leur présence (RSVP) ?",
-    answer:
-      "Un formulaire simple et élégant est intégré à votre site. Vous recevez les réponses instantanément dans votre tableau de bord (et par email si vous le souhaitez). Vous pouvez exporter la liste des invités en un clic.",
-  },
-  {
-    question: "Puis-je avoir un nom de domaine personnalisé ?",
-    answer:
-      "Oui ! Avec l'option « Custom Domain » (+65€) ou incluse dans le pack Premium, vous pouvez avoir une adresse comme www.paula-et-marcos.com.",
-  },
-  {
-    question: "Proposez-vous des faire-part papier assortis ?",
-    answer:
-      "Nous nous concentrons sur l'expérience digitale pour l'instant, mais nous pouvons vous fournir les fichiers PDF haute définition de votre design pour que vous puissiez les imprimer chez votre imprimeur local.",
-  },
-];
+type FaqItem = {
+  question: string;
+  answer: string;
+};
 
 export function Faq() {
+  const t = useTranslations("Faq");
+  const faqs = t.raw("items") as FaqItem[];
   const [openIndex, setOpenIndex] = useState<number | null>(0);
 
   return (
-    <section className="relative overflow-hidden bg-studio-creme px-6 py-20 md:px-12">
+    <section id="faq" className="relative overflow-hidden bg-studio-creme px-6 py-20 md:px-12">
       <Image
         src="/images/leaf-bottom-lavande.svg"
         alt=""
@@ -57,7 +37,7 @@ export function Faq() {
             width={42}
             height={1}
           />
-          <span>Une question ?</span>
+          <span>{t("eyebrow")}</span>
           <Image
             src="/images/eyebrow-separator-right.svg"
             alt=""
@@ -66,14 +46,14 @@ export function Faq() {
           />
         </div>
         <h2 className="mt-4 font-heading text-h1 text-studio-violet">
-          Questions
+          {t("titleLine1")}
           <br />
-          <span className="text-studio-lavande">Fréquentes</span>
+          <span className="text-studio-lavande">{t("titleAccent")}</span>
         </h2>
       </FadeIn>
 
       <div className="mx-auto flex max-w-2xl flex-col gap-4">
-        {FAQS.map((faq, index) => {
+        {faqs.map((faq, index) => {
           const isOpen = openIndex === index;
           return (
             <FadeIn key={faq.question} delay={index * 0.05}>
