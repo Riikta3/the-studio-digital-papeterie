@@ -238,13 +238,6 @@ function useStackCards(containerRef: React.RefObject<HTMLDivElement | null>) {
       cards.forEach((card) => {
         card.style.height = `${tallest}px`;
       });
-      // The last card can only reach its pinned spot if the page keeps
-      // scrolling past it. With little content below the section, tall
-      // viewports run out of scroll before the pile completes, leaving
-      // the last card hanging below the others. Reserve exactly the
-      // missing room under the stack (48px of comfort margin).
-      const needed = window.innerHeight - (STICKY_TOP + tallest) + 48;
-      container.style.paddingBottom = `${Math.max(128, needed)}px`;
     };
 
     const updateScale = () => {
@@ -298,7 +291,7 @@ export function HowItWorks() {
         </h2>
       </div>
 
-      <div ref={containerRef} className="pb-32">
+      <div ref={containerRef}>
         {STEPS.map((step) => (
           <StackCard key={step.number} step={step} />
         ))}
