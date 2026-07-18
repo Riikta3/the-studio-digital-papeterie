@@ -1,5 +1,3 @@
-import { Button } from "@shared/components/ui/button";
-import { ArrowRight } from "lucide-react";
 import { getTranslations } from "next-intl/server";
 import Image from "next/image";
 import Link from "next/link";
@@ -27,16 +25,13 @@ export async function Footer() {
       />
 
       <div className="relative mx-auto grid max-w-5xl grid-cols-2 gap-x-6 gap-y-10 md:grid-cols-4">
-        <div className="col-span-2 flex flex-col gap-4 md:col-span-1">
+        <div className="col-span-2 md:col-span-1">
           <Image
             src="/logo.svg"
             alt={t("logoAlt")}
             width={40}
             height={42}
           />
-          <Button variant="studio-jaune" size="pill" className="mt-2 w-fit">
-            {t("createButton")} <ArrowRight className="ml-2 h-4 w-4" />
-          </Button>
         </div>
 
         <nav>
