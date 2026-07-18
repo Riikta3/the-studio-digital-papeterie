@@ -1,5 +1,7 @@
 import { Atelier } from "@/components/home/Atelier";
 import { Dashboard } from "@/components/home/Dashboard";
+import { Faq } from "@/components/home/Faq";
+import { FinalCtaAndFooter } from "@/components/home/FinalCtaAndFooter";
 import { Hero } from "@/components/home/Hero";
 import { HowItWorks } from "@/components/home/HowItWorks";
 import { Preview } from "@/components/home/Preview";
@@ -18,6 +20,8 @@ export default function HomePage() {
       <Atelier />
       <Dashboard />
       <Testimonials />
+      <Faq />
+      <FinalCtaAndFooter />
     </main>
   );
 }
