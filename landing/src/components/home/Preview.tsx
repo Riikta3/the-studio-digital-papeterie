@@ -229,7 +229,7 @@ function ThemeCarousel({
               className={cn(
                 "relative aspect-[290/540] overflow-hidden rounded-xl transition-shadow",
                 index === active &&
-                  "ring-2 ring-studio-violet ring-offset-2 ring-offset-studio-beurre",
+                  "ring-2 ring-studio-violet ring-offset-2 ring-offset-studio-creme",
               )}
             >
               <Image
@@ -277,7 +277,7 @@ export function Preview() {
   const [activeTheme, setActiveTheme] = useState(0);
 
   return (
-    <section className="bg-studio-beurre px-6 py-20 md:px-12">
+    <section className="bg-studio-creme px-6 py-20 md:px-12">
       <div className="mx-auto mb-12 max-w-3xl text-center">
         <div className="flex items-center justify-center gap-3 font-body text-h5 tracking-luxe text-studio-pourpre">
           <Image

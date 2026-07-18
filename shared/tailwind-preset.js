@@ -42,6 +42,7 @@ module.exports = {
           pourpre: "#8C6E8C",
           beige: "#E6DCC6",
           beurre: "#FFF9D6",
+          creme: "#FFFDE8",
           "card-bg": "#FAF8FC",
           "card-border-start": "#F1EBF6",
           "card-border-end": "#BFB0CF",

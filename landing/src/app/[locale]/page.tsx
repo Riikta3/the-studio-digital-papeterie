@@ -1,6 +1,7 @@
 import { Hero } from "@/components/home/Hero";
 import { HowItWorks } from "@/components/home/HowItWorks";
 import { Preview } from "@/components/home/Preview";
+import { WhyUs } from "@/components/home/WhyUs";
 
 export default function HomePage() {
   return (
@@ -8,6 +9,7 @@ export default function HomePage() {
       <Hero />
       <HowItWorks />
       <Preview />
+      <WhyUs />
     </main>
   );
 }

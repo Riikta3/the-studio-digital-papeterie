@@ -8,6 +8,7 @@ export const studioColors = {
   pourpre: "#8C6E8C",
   beige: "#E6DCC6",
   beurre: "#FFF9D6",
+  creme: "#FFFDE8",
   cardBg: "#FAF8FC",
   cardBorderStart: "#F1EBF6",
   cardBorderEnd: "#BFB0CF",
