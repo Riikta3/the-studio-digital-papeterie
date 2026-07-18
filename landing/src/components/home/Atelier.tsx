@@ -5,6 +5,7 @@ import { ArrowRight } from "lucide-react";
 import Image from "next/image";
 
 import { FadeIn } from "./FadeIn";
+import { TextureOverlay } from "./TextureOverlay";
 
 const STEPS = [
   {
@@ -36,6 +37,7 @@ const STEPS = [
 export function Atelier() {
   return (
     <section className="relative overflow-hidden bg-studio-violet px-6 py-20 md:px-12">
+      <TextureOverlay />
       <Image
         src="/images/hero-leaf-bottom.svg"
         alt=""

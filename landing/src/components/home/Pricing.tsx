@@ -5,16 +5,18 @@ import { ArrowRight } from "lucide-react";
 import Image from "next/image";
 
 import { FadeIn } from "./FadeIn";
+import { TextureOverlay } from "./TextureOverlay";
 
 export function Pricing() {
   return (
     <section className="relative overflow-hidden bg-studio-violet px-6 py-20 md:px-12">
+      <TextureOverlay />
       <Image
         src="/images/hero-leaf-bottom.svg"
         alt=""
         width={141}
         height={188}
-        className="pointer-events-none absolute bottom-0 right-0 h-auto w-24 md:w-32"
+        className="pointer-events-none absolute -right-6 bottom-0 h-auto w-24 md:w-32"
       />
 
       <div className="mx-auto max-w-3xl text-center">

@@ -7,6 +7,7 @@ import { ArrowRight, Menu } from "lucide-react";
 import Image from "next/image";
 
 import { HeroCarousel } from "./HeroCarousel";
+import { TextureOverlay } from "./TextureOverlay";
 
 // Continuous word-by-word reveal: each block starts after the previous one's
 // last word. Delay of a block = start of previous + (its word count × STAGGER).
@@ -32,14 +33,7 @@ export function Hero() {
         transition={{ duration: 0.8, ease: "easeOut" }}
         className="absolute inset-x-0 top-0 h-[80vh] overflow-hidden bg-studio-violet md:h-[800px]"
       >
-        <div
-          className="pointer-events-none absolute inset-0 opacity-40 mix-blend-soft-light"
-          style={{
-            backgroundImage: "url(/images/hero-texture.png)",
-            backgroundSize: "cover",
-            backgroundPosition: "center",
-          }}
-        />
+        <TextureOverlay />
         <Image
           src="/images/hero-leaf-top.svg"
           alt=""
