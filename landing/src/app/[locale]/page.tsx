@@ -1,4 +1,5 @@
 import { Atelier } from "@/components/home/Atelier";
+import { Dashboard } from "@/components/home/Dashboard";
 import { Hero } from "@/components/home/Hero";
 import { HowItWorks } from "@/components/home/HowItWorks";
 import { Preview } from "@/components/home/Preview";
@@ -14,6 +15,7 @@ export default function HomePage() {
       <WhyUs />
       <Pricing />
       <Atelier />
+      <Dashboard />
     </main>
   );
 }
