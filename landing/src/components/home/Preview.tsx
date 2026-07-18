@@ -202,19 +202,21 @@ function ThemeCarousel({
   };
 
   return (
-    <div className="relative mx-auto w-full max-w-3xl">
+    // Full-bleed: escape the section's horizontal padding so the track
+    // runs edge to edge, with cards cropped at the viewport sides.
+    <div className="relative -mx-6 md:-mx-12">
       <button
         type="button"
         onClick={() => scrollByCard(-1)}
         aria-label="Thèmes précédents"
-        className="absolute left-0 top-1/2 z-10 flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full bg-studio-jaune text-studio-violet shadow-md transition-transform hover:scale-105"
+        className="absolute left-4 top-1/2 z-10 flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full bg-studio-jaune text-studio-violet shadow-md transition-transform hover:scale-105 md:left-8"
       >
         <ArrowLeft className="h-5 w-5" />
       </button>
 
       <div
         ref={trackRef}
-        className="scrollbar-hide flex snap-x gap-4 overflow-x-auto px-14 py-2"
+        className="scrollbar-hide flex snap-x gap-4 overflow-x-auto px-6 py-2 md:px-12"
       >
         {THEMES.map((theme, index) => (
           <button
@@ -249,7 +251,7 @@ function ThemeCarousel({
         type="button"
         onClick={() => scrollByCard(1)}
         aria-label="Thèmes suivants"
-        className="absolute right-0 top-1/2 z-10 flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full bg-studio-jaune text-studio-violet shadow-md transition-transform hover:scale-105"
+        className="absolute right-4 top-1/2 z-10 flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full bg-studio-jaune text-studio-violet shadow-md transition-transform hover:scale-105 md:right-8"
       >
         <ArrowRight className="h-5 w-5" />
       </button>
