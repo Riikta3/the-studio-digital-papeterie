@@ -8,14 +8,6 @@ import { FadeIn } from "./FadeIn";
 export function Dashboard() {
   return (
     <section className="relative overflow-hidden bg-studio-beurre px-6 py-20 md:px-12">
-      <Image
-        src="/images/leaf-top-lavande.svg"
-        alt=""
-        width={94}
-        height={138}
-        className="pointer-events-none absolute -bottom-10 -right-6 h-auto w-24 rotate-90 md:w-32"
-      />
-
       <div className="mx-auto max-w-3xl text-center">
         <FadeIn>
           <div className="flex items-center justify-center gap-3 font-body text-h5 tracking-luxe text-studio-pourpre">

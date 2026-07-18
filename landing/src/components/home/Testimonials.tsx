@@ -67,7 +67,7 @@ export function Testimonials() {
         alt=""
         width={82}
         height={138}
-        className="pointer-events-none absolute right-0 top-6 h-auto w-20 md:w-28"
+        className="pointer-events-none absolute right-0 top-6 h-auto w-20 rotate-90 -scale-x-100 md:w-28"
       />
 
       <FadeIn className="mx-auto mb-14 max-w-3xl text-center">
