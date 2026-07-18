@@ -1,8 +1,9 @@
 "use client";
 
-import { motion } from "framer-motion";
 import { Leaf, Palette, Send, Smartphone, Zap } from "lucide-react";
 import Image from "next/image";
+
+import { FadeIn } from "./FadeIn";
 
 const REASONS = [
   {
@@ -48,7 +49,7 @@ export function WhyUs() {
         className="pointer-events-none absolute right-0 top-[26rem] h-auto w-24 -scale-x-100 rotate-[80deg] md:w-32"
       />
 
-      <div className="mx-auto mb-14 max-w-3xl text-center">
+      <FadeIn className="mx-auto mb-14 max-w-3xl text-center">
         <div className="flex items-center justify-center gap-3 font-body text-h5 tracking-luxe text-studio-pourpre">
           <Image
             src="/images/eyebrow-separator-left.svg"
@@ -71,17 +72,11 @@ export function WhyUs() {
             la puissance du numérique
           </span>
         </h2>
-      </div>
+      </FadeIn>
 
       <div className="mx-auto flex max-w-2xl flex-col gap-14">
         {REASONS.map(({ icon: Icon, title, description }) => (
-          <motion.div
-            key={title[0]}
-            initial={{ opacity: 0, y: 32 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, amount: 0.4 }}
-            transition={{ duration: 0.6, ease: "easeOut" }}
-          >
+          <FadeIn key={title[0]}>
             <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-studio-lavande shadow-sm">
               <Icon className="h-6 w-6 text-studio-violet" />
             </div>
@@ -95,7 +90,7 @@ export function WhyUs() {
             <p className="mt-3 max-w-md font-body text-sm text-studio-violet/70 md:text-base">
               {description}
             </p>
-          </motion.div>
+          </FadeIn>
         ))}
       </div>
     </section>

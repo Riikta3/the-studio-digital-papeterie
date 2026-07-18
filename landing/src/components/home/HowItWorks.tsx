@@ -6,6 +6,8 @@ import { Link2, Mail, Send } from "lucide-react";
 import Image from "next/image";
 import { useEffect, useRef } from "react";
 
+import { FadeIn } from "./FadeIn";
+
 // Card visuals (border gradient, shadow tint) come straight from the studio
 // design tokens — Tailwind v3 has no CSS-variable escape hatch for gradient
 // borders, so we read the resolved hex values here instead of duplicating them.
@@ -268,7 +270,7 @@ export function HowItWorks() {
 
   return (
     <section className="bg-studio-beurre px-6 pt-20 md:px-12">
-      <div className="mx-auto mb-16 max-w-3xl text-center">
+      <FadeIn className="mx-auto mb-16 max-w-3xl text-center">
         <div className="flex items-center justify-center gap-3 font-body text-h5 tracking-luxe text-studio-pourpre">
           <Image
             src="/images/eyebrow-separator-left.svg"
@@ -289,7 +291,7 @@ export function HowItWorks() {
           <br />
           <span className="text-studio-lavande">en 3 étapes</span>
         </h2>
-      </div>
+      </FadeIn>
 
       <div ref={containerRef}>
         {STEPS.map((step) => (

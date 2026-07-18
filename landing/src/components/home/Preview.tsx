@@ -12,6 +12,8 @@ import {
 import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
 
+import { FadeIn } from "./FadeIn";
+
 // Once the demo invitation route exists in this app, point this at it
 // (e.g. "/fr/invitation/demo?demo=true") and the phone screen becomes a
 // real scrollable iframe instead of the static theme image.
@@ -278,7 +280,7 @@ export function Preview() {
 
   return (
     <section className="bg-studio-creme px-6 py-20 md:px-12">
-      <div className="mx-auto mb-12 max-w-3xl text-center">
+      <FadeIn className="mx-auto mb-12 max-w-3xl text-center">
         <div className="flex items-center justify-center gap-3 font-body text-h5 tracking-luxe text-studio-pourpre">
           <Image
             src="/images/eyebrow-separator-left.svg"
@@ -302,9 +304,12 @@ export function Preview() {
         <p className="mx-auto mt-4 max-w-md font-body text-sm text-studio-violet/70 md:text-base">
           Essayez chaque thème et trouvez celui qui raconte votre histoire.
         </p>
-      </div>
+      </FadeIn>
 
-      <div className="relative mx-auto w-full max-w-[340px] md:max-w-[416px]">
+      <FadeIn
+        amount={0.15}
+        className="relative mx-auto w-full max-w-[340px] md:max-w-[416px]"
+      >
         <Image
           src="/images/leaf-top-lavande.svg"
           alt=""
@@ -320,9 +325,9 @@ export function Preview() {
           className="pointer-events-none absolute -left-12 bottom-16 h-auto w-24 md:-left-20 md:w-32"
         />
         <PhoneFrame theme={THEMES[activeTheme]} />
-      </div>
+      </FadeIn>
 
-      <div className="mt-10 flex flex-row justify-center gap-3 sm:gap-4">
+      <FadeIn className="mt-10 flex flex-row justify-center gap-3 sm:gap-4">
         <Button
           variant="studio-outline"
           size="pill"
@@ -333,11 +338,11 @@ export function Preview() {
         <Button variant="studio-jaune" size="pill">
           Créer mon invitation <ArrowRight className="ml-2 h-4 w-4" />
         </Button>
-      </div>
+      </FadeIn>
 
-      <div className="mt-14">
+      <FadeIn className="mt-14">
         <ThemeCarousel active={activeTheme} onSelect={setActiveTheme} />
-      </div>
+      </FadeIn>
     </section>
   );
 }
