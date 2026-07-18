@@ -246,7 +246,8 @@
     "login": "Iniciar sessão",
     "createButton": "Criar o meu convite",
     "cgv": "Termos",
-    "privacy": "Privacidade"
+    "privacy": "Privacidade",
+    "copyright": "© {year} The Studio Digital Papeterie. Todos os direitos reservados."
   },
   "HeroCarousel": {
     "prevAriaLabel": "Cartão anterior",

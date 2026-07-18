@@ -210,7 +210,8 @@
     "login": "Se connecter",
     "createButton": "Créer mon invitation",
     "cgv": "CGV",
-    "privacy": "Confidentialité"
+    "privacy": "Confidentialité",
+    "copyright": "© {year} The Studio Digital Papeterie. Tous droits réservés."
   },
   "HeroCarousel": {
     "prevAriaLabel": "Carte précédente",

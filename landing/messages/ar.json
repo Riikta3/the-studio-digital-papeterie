@@ -246,7 +246,8 @@
     "login": "تسجيل الدخول",
     "createButton": "أنشئ دعوتي",
     "cgv": "الشروط",
-    "privacy": "الخصوصية"
+    "privacy": "الخصوصية",
+    "copyright": "© {year} The Studio Digital Papeterie. جميع الحقوق محفوظة."
   },
   "HeroCarousel": {
     "prevAriaLabel": "البطاقة السابقة",

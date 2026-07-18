@@ -247,7 +247,8 @@
     "login": "Iniciar sesión",
     "createButton": "Crear mi invitación",
     "cgv": "Condiciones",
-    "privacy": "Privacidad"
+    "privacy": "Privacidad",
+    "copyright": "© {year} The Studio Digital Papeterie. Todos los derechos reservados."
   },
   "HeroCarousel": {
     "prevAriaLabel": "Tarjeta anterior",

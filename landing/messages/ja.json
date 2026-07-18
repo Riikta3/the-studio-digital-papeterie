@@ -246,7 +246,8 @@
     "login": "ログイン",
     "createButton": "招待状を作成する",
     "cgv": "利用規約",
-    "privacy": "プライバシー"
+    "privacy": "プライバシー",
+    "copyright": "© {year} The Studio Digital Papeterie. All rights reserved."
   },
   "HeroCarousel": {
     "prevAriaLabel": "前のカード",

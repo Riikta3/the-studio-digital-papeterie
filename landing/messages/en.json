@@ -250,7 +250,8 @@
     "login": "Log in",
     "createButton": "Create my invitation",
     "cgv": "Terms",
-    "privacy": "Privacy"
+    "privacy": "Privacy",
+    "copyright": "© {year} The Studio Digital Papeterie. All rights reserved."
   },
   "HeroCarousel": {
     "prevAriaLabel": "Previous card",

@@ -247,7 +247,8 @@
     "login": "Anmelden",
     "createButton": "Meine Einladung erstellen",
     "cgv": "AGB",
-    "privacy": "Datenschutz"
+    "privacy": "Datenschutz",
+    "copyright": "© {year} The Studio Digital Papeterie. Alle Rechte vorbehalten."
   },
   "HeroCarousel": {
     "prevAriaLabel": "Vorherige Karte",

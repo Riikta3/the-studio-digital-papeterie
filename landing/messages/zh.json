@@ -246,7 +246,8 @@
     "login": "登录",
     "createButton": "创建我的请柬",
     "cgv": "条款",
-    "privacy": "隐私政策"
+    "privacy": "隐私政策",
+    "copyright": "© {year} The Studio Digital Papeterie. 保留所有权利。"
   },
   "HeroCarousel": {
     "prevAriaLabel": "上一张卡片",
