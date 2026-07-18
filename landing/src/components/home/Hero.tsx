@@ -139,7 +139,15 @@ export function Hero() {
             transition={{ duration: 0.65, delay: D.cta, ease: "easeOut" }}
             className="mt-8 flex flex-row gap-3 sm:gap-4"
           >
-            <Button variant="studio-outline" size="pill">
+            <Button
+              variant="studio-outline"
+              size="pill"
+              onClick={() =>
+                document
+                  .getElementById("demo")
+                  ?.scrollIntoView({ behavior: "smooth" })
+              }
+            >
               {t("discoverButton")}
             </Button>
             <Button variant="studio-jaune" size="pill">
