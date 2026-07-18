@@ -109,11 +109,16 @@ module.exports = {
           "0%": { backgroundPosition: "-200% 0" },
           "100%": { backgroundPosition: "200% 0" },
         },
+        marquee: {
+          "0%": { transform: "translateY(0)" },
+          "100%": { transform: "translateY(-50%)" },
+        },
       },
       animation: {
         "fade-in-up": "fade-in-up 0.8s ease-out both",
         "pulse-slow": "pulse-slow 3s ease-in-out infinite",
         shimmer: "shimmer 2.5s linear infinite",
+        marquee: "marquee 12s linear infinite",
       },
       backgroundImage: {
         noise:

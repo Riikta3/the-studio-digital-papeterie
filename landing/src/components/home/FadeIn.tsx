@@ -7,11 +7,13 @@ import { motion } from "framer-motion";
 export function FadeIn({
   children,
   className,
+  style,
   delay = 0,
   amount = 0.4,
 }: {
   children: React.ReactNode;
   className?: string;
+  style?: React.CSSProperties;
   delay?: number;
   // Lower this for tall blocks (taller than the viewport) so the reveal
   // still triggers when only a small part is visible.
@@ -24,6 +26,7 @@ export function FadeIn({
       viewport={{ once: true, amount }}
       transition={{ duration: 0.6, ease: "easeOut", delay }}
       className={className}
+      style={style}
     >
       {children}
     </motion.div>

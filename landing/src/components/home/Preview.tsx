@@ -315,7 +315,7 @@ export function Preview() {
           alt=""
           width={82}
           height={138}
-          className="pointer-events-none absolute -right-10 top-10 h-auto w-20 md:-right-16 md:w-28"
+          className="pointer-events-none absolute -right-10 top-2 h-auto w-20 md:-right-16 md:w-28"
         />
         <Image
           src="/images/leaf-bottom-lavande.svg"
