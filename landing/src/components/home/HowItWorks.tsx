@@ -2,7 +2,7 @@
 
 import { studioColors } from "@shared/lib/studio-colors";
 import { cn } from "@shared/lib/utils";
-import { Link2, Mail, MessageCircle, Send } from "lucide-react";
+import { Link2, Mail, Send } from "lucide-react";
 import Image from "next/image";
 import { useEffect, useRef } from "react";
 
@@ -44,7 +44,7 @@ function UniverseMock() {
           <div
             key={i}
             className={cn(
-              "flex aspect-[4/3] items-center justify-center rounded-xl",
+              "flex aspect-[7/3] items-center justify-center rounded-xl",
               swatch,
               i === 2 && "ring-2 ring-studio-violet ring-offset-2",
             )}
@@ -96,11 +96,32 @@ function PersonalizeMock() {
   );
 }
 
+// Lucide dropped brand icons, so this is a hand-rolled WhatsApp glyph
+// drawn with the same stroke conventions (24px grid, 2px round strokes,
+// currentColor) to sit seamlessly next to the other lucide icons.
+function WhatsappIcon({ className }: { className?: string }) {
+  return (
+    <svg
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      className={className}
+      aria-hidden="true"
+    >
+      <path d="M3 21l1.65-3.8a9 9 0 1 1 3.4 2.9L3 21" />
+      <path d="M9 10a.5.5 0 0 0 1 0V9a.5.5 0 0 0-1 0v1a5 5 0 0 0 5 5h1a.5.5 0 0 0 0-1h-1a.5.5 0 0 0-1 0" />
+    </svg>
+  );
+}
+
 function ShareMock() {
   const actions = [
     { label: "Copier le lien", icon: Link2 },
     { label: "Envoyer par mail", icon: Mail },
-    { label: "Envoyer par Whatsapp", icon: MessageCircle },
+    { label: "Envoyer par Whatsapp", icon: WhatsappIcon },
     { label: "Envoyer par SMS", icon: Send },
   ];
   return (
