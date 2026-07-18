@@ -40,7 +40,15 @@ export function Faq() {
   const [openIndex, setOpenIndex] = useState<number | null>(0);
 
   return (
-    <section className="bg-studio-creme px-6 py-20 md:px-12">
+    <section className="relative overflow-hidden bg-studio-creme px-6 py-20 md:px-12">
+      <Image
+        src="/images/leaf-bottom-lavande.svg"
+        alt=""
+        width={106}
+        height={188}
+        className="pointer-events-none absolute -bottom-6 left-0 h-auto w-24 rotate-90 md:w-32"
+      />
+
       <FadeIn className="mx-auto mb-14 max-w-3xl text-center">
         <div className="flex items-center justify-center gap-3 font-body text-h5 tracking-luxe text-studio-pourpre">
           <Image
