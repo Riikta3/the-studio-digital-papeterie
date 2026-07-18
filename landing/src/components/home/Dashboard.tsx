@@ -13,7 +13,7 @@ export function Dashboard() {
         alt=""
         width={94}
         height={138}
-        className="pointer-events-none absolute -bottom-10 -right-6 h-auto w-24 -rotate-90 -scale-x-100 md:w-32"
+        className="pointer-events-none absolute -bottom-10 -right-6 h-auto w-24 rotate-90 md:w-32"
       />
 
       <div className="mx-auto max-w-3xl text-center">
