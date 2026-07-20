@@ -51,11 +51,19 @@ export function WhyUs() {
         </h2>
       </FadeIn>
 
-      <div className="mx-auto flex max-w-2xl flex-col gap-14">
+      <div className="mx-auto grid max-w-2xl grid-cols-1 gap-14 md:max-w-4xl md:grid-cols-2 md:gap-x-12 md:gap-y-16">
         {reasons.map((reason, i) => {
           const Icon = REASON_ICONS[i] ?? Palette;
+          const isLastOdd = reasons.length % 2 === 1 && i === reasons.length - 1;
           return (
-            <FadeIn key={reason.titleLine1}>
+            <FadeIn
+              key={reason.titleLine1}
+              className={
+                isLastOdd
+                  ? "md:col-span-2 md:flex md:flex-col md:items-center md:text-center"
+                  : "md:flex md:flex-col md:items-center md:text-center"
+              }
+            >
               <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-studio-lavande shadow-sm">
                 <Icon className="h-6 w-6 text-studio-violet" />
               </div>

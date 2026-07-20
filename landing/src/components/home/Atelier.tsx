@@ -29,7 +29,7 @@ export function Atelier() {
         className="pointer-events-none absolute -bottom-10 left-0 h-auto w-32 md:w-40"
       />
 
-      <div className="mx-auto max-w-2xl">
+      <div className="mx-auto max-w-2xl md:max-w-4xl">
         <FadeIn>
           <div className="flex items-center justify-center gap-3 font-body text-h5 tracking-luxe text-studio-lavande">
             <Image
@@ -60,10 +60,10 @@ export function Atelier() {
           </p>
         </FadeIn>
 
-        <div className="mt-14 flex flex-col gap-12">
+        <div className="mt-14 grid grid-cols-1 gap-12 md:grid-cols-2 md:gap-x-12 md:gap-y-14">
           {steps.map((step) => (
-            <FadeIn key={step.number}>
-              <div className="flex items-center gap-4">
+            <FadeIn key={step.number} className="md:flex md:flex-col md:items-center md:text-center">
+              <div className="flex items-center gap-4 md:flex-col md:gap-3">
                 <span className="flex h-16 w-16 shrink-0 items-center justify-center rounded-xl bg-studio-jaune font-heading text-3xl text-studio-violet">
                   {step.number}
                 </span>
