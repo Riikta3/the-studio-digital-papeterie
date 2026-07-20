@@ -1,14 +1,12 @@
 "use client";
 
-import { motion, type PanInfo } from "framer-motion";
+import { motion } from "framer-motion";
 import Image from "next/image";
 import { ArrowLeft, ArrowRight } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { useEffect, useRef, useState } from "react";
 
 import { THEMES } from "./themes";
-
-const SWIPE_THRESHOLD = 40;
 
 const GAP = 10;
 
@@ -91,18 +89,6 @@ export function HeroCarousel({
     setPosition((prev) => prev + direction);
   };
 
-  const handleDragEnd = (
-    _event: MouseEvent | TouchEvent | PointerEvent,
-    info: PanInfo,
-  ) => {
-    if (phase !== "idle") return;
-    if (info.offset.x < -SWIPE_THRESHOLD) {
-      goTo(1);
-    } else if (info.offset.x > SWIPE_THRESHOLD) {
-      goTo(-1);
-    }
-  };
-
   // Translate the whole track so the active position sits centered.
   const restX = -position * step;
   const introFromX = -(REFERENCE_INDEX - INTRO_OVERSHOOT) * step;
@@ -129,7 +115,7 @@ export function HeroCarousel({
             Rendered only once measured on the client → no hydration mismatch. */}
         {dims && (
         <motion.div
-          className="absolute left-1/2 top-1/2 h-0 w-0 touch-pan-y"
+          className="absolute left-1/2 top-1/2 h-0 w-0"
           initial={{ x: introFromX }}
           animate={{ x: restX }}
           transition={
@@ -140,10 +126,6 @@ export function HeroCarousel({
           onAnimationComplete={() => {
             if (phase === "intro") setPhase("idle");
           }}
-          drag={phase === "idle" ? "x" : false}
-          dragConstraints={{ left: 0, right: 0 }}
-          dragElastic={0.12}
-          onDragEnd={handleDragEnd}
         >
           {/* Render enough repeats around the current position for infinite feel.
               The window is re-centered on `position` every render (not a fixed
