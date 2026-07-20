@@ -451,5 +451,60 @@
     "summaryTheme": "主题",
     "validateButton": "确认我的请柬",
     "saveButton": "保存并稍后继续"
+  },
+  "StudioStart": {
+    "titlePrefix": "让我们一起制作",
+    "titleHighlight": "您的请柬",
+    "subtitle": "只需几条信息，其余的交给我们。",
+    "offerLabel": "您的套餐",
+    "recommended": "推荐",
+    "premiumTitle": "尊享版",
+    "premiumFeatures": [
+      "无限模块",
+      "包含专属域名",
+      "24小时内优先邮件支持"
+    ],
+    "essentialTitle": "基础版",
+    "essentialFeatures": [
+      "包含4个模块 · 每增加一个模块+5€",
+      "按需附加服务",
+      "标准支持"
+    ],
+    "trustCustomize": "个性化定制您的网站",
+    "trustSecure": "安全访问",
+    "trustSupport": "购买后支持",
+    "coupleLabel": "新人信息",
+    "partner1Label": "姓名 1",
+    "partner1Placeholder": "Sophie",
+    "partner2Label": "姓名 2",
+    "partner2Placeholder": "Pierre",
+    "dateLocationLabel": "日期与地点",
+    "dayLabel": "日",
+    "monthLabel": "月",
+    "yearLabel": "年",
+    "dateInPastError": "日期必须是未来的日期。",
+    "venueLabel": "婚礼地点",
+    "venuePlaceholder": "Château des Roses, Provence",
+    "accountLabel": "您的账户",
+    "emailLabel": "电子邮箱",
+    "emailPlaceholder": "sophie@example.com",
+    "emailChecking": "验证中…",
+    "submitButton": "开始吧！",
+    "months": [
+      "一月",
+      "二月",
+      "三月",
+      "四月",
+      "五月",
+      "六月",
+      "七月",
+      "八月",
+      "九月",
+      "十月",
+      "十一月",
+      "十二月"
+    ],
+    "menuAriaLabel": "打开菜单",
+    "privacyHint": "您的数据绝不会被转售。"
   }
 }

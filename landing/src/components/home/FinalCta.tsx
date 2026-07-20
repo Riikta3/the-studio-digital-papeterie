@@ -4,6 +4,8 @@ import { Button } from "@shared/components/ui/button";
 import { ArrowRight } from "lucide-react";
 import { useTranslations } from "next-intl";
 
+import { Link } from "@/navigation";
+
 import { FadeIn } from "./FadeIn";
 
 export function FinalCta() {
@@ -19,8 +21,10 @@ export function FinalCta() {
         </h2>
 
         <div className="mt-8 flex justify-center">
-          <Button variant="studio-jaune" size="pill">
-            {t("createButton")} <ArrowRight className="ml-2 h-4 w-4" />
+          <Button variant="studio-jaune" size="pill" asChild>
+            <Link href="/studio/start">
+              {t("createButton")} <ArrowRight className="ml-2 h-4 w-4" />
+            </Link>
           </Button>
         </div>
       </FadeIn>

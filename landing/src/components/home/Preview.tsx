@@ -13,6 +13,8 @@ import { useTranslations } from "next-intl";
 import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
 
+import { Link } from "@/navigation";
+
 import { FadeIn } from "./FadeIn";
 import { THEMES, type Theme } from "./themes";
 import { ThemeConfigSheet } from "./ThemeConfigSheet";
@@ -370,8 +372,10 @@ export function Preview() {
         >
           {t("discoverButton")}
         </Button>
-        <Button variant="studio-jaune" size="pill">
-          {t("createButton")} <ArrowRight className="ml-2 h-4 w-4" />
+        <Button variant="studio-jaune" size="pill" asChild>
+          <Link href="/studio/start">
+            {t("createButton")} <ArrowRight className="ml-2 h-4 w-4" />
+          </Link>
         </Button>
       </FadeIn>
 

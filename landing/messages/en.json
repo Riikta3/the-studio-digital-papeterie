@@ -455,5 +455,60 @@
     "summaryTheme": "Theme",
     "validateButton": "Confirm my invitation",
     "saveButton": "Save and continue later"
+  },
+  "StudioStart": {
+    "titlePrefix": "Let's create your invitation",
+    "titleHighlight": "together",
+    "subtitle": "A few details are all it takes. We'll handle the rest.",
+    "offerLabel": "Your plan",
+    "recommended": "Recommended",
+    "premiumTitle": "Premium",
+    "premiumFeatures": [
+      "Unlimited modules",
+      "Custom domain included",
+      "Priority email support within 24h"
+    ],
+    "essentialTitle": "Essential",
+    "essentialFeatures": [
+      "4 modules included · +€5/extra module",
+      "À la carte extras",
+      "Standard support"
+    ],
+    "trustCustomize": "Customize your site",
+    "trustSecure": "Secure access",
+    "trustSupport": "Post-purchase support",
+    "coupleLabel": "The couple",
+    "partner1Label": "First name 1",
+    "partner1Placeholder": "Sophie",
+    "partner2Label": "First name 2",
+    "partner2Placeholder": "Pierre",
+    "dateLocationLabel": "Date & venue",
+    "dayLabel": "Day",
+    "monthLabel": "Month",
+    "yearLabel": "Year",
+    "dateInPastError": "The date must be in the future.",
+    "venueLabel": "Ceremony venue",
+    "venuePlaceholder": "Château des Roses, Provence",
+    "accountLabel": "Your account",
+    "emailLabel": "Email address",
+    "emailPlaceholder": "sophie@example.com",
+    "emailChecking": "Checking…",
+    "submitButton": "Let's go!",
+    "months": [
+      "January",
+      "February",
+      "March",
+      "April",
+      "May",
+      "June",
+      "July",
+      "August",
+      "September",
+      "October",
+      "November",
+      "December"
+    ],
+    "menuAriaLabel": "Open menu",
+    "privacyHint": "Your data is never sold."
   }
 }

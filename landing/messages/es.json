@@ -452,5 +452,60 @@
     "summaryTheme": "Tema",
     "validateButton": "Confirmar mi invitación",
     "saveButton": "Guardar y continuar más tarde"
+  },
+  "StudioStart": {
+    "titlePrefix": "Creemos vuestra invitación",
+    "titleHighlight": "juntos",
+    "subtitle": "Basta con unos datos. Nosotros nos encargamos del resto.",
+    "offerLabel": "Vuestra oferta",
+    "recommended": "Recomendado",
+    "premiumTitle": "Premium",
+    "premiumFeatures": [
+      "Módulos ilimitados",
+      "Dominio personalizado incluido",
+      "Soporte prioritario por email en 24h"
+    ],
+    "essentialTitle": "Esencial",
+    "essentialFeatures": [
+      "4 módulos incluidos · +5€/módulo adicional",
+      "Extras a la carta",
+      "Soporte estándar"
+    ],
+    "trustCustomize": "Personaliza tu sitio",
+    "trustSecure": "Acceso seguro",
+    "trustSupport": "Soporte tras la compra",
+    "coupleLabel": "Los novios",
+    "partner1Label": "Nombre 1",
+    "partner1Placeholder": "Sophie",
+    "partner2Label": "Nombre 2",
+    "partner2Placeholder": "Pierre",
+    "dateLocationLabel": "Fecha y lugar",
+    "dayLabel": "Día",
+    "monthLabel": "Mes",
+    "yearLabel": "Año",
+    "dateInPastError": "La fecha debe ser futura.",
+    "venueLabel": "Lugar de la ceremonia",
+    "venuePlaceholder": "Château des Roses, Provence",
+    "accountLabel": "Tu cuenta",
+    "emailLabel": "Correo electrónico",
+    "emailPlaceholder": "sophie@ejemplo.es",
+    "emailChecking": "Comprobando…",
+    "submitButton": "¡Vamos allá!",
+    "months": [
+      "Enero",
+      "Febrero",
+      "Marzo",
+      "Abril",
+      "Mayo",
+      "Junio",
+      "Julio",
+      "Agosto",
+      "Septiembre",
+      "Octubre",
+      "Noviembre",
+      "Diciembre"
+    ],
+    "menuAriaLabel": "Abrir menú",
+    "privacyHint": "Tus datos nunca se venden."
   }
 }

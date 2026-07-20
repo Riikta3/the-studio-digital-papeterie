@@ -5,6 +5,8 @@ import { ArrowRight } from "lucide-react";
 import { useTranslations } from "next-intl";
 import Image from "next/image";
 
+import { Link } from "@/navigation";
+
 import { FadeIn } from "./FadeIn";
 import { TextureOverlay } from "./TextureOverlay";
 
@@ -79,8 +81,10 @@ export function Pricing() {
         </FadeIn>
 
         <FadeIn className="mt-8 flex justify-center">
-          <Button variant="studio-jaune" size="pill">
-            {t("createButton")} <ArrowRight className="ml-2 h-4 w-4" />
+          <Button variant="studio-jaune" size="pill" asChild>
+            <Link href="/studio/start">
+              {t("createButton")} <ArrowRight className="ml-2 h-4 w-4" />
+            </Link>
           </Button>
         </FadeIn>
       </div>

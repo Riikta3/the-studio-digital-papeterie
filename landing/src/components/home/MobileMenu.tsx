@@ -4,8 +4,9 @@ import { Button } from "@shared/components/ui/button";
 import { AnimatePresence, motion } from "framer-motion";
 import { ArrowRight, X } from "lucide-react";
 import { useTranslations } from "next-intl";
-import Link from "next/link";
 import { useEffect } from "react";
+
+import { Link } from "@/navigation";
 
 import { LanguageSwitcher } from "./LanguageSwitcher";
 
@@ -25,9 +26,11 @@ const MARIES_LINK_HREFS = ["/login"];
 export function MobileMenu({
   open,
   onClose,
+  hideCreateButton = false,
 }: {
   open: boolean;
   onClose: () => void;
+  hideCreateButton?: boolean;
 }) {
   const t = useTranslations("MobileMenu");
   const productLabels = t.raw("productLinks") as string[];
@@ -128,9 +131,13 @@ export function MobileMenu({
               </ul>
             </nav>
 
-            <Button variant="studio-jaune" size="pill" className="mt-8">
-              {t("createButton")} <ArrowRight className="ml-2 h-4 w-4" />
-            </Button>
+            {!hideCreateButton && (
+              <Button variant="studio-jaune" size="pill" className="mt-8" asChild>
+                <Link href="/studio/start" onClick={onClose}>
+                  {t("createButton")} <ArrowRight className="ml-2 h-4 w-4" />
+                </Link>
+              </Button>
+            )}
           </motion.div>
         </>
       )}

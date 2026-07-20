@@ -451,5 +451,60 @@
     "summaryTheme": "السمة",
     "validateButton": "تأكيد دعوتي",
     "saveButton": "حفظ والمتابعة لاحقًا"
+  },
+  "StudioStart": {
+    "titlePrefix": "لننشئ دعوتكما",
+    "titleHighlight": "معًا",
+    "subtitle": "بضع معلومات تكفي. نحن نتكفل بالباقي.",
+    "offerLabel": "باقتكما",
+    "recommended": "موصى به",
+    "premiumTitle": "بريميوم",
+    "premiumFeatures": [
+      "وحدات غير محدودة",
+      "نطاق مخصص مُضمَّن",
+      "دعم ذو أولوية عبر البريد الإلكتروني خلال 24 ساعة"
+    ],
+    "essentialTitle": "أساسي",
+    "essentialFeatures": [
+      "4 وحدات مُضمَّنة · +5€ لكل وحدة إضافية",
+      "إضافات اختيارية",
+      "دعم قياسي"
+    ],
+    "trustCustomize": "خصص موقعك",
+    "trustSecure": "وصول آمن",
+    "trustSupport": "دعم بعد الشراء",
+    "coupleLabel": "العروسان",
+    "partner1Label": "الاسم الأول 1",
+    "partner1Placeholder": "صوفي",
+    "partner2Label": "الاسم الأول 2",
+    "partner2Placeholder": "بيير",
+    "dateLocationLabel": "التاريخ والمكان",
+    "dayLabel": "اليوم",
+    "monthLabel": "الشهر",
+    "yearLabel": "السنة",
+    "dateInPastError": "يجب أن يكون التاريخ في المستقبل.",
+    "venueLabel": "مكان الحفل",
+    "venuePlaceholder": "Château des Roses, Provence",
+    "accountLabel": "حسابكما",
+    "emailLabel": "البريد الإلكتروني",
+    "emailPlaceholder": "sophie@example.com",
+    "emailChecking": "جارٍ التحقق…",
+    "submitButton": "هيا بنا!",
+    "months": [
+      "يناير",
+      "فبراير",
+      "مارس",
+      "أبريل",
+      "مايو",
+      "يونيو",
+      "يوليو",
+      "أغسطس",
+      "سبتمبر",
+      "أكتوبر",
+      "نوفمبر",
+      "ديسمبر"
+    ],
+    "menuAriaLabel": "افتح القائمة",
+    "privacyHint": "بياناتكما لا تُباع أبدًا."
   }
 }

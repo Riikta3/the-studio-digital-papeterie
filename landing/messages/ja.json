@@ -451,5 +451,60 @@
     "summaryTheme": "テーマ",
     "validateButton": "招待状を確定する",
     "saveButton": "保存して後で続ける"
+  },
+  "StudioStart": {
+    "titlePrefix": "招待状を",
+    "titleHighlight": "一緒に作りましょう",
+    "subtitle": "いくつかの情報を入力するだけ。あとはお任せください。",
+    "offerLabel": "プランを選択",
+    "recommended": "おすすめ",
+    "premiumTitle": "プレミアム",
+    "premiumFeatures": [
+      "モジュール数無制限",
+      "独自ドメイン付き",
+      "24時間以内の優先メールサポート"
+    ],
+    "essentialTitle": "エッセンシャル",
+    "essentialFeatures": [
+      "モジュール4つ込み・追加1つにつき+5€",
+      "オプション追加可能",
+      "standard サポート"
+    ],
+    "trustCustomize": "サイトをカスタマイズ",
+    "trustSecure": "安全なアクセス",
+    "trustSupport": "購入後のサポート",
+    "coupleLabel": "おふたりについて",
+    "partner1Label": "名前1",
+    "partner1Placeholder": "Sophie",
+    "partner2Label": "名前2",
+    "partner2Placeholder": "Pierre",
+    "dateLocationLabel": "日程・会場",
+    "dayLabel": "日",
+    "monthLabel": "月",
+    "yearLabel": "年",
+    "dateInPastError": "日付は未来の日付にしてください。",
+    "venueLabel": "挙式会場",
+    "venuePlaceholder": "Château des Roses, Provence",
+    "accountLabel": "アカウント情報",
+    "emailLabel": "メールアドレス",
+    "emailPlaceholder": "sophie@example.com",
+    "emailChecking": "確認中…",
+    "submitButton": "はじめる",
+    "months": [
+      "1月",
+      "2月",
+      "3月",
+      "4月",
+      "5月",
+      "6月",
+      "7月",
+      "8月",
+      "9月",
+      "10月",
+      "11月",
+      "12月"
+    ],
+    "menuAriaLabel": "メニューを開く",
+    "privacyHint": "お客様のデータは第三者に販売されません。"
   }
 }

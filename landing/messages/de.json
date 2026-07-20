@@ -452,5 +452,60 @@
     "summaryTheme": "Thema",
     "validateButton": "Einladung bestätigen",
     "saveButton": "Speichern und später fortfahren"
+  },
+  "StudioStart": {
+    "titlePrefix": "Lasst uns eure Einladung",
+    "titleHighlight": "gemeinsam gestalten",
+    "subtitle": "Ein paar Angaben genügen. Wir kümmern uns um den Rest.",
+    "offerLabel": "Euer Paket",
+    "recommended": "Empfohlen",
+    "premiumTitle": "Premium",
+    "premiumFeatures": [
+      "Unbegrenzte Module",
+      "Eigene Domain inklusive",
+      "Prioritäts-Support per E-Mail innerhalb von 24 Std."
+    ],
+    "essentialTitle": "Essentiel",
+    "essentialFeatures": [
+      "4 Module inklusive · +5€/zusätzliches Modul",
+      "Extras nach Wahl",
+      "Standard-Support"
+    ],
+    "trustCustomize": "Passt eure Website an",
+    "trustSecure": "Sicherer Zugang",
+    "trustSupport": "Support nach dem Kauf",
+    "coupleLabel": "Das Brautpaar",
+    "partner1Label": "Vorname 1",
+    "partner1Placeholder": "Sophie",
+    "partner2Label": "Vorname 2",
+    "partner2Placeholder": "Pierre",
+    "dateLocationLabel": "Datum & Ort",
+    "dayLabel": "Tag",
+    "monthLabel": "Monat",
+    "yearLabel": "Jahr",
+    "dateInPastError": "Das Datum muss in der Zukunft liegen.",
+    "venueLabel": "Ort der Zeremonie",
+    "venuePlaceholder": "Château des Roses, Provence",
+    "accountLabel": "Euer Konto",
+    "emailLabel": "E-Mail-Adresse",
+    "emailPlaceholder": "sophie@beispiel.de",
+    "emailChecking": "Wird geprüft…",
+    "submitButton": "Los geht's!",
+    "months": [
+      "Januar",
+      "Februar",
+      "März",
+      "April",
+      "Mai",
+      "Juni",
+      "Juli",
+      "August",
+      "September",
+      "Oktober",
+      "November",
+      "Dezember"
+    ],
+    "menuAriaLabel": "Menü öffnen",
+    "privacyHint": "Eure Daten werden niemals weiterverkauft."
   }
 }

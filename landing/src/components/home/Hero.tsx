@@ -8,6 +8,8 @@ import { useTranslations } from "next-intl";
 import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
 
+import { Link } from "@/navigation";
+
 import { HeroCarousel } from "./HeroCarousel";
 import { MobileMenu } from "./MobileMenu";
 import { THEMES } from "./themes";
@@ -176,8 +178,10 @@ export function Hero() {
             >
               {t("discoverButton")}
             </Button>
-            <Button variant="studio-jaune" size="pill">
-              {t("createButton")} <ArrowRight className="ml-2 h-4 w-4" />
+            <Button variant="studio-jaune" size="pill" asChild>
+              <Link href="/studio/start">
+                {t("createButton")} <ArrowRight className="ml-2 h-4 w-4" />
+              </Link>
             </Button>
           </motion.div>
         </div>

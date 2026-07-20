@@ -408,5 +408,60 @@
     "summaryTheme": "Thème",
     "validateButton": "Valider mon invitation",
     "saveButton": "Sauvegarder et continuer plus tard"
+  },
+  "StudioStart": {
+    "titlePrefix": "Créons votre invitation",
+    "titleHighlight": "ensemble",
+    "subtitle": "Quelques informations suffisent. On s'occupe du reste.",
+    "offerLabel": "Votre offre",
+    "recommended": "Recommandé",
+    "premiumTitle": "Premium",
+    "premiumFeatures": [
+      "Modules illimités",
+      "Nom de domaine inclus",
+      "Support prioritaire par email sous 24h"
+    ],
+    "essentialTitle": "Essentiel",
+    "essentialFeatures": [
+      "4 modules inclus · +5€/module supplémentaire",
+      "Extras à la carte",
+      "Support standard"
+    ],
+    "trustCustomize": "Personnalise votre site",
+    "trustSecure": "Accès sécurisé",
+    "trustSupport": "Support après achat",
+    "coupleLabel": "Les mariés",
+    "partner1Label": "Prénom 1",
+    "partner1Placeholder": "Sophie",
+    "partner2Label": "Prénom 2",
+    "partner2Placeholder": "Pierre",
+    "dateLocationLabel": "Date & lieu",
+    "dayLabel": "Jour",
+    "monthLabel": "Mois",
+    "yearLabel": "Année",
+    "dateInPastError": "La date doit être dans le futur.",
+    "venueLabel": "Lieu de la cérémonie",
+    "venuePlaceholder": "Château des Roses, Provence",
+    "accountLabel": "Votre compte",
+    "emailLabel": "Adresse email",
+    "emailPlaceholder": "sophie@exemple.fr",
+    "emailChecking": "Vérification…",
+    "submitButton": "C'est parti !",
+    "months": [
+      "Janvier",
+      "Février",
+      "Mars",
+      "Avril",
+      "Mai",
+      "Juin",
+      "Juillet",
+      "Août",
+      "Septembre",
+      "Octobre",
+      "Novembre",
+      "Décembre"
+    ],
+    "menuAriaLabel": "Ouvrir le menu",
+    "privacyHint": "Vos données ne sont jamais revendues."
   }
 }
