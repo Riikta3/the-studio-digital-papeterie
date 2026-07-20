@@ -6,19 +6,13 @@ import { ArrowLeft, ArrowRight } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { useEffect, useRef, useState } from "react";
 
+import { THEMES } from "./themes";
+
 const SWIPE_THRESHOLD = 40;
 
 const GAP = 10;
 
-const CARD_IMAGE_SRCS = [
-  "/images/invitation-amalfi.png",
-  "/images/invitation-venise.png",
-  "/images/invitation-provence.png",
-  "/images/invitation-toscane.png",
-  "/images/invitation-riviera.png",
-  "/images/invitation-capri.png",
-];
-const CARD_COUNT = CARD_IMAGE_SRCS.length;
+const CARD_COUNT = THEMES.length;
 
 // The reference card the intro slides to and highlights.
 const REFERENCE_INDEX = 3;
@@ -32,13 +26,26 @@ const ACTIVE_SCALE = 1.2;
 // Card aspect ratio (w/h) — portrait, smartphone-like.
 const CARD_RATIO = 290 / 540;
 
-export function HeroCarousel() {
+export function HeroCarousel({
+  onActiveThemeChange,
+}: {
+  onActiveThemeChange?: (themeName: string) => void;
+} = {}) {
   const t = useTranslations("HeroCarousel");
   const cardAlts = t.raw("cards") as { alt: string }[];
   // "intro" = one-shot slide-in; "idle" = manual carousel.
   const [phase, setPhase] = useState<"intro" | "idle">("intro");
   // Unbounded counter → infinite swipe in both directions.
   const [position, setPosition] = useState(REFERENCE_INDEX);
+
+  const activeCardId =
+    ((position % CARD_COUNT) + CARD_COUNT) % CARD_COUNT;
+
+  useEffect(() => {
+    if (phase !== "idle") return;
+    onActiveThemeChange?.(THEMES[activeCardId].name);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [phase, activeCardId]);
 
   // Measure the viewport so card size scales down on narrow screens and the
   // grown active card never exceeds the clipping container (no crop).
@@ -138,9 +145,12 @@ export function HeroCarousel() {
           dragElastic={0.12}
           onDragEnd={handleDragEnd}
         >
-          {/* Render enough repeats around the current position for infinite feel. */}
+          {/* Render enough repeats around the current position for infinite feel.
+              The window is re-centered on `position` every render (not a fixed
+              range around 0), so it keeps following the user however far they
+              swipe/click in either direction — true infinite scroll. */}
           {Array.from({ length: CARD_COUNT * 5 }, (_, k) => {
-            const trackIndex = k - CARD_COUNT * 2; // spans below & above current
+            const trackIndex = position - CARD_COUNT * 2 + k; // spans below & above current
             const cardId =
               ((trackIndex % CARD_COUNT) + CARD_COUNT) % CARD_COUNT;
             // During intro nothing is highlighted; at rest only the centered one.
@@ -169,7 +179,7 @@ export function HeroCarousel() {
                 }}
               >
                 <Image
-                  src={CARD_IMAGE_SRCS[cardId]}
+                  src={THEMES[cardId].image}
                   alt={cardAlts[cardId]?.alt ?? ""}
                   fill
                   sizes="(max-width: 768px) 60vw, 290px"

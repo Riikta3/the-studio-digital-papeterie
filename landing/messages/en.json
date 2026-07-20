@@ -19,7 +19,7 @@
     "menuAriaLabel": "Open menu",
     "discoverButton": "Discover",
     "createButton": "Create mine",
-    "themeCta": "Try the Dolce Vita theme"
+    "themeCta": "Try the {name} theme"
   },
   "DemoSection": {
     "eyebrow": "See it real",
@@ -426,5 +426,34 @@
       "Log in"
     ],
     "createButton": "Create my invitation"
+  },
+  "ThemeConfigSheet": {
+    "ariaLabel": "Configure the {name} theme",
+    "closeAriaLabel": "Close",
+    "themeAlt": "{name} theme",
+    "titlePrefix": "The",
+    "themeDescription": "Immerse your guests in the enchanting atmosphere of the {name} theme. Your invitation comes to life like a letter delivered from the heart of the story — sun, sweetness, and elegance.",
+    "modulesTitle": "Optional modules",
+    "modules": {
+      "guestbook": "Guestbook",
+      "planning": "Schedule",
+      "menu": "Menu",
+      "rsvp": "RSVP",
+      "accommodation": "Accommodation",
+      "gallery": "Photo gallery"
+    },
+    "openingStyleTitle": "Opening style",
+    "openingStyleSubtitle": "Choose the animation that plays when your invitation opens — a letter unfolds to reveal your invite.",
+    "openingStyles": {
+      "envelope": "Envelope",
+      "door": "Door",
+      "curtains": "Curtains"
+    },
+    "summaryTitle": "Your selection",
+    "summaryModules": "Active modules",
+    "summaryOpeningStyle": "Chosen animation",
+    "summaryTheme": "Theme",
+    "validateButton": "Confirm my invitation",
+    "saveButton": "Save and continue later"
   }
 }

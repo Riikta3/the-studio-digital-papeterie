@@ -18,7 +18,7 @@
     "menuAriaLabel": "Abrir menú",
     "discoverButton": "Descubrir",
     "createButton": "Crear la mía",
-    "themeCta": "Probar el tema Dolce Vita"
+    "themeCta": "Probar el tema {name}"
   },
   "Features": {
     "titleLine1": "La elegancia del papel,",
@@ -423,5 +423,34 @@
       "Iniciar sesión"
     ],
     "createButton": "Crear mi invitación"
+  },
+  "ThemeConfigSheet": {
+    "ariaLabel": "Configurar el tema {name}",
+    "closeAriaLabel": "Cerrar",
+    "themeAlt": "Tema {name}",
+    "titlePrefix": "La invitación",
+    "themeDescription": "Sumerja a sus invitados en la atmósfera encantadora del tema {name}. Su invitación cobra vida como una carta llegada del corazón de la historia — sol, dulzura y elegancia.",
+    "modulesTitle": "Módulos opcionales",
+    "modules": {
+      "guestbook": "Libro de visitas",
+      "planning": "Cronograma",
+      "menu": "Menú",
+      "rsvp": "Confirmación",
+      "accommodation": "Alojamiento",
+      "gallery": "Galería de fotos"
+    },
+    "openingStyleTitle": "Estilo de apertura",
+    "openingStyleSubtitle": "Elija la animación que se reproduce al abrir su invitación.",
+    "openingStyles": {
+      "envelope": "Sobre",
+      "door": "Puerta",
+      "curtains": "Cortinas"
+    },
+    "summaryTitle": "Su selección",
+    "summaryModules": "Módulos activos",
+    "summaryOpeningStyle": "Animación elegida",
+    "summaryTheme": "Tema",
+    "validateButton": "Confirmar mi invitación",
+    "saveButton": "Guardar y continuar más tarde"
   }
 }

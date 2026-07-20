@@ -18,7 +18,7 @@
     "menuAriaLabel": "Menü öffnen",
     "discoverButton": "Entdecken",
     "createButton": "Meine erstellen",
-    "themeCta": "Design „Dolce Vita“ testen"
+    "themeCta": "Design „{name}\" testen"
   },
   "Features": {
     "titleLine1": "Die Eleganz von Papier,",
@@ -423,5 +423,34 @@
       "Anmelden"
     ],
     "createButton": "Meine Einladung erstellen"
+  },
+  "ThemeConfigSheet": {
+    "ariaLabel": "Thema {name} konfigurieren",
+    "closeAriaLabel": "Schließen",
+    "themeAlt": "Thema {name}",
+    "titlePrefix": "Die Einladung",
+    "themeDescription": "Tauchen Sie Ihre Gäste in die zauberhafte Atmosphäre des Themas {name} ein. Ihre Einladung erwacht zum Leben wie ein Brief aus dem Herzen der Geschichte — Sonne, Leichtigkeit und Eleganz.",
+    "modulesTitle": "Optionale Module",
+    "modules": {
+      "guestbook": "Gästebuch",
+      "planning": "Ablaufplan",
+      "menu": "Menü",
+      "rsvp": "Zusage",
+      "accommodation": "Unterkünfte",
+      "gallery": "Fotogalerie"
+    },
+    "openingStyleTitle": "Öffnungsstil",
+    "openingStyleSubtitle": "Wählen Sie die Animation, die beim Öffnen Ihrer Einladung abgespielt wird.",
+    "openingStyles": {
+      "envelope": "Umschlag",
+      "door": "Tür",
+      "curtains": "Vorhänge"
+    },
+    "summaryTitle": "Ihre Auswahl",
+    "summaryModules": "Aktive Module",
+    "summaryOpeningStyle": "Gewählte Animation",
+    "summaryTheme": "Thema",
+    "validateButton": "Einladung bestätigen",
+    "saveButton": "Speichern und später fortfahren"
   }
 }

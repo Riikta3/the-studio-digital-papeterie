@@ -17,7 +17,7 @@
     "menuAriaLabel": "打开菜单",
     "discoverButton": "了解更多",
     "createButton": "创建我的请柬",
-    "themeCta": "试用 Dolce Vita 主题"
+    "themeCta": "试用{name}主题"
   },
   "Features": {
     "titleLine1": "纸张的优雅，",
@@ -422,5 +422,34 @@
       "登录"
     ],
     "createButton": "创建我的请柬"
+  },
+  "ThemeConfigSheet": {
+    "ariaLabel": "配置{name}主题",
+    "closeAriaLabel": "关闭",
+    "themeAlt": "{name}主题",
+    "titlePrefix": "请柬",
+    "themeDescription": "让您的宾客沉浸在{name}主题迷人的氛围中。您的请柬如同来自故事核心的一封信般栩栩如生——阳光、甜蜜与优雅。",
+    "modulesTitle": "可选模块",
+    "modules": {
+      "guestbook": "留言簿",
+      "planning": "流程安排",
+      "menu": "菜单",
+      "rsvp": "出席确认",
+      "accommodation": "住宿",
+      "gallery": "照片相册"
+    },
+    "openingStyleTitle": "开启样式",
+    "openingStyleSubtitle": "选择打开请柬时播放的动画。",
+    "openingStyles": {
+      "envelope": "信封",
+      "door": "门",
+      "curtains": "窗帘"
+    },
+    "summaryTitle": "您的选择",
+    "summaryModules": "已启用模块",
+    "summaryOpeningStyle": "所选动画",
+    "summaryTheme": "主题",
+    "validateButton": "确认我的请柬",
+    "saveButton": "保存并稍后继续"
   }
 }

@@ -19,7 +19,7 @@
     "menuAriaLabel": "Ouvrir le menu",
     "discoverButton": "Découvrir",
     "createButton": "Créer le mien",
-    "themeCta": "Tester le thème Dolce Vita"
+    "themeCta": "Tester le thème {name}"
   },
   "DemoSection": {
     "eyebrow": "Voir en vrai",
@@ -379,5 +379,34 @@
   },
   "ScrollToTop": {
     "ariaLabel": "Retour en haut"
+  },
+  "ThemeConfigSheet": {
+    "ariaLabel": "Configurer le thème {name}",
+    "closeAriaLabel": "Fermer",
+    "themeAlt": "Thème {name}",
+    "titlePrefix": "L'invitation",
+    "themeDescription": "Plongez vos invités dans l'atmosphère envoûtante du thème {name}. Votre faire-part s'anime comme une lettre reçue au cœur de l'histoire, soleil, dolce far niente et élégance.",
+    "modulesTitle": "Modules optionnels",
+    "modules": {
+      "guestbook": "Livre d'or",
+      "planning": "Planning",
+      "menu": "Menu",
+      "rsvp": "RSVP",
+      "accommodation": "Hébergements",
+      "gallery": "Galerie photos"
+    },
+    "openingStyleTitle": "Style d'ouverture",
+    "openingStyleSubtitle": "Sélectionnez l'animation qui s'affiche à l'ouverture de l'invitation — une lettre s'ouvre, révélant votre faire-part.",
+    "openingStyles": {
+      "envelope": "Enveloppe",
+      "door": "Porte",
+      "curtains": "Rideaux"
+    },
+    "summaryTitle": "Votre sélection",
+    "summaryModules": "Modules actifs",
+    "summaryOpeningStyle": "Animation choisie",
+    "summaryTheme": "Thème",
+    "validateButton": "Valider mon invitation",
+    "saveButton": "Sauvegarder et continuer plus tard"
   }
 }

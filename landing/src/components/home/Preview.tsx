@@ -14,6 +14,8 @@ import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
 
 import { FadeIn } from "./FadeIn";
+import { THEMES, type Theme } from "./themes";
+import { ThemeConfigSheet } from "./ThemeConfigSheet";
 
 // Once the demo invitation route exists in this app, point this at it
 // (e.g. "/fr/invitation/demo?demo=true") and the phone screen becomes a
@@ -29,17 +31,6 @@ const RIM = 3;
 const BEZEL = 10;
 const PHONE_W = SCREEN_W + 2 * (RIM + BEZEL);
 const PHONE_H = SCREEN_H + 2 * (RIM + BEZEL);
-
-const THEMES = [
-  { name: "Amalfi", image: "/images/invitation-amalfi.png" },
-  { name: "Venise", image: "/images/invitation-venise.png" },
-  { name: "Provence", image: "/images/invitation-provence.png" },
-  { name: "Toscane", image: "/images/invitation-toscane.png" },
-  { name: "Riviera", image: "/images/invitation-riviera.png" },
-  { name: "Capri", image: "/images/invitation-capri.png" },
-];
-
-type Theme = (typeof THEMES)[number];
 
 function PhoneScreen({ theme }: { theme: Theme }) {
   const t = useTranslations("Preview");
@@ -192,6 +183,15 @@ function PhoneFrame({ theme }: { theme: Theme }) {
   );
 }
 
+// Repeat the theme list so the track always has cards to scroll into in
+// either direction; combined with the silent re-centering below, this reads
+// as an infinite loop even though the underlying scroller is finite.
+const LOOP_REPEATS = 5;
+const MIDDLE_SET = Math.floor(LOOP_REPEATS / 2);
+const LOOPED_THEMES = Array.from({ length: LOOP_REPEATS }, (_, set) =>
+  THEMES.map((theme, index) => ({ theme, index, key: `${set}-${theme.name}` })),
+).flat();
+
 function ThemeCarousel({
   active,
   onSelect,
@@ -201,15 +201,43 @@ function ThemeCarousel({
 }) {
   const t = useTranslations("Preview");
   const trackRef = useRef<HTMLDivElement>(null);
+  const cardStepRef = useRef(0);
+
+  // Start scrolled into the middle repeat so there's room to scroll both
+  // ways from the first paint.
+  useEffect(() => {
+    const el = trackRef.current;
+    if (!el) return;
+    const card = el.children[0] as HTMLElement | undefined;
+    const step = (card?.offsetWidth ?? 0) + 16; // 16 = gap-4
+    cardStepRef.current = step;
+    el.scrollLeft = step * THEMES.length * MIDDLE_SET;
+  }, []);
+
+  // Once the user scrolls within one set's width of either end, silently
+  // (no smooth-scroll) jump back by exactly one repeat's width — invisible
+  // to the user since the content at that offset is identical.
+  const handleScroll = () => {
+    const el = trackRef.current;
+    const step = cardStepRef.current;
+    if (!el || !step) return;
+    const setWidth = step * THEMES.length;
+    if (el.scrollLeft < setWidth) {
+      el.scrollLeft += setWidth * (LOOP_REPEATS - 2);
+    } else if (el.scrollLeft > setWidth * (LOOP_REPEATS - 1)) {
+      el.scrollLeft -= setWidth * (LOOP_REPEATS - 2);
+    }
+  };
 
   const scrollByCard = (direction: -1 | 1) => {
     trackRef.current?.scrollBy({ left: direction * 180, behavior: "smooth" });
   };
 
   return (
-    // Full-bleed: escape the section's horizontal padding so the track
-    // runs edge to edge, with cards cropped at the viewport sides.
-    <div className="relative -mx-6 md:-mx-12">
+    // Full-bleed on mobile: escape the section's horizontal padding so the
+    // track runs edge to edge, with cards cropped at the viewport sides.
+    // On desktop it's capped and centered instead of spanning the full width.
+    <div className="relative -mx-6 md:mx-auto md:max-w-[75vw]">
       <button
         type="button"
         onClick={() => scrollByCard(-1)}
@@ -221,11 +249,12 @@ function ThemeCarousel({
 
       <div
         ref={trackRef}
+        onScroll={handleScroll}
         className="scrollbar-hide flex snap-x gap-4 overflow-x-auto px-6 py-2 md:px-12"
       >
-        {THEMES.map((theme, index) => (
+        {LOOPED_THEMES.map(({ theme, index, key }) => (
           <button
-            key={theme.name}
+            key={key}
             type="button"
             onClick={() => onSelect(index)}
             className="w-32 shrink-0 snap-start text-center md:w-36"
@@ -281,6 +310,7 @@ function ThemeCarousel({
 export function Preview() {
   const t = useTranslations("Preview");
   const [activeTheme, setActiveTheme] = useState(0);
+  const [configOpen, setConfigOpen] = useState(false);
 
   return (
     <section id="demo" className="bg-studio-creme px-6 py-20 md:px-12">
@@ -336,6 +366,7 @@ export function Preview() {
           variant="studio-outline"
           size="pill"
           className="border-studio-violet text-studio-violet hover:bg-studio-violet/10"
+          onClick={() => setConfigOpen(true)}
         >
           {t("discoverButton")}
         </Button>
@@ -347,6 +378,14 @@ export function Preview() {
       <FadeIn className="mt-14">
         <ThemeCarousel active={activeTheme} onSelect={setActiveTheme} />
       </FadeIn>
+
+      <ThemeConfigSheet
+        open={configOpen}
+        onClose={() => setConfigOpen(false)}
+        themeName={THEMES[activeTheme].name}
+        themeImage={THEMES[activeTheme].image}
+        onSave={(config) => console.log("Theme config saved:", config)}
+      />
     </section>
   );
 }

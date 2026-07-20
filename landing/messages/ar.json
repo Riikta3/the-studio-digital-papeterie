@@ -17,7 +17,7 @@
     "menuAriaLabel": "فتح القائمة",
     "discoverButton": "اكتشف",
     "createButton": "أنشئ دعوتي",
-    "themeCta": "جرّب نمط Dolce Vita"
+    "themeCta": "جرّب نمط {name}"
   },
   "Features": {
     "titleLine1": "أناقة الورق،",
@@ -422,5 +422,34 @@
       "تسجيل الدخول"
     ],
     "createButton": "إنشاء دعوتي"
+  },
+  "ThemeConfigSheet": {
+    "ariaLabel": "تخصيص السمة {name}",
+    "closeAriaLabel": "إغلاق",
+    "themeAlt": "سمة {name}",
+    "titlePrefix": "الدعوة",
+    "themeDescription": "أغمر ضيوفك في الأجواء الساحرة لسمة {name}. تنبض دعوتك بالحياة كرسالة قادمة من قلب القصة — شمس وحلاوة وأناقة.",
+    "modulesTitle": "وحدات اختيارية",
+    "modules": {
+      "guestbook": "سجل الضيوف",
+      "planning": "البرنامج",
+      "menu": "القائمة",
+      "rsvp": "تأكيد الحضور",
+      "accommodation": "الإقامة",
+      "gallery": "معرض الصور"
+    },
+    "openingStyleTitle": "نمط الفتح",
+    "openingStyleSubtitle": "اختر الرسوم المتحركة التي تظهر عند فتح دعوتك.",
+    "openingStyles": {
+      "envelope": "ظرف",
+      "door": "باب",
+      "curtains": "ستائر"
+    },
+    "summaryTitle": "اختيارك",
+    "summaryModules": "الوحدات النشطة",
+    "summaryOpeningStyle": "الرسوم المختارة",
+    "summaryTheme": "السمة",
+    "validateButton": "تأكيد دعوتي",
+    "saveButton": "حفظ والمتابعة لاحقًا"
   }
 }

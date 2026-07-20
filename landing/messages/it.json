@@ -17,7 +17,7 @@
     "menuAriaLabel": "Apri il menu",
     "discoverButton": "Scopri",
     "createButton": "Crea la mia",
-    "themeCta": "Prova il tema Dolce Vita"
+    "themeCta": "Prova il tema {name}"
   },
   "Features": {
     "titleLine1": "L'eleganza della carta,",
@@ -422,5 +422,34 @@
       "Accedi"
     ],
     "createButton": "Crea il mio invito"
+  },
+  "ThemeConfigSheet": {
+    "ariaLabel": "Configura il tema {name}",
+    "closeAriaLabel": "Chiudi",
+    "themeAlt": "Tema {name}",
+    "titlePrefix": "L'invito",
+    "themeDescription": "Immergi i tuoi ospiti nell'atmosfera incantevole del tema {name}. Il tuo invito prende vita come una lettera arrivata dal cuore della storia — sole, dolcezza ed eleganza.",
+    "modulesTitle": "Moduli opzionali",
+    "modules": {
+      "guestbook": "Libro degli ospiti",
+      "planning": "Programma",
+      "menu": "Menu",
+      "rsvp": "Conferma",
+      "accommodation": "Alloggi",
+      "gallery": "Galleria foto"
+    },
+    "openingStyleTitle": "Stile di apertura",
+    "openingStyleSubtitle": "Scegli l'animazione che si attiva all'apertura del tuo invito.",
+    "openingStyles": {
+      "envelope": "Busta",
+      "door": "Porta",
+      "curtains": "Tende"
+    },
+    "summaryTitle": "La tua selezione",
+    "summaryModules": "Moduli attivi",
+    "summaryOpeningStyle": "Animazione scelta",
+    "summaryTheme": "Tema",
+    "validateButton": "Conferma il mio invito",
+    "saveButton": "Salva e continua più tardi"
   }
 }

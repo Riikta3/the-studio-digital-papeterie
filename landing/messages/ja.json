@@ -17,7 +17,7 @@
     "menuAriaLabel": "メニューを開く",
     "discoverButton": "詳しく見る",
     "createButton": "作成する",
-    "themeCta": "Dolce Vita テーマを試す"
+    "themeCta": "{name} テーマを試す"
   },
   "Features": {
     "titleLine1": "紙の優雅さ、",
@@ -422,5 +422,34 @@
       "ログイン"
     ],
     "createButton": "招待状を作成する"
+  },
+  "ThemeConfigSheet": {
+    "ariaLabel": "{name}テーマを設定",
+    "closeAriaLabel": "閉じる",
+    "themeAlt": "{name}テーマ",
+    "titlePrefix": "招待状",
+    "themeDescription": "{name}テーマの魅惑的な雰囲気にゲストを誘います。あなたの招待状は物語の中心から届いた手紙のように、太陽の光と甘美さ、そして優雅さをもって息づきます。",
+    "modulesTitle": "オプションモジュール",
+    "modules": {
+      "guestbook": "ゲストブック",
+      "planning": "スケジュール",
+      "menu": "メニュー",
+      "rsvp": "出欠確認",
+      "accommodation": "宿泊",
+      "gallery": "フォトギャラリー"
+    },
+    "openingStyleTitle": "オープニングスタイル",
+    "openingStyleSubtitle": "招待状を開くときに表示されるアニメーションを選択してください。",
+    "openingStyles": {
+      "envelope": "封筒",
+      "door": "ドア",
+      "curtains": "カーテン"
+    },
+    "summaryTitle": "あなたの選択",
+    "summaryModules": "有効なモジュール",
+    "summaryOpeningStyle": "選択したアニメーション",
+    "summaryTheme": "テーマ",
+    "validateButton": "招待状を確定する",
+    "saveButton": "保存して後で続ける"
   }
 }

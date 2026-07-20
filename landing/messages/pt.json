@@ -17,7 +17,7 @@
     "menuAriaLabel": "Abrir menu",
     "discoverButton": "Descobrir",
     "createButton": "Criar o meu",
-    "themeCta": "Experimentar o tema Dolce Vita"
+    "themeCta": "Experimentar o tema {name}"
   },
   "Features": {
     "titleLine1": "A elegância do papel,",
@@ -422,5 +422,34 @@
       "Entrar"
     ],
     "createButton": "Criar meu convite"
+  },
+  "ThemeConfigSheet": {
+    "ariaLabel": "Configurar o tema {name}",
+    "closeAriaLabel": "Fechar",
+    "themeAlt": "Tema {name}",
+    "titlePrefix": "O convite",
+    "themeDescription": "Mergulhe seus convidados na atmosfera encantadora do tema {name}. Seu convite ganha vida como uma carta vinda do coração da história — sol, doçura e elegância.",
+    "modulesTitle": "Módulos opcionais",
+    "modules": {
+      "guestbook": "Livro de visitas",
+      "planning": "Cronograma",
+      "menu": "Menu",
+      "rsvp": "Confirmação",
+      "accommodation": "Hospedagem",
+      "gallery": "Galeria de fotos"
+    },
+    "openingStyleTitle": "Estilo de abertura",
+    "openingStyleSubtitle": "Escolha a animação exibida ao abrir o seu convite.",
+    "openingStyles": {
+      "envelope": "Envelope",
+      "door": "Porta",
+      "curtains": "Cortinas"
+    },
+    "summaryTitle": "Sua seleção",
+    "summaryModules": "Módulos ativos",
+    "summaryOpeningStyle": "Animação escolhida",
+    "summaryTheme": "Tema",
+    "validateButton": "Confirmar meu convite",
+    "saveButton": "Salvar e continuar depois"
   }
 }

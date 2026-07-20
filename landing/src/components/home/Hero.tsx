@@ -6,10 +6,11 @@ import { motion } from "framer-motion";
 import { ArrowRight, Menu } from "lucide-react";
 import { useTranslations } from "next-intl";
 import Image from "next/image";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 import { HeroCarousel } from "./HeroCarousel";
 import { MobileMenu } from "./MobileMenu";
+import { THEMES } from "./themes";
 import { TextureOverlay } from "./TextureOverlay";
 
 // Continuous word-by-word reveal: each block starts after the previous one's
@@ -34,32 +35,57 @@ export function Hero() {
     return { eyebrow, title1, title2, subtitle, cta };
   })();
 
+  // The violet backdrop must always stop exactly at the vertical midpoint of
+  // the carousel, regardless of screen size or translated text length (both
+  // change the height of the content above it). Measure the real DOM heights
+  // instead of hardcoding a vh/px value.
+  const contentRef = useRef<HTMLDivElement>(null);
+  const carouselRef = useRef<HTMLDivElement>(null);
+  const [violetHeight, setVioletHeight] = useState<number | null>(null);
+  const [activeThemeName, setActiveThemeName] = useState<string>(
+    THEMES[3].name,
+  );
+
+  useEffect(() => {
+    const measure = () => {
+      const contentH = contentRef.current?.offsetHeight ?? 0;
+      const carouselEl = carouselRef.current;
+      const carouselH = carouselEl?.offsetHeight ?? 0;
+      const carouselMarginTop = carouselEl
+        ? parseFloat(getComputedStyle(carouselEl).marginTop)
+        : 0;
+      setVioletHeight(contentH + carouselMarginTop + carouselH / 2);
+    };
+    measure();
+    const ro = new ResizeObserver(measure);
+    if (contentRef.current) ro.observe(contentRef.current);
+    if (carouselRef.current) ro.observe(carouselRef.current);
+    return () => ro.disconnect();
+  }, []);
+
   return (
     <div id="accueil" className="relative bg-studio-beurre">
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 0.8, ease: "easeOut" }}
-        className="absolute inset-x-0 top-0 h-[80vh] overflow-hidden bg-studio-violet md:h-[800px]"
-      >
-        <TextureOverlay />
-        <Image
-          src="/images/hero-leaf-top.svg"
-          alt=""
-          width={82}
-          height={138}
-          className="pointer-events-none absolute right-0 top-16 h-auto w-24 md:top-24 md:w-40"
-        />
-        <Image
-          src="/images/hero-leaf-bottom.svg"
-          alt=""
-          width={106}
-          height={188}
-          className="pointer-events-none absolute bottom-56 left-2 h-auto w-28 md:bottom-24 md:left-12 md:w-44"
-        />
-      </motion.div>
+      {violetHeight !== null && (
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.8, ease: "easeOut" }}
+          style={{ height: violetHeight }}
+          className="absolute inset-x-0 top-0 overflow-hidden bg-studio-violet"
+        >
+          <TextureOverlay />
+          <Image
+            src="/images/hero-leaf-top.svg"
+            alt=""
+            width={82}
+            height={138}
+            className="pointer-events-none absolute right-0 top-16 h-auto w-24 md:top-24 md:w-40"
+          />
+        </motion.div>
+      )}
 
       <div className="relative z-10 flex flex-col items-center pt-8 md:pt-10">
+        <div ref={contentRef} className="flex w-full flex-col items-center">
         <nav className="flex w-full max-w-6xl items-center justify-between px-6 md:px-12">
           <Image src="/logo.svg" alt="The Studio Digital Papeterie" width={40} height={42} />
           <button
@@ -155,9 +181,19 @@ export function Hero() {
             </Button>
           </motion.div>
         </div>
+        </div>
 
-        <div className="mt-4 w-full md:mt-20">
-          <HeroCarousel />
+        <div ref={carouselRef} className="relative mt-4 w-full md:mt-20">
+          <div className="relative z-10">
+            <HeroCarousel onActiveThemeChange={setActiveThemeName} />
+          </div>
+          <Image
+            src="/images/hero-leaf-bottom.svg"
+            alt=""
+            width={106}
+            height={188}
+            className="pointer-events-none absolute left-2 top-4 z-0 h-auto w-28 md:left-12 md:top-8 md:w-44"
+          />
         </div>
 
         <motion.div
@@ -170,8 +206,14 @@ export function Hero() {
             variant="studio-violet"
             size="pill"
             className="text-studio-jaune"
+            onClick={() =>
+              document
+                .getElementById("demo")
+                ?.scrollIntoView({ behavior: "smooth" })
+            }
           >
-            {t("themeCta")} <ArrowRight className="ml-2 h-4 w-4" />
+            {t("themeCta", { name: activeThemeName })}{" "}
+            <ArrowRight className="ml-2 h-4 w-4" />
           </Button>
         </motion.div>
       </div>
