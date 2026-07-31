@@ -560,5 +560,33 @@
     "adultsOnlyTitle": "仅限成人婚礼",
     "adultsOnlyDesc": "礼貌地说明未邀请儿童。",
     "adultsOnlyQuote": "尽管我们很喜爱您的孩子，但这场婚礼将是仅限成人的庆典。"
+  },
+  "StudioCheckout": {
+    "titlePrefix": "您的",
+    "titleHighlight": "订单摘要",
+    "subtitle": "付款前请核对您的订单。",
+    "offer": "套餐",
+    "animation": "动画",
+    "theme": "主题",
+    "modulesLabel": "模块",
+    "languagesLabel": "附加语言",
+    "extrasLabel": "附加项",
+    "adultsOnly": "仅限成人",
+    "contact": "联系方式",
+    "none": "无",
+    "edit": "修改",
+    "total": "合计",
+    "payButton": "支付 {amount}€",
+    "processing": "处理中…",
+    "acceptTerms": "我接受",
+    "cgv": "销售条款",
+    "and": "和",
+    "privacy": "隐私政策",
+    "paymentError": "发生错误。",
+    "loadingPayment": "正在初始化支付…",
+    "paymentSuccessTitle": "支付已确认！",
+    "paymentSuccessBody": "我们正在创建您的空间，稍后将自动跳转。",
+    "creatingAccount": "正在创建您的空间…",
+    "magicLinkNote": "您将收到一封含登录链接的邮件 — 无需记住密码。"
   }
 }

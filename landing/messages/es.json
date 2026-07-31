@@ -561,5 +561,33 @@
     "adultsOnlyTitle": "Boda solo adultos",
     "adultsOnlyDesc": "Indica amablemente que los niños no están invitados.",
     "adultsOnlyQuote": "Aunque adoramos a vuestros hijos, esta boda será una celebración solo para adultos."
+  },
+  "StudioCheckout": {
+    "titlePrefix": "Vuestro ",
+    "titleHighlight": "resumen",
+    "subtitle": "Revisad vuestro pedido antes de pagar.",
+    "offer": "Plan",
+    "animation": "Animación",
+    "theme": "Tema",
+    "modulesLabel": "Módulos",
+    "languagesLabel": "Idiomas adicionales",
+    "extrasLabel": "Extras",
+    "adultsOnly": "Solo adultos",
+    "contact": "Contacto",
+    "none": "Ninguno",
+    "edit": "Editar",
+    "total": "Total",
+    "payButton": "Pagar {amount}€",
+    "processing": "Procesando…",
+    "acceptTerms": "Acepto las",
+    "cgv": "Condiciones Generales de Venta",
+    "and": "y la",
+    "privacy": "política de privacidad",
+    "paymentError": "Se ha producido un error.",
+    "loadingPayment": "Inicializando el pago…",
+    "paymentSuccessTitle": "¡Pago confirmado!",
+    "paymentSuccessBody": "Estamos creando vuestro espacio. Seréis redirigidos automáticamente.",
+    "creatingAccount": "Creando vuestro espacio…",
+    "magicLinkNote": "Recibiréis un enlace de acceso por email — sin contraseña que recordar."
   }
 }

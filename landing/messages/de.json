@@ -561,5 +561,33 @@
     "adultsOnlyTitle": "Adults-Only-Hochzeit",
     "adultsOnlyDesc": "Weist höflich darauf hin, dass Kinder nicht eingeladen sind.",
     "adultsOnlyQuote": "So sehr wir Ihre Kinder lieben, diese Hochzeit ist eine Feier nur für Erwachsene."
+  },
+  "StudioCheckout": {
+    "titlePrefix": "Ihre ",
+    "titleHighlight": "Zusammenfassung",
+    "subtitle": "Prüfen Sie Ihre Bestellung vor der Zahlung.",
+    "offer": "Paket",
+    "animation": "Animation",
+    "theme": "Thema",
+    "modulesLabel": "Module",
+    "languagesLabel": "Zusätzliche Sprachen",
+    "extrasLabel": "Extras",
+    "adultsOnly": "Adults Only",
+    "contact": "Kontakt",
+    "none": "Keine",
+    "edit": "Bearbeiten",
+    "total": "Gesamt",
+    "payButton": "{amount}€ bezahlen",
+    "processing": "Wird verarbeitet…",
+    "acceptTerms": "Ich akzeptiere die",
+    "cgv": "AGB",
+    "and": "und die",
+    "privacy": "Datenschutzerklärung",
+    "paymentError": "Ein Fehler ist aufgetreten.",
+    "loadingPayment": "Zahlung wird initialisiert…",
+    "paymentSuccessTitle": "Zahlung bestätigt!",
+    "paymentSuccessBody": "Wir erstellen Ihren Bereich. Sie werden automatisch weitergeleitet.",
+    "creatingAccount": "Ihr Bereich wird erstellt…",
+    "magicLinkNote": "Sie erhalten einen Anmeldelink per E-Mail — kein Passwort nötig."
   }
 }

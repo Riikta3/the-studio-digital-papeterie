@@ -1,5 +1,6 @@
 "use server";
 
+import { findUserByEmail } from "@/lib/find-user-by-email";
 import { supabaseAdmin } from "@/lib/supabase-admin";
 import { APP_MODULES } from "@shared/data/modules";
 
@@ -27,25 +28,14 @@ export async function createWedding(data: CreateWeddingData) {
   let userId: string;
 
   // 1. CHERCHER OU CRÉER L'UTILISATEUR (Multi-tenant)
-  // listUsers() is paginated (50 per page by default): scanning only the first
-  // page would miss existing accounts and create duplicates after payment.
-  const targetEmail = data.email.trim().toLowerCase();
   let existingUser: { id: string } | undefined;
-
-  for (let page = 1; page <= 100; page++) {
-    const { data: searchData, error: searchError } =
-      await supabaseAdmin.auth.admin.listUsers({ page, perPage: 1000 });
-
-    if (searchError) {
-      return {
-        success: false,
-        error: "Impossible de vérifier l'existence du compte.",
-      };
-    }
-
-    const users = searchData?.users ?? [];
-    existingUser = users.find((u) => u.email?.toLowerCase() === targetEmail);
-    if (existingUser || users.length === 0) break;
+  try {
+    existingUser = await findUserByEmail(data.email);
+  } catch {
+    return {
+      success: false,
+      error: "Impossible de vérifier l'existence du compte.",
+    };
   }
 
   if (existingUser) {

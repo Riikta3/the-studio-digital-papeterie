@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 
-import { supabaseAdmin } from "@/lib/supabase-admin";
+import { findUserByEmail } from "@/lib/find-user-by-email";
 
 export async function POST(req: Request) {
   try {
@@ -10,18 +10,16 @@ export async function POST(req: Request) {
       return NextResponse.json({ error: "Email is required" }, { status: 400 });
     }
 
-    const { data: searchData, error: searchError } =
-      await supabaseAdmin.auth.admin.listUsers();
-
-    if (searchError) {
+    let isEmailTaken = false;
+    try {
+      isEmailTaken = !!(await findUserByEmail(email));
+    } catch (searchError) {
       console.error("[CHECK_EMAIL_AUTH_LOOKUP]", searchError);
       return NextResponse.json(
         { error: "Service indisponible" },
         { status: 500 },
       );
     }
-
-    const isEmailTaken = searchData?.users.some((u) => u.email === email);
 
     if (isEmailTaken) {
       return NextResponse.json(

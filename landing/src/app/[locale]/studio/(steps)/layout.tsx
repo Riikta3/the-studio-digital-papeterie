@@ -155,8 +155,14 @@ export default function StudioStepsLayout({
       <main className="relative z-10 mx-auto w-full max-w-4xl flex-1 px-5 pb-16 pt-8">
         {children}
 
-        {/* Navigation, in the flow like the /start CTA */}
-        <div className="mt-10 flex flex-col-reverse items-center gap-3 sm:flex-row sm:justify-center">
+        {/* Navigation, in the flow like the /start CTA.
+            Checkout drives its own flow through the Stripe pay button. */}
+        <div
+          className={cn(
+            "mt-10 flex flex-col-reverse items-center gap-3 sm:flex-row sm:justify-center",
+            isLastStep && "hidden",
+          )}
+        >
           {currentStepIndex > 0 && (
             <Button
               variant="studio-outline"

@@ -560,5 +560,33 @@
     "adultsOnlyTitle": "حفل للبالغين فقط",
     "adultsOnlyDesc": "يشير بلطف إلى أن الأطفال غير مدعوين.",
     "adultsOnlyQuote": "مع حبنا الكبير لأطفالكم، سيكون هذا الحفل احتفالاً للبالغين فقط."
+  },
+  "StudioCheckout": {
+    "titlePrefix": "",
+    "titleHighlight": "ملخصكم",
+    "subtitle": "راجعوا طلبكم قبل الدفع.",
+    "offer": "الباقة",
+    "animation": "الرسوم",
+    "theme": "السمة",
+    "modulesLabel": "الوحدات",
+    "languagesLabel": "لغات إضافية",
+    "extrasLabel": "الإضافات",
+    "adultsOnly": "للبالغين فقط",
+    "contact": "جهة الاتصال",
+    "none": "لا شيء",
+    "edit": "تعديل",
+    "total": "الإجمالي",
+    "payButton": "ادفع {amount}€",
+    "processing": "جارٍ المعالجة…",
+    "acceptTerms": "أوافق على",
+    "cgv": "الشروط العامة للبيع",
+    "and": "و",
+    "privacy": "سياسة الخصوصية",
+    "paymentError": "حدث خطأ.",
+    "loadingPayment": "جارٍ تهيئة الدفع…",
+    "paymentSuccessTitle": "تم تأكيد الدفع!",
+    "paymentSuccessBody": "نقوم بإنشاء مساحتكم. ستتم إعادة توجيهكم تلقائياً.",
+    "creatingAccount": "جارٍ إنشاء مساحتكم…",
+    "magicLinkNote": "ستصلكم رسالة تحتوي على رابط الدخول — دون كلمة مرور."
   }
 }

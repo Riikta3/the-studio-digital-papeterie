@@ -560,5 +560,33 @@
     "adultsOnlyTitle": "大人のみの結婚式",
     "adultsOnlyDesc": "お子様がご招待されていないことを丁寧に伝えます。",
     "adultsOnlyQuote": "お子様を心から愛していますが、この結婚式は大人だけのお祝いとなります。"
+  },
+  "StudioCheckout": {
+    "titlePrefix": "ご注文の",
+    "titleHighlight": "内容",
+    "subtitle": "お支払い前にご注文内容をご確認ください。",
+    "offer": "プラン",
+    "animation": "アニメーション",
+    "theme": "テーマ",
+    "modulesLabel": "モジュール",
+    "languagesLabel": "追加言語",
+    "extrasLabel": "追加オプション",
+    "adultsOnly": "大人のみ",
+    "contact": "連絡先",
+    "none": "なし",
+    "edit": "編集",
+    "total": "合計",
+    "payButton": "{amount}€ を支払う",
+    "processing": "処理中…",
+    "acceptTerms": "以下に同意します：",
+    "cgv": "販売条件",
+    "and": "および",
+    "privacy": "プライバシーポリシー",
+    "paymentError": "エラーが発生しました。",
+    "loadingPayment": "支払いを準備しています…",
+    "paymentSuccessTitle": "お支払いが完了しました！",
+    "paymentSuccessBody": "スペースを作成しています。自動的に移動します。",
+    "creatingAccount": "スペースを作成中…",
+    "magicLinkNote": "ログインリンクをメールでお送りします — パスワードは不要です。"
   }
 }

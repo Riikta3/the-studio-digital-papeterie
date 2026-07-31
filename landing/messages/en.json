@@ -564,5 +564,33 @@
     "adultsOnlyTitle": "Adults Only wedding",
     "adultsOnlyDesc": "Politely indicates that children are not invited.",
     "adultsOnlyQuote": "As much as we love your children, this wedding will be an adults-only celebration."
+  },
+  "StudioCheckout": {
+    "titlePrefix": "Your ",
+    "titleHighlight": "summary",
+    "subtitle": "Check your order before paying.",
+    "offer": "Plan",
+    "animation": "Animation",
+    "theme": "Theme",
+    "modulesLabel": "Modules",
+    "languagesLabel": "Extra languages",
+    "extrasLabel": "Extras",
+    "adultsOnly": "Adults Only",
+    "contact": "Contact",
+    "none": "None",
+    "edit": "Edit",
+    "total": "Total",
+    "payButton": "Pay {amount}€",
+    "processing": "Processing…",
+    "acceptTerms": "I accept the",
+    "cgv": "Terms and Conditions",
+    "and": "and the",
+    "privacy": "privacy policy",
+    "paymentError": "An error occurred.",
+    "loadingPayment": "Initializing payment…",
+    "paymentSuccessTitle": "Payment confirmed!",
+    "paymentSuccessBody": "We are creating your space. You will be redirected automatically.",
+    "creatingAccount": "Creating your space…",
+    "magicLinkNote": "You will receive a sign-in link by email — no password to remember."
   }
 }

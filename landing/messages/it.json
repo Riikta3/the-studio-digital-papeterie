@@ -560,5 +560,33 @@
     "adultsOnlyTitle": "Matrimonio Adults Only",
     "adultsOnlyDesc": "Indica gentilmente che i bambini non sono invitati.",
     "adultsOnlyQuote": "Per quanto adoriamo i vostri bambini, questo matrimonio sarà una celebrazione per soli adulti."
+  },
+  "StudioCheckout": {
+    "titlePrefix": "Il vostro ",
+    "titleHighlight": "riepilogo",
+    "subtitle": "Verificate l'ordine prima del pagamento.",
+    "offer": "Piano",
+    "animation": "Animazione",
+    "theme": "Tema",
+    "modulesLabel": "Moduli",
+    "languagesLabel": "Lingue aggiuntive",
+    "extrasLabel": "Extra",
+    "adultsOnly": "Solo adulti",
+    "contact": "Contatto",
+    "none": "Nessuno",
+    "edit": "Modifica",
+    "total": "Totale",
+    "payButton": "Paga {amount}€",
+    "processing": "Elaborazione…",
+    "acceptTerms": "Accetto le",
+    "cgv": "Condizioni Generali di Vendita",
+    "and": "e la",
+    "privacy": "informativa sulla privacy",
+    "paymentError": "Si è verificato un errore.",
+    "loadingPayment": "Inizializzazione del pagamento…",
+    "paymentSuccessTitle": "Pagamento confermato!",
+    "paymentSuccessBody": "Stiamo creando il vostro spazio. Verrete reindirizzati automaticamente.",
+    "creatingAccount": "Creazione del vostro spazio…",
+    "magicLinkNote": "Riceverete un link di accesso via email — nessuna password da ricordare."
   }
 }
