@@ -506,5 +506,59 @@
     ],
     "menuAriaLabel": "Abrir menu",
     "privacyHint": "Os teus dados nunca são vendidos."
+  },
+  "StudioLayout": {
+    "back": "Voltar",
+    "continue": "Continuar",
+    "finish": "Finalizar",
+    "stepOf": "Passo {current} de {total}",
+    "menuAriaLabel": "Abrir menu"
+  },
+  "StudioAnimation": {
+    "titlePrefix": "Animação de ",
+    "titleHighlight": "abertura",
+    "subtitle": "A primeira coisa que os seus convidados verão.",
+    "viewDemo": "Ver demo",
+    "comingSoon": "Em breve",
+    "categories": {
+      "envelope": "Envelope",
+      "door": "Porta",
+      "curtain": "Cortina",
+      "book": "Livro",
+      "floral": "Floral"
+    }
+  },
+  "StudioTheme": {
+    "titlePrefix": "O ambiente do vosso ",
+    "titleHighlight": "Casamento",
+    "subtitle": "Pré-visualize em ecrã inteiro antes de escolher.",
+    "viewDemo": "Ver demo",
+    "selected": "Selecionado",
+    "choose": "Escolher este tema"
+  },
+  "StudioModules": {
+    "titlePrefix": "As vossas ",
+    "titleHighlight": "funcionalidades",
+    "subtitlePremium": "Todos os módulos estão incluídos no vosso plano.",
+    "subtitleEssential": "Escolham pelo menos 4 módulos. +5€ por módulo adicional.",
+    "noneSelected": "Nenhum módulo selecionado",
+    "selectAtLeast": "Selecionem pelo menos 4 módulos",
+    "minCount": "{count} / 4 módulos mínimo",
+    "countSelected": "{count} selecionado(s)",
+    "included": "incluído"
+  },
+  "StudioOptions": {
+    "titlePrefix": "Opções ",
+    "titleHighlight": "e extras",
+    "subtitle": "Tudo é opcional — personalizem a vosso gosto.",
+    "primaryLanguage": "Idioma principal",
+    "primaryIncluded": "Idioma principal · incluído",
+    "extraLanguages": "Idiomas adicionais — {price}€ cada",
+    "languagesTotal": "{count} idioma(s) adicional(is)",
+    "premiumOptions": "Opções premium",
+    "preferences": "Preferências",
+    "adultsOnlyTitle": "Casamento só para adultos",
+    "adultsOnlyDesc": "Indica educadamente que as crianças não estão convidadas.",
+    "adultsOnlyQuote": "Por mais que adoremos os vossos filhos, este casamento será uma celebração só para adultos."
   }
 }

@@ -506,5 +506,59 @@
     ],
     "menuAriaLabel": "افتح القائمة",
     "privacyHint": "بياناتكما لا تُباع أبدًا."
+  },
+  "StudioLayout": {
+    "back": "رجوع",
+    "continue": "متابعة",
+    "finish": "إنهاء",
+    "stepOf": "الخطوة {current} من {total}",
+    "menuAriaLabel": "فتح القائمة"
+  },
+  "StudioAnimation": {
+    "titlePrefix": "رسوم ",
+    "titleHighlight": "الافتتاح",
+    "subtitle": "أول ما سيراه ضيوفك.",
+    "viewDemo": "عرض توضيحي",
+    "comingSoon": "قريباً",
+    "categories": {
+      "envelope": "مظروف",
+      "door": "باب",
+      "curtain": "ستارة",
+      "book": "كتاب",
+      "floral": "زهور"
+    }
+  },
+  "StudioTheme": {
+    "titlePrefix": "أجواء ",
+    "titleHighlight": "زفافكم",
+    "subtitle": "اعرض بملء الشاشة قبل الاختيار.",
+    "viewDemo": "عرض توضيحي",
+    "selected": "محدد",
+    "choose": "اختر هذه السمة"
+  },
+  "StudioModules": {
+    "titlePrefix": "",
+    "titleHighlight": "ميزاتكم",
+    "subtitlePremium": "جميع الوحدات مشمولة في باقتكم.",
+    "subtitleEssential": "اختاروا 4 وحدات على الأقل. +5€ لكل وحدة إضافية.",
+    "noneSelected": "لم يتم تحديد أي وحدة",
+    "selectAtLeast": "اختاروا 4 وحدات على الأقل",
+    "minCount": "{count} / 4 وحدات كحد أدنى",
+    "countSelected": "{count} محدد",
+    "included": "مشمول"
+  },
+  "StudioOptions": {
+    "titlePrefix": "الخيارات ",
+    "titleHighlight": "والإضافات",
+    "subtitle": "كل شيء اختياري — خصصوا حسب رغبتكم.",
+    "primaryLanguage": "اللغة الرئيسية",
+    "primaryIncluded": "اللغة الرئيسية · مشمولة",
+    "extraLanguages": "لغات إضافية — {price}€ لكل منها",
+    "languagesTotal": "{count} لغة إضافية",
+    "premiumOptions": "خيارات مميزة",
+    "preferences": "التفضيلات",
+    "adultsOnlyTitle": "حفل للبالغين فقط",
+    "adultsOnlyDesc": "يشير بلطف إلى أن الأطفال غير مدعوين.",
+    "adultsOnlyQuote": "مع حبنا الكبير لأطفالكم، سيكون هذا الحفل احتفالاً للبالغين فقط."
   }
 }

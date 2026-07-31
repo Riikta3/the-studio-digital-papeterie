@@ -209,6 +209,12 @@ html::-webkit-scrollbar-thumb:hover {
   /* 1px inner border with a top-to-bottom gradient stroke
      (#584984 at 12% → #FFFFFF), per the studio card spec.
      Painted as a masked overlay so it sits inside the radius. */
+  /* Establishes the containing block for the ::before stroke below, so the
+     border can never escape and frame an ancestor instead. */
+  .studio-card-border {
+    position: relative;
+  }
+
   .studio-card-border::before {
     content: "";
     position: absolute;

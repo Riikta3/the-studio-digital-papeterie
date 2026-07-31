@@ -510,5 +510,59 @@
     ],
     "menuAriaLabel": "Open menu",
     "privacyHint": "Your data is never sold."
+  },
+  "StudioLayout": {
+    "back": "Back",
+    "continue": "Continue",
+    "finish": "Finish",
+    "stepOf": "Step {current} of {total}",
+    "menuAriaLabel": "Open menu"
+  },
+  "StudioAnimation": {
+    "titlePrefix": "Opening ",
+    "titleHighlight": "animation",
+    "subtitle": "The first thing your guests will see.",
+    "viewDemo": "View demo",
+    "comingSoon": "Coming soon",
+    "categories": {
+      "envelope": "Envelope",
+      "door": "Door",
+      "curtain": "Curtain",
+      "book": "Book",
+      "floral": "Floral"
+    }
+  },
+  "StudioTheme": {
+    "titlePrefix": "The mood of your ",
+    "titleHighlight": "Wedding",
+    "subtitle": "Preview in full screen before choosing.",
+    "viewDemo": "View demo",
+    "selected": "Selected",
+    "choose": "Choose this theme"
+  },
+  "StudioModules": {
+    "titlePrefix": "Your ",
+    "titleHighlight": "features",
+    "subtitlePremium": "All modules are included in your plan.",
+    "subtitleEssential": "Choose at least 4 modules. +5€ per extra module.",
+    "noneSelected": "No module selected",
+    "selectAtLeast": "Select at least 4 modules",
+    "minCount": "{count} / 4 modules minimum",
+    "countSelected": "{count} selected",
+    "included": "included"
+  },
+  "StudioOptions": {
+    "titlePrefix": "Options ",
+    "titleHighlight": "& extras",
+    "subtitle": "Everything is optional — customize as you wish.",
+    "primaryLanguage": "Main language",
+    "primaryIncluded": "Main language · included",
+    "extraLanguages": "Extra languages — {price}€ each",
+    "languagesTotal": "{count} extra language(s)",
+    "premiumOptions": "Premium options",
+    "preferences": "Preferences",
+    "adultsOnlyTitle": "Adults Only wedding",
+    "adultsOnlyDesc": "Politely indicates that children are not invited.",
+    "adultsOnlyQuote": "As much as we love your children, this wedding will be an adults-only celebration."
   }
 }

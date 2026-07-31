@@ -507,5 +507,59 @@
     ],
     "menuAriaLabel": "Abrir menú",
     "privacyHint": "Tus datos nunca se venden."
+  },
+  "StudioLayout": {
+    "back": "Volver",
+    "continue": "Continuar",
+    "finish": "Finalizar",
+    "stepOf": "Paso {current} de {total}",
+    "menuAriaLabel": "Abrir menú"
+  },
+  "StudioAnimation": {
+    "titlePrefix": "Animación de ",
+    "titleHighlight": "apertura",
+    "subtitle": "Lo primero que verán tus invitados.",
+    "viewDemo": "Ver demo",
+    "comingSoon": "Próximamente",
+    "categories": {
+      "envelope": "Sobre",
+      "door": "Puerta",
+      "curtain": "Cortina",
+      "book": "Libro",
+      "floral": "Floral"
+    }
+  },
+  "StudioTheme": {
+    "titlePrefix": "El ambiente de vuestra ",
+    "titleHighlight": "Boda",
+    "subtitle": "Previsualiza en pantalla completa antes de elegir.",
+    "viewDemo": "Ver demo",
+    "selected": "Seleccionado",
+    "choose": "Elegir este tema"
+  },
+  "StudioModules": {
+    "titlePrefix": "Vuestras ",
+    "titleHighlight": "funcionalidades",
+    "subtitlePremium": "Todos los módulos están incluidos en vuestro plan.",
+    "subtitleEssential": "Elegid al menos 4 módulos. +5€ por módulo adicional.",
+    "noneSelected": "Ningún módulo seleccionado",
+    "selectAtLeast": "Seleccionad al menos 4 módulos",
+    "minCount": "{count} / 4 módulos mínimo",
+    "countSelected": "{count} seleccionado(s)",
+    "included": "incluido"
+  },
+  "StudioOptions": {
+    "titlePrefix": "Opciones ",
+    "titleHighlight": "y extras",
+    "subtitle": "Todo es opcional — personalizad a vuestro gusto.",
+    "primaryLanguage": "Idioma principal",
+    "primaryIncluded": "Idioma principal · incluido",
+    "extraLanguages": "Idiomas adicionales — {price}€ cada uno",
+    "languagesTotal": "{count} idioma(s) adicional(es)",
+    "premiumOptions": "Opciones premium",
+    "preferences": "Preferencias",
+    "adultsOnlyTitle": "Boda solo adultos",
+    "adultsOnlyDesc": "Indica amablemente que los niños no están invitados.",
+    "adultsOnlyQuote": "Aunque adoramos a vuestros hijos, esta boda será una celebración solo para adultos."
   }
 }

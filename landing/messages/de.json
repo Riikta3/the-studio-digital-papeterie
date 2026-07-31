@@ -507,5 +507,59 @@
     ],
     "menuAriaLabel": "Menü öffnen",
     "privacyHint": "Eure Daten werden niemals weiterverkauft."
+  },
+  "StudioLayout": {
+    "back": "Zurück",
+    "continue": "Weiter",
+    "finish": "Abschließen",
+    "stepOf": "Schritt {current} von {total}",
+    "menuAriaLabel": "Menü öffnen"
+  },
+  "StudioAnimation": {
+    "titlePrefix": "Eröffnungs",
+    "titleHighlight": "animation",
+    "subtitle": "Das Erste, was Ihre Gäste sehen werden.",
+    "viewDemo": "Demo ansehen",
+    "comingSoon": "Demnächst",
+    "categories": {
+      "envelope": "Umschlag",
+      "door": "Tür",
+      "curtain": "Vorhang",
+      "book": "Buch",
+      "floral": "Blumen"
+    }
+  },
+  "StudioTheme": {
+    "titlePrefix": "Die Stimmung Ihrer ",
+    "titleHighlight": "Hochzeit",
+    "subtitle": "Vorschau im Vollbild vor der Auswahl.",
+    "viewDemo": "Demo ansehen",
+    "selected": "Ausgewählt",
+    "choose": "Dieses Thema wählen"
+  },
+  "StudioModules": {
+    "titlePrefix": "Ihre ",
+    "titleHighlight": "Funktionen",
+    "subtitlePremium": "Alle Module sind in Ihrem Paket enthalten.",
+    "subtitleEssential": "Wählen Sie mindestens 4 Module. +5€ pro zusätzlichem Modul.",
+    "noneSelected": "Kein Modul ausgewählt",
+    "selectAtLeast": "Wählen Sie mindestens 4 Module",
+    "minCount": "{count} / 4 Module Minimum",
+    "countSelected": "{count} ausgewählt",
+    "included": "inbegriffen"
+  },
+  "StudioOptions": {
+    "titlePrefix": "Optionen ",
+    "titleHighlight": "& Extras",
+    "subtitle": "Alles ist optional — passen Sie es nach Wunsch an.",
+    "primaryLanguage": "Hauptsprache",
+    "primaryIncluded": "Hauptsprache · inbegriffen",
+    "extraLanguages": "Zusätzliche Sprachen — je {price}€",
+    "languagesTotal": "{count} zusätzliche Sprache(n)",
+    "premiumOptions": "Premium-Optionen",
+    "preferences": "Einstellungen",
+    "adultsOnlyTitle": "Adults-Only-Hochzeit",
+    "adultsOnlyDesc": "Weist höflich darauf hin, dass Kinder nicht eingeladen sind.",
+    "adultsOnlyQuote": "So sehr wir Ihre Kinder lieben, diese Hochzeit ist eine Feier nur für Erwachsene."
   }
 }

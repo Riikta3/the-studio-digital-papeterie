@@ -463,5 +463,59 @@
     ],
     "menuAriaLabel": "Ouvrir le menu",
     "privacyHint": "Vos données ne sont jamais revendues."
+  },
+  "StudioLayout": {
+    "back": "Retour",
+    "continue": "Continuer",
+    "finish": "Finaliser",
+    "stepOf": "Étape {current} sur {total}",
+    "menuAriaLabel": "Ouvrir le menu"
+  },
+  "StudioAnimation": {
+    "titlePrefix": "Animation d'",
+    "titleHighlight": "ouverture",
+    "subtitle": "La première chose que verront vos invités.",
+    "viewDemo": "Voir la démo",
+    "comingSoon": "Bientôt disponible",
+    "categories": {
+      "envelope": "Enveloppe",
+      "door": "Porte",
+      "curtain": "Rideau",
+      "book": "Livre",
+      "floral": "Floral"
+    }
+  },
+  "StudioTheme": {
+    "titlePrefix": "L'ambiance de votre ",
+    "titleHighlight": "Mariage",
+    "subtitle": "Prévisualisez en plein écran avant de choisir.",
+    "viewDemo": "Voir la démo",
+    "selected": "Sélectionné",
+    "choose": "Choisir ce thème"
+  },
+  "StudioModules": {
+    "titlePrefix": "Vos ",
+    "titleHighlight": "fonctionnalités",
+    "subtitlePremium": "Tous les modules sont inclus dans votre offre.",
+    "subtitleEssential": "Choisissez au minimum 4 modules. +5€ par module supplémentaire.",
+    "noneSelected": "Aucun module sélectionné",
+    "selectAtLeast": "Sélectionnez au moins 4 modules",
+    "minCount": "{count} / 4 modules minimum",
+    "countSelected": "{count} sélectionné(s)",
+    "included": "inclus"
+  },
+  "StudioOptions": {
+    "titlePrefix": "Options ",
+    "titleHighlight": "& extras",
+    "subtitle": "Tout est facultatif — personnalisez selon vos envies.",
+    "primaryLanguage": "Langue principale",
+    "primaryIncluded": "Langue principale · incluse",
+    "extraLanguages": "Langues supplémentaires — {price}€ chacune",
+    "languagesTotal": "{count} langue(s) supplémentaire(s)",
+    "premiumOptions": "Options premium",
+    "preferences": "Préférences",
+    "adultsOnlyTitle": "Mariage Adults Only",
+    "adultsOnlyDesc": "Indique poliment que les enfants ne sont pas conviés.",
+    "adultsOnlyQuote": "Bien que nous adorions vos enfants, ce mariage sera une célébration entre adultes uniquement."
   }
 }

@@ -506,5 +506,59 @@
     ],
     "menuAriaLabel": "打开菜单",
     "privacyHint": "您的数据绝不会被转售。"
+  },
+  "StudioLayout": {
+    "back": "返回",
+    "continue": "继续",
+    "finish": "完成",
+    "stepOf": "第 {current} 步，共 {total} 步",
+    "menuAriaLabel": "打开菜单"
+  },
+  "StudioAnimation": {
+    "titlePrefix": "开场",
+    "titleHighlight": "动画",
+    "subtitle": "这是您的宾客最先看到的内容。",
+    "viewDemo": "查看演示",
+    "comingSoon": "即将推出",
+    "categories": {
+      "envelope": "信封",
+      "door": "门",
+      "curtain": "帷幕",
+      "book": "书",
+      "floral": "花卉"
+    }
+  },
+  "StudioTheme": {
+    "titlePrefix": "您婚礼的",
+    "titleHighlight": "氛围",
+    "subtitle": "选择前可全屏预览。",
+    "viewDemo": "查看演示",
+    "selected": "已选择",
+    "choose": "选择此主题"
+  },
+  "StudioModules": {
+    "titlePrefix": "您的",
+    "titleHighlight": "功能",
+    "subtitlePremium": "您的套餐包含所有模块。",
+    "subtitleEssential": "请至少选择 4 个模块。每增加一个模块 +5€。",
+    "noneSelected": "未选择模块",
+    "selectAtLeast": "请至少选择 4 个模块",
+    "minCount": "{count} / 至少 4 个模块",
+    "countSelected": "已选 {count} 个",
+    "included": "已包含"
+  },
+  "StudioOptions": {
+    "titlePrefix": "选项",
+    "titleHighlight": "与附加",
+    "subtitle": "全部为可选 — 按您的喜好定制。",
+    "primaryLanguage": "主要语言",
+    "primaryIncluded": "主要语言 · 已包含",
+    "extraLanguages": "附加语言 — 每种 {price}€",
+    "languagesTotal": "{count} 种附加语言",
+    "premiumOptions": "高级选项",
+    "preferences": "偏好设置",
+    "adultsOnlyTitle": "仅限成人婚礼",
+    "adultsOnlyDesc": "礼貌地说明未邀请儿童。",
+    "adultsOnlyQuote": "尽管我们很喜爱您的孩子，但这场婚礼将是仅限成人的庆典。"
   }
 }

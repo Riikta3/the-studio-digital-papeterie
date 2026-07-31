@@ -1,6 +1,8 @@
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
 
+import { computeOrderTotal } from "@/lib/pricing";
+
 export type PlanType = "experience" | "premium" | null;
 
 export interface WeddingInfo {
@@ -41,14 +43,9 @@ export interface OrderState {
   resetStore: () => void;
 }
 
-export const EXTRA_PRICES: Record<string, number> = {
-  "custom-music": 10,
-  "custom-illustration": 45,
-  "animated-video": 55,
-  "custom-domain": 65,
-};
-
-export const LANGUAGE_PRICE = 15;
+// Prices live in lib/pricing.ts so the server can charge exactly what the
+// client displays. Re-exported here to keep existing imports working.
+export { EXTRA_PRICES, LANGUAGE_PRICE } from "@/lib/pricing";
 
 const DEFAULT_WEDDING_INFO: WeddingInfo = {
   partner1: "",
@@ -127,21 +124,10 @@ export const useOrderStore = create<OrderState>()(
   ),
 );
 
-export const selectTotalPrice = (state: OrderState) => {
-  const basePrice =
-    state.plan === "experience" ? 175 : state.plan === "premium" ? 575 : 0;
-
-  const moduleSurcharge =
-    state.plan === "experience"
-      ? Math.max(0, state.modules.length - 4) * 5
-      : 0;
-
-  const languagesTotal = state.languages.length * LANGUAGE_PRICE;
-
-  const extrasTotal = state.extras.reduce(
-    (sum, extra) => sum + (EXTRA_PRICES[extra] ?? 0),
-    0,
-  );
-
-  return basePrice + moduleSurcharge + languagesTotal + extrasTotal;
-};
+export const selectTotalPrice = (state: OrderState) =>
+  computeOrderTotal({
+    plan: state.plan,
+    modules: state.modules,
+    languages: state.languages,
+    extras: state.extras,
+  }) ?? 0;

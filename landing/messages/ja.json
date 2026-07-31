@@ -506,5 +506,59 @@
     ],
     "menuAriaLabel": "メニューを開く",
     "privacyHint": "お客様のデータは第三者に販売されません。"
+  },
+  "StudioLayout": {
+    "back": "戻る",
+    "continue": "続ける",
+    "finish": "完了",
+    "stepOf": "ステップ {current}/{total}",
+    "menuAriaLabel": "メニューを開く"
+  },
+  "StudioAnimation": {
+    "titlePrefix": "オープニング",
+    "titleHighlight": "アニメーション",
+    "subtitle": "ゲストが最初に目にするものです。",
+    "viewDemo": "デモを見る",
+    "comingSoon": "近日公開",
+    "categories": {
+      "envelope": "封筒",
+      "door": "扉",
+      "curtain": "カーテン",
+      "book": "本",
+      "floral": "フローラル"
+    }
+  },
+  "StudioTheme": {
+    "titlePrefix": "結婚式の",
+    "titleHighlight": "雰囲気",
+    "subtitle": "選ぶ前に全画面でプレビューできます。",
+    "viewDemo": "デモを見る",
+    "selected": "選択済み",
+    "choose": "このテーマを選ぶ"
+  },
+  "StudioModules": {
+    "titlePrefix": "あなたの",
+    "titleHighlight": "機能",
+    "subtitlePremium": "すべてのモジュールがプランに含まれています。",
+    "subtitleEssential": "4つ以上のモジュールをお選びください。追加1つにつき +5€。",
+    "noneSelected": "モジュールが選択されていません",
+    "selectAtLeast": "4つ以上のモジュールを選択してください",
+    "minCount": "{count} / 最低4モジュール",
+    "countSelected": "{count} 件選択",
+    "included": "込み"
+  },
+  "StudioOptions": {
+    "titlePrefix": "オプション",
+    "titleHighlight": "と追加",
+    "subtitle": "すべて任意です — お好みに合わせてカスタマイズできます。",
+    "primaryLanguage": "メイン言語",
+    "primaryIncluded": "メイン言語 · 込み",
+    "extraLanguages": "追加言語 — 各 {price}€",
+    "languagesTotal": "追加言語 {count} 件",
+    "premiumOptions": "プレミアムオプション",
+    "preferences": "設定",
+    "adultsOnlyTitle": "大人のみの結婚式",
+    "adultsOnlyDesc": "お子様がご招待されていないことを丁寧に伝えます。",
+    "adultsOnlyQuote": "お子様を心から愛していますが、この結婚式は大人だけのお祝いとなります。"
   }
 }

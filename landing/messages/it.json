@@ -506,5 +506,59 @@
     ],
     "menuAriaLabel": "Apri il menu",
     "privacyHint": "I tuoi dati non vengono mai rivenduti."
+  },
+  "StudioLayout": {
+    "back": "Indietro",
+    "continue": "Continua",
+    "finish": "Completa",
+    "stepOf": "Passo {current} di {total}",
+    "menuAriaLabel": "Apri il menu"
+  },
+  "StudioAnimation": {
+    "titlePrefix": "Animazione di ",
+    "titleHighlight": "apertura",
+    "subtitle": "La prima cosa che vedranno i tuoi ospiti.",
+    "viewDemo": "Vedi demo",
+    "comingSoon": "Prossimamente",
+    "categories": {
+      "envelope": "Busta",
+      "door": "Porta",
+      "curtain": "Tenda",
+      "book": "Libro",
+      "floral": "Floreale"
+    }
+  },
+  "StudioTheme": {
+    "titlePrefix": "L'atmosfera del vostro ",
+    "titleHighlight": "Matrimonio",
+    "subtitle": "Anteprima a schermo intero prima di scegliere.",
+    "viewDemo": "Vedi demo",
+    "selected": "Selezionato",
+    "choose": "Scegli questo tema"
+  },
+  "StudioModules": {
+    "titlePrefix": "Le vostre ",
+    "titleHighlight": "funzionalità",
+    "subtitlePremium": "Tutti i moduli sono inclusi nel vostro piano.",
+    "subtitleEssential": "Scegliete almeno 4 moduli. +5€ per modulo aggiuntivo.",
+    "noneSelected": "Nessun modulo selezionato",
+    "selectAtLeast": "Selezionate almeno 4 moduli",
+    "minCount": "{count} / 4 moduli minimo",
+    "countSelected": "{count} selezionato/i",
+    "included": "incluso"
+  },
+  "StudioOptions": {
+    "titlePrefix": "Opzioni ",
+    "titleHighlight": "ed extra",
+    "subtitle": "Tutto è facoltativo — personalizzate come volete.",
+    "primaryLanguage": "Lingua principale",
+    "primaryIncluded": "Lingua principale · inclusa",
+    "extraLanguages": "Lingue aggiuntive — {price}€ ciascuna",
+    "languagesTotal": "{count} lingua/e aggiuntiva/e",
+    "premiumOptions": "Opzioni premium",
+    "preferences": "Preferenze",
+    "adultsOnlyTitle": "Matrimonio Adults Only",
+    "adultsOnlyDesc": "Indica gentilmente che i bambini non sono invitati.",
+    "adultsOnlyQuote": "Per quanto adoriamo i vostri bambini, questo matrimonio sarà una celebrazione per soli adulti."
   }
 }
