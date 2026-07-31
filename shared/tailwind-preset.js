@@ -43,11 +43,18 @@ module.exports = {
           beige: "#E6DCC6",
           beurre: "#FFF9D6",
           creme: "#FFFDE8",
+          "violet-clair": "#7560B1",
+          "violet-fonce": "#584984",
           "card-bg": "#FAF8FC",
+          "card-selected": "#F2EEF8",
           "card-border-start": "#F1EBF6",
           "card-border-end": "#BFB0CF",
           "card-shadow": "#BFB0CF",
         },
+      },
+      boxShadow: {
+        // "Ombre violette" from the studio card spec: 0 22px 53.9px #BFB0CF @ 24%
+        "studio-card": "0 22px 53.9px 0 rgba(191, 176, 207, 0.24)",
       },
       borderRadius: {
         lg: "var(--radius)",

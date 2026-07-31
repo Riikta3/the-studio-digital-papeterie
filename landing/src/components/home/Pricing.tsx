@@ -48,7 +48,7 @@ export function Pricing() {
           </h2>
         </FadeIn>
 
-        <FadeIn className="mx-auto mt-10 grid max-w-xl grid-cols-2 gap-4 text-left">
+        <FadeIn className="mx-auto mt-16 grid max-w-xl grid-cols-2 gap-4 text-left">
           <div className="flex flex-col rounded-2xl border border-studio-lavande/50 p-5">
             <p className="font-body text-h5 tracking-luxe text-studio-lavande">
               {t("paperLabel")}
