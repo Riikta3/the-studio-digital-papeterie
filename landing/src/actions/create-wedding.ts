@@ -2,9 +2,15 @@
 
 import { findUserByEmail } from "@/lib/find-user-by-email";
 import { supabaseAdmin } from "@/lib/supabase-admin";
+import {
+  markPaymentProvisioned,
+  verifyPaymentForOrder,
+} from "@/lib/verify-payment";
 import { APP_MODULES } from "@shared/data/modules";
 
 interface CreateWeddingData {
+  /** Stripe PaymentIntent proving this order was paid for. */
+  paymentIntentId: string;
   email: string;
   firstName: string;
   lastName: string;
@@ -24,6 +30,33 @@ export async function createWedding(data: CreateWeddingData) {
     email: data.email,
     plan: data.plan,
   });
+
+  // 0. VERIFY PAYMENT — this action is reachable as an HTTP endpoint, so the
+  // order is only provisioned once Stripe confirms it was actually paid.
+  const payment = await verifyPaymentForOrder(data.paymentIntentId, {
+    plan: data.plan,
+    modules: data.modules,
+    languages: data.languages,
+    extras: data.extras,
+  });
+
+  if (!payment.ok) {
+    console.warn("🚫 Provisioning refused:", payment.reason);
+    return { success: false, error: payment.reason };
+  }
+
+  // Replay guard: a page reload after payment must not create a second wedding.
+  if (payment.alreadyProvisionedAs) {
+    console.log("♻️ Payment already provisioned:", payment.alreadyProvisionedAs);
+    const link = await generateLoginLink(data.email);
+    return {
+      success: true,
+      weddingId: payment.alreadyProvisionedAs,
+      email: data.email,
+      loginLink: link,
+      alreadyProvisioned: true,
+    };
+  }
 
   let userId: string;
 
@@ -219,35 +252,46 @@ export async function createWedding(data: CreateWeddingData) {
     userId,
   );
 
-  // 6. Generate Auto-Login Link (Magic Link)
-  const dashboardUrl =
-    process.env.NEXT_PUBLIC_DASHBOARD_URL || "http://localhost:3003";
+  // 6. Tie the payment to this wedding so a replay can't create another one.
+  await markPaymentProvisioned(data.paymentIntentId, weddingId);
 
-  console.log("📍 Dashboard redirect URL:", dashboardUrl);
+  // 7. Generate Auto-Login Link (Magic Link)
+  const loginLink = await generateLoginLink(data.email, finalSlug);
 
-  const { data: linkData, error: linkError } =
-    await supabaseAdmin.auth.admin.generateLink({
-      type: "magiclink",
-      email: data.email,
-      options: {
-        redirectTo: `${dashboardUrl}/auth/confirm?next=${encodeURIComponent(`/fr?first=true${finalSlug ? `&slug=${finalSlug}` : ""}`)}`,
-      },
-    });
-
-  if (linkError) {
-    console.error("Link Generation Error:", linkError);
-  }
-
-  console.log("🔗 action_link:", linkData?.properties?.action_link);
-
-  // Return success with auto-login link
   return {
     success: true,
     userId,
     weddingId,
     email: data.email,
-    loginLink: linkData?.properties?.action_link,
+    loginLink,
   };
+}
+
+/** Builds a passwordless sign-in link into the couple's dashboard. */
+async function generateLoginLink(
+  email: string,
+  slug?: string,
+): Promise<string | undefined> {
+  const dashboardUrl =
+    process.env.NEXT_PUBLIC_DASHBOARD_URL || "http://localhost:3003";
+
+  const next = `/fr?first=true${slug ? `&slug=${slug}` : ""}`;
+
+  const { data: linkData, error: linkError } =
+    await supabaseAdmin.auth.admin.generateLink({
+      type: "magiclink",
+      email,
+      options: {
+        redirectTo: `${dashboardUrl}/auth/confirm?next=${encodeURIComponent(next)}`,
+      },
+    });
+
+  if (linkError) {
+    console.error("Link Generation Error:", linkError);
+    return undefined;
+  }
+
+  return linkData?.properties?.action_link;
 }
 
 function generateWeddingCode(n1: string, n2: string): string {

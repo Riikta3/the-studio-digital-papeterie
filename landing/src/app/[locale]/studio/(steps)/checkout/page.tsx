@@ -173,11 +173,22 @@ export default function StudioCheckoutPage() {
   const isPaymentSuccess = searchParams.get("payment_success") === "true";
 
   const [clientSecret, setClientSecret] = useState<string | null>(null);
+  const [paymentIntentId, setPaymentIntentId] = useState<string | null>(null);
   const [fetchError, setFetchError] = useState<string | null>(null);
   const [isProvisioning, setIsProvisioning] = useState(false);
   const [provisionError, setProvisionError] = useState<string | null>(null);
 
+  // Stripe appends this on redirect-based methods; for inline ones we still
+  // hold the id in state.
+  const intentIdFromUrl = searchParams.get("payment_intent");
+
   const provision = useCallback(async () => {
+    const intentId = intentIdFromUrl ?? paymentIntentId;
+    if (!intentId) {
+      setProvisionError(t("paymentError"));
+      return;
+    }
+
     setIsProvisioning(true);
     setProvisionError(null);
 
@@ -192,6 +203,7 @@ export default function StudioCheckoutPage() {
         : undefined;
 
     const result = await createWedding({
+      paymentIntentId: intentId,
       email: weddingInfo.email,
       firstName,
       lastName,
@@ -214,7 +226,7 @@ export default function StudioCheckoutPage() {
     }
   }, [
     weddingInfo, theme, modules, extras, languages, plan, adultsOnly,
-    animation, t,
+    animation, t, intentIdFromUrl, paymentIntentId,
   ]);
 
   // Provision right away when Stripe redirected back after payment.
@@ -235,12 +247,20 @@ export default function StudioCheckoutPage() {
       body: JSON.stringify({
         items: { plan, modules, languages, extras },
         email: weddingInfo.email,
+        // Reprice the same intent when the cart changed, instead of leaving a
+        // stale amount attached to the mounted PaymentElement.
+        paymentIntentId,
       }),
     })
       .then((res) => res.json())
       .then((data) => {
-        if (data.clientSecret) setClientSecret(data.clientSecret);
-        else setFetchError(data.error ?? t("paymentError"));
+        if (data.clientSecret) {
+          setClientSecret(data.clientSecret);
+          setPaymentIntentId(data.paymentIntentId ?? null);
+          setFetchError(null);
+        } else {
+          setFetchError(data.error ?? t("paymentError"));
+        }
       })
       .catch(() => setFetchError(t("paymentError")));
     // eslint-disable-next-line react-hooks/exhaustive-deps

@@ -1,17 +1,18 @@
 import { NextResponse } from "next/server";
-import Stripe from "stripe";
 
 import { computeOrderTotal } from "@/lib/pricing";
+import { stripe, toCents } from "@/lib/stripe";
 
-// Initialize Stripe with a fallback so `next build` doesn't crash when
-// STRIPE_SECRET_KEY is absent from the build environment.
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY || "sk_test_fallback", {
-  apiVersion: "2024-06-20" as any,
-});
+/** Statuses where an intent can still be repriced instead of recreated. */
+const REUSABLE_STATUSES = new Set([
+  "requires_payment_method",
+  "requires_confirmation",
+  "requires_action",
+]);
 
 export async function POST(req: Request) {
   try {
-    const { items, email } = await req.json();
+    const { items, email, paymentIntentId } = await req.json();
 
     if (!items?.plan) {
       return NextResponse.json(
@@ -29,31 +30,76 @@ export async function POST(req: Request) {
       return NextResponse.json({ clientSecret: null, amount: 0 });
     }
 
+    const amountInCents = toCents(amount);
+
+    // Order summary kept on the intent so a failed provisioning can always be
+    // reconstructed from Stripe alone.
+    const orderMetadata = {
+      plan: String(items.plan),
+      modules: (items.modules ?? []).join(","),
+      languages: (items.languages ?? []).join(","),
+      extras: (items.extras ?? []).join(","),
+      ...(email ? { email: String(email) } : {}),
+    };
+
+    // Reprice the existing intent when the cart changed, so the customer can
+    // never pay an amount captured before they edited their order.
+    if (paymentIntentId) {
+      try {
+        const existing = await stripe.paymentIntents.retrieve(paymentIntentId);
+
+        if (existing.status === "succeeded") {
+          return NextResponse.json(
+            { error: "Cette commande a déjà été réglée." },
+            { status: 409 },
+          );
+        }
+
+        if (REUSABLE_STATUSES.has(existing.status)) {
+          const updated =
+            existing.amount === amountInCents
+              ? existing
+              : await stripe.paymentIntents.update(paymentIntentId, {
+                  amount: amountInCents,
+                  metadata: orderMetadata,
+                });
+
+          return NextResponse.json({
+            clientSecret: updated.client_secret,
+            paymentIntentId: updated.id,
+            amount,
+          });
+        }
+      } catch {
+        // Unknown or unusable intent — fall through and create a fresh one.
+      }
+    }
+
     // Reuse the Stripe customer for this email so repeat orders stay grouped.
     let customerId: string | undefined;
     if (email) {
       const existing = await stripe.customers.list({ email, limit: 1 });
       customerId =
         existing.data[0]?.id ??
-        (await stripe.customers.create({
-          email,
-          metadata: { source: "wedding_checkout" },
-        })).id;
+        (
+          await stripe.customers.create({
+            email,
+            metadata: { source: "wedding_checkout" },
+          })
+        ).id;
     }
 
     const paymentIntent = await stripe.paymentIntents.create({
-      amount: Math.round(amount * 100),
+      amount: amountInCents,
       currency: "eur",
       automatic_payment_methods: { enabled: true },
       ...(customerId ? { customer: customerId } : {}),
-      metadata: {
-        plan: items.plan,
-        ...(email ? { email } : {}),
-      },
+      metadata: orderMetadata,
     });
 
     return NextResponse.json({
       clientSecret: paymentIntent.client_secret,
+      paymentIntentId: paymentIntent.id,
       amount,
     });
   } catch (err: any) {

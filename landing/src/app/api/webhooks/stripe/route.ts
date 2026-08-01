@@ -30,6 +30,28 @@ export async function POST(req: Request) {
     return NextResponse.json({ error: err.message }, { status: 400 });
   }
 
+  // Persist every event before acting on it. The unique constraint on
+  // stripe_event_id makes redeliveries no-ops, and the stored payload keeps a
+  // paid order recoverable if provisioning never completed.
+  const intentForLog = event.data.object as Stripe.PaymentIntent;
+  const { error: logError } = await supabaseAdmin.from("stripe_events").insert({
+    stripe_event_id: event.id,
+    event_type: event.type,
+    payment_intent_id: intentForLog?.id ?? null,
+    customer_email:
+      intentForLog?.metadata?.email ?? intentForLog?.receipt_email ?? null,
+    amount_cents: intentForLog?.amount ?? null,
+    currency: intentForLog?.currency ?? null,
+    status: intentForLog?.status ?? "received",
+    raw_payload: event as unknown as Record<string, unknown>,
+  });
+
+  if (logError?.code === "23505") {
+    // Already processed — Stripe retries deliveries, so acknowledge and stop.
+    console.log(`↩️ Duplicate Stripe event ignored: ${event.id}`);
+    return NextResponse.json({ received: true, duplicate: true });
+  }
+
   try {
     switch (event.type) {
       case "payment_intent.succeeded": {
@@ -53,9 +75,13 @@ export async function POST(req: Request) {
             });
             console.log(`🧾 Billing record inserted for ${email}`);
           } else {
-            // Expected when the webhook lands before the client finishes
-            // provisioning the account via createWedding().
-            console.log(`⚠️ Billing delayed for ${email}: user not provisioned yet.`);
+            // The customer paid but no account exists yet: either provisioning
+            // is still running, or the browser died right after payment.
+            // stripe_events keeps the intent metadata (the full basket), so a
+            // paid order can always be recovered.
+            console.warn(
+              `⚠️ Paid but unprovisioned: ${email} (${paymentIntent.id})`,
+            );
           }
         }
         break;
