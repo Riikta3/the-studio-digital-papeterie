@@ -43,7 +43,9 @@ export function HeroSection({
           width={941}
           height={1672}
           priority
-          className="absolute inset-0 -z-10 h-full w-full object-contain md:hidden"
+          // Toned down: at full strength the emboss competes with the names
+          // instead of sitting behind them.
+          className="absolute inset-0 -z-10 h-full w-full object-contain opacity-[0.55] md:hidden"
         />
         <Image
           src={assets.paperEmbossLandscape}
@@ -51,9 +53,7 @@ export function HeroSection({
           width={1600}
           height={900}
           priority
-          // Toned down: at full strength the landscape relief competes with the
-          // names instead of sitting behind them.
-          className="absolute inset-0 -z-10 hidden h-full w-full object-contain opacity-[0.55] md:block"
+          className="absolute inset-0 -z-10 hidden h-full w-full object-contain md:block"
         />
 
         <Petal
