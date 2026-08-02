@@ -84,15 +84,19 @@ export function HeroSection({
           </p>
 
           <h1 className="flex flex-col items-center gap-[3vh] text-mc-brown">
-            {/* Sized against both axes: `vw` alone overflows a landscape phone,
-                where width is generous but height is not. */}
-            <span className="font-mc-script text-[clamp(56px,min(23vw,17vh),165px)] leading-[0.85]">
+            {/* 120px matches the design system's display/script token at the
+                402px reference frame (30vw ≈ 120.6px there). The 14vh term is
+                a safety floor for short, wide viewports (landscape phones)
+                where vw alone would overflow the frame's height. md/lg then
+                take over with fixed sizes once the layout switches to the
+                landscape frame. */}
+            <span className="font-mc-script text-[clamp(56px,min(30vw,14vh),120px)] leading-[0.85] md:text-[150px] lg:text-[185px]">
               {partner1}
             </span>
             <span className="font-mc-serif text-[22px] italic leading-none md:text-[30px]">
               et
             </span>
-            <span className="font-mc-script text-[clamp(56px,min(23vw,17vh),165px)] leading-[0.85]">
+            <span className="font-mc-script text-[clamp(56px,min(30vw,14vh),120px)] leading-[0.85] md:text-[150px] lg:text-[185px]">
               {partner2}
             </span>
           </h1>
