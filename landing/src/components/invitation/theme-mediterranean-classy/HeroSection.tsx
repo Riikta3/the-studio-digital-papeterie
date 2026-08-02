@@ -78,18 +78,18 @@ export function HeroSection({
           flip
         />
 
-        <div className="relative z-10 flex h-full flex-col items-center justify-center px-8 text-center">
+        <div className="relative z-10 flex h-full flex-col items-center justify-center gap-[3vh] px-8 text-center">
           <p className="font-mc-serif text-[18px] tracking-[0.04em] text-mc-brown md:text-[22px]">
             {intro}
           </p>
 
-          <h1 className="mt-10 flex flex-col items-center text-mc-brown md:mt-14">
+          <h1 className="flex flex-col items-center gap-[3vh] text-mc-brown">
             {/* Sized against both axes: `vw` alone overflows a landscape phone,
                 where width is generous but height is not. */}
             <span className="font-mc-script text-[clamp(56px,min(23vw,17vh),165px)] leading-[0.85]">
               {partner1}
             </span>
-            <span className="my-3 font-mc-serif text-[22px] italic leading-none md:my-5 md:text-[30px]">
+            <span className="font-mc-serif text-[22px] italic leading-none md:text-[30px]">
               et
             </span>
             <span className="font-mc-script text-[clamp(56px,min(23vw,17vh),165px)] leading-[0.85]">
@@ -97,7 +97,7 @@ export function HeroSection({
             </span>
           </h1>
 
-          <p className="mt-12 font-mc-serif text-[18px] tracking-[0.04em] text-mc-brown md:mt-16 md:text-[22px]">
+          <p className="font-mc-serif text-[18px] tracking-[0.04em] text-mc-brown md:text-[22px]">
             {dateLabel}
           </p>
         </div>
