@@ -9,7 +9,7 @@ import {
   Signal,
   Wifi,
 } from "lucide-react";
-import { useTranslations } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
 
@@ -18,11 +18,6 @@ import { Link } from "@/navigation";
 import { FadeIn } from "./FadeIn";
 import { THEMES, type Theme } from "./themes";
 import { ThemeConfigSheet } from "./ThemeConfigSheet";
-
-// Once the demo invitation route exists in this app, point this at it
-// (e.g. "/fr/invitation/demo?demo=true") and the phone screen becomes a
-// real scrollable iframe instead of the static theme image.
-const DEMO_INVITATION_URL: string | null = null;
 
 // iPhone 15 Pro-style proportions: 390×844pt screen, titanium rim and
 // thin black bezel around it. The frame renders at this fixed size and
@@ -36,6 +31,8 @@ const PHONE_H = SCREEN_H + 2 * (RIM + BEZEL);
 
 function PhoneScreen({ theme }: { theme: Theme }) {
   const t = useTranslations("Preview");
+  const locale = useLocale();
+  const demoUrl = `/${locale}/invitation/demo`;
   const screenRef = useRef<HTMLDivElement>(null);
   const iframeRef = useRef<HTMLIFrameElement>(null);
   const [loading, setLoading] = useState(true);
@@ -56,7 +53,6 @@ function PhoneScreen({ theme }: { theme: Theme }) {
   // Forward mouse wheel events into the iframe so the invitation scrolls
   // as if the phone screen were a real touch surface.
   useEffect(() => {
-    if (!DEMO_INVITATION_URL) return;
     const el = screenRef.current;
     if (!el) return;
     const handleWheel = (e: WheelEvent) => {
@@ -96,36 +92,18 @@ function PhoneScreen({ theme }: { theme: Theme }) {
       {/* Home indicator */}
       <div className="pointer-events-none absolute bottom-2 left-1/2 z-20 h-[5px] w-[130px] -translate-x-1/2 rounded-full bg-white/80" />
 
-      {DEMO_INVITATION_URL ? (
-        <>
-          {loading && (
-            <div className="absolute inset-0 z-10 flex items-center justify-center bg-studio-beurre">
-              <div className="h-8 w-8 animate-spin rounded-full border border-studio-violet/30 border-t-studio-violet" />
-            </div>
-          )}
-          <iframe
-            ref={iframeRef}
-            src={DEMO_INVITATION_URL}
-            className="block h-full w-full border-none"
-            title={t("demoIframeTitle", { name: theme.name })}
-            onLoad={() => setLoading(false)}
-          />
-        </>
-      ) : (
-        <>
-          <Image
-            src={theme.image}
-            alt={t("themeAlt", { name: theme.name })}
-            fill
-            sizes="390px"
-            className="object-cover"
-            priority
-          />
-          <span className="absolute bottom-10 left-1/2 z-10 -translate-x-1/2 font-body text-xs uppercase tracking-luxe text-white drop-shadow">
-            {t("scrollHint")}
-          </span>
-        </>
+      {loading && (
+        <div className="absolute inset-0 z-10 flex items-center justify-center bg-studio-beurre">
+          <div className="h-8 w-8 animate-spin rounded-full border border-studio-violet/30 border-t-studio-violet" />
+        </div>
       )}
+      <iframe
+        ref={iframeRef}
+        src={demoUrl}
+        className="block h-full w-full border-none"
+        title={t("demoIframeTitle", { name: theme.name })}
+        onLoad={() => setLoading(false)}
+      />
     </div>
   );
 }
