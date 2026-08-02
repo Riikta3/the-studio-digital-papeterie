@@ -78,7 +78,7 @@ export function HeroSection({
           flip
         />
 
-        <div className="relative z-10 flex h-full flex-col items-center justify-center gap-[3vh] px-8 text-center">
+        <div className="relative z-10 flex h-full flex-col items-center justify-center gap-[6vh] px-8 text-center">
           <p className="font-mc-serif text-[18px] tracking-[0.04em] text-mc-brown md:text-[22px]">
             {intro}
           </p>
