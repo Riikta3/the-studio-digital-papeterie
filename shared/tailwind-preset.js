@@ -51,10 +51,30 @@ module.exports = {
           "card-border-end": "#BFB0CF",
           "card-shadow": "#BFB0CF",
         },
+        // "Mediterranean Classy" invitation theme — see
+        // landing/src/components/invitation/theme-mediterranean-classy/tokens.ts
+        mc: {
+          green: "#1F592A",
+          olive: "#42452A",
+          brown: "#5D4B35",
+          cream: "#F5F2EB",
+          beige: "#EADCCD",
+          // Surfaces sampled off the mock: textured paper (arch cards) and
+          // the plain card body used by FAQ / accommodation tiles.
+          paper: "#EFEAE3",
+          card: "#F8F6F3",
+          sage: "#BABCAB",
+          "warm-gray": "#C7BDB0",
+          border: "#C9B8A8",
+          ink: "#181818",
+        },
       },
       boxShadow: {
         // "Ombre violette" from the studio card spec: 0 22px 53.9px #BFB0CF @ 24%
         "studio-card": "0 22px 53.9px 0 rgba(191, 176, 207, 0.24)",
+        // "Mediterranean Classy" shadows (section 03 of the design system)
+        "mc-card": "0 8px 23.2px 0 rgba(229, 213, 185, 0.33)",
+        "mc-card-dark": "0 8px 23.2px 0 rgba(159, 132, 85, 0.33)",
       },
       borderRadius: {
         lg: "var(--radius)",
@@ -64,6 +84,11 @@ module.exports = {
       fontFamily: {
         heading: ["var(--font-heading)", "serif"],
         body: ["var(--font-body)", "sans-serif"],
+        // "Mediterranean Classy" — loaded by the theme, not the root layout.
+        "mc-script": ["var(--font-mc-script)", "cursive"],
+        "mc-serif": ["var(--font-mc-serif)", "serif"],
+        "mc-numeric": ["var(--font-mc-numeric)", "serif"],
+        "mc-sans": ["var(--font-mc-sans)", "sans-serif"],
       },
       // Type scale from the "Typographie" design-system reference:
       // H1-H3 use font-heading (Libre Caslon Display), H4-H5/p use
@@ -120,12 +145,18 @@ module.exports = {
           "0%": { transform: "translateY(0)" },
           "100%": { transform: "translateY(-50%)" },
         },
+        // Scroll affordance: a slow bob, not a bounce.
+        "scroll-bob": {
+          "0%, 100%": { transform: "translateY(0)" },
+          "50%": { transform: "translateY(6px)" },
+        },
       },
       animation: {
         "fade-in-up": "fade-in-up 0.8s ease-out both",
         "pulse-slow": "pulse-slow 3s ease-in-out infinite",
         shimmer: "shimmer 2.5s linear infinite",
         marquee: "marquee 12s linear infinite",
+        "scroll-bob": "scroll-bob 2.4s ease-in-out infinite",
       },
       backgroundImage: {
         noise:

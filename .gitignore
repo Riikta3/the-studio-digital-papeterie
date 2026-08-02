@@ -67,3 +67,6 @@ skills-lock.json
 # Obsidian
 .obsidian/
 The Studio Papeterie Digital/
+# Figma source exports for the Mediterranean Classy theme (76 MB of SVG-wrapped
+# rasters). Converted to WebP in landing/public/themes/ — keep the sources local.
+/mediterranean-classy/
