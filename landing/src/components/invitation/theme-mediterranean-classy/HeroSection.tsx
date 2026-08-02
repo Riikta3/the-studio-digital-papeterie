@@ -76,12 +76,12 @@ export function HeroSection({
           flip
         />
 
-        <div className="relative z-10 flex h-full flex-col items-center justify-center gap-[6vh] px-8 text-center">
+        <div className="relative z-10 flex h-full flex-col items-center justify-center gap-[6vh] px-8 text-center backdrop-blur-[4px]">
           <p className="font-mc-serif text-[18px] tracking-[0.04em] text-mc-brown md:text-[22px]">
             {intro}
           </p>
 
-          <h1 className="flex flex-col items-center gap-[3vh] text-mc-brown backdrop-blur-[22.9px]">
+          <h1 className="flex flex-col items-center gap-[3vh] text-mc-brown">
             {/* 120px matches the design system's display/script token at the
                 402px reference frame (30vw ≈ 120.6px there). The 14vh term is
                 a safety floor for short, wide viewports (landscape phones)
