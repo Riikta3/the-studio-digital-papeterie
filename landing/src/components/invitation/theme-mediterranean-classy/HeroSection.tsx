@@ -30,15 +30,20 @@ export function HeroSection({
         the cream below carries the scroll cue. `max-h` keeps it from eating a
         short viewport whole.
       */}
-      <div className="relative isolate aspect-[402/672] w-full max-h-[76svh] shrink-0 md:aspect-[16/9]">
-        {/* Portrait and landscape crops of the same embossed paper. */}
+      <div className="relative isolate aspect-[941/1672] max-h-[82svh] w-full shrink-0 md:aspect-[16/9]">
+        {/*
+          `object-contain`, not `cover`: the ornate border is part of the
+          artwork and must never be cropped. The container carries each crop's
+          own aspect ratio (941/1672 portrait, 16/9 landscape) so contain shows
+          the whole sheet edge to edge without letterboxing it.
+        */}
         <Image
           src={assets.paperFramePortrait1}
           alt=""
           width={941}
           height={1672}
           priority
-          className="absolute inset-0 -z-10 h-full w-full object-cover md:hidden"
+          className="absolute inset-0 -z-10 h-full w-full object-contain md:hidden"
         />
         <Image
           src={assets.paperEmbossLandscape}
@@ -46,7 +51,9 @@ export function HeroSection({
           width={1600}
           height={900}
           priority
-          className="absolute inset-0 -z-10 hidden h-full w-full object-cover md:block"
+          // Toned down: at full strength the landscape relief competes with the
+          // names instead of sitting behind them.
+          className="absolute inset-0 -z-10 hidden h-full w-full object-contain opacity-[0.55] md:block"
         />
 
         <Petal
