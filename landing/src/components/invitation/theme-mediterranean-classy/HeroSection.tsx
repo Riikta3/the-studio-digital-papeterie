@@ -20,9 +20,12 @@ export function HeroSection({
 }) {
   return (
     // One block for every breakpoint: full width, full 100vh (`svh` so mobile
-    // toolbars don't push the next section into view), image always
-    // `object-contain` so nothing is ever cropped. Only the source image and
-    // the text/petal sizing change by breakpoint — the structure doesn't.
+    // toolbars don't push the next section into view). `object-cover`: with
+    // `contain`, a viewport whose ratio doesn't match the artwork's leaves a
+    // visible cream gap above/below the card instead of filling the screen —
+    // confirmed against a real device screenshot, so cropping a sliver of the
+    // border is the better trade-off than empty space. Only the source image
+    // and the text/petal sizing change by breakpoint — the structure doesn't.
     <section className="overflow-hidden bg-mc-cream">
       <div className="relative isolate flex min-h-[100svh] w-full flex-col overflow-hidden">
         {/* Portrait crop below md (bordered card, matches the Figma mock),
@@ -33,17 +36,14 @@ export function HeroSection({
           alt=""
           fill
           priority
-          // Centred, not top-anchored: the text below is also centred across
-          // the full section height, so keeping both on the same anchor is
-          // what keeps the names sitting inside the card at any aspect ratio.
-          className="-z-10 object-contain md:hidden"
+          className="-z-10 object-cover md:hidden"
         />
         <Image
           src={assets.paperEmbossLandscape}
           alt=""
           fill
           priority
-          className="-z-10 hidden object-contain md:block"
+          className="-z-10 hidden object-cover md:block"
         />
 
         <Petal
