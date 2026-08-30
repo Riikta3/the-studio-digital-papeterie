@@ -1,22 +1,22 @@
 /**
- * Theme catalogues for the home page.
+ * The invitation themes shown on the home page — the hero fan and the phone
+ * mockup's carousel both read this list.
  *
- * There are two, because the page does two different things with them.
+ * Every entry is a theme that actually ships. `id` matches a folder in
+ * `src/components/invitation/themes/` and that theme's manifest `id`, which is
+ * what builds the demo URL the mockup loads; a mismatch shows an empty iframe,
+ * so keep them in step when a theme is added or renamed. `image` is a real
+ * screenshot of the theme's own demo, generated with `npm run themes:shoot`.
  *
- * `THEMES` — the real, published invitation themes. Each entry has an `id`
- * matching a folder in `src/components/invitation/themes/` and that theme's
- * manifest `id`, which is what builds the demo URL the phone mockup loads. A
- * mismatch shows an empty iframe, so keep them in step when a theme is added
- * or renamed.
+ * The page used to advertise six invented names (Amalfi, Venise, Provence…)
+ * over stock artwork, none of which corresponded to anything a customer could
+ * open. Showing only shipped themes means the fan, the carousel and the mockup
+ * finally agree with each other.
  *
  * This file deliberately does NOT import the theme registry: a manifest holds
  * its theme's `Root` component, and the home page is a client component —
  * importing it here would pull every theme's markup, CSS and fonts into the
  * home bundle for the sake of a name and a thumbnail.
- *
- * `HERO_CARDS` — the decorative fan of cards behind the headline. Pure
- * ornament: no card is clickable and none loads a demo, so these stay as
- * artwork with evocative names rather than being tied to shipped themes.
  */
 
 export const THEMES = [
@@ -24,6 +24,16 @@ export const THEMES = [
     id: "ciao-amore",
     name: "Ciao Amore",
     image: "/themes/ciao-amore/cover.webp",
+  },
+  {
+    id: "blanc-couture",
+    name: "Blanc Couture",
+    image: "/themes/blanc-couture/cover.webp",
+  },
+  {
+    id: "belle-rive",
+    name: "Belle Rive",
+    image: "/themes/belle-rive/cover.webp",
   },
 ] as const;
 
@@ -33,18 +43,3 @@ export type Theme = (typeof THEMES)[number];
 export function themeDemoPath(locale: string, themeId: string): string {
   return `/${locale}/invitation/demo/${themeId}`;
 }
-
-/**
- * Cards for the hero fan. The count matters: `HeroCarousel` centres the fan on
- * `REFERENCE_INDEX`, so the list must stay at least that long.
- */
-export const HERO_CARDS = [
-  { name: "Amalfi", image: "/images/invitation-amalfi.png" },
-  { name: "Venise", image: "/images/invitation-venise.png" },
-  { name: "Provence", image: "/images/invitation-provence.png" },
-  { name: "Toscane", image: "/images/invitation-toscane.png" },
-  { name: "Riviera", image: "/images/invitation-riviera.png" },
-  { name: "Capri", image: "/images/invitation-capri.png" },
-] as const;
-
-export type HeroCard = (typeof HERO_CARDS)[number];

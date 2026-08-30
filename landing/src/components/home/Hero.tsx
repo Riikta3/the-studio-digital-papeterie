@@ -12,7 +12,7 @@ import { Link } from "@/navigation";
 
 import { HeroCarousel } from "./HeroCarousel";
 import { MobileMenu } from "./MobileMenu";
-import { HERO_CARDS } from "./themes";
+import { THEMES } from "./themes";
 import { TextureOverlay } from "./TextureOverlay";
 
 // Continuous word-by-word reveal: each block starts after the previous one's
@@ -44,8 +44,9 @@ export function Hero() {
   const contentRef = useRef<HTMLDivElement>(null);
   const carouselRef = useRef<HTMLDivElement>(null);
   const [violetHeight, setVioletHeight] = useState<number | null>(null);
+  // The fan opens on its middle card; `HeroCarousel` centres on the same index.
   const [activeThemeName, setActiveThemeName] = useState<string>(
-    HERO_CARDS[3].name,
+    THEMES[Math.floor(THEMES.length / 2)]?.name ?? THEMES[0].name,
   );
 
   useEffect(() => {

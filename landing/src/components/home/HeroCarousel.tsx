@@ -6,14 +6,15 @@ import { ArrowLeft, ArrowRight } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { useEffect, useRef, useState } from "react";
 
-import { HERO_CARDS } from "./themes";
+import { THEMES } from "./themes";
 
 const GAP = 10;
 
-const CARD_COUNT = HERO_CARDS.length;
+const CARD_COUNT = THEMES.length;
 
-// The reference card the intro slides to and highlights.
-const REFERENCE_INDEX = 3;
+// The reference card the intro slides to and highlights: the middle of the
+// fan, so it holds however many themes ship.
+const REFERENCE_INDEX = Math.floor(CARD_COUNT / 2);
 
 // How many extra steps to the right the band starts before sliding left.
 const INTRO_OVERSHOOT = 2;
@@ -41,7 +42,7 @@ export function HeroCarousel({
 
   useEffect(() => {
     if (phase !== "idle") return;
-    onActiveThemeChange?.(HERO_CARDS[activeCardId].name);
+    onActiveThemeChange?.(THEMES[activeCardId].name);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [phase, activeCardId]);
 
@@ -161,7 +162,7 @@ export function HeroCarousel({
                 }}
               >
                 <Image
-                  src={HERO_CARDS[cardId].image}
+                  src={THEMES[cardId].image}
                   alt={cardAlts[cardId]?.alt ?? ""}
                   fill
                   sizes="(max-width: 768px) 60vw, 290px"
