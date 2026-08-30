@@ -1,0 +1,454 @@
+/**
+ * Integration and responsive layer for "Blanc Couture".
+ *
+ * `blanc-couture.css` is GENERATED — `npm run themes:scope-css` overwrites it,
+ * so nothing here may be folded back into that file. This one is imported
+ * after it and therefore wins on equal specificity.
+ *
+ * Two jobs:
+ *   1. undo the source's position-keyed selectors, which assume every section
+ *      is present and break as soon as a wedding omits a module;
+ *   2. make the invitation hold together from 320px to 1400px — the source was
+ *      built as a 760px mobile-first column and was never tested wider.
+ *
+ * Every selector stays under `.theme-blanc-couture`.
+ */
+
+/* ── 1. Position-keyed selectors ────────────────────────────────────────── */
+
+/* The source staggered a `.reveal`'s children with `:nth-child(1..4)` +
+   `:nth-child(n+5)` transition delays. `RevealObserver` now writes those
+   delays as inline styles so the ladder restarts correctly inside whichever
+   sections actually rendered; these rules are neutralised so they cannot fight
+   it on the sections where the counts happen to differ. */
+.theme-blanc-couture .reveal.visible > :nth-child(1),
+.theme-blanc-couture .reveal.visible > :nth-child(2),
+.theme-blanc-couture .reveal.visible > :nth-child(3),
+.theme-blanc-couture .reveal.visible > :nth-child(4),
+.theme-blanc-couture .reveal.visible > :nth-child(n + 5) {
+  transition-delay: inherit;
+}
+
+/* Which side the eyebrow slides in from alternated via `.page:nth-of-type(even)`.
+   Hiding one module flipped every section after it, so the alternation is
+   computed in the root and lands on `data-side` instead. */
+.theme-blanc-couture .page[data-side="right"] .reveal > .script,
+.theme-blanc-couture .page[data-side="right"] .reveal > .eyebrow {
+  transform: translateX(22px);
+}
+
+.theme-blanc-couture .page[data-side="left"] .reveal > .script,
+.theme-blanc-couture .page[data-side="left"] .reveal > .eyebrow {
+  transform: translateX(-22px);
+}
+
+/* ── 2. Frame and images ────────────────────────────────────────────────── */
+
+/* The source's `body` painted the white ground behind the 760px column; after
+   scoping, `body` collapsed onto this element, so it has to carry the frame
+   itself. `overflow-x` is the backstop for the two images that deliberately
+   overhang their column. */
+/* Doubled class so this beats the generated sheet's own single-class rule
+   regardless of import order. */
+.theme-blanc-couture.theme-blanc-couture {
+  box-sizing: border-box;
+  /* Full bleed: the invitation fills whatever viewport it is given. The source
+     framed it as a 760px column, which left two empty bands on a desktop
+     screen. Sections stay full width; their *content* is what gets centred,
+     in section 4 below. */
+  width: 100%;
+  max-width: none;
+  margin-inline: 0;
+  overflow-x: hidden;
+}
+
+/* The source shipped no image reset. `.dress-group` is intentionally wider than
+   its column (`width: min(115%, 620px)`) and `.closing-portrait` is sized in
+   vw, so a blanket rule would break both; everything else is clamped. */
+.theme-blanc-couture img:not(.dress-group):not(.closing-portrait) {
+  max-width: 100%;
+  height: auto;
+}
+
+/* ── 3. Narrow phones (320–400px) ───────────────────────────────────────── */
+
+/* `.page` padding bottoms out at 32px and the source's own breakpoint stops at
+   520px, which left the countdown grid and the hotel rows overflowing on a
+   320px screen. */
+@media (max-width: 400px) {
+  .theme-blanc-couture .page {
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+
+  .theme-blanc-couture .venue-paper,
+  .theme-blanc-couture .playlist-paper {
+    padding-left: 30px;
+    padding-right: 30px;
+  }
+
+  .theme-blanc-couture .countdown {
+    gap: 4px;
+  }
+
+  .theme-blanc-couture .countdown div {
+    padding: 12px 2px;
+  }
+
+  .theme-blanc-couture .event {
+    grid-template-columns: 44px 58px 1fr;
+  }
+
+  .theme-blanc-couture .timeline:before {
+    left: 21px;
+  }
+
+  /* Two fixed-width route buttons and two choice pills both exceeded the row. */
+  .theme-blanc-couture .route-links {
+    gap: 12px;
+  }
+
+  .theme-blanc-couture .route-links a {
+    min-width: 0;
+    flex: 1;
+  }
+
+  .theme-blanc-couture .choice-row {
+    flex-wrap: wrap;
+  }
+
+  /* The hotel row is a no-wrap flex; long names collided with the distance. */
+  .theme-blanc-couture .hotel {
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+
+  .theme-blanc-couture .hotel span {
+    width: 100%;
+    text-align: left;
+  }
+}
+
+/* ── 4. Tablet and desktop ──────────────────────────────────────────────── */
+
+/*
+ * The one rule that matters here: a section's BACKGROUND runs edge to edge, and
+ * only its CONTENT is held to a readable measure.
+ *
+ * An earlier pass sized every paper with `background-size: auto 92%`, which
+ * scales the texture to the section's *height* — about 470px wide on a 900px
+ * tall page. The section itself was full width, but the paper stopped long
+ * before the viewport did, so the invitation read as a narrow strip between two
+ * blank bands. That is precisely the "bandes vides sur les côtés" complaint.
+ *
+ * Note the sections are already full-bleed and their `.content` already centred
+ * at 560px by the generated sheet, so nothing structural needs adding — the
+ * defect was purely in how the backgrounds were scaled.
+ */
+@media (min-width: 760px) {
+  .theme-blanc-couture .page {
+    padding-inline: clamp(32px, 8vw, 120px);
+  }
+
+  /* Seamless textures: `cover` so the embossed paper reaches both edges. The
+     source's own default is `cover`; this restates it at this breakpoint to
+     override the `auto 92%` the mobile venue rule would otherwise inherit. */
+  .theme-blanc-couture .hero-paper,
+  .theme-blanc-couture .soft-floral-paper {
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+  }
+
+  /*
+   * The venue and playlist papers are different in kind: their artwork is a
+   * FRAME (an oval wreath, a ruled border) drawn around where the text sits.
+   * Stretching a frame to `cover` slices it off at the viewport edges, so it
+   * has to stay centred and whole — but that leaves its own rectangular edge
+   * showing as a hard seam against the white ground, which reads as exactly the
+   * "séparateur blanc entre les sections" the integration spec rules out.
+   *
+   * So they get two layers: the frame centred and `contain`ed on top, and the
+   * same seamless floral texture the neighbouring sections use `cover`ed
+   * underneath. The ground is then continuous from section to section, and the
+   * frame floats on it instead of sitting on a visible plate.
+   *
+   * `contain` rather than a percentage height: it fits the frame to whichever
+   * axis is tighter, so the wreath stays whole on a short wide viewport where
+   * `auto 92%` would have overflowed it sideways.
+   */
+  .theme-blanc-couture .venue-paper {
+    background-image:
+      linear-gradient(rgba(255, 255, 255, 0.12), rgba(255, 255, 255, 0.12)),
+      url("/themes/blanc-couture/oval-frame-white.webp"),
+      url("/themes/blanc-couture/soft-floral-white.webp");
+    background-size: cover, contain, cover;
+    background-position: center, center, center;
+    background-repeat: no-repeat, no-repeat, no-repeat;
+  }
+
+  .theme-blanc-couture .playlist-paper {
+    background-image:
+      url("/themes/blanc-couture/playlist-frame-sharp.webp"),
+      url("/themes/blanc-couture/soft-floral-white.webp");
+    background-size: contain, cover;
+    background-position: center, center;
+    background-repeat: no-repeat, no-repeat;
+  }
+}
+
+/*
+ * Past roughly 1500px the framed papers stop growing usefully — `contain` is
+ * capped by the page height, so extra width only adds white around a frame that
+ * is already as tall as it can be. Widening the page's own padding pulls the
+ * text back into the frame's centre instead of letting it drift.
+ */
+@media (min-width: 1500px) {
+  .theme-blanc-couture .page {
+    padding-inline: clamp(120px, 12vw, 260px);
+  }
+}
+
+/*
+ * The hotel list stays a single column at every width.
+ *
+ * Two columns were tried and reverted: `.hotel` is a `space-between` flex whose
+ * left side is a hotel name and whose right side is the distance. Halving the
+ * row leaves the name no room — "Grand-Hôtel du Cap-Ferrat" wraps onto two
+ * lines and runs into "À 8 MIN DU LIEU", which itself wraps. The row needs its
+ * width more than the page needs a second column; a little extra measure is the
+ * cheaper cost.
+ */
+@media (min-width: 1100px) {
+  .theme-blanc-couture .hotel-list {
+    max-width: 560px;
+    margin-inline: auto;
+  }
+}
+
+/* On a short, wide viewport `min-height: 100svh` leaves the content cramped
+   against its own padding rather than centred in a comfortable band. */
+@media (min-width: 760px) and (max-height: 720px) {
+  .theme-blanc-couture .page {
+    min-height: 640px;
+  }
+}
+
+/* ── 5. FAQ accordion ───────────────────────────────────────────────────── */
+/*
+ * `FaqSection` renders buttons and panels rather than `<details>`, because a
+ * native disclosure cannot be transitioned — the browser snaps it open. These
+ * rules restate the source's look (hairline rules, Italiana question, the
+ * "＋"/"−" marker) on the new markup, and add the open/close motion.
+ *
+ * Single column at every width. Two columns put the four questions in an order
+ * the eye has to zig-zag through, and left a tall gap beside whichever answer
+ * was open.
+ */
+.theme-blanc-couture .faq {
+  max-width: 560px;
+  margin: 34px auto;
+  text-align: left;
+}
+
+.theme-blanc-couture .bc-faq-item {
+  border-bottom: 1px solid var(--line);
+}
+
+.theme-blanc-couture .bc-faq-trigger {
+  width: 100%;
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+  padding: 17px 2px;
+  background: none;
+  border: 0;
+  text-align: left;
+  font: 17px var(--font-bc-display), Italiana, serif;
+  letter-spacing: 0.04em;
+  color: var(--ink);
+  cursor: pointer;
+  transition: color 0.25s ease;
+}
+
+.theme-blanc-couture .bc-faq-trigger:hover {
+  color: var(--gold-dark);
+}
+
+/* Keyboard focus must stay visible: the trigger is the only control here. */
+.theme-blanc-couture .bc-faq-trigger:focus-visible {
+  outline: 1px solid var(--gold);
+  outline-offset: 2px;
+}
+
+/*
+ * The "+" that becomes a "×". Drawn from two pseudo-elements rather than typed
+ * as the source's "＋"/"−" marker, because a glyph swap cannot be animated —
+ * rotating a drawn cross is the only way to get motion between the two states.
+ */
+.theme-blanc-couture .bc-faq-sign {
+  position: relative;
+  flex: 0 0 auto;
+  align-self: center;
+  width: 11px;
+  height: 11px;
+  transition: transform 0.32s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.theme-blanc-couture .bc-faq-sign::before,
+.theme-blanc-couture .bc-faq-sign::after {
+  content: "";
+  position: absolute;
+  inset: 50% 0 auto;
+  height: 1px;
+  background: var(--gold);
+  transform: translateY(-50%);
+}
+
+.theme-blanc-couture .bc-faq-sign::after {
+  transform: translateY(-50%) rotate(90deg);
+}
+
+.theme-blanc-couture .bc-faq-item[data-open] .bc-faq-sign {
+  transform: rotate(135deg);
+}
+
+/*
+ * The panel animates on `grid-template-rows: 0fr → 1fr`, which is the only way
+ * to transition to a height the content decides without measuring it in JS.
+ */
+.theme-blanc-couture .bc-faq-panel {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 0.36s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.theme-blanc-couture .bc-faq-item[data-open] .bc-faq-panel {
+  grid-template-rows: 1fr;
+}
+
+/* The row collapses to zero height, so the inner element must be allowed to be
+   clipped — without `min-height:0` a grid item refuses to shrink below content. */
+.theme-blanc-couture .bc-faq-panel-inner {
+  overflow: hidden;
+  min-height: 0;
+}
+
+.theme-blanc-couture .bc-faq-panel p {
+  margin: 0;
+  padding: 0 0 18px 23px;
+  font: 13px/1.7 var(--font-bc-sans), Manrope, sans-serif;
+  opacity: 0;
+  transform: translateY(-4px);
+  transition:
+    opacity 0.28s ease 0.06s,
+    transform 0.28s ease 0.06s;
+}
+
+.theme-blanc-couture .bc-faq-item[data-open] .bc-faq-panel p {
+  opacity: 1;
+  transform: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .theme-blanc-couture .bc-faq-panel,
+  .theme-blanc-couture .bc-faq-sign,
+  .theme-blanc-couture .bc-faq-panel p {
+    transition: none;
+  }
+}
+
+/* ── 6. Per-component desktop polish ────────────────────────────────────── */
+
+/*
+ * The FAQ questions are thin gold-brown Italiana over an embossed floral
+ * texture, and at full width they sat directly on the flowers — the strokes and
+ * the relief have the same value, so the text stopped being readable. A veil of
+ * white behind the list restores the contrast without flattening the paper,
+ * which is still visible around it.
+ */
+@media (min-width: 760px) {
+  .theme-blanc-couture .faq-page .faq {
+    position: relative;
+    padding: 6px 30px;
+    background: linear-gradient(rgba(255, 255, 255, 0.82), rgba(255, 255, 255, 0.82));
+  }
+}
+
+/*
+ * Forms keep a human measure. `.page` is full-bleed, and while the generated
+ * sheet caps `form` at 420px, the RSVP selects and the carpool row inherit the
+ * `.content` width on the way there — cap them at the source's own measure and
+ * centre them so a text input never becomes a 900px rule.
+ */
+@media (min-width: 760px) {
+  .theme-blanc-couture form,
+  .theme-blanc-couture .module-form {
+    max-width: 430px;
+    margin-inline: auto;
+  }
+
+  .theme-blanc-couture .success {
+    max-width: 430px;
+    margin-inline: auto;
+  }
+}
+
+/*
+ * Every element with its own background needs an explicit colour: the RSVP
+ * submit is the only filled control in the theme, and inheriting `--ink` on a
+ * near-white ground left it legible but flat against the gold rule around it.
+ */
+.theme-blanc-couture .rsvp-page .button {
+  background: rgba(255, 255, 255, 0.92);
+  color: var(--gold-dark);
+}
+
+.theme-blanc-couture .rsvp-page .button:hover {
+  background: #fff;
+  color: var(--gold-dark);
+}
+
+/* Native selects render their own arrow in the UA colour; the theme's controls
+   are all gold-on-white, and a blue-grey chevron broke that on desktop. */
+.theme-blanc-couture select {
+  color: var(--ink);
+  accent-color: var(--gold);
+}
+
+/*
+ * The timeline is a three-column grid whose rail is drawn at a fixed offset.
+ * It is already capped at 420px by the source, which reads as cramped once the
+ * page is 1700px wide — the icons, the time and the title all crowd together
+ * while the heading above them spans a much wider measure.
+ */
+@media (min-width: 1024px) {
+  .theme-blanc-couture .timeline {
+    max-width: 480px;
+  }
+
+  .theme-blanc-couture .event {
+    min-height: 84px;
+  }
+}
+
+/*
+ * `.closing-portrait` is sized in vw with no ceiling, so on a 1920px screen the
+ * framed photograph grew past the monogram beneath it and unbalanced the page.
+ */
+@media (min-width: 1100px) {
+  .theme-blanc-couture .closing-portrait {
+    width: min(38vw, 360px);
+  }
+}
+
+/* ── 7. Safety net: nothing may push the page sideways ──────────────────── */
+/*
+ * `.dress-group` is deliberately wider than its column (`width: min(115%,620px)`
+ * with a negative translate) for a full-bleed look, and `.closing-portrait` is
+ * sized in vw — both are excluded from the image reset above, so the page's own
+ * `overflow-x: hidden` is what keeps them from widening the document.
+ */
+.theme-blanc-couture .page {
+  overflow-x: hidden;
+}

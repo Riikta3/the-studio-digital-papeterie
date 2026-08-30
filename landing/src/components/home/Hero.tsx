@@ -12,7 +12,7 @@ import { Link } from "@/navigation";
 
 import { HeroCarousel } from "./HeroCarousel";
 import { MobileMenu } from "./MobileMenu";
-import { THEMES } from "./themes";
+import { HERO_CARDS } from "./themes";
 import { TextureOverlay } from "./TextureOverlay";
 
 // Continuous word-by-word reveal: each block starts after the previous one's
@@ -45,7 +45,7 @@ export function Hero() {
   const carouselRef = useRef<HTMLDivElement>(null);
   const [violetHeight, setVioletHeight] = useState<number | null>(null);
   const [activeThemeName, setActiveThemeName] = useState<string>(
-    THEMES[3].name,
+    HERO_CARDS[3].name,
   );
 
   useEffect(() => {

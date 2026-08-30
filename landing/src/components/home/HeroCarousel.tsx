@@ -6,11 +6,11 @@ import { ArrowLeft, ArrowRight } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { useEffect, useRef, useState } from "react";
 
-import { THEMES } from "./themes";
+import { HERO_CARDS } from "./themes";
 
 const GAP = 10;
 
-const CARD_COUNT = THEMES.length;
+const CARD_COUNT = HERO_CARDS.length;
 
 // The reference card the intro slides to and highlights.
 const REFERENCE_INDEX = 3;
@@ -41,7 +41,7 @@ export function HeroCarousel({
 
   useEffect(() => {
     if (phase !== "idle") return;
-    onActiveThemeChange?.(THEMES[activeCardId].name);
+    onActiveThemeChange?.(HERO_CARDS[activeCardId].name);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [phase, activeCardId]);
 
@@ -161,7 +161,7 @@ export function HeroCarousel({
                 }}
               >
                 <Image
-                  src={THEMES[cardId].image}
+                  src={HERO_CARDS[cardId].image}
                   alt={cardAlts[cardId]?.alt ?? ""}
                   fill
                   sizes="(max-width: 768px) 60vw, 290px"

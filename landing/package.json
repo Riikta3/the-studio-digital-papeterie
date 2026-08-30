@@ -7,7 +7,11 @@
     "dev": "next dev --webpack -p 3010",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "themes:sync": "node scripts/sync-themes.mjs",
+    "themes:check": "node scripts/sync-themes.mjs --check",
+    "themes:scope-css": "node scripts/scope-theme-css.mjs",
+    "themes:shoot": "node scripts/shoot-theme.mjs"
   },
   "keywords": [],
   "author": "",

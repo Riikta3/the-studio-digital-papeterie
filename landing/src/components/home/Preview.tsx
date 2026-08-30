@@ -16,7 +16,7 @@ import { useEffect, useRef, useState } from "react";
 import { Link } from "@/navigation";
 
 import { FadeIn } from "./FadeIn";
-import { THEMES, type Theme } from "./themes";
+import { THEMES, type Theme, themeDemoPath } from "./themes";
 import { ThemeConfigSheet } from "./ThemeConfigSheet";
 
 // iPhone 15 Pro-style proportions: 390×844pt screen, titanium rim and
@@ -32,11 +32,19 @@ const PHONE_H = SCREEN_H + 2 * (RIM + BEZEL);
 function PhoneScreen({ theme }: { theme: Theme }) {
   const t = useTranslations("Preview");
   const locale = useLocale();
-  const demoUrl = `/${locale}/invitation/demo`;
+  // Follows the carousel selection: each theme renders its own demo route.
+  const demoUrl = themeDemoPath(locale, theme.id);
   const screenRef = useRef<HTMLDivElement>(null);
   const iframeRef = useRef<HTMLIFrameElement>(null);
   const [loading, setLoading] = useState(true);
   const [time, setTime] = useState("");
+
+  // The iframe remounts when the theme changes (see its `key`), so the spinner
+  // has to come back with it — `loading` lives on this component, which does not
+  // remount.
+  useEffect(() => {
+    setLoading(true);
+  }, [demoUrl]);
 
   // Live clock in the status bar, refreshed every minute.
   useEffect(() => {
@@ -98,6 +106,10 @@ function PhoneScreen({ theme }: { theme: Theme }) {
         </div>
       )}
       <iframe
+        // Remount on theme change: without a key React keeps the same iframe
+        // and swapping `src` would push an entry onto its history instead of
+        // replacing the page.
+        key={demoUrl}
         ref={iframeRef}
         src={demoUrl}
         className="block h-full w-full border-none"
