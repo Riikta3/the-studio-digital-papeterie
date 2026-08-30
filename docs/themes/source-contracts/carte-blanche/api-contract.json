@@ -1,0 +1,36 @@
+{
+  "rsvp": {
+    "method": "POST",
+    "path": "/api/invitations/:invitationId/rsvps",
+    "body": {
+      "guestToken": "signed_guest_token",
+      "fullName": "Camille Martin",
+      "attending": true,
+      "guestCount": 2,
+      "plusOneFullName": "Alex Bernard",
+      "welcomeDinner": true,
+      "brunch": false,
+      "dietaryRequirements": "Sans gluten"
+    }
+  },
+  "ride": {
+    "method": "POST",
+    "path": "/api/invitations/:invitationId/rides",
+    "body": {
+      "guestToken": "signed_guest_token",
+      "type": "offer",
+      "departureCity": "Nice",
+      "travelDate": "2027-04-30",
+      "availableSeats": 2
+    }
+  },
+  "songSuggestion": {
+    "method": "POST",
+    "path": "/api/invitations/:invitationId/song-suggestions",
+    "body": {
+      "guestToken": "signed_guest_token",
+      "title": "Titre du morceau",
+      "artist": "Nom de l’artiste"
+    }
+  }
+}

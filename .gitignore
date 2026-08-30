@@ -70,3 +70,11 @@ The Studio Papeterie Digital/
 # Figma source exports for the Mediterranean Classy theme (76 MB of SVG-wrapped
 # rasters). Converted to WebP in landing/public/themes/ — keep the sources local.
 /mediterranean-classy/
+
+# Theme source projects (ChatGPT deliveries).
+# Ported into landing/src/components/invitation/themes/ — these hold ~141 MB of
+# uncompressed PNG and MP4 whose optimised WebP versions are already committed.
+# Their integration docs are kept in docs/themes/source-contracts/.
+/belle_rive/
+/carte_blanche/
+/ciao_amore/

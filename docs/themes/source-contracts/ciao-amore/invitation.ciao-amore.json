@@ -1,0 +1,44 @@
+{
+  "slug": "ciao-amore-alba-elio",
+  "status": "published",
+  "locale": "fr-FR",
+  "timezone": "Europe/Rome",
+  "couple": {
+    "firstName1": "Alba",
+    "firstName2": "Elio"
+  },
+  "event": {
+    "startsAt": "2027-01-05T17:00:00+01:00",
+    "venueName": "Villa Cimbrone",
+    "city": "Ravello",
+    "country": "Italie",
+    "address": "Via Santa Chiara, 26, 84010 Ravello, Italie"
+  },
+  "hero": {
+    "kicker": "Ciao Amore",
+    "announcement": "Nous nous marions…"
+  },
+  "schedule": [
+    { "day": 1, "time": "17:00", "title": "Cérémonie religieuse", "description": "Quelques mots, beaucoup d’émotion." },
+    { "day": 1, "time": "18:00", "title": "Cocktail", "description": "À votre santé, face à la côte amalfitaine." },
+    { "day": 1, "time": "20:30", "title": "Dîner de mariage", "description": "À table, dans les jardins de la Villa." },
+    { "day": 1, "time": "23:30", "title": "Fête jusqu’au matin", "description": "La notte è giovane." },
+    { "day": 2, "time": "11:00", "title": "Brunch & Pool Party", "description": "Prolongeons les festivités." }
+  ],
+  "rsvp": {
+    "deadline": "2026-06-01",
+    "allowPartner": true,
+    "collectDietaryRestrictions": true,
+    "collectMessage": true
+  },
+  "modules": {
+    "countdown": true,
+    "schedule": true,
+    "dressCode": true,
+    "venue": true,
+    "stays": true,
+    "playlist": true,
+    "faq": true,
+    "rsvp": true
+  }
+}

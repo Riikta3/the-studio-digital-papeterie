@@ -1,0 +1,37 @@
+{
+  "id": "blanc-couture-demo",
+  "theme": "blanc-couture",
+  "couple": {
+    "firstName1": "Victoria",
+    "firstName2": "Gabriel",
+    "monogram": "V&G"
+  },
+  "event": {
+    "date": "2027-04-30T16:30:00+02:00",
+    "rsvpDeadline": "2027-01-30",
+    "venue": "Villa Ephrussi de Rothschild",
+    "city": "Saint-Jean-Cap-Ferrat",
+    "mapsUrl": "https://maps.google.com/?q=Villa+Ephrussi+de+Rothschild",
+    "wazeUrl": "https://www.waze.com/ul?q=Villa%20Ephrussi%20de%20Rothschild"
+  },
+  "programme": [
+    { "time": "16 h 30", "title": "Accueil des invités", "icon": "welcome" },
+    { "time": "17 h", "title": "Cérémonie", "icon": "rings" },
+    { "time": "18 h 30", "title": "Cocktail", "icon": "glasses" },
+    { "time": "20 h 30", "title": "Dîner", "icon": "dinner" },
+    { "time": "23 h", "title": "Soirée dansante", "icon": "music" }
+  ],
+  "hotels": [
+    { "name": "Grand-Hôtel du Cap-Ferrat", "distance": "8 min" },
+    { "name": "Royal-Riviera", "distance": "6 min" },
+    { "name": "La Réserve de Beaulieu", "distance": "9 min" }
+  ],
+  "modules": {
+    "rsvp": true,
+    "plusOne": true,
+    "welcomeDinner": true,
+    "brunch": true,
+    "carpool": true,
+    "playlist": true
+  }
+}
