@@ -41,9 +41,16 @@ await page.addStyleTag({
   content: "nextjs-portal,[data-nextjs-toast]{display:none!important}",
 });
 
-// Let fonts settle and reveal-on-scroll fire.
-await page.evaluate(() => window.scrollTo(0, document.body.scrollHeight));
-await page.waitForTimeout(1200);
+// Walk down the page a viewport at a time so every reveal-on-scroll block
+// crosses the IntersectionObserver threshold. Jumping straight to the bottom
+// skips most of them, and they stay at `opacity: 0` — whole sections then
+// photograph as blank, which looks like a layout bug and is not one.
+const viewportH = page.viewportSize()?.height ?? 900;
+const pageH = await page.evaluate(() => document.body.scrollHeight);
+for (let y = 0; y < pageH; y += Math.floor(viewportH * 0.8)) {
+  await page.evaluate((top) => window.scrollTo(0, top), y);
+  await page.waitForTimeout(220);
+}
 await page.evaluate(() => window.scrollTo(0, 0));
 await page.waitForTimeout(600);
 
