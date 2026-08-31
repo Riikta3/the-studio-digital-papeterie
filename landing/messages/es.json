@@ -584,5 +584,143 @@
     "paymentSuccessBody": "Estamos creando vuestro espacio. Seréis redirigidos automáticamente.",
     "creatingAccount": "Creando vuestro espacio…",
     "magicLinkNote": "Recibiréis un enlace de acceso por email — sin contraseña que recordar."
+  },
+  "Legal": {
+    "backHome": "Volver al inicio",
+    "lastUpdated": "Última actualización: {date}",
+    "Cgv": {
+      "metaTitle": "Condiciones Generales de Venta",
+      "title": "Condiciones Generales de Venta",
+      "sections": [
+        {
+          "heading": "1. Objeto",
+          "paragraphs": [
+            "Las presentes condiciones generales de venta (las \"Condiciones\") regulan la relación contractual entre [Razón social a completar], [forma jurídica a completar] con un capital de [importe a completar] euros, inscrita en el Registro Mercantil de [ciudad a completar] con el número [número de registro a completar], con domicilio social en [dirección a completar] (en adelante \"The Studio Digital Papeterie\" o el \"Vendedor\"), y cualquier persona física o jurídica que desee realizar una compra a través del sitio (el \"Cliente\").",
+            "Todo pedido realizado en el sitio implica la aceptación sin reservas de las presentes Condiciones por parte del Cliente."
+          ]
+        },
+        {
+          "heading": "2. Servicios ofrecidos",
+          "paragraphs": [
+            "The Studio Digital Papeterie ofrece un servicio de creación de invitaciones de boda digitales personalizables (el \"Servicio\"), que incluye el acceso a un configurador en línea, la generación de un sitio web de invitación dedicado y, según el plan elegido, un espacio de gestión posterior a la compra (panel de control) que permite, entre otras cosas, el seguimiento de las respuestas de los invitados (RSVP)."
+          ]
+        },
+        {
+          "heading": "3. Precio y pago",
+          "paragraphs": [
+            "Los precios de los Servicios se indican en euros, impuestos incluidos, en el momento del pedido. The Studio Digital Papeterie se reserva el derecho de modificar sus precios en cualquier momento, entendiéndose que el precio que figure en el sitio el día del pedido será el único aplicable al Cliente.",
+            "El pago se realiza en línea, en el momento del pedido, mediante tarjeta bancaria a través de nuestro proveedor de pago seguro Stripe. The Studio Digital Papeterie no almacena ningún dato bancario; estos son tratados directamente por Stripe conforme a la norma PCI-DSS.",
+            "El pedido solo se considerará definitivo una vez que Stripe confirme el pago y se envíe un correo electrónico de confirmación al Cliente."
+          ]
+        },
+        {
+          "heading": "4. Derecho de desistimiento",
+          "paragraphs": [
+            "De conformidad con la normativa aplicable en materia de consumo, el derecho de desistimiento no podrá ejercerse en los contratos de suministro de contenido digital que no se preste en un soporte material cuya ejecución haya comenzado tras el acuerdo previo y expreso del consumidor y su renuncia expresa a su derecho de desistimiento.",
+            "Al confirmar su pedido y acceder inmediatamente al configurador o a su sitio web de invitación, el Cliente reconoce expresamente solicitar la ejecución inmediata del Servicio y renunciar a su derecho de desistimiento."
+          ]
+        },
+        {
+          "heading": "5. Duración y resolución",
+          "paragraphs": [
+            "El acceso al sitio web de invitación y, en su caso, al panel de control se proporciona durante la duración especificada en la oferta contratada por el Cliente en el momento de la compra. Al finalizar dicho periodo, el acceso podrá suspenderse o la oferta renovarse según las modalidades comunicadas al Cliente antes de su vencimiento."
+          ]
+        },
+        {
+          "heading": "6. Responsabilidad",
+          "paragraphs": [
+            "The Studio Digital Papeterie se compromete a emplear todos los medios razonables para garantizar un acceso continuo y seguro al Servicio, sin garantizar la ausencia total de interrupciones, en particular en caso de mantenimiento, avería o fuerza mayor.",
+            "The Studio Digital Papeterie no podrá ser considerada responsable del contenido (textos, imágenes, información) proporcionado por el Cliente en el marco de la personalización de su invitación o de su sitio web de invitación."
+          ]
+        },
+        {
+          "heading": "7. Propiedad intelectual",
+          "paragraphs": [
+            "Las plantillas, temas gráficos, textos, animaciones y elementos visuales ofrecidos por The Studio Digital Papeterie siguen siendo propiedad exclusiva de The Studio Digital Papeterie o de sus socios. El Cliente se beneficia de un derecho de uso limitado a la creación de su invitación personal y su sitio web de invitación, con exclusión de cualquier explotación comercial o reventa."
+          ]
+        },
+        {
+          "heading": "8. Datos personales",
+          "paragraphs": [
+            "El tratamiento de los datos personales del Cliente y de sus invitados se describe en nuestra [política de privacidad](/legal/privacy)."
+          ]
+        },
+        {
+          "heading": "9. Ley aplicable y litigios",
+          "paragraphs": [
+            "Las presentes Condiciones se rigen por el derecho francés. En caso de litigio, se buscará una solución amistosa antes de emprender cualquier acción judicial. A falta de acuerdo amistoso, los tribunales franceses serán los únicos competentes.",
+            "Contacto: [correo electrónico de contacto a completar]"
+          ]
+        }
+      ]
+    },
+    "Privacy": {
+      "metaTitle": "Política de privacidad",
+      "title": "Política de privacidad",
+      "sections": [
+        {
+          "heading": "1. Responsable del tratamiento",
+          "paragraphs": [
+            "El responsable del tratamiento de los datos personales recogidos en este sitio es [Razón social a completar], con domicilio social en [dirección a completar], y al que se puede contactar en [correo electrónico de contacto a completar] (en adelante \"The Studio Digital Papeterie\")."
+          ]
+        },
+        {
+          "heading": "2. Datos recopilados",
+          "paragraphs": [
+            "En el marco del uso del Servicio, recopilamos en particular: los datos de identificación y contacto del Cliente (nombre, apellidos, dirección de correo electrónico); la información relativa a la boda y a los invitados introducida en el configurador y el panel de control (nombres de los invitados, hogares, mesas, respuestas RSVP, restricciones alimentarias, mensajes); los datos de pago, tratados exclusivamente por nuestro proveedor Stripe; los datos técnicos de navegación (cookies, dirección IP, registros de conexión)."
+          ]
+        },
+        {
+          "heading": "3. Finalidades del tratamiento",
+          "paragraphs": [
+            "Estos datos se recopilan con el fin de: proporcionar y personalizar el Servicio (creación de la invitación y del sitio web de invitación); gestionar la relación contractual y el pago del pedido; permitir la recogida y gestión de las respuestas de los invitados (RSVP) en nombre del Cliente; garantizar la atención al cliente; cumplir con nuestras obligaciones legales y contables."
+          ]
+        },
+        {
+          "heading": "4. Base jurídica",
+          "paragraphs": [
+            "Los tratamientos se basan, según el caso, en la ejecución del contrato celebrado con el Cliente, en el consentimiento (en particular para las cookies no esenciales) o en el cumplimiento de una obligación legal."
+          ]
+        },
+        {
+          "heading": "5. Alojamiento y subcontratistas",
+          "paragraphs": [
+            "Los datos están alojados por Supabase (base de datos y autenticación) y los pagos son tratados por Stripe. Estos proveedores pueden tratar datos fuera de la Unión Europea, en el marco de garantías adecuadas (cláusulas contractuales tipo o equivalentes).",
+            "Proveedor de alojamiento del sitio: [proveedor de alojamiento a completar]."
+          ]
+        },
+        {
+          "heading": "6. Plazo de conservación",
+          "paragraphs": [
+            "Los datos se conservan durante el tiempo necesario para la prestación del Servicio, más los plazos legales de conservación aplicables en materia comercial y contable, tras lo cual se eliminan o anonimizan."
+          ]
+        },
+        {
+          "heading": "7. Compartición de datos",
+          "paragraphs": [
+            "Los datos de los invitados introducidos por el Cliente (en particular las respuestas RSVP) son visibles para el Cliente en su panel de control. No se venden ni ceden a terceros con fines comerciales. Pueden comunicarse a nuestros subcontratistas técnicos (alojamiento, pago) en la estricta medida necesaria para la ejecución del Servicio."
+          ]
+        },
+        {
+          "heading": "8. Cookies",
+          "paragraphs": [
+            "El sitio utiliza cookies estrictamente necesarias para su funcionamiento, así como, en su caso, cookies de medición de audiencia sujetas al consentimiento del visitante, gestionables a través del banner de gestión de cookies presente en el sitio."
+          ]
+        },
+        {
+          "heading": "9. Derechos de los interesados",
+          "paragraphs": [
+            "De conformidad con el Reglamento General de Protección de Datos (RGPD), toda persona dispone de un derecho de acceso, rectificación, supresión, limitación, oposición y portabilidad de sus datos, así como del derecho a presentar una reclamación ante la autoridad de control competente (en Francia, la CNIL, www.cnil.fr).",
+            "Estos derechos pueden ejercerse escribiendo a [correo electrónico de contacto a completar]."
+          ]
+        },
+        {
+          "heading": "10. Seguridad",
+          "paragraphs": [
+            "The Studio Digital Papeterie aplica las medidas técnicas y organizativas razonables para garantizar la seguridad y confidencialidad de los datos personales, en particular mediante el cifrado de los datos en tránsito y políticas de acceso restringido (RLS) a la base de datos."
+          ]
+        }
+      ]
+    }
   }
 }

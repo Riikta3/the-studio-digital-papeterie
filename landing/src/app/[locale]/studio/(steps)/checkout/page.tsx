@@ -110,7 +110,7 @@ function PaymentForm({
         <span className="font-body text-xs leading-relaxed text-studio-violet/70">
           {t("acceptTerms")}{" "}
           <a
-            href="/cgv"
+            href="/legal/cgv"
             target="_blank"
             rel="noopener noreferrer"
             className="underline underline-offset-2 hover:text-studio-violet"
@@ -120,7 +120,7 @@ function PaymentForm({
           </a>{" "}
           {t("and")}{" "}
           <a
-            href="/politique-de-confidentialite"
+            href="/legal/privacy"
             target="_blank"
             rel="noopener noreferrer"
             className="underline underline-offset-2 hover:text-studio-violet"

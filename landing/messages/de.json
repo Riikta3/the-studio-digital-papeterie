@@ -584,5 +584,143 @@
     "paymentSuccessBody": "Wir erstellen Ihren Bereich. Sie werden automatisch weitergeleitet.",
     "creatingAccount": "Ihr Bereich wird erstellt…",
     "magicLinkNote": "Sie erhalten einen Anmeldelink per E-Mail — kein Passwort nötig."
+  },
+  "Legal": {
+    "backHome": "Zurück zur Startseite",
+    "lastUpdated": "Zuletzt aktualisiert am: {date}",
+    "Cgv": {
+      "metaTitle": "Allgemeine Verkaufsbedingungen",
+      "title": "Allgemeine Verkaufsbedingungen",
+      "sections": [
+        {
+          "heading": "1. Gegenstand",
+          "paragraphs": [
+            "Diese Allgemeinen Verkaufsbedingungen (die \"AGB\") regeln die Vertragsbeziehung zwischen [Firmenname zu vervollständigen], einer [Rechtsform zu vervollständigen] mit einem Kapital von [Betrag zu vervollständigen] Euro, eingetragen im Handelsregister von [Stadt zu vervollständigen] unter der Nummer [Registernummer zu vervollständigen], mit Sitz in [Adresse zu vervollständigen] (im Folgenden \"The Studio Digital Papeterie\" oder der \"Verkäufer\"), und jeder natürlichen oder juristischen Person, die über die Website einen Kauf tätigen möchte (der \"Kunde\").",
+            "Jede über die Website aufgegebene Bestellung setzt die vorbehaltlose Annahme dieser AGB durch den Kunden voraus."
+          ]
+        },
+        {
+          "heading": "2. Angebotene Dienstleistungen",
+          "paragraphs": [
+            "The Studio Digital Papeterie bietet einen Dienst zur Erstellung individuell gestaltbarer digitaler Hochzeitseinladungen (der \"Dienst\") an, einschließlich der Bereitstellung eines Online-Konfigurators, der Erstellung einer eigenen Einladungswebsite sowie, je nach gewähltem Paket, eines Verwaltungsbereichs nach dem Kauf (Dashboard), der es insbesondere ermöglicht, die Antworten der Gäste (RSVP) zu verfolgen."
+          ]
+        },
+        {
+          "heading": "3. Preis und Zahlung",
+          "paragraphs": [
+            "Die Preise der Dienstleistungen werden zum Zeitpunkt der Bestellung in Euro, inklusive aller Steuern, angegeben. The Studio Digital Papeterie behält sich das Recht vor, seine Preise jederzeit zu ändern, wobei der am Tag der Bestellung auf der Website angezeigte Preis für den Kunden maßgeblich ist.",
+            "Die Zahlung erfolgt online zum Zeitpunkt der Bestellung per Kreditkarte über unseren sicheren Zahlungsdienstleister Stripe. The Studio Digital Papeterie speichert keine Bankdaten; diese werden direkt von Stripe gemäß dem PCI-DSS-Standard verarbeitet.",
+            "Die Bestellung gilt erst als endgültig, nachdem die Zahlung von Stripe bestätigt und dem Kunden eine Bestätigungs-E-Mail zugesandt wurde."
+          ]
+        },
+        {
+          "heading": "4. Widerrufsrecht",
+          "paragraphs": [
+            "Gemäß den geltenden verbraucherschutzrechtlichen Bestimmungen kann das Widerrufsrecht nicht für Verträge über die Lieferung digitaler Inhalte ausgeübt werden, die nicht auf einem körperlichen Datenträger geliefert werden, wenn deren Ausführung nach ausdrücklicher vorheriger Zustimmung des Verbrauchers und seinem ausdrücklichen Verzicht auf sein Widerrufsrecht begonnen hat.",
+            "Mit der Bestätigung seiner Bestellung und dem sofortigen Zugriff auf den Konfigurator oder seine Einladungswebsite erkennt der Kunde ausdrücklich an, die sofortige Ausführung des Dienstes zu verlangen und auf sein Widerrufsrecht zu verzichten."
+          ]
+        },
+        {
+          "heading": "5. Laufzeit und Kündigung",
+          "paragraphs": [
+            "Der Zugang zur Einladungswebsite und gegebenenfalls zum Dashboard wird für die im vom Kunden zum Zeitpunkt des Kaufs gewählten Angebot angegebene Dauer bereitgestellt. Nach Ablauf dieser Dauer kann der Zugang gesperrt oder das Angebot gemäß den dem Kunden vor Ablauf mitgeteilten Bedingungen verlängert werden."
+          ]
+        },
+        {
+          "heading": "6. Haftung",
+          "paragraphs": [
+            "The Studio Digital Papeterie verpflichtet sich, alle angemessenen Mittel einzusetzen, um einen kontinuierlichen und sicheren Zugang zum Dienst zu gewährleisten, ohne eine völlige Unterbrechungsfreiheit zu garantieren, insbesondere im Falle von Wartungsarbeiten, Störungen oder höherer Gewalt.",
+            "The Studio Digital Papeterie haftet nicht für Inhalte (Texte, Bilder, Informationen), die der Kunde im Rahmen der Personalisierung seiner Einladung oder seiner Einladungswebsite bereitstellt."
+          ]
+        },
+        {
+          "heading": "7. Geistiges Eigentum",
+          "paragraphs": [
+            "Die von The Studio Digital Papeterie angebotenen Vorlagen, grafischen Themen, Texte, Animationen und visuellen Elemente bleiben ausschließliches Eigentum von The Studio Digital Papeterie oder seiner Partner. Der Kunde erhält ein auf die Erstellung seiner persönlichen Einladung und Einladungswebsite beschränktes Nutzungsrecht, unter Ausschluss jeglicher kommerzieller Nutzung oder Weiterveräußerung."
+          ]
+        },
+        {
+          "heading": "8. Personenbezogene Daten",
+          "paragraphs": [
+            "Die Verarbeitung der personenbezogenen Daten des Kunden und seiner Gäste wird in unserer [Datenschutzerklärung](/legal/privacy) beschrieben."
+          ]
+        },
+        {
+          "heading": "9. Anwendbares Recht und Streitigkeiten",
+          "paragraphs": [
+            "Diese AGB unterliegen französischem Recht. Im Streitfall wird vor jeder Klage eine gütliche Einigung angestrebt. Kommt keine gütliche Einigung zustande, sind ausschließlich die französischen Gerichte zuständig.",
+            "Kontakt: [Kontakt-E-Mail zu vervollständigen]"
+          ]
+        }
+      ]
+    },
+    "Privacy": {
+      "metaTitle": "Datenschutzerklärung",
+      "title": "Datenschutzerklärung",
+      "sections": [
+        {
+          "heading": "1. Verantwortlicher",
+          "paragraphs": [
+            "Verantwortlicher für die Verarbeitung der auf dieser Website erhobenen personenbezogenen Daten ist [Firmenname zu vervollständigen] mit Sitz in [Adresse zu vervollständigen], erreichbar unter [Kontakt-E-Mail zu vervollständigen] (im Folgenden \"The Studio Digital Papeterie\")."
+          ]
+        },
+        {
+          "heading": "2. Erhobene Daten",
+          "paragraphs": [
+            "Im Rahmen der Nutzung des Dienstes erheben wir insbesondere: Identifikations- und Kontaktdaten des Kunden (Vorname, Nachname, E-Mail-Adresse); Angaben zur Hochzeit und zu den Gästen, die im Konfigurator und im Dashboard erfasst werden (Namen der Gäste, Haushalte, Tische, RSVP-Antworten, Ernährungsgewohnheiten, Nachrichten); Zahlungsdaten, die ausschließlich von unserem Dienstleister Stripe verarbeitet werden; technische Nutzungsdaten (Cookies, IP-Adresse, Verbindungsprotokolle)."
+          ]
+        },
+        {
+          "heading": "3. Zwecke der Verarbeitung",
+          "paragraphs": [
+            "Diese Daten werden erhoben, um: den Dienst bereitzustellen und zu personalisieren (Erstellung der Einladung und der Einladungswebsite); die Vertragsbeziehung und die Zahlung der Bestellung zu verwalten; die Erfassung und Verwaltung der Gästeantworten (RSVP) im Namen des Kunden zu ermöglichen; den Kundensupport sicherzustellen; unseren rechtlichen und buchhalterischen Verpflichtungen nachzukommen."
+          ]
+        },
+        {
+          "heading": "4. Rechtsgrundlage",
+          "paragraphs": [
+            "Die Verarbeitungen beruhen je nach Fall auf der Erfüllung des mit dem Kunden geschlossenen Vertrags, auf der Einwilligung (insbesondere für nicht notwendige Cookies) oder auf der Einhaltung einer rechtlichen Verpflichtung."
+          ]
+        },
+        {
+          "heading": "5. Hosting und Auftragsverarbeiter",
+          "paragraphs": [
+            "Die Daten werden von Supabase (Datenbank und Authentifizierung) gehostet, und die Zahlungen werden von Stripe verarbeitet. Diese Dienstleister können Daten außerhalb der Europäischen Union verarbeiten, im Rahmen geeigneter Garantien (Standardvertragsklauseln oder Gleichwertiges).",
+            "Hosting-Anbieter der Website: [Hosting-Anbieter zu vervollständigen]."
+          ]
+        },
+        {
+          "heading": "6. Aufbewahrungsdauer",
+          "paragraphs": [
+            "Die Daten werden für die zur Erbringung des Dienstes erforderliche Dauer aufbewahrt, zuzüglich der geltenden gesetzlichen Aufbewahrungsfristen im Handels- und Rechnungswesen, und anschließend gelöscht oder anonymisiert."
+          ]
+        },
+        {
+          "heading": "7. Weitergabe von Daten",
+          "paragraphs": [
+            "Die vom Kunden erfassten Gästedaten (insbesondere RSVP-Antworten) sind für den Kunden in seinem Dashboard sichtbar. Sie werden weder verkauft noch zu kommerziellen Zwecken an Dritte weitergegeben. Sie können an unsere technischen Auftragsverarbeiter (Hosting, Zahlung) weitergegeben werden, soweit dies für die Erbringung des Dienstes unbedingt erforderlich ist."
+          ]
+        },
+        {
+          "heading": "8. Cookies",
+          "paragraphs": [
+            "Die Website verwendet Cookies, die für ihren Betrieb unbedingt erforderlich sind, sowie gegebenenfalls Cookies zur Reichweitenmessung, die der Einwilligung des Besuchers unterliegen und über das auf der Website vorhandene Cookie-Verwaltungsbanner verwaltet werden können."
+          ]
+        },
+        {
+          "heading": "9. Rechte der betroffenen Personen",
+          "paragraphs": [
+            "Gemäß der Datenschutz-Grundverordnung (DSGVO) hat jede Person das Recht auf Auskunft, Berichtigung, Löschung, Einschränkung, Widerspruch und Übertragbarkeit ihrer Daten sowie das Recht, bei der zuständigen Aufsichtsbehörde (in Frankreich der CNIL, www.cnil.fr) Beschwerde einzulegen.",
+            "Diese Rechte können durch Schreiben an [Kontakt-E-Mail zu vervollständigen] ausgeübt werden."
+          ]
+        },
+        {
+          "heading": "10. Sicherheit",
+          "paragraphs": [
+            "The Studio Digital Papeterie ergreift angemessene technische und organisatorische Maßnahmen, um die Sicherheit und Vertraulichkeit personenbezogener Daten zu gewährleisten, insbesondere durch Verschlüsselung der Daten bei der Übertragung und Richtlinien für eingeschränkten Zugriff (RLS) auf die Datenbank."
+          ]
+        }
+      ]
+    }
   }
 }

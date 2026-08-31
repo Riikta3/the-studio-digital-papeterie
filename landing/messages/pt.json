@@ -583,5 +583,143 @@
     "paymentSuccessBody": "Estamos a criar o vosso espaço. Serão redirecionados automaticamente.",
     "creatingAccount": "A criar o vosso espaço…",
     "magicLinkNote": "Receberão um link de acesso por email — sem palavra-passe para memorizar."
+  },
+  "Legal": {
+    "backHome": "Voltar ao início",
+    "lastUpdated": "Última atualização: {date}",
+    "Cgv": {
+      "metaTitle": "Termos e Condições Gerais de Venda",
+      "title": "Termos e Condições Gerais de Venda",
+      "sections": [
+        {
+          "heading": "1. Objeto",
+          "paragraphs": [
+            "Os presentes termos e condições gerais de venda (os \"Termos\") regem a relação contratual entre [Razão social a completar], [forma jurídica a completar] com capital de [montante a completar] euros, registada no Registo Comercial de [cidade a completar] sob o número [número de registo a completar], com sede em [morada a completar] (doravante \"The Studio Digital Papeterie\" ou o \"Vendedor\"), e qualquer pessoa singular ou coletiva que pretenda efetuar uma compra através do site (o \"Cliente\").",
+            "Qualquer encomenda efetuada no site implica a aceitação sem reservas dos presentes Termos por parte do Cliente."
+          ]
+        },
+        {
+          "heading": "2. Serviços oferecidos",
+          "paragraphs": [
+            "A The Studio Digital Papeterie oferece um serviço de criação de convites de casamento digitais personalizáveis (o \"Serviço\"), incluindo o acesso a um configurador online, a criação de um site de convite dedicado e, consoante o plano escolhido, uma área de gestão pós-compra (painel de controlo) que permite, nomeadamente, o acompanhamento das respostas dos convidados (RSVP)."
+          ]
+        },
+        {
+          "heading": "3. Preço e pagamento",
+          "paragraphs": [
+            "Os preços dos Serviços são indicados em euros, com todos os impostos incluídos, no momento da encomenda. A The Studio Digital Papeterie reserva-se o direito de alterar os seus preços a qualquer momento, entendendo-se que o preço apresentado no site no dia da encomenda será o único aplicável ao Cliente.",
+            "O pagamento é efetuado online, no momento da encomenda, por cartão bancário através do nosso prestador de pagamento seguro Stripe. A The Studio Digital Papeterie não armazena quaisquer dados bancários; estes são tratados diretamente pela Stripe em conformidade com a norma PCI-DSS.",
+            "A encomenda só é considerada definitiva após a confirmação do pagamento pela Stripe e o envio de um e-mail de confirmação ao Cliente."
+          ]
+        },
+        {
+          "heading": "4. Direito de retratação",
+          "paragraphs": [
+            "Em conformidade com a legislação de defesa do consumidor aplicável, o direito de retratação não pode ser exercido nos contratos de fornecimento de conteúdo digital não fornecido num suporte material, cuja execução tenha começado após o acordo prévio expresso do consumidor e a sua renúncia expressa ao direito de retratação.",
+            "Ao confirmar a sua encomenda e ao aceder imediatamente ao configurador ou ao seu site de convite, o Cliente reconhece expressamente solicitar a execução imediata do Serviço e renunciar ao seu direito de retratação."
+          ]
+        },
+        {
+          "heading": "5. Duração e rescisão",
+          "paragraphs": [
+            "O acesso ao site de convite e, se aplicável, ao painel de controlo é fornecido pela duração especificada na oferta subscrita pelo Cliente no momento da compra. No final desse período, o acesso poderá ser suspenso ou a oferta renovada de acordo com as modalidades comunicadas ao Cliente antes do termo."
+          ]
+        },
+        {
+          "heading": "6. Responsabilidade",
+          "paragraphs": [
+            "A The Studio Digital Papeterie compromete-se a empregar todos os meios razoáveis para assegurar um acesso contínuo e seguro ao Serviço, sem garantir a ausência total de interrupções, nomeadamente em caso de manutenção, avaria ou força maior.",
+            "A The Studio Digital Papeterie não poderá ser responsabilizada pelo conteúdo (textos, imagens, informações) fornecido pelo Cliente no âmbito da personalização do seu convite ou do seu site de convite."
+          ]
+        },
+        {
+          "heading": "7. Propriedade intelectual",
+          "paragraphs": [
+            "Os modelos, temas gráficos, textos, animações e elementos visuais propostos pela The Studio Digital Papeterie permanecem propriedade exclusiva da The Studio Digital Papeterie ou dos seus parceiros. O Cliente beneficia de um direito de utilização limitado à criação do seu convite pessoal e do seu site de convite, excluindo qualquer exploração comercial ou revenda."
+          ]
+        },
+        {
+          "heading": "8. Dados pessoais",
+          "paragraphs": [
+            "O tratamento dos dados pessoais do Cliente e dos seus convidados está descrito na nossa [política de privacidade](/legal/privacy)."
+          ]
+        },
+        {
+          "heading": "9. Lei aplicável e litígios",
+          "paragraphs": [
+            "Os presentes Termos regem-se pela lei francesa. Em caso de litígio, será procurada uma solução amigável antes de qualquer ação judicial. Na falta de acordo amigável, os tribunais franceses serão os únicos competentes.",
+            "Contacto: [e-mail de contacto a completar]"
+          ]
+        }
+      ]
+    },
+    "Privacy": {
+      "metaTitle": "Política de Privacidade",
+      "title": "Política de Privacidade",
+      "sections": [
+        {
+          "heading": "1. Responsável pelo tratamento",
+          "paragraphs": [
+            "O responsável pelo tratamento dos dados pessoais recolhidos neste site é [Razão social a completar], com sede em [morada a completar], contactável em [e-mail de contacto a completar] (doravante \"The Studio Digital Papeterie\")."
+          ]
+        },
+        {
+          "heading": "2. Dados recolhidos",
+          "paragraphs": [
+            "No âmbito da utilização do Serviço, recolhemos, nomeadamente: os dados de identificação e contacto do Cliente (nome, apelido, endereço de e-mail); as informações relativas ao casamento e aos convidados inseridas no configurador e no painel de controlo (nomes dos convidados, agregados familiares, mesas, respostas RSVP, restrições alimentares, mensagens); os dados de pagamento, tratados exclusivamente pelo nosso prestador Stripe; os dados técnicos de navegação (cookies, endereço IP, registos de ligação)."
+          ]
+        },
+        {
+          "heading": "3. Finalidades do tratamento",
+          "paragraphs": [
+            "Estes dados são recolhidos para: fornecer e personalizar o Serviço (criação do convite e do site de convite); gerir a relação contratual e o pagamento da encomenda; permitir a recolha e gestão das respostas dos convidados (RSVP) em nome do Cliente; assegurar o apoio ao cliente; cumprir as nossas obrigações legais e contabilísticas."
+          ]
+        },
+        {
+          "heading": "4. Base jurídica",
+          "paragraphs": [
+            "Os tratamentos assentam, consoante o caso, na execução do contrato celebrado com o Cliente, no consentimento (nomeadamente para os cookies não essenciais) ou no cumprimento de uma obrigação legal."
+          ]
+        },
+        {
+          "heading": "5. Alojamento e subcontratantes",
+          "paragraphs": [
+            "Os dados são alojados pela Supabase (base de dados e autenticação) e os pagamentos são tratados pela Stripe. Estes prestadores poderão tratar dados fora da União Europeia, no âmbito de garantias adequadas (cláusulas contratuais-tipo ou equivalentes).",
+            "Alojamento do site: [prestador de alojamento a completar]."
+          ]
+        },
+        {
+          "heading": "6. Prazo de conservação",
+          "paragraphs": [
+            "Os dados são conservados pelo período necessário à prestação do Serviço, acrescido dos prazos legais de conservação aplicáveis em matéria comercial e contabilística, sendo depois eliminados ou anonimizados."
+          ]
+        },
+        {
+          "heading": "7. Partilha de dados",
+          "paragraphs": [
+            "Os dados dos convidados inseridos pelo Cliente (nomeadamente as respostas RSVP) são visíveis para o Cliente no seu painel de controlo. Não são vendidos nem cedidos a terceiros para fins comerciais. Poderão ser comunicados aos nossos subcontratantes técnicos (alojamento, pagamento) na estrita medida necessária à execução do Serviço."
+          ]
+        },
+        {
+          "heading": "8. Cookies",
+          "paragraphs": [
+            "O site utiliza cookies estritamente necessários ao seu funcionamento, bem como, se aplicável, cookies de medição de audiência sujeitos ao consentimento do visitante, geríveis através do banner de gestão de cookies presente no site."
+          ]
+        },
+        {
+          "heading": "9. Direitos dos titulares dos dados",
+          "paragraphs": [
+            "Em conformidade com o Regulamento Geral sobre a Proteção de Dados (RGPD), qualquer pessoa dispõe do direito de acesso, retificação, apagamento, limitação, oposição e portabilidade dos seus dados, bem como do direito de apresentar reclamação junto da autoridade de controlo competente (em França, a CNIL, www.cnil.fr).",
+            "Estes direitos podem ser exercidos por escrito para [e-mail de contacto a completar]."
+          ]
+        },
+        {
+          "heading": "10. Segurança",
+          "paragraphs": [
+            "A The Studio Digital Papeterie implementa medidas técnicas e organizativas razoáveis para garantir a segurança e a confidencialidade dos dados pessoais, nomeadamente através da cifragem dos dados em trânsito e de políticas de acesso restrito (RLS) à base de dados."
+          ]
+        }
+      ]
+    }
   }
 }

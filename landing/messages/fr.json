@@ -540,5 +540,143 @@
     "paymentSuccessBody": "Nous créons votre espace. Vous allez être redirigé automatiquement.",
     "creatingAccount": "Création de votre espace…",
     "magicLinkNote": "Vous recevrez un lien de connexion par email — aucun mot de passe à retenir."
+  },
+  "Legal": {
+    "backHome": "Retour à l'accueil",
+    "lastUpdated": "Dernière mise à jour : {date}",
+    "Cgv": {
+      "metaTitle": "Conditions Générales de Vente",
+      "title": "Conditions Générales de Vente",
+      "sections": [
+        {
+          "heading": "1. Objet",
+          "paragraphs": [
+            "Les présentes conditions générales de vente (ci-après les \"CGV\") régissent les relations contractuelles entre [Raison sociale à compléter], [forme juridique à compléter] au capital de [montant à compléter] euros, immatriculée au RCS de [ville à compléter] sous le numéro [SIRET à compléter], dont le siège social est situé [adresse à compléter] (ci-après \"The Studio Digital Papeterie\" ou \"le Vendeur\"), et toute personne physique ou morale souhaitant procéder à un achat via le site (ci-après le \"Client\").",
+            "Toute commande passée sur le site implique l'acceptation sans réserve des présentes CGV par le Client."
+          ]
+        },
+        {
+          "heading": "2. Services proposés",
+          "paragraphs": [
+            "The Studio Digital Papeterie propose un service de création de faire-part de mariage digitaux personnalisables (le \"Service\"), incluant la mise à disposition d'un configurateur en ligne, la génération d'un site d'invitation dédié et, selon la formule choisie, d'un espace de gestion post-achat (tableau de bord) permettant notamment le suivi des réponses des invités (RSVP)."
+          ]
+        },
+        {
+          "heading": "3. Prix et paiement",
+          "paragraphs": [
+            "Les prix des Services sont indiqués en euros, toutes taxes comprises (TTC), au moment de la commande. The Studio Digital Papeterie se réserve le droit de modifier ses prix à tout moment, étant entendu que le prix figurant sur le site au jour de la commande sera le seul applicable au Client.",
+            "Le paiement s'effectue en ligne, au moment de la commande, par carte bancaire via notre prestataire de paiement sécurisé Stripe. The Studio Digital Papeterie ne stocke aucune donnée bancaire ; celles-ci sont traitées directement par Stripe conformément à la norme PCI-DSS.",
+            "La commande n'est considérée comme définitive qu'après confirmation du paiement par Stripe et envoi d'un e-mail de confirmation au Client."
+          ]
+        },
+        {
+          "heading": "4. Droit de rétractation",
+          "paragraphs": [
+            "Conformément à l'article L221-28 du Code de la consommation, le droit de rétractation ne peut être exercé pour les contrats de fourniture de contenu numérique non fourni sur un support matériel dont l'exécution a commencé après accord préalable exprès du consommateur et renoncement exprès à son droit de rétractation.",
+            "En validant sa commande et en accédant immédiatement au configurateur ou à son site d'invitation, le Client reconnaît expressément demander l'exécution immédiate du Service et renoncer à son droit de rétractation."
+          ]
+        },
+        {
+          "heading": "5. Durée et résiliation",
+          "paragraphs": [
+            "L'accès au site d'invitation et, le cas échéant, au tableau de bord est fourni pour la durée précisée dans l'offre souscrite par le Client au moment de l'achat. À l'issue de cette durée, l'accès pourra être suspendu ou l'offre reconduite selon les modalités communiquées au Client avant l'expiration."
+          ]
+        },
+        {
+          "heading": "6. Responsabilité",
+          "paragraphs": [
+            "The Studio Digital Papeterie s'engage à mettre en œuvre tous les moyens raisonnables pour assurer un accès continu et sécurisé au Service, sans garantie d'absence totale d'interruption, notamment en cas de maintenance, de panne ou de cas de force majeure.",
+            "The Studio Digital Papeterie ne saurait être tenue responsable du contenu (textes, images, informations) fourni par le Client dans le cadre de la personnalisation de son faire-part ou de son site d'invitation."
+          ]
+        },
+        {
+          "heading": "7. Propriété intellectuelle",
+          "paragraphs": [
+            "Les modèles, thèmes graphiques, textes, animations et éléments visuels proposés par The Studio Digital Papeterie restent la propriété exclusive de The Studio Digital Papeterie ou de ses partenaires. Le Client bénéficie d'un droit d'usage limité à la création de son faire-part et de son site d'invitation personnel, à l'exclusion de toute exploitation commerciale ou revente."
+          ]
+        },
+        {
+          "heading": "8. Données personnelles",
+          "paragraphs": [
+            "Le traitement des données personnelles du Client et de ses invités est décrit dans notre [politique de confidentialité](/legal/privacy)."
+          ]
+        },
+        {
+          "heading": "9. Droit applicable et litiges",
+          "paragraphs": [
+            "Les présentes CGV sont soumises au droit français. En cas de litige, une solution amiable sera recherchée avant toute action judiciaire. À défaut d'accord amiable, les tribunaux français seront seuls compétents.",
+            "Contact : [email de contact à compléter]"
+          ]
+        }
+      ]
+    },
+    "Privacy": {
+      "metaTitle": "Politique de confidentialité",
+      "title": "Politique de confidentialité",
+      "sections": [
+        {
+          "heading": "1. Responsable du traitement",
+          "paragraphs": [
+            "Le responsable du traitement des données personnelles collectées sur ce site est [Raison sociale à compléter], dont le siège social est situé [adresse à compléter], joignable à l'adresse [email de contact à compléter] (ci-après \"The Studio Digital Papeterie\")."
+          ]
+        },
+        {
+          "heading": "2. Données collectées",
+          "paragraphs": [
+            "Dans le cadre de l'utilisation du Service, nous collectons notamment : les données d'identification et de contact du Client (nom, prénom, adresse e-mail) ; les informations relatives au mariage et aux invités saisies dans le configurateur et le tableau de bord (noms des invités, foyers, tables, réponses RSVP, régimes alimentaires, messages) ; les données de paiement, traitées exclusivement par notre prestataire Stripe ; les données de navigation techniques (cookies, adresse IP, journaux de connexion)."
+          ]
+        },
+        {
+          "heading": "3. Finalités du traitement",
+          "paragraphs": [
+            "Ces données sont collectées afin de : fournir et personnaliser le Service (création du faire-part et du site d'invitation) ; gérer la relation contractuelle et le paiement de la commande ; permettre la collecte et la gestion des réponses des invités (RSVP) pour le compte du Client ; assurer le support client ; respecter nos obligations légales et comptables."
+          ]
+        },
+        {
+          "heading": "4. Base légale",
+          "paragraphs": [
+            "Les traitements reposent selon les cas sur l'exécution du contrat conclu avec le Client, sur le consentement (notamment pour les cookies non essentiels) ou sur le respect d'une obligation légale."
+          ]
+        },
+        {
+          "heading": "5. Hébergement et sous-traitants",
+          "paragraphs": [
+            "Les données sont hébergées par Supabase (base de données et authentification) et les paiements sont traités par Stripe. Ces prestataires sont susceptibles de traiter des données en dehors de l'Union européenne, dans le cadre de garanties appropriées (clauses contractuelles types ou équivalent).",
+            "Hébergeur du site : [hébergeur à compléter]."
+          ]
+        },
+        {
+          "heading": "6. Durée de conservation",
+          "paragraphs": [
+            "Les données sont conservées pendant la durée nécessaire à la fourniture du Service, augmentée des délais légaux de conservation applicables en matière commerciale et comptable, puis supprimées ou anonymisées."
+          ]
+        },
+        {
+          "heading": "7. Partage des données",
+          "paragraphs": [
+            "Les données des invités saisies par le Client (réponses RSVP notamment) sont visibles par le Client dans son tableau de bord. Elles ne sont ni vendues, ni cédées à des tiers à des fins commerciales. Elles peuvent être communiquées à nos sous-traitants techniques (hébergement, paiement) dans la stricte mesure nécessaire à l'exécution du Service."
+          ]
+        },
+        {
+          "heading": "8. Cookies",
+          "paragraphs": [
+            "Le site utilise des cookies strictement nécessaires à son fonctionnement ainsi que, le cas échéant, des cookies de mesure d'audience soumis au consentement du visiteur, gérable via le bandeau de gestion des cookies présent sur le site."
+          ]
+        },
+        {
+          "heading": "9. Droits des personnes",
+          "paragraphs": [
+            "Conformément au Règlement Général sur la Protection des Données (RGPD) et à la loi Informatique et Libertés, toute personne dispose d'un droit d'accès, de rectification, d'effacement, de limitation, d'opposition et de portabilité de ses données, ainsi que du droit d'introduire une réclamation auprès de la CNIL (www.cnil.fr).",
+            "Ces droits peuvent être exercés en écrivant à [email de contact à compléter]."
+          ]
+        },
+        {
+          "heading": "10. Sécurité",
+          "paragraphs": [
+            "The Studio Digital Papeterie met en œuvre les mesures techniques et organisationnelles raisonnables pour assurer la sécurité et la confidentialité des données personnelles, notamment via le chiffrement des données en transit et des politiques d'accès restreint (RLS) sur la base de données."
+          ]
+        }
+      ]
+    }
   }
 }

@@ -587,5 +587,143 @@
     "paymentSuccessBody": "We are creating your space. You will be redirected automatically.",
     "creatingAccount": "Creating your space…",
     "magicLinkNote": "You will receive a sign-in link by email — no password to remember."
+  },
+  "Legal": {
+    "backHome": "Back to home",
+    "lastUpdated": "Last updated: {date}",
+    "Cgv": {
+      "metaTitle": "Terms and Conditions of Sale",
+      "title": "Terms and Conditions of Sale",
+      "sections": [
+        {
+          "heading": "1. Purpose",
+          "paragraphs": [
+            "These terms and conditions of sale (the \"Terms\") govern the contractual relationship between [Company name to complete], a [legal form to complete] with capital of [amount to complete] euros, registered with the Trade and Companies Register of [city to complete] under number [registration number to complete], with registered office at [address to complete] (hereinafter \"The Studio Digital Papeterie\" or the \"Seller\"), and any individual or legal entity wishing to make a purchase through the site (the \"Customer\").",
+            "Any order placed on the site implies unreserved acceptance of these Terms by the Customer."
+          ]
+        },
+        {
+          "heading": "2. Services offered",
+          "paragraphs": [
+            "The Studio Digital Papeterie offers a service for creating customizable digital wedding invitations (the \"Service\"), including access to an online configurator, the generation of a dedicated invitation website, and, depending on the plan chosen, a post-purchase management area (dashboard) allowing the Customer to track guest responses (RSVP)."
+          ]
+        },
+        {
+          "heading": "3. Price and payment",
+          "paragraphs": [
+            "The prices of the Services are shown in euros, all taxes included, at the time of the order. The Studio Digital Papeterie reserves the right to modify its prices at any time, it being understood that the price shown on the site on the day of the order is the only one applicable to the Customer.",
+            "Payment is made online, at the time of the order, by credit card through our secure payment provider Stripe. The Studio Digital Papeterie does not store any banking data; this is processed directly by Stripe in accordance with the PCI-DSS standard.",
+            "The order is only considered final once payment has been confirmed by Stripe and a confirmation email has been sent to the Customer."
+          ]
+        },
+        {
+          "heading": "4. Right of withdrawal",
+          "paragraphs": [
+            "In accordance with applicable consumer law, the right of withdrawal cannot be exercised for contracts for the supply of digital content not provided on a physical medium, the performance of which has begun after the consumer's prior express agreement and express waiver of their right of withdrawal.",
+            "By confirming their order and immediately accessing the configurator or their invitation website, the Customer expressly acknowledges requesting the immediate performance of the Service and waiving their right of withdrawal."
+          ]
+        },
+        {
+          "heading": "5. Duration and termination",
+          "paragraphs": [
+            "Access to the invitation website and, where applicable, to the dashboard is provided for the duration specified in the offer purchased by the Customer at the time of purchase. At the end of this period, access may be suspended or the offer renewed according to the terms communicated to the Customer before expiry."
+          ]
+        },
+        {
+          "heading": "6. Liability",
+          "paragraphs": [
+            "The Studio Digital Papeterie undertakes to use all reasonable means to ensure continuous and secure access to the Service, without guaranteeing the total absence of interruptions, particularly in the event of maintenance, breakdown, or force majeure.",
+            "The Studio Digital Papeterie cannot be held liable for the content (text, images, information) provided by the Customer as part of the customization of their invitation or invitation website."
+          ]
+        },
+        {
+          "heading": "7. Intellectual property",
+          "paragraphs": [
+            "The templates, graphic themes, text, animations, and visual elements offered by The Studio Digital Papeterie remain the exclusive property of The Studio Digital Papeterie or its partners. The Customer benefits from a right of use limited to the creation of their personal invitation and invitation website, excluding any commercial use or resale."
+          ]
+        },
+        {
+          "heading": "8. Personal data",
+          "paragraphs": [
+            "The processing of the Customer's and their guests' personal data is described in our [privacy policy](/legal/privacy)."
+          ]
+        },
+        {
+          "heading": "9. Applicable law and disputes",
+          "paragraphs": [
+            "These Terms are governed by French law. In the event of a dispute, an amicable solution will be sought before any legal action. Failing an amicable agreement, the French courts shall have sole jurisdiction.",
+            "Contact: [contact email to complete]"
+          ]
+        }
+      ]
+    },
+    "Privacy": {
+      "metaTitle": "Privacy Policy",
+      "title": "Privacy Policy",
+      "sections": [
+        {
+          "heading": "1. Data controller",
+          "paragraphs": [
+            "The controller responsible for processing personal data collected on this site is [Company name to complete], with registered office at [address to complete], reachable at [contact email to complete] (hereinafter \"The Studio Digital Papeterie\")."
+          ]
+        },
+        {
+          "heading": "2. Data collected",
+          "paragraphs": [
+            "As part of the use of the Service, we collect in particular: the Customer's identification and contact details (first name, last name, email address); information relating to the wedding and guests entered in the configurator and dashboard (guest names, households, tables, RSVP responses, dietary requirements, messages); payment data, processed exclusively by our provider Stripe; technical browsing data (cookies, IP address, connection logs)."
+          ]
+        },
+        {
+          "heading": "3. Purposes of processing",
+          "paragraphs": [
+            "This data is collected in order to: provide and customize the Service (creation of the invitation and invitation website); manage the contractual relationship and payment of the order; enable the collection and management of guest responses (RSVP) on behalf of the Customer; provide customer support; comply with our legal and accounting obligations."
+          ]
+        },
+        {
+          "heading": "4. Legal basis",
+          "paragraphs": [
+            "Processing is based, depending on the case, on the performance of the contract concluded with the Customer, on consent (in particular for non-essential cookies), or on compliance with a legal obligation."
+          ]
+        },
+        {
+          "heading": "5. Hosting and subcontractors",
+          "paragraphs": [
+            "Data is hosted by Supabase (database and authentication) and payments are processed by Stripe. These providers may process data outside the European Union, subject to appropriate safeguards (standard contractual clauses or equivalent).",
+            "Site host: [hosting provider to complete]."
+          ]
+        },
+        {
+          "heading": "6. Retention period",
+          "paragraphs": [
+            "Data is retained for the period necessary to provide the Service, plus the legal retention periods applicable in commercial and accounting matters, after which it is deleted or anonymized."
+          ]
+        },
+        {
+          "heading": "7. Data sharing",
+          "paragraphs": [
+            "Guest data entered by the Customer (particularly RSVP responses) is visible to the Customer in their dashboard. It is neither sold nor transferred to third parties for commercial purposes. It may be shared with our technical subcontractors (hosting, payment) strictly to the extent necessary for the performance of the Service."
+          ]
+        },
+        {
+          "heading": "8. Cookies",
+          "paragraphs": [
+            "The site uses cookies strictly necessary for its operation as well as, where applicable, audience measurement cookies subject to visitor consent, manageable via the cookie management banner present on the site."
+          ]
+        },
+        {
+          "heading": "9. Data subject rights",
+          "paragraphs": [
+            "In accordance with the General Data Protection Regulation (GDPR), everyone has the right to access, rectify, erase, restrict, object to, and port their data, as well as the right to lodge a complaint with the relevant supervisory authority (in France, the CNIL, www.cnil.fr).",
+            "These rights may be exercised by writing to [contact email to complete]."
+          ]
+        },
+        {
+          "heading": "10. Security",
+          "paragraphs": [
+            "The Studio Digital Papeterie implements reasonable technical and organizational measures to ensure the security and confidentiality of personal data, in particular through encryption of data in transit and restricted access policies (RLS) on the database."
+          ]
+        }
+      ]
+    }
   }
 }
