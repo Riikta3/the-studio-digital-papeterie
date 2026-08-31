@@ -173,22 +173,36 @@ function PhoneFrame({ theme }: { theme: Theme }) {
   );
 }
 
-// Repeat the theme list so the track always has cards to scroll into in
-// either direction; combined with the silent re-centering below, this reads
-// as an infinite loop even though the underlying scroller is finite.
-const LOOP_REPEATS = 5;
+// One set = every theme, then the "more coming" card that closes the row.
+const CARD_SET = [
+  ...THEMES.map((theme, index) => ({ theme, index })),
+  { theme: null, index: null },
+];
+
+// How many times the set is repeated to fake an infinite scroller.
+//
+// Repeating only pays off when a set is wider than the viewport: with a handful
+// of themes a desktop screen fits several sets at once, and the loop stops
+// reading as a loop — it reads as the same three invitations printed over and
+// over, which is what it looked like on a 1728px screen. Below that threshold
+// the track shows one set and simply does not scroll.
+//
+// The threshold is deliberately generous (7): at 144px per card plus a 16px
+// gap, seven cards fill 1120px, so anything wider only starts repeating once
+// there are genuinely enough themes for the repetition to go unnoticed.
+const LOOPS_WHEN_ENOUGH_CARDS = 5;
+const MIN_CARDS_TO_LOOP = 7;
+const LOOP_REPEATS =
+  CARD_SET.length >= MIN_CARDS_TO_LOOP ? LOOPS_WHEN_ENOUGH_CARDS : 1;
 const MIDDLE_SET = Math.floor(LOOP_REPEATS / 2);
-// Each repeat ends with the "more coming" card, so it travels with the loop
-// instead of appearing once at one end of an infinite scroller. `index: null`
-// marks it unselectable.
-const LOOPED_THEMES = Array.from({ length: LOOP_REPEATS }, (_, set) => [
-  ...THEMES.map((theme, index) => ({
+
+const LOOPED_THEMES = Array.from({ length: LOOP_REPEATS }, (_, set) =>
+  CARD_SET.map(({ theme, index }) => ({
     theme,
     index,
-    key: `${set}-${theme.name}`,
+    key: `${set}-${theme?.name ?? "upcoming"}`,
   })),
-  { theme: null, index: null, key: `${set}-upcoming` },
-]).flat();
+).flat();
 
 function ThemeCarousel({
   active,
@@ -201,6 +215,21 @@ function ThemeCarousel({
   const trackRef = useRef<HTMLDivElement>(null);
   const cardStepRef = useRef(0);
 
+  // Whether the track actually overflows. With only a few themes a desktop
+  // screen fits every card, and then the arrows and the dots point at nothing —
+  // and the row, left-aligned, sits against a wide empty gutter.
+  const [overflows, setOverflows] = useState(false);
+
+  useEffect(() => {
+    const el = trackRef.current;
+    if (!el) return;
+    const measure = () => setOverflows(el.scrollWidth > el.clientWidth + 2);
+    measure();
+    const observer = new ResizeObserver(measure);
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, []);
+
   // Start scrolled into the middle repeat so there's room to scroll both
   // ways from the first paint.
   useEffect(() => {
@@ -209,7 +238,10 @@ function ThemeCarousel({
     const card = el.children[0] as HTMLElement | undefined;
     const step = (card?.offsetWidth ?? 0) + 16; // 16 = gap-4
     cardStepRef.current = step;
-    el.scrollLeft = step * THEMES.length * MIDDLE_SET;
+    // A set is every theme plus the closing card, so the offset counts
+    // `CARD_SET.length` — using `THEMES.length` here landed one card short and
+    // drifted a little further out of alignment on every wrap.
+    el.scrollLeft = step * CARD_SET.length * MIDDLE_SET;
   }, []);
 
   // Once the user scrolls within one set's width of either end, silently
@@ -218,8 +250,9 @@ function ThemeCarousel({
   const handleScroll = () => {
     const el = trackRef.current;
     const step = cardStepRef.current;
-    if (!el || !step) return;
-    const setWidth = step * THEMES.length;
+    // Nothing to re-centre when the track holds a single set.
+    if (!el || !step || LOOP_REPEATS === 1) return;
+    const setWidth = step * CARD_SET.length;
     if (el.scrollLeft < setWidth) {
       el.scrollLeft += setWidth * (LOOP_REPEATS - 2);
     } else if (el.scrollLeft > setWidth * (LOOP_REPEATS - 1)) {
@@ -240,7 +273,10 @@ function ThemeCarousel({
         type="button"
         onClick={() => scrollByCard(-1)}
         aria-label={t("prevThemesAriaLabel")}
-        className="absolute left-4 top-1/2 z-10 flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full bg-studio-jaune text-studio-violet shadow-md transition-transform hover:scale-105 md:left-8"
+        className={cn(
+          "absolute left-4 top-1/2 z-10 flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full bg-studio-jaune text-studio-violet shadow-md transition-transform hover:scale-105 md:left-8",
+          !overflows && "hidden",
+        )}
       >
         <ArrowLeft className="h-5 w-5" />
       </button>
@@ -248,7 +284,13 @@ function ThemeCarousel({
       <div
         ref={trackRef}
         onScroll={handleScroll}
-        className="scrollbar-hide flex snap-x gap-4 overflow-x-auto px-6 py-2 md:px-12"
+        className={cn(
+          "scrollbar-hide flex snap-x gap-4 overflow-x-auto px-6 py-2 md:px-12",
+          // Only centre when everything fits: `justify-center` on an
+          // overflowing flex row makes its leading items unreachable, because
+          // the overflow is split to both sides of the scroll origin.
+          overflows ? "justify-start" : "justify-center",
+        )}
       >
         {LOOPED_THEMES.map(({ theme, index, key }) =>
           theme === null || index === null ? (
@@ -299,12 +341,17 @@ function ThemeCarousel({
         type="button"
         onClick={() => scrollByCard(1)}
         aria-label={t("nextThemesAriaLabel")}
-        className="absolute right-4 top-1/2 z-10 flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full bg-studio-jaune text-studio-violet shadow-md transition-transform hover:scale-105 md:right-8"
+        className={cn(
+          "absolute right-4 top-1/2 z-10 flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full bg-studio-jaune text-studio-violet shadow-md transition-transform hover:scale-105 md:right-8",
+          !overflows && "hidden",
+        )}
       >
         <ArrowRight className="h-5 w-5" />
       </button>
 
-      <div className="mt-4 flex justify-center gap-2">
+      <div
+        className={cn("mt-4 flex justify-center gap-2", !overflows && "hidden")}
+      >
         {THEMES.map((theme, index) => (
           <span
             key={theme.name}
