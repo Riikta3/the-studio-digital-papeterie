@@ -8,6 +8,8 @@ import Image from "next/image";
 import { useEffect, useRef } from "react";
 
 import { FadeIn } from "./FadeIn";
+import { THEMES } from "./themes";
+import { UpcomingThemeCard } from "./UpcomingThemeCard";
 
 // Card visuals (border gradient, shadow tint) come straight from the studio
 // design tokens — Tailwind v3 has no CSS-variable escape hatch for gradient
@@ -27,17 +29,27 @@ type Step = {
   description: string;
 };
 
+/**
+ * Step 01: the themes a couple actually picks from.
+ *
+ * This used to be four flat colour swatches, which showed nothing a customer
+ * could choose — the step promises "a design that looks like you" and answered
+ * with two rectangles of beige. It now renders the real theme covers, the same
+ * artwork as the hero fan and the phone mockup.
+ *
+ * Like the two mocks below it, this is an illustration and not a control: the
+ * selectable version of this lives in `Preview`, and making one card here
+ * clickable would suggest the other three are too.
+ */
 function UniverseMock({
   label,
+  upcomingTitle,
+  upcomingSubtitle,
 }: {
   label: string;
+  upcomingTitle: string;
+  upcomingSubtitle: string;
 }) {
-  const swatches = [
-    "bg-studio-pourpre",
-    "bg-studio-beige",
-    "bg-studio-jaune",
-    "bg-studio-violet",
-  ];
   return (
     <div
       style={MOCK_BORDER_STYLE}
@@ -46,17 +58,46 @@ function UniverseMock({
       <p className="mb-4 text-center font-body text-h4 text-studio-violet/70">
         {label}
       </p>
-      <div className="grid grid-cols-2 gap-3">
-        {swatches.map((swatch, i) => (
-          <div
-            key={i}
-            className={cn(
-              "flex aspect-[7/3] items-center justify-center rounded-xl",
-              swatch,
-              i === 2 && "ring-2 ring-studio-violet ring-offset-2",
-            )}
-          />
+      {/* Portrait covers, so one row of four rather than the 2×2 grid the
+          landscape swatches needed. The closing card keeps the row even —
+          three themes across four columns would leave a hole. */}
+      <div className="grid grid-cols-4 gap-2 md:gap-3">
+        {THEMES.map((theme, i) => (
+          <div key={theme.id} className="text-center">
+            <div
+              className={cn(
+                "relative aspect-[290/540] overflow-hidden rounded-xl",
+                // One card reads as picked, the way the step describes.
+                i === 0 && "ring-2 ring-studio-violet ring-offset-2",
+              )}
+            >
+              <Image
+                src={theme.image}
+                alt={theme.name}
+                fill
+                sizes="(min-width: 1024px) 120px, 80px"
+                className="object-cover"
+              />
+            </div>
+            <p className="mt-2 truncate font-body text-[11px] text-studio-violet/70">
+              {theme.name}
+            </p>
+          </div>
         ))}
+        <div className="text-center">
+          <div className="relative aspect-[290/540]">
+            <UpcomingThemeCard
+              compact
+              title={upcomingTitle}
+              subtitle={upcomingSubtitle}
+            />
+          </div>
+          {/* Spacer, not a label: holds this card's artwork level with the
+              themed ones, whose names sit on this line. */}
+          <p aria-hidden="true" className="mt-2 font-body text-[11px]">
+            &nbsp;
+          </p>
+        </div>
       </div>
     </div>
   );
@@ -87,7 +128,9 @@ function PersonalizeMock({
             key={row.label}
             className="flex items-center justify-between py-3"
           >
-            <span className="font-body text-h5 text-studio-violet/80">{row.label}</span>
+            <span className="font-body text-h5 text-studio-violet/80">
+              {row.label}
+            </span>
             <span
               className={cn(
                 "flex h-6 w-11 items-center rounded-full p-0.5 transition-colors",
@@ -155,7 +198,9 @@ function ShareMock({
             key={actionLabel}
             className="flex items-center justify-between py-3"
           >
-            <span className="font-body text-h5 text-studio-violet/80">{actionLabel}</span>
+            <span className="font-body text-h5 text-studio-violet/80">
+              {actionLabel}
+            </span>
             <Icon className="h-4 w-4 text-studio-violet/60" />
           </div>
         ))}
@@ -268,7 +313,12 @@ export function HowItWorks() {
   const shareMockActions = t.raw("shareMockActions") as string[];
 
   const mocks = [
-    <UniverseMock key="universe" label={t("universeMockLabel")} />,
+    <UniverseMock
+      key="universe"
+      label={t("universeMockLabel")}
+      upcomingTitle={t("upcomingTitle")}
+      upcomingSubtitle={t("upcomingSubtitle")}
+    />,
     <PersonalizeMock
       key="personalize"
       label={t("personalizeMockLabel")}

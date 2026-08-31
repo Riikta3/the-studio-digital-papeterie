@@ -87,7 +87,9 @@
         "titleLine2": "den großen Tag",
         "description": "Senden Sie Ihre Einladung per SMS, WhatsApp oder E-Mail. Ihre Gäste antworten in Sekunden, egal wo sie sind."
       }
-    ]
+    ],
+    "upcomingTitle": "Neue Kollektionen",
+    "upcomingSubtitle": "Weitere Designs folgen in Kürze"
   },
   "DemoSection": {
     "eyebrow": "Voir en vrai",

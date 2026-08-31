@@ -87,7 +87,9 @@
         "titleLine2": "el gran día",
         "description": "Envía tu invitación por SMS, WhatsApp o correo electrónico. Tus invitados responden en segundos, estén donde estén."
       }
-    ]
+    ],
+    "upcomingTitle": "Nuevas colecciones",
+    "upcomingSubtitle": "Pronto habrá más temas"
   },
   "DemoSection": {
     "eyebrow": "Voir en vrai",

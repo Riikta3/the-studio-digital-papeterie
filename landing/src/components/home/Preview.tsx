@@ -303,7 +303,10 @@ function ThemeCarousel({
               className="w-32 shrink-0 snap-start text-center md:w-36"
             >
               <div className="relative aspect-[290/540]">
-                <UpcomingThemeCard />
+                <UpcomingThemeCard
+                  title={t("upcomingTitle")}
+                  subtitle={t("upcomingSubtitle")}
+                />
               </div>
               {/* Spacer, not a label: it keeps this card's artwork aligned with
                   the themed ones, whose names sit on this line. */}

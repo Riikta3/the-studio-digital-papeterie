@@ -94,7 +94,9 @@
         "titleLine2": "the big day",
         "description": "Send your invitation by SMS, WhatsApp, or email. Your guests respond in seconds, wherever they are."
       }
-    ]
+    ],
+    "upcomingTitle": "New collections",
+    "upcomingSubtitle": "More themes coming soon"
   },
   "Catalogue": {
     "eyebrow": "Créez votre invitation",

@@ -86,7 +86,9 @@
         "titleLine2": "特別な日を",
         "description": "SMS、WhatsApp、メールで招待状を送信。ゲストはどこにいても数秒で返信できます。"
       }
-    ]
+    ],
+    "upcomingTitle": "新しいコレクション",
+    "upcomingSubtitle": "新しいテーマを準備中です"
   },
   "DemoSection": {
     "eyebrow": "Voir en vrai",

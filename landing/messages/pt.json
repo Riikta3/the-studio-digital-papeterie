@@ -86,7 +86,9 @@
         "titleLine2": "o grande dia",
         "description": "Envie o seu convite por SMS, WhatsApp ou email. Os seus convidados respondem em segundos, onde quer que estejam."
       }
-    ]
+    ],
+    "upcomingTitle": "Novas coleções",
+    "upcomingSubtitle": "Em breve, mais temas"
   },
   "DemoSection": {
     "eyebrow": "Voir en vrai",

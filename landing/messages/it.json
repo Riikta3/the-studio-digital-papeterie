@@ -86,7 +86,9 @@
         "titleLine2": "il grande giorno",
         "description": "Invia la tua partecipazione via SMS, WhatsApp o email. I tuoi ospiti rispondono in pochi secondi, ovunque si trovino."
       }
-    ]
+    ],
+    "upcomingTitle": "Nuove collezioni",
+    "upcomingSubtitle": "Presto altri temi"
   },
   "DemoSection": {
     "eyebrow": "Voir en vrai",

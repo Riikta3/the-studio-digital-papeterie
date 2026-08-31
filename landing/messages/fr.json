@@ -94,7 +94,9 @@
         "titleLine2": "le grand jour",
         "description": "Envoyez votre invitation par SMS, Whatsapp ou e-mail. Vos invités répondent en quelques secondes, où qu'ils soient."
       }
-    ]
+    ],
+    "upcomingTitle": "Nouvelles collections",
+    "upcomingSubtitle": "D'autres thèmes arrivent bientôt"
   },
   "Features": {
     "titleLine1": "L'élégance du papier,",

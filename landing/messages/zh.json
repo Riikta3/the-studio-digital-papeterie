@@ -86,7 +86,9 @@
         "titleLine2": "重要的日子",
         "description": "通过短信、WhatsApp 或邮件发送请柬。无论宾客身在何处，都能在几秒内回复。"
       }
-    ]
+    ],
+    "upcomingTitle": "新系列",
+    "upcomingSubtitle": "更多主题即将推出"
   },
   "DemoSection": {
     "eyebrow": "Voir en vrai",
