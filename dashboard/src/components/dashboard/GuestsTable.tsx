@@ -241,12 +241,12 @@ export function GuestsTable({ households }: GuestsTableProps) {
   return (
     <div className='space-y-4'>
       {/* Toolbar */}
-      <div className='flex flex-col sm:flex-row gap-4 justify-between items-center bg-white p-4 rounded-xl border border-border shadow-sm'>
+      <div className='flex flex-col sm:flex-row gap-4 justify-between items-center bg-white p-4 rounded-2xl border border-studio-lavande/40 shadow-sm'>
         <div className='relative w-full sm:max-w-sm'>
           <Search className='absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground' />
           <Input
             placeholder={t("search_placeholder")}
-            className='pl-9 bg-gray-50/50 border-gray-200'
+            className='pl-9 bg-studio-lavande/5 border-studio-lavande/30'
             value={search}
             onChange={(e) => setSearch(e.target.value)}
           />
@@ -340,10 +340,10 @@ export function GuestsTable({ households }: GuestsTableProps) {
       </div>
 
       {/* Table */}
-      <div className='hidden md:block rounded-xl border bg-white shadow-sm overflow-hidden'>
+      <div className='hidden md:block rounded-2xl border border-studio-lavande/40 bg-white shadow-sm overflow-hidden'>
         <Table>
           <TableHeader>
-            <TableRow className='bg-gray-50/50 hover:bg-gray-50/50'>
+            <TableRow className='bg-studio-lavande/5 hover:bg-studio-lavande/5'>
               <TableHead className='w-[300px]'>
                 <Button
                   variant='ghost'
@@ -394,7 +394,7 @@ export function GuestsTable({ households }: GuestsTableProps) {
               filteredAndSortedHouseholds.map((household) => (
                 <TableRow
                   key={household.id}
-                  className='group hover:bg-gray-50/80 transition-colors'
+                  className='group hover:bg-studio-lavande/5 transition-colors'
                 >
                   <TableCell className='font-medium'>
                     <div className='flex items-center gap-3'>
@@ -419,12 +419,12 @@ export function GuestsTable({ households }: GuestsTableProps) {
                           <button
                             key={guest.id}
                             onClick={() => setEditingGuest(guest)}
-                            className='group flex items-center gap-1.5 bg-gray-50 hover:bg-primary/10 px-2.5 py-1.5 rounded-md text-xs transition-all hover:shadow-sm border border-transparent hover:border-primary/20 cursor-pointer'
+                            className='group flex items-center gap-1.5 bg-studio-lavande/10 hover:bg-primary/10 px-2.5 py-1.5 rounded-md text-xs transition-all hover:shadow-sm border border-transparent hover:border-primary/20 cursor-pointer'
                           >
-                            <span className='text-gray-700 group-hover:text-primary font-medium'>
+                            <span className='text-studio-violet/70 group-hover:text-primary font-medium'>
                               {guest.first_name}
                             </span>
-                            <Pencil className='w-3 h-3 text-gray-400 group-hover:text-primary transition-colors' />
+                            <Pencil className='w-3 h-3 text-studio-violet/40 group-hover:text-primary transition-colors' />
                           </button>
                         ))}
                       </div>
@@ -489,7 +489,7 @@ export function GuestsTable({ households }: GuestsTableProps) {
       {/* Mobile View (Cards) */}
       <div className='md:hidden space-y-4'>
         {filteredAndSortedHouseholds.length === 0 ? (
-          <div className='text-center p-8 text-muted-foreground bg-white rounded-xl border border-dashed'>
+          <div className='text-center p-8 text-muted-foreground bg-white rounded-2xl border border-dashed border-studio-lavande/40'>
             {t("no_results")}
           </div>
         ) : (
@@ -590,7 +590,7 @@ export function GuestsTable({ households }: GuestsTableProps) {
                 Cliquez sur le bouton "Importer" et sélectionnez votre fichier.
               </li>
             </ol>
-            <div className='bg-blue-50 p-3 rounded-md text-xs text-blue-700 flex gap-2'>
+            <div className='bg-studio-lavande/10 p-3 rounded-md text-xs text-studio-violet flex gap-2'>
               <Info className='h-4 w-4 shrink-0' />
               <p>
                 Astuce : Les colonnes "Enfant" et "Plus-One" attendent "Oui" ou

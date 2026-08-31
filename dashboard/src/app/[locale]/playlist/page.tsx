@@ -46,9 +46,9 @@ export default async function PlaylistPage() {
     : [];
 
   return (
-    <div className="min-h-screen p-6 md:p-12 max-w-4xl mx-auto space-y-8 bg-[#FDFBF7]">
-      <header className="flex flex-col gap-1 pb-4 border-b border-border">
-        <h1 className="text-3xl md:text-4xl font-heading font-light text-foreground">
+    <div className="min-h-screen p-6 md:p-12 max-w-4xl mx-auto space-y-8 bg-studio-creme">
+      <header className="flex flex-col gap-1 pb-4 border-b border-studio-lavande/30">
+        <h1 className="font-heading text-h1 text-studio-violet">
           Playlist Collaborative
         </h1>
         <p className="text-muted-foreground text-sm">Suggestions musicales de vos invités</p>

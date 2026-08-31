@@ -241,13 +241,13 @@ function DressCodeForm({
         </FieldGroup>
       ) : (
         <div className="space-y-4">
-          <div className="bg-[#FDFBF7] border border-border/60 rounded-xl p-4 space-y-3 [&_textarea]:bg-white">
+          <div className="bg-studio-creme border border-border/60 rounded-xl p-4 space-y-3 [&_textarea]:bg-white">
             <p className="text-xs font-bold uppercase tracking-wider text-muted-foreground">
               {t("dresscode_men")}
             </p>
             <Textarea rows={3} value={descriptionMen} onChange={(e) => setDescriptionMen(e.target.value)} placeholder={t("dresscode_men_placeholder")} />
           </div>
-          <div className="bg-[#FDFBF7] border border-border/60 rounded-xl p-4 space-y-3 [&_textarea]:bg-white">
+          <div className="bg-studio-creme border border-border/60 rounded-xl p-4 space-y-3 [&_textarea]:bg-white">
             <p className="text-xs font-bold uppercase tracking-wider text-muted-foreground">
               {t("dresscode_women")}
             </p>
@@ -780,7 +780,7 @@ function TimelineForm({
     <form onSubmit={handleSubmit} className="space-y-6">
       <div className="space-y-4">
         {events.map((event, idx) => (
-          <div key={event.id} className="bg-[#FDFBF7] border border-border/60 rounded-xl p-4 space-y-3 [&_input]:bg-white [&_textarea]:bg-white">
+          <div key={event.id} className="bg-studio-creme border border-border/60 rounded-xl p-4 space-y-3 [&_input]:bg-white [&_textarea]:bg-white">
             <div className="flex items-center justify-between mb-1">
               <span className="text-xs font-bold uppercase tracking-wider text-muted-foreground">
                 {t("event")} {idx + 1}
@@ -923,7 +923,7 @@ function AccommodationForm({
       <SectionHeader title={t("accommodation_options")} />
       <div className="space-y-4">
         {options.map((opt, idx) => (
-          <div key={opt.id} className="bg-[#FDFBF7] border border-border/60 rounded-xl p-4 space-y-3 [&_input]:bg-white [&_textarea]:bg-white">
+          <div key={opt.id} className="bg-studio-creme border border-border/60 rounded-xl p-4 space-y-3 [&_input]:bg-white [&_textarea]:bg-white">
             <div className="flex items-center justify-between">
               <span className="text-xs font-bold uppercase tracking-wider text-muted-foreground">
                 {t("accommodation")} {idx + 1}
@@ -1069,7 +1069,7 @@ function TransportForm({
       <SectionHeader title={t("transport_options")} />
       <div className="space-y-4">
         {options.map((opt, idx) => (
-          <div key={opt.id} className="bg-[#FDFBF7] border border-border/60 rounded-xl p-4 space-y-3 [&_input]:bg-white [&_textarea]:bg-white">
+          <div key={opt.id} className="bg-studio-creme border border-border/60 rounded-xl p-4 space-y-3 [&_input]:bg-white [&_textarea]:bg-white">
             <div className="flex items-center justify-between">
               <span className="text-xs font-bold uppercase tracking-wider text-muted-foreground">
                 {t("transport")} {idx + 1}
@@ -1434,7 +1434,7 @@ function FaqForm({
       <SectionHeader title={t("faq_questions")} />
       <div className="space-y-4">
         {questions.map((q, idx) => (
-          <div key={q.id} className="bg-[#FDFBF7] border border-border/60 rounded-xl p-4 space-y-3 [&_input]:bg-white [&_textarea]:bg-white">
+          <div key={q.id} className="bg-studio-creme border border-border/60 rounded-xl p-4 space-y-3 [&_input]:bg-white [&_textarea]:bg-white">
             <div className="flex items-center justify-between">
               <span className="text-xs font-bold uppercase tracking-wider text-muted-foreground">
                 {t("question")} {idx + 1}

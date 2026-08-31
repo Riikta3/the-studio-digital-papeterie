@@ -249,17 +249,17 @@ export function PlaylistClient({ suggestions, weddingId }: Props) {
     <div className="space-y-6">
       {/* Stats */}
       <div className="grid gap-4 md:grid-cols-3">
-        <div className="bg-white/50 border border-gray-100 shadow-sm rounded-xl p-5">
+        <div className="bg-white/50 border border-studio-lavande/30 shadow-sm rounded-2xl p-5">
           <p className="text-sm font-medium text-muted-foreground mb-1">Suggestions</p>
           <p className="text-2xl font-bold font-heading">{suggestions.filter(s => s.guest_name !== "__admin__").length}</p>
           <p className="text-xs text-muted-foreground mt-0.5">invités ont proposé des titres</p>
         </div>
-        <div className="bg-green-50/50 border border-green-100 shadow-sm rounded-xl p-5">
-          <p className="text-sm font-medium text-green-700 mb-1">Titres acceptés</p>
-          <p className="text-2xl font-bold font-heading text-green-700">{stats.accepted}</p>
-          <p className="text-xs text-green-600/70 mt-0.5">sur {stats.total} proposés</p>
+        <div className="bg-teal-50/50 border border-teal-100 shadow-sm rounded-2xl p-5">
+          <p className="text-sm font-medium text-teal-600 mb-1">Titres acceptés</p>
+          <p className="text-2xl font-bold font-heading text-teal-600">{stats.accepted}</p>
+          <p className="text-xs text-teal-500/70 mt-0.5">sur {stats.total} proposés</p>
         </div>
-        <div className="bg-primary/5 border border-primary/10 shadow-sm rounded-xl p-5">
+        <div className="bg-primary/5 border border-primary/10 shadow-sm rounded-2xl p-5">
           <p className="text-sm font-medium text-primary mb-1">Titres proposés</p>
           <p className="text-2xl font-bold font-heading text-primary">{stats.total}</p>
           <p className="text-xs text-primary/70 mt-0.5">au total</p>
@@ -267,7 +267,7 @@ export function PlaylistClient({ suggestions, weddingId }: Props) {
       </div>
 
       {/* Unified search bar */}
-      <div className="bg-white border border-border rounded-xl overflow-hidden">
+      <div className="bg-white border border-studio-lavande/40 rounded-2xl overflow-hidden">
         {/* Mode tabs */}
         <div className="flex border-b border-border">
           <button
@@ -305,7 +305,7 @@ export function PlaylistClient({ suggestions, weddingId }: Props) {
               value={search}
               onChange={(e) => setSearch(e.target.value)}
               placeholder="Rechercher un titre, artiste, invité..."
-              className="w-full pl-8 pr-8 py-2 text-sm rounded-lg bg-gray-50 focus:outline-none focus:ring-1 focus:ring-primary/30 focus:bg-white transition-colors"
+              className="w-full pl-8 pr-8 py-2 text-sm rounded-lg bg-studio-lavande/10 focus:outline-none focus:ring-1 focus:ring-primary/30 focus:bg-white transition-colors"
             />
           ) : (
             <input
@@ -314,7 +314,7 @@ export function PlaylistClient({ suggestions, weddingId }: Props) {
               value={addQuery}
               onChange={(e) => setAddQuery(e.target.value)}
               placeholder="Rechercher un titre sur Spotify..."
-              className="w-full pl-8 pr-8 py-2 text-sm rounded-lg bg-gray-50 focus:outline-none focus:ring-1 focus:ring-[#1DB954]/40 focus:bg-white transition-colors"
+              className="w-full pl-8 pr-8 py-2 text-sm rounded-lg bg-studio-lavande/10 focus:outline-none focus:ring-1 focus:ring-[#1DB954]/40 focus:bg-white transition-colors"
             />
           )}
           <div className="absolute right-6 top-1/2 -translate-y-1/2">
@@ -338,7 +338,7 @@ export function PlaylistClient({ suggestions, weddingId }: Props) {
             {addResults.map((track) => {
               const alreadyIn = existingTrackIds.has(track.id);
               return (
-                <div key={track.id} className="flex items-center gap-3 px-4 py-2.5 hover:bg-gray-50 transition-colors">
+                <div key={track.id} className="flex items-center gap-3 px-4 py-2.5 hover:bg-studio-lavande/10 transition-colors">
                   <img src={track.coverUrl} alt={track.title} className="w-9 h-9 rounded-md object-cover shrink-0" />
                   <div className="flex-1 min-w-0">
                     <p className="text-sm font-medium truncate">{track.title}</p>
@@ -350,7 +350,7 @@ export function PlaylistClient({ suggestions, weddingId }: Props) {
                     className={cn(
                       "flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium transition-colors shrink-0",
                       alreadyIn
-                        ? "bg-gray-100 text-muted-foreground cursor-default"
+                        ? "bg-studio-lavande/15 text-muted-foreground cursor-default"
                         : "bg-[#1DB954] text-white hover:bg-[#1DB954]/90",
                     )}
                   >
@@ -383,15 +383,15 @@ export function PlaylistClient({ suggestions, weddingId }: Props) {
               className={cn(
                 "flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-sm font-medium border transition-colors",
                 filter === key
-                  ? key === "accepted" ? "bg-green-600 text-white border-green-600"
+                  ? key === "accepted" ? "bg-teal-500 text-white border-teal-500"
                     : key === "rejected" ? "bg-red-500 text-white border-red-500"
-                    : key === "pending" ? "bg-amber-500 text-white border-amber-500"
+                    : key === "pending" ? "bg-studio-jaune text-studio-violet border-studio-jaune"
                     : "bg-foreground text-background border-foreground"
                   : "bg-white border-border text-muted-foreground hover:border-foreground/30",
               )}
             >
               {label}
-              <span className={cn("text-xs px-1.5 py-0.5 rounded-full", filter === key ? "bg-white/20" : "bg-gray-100")}>
+              <span className={cn("text-xs px-1.5 py-0.5 rounded-full", filter === key ? "bg-white/20" : "bg-studio-lavande/15")}>
                 {count}
               </span>
             </button>
@@ -421,14 +421,14 @@ export function PlaylistClient({ suggestions, weddingId }: Props) {
           </p>
         </div>
       ) : (
-        <div className="bg-white border border-border rounded-xl overflow-hidden">
+        <div className="bg-white border border-studio-lavande/40 rounded-2xl overflow-hidden">
           {/* Header */}
-          <div className="flex items-center gap-3 px-5 py-2.5 border-b border-border bg-gray-50/60">
+          <div className="flex items-center gap-3 px-5 py-2.5 border-b border-border bg-studio-lavande/5">
             <input
               type="checkbox"
               checked={allFilteredSelected}
               onChange={toggleSelectAll}
-              className="w-4 h-4 rounded border-gray-300 accent-foreground cursor-pointer"
+              className="w-4 h-4 rounded border-studio-lavande/50 accent-foreground cursor-pointer"
             />
             {selected.size > 0 ? (
               <>
@@ -438,7 +438,7 @@ export function PlaylistClient({ suggestions, weddingId }: Props) {
                 <div className="flex items-center gap-2 ml-auto">
                   <button
                     onClick={() => setConfirmBatch("accepted")}
-                    className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium bg-green-500 text-white hover:bg-green-600 transition-colors"
+                    className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium bg-teal-400 text-white hover:bg-teal-500 transition-colors"
                   >
                     <CheckCheck size={13} /> Accepter
                   </button>
@@ -450,7 +450,7 @@ export function PlaylistClient({ suggestions, weddingId }: Props) {
                   </button>
                   <button
                     onClick={() => setConfirmBatch("pending")}
-                    className="px-3 py-1.5 rounded-lg text-xs font-medium border border-border text-muted-foreground hover:bg-gray-50 transition-colors"
+                    className="px-3 py-1.5 rounded-lg text-xs font-medium border border-border text-muted-foreground hover:bg-studio-lavande/10 transition-colors"
                   >
                     Réinitialiser
                   </button>
@@ -478,7 +478,7 @@ export function PlaylistClient({ suggestions, weddingId }: Props) {
                     className={cn(
                       "flex items-center gap-4 px-5 py-3 transition-colors",
                       isSelected && "bg-blue-50/40",
-                      !isSelected && status === "accepted" && "bg-green-50/40",
+                      !isSelected && status === "accepted" && "bg-teal-50/40",
                       !isSelected && status === "rejected" && "bg-red-50/30 opacity-60",
                     )}
                   >
@@ -486,7 +486,7 @@ export function PlaylistClient({ suggestions, weddingId }: Props) {
                       type="checkbox"
                       checked={isSelected}
                       onChange={() => toggleSelect(key)}
-                      className="w-4 h-4 rounded border-gray-300 accent-foreground cursor-pointer shrink-0"
+                      className="w-4 h-4 rounded border-studio-lavande/50 accent-foreground cursor-pointer shrink-0"
                     />
 
                     {/* Cover + embed toggle */}
@@ -521,7 +521,7 @@ export function PlaylistClient({ suggestions, weddingId }: Props) {
                         onClick={() => handleStatusToggle(suggestion, track, "accepted")}
                         className={cn(
                           "p-1.5 rounded-lg transition-colors",
-                          status === "accepted" ? "bg-green-500 text-white" : "text-muted-foreground hover:bg-green-50 hover:text-green-600",
+                          status === "accepted" ? "bg-teal-400 text-white" : "text-muted-foreground hover:bg-teal-50 hover:text-teal-600",
                         )}
                         title="Accepter"
                       >
@@ -550,7 +550,7 @@ export function PlaylistClient({ suggestions, weddingId }: Props) {
 
                   {/* Spotify embed */}
                   {isExpanded && (
-                    <div className="px-5 pb-4 bg-gray-50/60 border-t border-border">
+                    <div className="px-5 pb-4 bg-studio-lavande/5 border-t border-border">
                       <div className="flex items-center justify-between mt-3 mb-1">
                         <span className="text-xs text-muted-foreground">Aperçu Spotify</span>
                         <button
@@ -605,7 +605,7 @@ export function PlaylistClient({ suggestions, weddingId }: Props) {
           }.`}
           confirmLabel="Confirmer"
           confirmClassName={
-            confirmBatch === "accepted" ? "bg-green-500 hover:bg-green-600" :
+            confirmBatch === "accepted" ? "bg-teal-400 hover:bg-teal-500" :
             confirmBatch === "rejected" ? "bg-red-500 hover:bg-red-600" :
             "bg-foreground hover:bg-foreground/80"
           }
@@ -630,7 +630,7 @@ function ConfirmModal({
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center">
       <div className="absolute inset-0 bg-black/50" onClick={onCancel} />
-      <div className="relative bg-white rounded-xl shadow-xl p-6 max-w-sm w-full mx-4 space-y-4">
+      <div className="relative bg-white rounded-2xl shadow-xl p-6 max-w-sm w-full mx-4 space-y-4">
         <div className="space-y-1.5">
           <h3 className="text-base font-semibold text-foreground">{title}</h3>
           <p className="text-sm text-muted-foreground">{description}</p>
@@ -638,7 +638,7 @@ function ConfirmModal({
         <div className="flex justify-end gap-2 pt-2">
           <button
             onClick={onCancel}
-            className="px-4 py-2 rounded-lg text-sm border border-border text-muted-foreground hover:bg-gray-50 transition-colors"
+            className="px-4 py-2 rounded-lg text-sm border border-border text-muted-foreground hover:bg-studio-lavande/10 transition-colors"
           >
             Annuler
           </button>

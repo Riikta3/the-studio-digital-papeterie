@@ -26,7 +26,7 @@ export default function ForgotPasswordPage() {
 
   if (emailSent) {
     return (
-      <div className='min-h-screen bg-gradient-to-br from-[#FDFBF7] via-[#F8F6F3] to-[#F5F3EF] flex flex-col items-center justify-center p-4 relative overflow-hidden'>
+      <div className='min-h-screen bg-studio-creme flex flex-col items-center justify-center p-4 relative overflow-hidden'>
         {/* Decorative background */}
         <div className='absolute inset-0 opacity-[0.03]'>
           <div className='absolute top-20 left-20 w-96 h-96 bg-primary/30 rounded-full blur-[100px]' />
@@ -54,10 +54,10 @@ export default function ForgotPasswordPage() {
               </div>
             </div>
 
-            <h1 className='font-heading text-3xl font-light text-gray-900'>
+            <h1 className='font-heading text-h2 text-studio-violet'>
               Email envoyé
             </h1>
-            <p className='text-sm text-gray-500 font-light leading-relaxed'>
+            <p className='text-sm text-studio-violet/60 font-light leading-relaxed'>
               Si cette adresse email est associée à un compte, vous recevrez un
               lien de réinitialisation dans quelques minutes.
               <br />
@@ -79,7 +79,7 @@ export default function ForgotPasswordPage() {
   }
 
   return (
-    <div className='min-h-screen bg-gradient-to-br from-[#FDFBF7] via-[#F8F6F3] to-[#F5F3EF] flex flex-col items-center justify-center p-4 relative overflow-hidden'>
+    <div className='min-h-screen bg-studio-creme flex flex-col items-center justify-center p-4 relative overflow-hidden'>
       {/* Decorative background elements */}
       <div className='absolute inset-0 opacity-[0.03]'>
         <div className='absolute top-20 left-20 w-96 h-96 bg-primary/30 rounded-full blur-[100px]' />
@@ -93,10 +93,10 @@ export default function ForgotPasswordPage() {
 
           {/* Header */}
           <div className='relative text-center space-y-4'>
-            <h1 className='font-heading text-4xl font-light text-gray-900 tracking-wide'>
+            <h1 className='font-heading text-h1 text-studio-violet tracking-wide'>
               Mot de passe oublié ?
             </h1>
-            <p className='text-sm text-gray-500 font-light leading-relaxed'>
+            <p className='text-sm text-studio-violet/60 font-light leading-relaxed'>
               Entrez votre adresse email et nous vous enverrons un lien pour
               réinitialiser votre mot de passe.
             </p>
@@ -110,7 +110,7 @@ export default function ForgotPasswordPage() {
             <div className='space-y-3'>
               <Label
                 htmlFor='email'
-                className='text-xs uppercase tracking-[0.15em] font-medium text-gray-600'
+                className='text-xs uppercase tracking-[0.15em] font-medium text-studio-violet/70'
               >
                 Email
               </Label>
@@ -120,7 +120,7 @@ export default function ForgotPasswordPage() {
                 type='email'
                 placeholder='votre@email.com'
                 required
-                className='h-14 bg-white border-gray-200/80 focus:border-primary/50 focus:ring-primary/20 rounded-xl transition-all duration-300 text-base placeholder:text-gray-400'
+                className='h-14 bg-white border-studio-lavande/40 focus:border-primary/50 focus:ring-primary/20 rounded-xl transition-all duration-300 text-base placeholder:text-studio-violet/30'
               />
             </div>
 
@@ -143,7 +143,7 @@ export default function ForgotPasswordPage() {
             <div className='text-center pt-2'>
               <Link
                 href='/login'
-                className='text-sm text-gray-500 hover:text-primary font-light tracking-wide transition-colors'
+                className='text-sm text-studio-violet/60 hover:text-primary font-light tracking-wide transition-colors'
               >
                 Retour à la connexion
               </Link>

@@ -27,28 +27,28 @@ export function StatCard({
 }: StatCardProps) {
   const variantStyles = {
     default: {
-      card: "bg-white border-border hover:border-primary/50",
-      icon: "bg-primary/10 text-primary",
-      label: "text-muted-foreground",
-      value: "text-foreground",
+      card: "bg-white border-studio-lavande/40 hover:border-studio-violet/50",
+      icon: "bg-studio-violet/10 text-studio-violet",
+      label: "text-studio-violet/60",
+      value: "text-studio-violet",
     },
     primary: {
-      card: "bg-primary text-primary-foreground border-primary",
-      icon: "bg-white/10 text-primary-foreground",
-      label: "text-primary-foreground/70",
-      value: "text-primary-foreground",
+      card: "bg-studio-violet text-white border-studio-violet",
+      icon: "bg-white/10 text-white",
+      label: "text-white/70",
+      value: "text-white",
     },
     warning: {
-      card: "bg-orange-50 border-orange-100",
-      icon: "bg-orange-100 text-orange-600",
-      label: "text-orange-600",
-      value: "text-orange-900",
+      card: "bg-white border-studio-jaune",
+      icon: "bg-studio-jaune text-studio-violet",
+      label: "text-studio-pourpre",
+      value: "text-studio-violet",
     },
     success: {
-      card: "bg-emerald-50 border-emerald-100",
-      icon: "bg-emerald-100 text-emerald-600",
-      label: "text-emerald-600",
-      value: "text-emerald-900",
+      card: "bg-white border-teal-200",
+      icon: "bg-teal-100 text-teal-600",
+      label: "text-teal-600",
+      value: "text-studio-violet",
     },
   };
 
@@ -95,7 +95,7 @@ export function StatCard({
       {trend && (
         <div className='relative z-10 flex items-center gap-1 text-xs mt-3'>
           <span
-            className={trend.isPositive ? "text-emerald-600" : "text-red-600"}
+            className={trend.isPositive ? "text-teal-500" : "text-red-600"}
           >
             {trend.isPositive ? "↑" : "↓"} {Math.abs(trend.value)}%
           </span>

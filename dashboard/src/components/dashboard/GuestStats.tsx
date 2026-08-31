@@ -24,46 +24,46 @@ export function GuestStats({
 
   return (
     <div className='grid gap-4 md:grid-cols-2 lg:grid-cols-4'>
-      <Card className='bg-white/50 border-gray-100 shadow-sm'>
+      <Card className='bg-white border-studio-lavande/40 shadow-sm'>
         <CardHeader className='flex flex-row items-center justify-between space-y-0 pb-2'>
-          <CardTitle className='text-sm font-medium text-muted-foreground'>
+          <CardTitle className='text-sm font-medium text-studio-violet/60'>
             {t("total")}
           </CardTitle>
-          <Users className='h-4 w-4 text-primary' />
+          <Users className='h-4 w-4 text-studio-violet' />
         </CardHeader>
         <CardContent>
-          <div className='text-2xl font-bold font-heading'>{totalGuests}</div>
-          <p className='text-xs text-muted-foreground'>{t("invited")}</p>
+          <div className='text-2xl font-bold font-heading text-studio-violet'>{totalGuests}</div>
+          <p className='text-xs text-studio-violet/50'>{t("invited")}</p>
         </CardContent>
       </Card>
 
-      <Card className='bg-green-50/50 border-green-100 shadow-sm'>
+      <Card className='bg-teal-50/50 border-teal-100 shadow-sm'>
         <CardHeader className='flex flex-row items-center justify-between space-y-0 pb-2'>
-          <CardTitle className='text-sm font-medium text-green-700'>
+          <CardTitle className='text-sm font-medium text-teal-600'>
             {t("confirmed")}
           </CardTitle>
-          <CheckCircle className='h-4 w-4 text-green-600' />
+          <CheckCircle className='h-4 w-4 text-teal-500' />
         </CardHeader>
         <CardContent>
-          <div className='text-2xl font-bold font-heading text-green-700'>
+          <div className='text-2xl font-bold font-heading text-teal-600'>
             {confirmedGuests}
           </div>
-          <p className='text-xs text-green-600/80'>{t("attending")}</p>
+          <p className='text-xs text-teal-600/80'>{t("attending")}</p>
         </CardContent>
       </Card>
 
-      <Card className='bg-orange-50/50 border-orange-100 shadow-sm'>
+      <Card className='bg-studio-jaune/20 border-studio-jaune shadow-sm'>
         <CardHeader className='flex flex-row items-center justify-between space-y-0 pb-2'>
-          <CardTitle className='text-sm font-medium text-orange-700'>
+          <CardTitle className='text-sm font-medium text-studio-pourpre'>
             {t("pending")}
           </CardTitle>
-          <Clock className='h-4 w-4 text-orange-600' />
+          <Clock className='h-4 w-4 text-studio-pourpre' />
         </CardHeader>
         <CardContent>
-          <div className='text-2xl font-bold font-heading text-orange-700'>
+          <div className='text-2xl font-bold font-heading text-studio-violet'>
             {pendingGuests}
           </div>
-          <p className='text-xs text-orange-600/80'>{t("waiting")}</p>
+          <p className='text-xs text-studio-pourpre/80'>{t("waiting")}</p>
         </CardContent>
       </Card>
 

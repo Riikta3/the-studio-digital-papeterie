@@ -9,7 +9,7 @@ export default async function BillingPage() {
   return (
     <div className='flex-1 space-y-8 p-8 pt-6 max-w-5xl mx-auto'>
       <div className='flex flex-col space-y-2'>
-        <h2 className='text-3xl font-heading font-bold tracking-tight text-primary'>
+        <h2 className='font-heading text-h2 tracking-tight text-studio-violet'>
           {t("title")}
         </h2>
         <p className='text-muted-foreground'>{t("subtitle")}</p>

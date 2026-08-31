@@ -51,9 +51,9 @@ export default async function SeatingPlanPage() {
 
   return (
     <div className='h-screen flex flex-col'>
-      <header className='p-4 border-b bg-white flex justify-between items-center z-10 relative shadow-sm'>
+      <header className='p-4 border-b border-studio-lavande/30 bg-white flex justify-between items-center z-10 relative shadow-sm'>
         <div>
-          <h1 className='text-2xl font-bold font-heading'>Plan de Table</h1>
+          <h1 className='font-heading text-h3 text-studio-violet'>Plan de Table</h1>
           <p className='text-sm text-muted-foreground'>
             {hasTables
               ? "Glissez-déposez les tables et les invités."
@@ -65,8 +65,8 @@ export default async function SeatingPlanPage() {
 
       <div className='flex-1 overflow-hidden relative'>
         {!hasTables ? (
-          <div className='absolute inset-0 flex flex-col items-center justify-center bg-slate-50/50'>
-            <div className='bg-white p-8 rounded-2xl shadow-lg text-center max-w-md border border-border'>
+          <div className='absolute inset-0 flex flex-col items-center justify-center bg-studio-creme/50'>
+            <div className='bg-white p-8 rounded-2xl shadow-lg text-center max-w-md border border-studio-lavande/40'>
               <div className='w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4'>
                 <svg
                   xmlns='http://www.w3.org/2000/svg'

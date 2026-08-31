@@ -170,7 +170,7 @@ export function DashboardLayout({ children }: { children: React.ReactNode }) {
       !pathname.startsWith("/rsvp")
     ) {
       return (
-        <div className='fixed inset-0 z-[100] flex items-center justify-center bg-[#FDFBF7]'>
+        <div className='fixed inset-0 z-[100] flex items-center justify-center bg-studio-creme'>
           <div className='flex flex-col items-center gap-4'>
             <div className='animate-spin rounded-full h-8 w-8 border-b-2 border-primary'></div>
             <p className='text-xs text-gray-400'>
@@ -188,7 +188,7 @@ export function DashboardLayout({ children }: { children: React.ReactNode }) {
   }
 
   return (
-    <div className='min-h-screen bg-[#FDFBF7]'>
+    <div className='min-h-screen bg-studio-creme'>
       <WelcomePopup slug={slug || undefined} isOpen={showWelcome} onClose={() => setShowWelcome(false)} />
       <Sidebar slug={slug} />
       <main className='md:ml-64 min-h-screen transition-all'>{children}</main>

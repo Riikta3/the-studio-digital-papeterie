@@ -3,6 +3,7 @@
 import { Button } from "@shared/components/ui/button";
 import { Input } from "@shared/components/ui/input";
 import { Label } from "@shared/components/ui/label";
+import { useLocale } from "next-intl";
 import { useActionState, useEffect } from "react";
 import { resetPassword } from "./actions";
 
@@ -11,6 +12,7 @@ const initialState = {
 };
 
 export default function ResetPasswordPage() {
+  const locale = useLocale();
   const [state, formAction, isPending] = useActionState(
     resetPassword,
     initialState,
@@ -18,12 +20,12 @@ export default function ResetPasswordPage() {
 
   useEffect(() => {
     if (state?.success) {
-      window.location.href = "/login";
+      window.location.href = `/${locale}/login`;
     }
-  }, [state?.success]);
+  }, [state?.success, locale]);
 
   return (
-    <div className='min-h-screen bg-gradient-to-br from-[#FDFBF7] via-[#F8F6F3] to-[#F5F3EF] flex flex-col items-center justify-center p-4 relative overflow-hidden'>
+    <div className='min-h-screen bg-studio-creme flex flex-col items-center justify-center p-4 relative overflow-hidden'>
       {/* Decorative background elements */}
       <div className='absolute inset-0 opacity-[0.03]'>
         <div className='absolute top-20 left-20 w-96 h-96 bg-primary/30 rounded-full blur-[100px]' />
@@ -37,10 +39,10 @@ export default function ResetPasswordPage() {
 
           {/* Header */}
           <div className='relative text-center space-y-4'>
-            <h1 className='font-heading text-4xl font-light text-gray-900 tracking-wide'>
+            <h1 className='font-heading text-h1 text-studio-violet tracking-wide'>
               Nouveau mot de passe
             </h1>
-            <p className='text-sm text-gray-500 font-light leading-relaxed'>
+            <p className='text-sm text-studio-violet/60 font-light leading-relaxed'>
               Choisissez un nouveau mot de passe pour votre compte.
             </p>
           </div>
@@ -53,7 +55,7 @@ export default function ResetPasswordPage() {
             <div className='space-y-3'>
               <Label
                 htmlFor='password'
-                className='text-xs uppercase tracking-[0.15em] font-medium text-gray-600'
+                className='text-xs uppercase tracking-[0.15em] font-medium text-studio-violet/70'
               >
                 Nouveau mot de passe
               </Label>
@@ -64,14 +66,14 @@ export default function ResetPasswordPage() {
                 placeholder='••••••••••'
                 required
                 minLength={6}
-                className='h-14 bg-white border-gray-200/80 focus:border-primary/50 focus:ring-primary/20 rounded-xl transition-all duration-300 text-base'
+                className='h-14 bg-white border-studio-lavande/40 focus:border-primary/50 focus:ring-primary/20 rounded-xl transition-all duration-300 text-base'
               />
             </div>
 
             <div className='space-y-3'>
               <Label
                 htmlFor='confirmPassword'
-                className='text-xs uppercase tracking-[0.15em] font-medium text-gray-600'
+                className='text-xs uppercase tracking-[0.15em] font-medium text-studio-violet/70'
               >
                 Confirmer le mot de passe
               </Label>
@@ -82,7 +84,7 @@ export default function ResetPasswordPage() {
                 placeholder='••••••••••'
                 required
                 minLength={6}
-                className='h-14 bg-white border-gray-200/80 focus:border-primary/50 focus:ring-primary/20 rounded-xl transition-all duration-300 text-base'
+                className='h-14 bg-white border-studio-lavande/40 focus:border-primary/50 focus:ring-primary/20 rounded-xl transition-all duration-300 text-base'
               />
             </div>
 

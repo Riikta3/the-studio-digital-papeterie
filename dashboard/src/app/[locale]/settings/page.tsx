@@ -31,8 +31,8 @@ export default async function SettingsPage() {
 
   return (
     <div className='p-8 md:p-12 max-w-4xl mx-auto space-y-8 pb-32'>
-      <header className='pb-8 border-b border-border'>
-        <h1 className='text-4xl font-heading font-light text-foreground'>
+      <header className='pb-8 border-b border-studio-lavande/30'>
+        <h1 className='font-heading text-h1 text-studio-violet'>
           {t("title")}
         </h1>
         <p className='text-muted-foreground mt-2'>{t("subtitle")}</p>
@@ -52,7 +52,7 @@ export default async function SettingsPage() {
           value='general'
           className='space-y-8'
         >
-          <section className='bg-card p-6 rounded-xl border border-border shadow-sm'>
+          <section className='bg-card p-6 rounded-2xl border border-studio-lavande/40 shadow-sm'>
             <h2 className='text-xl font-heading mb-4'>
               {t("general.wedding_config_title")}
             </h2>
@@ -62,7 +62,7 @@ export default async function SettingsPage() {
             <SettingsForm initialSettings={settings} />
           </section>
 
-          <section className='bg-card p-6 rounded-xl border border-border shadow-sm'>
+          <section className='bg-card p-6 rounded-2xl border border-studio-lavande/40 shadow-sm'>
             <h2 className='text-xl font-heading mb-4'>
               {t("general.language_title")}
             </h2>

@@ -57,11 +57,11 @@ export default async function DashboardHome() {
     : null;
 
   return (
-    <div className='min-h-screen p-4 md:p-8 lg:p-12 max-w-6xl mx-auto space-y-6 bg-[#FDFBF7]/50'>
-      <header className='flex flex-col md:flex-row justify-between items-start md:items-center border-b border-gray-200/60 pb-6 gap-4'>
+    <div className='min-h-screen p-4 md:p-8 lg:p-12 max-w-6xl mx-auto space-y-6 bg-studio-creme'>
+      <header className='flex flex-col md:flex-row justify-between items-start md:items-center border-b border-studio-lavande/30 pb-6 gap-4'>
         <div className='space-y-3 w-full md:w-auto'>
           <div className='flex flex-col'>
-            <h1 className='text-4xl md:text-5xl font-heading font-light text-gray-900'>
+            <h1 className='font-heading text-h1 text-studio-violet'>
               {t("greeting", {
                 name: `${profile?.first_name || "Mariés"} & ${profile?.partner_name || "Partenaire"}`,
               })}
@@ -79,7 +79,7 @@ export default async function DashboardHome() {
           <Link href='/settings'>
             <Button
               variant='outline'
-              className='border-border bg-white text-gray-600 hover:bg-gray-50 hover:text-primary transition-colors'
+              className='border-studio-lavande/50 bg-white text-studio-violet/70 hover:bg-studio-lavande/10 hover:text-studio-violet transition-colors'
             >
               <Settings className='w-4 h-4 mr-2' />
               {t("settings")}
@@ -137,16 +137,16 @@ export default async function DashboardHome() {
         <div>
           {/* Pending Validation Alert Card */}
           {(pendingHouseholdsCount ?? 0) > 0 ? (
-            <div className='bg-orange-50 border border-orange-100 rounded-xl p-6 relative overflow-hidden h-[420px] flex flex-col'>
-              <div className='absolute top-0 right-0 bg-orange-100 w-16 h-16 rounded-bl-full -mr-8 -mt-8'></div>
+            <div className='bg-white border border-studio-jaune rounded-2xl p-6 relative overflow-hidden h-[420px] flex flex-col'>
+              <div className='absolute top-0 right-0 bg-studio-jaune/60 w-16 h-16 rounded-bl-full -mr-8 -mt-8'></div>
               <div className='relative z-10 flex flex-col h-full'>
-                <div className='flex items-center gap-3 mb-3 text-orange-800'>
+                <div className='flex items-center gap-3 mb-3 text-studio-violet'>
                   <CheckCircle2 size={20} />
                   <h3 className='font-heading text-lg'>
                     Validations en attente
                   </h3>
                 </div>
-                <p className='text-sm text-orange-700 mb-4 font-light'>
+                <p className='text-sm text-studio-violet/70 mb-4 font-light'>
                   Vous avez <strong>{pendingHouseholdsCount} foyers</strong> qui
                   ont répondu et sont en attente de votre validation.
                 </p>
@@ -154,7 +154,7 @@ export default async function DashboardHome() {
                   <Link href='/guests'>
                     <Button
                       size='sm'
-                      className='bg-orange-600 hover:bg-orange-700 text-white border-none w-full'
+                      className='bg-studio-violet hover:bg-studio-violet-fonce text-white border-none w-full'
                     >
                       Examiner les réponses
                     </Button>
@@ -163,8 +163,8 @@ export default async function DashboardHome() {
               </div>
             </div>
           ) : (
-            <div className='bg-white border border-border rounded-xl p-6 h-[420px] flex items-center justify-center'>
-              <p className='text-muted-foreground text-center italic'>
+            <div className='bg-white border border-studio-lavande/40 rounded-2xl p-6 h-[420px] flex items-center justify-center'>
+              <p className='text-studio-violet/50 text-center italic'>
                 Aucune validation en attente
               </p>
             </div>

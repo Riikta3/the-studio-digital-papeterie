@@ -1,6 +1,7 @@
 "use client";
 
 import { usePathname, useRouter } from "@/navigation";
+import { cn } from "@shared/lib/utils";
 import { Globe } from "lucide-react";
 import { useLocale, useTranslations } from "next-intl";
 import { useTransition } from "react";
@@ -12,7 +13,11 @@ import {
   SelectValue,
 } from "../ui/select";
 
-export function LanguageSwitcher() {
+export function LanguageSwitcher({
+  variant = "light",
+}: {
+  variant?: "light" | "dark";
+}) {
   const t = useTranslations("LanguageSwitcher");
   const locale = useLocale();
   const router = useRouter();
@@ -44,7 +49,14 @@ export function LanguageSwitcher() {
       onValueChange={handleCreate}
       disabled={isPending}
     >
-      <SelectTrigger className='w-full bg-transparent border-transparent text-muted-foreground hover:bg-gray-50 hover:text-foreground focus:ring-0 focus:ring-offset-0 px-3 h-10'>
+      <SelectTrigger
+        className={cn(
+          "w-full bg-transparent border-transparent focus:ring-0 focus:ring-offset-0 px-3 h-10",
+          variant === "dark"
+            ? "text-white/70 hover:bg-white/10 hover:text-white"
+            : "text-studio-violet/60 hover:bg-studio-lavande/10 hover:text-studio-violet",
+        )}
+      >
         <div className='flex items-center gap-3'>
           <Globe size={18} />
           <SelectValue placeholder={t("select_language")} />

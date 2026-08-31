@@ -32,10 +32,10 @@ export default async function MessagesPage() {
     : [];
 
   return (
-    <div className="min-h-screen p-6 md:p-12 max-w-5xl mx-auto space-y-10 bg-[#FDFBF7]">
+    <div className="min-h-screen p-6 md:p-12 max-w-5xl mx-auto space-y-10 bg-studio-creme">
       {/* Header */}
-      <header className="flex flex-col gap-1 pb-4 border-b border-border">
-        <h1 className="text-3xl md:text-4xl font-heading font-light text-foreground">
+      <header className="flex flex-col gap-1 pb-4 border-b border-studio-lavande/30">
+        <h1 className="font-heading text-h1 text-studio-violet">
           Messages
         </h1>
         <p className="text-muted-foreground">
@@ -45,7 +45,7 @@ export default async function MessagesPage() {
 
       {responses.length === 0 ? (
         <div className="flex flex-col items-center justify-center py-32 text-center gap-4">
-          <div className="w-16 h-16 rounded-full bg-gray-100 flex items-center justify-center">
+          <div className="w-16 h-16 rounded-full bg-studio-lavande/20 flex items-center justify-center">
             <MessageSquare className="w-7 h-7 text-muted-foreground/40" />
           </div>
           <p className="text-muted-foreground text-sm">

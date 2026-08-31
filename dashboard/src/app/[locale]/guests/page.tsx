@@ -59,14 +59,14 @@ export default async function GuestsPage() {
     .reduce((acc: number, h: any) => acc + h.guestCount, 0);
 
   return (
-    <div className='min-h-screen p-6 md:p-12 max-w-7xl mx-auto space-y-8 bg-[#FDFBF7]'>
+    <div className='min-h-screen p-6 md:p-12 max-w-7xl mx-auto space-y-8 bg-studio-creme'>
       {/* Header */}
-      <header className='flex flex-col md:flex-row justify-between items-start md:items-center gap-4 pb-4 border-b border-border'>
+      <header className='flex flex-col md:flex-row justify-between items-start md:items-center gap-4 pb-4 border-b border-studio-lavande/30'>
         <div className='space-y-1'>
-          <h1 className='text-3xl md:text-4xl font-heading font-light text-foreground'>
+          <h1 className='font-heading text-h1 text-studio-violet'>
             {t("title")}
           </h1>
-          <p className='text-muted-foreground'>{t("subtitle")}</p>
+          <p className='text-studio-violet/60'>{t("subtitle")}</p>
         </div>
         <div className='flex gap-3'>
           <AddHouseholdDialog />

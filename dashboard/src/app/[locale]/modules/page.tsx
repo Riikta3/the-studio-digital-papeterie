@@ -18,7 +18,7 @@ export default async function ModulesPage() {
   return (
     <div className="p-6 md:p-10 max-w-3xl mx-auto">
       <div className="mb-10">
-        <h1 className="font-heading text-4xl md:text-5xl italic text-foreground mb-2">
+        <h1 className="font-heading text-h1 italic text-studio-violet mb-2">
           {t("title")}
         </h1>
         <p className="text-muted-foreground text-sm">{t("subtitle")}</p>

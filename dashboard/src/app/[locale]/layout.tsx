@@ -3,21 +3,21 @@ import { Toaster } from "@shared/components/ui/sonner";
 import type { Metadata } from "next";
 import { NextIntlClientProvider } from "next-intl";
 import { getMessages } from "next-intl/server";
-import { Cormorant_Garamond, DM_Sans } from "next/font/google";
+import { Libre_Caslon_Display, Urbanist } from "next/font/google";
 import { Suspense } from "react";
 import "../globals.css";
 
-const cormorant = Cormorant_Garamond({
+const libreCaslonDisplay = Libre_Caslon_Display({
   subsets: ["latin"],
   variable: "--font-heading",
-  weight: ["300", "400", "500", "600", "700"],
+  weight: ["400"],
   display: "swap",
 });
 
-const dmSans = DM_Sans({
+const urbanist = Urbanist({
   subsets: ["latin"],
   variable: "--font-body",
-  weight: ["400", "500", "700"],
+  weight: ["300", "400", "500", "600", "700"],
   display: "swap",
 });
 
@@ -40,7 +40,7 @@ export default async function RootLayout({
     <html lang={locale}>
       <body
         suppressHydrationWarning
-        className={`${cormorant.variable} ${dmSans.variable} font-body bg-[#FDFBF7] text-gray-900 antialiased`}
+        className={`${libreCaslonDisplay.variable} ${urbanist.variable} font-body bg-studio-creme text-studio-violet antialiased`}
       >
         <NextIntlClientProvider messages={messages}>
           <Suspense><DashboardLayout>{children}</DashboardLayout></Suspense>

@@ -17,11 +17,11 @@ export async function RecentActivity() {
   if (!households || households.length === 0) {
     return (
       <div className='space-y-6 h-[420px] flex flex-col'>
-        <h2 className='text-2xl font-heading font-light text-foreground'>
+        <h2 className='font-heading text-h3 text-studio-violet'>
           {t("recent_activity")}
         </h2>
-        <div className='flex-1 flex items-center justify-center border border-dashed border-border rounded-xl bg-muted/20'>
-          <p className='text-muted-foreground italic'>{t("no_activity")}</p>
+        <div className='flex-1 flex items-center justify-center border border-dashed border-studio-lavande/40 rounded-2xl bg-studio-lavande/5'>
+          <p className='text-studio-violet/50 italic'>{t("no_activity")}</p>
         </div>
       </div>
     );
@@ -36,10 +36,10 @@ export async function RecentActivity() {
 
   const getActivityColor = (status: string, source: string) => {
     if (status === "confirmed")
-      return "bg-emerald-100 text-emerald-600 border-emerald-200";
+      return "bg-teal-100 text-teal-500 border-teal-200";
     if (status === "declined") return "bg-red-100 text-red-600 border-red-200";
     if (source === "public")
-      return "bg-amber-100 text-amber-600 border-amber-200"; // Pending public
+      return "bg-amber-100 text-amber-400 border-amber-200"; // Pending public
     return "bg-blue-100 text-blue-600 border-blue-200"; // Created manual
   };
 
@@ -63,12 +63,12 @@ export async function RecentActivity() {
   return (
     <div className='space-y-6 h-[420px] flex flex-col'>
       <div className='flex items-center justify-between'>
-        <h2 className='text-2xl font-heading font-light text-foreground'>
+        <h2 className='font-heading text-h3 text-studio-violet'>
           {t("recent_activity")}
         </h2>
       </div>
 
-      <div className='relative border-l border-border ml-3 space-y-8 py-2 flex-1 overflow-y-auto'>
+      <div className='relative border-l border-studio-lavande/40 ml-3 space-y-8 py-2 flex-1 overflow-y-auto'>
         {(households as Household[]).map((household) => (
           <div
             key={household.id}
@@ -76,16 +76,16 @@ export async function RecentActivity() {
           >
             {/* Timeline dot */}
             <div
-              className={`absolute left-[-5px] top-1 w-2.5 h-2.5 rounded-full border-2 border-white ring-1 ring-border transition-all duration-300 group-hover:scale-125 group-hover:ring-primary/50 ${
+              className={`absolute left-[-5px] top-1 w-2.5 h-2.5 rounded-full border-2 border-white ring-1 ring-studio-lavande/40 transition-all duration-300 group-hover:scale-125 group-hover:ring-studio-violet/50 ${
                 household.status === "confirmed"
-                  ? "bg-emerald-500"
+                  ? "bg-teal-400"
                   : household.status === "declined"
                     ? "bg-red-500"
-                    : "bg-amber-500"
+                    : "bg-amber-400"
               }`}
             />
 
-            <div className='flex items-start justify-between gap-3 md:gap-4 p-3 md:p-4 bg-white rounded-xl border border-border shadow-sm hover:shadow-md transition-all duration-300'>
+            <div className='flex items-start justify-between gap-3 md:gap-4 p-3 md:p-4 bg-white rounded-2xl border border-studio-lavande/40 shadow-sm hover:shadow-md transition-all duration-300'>
               <div className='flex items-start gap-3'>
                 <div
                   className={`p-2 rounded-full border shrink-0 mt-0.5 ${getActivityColor(household.status, household.source)}`}

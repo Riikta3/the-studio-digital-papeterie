@@ -85,8 +85,8 @@ export default function SettingsForm({
           </button>
         </div>
       ) : (
-        <div className="flex items-center gap-3 px-4 py-3 bg-gray-50 border border-dashed border-gray-200 rounded-xl">
-          <div className="w-8 h-8 rounded-lg bg-gray-100 flex items-center justify-center shrink-0">
+        <div className="flex items-center gap-3 px-4 py-3 bg-studio-lavande/5 border border-dashed border-studio-lavande/40 rounded-xl">
+          <div className="w-8 h-8 rounded-lg bg-studio-lavande/20 flex items-center justify-center shrink-0">
             <KeyRound size={15} className="text-muted-foreground" />
           </div>
           <p className="text-sm text-muted-foreground">Aucun code invité actif — votre faire-part est accessible à tous.</p>

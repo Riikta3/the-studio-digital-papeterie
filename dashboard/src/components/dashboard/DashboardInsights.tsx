@@ -43,36 +43,36 @@ export async function DashboardInsights() {
   };
 
   return (
-    <div className='bg-white rounded-xl border border-border p-6 shadow-sm'>
+    <div className='bg-white rounded-2xl border border-studio-lavande/40 p-6 shadow-sm'>
       <div className='flex items-center justify-between mb-6'>
-        <h2 className='text-2xl font-heading font-light text-foreground'>
+        <h2 className='font-heading text-h3 text-studio-violet'>
           Statistiques & Insights
         </h2>
         <TrendingUp
           size={20}
-          className='text-primary'
+          className='text-studio-violet'
         />
       </div>
 
       <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6'>
         {/* Response Rate */}
         <div className='space-y-3'>
-          <div className='flex items-center gap-2 text-muted-foreground text-sm'>
+          <div className='flex items-center gap-2 text-studio-violet/60 text-sm'>
             <Users size={16} />
             <span>Taux de réponse</span>
           </div>
           <div className='flex items-baseline gap-2'>
-            <span className='text-4xl font-heading font-light text-gray-900'>
+            <span className='text-4xl font-heading font-light text-studio-violet'>
               {responseRate}%
             </span>
           </div>
-          <div className='h-2 bg-gray-100 rounded-full overflow-hidden'>
+          <div className='h-2 bg-studio-lavande/20 rounded-full overflow-hidden'>
             <div
-              className='h-full bg-gradient-to-r from-primary/70 to-primary transition-all duration-500'
+              className='h-full bg-gradient-to-r from-studio-violet/70 to-studio-violet transition-all duration-500'
               style={{ width: `${responseRate}%` }}
             />
           </div>
-          <p className='text-xs text-muted-foreground font-light'>
+          <p className='text-xs text-studio-violet/50 font-light'>
             {confirmedGuests + declinedGuests} sur {totalGuests} invités ont
             répondu
           </p>
@@ -80,29 +80,29 @@ export async function DashboardInsights() {
 
         {/* Confirmation Rate */}
         <div className='space-y-3'>
-          <div className='flex items-center gap-2 text-muted-foreground text-sm'>
+          <div className='flex items-center gap-2 text-studio-violet/60 text-sm'>
             <CheckCircle2 size={16} />
             <span>Taux de confirmation</span>
           </div>
           <div className='flex items-baseline gap-2'>
-            <span className='text-4xl font-heading font-light text-emerald-600'>
+            <span className='text-4xl font-heading font-light text-teal-500'>
               {confirmationRate}%
             </span>
           </div>
-          <div className='h-2 bg-gray-100 rounded-full overflow-hidden'>
+          <div className='h-2 bg-studio-lavande/20 rounded-full overflow-hidden'>
             <div
-              className='h-full bg-gradient-to-r from-emerald-400 to-emerald-600 transition-all duration-500'
+              className='h-full bg-gradient-to-r from-teal-300 to-teal-500 transition-all duration-500'
               style={{ width: `${confirmationRate}%` }}
             />
           </div>
-          <p className='text-xs text-muted-foreground font-light'>
+          <p className='text-xs text-studio-violet/50 font-light'>
             {confirmedGuests} confirmations sur {totalGuests} invités
           </p>
         </div>
 
         {/* Recent Confirmations */}
         <div className='space-y-3'>
-          <div className='flex items-center gap-2 text-muted-foreground text-sm'>
+          <div className='flex items-center gap-2 text-studio-violet/60 text-sm'>
             <CheckCircle2 size={16} />
             <span>Dernières confirmations</span>
           </div>
@@ -111,21 +111,21 @@ export async function DashboardInsights() {
               recentConfirmations.map((household, index) => (
                 <div
                   key={index}
-                  className='flex items-start justify-between gap-2 p-2 bg-emerald-50/50 rounded-lg border border-emerald-100/50'
+                  className='flex items-start justify-between gap-2 p-2 bg-teal-50/50 rounded-lg border border-teal-100/50'
                 >
                   <div className='flex items-center gap-2'>
-                    <div className='w-1.5 h-1.5 bg-emerald-500 rounded-full' />
-                    <span className='text-sm font-medium text-foreground truncate'>
+                    <div className='w-1.5 h-1.5 bg-teal-400 rounded-full' />
+                    <span className='text-sm font-medium text-studio-violet truncate'>
                       {household.name}
                     </span>
                   </div>
-                  <span className='text-xs text-muted-foreground whitespace-nowrap'>
+                  <span className='text-xs text-studio-violet/50 whitespace-nowrap'>
                     {formatDate(household.updated_at)}
                   </span>
                 </div>
               ))
             ) : (
-              <p className='text-sm text-muted-foreground italic'>
+              <p className='text-sm text-studio-violet/50 italic'>
                 Aucune confirmation récente
               </p>
             )}

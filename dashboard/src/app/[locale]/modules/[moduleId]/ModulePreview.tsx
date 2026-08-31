@@ -697,7 +697,7 @@ function TimelinePreview({ config }: { config: Record<string, unknown> }) {
           {events.map((event) => (
             <div key={event.id} className="relative flex items-center">
               {/* Badge heure centré sur la ligne */}
-              <div className="absolute left-0 flex items-center justify-center z-10 w-24 bg-[#FDFBF7] py-4">
+              <div className="absolute left-0 flex items-center justify-center z-10 w-24 bg-studio-creme py-4">
                 <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-primary border border-border bg-card px-4 py-1.5 rounded-full shadow-[0_2px_10px_-3px_rgba(0,0,0,0.04)]">
                   {event.time}
                 </span>

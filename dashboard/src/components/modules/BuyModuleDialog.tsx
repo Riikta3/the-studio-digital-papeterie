@@ -145,11 +145,11 @@ function ConfirmActivation({ moduleName, moduleId, paymentIntentId, onSuccess }:
 
   return (
     <div className="space-y-6">
-      <div className="bg-green-50 border border-green-200 rounded-xl p-4 flex items-start gap-3">
-        <CheckCircle2 className="w-5 h-5 text-green-600 shrink-0 mt-0.5" />
+      <div className="bg-teal-50 border border-teal-200 rounded-xl p-4 flex items-start gap-3">
+        <CheckCircle2 className="w-5 h-5 text-teal-500 shrink-0 mt-0.5" />
         <div>
-          <p className="font-medium text-sm text-green-800">Paiement confirmé</p>
-          <p className="text-xs text-green-700 mt-0.5">
+          <p className="font-medium text-sm text-teal-600">Paiement confirmé</p>
+          <p className="text-xs text-teal-600 mt-0.5">
             Votre paiement pour <span className="font-medium">{moduleName}</span> a bien été reçu.
             Cliquez sur le bouton ci-dessous pour activer le module.
           </p>
@@ -392,7 +392,7 @@ export function BuyModuleDialog({
           clientSecret,
           appearance: {
             theme: "stripe",
-            variables: { borderRadius: "12px", colorPrimary: "#a06c4a" },
+            variables: { borderRadius: "12px", colorPrimary: "#4B3F72" },
           },
         }}
       >

@@ -25,7 +25,7 @@ export default function LoginPage() {
   }, [state?.success]);
 
   return (
-    <div className='min-h-screen bg-gradient-to-br from-[#FDFBF7] via-[#F8F6F3] to-[#F5F3EF] flex flex-col items-center justify-center p-4 relative overflow-hidden'>
+    <div className='min-h-screen bg-studio-creme flex flex-col items-center justify-center p-4 relative overflow-hidden'>
       {/* Decorative background elements */}
       <div className='absolute inset-0 opacity-[0.03]'>
         <div className='absolute top-20 left-20 w-96 h-96 bg-primary/30 rounded-full blur-[100px]' />
@@ -41,15 +41,18 @@ export default function LoginPage() {
 
           {/* Header */}
           <div className='relative text-center space-y-6'>
-            <div className='flex justify-center'>
+            <div className='flex justify-center items-center gap-3'>
               <Image
-                src='/logo-the-studio-rectangulaire.svg'
-                alt='The Studio Papeterie Digital'
-                width={360}
-                height={110}
-                className='h-28 w-auto object-contain'
+                src='/logo-violet.svg'
+                alt=''
+                width={44}
+                height={46}
+                className='h-11 w-auto'
                 priority
               />
+              <span className='font-heading text-h2 text-studio-violet'>
+                The Studio
+              </span>
             </div>
 
             <p className='text-sm text-gray-500 font-light tracking-wide'>

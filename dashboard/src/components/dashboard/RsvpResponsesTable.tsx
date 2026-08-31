@@ -247,7 +247,7 @@ function ExpandPanelContent({
           transition={{ duration: 0.3, ease: [0.4, 0, 0.2, 1] }}
           style={{ overflow: "hidden", width: "100%" }}
         >
-          <div className='bg-gray-50/80 px-5 py-5'>
+          <div className='bg-studio-lavande/5 px-5 py-5'>
             <div
               className={`grid gap-6 text-sm w-full ${response.attendance ? "md:grid-cols-2" : "grid-cols-1"}`}
             >
@@ -266,16 +266,16 @@ function ExpandPanelContent({
                           label: t("pending"),
                           cls:
                             attendance === null
-                              ? "bg-amber-50 border-amber-300 text-amber-700 font-medium"
-                              : "border-border text-muted-foreground hover:border-amber-200",
+                              ? "bg-studio-jaune/30 border-studio-jaune text-studio-pourpre font-medium"
+                              : "border-border text-muted-foreground hover:border-studio-jaune",
                         },
                         {
                           value: true,
                           label: t("present"),
                           cls:
                             attendance === true
-                              ? "bg-green-50 border-green-300 text-green-700 font-medium"
-                              : "border-border text-muted-foreground hover:border-green-200",
+                              ? "bg-teal-50 border-teal-300 text-teal-600 font-medium"
+                              : "border-border text-muted-foreground hover:border-teal-200",
                         },
                         {
                           value: false,
@@ -544,7 +544,7 @@ export function RsvpResponsesTable({
   return (
     <div className='space-y-4'>
       {/* Toolbar */}
-      <div className='bg-white rounded-xl border border-border shadow-sm p-4 space-y-3'>
+      <div className='bg-white rounded-2xl border border-studio-lavande/40 shadow-sm p-4 space-y-3'>
         {/* Row 1 — Search + Filters */}
         <div className='flex flex-col sm:flex-row gap-3 items-center'>
           <div className='relative w-full sm:max-w-xs'>
@@ -554,7 +554,7 @@ export function RsvpResponsesTable({
               value={search}
               onChange={(e) => setSearch(e.target.value)}
               placeholder={t("search_placeholder")}
-              className='w-full pl-9 pr-4 py-2 rounded-lg border border-gray-200 bg-gray-50/50 text-sm focus:outline-none focus:ring-1 focus:ring-ring'
+              className='w-full pl-9 pr-4 py-2 rounded-lg border border-studio-lavande/30 bg-studio-lavande/5 text-sm focus:outline-none focus:ring-1 focus:ring-ring'
             />
           </div>
           <div className='flex gap-2 flex-wrap sm:ml-auto'>
@@ -691,7 +691,7 @@ export function RsvpResponsesTable({
       </AnimatePresence>
 
       {/* Table */}
-      <div className='bg-white rounded-xl border border-border shadow-sm overflow-hidden'>
+      <div className='bg-white rounded-2xl border border-studio-lavande/40 shadow-sm overflow-hidden'>
         {filtered.length === 0 ? (
           <div className='py-20 text-center text-muted-foreground text-sm'>
             {t("no_results")}
@@ -703,7 +703,7 @@ export function RsvpResponsesTable({
               style={{ tableLayout: "fixed" }}
             >
               <thead>
-                <tr className='border-b border-border bg-gray-50/50'>
+                <tr className='border-b border-border bg-studio-lavande/5'>
                   <th className='w-10 px-3 py-3.5'>
                     <input
                       type='checkbox'
@@ -747,7 +747,7 @@ export function RsvpResponsesTable({
                 {filtered.map((r) => (
                   <React.Fragment key={r.id}>
                     <tr
-                      className={`border-b border-border hover:bg-gray-50/50 transition-colors cursor-pointer ${expanded === r.id ? "bg-gray-50/50" : ""} ${selected.has(r.id) ? "bg-primary/5" : ""}`}
+                      className={`border-b border-border hover:bg-studio-lavande/5 transition-colors cursor-pointer ${expanded === r.id ? "bg-studio-lavande/5" : ""} ${selected.has(r.id) ? "bg-primary/5" : ""}`}
                       onClick={() =>
                         setExpanded(expanded === r.id ? null : r.id)
                       }
@@ -793,7 +793,7 @@ export function RsvpResponsesTable({
                       {/* Attendance */}
                       <td className='px-4 py-4'>
                         {r.attendance === true ? (
-                          <span className='inline-flex items-center gap-1.5 text-green-700 bg-green-50 border border-green-100 rounded-full px-3 py-1 text-xs font-medium'>
+                          <span className='inline-flex items-center gap-1.5 text-teal-600 bg-teal-50 border border-teal-100 rounded-full px-3 py-1 text-xs font-medium'>
                             <CheckCircle className='h-3.5 w-3.5' />
                             {t("present")}
                           </span>
@@ -803,7 +803,7 @@ export function RsvpResponsesTable({
                             {t("absent")}
                           </span>
                         ) : (
-                          <span className='inline-flex items-center gap-1.5 text-amber-700 bg-amber-50 border border-amber-100 rounded-full px-3 py-1 text-xs font-medium'>
+                          <span className='inline-flex items-center gap-1.5 text-studio-pourpre bg-studio-jaune/30 border border-studio-jaune rounded-full px-3 py-1 text-xs font-medium'>
                             <Clock className='h-3.5 w-3.5' />
                             {t("pending")}
                           </span>
@@ -1023,8 +1023,8 @@ export function RsvpResponsesTable({
               <label className="text-[10px] font-semibold text-muted-foreground uppercase tracking-widest">{t("col.attendance")}</label>
               <div className="flex gap-2">
                 {([
-                  { value: null, label: t("pending"), cls: createForm.attendance === null ? "bg-white border-amber-300 text-amber-700 font-medium" : "bg-white border-border text-muted-foreground hover:border-amber-200" },
-                  { value: true, label: t("present"), cls: createForm.attendance === true ? "bg-white border-green-300 text-green-700 font-medium" : "bg-white border-border text-muted-foreground hover:border-green-200" },
+                  { value: null, label: t("pending"), cls: createForm.attendance === null ? "bg-white border-studio-jaune text-studio-pourpre font-medium" : "bg-white border-border text-muted-foreground hover:border-studio-jaune" },
+                  { value: true, label: t("present"), cls: createForm.attendance === true ? "bg-white border-teal-300 text-teal-600 font-medium" : "bg-white border-border text-muted-foreground hover:border-teal-200" },
                   { value: false, label: t("absent"), cls: createForm.attendance === false ? "bg-white border-red-300 text-red-700 font-medium" : "bg-white border-border text-muted-foreground hover:border-red-200" },
                 ] as { value: boolean | null; label: string; cls: string }[]).map((opt) => (
                   <button key={String(opt.value)} type="button" onClick={() => setCreateForm({ ...createForm, attendance: opt.value })} className={`px-3 py-1.5 rounded-lg border text-xs transition-colors ${opt.cls}`}>

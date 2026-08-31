@@ -131,7 +131,7 @@ export function SeatingCanvas({
         <GuestSidebar guests={guests} />
 
         {/* Canvas Area */}
-        <div className='flex-1 relative bg-slate-50 overflow-auto'>
+        <div className='flex-1 relative bg-studio-creme overflow-auto'>
           <div className='absolute inset-0 min-w-[1000px] min-h-[1000px]'>
             {/* Grid Background Pattern */}
             <div

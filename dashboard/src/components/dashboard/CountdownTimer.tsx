@@ -56,7 +56,7 @@ export function CountdownTimer({ date }: CountdownTimerProps) {
 
   return (
     <div className='flex flex-col items-start justify-start text-left w-full'>
-      <div className='flex flex-wrap items-baseline justify-start gap-6 font-heading text-gray-900'>
+      <div className='flex flex-wrap items-baseline justify-start gap-6 font-heading text-studio-violet'>
         {/* Months */}
         {timeLeft.months > 0 && (
           <div className='flex flex-col items-center min-w-[4rem]'>

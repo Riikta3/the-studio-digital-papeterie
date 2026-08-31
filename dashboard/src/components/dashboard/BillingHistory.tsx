@@ -136,13 +136,13 @@ export function BillingHistory({ history }: BillingHistoryProps) {
     switch (status) {
       case "succeeded":
         return (
-          <Badge className='bg-green-100 text-green-700 hover:bg-green-200 border-green-200'>
+          <Badge className='bg-teal-100 text-teal-600 hover:bg-teal-200 border-teal-200'>
             {t("status_succeeded")}
           </Badge>
         );
       case "pending":
         return (
-          <Badge className='bg-yellow-100 text-yellow-700 hover:bg-yellow-200 border-yellow-200'>
+          <Badge className='bg-studio-jaune text-studio-violet hover:bg-studio-jaune/80 border-studio-jaune'>
             {t("status_pending")}
           </Badge>
         );
@@ -180,11 +180,11 @@ export function BillingHistory({ history }: BillingHistoryProps) {
 
   if (showEmptyState) {
     return (
-      <div className='flex flex-col items-center justify-center py-16 px-4 bg-gray-50/50 rounded-xl border border-dashed border-gray-200'>
+      <div className='flex flex-col items-center justify-center py-16 px-4 bg-studio-lavande/5 rounded-2xl border border-dashed border-studio-lavande/40'>
         <div className='w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center mb-4'>
           <Download className='w-8 h-8 text-primary' />
         </div>
-        <h3 className='text-lg font-heading font-semibold text-gray-900 mb-2'>
+        <h3 className='text-lg font-heading font-semibold text-studio-violet mb-2'>
           {t("no_invoices_title")}
         </h3>
         <p className='text-muted-foreground text-center max-w-md'>
@@ -258,9 +258,9 @@ export function BillingHistory({ history }: BillingHistoryProps) {
         </div>
       </div>
 
-      <div className='rounded-md border border-border bg-white overflow-hidden shadow-sm'>
-        <div className='p-6 border-b border-border bg-gray-50/50 flex justify-between items-center'>
-          <h3 className='font-heading text-lg font-semibold text-primary'>
+      <div className='rounded-2xl border border-studio-lavande/40 bg-white overflow-hidden shadow-sm'>
+        <div className='p-6 border-b border-studio-lavande/40 bg-studio-lavande/5 flex justify-between items-center'>
+          <h3 className='font-heading text-lg font-semibold text-studio-violet'>
             {t("history_title")}
           </h3>
         </div>
@@ -325,7 +325,7 @@ export function BillingHistory({ history }: BillingHistoryProps) {
               {filteredHistory.map((record) => (
                 <TableRow
                   key={record.id}
-                  className='hover:bg-gray-50/50'
+                  className='hover:bg-studio-lavande/5'
                 >
                   <TableCell className='font-medium'>
                     {format(new Date(record.created_at), "dd MMM yyyy", {

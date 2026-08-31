@@ -228,7 +228,7 @@ export function AddHouseholdDialog({
               {guests.map((guest, index) => (
                 <div
                   key={index}
-                  className='p-3 bg-stone-50 rounded-lg border border-stone-200 space-y-2'
+                  className='p-3 bg-studio-lavande/5 rounded-lg border border-studio-lavande/30 space-y-2'
                 >
                   <div className='flex gap-2'>
                     <div className='flex-1'>

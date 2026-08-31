@@ -160,17 +160,17 @@ export default function RsvpPage() {
 
   if (step === "code") {
     return (
-      <div className='min-h-screen flex items-center justify-center bg-[#FDFBF7] p-4'>
+      <div className='min-h-screen flex items-center justify-center bg-studio-creme p-4'>
         <div className='max-w-md w-full space-y-8 text-center'>
           <div>
-            <h1 className='font-heading text-4xl text-gray-900'>Bienvenue</h1>
-            <p className='mt-2 text-gray-600'>
+            <h1 className='font-heading text-h1 text-studio-violet'>Bienvenue</h1>
+            <p className='mt-2 text-studio-violet/70'>
               Entrez votre code invité pour accéder au formulaire.
             </p>
           </div>
           <form
             action={handleCodeSubmit}
-            className='mt-8 space-y-6 bg-white p-8 rounded-xl shadow-sm border border-stone-100'
+            className='mt-8 space-y-6 bg-white p-8 rounded-xl shadow-sm border border-studio-lavande/30'
           >
             <div className='space-y-2 text-left'>
               <Label htmlFor='code'>Code Mariage</Label>
@@ -198,18 +198,18 @@ export default function RsvpPage() {
 
   if (step === "search") {
     return (
-      <div className='min-h-screen flex items-center justify-center bg-[#FDFBF7] p-4'>
+      <div className='min-h-screen flex items-center justify-center bg-studio-creme p-4'>
         <div className='max-w-md w-full space-y-8 text-center'>
           <div>
-            <h1 className='font-heading text-4xl text-gray-900'>
+            <h1 className='font-heading text-h1 text-studio-violet'>
               {coupleNames}
             </h1>
-            <p className='mt-2 text-gray-600'>Retrouvez votre invitation.</p>
+            <p className='mt-2 text-studio-violet/70'>Retrouvez votre invitation.</p>
           </div>
 
           <form
             action={handleSearch}
-            className='mt-4 space-y-4 bg-white p-6 rounded-xl shadow-sm border border-stone-100'
+            className='mt-4 space-y-4 bg-white p-6 rounded-xl shadow-sm border border-studio-lavande/30'
           >
             <div className='space-y-2 text-left'>
               <Label htmlFor='name'>Votre Nom / Famille</Label>
@@ -242,12 +242,12 @@ export default function RsvpPage() {
                 <button
                   key={h.id}
                   onClick={() => selectHousehold(h)}
-                  className='w-full text-left p-4 bg-white border border-stone-200 rounded-lg hover:border-primary hover:bg-primary/5 transition-all group'
+                  className='w-full text-left p-4 bg-white border border-studio-lavande/40 rounded-lg hover:border-primary hover:bg-primary/5 transition-all group'
                 >
                   <span className='font-medium text-lg block group-hover:text-primary'>
                     {h.name}
                   </span>
-                  <span className='text-sm text-gray-500'>
+                  <span className='text-sm text-studio-violet/60'>
                     {h.guests?.length || 0} invité(s)
                   </span>
                 </button>
@@ -257,10 +257,10 @@ export default function RsvpPage() {
 
           <div className='relative pt-4'>
             <div className='absolute inset-0 flex items-center'>
-              <span className='w-full border-t border-gray-300' />
+              <span className='w-full border-t border-studio-lavande/40' />
             </div>
             <div className='relative flex justify-center text-xs uppercase'>
-              <span className='bg-[#FDFBF7] px-2 text-gray-500'>Ou</span>
+              <span className='bg-studio-creme px-2 text-studio-violet/60'>Ou</span>
             </div>
           </div>
 
@@ -279,25 +279,25 @@ export default function RsvpPage() {
   // REGISTER NEW HOUSEHOLD
   if (step === "register") {
     return (
-      <div className='min-h-screen bg-[#FDFBF7] py-12 px-4 sm:px-6 lg:px-8'>
+      <div className='min-h-screen bg-studio-creme py-12 px-4 sm:px-6 lg:px-8'>
         <div className='max-w-2xl mx-auto'>
           <div className='text-center mb-10'>
             <h2 className='text-sm font-semibold text-primary tracking-widest uppercase'>
               Nouvel Enregistrement
             </h2>
-            <h1 className='font-heading text-5xl mt-2 text-gray-900'>
+            <h1 className='font-heading text-h1 mt-2 text-studio-violet'>
               Votre Foyer
             </h1>
           </div>
 
           <form
             action={handleRegisterSubmit}
-            className='bg-white shadow-sm rounded-xl border border-stone-100 overflow-hidden'
+            className='bg-white shadow-sm rounded-xl border border-studio-lavande/30 overflow-hidden'
           >
             <div className='p-8 space-y-10'>
               {/* Main Details */}
               <div className='space-y-4'>
-                <h3 className='font-heading text-2xl text-gray-800 border-b border-stone-100 pb-2'>
+                <h3 className='font-heading text-h3 text-studio-violet border-b border-studio-lavande/30 pb-2'>
                   Coordonnées
                 </h3>
                 <div className='grid grid-cols-1 md:grid-cols-2 gap-4'>
@@ -322,8 +322,8 @@ export default function RsvpPage() {
 
               {/* Dynamic Guests */}
               <div className='space-y-6'>
-                <div className='flex justify-between items-center border-b border-stone-100 pb-2'>
-                  <h3 className='font-heading text-2xl text-gray-800'>
+                <div className='flex justify-between items-center border-b border-studio-lavande/30 pb-2'>
+                  <h3 className='font-heading text-h3 text-studio-violet'>
                     Invités
                   </h3>
                   <Button
@@ -339,13 +339,13 @@ export default function RsvpPage() {
                 {newGuests.map((guest, index) => (
                   <div
                     key={index}
-                    className='p-4 bg-stone-50 rounded-lg border border-stone-100 space-y-4 relative group'
+                    className='p-4 bg-studio-lavande/5 rounded-lg border border-studio-lavande/30 space-y-4 relative group'
                   >
                     {index > 0 && (
                       <button
                         type='button'
                         onClick={() => removeGuestField(index)}
-                        className='absolute top-4 right-4 text-gray-400 hover:text-red-500'
+                        className='absolute top-4 right-4 text-studio-violet/40 hover:text-red-500'
                       >
                         <Trash2 className='w-4 h-4' />
                       </button>
@@ -414,11 +414,11 @@ export default function RsvpPage() {
               </div>
             </div>
 
-            <div className='bg-gray-50 px-8 py-6 border-t border-gray-100 flex justify-between items-center'>
+            <div className='bg-studio-lavande/5 px-8 py-6 border-t border-studio-lavande/30 flex justify-between items-center'>
               <button
                 type='button'
                 onClick={() => setStep("search")}
-                className='text-sm text-gray-500 hover:underline'
+                className='text-sm text-studio-violet/60 hover:underline'
               >
                 Annuler
               </button>
@@ -444,26 +444,26 @@ export default function RsvpPage() {
   // FORM UPDATE EXISTING (Step "form")
   if (step === "form" && selectedHousehold) {
     return (
-      <div className='min-h-screen bg-[#FDFBF7] py-12 px-4 sm:px-6 lg:px-8'>
+      <div className='min-h-screen bg-studio-creme py-12 px-4 sm:px-6 lg:px-8'>
         <div className='max-w-2xl mx-auto'>
           {/* ... Header similar to register ... */}
           <div className='text-center mb-10'>
             <h2 className='text-sm font-semibold text-primary tracking-widest uppercase'>
               Réponse pour
             </h2>
-            <h1 className='font-heading text-5xl mt-2 text-gray-900'>
+            <h1 className='font-heading text-h1 mt-2 text-studio-violet'>
               {selectedHousehold.name}
             </h1>
           </div>
 
           <form
             action={handleRsvpSubmit}
-            className='bg-white shadow-sm rounded-xl border border-stone-100 overflow-hidden'
+            className='bg-white shadow-sm rounded-xl border border-studio-lavande/30 overflow-hidden'
           >
             <div className='p-8 space-y-10'>
               {/* Contact */}
               <div className='space-y-4'>
-                <h3 className='font-heading text-2xl text-gray-800 border-b border-stone-100 pb-2'>
+                <h3 className='font-heading text-h3 text-studio-violet border-b border-studio-lavande/30 pb-2'>
                   Email de contact
                 </h3>
                 <Input
@@ -477,13 +477,13 @@ export default function RsvpPage() {
 
               {/* Guests Loop */}
               <div className='space-y-6'>
-                <h3 className='font-heading text-2xl text-gray-800 border-b border-stone-100 pb-2'>
+                <h3 className='font-heading text-h3 text-studio-violet border-b border-studio-lavande/30 pb-2'>
                   Invités
                 </h3>
                 {selectedHousehold.guests?.map((guest: any) => (
                   <div
                     key={guest.id}
-                    className='p-4 bg-stone-50 rounded-lg border border-stone-100 space-y-4'
+                    className='p-4 bg-studio-lavande/5 rounded-lg border border-studio-lavande/30 space-y-4'
                   >
                     <div className='flex justify-between items-center'>
                       <span className='font-medium text-lg'>
@@ -572,7 +572,7 @@ export default function RsvpPage() {
               </div>
             </div>
 
-            <div className='bg-gray-50 px-8 py-6 border-t border-gray-100 flex justify-end'>
+            <div className='bg-studio-lavande/5 px-8 py-6 border-t border-studio-lavande/30 flex justify-end'>
               <Button
                 type='submit'
                 size='lg'
@@ -594,9 +594,9 @@ export default function RsvpPage() {
 
   if (step === "success") {
     return (
-      <div className='min-h-screen flex items-center justify-center bg-[#FDFBF7] p-4'>
+      <div className='min-h-screen flex items-center justify-center bg-studio-creme p-4'>
         <div className='max-w-md w-full text-center space-y-6'>
-          <div className='w-20 h-20 bg-green-100 rounded-full flex items-center justify-center mx-auto text-green-600'>
+          <div className='w-20 h-20 bg-teal-100 rounded-full flex items-center justify-center mx-auto text-teal-600'>
             <svg
               className='w-10 h-10'
               fill='none'
@@ -611,8 +611,8 @@ export default function RsvpPage() {
               />
             </svg>
           </div>
-          <h2 className='font-heading text-4xl text-gray-900'>Merci !</h2>
-          <p className='text-gray-600'>Votre réponse a bien été enregistrée.</p>
+          <h2 className='font-heading text-h1 text-studio-violet'>Merci !</h2>
+          <p className='text-studio-violet/70'>Votre réponse a bien été enregistrée.</p>
           <Button
             variant='outline'
             onClick={() => setStep("code")}
