@@ -809,11 +809,17 @@
  * Chose to close the frame rather than convert it to the top/bottom-only
  * pattern the other sections use. This is the one section that runs an
  * illustrated lineup edge to edge, and a complete border reads as a mounted
- * plate — which is what the side rules were reaching for. Matching the
- * existing width and colour exactly means the corners mitre invisibly; a
- * different weight or hue on two of the four sides is what produces the
- * diagonal seam in a corner.
+ * plate — which is what the side rules were reaching for.
+ *
+ * Only the bottom is drawn here, and at 14px rather than 12. `brunch-section`
+ * ends on `border-block: 14px solid var(--sun)`, so the frame already has a
+ * yellow rule along its top edge, in the same colour. Adding a 12px border on
+ * top of it stacked the two — 26px of yellow across the top against 12px down
+ * the sides, which is exactly the mismatch the eye catches. The bottom border
+ * matches that inherited 14px so the frame reads as one weight all the way
+ * round; the 12px sides are the theme's own and stay as they are, the small
+ * difference being invisible where a horizontal rule meets a vertical one.
  */
 .theme-ciao-amore .dress-section {
-  border-block: 12px solid var(--sun);
+  border-bottom: 14px solid var(--sun);
 }
