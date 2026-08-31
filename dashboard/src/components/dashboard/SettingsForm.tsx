@@ -4,6 +4,7 @@ import { updateSettings } from "@/actions/settings-actions";
 import { Input } from "@shared/components/ui/input";
 import { Label } from "@shared/components/ui/label";
 import { KeyRound, Loader2, X } from "lucide-react";
+import { useTranslations } from "next-intl";
 import { useState } from "react";
 import { toast } from "sonner";
 
@@ -12,6 +13,7 @@ export default function SettingsForm({
 }: {
   initialSettings: any;
 }) {
+  const t = useTranslations("SettingsForm");
   const [loading, setLoading] = useState(false);
   const [resetting, setResetting] = useState(false);
   const [currentCode, setCurrentCode] = useState<string | null>(
@@ -30,9 +32,9 @@ export default function SettingsForm({
       if (result.success) {
         setCurrentCode(inputValue.trim().toUpperCase());
         setInputValue("");
-        toast.success("Code invité enregistré");
+        toast.success(t("toast_code_saved"));
       } else {
-        toast.error(result.error || "Erreur lors de l'enregistrement");
+        toast.error(result.error || t("toast_error"));
       }
     } finally {
       setLoading(false);
@@ -47,9 +49,9 @@ export default function SettingsForm({
       const result = await updateSettings(fd);
       if (result.success) {
         setCurrentCode(null);
-        toast.success("Code invité supprimé");
+        toast.success(t("toast_code_removed"));
       } else {
-        toast.error(result.error || "Erreur lors de la suppression");
+        toast.error(result.error || t("toast_remove_error"));
       }
     } finally {
       setResetting(false);
@@ -65,7 +67,7 @@ export default function SettingsForm({
             <KeyRound size={15} className="text-primary" />
           </div>
           <div className="flex-1 min-w-0">
-            <p className="text-xs text-muted-foreground">Code actif</p>
+            <p className="text-xs text-muted-foreground">{t("active_code")}</p>
             <p className="font-bold tracking-widest text-foreground text-sm">
               {currentCode}
             </p>
@@ -74,14 +76,14 @@ export default function SettingsForm({
             onClick={handleReset}
             disabled={resetting}
             className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium border border-border text-muted-foreground hover:bg-red-50 hover:text-red-500 hover:border-red-200 transition-colors"
-            title="Supprimer le code"
+            title={t("remove_code")}
           >
             {resetting ? (
               <Loader2 size={12} className="animate-spin" />
             ) : (
               <X size={12} />
             )}
-            Réinitialiser
+            {t("reset")}
           </button>
         </div>
       ) : (
@@ -89,7 +91,7 @@ export default function SettingsForm({
           <div className="w-8 h-8 rounded-lg bg-studio-lavande/20 flex items-center justify-center shrink-0">
             <KeyRound size={15} className="text-muted-foreground" />
           </div>
-          <p className="text-sm text-muted-foreground">Aucun code invité actif — votre faire-part est accessible à tous.</p>
+          <p className="text-sm text-muted-foreground">{t("no_active_code")}</p>
         </div>
       )}
 
@@ -97,18 +99,18 @@ export default function SettingsForm({
       <form onSubmit={handleSubmit} className="space-y-3">
         <div className="space-y-1.5">
           <Label htmlFor="wedding_code">
-            {currentCode ? "Modifier le code" : "Définir un code invité"}
+            {currentCode ? t("change_code") : t("guest_code")}
           </Label>
           <Input
             id="wedding_code"
             value={inputValue}
             onChange={(e) => setInputValue(e.target.value.toUpperCase())}
-            placeholder="ex. MARIAGE2026"
+            placeholder={t("code_placeholder")}
             className="uppercase tracking-widest"
             maxLength={20}
           />
           <p className="text-xs text-muted-foreground">
-            Les invités devront saisir ce code pour accéder à votre faire-part.
+            {t("guest_code_hint")}
           </p>
         </div>
 
@@ -118,7 +120,7 @@ export default function SettingsForm({
           className="flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium bg-primary text-primary-foreground hover:bg-primary/90 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
         >
           {loading && <Loader2 size={14} className="animate-spin" />}
-          {currentCode ? "Modifier le code" : "Activer le code"}
+          {currentCode ? t("change_code") : t("save")}
         </button>
       </form>
     </div>

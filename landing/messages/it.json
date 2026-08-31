@@ -540,7 +540,69 @@
     "selectAtLeast": "Selezionate almeno 4 moduli",
     "minCount": "{count} / 4 moduli minimo",
     "countSelected": "{count} selezionato/i",
-    "included": "incluso"
+    "included": "incluso",
+    "catalog": {
+      "countdown": {
+        "name": "Countdown",
+        "description": "Il conto alla rovescia per il grande giorno"
+      },
+      "intro-video": {
+        "name": "Video Introduttivo",
+        "description": "Messaggio video personalizzato"
+      },
+      "timeline": {
+        "name": "Programma",
+        "description": "Lo svolgimento della giornata"
+      },
+      "dress-code": {
+        "name": "Dress Code",
+        "description": "Abbigliamento consigliato"
+      },
+      "rsvp": {
+        "name": "Gestione RSVP",
+        "description": "Conferme di presenza"
+      },
+      "map": {
+        "name": "Mappa e Accesso",
+        "description": "Posizione dei luoghi"
+      },
+      "accommodation": {
+        "name": "Alloggio",
+        "description": "Suggerimenti di hotel nelle vicinanze"
+      },
+      "transport": {
+        "name": "Trasporto",
+        "description": "Navette e trasporto degli ospiti"
+      },
+      "menu": {
+        "name": "Menu",
+        "description": "Dettagli del pasto"
+      },
+      "gallery": {
+        "name": "Galleria Fotografica",
+        "description": "Condividi i tuoi ricordi"
+      },
+      "gift-list": {
+        "name": "Lista Nozze",
+        "description": "Regali e contributi"
+      },
+      "playlist": {
+        "name": "Playlist",
+        "description": "Suggerimenti musicali"
+      },
+      "guestbook": {
+        "name": "Libro degli Ospiti",
+        "description": "Messaggi degli ospiti"
+      },
+      "video-guestbook": {
+        "name": "Libro degli Ospiti Video",
+        "description": "Messaggi video degli ospiti"
+      },
+      "faq": {
+        "name": "FAQ / Info Pratiche",
+        "description": "Informazioni pratiche per gli ospiti"
+      }
+    }
   },
   "StudioOptions": {
     "titlePrefix": "Opzioni ",

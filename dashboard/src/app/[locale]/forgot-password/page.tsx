@@ -4,6 +4,7 @@ import { Link } from "@/navigation";
 import { Button } from "@shared/components/ui/button";
 import { Input } from "@shared/components/ui/input";
 import { Label } from "@shared/components/ui/label";
+import { useTranslations } from "next-intl";
 import { useActionState, useEffect, useState } from "react";
 import { requestPasswordReset } from "./actions";
 
@@ -12,6 +13,7 @@ const initialState = {
 };
 
 export default function ForgotPasswordPage() {
+  const t = useTranslations("ForgotPassword");
   const [state, formAction, isPending] = useActionState(
     requestPasswordReset,
     initialState,
@@ -55,14 +57,13 @@ export default function ForgotPasswordPage() {
             </div>
 
             <h1 className='font-heading text-h2 text-studio-violet'>
-              Email envoyé
+              {t("email_sent_title")}
             </h1>
             <p className='text-sm text-studio-violet/60 font-light leading-relaxed'>
-              Si cette adresse email est associée à un compte, vous recevrez un
-              lien de réinitialisation dans quelques minutes.
+              {t("email_sent_description")}
               <br />
               <span className='text-xs'>
-                Pensez également à vérifier vos spams.
+                {t("check_spam")}
               </span>
             </p>
 
@@ -70,7 +71,7 @@ export default function ForgotPasswordPage() {
               href='/login'
               className='inline-block text-sm text-primary/60 hover:text-primary font-light tracking-wide transition-colors'
             >
-              Retour à la connexion
+              {t("back_to_login")}
             </Link>
           </div>
         </div>
@@ -94,11 +95,10 @@ export default function ForgotPasswordPage() {
           {/* Header */}
           <div className='relative text-center space-y-4'>
             <h1 className='font-heading text-h1 text-studio-violet tracking-wide'>
-              Mot de passe oublié ?
+              {t("title")}
             </h1>
             <p className='text-sm text-studio-violet/60 font-light leading-relaxed'>
-              Entrez votre adresse email et nous vous enverrons un lien pour
-              réinitialiser votre mot de passe.
+              {t("description")}
             </p>
           </div>
 
@@ -112,13 +112,13 @@ export default function ForgotPasswordPage() {
                 htmlFor='email'
                 className='text-xs uppercase tracking-[0.15em] font-medium text-studio-violet/70'
               >
-                Email
+                {t("email_label")}
               </Label>
               <Input
                 id='email'
                 name='email'
                 type='email'
-                placeholder='votre@email.com'
+                placeholder={t("email_placeholder")}
                 required
                 className='h-14 bg-white border-studio-lavande/40 focus:border-primary/50 focus:ring-primary/20 rounded-xl transition-all duration-300 text-base placeholder:text-studio-violet/30'
               />
@@ -137,7 +137,7 @@ export default function ForgotPasswordPage() {
               disabled={isPending}
               className='w-full h-14 bg-primary hover:bg-primary/90 text-white rounded-xl text-base font-light tracking-[0.1em] uppercase transition-all duration-300 shadow-lg hover:shadow-xl disabled:opacity-50 disabled:cursor-not-allowed'
             >
-              {isPending ? "Envoi..." : "Envoyer le lien"}
+              {isPending ? t("sending") : t("send_link")}
             </Button>
 
             <div className='text-center pt-2'>
@@ -145,7 +145,7 @@ export default function ForgotPasswordPage() {
                 href='/login'
                 className='text-sm text-studio-violet/60 hover:text-primary font-light tracking-wide transition-colors'
               >
-                Retour à la connexion
+                {t("back_to_login")}
               </Link>
             </div>
           </form>

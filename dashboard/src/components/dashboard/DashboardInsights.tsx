@@ -1,7 +1,10 @@
 import { createClient } from "@/utils/supabase/server";
 import { CheckCircle2, TrendingUp, Users } from "lucide-react";
+import { getLocale, getTranslations } from "next-intl/server";
 
 export async function DashboardInsights() {
+  const t = await getTranslations("DashboardInsights");
+  const locale = await getLocale();
   const supabase = await createClient();
 
   // Fetch data in parallel
@@ -34,7 +37,7 @@ export async function DashboardInsights() {
 
   const formatDate = (dateString: string) => {
     const date = new Date(dateString);
-    return new Intl.DateTimeFormat("fr-FR", {
+    return new Intl.DateTimeFormat(locale, {
       day: "numeric",
       month: "short",
       hour: "2-digit",
@@ -46,7 +49,7 @@ export async function DashboardInsights() {
     <div className='bg-white rounded-2xl border border-studio-lavande/40 p-6 shadow-sm'>
       <div className='flex items-center justify-between mb-6'>
         <h2 className='font-heading text-h3 text-studio-violet'>
-          Statistiques & Insights
+          {t("title")}
         </h2>
         <TrendingUp
           size={20}
@@ -59,7 +62,7 @@ export async function DashboardInsights() {
         <div className='space-y-3'>
           <div className='flex items-center gap-2 text-studio-violet/60 text-sm'>
             <Users size={16} />
-            <span>Taux de réponse</span>
+            <span>{t("response_rate")}</span>
           </div>
           <div className='flex items-baseline gap-2'>
             <span className='text-4xl font-heading font-light text-studio-violet'>
@@ -73,8 +76,10 @@ export async function DashboardInsights() {
             />
           </div>
           <p className='text-xs text-studio-violet/50 font-light'>
-            {confirmedGuests + declinedGuests} sur {totalGuests} invités ont
-            répondu
+            {t("response_rate_detail", {
+              responded: confirmedGuests + declinedGuests,
+              total: totalGuests,
+            })}
           </p>
         </div>
 
@@ -82,7 +87,7 @@ export async function DashboardInsights() {
         <div className='space-y-3'>
           <div className='flex items-center gap-2 text-studio-violet/60 text-sm'>
             <CheckCircle2 size={16} />
-            <span>Taux de confirmation</span>
+            <span>{t("confirmation_rate")}</span>
           </div>
           <div className='flex items-baseline gap-2'>
             <span className='text-4xl font-heading font-light text-teal-500'>
@@ -96,7 +101,10 @@ export async function DashboardInsights() {
             />
           </div>
           <p className='text-xs text-studio-violet/50 font-light'>
-            {confirmedGuests} confirmations sur {totalGuests} invités
+            {t("confirmation_rate_detail", {
+              count: confirmedGuests,
+              total: totalGuests,
+            })}
           </p>
         </div>
 
@@ -104,7 +112,7 @@ export async function DashboardInsights() {
         <div className='space-y-3'>
           <div className='flex items-center gap-2 text-studio-violet/60 text-sm'>
             <CheckCircle2 size={16} />
-            <span>Dernières confirmations</span>
+            <span>{t("recent_confirmations")}</span>
           </div>
           <div className='space-y-2'>
             {recentConfirmations && recentConfirmations.length > 0 ? (
@@ -126,7 +134,7 @@ export async function DashboardInsights() {
               ))
             ) : (
               <p className='text-sm text-studio-violet/50 italic'>
-                Aucune confirmation récente
+                {t("no_recent_confirmation")}
               </p>
             )}
           </div>

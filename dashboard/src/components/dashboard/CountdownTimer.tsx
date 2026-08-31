@@ -1,6 +1,7 @@
 "use client";
 
 import { intervalToDuration } from "date-fns";
+import { useTranslations } from "next-intl";
 import { useEffect, useState } from "react";
 
 interface CountdownTimerProps {
@@ -8,6 +9,7 @@ interface CountdownTimerProps {
 }
 
 export function CountdownTimer({ date }: CountdownTimerProps) {
+  const t = useTranslations("CountdownTimer");
   const [timeLeft, setTimeLeft] = useState<{
     months: number;
     days: number;
@@ -49,7 +51,7 @@ export function CountdownTimer({ date }: CountdownTimerProps) {
   if (!timeLeft) {
     return (
       <div className='text-xl font-heading text-primary'>
-        C&apos;est le grand jour !
+        {t("big_day")}
       </div>
     );
   }
@@ -64,7 +66,7 @@ export function CountdownTimer({ date }: CountdownTimerProps) {
               {timeLeft.months}
             </span>
             <span className='text-xs uppercase text-muted-foreground font-sans tracking-wider mt-1'>
-              Mois
+              {t("months")}
             </span>
           </div>
         )}
@@ -75,7 +77,7 @@ export function CountdownTimer({ date }: CountdownTimerProps) {
             {timeLeft.days}
           </span>
           <span className='text-xs uppercase text-muted-foreground font-sans tracking-wider mt-1'>
-            Jours
+            {t("days")}
           </span>
         </div>
 
@@ -85,7 +87,7 @@ export function CountdownTimer({ date }: CountdownTimerProps) {
             {timeLeft.hours.toString().padStart(2, "0")}
           </span>
           <span className='text-xs uppercase text-muted-foreground font-sans tracking-wider mt-1'>
-            H
+            {t("hours")}
           </span>
         </div>
 
@@ -95,7 +97,7 @@ export function CountdownTimer({ date }: CountdownTimerProps) {
             {timeLeft.minutes.toString().padStart(2, "0")}
           </span>
           <span className='text-xs uppercase text-muted-foreground font-sans tracking-wider mt-1'>
-            Min
+            {t("minutes")}
           </span>
         </div>
 
@@ -105,7 +107,7 @@ export function CountdownTimer({ date }: CountdownTimerProps) {
             {timeLeft.seconds.toString().padStart(2, "0")}
           </span>
           <span className='text-xs uppercase text-muted-foreground font-sans tracking-wider mt-1'>
-            Sec
+            {t("seconds")}
           </span>
         </div>
       </div>

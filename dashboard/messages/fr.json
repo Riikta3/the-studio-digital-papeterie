@@ -41,7 +41,13 @@
     "manage_responses_desc": "Traiter les RSVP en attente",
     "guest_list_desc": "Liste complète des invités",
     "export_data": "Exporter les données",
-    "export_desc": "Télécharger un fichier Excel / CSV"
+    "export_desc": "Télécharger un fichier Excel / CSV",
+    "confirmed_guests_desc": "Invités confirmés",
+    "pending_response_desc": "En attente de réponse",
+    "pending_validation_title": "Validations en attente",
+    "pending_validation_desc": "Vous avez <strong>{count} foyers</strong> qui ont répondu et sont en attente de votre validation.",
+    "review_responses": "Examiner les réponses",
+    "no_pending_validation": "Aucune validation en attente"
   },
   "Guests": {
     "title": "Vos Invités",
@@ -65,6 +71,7 @@
     "filter_confirmed": "Confirmés",
     "filter_pending": "En attente",
     "filter_declined": "Déclinés",
+    "filter_partial": "Partiel",
     "header_household": "Foyer / Famille",
     "header_guests": "Invités",
     "header_contact": "Contact",
@@ -80,7 +87,30 @@
     "confirm_delete": "Supprimer",
     "toast_deleting": "Suppression en cours...",
     "toast_deleted": "Foyer supprimé !",
-    "error_tech": "Erreur technique"
+    "error_tech": "Erreur technique",
+    "export": "Exporter",
+    "exporting": "Export...",
+    "import": "Importer",
+    "importing": "Import...",
+    "toast_exporting": "Génération de l'export Excel...",
+    "toast_export_success": "Export Excel réussi !",
+    "toast_export_error": "Erreur lors de l'export",
+    "toast_importing": "Import en cours...",
+    "toast_import_error": "Erreur lors de l'import",
+    "toast_generating_template": "Génération du modèle...",
+    "toast_template_downloaded": "Modèle téléchargé !",
+    "toast_template_error": "Erreur lors du téléchargement",
+    "help_dialog": {
+      "title": "Comment importer vos invités ?",
+      "description": "Suivez ces étapes simples pour importer votre liste d'invités :",
+      "step_1": "Téléchargez le modèle Excel ci-dessous.",
+      "step_2": "Remplissez-le avec vos invités (respectez les colonnes).",
+      "step_3": "Sauvegardez le fichier.",
+      "step_4": "Cliquez sur le bouton \"Importer\" et sélectionnez votre fichier.",
+      "tip": "Astuce : Les colonnes \"Enfant\" et \"Plus-One\" attendent \"Oui\" ou \"Non\".",
+      "close": "Fermer",
+      "download_template": "Télécharger le modèle"
+    }
   },
   "AddHouseholdDialog": {
     "add_title": "Ajouter un foyer",
@@ -103,7 +133,32 @@
     "submitting_edit": "Modification...",
     "toast_success_create": "Foyer ajouté avec succès",
     "toast_success_edit": "Foyer modifié avec succès",
-    "toast_error": "Erreur technique lors de l'enregistrement"
+    "toast_error": "Erreur technique lors de l'enregistrement",
+    "cancel": "Annuler",
+    "toast_unknown_error": "Erreur inconnue",
+    "status_field_label": "Statut du foyer",
+    "relation_type_label": "Type de relation",
+    "status_options": {
+      "pending": "En attente",
+      "confirmed": "Confirmé",
+      "declined": "Décliné",
+      "partial": "Partiel"
+    },
+    "relation_options": {
+      "unspecified": "Non spécifié",
+      "partner": "Conjoint(e)",
+      "spouse": "Époux/Épouse",
+      "child": "Enfant",
+      "parent": "Parent",
+      "sibling": "Frère/Sœur",
+      "grandparent": "Grand-parent",
+      "grandchild": "Petit-enfant",
+      "family": "Famille élargie",
+      "friend": "Ami(e)",
+      "colleague": "Collègue",
+      "plus_one": "Accompagnant(e)",
+      "other": "Autre"
+    }
   },
   "GuestCard": {
     "pending": "En attente",
@@ -133,7 +188,16 @@
     "toast_error": "Erreur lors de la mise à jour",
     "toast_tech_error": "Erreur technique",
     "language_title": "Langue de la plateforme",
-    "language_desc": "Choisissez la langue de l'interface d'administration."
+    "language_desc": "Choisissez la langue de l'interface d'administration.",
+    "active_code": "Code actif",
+    "remove_code": "Supprimer le code",
+    "reset": "Réinitialiser",
+    "no_active_code": "Aucun code invité actif — votre faire-part est accessible à tous.",
+    "change_code": "Modifier le code",
+    "guest_code_hint": "Les invités devront saisir ce code pour accéder à votre faire-part.",
+    "toast_code_saved": "Code invité enregistré",
+    "toast_code_removed": "Code invité supprimé",
+    "toast_remove_error": "Erreur lors de la suppression"
   },
   "RsvpResponses": {
     "title": "Réponses RSVP",
@@ -207,7 +271,30 @@
     "deleting": "Suppression...",
     "cancel": "Annuler",
     "deleted": "Réponse supprimée",
-    "delete_error": "Erreur lors de la suppression"
+    "delete_error": "Erreur lors de la suppression",
+    "relation_options": {
+      "unspecified": "Non spécifié",
+      "partner": "Conjoint(e)",
+      "spouse": "Époux/Épouse",
+      "child": "Enfant",
+      "parent": "Parent",
+      "sibling": "Frère/Sœur",
+      "grandparent": "Grand-parent",
+      "grandchild": "Petit-enfant",
+      "family": "Famille élargie",
+      "friend": "Ami(e)",
+      "colleague": "Collègue",
+      "plus_one": "Accompagnant(e)",
+      "other": "Autre"
+    },
+    "bulk": {
+      "selected_count": "{count} réponse(s) sélectionnée(s)",
+      "delete_selection": "Supprimer la sélection",
+      "delete_title": "Supprimer {count} réponse(s) ?",
+      "delete_description": "Cette action est irréversible. Les {count} réponse(s) sélectionnée(s) seront définitivement supprimées.",
+      "deleted": "{count} réponse(s) supprimée(s)"
+    },
+    "dietary_other_placeholder": "Autre (précisez)..."
   },
   "Sidebar": {
     "home": "Accueil",
@@ -261,7 +348,8 @@
       "email_desc": "Modifier votre email nécessitera une confirmation sur la nouvelle adresse.",
       "new_email": "Nouvel Email",
       "update_email_btn": "Modifier l'email",
-      "toast_profile_success": "Profil mis à jour"
+      "toast_profile_success": "Profil mis à jour",
+      "toast_tech_error": "Erreur technique"
     },
     "security": {
       "password_title": "Mot de passe",
@@ -279,7 +367,8 @@
       "delete_keyword": "SUPPRIMER",
       "cancel": "Annuler",
       "confirm_delete_btn": "Supprimer définitivement",
-      "toast_error_tech": "Erreur technique lors de la suppression"
+      "toast_error_tech": "Erreur technique lors de la suppression",
+      "toast_tech_error": "Erreur technique"
     }
   },
   "Billing": {
@@ -397,7 +486,100 @@
     "order_save_error": "Impossible de sauvegarder l'ordre. Veuillez réessayer.",
     "module_price": "10 € / module",
     "buy_module_title": "Ajouter un module",
-    "buy_module_desc": "Activez ce module pour 10 € — disponible immédiatement sur votre faire-part."
+    "buy_module_desc": "Activez ce module pour 10 € — disponible immédiatement sur votre faire-part.",
+    "live_preview": "Aperçu en direct",
+    "choose_deadline": "Choisir une date limite",
+    "toast_photo_uploaded": "Photo uploadée",
+    "toast_upload_error": "Erreur upload",
+    "field_venue_photo": "Photo du lieu",
+    "uploading": "Upload...",
+    "add_photo_hint": "Ajouter une photo (JPG/PNG, max 10 Mo)",
+    "paste_url_hint": "Ou coller une URL directement :",
+    "toast_video_uploaded": "Vidéo uploadée et enregistrée",
+    "field_video_source": "Source vidéo",
+    "video_source_link": "Lien YouTube / Vimeo",
+    "video_source_upload": "Uploader un fichier",
+    "video_source_link_hint": "Coller un lien YouTube ou Vimeo",
+    "uploading_video": "Upload en cours...",
+    "upload_video_hint": "Uploader une vidéo (MP4, MOV, WebM — max 100 Mo)",
+    "delete_video_title": "Supprimer cette vidéo ?",
+    "delete_video_desc": "Cette action est irréversible — la vidéo sera effacée et vos invités ne pourront plus la visionner.",
+    "cancel": "Annuler",
+    "delete": "Supprimer",
+    "gallery_max_photos": "Maximum {max} photos",
+    "gallery_invalid_files": "Certains fichiers sont invalides (JPG/PNG, max 5 Mo)",
+    "gallery_photos_added": "{count} photo(s) ajoutée(s)",
+    "gallery_photo_deleted": "Photo supprimée",
+    "gallery_delete_error": "Erreur suppression",
+    "gallery_uploading": "Upload en cours...",
+    "gallery_dropzone_hint": "Glisser des photos ou cliquer pour parcourir",
+    "gallery_dropzone_specs": "JPG, JPEG, PNG — max 5 Mo par photo — {count}/{max} photos",
+    "gallery_reorder_hint": "Glissez les photos pour modifier leur ordre d'affichage.",
+    "gallery_empty_hint": "Aucune photo ajoutée — les photos de démonstration s'afficheront sur le site.",
+    "reorder_hint": "— glissez pour réordonner",
+    "reorder": "Réordonner",
+    "catalog": {
+      "countdown": {
+        "name": "Compte à Rebours",
+        "description": "Le décompte avant le jour J"
+      },
+      "intro-video": {
+        "name": "Vidéo d'Intro",
+        "description": "Message vidéo personnalisé"
+      },
+      "timeline": {
+        "name": "Programme",
+        "description": "Déroulé de la journée"
+      },
+      "dress-code": {
+        "name": "Dress Code",
+        "description": "Tenue recommandée"
+      },
+      "rsvp": {
+        "name": "Gestion RSVP",
+        "description": "Confirmations de présence"
+      },
+      "map": {
+        "name": "Plan & Accès",
+        "description": "Localisation des lieux"
+      },
+      "accommodation": {
+        "name": "Hébergement",
+        "description": "Suggestions d'hôtels à proximité"
+      },
+      "transport": {
+        "name": "Transport",
+        "description": "Navettes & transport des invités"
+      },
+      "menu": {
+        "name": "Menu",
+        "description": "Détails du repas"
+      },
+      "gallery": {
+        "name": "Galerie Photo",
+        "description": "Partagez vos souvenirs"
+      },
+      "gift-list": {
+        "name": "Liste de Mariage",
+        "description": "Cadeaux & participations"
+      },
+      "playlist": {
+        "name": "Playlist",
+        "description": "Suggestions musicales"
+      },
+      "guestbook": {
+        "name": "Livre d'Or",
+        "description": "Messages des invités"
+      },
+      "video-guestbook": {
+        "name": "Livre d'Or Vidéo",
+        "description": "Messages vidéo des invités"
+      },
+      "faq": {
+        "name": "FAQ / Pratique",
+        "description": "Infos pratiques pour les invités"
+      }
+    }
   },
   "Playlist": {
     "title": "Playlist Collaborative",
@@ -407,11 +589,343 @@
       "suggestions": "Suggestions",
       "guests_submitted": "invités ont proposé des titres",
       "tracks": "Titres proposés",
-      "tracks_proposed": "au total"
+      "tracks_proposed": "au total",
+      "accepted": "Titres acceptés",
+      "accepted_of_total": "sur {total} proposés"
     },
     "empty": {
       "title": "Aucune suggestion pour le moment",
       "description": "Les suggestions musicales de vos invités apparaîtront ici une fois qu'ils auront rempli la playlist collaborative sur votre faire-part."
+    },
+    "client": {
+      "track_accepted": "\"{title}\" accepté",
+      "track_rejected": "\"{title}\" refusé",
+      "batch_accepted": "{count} titre(s) accepté(s)",
+      "batch_rejected": "{count} titre(s) refusé(s)",
+      "batch_reset": "{count} titre(s) réinitialisé(s)",
+      "track_deleted": "\"{title}\" supprimé",
+      "track_added": "\"{title}\" ajouté à la playlist",
+      "filter_all": "Tous",
+      "filter_accepted": "Acceptés",
+      "filter_pending": "En attente",
+      "filter_rejected": "Refusés",
+      "tab_filter": "Filtrer ma liste",
+      "tab_add_spotify": "Ajouter via Spotify",
+      "search_placeholder": "Rechercher un titre, artiste, invité...",
+      "search_spotify_placeholder": "Rechercher un titre sur Spotify...",
+      "already_added": "Déjà ajouté",
+      "add": "Ajouter",
+      "no_results": "Aucun résultat",
+      "sort_label": "Trier :",
+      "sort_date": "Date",
+      "sort_title": "Titre",
+      "sort_artist": "Artiste",
+      "sort_status": "Statut",
+      "no_match_search": "Aucun titre ne correspond à la recherche",
+      "no_suggestions": "Aucune suggestion pour le moment",
+      "no_tracks_accepted": "Aucun titre accepté",
+      "no_tracks_rejected": "Aucun titre refusé",
+      "no_tracks_pending": "Aucun titre en attente",
+      "selected_count": "{count} titre(s) sélectionné(s)",
+      "track_count": "{count} titre(s)",
+      "accept": "Accepter",
+      "reject": "Refuser",
+      "reset": "Réinitialiser",
+      "close": "Fermer",
+      "listen_on_spotify": "Écouter sur Spotify",
+      "added_by_you": "Ajouté par vous",
+      "added_by_guest": "par {name}",
+      "anonymous_guest": "Invité anonyme",
+      "added_on": "le",
+      "spotify_preview": "Aperçu Spotify",
+      "delete_track_title": "Supprimer ce titre ?",
+      "delete_track_desc": "\"{title}\" sera définitivement retiré de la playlist.",
+      "delete": "Supprimer",
+      "confirm_accept_title": "Accepter la sélection ?",
+      "confirm_reject_title": "Refuser la sélection ?",
+      "confirm_reset_title": "Réinitialiser la sélection ?",
+      "confirm_batch_desc": "{count} titre(s) sera(ont)",
+      "marked_accepted": "marqués comme acceptés",
+      "marked_rejected": "marqués comme refusés",
+      "marked_reset": "remis en attente",
+      "confirm": "Confirmer",
+      "cancel": "Annuler"
     }
+  },
+  "BuyModuleDialog": {
+    "dialog_title": "Ajouter un module",
+    "dialog_desc_pending": "Votre paiement a été reçu. Confirmez l'activation du module.",
+    "dialog_desc_default": "Activez ce module pour 10 € — disponible immédiatement sur votre faire-part.",
+    "generic_error": "Une erreur est survenue.",
+    "unexpected_error": "Une erreur inattendue est survenue.",
+    "processing_payment": "Paiement en cours...",
+    "pay_and_activate": "Payer 10 € et activer",
+    "secured_by_stripe": "Paiement sécurisé par Stripe",
+    "activation_error": "Une erreur est survenue lors de l'activation.",
+    "activating": "Activation en cours...",
+    "activate_module": "Activer le module",
+    "payment_confirmed": "Paiement confirmé",
+    "payment_received": "Votre paiement pour {moduleName} a bien été reçu. Cliquez sur le bouton ci-dessous pour activer le module.",
+    "module_activated": "Module activé !",
+    "module_available": "Le module {moduleName} est maintenant disponible.",
+    "configure_module": "Configurer le module",
+    "payment_failed_or_canceled": "Le paiement a échoué ou a été annulé. Veuillez réessayer.",
+    "payment_not_confirmed": "Le paiement n'a pas pu être confirmé.",
+    "create_intent_error": "Impossible de créer le paiement.",
+    "module_activated_toast": "Module \"{name}\" activé !"
+  },
+  "EditGuestDialog": {
+    "title": "Modifier l'invité",
+    "description": "Modifiez les informations de cet invité",
+    "first_name_label": "Prénom",
+    "last_name_label": "Nom",
+    "email_label": "Email",
+    "email_placeholder": "email@exemple.com",
+    "relation_type_label": "Type de relation",
+    "status_label": "Statut",
+    "is_child_label": "Enfant",
+    "is_plus_one_label": "Accompagnant(e)",
+    "dietary_label": "Régime alimentaire",
+    "dietary_details_label": "Détails supplémentaires",
+    "dietary_details_placeholder": "Allergies, préférences particulières...",
+    "cancel": "Annuler",
+    "save": "Enregistrer",
+    "saving": "Enregistrement...",
+    "toast_success": "Invité modifié avec succès",
+    "toast_error": "Erreur lors de la modification",
+    "toast_unexpected_error": "Une erreur est survenue",
+    "relation_options": {
+      "unspecified": "Non spécifié",
+      "partner": "Conjoint(e)",
+      "spouse": "Époux/Épouse",
+      "child": "Enfant",
+      "parent": "Parent",
+      "sibling": "Frère/Sœur",
+      "grandparent": "Grand-parent",
+      "grandchild": "Petit-enfant",
+      "family": "Famille élargie",
+      "friend": "Ami(e)",
+      "colleague": "Collègue",
+      "plus_one": "Accompagnant(e)",
+      "other": "Autre"
+    },
+    "status_options": {
+      "pending": "En attente",
+      "confirmed": "Confirmé",
+      "declined": "Décliné"
+    },
+    "dietary_options": {
+      "none": "Aucune restriction",
+      "vegetarian": "Végétarien",
+      "vegan": "Végétalien",
+      "gluten_free": "Sans gluten",
+      "lactose_free": "Sans lactose",
+      "halal": "Halal",
+      "kosher": "Casher",
+      "allergies": "Allergies",
+      "other": "Autre"
+    }
+  },
+  "AddTableButton": {
+    "toast_success": "Table ajoutée !",
+    "toast_error": "Erreur : {error}",
+    "creating": "Création...",
+    "add_table": "Ajouter une table"
+  },
+  "ForgotPassword": {
+    "title": "Mot de passe oublié ?",
+    "description": "Entrez votre adresse email et nous vous enverrons un lien pour réinitialiser votre mot de passe.",
+    "email_label": "Email",
+    "email_placeholder": "votre@email.com",
+    "sending": "Envoi...",
+    "send_link": "Envoyer le lien",
+    "back_to_login": "Retour à la connexion",
+    "email_sent_title": "Email envoyé",
+    "email_sent_description": "Si cette adresse email est associée à un compte, vous recevrez un lien de réinitialisation dans quelques minutes.",
+    "check_spam": "Pensez également à vérifier vos spams.",
+    "error_generic": "Une erreur s'est produite. Veuillez réessayer."
+  },
+  "RsvpForm": {
+    "code_step": {
+      "title": "Bienvenue",
+      "subtitle": "Entrez votre code invité pour accéder au formulaire.",
+      "code_label": "Code Mariage",
+      "code_placeholder": "Ex: AMOUR2026",
+      "submit": "Accéder",
+      "invalid_code": "Code invalide",
+      "generic_error": "Une erreur est survenue",
+      "default_couple_names": "Mariés"
+    },
+    "search_step": {
+      "subtitle": "Retrouvez votre invitation.",
+      "name_label": "Votre Nom / Famille",
+      "name_placeholder": "Ex: Dupont",
+      "submit": "Rechercher",
+      "search_error": "Erreur de recherche",
+      "no_household_found": "Aucun foyer trouvé. Vous pouvez vous enregistrer manuellement.",
+      "select_household": "Sélectionnez votre foyer :",
+      "guests_count": "{count} invité(s)",
+      "or": "Ou",
+      "not_in_list": "Je ne suis pas dans la liste / Je m'inscris"
+    },
+    "register_step": {
+      "eyebrow": "Nouvel Enregistrement",
+      "title": "Votre Foyer",
+      "coordinates": "Coordonnées",
+      "household_name_label": "Nom du Foyer (ex: Famille Dupont)",
+      "household_name_placeholder": "Famille ... / Couple ...",
+      "email_label": "Email",
+      "email_placeholder": "votre@email.com",
+      "guests": "Invités",
+      "add_guest": "Ajouter une personne",
+      "first_name_label": "Prénom *",
+      "last_name_label": "Nom",
+      "last_name_placeholder": "Optionnel",
+      "presence_label": "Présence",
+      "presence_confirmed": "Sera présent(e)",
+      "presence_declined": "Ne viendra pas",
+      "dietary_label": "Régime / Allergies",
+      "dietary_placeholder": "Ex: Sans gluten",
+      "song_label": "Une chanson ?",
+      "song_placeholder": "Artiste - Titre",
+      "message_label": "Message",
+      "message_placeholder": "Un petit mot pour les mariés...",
+      "cancel": "Annuler",
+      "submit": "Valider mon inscription",
+      "missing_guest_name": "Veuillez indiquer au moins un invité",
+      "generic_error": "Erreur",
+      "technical_error": "Erreur technique"
+    },
+    "form_step": {
+      "eyebrow": "Réponse pour",
+      "contact_email": "Email de contact",
+      "email_placeholder": "votre@email.com",
+      "guests": "Invités",
+      "presence_label": "Présence *",
+      "presence_confirmed": "Je serai là",
+      "presence_declined": "Je ne pourrai pas venir",
+      "dietary_label": "Régime / Allergies",
+      "dietary_placeholder": "Ex: Végétarien",
+      "song_label": "Une chanson ?",
+      "song_placeholder": "Artiste - Titre",
+      "transport_label": "Transport",
+      "transport_shuttle": "Je prendrai la navette",
+      "transport_own": "Je viendrai par mes propres moyens",
+      "message_label": "Message",
+      "submit": "Confirmer ma réponse",
+      "generic_error": "Erreur",
+      "technical_error": "Erreur technique"
+    },
+    "success_step": {
+      "title": "Merci !",
+      "subtitle": "Votre réponse a bien été enregistrée.",
+      "back_home": "Retour à l'accueil"
+    },
+    "loading": "Chargement..."
+  },
+  "UpdatePassword": {
+    "title": "Bienvenue !",
+    "subtitle": "Définissez votre mot de passe pour accéder à votre espace.",
+    "password_placeholder": "Nouveau mot de passe",
+    "submit": "Accéder à mon espace",
+    "loading": "Chargement...",
+    "toast_error": "Erreur lors de la mise à jour",
+    "toast_success": "Mot de passe défini avec succès !"
+  },
+  "DatePicker": {
+    "placeholder": "Choisir une date"
+  },
+  "Login": {
+    "tagline": "Accédez à votre espace privé",
+    "email_label": "Email",
+    "email_placeholder": "votre@email.com",
+    "password_label": "Mot de passe",
+    "forgot_password": "Mot de passe oublié ?",
+    "signing_in": "Connexion...",
+    "sign_in": "Se connecter",
+    "error_invalid_credentials": "Identifiants invalides.",
+    "footer_line1": "L'élégance de la papeterie,",
+    "footer_line2": "la puissance du digital"
+  },
+  "ResetPassword": {
+    "title": "Nouveau mot de passe",
+    "description": "Choisissez un nouveau mot de passe pour votre compte.",
+    "password_label": "Nouveau mot de passe",
+    "confirm_password_label": "Confirmer le mot de passe",
+    "resetting": "Réinitialisation...",
+    "reset": "Réinitialiser",
+    "error_mismatch": "Les mots de passe ne correspondent pas.",
+    "error_too_short": "Le mot de passe doit contenir au moins 6 caractères.",
+    "error_generic": "Erreur lors de la réinitialisation. Veuillez réessayer."
+  },
+  "SeatingPlan": {
+    "error_title": "Une erreur est survenue",
+    "error_description": "Impossible de charger le plan de table.",
+    "title": "Plan de Table",
+    "subtitle_has_tables": "Glissez-déposez les tables et les invités.",
+    "subtitle_empty": "Commencez par créer votre première table.",
+    "empty_title": "Votre salle est vide",
+    "empty_description": "Créez des tables pour commencer à placer vos invités. Vous pourrez ensuite les déplacer librement."
+  },
+  "CountdownTimer": {
+    "big_day": "C'est le grand jour !",
+    "months": "Mois",
+    "days": "Jours",
+    "hours": "H",
+    "minutes": "Min",
+    "seconds": "Sec"
+  },
+  "DashboardInsights": {
+    "title": "Statistiques & Insights",
+    "response_rate": "Taux de réponse",
+    "response_rate_detail": "{responded} sur {total} invités ont répondu",
+    "confirmation_rate": "Taux de confirmation",
+    "confirmation_rate_detail": "{count} confirmations sur {total} invités",
+    "recent_confirmations": "Dernières confirmations",
+    "no_recent_confirmation": "Aucune confirmation récente"
+  },
+  "MessageCard": {
+    "toast_deleted": "Message supprimé",
+    "toast_delete_error": "Erreur lors de la suppression",
+    "confirm_title": "Supprimer ce message ?",
+    "confirm_description": "Le message de {name} sera définitivement supprimé. Cette action est irréversible.",
+    "cancel": "Annuler",
+    "deleting": "Suppression...",
+    "delete": "Supprimer"
+  },
+  "SendMagicLinkMenuItem": {
+    "toast_no_email": "Aucun email pour {name}",
+    "toast_sending": "Envoi du lien magique à {name}...",
+    "toast_sent": "Lien envoyé à {email} !",
+    "toast_error": "Erreur : {error}",
+    "sending": "Envoi...",
+    "send": "Envoyer lien de connexion"
+  },
+  "StatCard": {
+    "trend_vs_last_week": "vs. semaine précédente"
+  },
+  "MessagesPage": {
+    "title": "Messages",
+    "description": "Les mots que vos invités vous ont laissés.",
+    "no_messages": "Aucun message pour le moment.",
+    "message_count": "{count} message(s)"
+  },
+  "LockedModuleCard": {
+    "preview": "Aperçu",
+    "price": "10 €"
+  },
+  "LockedModulePreviewDialog": {
+    "unlock_module": "Débloquer ce module",
+    "one_time_payment": "Paiement unique, inclus à vie dans votre site",
+    "buy_button": "Acheter — 10 €"
+  },
+  "GuestSidebar": {
+    "title": "Invités",
+    "all_seated": "Tous les invités sont placés !",
+    "child": "Enfant",
+    "guest": "Invité"
+  },
+  "DashboardLayout": {
+    "initializing": "Initialisation de votre espace..."
   }
 }

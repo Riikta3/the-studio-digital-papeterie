@@ -540,7 +540,69 @@
     "selectAtLeast": "4つ以上のモジュールを選択してください",
     "minCount": "{count} / 最低4モジュール",
     "countSelected": "{count} 件選択",
-    "included": "込み"
+    "included": "込み",
+    "catalog": {
+      "countdown": {
+        "name": "カウントダウン",
+        "description": "当日までのカウントダウン"
+      },
+      "intro-video": {
+        "name": "イントロ動画",
+        "description": "パーソナライズされたビデオメッセージ"
+      },
+      "timeline": {
+        "name": "プログラム",
+        "description": "当日のスケジュール"
+      },
+      "dress-code": {
+        "name": "ドレスコード",
+        "description": "推奨される服装"
+      },
+      "rsvp": {
+        "name": "RSVP管理",
+        "description": "出欠確認"
+      },
+      "map": {
+        "name": "地図とアクセス",
+        "description": "会場の場所"
+      },
+      "accommodation": {
+        "name": "宿泊",
+        "description": "近隣ホテルのご案内"
+      },
+      "transport": {
+        "name": "交通手段",
+        "description": "シャトル・ゲスト送迎"
+      },
+      "menu": {
+        "name": "メニュー",
+        "description": "お料理の詳細"
+      },
+      "gallery": {
+        "name": "フォトギャラリー",
+        "description": "思い出をシェアしましょう"
+      },
+      "gift-list": {
+        "name": "ギフトリスト",
+        "description": "贈り物・ご祝儀"
+      },
+      "playlist": {
+        "name": "プレイリスト",
+        "description": "楽曲のリクエスト"
+      },
+      "guestbook": {
+        "name": "ゲストブック",
+        "description": "ゲストからのメッセージ"
+      },
+      "video-guestbook": {
+        "name": "ビデオゲストブック",
+        "description": "ゲストからのビデオメッセージ"
+      },
+      "faq": {
+        "name": "FAQ／実用情報",
+        "description": "ゲスト向けの実用情報"
+      }
+    }
   },
   "StudioOptions": {
     "titlePrefix": "オプション",

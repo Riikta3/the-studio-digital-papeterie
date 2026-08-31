@@ -1,24 +1,26 @@
 "use server";
 
 import { createClient } from "@/utils/supabase/server";
+import { getTranslations } from "next-intl/server";
 
 export async function resetPassword(
   prevState: unknown,
   formData: FormData,
 ): Promise<{ error?: string; success?: boolean }> {
   const supabase = await createClient();
+  const t = await getTranslations("ResetPassword");
 
   const password = formData.get("password") as string;
   const confirmPassword = formData.get("confirmPassword") as string;
 
   // Validate passwords match
   if (password !== confirmPassword) {
-    return { error: "Les mots de passe ne correspondent pas." };
+    return { error: t("error_mismatch") };
   }
 
   // Validate password length
   if (password.length < 6) {
-    return { error: "Le mot de passe doit contenir au moins 6 caractères." };
+    return { error: t("error_too_short") };
   }
 
   const { error } = await supabase.auth.updateUser({
@@ -26,7 +28,7 @@ export async function resetPassword(
   });
 
   if (error) {
-    return { error: "Erreur lors de la réinitialisation. Veuillez réessayer." };
+    return { error: t("error_generic") };
   }
 
   return { success: true };

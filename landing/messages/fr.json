@@ -497,7 +497,69 @@
     "selectAtLeast": "Sélectionnez au moins 4 modules",
     "minCount": "{count} / 4 modules minimum",
     "countSelected": "{count} sélectionné(s)",
-    "included": "inclus"
+    "included": "inclus",
+    "catalog": {
+      "countdown": {
+        "name": "Compte à Rebours",
+        "description": "Le décompte avant le jour J"
+      },
+      "intro-video": {
+        "name": "Vidéo d'Intro",
+        "description": "Message vidéo personnalisé"
+      },
+      "timeline": {
+        "name": "Programme",
+        "description": "Déroulé de la journée"
+      },
+      "dress-code": {
+        "name": "Dress Code",
+        "description": "Tenue recommandée"
+      },
+      "rsvp": {
+        "name": "Gestion RSVP",
+        "description": "Confirmations de présence"
+      },
+      "map": {
+        "name": "Plan & Accès",
+        "description": "Localisation des lieux"
+      },
+      "accommodation": {
+        "name": "Hébergement",
+        "description": "Suggestions d'hôtels à proximité"
+      },
+      "transport": {
+        "name": "Transport",
+        "description": "Navettes & transport des invités"
+      },
+      "menu": {
+        "name": "Menu",
+        "description": "Détails du repas"
+      },
+      "gallery": {
+        "name": "Galerie Photo",
+        "description": "Partagez vos souvenirs"
+      },
+      "gift-list": {
+        "name": "Liste de Mariage",
+        "description": "Cadeaux & participations"
+      },
+      "playlist": {
+        "name": "Playlist",
+        "description": "Suggestions musicales"
+      },
+      "guestbook": {
+        "name": "Livre d'Or",
+        "description": "Messages des invités"
+      },
+      "video-guestbook": {
+        "name": "Livre d'Or Vidéo",
+        "description": "Messages vidéo des invités"
+      },
+      "faq": {
+        "name": "FAQ / Pratique",
+        "description": "Infos pratiques pour les invités"
+      }
+    }
   },
   "StudioOptions": {
     "titlePrefix": "Options ",

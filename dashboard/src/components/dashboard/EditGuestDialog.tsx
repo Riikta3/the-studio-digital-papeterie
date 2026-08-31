@@ -14,6 +14,7 @@ import {
 import { Input } from "@shared/components/ui/input";
 import { Label } from "@shared/components/ui/label";
 import { Loader2 } from "lucide-react";
+import { useTranslations } from "next-intl";
 import { useRef, useState } from "react";
 import { toast } from "sonner";
 
@@ -28,41 +29,42 @@ export function EditGuestDialog({
   open,
   onOpenChange,
 }: EditGuestDialogProps) {
+  const t = useTranslations("EditGuestDialog");
   const [loading, setLoading] = useState(false);
   const isSubmittingRef = useRef(false);
 
   const relationTypeOptions: Array<{ value: string; label: string }> = [
-    { value: "", label: "Non spécifié" },
-    { value: "partner", label: "Conjoint(e)" },
-    { value: "spouse", label: "Époux/Épouse" },
-    { value: "child", label: "Enfant" },
-    { value: "parent", label: "Parent" },
-    { value: "sibling", label: "Frère/Sœur" },
-    { value: "grandparent", label: "Grand-parent" },
-    { value: "grandchild", label: "Petit-enfant" },
-    { value: "family", label: "Famille élargie" },
-    { value: "friend", label: "Ami(e)" },
-    { value: "colleague", label: "Collègue" },
-    { value: "plus_one", label: "Accompagnant(e)" },
-    { value: "other", label: "Autre" },
+    { value: "", label: t("relation_options.unspecified") },
+    { value: "partner", label: t("relation_options.partner") },
+    { value: "spouse", label: t("relation_options.spouse") },
+    { value: "child", label: t("relation_options.child") },
+    { value: "parent", label: t("relation_options.parent") },
+    { value: "sibling", label: t("relation_options.sibling") },
+    { value: "grandparent", label: t("relation_options.grandparent") },
+    { value: "grandchild", label: t("relation_options.grandchild") },
+    { value: "family", label: t("relation_options.family") },
+    { value: "friend", label: t("relation_options.friend") },
+    { value: "colleague", label: t("relation_options.colleague") },
+    { value: "plus_one", label: t("relation_options.plus_one") },
+    { value: "other", label: t("relation_options.other") },
   ];
 
   const statusOptions = [
-    { value: "pending", label: "En attente" },
-    { value: "confirmed", label: "Confirmé" },
-    { value: "declined", label: "Décliné" },
+    { value: "pending", label: t("status_options.pending") },
+    { value: "confirmed", label: t("status_options.confirmed") },
+    { value: "declined", label: t("status_options.declined") },
   ];
 
   const dietaryOptions = [
-    { value: "", label: "Aucune restriction" },
-    { value: "vegetarian", label: "Végétarien" },
-    { value: "vegan", label: "Végétalien" },
-    { value: "gluten_free", label: "Sans gluten" },
-    { value: "lactose_free", label: "Sans lactose" },
-    { value: "halal", label: "Halal" },
-    { value: "kosher", label: "Casher" },
-    { value: "allergies", label: "Allergies" },
-    { value: "other", label: "Autre" },
+    { value: "", label: t("dietary_options.none") },
+    { value: "vegetarian", label: t("dietary_options.vegetarian") },
+    { value: "vegan", label: t("dietary_options.vegan") },
+    { value: "gluten_free", label: t("dietary_options.gluten_free") },
+    { value: "lactose_free", label: t("dietary_options.lactose_free") },
+    { value: "halal", label: t("dietary_options.halal") },
+    { value: "kosher", label: t("dietary_options.kosher") },
+    { value: "allergies", label: t("dietary_options.allergies") },
+    { value: "other", label: t("dietary_options.other") },
   ];
 
   async function handleSubmit(formData: FormData) {
@@ -74,14 +76,14 @@ export function EditGuestDialog({
       const result = await updateGuest(guest.id, formData);
 
       if (result.success) {
-        toast.success("Invité modifié avec succès");
+        toast.success(t("toast_success"));
         onOpenChange(false);
       } else {
-        toast.error(result.error || "Erreur lors de la modification");
+        toast.error(result.error || t("toast_error"));
       }
     } catch (error) {
       console.error(error);
-      toast.error("Une erreur est survenue");
+      toast.error(t("toast_unexpected_error"));
     } finally {
       setLoading(false);
       isSubmittingRef.current = false;
@@ -97,9 +99,9 @@ export function EditGuestDialog({
     >
       <DialogContent className='sm:max-w-[550px] overflow-y-auto max-h-[90vh]'>
         <DialogHeader>
-          <DialogTitle>Modifier l&apos;invité</DialogTitle>
+          <DialogTitle>{t("title")}</DialogTitle>
           <DialogDescription>
-            Modifiez les informations de cet invité
+            {t("description")}
           </DialogDescription>
         </DialogHeader>
         <form
@@ -108,7 +110,7 @@ export function EditGuestDialog({
         >
           <div className='grid grid-cols-2 gap-4'>
             <div className='grid gap-2'>
-              <Label htmlFor='first_name'>Prénom</Label>
+              <Label htmlFor='first_name'>{t("first_name_label")}</Label>
               <Input
                 id='first_name'
                 name='first_name'
@@ -117,7 +119,7 @@ export function EditGuestDialog({
               />
             </div>
             <div className='grid gap-2'>
-              <Label htmlFor='last_name'>Nom</Label>
+              <Label htmlFor='last_name'>{t("last_name_label")}</Label>
               <Input
                 id='last_name'
                 name='last_name'
@@ -128,18 +130,18 @@ export function EditGuestDialog({
           </div>
 
           <div className='grid gap-2'>
-            <Label htmlFor='email'>Email</Label>
+            <Label htmlFor='email'>{t("email_label")}</Label>
             <Input
               id='email'
               name='email'
               type='email'
               defaultValue={guest.email || ""}
-              placeholder='email@exemple.com'
+              placeholder={t("email_placeholder")}
             />
           </div>
 
           <div className='grid gap-2'>
-            <Label htmlFor='relation_type'>Type de relation</Label>
+            <Label htmlFor='relation_type'>{t("relation_type_label")}</Label>
             <select
               id='relation_type'
               name='relation_type'
@@ -158,7 +160,7 @@ export function EditGuestDialog({
           </div>
 
           <div className='grid gap-2'>
-            <Label htmlFor='status'>Statut</Label>
+            <Label htmlFor='status'>{t("status_label")}</Label>
             <select
               id='status'
               name='status'
@@ -189,7 +191,7 @@ export function EditGuestDialog({
                 htmlFor='is_child'
                 className='font-normal cursor-pointer'
               >
-                Enfant
+                {t("is_child_label")}
               </Label>
             </div>
             <div className='flex items-center space-x-2'>
@@ -204,13 +206,13 @@ export function EditGuestDialog({
                 htmlFor='is_plus_one'
                 className='font-normal cursor-pointer'
               >
-                Accompagnant(e)
+                {t("is_plus_one_label")}
               </Label>
             </div>
           </div>
 
           <div className='grid gap-2'>
-            <Label htmlFor='dietary_requirements'>Régime alimentaire</Label>
+            <Label htmlFor='dietary_requirements'>{t("dietary_label")}</Label>
             <select
               id='dietary_requirements'
               name='dietary_requirements'
@@ -229,12 +231,12 @@ export function EditGuestDialog({
           </div>
 
           <div className='grid gap-2'>
-            <Label htmlFor='dietary_details'>Détails supplémentaires</Label>
+            <Label htmlFor='dietary_details'>{t("dietary_details_label")}</Label>
             <textarea
               id='dietary_details'
               name='dietary_details'
               defaultValue={guest.dietary_details || ""}
-              placeholder='Allergies, préférences particulières...'
+              placeholder={t("dietary_details_placeholder")}
               rows={3}
               className='w-full rounded-md border border-input bg-white px-3 py-2 text-sm shadow-sm focus:outline-none focus:ring-1 focus:ring-ring'
             />
@@ -247,7 +249,7 @@ export function EditGuestDialog({
               onClick={() => onOpenChange(false)}
               disabled={loading}
             >
-              Annuler
+              {t("cancel")}
             </Button>
             <Button
               type='submit'
@@ -256,10 +258,10 @@ export function EditGuestDialog({
               {loading ? (
                 <>
                   <Loader2 className='mr-2 h-4 w-4 animate-spin' />
-                  Enregistrement...
+                  {t("saving")}
                 </>
               ) : (
-                "Enregistrer"
+                t("save")
               )}
             </Button>
           </DialogFooter>

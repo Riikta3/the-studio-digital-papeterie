@@ -1,10 +1,11 @@
 import { RsvpResponsesTable } from "@/components/dashboard/RsvpResponsesTable";
 import { redirect } from "@/navigation";
 import { createClient } from "@/utils/supabase/server";
-import { getTranslations } from "next-intl/server";
+import { getLocale, getTranslations } from "next-intl/server";
 
 export default async function RsvpResponsesPage() {
   const t = await getTranslations("RsvpResponses");
+  const locale = await getLocale();
   const supabase = await createClient();
 
   const {
@@ -12,7 +13,7 @@ export default async function RsvpResponsesPage() {
   } = await supabase.auth.getUser();
 
   if (!user) {
-    redirect({ href: "/login", locale: "fr" });
+    redirect({ href: "/login", locale });
   }
 
   // Get the user's wedding_id

@@ -3,7 +3,7 @@
 import { Button } from "@shared/components/ui/button";
 import { Input } from "@shared/components/ui/input";
 import { Label } from "@shared/components/ui/label";
-import { useLocale } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 import { useActionState, useEffect } from "react";
 import { resetPassword } from "./actions";
 
@@ -12,6 +12,7 @@ const initialState = {
 };
 
 export default function ResetPasswordPage() {
+  const t = useTranslations("ResetPassword");
   const locale = useLocale();
   const [state, formAction, isPending] = useActionState(
     resetPassword,
@@ -40,10 +41,10 @@ export default function ResetPasswordPage() {
           {/* Header */}
           <div className='relative text-center space-y-4'>
             <h1 className='font-heading text-h1 text-studio-violet tracking-wide'>
-              Nouveau mot de passe
+              {t("title")}
             </h1>
             <p className='text-sm text-studio-violet/60 font-light leading-relaxed'>
-              Choisissez un nouveau mot de passe pour votre compte.
+              {t("description")}
             </p>
           </div>
 
@@ -57,7 +58,7 @@ export default function ResetPasswordPage() {
                 htmlFor='password'
                 className='text-xs uppercase tracking-[0.15em] font-medium text-studio-violet/70'
               >
-                Nouveau mot de passe
+                {t("password_label")}
               </Label>
               <Input
                 id='password'
@@ -75,7 +76,7 @@ export default function ResetPasswordPage() {
                 htmlFor='confirmPassword'
                 className='text-xs uppercase tracking-[0.15em] font-medium text-studio-violet/70'
               >
-                Confirmer le mot de passe
+                {t("confirm_password_label")}
               </Label>
               <Input
                 id='confirmPassword'
@@ -101,7 +102,7 @@ export default function ResetPasswordPage() {
               disabled={isPending}
               className='w-full h-14 bg-primary hover:bg-primary/90 text-white rounded-xl text-base font-light tracking-[0.1em] uppercase transition-all duration-300 shadow-lg hover:shadow-xl disabled:opacity-50 disabled:cursor-not-allowed'
             >
-              {isPending ? "Réinitialisation..." : "Réinitialiser"}
+              {isPending ? t("resetting") : t("reset")}
             </Button>
           </form>
         </div>

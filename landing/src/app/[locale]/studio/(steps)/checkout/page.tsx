@@ -12,7 +12,7 @@ import { useTranslations } from "next-intl";
 import { useSearchParams } from "next/navigation";
 import { useCallback, useEffect, useState } from "react";
 
-import { APP_MODULES } from "@shared/data/modules";
+import { getModuleName } from "@shared/data/modules";
 import { cn } from "@shared/lib/utils";
 import { createWedding } from "@/actions/create-wedding";
 import { StepTransition } from "@/components/studio/StepTransition";
@@ -154,6 +154,7 @@ function PaymentForm({
 export default function StudioCheckoutPage() {
   const t = useTranslations("StudioCheckout");
   const tLayout = useTranslations("StudioLayout");
+  const tModules = useTranslations("StudioModules");
   const router = useRouter();
   const searchParams = useSearchParams();
 
@@ -325,7 +326,7 @@ export default function StudioCheckoutPage() {
     {
       label: t("modulesLabel"),
       value: modules.length
-        ? modules.map((m) => labelFor(m, APP_MODULES as any)).join(", ")
+        ? modules.map((m) => getModuleName(tModules, m)).join(", ")
         : t("none"),
       href: "/studio/modules",
     },

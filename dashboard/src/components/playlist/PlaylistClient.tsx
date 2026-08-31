@@ -6,6 +6,7 @@ import {
   ChevronDown, Search, Plus, Trash2, ArrowUpDown, Loader2,
 } from "lucide-react";
 import { toast } from "sonner";
+import { useLocale, useTranslations } from "next-intl";
 import {
   updateTrackStatus, batchUpdateTrackStatus, addTrack, deleteTrack,
   type TrackStatus, type TrackPayload,
@@ -37,6 +38,9 @@ interface Props {
 }
 
 export function PlaylistClient({ suggestions, weddingId }: Props) {
+  const t = useTranslations("Playlist.client");
+  const tStats = useTranslations("Playlist.stats");
+  const locale = useLocale();
   const [filter, setFilter] = useState<Filter>("all");
   const [search, setSearch] = useState("");
   const [sortKey, setSortKey] = useState<SortKey>("date");
@@ -80,8 +84,8 @@ export function PlaylistClient({ suggestions, weddingId }: Props) {
     const current = getStatus(suggestion, track.id);
     const next: TrackStatus = current === status ? "pending" : status;
     applyOptimistic([{ suggestion, trackId: track.id, next }]);
-    if (next === "accepted") toast.success(`"${track.title}" accepté`, { duration: 2000 });
-    else if (next === "rejected") toast.error(`"${track.title}" refusé`, { duration: 2000 });
+    if (next === "accepted") toast.success(t("track_accepted", { title: track.title }), { duration: 2000 });
+    else if (next === "rejected") toast.error(t("track_rejected", { title: track.title }), { duration: 2000 });
     startTransition(async () => { await updateTrackStatus(suggestion.id, track.id, status); });
   };
 
@@ -99,9 +103,9 @@ export function PlaylistClient({ suggestions, weddingId }: Props) {
     applyOptimistic(updates);
     setSelected(new Set());
     setConfirmBatch(null);
-    if (status === "accepted") toast.success(`${count} titre${count > 1 ? "s" : ""} accepté${count > 1 ? "s" : ""}`, { duration: 2000 });
-    else if (status === "rejected") toast.error(`${count} titre${count > 1 ? "s" : ""} refusé${count > 1 ? "s" : ""}`, { duration: 2000 });
-    else toast(`${count} titre${count > 1 ? "s" : ""} réinitialisé${count > 1 ? "s" : ""}`, { duration: 2000 });
+    if (status === "accepted") toast.success(t("batch_accepted", { count }), { duration: 2000 });
+    else if (status === "rejected") toast.error(t("batch_rejected", { count }), { duration: 2000 });
+    else toast(t("batch_reset", { count }), { duration: 2000 });
     startTransition(async () => { await batchUpdateTrackStatus(items, status); });
   };
 
@@ -113,7 +117,7 @@ export function PlaylistClient({ suggestions, weddingId }: Props) {
     setDeletingKey(key);
     try {
       await deleteTrack(suggestion.id, track.id);
-      toast(`"${track.title}" supprimé`, { duration: 2000 });
+      toast(t("track_deleted", { title: track.title }), { duration: 2000 });
     } finally {
       setDeletingKey(null);
     }
@@ -130,7 +134,7 @@ export function PlaylistClient({ suggestions, weddingId }: Props) {
         spotifyUrl: track.spotifyUrl,
       };
       await addTrack(weddingId, payload);
-      toast.success(`"${track.title}" ajouté à la playlist`, { duration: 2000 });
+      toast.success(t("track_added", { title: track.title }), { duration: 2000 });
       setAddResults((prev) => prev.filter((r) => r.id !== track.id));
     } finally {
       setAddingId(null);
@@ -239,10 +243,10 @@ export function PlaylistClient({ suggestions, weddingId }: Props) {
   );
 
   const filters: { key: Filter; label: string; count: number }[] = [
-    { key: "all", label: "Tous", count: stats.total },
-    { key: "accepted", label: "Acceptés", count: stats.accepted },
-    { key: "pending", label: "En attente", count: stats.pending },
-    { key: "rejected", label: "Refusés", count: stats.rejected },
+    { key: "all", label: t("filter_all"), count: stats.total },
+    { key: "accepted", label: t("filter_accepted"), count: stats.accepted },
+    { key: "pending", label: t("filter_pending"), count: stats.pending },
+    { key: "rejected", label: t("filter_rejected"), count: stats.rejected },
   ];
 
   return (
@@ -250,19 +254,19 @@ export function PlaylistClient({ suggestions, weddingId }: Props) {
       {/* Stats */}
       <div className="grid gap-4 md:grid-cols-3">
         <div className="bg-white/50 border border-studio-lavande/30 shadow-sm rounded-2xl p-5">
-          <p className="text-sm font-medium text-muted-foreground mb-1">Suggestions</p>
+          <p className="text-sm font-medium text-muted-foreground mb-1">{tStats("suggestions")}</p>
           <p className="text-2xl font-bold font-heading">{suggestions.filter(s => s.guest_name !== "__admin__").length}</p>
-          <p className="text-xs text-muted-foreground mt-0.5">invités ont proposé des titres</p>
+          <p className="text-xs text-muted-foreground mt-0.5">{tStats("guests_submitted")}</p>
         </div>
         <div className="bg-teal-50/50 border border-teal-100 shadow-sm rounded-2xl p-5">
-          <p className="text-sm font-medium text-teal-600 mb-1">Titres acceptés</p>
+          <p className="text-sm font-medium text-teal-600 mb-1">{tStats("accepted")}</p>
           <p className="text-2xl font-bold font-heading text-teal-600">{stats.accepted}</p>
-          <p className="text-xs text-teal-500/70 mt-0.5">sur {stats.total} proposés</p>
+          <p className="text-xs text-teal-500/70 mt-0.5">{tStats("accepted_of_total", { total: stats.total })}</p>
         </div>
         <div className="bg-primary/5 border border-primary/10 shadow-sm rounded-2xl p-5">
-          <p className="text-sm font-medium text-primary mb-1">Titres proposés</p>
+          <p className="text-sm font-medium text-primary mb-1">{tStats("tracks")}</p>
           <p className="text-2xl font-bold font-heading text-primary">{stats.total}</p>
-          <p className="text-xs text-primary/70 mt-0.5">au total</p>
+          <p className="text-xs text-primary/70 mt-0.5">{tStats("tracks_proposed")}</p>
         </div>
       </div>
 
@@ -280,7 +284,7 @@ export function PlaylistClient({ suggestions, weddingId }: Props) {
             )}
           >
             <Search size={14} />
-            Filtrer ma liste
+            {t("tab_filter")}
           </button>
           <button
             onClick={() => setShowAddPanel(true)}
@@ -292,7 +296,7 @@ export function PlaylistClient({ suggestions, weddingId }: Props) {
             )}
           >
             <Plus size={14} />
-            Ajouter via Spotify
+            {t("tab_add_spotify")}
           </button>
         </div>
 
@@ -304,7 +308,7 @@ export function PlaylistClient({ suggestions, weddingId }: Props) {
               type="text"
               value={search}
               onChange={(e) => setSearch(e.target.value)}
-              placeholder="Rechercher un titre, artiste, invité..."
+              placeholder={t("search_placeholder")}
               className="w-full pl-8 pr-8 py-2 text-sm rounded-lg bg-studio-lavande/10 focus:outline-none focus:ring-1 focus:ring-primary/30 focus:bg-white transition-colors"
             />
           ) : (
@@ -313,7 +317,7 @@ export function PlaylistClient({ suggestions, weddingId }: Props) {
               type="text"
               value={addQuery}
               onChange={(e) => setAddQuery(e.target.value)}
-              placeholder="Rechercher un titre sur Spotify..."
+              placeholder={t("search_spotify_placeholder")}
               className="w-full pl-8 pr-8 py-2 text-sm rounded-lg bg-studio-lavande/10 focus:outline-none focus:ring-1 focus:ring-[#1DB954]/40 focus:bg-white transition-colors"
             />
           )}
@@ -357,9 +361,9 @@ export function PlaylistClient({ suggestions, weddingId }: Props) {
                     {addingId === track.id ? (
                       <Loader2 size={12} className="animate-spin" />
                     ) : alreadyIn ? (
-                      <><Check size={12} /> Déjà ajouté</>
+                      <><Check size={12} /> {t("already_added")}</>
                     ) : (
-                      <><Plus size={12} /> Ajouter</>
+                      <><Plus size={12} /> {t("add")}</>
                     )}
                   </button>
                 </div>
@@ -369,7 +373,7 @@ export function PlaylistClient({ suggestions, weddingId }: Props) {
         )}
 
         {showAddPanel && addQuery.length >= 2 && !addSearching && addResults.length === 0 && (
-          <p className="text-sm text-muted-foreground text-center py-4 border-t border-border">Aucun résultat</p>
+          <p className="text-sm text-muted-foreground text-center py-4 border-t border-border">{t("no_results")}</p>
         )}
       </div>
 
@@ -400,11 +404,11 @@ export function PlaylistClient({ suggestions, weddingId }: Props) {
 
         {/* Sort */}
         <div className="flex items-center gap-1.5">
-          <span className="text-xs text-muted-foreground mr-1">Trier&nbsp;:</span>
-          <SortButton k="date" label="Date" />
-          <SortButton k="title" label="Titre" />
-          <SortButton k="artist" label="Artiste" />
-          <SortButton k="status" label="Statut" />
+          <span className="text-xs text-muted-foreground mr-1">{t("sort_label")}</span>
+          <SortButton k="date" label={t("sort_date")} />
+          <SortButton k="title" label={t("sort_title")} />
+          <SortButton k="artist" label={t("sort_artist")} />
+          <SortButton k="status" label={t("sort_status")} />
         </div>
       </div>
 
@@ -415,9 +419,11 @@ export function PlaylistClient({ suggestions, weddingId }: Props) {
             <Music2 size={28} />
           </div>
           <p className="font-medium text-foreground">
-            {search ? "Aucun titre ne correspond à la recherche" :
-              filter === "all" ? "Aucune suggestion pour le moment" :
-              `Aucun titre ${filter === "accepted" ? "accepté" : filter === "rejected" ? "refusé" : "en attente"}`}
+            {search ? t("no_match_search") :
+              filter === "all" ? t("no_suggestions") :
+              filter === "accepted" ? t("no_tracks_accepted") :
+              filter === "rejected" ? t("no_tracks_rejected") :
+              t("no_tracks_pending")}
           </p>
         </div>
       ) : (
@@ -433,32 +439,32 @@ export function PlaylistClient({ suggestions, weddingId }: Props) {
             {selected.size > 0 ? (
               <>
                 <span className="text-xs text-muted-foreground">
-                  {selected.size} titre{selected.size > 1 ? "s" : ""} sélectionné{selected.size > 1 ? "s" : ""}
+                  {t("selected_count", { count: selected.size })}
                 </span>
                 <div className="flex items-center gap-2 ml-auto">
                   <button
                     onClick={() => setConfirmBatch("accepted")}
                     className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium bg-teal-400 text-white hover:bg-teal-500 transition-colors"
                   >
-                    <CheckCheck size={13} /> Accepter
+                    <CheckCheck size={13} /> {t("accept")}
                   </button>
                   <button
                     onClick={() => setConfirmBatch("rejected")}
                     className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium bg-red-500 text-white hover:bg-red-600 transition-colors"
                   >
-                    <X size={13} /> Refuser
+                    <X size={13} /> {t("reject")}
                   </button>
                   <button
                     onClick={() => setConfirmBatch("pending")}
                     className="px-3 py-1.5 rounded-lg text-xs font-medium border border-border text-muted-foreground hover:bg-studio-lavande/10 transition-colors"
                   >
-                    Réinitialiser
+                    {t("reset")}
                   </button>
                 </div>
               </>
             ) : (
               <span className="text-xs text-muted-foreground">
-                {filteredAndSorted.length} titre{filteredAndSorted.length > 1 ? "s" : ""}
+                {t("track_count", { count: filteredAndSorted.length })}
               </span>
             )}
           </div>
@@ -495,7 +501,7 @@ export function PlaylistClient({ suggestions, weddingId }: Props) {
                       <button
                         onClick={() => setExpandedTrackId((p) => p === key ? null : key)}
                         className="absolute inset-0 rounded-lg flex items-center justify-center bg-black/0 group-hover:bg-black/40 transition-all"
-                        title={isExpanded ? "Fermer" : "Écouter sur Spotify"}
+                        title={isExpanded ? t("close") : t("listen_on_spotify")}
                       >
                         {isExpanded
                           ? <ChevronDown size={16} className="text-white opacity-0 group-hover:opacity-100" />
@@ -509,9 +515,10 @@ export function PlaylistClient({ suggestions, weddingId }: Props) {
                       <p className="text-sm font-medium text-foreground truncate">{track.title}</p>
                       <p className="text-xs text-muted-foreground truncate">{track.artist}</p>
                       <p className="text-xs text-muted-foreground/60 mt-0.5">
-                        {isAdmin ? "Ajouté par vous" : `par ${suggestion.guest_name ?? "Invité anonyme"}`}
-                        {" · le "}
-                        {new Date(suggestion.submitted_at).toLocaleDateString("fr-FR", { day: "numeric", month: "short", year: "numeric" })}
+                        {isAdmin ? t("added_by_you") : t("added_by_guest", { name: suggestion.guest_name ?? t("anonymous_guest") })}
+                        {" · "}
+                        {t("added_on")}{" "}
+                        {new Date(suggestion.submitted_at).toLocaleDateString(locale, { day: "numeric", month: "short", year: "numeric" })}
                       </p>
                     </div>
 
@@ -523,7 +530,7 @@ export function PlaylistClient({ suggestions, weddingId }: Props) {
                           "p-1.5 rounded-lg transition-colors",
                           status === "accepted" ? "bg-teal-400 text-white" : "text-muted-foreground hover:bg-teal-50 hover:text-teal-600",
                         )}
-                        title="Accepter"
+                        title={t("accept")}
                       >
                         <Check size={15} />
                       </button>
@@ -533,7 +540,7 @@ export function PlaylistClient({ suggestions, weddingId }: Props) {
                           "p-1.5 rounded-lg transition-colors",
                           status === "rejected" ? "bg-red-500 text-white" : "text-muted-foreground hover:bg-red-50 hover:text-red-500",
                         )}
-                        title="Refuser"
+                        title={t("reject")}
                       >
                         <X size={15} />
                       </button>
@@ -541,7 +548,7 @@ export function PlaylistClient({ suggestions, weddingId }: Props) {
                         onClick={() => setConfirmDelete({ suggestion, track })}
                         disabled={isDeleting}
                         className="p-1.5 rounded-lg text-muted-foreground hover:bg-red-50 hover:text-red-500 transition-colors disabled:opacity-40"
-                        title="Supprimer"
+                        title={t("delete")}
                       >
                         {isDeleting ? <Loader2 size={14} className="animate-spin" /> : <Trash2 size={14} />}
                       </button>
@@ -552,12 +559,12 @@ export function PlaylistClient({ suggestions, weddingId }: Props) {
                   {isExpanded && (
                     <div className="px-5 pb-4 bg-studio-lavande/5 border-t border-border">
                       <div className="flex items-center justify-between mt-3 mb-1">
-                        <span className="text-xs text-muted-foreground">Aperçu Spotify</span>
+                        <span className="text-xs text-muted-foreground">{t("spotify_preview")}</span>
                         <button
                           onClick={() => setExpandedTrackId(null)}
                           className="text-xs text-muted-foreground hover:text-foreground flex items-center gap-1 transition-colors"
                         >
-                          <X size={12} /> Fermer
+                          <X size={12} /> {t("close")}
                         </button>
                       </div>
                       <iframe
@@ -581,9 +588,10 @@ export function PlaylistClient({ suggestions, weddingId }: Props) {
       {/* Confirm delete modal */}
       {confirmDelete && (
         <ConfirmModal
-          title="Supprimer ce titre ?"
-          description={`"${confirmDelete.track.title}" sera définitivement retiré de la playlist.`}
-          confirmLabel="Supprimer"
+          title={t("delete_track_title")}
+          description={t("delete_track_desc", { title: confirmDelete.track.title })}
+          confirmLabel={t("delete")}
+          cancelLabel={t("cancel")}
           confirmClassName="bg-red-500 hover:bg-red-600"
           onCancel={() => setConfirmDelete(null)}
           onConfirm={handleDelete}
@@ -594,16 +602,17 @@ export function PlaylistClient({ suggestions, weddingId }: Props) {
       {confirmBatch && (
         <ConfirmModal
           title={
-            confirmBatch === "accepted" ? "Accepter la sélection ?" :
-            confirmBatch === "rejected" ? "Refuser la sélection ?" :
-            "Réinitialiser la sélection ?"
+            confirmBatch === "accepted" ? t("confirm_accept_title") :
+            confirmBatch === "rejected" ? t("confirm_reject_title") :
+            t("confirm_reset_title")
           }
-          description={`${selected.size} titre${selected.size > 1 ? "s" : ""} seront ${
-            confirmBatch === "accepted" ? "marqués comme acceptés" :
-            confirmBatch === "rejected" ? "marqués comme refusés" :
-            "remis en attente"
+          description={`${t("confirm_batch_desc", { count: selected.size })} ${
+            confirmBatch === "accepted" ? t("marked_accepted") :
+            confirmBatch === "rejected" ? t("marked_rejected") :
+            t("marked_reset")
           }.`}
-          confirmLabel="Confirmer"
+          confirmLabel={t("confirm")}
+          cancelLabel={t("cancel")}
           confirmClassName={
             confirmBatch === "accepted" ? "bg-teal-400 hover:bg-teal-500" :
             confirmBatch === "rejected" ? "bg-red-500 hover:bg-red-600" :
@@ -618,11 +627,12 @@ export function PlaylistClient({ suggestions, weddingId }: Props) {
 }
 
 function ConfirmModal({
-  title, description, confirmLabel, confirmClassName, onCancel, onConfirm,
+  title, description, confirmLabel, cancelLabel, confirmClassName, onCancel, onConfirm,
 }: {
   title: string;
   description: string;
   confirmLabel: string;
+  cancelLabel: string;
   confirmClassName: string;
   onCancel: () => void;
   onConfirm: () => void;
@@ -640,7 +650,7 @@ function ConfirmModal({
             onClick={onCancel}
             className="px-4 py-2 rounded-lg text-sm border border-border text-muted-foreground hover:bg-studio-lavande/10 transition-colors"
           >
-            Annuler
+            {cancelLabel}
           </button>
           <button
             onClick={onConfirm}

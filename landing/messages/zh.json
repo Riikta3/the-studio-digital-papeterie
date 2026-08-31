@@ -540,7 +540,69 @@
     "selectAtLeast": "请至少选择 4 个模块",
     "minCount": "{count} / 至少 4 个模块",
     "countSelected": "已选 {count} 个",
-    "included": "已包含"
+    "included": "已包含",
+    "catalog": {
+      "countdown": {
+        "name": "倒计时",
+        "description": "婚礼倒计时"
+      },
+      "intro-video": {
+        "name": "开场视频",
+        "description": "个性化视频留言"
+      },
+      "timeline": {
+        "name": "流程安排",
+        "description": "当天的活动流程"
+      },
+      "dress-code": {
+        "name": "着装要求",
+        "description": "建议着装"
+      },
+      "rsvp": {
+        "name": "RSVP 管理",
+        "description": "出席确认"
+      },
+      "map": {
+        "name": "地图与交通",
+        "description": "场地位置"
+      },
+      "accommodation": {
+        "name": "住宿",
+        "description": "附近酒店推荐"
+      },
+      "transport": {
+        "name": "交通",
+        "description": "宾客接驳与交通安排"
+      },
+      "menu": {
+        "name": "菜单",
+        "description": "餐点详情"
+      },
+      "gallery": {
+        "name": "照片相册",
+        "description": "分享您的美好回忆"
+      },
+      "gift-list": {
+        "name": "礼物清单",
+        "description": "礼物与心意"
+      },
+      "playlist": {
+        "name": "歌单",
+        "description": "音乐推荐"
+      },
+      "guestbook": {
+        "name": "留言簿",
+        "description": "宾客留言"
+      },
+      "video-guestbook": {
+        "name": "视频留言簿",
+        "description": "宾客视频留言"
+      },
+      "faq": {
+        "name": "常见问题 / 实用信息",
+        "description": "为宾客提供的实用信息"
+      }
+    }
   },
   "StudioOptions": {
     "titlePrefix": "选项",

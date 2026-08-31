@@ -540,7 +540,69 @@
     "selectAtLeast": "Selecionem pelo menos 4 módulos",
     "minCount": "{count} / 4 módulos mínimo",
     "countSelected": "{count} selecionado(s)",
-    "included": "incluído"
+    "included": "incluído",
+    "catalog": {
+      "countdown": {
+        "name": "Contagem Decrescente",
+        "description": "A contagem decrescente até ao grande dia"
+      },
+      "intro-video": {
+        "name": "Vídeo de Introdução",
+        "description": "Mensagem de vídeo personalizada"
+      },
+      "timeline": {
+        "name": "Programa",
+        "description": "O desenrolar do dia"
+      },
+      "dress-code": {
+        "name": "Dress Code",
+        "description": "Traje recomendado"
+      },
+      "rsvp": {
+        "name": "Gestão de RSVP",
+        "description": "Confirmações de presença"
+      },
+      "map": {
+        "name": "Mapa e Acesso",
+        "description": "Localização dos locais"
+      },
+      "accommodation": {
+        "name": "Alojamento",
+        "description": "Sugestões de hotéis próximos"
+      },
+      "transport": {
+        "name": "Transporte",
+        "description": "Transfers e transporte de convidados"
+      },
+      "menu": {
+        "name": "Menu",
+        "description": "Detalhes da refeição"
+      },
+      "gallery": {
+        "name": "Galeria de Fotos",
+        "description": "Partilhe as suas memórias"
+      },
+      "gift-list": {
+        "name": "Lista de Casamento",
+        "description": "Presentes e contribuições"
+      },
+      "playlist": {
+        "name": "Playlist",
+        "description": "Sugestões musicais"
+      },
+      "guestbook": {
+        "name": "Livro de Visitas",
+        "description": "Mensagens dos convidados"
+      },
+      "video-guestbook": {
+        "name": "Livro de Visitas em Vídeo",
+        "description": "Mensagens de vídeo dos convidados"
+      },
+      "faq": {
+        "name": "FAQ / Info Prática",
+        "description": "Informações práticas para os convidados"
+      }
+    }
   },
   "StudioOptions": {
     "titlePrefix": "Opções ",

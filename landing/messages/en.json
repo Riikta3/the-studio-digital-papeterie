@@ -544,7 +544,69 @@
     "selectAtLeast": "Select at least 4 modules",
     "minCount": "{count} / 4 modules minimum",
     "countSelected": "{count} selected",
-    "included": "included"
+    "included": "included",
+    "catalog": {
+      "countdown": {
+        "name": "Countdown",
+        "description": "The countdown to the big day"
+      },
+      "intro-video": {
+        "name": "Intro Video",
+        "description": "Personalized video message"
+      },
+      "timeline": {
+        "name": "Timeline",
+        "description": "The day's schedule"
+      },
+      "dress-code": {
+        "name": "Dress Code",
+        "description": "Recommended attire"
+      },
+      "rsvp": {
+        "name": "RSVP Management",
+        "description": "Attendance confirmations"
+      },
+      "map": {
+        "name": "Map & Access",
+        "description": "Venue locations"
+      },
+      "accommodation": {
+        "name": "Accommodation",
+        "description": "Nearby hotel suggestions"
+      },
+      "transport": {
+        "name": "Transport",
+        "description": "Shuttles & guest transport"
+      },
+      "menu": {
+        "name": "Menu",
+        "description": "Meal details"
+      },
+      "gallery": {
+        "name": "Photo Gallery",
+        "description": "Share your memories"
+      },
+      "gift-list": {
+        "name": "Gift Registry",
+        "description": "Gifts & contributions"
+      },
+      "playlist": {
+        "name": "Playlist",
+        "description": "Music suggestions"
+      },
+      "guestbook": {
+        "name": "Guestbook",
+        "description": "Messages from guests"
+      },
+      "video-guestbook": {
+        "name": "Video Guestbook",
+        "description": "Video messages from guests"
+      },
+      "faq": {
+        "name": "FAQ / Practical Info",
+        "description": "Practical info for guests"
+      }
+    }
   },
   "StudioOptions": {
     "titlePrefix": "Options ",

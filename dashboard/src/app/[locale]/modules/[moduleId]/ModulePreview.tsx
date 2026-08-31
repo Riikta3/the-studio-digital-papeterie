@@ -39,6 +39,7 @@ import {
 } from "lucide-react";
 import Image from "next/image";
 import { AnimatePresence, motion } from "framer-motion";
+import { useTranslations } from "next-intl";
 import { useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 
@@ -1383,6 +1384,8 @@ interface ModulePreviewProps {
 }
 
 export function ModulePreview({ moduleId, config }: ModulePreviewProps) {
+  const t = useTranslations("Modules");
+
   function renderContent() {
     switch (moduleId) {
       case "dress-code": return <DressCodePreview config={config} />;
@@ -1411,7 +1414,7 @@ export function ModulePreview({ moduleId, config }: ModulePreviewProps) {
       <div className="flex items-center gap-2 mb-4 px-1">
         <Eye size={14} className="text-muted-foreground" />
         <span className="text-xs font-bold uppercase tracking-[0.15em] text-muted-foreground">
-          Aperçu en direct
+          {t("live_preview")}
         </span>
       </div>
       <div className="flex-1 theme-floral bg-background rounded-2xl border border-border overflow-y-auto">

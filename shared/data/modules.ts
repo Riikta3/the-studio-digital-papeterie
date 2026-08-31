@@ -15,110 +15,42 @@ import {
   Video,
 } from "lucide-react";
 
+// name/description are translated via the "Modules.catalog.<id>" namespace
+// (see dashboard/messages/*.json and landing/messages/*.json) — this array
+// only holds the stable identifiers, icons and ordering used by server
+// actions and React keys.
 export const APP_MODULES = [
-  {
-    id: "countdown",
-    name: "Compte à Rebours",
-    icon: Timer,
-    description: "Le décompte avant le jour J",
-    defaultOrder: 1,
-  },
-  {
-    id: "intro-video",
-    name: "Vidéo d'Intro",
-    icon: Video,
-    description: "Message vidéo personnalisé",
-    defaultOrder: 2,
-  },
-  {
-    id: "timeline",
-    name: "Programme",
-    icon: Calendar,
-    description: "Déroulé de la journée",
-    defaultOrder: 3,
-  },
-  {
-    id: "dress-code",
-    name: "Dress Code",
-    icon: Heart,
-    description: "Tenue recommandée",
-    defaultOrder: 4,
-  },
-  {
-    id: "rsvp",
-    name: "Gestion RSVP",
-    icon: Users,
-    description: "Confirmations de présence",
-    defaultOrder: 5,
-  },
-  {
-    id: "map",
-    name: "Plan & Accès",
-    icon: MapPin,
-    description: "Localisation des lieux",
-    defaultOrder: 6,
-  },
-  {
-    id: "accommodation",
-    name: "Hébergement",
-    icon: Globe,
-    description: "Suggestions d'hôtels à proximité",
-    defaultOrder: 7,
-  },
-  {
-    id: "transport",
-    name: "Transport",
-    icon: Bus,
-    description: "Navettes & transport des invités",
-    defaultOrder: 8,
-  },
-  {
-    id: "menu",
-    name: "Menu",
-    icon: Utensils,
-    description: "Détails du repas",
-    defaultOrder: 9,
-  },
-  {
-    id: "gallery",
-    name: "Galerie Photo",
-    icon: Camera,
-    description: "Partagez vos souvenirs",
-    defaultOrder: 10,
-  },
-  {
-    id: "gift-list",
-    name: "Liste de Mariage",
-    icon: Gift,
-    description: "Cadeaux & participations",
-    defaultOrder: 11,
-  },
-  {
-    id: "playlist",
-    name: "Playlist",
-    icon: Music,
-    description: "Suggestions musicales",
-    defaultOrder: 12,
-  },
-  {
-    id: "guestbook",
-    name: "Livre d'Or",
-    icon: MessageSquare,
-    description: "Messages des invités",
-    defaultOrder: 13,
-  },
-  {
-    id: "video-guestbook",
-    name: "Livre d'Or Vidéo",
-    icon: MessageSquare,
-    description: "Messages vidéo des invités",
-    defaultOrder: 14,
-  },
-  {
-    id: "faq",
-    name: "FAQ / Pratique",
-    icon: Info,
-    description: "Infos pratiques pour les invités",
-    defaultOrder: 15,
-  },
+  { id: "countdown", icon: Timer, defaultOrder: 1 },
+  { id: "intro-video", icon: Video, defaultOrder: 2 },
+  { id: "timeline", icon: Calendar, defaultOrder: 3 },
+  { id: "dress-code", icon: Heart, defaultOrder: 4 },
+  { id: "rsvp", icon: Users, defaultOrder: 5 },
+  { id: "map", icon: MapPin, defaultOrder: 6 },
+  { id: "accommodation", icon: Globe, defaultOrder: 7 },
+  { id: "transport", icon: Bus, defaultOrder: 8 },
+  { id: "menu", icon: Utensils, defaultOrder: 9 },
+  { id: "gallery", icon: Camera, defaultOrder: 10 },
+  { id: "gift-list", icon: Gift, defaultOrder: 11 },
+  { id: "playlist", icon: Music, defaultOrder: 12 },
+  { id: "guestbook", icon: MessageSquare, defaultOrder: 13 },
+  { id: "video-guestbook", icon: MessageSquare, defaultOrder: 14 },
+  { id: "faq", icon: Info, defaultOrder: 15 },
 ];
+
+type ModuleTranslator = (key: string) => string;
+
+export function getModuleName(t: ModuleTranslator, id: string): string {
+  return t(`catalog.${id}.name`);
+}
+
+export function getModuleDescription(t: ModuleTranslator, id: string): string {
+  return t(`catalog.${id}.description`);
+}
+
+export function getModulesWithLabels(t: ModuleTranslator) {
+  return APP_MODULES.map((m) => ({
+    ...m,
+    name: getModuleName(t, m.id),
+    description: getModuleDescription(t, m.id),
+  }));
+}

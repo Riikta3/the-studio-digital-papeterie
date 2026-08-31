@@ -2,18 +2,20 @@
 
 import { Guest } from "@/types";
 import { useDraggable } from "@dnd-kit/core";
+import { useTranslations } from "next-intl";
 
 interface GuestSidebarProps {
   guests: Guest[];
 }
 
 export function GuestSidebar({ guests }: GuestSidebarProps) {
+  const t = useTranslations("GuestSidebar");
   const unseatedGuests = guests.filter((g) => !g.table_id);
 
   return (
     <div className='w-80 border-r border-border bg-card p-4 h-full overflow-y-auto flex-shrink-0'>
       <div className='flex items-center justify-between mb-4'>
-        <h2 className='font-semibold text-lg'>Invités</h2>
+        <h2 className='font-semibold text-lg'>{t("title")}</h2>
         <span className='text-sm text-muted-foreground bg-muted px-2 py-1 rounded-full'>
           {unseatedGuests.length}
         </span>
@@ -22,13 +24,14 @@ export function GuestSidebar({ guests }: GuestSidebarProps) {
       <div className='space-y-2'>
         {unseatedGuests.length === 0 ? (
           <p className='text-sm text-muted-foreground text-center py-8'>
-            Tous les invités sont placés !
+            {t("all_seated")}
           </p>
         ) : (
           unseatedGuests.map((guest) => (
             <DraggableGuest
               key={guest.id}
               guest={guest}
+              t={t}
             />
           ))
         )}
@@ -37,7 +40,7 @@ export function GuestSidebar({ guests }: GuestSidebarProps) {
   );
 }
 
-function DraggableGuest({ guest }: { guest: Guest }) {
+function DraggableGuest({ guest, t }: { guest: Guest; t: ReturnType<typeof useTranslations> }) {
   const { attributes, listeners, setNodeRef, transform, isDragging } =
     useDraggable({
       id: `guest-${guest.id}`,
@@ -70,7 +73,7 @@ function DraggableGuest({ guest }: { guest: Guest }) {
             {guest.first_name} {guest.last_name}
           </p>
           <p className='text-xs text-muted-foreground truncate'>
-            {guest.is_child ? "Enfant" : guest.relation_type || "Invité"}
+            {guest.is_child ? t("child") : guest.relation_type || t("guest")}
           </p>
         </div>
       </div>

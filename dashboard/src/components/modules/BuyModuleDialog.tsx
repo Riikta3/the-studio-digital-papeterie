@@ -11,8 +11,9 @@ import {
 } from "@shared/components/ui/dialog";
 import { Elements, PaymentElement, useElements, useStripe } from "@stripe/react-stripe-js";
 import { loadStripe } from "@stripe/stripe-js";
-import { APP_MODULES } from "@shared/data/modules";
+import { APP_MODULES, getModuleName } from "@shared/data/modules";
 import { CheckCircle2, Loader2, ShoppingCart } from "lucide-react";
+import { useTranslations } from "next-intl";
 import { useRouter, useSearchParams } from "next/navigation";
 import { Suspense } from "react";
 import { useCallback, useEffect, useState } from "react";
@@ -37,6 +38,7 @@ interface PaymentFormProps {
 }
 
 function PaymentForm({ moduleId, moduleName, onSuccess }: PaymentFormProps) {
+  const t = useTranslations("BuyModuleDialog");
   const stripe = useStripe();
   const elements = useElements();
   const [isProcessing, setIsProcessing] = useState(false);
@@ -60,7 +62,7 @@ function PaymentForm({ moduleId, moduleName, onSuccess }: PaymentFormProps) {
       });
 
       if (error) {
-        setErrorMessage(error.message || "Une erreur est survenue.");
+        setErrorMessage(error.message || t("generic_error"));
         return;
       }
 
@@ -70,7 +72,7 @@ function PaymentForm({ moduleId, moduleName, onSuccess }: PaymentFormProps) {
         onSuccess();
       }
     } catch (err: any) {
-      setErrorMessage(err.message || "Une erreur inattendue est survenue.");
+      setErrorMessage(err.message || t("unexpected_error"));
     } finally {
       setIsProcessing(false);
     }
@@ -100,18 +102,18 @@ function PaymentForm({ moduleId, moduleName, onSuccess }: PaymentFormProps) {
         {isProcessing ? (
           <>
             <Loader2 className="w-4 h-4 mr-2 animate-spin" />
-            Paiement en cours...
+            {t("processing_payment")}
           </>
         ) : (
           <>
             <ShoppingCart className="w-4 h-4 mr-2" />
-            Payer 10 € et activer
+            {t("pay_and_activate")}
           </>
         )}
       </Button>
 
       <p className="text-center text-xs text-muted-foreground">
-        Paiement sécurisé par Stripe
+        {t("secured_by_stripe")}
       </p>
     </form>
   );
@@ -127,6 +129,7 @@ interface ConfirmActivationProps {
 }
 
 function ConfirmActivation({ moduleName, moduleId, paymentIntentId, onSuccess }: ConfirmActivationProps) {
+  const t = useTranslations("BuyModuleDialog");
   const [isActivating, setIsActivating] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
 
@@ -137,7 +140,7 @@ function ConfirmActivation({ moduleName, moduleId, paymentIntentId, onSuccess }:
       await activatePurchasedModule({ moduleId, paymentIntentId });
       onSuccess();
     } catch (err: any) {
-      setErrorMessage(err.message || "Une erreur est survenue lors de l'activation.");
+      setErrorMessage(err.message || t("activation_error"));
     } finally {
       setIsActivating(false);
     }
@@ -148,10 +151,9 @@ function ConfirmActivation({ moduleName, moduleId, paymentIntentId, onSuccess }:
       <div className="bg-teal-50 border border-teal-200 rounded-xl p-4 flex items-start gap-3">
         <CheckCircle2 className="w-5 h-5 text-teal-500 shrink-0 mt-0.5" />
         <div>
-          <p className="font-medium text-sm text-teal-600">Paiement confirmé</p>
+          <p className="font-medium text-sm text-teal-600">{t("payment_confirmed")}</p>
           <p className="text-xs text-teal-600 mt-0.5">
-            Votre paiement pour <span className="font-medium">{moduleName}</span> a bien été reçu.
-            Cliquez sur le bouton ci-dessous pour activer le module.
+            {t("payment_received", { moduleName })}
           </p>
         </div>
       </div>
@@ -166,12 +168,12 @@ function ConfirmActivation({ moduleName, moduleId, paymentIntentId, onSuccess }:
         {isActivating ? (
           <>
             <Loader2 className="w-4 h-4 mr-2 animate-spin" />
-            Activation en cours...
+            {t("activating")}
           </>
         ) : (
           <>
             <CheckCircle2 className="w-4 h-4 mr-2" />
-            Activer le module
+            {t("activate_module")}
           </>
         )}
       </Button>
@@ -190,6 +192,7 @@ function SuccessState({
   moduleId: string;
   onClose: () => void;
 }) {
+  const t = useTranslations("BuyModuleDialog");
   const router = useRouter();
 
   const handleConfigure = () => {
@@ -203,13 +206,13 @@ function SuccessState({
         <CheckCircle2 className="w-8 h-8 text-green-600" />
       </div>
       <div>
-        <p className="font-semibold text-foreground text-lg">Module activé !</p>
+        <p className="font-semibold text-foreground text-lg">{t("module_activated")}</p>
         <p className="text-sm text-muted-foreground mt-1">
-          Le module <span className="font-medium">{moduleName}</span> est maintenant disponible.
+          {t("module_available", { moduleName })}
         </p>
       </div>
       <Button onClick={handleConfigure} className="mt-2">
-        Configurer le module
+        {t("configure_module")}
       </Button>
     </div>
   );
@@ -222,6 +225,7 @@ function RedirectReturnInner({
 }: {
   onPendingActivation: (data: PendingActivation) => void;
 }) {
+  const t = useTranslations("BuyModuleDialog");
   const searchParams = useSearchParams();
 
   useEffect(() => {
@@ -240,7 +244,7 @@ function RedirectReturnInner({
     window.history.replaceState({}, "", clean.pathname + (clean.search || ""));
 
     if (redirectStatus !== "succeeded") {
-      toast.error("Le paiement a échoué ou a été annulé. Veuillez réessayer.");
+      toast.error(t("payment_failed_or_canceled"));
       return;
     }
 
@@ -250,14 +254,14 @@ function RedirectReturnInner({
 
       const { paymentIntent } = await stripe.retrievePaymentIntent(clientSecret!);
       if (paymentIntent?.status !== "succeeded") {
-        toast.error("Le paiement n'a pas pu être confirmé.");
+        toast.error(t("payment_not_confirmed"));
         return;
       }
 
       const mod = APP_MODULES.find((m) => m.id === modulePending);
       onPendingActivation({
         moduleId: modulePending!,
-        moduleName: mod?.name ?? modulePending!,
+        moduleName: mod ? getModuleName(t, mod.id) : modulePending!,
         paymentIntentId: paymentIntent.id,
       });
     }
@@ -306,6 +310,7 @@ export function BuyModuleDialog({
   pendingActivation,
   onClearPending,
 }: BuyModuleDialogProps) {
+  const t = useTranslations("BuyModuleDialog");
   const router = useRouter();
   const [clientSecret, setClientSecret] = useState<string | null>(null);
   const [isLoadingIntent, setIsLoadingIntent] = useState(false);
@@ -315,10 +320,10 @@ export function BuyModuleDialog({
     setSucceeded(true);
     onClearPending?.();
     const name = pendingActivation?.moduleName ?? moduleName;
-    toast.success(`Module "${name}" activé !`);
+    toast.success(t("module_activated_toast", { name }));
     // Refresh immediately so the page re-fetches server data in the background
     router.refresh();
-  }, [moduleName, pendingActivation, onClearPending, router]);
+  }, [moduleName, pendingActivation, onClearPending, router, t]);
 
   const createIntent = useCallback(async () => {
     setIsLoadingIntent(true);
@@ -333,12 +338,12 @@ export function BuyModuleDialog({
       if (!res.ok) throw new Error(data.error);
       setClientSecret(data.clientSecret);
     } catch (err: any) {
-      toast.error(err.message || "Impossible de créer le paiement.");
+      toast.error(err.message || t("create_intent_error"));
       onOpenChange(false);
     } finally {
       setIsLoadingIntent(false);
     }
-  }, [moduleId, onOpenChange]);
+  }, [moduleId, onOpenChange, t]);
 
   useEffect(() => {
     // Don't create a new intent if we're in pending activation state
@@ -409,11 +414,11 @@ export function BuyModuleDialog({
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent className="sm:max-w-md">
         <DialogHeader>
-          <DialogTitle>Ajouter un module</DialogTitle>
+          <DialogTitle>{t("dialog_title")}</DialogTitle>
           <DialogDescription>
             {pendingActivation
-              ? "Votre paiement a été reçu. Confirmez l'activation du module."
-              : "Activez ce module pour 10 € — disponible immédiatement sur votre faire-part."}
+              ? t("dialog_desc_pending")
+              : t("dialog_desc_default")}
           </DialogDescription>
         </DialogHeader>
         {renderContent()}

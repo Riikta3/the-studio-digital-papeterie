@@ -1,6 +1,6 @@
 import { getModuleConfig } from "@/actions/module-config-actions";
 import { Link } from "@/navigation";
-import { APP_MODULES } from "@shared/data/modules";
+import { APP_MODULES, getModuleDescription, getModuleName } from "@shared/data/modules";
 import { ArrowLeft } from "lucide-react";
 import { getTranslations } from "next-intl/server";
 import { notFound, redirect } from "next/navigation";
@@ -44,9 +44,9 @@ export default async function ModuleConfigPage({
           {t("back")}
         </Link>
         <h1 className="font-heading text-4xl md:text-5xl italic text-foreground mb-2 text-center">
-          {moduleInfo.name}
+          {getModuleName(t, moduleInfo.id)}
         </h1>
-        <p className="text-muted-foreground text-sm text-center">{moduleInfo.description}</p>
+        <p className="text-muted-foreground text-sm text-center">{getModuleDescription(t, moduleInfo.id)}</p>
       </div>
 
       <ModuleConfigWithPreview moduleId={moduleId} initialConfig={config} />

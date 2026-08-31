@@ -9,6 +9,7 @@ import {
   DialogTitle,
 } from "@shared/components/ui/dialog";
 import { ShoppingCart } from "lucide-react";
+import { useTranslations } from "next-intl";
 import { MODULE_PREVIEW_DEFAULTS } from "./module-preview-defaults";
 
 interface LockedModulePreviewDialogProps {
@@ -28,6 +29,7 @@ export function LockedModulePreviewDialog({
   moduleDescription,
   onBuy,
 }: LockedModulePreviewDialogProps) {
+  const t = useTranslations("LockedModulePreviewDialog");
   const config = MODULE_PREVIEW_DEFAULTS[moduleId] ?? {};
 
   return (
@@ -44,8 +46,8 @@ export function LockedModulePreviewDialog({
 
         <div className="px-6 py-4 border-t border-border flex items-center justify-between shrink-0 bg-muted/30">
           <div>
-            <p className="text-sm font-semibold text-foreground">Débloquer ce module</p>
-            <p className="text-xs text-muted-foreground">Paiement unique, inclus à vie dans votre site</p>
+            <p className="text-sm font-semibold text-foreground">{t("unlock_module")}</p>
+            <p className="text-xs text-muted-foreground">{t("one_time_payment")}</p>
           </div>
           <Button
             onClick={() => {
@@ -55,7 +57,7 @@ export function LockedModulePreviewDialog({
             className="gap-2"
           >
             <ShoppingCart size={15} />
-            Acheter — 10 €
+            {t("buy_button")}
           </Button>
         </div>
       </DialogContent>

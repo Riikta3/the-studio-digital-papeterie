@@ -10,10 +10,12 @@ import { Button } from "@shared/components/ui/button";
 import { Input } from "@shared/components/ui/input";
 import { Label } from "@shared/components/ui/label";
 import { Loader2, Plus, Trash2 } from "lucide-react";
+import { useTranslations } from "next-intl";
 import { useState } from "react";
 import { toast } from "sonner";
 
 export default function RsvpPage() {
+  const t = useTranslations("RsvpForm");
   const [step, setStep] = useState<
     "code" | "search" | "form" | "register" | "success"
   >("code");
@@ -43,14 +45,14 @@ export default function RsvpPage() {
       const result = await validateWeddingCode(code);
       if (result.success && result.weddingId) {
         setWeddingId(result.weddingId);
-        setCoupleNames(result.coupleNames || "Mariés");
+        setCoupleNames(result.coupleNames || t("code_step.default_couple_names"));
         setStep("search");
       } else {
-        toast.error(result.message || "Code invalide");
+        toast.error(result.message || t("code_step.invalid_code"));
       }
     } catch (e) {
       console.error(e);
-      toast.error("Une erreur est survenue");
+      toast.error(t("code_step.generic_error"));
     } finally {
       setLoading(false);
     }
@@ -66,15 +68,12 @@ export default function RsvpPage() {
       if (result.success && result.households) {
         setSearchResults(result.households || []);
         if (result.households?.length === 0) {
-          toast.info(
-            "Aucun foyer trouvé. Vous pouvez vous enregistrer manuellement.",
-            { duration: 4000 },
-          );
+          toast.info(t("search_step.no_household_found"), { duration: 4000 });
         }
       }
     } catch (e) {
       console.error(e);
-      toast.error("Erreur de recherche");
+      toast.error(t("search_step.search_error"));
     } finally {
       setLoading(false);
     }
@@ -98,11 +97,11 @@ export default function RsvpPage() {
       if (result.success) {
         setStep("success");
       } else {
-        toast.error(result.error || "Erreur");
+        toast.error(result.error || t("form_step.generic_error"));
       }
     } catch (e) {
       console.error(e);
-      toast.error("Erreur technique");
+      toast.error(t("form_step.technical_error"));
     } finally {
       setLoading(false);
     }
@@ -115,7 +114,7 @@ export default function RsvpPage() {
 
     // Check if at least one guest name
     if (!newGuests[0].firstName) {
-      toast.error("Veuillez indiquer au moins un invité");
+      toast.error(t("register_step.missing_guest_name"));
       setLoading(false);
       return;
     }
@@ -125,11 +124,11 @@ export default function RsvpPage() {
       if (result.success) {
         setStep("success");
       } else {
-        toast.error(result.error || "Erreur");
+        toast.error(result.error || t("register_step.generic_error"));
       }
     } catch (e) {
       console.error(e);
-      toast.error("Erreur technique");
+      toast.error(t("register_step.technical_error"));
     } finally {
       setLoading(false);
     }
@@ -163,9 +162,11 @@ export default function RsvpPage() {
       <div className='min-h-screen flex items-center justify-center bg-studio-creme p-4'>
         <div className='max-w-md w-full space-y-8 text-center'>
           <div>
-            <h1 className='font-heading text-h1 text-studio-violet'>Bienvenue</h1>
+            <h1 className='font-heading text-h1 text-studio-violet'>
+              {t("code_step.title")}
+            </h1>
             <p className='mt-2 text-studio-violet/70'>
-              Entrez votre code invité pour accéder au formulaire.
+              {t("code_step.subtitle")}
             </p>
           </div>
           <form
@@ -173,11 +174,11 @@ export default function RsvpPage() {
             className='mt-8 space-y-6 bg-white p-8 rounded-xl shadow-sm border border-studio-lavande/30'
           >
             <div className='space-y-2 text-left'>
-              <Label htmlFor='code'>Code Mariage</Label>
+              <Label htmlFor='code'>{t("code_step.code_label")}</Label>
               <Input
                 id='code'
                 name='code'
-                placeholder='Ex: AMOUR2026'
+                placeholder={t("code_step.code_placeholder")}
                 className='text-center uppercase tracking-widest text-lg h-12'
                 required
               />
@@ -188,7 +189,7 @@ export default function RsvpPage() {
               disabled={loading}
             >
               {loading ? <Loader2 className='animate-spin mr-2' /> : null}{" "}
-              Accéder
+              {t("code_step.submit")}
             </Button>
           </form>
         </div>
@@ -204,7 +205,9 @@ export default function RsvpPage() {
             <h1 className='font-heading text-h1 text-studio-violet'>
               {coupleNames}
             </h1>
-            <p className='mt-2 text-studio-violet/70'>Retrouvez votre invitation.</p>
+            <p className='mt-2 text-studio-violet/70'>
+              {t("search_step.subtitle")}
+            </p>
           </div>
 
           <form
@@ -212,11 +215,11 @@ export default function RsvpPage() {
             className='mt-4 space-y-4 bg-white p-6 rounded-xl shadow-sm border border-studio-lavande/30'
           >
             <div className='space-y-2 text-left'>
-              <Label htmlFor='name'>Votre Nom / Famille</Label>
+              <Label htmlFor='name'>{t("search_step.name_label")}</Label>
               <Input
                 id='name'
                 name='name'
-                placeholder='Ex: Dupont'
+                placeholder={t("search_step.name_placeholder")}
                 required
               />
             </div>
@@ -228,7 +231,7 @@ export default function RsvpPage() {
               {loading ? (
                 <Loader2 className='animate-spin mr-2' />
               ) : (
-                "Rechercher"
+                t("search_step.submit")
               )}
             </Button>
           </form>
@@ -236,7 +239,7 @@ export default function RsvpPage() {
           {searchResults.length > 0 && (
             <div className='space-y-2 text-left animate-in fade-in slide-in-from-bottom-2'>
               <p className='text-sm text-muted-foreground ml-1'>
-                Sélectionnez votre foyer :
+                {t("search_step.select_household")}
               </p>
               {searchResults.map((h) => (
                 <button
@@ -248,7 +251,9 @@ export default function RsvpPage() {
                     {h.name}
                   </span>
                   <span className='text-sm text-studio-violet/60'>
-                    {h.guests?.length || 0} invité(s)
+                    {t("search_step.guests_count", {
+                      count: h.guests?.length || 0,
+                    })}
                   </span>
                 </button>
               ))}
@@ -260,7 +265,9 @@ export default function RsvpPage() {
               <span className='w-full border-t border-studio-lavande/40' />
             </div>
             <div className='relative flex justify-center text-xs uppercase'>
-              <span className='bg-studio-creme px-2 text-studio-violet/60'>Ou</span>
+              <span className='bg-studio-creme px-2 text-studio-violet/60'>
+                {t("search_step.or")}
+              </span>
             </div>
           </div>
 
@@ -269,7 +276,7 @@ export default function RsvpPage() {
             className='w-full'
             onClick={() => setStep("register")}
           >
-            Je ne suis pas dans la liste / Je m&apos;inscris
+            {t("search_step.not_in_list")}
           </Button>
         </div>
       </div>
@@ -283,10 +290,10 @@ export default function RsvpPage() {
         <div className='max-w-2xl mx-auto'>
           <div className='text-center mb-10'>
             <h2 className='text-sm font-semibold text-primary tracking-widest uppercase'>
-              Nouvel Enregistrement
+              {t("register_step.eyebrow")}
             </h2>
             <h1 className='font-heading text-h1 mt-2 text-studio-violet'>
-              Votre Foyer
+              {t("register_step.title")}
             </h1>
           </div>
 
@@ -298,22 +305,22 @@ export default function RsvpPage() {
               {/* Main Details */}
               <div className='space-y-4'>
                 <h3 className='font-heading text-h3 text-studio-violet border-b border-studio-lavande/30 pb-2'>
-                  Coordonnées
+                  {t("register_step.coordinates")}
                 </h3>
                 <div className='grid grid-cols-1 md:grid-cols-2 gap-4'>
                   <div className='space-y-2'>
-                    <Label>Nom du Foyer (ex: Famille Dupont)</Label>
+                    <Label>{t("register_step.household_name_label")}</Label>
                     <Input
                       name='name'
-                      placeholder='Famille ... / Couple ...'
+                      placeholder={t("register_step.household_name_placeholder")}
                       required
                     />
                   </div>
                   <div className='space-y-2'>
-                    <Label>Email</Label>
+                    <Label>{t("register_step.email_label")}</Label>
                     <Input
                       name='email'
-                      placeholder='votre@email.com'
+                      placeholder={t("register_step.email_placeholder")}
                       required
                     />
                   </div>
@@ -324,7 +331,7 @@ export default function RsvpPage() {
               <div className='space-y-6'>
                 <div className='flex justify-between items-center border-b border-studio-lavande/30 pb-2'>
                   <h3 className='font-heading text-h3 text-studio-violet'>
-                    Invités
+                    {t("register_step.guests")}
                   </h3>
                   <Button
                     type='button'
@@ -332,7 +339,8 @@ export default function RsvpPage() {
                     size='sm'
                     onClick={addGuestField}
                   >
-                    <Plus className='w-4 h-4 mr-2' /> Ajouter une personne
+                    <Plus className='w-4 h-4 mr-2' />{" "}
+                    {t("register_step.add_guest")}
                   </Button>
                 </div>
 
@@ -352,7 +360,7 @@ export default function RsvpPage() {
                     )}
                     <div className='grid grid-cols-1 md:grid-cols-2 gap-4'>
                       <div className='space-y-2'>
-                        <Label>Prénom *</Label>
+                        <Label>{t("register_step.first_name_label")}</Label>
                         <Input
                           name={`guest_${index}_firstname`}
                           required
@@ -364,29 +372,33 @@ export default function RsvpPage() {
                         />
                       </div>
                       <div className='space-y-2'>
-                        <Label>Nom</Label>
+                        <Label>{t("register_step.last_name_label")}</Label>
                         <Input
                           name={`guest_${index}_lastname`}
-                          placeholder='.'
+                          placeholder={t("register_step.last_name_placeholder")}
                         />
                       </div>
                     </div>
                     <div className='grid grid-cols-1 md:grid-cols-2 gap-4'>
                       <div className='space-y-2'>
-                        <Label>Présence</Label>
+                        <Label>{t("register_step.presence_label")}</Label>
                         <select
                           name={`guest_${index}_status`}
                           className='w-full h-10 rounded-md border border-input bg-background px-3 py-2 text-sm'
                         >
-                          <option value='confirmed'>Sera présent(e)</option>
-                          <option value='declined'>Ne viendra pas</option>
+                          <option value='confirmed'>
+                            {t("register_step.presence_confirmed")}
+                          </option>
+                          <option value='declined'>
+                            {t("register_step.presence_declined")}
+                          </option>
                         </select>
                       </div>
                       <div className='space-y-2'>
-                        <Label>Régime / Allergies</Label>
+                        <Label>{t("register_step.dietary_label")}</Label>
                         <Input
                           name={`guest_${index}_dietary`}
-                          placeholder='Ex: Sans gluten'
+                          placeholder={t("register_step.dietary_placeholder")}
                         />
                       </div>
                     </div>
@@ -397,18 +409,18 @@ export default function RsvpPage() {
               {/* Common Details (Same as update) */}
               <div className='space-y-6'>
                 <div className='space-y-2'>
-                  <Label>Une chanson ?</Label>
+                  <Label>{t("register_step.song_label")}</Label>
                   <Input
                     name='song'
-                    placeholder='Artiste - Titre'
+                    placeholder={t("register_step.song_placeholder")}
                   />
                 </div>
                 <div className='space-y-2'>
-                  <Label>Message</Label>
+                  <Label>{t("register_step.message_label")}</Label>
                   <textarea
                     name='message'
                     className='w-full min-h-[80px] rounded-md border border-input bg-background px-3 py-2 text-sm'
-                    placeholder='Un petit mot pour les mariés...'
+                    placeholder={t("register_step.message_placeholder")}
                   ></textarea>
                 </div>
               </div>
@@ -420,7 +432,7 @@ export default function RsvpPage() {
                 onClick={() => setStep("search")}
                 className='text-sm text-studio-violet/60 hover:underline'
               >
-                Annuler
+                {t("register_step.cancel")}
               </button>
               <Button
                 type='submit'
@@ -431,7 +443,7 @@ export default function RsvpPage() {
                 {loading ? (
                   <Loader2 className='mr-2 h-4 w-4 animate-spin' />
                 ) : (
-                  "Valider mon inscription"
+                  t("register_step.submit")
                 )}
               </Button>
             </div>
@@ -449,7 +461,7 @@ export default function RsvpPage() {
           {/* ... Header similar to register ... */}
           <div className='text-center mb-10'>
             <h2 className='text-sm font-semibold text-primary tracking-widest uppercase'>
-              Réponse pour
+              {t("form_step.eyebrow")}
             </h2>
             <h1 className='font-heading text-h1 mt-2 text-studio-violet'>
               {selectedHousehold.name}
@@ -464,13 +476,13 @@ export default function RsvpPage() {
               {/* Contact */}
               <div className='space-y-4'>
                 <h3 className='font-heading text-h3 text-studio-violet border-b border-studio-lavande/30 pb-2'>
-                  Email de contact
+                  {t("form_step.contact_email")}
                 </h3>
                 <Input
                   id='email'
                   name='email'
                   defaultValue={selectedHousehold.email || ""}
-                  placeholder='votre@email.com'
+                  placeholder={t("form_step.email_placeholder")}
                   required
                 />
               </div>
@@ -478,7 +490,7 @@ export default function RsvpPage() {
               {/* Guests Loop */}
               <div className='space-y-6'>
                 <h3 className='font-heading text-h3 text-studio-violet border-b border-studio-lavande/30 pb-2'>
-                  Invités
+                  {t("form_step.guests")}
                 </h3>
                 {selectedHousehold.guests?.map((guest: any) => (
                   <div
@@ -493,7 +505,7 @@ export default function RsvpPage() {
                     </div>
                     <div className='grid grid-cols-1 md:grid-cols-2 gap-4'>
                       <div className='space-y-2'>
-                        <Label>Présence *</Label>
+                        <Label>{t("form_step.presence_label")}</Label>
                         <select
                           name={`guest_${guest.id}_status`}
                           className='w-full h-10 rounded-md border border-input bg-background px-3 py-2 text-sm'
@@ -503,17 +515,19 @@ export default function RsvpPage() {
                               : guest.status
                           }
                         >
-                          <option value='confirmed'>Je serai là</option>
+                          <option value='confirmed'>
+                            {t("form_step.presence_confirmed")}
+                          </option>
                           <option value='declined'>
-                            Je ne pourrai pas venir
+                            {t("form_step.presence_declined")}
                           </option>
                         </select>
                       </div>
                       <div className='space-y-2'>
-                        <Label>Régime / Allergies</Label>
+                        <Label>{t("form_step.dietary_label")}</Label>
                         <Input
                           name={`guest_${guest.id}_dietary`}
-                          placeholder='Ex: Végétarien'
+                          placeholder={t("form_step.dietary_placeholder")}
                           defaultValue={guest.dietary_requirements || ""}
                         />
                       </div>
@@ -525,15 +539,15 @@ export default function RsvpPage() {
               {/* Common */}
               <div className='space-y-6'>
                 <div className='space-y-2'>
-                  <Label>Une chanson ?</Label>
+                  <Label>{t("form_step.song_label")}</Label>
                   <Input
                     name='song'
-                    placeholder='Artiste - Titre'
+                    placeholder={t("form_step.song_placeholder")}
                     defaultValue={selectedHousehold.song_request || ""}
                   />
                 </div>
                 <div className='space-y-2'>
-                  <Label>Transport</Label>
+                  <Label>{t("form_step.transport_label")}</Label>
                   <div className='flex flex-col gap-2'>
                     <label className='flex items-center space-x-2'>
                       <input
@@ -545,7 +559,7 @@ export default function RsvpPage() {
                           selectedHousehold.transportation === "bus"
                         }
                       />
-                      <span>Je prendrai la navette</span>
+                      <span>{t("form_step.transport_shuttle")}</span>
                     </label>
                     <label className='flex items-center space-x-2'>
                       <input
@@ -557,12 +571,12 @@ export default function RsvpPage() {
                           selectedHousehold.transportation === "car"
                         }
                       />
-                      <span>Je viendrai par mes propres moyens</span>
+                      <span>{t("form_step.transport_own")}</span>
                     </label>
                   </div>
                 </div>
                 <div className='space-y-2'>
-                  <Label>Message</Label>
+                  <Label>{t("form_step.message_label")}</Label>
                   <textarea
                     name='message'
                     className='w-full min-h-[80px] rounded-md border border-input bg-background px-3 py-2 text-sm'
@@ -582,7 +596,7 @@ export default function RsvpPage() {
                 {loading ? (
                   <Loader2 className='mr-2 h-4 w-4 animate-spin' />
                 ) : (
-                  "Confirmer ma réponse"
+                  t("form_step.submit")
                 )}
               </Button>
             </div>
@@ -611,18 +625,20 @@ export default function RsvpPage() {
               />
             </svg>
           </div>
-          <h2 className='font-heading text-h1 text-studio-violet'>Merci !</h2>
-          <p className='text-studio-violet/70'>Votre réponse a bien été enregistrée.</p>
+          <h2 className='font-heading text-h1 text-studio-violet'>
+            {t("success_step.title")}
+          </h2>
+          <p className='text-studio-violet/70'>{t("success_step.subtitle")}</p>
           <Button
             variant='outline'
             onClick={() => setStep("code")}
           >
-            Retour à l&apos;accueil
+            {t("success_step.back_home")}
           </Button>
         </div>
       </div>
     );
   }
 
-  return <div>Loading...</div>;
+  return <div>{t("loading")}</div>;
 }

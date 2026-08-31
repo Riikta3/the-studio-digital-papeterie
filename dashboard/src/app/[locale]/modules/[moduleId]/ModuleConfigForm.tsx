@@ -37,7 +37,7 @@ import {
 } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
 import Image from "next/image";
-import { useTranslations } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 import { useEffect, useRef, useState } from "react";
 import { toast } from "sonner";
 
@@ -272,6 +272,7 @@ function RsvpForm({
   onPreview?: (data: Record<string, unknown>) => void;
 }) {
   const t = useTranslations("Modules");
+  const locale = useLocale();
   const [saving, setSaving] = useState(false);
   const [deadline, setDeadline] = useState<Date | undefined>(() => {
     const raw = str(config?.rsvp_deadline);
@@ -282,17 +283,17 @@ function RsvpForm({
 
   useEffect(() => {
     const formatted = deadline
-      ? deadline.toLocaleDateString("fr-FR", { day: "numeric", month: "long", year: "numeric" })
+      ? deadline.toLocaleDateString(locale, { day: "numeric", month: "long", year: "numeric" })
       : "";
     onPreview?.({ rsvp_deadline: formatted });
-  }, [deadline, onPreview]);
+  }, [deadline, onPreview, locale]);
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
     setSaving(true);
     try {
       const formatted = deadline
-        ? deadline.toLocaleDateString("fr-FR", { day: "numeric", month: "long", year: "numeric" })
+        ? deadline.toLocaleDateString(locale, { day: "numeric", month: "long", year: "numeric" })
         : "";
       await onSave({ rsvp_deadline: formatted });
     } finally {
@@ -306,7 +307,7 @@ function RsvpForm({
         <DatePicker
           value={deadline}
           onChange={setDeadline}
-          placeholder="Choisir une date limite"
+          placeholder={t("choose_deadline")}
         />
       </FieldGroup>
       <FormActions saving={saving} onReset={() => setDeadline(undefined)} />
@@ -355,9 +356,9 @@ function MapForm({
       fd.append("file", files[0]);
       const { url } = await uploadVenueImage(fd);
       setImageUrl(url);
-      toast.success("Photo uploadée");
+      toast.success(t("toast_photo_uploaded"));
     } catch (e) {
-      toast.error(e instanceof Error ? e.message : "Erreur upload");
+      toast.error(e instanceof Error ? e.message : t("toast_upload_error"));
     } finally {
       setUploading(false);
     }
@@ -384,11 +385,11 @@ function MapForm({
       <FieldGroup label={t("field_description")}>
         <Textarea rows={3} value={description} onChange={(e) => setDescription(e.target.value)} />
       </FieldGroup>
-      <FieldGroup label="Photo du lieu">
+      <FieldGroup label={t("field_venue_photo")}>
         <input ref={venueFileRef} type="file" accept="image/jpeg,image/jpg,image/png" className="hidden" onChange={(e) => handleVenueUpload(e.target.files)} />
         {imageUrl ? (
           <div className="relative w-full aspect-video rounded-xl overflow-hidden border border-border bg-muted">
-            <Image src={imageUrl} alt="Photo du lieu" fill className="object-cover" sizes="600px" />
+            <Image src={imageUrl} alt={t("field_venue_photo")} fill className="object-cover" sizes="600px" />
             <button type="button" onClick={() => setImageUrl("")} className="absolute top-2 right-2 w-7 h-7 rounded-full bg-black/60 text-white flex items-center justify-center hover:bg-red-500 transition-colors">
               <X size={13} />
             </button>
@@ -403,10 +404,10 @@ function MapForm({
             className="w-full flex flex-col items-center gap-2 py-6 rounded-xl border-2 border-dashed border-border hover:border-primary/40 hover:bg-primary/5 transition-colors text-muted-foreground"
           >
             <ImagePlus size={20} />
-            <span className="text-xs font-medium">{uploading ? "Upload..." : "Ajouter une photo (JPG/PNG, max 10 Mo)"}</span>
+            <span className="text-xs font-medium">{uploading ? t("uploading") : t("add_photo_hint")}</span>
           </button>
         )}
-        <p className="text-xs text-muted-foreground">Ou coller une URL directement :</p>
+        <p className="text-xs text-muted-foreground">{t("paste_url_hint")}</p>
         <Input value={imageUrl} onChange={(e) => setImageUrl(e.target.value)} placeholder="https://..." />
       </FieldGroup>
       <FieldGroup label={t("field_image_orientation")}>
@@ -497,9 +498,9 @@ function IntroVideoForm({
       setVideoType("upload");
       // Auto-save immediately so the URL is persisted even without clicking "Enregistrer"
       await onSave({ title, subtitle, description, videoUrl: url, videoType: "upload", videoName: file.name });
-      toast.success("Vidéo uploadée et enregistrée");
+      toast.success(t("toast_video_uploaded"));
     } catch (e) {
-      toast.error(e instanceof Error ? e.message : "Erreur upload");
+      toast.error(e instanceof Error ? e.message : t("toast_upload_error"));
     } finally {
       setUploading(false);
     }
@@ -538,7 +539,7 @@ function IntroVideoForm({
         <Textarea rows={2} value={description} onChange={(e) => setDescription(e.target.value)} />
       </FieldGroup>
 
-      <FieldGroup label="Source vidéo">
+      <FieldGroup label={t("field_video_source")}>
         <div className="flex gap-3 mb-3">
           {(["embed", "upload"] as const).map((vt) => (
             <button
@@ -552,7 +553,7 @@ function IntroVideoForm({
                   : "border-border text-muted-foreground hover:border-primary/30"
               )}
             >
-              {vt === "embed" ? "Lien YouTube / Vimeo" : "Uploader un fichier"}
+              {vt === "embed" ? t("video_source_link") : t("video_source_upload")}
             </button>
           ))}
         </div>
@@ -564,7 +565,7 @@ function IntroVideoForm({
               onChange={(e) => setEmbedUrl(e.target.value)}
               placeholder="https://youtu.be/... ou https://www.youtube.com/watch?v=..."
             />
-            <p className="text-xs text-muted-foreground">Coller un lien YouTube ou Vimeo</p>
+            <p className="text-xs text-muted-foreground">{t("video_source_link_hint")}</p>
           </>
         ) : (
           <>
@@ -589,7 +590,7 @@ function IntroVideoForm({
                 className="w-full flex flex-col items-center gap-2 py-6 rounded-xl border-2 border-dashed border-border hover:border-primary/40 hover:bg-primary/5 transition-colors text-muted-foreground"
               >
                 <ImagePlus size={20} />
-                <span className="text-xs font-medium">{uploading ? "Upload en cours..." : "Uploader une vidéo (MP4, MOV, WebM — max 100 Mo)"}</span>
+                <span className="text-xs font-medium">{uploading ? t("uploading_video") : t("upload_video_hint")}</span>
               </button>
             )}
           </>
@@ -609,18 +610,18 @@ function IntroVideoForm({
       {confirmDelete && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 backdrop-blur-sm">
           <div className="bg-card border border-border rounded-2xl shadow-xl p-6 max-w-sm w-full mx-4 space-y-4">
-            <p className="font-semibold text-foreground text-sm">Supprimer cette vidéo ?</p>
-            <p className="text-xs text-muted-foreground">Cette action est irréversible — la vidéo sera effacée et vos invités ne pourront plus la visionner.</p>
+            <p className="font-semibold text-foreground text-sm">{t("delete_video_title")}</p>
+            <p className="text-xs text-muted-foreground">{t("delete_video_desc")}</p>
             <div className="flex gap-3 pt-1">
               <button type="button" onClick={() => setConfirmDelete(false)} className="flex-1 py-2 rounded-xl border border-border text-sm text-muted-foreground hover:bg-secondary transition-colors">
-                Annuler
+                {t("cancel")}
               </button>
               <button type="button" onClick={async () => {
                 setConfirmDelete(false);
                 try { await deleteIntroVideo(uploadedUrl); } catch {}
                 setUploadedUrl(""); setUploadedName("");
               }} className="flex-1 py-2 rounded-xl bg-red-500 hover:bg-red-600 text-white text-sm font-medium transition-colors">
-                Supprimer
+                {t("delete")}
               </button>
             </div>
           </div>
@@ -1486,6 +1487,7 @@ function GalleryForm({
   config: Record<string, unknown> | null;
   onSave: (data: Record<string, unknown>) => Promise<void>;
 }) {
+  const t = useTranslations("Modules");
   const [images, setImages] = useState<string[]>(() => arr<string>(config?.images));
   const [uploading, setUploading] = useState(false);
   const [saving, setSaving] = useState(false);
@@ -1495,14 +1497,14 @@ function GalleryForm({
     if (!files || files.length === 0) return;
     const remaining = MAX_IMAGES - images.length;
     if (remaining <= 0) {
-      toast.error(`Maximum ${MAX_IMAGES} photos`);
+      toast.error(t("gallery_max_photos", { max: MAX_IMAGES }));
       return;
     }
 
     const toUpload = Array.from(files).slice(0, remaining);
     const invalid = toUpload.filter((f) => !ALLOWED_TYPES.includes(f.type) || f.size > MAX_FILE_SIZE);
     if (invalid.length > 0) {
-      toast.error("Certains fichiers sont invalides (JPG/PNG, max 5 Mo)");
+      toast.error(t("gallery_invalid_files"));
       return;
     }
 
@@ -1518,9 +1520,9 @@ function GalleryForm({
       const updated = [...images, ...urls];
       setImages(updated);
       await saveGalleryConfig(updated);
-      toast.success(`${urls.length} photo${urls.length > 1 ? "s" : ""} ajoutée${urls.length > 1 ? "s" : ""}`);
+      toast.success(t("gallery_photos_added", { count: urls.length }));
     } catch (e) {
-      toast.error(e instanceof Error ? e.message : "Erreur upload");
+      toast.error(e instanceof Error ? e.message : t("toast_upload_error"));
     } finally {
       setUploading(false);
     }
@@ -1533,9 +1535,9 @@ function GalleryForm({
       const updated = images.filter((u) => u !== url);
       setImages(updated);
       await saveGalleryConfig(updated);
-      toast.success("Photo supprimée");
+      toast.success(t("gallery_photo_deleted"));
     } catch (e) {
-      toast.error(e instanceof Error ? e.message : "Erreur suppression");
+      toast.error(e instanceof Error ? e.message : t("gallery_delete_error"));
     } finally {
       setSaving(false);
     }
@@ -1579,10 +1581,10 @@ function GalleryForm({
           </div>
           <div>
             <p className="text-sm font-medium text-foreground">
-              {uploading ? "Upload en cours..." : "Glisser des photos ou cliquer pour parcourir"}
+              {uploading ? t("gallery_uploading") : t("gallery_dropzone_hint")}
             </p>
             <p className="text-xs text-muted-foreground mt-1">
-              JPG, JPEG, PNG — max 5 Mo par photo — {images.length}/{MAX_IMAGES} photos
+              {t("gallery_dropzone_specs", { count: images.length, max: MAX_IMAGES })}
             </p>
           </div>
         </div>
@@ -1592,7 +1594,7 @@ function GalleryForm({
       {images.length > 0 && (
         <p className="text-xs text-muted-foreground flex items-center gap-1.5">
           <GripVertical size={12} className="shrink-0" />
-          Glissez les photos pour modifier leur ordre d&apos;affichage.
+          {t("gallery_reorder_hint")}
         </p>
       )}
       {images.length > 0 && (
@@ -1614,7 +1616,7 @@ function GalleryForm({
       )}
 
       {images.length === 0 && (
-        <p className="text-xs text-muted-foreground text-center">Aucune photo ajoutée — les photos de démonstration s&apos;afficheront sur le site.</p>
+        <p className="text-xs text-muted-foreground text-center">{t("gallery_empty_hint")}</p>
       )}
     </div>
   );

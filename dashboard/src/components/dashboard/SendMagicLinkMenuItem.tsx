@@ -3,6 +3,7 @@
 import { sendMagicLinkToHousehold } from "@/actions/email-actions";
 import { DropdownMenuItem } from "@shared/components/ui/dropdown-menu";
 import { Mail } from "lucide-react";
+import { useTranslations } from "next-intl";
 import { useTransition } from "react";
 import { toast } from "sonner";
 
@@ -18,6 +19,7 @@ export function SendMagicLinkMenuItem({
   householdName,
   email,
 }: SendMagicLinkMenuItemProps) {
+  const t = useTranslations("SendMagicLinkMenuItem");
   const [isPending, startTransition] = useTransition();
 
   const handleSend = (e: React.MouseEvent) => {
@@ -25,20 +27,22 @@ export function SendMagicLinkMenuItem({
     // Actually standard dropdown behavior is to close. We can trigger toast and that's it.
 
     if (!email) {
-      toast.error(`Aucun email pour ${householdName}`);
+      toast.error(t("toast_no_email", { name: householdName }));
       return;
     }
 
-    toast.loading(`Envoi du lien magique à ${householdName}...`, {
+    toast.loading(t("toast_sending", { name: householdName }), {
       id: "send-magic-link",
     });
 
     startTransition(async () => {
       const result = await sendMagicLinkToHousehold(householdId);
       if (result.success) {
-        toast.success(`Lien envoyé à ${email} !`, { id: "send-magic-link" });
+        toast.success(t("toast_sent", { email }), { id: "send-magic-link" });
       } else {
-        toast.error(`Erreur: ${result.error}`, { id: "send-magic-link" });
+        toast.error(t("toast_error", { error: result.error }), {
+          id: "send-magic-link",
+        });
       }
     });
   };
@@ -50,7 +54,7 @@ export function SendMagicLinkMenuItem({
       className='cursor-pointer'
     >
       <Mail className='mr-2 h-4 w-4' />
-      {isPending ? "Envoi..." : "Envoyer lien de connexion"}
+      {isPending ? t("sending") : t("send")}
     </DropdownMenuItem>
   );
 }

@@ -31,7 +31,7 @@ export default function ProfileSettings({ profile }: { profile: any }) {
         toast.error(result.error);
       }
     } catch {
-      toast.error("Erreur technique");
+      toast.error(t("toast_tech_error"));
     } finally {
       setLoadingProfile(false);
     }
@@ -47,7 +47,7 @@ export default function ProfileSettings({ profile }: { profile: any }) {
         toast.error(result.error);
       }
     } catch {
-      toast.error("Erreur technique");
+      toast.error(t("toast_tech_error"));
     } finally {
       setLoadingEmail(false);
     }

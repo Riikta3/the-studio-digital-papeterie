@@ -1,12 +1,14 @@
 "use client";
 
 import { createClient } from "@/utils/supabase/client";
+import { useTranslations } from "next-intl";
 import { usePathname, useSearchParams } from "next/navigation";
 import { Suspense, useCallback, useEffect, useRef, useState } from "react";
 import { Sidebar } from "./Sidebar";
 import { WelcomePopup } from "./WelcomePopup";
 
 export function DashboardLayout({ children }: { children: React.ReactNode }) {
+  const t = useTranslations("DashboardLayout");
   const pathname = usePathname();
   const searchParams = useSearchParams();
   const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
@@ -174,7 +176,7 @@ export function DashboardLayout({ children }: { children: React.ReactNode }) {
           <div className='flex flex-col items-center gap-4'>
             <div className='animate-spin rounded-full h-8 w-8 border-b-2 border-primary'></div>
             <p className='text-xs text-gray-400'>
-              Initialisation de votre espace...
+              {t("initializing")}
             </p>
           </div>
         </div>

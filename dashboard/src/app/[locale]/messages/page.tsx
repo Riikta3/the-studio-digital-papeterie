@@ -2,16 +2,19 @@ import { MessageCard } from "@/components/dashboard/MessageCard";
 import { redirect } from "@/navigation";
 import { createClient } from "@/utils/supabase/server";
 import { MessageSquare } from "lucide-react";
+import { getLocale, getTranslations } from "next-intl/server";
 
 export default async function MessagesPage() {
   const supabase = await createClient();
+  const t = await getTranslations("MessagesPage");
+  const locale = await getLocale();
 
   const {
     data: { user },
   } = await supabase.auth.getUser();
 
   if (!user) {
-    redirect({ href: "/login", locale: "fr" });
+    redirect({ href: "/login", locale });
   }
 
   const { data: wedding } = await supabase
@@ -36,10 +39,10 @@ export default async function MessagesPage() {
       {/* Header */}
       <header className="flex flex-col gap-1 pb-4 border-b border-studio-lavande/30">
         <h1 className="font-heading text-h1 text-studio-violet">
-          Messages
+          {t("title")}
         </h1>
         <p className="text-muted-foreground">
-          Les mots que vos invités vous ont laissés.
+          {t("description")}
         </p>
       </header>
 
@@ -49,13 +52,13 @@ export default async function MessagesPage() {
             <MessageSquare className="w-7 h-7 text-muted-foreground/40" />
           </div>
           <p className="text-muted-foreground text-sm">
-            Aucun message pour le moment.
+            {t("no_messages")}
           </p>
         </div>
       ) : (
         <>
           <p className="text-xs text-muted-foreground -mt-4">
-            {responses.length} message{responses.length > 1 ? "s" : ""}
+            {t("message_count", { count: responses.length })}
           </p>
 
           <div className="columns-1 sm:columns-2 lg:columns-3 gap-5 space-y-5">
@@ -65,7 +68,7 @@ export default async function MessagesPage() {
                   ? `${r.respondent_first_name} ${r.respondent_last_name}`
                   : r.name;
 
-              const date = new Intl.DateTimeFormat("fr-FR", {
+              const date = new Intl.DateTimeFormat(locale, {
                 day: "numeric",
                 month: "long",
               }).format(new Date(r.submitted_at));

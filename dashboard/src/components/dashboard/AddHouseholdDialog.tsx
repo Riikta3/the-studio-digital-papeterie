@@ -96,21 +96,21 @@ export function AddHouseholdDialog({
     setGuests(newGuests);
   };
 
-  // Relation type options with French labels
+  // Relation type options
   const relationTypeOptions = [
-    { value: "", label: "Non spécifié" },
-    { value: "partner", label: "Conjoint(e)" },
-    { value: "spouse", label: "Époux/Épouse" },
-    { value: "child", label: "Enfant" },
-    { value: "parent", label: "Parent" },
-    { value: "sibling", label: "Frère/Sœur" },
-    { value: "grandparent", label: "Grand-parent" },
-    { value: "grandchild", label: "Petit-enfant" },
-    { value: "family", label: "Famille élargie" },
-    { value: "friend", label: "Ami(e)" },
-    { value: "colleague", label: "Collègue" },
-    { value: "plus_one", label: "Accompagnant(e)" },
-    { value: "other", label: "Autre" },
+    { value: "", label: t("relation_options.unspecified") },
+    { value: "partner", label: t("relation_options.partner") },
+    { value: "spouse", label: t("relation_options.spouse") },
+    { value: "child", label: t("relation_options.child") },
+    { value: "parent", label: t("relation_options.parent") },
+    { value: "sibling", label: t("relation_options.sibling") },
+    { value: "grandparent", label: t("relation_options.grandparent") },
+    { value: "grandchild", label: t("relation_options.grandchild") },
+    { value: "family", label: t("relation_options.family") },
+    { value: "friend", label: t("relation_options.friend") },
+    { value: "colleague", label: t("relation_options.colleague") },
+    { value: "plus_one", label: t("relation_options.plus_one") },
+    { value: "other", label: t("relation_options.other") },
   ];
 
   async function handleSubmit(formData: FormData) {
@@ -136,7 +136,7 @@ export function AddHouseholdDialog({
         setOpen(false);
         if (!isEdit) setGuests([{ name: "", relationType: "" }]); // Reset only on create
       } else {
-        toast.error(result.error || "Erreur inconnue");
+        toast.error(result.error || t("toast_unknown_error"));
       }
     } catch (error) {
       console.error(error);
@@ -207,17 +207,17 @@ export function AddHouseholdDialog({
           {/* Status Field - Only show in edit mode */}
           {isEdit && (
             <div className='grid gap-2'>
-              <Label htmlFor='status'>Statut du foyer</Label>
+              <Label htmlFor='status'>{t("status_field_label")}</Label>
               <select
                 id='status'
                 name='status'
                 defaultValue={household?.status || "pending"}
                 className='w-full h-10 rounded-md border border-input bg-white px-3 py-2 text-sm shadow-sm focus:outline-none focus:ring-1 focus:ring-ring'
               >
-                <option value='pending'>En attente</option>
-                <option value='confirmed'>Confirmé</option>
-                <option value='declined'>Décliné</option>
-                <option value='partial'>Partiel</option>
+                <option value='pending'>{t("status_options.pending")}</option>
+                <option value='confirmed'>{t("status_options.confirmed")}</option>
+                <option value='declined'>{t("status_options.declined")}</option>
+                <option value='partial'>{t("status_options.partial")}</option>
               </select>
             </div>
           )}
@@ -262,7 +262,7 @@ export function AddHouseholdDialog({
                       htmlFor={`relation-${index}`}
                       className='text-xs text-muted-foreground'
                     >
-                      Type de relation
+                      {t("relation_type_label")}
                     </Label>
                     <select
                       id={`relation-${index}`}
@@ -308,7 +308,7 @@ export function AddHouseholdDialog({
               onClick={() => setOpen(false)}
               disabled={loading}
             >
-              Annuler
+              {t("cancel")}
             </Button>
             <Button
               type='submit'

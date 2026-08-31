@@ -1,9 +1,11 @@
 "use server";
 
 import { createClient } from "@/utils/supabase/server";
+import { getTranslations } from "next-intl/server";
 
 export async function login(prevState: any, formData: FormData) {
   const supabase = await createClient();
+  const t = await getTranslations("Login");
 
   const email = formData.get("email") as string;
   const password = formData.get("password") as string;
@@ -14,7 +16,7 @@ export async function login(prevState: any, formData: FormData) {
   });
 
   if (error) {
-    return { error: "Identifiants invalides." };
+    return { error: t("error_invalid_credentials") };
   }
 
   return { success: true };

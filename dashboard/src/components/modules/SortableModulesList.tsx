@@ -2,7 +2,7 @@
 
 import { updateModulesOrder } from "@/actions/module-order-actions";
 import { Link } from "@/navigation";
-import { APP_MODULES } from "@shared/data/modules";
+import { APP_MODULES, getModuleDescription, getModuleName } from "@shared/data/modules";
 import {
   DndContext,
   DragEndEvent,
@@ -30,9 +30,10 @@ const NON_CONFIGURABLE = ["guestbook", "video-guestbook"];
 
 interface SortableModuleItemProps {
   id: string;
+  t: ReturnType<typeof useTranslations>;
 }
 
-function SortableModuleItem({ id }: SortableModuleItemProps) {
+function SortableModuleItem({ id, t }: SortableModuleItemProps) {
   const module = APP_MODULES.find((m) => m.id === id);
   if (!module) return null;
 
@@ -70,7 +71,7 @@ function SortableModuleItem({ id }: SortableModuleItemProps) {
         {...listeners}
         className="pl-3 py-4 text-muted-foreground/40 hover:text-muted-foreground transition-colors cursor-grab active:cursor-grabbing touch-none"
         tabIndex={-1}
-        aria-label="Réordonner"
+        aria-label={t("reorder")}
       >
         <GripVertical size={16} />
       </button>
@@ -85,8 +86,8 @@ function SortableModuleItem({ id }: SortableModuleItemProps) {
             <Icon size={16} />
           </div>
           <div className="flex-1 min-w-0">
-            <p className="font-medium text-sm text-foreground">{module.name}</p>
-            <p className="text-xs text-muted-foreground truncate">{module.description}</p>
+            <p className="font-medium text-sm text-foreground">{getModuleName(t, id)}</p>
+            <p className="text-xs text-muted-foreground truncate">{getModuleDescription(t, id)}</p>
           </div>
           <ChevronRight size={14} className="text-muted-foreground group-hover:text-primary transition-colors shrink-0" />
         </Link>
@@ -96,8 +97,8 @@ function SortableModuleItem({ id }: SortableModuleItemProps) {
             <Icon size={16} />
           </div>
           <div className="flex-1 min-w-0">
-            <p className="font-medium text-sm text-foreground">{module.name}</p>
-            <p className="text-xs text-muted-foreground">Configuré automatiquement</p>
+            <p className="font-medium text-sm text-foreground">{getModuleName(t, id)}</p>
+            <p className="text-xs text-muted-foreground">{t("auto_configured")}</p>
           </div>
           <Settings2 size={14} className="text-muted-foreground shrink-0" />
         </div>
@@ -151,7 +152,7 @@ export function SortableModulesList({ initialIds }: SortableModulesListProps) {
         <SortableContext items={ids} strategy={verticalListSortingStrategy}>
           <div className="space-y-2">
             {ids.map((id) => (
-              <SortableModuleItem key={id} id={id} />
+              <SortableModuleItem key={id} id={id} t={t} />
             ))}
           </div>
         </SortableContext>

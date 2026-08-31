@@ -9,6 +9,7 @@ import { LockedModulePreviewDialog } from "@/components/modules/LockedModulePrev
 import { MODULE_PREVIEW_DEFAULTS } from "@/components/modules/module-preview-defaults";
 import { APP_MODULES } from "@shared/data/modules";
 import { Eye, Lock, ShoppingCart } from "lucide-react";
+import { useTranslations } from "next-intl";
 import { useState } from "react";
 
 interface LockedModuleCardProps {
@@ -27,6 +28,7 @@ interface LockedModulesListProps {
  * independently detects the Stripe redirect and the last one wins.
  */
 export function LockedModulesList({ modules }: LockedModulesListProps) {
+  const t = useTranslations("LockedModuleCard");
   const [openDialogId, setOpenDialogId] = useState<string | null>(null);
   const [previewModuleId, setPreviewModuleId] = useState<string | null>(null);
   const [pendingActivation, setPendingActivation] = useState<PendingActivation | null>(null);
@@ -68,7 +70,7 @@ export function LockedModulesList({ modules }: LockedModulesListProps) {
                     className="flex items-center gap-1 text-xs font-medium text-muted-foreground hover:text-primary opacity-0 group-hover:opacity-100 transition-all px-2 py-1 rounded-md hover:bg-secondary"
                   >
                     <Eye size={13} />
-                    Aperçu
+                    {t("preview")}
                   </button>
                 )}
                 <button
@@ -76,7 +78,7 @@ export function LockedModulesList({ modules }: LockedModulesListProps) {
                   className="flex items-center gap-1 text-xs font-semibold text-primary opacity-0 group-hover:opacity-100 transition-all px-2 py-1 rounded-md bg-primary/10 hover:bg-primary/20"
                 >
                   <ShoppingCart size={13} />
-                  10 €
+                  {t("price")}
                 </button>
                 <Lock size={14} className="text-muted-foreground group-hover:hidden" />
               </div>

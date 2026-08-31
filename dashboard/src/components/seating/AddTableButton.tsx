@@ -2,10 +2,12 @@
 
 import { createTable } from "@/actions/table-actions";
 import { Plus } from "lucide-react";
+import { useTranslations } from "next-intl";
 import { useTransition } from "react";
 import { toast } from "sonner"; // Assuming sonner is installed as per package.json
 
 export function AddTableButton({ className }: { className?: string }) {
+  const t = useTranslations("AddTableButton");
   const [isPending, startTransition] = useTransition();
 
   const handleClick = () => {
@@ -19,9 +21,9 @@ export function AddTableButton({ className }: { className?: string }) {
     startTransition(async () => {
       const result = await createTable(null, formData);
       if (result.success) {
-        toast.success("Table ajoutée !");
+        toast.success(t("toast_success"));
       } else {
-        toast.error("Erreur: " + result.error);
+        toast.error(t("toast_error", { error: result.error }));
       }
     });
   };
@@ -33,7 +35,7 @@ export function AddTableButton({ className }: { className?: string }) {
       className={className}
     >
       <Plus className='w-4 h-4 mr-2' />
-      {isPending ? "Création..." : "Ajouter une table"}
+      {isPending ? t("creating") : t("add_table")}
     </button>
   );
 }

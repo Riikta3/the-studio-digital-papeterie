@@ -4,9 +4,23 @@ import { Calendar } from "@shared/components/ui/calendar";
 import { Popover, PopoverContent, PopoverTrigger } from "@shared/components/ui/popover";
 import { cn } from "@shared/lib/utils";
 import { format } from "date-fns";
-import { fr } from "date-fns/locale";
+import type { Locale } from "date-fns/locale";
+import { ar, de, enUS, es, fr, it, ja, pt, zhCN } from "date-fns/locale";
 import { CalendarIcon } from "lucide-react";
+import { useLocale, useTranslations } from "next-intl";
 import * as React from "react";
+
+const DATE_FNS_LOCALES: Record<string, Locale> = {
+  fr,
+  en: enUS,
+  de,
+  es,
+  pt,
+  it,
+  ar,
+  zh: zhCN,
+  ja,
+};
 
 interface DatePickerProps {
   value?: Date;
@@ -19,10 +33,13 @@ interface DatePickerProps {
 export function DatePicker({
   value,
   onChange,
-  placeholder = "Choisir une date",
+  placeholder,
   className,
   disabled,
 }: DatePickerProps) {
+  const t = useTranslations("DatePicker");
+  const locale = useLocale();
+  const dateFnsLocale = DATE_FNS_LOCALES[locale] ?? enUS;
   const [open, setOpen] = React.useState(false);
 
   return (
@@ -39,8 +56,8 @@ export function DatePicker({
         >
           <span>
             {value
-              ? format(value, "d MMMM yyyy", { locale: fr })
-              : placeholder}
+              ? format(value, "d MMMM yyyy", { locale: dateFnsLocale })
+              : (placeholder ?? t("placeholder"))}
           </span>
           <CalendarIcon className="h-4 w-4 opacity-50 shrink-0" />
         </button>
@@ -54,7 +71,7 @@ export function DatePicker({
             setOpen(false);
           }}
           initialFocus
-          locale={fr}
+          locale={dateFnsLocale}
         />
       </PopoverContent>
     </Popover>

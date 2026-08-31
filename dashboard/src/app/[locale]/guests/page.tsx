@@ -3,10 +3,11 @@ import { GuestStats } from "@/components/dashboard/GuestStats";
 import { GuestsTable } from "@/components/dashboard/GuestsTable";
 import { redirect } from "@/navigation";
 import { createClient } from "@/utils/supabase/server";
-import { getTranslations } from "next-intl/server";
+import { getLocale, getTranslations } from "next-intl/server";
 
 export default async function GuestsPage() {
   const t = await getTranslations("Guests");
+  const locale = await getLocale();
   const supabase = await createClient();
 
   const {
@@ -14,7 +15,7 @@ export default async function GuestsPage() {
   } = await supabase.auth.getUser();
 
   if (!user) {
-    redirect({ href: "/login", locale: "fr" });
+    redirect({ href: "/login", locale });
   }
 
   // Fetch households with their guests to count them

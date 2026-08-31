@@ -32,7 +32,7 @@ export default function SecuritySettings() {
         toast.error(result.error);
       }
     } catch {
-      toast.error("Erreur technique");
+      toast.error(t("toast_tech_error"));
     } finally {
       setLoading(false);
     }

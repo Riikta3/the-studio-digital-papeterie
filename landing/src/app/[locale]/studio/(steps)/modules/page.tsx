@@ -3,7 +3,7 @@
 import { Check } from "lucide-react";
 import { useTranslations } from "next-intl";
 
-import { APP_MODULES } from "@shared/data/modules";
+import { APP_MODULES, getModuleDescription, getModuleName } from "@shared/data/modules";
 import { cn } from "@shared/lib/utils";
 import { StepTransition } from "@/components/studio/StepTransition";
 import { useOrderStore } from "@/stores/use-order-store";
@@ -89,10 +89,10 @@ export default function StudioModulesPage() {
 
                 <div className="flex-1">
                   <p className="font-body text-[13px] font-semibold leading-tight text-studio-violet">
-                    {mod.name}
+                    {getModuleName(t, mod.id)}
                   </p>
                   <p className="mt-1 line-clamp-2 font-body text-[11px] leading-relaxed text-studio-violet/60">
-                    {mod.description}
+                    {getModuleDescription(t, mod.id)}
                   </p>
                 </div>
 

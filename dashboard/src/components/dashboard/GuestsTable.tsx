@@ -146,7 +146,7 @@ export function GuestsTable({ households }: GuestsTableProps) {
 
   const handleExport = async () => {
     setIsExporting(true);
-    const toastId = toast.loading("Génération de l'export Excel...");
+    const toastId = toast.loading(t("toast_exporting"));
 
     try {
       const result = await exportGuestsToExcel(locale);
@@ -173,19 +173,19 @@ export function GuestsTable({ households }: GuestsTableProps) {
         document.body.removeChild(a);
         window.URL.revokeObjectURL(url);
 
-        toast.success("Export Excel réussi !", { id: toastId });
+        toast.success(t("toast_export_success"), { id: toastId });
       } else {
         toast.error(result.error, { id: toastId });
       }
     } catch (_error) {
-      toast.error("Erreur lors de l'export", { id: toastId });
+      toast.error(t("toast_export_error"), { id: toastId });
     } finally {
       setIsExporting(false);
     }
   };
 
   const handleDownloadTemplate = async () => {
-    const toastId = toast.loading("Génération du modèle...");
+    const toastId = toast.loading(t("toast_generating_template"));
     try {
       const result = await downloadImportTemplate(locale);
       if (result.success) {
@@ -207,12 +207,12 @@ export function GuestsTable({ households }: GuestsTableProps) {
         a.click();
         document.body.removeChild(a);
         window.URL.revokeObjectURL(url);
-        toast.success("Modèle téléchargé !", { id: toastId });
+        toast.success(t("toast_template_downloaded"), { id: toastId });
       } else {
         toast.error(result.error, { id: toastId });
       }
     } catch (error) {
-      toast.error("Erreur lors du téléchargement", { id: toastId });
+      toast.error(t("toast_template_error"), { id: toastId });
     }
   };
 
@@ -223,7 +223,7 @@ export function GuestsTable({ households }: GuestsTableProps) {
       case "declined":
         return <Badge variant='declined'>{t("filter_declined")}</Badge>;
       case "partial":
-        return <Badge variant='warning'>Partiel</Badge>;
+        return <Badge variant='warning'>{t("filter_partial")}</Badge>;
       default:
         return <Badge variant='pending'>{t("filter_pending")}</Badge>;
     }
@@ -279,7 +279,7 @@ export function GuestsTable({ households }: GuestsTableProps) {
             className='gap-2 whitespace-nowrap'
           >
             <FileSpreadsheet className='h-4 w-4' />
-            {isExporting ? "Export..." : "Exporter"}
+            {isExporting ? t("exporting") : t("export")}
           </Button>
           <div className='relative'>
             <input
@@ -290,7 +290,7 @@ export function GuestsTable({ households }: GuestsTableProps) {
                 if (!file) return;
 
                 setIsImporting(true);
-                const toastId = toast.loading("Import en cours...");
+                const toastId = toast.loading(t("toast_importing"));
 
                 const formData = new FormData();
                 formData.append("file", file);
@@ -301,12 +301,12 @@ export function GuestsTable({ households }: GuestsTableProps) {
                     toast.success(result.message, { id: toastId });
                     router.refresh();
                   } else {
-                    toast.error(result.error || "Erreur lors de l'import", {
+                    toast.error(result.error || t("toast_import_error"), {
                       id: toastId,
                     });
                   }
                 } catch (err) {
-                  toast.error("Erreur technique", { id: toastId });
+                  toast.error(t("error_tech"), { id: toastId });
                 } finally {
                   setIsImporting(false);
                   // Reset input
@@ -323,7 +323,7 @@ export function GuestsTable({ households }: GuestsTableProps) {
               disabled={isImporting}
             >
               <Upload className='h-4 w-4' />
-              {isImporting ? "Import..." : "Importer"}
+              {isImporting ? t("importing") : t("import")}
             </Button>
           </div>
           <div className='flex items-center'>
@@ -576,26 +576,21 @@ export function GuestsTable({ households }: GuestsTableProps) {
       >
         <DialogContent>
           <DialogHeader>
-            <DialogTitle>Comment importer vos invités ?</DialogTitle>
+            <DialogTitle>{t("help_dialog.title")}</DialogTitle>
             <DialogDescription>
-              Suivez ces étapes simples pour importer votre liste d'invités :
+              {t("help_dialog.description")}
             </DialogDescription>
           </DialogHeader>
           <div className='space-y-4 py-4'>
             <ol className='list-decimal list-inside space-y-2 text-sm text-muted-foreground'>
-              <li>Téléchargez le modèle Excel ci-dessous.</li>
-              <li>Remplissez-le avec vos invités (respectez les colonnes).</li>
-              <li>Sauvegardez le fichier.</li>
-              <li>
-                Cliquez sur le bouton "Importer" et sélectionnez votre fichier.
-              </li>
+              <li>{t("help_dialog.step_1")}</li>
+              <li>{t("help_dialog.step_2")}</li>
+              <li>{t("help_dialog.step_3")}</li>
+              <li>{t("help_dialog.step_4")}</li>
             </ol>
             <div className='bg-studio-lavande/10 p-3 rounded-md text-xs text-studio-violet flex gap-2'>
               <Info className='h-4 w-4 shrink-0' />
-              <p>
-                Astuce : Les colonnes "Enfant" et "Plus-One" attendent "Oui" ou
-                "Non".
-              </p>
+              <p>{t("help_dialog.tip")}</p>
             </div>
           </div>
           <DialogFooter>
@@ -603,14 +598,14 @@ export function GuestsTable({ households }: GuestsTableProps) {
               variant='outline'
               onClick={() => setShowHelp(false)}
             >
-              Fermer
+              {t("help_dialog.close")}
             </Button>
             <Button
               onClick={handleDownloadTemplate}
               className='gap-2'
             >
               <Download className='h-4 w-4' />
-              Télécharger le modèle
+              {t("help_dialog.download_template")}
             </Button>
           </DialogFooter>
         </DialogContent>

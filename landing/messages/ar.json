@@ -540,7 +540,69 @@
     "selectAtLeast": "اختاروا 4 وحدات على الأقل",
     "minCount": "{count} / 4 وحدات كحد أدنى",
     "countSelected": "{count} محدد",
-    "included": "مشمول"
+    "included": "مشمول",
+    "catalog": {
+      "countdown": {
+        "name": "العد التنازلي",
+        "description": "العد التنازلي حتى اليوم الموعود"
+      },
+      "intro-video": {
+        "name": "فيديو تعريفي",
+        "description": "رسالة فيديو شخصية"
+      },
+      "timeline": {
+        "name": "البرنامج",
+        "description": "سير أحداث اليوم"
+      },
+      "dress-code": {
+        "name": "قواعد اللباس",
+        "description": "الزي الموصى به"
+      },
+      "rsvp": {
+        "name": "إدارة الردود",
+        "description": "تأكيدات الحضور"
+      },
+      "map": {
+        "name": "الخريطة والوصول",
+        "description": "مواقع الأماكن"
+      },
+      "accommodation": {
+        "name": "الإقامة",
+        "description": "اقتراحات فنادق قريبة"
+      },
+      "transport": {
+        "name": "النقل",
+        "description": "الحافلات ونقل الضيوف"
+      },
+      "menu": {
+        "name": "القائمة",
+        "description": "تفاصيل الوجبة"
+      },
+      "gallery": {
+        "name": "معرض الصور",
+        "description": "شاركوا ذكرياتكم"
+      },
+      "gift-list": {
+        "name": "قائمة الهدايا",
+        "description": "الهدايا والمساهمات"
+      },
+      "playlist": {
+        "name": "قائمة التشغيل",
+        "description": "اقتراحات موسيقية"
+      },
+      "guestbook": {
+        "name": "سجل الضيوف",
+        "description": "رسائل الضيوف"
+      },
+      "video-guestbook": {
+        "name": "سجل الضيوف بالفيديو",
+        "description": "رسائل فيديو من الضيوف"
+      },
+      "faq": {
+        "name": "الأسئلة الشائعة / معلومات عملية",
+        "description": "معلومات عملية للضيوف"
+      }
+    }
   },
   "StudioOptions": {
     "titlePrefix": "الخيارات ",

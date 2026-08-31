@@ -12,6 +12,7 @@ import {
   DialogTrigger,
 } from "@shared/components/ui/dialog";
 import { Quote, Trash2 } from "lucide-react";
+import { useTranslations } from "next-intl";
 import { useState, useTransition } from "react";
 import { toast } from "sonner";
 
@@ -23,6 +24,7 @@ interface MessageCardProps {
 }
 
 export function MessageCard({ id, name, message, date }: MessageCardProps) {
+  const t = useTranslations("MessageCard");
   const [open, setOpen] = useState(false);
   const [isPending, startTransition] = useTransition();
 
@@ -30,10 +32,10 @@ export function MessageCard({ id, name, message, date }: MessageCardProps) {
     startTransition(async () => {
       try {
         await deleteRsvpResponse(id);
-        toast.success("Message supprimé");
+        toast.success(t("toast_deleted"));
         setOpen(false);
       } catch {
-        toast.error("Erreur lors de la suppression");
+        toast.error(t("toast_delete_error"));
       }
     });
   };
@@ -50,10 +52,9 @@ export function MessageCard({ id, name, message, date }: MessageCardProps) {
           </DialogTrigger>
           <DialogContent>
             <DialogHeader>
-              <DialogTitle>Supprimer ce message ?</DialogTitle>
+              <DialogTitle>{t("confirm_title")}</DialogTitle>
               <DialogDescription>
-                Le message de <strong>{name}</strong> sera définitivement
-                supprimé. Cette action est irréversible.
+                {t("confirm_description", { name })}
               </DialogDescription>
             </DialogHeader>
             <DialogFooter className="gap-2 sm:gap-0">
@@ -62,14 +63,14 @@ export function MessageCard({ id, name, message, date }: MessageCardProps) {
                 onClick={() => setOpen(false)}
                 disabled={isPending}
               >
-                Annuler
+                {t("cancel")}
               </Button>
               <Button
                 onClick={handleDelete}
                 disabled={isPending}
                 className="bg-red-500 hover:bg-red-600 text-white"
               >
-                {isPending ? "Suppression..." : "Supprimer"}
+                {isPending ? t("deleting") : t("delete")}
               </Button>
             </DialogFooter>
           </DialogContent>

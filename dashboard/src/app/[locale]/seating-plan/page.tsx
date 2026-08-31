@@ -31,10 +31,10 @@ export default async function SeatingPlanPage() {
     return (
       <div className='flex flex-col items-center justify-center h-full p-8 text-center space-y-4'>
         <h2 className='text-xl font-semibold text-red-500'>
-          Une erreur est survenue
+          {t("error_title")}
         </h2>
         <p className='text-muted-foreground'>
-          Impossible de charger le plan de table.
+          {t("error_description")}
         </p>
         {tablesError && (
           <p className='text-xs text-red-400 max-w-lg bg-red-50 p-2 rounded'>
@@ -53,11 +53,11 @@ export default async function SeatingPlanPage() {
     <div className='h-screen flex flex-col'>
       <header className='p-4 border-b border-studio-lavande/30 bg-white flex justify-between items-center z-10 relative shadow-sm'>
         <div>
-          <h1 className='font-heading text-h3 text-studio-violet'>Plan de Table</h1>
+          <h1 className='font-heading text-h3 text-studio-violet'>{t("title")}</h1>
           <p className='text-sm text-muted-foreground'>
             {hasTables
-              ? "Glissez-déposez les tables et les invités."
-              : "Commencez par créer votre première table."}
+              ? t("subtitle_has_tables")
+              : t("subtitle_empty")}
           </p>
         </div>
         <AddTableButton className='bg-primary text-secondary px-4 py-2 rounded-md text-sm font-medium hover:bg-primary/90 transition shadow-sm flex items-center' />
@@ -90,11 +90,10 @@ export default async function SeatingPlanPage() {
                 </svg>
               </div>
               <h3 className='text-lg font-semibold mb-2'>
-                Votre salle est vide
+                {t("empty_title")}
               </h3>
               <p className='text-muted-foreground mb-6'>
-                Créez des tables pour commencer à placer vos invités. Vous
-                pourrez ensuite les déplacer librement.
+                {t("empty_description")}
               </p>
               <AddTableButton className='bg-primary text-secondary px-4 py-2 rounded-md text-sm font-medium hover:bg-primary/90 transition flex items-center mx-auto' />
             </div>

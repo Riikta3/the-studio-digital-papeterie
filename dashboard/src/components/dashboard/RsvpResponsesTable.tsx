@@ -80,10 +80,12 @@ function DietarySelect({
   value,
   onChange,
   inputCls,
+  customPlaceholder,
 }: {
   value: string;
   onChange: (v: string) => void;
   inputCls?: string;
+  customPlaceholder: string;
 }) {
   const selected = value
     ? value.split(",").map((v) => v.trim()).filter(Boolean)
@@ -129,7 +131,7 @@ function DietarySelect({
         type='text'
         value={customValue}
         onChange={(e) => handleCustom(e.target.value)}
-        placeholder='Autre (précisez)...'
+        placeholder={customPlaceholder}
         className={inputCls ?? "w-full bg-white border border-border rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-1 focus:ring-primary/40 placeholder:text-muted-foreground/40"}
       />
     </div>
@@ -138,21 +140,23 @@ function DietarySelect({
 
 // ─── Expand Panel ─────────────────────────────────────────────────────────────
 
-const RELATION_OPTIONS = [
-  { value: "", label: "Non spécifié" },
-  { value: "partner", label: "Conjoint(e)" },
-  { value: "spouse", label: "Époux/Épouse" },
-  { value: "child", label: "Enfant" },
-  { value: "parent", label: "Parent" },
-  { value: "sibling", label: "Frère/Sœur" },
-  { value: "grandparent", label: "Grand-parent" },
-  { value: "grandchild", label: "Petit-enfant" },
-  { value: "family", label: "Famille élargie" },
-  { value: "friend", label: "Ami(e)" },
-  { value: "colleague", label: "Collègue" },
-  { value: "plus_one", label: "Accompagnant(e)" },
-  { value: "other", label: "Autre" },
-];
+function getRelationOptions(t: ReturnType<typeof useTranslations>) {
+  return [
+  { value: "", label: t("relation_options.unspecified") },
+  { value: "partner", label: t("relation_options.partner") },
+  { value: "spouse", label: t("relation_options.spouse") },
+  { value: "child", label: t("relation_options.child") },
+  { value: "parent", label: t("relation_options.parent") },
+  { value: "sibling", label: t("relation_options.sibling") },
+  { value: "grandparent", label: t("relation_options.grandparent") },
+  { value: "grandchild", label: t("relation_options.grandchild") },
+  { value: "family", label: t("relation_options.family") },
+  { value: "friend", label: t("relation_options.friend") },
+  { value: "colleague", label: t("relation_options.colleague") },
+  { value: "plus_one", label: t("relation_options.plus_one") },
+  { value: "other", label: t("relation_options.other") },
+  ];
+}
 
 function ExpandPanelContent({
   response,
@@ -307,7 +311,7 @@ function ExpandPanelContent({
                   <p className='text-[10px] uppercase tracking-widest font-semibold text-muted-foreground mb-2'>
                     {t("col.dietary")}
                   </p>
-                  <DietarySelect value={dietary} onChange={setDietary} />
+                  <DietarySelect value={dietary} onChange={setDietary} customPlaceholder={t("dietary_other_placeholder")} />
                 </div>
                 {response.message && (
                   <div>
@@ -368,7 +372,7 @@ function ExpandPanelContent({
                             <SelectValue placeholder={t("relation")} />
                           </SelectTrigger>
                           <SelectContent>
-                            {RELATION_OPTIONS.filter(o => o.value !== "").map((o) => (
+                            {getRelationOptions(t).filter(o => o.value !== "").map((o) => (
                               <SelectItem key={o.value} value={o.value}>{o.label}</SelectItem>
                             ))}
                           </SelectContent>
@@ -671,11 +675,11 @@ export function RsvpResponsesTable({
             className='flex items-center justify-between bg-red-50 border border-red-200 rounded-xl px-4 py-3'
           >
             <span className='text-sm font-medium text-red-700'>
-              {selected.size} réponse{selected.size > 1 ? "s" : ""} sélectionnée{selected.size > 1 ? "s" : ""}
+              {t("bulk.selected_count", { count: selected.size })}
             </span>
             <div className='flex gap-2'>
               <Button variant='outline' size='sm' onClick={() => setSelected(new Set())}>
-                Annuler
+                {t("cancel")}
               </Button>
               <Button
                 size='sm'
@@ -683,7 +687,7 @@ export function RsvpResponsesTable({
                 onClick={() => setBulkDeleteOpen(true)}
               >
                 <Trash2 className='h-4 w-4' />
-                Supprimer la sélection
+                {t("bulk.delete_selection")}
               </Button>
             </div>
           </motion.div>
@@ -853,7 +857,7 @@ export function RsvpResponsesTable({
 
                       {/* Date */}
                       <td className='px-4 py-4 text-muted-foreground text-xs'>
-                        {new Intl.DateTimeFormat("fr-FR", {
+                        {new Intl.DateTimeFormat(locale, {
                           day: "numeric",
                           month: "short",
                           hour: "2-digit",
@@ -958,9 +962,9 @@ export function RsvpResponsesTable({
       <Dialog open={bulkDeleteOpen} onOpenChange={(open) => { if (!open) setBulkDeleteOpen(false); }}>
         <DialogContent>
           <DialogHeader>
-            <DialogTitle>Supprimer {selected.size} réponse{selected.size > 1 ? "s" : ""} ?</DialogTitle>
+            <DialogTitle>{t("bulk.delete_title", { count: selected.size })}</DialogTitle>
             <DialogDescription>
-              Cette action est irréversible. Les {selected.size} réponse{selected.size > 1 ? "s" : ""} sélectionnée{selected.size > 1 ? "s" : ""} seront définitivement supprimées.
+              {t("bulk.delete_description", { count: selected.size })}
             </DialogDescription>
           </DialogHeader>
           <DialogFooter className='gap-2 sm:gap-0'>
@@ -975,7 +979,7 @@ export function RsvpResponsesTable({
                 try {
                   await deleteRsvpResponses(Array.from(selected));
                   setResponses((prev) => prev.filter((r) => !selected.has(r.id)));
-                  toast.success(`${selected.size} réponse${selected.size > 1 ? "s" : ""} supprimée${selected.size > 1 ? "s" : ""}`);
+                  toast.success(t("bulk.deleted", { count: selected.size }));
                   setSelected(new Set());
                   setBulkDeleteOpen(false);
                 } catch {
@@ -1041,6 +1045,7 @@ export function RsvpResponsesTable({
                 value={createForm.dietary}
                 onChange={(v) => setCreateForm({ ...createForm, dietary: v })}
                 inputCls="w-full bg-white border border-border rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-1 focus:ring-ring placeholder:text-muted-foreground/40"
+                customPlaceholder={t("dietary_other_placeholder")}
               />
             </div>
 
@@ -1071,7 +1076,7 @@ export function RsvpResponsesTable({
                       <SelectValue placeholder={t("relation")} />
                     </SelectTrigger>
                     <SelectContent>
-                      {RELATION_OPTIONS.filter(o => o.value !== "").map((o) => (
+                      {getRelationOptions(t).filter(o => o.value !== "").map((o) => (
                         <SelectItem key={o.value} value={o.value}>{o.label}</SelectItem>
                       ))}
                     </SelectContent>

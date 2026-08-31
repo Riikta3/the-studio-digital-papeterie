@@ -1,4 +1,5 @@
 import { LucideIcon } from "lucide-react";
+import { getTranslations } from "next-intl/server";
 
 interface StatCardProps {
   label: string;
@@ -16,7 +17,7 @@ interface StatCardProps {
   };
 }
 
-export function StatCard({
+export async function StatCard({
   label,
   value,
   description,
@@ -25,6 +26,7 @@ export function StatCard({
   trend,
   action,
 }: StatCardProps) {
+  const t = await getTranslations("StatCard");
   const variantStyles = {
     default: {
       card: "bg-white border-studio-lavande/40 hover:border-studio-violet/50",
@@ -99,7 +101,7 @@ export function StatCard({
           >
             {trend.isPositive ? "↑" : "↓"} {Math.abs(trend.value)}%
           </span>
-          <span className='text-muted-foreground'>vs. semaine précédente</span>
+          <span className='text-muted-foreground'>{t("trend_vs_last_week")}</span>
         </div>
       )}
 

@@ -108,7 +108,7 @@ export default async function DashboardHome() {
           label={t("confirmed")}
           value={confirmedGuests}
           icon={CheckCircle2}
-          description='Invités confirmés'
+          description={t("confirmed_guests_desc")}
           variant='success'
         />
 
@@ -117,7 +117,7 @@ export default async function DashboardHome() {
           label={t("pending")}
           value={pendingGuests}
           icon={Clock}
-          description='En attente de réponse'
+          description={t("pending_response_desc")}
           variant='warning'
           action={{
             label: t("manage_requests"),
@@ -143,12 +143,14 @@ export default async function DashboardHome() {
                 <div className='flex items-center gap-3 mb-3 text-studio-violet'>
                   <CheckCircle2 size={20} />
                   <h3 className='font-heading text-lg'>
-                    Validations en attente
+                    {t("pending_validation_title")}
                   </h3>
                 </div>
                 <p className='text-sm text-studio-violet/70 mb-4 font-light'>
-                  Vous avez <strong>{pendingHouseholdsCount} foyers</strong> qui
-                  ont répondu et sont en attente de votre validation.
+                  {t.rich("pending_validation_desc", {
+                    count: pendingHouseholdsCount ?? 0,
+                    strong: (chunks) => <strong>{chunks}</strong>,
+                  })}
                 </p>
                 <div className='mt-auto'>
                   <Link href='/guests'>
@@ -156,7 +158,7 @@ export default async function DashboardHome() {
                       size='sm'
                       className='bg-studio-violet hover:bg-studio-violet-fonce text-white border-none w-full'
                     >
-                      Examiner les réponses
+                      {t("review_responses")}
                     </Button>
                   </Link>
                 </div>
@@ -165,7 +167,7 @@ export default async function DashboardHome() {
           ) : (
             <div className='bg-white border border-studio-lavande/40 rounded-2xl p-6 h-[420px] flex items-center justify-center'>
               <p className='text-studio-violet/50 text-center italic'>
-                Aucune validation en attente
+                {t("no_pending_validation")}
               </p>
             </div>
           )}

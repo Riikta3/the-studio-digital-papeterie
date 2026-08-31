@@ -5,6 +5,7 @@ import { Button } from "@shared/components/ui/button";
 import { Input } from "@shared/components/ui/input";
 import { Label } from "@shared/components/ui/label";
 import { Eye, EyeOff } from "lucide-react";
+import { useTranslations } from "next-intl";
 import Image from "next/image";
 import { useActionState, useEffect, useState } from "react";
 import { login } from "./actions";
@@ -14,6 +15,7 @@ const initialState = {
 };
 
 export default function LoginPage() {
+  const t = useTranslations("Login");
   const [showPassword, setShowPassword] = useState(false);
   const [state, formAction, isPending] = useActionState(login, initialState);
 
@@ -56,7 +58,7 @@ export default function LoginPage() {
             </div>
 
             <p className='text-sm text-gray-500 font-light tracking-wide'>
-              Accédez à votre espace privé
+              {t("tagline")}
             </p>
           </div>
 
@@ -70,13 +72,13 @@ export default function LoginPage() {
                 htmlFor='email'
                 className='text-xs uppercase tracking-[0.15em] font-medium text-gray-600'
               >
-                Email
+                {t("email_label")}
               </Label>
               <Input
                 id='email'
                 name='email'
                 type='email'
-                placeholder='votre@email.com'
+                placeholder={t("email_placeholder")}
                 required
                 className='h-14 bg-white border-gray-200/80 focus:border-primary/50 focus:ring-primary/20 rounded-xl transition-all duration-300 text-base placeholder:text-gray-400'
               />
@@ -87,7 +89,7 @@ export default function LoginPage() {
                 htmlFor='password'
                 className='text-xs uppercase tracking-[0.15em] font-medium text-gray-600'
               >
-                Mot de passe
+                {t("password_label")}
               </Label>
               <div className='relative'>
                 <Input
@@ -115,7 +117,7 @@ export default function LoginPage() {
                   href='/forgot-password'
                   className='text-xs text-primary/60 hover:text-primary font-light tracking-wide transition-colors'
                 >
-                  Mot de passe oublié ?
+                  {t("forgot_password")}
                 </Link>
               </div>
             </div>
@@ -133,16 +135,16 @@ export default function LoginPage() {
               disabled={isPending}
               className='w-full h-14 bg-primary hover:bg-primary/90 text-white rounded-xl text-base font-light tracking-[0.1em] uppercase transition-all duration-300 shadow-lg hover:shadow-xl disabled:opacity-50 disabled:cursor-not-allowed mt-10'
             >
-              {isPending ? "Connexion..." : "Se connecter"}
+              {isPending ? t("signing_in") : t("sign_in")}
             </Button>
           </form>
 
           {/* Footer */}
           <div className='relative text-center pt-6 border-t border-gray-100'>
             <p className='text-[11px] text-gray-400 font-light tracking-[0.2em] leading-relaxed'>
-              L&apos;élégance de la papeterie,
+              {t("footer_line1")}
               <br />
-              <span className='text-primary/50'>la puissance du digital</span>
+              <span className='text-primary/50'>{t("footer_line2")}</span>
             </p>
           </div>
         </div>

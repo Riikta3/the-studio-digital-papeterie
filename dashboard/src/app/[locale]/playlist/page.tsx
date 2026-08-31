@@ -1,6 +1,7 @@
 import { redirect } from "@/navigation";
 import { createClient } from "@/utils/supabase/server";
 import { PlaylistClient } from "@/components/playlist/PlaylistClient";
+import { getLocale, getTranslations } from "next-intl/server";
 
 interface Track {
   id: string;
@@ -21,13 +22,15 @@ interface PlaylistSuggestion {
 
 export default async function PlaylistPage() {
   const supabase = await createClient();
+  const t = await getTranslations("Playlist");
+  const locale = await getLocale();
 
   const {
     data: { user },
   } = await supabase.auth.getUser();
 
   if (!user) {
-    redirect({ href: "/login", locale: "fr" });
+    redirect({ href: "/login", locale });
   }
 
   const { data: wedding } = await supabase
@@ -49,9 +52,9 @@ export default async function PlaylistPage() {
     <div className="min-h-screen p-6 md:p-12 max-w-4xl mx-auto space-y-8 bg-studio-creme">
       <header className="flex flex-col gap-1 pb-4 border-b border-studio-lavande/30">
         <h1 className="font-heading text-h1 text-studio-violet">
-          Playlist Collaborative
+          {t("title")}
         </h1>
-        <p className="text-muted-foreground text-sm">Suggestions musicales de vos invités</p>
+        <p className="text-muted-foreground text-sm">{t("subtitle")}</p>
       </header>
 
       <PlaylistClient suggestions={suggestions} weddingId={wedding?.id ?? ""} />

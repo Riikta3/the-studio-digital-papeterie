@@ -1,7 +1,7 @@
 import { getOrderedModules } from "@/actions/module-order-actions";
 import { LockedModulesList } from "@/components/modules/LockedModuleCard";
 import { SortableModulesList } from "@/components/modules/SortableModulesList";
-import { APP_MODULES } from "@shared/data/modules";
+import { getModulesWithLabels } from "@shared/data/modules";
 import { getTranslations } from "next-intl/server";
 
 export default async function ModulesPage() {
@@ -11,7 +11,8 @@ export default async function ModulesPage() {
 
   const orderedIds = await getOrderedModules();
   const enabledIds = orderedIds.filter((id) => !HIDDEN_FROM_CONFIG.includes(id));
-  const lockedModules = APP_MODULES.filter(
+  const modulesWithLabels = getModulesWithLabels(t);
+  const lockedModules = modulesWithLabels.filter(
     (m) => !orderedIds.includes(m.id) && !HIDDEN_FROM_CONFIG.includes(m.id),
   );
 
@@ -31,7 +32,7 @@ export default async function ModulesPage() {
             {t("active_section")}
           </h2>
           {enabledIds.length > 1 && (
-            <span className="text-xs text-muted-foreground/60">— glissez pour réordonner</span>
+            <span className="text-xs text-muted-foreground/60">{t("reorder_hint")}</span>
           )}
         </div>
         {enabledIds.length === 0 ? (
