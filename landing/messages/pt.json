@@ -254,22 +254,13 @@
     "nextAriaLabel": "Próximo cartão",
     "cards": [
       {
-        "alt": "Exemplo de convite de casamento — tema Amalfi"
+        "alt": "Exemplo de convite de casamento — tema Ciao Amore"
       },
       {
-        "alt": "Exemplo de convite de casamento — tema Veneza"
+        "alt": "Exemplo de convite de casamento — tema Blanc Couture"
       },
       {
-        "alt": "Exemplo de convite de casamento — tema Provença"
-      },
-      {
-        "alt": "Exemplo de convite de casamento — tema Toscana"
-      },
-      {
-        "alt": "Exemplo de convite de casamento — tema Riviera"
-      },
-      {
-        "alt": "Exemplo de convite de casamento — tema Capri"
+        "alt": "Exemplo de convite de casamento — tema Belle Rive"
       }
     ]
   },
@@ -285,7 +276,9 @@
     "nextThemesAriaLabel": "Próximos temas",
     "themeLabel": "Tema {name}",
     "themeAlt": "Convite de casamento — tema {name}",
-    "demoIframeTitle": "Demonstração do convite — tema {name}"
+    "demoIframeTitle": "Demonstração do convite — tema {name}",
+    "upcomingTitle": "Novas coleções",
+    "upcomingSubtitle": "Em breve, mais temas"
   },
   "WhyUs": {
     "eyebrow": "Por que escolher o The Studio?",

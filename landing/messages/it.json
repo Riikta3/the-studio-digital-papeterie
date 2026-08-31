@@ -254,22 +254,13 @@
     "nextAriaLabel": "Carta successiva",
     "cards": [
       {
-        "alt": "Esempio di invito di matrimonio — tema Amalfi"
+        "alt": "Esempio di invito di nozze — tema Ciao Amore"
       },
       {
-        "alt": "Esempio di invito di matrimonio — tema Venezia"
+        "alt": "Esempio di invito di nozze — tema Blanc Couture"
       },
       {
-        "alt": "Esempio di invito di matrimonio — tema Provenza"
-      },
-      {
-        "alt": "Esempio di invito di matrimonio — tema Toscana"
-      },
-      {
-        "alt": "Esempio di invito di matrimonio — tema Riviera"
-      },
-      {
-        "alt": "Esempio di invito di matrimonio — tema Capri"
+        "alt": "Esempio di invito di nozze — tema Belle Rive"
       }
     ]
   },
@@ -285,7 +276,9 @@
     "nextThemesAriaLabel": "Temi successivi",
     "themeLabel": "Tema {name}",
     "themeAlt": "Invito di matrimonio — tema {name}",
-    "demoIframeTitle": "Demo invito — tema {name}"
+    "demoIframeTitle": "Demo invito — tema {name}",
+    "upcomingTitle": "Nuove collezioni",
+    "upcomingSubtitle": "Presto altri temi"
   },
   "WhyUs": {
     "eyebrow": "Perché scegliere The Studio?",

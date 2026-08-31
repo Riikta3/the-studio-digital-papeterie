@@ -218,22 +218,13 @@
     "nextAriaLabel": "Carte suivante",
     "cards": [
       {
-        "alt": "Exemple d'invitation de mariage — thème Amalfi"
+        "alt": "Exemple d'invitation de mariage — thème Ciao Amore"
       },
       {
-        "alt": "Exemple d'invitation de mariage — thème Venise"
+        "alt": "Exemple d'invitation de mariage — thème Blanc Couture"
       },
       {
-        "alt": "Exemple d'invitation de mariage — thème Provence"
-      },
-      {
-        "alt": "Exemple d'invitation de mariage — thème Toscane"
-      },
-      {
-        "alt": "Exemple d'invitation de mariage — thème Riviera"
-      },
-      {
-        "alt": "Exemple d'invitation de mariage — thème Capri"
+        "alt": "Exemple d'invitation de mariage — thème Belle Rive"
       }
     ]
   },
@@ -249,7 +240,9 @@
     "nextThemesAriaLabel": "Thèmes suivants",
     "themeLabel": "Thème {name}",
     "themeAlt": "Invitation de mariage — thème {name}",
-    "demoIframeTitle": "Démo invitation — thème {name}"
+    "demoIframeTitle": "Démo invitation — thème {name}",
+    "upcomingTitle": "Nouvelles collections",
+    "upcomingSubtitle": "D'autres thèmes arrivent bientôt"
   },
   "WhyUs": {
     "eyebrow": "Pourquoi choisir The Studio ?",

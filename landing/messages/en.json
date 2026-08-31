@@ -258,22 +258,13 @@
     "nextAriaLabel": "Next card",
     "cards": [
       {
-        "alt": "Wedding invitation example — Amalfi theme"
+        "alt": "Wedding invitation example — Ciao Amore theme"
       },
       {
-        "alt": "Wedding invitation example — Venice theme"
+        "alt": "Wedding invitation example — Blanc Couture theme"
       },
       {
-        "alt": "Wedding invitation example — Provence theme"
-      },
-      {
-        "alt": "Wedding invitation example — Tuscany theme"
-      },
-      {
-        "alt": "Wedding invitation example — Riviera theme"
-      },
-      {
-        "alt": "Wedding invitation example — Capri theme"
+        "alt": "Wedding invitation example — Belle Rive theme"
       }
     ]
   },
@@ -289,7 +280,9 @@
     "nextThemesAriaLabel": "Next themes",
     "themeLabel": "{name} theme",
     "themeAlt": "Wedding invitation — {name} theme",
-    "demoIframeTitle": "Invitation demo — {name} theme"
+    "demoIframeTitle": "Invitation demo — {name} theme",
+    "upcomingTitle": "New collections",
+    "upcomingSubtitle": "More themes coming soon"
   },
   "WhyUs": {
     "eyebrow": "Why choose The Studio?",

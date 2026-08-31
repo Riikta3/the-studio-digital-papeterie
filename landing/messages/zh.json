@@ -254,22 +254,13 @@
     "nextAriaLabel": "下一张卡片",
     "cards": [
       {
-        "alt": "婚礼请柬示例 — 阿马尔菲主题"
+        "alt": "婚礼请柬示例 — Ciao Amore 主题"
       },
       {
-        "alt": "婚礼请柬示例 — 威尼斯主题"
+        "alt": "婚礼请柬示例 — Blanc Couture 主题"
       },
       {
-        "alt": "婚礼请柬示例 — 普罗旺斯主题"
-      },
-      {
-        "alt": "婚礼请柬示例 — 托斯卡纳主题"
-      },
-      {
-        "alt": "婚礼请柬示例 — 里维埃拉主题"
-      },
-      {
-        "alt": "婚礼请柬示例 — 卡普里主题"
+        "alt": "婚礼请柬示例 — Belle Rive 主题"
       }
     ]
   },
@@ -285,7 +276,9 @@
     "nextThemesAriaLabel": "下一组主题",
     "themeLabel": "{name} 主题",
     "themeAlt": "婚礼请柬 — {name} 主题",
-    "demoIframeTitle": "请柬演示 — {name} 主题"
+    "demoIframeTitle": "请柬演示 — {name} 主题",
+    "upcomingTitle": "新系列",
+    "upcomingSubtitle": "更多主题即将推出"
   },
   "WhyUs": {
     "eyebrow": "为什么选择 The Studio？",

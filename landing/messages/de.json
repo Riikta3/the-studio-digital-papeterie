@@ -255,22 +255,13 @@
     "nextAriaLabel": "Nächste Karte",
     "cards": [
       {
-        "alt": "Beispiel einer Hochzeitseinladung — Design Amalfi"
+        "alt": "Beispiel einer Hochzeitseinladung — Thema Ciao Amore"
       },
       {
-        "alt": "Beispiel einer Hochzeitseinladung — Design Venedig"
+        "alt": "Beispiel einer Hochzeitseinladung — Thema Blanc Couture"
       },
       {
-        "alt": "Beispiel einer Hochzeitseinladung — Design Provence"
-      },
-      {
-        "alt": "Beispiel einer Hochzeitseinladung — Design Toskana"
-      },
-      {
-        "alt": "Beispiel einer Hochzeitseinladung — Design Riviera"
-      },
-      {
-        "alt": "Beispiel einer Hochzeitseinladung — Design Capri"
+        "alt": "Beispiel einer Hochzeitseinladung — Thema Belle Rive"
       }
     ]
   },
@@ -286,7 +277,9 @@
     "nextThemesAriaLabel": "Nächste Designs",
     "themeLabel": "Design {name}",
     "themeAlt": "Hochzeitseinladung — Design {name}",
-    "demoIframeTitle": "Einladungsdemo — Design {name}"
+    "demoIframeTitle": "Einladungsdemo — Design {name}",
+    "upcomingTitle": "Neue Kollektionen",
+    "upcomingSubtitle": "Weitere Designs folgen in Kürze"
   },
   "WhyUs": {
     "eyebrow": "Warum The Studio wählen?",

@@ -255,22 +255,13 @@
     "nextAriaLabel": "Tarjeta siguiente",
     "cards": [
       {
-        "alt": "Ejemplo de invitación de boda — tema Amalfi"
+        "alt": "Ejemplo de invitación de boda — tema Ciao Amore"
       },
       {
-        "alt": "Ejemplo de invitación de boda — tema Venecia"
+        "alt": "Ejemplo de invitación de boda — tema Blanc Couture"
       },
       {
-        "alt": "Ejemplo de invitación de boda — tema Provenza"
-      },
-      {
-        "alt": "Ejemplo de invitación de boda — tema Toscana"
-      },
-      {
-        "alt": "Ejemplo de invitación de boda — tema Riviera"
-      },
-      {
-        "alt": "Ejemplo de invitación de boda — tema Capri"
+        "alt": "Ejemplo de invitación de boda — tema Belle Rive"
       }
     ]
   },
@@ -286,7 +277,9 @@
     "nextThemesAriaLabel": "Temas siguientes",
     "themeLabel": "Tema {name}",
     "themeAlt": "Invitación de boda — tema {name}",
-    "demoIframeTitle": "Demo de invitación — tema {name}"
+    "demoIframeTitle": "Demo de invitación — tema {name}",
+    "upcomingTitle": "Nuevas colecciones",
+    "upcomingSubtitle": "Pronto habrá más temas"
   },
   "WhyUs": {
     "eyebrow": "¿Por qué elegir The Studio?",

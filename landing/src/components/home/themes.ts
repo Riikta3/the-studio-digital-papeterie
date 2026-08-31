@@ -43,3 +43,13 @@ export type Theme = (typeof THEMES)[number];
 export function themeDemoPath(locale: string, themeId: string): string {
   return `/${locale}/invitation/demo/${themeId}`;
 }
+
+/**
+ * A card announcing that more themes are on the way, shown after the real ones.
+ *
+ * It is not a theme: it has no demo to load and nothing to select, so it is
+ * kept out of `THEMES` rather than being given a fake id. Both carousels append
+ * it themselves and skip it when resolving a selection — an entry in `THEMES`
+ * would otherwise point the phone mockup at a route that does not exist.
+ */
+export const UPCOMING_CARD = { kind: "upcoming" } as const;

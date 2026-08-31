@@ -2,13 +2,7 @@
 
 import { Button } from "@shared/components/ui/button";
 import { cn } from "@shared/lib/utils";
-import {
-  ArrowLeft,
-  ArrowRight,
-  BatteryFull,
-  Signal,
-  Wifi,
-} from "lucide-react";
+import { ArrowLeft, ArrowRight, BatteryFull, Signal, Wifi } from "lucide-react";
 import { useLocale, useTranslations } from "next-intl";
 import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
@@ -17,6 +11,7 @@ import { Link } from "@/navigation";
 
 import { FadeIn } from "./FadeIn";
 import { THEMES, type Theme, themeDemoPath } from "./themes";
+import { UpcomingThemeCard } from "./UpcomingThemeCard";
 import { ThemeConfigSheet } from "./ThemeConfigSheet";
 
 // iPhone 15 Pro-style proportions: 390×844pt screen, titanium rim and
@@ -136,7 +131,10 @@ function PhoneFrame({ theme }: { theme: Theme }) {
   }, []);
 
   return (
-    <div ref={wrapRef} className="mx-auto w-full max-w-[340px] md:max-w-[416px]">
+    <div
+      ref={wrapRef}
+      className="mx-auto w-full max-w-[340px] md:max-w-[416px]"
+    >
       {scale !== null && (
         <div className="relative" style={{ height: PHONE_H * scale }}>
           {/* Titanium rim */}
@@ -180,9 +178,17 @@ function PhoneFrame({ theme }: { theme: Theme }) {
 // as an infinite loop even though the underlying scroller is finite.
 const LOOP_REPEATS = 5;
 const MIDDLE_SET = Math.floor(LOOP_REPEATS / 2);
-const LOOPED_THEMES = Array.from({ length: LOOP_REPEATS }, (_, set) =>
-  THEMES.map((theme, index) => ({ theme, index, key: `${set}-${theme.name}` })),
-).flat();
+// Each repeat ends with the "more coming" card, so it travels with the loop
+// instead of appearing once at one end of an infinite scroller. `index: null`
+// marks it unselectable.
+const LOOPED_THEMES = Array.from({ length: LOOP_REPEATS }, (_, set) => [
+  ...THEMES.map((theme, index) => ({
+    theme,
+    index,
+    key: `${set}-${theme.name}`,
+  })),
+  { theme: null, index: null, key: `${set}-upcoming` },
+]).flat();
 
 function ThemeCarousel({
   active,
@@ -244,33 +250,49 @@ function ThemeCarousel({
         onScroll={handleScroll}
         className="scrollbar-hide flex snap-x gap-4 overflow-x-auto px-6 py-2 md:px-12"
       >
-        {LOOPED_THEMES.map(({ theme, index, key }) => (
-          <button
-            key={key}
-            type="button"
-            onClick={() => onSelect(index)}
-            className="w-32 shrink-0 snap-start text-center md:w-36"
-          >
+        {LOOPED_THEMES.map(({ theme, index, key }) =>
+          theme === null || index === null ? (
             <div
-              className={cn(
-                "relative aspect-[290/540] overflow-hidden rounded-xl transition-shadow",
-                index === active &&
-                  "ring-2 ring-studio-violet ring-offset-2 ring-offset-studio-creme",
-              )}
+              key={key}
+              className="w-32 shrink-0 snap-start text-center md:w-36"
             >
-              <Image
-                src={theme.image}
-                alt={t("themeLabel", { name: theme.name })}
-                fill
-                sizes="144px"
-                className="object-cover"
-              />
+              <div className="relative aspect-[290/540]">
+                <UpcomingThemeCard />
+              </div>
+              {/* Spacer, not a label: it keeps this card's artwork aligned with
+                  the themed ones, whose names sit on this line. */}
+              <p aria-hidden="true" className="mt-2 font-body text-h5">
+                &nbsp;
+              </p>
             </div>
-            <p className="mt-2 font-body text-h5 text-studio-violet">
-              {t("themeLabel", { name: theme.name })}
-            </p>
-          </button>
-        ))}
+          ) : (
+            <button
+              key={key}
+              type="button"
+              onClick={() => onSelect(index)}
+              className="w-32 shrink-0 snap-start text-center md:w-36"
+            >
+              <div
+                className={cn(
+                  "relative aspect-[290/540] overflow-hidden rounded-xl transition-shadow",
+                  index === active &&
+                    "ring-2 ring-studio-violet ring-offset-2 ring-offset-studio-creme",
+                )}
+              >
+                <Image
+                  src={theme.image}
+                  alt={t("themeLabel", { name: theme.name })}
+                  fill
+                  sizes="144px"
+                  className="object-cover"
+                />
+              </div>
+              <p className="mt-2 font-body text-h5 text-studio-violet">
+                {t("themeLabel", { name: theme.name })}
+              </p>
+            </button>
+          ),
+        )}
       </div>
 
       <button

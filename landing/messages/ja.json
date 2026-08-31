@@ -254,22 +254,13 @@
     "nextAriaLabel": "次のカード",
     "cards": [
       {
-        "alt": "結婚式招待状の例 — アマルフィテーマ"
+        "alt": "結婚式の招待状の例 — Ciao Amore テーマ"
       },
       {
-        "alt": "結婚式招待状の例 — ヴェネツィアテーマ"
+        "alt": "結婚式の招待状の例 — Blanc Couture テーマ"
       },
       {
-        "alt": "結婚式招待状の例 — プロヴァンステーマ"
-      },
-      {
-        "alt": "結婚式招待状の例 — トスカーナテーマ"
-      },
-      {
-        "alt": "結婚式招待状の例 — リビエラテーマ"
-      },
-      {
-        "alt": "結婚式招待状の例 — カプリテーマ"
+        "alt": "結婚式の招待状の例 — Belle Rive テーマ"
       }
     ]
   },
@@ -285,7 +276,9 @@
     "nextThemesAriaLabel": "次のテーマ",
     "themeLabel": "{name} テーマ",
     "themeAlt": "結婚式招待状 — {name} テーマ",
-    "demoIframeTitle": "招待状デモ — {name} テーマ"
+    "demoIframeTitle": "招待状デモ — {name} テーマ",
+    "upcomingTitle": "新しいコレクション",
+    "upcomingSubtitle": "新しいテーマを準備中です"
   },
   "WhyUs": {
     "eyebrow": "The Studio が選ばれる理由",
