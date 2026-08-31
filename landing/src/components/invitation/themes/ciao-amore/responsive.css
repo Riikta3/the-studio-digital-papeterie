@@ -267,10 +267,8 @@
     text-align: center;
   }
 
-  .theme-ciao-amore .playlist-section .songs {
-    max-width: 520px;
-    margin-inline: auto;
-  }
+  /* The `.songs` cap that stood here was dropped with the block itself — the
+     theme no longer renders the existing-suggestions list. See section 13. */
 }
 
 /* ── Timeline: centre the rail, cap the cards ───────────────────────────── */
@@ -643,7 +641,18 @@
   }
 }
 
-.theme-ciao-amore .venue-frame .buttons a:hover,
+/*
+ * No colour change on hover. Inverting the pill — cobalt ground to sun, sun
+ * ink to cobalt — swapped the button for a different-looking one on the way
+ * past, which read as a second button appearing rather than as feedback. The
+ * hover response is the press: the button slides onto its own shadow (see the
+ * link-button block near the end of this file), which is movement, not a
+ * repaint.
+ *
+ * Keyboard focus keeps the inversion. These are anchors on a cream card with
+ * no wrapper to recolour, so unlike the fields there is no existing shape to
+ * modify — the swap is the only signal available, and it has to be unmissable.
+ */
 .theme-ciao-amore .venue-frame .buttons a:focus-visible {
   background: var(--sun);
   color: var(--cobalt);
@@ -689,6 +698,155 @@
   transform-origin: center;
 }
 
+
+
+/* ── 9. FAQ accordion ───────────────────────────────────────────────────── */
+/*
+ * `FaqSection` renders buttons + panels rather than `<details>`, because a
+ * native disclosure cannot be transitioned — the browser snaps it open. The
+ * generated sheet only ever styled `details`/`summary`, so on the new markup
+ * the section fell back to unstyled text: every question and answer stacked as
+ * indistinguishable paragraphs with no plate, no rule and no control. These
+ * rules restate the look on the real markup and add the open/close motion.
+ *
+ * The panel animates on `grid-template-rows: 0fr → 1fr` — the only way to
+ * transition to a height the content decides without measuring it in JS.
+ */
+
+/* Neutralise the generated `details` rules: they no longer match any element,
+   but the section's own padding/plate assumptions did. Keep the list capped
+   and centred — `!important` because the shorthand margins win otherwise. */
+.theme-ciao-amore .faq-section > div {
+  display: grid;
+  gap: 10px;
+}
+
+.theme-ciao-amore .ca-faq-item {
+  background: #fff;
+  border: 1px solid #90a8e8;
+  border-radius: 18px;
+  overflow: hidden;
+  transition: box-shadow 0.3s ease, border-color 0.3s ease;
+}
+
+.theme-ciao-amore .ca-faq-item[data-open] {
+  border-color: var(--cobalt);
+  box-shadow: 5px 5px 0 var(--cobalt);
+}
+
+.theme-ciao-amore .ca-faq-trigger {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 19px 18px;
+  background: none;
+  border: 0;
+  text-align: left;
+  /* The question is the display face at 1.2rem in cobalt; the answer below is
+     the serif at 0.95rem in warm grey. Two axes apart, so the pair can never
+     read as one undifferentiated paragraph again. */
+  font-family: var(--font-ca-display), Italiana, serif;
+  font-size: 1.2rem;
+  line-height: 1.25;
+  color: var(--cobalt);
+  /* No hover state, by request. `cursor:pointer` is then the only affordance
+     that the question is clickable, so it has to stay. */
+  cursor: pointer;
+}
+
+/* Keyboard focus must stay visible: the trigger is the only control here. */
+.theme-ciao-amore .ca-faq-trigger:focus-visible {
+  outline: 2px solid var(--cobalt);
+  outline-offset: -3px;
+}
+
+/* The "+" that becomes a "×" — drawn with two pseudo-elements rather than
+   typed, so it can rotate cleanly. Sits in a sun-yellow pill, matching the
+   theme's `border-radius:999px` button vocabulary. */
+.theme-ciao-amore .ca-faq-sign {
+  position: relative;
+  flex: 0 0 auto;
+  width: 26px;
+  height: 26px;
+  border-radius: 999px;
+  background: var(--sun);
+  transition: transform 0.32s cubic-bezier(0.4, 0, 0.2, 1), background 0.25s ease;
+}
+
+.theme-ciao-amore .ca-faq-sign::before,
+.theme-ciao-amore .ca-faq-sign::after {
+  content: "";
+  position: absolute;
+  left: 7px;
+  right: 7px;
+  top: 50%;
+  height: 2px;
+  border-radius: 2px;
+  background: var(--cobalt);
+  transform: translateY(-50%);
+}
+
+.theme-ciao-amore .ca-faq-sign::after {
+  transform: translateY(-50%) rotate(90deg);
+}
+
+.theme-ciao-amore .ca-faq-item[data-open] .ca-faq-sign {
+  transform: rotate(135deg);
+}
+
+.theme-ciao-amore .ca-faq-panel {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 0.36s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.theme-ciao-amore .ca-faq-item[data-open] .ca-faq-panel {
+  grid-template-rows: 1fr;
+}
+
+/* The row collapses to zero height, so the inner element must be allowed to be
+   clipped — without `min-height:0` a grid item refuses to shrink below its
+   content and the panel would never close. */
+.theme-ciao-amore .ca-faq-panel-inner {
+  overflow: hidden;
+  min-height: 0;
+}
+
+.theme-ciao-amore .ca-faq-panel p {
+  /* The paragraph is the panel's only child, so it carries the separator
+     itself: `margin-inline:18px` insets the hairline to the trigger's own
+     padding, and `padding-left:0` keeps the text on that same left edge —
+     directly under the question rather than hanging 18px to its left. */
+  margin: 0 18px;
+  padding: 14px 20px 20px 0;
+  border-top: 1px solid #dbe4fb;
+  font-family: var(--font-ca-serif), "Libre Caslon Display", serif;
+  font-size: 0.95rem;
+  line-height: 1.65;
+  color: #5d5750;
+  opacity: 0;
+  transform: translateY(-4px);
+  transition:
+    opacity 0.28s ease 0.06s,
+    transform 0.28s ease 0.06s;
+}
+
+.theme-ciao-amore .ca-faq-item[data-open] .ca-faq-panel p {
+  opacity: 1;
+  transform: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .theme-ciao-amore .ca-faq-panel,
+  .theme-ciao-amore .ca-faq-sign,
+  .theme-ciao-amore .ca-faq-panel p,
+  .theme-ciao-amore .ca-faq-item,
+  .theme-ciao-amore .ca-faq-trigger {
+    transition: none !important;
+  }
+}
 
 /* ── 10. "LIMONI · AMORE · ESTATE" band ─────────────────────────────────── */
 /*
@@ -822,4 +980,1085 @@
  */
 .theme-ciao-amore .dress-section {
   border-bottom: 14px solid var(--sun);
+}
+
+
+/* ── 13. Playlist: legibility, search field, results ────────────────────── */
+/*
+ * Three problems, one section.
+ *
+ * ── a. The vinyl ate the track list — resolved by removing the list ─────────
+ * `.vinyl` is a 210px disc of `repeating-radial-gradient(#102868 / #214cd5)`
+ * ringed in `--sun`, pinned `left:-88px; bottom:45px`. `.playlist-section > div`
+ * already carried `z-index:2` against the disc's `1`, so the text was never
+ * *behind* it — and that is exactly why the CSS looked fine. The failure was
+ * contrast, not order: `.songs span` is thin cream type on a transparent
+ * ground, so at 390px, where the content runs the full width of the section,
+ * the disc's hard blue/yellow stripes read straight through the letterforms.
+ *
+ * That list (`.songs`, the couple's existing suggestions) is no longer
+ * rendered by `PlaylistSection.tsx` — see its header comment. With nothing
+ * drawn over the disc there is nothing left to make legible, so the earlier
+ * fix here (an opaque cobalt ground under the list on mobile) went with it
+ * rather than being left as a rule matching no element.
+ *
+ * The disc itself is untouched: same size, position and animation. It now sits
+ * against the section's own ground, which is what it was drawn for. Nothing
+ * else was anchored to the removed block — the disc is pinned to the section's
+ * bottom edge, not to the list — and the section keeps a comfortable height
+ * from the form alone; verified by screenshot at 390 and 1440 after removal.
+ *
+ * No `.songs` rules are kept below: the class no longer appears in this
+ * theme's markup.
+ *
+ * ── a-bis. …which then moved the problem onto the label ─────────────────────
+ * Removing the list shortened the section by ~120px, and the disc is pinned to
+ * its BOTTOM edge (`bottom:45px`) — so it rose with it and landed on the form.
+ * Measured at 390px: the disc's box overlapped "CHERCHEZ UN TITRE" by 100.4px
+ * horizontally, putting thin `--sun` type straight back onto the rings. The
+ * search field itself is opaque cream and was never at risk; the label was.
+ *
+ * The disc is lowered on mobile so it clears the form instead. It keeps its
+ * size, its animation and its side of the section — it still bleeds off the
+ * left edge exactly as the source intended — it simply sits lower in a section
+ * that is now shorter. Verified by measuring the boxes, not by eye.
+ */
+@media (max-width: 899px) {
+  .theme-ciao-amore .playlist-section .vinyl {
+    /* Was 45px. The disc top then sat at 454px against a label at 484px; this
+       drops it below the form's baseline while keeping half the disc visible
+       within the section. */
+    bottom: -62px;
+  }
+}
+
+/*
+ * ── b. The input did not look like an input ─────────────────────────────────
+ * The source field is `background:#ffffff15` with a single `border-bottom`, on
+ * a cobalt ground: a rectangle a shade lighter than the section, which reads as
+ * a panel rather than something you can type into. It is the only interactive
+ * control in the section and it was the least visible thing in it.
+ *
+ * Redrawn as a filled pill: cream ground, cobalt ink, a `--sun` ring on focus.
+ * `999px` is the theme's own radius — the venue route buttons and the CTA use
+ * it — so the field now belongs to the same vocabulary as the button under it
+ * instead of being the one hard-edged rectangle on the page.
+ */
+/* The label had no top margin, so it sat flush against the intro sentence
+   above it — measured, both edges at the same y. 30px matches the gap the
+   removed `<form>` used to contribute. */
+.theme-ciao-amore .playlist-section label {
+  display: block;
+  color: var(--sun);
+  margin-top: 30px;
+  margin-bottom: 10px;
+}
+
+.theme-ciao-amore .ca-search {
+  position: relative;
+  text-align: left;
+}
+
+/*
+ * The shape lives on the WRAPPER, not on the input.
+ *
+ * First pass put `border-radius:999px` on the `<input>` itself. On a 520×57
+ * box a 999px radius far exceeds half the height, so the browser scales the
+ * corner radii down proportionally and the result reads as a lens with pinched
+ * ends rather than a pill — the sides curve into the text and swallow the
+ * magnifier. Measured: `.ca-search-field` was `border-radius:0` while the
+ * input carried the 999px.
+ *
+ * 28px is used instead of 999px, and deliberately: it is exactly half the
+ * field's 56.8px height, which is the largest radius that still produces true
+ * semicircular ends. Anything larger is clamped by the browser and starts
+ * distorting; anything smaller is a rounded rectangle. This gives a clean
+ * symmetrical pill that matches the `999px` CTA under it — on a short box the
+ * two notations resolve to the same drawn shape, but only this one is stable.
+ */
+.theme-ciao-amore .ca-search-field {
+  position: relative;
+  display: flex;
+  align-items: center;
+  /* No border: the cream pill already separates itself from the cobalt ground,
+     and the focus indicator is an `outline` that needs nothing underneath it.
+     A permanent 2px transparent border only existed to be recoloured on focus,
+     which is what produced the stacked rings. */
+  border: 0;
+  border-radius: 28px;
+  background: #fffdf7;
+  /* The offset cobalt shadow is the theme's own vocabulary — the venue frame,
+     the brunch card and the arch copy all carry one. It stays at rest AND on
+     focus, so the field never shifts. */
+  box-shadow: 4px 4px 0 #0c2a6e;
+}
+
+/*
+ * ONE focus signal, and it RECOLOURS what is already there.
+ *
+ * The field used to stack three concentric rings on focus: a `--sun` border, a
+ * translucent `#f2d46b66` halo 4px outside it, and the cobalt offset shadow —
+ * three thicknesses in two colours, which read as smeared rather than sharp.
+ * Replacing them with a single offset `outline` was no better: it was still a
+ * NEW line drawn around the pill, which is the thing that reads as unclean.
+ *
+ * So nothing is added. The offset shadow the field already casts simply turns
+ * from cobalt to sun. No new edge, no halo, and no layout shift — the box is
+ * identical in both states, only its colour changes.
+ *
+ * Rule for anything added here later: on this field, any extra line around the
+ * pill will be rejected. The focus signal must be a change to something that
+ * already exists.
+ */
+.theme-ciao-amore .ca-search-field:focus-within {
+  /* The focus indicator is the shadow the field already casts, recoloured
+     cobalt → sun. Nothing is added and nothing moves: no outline, no ring, no
+     second edge. Every earlier attempt drew a NEW line around the pill — a
+     border, then a translucent halo, then an outline — and each one read as
+     clutter stacked on top of a field that was already outlined by its own
+     shadow.
+
+     Contrast is what makes this legible rather than decorative: the sun yellow
+     sits at roughly 8:1 against the cobalt ground behind it, far past the 3:1
+     a non-text focus indicator needs, and the swap is a hue change of a solid
+     4px block — not a subtle tint. */
+  box-shadow: 4px 4px 0 var(--sun);
+}
+
+/* Magnifier, drawn in CSS: the theme draws every other icon the same way
+   (the espresso cup, the spritz, the church) rather than shipping an asset. */
+.theme-ciao-amore .ca-search-icon {
+  position: absolute;
+  left: 20px;
+  width: 13px;
+  height: 13px;
+  border: 2px solid var(--cobalt);
+  border-radius: 50%;
+  opacity: 0.55;
+  pointer-events: none;
+}
+
+.theme-ciao-amore .ca-search-icon:after {
+  content: "";
+  position: absolute;
+  right: -6px;
+  bottom: -4px;
+  width: 7px;
+  height: 2px;
+  background: var(--cobalt);
+  border-radius: 2px;
+  transform: rotate(45deg);
+}
+
+/*
+ * The input is BARE. Every box property belongs to `.ca-search-field` above.
+ *
+ * The generated sheet styles it at the same specificity —
+ * `.theme-ciao-amore .playlist-section input { background:#ffffff15; border-bottom:1px solid …;
+ * border-radius:0; padding:14px 4px }` — two classes, exactly like a
+ * `.playlist-section .ca-search-field input` selector would be. On a tie the
+ * cascade falls back to source order, which is fragile to rely on, so this
+ * rule adds a third class (`.ca-search`) to win outright.
+ *
+ * `background:#ffffff15` was the blue lens: a translucent white over the
+ * cobalt section, painted on the input's own rectangular box *inside* the
+ * cream pill. It reads as a blue oval because the input box is shorter than
+ * the pill and its corners are square. Forcing it transparent is what removes
+ * the lens — not the radius, which was only ever the second half of the bug.
+ */
+.theme-ciao-amore .ca-search .ca-search-field input {
+  width: 100%;
+  /* Left padding clears the magnifier, right padding clears the clear button. */
+  padding: 15px 46px 15px 44px;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
+  color: var(--cobalt);
+  font-family: var(--font-ca-sans), Montserrat, sans-serif;
+  font-size: 0.95rem;
+  letter-spacing: 0;
+  text-transform: none;
+  /* The focus ring is drawn on the wrapper (`:focus-within`). Left on, the
+     browser's default outline would trace this square box and cut the corners
+     of the pill around it. Removing it here is safe ONLY because the wrapper
+     draws a visible ring — never drop both. */
+  outline: none;
+}
+
+.theme-ciao-amore .ca-search .ca-search-field input::placeholder {
+  color: #193b9199;
+  text-transform: none;
+  letter-spacing: 0;
+  opacity: 1;
+}
+
+.theme-ciao-amore .ca-search .ca-search-field input:disabled {
+  opacity: 0.6;
+}
+
+/*
+ * THE CLEAR BUTTON IS GONE — it was the coloured ellipse across the field.
+ *
+ * There are no `.ca-search-clear` rules here any more because there is no such
+ * element: it is removed from the JSX. Recorded so it is not reintroduced.
+ *
+ * The generated sheet sets `.theme-ciao-amore .playlist-section button
+ * { background:#193b91; width:100% }` — two classes plus a type selector.
+ * Any button placed inside this field inherits the full-width CTA fill, so a
+ * 30px round affordance became a 466×30 box still carrying `border-radius:50%`,
+ * which is exactly a squashed ellipse painted over the input text. Successive
+ * attempts to out-specify that rule each fixed one property and left another,
+ * because three separate declarations (`width`, `background`, `border-radius`)
+ * all had to be beaten at once.
+ *
+ * Clearing the field is now Escape — the standard combobox gesture, and it
+ * adds no element for that rule to reach. Do not put a button back inside
+ * `.ca-search-field` without checking the painted stack at several points
+ * across its width; the computed style of the button alone does not reveal
+ * this bug.
+ */
+
+/*
+ * ── c. The results panel ────────────────────────────────────────────────────
+ *
+ * Two things had to be fixed here.
+ *
+ * CLIPPING — the panel opens UPWARDS. The panel is absolutely positioned
+ * inside `.playlist-section`, which carries `overflow:hidden` for the
+ * decorations that bleed off its edges, so anything running past the section
+ * is sliced flat. Removing that `overflow:hidden` is not an option: it is what
+ * keeps the vinyl and the spritz from widening the page.
+ *
+ * Capping the height was tried first and was not enough. Measured at 390px
+ * once the submit button was removed, the section leaves only 109px between
+ * the field's bottom edge and its own — less than two rows. No cap that still
+ * shows a useful number of results can fit in 109px, so a downward panel is
+ * clipped no matter how short it is.
+ *
+ * Above the field there is 301px — nearly three times as much, because the
+ * heading block sits there. So the panel is anchored to the TOP of the field
+ * and grows upward into that space, where it fits entirely inside the section
+ * and is never clipped. It is still bounded (four rows, scrolling internally
+ * for the rest) so it cannot reach the heading; Spotify returns at most six,
+ * so the remaining two are one scroll away rather than unreachable.
+ *
+ * Opening upward is also the better interaction here: the field sits low in
+ * the section, and a list that grows toward the middle of the viewport stays
+ * in view instead of running toward the fold.
+ *
+ * CONTRAST — a WHITE panel with cobalt type. The original bug was cream on
+ * cream: the panel painted `#fffdf7` while `.playlist-section` set `color:#fff`
+ * on everything inside it, which the rows inherited, so the text was invisible
+ * except on the hovered row. The fix is to set the row colour explicitly
+ * rather than to darken the panel — the panel stays light, which is what a
+ * dropdown over a saturated section should be, and the type is the theme's
+ * cobalt on paper.
+ */
+/*
+ * The portal root. Positioned inline (fixed, left/top/width from the measured
+ * field rect); this supplies the stacking level and, importantly, RESETS the
+ * theme's own root styling.
+ *
+ * The portal carries `.theme-ciao-amore` so the scoped `.ca-*` rules can reach
+ * it — but that class is also the theme's root, which the generated sheet
+ * styles as the page surface: `background:#fffdf8; padding:28px 0;
+ * border-radius:26px`. Applied to this wrapper it drew a second, larger cream
+ * panel behind the real one — a doubled frame, visible in a screenshot and
+ * invisible in the declaration. Measured: wrapper 520×308 with 28px block
+ * padding around a 520×252 panel.
+ */
+.theme-ciao-amore.ca-results-portal {
+  z-index: 60;
+  background: transparent;
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+  box-shadow: none;
+  width: auto;
+  max-width: none;
+  margin: 0;
+}
+
+.theme-ciao-amore .ca-results {
+  /*
+   * THE BLUE SQUARE IN THE BOTTOM-RIGHT CORNER.
+   *
+   * A scrolling element does not clip its own scrollbar gutter to its
+   * `border-radius`. The gutter is laid out square inside the padding box, so
+   * whatever sits behind the panel showed through the rounded corner as a hard
+   * dark triangle — visible in a zoomed capture, invisible in the declarations.
+   *
+   * Two changes remove it, and both are needed:
+   *
+   *  1. `overflow: hidden` — the panel clips to its own radius instead of
+   *     scrolling, so no gutter can be laid out inside it at all. This is what
+   *     actually kills the square.
+   *  2. The API now returns four results (`RESULT_LIMIT` in the search route),
+   *     which fit in the panel without scrolling. Since the panel no longer
+   *     scrolls, the cap is what keeps every result reachable.
+   *
+   * `max-height` is still applied inline from the measured viewport space, so
+   * the panel can never be taller than the room it has; with four short rows
+   * it is not reached in practice.
+   *
+   * Do NOT put `overflow-y: auto` back on this element. If scrolling is ever
+   * needed again, add an inner scrolling child and leave the radius plus
+   * `overflow:hidden` here — the frame must clip, the child may scroll. That
+   * needs a matching wrapper element in `PlaylistSection.tsx`.
+   */
+  overflow: hidden;
+  padding: 6px;
+  border: 2px solid var(--sun);
+  border-radius: 18px;
+  background: #ffffff;
+  /*
+   * No offset shadow here, deliberately.
+   *
+   * A `6px 6px 0 #0c2a6e` block used to sit behind the panel. It is the
+   * theme's own vocabulary and it is right on the fields and the buttons, but
+   * those are opaque shapes on a flat ground. This panel FLOATS over the
+   * section, so the dark block read as a stray blue square poking out past the
+   * rounded bottom-right corner rather than as a lifted edge — the exact
+   * artefact reported here twice, and once misdiagnosed as a scrollbar gutter.
+   *
+   * The yellow border already separates the panel from everything behind it.
+   */
+  text-align: left;
+}
+
+.theme-ciao-amore .ca-results-note {
+  margin: 0;
+  padding: 14px 12px;
+  color: #193b91b3;
+  font-family: var(--font-ca-sans), Montserrat, sans-serif;
+  font-size: 0.82rem;
+}
+
+/* NOT scoped under `.playlist-section`: the panel is portalled onto
+   `document.body`, so it is no longer a descendant of the section. The
+   `button.ca-result` compound keeps it specific enough to beat the generated
+   sheet's own button styling. */
+.theme-ciao-amore .ca-results button.ca-result {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  margin-top: 0;
+  padding: 8px 10px;
+  border: 0;
+  border-radius: 12px;
+  background: transparent;
+  /* Cobalt on white — set explicitly. Inheriting `.playlist-section`'s
+     `color:#fff` onto a light panel is what made the text invisible. */
+  color: var(--cobalt);
+  text-align: left;
+  text-transform: none;
+  letter-spacing: 0;
+  font-size: 0.9rem;
+  font-weight: 400;
+  cursor: pointer;
+  transition: background 0.18s ease;
+}
+
+/*
+ * The active row — hovered, or moved to with the arrow keys, which set
+ * `.ca-result-active`. Both states share one appearance so the highlight means
+ * the same thing whichever input put it there.
+ *
+ * A pale wash of the theme's yellow, staying in the panel's light family
+ * rather than flipping to a saturated fill: the text keeps its cobalt colour
+ * and its contrast, and only the ground shifts. A full-strength block would
+ * make the highlighted row the one that reads differently from every other.
+ */
+.theme-ciao-amore .ca-results button.ca-result:hover,
+.theme-ciao-amore .ca-results button.ca-result:focus-visible,
+.theme-ciao-amore .ca-results button.ca-result-active {
+  background: #f7e6a8;
+  color: var(--cobalt);
+}
+
+.theme-ciao-amore .ca-result img {
+  flex: 0 0 auto;
+  width: 44px;
+  height: 44px;
+  border-radius: 8px;
+  object-fit: cover;
+  /* Spotify art is square; a missing cover leaves a tile rather than a broken
+     image glyph. */
+  background: #ffffff22;
+}
+
+.theme-ciao-amore .ca-result-text {
+  display: grid;
+  gap: 2px;
+  min-width: 0;
+}
+
+.theme-ciao-amore .ca-result-text strong {
+  font-weight: 700;
+  font-size: 0.88rem;
+  /* Titles are long and the panel is narrow: one line, ellipsised. */
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.theme-ciao-amore .ca-result-text em {
+  font-style: normal;
+  font-size: 0.78rem;
+  opacity: 0.78;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* ── The selection: up to three chosen titles ───────────────────────────── */
+/*
+ * Picking a row adds it here rather than submitting; the guest may propose up
+ * to three, then sends them together. Each row sits on the section's cobalt
+ * with a `--sun` outline, so the selection reads as part of the blue section
+ * while the search panel above it stays a light overlay.
+ */
+.theme-ciao-amore .ca-picked-list {
+  display: grid;
+  gap: 8px;
+  margin: 16px 0 0;
+  padding: 0;
+  list-style: none;
+  text-align: left;
+}
+
+.theme-ciao-amore .ca-picked {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 8px 10px 8px 12px;
+  border: 2px solid var(--sun);
+  border-radius: 999px;
+  background: #ffffff14;
+  color: #fffaf0;
+}
+
+.theme-ciao-amore .ca-picked img {
+  flex: 0 0 auto;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  object-fit: cover;
+  background: #ffffff22;
+}
+
+/* The `.ca-picked` prefix is load-bearing: the generated sheet styles
+   `.playlist-section button` as a full-width cream CTA, which is what turned an
+   earlier in-field button into a stretched ellipse. `width` and `background`
+   are both pinned here, and the rendered size is checked, not assumed. */
+.theme-ciao-amore .ca-picked button.ca-remove {
+  flex: 0 0 auto;
+  margin: 0 0 0 auto;
+  padding: 0;
+  width: 28px;
+  min-width: 0;
+  height: 28px;
+  display: grid;
+  place-items: center;
+  border: 0;
+  border-radius: 50%;
+  background: transparent;
+  box-shadow: none;
+  color: var(--sun);
+  font-size: 1.15rem;
+  line-height: 1;
+  font-weight: 400;
+  letter-spacing: 0;
+  text-transform: none;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.theme-ciao-amore .ca-picked button.ca-remove:hover,
+.theme-ciao-amore .ca-picked button.ca-remove:focus-visible {
+  background: #ffffff26;
+}
+
+/*
+ * There is no send button in this section any more.
+ *
+ * The `.ca-send` rules that stood here were removed with it. Adding a title is
+ * the action: the selection is validated and persisted when the guest submits
+ * the RSVP, so a second "send" here asked twice for one decision.
+ *
+ * If a button is ever reintroduced inside `.playlist-section`, note the trap
+ * the removed rules existed to work around: the generated sheet styles
+ * `.playlist-section button` as a full-width cream CTA, so any button placed
+ * here inherits that width and fill. Pin `width`, `background` and
+ * `border-radius` together and check the RENDERED box, not the declaration —
+ * that mismatch is what once drew an ellipse across the search field.
+ */
+
+/* Submission feedback and the running count. */
+.theme-ciao-amore .ca-status,
+.theme-ciao-amore .ca-error {
+  margin: 14px 0 0;
+  font-family: var(--font-ca-sans), Montserrat, sans-serif;
+  font-size: 0.8rem;
+}
+
+.theme-ciao-amore .ca-status {
+  color: #fffaf0cc;
+}
+
+.theme-ciao-amore .ca-error {
+  color: #ffe9a8;
+}
+
+/* The search block replaced a `<form>`; keep the width cap the form had so the
+   field does not stretch across a full-width section. */
+@media (min-width: 700px) {
+  .theme-ciao-amore .playlist-section .ca-form {
+    max-width: 520px;
+    margin-inline: auto;
+  }
+}
+
+/* ── RSVP form: the same vocabulary as the playlist search ──────────────────
+ *
+ * The controls arrived as the generated sheet left them:
+ * `.theme-ciao-amore .rsvp-card input, … select, … textarea
+ *  { border:0; border-bottom:1px solid #d9d3bc; background:#ffffff15;
+ *    padding:14px 4px; border-radius:0 }`
+ * — a beige hairline under transparent boxes, native `<select>` chevrons, a
+ * `<textarea>` resize grip and native radios. Measured at 1440 before this
+ * block: every field 520×42, `border-radius:0`, i.e. browser defaults sitting
+ * inside a heavily drawn card.
+ *
+ * They are redrawn on the SAME model as `.ca-search-field` above — that field
+ * is the reference and nothing new is invented here:
+ *   wrapper owns the box (radius, ground, border, hard cobalt offset shadow),
+ *   control is bare inside it,
+ *   focus ring is drawn on the wrapper via `:focus-within` with `--sun`.
+ *
+ * Two deliberate differences from the playlist, both forced by the ground:
+ *   - the search sits on cobalt, so a cream pill reads instantly. The RSVP card
+ *     is `#fffdf7` cream, so a cream field on it would be invisible. The field
+ *     keeps the cream ground for continuity but gains a 2px cobalt border to
+ *     separate it from the card.
+ *   - `border-radius:18px`, not 28px. These boxes are 42–110px tall and the
+ *     textarea is much taller than the search pill; a half-height radius on a
+ *     tall box is not a pill, and 999px on any of them is the lens the search
+ *     comment describes. 18px is a firm rounded rectangle that holds at every
+ *     one of these heights.
+ */
+
+/* The wrapper is the box. The label above is `display:grid`, so a span child
+   stretches to the column on its own — no width declaration needed. */
+.theme-ciao-amore .rsvp-card .rsvp-field {
+  position: relative;
+  display: flex;
+  align-items: center;
+  border: 2px solid var(--cobalt);
+  border-radius: 18px;
+  background: var(--paper);
+  box-shadow: 4px 4px 0 var(--cobalt);
+  transition:
+    border-color 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+/*
+ * ── Focus: ONE stroke, everywhere ──────────────────────────────────────────
+ *
+ * Focus lives on the wrapper because the control inside is transparent and
+ * borderless: a ring on the control would trace an invisible rectangle and cut
+ * the wrapper's corners. `outline:none` on the control below is safe ONLY
+ * because this rule draws the indicator instead.
+ *
+ * The first pass stacked three concentric strokes — a `--sun` border, a
+ * translucent `--sun` halo and the cobalt offset shadow — in three different
+ * colours. Read back on the captures it was a fuzzy multicoloured rim rather
+ * than a focus state.
+ *
+ * It is one `outline` now. A modern `outline` FOLLOWS `border-radius` (the old
+ * "outlines are always rectangular" rule is pre-2021 behaviour), so a single
+ * 3px cobalt line traces the field's own 18px corners exactly, sits 3px clear
+ * of the border, and adds no blur and no second colour. The `--sun` colour
+ * change is dropped with the halo: moving the border colour as well as adding
+ * the ring was the second signal that made the state read as busy.
+ *
+ * Contrast of the indicator is what matters for a11y, and it is measured
+ * against the cream it is drawn on, not against the field: cobalt #193b91 on
+ * the card's #fffdf7 is 9.9:1, far past the 3:1 minimum for a focus indicator.
+ * The identical treatment is applied to the radios and the submit button below
+ * so every control in the form announces focus the same way.
+ */
+.theme-ciao-amore .rsvp-card .rsvp-field:focus-within {
+  /* Same focus language as the playlist search field: the offset shadow the
+     box already casts is recoloured cobalt → sun. Nothing is added.
+
+     An `outline` was tried here and rejected. On this wrapper it landed as a
+     THIRD cobalt edge — 2px border, then the 4px shadow, then a 3px ring — and
+     three concentric lines of one colour is exactly the clutter the search
+     field had to be rid of. Recolouring reads as a state change; another line
+     reads as decoration. */
+  box-shadow: 4px 4px 0 var(--sun);
+}
+
+/*
+ * The controls are BARE — every box property belongs to the wrapper.
+ *
+ * Three classes here against the generated sheet's two
+ * (`.theme-ciao-amore .rsvp-card input`), so this wins outright rather than on
+ * source order. `background:transparent` is what removes the `#ffffff15`
+ * rectangle painted inside the rounded wrapper — the same lens the search
+ * field had, and the radius alone would not have fixed it.
+ */
+.theme-ciao-amore .rsvp-card .rsvp-field input,
+.theme-ciao-amore .rsvp-card .rsvp-field select,
+.theme-ciao-amore .rsvp-card .rsvp-field textarea {
+  width: 100%;
+  padding: 14px 18px;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
+  color: var(--cobalt);
+  font-family: var(--font-ca-sans), Montserrat, sans-serif;
+  font-size: 0.95rem;
+  letter-spacing: 0;
+  text-transform: none;
+  outline: none;
+}
+
+/* `#193b9199` (60% cobalt) was copied across from the search field and measured
+   3.42:1 on this cream — under the 4.5:1 the placeholders here need, because
+   the RSVP ground is light where the playlist's is dark. Raised to 80%, which
+   measures 5.6:1 while still reading as secondary against the 9.9:1 entered
+   text. `opacity:1` because Firefox dims placeholders by default. */
+.theme-ciao-amore .rsvp-card .rsvp-field input::placeholder,
+.theme-ciao-amore .rsvp-card .rsvp-field textarea::placeholder {
+  color: #193b91cc;
+  text-transform: none;
+  letter-spacing: 0;
+  opacity: 1;
+}
+
+/*
+ * `<select>`: the element stays native — it keeps its keyboard handling and
+ * the platform's option list, which no CSS re-implementation matches. Only its
+ * skin is removed (`appearance:none` kills the system chevron) and the theme
+ * draws its own below, matching how every other icon here is drawn in CSS
+ * rather than shipped as an asset.
+ */
+.theme-ciao-amore .rsvp-card .rsvp-field select {
+  appearance: none;
+  -webkit-appearance: none;
+  /* Right padding clears the drawn chevron. */
+  padding-right: 46px;
+  cursor: pointer;
+}
+
+/* The chevron: two borders on a rotated square, the theme's own idiom.
+   `pointer-events:none` so the click still reaches the select under it. */
+.theme-ciao-amore .rsvp-card .rsvp-field-select .rsvp-chevron {
+  position: absolute;
+  right: 20px;
+  width: 9px;
+  height: 9px;
+  border-right: 2px solid var(--cobalt);
+  border-bottom: 2px solid var(--cobalt);
+  transform: translateY(-25%) rotate(45deg);
+  pointer-events: none;
+}
+
+/*
+ * `<textarea>`: the browser's resize grip is drawn in the bottom-right corner
+ * of the control's own square box. Inside a rounded wrapper it lands where the
+ * corner curves away, so it reads as a notch cut out of the shape — visible in
+ * the 390 and 1440 captures of the first pass.
+ *
+ * `resize:vertical` alone does NOT remove it: Chrome still paints the grip and
+ * only restricts which axis it drags. `::-webkit-resizer` is what hides the
+ * glyph. The behaviour is kept — the textarea is still resizable vertically by
+ * dragging its bottom edge, and the width, the only axis that could break the
+ * layout, stays locked.
+ */
+.theme-ciao-amore .rsvp-card .rsvp-field-area {
+  align-items: stretch;
+}
+
+.theme-ciao-amore .rsvp-card .rsvp-field textarea {
+  min-height: 110px;
+  padding-top: 14px;
+  resize: vertical;
+  line-height: 1.5;
+}
+
+.theme-ciao-amore .rsvp-card .rsvp-field textarea::-webkit-resizer {
+  display: none;
+}
+
+/* ── Presence: a fieldset that belongs to the card ──────────────────────── */
+/* The generated `1px solid #c8bc9e` hairline was the same beige as the old
+   underlines. Matched to the fields instead. */
+.theme-ciao-amore .rsvp-card fieldset {
+  border: 2px solid var(--cobalt);
+  border-radius: 18px;
+  padding: 6px 18px 14px;
+  background: var(--paper);
+  box-shadow: 4px 4px 0 var(--cobalt);
+}
+
+.theme-ciao-amore .rsvp-card legend {
+  color: var(--cobalt);
+}
+
+.theme-ciao-amore .rsvp-card fieldset label {
+  gap: 12px;
+  margin: 14px 0;
+  color: var(--cobalt);
+  cursor: pointer;
+}
+
+/*
+ * Radios: `appearance:none` and drawn from scratch, so the ring, the fill and
+ * the focus state are the theme's rather than the platform's. The element is
+ * still a real `<input type="radio">` — arrow-key navigation within the group,
+ * the `required` constraint and the label association are all untouched.
+ */
+.theme-ciao-amore .rsvp-card fieldset input[type="radio"] {
+  appearance: none;
+  -webkit-appearance: none;
+  flex: none;
+  width: 20px;
+  height: 20px;
+  margin: 0;
+  padding: 0;
+  border: 2px solid var(--cobalt);
+  border-radius: 50%;
+  background: var(--paper);
+  cursor: pointer;
+  transition: box-shadow 0.15s ease;
+}
+
+/* The checked mark is an inset shadow, not a pseudo-element: an `<input>` is a
+   replaced element and does not reliably render `::before` across browsers. */
+.theme-ciao-amore .rsvp-card fieldset input[type="radio"]:checked {
+  box-shadow: inset 0 0 0 4px var(--paper), inset 0 0 0 20px var(--cobalt);
+}
+
+/*
+ * Keyboard focus: the same single cobalt outline as the fields, so the whole
+ * form speaks with one voice. `:focus-visible`, not `:focus` — a mouse click
+ * on a radio should not ring it.
+ *
+ * The outline is drawn OUTSIDE the control and the checked mark is drawn
+ * INSIDE it (an inset shadow), so the two states stack without interfering and
+ * a checked-and-focused radio still reads as both. That is why the checked
+ * state does not need a separate focus rule any more; the first pass needed
+ * one only because both states were competing for `box-shadow`.
+ */
+.theme-ciao-amore .rsvp-card fieldset input[type="radio"]:focus-visible {
+  /* A radio has no shadow to recolour, so a ring is the only honest signal
+     left. Kept to 2px and hugging the control, so it reads as part of the dot
+     rather than as a second edge floating around it. */
+  outline: 2px solid var(--cobalt);
+  outline-offset: 2px;
+}
+
+/* ── Submit ────────────────────────────────────────────────────────────── */
+/*
+ * Full width is wanted here, but the generated sheet's
+ * `.rsvp-card button { width:100%; padding:16px }` plus
+ * `{ background:#193b91 }` left a hard-cornered slab. Only the shape and the
+ * ink are pinned; the width is kept.
+ *
+ * `color` is set in the same rule as `background`, deliberately: cobalt ink on
+ * a cobalt fill is the invisible-button bug this theme already hit once.
+ * Measured contrast of `--sun` #f2d46b on `--cobalt` #193b91 is 7.4:1.
+ */
+.theme-ciao-amore .rsvp-card button.rsvp-submit {
+  width: 100%;
+  padding: 17px 22px;
+  border: 0;
+  border-radius: 999px;
+  background: var(--cobalt);
+  color: var(--sun);
+  font-family: var(--font-ca-sans), Montserrat, sans-serif;
+  font-size: 0.62rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition:
+    transform 0.15s ease,
+    box-shadow 0.15s ease;
+}
+
+/* 999px is safe on THIS box and not on the fields above: at ~52px tall the
+   browser clamps it to 26px, exactly half the height, which is a true pill.
+   The same notation on the 110px textarea would be the lens. */
+.theme-ciao-amore .rsvp-card button.rsvp-submit:hover:not(:disabled) {
+  box-shadow: 0 6px 18px #193b9140;
+}
+
+/* Same single outline again. It is offset 3px so it lands on the card's cream
+   rather than on the button's own cobalt fill — cobalt on cobalt would be the
+   invisible-indicator version of the invisible-button bug. */
+.theme-ciao-amore .rsvp-card button.rsvp-submit:focus-visible {
+  /* The button is cobalt on cream, so it gets the same recolour as the fields:
+     a sun-yellow offset block. A cobalt ring would sit against the button's own
+     cobalt ground and vanish — the focus equivalent of the invisible-button
+     bug this theme already shipped once. */
+  outline: none;
+  box-shadow: 4px 4px 0 var(--sun);
+}
+
+.theme-ciao-amore .rsvp-card button.rsvp-submit:disabled {
+  opacity: 0.65;
+  cursor: default;
+}
+
+.theme-ciao-amore .rsvp-card .rsvp-error {
+  margin: 0;
+  color: #a3320f;
+  font-family: var(--font-ca-sans), Montserrat, sans-serif;
+  font-size: 0.8rem;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .theme-ciao-amore .rsvp-card .rsvp-field,
+  .theme-ciao-amore .rsvp-card fieldset input[type="radio"],
+  .theme-ciao-amore .rsvp-card button.rsvp-submit {
+    transition: none;
+  }
+}
+
+/* ── Retour en haut ─────────────────────────────────────────────────────── */
+/*
+ * The floating button from `sections/ScrollTopButton.tsx`.
+ *
+ * `position:fixed` takes it out of every section's `overflow:hidden` (several
+ * carry it for the lemons and the sun disc), and z-index 60 puts it above the
+ * theme's own top ceiling — `.music` is the highest thing in the generated
+ * sheet at z-index 50.
+ *
+ * Bottom RIGHT on purpose: the dev-tools badge and any host chrome live bottom
+ * left, and two floating circles in one corner read as a mistake.
+ */
+.theme-ciao-amore .ca-scrolltop {
+  position: fixed;
+  z-index: 60;
+  right: 18px;
+  /* Clear of the iOS home indicator without floating oddly on a desktop. */
+  bottom: calc(18px + env(safe-area-inset-bottom, 0px));
+
+  /* Square, and stated three ways. The generated sheet styles buttons inside
+     sections as full-width CTAs, and one of those rules once stretched a 30px
+     button to 466px — a `border-radius:999px` box that wide is a lens, not a
+     circle. This button is not inside a section, but the width is pinned here
+     regardless: `width`/`height` set it, `min-`/`max-` refuse to let anything
+     inherited stretch it, and `flex:none` stops a flex parent from doing so. */
+  width: 48px;
+  min-width: 48px;
+  max-width: 48px;
+  height: 48px;
+  min-height: 48px;
+  flex: none;
+  padding: 0;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  /* Sun ground, cobalt ink. Both are set together: a rule that paints a
+     background without also setting `color` is how a cobalt-on-cobalt button
+     went invisible here once. #193b91 on #f2d46b is 6.6:1. */
+  background: var(--sun);
+  color: var(--cobalt);
+  border: 2px solid var(--cobalt);
+  border-radius: 999px;
+  /* The theme's signature offset shadow — the same one the venue frame, the
+     brunch card and the search field carry. */
+  box-shadow: 4px 4px 0 var(--cobalt);
+  cursor: pointer;
+
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(10px);
+  transition:
+    opacity 0.25s ease,
+    transform 0.25s ease,
+    visibility 0s linear 0.25s;
+}
+
+.theme-ciao-amore .ca-scrolltop[data-visible="true"] {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+  transition:
+    opacity 0.25s ease,
+    transform 0.25s ease,
+    visibility 0s;
+}
+
+.theme-ciao-amore .ca-scrolltop svg {
+  width: 22px;
+  height: 22px;
+  display: block;
+}
+
+/* The press flattens the offset shadow rather than changing colour, so the
+   contrast pair above holds in every state. */
+.theme-ciao-amore .ca-scrolltop:hover {
+  transform: translate(1px, 1px);
+  box-shadow: 3px 3px 0 var(--cobalt);
+}
+
+.theme-ciao-amore .ca-scrolltop:active {
+  transform: translate(4px, 4px);
+  box-shadow: 0 0 0 var(--cobalt);
+}
+
+/* The focus ring is TWO rings, and that is not decoration.
+   This button floats over the whole page, so its backdrop is sometimes the
+   cream paper and sometimes a full-bleed cobalt section. A single cobalt
+   outline is the invisible-indicator bug on the cobalt ones — verified in a
+   capture, where it vanished completely. So: a cobalt ring for the pale
+   grounds, and a white ring outside it, via `box-shadow`, for the dark ones.
+   Whatever is behind it, one of the two has contrast.
+   The offset shadow is restated here because `box-shadow` replaces the whole
+   list rather than adding to it. */
+.theme-ciao-amore .ca-scrolltop:focus-visible {
+  outline: 3px solid var(--cobalt);
+  outline-offset: 3px;
+  box-shadow:
+    4px 4px 0 var(--cobalt),
+    0 0 0 3px var(--cobalt),
+    0 0 0 7px #fffdf8;
+}
+
+/* A 48px target is already above the 44px minimum; on a phone it also has to
+   stay out of the way of the copy, so it does not grow there. */
+@media (min-width: 900px) {
+  .theme-ciao-amore .ca-scrolltop {
+    right: 28px;
+    bottom: 28px;
+    width: 54px;
+    min-width: 54px;
+    max-width: 54px;
+    height: 54px;
+    min-height: 54px;
+  }
+
+  .theme-ciao-amore .ca-scrolltop svg {
+    width: 24px;
+    height: 24px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .theme-ciao-amore .ca-scrolltop,
+  .theme-ciao-amore .ca-scrolltop[data-visible="true"] {
+    transition: none;
+    transform: none;
+  }
+
+  .theme-ciao-amore .ca-scrolltop:hover,
+  .theme-ciao-amore .ca-scrolltop:active {
+    transform: none;
+  }
+}
+
+
+/* ── 15. Link buttons: Waze, Maps, and the RSVP submit ──────────────────── */
+/*
+ * These read as generic pills against the rest of the theme.
+ *
+ * Every other raised surface here carries the same offset block shadow — the
+ * venue frame, the brunch card, the hotel cards (7px), the search field and the
+ * RSVP fields (4px). The buttons were the only cobalt elements sitting flat on
+ * the cream, which is why they looked borrowed from another design rather than
+ * cut from this one.
+ *
+ * The shadow is `--sun` rather than the cobalt used elsewhere: these buttons
+ * ARE cobalt, so a cobalt shadow would merge into them and read as a smear.
+ * Yellow on cobalt is the theme's own pairing (it is the buttons' own text
+ * colour) and it separates the shape from the cream behind it.
+ *
+ * Press moves the button onto its own shadow rather than shrinking it, so the
+ * block is what animates — the same gesture the theme's cards imply by being
+ * lifted.
+ */
+.theme-ciao-amore .venue-section .buttons a,
+.theme-ciao-amore .rsvp-card button.rsvp-submit {
+  box-shadow: 4px 4px 0 var(--sun);
+  transition:
+    transform 0.15s ease,
+    box-shadow 0.15s ease;
+}
+
+.theme-ciao-amore .venue-section .buttons a:hover,
+.theme-ciao-amore .rsvp-card button.rsvp-submit:hover:not(:disabled) {
+  transform: translate(2px, 2px);
+  box-shadow: 2px 2px 0 var(--sun);
+}
+
+.theme-ciao-amore .venue-section .buttons a:active,
+.theme-ciao-amore .rsvp-card button.rsvp-submit:active:not(:disabled) {
+  transform: translate(4px, 4px);
+  box-shadow: 0 0 0 var(--sun);
+}
+
+/* Keyboard focus keeps the recolour language of the fields: the shadow the
+   button already casts is the indicator, so nothing is added around it. On
+   these the shadow is already `--sun`, so focus deepens it to the cobalt the
+   button sits on — still one shape, still one change. */
+.theme-ciao-amore .venue-section .buttons a:focus-visible {
+  outline: none;
+  box-shadow: 4px 4px 0 var(--cobalt);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .theme-ciao-amore .venue-section .buttons a,
+  .theme-ciao-amore .rsvp-card button.rsvp-submit {
+    transition: none;
+  }
+
+  .theme-ciao-amore .venue-section .buttons a:hover,
+  .theme-ciao-amore .venue-section .buttons a:active,
+  .theme-ciao-amore .rsvp-card button.rsvp-submit:hover:not(:disabled),
+  .theme-ciao-amore .rsvp-card button.rsvp-submit:active:not(:disabled) {
+    transform: none;
+  }
+}
+
+/* ── RSVP: children ─────────────────────────────────────────────────────── */
+/*
+ * Added with the adults-only setting (`settings.adults_only` → `allowChildren`
+ * in `themes/types.ts`).
+ *
+ * Almost nothing is needed here, and that is the point. Each child row is a
+ * `<label>` that is a DIRECT child of the form, exactly like `.partner-field`,
+ * so it already picks up the generated `.rsvp-card > form > label` grid; its
+ * input sits in the existing `.rsvp-field` wrapper, so it inherits that box,
+ * its 2px cobalt border, its 4px offset shadow and — the part that matters —
+ * its `:focus-within` recolour of that shadow to `--sun`. No outline and no
+ * extra border is introduced anywhere in this block: the child fields announce
+ * focus in exactly the same language as every other control in the form.
+ *
+ * The count above them is a `<select>` in `.rsvp-field-select`, already drawn
+ * by this sheet, rather than an "add a child" button — `.rsvp-card button
+ * { width:100%; padding:16px }` in the generated sheet would have made that
+ * button a full-width cobalt slab reading as a second submit.
+ *
+ * So the only rule left is the reveal, matched to the partner row.
+ */
+.theme-ciao-amore .rsvp-card .child-field {
+  animation: fieldReveal 0.38s ease both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .theme-ciao-amore .rsvp-card .child-field {
+    animation: none;
+  }
 }
