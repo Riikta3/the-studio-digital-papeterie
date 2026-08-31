@@ -1,6 +1,6 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { motion, useReducedMotion } from "framer-motion";
 import Image from "next/image";
 import { ArrowLeft, ArrowRight } from "lucide-react";
 import { useTranslations } from "next-intl";
@@ -31,14 +31,16 @@ export function HeroCarousel({
   onActiveThemeChange?: (themeIndex: number) => void;
 } = {}) {
   const t = useTranslations("HeroCarousel");
+  // Honoured for the grow/shrink only — the rest of this page's motion predates
+  // this change and is left as is rather than altered in passing.
+  const reduceMotion = useReducedMotion();
   const cardAlts = t.raw("cards") as { alt: string }[];
   // "intro" = one-shot slide-in; "idle" = manual carousel.
   const [phase, setPhase] = useState<"intro" | "idle">("intro");
   // Unbounded counter → infinite swipe in both directions.
   const [position, setPosition] = useState(REFERENCE_INDEX);
 
-  const activeCardId =
-    ((position % CARD_COUNT) + CARD_COUNT) % CARD_COUNT;
+  const activeCardId = ((position % CARD_COUNT) + CARD_COUNT) % CARD_COUNT;
 
   // Reported on every change, including during the intro: the hero's CTA names
   // this theme, so the name has to be right before the fan settles — not only
@@ -117,64 +119,83 @@ export function HeroCarousel({
             restX then pulls the active card back to the center.
             Rendered only once measured on the client → no hydration mismatch. */}
         {dims && (
-        <motion.div
-          className="absolute left-1/2 top-1/2 h-0 w-0"
-          initial={{ x: introFromX }}
-          animate={{ x: restX }}
-          transition={
-            phase === "intro"
-              ? { duration: 2.2, delay: 0.2, ease: [0.45, 0, 0.65, 0.3] }
-              : { type: "spring", stiffness: 180, damping: 26 }
-          }
-          onAnimationComplete={() => {
-            if (phase === "intro") setPhase("idle");
-          }}
-        >
-          {/* Render enough repeats around the current position for infinite feel.
+          <motion.div
+            className="absolute left-1/2 top-1/2 h-0 w-0"
+            initial={{ x: introFromX }}
+            animate={{ x: restX }}
+            transition={
+              phase === "intro"
+                ? { duration: 2.2, delay: 0.2, ease: [0.45, 0, 0.65, 0.3] }
+                : { type: "spring", stiffness: 180, damping: 26 }
+            }
+            onAnimationComplete={() => {
+              if (phase === "intro") setPhase("idle");
+            }}
+          >
+            {/* Render enough repeats around the current position for infinite feel.
               The window is re-centered on `position` every render (not a fixed
               range around 0), so it keeps following the user however far they
               swipe/click in either direction — true infinite scroll. */}
-          {Array.from({ length: CARD_COUNT * 5 }, (_, k) => {
-            const trackIndex = position - CARD_COUNT * 2 + k; // spans below & above current
-            const cardId =
-              ((trackIndex % CARD_COUNT) + CARD_COUNT) % CARD_COUNT;
-            // During intro nothing is highlighted; at rest only the centered one.
-            const isActive = phase === "idle" && trackIndex === position;
+            {Array.from({ length: CARD_COUNT * 5 }, (_, k) => {
+              const trackIndex = position - CARD_COUNT * 2 + k; // spans below & above current
+              const cardId =
+                ((trackIndex % CARD_COUNT) + CARD_COUNT) % CARD_COUNT;
+              // During intro nothing is highlighted; at rest only the centered one.
+              const isActive = phase === "idle" && trackIndex === position;
 
-            return (
-              <motion.div
-                key={k}
-                initial={{ opacity: 0 }}
-                animate={{
-                  opacity: 1,
-                  scale: isActive ? ACTIVE_SCALE : 1,
-                  zIndex: isActive ? 10 : 1,
-                }}
-                transition={{
-                  opacity: { duration: 0.2, ease: "easeOut" },
-                  scale: { duration: 0.5, ease: "easeOut" },
-                }}
-                className="absolute overflow-hidden rounded-3xl"
-                style={{
-                  width: cardW,
-                  height: cardH,
-                  left: trackIndex * step - cardW / 2,
-                  top: "50%",
-                  marginTop: -cardH / 2,
-                }}
-              >
-                <Image
-                  src={THEMES[cardId].image}
-                  alt={cardAlts[cardId]?.alt ?? ""}
-                  fill
-                  sizes="(max-width: 768px) 60vw, 290px"
-                  className="object-cover"
-                  priority={cardId === REFERENCE_INDEX}
-                />
-              </motion.div>
-            );
-          })}
-        </motion.div>
+              return (
+                <motion.div
+                  // Keyed on the track slot, not on `k`. The rendered window is
+                  // re-centred on `position` every render, so `k` addresses a
+                  // different card after each step: React would keep the same
+                  // node and swap its image, leaving Framer nothing to animate —
+                  // the active card's scale jumped straight from 1 to 1.2 with no
+                  // frames in between. `trackIndex` is a card's stable identity,
+                  // so growing and shrinking are transitions on one element.
+                  key={trackIndex}
+                  initial={{ opacity: 0 }}
+                  animate={{
+                    opacity: 1,
+                    scale: isActive ? ACTIVE_SCALE : 1,
+                    zIndex: isActive ? 10 : 1,
+                  }}
+                  transition={{
+                    opacity: { duration: 0.2, ease: "easeOut" },
+                    // Grow and shrink together on a soft spring: the card the
+                    // user leaves eases down while the new one eases up.
+                    scale: reduceMotion
+                      ? { duration: 0 }
+                      : {
+                          type: "spring",
+                          stiffness: 260,
+                          damping: 30,
+                          mass: 0.9,
+                        },
+                    // zIndex must not interpolate, or the shrinking card floats
+                    // over the growing one through fractional values.
+                    zIndex: { duration: 0 },
+                  }}
+                  className="absolute overflow-hidden rounded-3xl"
+                  style={{
+                    width: cardW,
+                    height: cardH,
+                    left: trackIndex * step - cardW / 2,
+                    top: "50%",
+                    marginTop: -cardH / 2,
+                  }}
+                >
+                  <Image
+                    src={THEMES[cardId].image}
+                    alt={cardAlts[cardId]?.alt ?? ""}
+                    fill
+                    sizes="(max-width: 768px) 60vw, 290px"
+                    className="object-cover"
+                    priority={cardId === REFERENCE_INDEX}
+                  />
+                </motion.div>
+              );
+            })}
+          </motion.div>
         )}
       </div>
 
