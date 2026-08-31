@@ -30,7 +30,23 @@ export function HeroSection({ data }: { data: InvitationData }) {
         <h1 className="hero-names">
           <b>{couple.partner1}</b>
           <i className="jewel-amp">
-            <span aria-hidden="true" /> &
+            <span aria-hidden="true" />
+            {/*
+              The "&" is wrapped so the *glyph* can be nudged and scaled
+              without moving the jewel around it. Parisienne is a cursive: its
+              ampersand sits high in the typographic box with a tail that drops
+              to the right, so a box that is mathematically centred on the disc
+              still reads as low and right by several pixels. `.jewel-amp`
+              itself carries the disc (`:after`) and the rays (`> span`), which
+              are correctly placed and correctly sized — only the ink moves.
+              See `responsive.css`.
+
+              Deliberately NOT a <b>: the generated sheet carries
+              `.hero-names b { animation:none!important; transform:none }` for
+              the reveal, and a <b> here inherits it — the nudge silently
+              resolved to `matrix(1,0,0,1,0,0)`.
+            */}
+            <em className="jewel-amp-glyph">&amp;</em>
           </i>
           <b>{couple.partner2}</b>
         </h1>

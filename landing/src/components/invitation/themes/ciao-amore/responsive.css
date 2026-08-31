@@ -126,7 +126,12 @@
   /* The stage width is declared on the section so every descendant inherits
      it — the decor offsets below are all expressed against it. */
   .theme-ciao-amore .hero-direct {
-    --ca-stage: min(92vw, 620px);
+    /* 860, not the 620 this pass first used: frozen at 620px the panel was a
+       narrow strip adrift in the middle of a 1440px screen while the border
+       frame around it spanned the viewport. The stage stays a portrait-ish
+       measure — the panel stacks two script names — but grows enough to read
+       as the invitation itself. */
+    --ca-stage: min(92vw, 860px);
     display: grid;
     place-items: center;
   }
@@ -307,236 +312,508 @@
   /* The sun disc is 330px wide and pinned 145px past the stage edge, which put
      it half outside the viewport on a wide screen. */
   .theme-ciao-amore .sun-disc.sun-disc {
+    /* 330px of ring pinned past the stage edge landed a third of it outside
+       the viewport once the stage grew to 860px. Clamp it back inside. */
+    right: clamp(24px, calc(50% - var(--ca-stage) / 2 - 200px), 120px);
     top: 40px;
+  }
+
+  /* The wave is the hero's horizon. Anchored to the centred stage it stopped
+     846px short of both margins and read as a stray graphic; a horizon has no
+     business ending before the screen does. */
+  .theme-ciao-amore .blue-wave.blue-wave {
+    left: -2%;
+    right: -2%;
+  }
+
+  /* The venue line and the "Découvrir" link touch once the panel stops being
+     viewport-tall. */
+  .theme-ciao-amore .hero-panel small {
+    margin-bottom: 18px;
   }
 
   /* `MATRIMONIO IN ITALIA` is a background watermark scaled in vw; past the
      stage width it overruns the panel and collides with the venue line. */
   .theme-ciao-amore .hero-direct::after {
-    max-width: var(--ca-stage);
+    /* The earlier pass set `left:50%; transform:translateX(-50%)` with a
+       `max-width` of the stage. Keep that centring — overriding `inset`
+       wholesale re-anchored it to the left edge and dragged the watermark off
+       the screen — and only cap the type, which is `clamp(6.8rem, 29vw, 10rem)`
+       in the source and becomes a billboard on a wide viewport.
+
+       "IN ITALIA" was also being cut off flat at the section's bottom edge.
+       That took three attempts to see, because two things hide it: the blue
+       wave crosses the letters at 17.6% white, and the shortest glyphs end
+       29px above the edge, so a bbox measurement says "fits". Hiding the wave
+       and painting the type opaque shows the truth — the letterforms stop
+       mid-stroke, with no curves or serif terminals.
+
+       The fix is the type size, not the position. The source's
+       `clamp(6.8rem, 29vw, 10rem)` is calibrated for a 520px column where only
+       the cap-height of line 2 was ever meant to show; at 1440px it needs two
+       full lines inside a fixed 100svh section. `bottom` and `line-height`
+       stay as the theme set them — moving the box only trades a bottom crop
+       for a collision with the venue line above. */
     left: 50%;
+    right: auto;
     transform: translateX(-50%);
-  }
-
-  /* The venue line and the "Découvrir" link were touching once the panel
-     stopped being viewport-tall. */
-  .theme-ciao-amore .hero-panel small {
-    margin-bottom: 18px;
+    width: var(--ca-stage);
+    max-width: var(--ca-stage);
+    font-size: clamp(3rem, 7.5vw, 5.2rem);
+    /* The source bleeds the block off the bottom (`inset:auto -10px -22px`)
+       because in a 520px column only the cap-height of line 2 was meant to
+       show. Two full lines have to clear the edge here, and `line-height:.69`
+       means the box is shorter than the type it holds — so the box must sit
+       high enough for the *ink*, not just for the box. */
+    bottom: 42px;
+    line-height: 0.92;
   }
 }
 
-/* ── Every remaining pinned decoration follows the content band ─────────── */
+/* ── 2. Countdown ───────────────────────────────────────────────────────── */
 /*
- * All of these are positioned with a negative offset from their section's own
- * edge — fine in a 520px column, but at full width the edge is the viewport,
- * so they either drift into the far margins or get sliced by `overflow:hidden`.
+ * The dividers were `border-left:1px` on each cell of a 4-column grid. At
+ * 1440px the columns are 275px wide, so every border landed on a different
+ * fraction of a device pixel: some rendered as a crisp line, others washed out
+ * to a grey smear, and they read as four different rules.
  *
- * `--ca-band` is half the widest content band (1100px), so
- * `calc(50% - var(--ca-band) ...)` reproduces the original offset measured
- * from where the content actually ends.
+ * Drawing them as a centred pseudo-element instead removes the rounding
+ * problem — the element is positioned, not a box edge, so it snaps the same
+ * way every time — and lets the rule be a deliberate short stroke between the
+ * figures rather than a full-bleed division of the row.
  */
-@media (min-width: 900px) {
-  .theme-ciao-amore {
-    --ca-band: 550px;
+@media (min-width: 700px) {
+  .theme-ciao-amore .countdown > div + div {
+    border-left: 0;
+    position: relative;
   }
 
-  .theme-ciao-amore .program-sun {
-    right: calc(50% - var(--ca-band) - 90px);
-  }
-
-  .theme-ciao-amore .program-stripe {
-    left: calc(50% - var(--ca-band) - 18px);
-  }
-
-  .theme-ciao-amore .rsvp-sun {
-    right: calc(50% - var(--ca-band) - 105px);
-  }
-
-  .theme-ciao-amore .decor-spritz-playlist {
-    right: calc(50% - var(--ca-band) - 18px);
-  }
-
-  .theme-ciao-amore .countdown-section::before {
-    left: calc(50% - var(--ca-band) - 110px);
-  }
-
-  .theme-ciao-amore .countdown-section::after {
-    right: calc(50% - var(--ca-band) - 100px);
-  }
-
-  .theme-ciao-amore .faq-section .decor-faq-lemon {
-    left: calc(50% - var(--ca-band) - 40px);
+  .theme-ciao-amore .countdown > div + div::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 1px;
+    height: 62%;
+    background: #7694e5;
   }
 }
 
-/* ── Align the list sections with their own headings ────────────────────── */
 /*
- * `.stays-section` and `.faq-section` are capped at 1100px and centred, but
- * their inner grids were still spanning the full padded box while the heading
- * sat centred on a narrower measure — the cards read as pushed to one side.
- * Give the grids the same measure as the copy above them.
- */
-@media (min-width: 900px) {
-  .theme-ciao-amore .hotels {
-    max-width: 1000px;
-    margin-inline: auto;
-  }
-}
-
-/* ── Let the corner decorations bleed instead of being sliced ───────────── */
-/*
- * The countdown rays and the timeline stripe are quarter-circles meant to run
- * off the edge of a narrow column. Clipped by a full-width section they read
- * as broken shapes rather than as bleed. Pulling them fully outside the
- * content band restores the intent: partly visible, never cut mid-shape.
+ * The ray fan is a 250px circle at `left:-92px; bottom:-78px` of a 520px
+ * column: three quarters of it hangs outside, which is the intent. The earlier
+ * desktop pass moved it to `left: calc(50% - 550px)` — inside the section, so
+ * `overflow` cut a clean straight edge through the middle of the disc and it
+ * read as a broken shape.
+ *
+ * Put it back to bleeding off the left edge of the viewport, which is what the
+ * source drew, and keep it clear of the content band.
  */
 @media (min-width: 900px) {
   .theme-ciao-amore .decor-rays {
-    bottom: -140px;
-  }
-
-  .theme-ciao-amore .program-stripe {
-    top: 18px;
+    left: -92px;
+    bottom: -78px;
   }
 }
 
-/* ── FAQ accordion ──────────────────────────────────────────────────────── */
+/* ── 3. Arch section ────────────────────────────────────────────────────── */
 /*
- * `FaqSection` renders buttons and panels rather than `<details>`, because a
- * native disclosure cannot be transitioned — the browser snaps it open. These
- * rules restate the source's look (cream plate, hairline rules, Italiana
- * question, rotating "+") on the new markup, and add the open/close motion.
+ * `.arch-copy` is `width:100%` inside a flex section, so at 1440px it measured
+ * 1187 × 299 — a letterbox band. The name of the section is the shape: it is
+ * meant to be an arched card, taller than it is wide, with the sun rising
+ * behind its crown.
  *
- * The panel animates on `grid-template-rows: 0fr → 1fr`, which is the only way
- * to transition to a height the content decides without measuring it in JS.
+ * Cap it to a card measure and let the vertical padding restore the
+ * proportion. Everything inside it is centred already, so no other change is
+ * needed.
  */
-.theme-ciao-amore .ca-faq-item {
-  background: #fff;
-  border: 1px solid #90a8e8;
-  border-bottom: 0;
-}
-
-.theme-ciao-amore .ca-faq-item:last-child {
-  border-bottom: 1px solid #90a8e8;
-}
-
-.theme-ciao-amore .ca-faq-trigger {
-  width: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 15px;
-  padding: 18px 14px;
-  background: none;
-  border: 0;
-  text-align: left;
-  font-family: var(--font-ca-display), Italiana, serif;
-  font-size: 1.15rem;
-  color: var(--cobalt);
-  cursor: pointer;
-  transition: background 0.25s ease;
-}
-
-.theme-ciao-amore .ca-faq-trigger:hover {
-  background: #fbfaf6;
-}
-
-/* Keyboard focus must stay visible: the trigger is the only control here. */
-.theme-ciao-amore .ca-faq-trigger:focus-visible {
-  outline: 2px solid var(--cobalt);
-  outline-offset: -3px;
-}
-
-/* The "+" that becomes a "×" — drawn rather than typed, so it rotates cleanly. */
-.theme-ciao-amore .ca-faq-sign {
-  position: relative;
-  flex: 0 0 auto;
-  width: 14px;
-  height: 14px;
-  transition: transform 0.32s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-.theme-ciao-amore .ca-faq-sign::before,
-.theme-ciao-amore .ca-faq-sign::after {
-  content: "";
-  position: absolute;
-  inset: 50% 0 auto;
-  height: 1.5px;
-  background: var(--cobalt);
-  transform: translateY(-50%);
-}
-
-.theme-ciao-amore .ca-faq-sign::after {
-  transform: translateY(-50%) rotate(90deg);
-}
-
-.theme-ciao-amore .ca-faq-item[data-open] .ca-faq-sign {
-  transform: rotate(135deg);
-}
-
-.theme-ciao-amore .ca-faq-panel {
-  display: grid;
-  grid-template-rows: 0fr;
-  transition: grid-template-rows 0.36s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-.theme-ciao-amore .ca-faq-item[data-open] .ca-faq-panel {
-  grid-template-rows: 1fr;
-}
-
-/* The row collapses to zero height, so the inner element must be allowed to be
-   clipped — without `min-height:0` a grid item refuses to shrink below content. */
-.theme-ciao-amore .ca-faq-panel-inner {
-  overflow: hidden;
-  min-height: 0;
-}
-
-.theme-ciao-amore .ca-faq-panel p {
-  margin: 0;
-  padding: 0 38px 18px 14px;
-  font-family: var(--font-ca-serif), "Libre Caslon Display", serif;
-  line-height: 1.6;
-  color: #655f55;
-  opacity: 0;
-  transform: translateY(-4px);
-  transition:
-    opacity 0.28s ease 0.06s,
-    transform 0.28s ease 0.06s;
-}
-
-.theme-ciao-amore .ca-faq-item[data-open] .ca-faq-panel p {
-  opacity: 1;
-  transform: none;
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .theme-ciao-amore .ca-faq-panel,
-  .theme-ciao-amore .ca-faq-sign,
-  .theme-ciao-amore .ca-faq-panel p {
-    transition: none;
+@media (min-width: 700px) {
+  .theme-ciao-amore .arch-section .arch-copy {
+    width: min(100%, 560px);
+    /* An arch is taller than it is wide. The card holds four short centred
+       lines, so without a floor on its height the content collapses it into a
+       band; `min-height` restores the portrait proportion and the extra top
+       padding leaves the sun room to rise behind the crown. */
+    min-height: 400px;
+    /* The card's own children are three short centred lines. Without a flex
+       context they stack from the top of a 470px box and leave a third of the
+       card empty below them; centring them puts the title on the card's
+       optical axis, which is where an arched plaque wants it. */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding-block: clamp(44px, 5vw, 64px);
+    padding-inline: clamp(32px, 5vw, 56px);
   }
 }
 
-/* ── Venue card: separate the address from the route buttons ────────────── */
 /*
- * `.venue-frame > p` carries no bottom margin in the source; in a narrow
- * column the buttons wrapped onto their own line anyway, so the collision
- * never showed. Widened, they pull up beside the address and touch it.
+ * The sun is `radial-gradient(circle at 50% 15%, ...)` painted on the section
+ * itself. Anchored 15% down a 700px-tall section it sits at y=105 with a 112px
+ * radius, so its top 7px were clipped by the section edge and it read as a
+ * half-moon.
+ *
+ * Drop the centre far enough that the whole disc clears the top edge.
  */
-.theme-ciao-amore .venue-frame > p:not(.eyebrow) {
-  margin-bottom: 26px;
-}
+@media (min-width: 700px) {
+  .theme-ciao-amore .arch-section {
+    /* The sun is painted on the section, and the card is painted over it, so
+       it has two edges to clear: the section's top (or it renders with a flat
+       top) and the card's top (or only a sliver shows).
 
-.theme-ciao-amore .venue-frame .buttons {
-  flex-wrap: wrap;
-  gap: 12px;
-}
+       The vertical centre is given in PIXELS, not the source's percentage.
+       `.arch-section`'s height varies by breakpoint (620 / 660 / 700 / 780px
+       in the generated sheet), and a percentage measures the clearance against
+       that height — so one percentage cannot be correct at every width. A px
+       centre makes the clearance the same everywhere: 130px down, with the
+       effective radius of 112px, leaves 18px of air above the disc.
 
-/* The venue card is a piece of stationery, not a banner: hold it to a card-like
-   width instead of letting it span the section. */
-@media (min-width: 900px) {
-  .theme-ciao-amore .venue-frame {
-    max-width: 640px !important;
-    padding-inline: clamp(32px, 5vw, 64px);
+       Note the radius is 112px, not the 128px of the source's first
+       declaration: a later rule in the cascade re-declares this gradient with
+       `#f2d46b 0 112px`, and that is what actually paints. Verified by reading
+       the computed `background-image`, not the stylesheet. */
+    background-image:
+      radial-gradient(circle at 50% 186px, #f2d46b 0 172px, transparent 173px),
+      repeating-linear-gradient(115deg, transparent 0 62px, #ffffff0a 62px 63px);
   }
+
+  /* Push the card down so the disc has room to rise behind it. The section's
+     own `min-height` absorbs this, so nothing below moves. */
+  .theme-ciao-amore .arch-section .arch-copy {
+    margin-top: 120px;
+  }
+}
+
+/* The same crop, on mobile, from the same cause.
+ *
+ * Below 700px the rule above does not apply and the source's own percentage
+ * takes over — `circle at 50% 15%` on a 620px-tall section puts the centre
+ * 93px down, 19px short of the 112px radius, so the disc is sliced off square
+ * at the section's top edge. Measured on the rendered pixels: the disc's first
+ * painted row was already 126px wide, where a round top starts near zero.
+ *
+ * Same px-based fix, but a smaller offset: the mobile card starts 146px down
+ * and the section is shorter, so 130px would push the disc behind the card
+ * instead of letting it rise above it. 118px clears the top edge by 6px and
+ * still leaves the crown of the sun visible above the card.
+ */
+@media (max-width: 699px) {
+  .theme-ciao-amore .arch-section {
+    background-image:
+      radial-gradient(circle at 50% 152px, #f2d46b 0 138px, transparent 139px),
+      repeating-linear-gradient(115deg, transparent 0 62px, #ffffff0a 62px 63px);
+  }
+
+  /* Same proportion as desktop, on a 350px card: a Ø380 disc overhangs it and
+     the card starts far enough down to show most of the circle. */
+  .theme-ciao-amore .arch-section .arch-copy {
+    margin-top: 74px;
+  }
+}
+
+/* ── 4. Timeline ────────────────────────────────────────────────────────── */
+/*
+ * `.timeline` is a `62px | 38px | 1fr` grid: the time column and the icon rail
+ * are fixed, so the *cards* start 111px right of the block's left edge while
+ * the block itself is centred. Measured at 1440px the heading's centre was
+ * 720 and the cards' centre was 776 — a 56px drift that reads as the whole
+ * timeline being pushed left, because the eye centres on the card stack, not
+ * on the invisible rail.
+ *
+ * Nudging the block left by half the fixed columns puts the *cards* on the
+ * page's axis, which is the alignment the heading promises.
+ */
+@media (min-width: 700px) {
+  .theme-ciao-amore .timeline {
+    max-width: 860px;
+    /* The fixed `62px | 38px` columns plus two 11px gaps put the card stack
+       111px right of the block's own left edge, so centring the block leaves
+       the cards 60px right of the page axis. Shifting the block by that amount
+       lands the cards' centre on the heading's centre — verified by measuring
+       both, not by eye. */
+    transform: translateX(-60px);
+  }
+}
+
+/* ── 5. Stays: contain the diagonal ─────────────────────────────────────── */
+/*
+ * The beige band is `linear-gradient(135deg, #f8f0cf 0 49%, #ead79b 49% 51%,
+ * #f8f0cf 51%)` on the section. A gradient stop expressed in percent of a
+ * 135° axis scales with the box, so on a 1440 × 762 section the 2%-wide stripe
+ * became a ~46px ribbon crossing the entire section and passing straight
+ * behind the hotel cards.
+ *
+ * Two changes: pin the stripe to a fixed pixel width so it stays a hairline
+ * rule at any viewport, and fade it out before it reaches the card row so it
+ * decorates the corners instead of striking through the content.
+ */
+@media (min-width: 900px) {
+  .theme-ciao-amore .stays-section {
+    background-color: #f8f0cf;
+    /* Two changes to the source's `linear-gradient(135deg, ... 49% 51% ...)`:
+       the stripe is pinned to a fixed pixel width so it stays a ribbon instead
+       of scaling into a 46px band, and it is masked to the two corners so it
+       reads as a corner flourish rather than a rule struck through the hotel
+       row. `background-size` under 100% keeps the diagonal from running the
+       full length of a 1440px section. */
+    background-image: linear-gradient(
+      135deg,
+      transparent calc(50% - 11px),
+      #ead79bb0 calc(50% - 11px),
+      #ead79bb0 calc(50% + 11px),
+      transparent calc(50% + 11px)
+    );
+    background-repeat: no-repeat;
+    background-position: right -60px top -40px;
+    background-size: 46% 62%;
+  }
+
+  /* The cards paint their own ground, but the section's stripe was showing
+     through the gutters between them and reading as one continuous band. A
+     stacking context on the row keeps the decoration strictly behind. */
+  .theme-ciao-amore .stays-section .hotels,
+  .theme-ciao-amore .stays-section > h2,
+  .theme-ciao-amore .stays-section > .eyebrow {
+    position: relative;
+    z-index: 1;
+  }
+}
+
+/* ── 6. Playlist decorations ────────────────────────────────────────────── */
+/*
+ * Same story as the countdown rays. `.vinyl` is a 210px disc at `left:-88px`,
+ * meant to run off the edge; moved inside the band by the earlier pass it was
+ * sliced flat by the section's overflow. `.decor-spritz-playlist` is a 145px
+ * image at `right:-18px` and was losing its right third the same way.
+ *
+ * Let both bleed off the viewport edge again — a shape half off-screen reads
+ * as intentional, a shape with a straight cut through it reads as a bug.
+ */
+@media (min-width: 900px) {
+  .theme-ciao-amore .vinyl {
+    left: -70px;
+  }
+
+  .theme-ciao-amore .decor-spritz-playlist {
+    right: clamp(16px, calc(50% - var(--ca-band) - 18px), 90px);
+  }
+}
+
+/* ── 7. Venue route buttons ─────────────────────────────────────────────── */
+/*
+ * `.buttons a` inherits the source's flat rectangle. Every other shape in this
+ * theme is soft — the arch, the vinyl, the key fob, the rounded timeline
+ * images — so two sharp-cornered blocks in the middle of the stationery card
+ * were the only hard corners on the page.
+ *
+ * A full pill matches the theme's vocabulary and gives the pair a hover state
+ * they did not have.
+ */
+/*
+ * The route buttons had *zero* space above them: `.venue-frame > p` carries no
+ * bottom margin and `.buttons` no top margin, so the pills sat flush against
+ * "84010 Ravello · Italie". In the source's narrow column the pair wrapped onto
+ * its own line and the collision never showed; widened, they pull straight up
+ * under the address.
+ *
+ * 28px matches the `margin-bottom` the card's own `h2` uses — that is this
+ * block's vertical rhythm, so the buttons detach from the address without
+ * inventing a new spacing value. The 8px gap *between* the two pills is the
+ * one spacing in this card that was already right; it is untouched.
+ */
+.theme-ciao-amore .venue-frame .buttons {
+  margin-top: 28px;
+}
+
+.theme-ciao-amore .venue-frame .buttons a {
+  border-radius: 999px;
+  transition:
+    background 0.25s ease,
+    color 0.25s ease;
+}
+
+/* The wider padding a pill wants is desktop-only: at 390px the two labels
+   already fill the row, and 26px of side padding tipped them onto separate
+   lines — the pair went from one row to two and the card grew 52px. */
+@media (min-width: 700px) {
+  .theme-ciao-amore .venue-frame .buttons a {
+    padding: 13px 26px;
+  }
+}
+
+.theme-ciao-amore .venue-frame .buttons a:hover,
+.theme-ciao-amore .venue-frame .buttons a:focus-visible {
+  background: var(--sun);
+  color: var(--cobalt);
+}
+
+
+/* ── 8. Optically centre the "&" inside its jewel ───────────────────────── */
+/*
+ * The boxes were never the problem: the cobalt disc (`.jewel-amp:after`,
+ * `inset:-4%`) and the glyph's box share a centre to the pixel at every width.
+ * What is off-centre is the *ink*. Parisienne draws its ampersand high in the
+ * em box with a descending tail to the right, so the visible mark sits low and
+ * right of the box it occupies — measured at +3.5 / +7.3 px at 1440 and
+ * +2.3 / +4.2 px at 390, by reading the rendered pixels rather than the
+ * layout boxes.
+ *
+ * The correction is on the glyph alone. Moving `.jewel-amp` would drag the
+ * disc and the rays with it and simply relocate the problem; `.jewel-amp` also
+ * carries `margin` with `!important` in the generated sheet, so it is not a
+ * safe thing to push around.
+ *
+ * The offset scales with the type, so it is expressed in `em` and lands within
+ * a pixel at both reference widths.
+ */
+.theme-ciao-amore .jewel-amp-glyph {
+  display: block;
+  font: inherit;
+  font-weight: inherit;
+  /* `translate` on an inline-level box would be ignored; `display:block` above
+     makes this a transformable box that still inherits the script face. */
+  /* `scale` shrinks only the ink: the disc (`:after`) and the rays (`> span`)
+     are siblings of this element, not children, so the medallion around it
+     keeps exactly the size it had. Unreduced, the ampersand filled 96-97% of
+     the disc's diameter and touched the rim — crowded rather than jewel-like,
+     and it was what made the vertical offset so conspicuous.
+
+     Order matters: `translate` is listed first so it applies in the element's
+     own unscaled space, keeping the optical correction independent of the
+     scale factor, and `transform-origin: center` makes the scale symmetric
+     about the point the translate just landed on — so shrinking the glyph
+     cannot reintroduce an offset. */
+  transform: translate(-0.052em, -0.121em) scale(0.74);
+  transform-origin: center;
+}
+
+
+/* ── 10. "LIMONI · AMORE · ESTATE" band ─────────────────────────────────── */
+/*
+ * The band is `.timeline-section::after`, and it bleeds past the section's
+ * padding with `margin-inline:-30px` — exactly cancelling the source's
+ * `padding:90px 30px`, so it runs edge to edge.
+ *
+ * This pass widened that padding to `clamp(24px, 5vw, 80px)` (72px at 1440px)
+ * to hold the copy to a measure. The band's -30px could then only claw back 30
+ * of those 72, leaving a 42px gap down both sides — measured on the pixels:
+ * the band painted x=42..1397 while the section's own border above it ran the
+ * full 0..1439. The yellow section below it is full-bleed, so the inset band
+ * read as a mistake.
+ *
+ * `margin-inline` matched to the padding restores the bleed at any width.
+ */
+@media (min-width: 900px) {
+  .theme-ciao-amore .timeline-section::after {
+    margin-inline: calc(-1 * clamp(24px, 5vw, 80px));
+  }
+}
+
+/*
+ * The text also sat high in the band. The `::after` has a symmetric
+ * `padding:22px 0`, but `.timeline-section` carries `border-bottom:7px` in the
+ * same cobalt, which paints directly under the band and reads as part of it —
+ * so the *apparent* band is 7px taller at the bottom than the padding assumes,
+ * and the type looks pushed up.
+ *
+ * Trimming the bottom padding by the width of that border puts the text back
+ * on the optical centre of what the eye actually sees as the band.
+ */
+.theme-ciao-amore .timeline-section::after {
+  padding-bottom: 15px;
+}
+
+
+/* ── 11. Timeline icons ─────────────────────────────────────────────────── */
+/*
+ * The four glyphs are drawn in CSS inside a 36px round pastille, with every
+ * part pinned by hard-coded `left/top` offsets against the element's *square*
+ * bounding box. A circle is inscribed in that square, so anything placed near
+ * a corner — which is where each icon's little accent sits — lands outside the
+ * visible disc. `.timeline .icon` is `overflow:visible`, so instead of being
+ * clipped the fragments simply float over the rim.
+ *
+ * Zoomed captures (x6) show it plainly: the church's spire pokes through the
+ * top of the ring, the cutlery bars cross both sides of the plate, and the
+ * spritz's olive and the party's dot each straddle the rim as a detached blob.
+ * At 36px on a normal screen it reads as dirt on the icon.
+ *
+ * Each accent is pulled inside the disc below, and the glyphs that sat off
+ * centre are re-centred. Nothing here changes the pastille itself.
+ */
+
+/* Church: the spire tip was a 8px bar at `top:3px`, which starts above the
+   ring's crown; and the whole glyph sat low-left in the circle. */
+.theme-ciao-amore .icon-church::after {
+  left: 17px;
+  top: 7px;
+  height: 5px;
+}
+
+.theme-ciao-amore .icon-church i {
+  left: 9px;
+  bottom: 8px;
+}
+
+/* Spritz: the glass was high and left of centre, and the olive at
+   `right:4px; top:4px` sat on the rim rather than inside it. */
+.theme-ciao-amore .icon-spritz i {
+  left: 10px;
+  top: 8px;
+}
+
+.theme-ciao-amore .icon-spritz::after {
+  right: 6px;
+  top: 7px;
+}
+
+/* Plate: the two cutlery bars ran from `top:7px` for 20px, overshooting the
+   disc on both sides. Shortened and pulled in so they stay within the ring,
+   and the plate itself is inset a little more — it filled ~68% of the
+   diameter where the others fill about half. */
+.theme-ciao-amore .icon-plate i {
+  inset: 8px;
+}
+
+.theme-ciao-amore .icon-plate::before {
+  left: 5px;
+  top: 10px;
+  height: 15px;
+}
+
+.theme-ciao-amore .icon-plate::after {
+  right: 6px;
+  top: 10px;
+  height: 15px;
+}
+
+/* Party: the star is already centred; only its dot strayed onto the rim. */
+.theme-ciao-amore .icon-party::after {
+  right: 5px;
+  top: 6px;
+}
+
+
+/* ── 12. Dress-code section: close the frame ────────────────────────────── */
+/*
+ * `.dress-section` carries `border-inline: 12px solid var(--sun)` and nothing
+ * on the block axis — the only section in the theme whose borders run down the
+ * sides rather than across the top and bottom. The two yellow rules therefore
+ * ran the height of the section and simply stopped, and the next section
+ * (`venue-section`, which has no border of its own) began with no transition.
+ * The yellow line the eye reads *above* the section is not its own: it is
+ * `brunch-section`'s border-bottom.
+ *
+ * Chose to close the frame rather than convert it to the top/bottom-only
+ * pattern the other sections use. This is the one section that runs an
+ * illustrated lineup edge to edge, and a complete border reads as a mounted
+ * plate — which is what the side rules were reaching for. Matching the
+ * existing width and colour exactly means the corners mitre invisibly; a
+ * different weight or hue on two of the four sides is what produces the
+ * diagonal seam in a corner.
+ */
+.theme-ciao-amore .dress-section {
+  border-block: 12px solid var(--sun);
 }
