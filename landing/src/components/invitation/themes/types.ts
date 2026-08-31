@@ -102,6 +102,24 @@ export type Venue = {
  * and when a module they did not buy is absent.
  */
 export type InvitationData = {
+  /**
+   * The wedding this invitation belongs to, when it belongs to one.
+   *
+   * This is the single switch between the two modes a theme runs in:
+   *
+   *   - present  → a real invitation. Guest submissions (RSVP, playlist) are
+   *                persisted against this wedding.
+   *   - absent   → a demo. The theme renders identically but every form stays
+   *                local: it shows its confirmation state and writes nothing.
+   *
+   * It is deliberately part of the contract rather than inferred from the URL:
+   * a theme is rendered by the demo route, by the studio's live preview and by
+   * the real invitation page, and only the caller knows which. `demo-data.ts`
+   * must never set it — that is what keeps the public showcase out of the
+   * database.
+   */
+  weddingId?: string;
+
   couple: {
     partner1: string;
     partner2: string;

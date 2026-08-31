@@ -2,28 +2,68 @@
 
 import { type FormEvent, useState } from "react";
 
+import { submitPlaylistSuggestions } from "@/actions/invitation-submissions";
 import type { InvitationData } from "../../types";
 
 /**
  * Participative playlist.
  *
- * DEMO BEHAVIOUR: submitting only flips to the thank-you state — nothing is
- * persisted, exactly as in the source project. Wiring this to Supabase
- * (`playlist_suggestions`) is part of the dynamic phase, not the demo.
+ * Two modes, decided by `data.weddingId` (see `themes/types.ts`):
+ *   - with an id  → the suggestion is persisted into `playlist_suggestions`;
+ *   - without one → demo. The handler returns before calling the action, so
+ *                   the public showcase writes nothing.
  *
- * The source collected "Titre — Artiste" in one field while every integration
- * contract expects `{ title, artist }` separately; the split is done here so
- * the server side has the shape it needs when it arrives.
+ * The field collects "Titre — Artiste" in one input while the table (and the
+ * dashboard that reads it) expects `{ id, title, artist, coverUrl }`; the split
+ * happens here and the server action mints the id, so the status map the
+ * dashboard keys by track id always has something to key on.
  */
+
+/** Splits "Titre — Artiste" on the first em/en dash or hyphen separator. */
+function splitSuggestion(raw: string): { title: string; artist: string } {
+  const match = raw.match(/^(.*?)\s+[—–-]\s+(.*)$/);
+  if (match) return { title: match[1].trim(), artist: match[2].trim() };
+  return { title: raw.trim(), artist: "" };
+}
+
 export function PlaylistSection({ data }: { data: InvitationData }) {
   const [sent, setSent] = useState(false);
+  const [pending, setPending] = useState(false);
+  const [error, setError] = useState<string | null>(null);
   const [value, setValue] = useState("");
 
   const suggestions = data.playlist ?? [];
+  const weddingId = data.weddingId;
 
-  function handleSubmit(event: FormEvent) {
+  async function handleSubmit(event: FormEvent) {
     event.preventDefault();
-    setSent(true);
+    if (pending) return;
+
+    // Demo: no wedding to attach the suggestion to. Confirm locally, persist
+    // nothing.
+    if (!weddingId) {
+      setSent(true);
+      return;
+    }
+
+    const { title, artist } = splitSuggestion(value);
+    if (!title) {
+      setError("Merci d'indiquer un titre.");
+      return;
+    }
+
+    setPending(true);
+    setError(null);
+
+    const result = await submitPlaylistSuggestions({
+      weddingId,
+      tracks: [{ title, artist }],
+    });
+
+    setPending(false);
+
+    if (result.ok) setSent(true);
+    else setError(result.error);
   }
 
   return (
@@ -60,7 +100,10 @@ export function PlaylistSection({ data }: { data: InvitationData }) {
                 onChange={(event) => setValue(event.target.value)}
               />
             </label>
-            <button type="submit">Ajouter à la playlist</button>
+            {error ? <p role="alert">{error}</p> : null}
+            <button type="submit" disabled={pending}>
+              {pending ? "Envoi…" : "Ajouter à la playlist"}
+            </button>
           </form>
         )}
 

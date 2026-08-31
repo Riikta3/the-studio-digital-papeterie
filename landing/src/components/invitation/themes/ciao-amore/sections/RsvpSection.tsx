@@ -2,27 +2,77 @@
 
 import { type FormEvent, useState } from "react";
 
+import { submitRsvp } from "@/actions/invitation-submissions";
 import { formatFrenchDate } from "../../format";
 import type { InvitationData } from "../../types";
 
 /**
  * RSVP form.
  *
- * DEMO BEHAVIOUR: submitting only flips to the thank-you state — nothing is
- * persisted. The real flow (`rsvp_responses` + guest identification) belongs to
- * the dynamic phase. Inputs carry `name` attributes regardless, so wiring a
- * server action later is a matter of reading the FormData.
+ * Two modes, decided by `data.weddingId` (see `themes/types.ts`):
+ *   - with an id  → the answer is persisted into `rsvp_responses` through the
+ *                   server action, then the thank-you state is shown;
+ *   - without one → demo. The submit handler returns before touching the
+ *                   action, so the public showcase writes nothing.
+ *
+ * The demo guard is a plain early return rather than a conditional import: the
+ * action is a server action, so the client only ever holds a reference to it,
+ * and that reference is never called when `weddingId` is undefined. The action
+ * itself also rejects a missing or malformed id, so the demo path is closed on
+ * both sides.
  */
 export function RsvpSection({ data }: { data: InvitationData }) {
   const [sent, setSent] = useState(false);
+  const [pending, setPending] = useState(false);
+  const [error, setError] = useState<string | null>(null);
   const [partyMode, setPartyMode] = useState<"solo" | "partner">("solo");
 
   const rsvp = data.rsvp;
   const deadline = formatFrenchDate(data.event.rsvpDeadline);
+  const weddingId = data.weddingId;
 
-  function handleSubmit(event: FormEvent) {
+  async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    setSent(true);
+    if (pending) return;
+
+    const form = new FormData(event.currentTarget);
+
+    // Demo: no wedding to attach the answer to. Confirm locally, persist
+    // nothing. This is the guard the showcase relies on.
+    if (!weddingId) {
+      setSent(true);
+      return;
+    }
+
+    // "Prénom Nom" comes in as one field here; the table stores both the joined
+    // name and the split halves the dashboard edits.
+    const fullName = String(form.get("fullName") ?? "").trim();
+    const [firstName, ...rest] = fullName.split(" ");
+    const lastName = rest.join(" ");
+
+    const partnerName = String(form.get("partnerName") ?? "").trim();
+    const [partnerFirst, ...partnerRest] = partnerName.split(" ");
+
+    setPending(true);
+    setError(null);
+
+    const result = await submitRsvp({
+      weddingId,
+      firstName: firstName ?? "",
+      lastName,
+      attendance: form.get("attendance") === "yes",
+      dietary: String(form.get("dietary") ?? ""),
+      message: String(form.get("message") ?? ""),
+      companions:
+        partyMode === "partner" && partnerName
+          ? [{ firstName: partnerFirst ?? "", lastName: partnerRest.join(" ") }]
+          : [],
+    });
+
+    setPending(false);
+
+    if (result.ok) setSent(true);
+    else setError(result.error);
   }
 
   return (
@@ -103,7 +153,11 @@ export function RsvpSection({ data }: { data: InvitationData }) {
               </label>
             ) : null}
 
-            <button type="submit">Envoyer ma réponse</button>
+            {error ? <p role="alert">{error}</p> : null}
+
+            <button type="submit" disabled={pending}>
+              {pending ? "Envoi…" : "Envoyer ma réponse"}
+            </button>
           </form>
         )}
       </div>
