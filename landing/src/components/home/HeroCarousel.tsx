@@ -28,7 +28,7 @@ const CARD_RATIO = 290 / 540;
 export function HeroCarousel({
   onActiveThemeChange,
 }: {
-  onActiveThemeChange?: (themeName: string) => void;
+  onActiveThemeChange?: (themeIndex: number) => void;
 } = {}) {
   const t = useTranslations("HeroCarousel");
   const cardAlts = t.raw("cards") as { alt: string }[];
@@ -40,11 +40,13 @@ export function HeroCarousel({
   const activeCardId =
     ((position % CARD_COUNT) + CARD_COUNT) % CARD_COUNT;
 
+  // Reported on every change, including during the intro: the hero's CTA names
+  // this theme, so the name has to be right before the fan settles — not only
+  // after the first manual swipe.
   useEffect(() => {
-    if (phase !== "idle") return;
-    onActiveThemeChange?.(THEMES[activeCardId].name);
+    onActiveThemeChange?.(activeCardId);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [phase, activeCardId]);
+  }, [activeCardId]);
 
   // Measure the viewport so card size scales down on narrow screens and the
   // grown active card never exceeds the clipping container (no crop).

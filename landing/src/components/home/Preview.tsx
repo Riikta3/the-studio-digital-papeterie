@@ -10,6 +10,10 @@ import { useEffect, useRef, useState } from "react";
 import { Link } from "@/navigation";
 
 import { FadeIn } from "./FadeIn";
+import {
+  setSelectedThemeIndex,
+  useSelectedThemeIndex,
+} from "./selected-theme";
 import { THEMES, type Theme, themeDemoPath } from "./themes";
 import { UpcomingThemeCard } from "./UpcomingThemeCard";
 import { ThemeConfigSheet } from "./ThemeConfigSheet";
@@ -370,7 +374,9 @@ function ThemeCarousel({
 
 export function Preview() {
   const t = useTranslations("Preview");
-  const [activeTheme, setActiveTheme] = useState(0);
+  // Shared with the hero: its fan and this carousel select the same theme, so
+  // arriving here via "Tester le thème X" lands on X already loaded.
+  const activeTheme = useSelectedThemeIndex();
   const [configOpen, setConfigOpen] = useState(false);
 
   return (
@@ -439,7 +445,7 @@ export function Preview() {
       </FadeIn>
 
       <FadeIn className="mt-14">
-        <ThemeCarousel active={activeTheme} onSelect={setActiveTheme} />
+        <ThemeCarousel active={activeTheme} onSelect={setSelectedThemeIndex} />
       </FadeIn>
 
       <ThemeConfigSheet
