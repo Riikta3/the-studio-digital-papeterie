@@ -983,5 +983,13 @@
     "remove": "Remove",
     "done": "Done",
     "no_tables": "No tables yet"
+  },
+  "QrCode": {
+    "title": "Day-of QR code",
+    "permanent_note": "This QR code is permanent. It will never change, even if you edit your tables, menu, guests or schedule. You can have it printed today.",
+    "copy": "Copy",
+    "copied": "Link copied",
+    "download_png": "Download PNG",
+    "download_svg": "Download SVG"
   }
 }

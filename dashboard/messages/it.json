@@ -983,5 +983,13 @@
     "remove": "Rimuovi",
     "done": "Fatto",
     "no_tables": "Nessun tavolo per ora"
+  },
+  "QrCode": {
+    "title": "QR code del grande giorno",
+    "permanent_note": "Questo QR code è definitivo. Non cambierà mai, anche se modifichi i tavoli, il menu, gli invitati o il programma. Puoi stamparlo fin da ora.",
+    "copy": "Copia",
+    "copied": "Link copiato",
+    "download_png": "Scarica in PNG",
+    "download_svg": "Scarica in SVG"
   }
 }

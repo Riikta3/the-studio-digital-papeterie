@@ -983,5 +983,13 @@
     "remove": "Remover",
     "done": "Concluído",
     "no_tables": "Ainda não há mesas"
+  },
+  "QrCode": {
+    "title": "Código QR do grande dia",
+    "permanent_note": "Este código QR é definitivo. Nunca vai mudar, mesmo que edite as suas mesas, o menu, os convidados ou o programa. Já pode mandar imprimi-lo.",
+    "copy": "Copiar",
+    "copied": "Link copiado",
+    "download_png": "Baixar em PNG",
+    "download_svg": "Baixar em SVG"
   }
 }
