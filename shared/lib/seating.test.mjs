@@ -86,6 +86,20 @@ test("search never returns unseated or unconfirmed guests", () => {
   assert.deepEqual(searchSeatedGuests(tables, guests, "marion"), []);
 });
 
+test("search skips a seated guest who is not confirmed", () => {
+  // Reachable state: assignGuest never checks status, so a pending guest can
+  // end up seated. The privacy boundary must still exclude them.
+  const pending = [
+    { id: "p1", firstName: "Paul", lastName: "Pending", isChild: false, status: "pending" },
+    { id: "p2", firstName: "Paula", lastName: "Declined", isChild: false, status: "declined" },
+  ];
+  const seatedTable = [{
+    id: "tp", name: "Ischia", shape: "round", capacity: 8, x: 0, y: 0,
+    position: 0, guestIds: ["p1", "p2"],
+  }];
+  assert.deepEqual(searchSeatedGuests(seatedTable, pending, "pau"), []);
+});
+
 test("search caps at five results", () => {
   const many = Array.from({ length: 9 }, (_, i) => ({
     id: `x${i}`, firstName: "Alexandre", lastName: `Nom${i}`,
