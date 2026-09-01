@@ -991,5 +991,32 @@
     "copied": "Link copied",
     "download_png": "Download PNG",
     "download_svg": "Download SVG"
+  },
+  "DayOfMenu": {
+    "title": "Day-of menu",
+    "subtitle": "Switch on the courses you're serving and add your dishes.",
+    "enabled": "Enabled",
+    "add_placeholder": "Add a dish…",
+    "add_item": "Add",
+    "remove_item": "Remove",
+    "categories": {
+      "cocktail": "Cocktail",
+      "starter": "Starter",
+      "main": "Main",
+      "cheese": "Cheese",
+      "dessert": "Dessert",
+      "drinks": "Drinks"
+    }
+  },
+  "DayOfSettings": {
+    "title": "Day-of settings",
+    "enabled_label": "Turn on the day-of module",
+    "enabled_hint": "Your guests reach their table, the menu and the photos after scanning the QR code.",
+    "gallery_visible_label": "Gallery visible to guests",
+    "gallery_visible_hint": "Separate from uploading: guests can still share photos even while the gallery stays private.",
+    "after_wedding_label": "After-wedding mode",
+    "after_wedding_hint": "The page switches to a thank-you view and stays open to uploads.",
+    "uploads_until_label": "Uploads open until",
+    "uploads_until_hint": "Past this date, guests can no longer add photos."
   }
 }

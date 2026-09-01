@@ -991,5 +991,32 @@
     "copied": "Link kopiert",
     "download_png": "Als PNG herunterladen",
     "download_svg": "Als SVG herunterladen"
+  },
+  "DayOfMenu": {
+    "title": "Menü für den Hochzeitstag",
+    "subtitle": "Aktivieren Sie die Gänge, die Sie servieren, und fügen Sie Ihre Gerichte hinzu.",
+    "enabled": "Aktiviert",
+    "add_placeholder": "Gericht hinzufügen…",
+    "add_item": "Hinzufügen",
+    "remove_item": "Entfernen",
+    "categories": {
+      "cocktail": "Cocktail",
+      "starter": "Vorspeise",
+      "main": "Hauptgang",
+      "cheese": "Käse",
+      "dessert": "Dessert",
+      "drinks": "Getränke"
+    }
+  },
+  "DayOfSettings": {
+    "title": "Einstellungen für den Hochzeitstag",
+    "enabled_label": "Modul für den Hochzeitstag aktivieren",
+    "enabled_hint": "Ihre Gäste erreichen ihren Tisch, das Menü und die Fotos, nachdem sie den QR-Code gescannt haben.",
+    "gallery_visible_label": "Galerie für Gäste sichtbar",
+    "gallery_visible_hint": "Unabhängig vom Hochladen: Gäste können weiterhin Fotos teilen, selbst wenn die Galerie privat bleibt.",
+    "after_wedding_label": "Modus nach der Hochzeit",
+    "after_wedding_hint": "Die Seite wechselt zu einer Dankesansicht und bleibt für Uploads geöffnet.",
+    "uploads_until_label": "Uploads geöffnet bis",
+    "uploads_until_hint": "Nach diesem Datum können Gäste keine Fotos mehr hinzufügen."
   }
 }

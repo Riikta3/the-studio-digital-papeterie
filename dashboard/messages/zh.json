@@ -991,5 +991,32 @@
     "copied": "链接已复制",
     "download_png": "下载 PNG",
     "download_svg": "下载 SVG"
+  },
+  "DayOfMenu": {
+    "title": "婚礼当日菜单",
+    "subtitle": "开启您要供应的菜品分类，并添加您的菜肴。",
+    "enabled": "已启用",
+    "add_placeholder": "添加一道菜…",
+    "add_item": "添加",
+    "remove_item": "删除",
+    "categories": {
+      "cocktail": "鸡尾酒",
+      "starter": "前菜",
+      "main": "主菜",
+      "cheese": "奶酪",
+      "dessert": "甜点",
+      "drinks": "饮品"
+    }
+  },
+  "DayOfSettings": {
+    "title": "婚礼当日设置",
+    "enabled_label": "开启婚礼当日模块",
+    "enabled_hint": "宾客扫描二维码后即可查看自己的桌位、菜单和照片。",
+    "gallery_visible_label": "相册对宾客可见",
+    "gallery_visible_hint": "与上传相互独立：即使相册保持私密，宾客仍然可以分享照片。",
+    "after_wedding_label": "婚礼后模式",
+    "after_wedding_hint": "页面将切换为感谢页面，并继续开放上传。",
+    "uploads_until_label": "照片上传截止日期",
+    "uploads_until_hint": "超过此日期后，宾客将无法再添加照片。"
   }
 }

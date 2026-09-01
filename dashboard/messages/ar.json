@@ -991,5 +991,32 @@
     "copied": "تم نسخ الرابط",
     "download_png": "تنزيل بصيغة PNG",
     "download_svg": "تنزيل بصيغة SVG"
+  },
+  "DayOfMenu": {
+    "title": "قائمة يوم الزفاف",
+    "subtitle": "فعّلوا الأصناف التي ستقدمونها وأضيفوا أطباقكم.",
+    "enabled": "مفعّلة",
+    "add_placeholder": "أضف طبقًا…",
+    "add_item": "إضافة",
+    "remove_item": "حذف",
+    "categories": {
+      "cocktail": "كوكتيل",
+      "starter": "مقبلات",
+      "main": "طبق رئيسي",
+      "cheese": "أجبان",
+      "dessert": "حلويات",
+      "drinks": "مشروبات"
+    }
+  },
+  "DayOfSettings": {
+    "title": "إعدادات يوم الزفاف",
+    "enabled_label": "تفعيل وحدة يوم الزفاف",
+    "enabled_hint": "يصل ضيوفكم إلى طاولتهم والقائمة والصور بعد مسح رمز الاستجابة السريعة.",
+    "gallery_visible_label": "المعرض مرئي للضيوف",
+    "gallery_visible_hint": "مستقل عن الإرسال: يمكن للضيوف مشاركة صورهم حتى لو ظل المعرض خاصًا.",
+    "after_wedding_label": "وضع ما بعد الزفاف",
+    "after_wedding_hint": "تتحول الصفحة إلى واجهة شكر وتبقى مفتوحة لاستقبال الصور.",
+    "uploads_until_label": "الإرسال متاح حتى",
+    "uploads_until_hint": "بعد هذا التاريخ، لن يتمكن الضيوف من إضافة صور جديدة."
   }
 }

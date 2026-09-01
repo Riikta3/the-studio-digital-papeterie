@@ -991,5 +991,32 @@
     "copied": "リンクをコピーしました",
     "download_png": "PNGでダウンロード",
     "download_svg": "SVGでダウンロード"
+  },
+  "DayOfMenu": {
+    "title": "当日のメニュー",
+    "subtitle": "提供するカテゴリーを有効にして、お料理を追加してください。",
+    "enabled": "有効",
+    "add_placeholder": "料理を追加…",
+    "add_item": "追加",
+    "remove_item": "削除",
+    "categories": {
+      "cocktail": "カクテル",
+      "starter": "前菜",
+      "main": "メイン",
+      "cheese": "チーズ",
+      "dessert": "デザート",
+      "drinks": "ドリンク"
+    }
+  },
+  "DayOfSettings": {
+    "title": "当日の設定",
+    "enabled_label": "当日モジュールを有効にする",
+    "enabled_hint": "ゲストはQRコードを読み取ると、自分の席、メニュー、写真にアクセスできます。",
+    "gallery_visible_label": "ゲストにギャラリーを公開する",
+    "gallery_visible_hint": "アップロードとは独立した設定です。ギャラリーを非公開にしていても、ゲストは写真を共有できます。",
+    "after_wedding_label": "結婚式後モード",
+    "after_wedding_hint": "ページは感謝のメッセージ画面に切り替わり、写真のアップロードは引き続き受け付けます。",
+    "uploads_until_label": "写真の受付締切日",
+    "uploads_until_hint": "この日付を過ぎると、ゲストは写真を追加できなくなります。"
   }
 }

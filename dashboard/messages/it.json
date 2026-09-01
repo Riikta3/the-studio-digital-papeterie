@@ -991,5 +991,32 @@
     "copied": "Link copiato",
     "download_png": "Scarica in PNG",
     "download_svg": "Scarica in SVG"
+  },
+  "DayOfMenu": {
+    "title": "Menu del grande giorno",
+    "subtitle": "Attiva le categorie che servirai e aggiungi i tuoi piatti.",
+    "enabled": "Attivata",
+    "add_placeholder": "Aggiungi un piatto…",
+    "add_item": "Aggiungi",
+    "remove_item": "Rimuovi",
+    "categories": {
+      "cocktail": "Cocktail",
+      "starter": "Antipasto",
+      "main": "Piatto principale",
+      "cheese": "Formaggi",
+      "dessert": "Dessert",
+      "drinks": "Bevande"
+    }
+  },
+  "DayOfSettings": {
+    "title": "Impostazioni del grande giorno",
+    "enabled_label": "Attiva il modulo del grande giorno",
+    "enabled_hint": "I tuoi invitati raggiungono il proprio tavolo, il menu e le foto dopo aver scansionato il codice QR.",
+    "gallery_visible_label": "Galleria visibile agli invitati",
+    "gallery_visible_hint": "Indipendente dall'invio: gli invitati possono comunque condividere le foto anche se la galleria resta privata.",
+    "after_wedding_label": "Modalità post-matrimonio",
+    "after_wedding_hint": "La pagina passa a una vista di ringraziamento e resta aperta ai caricamenti.",
+    "uploads_until_label": "Caricamenti aperti fino al",
+    "uploads_until_hint": "Dopo questa data, gli invitati non potranno più aggiungere foto."
   }
 }

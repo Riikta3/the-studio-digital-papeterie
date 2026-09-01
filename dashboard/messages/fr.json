@@ -991,5 +991,32 @@
     "copied": "Lien copié",
     "download_png": "Télécharger en PNG",
     "download_svg": "Télécharger en SVG"
+  },
+  "DayOfMenu": {
+    "title": "Menu du Jour J",
+    "subtitle": "Activez les catégories que vous servez et ajoutez vos plats.",
+    "enabled": "Activée",
+    "add_placeholder": "Ajouter un plat…",
+    "add_item": "Ajouter",
+    "remove_item": "Supprimer",
+    "categories": {
+      "cocktail": "Cocktail",
+      "starter": "Entrée",
+      "main": "Plat",
+      "cheese": "Fromage",
+      "dessert": "Dessert",
+      "drinks": "Boissons"
+    }
+  },
+  "DayOfSettings": {
+    "title": "Paramètres Jour J",
+    "enabled_label": "Activer le module Jour J",
+    "enabled_hint": "Vos invités accèdent à leur table, au menu et aux photos après avoir scanné le QR code.",
+    "gallery_visible_label": "Galerie visible par les invités",
+    "gallery_visible_hint": "Indépendant de l'envoi : vos invités peuvent toujours partager leurs photos même si la galerie reste privée.",
+    "after_wedding_label": "Mode après-mariage",
+    "after_wedding_hint": "La page passe en mode « Merci » et reste ouverte aux envois.",
+    "uploads_until_label": "Envois ouverts jusqu'au",
+    "uploads_until_hint": "Au-delà de cette date, vos invités ne peuvent plus ajouter de photos."
   }
 }
