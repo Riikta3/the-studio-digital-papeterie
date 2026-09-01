@@ -56,24 +56,63 @@
     "subtitle": "管理您的名单，跟踪回复，安排您的活动。"
   },
   "Sidebar": {
-    "home": "首页",
-    "guests": "宾客",
-    "messages": "消息",
-    "billing": "账单",
-    "settings": "设置",
+    "sections": {
+      "home": {
+        "label": "首页"
+      },
+      "guests": {
+        "label": "宾客",
+        "items": {
+          "all": "所有宾客",
+          "rsvp": "回复情况",
+          "groups": "分组",
+          "meals": "餐食"
+        }
+      },
+      "invitation": {
+        "label": "请柬",
+        "items": {
+          "modules": "我的模块",
+          "events": "活动",
+          "schedule": "流程安排",
+          "venue": "场地与实用信息",
+          "faq": "常见问题",
+          "playlist": "歌单"
+        }
+      },
+      "day_of": {
+        "label": "婚礼当天",
+        "items": {
+          "seating": "座位安排",
+          "qr_code": "二维码",
+          "menu": "菜单",
+          "photos": "照片与视频",
+          "settings": "设置"
+        }
+      },
+      "stats": {
+        "label": "统计数据"
+      },
+      "settings": {
+        "label": "设置",
+        "items": {
+          "couple": "新人",
+          "billing": "账单",
+          "messages": "消息"
+        }
+      }
+    },
     "view_site": "查看我的网站",
     "logout": "退出登录",
-    "modules": "我的模块",
-    "rsvp_responses": "回复情况",
-    "playlist": "歌单",
-    "seating_plan": "座位安排",
-    "config_section": "配置",
     "logout_confirmation": {
       "title": "确认退出登录",
       "description": "您确定要退出登录吗？",
       "cancel": "取消",
       "confirm": "退出登录"
     }
+  },
+  "ComingSoon": {
+    "body": "此部分即将推出。它是既定规划的一部分，将在后续更新中启用。"
   },
   "LanguageSwitcher": {
     "select_language": "语言"

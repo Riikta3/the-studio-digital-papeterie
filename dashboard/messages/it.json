@@ -56,24 +56,63 @@
     "subtitle": "Gestisci il tuo elenco, segui le risposte e organizza il tuo evento."
   },
   "Sidebar": {
-    "home": "Home",
-    "guests": "Ospiti",
-    "messages": "Messaggi",
-    "billing": "Fatturazione",
-    "settings": "Impostazioni",
+    "sections": {
+      "home": {
+        "label": "Home"
+      },
+      "guests": {
+        "label": "Ospiti",
+        "items": {
+          "all": "Tutti gli ospiti",
+          "rsvp": "Risposte RSVP",
+          "groups": "Gruppi",
+          "meals": "Pasti"
+        }
+      },
+      "invitation": {
+        "label": "Invito",
+        "items": {
+          "modules": "I miei moduli",
+          "events": "Eventi",
+          "schedule": "Programma",
+          "venue": "Location & info pratiche",
+          "faq": "FAQ",
+          "playlist": "Playlist"
+        }
+      },
+      "day_of": {
+        "label": "Il Grande Giorno",
+        "items": {
+          "seating": "Piano dei tavoli",
+          "qr_code": "Codice QR",
+          "menu": "Menu",
+          "photos": "Foto & video",
+          "settings": "Impostazioni"
+        }
+      },
+      "stats": {
+        "label": "Statistiche"
+      },
+      "settings": {
+        "label": "Impostazioni",
+        "items": {
+          "couple": "Coppia",
+          "billing": "Fatturazione",
+          "messages": "Messaggi"
+        }
+      }
+    },
     "view_site": "Vedi il mio sito",
     "logout": "Esci",
-    "modules": "I Miei Moduli",
-    "rsvp_responses": "Risposte RSVP",
-    "playlist": "Playlist",
-    "seating_plan": "Piano dei Tavoli",
-    "config_section": "Configurazione",
     "logout_confirmation": {
       "title": "Conferma disconnessione",
       "description": "Sei sicuro di voler uscire?",
       "cancel": "Annulla",
       "confirm": "Disconnetti"
     }
+  },
+  "ComingSoon": {
+    "body": "Questa sezione arriva presto. Fa parte del percorso previsto e sarà attivata in un prossimo aggiornamento."
   },
   "LanguageSwitcher": {
     "select_language": "Lingua"

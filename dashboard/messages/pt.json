@@ -56,24 +56,63 @@
     "subtitle": "Gira a sua lista, acompanhe as respostas e organize o seu evento."
   },
   "Sidebar": {
-    "home": "Início",
-    "guests": "Convidados",
-    "messages": "Mensagens",
-    "billing": "Faturação",
-    "settings": "Definições",
+    "sections": {
+      "home": {
+        "label": "Início"
+      },
+      "guests": {
+        "label": "Convidados",
+        "items": {
+          "all": "Todos os convidados",
+          "rsvp": "Respostas RSVP",
+          "groups": "Grupos",
+          "meals": "Refeições"
+        }
+      },
+      "invitation": {
+        "label": "Convite",
+        "items": {
+          "modules": "Meus módulos",
+          "events": "Eventos",
+          "schedule": "Programa",
+          "venue": "Local & informações práticas",
+          "faq": "Perguntas frequentes",
+          "playlist": "Playlist"
+        }
+      },
+      "day_of": {
+        "label": "O Grande Dia",
+        "items": {
+          "seating": "Plano de mesas",
+          "qr_code": "Código QR",
+          "menu": "Menu",
+          "photos": "Fotos & vídeos",
+          "settings": "Definições"
+        }
+      },
+      "stats": {
+        "label": "Estatísticas"
+      },
+      "settings": {
+        "label": "Definições",
+        "items": {
+          "couple": "Casal",
+          "billing": "Faturação",
+          "messages": "Mensagens"
+        }
+      }
+    },
     "view_site": "Ver o meu site",
     "logout": "Sair",
-    "modules": "Meus Módulos",
-    "rsvp_responses": "Respostas RSVP",
-    "playlist": "Playlist",
-    "seating_plan": "Plano de Mesas",
-    "config_section": "Configuração",
     "logout_confirmation": {
       "title": "Confirmar desconexão",
       "description": "Tem certeza de que deseja sair?",
       "cancel": "Cancelar",
       "confirm": "Sair"
     }
+  },
+  "ComingSoon": {
+    "body": "Esta secção chega em breve. Faz parte do percurso previsto e será ativada numa próxima atualização."
   },
   "LanguageSwitcher": {
     "select_language": "Idioma"

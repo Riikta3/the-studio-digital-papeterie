@@ -1,0 +1,89 @@
+/**
+ * The dashboard's six sections, per §23 of the brief.
+ *
+ * Two pages that already work — /guests and the seating plan — were reachable
+ * from no link at all before this. Adding them here is most of the point.
+ */
+
+import {
+  BarChart3,
+  CalendarHeart,
+  Home,
+  PartyPopper,
+  Settings,
+  Users,
+} from "lucide-react";
+import type { LucideIcon } from "lucide-react";
+
+export type NavItemDef = {
+  /** i18n key under `Sidebar.sections.<section>.items` */
+  key: string;
+  href: string;
+  /** Renders a "coming soon" placeholder instead of a real page. */
+  comingSoon?: boolean;
+};
+
+export type NavSectionDef = {
+  /** i18n key under `Sidebar.sections` */
+  key: string;
+  icon: LucideIcon;
+  /** A section with a single item links straight to it, with no accordion. */
+  href?: string;
+  items?: NavItemDef[];
+};
+
+export const NAV_SECTIONS: NavSectionDef[] = [
+  { key: "home", icon: Home, href: "/" },
+  {
+    key: "guests",
+    icon: Users,
+    items: [
+      { key: "all", href: "/guests" },
+      { key: "rsvp", href: "/rsvp-responses" },
+      { key: "groups", href: "/guests/groupes", comingSoon: true },
+      { key: "meals", href: "/guests/repas", comingSoon: true },
+    ],
+  },
+  {
+    key: "invitation",
+    icon: CalendarHeart,
+    items: [
+      { key: "modules", href: "/modules" },
+      { key: "events", href: "/invitation/evenements", comingSoon: true },
+      { key: "schedule", href: "/invitation/programme", comingSoon: true },
+      { key: "venue", href: "/invitation/lieu", comingSoon: true },
+      { key: "faq", href: "/invitation/faq", comingSoon: true },
+      { key: "playlist", href: "/playlist" },
+    ],
+  },
+  {
+    key: "day_of",
+    icon: PartyPopper,
+    items: [
+      { key: "seating", href: "/jour-j/plan-de-table" },
+      { key: "qr_code", href: "/jour-j/qr-code" },
+      { key: "menu", href: "/jour-j/menu" },
+      { key: "photos", href: "/jour-j/photos" },
+      { key: "settings", href: "/jour-j/parametres" },
+    ],
+  },
+  { key: "stats", icon: BarChart3, href: "/stats" },
+  {
+    key: "settings",
+    icon: Settings,
+    items: [
+      { key: "couple", href: "/settings" },
+      { key: "billing", href: "/billing" },
+      { key: "messages", href: "/messages" },
+    ],
+  },
+];
+
+/** True when `pathname` is inside the section — drives the open accordion. */
+export function isSectionActive(
+  section: NavSectionDef,
+  pathname: string,
+): boolean {
+  if (section.href) return pathname === section.href;
+  return (section.items ?? []).some((item) => pathname.startsWith(item.href));
+}

@@ -200,24 +200,63 @@
     "toast_remove_error": "Error while removing"
   },
   "Sidebar": {
-    "home": "Home",
-    "guests": "Guests",
-    "messages": "Messages",
-    "billing": "Billing",
-    "settings": "Settings",
+    "sections": {
+      "home": {
+        "label": "Home"
+      },
+      "guests": {
+        "label": "Guests",
+        "items": {
+          "all": "All guests",
+          "rsvp": "RSVP replies",
+          "groups": "Groups",
+          "meals": "Meals"
+        }
+      },
+      "invitation": {
+        "label": "Invitation",
+        "items": {
+          "modules": "My modules",
+          "events": "Events",
+          "schedule": "Schedule",
+          "venue": "Venue & practical info",
+          "faq": "FAQ",
+          "playlist": "Playlist"
+        }
+      },
+      "day_of": {
+        "label": "Day of",
+        "items": {
+          "seating": "Seating plan",
+          "qr_code": "QR code",
+          "menu": "Menu",
+          "photos": "Photos & videos",
+          "settings": "Settings"
+        }
+      },
+      "stats": {
+        "label": "Statistics"
+      },
+      "settings": {
+        "label": "Settings",
+        "items": {
+          "couple": "Couple",
+          "billing": "Billing",
+          "messages": "Messages"
+        }
+      }
+    },
     "view_site": "View my Site",
     "logout": "Logout",
-    "modules": "My Modules",
-    "rsvp_responses": "RSVP Responses",
-    "playlist": "Playlist",
-    "seating_plan": "Seating Plan",
-    "config_section": "Configuration",
     "logout_confirmation": {
       "title": "Confirm logout",
       "description": "Are you sure you want to log out?",
       "cancel": "Cancel",
       "confirm": "Log out"
     }
+  },
+  "ComingSoon": {
+    "body": "This section is on its way. It's part of the planned journey and will be switched on in a coming update."
   },
   "NotFound": {
     "title": "Page not found",

@@ -56,24 +56,63 @@
     "subtitle": "リストを管理し、回答を確認し、イベントを計画しましょう。"
   },
   "Sidebar": {
-    "home": "ホーム",
-    "guests": "ゲスト",
-    "messages": "メッセージ",
-    "billing": "請求",
-    "settings": "設定",
+    "sections": {
+      "home": {
+        "label": "ホーム"
+      },
+      "guests": {
+        "label": "ゲスト",
+        "items": {
+          "all": "ゲスト一覧",
+          "rsvp": "出欠回答",
+          "groups": "グループ",
+          "meals": "食事"
+        }
+      },
+      "invitation": {
+        "label": "招待状",
+        "items": {
+          "modules": "マイモジュール",
+          "events": "イベント",
+          "schedule": "プログラム",
+          "venue": "会場・実用情報",
+          "faq": "よくある質問",
+          "playlist": "プレイリスト"
+        }
+      },
+      "day_of": {
+        "label": "当日",
+        "items": {
+          "seating": "座席表",
+          "qr_code": "QRコード",
+          "menu": "メニュー",
+          "photos": "写真・動画",
+          "settings": "設定"
+        }
+      },
+      "stats": {
+        "label": "統計"
+      },
+      "settings": {
+        "label": "設定",
+        "items": {
+          "couple": "新郎新婦",
+          "billing": "請求",
+          "messages": "メッセージ"
+        }
+      }
+    },
     "view_site": "サイトを見る",
     "logout": "ログアウト",
-    "modules": "マイモジュール",
-    "rsvp_responses": "出欠回答",
-    "playlist": "プレイリスト",
-    "seating_plan": "座席表",
-    "config_section": "設定",
     "logout_confirmation": {
       "title": "ログアウトの確認",
       "description": "本当にログアウトしますか？",
       "cancel": "キャンセル",
       "confirm": "ログアウト"
     }
+  },
+  "ComingSoon": {
+    "body": "この機能は近日公開予定です。予定されている機能の一部であり、今後のアップデートで有効になります。"
   },
   "LanguageSwitcher": {
     "select_language": "言語"

@@ -56,24 +56,63 @@
     "subtitle": "Gestiona tu lista, sigue las respuestas y organiza tu evento."
   },
   "Sidebar": {
-    "home": "Inicio",
-    "guests": "Invitados",
-    "messages": "Mensajes",
-    "billing": "Facturación",
-    "settings": "Ajustes",
+    "sections": {
+      "home": {
+        "label": "Inicio"
+      },
+      "guests": {
+        "label": "Invitados",
+        "items": {
+          "all": "Todos los invitados",
+          "rsvp": "Respuestas RSVP",
+          "groups": "Grupos",
+          "meals": "Comidas"
+        }
+      },
+      "invitation": {
+        "label": "Invitación",
+        "items": {
+          "modules": "Mis módulos",
+          "events": "Eventos",
+          "schedule": "Programa",
+          "venue": "Lugar e información práctica",
+          "faq": "Preguntas frecuentes",
+          "playlist": "Playlist"
+        }
+      },
+      "day_of": {
+        "label": "El gran día",
+        "items": {
+          "seating": "Plano de mesas",
+          "qr_code": "Código QR",
+          "menu": "Menú",
+          "photos": "Fotos y vídeos",
+          "settings": "Ajustes"
+        }
+      },
+      "stats": {
+        "label": "Estadísticas"
+      },
+      "settings": {
+        "label": "Ajustes",
+        "items": {
+          "couple": "Pareja",
+          "billing": "Facturación",
+          "messages": "Mensajes"
+        }
+      }
+    },
     "view_site": "Ver mi sitio",
     "logout": "Cerrar sesión",
-    "modules": "Mis Módulos",
-    "rsvp_responses": "Respuestas RSVP",
-    "playlist": "Playlist",
-    "seating_plan": "Plano de Mesas",
-    "config_section": "Configuración",
     "logout_confirmation": {
       "title": "Confirmar cierre de sesión",
       "description": "¿Está seguro de que desea cerrar sesión?",
       "cancel": "Cancelar",
       "confirm": "Cerrar sesión"
     }
+  },
+  "ComingSoon": {
+    "body": "Esta sección llegará pronto. Forma parte del recorrido previsto y se activará en una próxima actualización."
   },
   "LanguageSwitcher": {
     "select_language": "Idioma"

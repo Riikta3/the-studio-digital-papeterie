@@ -1,7 +1,9 @@
 "use client";
 
 import { logout } from "@/app/[locale]/login/actions";
-import { Link, usePathname } from "@/navigation";
+import { usePathname } from "@/navigation";
+import { NAV_SECTIONS } from "@/components/navigation/nav-config";
+import { NavSection } from "@/components/navigation/NavSection";
 import { Button } from "@shared/components/ui/button";
 import {
   Dialog,
@@ -13,33 +15,11 @@ import {
   DialogTrigger,
 } from "@shared/components/ui/dialog";
 import { cn } from "@shared/lib/utils";
-import {
-  CreditCard,
-  Home,
-  LogOut,
-  Mail,
-  Menu,
-  MessageSquare,
-  Music2,
-  Puzzle,
-  Send,
-  Settings,
-  X,
-} from "lucide-react";
+import { LogOut, Mail, Menu, X } from "lucide-react";
 import { useLocale, useTranslations } from "next-intl";
 import Image from "next/image";
 import { useState } from "react";
 import { LanguageSwitcher } from "./LanguageSwitcher";
-
-const navItems = [
-  { key: "home", href: "/", icon: Home },
-  { key: "modules", href: "/modules", icon: Puzzle },
-  { key: "rsvp_responses", href: "/rsvp-responses", icon: Send },
-  { key: "playlist", href: "/playlist", icon: Music2 },
-  { key: "messages", href: "/messages", icon: MessageSquare },
-  { key: "billing", href: "/billing", icon: CreditCard },
-  { key: "settings", href: "/settings", icon: Settings },
-];
 
 export function Sidebar({ slug }: { slug: string | null }) {
   const t = useTranslations("Sidebar");
@@ -134,36 +114,15 @@ export function Sidebar({ slug }: { slug: string | null }) {
           </div>
 
           {/* Navigation */}
-          <nav className='space-y-1 flex-1'>
-            {navItems.map((item) => {
-              const isActive =
-                item.href === "/"
-                  ? pathname === "/" ||
-                    pathname === "/fr" ||
-                    pathname === "/en" ||
-                    pathname.endsWith("/fr") ||
-                    pathname.endsWith("/en")
-                  : pathname.includes(item.href);
-
-              const Icon = item.icon;
-
-              return (
-                <Link
-                  key={item.href}
-                  href={item.href}
-                  onClick={handleLinkClick}
-                  className={cn(
-                    "flex items-center gap-3 px-4 py-3 rounded-lg text-sm font-medium transition-colors",
-                    isActive
-                      ? "bg-studio-jaune text-studio-violet"
-                      : "text-white/70 hover:bg-white/10 hover:text-white",
-                  )}
-                >
-                  <Icon size={20} />
-                  {t(item.key)}
-                </Link>
-              );
-            })}
+          <nav className='flex-1 space-y-1 overflow-y-auto'>
+            {NAV_SECTIONS.map((section) => (
+              <NavSection
+                key={section.key}
+                section={section}
+                pathname={pathname}
+                onNavigate={handleLinkClick}
+              />
+            ))}
           </nav>
 
           {/* Builder Link */}

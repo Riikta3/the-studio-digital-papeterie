@@ -56,24 +56,63 @@
     "subtitle": "أدر قائمتك، وتابع الردود، ونظّم مناسبتك."
   },
   "Sidebar": {
-    "home": "الرئيسية",
-    "guests": "الضيوف",
-    "messages": "الرسائل",
-    "billing": "الفوترة",
-    "settings": "الإعدادات",
+    "sections": {
+      "home": {
+        "label": "الرئيسية"
+      },
+      "guests": {
+        "label": "الضيوف",
+        "items": {
+          "all": "جميع الضيوف",
+          "rsvp": "ردود الحضور",
+          "groups": "المجموعات",
+          "meals": "الوجبات"
+        }
+      },
+      "invitation": {
+        "label": "الدعوة",
+        "items": {
+          "modules": "وحداتي",
+          "events": "الفعاليات",
+          "schedule": "البرنامج",
+          "venue": "المكان والمعلومات العملية",
+          "faq": "الأسئلة الشائعة",
+          "playlist": "قائمة التشغيل"
+        }
+      },
+      "day_of": {
+        "label": "يوم الزفاف",
+        "items": {
+          "seating": "مخطط الجلوس",
+          "qr_code": "رمز QR",
+          "menu": "القائمة",
+          "photos": "الصور ومقاطع الفيديو",
+          "settings": "الإعدادات"
+        }
+      },
+      "stats": {
+        "label": "الإحصائيات"
+      },
+      "settings": {
+        "label": "الإعدادات",
+        "items": {
+          "couple": "الزوجان",
+          "billing": "الفوترة",
+          "messages": "الرسائل"
+        }
+      }
+    },
     "view_site": "عرض موقعي",
     "logout": "تسجيل الخروج",
-    "modules": "وحداتي",
-    "rsvp_responses": "ردود الحضور",
-    "playlist": "قائمة التشغيل",
-    "seating_plan": "مخطط الجلوس",
-    "config_section": "الإعدادات",
     "logout_confirmation": {
       "title": "تأكيد تسجيل الخروج",
       "description": "هل أنت متأكد من رغبتك في تسجيل الخروج؟",
       "cancel": "إلغاء",
       "confirm": "تسجيل الخروج"
     }
+  },
+  "ComingSoon": {
+    "body": "هذا القسم قادم قريبًا. إنه جزء من المسار المخطط له وسيتم تفعيله في تحديث قادم."
   },
   "LanguageSwitcher": {
     "select_language": "اللغة"

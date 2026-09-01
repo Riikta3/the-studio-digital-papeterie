@@ -297,16 +297,52 @@
     "dietary_other_placeholder": "Autre (précisez)..."
   },
   "Sidebar": {
-    "home": "Accueil",
-    "guests": "Invités",
-    "rsvp_responses": "Réponses RSVP",
-    "playlist": "Playlist",
-    "messages": "Messages",
-    "seating_plan": "Plan de Table",
-    "billing": "Facturation",
-    "settings": "Réglages",
-    "config_section": "Configuration",
-    "modules": "Mes Modules",
+    "sections": {
+      "home": {
+        "label": "Accueil"
+      },
+      "guests": {
+        "label": "Invités",
+        "items": {
+          "all": "Tous les invités",
+          "rsvp": "Réponses RSVP",
+          "groups": "Groupes",
+          "meals": "Repas"
+        }
+      },
+      "invitation": {
+        "label": "Invitation",
+        "items": {
+          "modules": "Mes modules",
+          "events": "Événements",
+          "schedule": "Programme",
+          "venue": "Lieu & infos pratiques",
+          "faq": "FAQ",
+          "playlist": "Playlist"
+        }
+      },
+      "day_of": {
+        "label": "Jour J",
+        "items": {
+          "seating": "Plan de table",
+          "qr_code": "QR Code",
+          "menu": "Menu",
+          "photos": "Photos & vidéos",
+          "settings": "Paramètres"
+        }
+      },
+      "stats": {
+        "label": "Statistiques"
+      },
+      "settings": {
+        "label": "Paramètres",
+        "items": {
+          "couple": "Couple",
+          "billing": "Facturation",
+          "messages": "Messages"
+        }
+      }
+    },
     "view_site": "Voir mon faire-part",
     "logout": "Déconnexion",
     "logout_confirmation": {
@@ -315,6 +351,9 @@
       "cancel": "Annuler",
       "confirm": "Se déconnecter"
     }
+  },
+  "ComingSoon": {
+    "body": "Cette section arrive bientôt. Elle fait partie du parcours prévu et sera activée dans une prochaine mise à jour."
   },
   "LanguageSwitcher": {
     "select_language": "Langue"
