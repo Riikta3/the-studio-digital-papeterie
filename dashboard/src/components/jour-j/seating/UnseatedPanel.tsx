@@ -44,8 +44,10 @@ function DraggableGuest({ guest }: { guest: DayOfGuest }) {
       ref={setNodeRef}
       {...listeners}
       {...attributes}
-      className={`cursor-grab rounded-lg border border-studio-lavande/40 bg-white px-3 py-2 text-sm text-studio-violet active:cursor-grabbing ${
-        isDragging ? "opacity-40" : ""
+      className={`touch-none rounded-lg border border-studio-lavande/40 bg-white px-3 py-2 text-sm text-studio-violet ${
+        // The DragOverlay renders the pill under the cursor while dragging, so
+        // the original is dimmed in place to show where it came from.
+        isDragging ? "cursor-grabbing opacity-30" : "cursor-grab"
       }`}
     >
       {guest.firstName} {guest.lastName}
