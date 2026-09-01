@@ -5,7 +5,7 @@ import { cn } from "@shared/lib/utils";
 import { ChevronDown } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { useState } from "react";
-import { isSectionActive, type NavSectionDef } from "./nav-config";
+import { activeItemHref, isSectionActive, type NavSectionDef } from "./nav-config";
 
 type Props = {
   section: NavSectionDef;
@@ -21,6 +21,7 @@ export function NavSection({ section, pathname, onNavigate }: Props) {
 
   const Icon = section.icon;
   const label = t(`${section.key}.label`);
+  const activeHref = activeItemHref(section, pathname);
 
   // Single-page sections are a plain link — no accordion to expand.
   if (section.href) {
@@ -63,7 +64,7 @@ export function NavSection({ section, pathname, onNavigate }: Props) {
       {open && (
         <ul className='mt-1 space-y-0.5 border-l border-white/15 pl-4 ml-5'>
           {(section.items ?? []).map((item) => {
-            const itemActive = pathname.startsWith(item.href);
+            const itemActive = item.href === activeHref;
             return (
               <li key={item.href}>
                 <Link

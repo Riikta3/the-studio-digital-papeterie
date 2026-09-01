@@ -87,3 +87,20 @@ export function isSectionActive(
   if (section.href) return pathname === section.href;
   return (section.items ?? []).some((item) => pathname.startsWith(item.href));
 }
+
+/**
+ * The nav item a pathname belongs to, or undefined.
+ *
+ * Longest match wins: `/guests` is a prefix of `/guests/groupes`, so a naive
+ * `startsWith` lights up both. Prefix matching (rather than equality) is still
+ * what we want, so a nested page keeps its parent item highlighted.
+ */
+export function activeItemHref(
+  section: NavSectionDef,
+  pathname: string,
+): string | undefined {
+  return (section.items ?? [])
+    .map((item) => item.href)
+    .filter((href) => pathname === href || pathname.startsWith(`${href}/`))
+    .sort((a, b) => b.length - a.length)[0];
+}
