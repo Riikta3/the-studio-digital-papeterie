@@ -989,6 +989,7 @@
     "permanent_note": "This QR code is permanent. It will never change, even if you edit your tables, menu, guests or schedule. You can have it printed today.",
     "copy": "Copy",
     "copied": "Link copied",
+    "copy_failed": "Couldn't copy the link. Please copy it manually.",
     "download_png": "Download PNG",
     "download_svg": "Download SVG"
   },

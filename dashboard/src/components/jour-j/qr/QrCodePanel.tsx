@@ -13,14 +13,18 @@ export function QrCodePanel({ url, svg, pngDataUrl }: Props) {
     const a = document.createElement("a");
     a.href = href;
     a.download = filename;
+    // Some browsers ignore .click() on an anchor that is not in the document.
+    document.body.appendChild(a);
     a.click();
+    a.remove();
   };
 
   const downloadSvg = () => {
     const blob = new Blob([svg], { type: "image/svg+xml" });
     const href = URL.createObjectURL(blob);
     download(href, "qr-code-jour-j.svg");
-    URL.revokeObjectURL(href);
+    // Revoking synchronously can free the blob before the save has read it.
+    setTimeout(() => URL.revokeObjectURL(href), 10_000);
   };
 
   return (
@@ -41,10 +45,12 @@ export function QrCodePanel({ url, svg, pngDataUrl }: Props) {
             <button
               type='button'
               onClick={() => {
-                navigator.clipboard.writeText(url);
-                toast.success(t("copied"));
+                navigator.clipboard
+                  .writeText(url)
+                  .then(() => toast.success(t("copied")))
+                  .catch(() => toast.error(t("copy_failed")));
               }}
-              className='shrink-0 text-xs font-medium text-studio-violet underline'
+              className='min-h-11 shrink-0 px-2 text-xs font-medium text-studio-violet underline'
             >
               {t("copy")}
             </button>

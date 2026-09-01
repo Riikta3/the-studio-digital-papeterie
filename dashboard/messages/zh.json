@@ -989,6 +989,7 @@
     "permanent_note": "此二维码是永久性的，即使您修改了桌位、菜单、宾客或流程，它也绝不会改变。您现在就可以放心打印。",
     "copy": "复制",
     "copied": "链接已复制",
+    "copy_failed": "无法复制链接，请手动复制。",
     "download_png": "下载 PNG",
     "download_svg": "下载 SVG"
   },

@@ -989,6 +989,7 @@
     "permanent_note": "Questo QR code è definitivo. Non cambierà mai, anche se modifichi i tavoli, il menu, gli invitati o il programma. Puoi stamparlo fin da ora.",
     "copy": "Copia",
     "copied": "Link copiato",
+    "copy_failed": "Impossibile copiare il link. Copialo manualmente.",
     "download_png": "Scarica in PNG",
     "download_svg": "Scarica in SVG"
   },

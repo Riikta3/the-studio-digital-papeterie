@@ -989,6 +989,7 @@
     "permanent_note": "Dieser QR-Code ist endgültig. Er ändert sich nie, auch wenn Sie Ihre Tische, Ihr Menü, Ihre Gäste oder Ihren Ablaufplan bearbeiten. Sie können ihn schon jetzt drucken lassen.",
     "copy": "Kopieren",
     "copied": "Link kopiert",
+    "copy_failed": "Der Link konnte nicht kopiert werden. Bitte kopieren Sie ihn manuell.",
     "download_png": "Als PNG herunterladen",
     "download_svg": "Als SVG herunterladen"
   },
