@@ -1019,5 +1019,21 @@
     "after_wedding_hint": "页面将切换为感谢页面，并继续开放上传。",
     "uploads_until_label": "照片上传截止日期",
     "uploads_until_hint": "超过此日期后，宾客将无法再添加照片。"
+  },
+  "DayOfPhotos": {
+    "title": "照片和视频",
+    "count": "宾客已分享 {count} 项内容",
+    "download_all": "全部下载",
+    "zip_pending": "待接入真实照片后即可批量下载。",
+    "download": "下载",
+    "hide": "隐藏",
+    "show": "显示",
+    "delete": "删除",
+    "filters": {
+      "all": "全部",
+      "photo": "照片",
+      "video": "视频",
+      "hidden": "已隐藏"
+    }
   }
 }

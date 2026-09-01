@@ -1019,5 +1019,21 @@
     "after_wedding_hint": "La page passe en mode « Merci » et reste ouverte aux envois.",
     "uploads_until_label": "Envois ouverts jusqu'au",
     "uploads_until_hint": "Au-delà de cette date, vos invités ne peuvent plus ajouter de photos."
+  },
+  "DayOfPhotos": {
+    "title": "Photos & vidéos",
+    "count": "{count} contenu(s) partagé(s) par vos invités",
+    "download_all": "Tout télécharger",
+    "zip_pending": "Le téléchargement groupé sera disponible une fois les vraies photos branchées.",
+    "download": "Télécharger",
+    "hide": "Masquer",
+    "show": "Afficher",
+    "delete": "Supprimer",
+    "filters": {
+      "all": "Tout",
+      "photo": "Photos",
+      "video": "Vidéos",
+      "hidden": "Masqués"
+    }
   }
 }

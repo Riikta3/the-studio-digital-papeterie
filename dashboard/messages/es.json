@@ -1019,5 +1019,21 @@
     "after_wedding_hint": "La página pasa a una vista de agradecimiento y sigue abierta para subir fotos.",
     "uploads_until_label": "Envíos abiertos hasta",
     "uploads_until_hint": "Pasada esta fecha, los invitados ya no podrán añadir fotos."
+  },
+  "DayOfPhotos": {
+    "title": "Fotos y vídeos",
+    "count": "{count} contenido(s) compartido(s) por sus invitados",
+    "download_all": "Descargar todo",
+    "zip_pending": "La descarga masiva estará disponible cuando se conecten las fotos reales.",
+    "download": "Descargar",
+    "hide": "Ocultar",
+    "show": "Mostrar",
+    "delete": "Eliminar",
+    "filters": {
+      "all": "Todo",
+      "photo": "Fotos",
+      "video": "Vídeos",
+      "hidden": "Ocultos"
+    }
   }
 }

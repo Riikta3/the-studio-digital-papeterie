@@ -1019,5 +1019,21 @@
     "after_wedding_hint": "The page switches to a thank-you view and stays open to uploads.",
     "uploads_until_label": "Uploads open until",
     "uploads_until_hint": "Past this date, guests can no longer add photos."
+  },
+  "DayOfPhotos": {
+    "title": "Photos & videos",
+    "count": "{count} item(s) shared by your guests",
+    "download_all": "Download all",
+    "zip_pending": "Bulk download arrives once the real photos are wired up.",
+    "download": "Download",
+    "hide": "Hide",
+    "show": "Show",
+    "delete": "Delete",
+    "filters": {
+      "all": "All",
+      "photo": "Photos",
+      "video": "Videos",
+      "hidden": "Hidden"
+    }
   }
 }

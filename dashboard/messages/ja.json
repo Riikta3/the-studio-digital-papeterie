@@ -1019,5 +1019,21 @@
     "after_wedding_hint": "ページは感謝のメッセージ画面に切り替わり、写真のアップロードは引き続き受け付けます。",
     "uploads_until_label": "写真の受付締切日",
     "uploads_until_hint": "この日付を過ぎると、ゲストは写真を追加できなくなります。"
+  },
+  "DayOfPhotos": {
+    "title": "写真・動画",
+    "count": "ゲストが共有したコンテンツ {count} 件",
+    "download_all": "すべてダウンロード",
+    "zip_pending": "一括ダウンロードは実際の写真が連携された後にご利用いただけます。",
+    "download": "ダウンロード",
+    "hide": "非表示にする",
+    "show": "表示する",
+    "delete": "削除",
+    "filters": {
+      "all": "すべて",
+      "photo": "写真",
+      "video": "動画",
+      "hidden": "非表示"
+    }
   }
 }

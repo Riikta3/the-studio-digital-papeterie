@@ -1019,5 +1019,21 @@
     "after_wedding_hint": "La pagina passa a una vista di ringraziamento e resta aperta ai caricamenti.",
     "uploads_until_label": "Caricamenti aperti fino al",
     "uploads_until_hint": "Dopo questa data, gli invitati non potranno più aggiungere foto."
+  },
+  "DayOfPhotos": {
+    "title": "Foto e video",
+    "count": "{count} contenuto/i condiviso/i dai tuoi invitati",
+    "download_all": "Scarica tutto",
+    "zip_pending": "Il download in blocco sarà disponibile una volta collegate le foto reali.",
+    "download": "Scarica",
+    "hide": "Nascondi",
+    "show": "Mostra",
+    "delete": "Elimina",
+    "filters": {
+      "all": "Tutti",
+      "photo": "Foto",
+      "video": "Video",
+      "hidden": "Nascosti"
+    }
   }
 }
