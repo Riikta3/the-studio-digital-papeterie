@@ -5,6 +5,7 @@ import { useDraggable, useDroppable } from "@dnd-kit/core";
 import { CSS } from "@dnd-kit/utilities";
 import { cn } from "@shared/lib/utils";
 import { X } from "lucide-react";
+import { useTranslations } from "next-intl";
 
 type Props = {
   table: DayOfTable;
@@ -14,6 +15,7 @@ type Props = {
 };
 
 export function TableCard({ table, seated, onUnassign }: Props) {
+  const t = useTranslations("Seating");
   const { attributes, listeners, setNodeRef: dragRef, transform } =
     useDraggable({ id: `table-${table.id}`, data: { type: "table", tableId: table.id } });
 
@@ -69,7 +71,7 @@ export function TableCard({ table, seated, onUnassign }: Props) {
                 type='button'
                 onClick={() => onUnassign(guest.id)}
                 className='ml-1 shrink-0 opacity-0 transition-opacity group-hover:opacity-100'
-                aria-label={`Retirer ${guest.firstName} ${guest.lastName}`}
+                aria-label={`${t("remove")} ${guest.firstName} ${guest.lastName}`}
               >
                 <X className='h-3.5 w-3.5 text-studio-violet/50 hover:text-red-500' />
               </button>
