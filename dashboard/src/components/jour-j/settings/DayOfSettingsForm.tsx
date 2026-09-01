@@ -72,12 +72,16 @@ export function DayOfSettingsForm({
             <input
               type='date'
               value={settings.uploadsOpenUntil.slice(0, 10)}
-              onChange={(e) =>
+              onChange={(e) => {
+                const day = e.target.value;
                 setSettings((prev) => ({
                   ...prev,
-                  uploadsOpenUntil: new Date(e.target.value).toISOString(),
-                }))
-              }
+                  // A date input yields "YYYY-MM-DD", which Date parses as UTC midnight.
+                  // Uploads stay open *through* the chosen day, so pin the end of it
+                  // rather than letting the parse collapse it to the start.
+                  uploadsOpenUntil: day ? `${day}T23:59:59.999Z` : prev.uploadsOpenUntil,
+                }));
+              }}
               className='mt-1 min-h-11 w-full rounded-lg border border-studio-lavande/50 px-3 text-sm text-studio-violet sm:w-56'
             />
           </label>
