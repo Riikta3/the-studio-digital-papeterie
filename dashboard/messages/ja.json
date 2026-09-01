@@ -966,5 +966,22 @@
   },
   "DashboardLayout": {
     "initializing": "スペースを準備しています..."
+  },
+  "Seating": {
+    "title": "座席表",
+    "seated": "着席済み",
+    "remaining": "未割り当て",
+    "capacity": "定員",
+    "search_placeholder": "ゲストを検索…",
+    "unseated_title": "未割り当てのゲスト",
+    "all_seated": "全員着席済みです",
+    "assign": "ゲストを割り当てる",
+    "assign_title": "{table}に割り当てる",
+    "seats_left": "残り{count}席",
+    "table_full": "満席です",
+    "move_to": "移動先…",
+    "remove": "削除",
+    "done": "完了",
+    "no_tables": "まだテーブルがありません"
   }
 }

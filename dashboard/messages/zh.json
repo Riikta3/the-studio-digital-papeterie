@@ -966,5 +966,22 @@
   },
   "DashboardLayout": {
     "initializing": "正在初始化您的空间..."
+  },
+  "Seating": {
+    "title": "座位安排",
+    "seated": "已入座",
+    "remaining": "待安排",
+    "capacity": "容量",
+    "search_placeholder": "搜索宾客…",
+    "unseated_title": "待安排的宾客",
+    "all_seated": "所有宾客均已安排",
+    "assign": "安排宾客",
+    "assign_title": "安排至 {table} 桌",
+    "seats_left": "剩余 {count} 个座位",
+    "table_full": "该桌已满",
+    "move_to": "移动到…",
+    "remove": "移除",
+    "done": "完成",
+    "no_tables": "暂无餐桌"
   }
 }

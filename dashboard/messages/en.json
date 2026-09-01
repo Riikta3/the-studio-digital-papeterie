@@ -966,5 +966,22 @@
   },
   "DashboardLayout": {
     "initializing": "Setting up your space..."
+  },
+  "Seating": {
+    "title": "Seating plan",
+    "seated": "Seated",
+    "remaining": "To seat",
+    "capacity": "Capacity",
+    "search_placeholder": "Search a guest…",
+    "unseated_title": "Guests to seat",
+    "all_seated": "Everyone is seated",
+    "assign": "Seat guests",
+    "assign_title": "Seat at {table}",
+    "seats_left": "{count} seat(s) left",
+    "table_full": "Table full",
+    "move_to": "Move to…",
+    "remove": "Remove",
+    "done": "Done",
+    "no_tables": "No tables yet"
   }
 }

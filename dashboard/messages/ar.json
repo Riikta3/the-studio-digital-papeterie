@@ -966,5 +966,22 @@
   },
   "DashboardLayout": {
     "initializing": "جارٍ تهيئة مساحتك..."
+  },
+  "Seating": {
+    "title": "مخطط الجلوس",
+    "seated": "تم التنسيق",
+    "remaining": "بانتظار التنسيق",
+    "capacity": "السعة",
+    "search_placeholder": "ابحث عن ضيف…",
+    "unseated_title": "الضيوف بانتظار التنسيق",
+    "all_seated": "تم تنسيق جميع الضيوف",
+    "assign": "تنسيق الضيوف",
+    "assign_title": "تنسيق على طاولة {table}",
+    "seats_left": "{count} مقعد(مقاعد) متبقٍّ",
+    "table_full": "الطاولة ممتلئة",
+    "move_to": "نقل إلى…",
+    "remove": "إزالة",
+    "done": "تم",
+    "no_tables": "لا توجد طاولات بعد"
   }
 }

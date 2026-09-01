@@ -966,5 +966,22 @@
   },
   "DashboardLayout": {
     "initializing": "Preparazione del tuo spazio..."
+  },
+  "Seating": {
+    "title": "Piano dei tavoli",
+    "seated": "Sistemati",
+    "remaining": "Da sistemare",
+    "capacity": "Capienza",
+    "search_placeholder": "Cerca un invitato…",
+    "unseated_title": "Invitati da sistemare",
+    "all_seated": "Tutti gli invitati sono sistemati",
+    "assign": "Sistemare gli invitati",
+    "assign_title": "Sistemare al tavolo {table}",
+    "seats_left": "{count} posto/i rimanente/i",
+    "table_full": "Tavolo al completo",
+    "move_to": "Sposta a…",
+    "remove": "Rimuovi",
+    "done": "Fatto",
+    "no_tables": "Nessun tavolo per ora"
   }
 }

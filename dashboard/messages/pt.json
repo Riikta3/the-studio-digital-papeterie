@@ -966,5 +966,22 @@
   },
   "DashboardLayout": {
     "initializing": "A preparar o seu espaço..."
+  },
+  "Seating": {
+    "title": "Plano de mesas",
+    "seated": "Sentados",
+    "remaining": "Por sentar",
+    "capacity": "Capacidade",
+    "search_placeholder": "Procurar um convidado…",
+    "unseated_title": "Convidados por sentar",
+    "all_seated": "Todos os convidados estão sentados",
+    "assign": "Sentar convidados",
+    "assign_title": "Sentar na mesa {table}",
+    "seats_left": "{count} lugar(es) disponível(eis)",
+    "table_full": "Mesa completa",
+    "move_to": "Mover para…",
+    "remove": "Remover",
+    "done": "Concluído",
+    "no_tables": "Ainda não há mesas"
   }
 }

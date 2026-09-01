@@ -966,5 +966,22 @@
   },
   "DashboardLayout": {
     "initializing": "Ihr Bereich wird eingerichtet..."
+  },
+  "Seating": {
+    "title": "Sitzplan",
+    "seated": "Platziert",
+    "remaining": "Noch zu platzieren",
+    "capacity": "Kapazität",
+    "search_placeholder": "Einen Gast suchen…",
+    "unseated_title": "Zu platzierende Gäste",
+    "all_seated": "Alle Gäste sind platziert",
+    "assign": "Gäste platzieren",
+    "assign_title": "An Tisch {table} platzieren",
+    "seats_left": "{count} Platz/Plätze frei",
+    "table_full": "Tisch voll",
+    "move_to": "Verschieben nach…",
+    "remove": "Entfernen",
+    "done": "Fertig",
+    "no_tables": "Noch keine Tische"
   }
 }
