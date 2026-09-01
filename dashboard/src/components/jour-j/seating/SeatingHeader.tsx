@@ -14,7 +14,9 @@ export function SeatingHeader({ summary, query, onQueryChange }: Props) {
   const t = useTranslations("Seating");
 
   return (
-    <header className='sticky top-0 z-10 border-b border-studio-lavande/30 bg-white/95 px-4 py-4 backdrop-blur md:px-8'>
+    /* Sticky on mobile, where the page scrolls; a fixed row on desktop,
+       where the layout is pinned to the viewport and cannot scroll. */
+    <header className='sticky top-0 z-10 shrink-0 border-b border-studio-lavande/30 bg-white/95 px-4 py-4 backdrop-blur md:px-8'>
       <h1 className='font-heading text-h3 text-studio-violet'>{t("title")}</h1>
 
       <div className='mt-3 flex flex-col gap-3 md:flex-row md:items-center md:justify-between'>

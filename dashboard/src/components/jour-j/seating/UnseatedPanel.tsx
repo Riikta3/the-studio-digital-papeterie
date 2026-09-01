@@ -8,8 +8,11 @@ export function UnseatedPanel({ guests }: { guests: DayOfGuest[] }) {
   const t = useTranslations("Seating");
 
   return (
-    <aside className='w-72 shrink-0 overflow-y-auto border-r border-studio-lavande/30 bg-white p-4'>
-      <div className='mb-3 flex items-center justify-between'>
+    /* min-h-0 lets this flex child scroll instead of stretching its parent:
+       the heading stays put while only the guest list moves, independently
+       of the board on the right. */
+    <aside className='flex h-full min-h-0 w-72 shrink-0 flex-col border-r border-studio-lavande/30 bg-white'>
+      <div className='flex shrink-0 items-center justify-between px-4 pb-3 pt-4'>
         <h2 className='text-sm font-medium text-studio-violet'>
           {t("unseated_title")}
         </h2>
@@ -19,11 +22,11 @@ export function UnseatedPanel({ guests }: { guests: DayOfGuest[] }) {
       </div>
 
       {guests.length === 0 ? (
-        <p className='py-8 text-center text-sm text-studio-violet/50'>
+        <p className='px-4 py-8 text-center text-sm text-studio-violet/50'>
           {t("all_seated")}
         </p>
       ) : (
-        <ul className='space-y-1.5'>
+        <ul className='min-h-0 flex-1 space-y-1.5 overflow-y-auto px-4 pb-4'>
           {guests.map((guest) => (
             <DraggableGuest key={guest.id} guest={guest} />
           ))}

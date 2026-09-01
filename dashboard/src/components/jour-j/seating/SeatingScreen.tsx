@@ -45,11 +45,13 @@ export function SeatingScreen({ initialTables, guests }: Props) {
     );
 
   return (
-    <div className='flex min-h-screen flex-col bg-studio-creme'>
+    /* Desktop pins the layout to the viewport so the guest panel and the
+       board scroll independently; mobile keeps a normal page scroll. */
+    <div className='flex min-h-screen flex-col bg-studio-creme md:h-screen md:min-h-0 md:overflow-hidden'>
       <SeatingHeader summary={summary} query={query} onQueryChange={setQuery} />
 
       {/* Desktop: drag & drop board. */}
-      <div className='hidden flex-1 md:flex'>
+      <div className='hidden min-h-0 flex-1 md:flex'>
         <SeatingBoard
           tables={tables}
           guestsById={guestsById}

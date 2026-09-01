@@ -62,8 +62,10 @@ function buildTables(guests: DayOfGuest[]): DayOfTable[] {
     seatsLabel: `Table ${i + 1}`,
     shape: i === 0 ? ("long" as const) : ("round" as const),
     capacity: 12,
+    // A full 12-seat card runs ~380px tall, so rows are spaced clear of that
+    // rather than the card's empty height — at 240 they overlapped.
     x: 120 + (i % 4) * 260,
-    y: 120 + Math.floor(i / 4) * 240,
+    y: 120 + Math.floor(i / 4) * 430,
     position: i,
     guestIds: seatable.slice(i * 12, (i + 1) * 12).map((g) => g.id),
   }));

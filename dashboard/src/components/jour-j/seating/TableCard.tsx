@@ -39,10 +39,13 @@ export function TableCard({ table, seated, onUnassign }: Props) {
       <div
         ref={dropRef}
         className={cn(
-          "rounded-2xl border-2 bg-white p-3 shadow-studio-card transition-colors",
-          isOver && !isFull && "border-studio-violet bg-studio-jaune/20",
+          "rounded-2xl border-2 p-3 shadow-studio-card transition-colors",
+          // Fully opaque throughout: a translucent card lets the grid and the
+          // tables underneath bleed through exactly when the couple is trying
+          // to read it.
+          isOver && !isFull && "border-studio-violet bg-studio-beurre",
           isOver && isFull && "border-red-400 bg-red-50",
-          !isOver && "border-studio-lavande/50",
+          !isOver && "border-studio-lavande/50 bg-white",
         )}
       >
         <div

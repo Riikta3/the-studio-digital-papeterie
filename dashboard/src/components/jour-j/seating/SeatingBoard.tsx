@@ -81,11 +81,13 @@ export function SeatingBoard({
       // would stay stuck to the cursor.
       onDragCancel={() => setDraggedGuest(null)}
     >
-      <div className='flex flex-1 overflow-hidden'>
+      <div className='flex min-h-0 flex-1 overflow-hidden'>
         <UnseatedPanel guests={unseated} />
 
         <div className='relative flex-1 overflow-auto bg-studio-creme'>
-          <div className='relative min-h-[1200px] min-w-[1400px]'>
+          {/* Tall enough for three rows of full 12-seat cards, plus room to
+              drag one below the last row. */}
+          <div className='relative min-h-[1500px] min-w-[1400px]'>
             {tables.map((table) => (
               <TableCard
                 key={table.id}
