@@ -1029,11 +1029,18 @@
     "hide": "Ocultar",
     "show": "Mostrar",
     "delete": "Eliminar",
+    "anonymous": "Invitado anónimo",
     "filters": {
       "all": "Todo",
       "photo": "Fotos",
       "video": "Vídeos",
       "hidden": "Ocultos"
+    },
+    "delete_dialog": {
+      "title": "¿Eliminar este contenido?",
+      "description": "Este contenido compartido por sus invitados se eliminará definitivamente. Esta acción no se puede deshacer.",
+      "cancel": "Cancelar",
+      "confirm": "Eliminar"
     }
   }
 }

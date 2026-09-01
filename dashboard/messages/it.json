@@ -1029,11 +1029,18 @@
     "hide": "Nascondi",
     "show": "Mostra",
     "delete": "Elimina",
+    "anonymous": "Ospite anonimo",
     "filters": {
       "all": "Tutti",
       "photo": "Foto",
       "video": "Video",
       "hidden": "Nascosti"
+    },
+    "delete_dialog": {
+      "title": "Eliminare questo contenuto?",
+      "description": "Questo contenuto condiviso dai tuoi invitati verrà eliminato definitivamente. Questa azione non può essere annullata.",
+      "cancel": "Annulla",
+      "confirm": "Elimina"
     }
   }
 }

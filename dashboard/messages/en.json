@@ -1029,11 +1029,18 @@
     "hide": "Hide",
     "show": "Show",
     "delete": "Delete",
+    "anonymous": "Anonymous guest",
     "filters": {
       "all": "All",
       "photo": "Photos",
       "video": "Videos",
       "hidden": "Hidden"
+    },
+    "delete_dialog": {
+      "title": "Delete this item?",
+      "description": "This item shared by your guests will be permanently deleted. This action cannot be undone.",
+      "cancel": "Cancel",
+      "confirm": "Delete"
     }
   }
 }

@@ -1029,11 +1029,18 @@
     "hide": "Ausblenden",
     "show": "Anzeigen",
     "delete": "Löschen",
+    "anonymous": "Anonymer Gast",
     "filters": {
       "all": "Alle",
       "photo": "Fotos",
       "video": "Videos",
       "hidden": "Ausgeblendet"
+    },
+    "delete_dialog": {
+      "title": "Diesen Inhalt löschen?",
+      "description": "Dieser von Ihren Gästen geteilte Inhalt wird endgültig gelöscht. Diese Aktion kann nicht rückgängig gemacht werden.",
+      "cancel": "Abbrechen",
+      "confirm": "Löschen"
     }
   }
 }

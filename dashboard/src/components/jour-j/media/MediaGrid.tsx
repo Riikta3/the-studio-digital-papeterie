@@ -1,5 +1,14 @@
 "use client";
 
+import { Button } from "@shared/components/ui/button";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+} from "@shared/components/ui/dialog";
 import type { GuestMedia } from "@shared/types/jour-j";
 import { Download } from "lucide-react";
 import { useTranslations } from "next-intl";
@@ -13,6 +22,7 @@ export function MediaGrid({ initialMedia }: { initialMedia: GuestMedia[] }) {
   const t = useTranslations("DayOfPhotos");
   const [media, setMedia] = useState(initialMedia);
   const [filter, setFilter] = useState<Filter>("all");
+  const [deleteTarget, setDeleteTarget] = useState<GuestMedia | null>(null);
 
   const visible = useMemo(() => {
     if (filter === "hidden") return media.filter((m) => m.hidden);
@@ -29,6 +39,12 @@ export function MediaGrid({ initialMedia }: { initialMedia: GuestMedia[] }) {
     }),
     [media],
   );
+
+  const confirmDelete = () => {
+    if (!deleteTarget) return;
+    setMedia((prev) => prev.filter((m) => m.id !== deleteTarget.id));
+    setDeleteTarget(null);
+  };
 
   return (
     <div className='min-h-screen bg-studio-creme p-4 md:p-8 lg:p-12'>
@@ -79,13 +95,42 @@ export function MediaGrid({ initialMedia }: { initialMedia: GuestMedia[] }) {
                   ),
                 )
               }
-              onDelete={() =>
-                setMedia((prev) => prev.filter((m) => m.id !== item.id))
-              }
+              onDelete={() => setDeleteTarget(item)}
             />
           ))}
         </div>
       </div>
+
+      {/* Delete confirmation: guest media is irreplaceable, and tile actions
+          are always visible on touch, so a stray tap must not delete outright. */}
+      <Dialog
+        open={!!deleteTarget}
+        onOpenChange={(open) => {
+          if (!open) setDeleteTarget(null);
+        }}
+      >
+        <DialogContent>
+          <DialogHeader>
+            <DialogTitle>{t("delete_dialog.title")}</DialogTitle>
+            <DialogDescription>{t("delete_dialog.description")}</DialogDescription>
+          </DialogHeader>
+          <DialogFooter className='gap-2 sm:gap-0'>
+            <Button
+              variant='outline'
+              className='min-h-12'
+              onClick={() => setDeleteTarget(null)}
+            >
+              {t("delete_dialog.cancel")}
+            </Button>
+            <Button
+              className='min-h-12 bg-red-500 text-white hover:bg-red-600'
+              onClick={confirmDelete}
+            >
+              {t("delete_dialog.confirm")}
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
     </div>
   );
 }

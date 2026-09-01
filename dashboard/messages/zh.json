@@ -1029,11 +1029,18 @@
     "hide": "隐藏",
     "show": "显示",
     "delete": "删除",
+    "anonymous": "匿名宾客",
     "filters": {
       "all": "全部",
       "photo": "照片",
       "video": "视频",
       "hidden": "已隐藏"
+    },
+    "delete_dialog": {
+      "title": "删除此内容？",
+      "description": "宾客分享的这项内容将被永久删除，此操作无法撤销。",
+      "cancel": "取消",
+      "confirm": "删除"
     }
   }
 }

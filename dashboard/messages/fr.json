@@ -1029,11 +1029,18 @@
     "hide": "Masquer",
     "show": "Afficher",
     "delete": "Supprimer",
+    "anonymous": "Invité anonyme",
     "filters": {
       "all": "Tout",
       "photo": "Photos",
       "video": "Vidéos",
       "hidden": "Masqués"
+    },
+    "delete_dialog": {
+      "title": "Supprimer ce contenu ?",
+      "description": "Ce contenu partagé par vos invités sera définitivement supprimé. Cette action est irréversible.",
+      "cancel": "Annuler",
+      "confirm": "Supprimer"
     }
   }
 }

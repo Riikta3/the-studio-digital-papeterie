@@ -1029,11 +1029,18 @@
     "hide": "非表示にする",
     "show": "表示する",
     "delete": "削除",
+    "anonymous": "匿名ゲスト",
     "filters": {
       "all": "すべて",
       "photo": "写真",
       "video": "動画",
       "hidden": "非表示"
+    },
+    "delete_dialog": {
+      "title": "このコンテンツを削除しますか？",
+      "description": "ゲストが共有したこのコンテンツは完全に削除されます。この操作は取り消せません。",
+      "cancel": "キャンセル",
+      "confirm": "削除"
     }
   }
 }
