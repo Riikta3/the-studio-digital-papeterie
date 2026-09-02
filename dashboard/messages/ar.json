@@ -1092,5 +1092,58 @@
       "dietary": "الاحتياجات الغذائية",
       "allergies": "الحساسية"
     }
+  },
+  "InvitationEvents": {
+    "title": "الفعاليات",
+    "subtitle": "زفافكما ليس لحظة واحدة: أديرا كل مناسبة على حدة.",
+    "untitled": "بلا اسم",
+    "no_date": "التاريخ لم يحدد بعد",
+    "enabled": "مرئي للضيوف",
+    "counts": {
+      "confirmed": "{count} مؤكد",
+      "pending": "{count} قيد الانتظار",
+      "declined": "{count} معتذر"
+    },
+    "fields": {
+      "name": "اسم الفعالية",
+      "date": "التاريخ",
+      "time": "الوقت",
+      "time_placeholder": "17:00",
+      "address": "العنوان",
+      "description": "الوصف",
+      "dress_code": "قواعد اللباس"
+    },
+    "move_up": "تحريك لأعلى",
+    "move_down": "تحريك لأسفل",
+    "delete": "حذف الفعالية",
+    "delete_dialog": {
+      "title": "حذف «{name}»؟",
+      "description": "ستصبح ردود RSVP وعناصر البرنامج المرتبطة بهذه الفعالية يتيمة بلا مرجع. لا يمكن التراجع عن هذا الإجراء.",
+      "cancel": "إلغاء",
+      "confirm": "حذف"
+    },
+    "add_event": "إضافة فعالية",
+    "new_event_name": "فعالية جديدة"
+  },
+  "InvitationSchedule": {
+    "title": "البرنامج",
+    "subtitle": "سير كل فعالية، بالترتيب الذي تجري فيه.",
+    "event_disabled": "الفعالية معطلة",
+    "empty": "لا توجد عناصر بعد.",
+    "add_entry": "إضافة عنصر",
+    "new_entry_title": "عنصر جديد",
+    "time_placeholder": "17:00",
+    "title_placeholder": "عنوان العنصر",
+    "description_placeholder": "الوصف (اختياري)",
+    "fields": {
+      "time": "الوقت",
+      "title": "العنوان",
+      "description": "الوصف"
+    },
+    "move_up": "تحريك لأعلى",
+    "move_down": "تحريك لأسفل",
+    "delete_entry": "حذف «{title}»",
+    "deleted_toast": "تم حذف «{title}»",
+    "untitled": "بلا عنوان"
   }
 }

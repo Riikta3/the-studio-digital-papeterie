@@ -1092,5 +1092,58 @@
       "dietary": "饮食限制",
       "allergies": "过敏源"
     }
+  },
+  "InvitationEvents": {
+    "title": "活动",
+    "subtitle": "婚礼不只是一个时刻，请分别管理每个环节。",
+    "untitled": "未命名",
+    "no_date": "日期待定",
+    "enabled": "宾客可见",
+    "counts": {
+      "confirmed": "{count} 人已确认",
+      "pending": "{count} 人待回复",
+      "declined": "{count} 人已拒绝"
+    },
+    "fields": {
+      "name": "活动名称",
+      "date": "日期",
+      "time": "时间",
+      "time_placeholder": "17:00",
+      "address": "地址",
+      "description": "描述",
+      "dress_code": "着装要求"
+    },
+    "move_up": "上移",
+    "move_down": "下移",
+    "delete": "删除活动",
+    "delete_dialog": {
+      "title": "删除“{name}”？",
+      "description": "与此活动关联的 RSVP 回复和日程安排将变为孤立数据。此操作无法撤销。",
+      "cancel": "取消",
+      "confirm": "删除"
+    },
+    "add_event": "添加活动",
+    "new_event_name": "新活动"
+  },
+  "InvitationSchedule": {
+    "title": "日程安排",
+    "subtitle": "每个活动的流程，按实际顺序排列。",
+    "event_disabled": "活动已禁用",
+    "empty": "暂无安排。",
+    "add_entry": "添加环节",
+    "new_entry_title": "新环节",
+    "time_placeholder": "17:00",
+    "title_placeholder": "环节标题",
+    "description_placeholder": "描述（选填）",
+    "fields": {
+      "time": "时间",
+      "title": "标题",
+      "description": "描述"
+    },
+    "move_up": "上移",
+    "move_down": "下移",
+    "delete_entry": "删除“{title}”",
+    "deleted_toast": "已删除“{title}”",
+    "untitled": "无标题"
   }
 }

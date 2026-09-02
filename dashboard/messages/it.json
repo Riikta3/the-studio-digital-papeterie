@@ -1092,5 +1092,58 @@
       "dietary": "Esigenze",
       "allergies": "Allergie"
     }
+  },
+  "InvitationEvents": {
+    "title": "Eventi",
+    "subtitle": "Il vostro matrimonio non è un solo momento: gestite ogni occasione separatamente.",
+    "untitled": "Senza nome",
+    "no_date": "Data da definire",
+    "enabled": "Visibile agli invitati",
+    "counts": {
+      "confirmed": "{count} confermati",
+      "pending": "{count} in attesa",
+      "declined": "{count} rifiutati"
+    },
+    "fields": {
+      "name": "Nome dell'evento",
+      "date": "Data",
+      "time": "Ora",
+      "time_placeholder": "17:00",
+      "address": "Indirizzo",
+      "description": "Descrizione",
+      "dress_code": "Dress code"
+    },
+    "move_up": "Sposta su",
+    "move_down": "Sposta giù",
+    "delete": "Elimina evento",
+    "delete_dialog": {
+      "title": "Eliminare “{name}”?",
+      "description": "Le risposte RSVP e le voci del programma collegate a questo evento resteranno orfane. Questa azione è irreversibile.",
+      "cancel": "Annulla",
+      "confirm": "Elimina"
+    },
+    "add_event": "Aggiungi un evento",
+    "new_event_name": "Nuovo evento"
+  },
+  "InvitationSchedule": {
+    "title": "Programma",
+    "subtitle": "Lo svolgimento di ogni evento, nell'ordine in cui avviene.",
+    "event_disabled": "Evento disattivato",
+    "empty": "Nessuna voce per ora.",
+    "add_entry": "Aggiungi una voce",
+    "new_entry_title": "Nuova voce",
+    "time_placeholder": "17:00",
+    "title_placeholder": "Titolo della voce",
+    "description_placeholder": "Descrizione (facoltativa)",
+    "fields": {
+      "time": "Ora",
+      "title": "Titolo",
+      "description": "Descrizione"
+    },
+    "move_up": "Sposta su",
+    "move_down": "Sposta giù",
+    "delete_entry": "Elimina “{title}”",
+    "deleted_toast": "“{title}” eliminato",
+    "untitled": "Senza titolo"
   }
 }

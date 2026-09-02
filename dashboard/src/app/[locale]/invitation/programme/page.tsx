@@ -1,5 +1,11 @@
-import { ComingSoon } from "@/components/navigation/ComingSoon";
+import { ScheduleEditor } from "@/components/invitation/ScheduleEditor";
+import { INVITATION_MOCK } from "@shared/data/invitation-mock";
 
-export default function Page() {
-  return <ComingSoon titleKey='invitation.items.schedule' />;
+export default function ProgrammePage() {
+  return (
+    <ScheduleEditor
+      events={INVITATION_MOCK.events}
+      initialSchedule={INVITATION_MOCK.schedule}
+    />
+  );
 }

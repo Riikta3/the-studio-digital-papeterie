@@ -1092,5 +1092,58 @@
       "dietary": "Ernährungshinweise",
       "allergies": "Allergien"
     }
+  },
+  "InvitationEvents": {
+    "title": "Veranstaltungen",
+    "subtitle": "Eure Hochzeit ist nicht nur ein einziger Moment – verwaltet jeden Anlass einzeln.",
+    "untitled": "Ohne Titel",
+    "no_date": "Datum noch offen",
+    "enabled": "Für Gäste sichtbar",
+    "counts": {
+      "confirmed": "{count} zugesagt",
+      "pending": "{count} ausstehend",
+      "declined": "{count} abgesagt"
+    },
+    "fields": {
+      "name": "Name der Veranstaltung",
+      "date": "Datum",
+      "time": "Uhrzeit",
+      "time_placeholder": "17:00 Uhr",
+      "address": "Adresse",
+      "description": "Beschreibung",
+      "dress_code": "Dresscode"
+    },
+    "move_up": "Nach oben",
+    "move_down": "Nach unten",
+    "delete": "Veranstaltung löschen",
+    "delete_dialog": {
+      "title": "„{name}“ löschen?",
+      "description": "RSVP-Antworten und Programmpunkte, die mit dieser Veranstaltung verknüpft sind, werden verwaist. Dies kann nicht rückgängig gemacht werden.",
+      "cancel": "Abbrechen",
+      "confirm": "Löschen"
+    },
+    "add_event": "Veranstaltung hinzufügen",
+    "new_event_name": "Neue Veranstaltung"
+  },
+  "InvitationSchedule": {
+    "title": "Ablauf",
+    "subtitle": "Der Ablauf jeder Veranstaltung, in der Reihenfolge, in der er stattfindet.",
+    "event_disabled": "Veranstaltung deaktiviert",
+    "empty": "Noch keine Programmpunkte.",
+    "add_entry": "Programmpunkt hinzufügen",
+    "new_entry_title": "Neuer Programmpunkt",
+    "time_placeholder": "17:00 Uhr",
+    "title_placeholder": "Titel des Programmpunkts",
+    "description_placeholder": "Beschreibung (optional)",
+    "fields": {
+      "time": "Uhrzeit",
+      "title": "Titel",
+      "description": "Beschreibung"
+    },
+    "move_up": "Nach oben",
+    "move_down": "Nach unten",
+    "delete_entry": "„{title}“ löschen",
+    "deleted_toast": "„{title}“ gelöscht",
+    "untitled": "Ohne Titel"
   }
 }

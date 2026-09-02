@@ -1092,5 +1092,58 @@
       "dietary": "Restricciones",
       "allergies": "Alergias"
     }
+  },
+  "InvitationEvents": {
+    "title": "Eventos",
+    "subtitle": "Vuestra boda no es un solo momento: gestionad cada celebración por separado.",
+    "untitled": "Sin nombre",
+    "no_date": "Fecha por definir",
+    "enabled": "Visible para los invitados",
+    "counts": {
+      "confirmed": "{count} confirmados",
+      "pending": "{count} pendientes",
+      "declined": "{count} rechazados"
+    },
+    "fields": {
+      "name": "Nombre del evento",
+      "date": "Fecha",
+      "time": "Hora",
+      "time_placeholder": "17:00",
+      "address": "Dirección",
+      "description": "Descripción",
+      "dress_code": "Código de vestimenta"
+    },
+    "move_up": "Subir",
+    "move_down": "Bajar",
+    "delete": "Eliminar evento",
+    "delete_dialog": {
+      "title": "¿Eliminar “{name}”?",
+      "description": "Las respuestas RSVP y las entradas del programa vinculadas a este evento quedarán huérfanas. Esta acción no se puede deshacer.",
+      "cancel": "Cancelar",
+      "confirm": "Eliminar"
+    },
+    "add_event": "Añadir un evento",
+    "new_event_name": "Nuevo evento"
+  },
+  "InvitationSchedule": {
+    "title": "Programa",
+    "subtitle": "El desarrollo de cada evento, en el orden en que ocurre.",
+    "event_disabled": "Evento desactivado",
+    "empty": "Aún no hay etapas.",
+    "add_entry": "Añadir una etapa",
+    "new_entry_title": "Nueva etapa",
+    "time_placeholder": "17:00",
+    "title_placeholder": "Título de la etapa",
+    "description_placeholder": "Descripción (opcional)",
+    "fields": {
+      "time": "Hora",
+      "title": "Título",
+      "description": "Descripción"
+    },
+    "move_up": "Subir",
+    "move_down": "Bajar",
+    "delete_entry": "Eliminar “{title}”",
+    "deleted_toast": "“{title}” eliminado",
+    "untitled": "Sin título"
   }
 }

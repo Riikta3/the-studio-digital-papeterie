@@ -1092,5 +1092,58 @@
       "dietary": "Régimes",
       "allergies": "Allergies"
     }
+  },
+  "InvitationEvents": {
+    "title": "Événements",
+    "subtitle": "Votre mariage, ce n'est pas un seul moment : gérez chaque temps fort séparément.",
+    "untitled": "Sans nom",
+    "no_date": "Date à définir",
+    "enabled": "Visible par les invités",
+    "counts": {
+      "confirmed": "{count} confirmés",
+      "pending": "{count} en attente",
+      "declined": "{count} déclinés"
+    },
+    "fields": {
+      "name": "Nom de l'événement",
+      "date": "Date",
+      "time": "Heure",
+      "time_placeholder": "17h00",
+      "address": "Adresse",
+      "description": "Description",
+      "dress_code": "Dress code"
+    },
+    "move_up": "Monter",
+    "move_down": "Descendre",
+    "delete": "Supprimer l'événement",
+    "delete_dialog": {
+      "title": "Supprimer « {name} » ?",
+      "description": "Les réponses RSVP et les entrées du programme liées à cet événement seront orphelines. Cette action est irréversible.",
+      "cancel": "Annuler",
+      "confirm": "Supprimer"
+    },
+    "add_event": "Ajouter un événement",
+    "new_event_name": "Nouvel événement"
+  },
+  "InvitationSchedule": {
+    "title": "Programme",
+    "subtitle": "Le déroulé de chaque événement, dans l'ordre où il se déroule.",
+    "event_disabled": "Événement désactivé",
+    "empty": "Aucune étape pour le moment.",
+    "add_entry": "Ajouter une étape",
+    "new_entry_title": "Nouvelle étape",
+    "time_placeholder": "17h00",
+    "title_placeholder": "Titre de l'étape",
+    "description_placeholder": "Description (facultatif)",
+    "fields": {
+      "time": "Heure",
+      "title": "Titre",
+      "description": "Description"
+    },
+    "move_up": "Monter",
+    "move_down": "Descendre",
+    "delete_entry": "Supprimer « {title} »",
+    "deleted_toast": "« {title} » supprimé",
+    "untitled": "Sans titre"
   }
 }

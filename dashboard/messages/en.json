@@ -1092,5 +1092,58 @@
       "dietary": "Dietary flags",
       "allergies": "Allergies"
     }
+  },
+  "InvitationEvents": {
+    "title": "Events",
+    "subtitle": "Your wedding isn't a single moment — manage each occasion separately.",
+    "untitled": "Untitled",
+    "no_date": "Date to be set",
+    "enabled": "Visible to guests",
+    "counts": {
+      "confirmed": "{count} confirmed",
+      "pending": "{count} pending",
+      "declined": "{count} declined"
+    },
+    "fields": {
+      "name": "Event name",
+      "date": "Date",
+      "time": "Time",
+      "time_placeholder": "5:00 PM",
+      "address": "Address",
+      "description": "Description",
+      "dress_code": "Dress code"
+    },
+    "move_up": "Move up",
+    "move_down": "Move down",
+    "delete": "Delete event",
+    "delete_dialog": {
+      "title": "Delete “{name}”?",
+      "description": "RSVP answers and programme entries linked to this event will be orphaned. This cannot be undone.",
+      "cancel": "Cancel",
+      "confirm": "Delete"
+    },
+    "add_event": "Add an event",
+    "new_event_name": "New event"
+  },
+  "InvitationSchedule": {
+    "title": "Programme",
+    "subtitle": "The order of the day, for each event.",
+    "event_disabled": "Event disabled",
+    "empty": "No entries yet.",
+    "add_entry": "Add an entry",
+    "new_entry_title": "New entry",
+    "time_placeholder": "5:00 PM",
+    "title_placeholder": "Entry title",
+    "description_placeholder": "Description (optional)",
+    "fields": {
+      "time": "Time",
+      "title": "Title",
+      "description": "Description"
+    },
+    "move_up": "Move up",
+    "move_down": "Move down",
+    "delete_entry": "Delete “{title}”",
+    "deleted_toast": "“{title}” deleted",
+    "untitled": "Untitled"
   }
 }
