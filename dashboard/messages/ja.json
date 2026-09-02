@@ -957,7 +957,18 @@
     "no_tables": "まだテーブルがありません",
     "assign_failed": "ゲストを割り当てられませんでした。もう一度お試しください。",
     "unassign_failed": "ゲストを削除できませんでした。",
-    "move_failed": "テーブルを移動できませんでした。"
+    "move_failed": "テーブルを移動できませんでした。",
+    "add_table": "テーブルを追加",
+    "edit_table": "テーブルを編集",
+    "delete_table": "テーブルを削除",
+    "table_name": "テーブル名",
+    "table_name_placeholder": "カプリ",
+    "table_capacity": "席数",
+    "table_seats_label": "印刷用ラベル（任意）",
+    "table_seats_label_placeholder": "テーブル 1",
+    "capacity_below_seated": "すでに {count} 名が着席しています。先に何名か外してください。",
+    "save": "保存",
+    "delete_failed": "削除中にエラーが発生しました。"
   },
   "QrCode": {
     "title": "当日QRコード",

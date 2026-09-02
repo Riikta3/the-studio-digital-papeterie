@@ -957,7 +957,18 @@
     "no_tables": "Noch keine Tische",
     "assign_failed": "Der Gast konnte nicht platziert werden. Bitte erneut versuchen.",
     "unassign_failed": "Der Gast konnte nicht entfernt werden.",
-    "move_failed": "Der Tisch konnte nicht verschoben werden."
+    "move_failed": "Der Tisch konnte nicht verschoben werden.",
+    "add_table": "Tisch hinzufügen",
+    "edit_table": "Tisch bearbeiten",
+    "delete_table": "Tisch löschen",
+    "table_name": "Tischname",
+    "table_name_placeholder": "Capri",
+    "table_capacity": "Anzahl der Plätze",
+    "table_seats_label": "Aufgedruckte Bezeichnung (optional)",
+    "table_seats_label_placeholder": "Tisch 1",
+    "capacity_below_seated": "Hier sitzen bereits {count} Personen. Entfernen Sie zuerst einige.",
+    "save": "Speichern",
+    "delete_failed": "Beim Löschen ist ein Fehler aufgetreten."
   },
   "QrCode": {
     "title": "QR-Code für den großen Tag",

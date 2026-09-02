@@ -1,6 +1,13 @@
 "use client";
 
-import { assignGuestToTable, moveTable, unassignGuest as unassignGuestAction } from "@/actions/seating-actions";
+import {
+  assignGuestToTable,
+  createTable,
+  deleteTable,
+  moveTable,
+  unassignGuest as unassignGuestAction,
+  updateTable,
+} from "@/actions/seating-actions";
 import type { SeatingGuest } from "@/lib/db/projections";
 import type { DayOfTable } from "@shared/types/jour-j";
 import {
@@ -15,6 +22,7 @@ import { toast } from "sonner";
 import { SeatingBoard } from "./SeatingBoard";
 import { SeatingHeader } from "./SeatingHeader";
 import { SeatingList } from "./SeatingList";
+import { TableDialog } from "./TableDialog";
 
 // Only this prop type changes across the seating folder: `SeatingGuest` is
 // `DayOfGuest` minus `dietary`, plus `tableId`, and is structurally
@@ -27,6 +35,12 @@ export function SeatingScreen({ initialTables, guests }: Props) {
   const t = useTranslations("Seating");
   const [tables, setTables] = useState(initialTables);
   const [query, setQuery] = useState("");
+  /**
+   * Which table the dialog is editing. `"new"` opens it empty; a table id
+   * opens it on that table; `null` keeps it closed. One piece of state rather
+   * than an open flag plus a selection, so the two cannot disagree.
+   */
+  const [editing, setEditing] = useState<string | "new" | null>(null);
 
   const summary = useMemo(() => seatingSummary(tables, guests), [tables, guests]);
   const unseated = useMemo(() => unseatedGuests(tables, guests), [tables, guests]);
@@ -93,11 +107,69 @@ export function SeatingScreen({ initialTables, guests }: Props) {
     }, 400);
   };
 
+  const editingTable =
+    editing && editing !== "new"
+      ? tables.find((tbl) => tbl.id === editing)
+      : undefined;
+
+  const saveTable = async (values: {
+    name: string;
+    capacity: number;
+    seatsLabel?: string;
+  }) => {
+    if (editing === "new") {
+      // Await the server and adopt its id: a client-minted string is not a
+      // valid uuid, and every later write on the table would miss.
+      const res = await createTable(values);
+      if (!res.success) {
+        toast.error(res.error || t("save_failed"));
+        return;
+      }
+      setTables((prev) => [...prev, res.table]);
+      return;
+    }
+
+    if (!editingTable) return;
+    const previous = tables;
+    setTables((prev) =>
+      prev.map((tbl) =>
+        tbl.id === editingTable.id
+          ? { ...tbl, ...values, seatsLabel: values.seatsLabel }
+          : tbl,
+      ),
+    );
+    const res = await updateTable(editingTable.id, {
+      name: values.name,
+      capacity: values.capacity,
+      seatsLabel: values.seatsLabel ?? null,
+    });
+    if (!res.success) {
+      setTables(previous);
+      toast.error(res.error || t("save_failed"));
+    }
+  };
+
+  const removeTable = async () => {
+    if (!editingTable) return;
+    const previous = tables;
+    setTables((prev) => prev.filter((tbl) => tbl.id !== editingTable.id));
+    const res = await deleteTable(editingTable.id);
+    if (!res.success) {
+      setTables(previous);
+      toast.error(res.error || t("delete_failed"));
+    }
+  };
+
   return (
     /* Desktop pins the layout to the viewport so the guest panel and the
        board scroll independently; mobile keeps a normal page scroll. */
     <div className='flex min-h-screen flex-col bg-studio-creme md:h-screen md:min-h-0 md:overflow-hidden'>
-      <SeatingHeader summary={summary} query={query} onQueryChange={setQuery} />
+      <SeatingHeader
+        summary={summary}
+        query={query}
+        onQueryChange={setQuery}
+        onAddTable={() => setEditing("new")}
+      />
 
       {/* Desktop: drag & drop board. */}
       <div className='hidden min-h-0 flex-1 md:flex'>
@@ -108,6 +180,7 @@ export function SeatingScreen({ initialTables, guests }: Props) {
           onAssign={onAssign}
           onUnassign={onUnassign}
           onMoveTable={onMoveTable}
+          onEditTable={setEditing}
         />
       </div>
 
@@ -119,8 +192,18 @@ export function SeatingScreen({ initialTables, guests }: Props) {
           unseated={filteredUnseated}
           onAssign={onAssign}
           onUnassign={onUnassign}
+          onEditTable={setEditing}
         />
       </div>
+
+      <TableDialog
+        open={editing !== null}
+        onOpenChange={(open) => setEditing(open ? editing : null)}
+        table={editingTable}
+        seatedCount={editingTable?.guestIds.length ?? 0}
+        onSubmit={saveTable}
+        onDelete={editingTable ? removeTable : undefined}
+      />
     </div>
   );
 }

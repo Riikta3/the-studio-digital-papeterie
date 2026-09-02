@@ -957,7 +957,18 @@
     "no_tables": "Todavía no hay mesas",
     "assign_failed": "No se pudo ubicar al invitado. Inténtalo de nuevo.",
     "unassign_failed": "No se pudo quitar al invitado.",
-    "move_failed": "No se pudo mover la mesa."
+    "move_failed": "No se pudo mover la mesa.",
+    "add_table": "Añadir una mesa",
+    "edit_table": "Editar mesa",
+    "delete_table": "Eliminar mesa",
+    "table_name": "Nombre de la mesa",
+    "table_name_placeholder": "Capri",
+    "table_capacity": "Número de plazas",
+    "table_seats_label": "Etiqueta impresa (opcional)",
+    "table_seats_label_placeholder": "Mesa 1",
+    "capacity_below_seated": "Ya hay {count} personas sentadas aquí. Quita algunas primero.",
+    "save": "Guardar",
+    "delete_failed": "Error al eliminar."
   },
   "QrCode": {
     "title": "Código QR del gran día",

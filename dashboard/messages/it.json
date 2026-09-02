@@ -957,7 +957,18 @@
     "no_tables": "Nessun tavolo per ora",
     "assign_failed": "Impossibile sistemare l'invitato. Riprova.",
     "unassign_failed": "Impossibile rimuovere l'invitato.",
-    "move_failed": "Impossibile spostare il tavolo."
+    "move_failed": "Impossibile spostare il tavolo.",
+    "add_table": "Aggiungi un tavolo",
+    "edit_table": "Modifica tavolo",
+    "delete_table": "Elimina tavolo",
+    "table_name": "Nome del tavolo",
+    "table_name_placeholder": "Capri",
+    "table_capacity": "Numero di posti",
+    "table_seats_label": "Etichetta stampata (opzionale)",
+    "table_seats_label_placeholder": "Tavolo 1",
+    "capacity_below_seated": "Ci sono già {count} persone sedute qui. Rimuovine alcune prima.",
+    "save": "Salva",
+    "delete_failed": "Errore durante l'eliminazione."
   },
   "QrCode": {
     "title": "QR code del grande giorno",

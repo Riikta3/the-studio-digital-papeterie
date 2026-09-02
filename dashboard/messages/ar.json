@@ -957,7 +957,18 @@
     "no_tables": "لا توجد طاولات بعد",
     "assign_failed": "تعذّر تنسيق الضيف. يُرجى المحاولة مرة أخرى.",
     "unassign_failed": "تعذّرت إزالة الضيف.",
-    "move_failed": "تعذّر نقل الطاولة."
+    "move_failed": "تعذّر نقل الطاولة.",
+    "add_table": "إضافة طاولة",
+    "edit_table": "تعديل الطاولة",
+    "delete_table": "حذف الطاولة",
+    "table_name": "اسم الطاولة",
+    "table_name_placeholder": "كابري",
+    "table_capacity": "عدد المقاعد",
+    "table_seats_label": "التسمية المطبوعة (اختياري)",
+    "table_seats_label_placeholder": "الطاولة ١",
+    "capacity_below_seated": "يجلس هنا {count} أشخاص بالفعل. أزل بعضهم أولاً.",
+    "save": "حفظ",
+    "delete_failed": "حدث خطأ أثناء الحذف."
   },
   "QrCode": {
     "title": "رمز QR ليوم الزفاف",

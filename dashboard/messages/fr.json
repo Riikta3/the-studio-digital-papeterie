@@ -957,7 +957,18 @@
     "no_tables": "Aucune table pour l'instant",
     "assign_failed": "Erreur lors de l'affectation. L'invité n'a pas été placé.",
     "unassign_failed": "Erreur lors du retrait de l'invité.",
-    "move_failed": "Erreur lors du déplacement de la table."
+    "move_failed": "Erreur lors du déplacement de la table.",
+    "add_table": "Ajouter une table",
+    "edit_table": "Modifier la table",
+    "delete_table": "Supprimer la table",
+    "table_name": "Nom de la table",
+    "table_name_placeholder": "Capri",
+    "table_capacity": "Nombre de places",
+    "table_seats_label": "Libellé imprimé (facultatif)",
+    "table_seats_label_placeholder": "Table 1",
+    "capacity_below_seated": "{count} personnes y sont déjà placées. Retirez-en d'abord.",
+    "save": "Enregistrer",
+    "delete_failed": "Erreur lors de la suppression."
   },
   "QrCode": {
     "title": "QR Code Jour J",

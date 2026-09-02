@@ -957,7 +957,18 @@
     "no_tables": "No tables yet",
     "assign_failed": "Couldn't seat the guest. Please try again.",
     "unassign_failed": "Couldn't remove the guest.",
-    "move_failed": "Couldn't move the table."
+    "move_failed": "Couldn't move the table.",
+    "add_table": "Add a table",
+    "edit_table": "Edit table",
+    "delete_table": "Delete table",
+    "table_name": "Table name",
+    "table_name_placeholder": "Capri",
+    "table_capacity": "Number of seats",
+    "table_seats_label": "Printed label (optional)",
+    "table_seats_label_placeholder": "Table 1",
+    "capacity_below_seated": "{count} people are already seated here. Remove some first.",
+    "save": "Save",
+    "delete_failed": "Something went wrong while deleting."
   },
   "QrCode": {
     "title": "Day-of QR code",

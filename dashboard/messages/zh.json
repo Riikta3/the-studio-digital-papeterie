@@ -957,7 +957,18 @@
     "no_tables": "暂无餐桌",
     "assign_failed": "无法安排该宾客，请重试。",
     "unassign_failed": "无法移除该宾客。",
-    "move_failed": "无法移动该餐桌。"
+    "move_failed": "无法移动该餐桌。",
+    "add_table": "添加餐桌",
+    "edit_table": "编辑餐桌",
+    "delete_table": "删除餐桌",
+    "table_name": "餐桌名称",
+    "table_name_placeholder": "卡普里",
+    "table_capacity": "座位数",
+    "table_seats_label": "打印标签（可选）",
+    "table_seats_label_placeholder": "第 1 桌",
+    "capacity_below_seated": "此桌已安排 {count} 位客人，请先移除部分客人。",
+    "save": "保存",
+    "delete_failed": "删除时出错。"
   },
   "QrCode": {
     "title": "婚礼当天二维码",

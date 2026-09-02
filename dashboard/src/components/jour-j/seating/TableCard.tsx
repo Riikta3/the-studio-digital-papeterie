@@ -4,7 +4,7 @@ import type { DayOfGuest, DayOfTable } from "@shared/types/jour-j";
 import { useDraggable, useDroppable } from "@dnd-kit/core";
 import { CSS } from "@dnd-kit/utilities";
 import { cn } from "@shared/lib/utils";
-import { X } from "lucide-react";
+import { Pencil, X } from "lucide-react";
 import { useTranslations } from "next-intl";
 
 type Props = {
@@ -12,9 +12,10 @@ type Props = {
   /** Resolved from the table's own guestIds — the single source of truth. */
   seated: DayOfGuest[];
   onUnassign: (guestId: string) => void;
+  onEdit: () => void;
 };
 
-export function TableCard({ table, seated, onUnassign }: Props) {
+export function TableCard({ table, seated, onUnassign, onEdit }: Props) {
   const t = useTranslations("Seating");
   const { attributes, listeners, setNodeRef: dragRef, transform } =
     useDraggable({ id: `table-${table.id}`, data: { type: "table", tableId: table.id } });
@@ -48,17 +49,31 @@ export function TableCard({ table, seated, onUnassign }: Props) {
           !isOver && "border-studio-lavande/50 bg-white",
         )}
       >
-        <div
-          {...listeners}
-          {...attributes}
-          className='mb-2 cursor-grab active:cursor-grabbing'
-        >
-          <p className='font-heading text-sm text-studio-violet'>{table.name}</p>
-          <p className='text-xs text-studio-violet/60'>
-            {/* "Table Capri — 8/10", per §13.1 */}
-            {seated.length}/{table.capacity}
-            {table.seatsLabel ? ` · ${table.seatsLabel}` : ""}
-          </p>
+        <div className='mb-2 flex items-start justify-between gap-1'>
+          {/* The drag handle is the text block only: a button inside it would
+              swallow the pointer-down the sensor needs. */}
+          <div
+            {...listeners}
+            {...attributes}
+            className='min-w-0 flex-1 cursor-grab active:cursor-grabbing'
+          >
+            <p className='truncate font-heading text-sm text-studio-violet'>
+              {table.name}
+            </p>
+            <p className='text-xs text-studio-violet/60'>
+              {/* "Table Capri — 8/10", per §13.1 */}
+              {seated.length}/{table.capacity}
+              {table.seatsLabel ? ` · ${table.seatsLabel}` : ""}
+            </p>
+          </div>
+          <button
+            type='button'
+            onClick={onEdit}
+            aria-label={`${t("edit_table")} ${table.name}`}
+            className='shrink-0 rounded p-1.5 text-studio-violet/40 transition-colors hover:bg-studio-creme hover:text-studio-violet'
+          >
+            <Pencil className='h-3.5 w-3.5' />
+          </button>
         </div>
 
         <ul className='space-y-0.5'>
