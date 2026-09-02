@@ -1412,11 +1412,18 @@ export function ModulePreview({ moduleId, config }: ModulePreviewProps) {
   return (
     <div className="h-full flex flex-col">
       <div className="flex items-center gap-2 mb-4 px-1">
-        <Eye size={14} className="text-muted-foreground" />
-        <span className="text-xs font-bold uppercase tracking-[0.15em] text-muted-foreground">
+        <Eye size={14} className="text-studio-violet/60" />
+        <span className="text-xs font-bold uppercase tracking-[0.15em] text-studio-violet/60">
           {t("live_preview")}
         </span>
       </div>
+      {/*
+        Everything below renders inside `.theme-floral` (shared/styles/globals.css),
+        which remaps the shadcn CSS variables to the invitation palette. The generic
+        tokens here (bg-card, text-primary, text-muted-foreground, border-border, etc.,
+        including on this wrapper) are deliberate: they make this preview match the
+        real guest-facing site. Do not replace them with studio-* tokens.
+      */}
       <div className="flex-1 theme-floral bg-background rounded-2xl border border-border overflow-y-auto">
         <div className="py-10 px-5 w-full [&>div]:w-full">
           {content}

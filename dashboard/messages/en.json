@@ -2,52 +2,46 @@
   "Dashboard": {
     "greeting": "Hello, {name}",
     "settings": "Settings",
-    "view_site": "View my site",
-    "wedding_space": "Wedding Space",
-    "responses": "Responses",
-    "guests_confirmed": "{count} guests confirmed out of {total}",
-    "see_list": "View list",
     "countdown": "Countdown",
-    "days_remaining": "D-{days}",
-    "almost_there": "Almost there!",
-    "big_day": "It's the big day!",
-    "date_missing": "Date?",
-    "add_date": "Add wedding date",
-    "configure_now": "Configure now",
-    "next_step": "Next step: Send hotel info",
-    "to_validate": "To Validate",
-    "households_pending": "{count} households pending validation.",
-    "all_up_to_date": "All up to date!\nNo action required.",
-    "manage_requests": "Manage requests",
-    "recent_activity": "Recent Activity",
-    "online_signup": "Online signup",
-    "admin_add": "Added by admin",
-    "confirmed": "Confirmed",
-    "pending": "Pending",
-    "no_activity": "No recent activity.",
-    "quick_access": "Quick Access",
-    "guest_list": "Guest List",
-    "guest_desc": "Manage, add or remove.",
-    "settings_desc": "Date, code and preferences.",
-    "the_site": "The Site",
-    "total_guests": "Total Guests",
-    "activity_confirmed": "confirmed attendance",
-    "activity_declined": "declined invitation",
-    "activity_rsvp_received": "responded (online)",
-    "activity_added": "added by admin",
-    "quick_add_guest": "Add Guest",
-    "quick_add_desc": "Manually add a household",
-    "manage_responses": "Manage Responses",
-    "manage_responses_desc": "Process pending RSVPs",
-    "guest_list_desc": "Full guest list",
-    "export_data": "Export Data",
-    "export_desc": "Download Excel / CSV file",
-    "confirmed_guests_desc": "Confirmed guests",
-    "pending_response_desc": "Awaiting response",
-    "pending_validation_title": "Pending validations",
-    "pending_validation_desc": "You have <strong>{count} households</strong> who responded and are awaiting your validation.",
-    "review_responses": "Review responses",
-    "no_pending_validation": "No pending validations"
+    "kpi": {
+      "guests": {
+        "title": "Guests",
+        "total": "Total",
+        "confirmed": "Confirmed",
+        "pending": "Pending",
+        "children": "Children"
+      },
+      "jour_j": {
+        "title": "Wedding Day",
+        "seated": "Seated",
+        "to_seat": "Left to seat",
+        "tables": "Tables",
+        "media": "Photos & videos"
+      }
+    },
+    "quick_actions": {
+      "title": "To do",
+      "no_answer": {
+        "label": "{count, plural, =0 {No pending responses} one {# guest with no answer} other {# guests with no answer}}",
+        "description": "Follow up with guests who haven't answered yet"
+      },
+      "to_seat": {
+        "label": "{count, plural, =0 {Everyone is seated} one {# guest left to seat} other {# guests left to seat}}",
+        "description": "Finish the seating plan"
+      },
+      "qr_code": {
+        "label_no_count": "Print the QR code",
+        "description": "To display on the day for guest access"
+      }
+    },
+    "invitation_preview": {
+      "title": "Invitation",
+      "live": "Live",
+      "not_live": "Offline",
+      "edit_cta": "Edit content",
+      "public_hint": "Public link shared with your guests",
+      "view_cta": "View"
+    }
   },
   "Guests": {
     "title": "Your Guests",
@@ -200,18 +194,54 @@
     "toast_remove_error": "Error while removing"
   },
   "Sidebar": {
-    "home": "Home",
-    "guests": "Guests",
-    "messages": "Messages",
-    "billing": "Billing",
-    "settings": "Settings",
+    "sections": {
+      "home": {
+        "label": "Home"
+      },
+      "guests": {
+        "label": "Guests",
+        "items": {
+          "all": "All guests",
+          "rsvp": "RSVP replies",
+          "groups": "Groups",
+          "meals": "Meals"
+        }
+      },
+      "invitation": {
+        "label": "Invitation",
+        "items": {
+          "modules": "My modules",
+          "events": "Events",
+          "schedule": "Schedule",
+          "venue": "Venue & practical info",
+          "faq": "FAQ",
+          "playlist": "Playlist"
+        }
+      },
+      "day_of": {
+        "label": "Day of",
+        "items": {
+          "seating": "Seating plan",
+          "qr_code": "QR code",
+          "menu": "Menu",
+          "photos": "Photos & videos",
+          "settings": "Settings"
+        }
+      },
+      "stats": {
+        "label": "Statistics"
+      },
+      "settings": {
+        "label": "Settings",
+        "items": {
+          "couple": "Couple",
+          "billing": "Billing",
+          "messages": "Messages"
+        }
+      }
+    },
     "view_site": "View my Site",
     "logout": "Logout",
-    "modules": "My Modules",
-    "rsvp_responses": "RSVP Responses",
-    "playlist": "Playlist",
-    "seating_plan": "Seating Plan",
-    "config_section": "Configuration",
     "logout_confirmation": {
       "title": "Confirm logout",
       "description": "Are you sure you want to log out?",
@@ -252,7 +282,9 @@
       "new_email": "New Email",
       "update_email_btn": "Update email",
       "toast_profile_success": "Profile updated",
-      "toast_tech_error": "Technical error"
+      "toast_tech_error": "Technical error",
+      "weddingdate": "Wedding date",
+      "weddingdate_hint": "It drives the countdown on your home page and the invitation's schedule."
     },
     "security": {
       "password_title": "Password",
@@ -704,12 +736,6 @@
       "other": "Other"
     }
   },
-  "AddTableButton": {
-    "toast_success": "Table added!",
-    "toast_error": "Error: {error}",
-    "creating": "Creating...",
-    "add_table": "Add a table"
-  },
   "ForgotPassword": {
     "title": "Forgot your password?",
     "description": "Enter your email address and we'll send you a link to reset your password.",
@@ -858,15 +884,6 @@
     "error_too_short": "Password must be at least 6 characters.",
     "error_generic": "Error while resetting. Please try again."
   },
-  "SeatingPlan": {
-    "error_title": "An error occurred",
-    "error_description": "Unable to load the seating plan.",
-    "title": "Seating Plan",
-    "subtitle_has_tables": "Drag and drop tables and guests.",
-    "subtitle_empty": "Start by creating your first table.",
-    "empty_title": "Your room is empty",
-    "empty_description": "Create tables to start placing your guests. You'll be able to move them around freely afterwards."
-  },
   "CountdownTimer": {
     "big_day": "It's the big day!",
     "months": "Months",
@@ -913,12 +930,6 @@
     "one_time_payment": "One-time payment, included for life on your site",
     "buy_button": "Buy — €10"
   },
-  "GuestSidebar": {
-    "title": "Guests",
-    "all_seated": "All guests are seated!",
-    "child": "Child",
-    "guest": "Guest"
-  },
   "MessagesPage": {
     "title": "Messages",
     "description": "The words your guests have left you.",
@@ -927,5 +938,287 @@
   },
   "DashboardLayout": {
     "initializing": "Setting up your space..."
+  },
+  "Seating": {
+    "title": "Seating plan",
+    "seated": "Seated",
+    "remaining": "To seat",
+    "capacity": "Capacity",
+    "search_placeholder": "Search a guest…",
+    "unseated_title": "Guests to seat",
+    "all_seated": "Everyone is seated",
+    "assign": "Seat guests",
+    "assign_title": "Seat at {table}",
+    "seats_left": "{count} seat(s) left",
+    "table_full": "Table full",
+    "move_to": "Move to…",
+    "remove": "Remove",
+    "done": "Done",
+    "no_tables": "No tables yet"
+  },
+  "QrCode": {
+    "title": "Day-of QR code",
+    "permanent_note": "This QR code is permanent. It will never change, even if you edit your tables, menu, guests or schedule. You can have it printed today.",
+    "copy": "Copy",
+    "copied": "Link copied",
+    "copy_failed": "Couldn't copy the link. Please copy it manually.",
+    "download_png": "Download PNG",
+    "download_svg": "Download SVG"
+  },
+  "DayOfMenu": {
+    "title": "Day-of menu",
+    "subtitle": "Switch on the courses you're serving and add your dishes.",
+    "enabled": "Enabled",
+    "add_placeholder": "Add a dish…",
+    "add_item": "Add",
+    "remove_item": "Remove",
+    "categories": {
+      "cocktail": "Cocktail",
+      "starter": "Starter",
+      "main": "Main",
+      "cheese": "Cheese",
+      "dessert": "Dessert",
+      "drinks": "Drinks"
+    }
+  },
+  "DayOfSettings": {
+    "title": "Day-of settings",
+    "enabled_label": "Turn on the day-of module",
+    "enabled_hint": "Your guests reach their table, the menu and the photos after scanning the QR code.",
+    "gallery_visible_label": "Gallery visible to guests",
+    "gallery_visible_hint": "Separate from uploading: guests can still share photos even while the gallery stays private.",
+    "after_wedding_label": "After-wedding mode",
+    "after_wedding_hint": "The page switches to a thank-you view and stays open to uploads.",
+    "uploads_until_label": "Uploads open until",
+    "uploads_until_hint": "Past this date, guests can no longer add photos."
+  },
+  "DayOfPhotos": {
+    "title": "Photos & videos",
+    "count": "{count} item(s) shared by your guests",
+    "download_all": "Download all",
+    "zip_pending": "Bulk download arrives once the real photos are wired up.",
+    "download": "Download",
+    "hide": "Hide",
+    "show": "Show",
+    "delete": "Delete",
+    "anonymous": "Anonymous guest",
+    "filters": {
+      "all": "All",
+      "photo": "Photos",
+      "video": "Videos",
+      "hidden": "Hidden"
+    },
+    "delete_dialog": {
+      "title": "Delete this item?",
+      "description": "This item shared by your guests will be permanently deleted. This action cannot be undone.",
+      "cancel": "Cancel",
+      "confirm": "Delete"
+    }
+  },
+  "GuestGroups": {
+    "title": "Guest groups",
+    "count": "{count} guest(s) in total",
+    "search_placeholder": "Search a guest or a household...",
+    "no_results": "No guest matches this search.",
+    "child_badge": "Child",
+    "groups": {
+      "all": "All",
+      "family": "Family",
+      "friends": "Friends",
+      "colleagues": "Colleagues",
+      "other": "Other"
+    },
+    "table": {
+      "guest": "Guest",
+      "household": "Household",
+      "group": "Group"
+    }
+  },
+  "GuestMeals": {
+    "title": "Meals & dietary needs",
+    "count": "{count} guest(s) in total",
+    "search_placeholder": "Search a guest, household, allergy...",
+    "no_results": "No guest matches this search.",
+    "confirmed_only_notice": "These totals count only the {count} confirmed guests — a declined guest does not eat.",
+    "dietary_totals_title": "Dietary flags (confirmed guests)",
+    "allergy_notice": "{count} confirmed guest(s) reported an allergy — check the Allergies column before sending the list to the caterer.",
+    "allergies_placeholder": "E.g. tree nuts",
+    "meals": {
+      "all": "All",
+      "standard": "Standard",
+      "vegetarian": "Vegetarian",
+      "vegan": "Vegan",
+      "child": "Child"
+    },
+    "dietary": {
+      "gluten-free": "Gluten-free",
+      "lactose-free": "Lactose-free",
+      "no-pork": "No pork",
+      "no-alcohol": "No alcohol",
+      "halal": "Halal",
+      "kosher": "Kosher"
+    },
+    "table": {
+      "guest": "Guest",
+      "meal": "Meal",
+      "dietary": "Dietary flags",
+      "allergies": "Allergies"
+    }
+  },
+  "InvitationEvents": {
+    "title": "Events",
+    "subtitle": "Your wedding isn't a single moment — manage each occasion separately.",
+    "untitled": "Untitled",
+    "no_date": "Date to be set",
+    "enabled": "Visible to guests",
+    "fields": {
+      "name": "Event name",
+      "date": "Date",
+      "time": "Time",
+      "time_placeholder": "5:00 PM",
+      "address": "Address",
+      "description": "Description",
+      "dress_code": "Dress code"
+    },
+    "delete": "Delete event",
+    "delete_dialog": {
+      "title": "Delete “{name}”?",
+      "description": "RSVP answers and programme entries linked to this event will be orphaned. This cannot be undone.",
+      "cancel": "Cancel",
+      "confirm": "Delete"
+    },
+    "add_event": "Add an event",
+    "new_event_name": "New event",
+    "reorder": "Reorder"
+  },
+  "InvitationSchedule": {
+    "title": "Programme",
+    "subtitle": "The order of the day, for each event.",
+    "event_disabled": "Event disabled",
+    "empty": "No entries yet.",
+    "add_entry": "Add an entry",
+    "new_entry_title": "New entry",
+    "time_placeholder": "5:00 PM",
+    "title_placeholder": "Entry title",
+    "description_placeholder": "Description (optional)",
+    "fields": {
+      "time": "Time",
+      "title": "Title",
+      "description": "Description"
+    },
+    "move_up": "Move up",
+    "move_down": "Move down",
+    "delete_entry": "Delete “{title}”",
+    "deleted_toast": "“{title}” deleted",
+    "untitled": "Untitled"
+  },
+  "InvitationVenue": {
+    "title": "Venue & practical info",
+    "subtitle": "This section is purely informational: no hotel booking or shuttle logistics here, just enough to guide your guests.",
+    "fields": {
+      "name": "Venue name",
+      "name_placeholder": "Villa Bellavista",
+      "address": "Address",
+      "address_placeholder": "Via Panoramica 4",
+      "city": "City",
+      "city_placeholder": "Ravello, Italy",
+      "maps_url": "Google Maps link",
+      "maps_url_placeholder": "https://maps.google.com/...",
+      "waze_url": "Waze link",
+      "waze_url_placeholder": "https://waze.com/ul?q=...",
+      "parking_info": "Parking",
+      "parking_info_placeholder": "Where and how to park",
+      "access_info": "Access",
+      "access_info_placeholder": "How to get to the venue",
+      "transport_info": "Transport",
+      "transport_info_placeholder": "Shuttles, public transport, etc.",
+      "photo": "Venue photo"
+    },
+    "open_maps": "Open in Google Maps",
+    "open_waze": "Open in Waze",
+    "accommodation": {
+      "title": "Recommended accommodation",
+      "hint": "A selection of nearby options to help your guests find somewhere to stay.",
+      "add": "Add",
+      "empty": "No accommodation added yet.",
+      "untitled": "untitled",
+      "fields": {
+        "name": "Name",
+        "city": "City",
+        "distance": "Distance",
+        "phone": "Phone",
+        "booking_url": "Booking link",
+        "offer": "Negotiated offer"
+      },
+      "name_placeholder": "Accommodation name",
+      "city_placeholder": "City",
+      "distance_placeholder": "10 min from the venue",
+      "phone_placeholder": "+39 089 000 000",
+      "booking_url_placeholder": "https://...",
+      "offer_placeholder": "Negotiated rate, promo code...",
+      "open_booking": "Open the booking link",
+      "delete": "Delete {name}"
+    },
+    "move_up": "Move up",
+    "move_down": "Move down"
+  },
+  "InvitationFaq": {
+    "title": "FAQ",
+    "subtitle": "Add, edit and reorder the questions asked to your guests.",
+    "add": "Add a question",
+    "empty": "No questions yet.",
+    "untitled": "untitled",
+    "published": "Published",
+    "unpublished": "Unpublished",
+    "published_toggle": "Publish",
+    "unpublished_hint": "This question stays editable here but will not appear on the invitation until it is published.",
+    "fields": {
+      "question": "Question",
+      "answer": "Answer"
+    },
+    "question_placeholder": "Your question",
+    "answer_placeholder": "Your answer",
+    "move_up": "Move up",
+    "move_down": "Move down",
+    "delete_entry": "Delete \"{question}\"",
+    "delete_dialog": {
+      "title": "Delete this question?",
+      "description": "You are about to delete \"{question}\". This cannot be undone.",
+      "cancel": "Cancel",
+      "confirm": "Delete"
+    }
+  },
+  "Stats": {
+    "title": "Statistics",
+    "subtitle": "Simple, useful numbers to track your invitation.",
+    "invitation": {
+      "title": "Invitation",
+      "visits": "Visits",
+      "unique_visitors": "Unique visitors",
+      "response_rate": "Response rate",
+      "response_rate_desc": "{responded} responses out of {total} guests"
+    },
+    "trend": {
+      "title": "30-day visit trend",
+      "aria_label": "Number of visits per day over the last 30 days",
+      "tooltip": "{date}: {visits} visits"
+    },
+    "rsvp": {
+      "title": "RSVP",
+      "confirmed": "Confirmed",
+      "declined": "Declined",
+      "pending": "No answer"
+    },
+    "events": {
+      "title": "Events",
+      "empty": "No active events.",
+      "count": "{confirmed} / {total} confirmed"
+    }
+  },
+  "PhotoPicker": {
+    "hint": "Add a photo",
+    "remove": "Remove photo",
+    "error_type": "Unsupported format. Use a JPEG, PNG or WebP.",
+    "error_size": "Photo too large. The maximum is 8 MB."
   }
 }

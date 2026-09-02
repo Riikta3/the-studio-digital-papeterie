@@ -28,6 +28,13 @@ export default async function SettingsPage() {
   // Fetch settings & profile
   const settings = await getSettings();
   const profile = await getProfile();
+
+  // The date lives on public.weddings, not on profiles.
+  const { data: wedding } = await supabase
+    .from("weddings")
+    .select("wedding_date")
+    .eq("user_id", user!.id)
+    .maybeSingle();
   const t = await getTranslations("Settings");
 
   return (
@@ -36,7 +43,7 @@ export default async function SettingsPage() {
         <h1 className='font-heading text-h1 text-studio-violet'>
           {t("title")}
         </h1>
-        <p className='text-muted-foreground mt-2'>{t("subtitle")}</p>
+        <p className='text-studio-violet/70 mt-2'>{t("subtitle")}</p>
       </header>
 
       <Tabs
@@ -53,21 +60,21 @@ export default async function SettingsPage() {
           value='general'
           className='space-y-8'
         >
-          <section className='bg-card p-6 rounded-2xl border border-studio-lavande/40 shadow-sm'>
+          <section className='bg-white p-6 rounded-2xl border border-studio-lavande/40 shadow-studio-card'>
             <h2 className='text-xl font-heading mb-4'>
               {t("general.wedding_config_title")}
             </h2>
-            <p className='text-sm text-muted-foreground mb-6'>
+            <p className='text-sm text-studio-violet/70 mb-6'>
               {t("general.wedding_config_desc")}
             </p>
             <SettingsForm initialSettings={settings} />
           </section>
 
-          <section className='bg-card p-6 rounded-2xl border border-studio-lavande/40 shadow-sm'>
+          <section className='bg-white p-6 rounded-2xl border border-studio-lavande/40 shadow-studio-card'>
             <h2 className='text-xl font-heading mb-4'>
               {t("general.language_title")}
             </h2>
-            <p className='text-sm text-muted-foreground mb-6'>
+            <p className='text-sm text-studio-violet/70 mb-6'>
               {t("general.language_desc")}
             </p>
             <div className='max-w-md'>
@@ -80,7 +87,7 @@ export default async function SettingsPage() {
           value='profile'
           className='space-y-8'
         >
-          <ProfileSettings profile={profile} />
+          <ProfileSettings profile={profile} weddingDate={wedding?.wedding_date ?? null} />
         </TabsContent>
 
         <TabsContent

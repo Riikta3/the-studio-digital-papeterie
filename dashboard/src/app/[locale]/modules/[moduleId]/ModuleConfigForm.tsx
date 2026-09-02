@@ -118,7 +118,7 @@ function FormActions({
         type="button"
         variant="outline"
         onClick={onReset}
-        className="w-full sm:w-auto text-muted-foreground"
+        className="w-full sm:w-auto text-studio-violet/60"
       >
         {t("reset")}
       </Button>
@@ -128,7 +128,7 @@ function FormActions({
 
 function SectionHeader({ title }: { title: string }) {
   return (
-    <h3 className="text-xs font-bold uppercase tracking-[0.2em] text-muted-foreground mb-3 mt-8 first:mt-0">
+    <h3 className="text-xs font-bold uppercase tracking-[0.2em] text-studio-violet/60 mb-3 mt-8 first:mt-0">
       {title}
     </h3>
   );
@@ -143,7 +143,7 @@ function FieldGroup({
 }) {
   return (
     <div className="space-y-2">
-      <Label className="text-xs font-bold uppercase tracking-[0.15em] text-muted-foreground">
+      <Label className="text-xs font-bold uppercase tracking-[0.15em] text-studio-violet/60">
         {label}
       </Label>
       {children}
@@ -225,8 +225,8 @@ function DressCodeForm({
               className={cn(
                 "flex-1 py-2 rounded-xl border text-sm font-medium transition-colors",
                 mode === m
-                  ? "bg-primary/10 border-primary text-primary"
-                  : "bg-white border-border text-muted-foreground hover:border-primary/30"
+                  ? "bg-studio-beurre border-studio-violet text-studio-violet"
+                  : "bg-white border-studio-lavande/40 text-studio-violet/60 hover:border-studio-violet/30"
               )}
             >
               {t(m === "global" ? "dresscode_mode_global" : "dresscode_mode_split")}
@@ -241,14 +241,14 @@ function DressCodeForm({
         </FieldGroup>
       ) : (
         <div className="space-y-4">
-          <div className="bg-studio-creme border border-border/60 rounded-xl p-4 space-y-3 [&_textarea]:bg-white">
-            <p className="text-xs font-bold uppercase tracking-wider text-muted-foreground">
+          <div className="bg-studio-creme border border-studio-lavande/40 rounded-xl p-4 space-y-3 [&_textarea]:bg-white">
+            <p className="text-xs font-bold uppercase tracking-wider text-studio-violet/60">
               {t("dresscode_men")}
             </p>
             <Textarea rows={3} value={descriptionMen} onChange={(e) => setDescriptionMen(e.target.value)} placeholder={t("dresscode_men_placeholder")} />
           </div>
-          <div className="bg-studio-creme border border-border/60 rounded-xl p-4 space-y-3 [&_textarea]:bg-white">
-            <p className="text-xs font-bold uppercase tracking-wider text-muted-foreground">
+          <div className="bg-studio-creme border border-studio-lavande/40 rounded-xl p-4 space-y-3 [&_textarea]:bg-white">
+            <p className="text-xs font-bold uppercase tracking-wider text-studio-violet/60">
               {t("dresscode_women")}
             </p>
             <Textarea rows={3} value={descriptionWomen} onChange={(e) => setDescriptionWomen(e.target.value)} placeholder={t("dresscode_women_placeholder")} />
@@ -388,7 +388,7 @@ function MapForm({
       <FieldGroup label={t("field_venue_photo")}>
         <input ref={venueFileRef} type="file" accept="image/jpeg,image/jpg,image/png" className="hidden" onChange={(e) => handleVenueUpload(e.target.files)} />
         {imageUrl ? (
-          <div className="relative w-full aspect-video rounded-xl overflow-hidden border border-border bg-muted">
+          <div className="relative w-full aspect-video rounded-xl overflow-hidden border border-studio-lavande/40 bg-muted">
             <Image src={imageUrl} alt={t("field_venue_photo")} fill className="object-cover" sizes="600px" />
             <button type="button" onClick={() => setImageUrl("")} className="absolute top-2 right-2 w-7 h-7 rounded-full bg-black/60 text-white flex items-center justify-center hover:bg-red-500 transition-colors">
               <X size={13} />
@@ -401,13 +401,13 @@ function MapForm({
             onDragOver={(e) => e.preventDefault()}
             onDrop={(e) => { e.preventDefault(); handleVenueUpload(e.dataTransfer.files); }}
             disabled={uploading}
-            className="w-full flex flex-col items-center gap-2 py-6 rounded-xl border-2 border-dashed border-border hover:border-primary/40 hover:bg-primary/5 transition-colors text-muted-foreground"
+            className="w-full flex flex-col items-center gap-2 py-6 rounded-xl border-2 border-dashed border-studio-lavande/40 hover:border-studio-violet/40 hover:bg-studio-beurre transition-colors text-studio-violet/60"
           >
             <ImagePlus size={20} />
             <span className="text-xs font-medium">{uploading ? t("uploading") : t("add_photo_hint")}</span>
           </button>
         )}
-        <p className="text-xs text-muted-foreground">{t("paste_url_hint")}</p>
+        <p className="text-xs text-studio-violet/60">{t("paste_url_hint")}</p>
         <Input value={imageUrl} onChange={(e) => setImageUrl(e.target.value)} placeholder="https://..." />
       </FieldGroup>
       <FieldGroup label={t("field_image_orientation")}>
@@ -420,8 +420,8 @@ function MapForm({
               className={cn(
                 "flex-1 py-2 rounded-lg border text-xs font-bold uppercase tracking-wider transition-colors",
                 imageOrientation === o
-                  ? "bg-primary/10 border-primary text-primary"
-                  : "border-border text-muted-foreground hover:border-primary/30"
+                  ? "bg-studio-beurre border-studio-violet text-studio-violet"
+                  : "border-studio-lavande/40 text-studio-violet/60 hover:border-studio-violet/30"
               )}
             >
               {t(`orientation_${o}`)}
@@ -549,8 +549,8 @@ function IntroVideoForm({
               className={cn(
                 "flex-1 py-2 rounded-lg border text-xs font-bold uppercase tracking-wider transition-colors",
                 videoType === vt
-                  ? "bg-primary/10 border-primary text-primary"
-                  : "border-border text-muted-foreground hover:border-primary/30"
+                  ? "bg-studio-beurre border-studio-violet text-studio-violet"
+                  : "border-studio-lavande/40 text-studio-violet/60 hover:border-studio-violet/30"
               )}
             >
               {vt === "embed" ? t("video_source_link") : t("video_source_upload")}
@@ -565,18 +565,18 @@ function IntroVideoForm({
               onChange={(e) => setEmbedUrl(e.target.value)}
               placeholder="https://youtu.be/... ou https://www.youtube.com/watch?v=..."
             />
-            <p className="text-xs text-muted-foreground">{t("video_source_link_hint")}</p>
+            <p className="text-xs text-studio-violet/60">{t("video_source_link_hint")}</p>
           </>
         ) : (
           <>
             <input ref={videoFileRef} type="file" accept="video/mp4,video/quicktime,video/webm" className="hidden" onChange={(e) => handleVideoUpload(e.target.files)} />
             {uploadedUrl ? (
-              <div className="flex items-center gap-3 p-3 bg-secondary rounded-xl border border-border">
-                <div className="w-8 h-8 rounded-lg bg-primary/10 flex items-center justify-center shrink-0">
-                  <ImagePlus size={14} className="text-primary" />
+              <div className="flex items-center gap-3 p-3 bg-studio-beurre rounded-xl border border-studio-lavande/40">
+                <div className="w-8 h-8 rounded-lg bg-studio-beurre flex items-center justify-center shrink-0">
+                  <ImagePlus size={14} className="text-studio-violet" />
                 </div>
-                <p className="text-xs text-foreground flex-1 truncate">{uploadedName || uploadedUrl.split("/").pop()}</p>
-                <button type="button" onClick={() => setConfirmDelete(true)} className="text-muted-foreground hover:text-red-500 transition-colors shrink-0">
+                <p className="text-xs text-studio-violet flex-1 truncate">{uploadedName || uploadedUrl.split("/").pop()}</p>
+                <button type="button" onClick={() => setConfirmDelete(true)} className="text-studio-violet/60 hover:text-red-500 transition-colors shrink-0">
                   <X size={14} />
                 </button>
               </div>
@@ -587,7 +587,7 @@ function IntroVideoForm({
                 onDragOver={(e) => e.preventDefault()}
                 onDrop={(e) => { e.preventDefault(); handleVideoUpload(e.dataTransfer.files); }}
                 disabled={uploading}
-                className="w-full flex flex-col items-center gap-2 py-6 rounded-xl border-2 border-dashed border-border hover:border-primary/40 hover:bg-primary/5 transition-colors text-muted-foreground"
+                className="w-full flex flex-col items-center gap-2 py-6 rounded-xl border-2 border-dashed border-studio-lavande/40 hover:border-studio-violet/40 hover:bg-studio-beurre transition-colors text-studio-violet/60"
               >
                 <ImagePlus size={20} />
                 <span className="text-xs font-medium">{uploading ? t("uploading_video") : t("upload_video_hint")}</span>
@@ -609,11 +609,11 @@ function IntroVideoForm({
 
       {confirmDelete && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 backdrop-blur-sm">
-          <div className="bg-card border border-border rounded-2xl shadow-xl p-6 max-w-sm w-full mx-4 space-y-4">
-            <p className="font-semibold text-foreground text-sm">{t("delete_video_title")}</p>
-            <p className="text-xs text-muted-foreground">{t("delete_video_desc")}</p>
+          <div className="bg-white border border-studio-lavande/40 rounded-2xl shadow-studio-card p-6 max-w-sm w-full mx-4 space-y-4">
+            <p className="font-semibold text-studio-violet text-sm">{t("delete_video_title")}</p>
+            <p className="text-xs text-studio-violet/60">{t("delete_video_desc")}</p>
             <div className="flex gap-3 pt-1">
-              <button type="button" onClick={() => setConfirmDelete(false)} className="flex-1 py-2 rounded-xl border border-border text-sm text-muted-foreground hover:bg-secondary transition-colors">
+              <button type="button" onClick={() => setConfirmDelete(false)} className="flex-1 py-2 rounded-xl border border-studio-lavande/40 text-sm text-studio-violet/60 hover:bg-studio-beurre transition-colors">
                 {t("cancel")}
               </button>
               <button type="button" onClick={async () => {
@@ -781,16 +781,16 @@ function TimelineForm({
     <form onSubmit={handleSubmit} className="space-y-6">
       <div className="space-y-4">
         {events.map((event, idx) => (
-          <div key={event.id} className="bg-studio-creme border border-border/60 rounded-xl p-4 space-y-3 [&_input]:bg-white [&_textarea]:bg-white">
+          <div key={event.id} className="bg-studio-creme border border-studio-lavande/40 rounded-xl p-4 space-y-3 [&_input]:bg-white [&_textarea]:bg-white">
             <div className="flex items-center justify-between mb-1">
-              <span className="text-xs font-bold uppercase tracking-wider text-muted-foreground">
+              <span className="text-xs font-bold uppercase tracking-wider text-studio-violet/60">
                 {t("event")} {idx + 1}
               </span>
               {events.length > 1 && (
                 <button
                   type="button"
                   onClick={() => removeEvent(event.id)}
-                  className="text-muted-foreground hover:text-red-500 transition-colors"
+                  className="text-studio-violet/60 hover:text-red-500 transition-colors"
                 >
                   <Trash2 size={14} />
                 </button>
@@ -832,7 +832,7 @@ function TimelineForm({
       <button
         type="button"
         onClick={addEvent}
-        className="flex items-center gap-2 text-sm text-primary hover:text-primary/80 transition-colors font-medium"
+        className="flex items-center gap-2 text-sm text-studio-violet hover:text-studio-violet/80 transition-colors font-medium"
       >
         <Plus size={16} />
         {t("add_event")}
@@ -924,15 +924,15 @@ function AccommodationForm({
       <SectionHeader title={t("accommodation_options")} />
       <div className="space-y-4">
         {options.map((opt, idx) => (
-          <div key={opt.id} className="bg-studio-creme border border-border/60 rounded-xl p-4 space-y-3 [&_input]:bg-white [&_textarea]:bg-white">
+          <div key={opt.id} className="bg-studio-creme border border-studio-lavande/40 rounded-xl p-4 space-y-3 [&_input]:bg-white [&_textarea]:bg-white">
             <div className="flex items-center justify-between">
-              <span className="text-xs font-bold uppercase tracking-wider text-muted-foreground">
+              <span className="text-xs font-bold uppercase tracking-wider text-studio-violet/60">
                 {t("accommodation")} {idx + 1}
               </span>
               <button
                 type="button"
                 onClick={() => removeOption(opt.id)}
-                className="text-muted-foreground hover:text-red-500 transition-colors"
+                className="text-studio-violet/60 hover:text-red-500 transition-colors"
               >
                 <Trash2 size={14} />
               </button>
@@ -947,8 +947,8 @@ function AccommodationForm({
                     className={cn(
                       "px-3 py-1 rounded-full border text-xs font-bold transition-colors",
                       opt.type === at
-                        ? "bg-primary/10 border-primary text-primary"
-                        : "border-border text-muted-foreground hover:border-primary/30"
+                        ? "bg-studio-beurre border-studio-violet text-studio-violet"
+                        : "border-studio-lavande/40 text-studio-violet/60 hover:border-studio-violet/30"
                     )}
                   >
                     {t(`accom_type_${at.toLowerCase()}`)}
@@ -981,7 +981,7 @@ function AccommodationForm({
       <button
         type="button"
         onClick={addOption}
-        className="flex items-center gap-2 text-sm text-primary hover:text-primary/80 transition-colors font-medium"
+        className="flex items-center gap-2 text-sm text-studio-violet hover:text-studio-violet/80 transition-colors font-medium"
       >
         <Plus size={16} />
         {t("add_accommodation")}
@@ -1070,15 +1070,15 @@ function TransportForm({
       <SectionHeader title={t("transport_options")} />
       <div className="space-y-4">
         {options.map((opt, idx) => (
-          <div key={opt.id} className="bg-studio-creme border border-border/60 rounded-xl p-4 space-y-3 [&_input]:bg-white [&_textarea]:bg-white">
+          <div key={opt.id} className="bg-studio-creme border border-studio-lavande/40 rounded-xl p-4 space-y-3 [&_input]:bg-white [&_textarea]:bg-white">
             <div className="flex items-center justify-between">
-              <span className="text-xs font-bold uppercase tracking-wider text-muted-foreground">
+              <span className="text-xs font-bold uppercase tracking-wider text-studio-violet/60">
                 {t("transport")} {idx + 1}
               </span>
               <button
                 type="button"
                 onClick={() => removeOption(opt.id)}
-                className="text-muted-foreground hover:text-red-500 transition-colors"
+                className="text-studio-violet/60 hover:text-red-500 transition-colors"
               >
                 <Trash2 size={14} />
               </button>
@@ -1093,8 +1093,8 @@ function TransportForm({
                     className={cn(
                       "flex items-center gap-1.5 px-3 py-1.5 rounded-full border text-xs font-bold transition-colors",
                       opt.iconType === tt
-                        ? "bg-primary/10 border-primary text-primary"
-                        : "bg-white border-border text-muted-foreground hover:border-primary/30"
+                        ? "bg-studio-beurre border-studio-violet text-studio-violet"
+                        : "bg-white border-studio-lavande/40 text-studio-violet/60 hover:border-studio-violet/30"
                     )}
                   >
                     {TRANSPORT_ICONS[tt]}
@@ -1115,7 +1115,7 @@ function TransportForm({
       <button
         type="button"
         onClick={addOption}
-        className="flex items-center gap-2 text-sm text-primary hover:text-primary/80 transition-colors font-medium"
+        className="flex items-center gap-2 text-sm text-studio-violet hover:text-studio-violet/80 transition-colors font-medium"
       >
         <Plus size={16} />
         {t("add_transport")}
@@ -1128,7 +1128,7 @@ function TransportForm({
           onClick={() => setCarpoolEnabled(!carpoolEnabled)}
           className={cn(
             "relative inline-flex h-5 w-9 shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200",
-            carpoolEnabled ? "bg-primary" : "bg-muted-foreground/30"
+            carpoolEnabled ? "bg-studio-violet" : "bg-studio-violet/30"
           )}
         >
           <span className={cn(
@@ -1265,7 +1265,7 @@ function MenuForm({
       <SectionHeader title={t("menu_sections")} />
       <div className="space-y-4">
         {sections.map((section, sIdx) => (
-          <div key={section.id} className="bg-white border border-border rounded-xl p-4 space-y-4">
+          <div key={section.id} className="bg-white border border-studio-lavande/40 rounded-xl p-4 space-y-4">
             <div className="flex items-center justify-between">
               <FieldGroup label={`${t("section")} ${sIdx + 1}`}>
                 <Input
@@ -1279,13 +1279,13 @@ function MenuForm({
                 <button
                   type="button"
                   onClick={() => removeSection(section.id)}
-                  className="text-muted-foreground hover:text-red-500 transition-colors ml-3 mt-5 shrink-0"
+                  className="text-studio-violet/60 hover:text-red-500 transition-colors ml-3 mt-5 shrink-0"
                 >
                   <Trash2 size={14} />
                 </button>
               )}
             </div>
-            <div className="space-y-2 pl-2 border-l-2 border-border">
+            <div className="space-y-2 pl-2 border-l-2 border-studio-lavande/40">
               {section.items.map((item, iIdx) => (
                 <div key={iIdx} className="flex gap-2 items-start">
                   <div className="flex-1 space-y-1">
@@ -1299,14 +1299,14 @@ function MenuForm({
                       value={item.description ?? ""}
                       onChange={(e) => updateItem(section.id, iIdx, "description", e.target.value)}
                       placeholder={t("menu_item_desc_placeholder")}
-                      className="text-sm text-muted-foreground"
+                      className="text-sm text-studio-violet/60"
                     />
                   </div>
                   {section.items.length > 1 && (
                     <button
                       type="button"
                       onClick={() => removeItem(section.id, iIdx)}
-                      className="text-muted-foreground hover:text-red-500 transition-colors mt-2.5 shrink-0"
+                      className="text-studio-violet/60 hover:text-red-500 transition-colors mt-2.5 shrink-0"
                     >
                       <Trash2 size={13} />
                     </button>
@@ -1316,7 +1316,7 @@ function MenuForm({
               <button
                 type="button"
                 onClick={() => addItem(section.id)}
-                className="flex items-center gap-1 text-xs text-primary hover:text-primary/80 transition-colors font-medium"
+                className="flex items-center gap-1 text-xs text-studio-violet hover:text-studio-violet/80 transition-colors font-medium"
               >
                 <Plus size={12} />
                 {t("add_menu_item")}
@@ -1328,7 +1328,7 @@ function MenuForm({
       <button
         type="button"
         onClick={addSection}
-        className="flex items-center gap-2 text-sm text-primary hover:text-primary/80 transition-colors font-medium"
+        className="flex items-center gap-2 text-sm text-studio-violet hover:text-studio-violet/80 transition-colors font-medium"
       >
         <Plus size={16} />
         {t("add_section")}
@@ -1435,15 +1435,15 @@ function FaqForm({
       <SectionHeader title={t("faq_questions")} />
       <div className="space-y-4">
         {questions.map((q, idx) => (
-          <div key={q.id} className="bg-studio-creme border border-border/60 rounded-xl p-4 space-y-3 [&_input]:bg-white [&_textarea]:bg-white">
+          <div key={q.id} className="bg-studio-creme border border-studio-lavande/40 rounded-xl p-4 space-y-3 [&_input]:bg-white [&_textarea]:bg-white">
             <div className="flex items-center justify-between">
-              <span className="text-xs font-bold uppercase tracking-wider text-muted-foreground">
+              <span className="text-xs font-bold uppercase tracking-wider text-studio-violet/60">
                 {t("question")} {idx + 1}
               </span>
               <button
                 type="button"
                 onClick={() => removeQuestion(q.id)}
-                className="text-muted-foreground hover:text-red-500 transition-colors"
+                className="text-studio-violet/60 hover:text-red-500 transition-colors"
               >
                 <Trash2 size={14} />
               </button>
@@ -1460,7 +1460,7 @@ function FaqForm({
       <button
         type="button"
         onClick={addQuestion}
-        className="flex items-center gap-2 text-sm text-primary hover:text-primary/80 transition-colors font-medium"
+        className="flex items-center gap-2 text-sm text-studio-violet hover:text-studio-violet/80 transition-colors font-medium"
       >
         <Plus size={16} />
         {t("add_question")}
@@ -1560,7 +1560,7 @@ function GalleryForm({
       {/* Upload zone */}
       <div
         className={cn(
-          "border-2 border-dashed border-border rounded-xl p-8 text-center transition-colors cursor-pointer hover:border-primary/40 hover:bg-primary/5",
+          "border-2 border-dashed border-studio-lavande/40 rounded-xl p-8 text-center transition-colors cursor-pointer hover:border-studio-violet/40 hover:bg-studio-beurre",
           images.length >= MAX_IMAGES && "opacity-50 cursor-not-allowed pointer-events-none"
         )}
         onClick={() => fileInputRef.current?.click()}
@@ -1576,14 +1576,14 @@ function GalleryForm({
           onChange={(e) => handleFiles(e.target.files)}
         />
         <div className="flex flex-col items-center gap-3">
-          <div className="w-12 h-12 rounded-full bg-secondary flex items-center justify-center">
-            <ImagePlus size={20} className="text-primary" />
+          <div className="w-12 h-12 rounded-full bg-studio-beurre flex items-center justify-center">
+            <ImagePlus size={20} className="text-studio-violet" />
           </div>
           <div>
-            <p className="text-sm font-medium text-foreground">
+            <p className="text-sm font-medium text-studio-violet">
               {uploading ? t("gallery_uploading") : t("gallery_dropzone_hint")}
             </p>
-            <p className="text-xs text-muted-foreground mt-1">
+            <p className="text-xs text-studio-violet/60 mt-1">
               {t("gallery_dropzone_specs", { count: images.length, max: MAX_IMAGES })}
             </p>
           </div>
@@ -1592,7 +1592,7 @@ function GalleryForm({
 
       {/* Photo grid with drag & drop */}
       {images.length > 0 && (
-        <p className="text-xs text-muted-foreground flex items-center gap-1.5">
+        <p className="text-xs text-studio-violet/60 flex items-center gap-1.5">
           <GripVertical size={12} className="shrink-0" />
           {t("gallery_reorder_hint")}
         </p>
@@ -1616,7 +1616,7 @@ function GalleryForm({
       )}
 
       {images.length === 0 && (
-        <p className="text-xs text-muted-foreground text-center">{t("gallery_empty_hint")}</p>
+        <p className="text-xs text-studio-violet/60 text-center">{t("gallery_empty_hint")}</p>
       )}
     </div>
   );
@@ -1645,7 +1645,7 @@ function SortableGalleryItem({
     <div
       ref={setNodeRef}
       style={style}
-      className="relative group aspect-square rounded-xl overflow-hidden border border-border bg-muted"
+      className="relative group aspect-square rounded-xl overflow-hidden border border-studio-lavande/40 bg-muted"
     >
       <Image
         src={url}
@@ -1720,7 +1720,7 @@ export function ModuleConfigForm({
       return <GalleryForm {...props} />;
     default:
       return (
-        <p className="text-sm text-muted-foreground">{t("no_config_needed")}</p>
+        <p className="text-sm text-studio-violet/60">{t("no_config_needed")}</p>
       );
   }
 }

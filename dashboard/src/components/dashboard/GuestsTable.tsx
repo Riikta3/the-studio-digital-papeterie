@@ -243,7 +243,7 @@ export function GuestsTable({ households }: GuestsTableProps) {
       {/* Toolbar */}
       <div className='flex flex-col sm:flex-row gap-4 justify-between items-center bg-white p-4 rounded-2xl border border-studio-lavande/40 shadow-sm'>
         <div className='relative w-full sm:max-w-sm'>
-          <Search className='absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground' />
+          <Search className='absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-studio-violet/50' />
           <Input
             placeholder={t("search_placeholder")}
             className='pl-9 bg-studio-lavande/5 border-studio-lavande/30'
@@ -333,7 +333,7 @@ export function GuestsTable({ households }: GuestsTableProps) {
               className='h-8 w-8'
               onClick={() => setShowHelp(true)}
             >
-              <Info className='h-4 w-4 text-muted-foreground cursor-help' />
+              <Info className='h-4 w-4 text-studio-violet/50 cursor-help' />
             </Button>
           </div>
         </div>
@@ -385,7 +385,7 @@ export function GuestsTable({ households }: GuestsTableProps) {
               <TableRow>
                 <TableCell
                   colSpan={5}
-                  className='h-32 text-center text-muted-foreground'
+                  className='h-32 text-center text-studio-violet/60'
                 >
                   {t("no_results")}
                 </TableCell>
@@ -398,7 +398,7 @@ export function GuestsTable({ households }: GuestsTableProps) {
                 >
                   <TableCell className='font-medium'>
                     <div className='flex items-center gap-3'>
-                      <div className='h-10 w-10 rounded-full bg-primary/10 flex items-center justify-center text-primary font-heading font-bold text-lg'>
+                      <div className='h-10 w-10 rounded-full bg-studio-violet/10 flex items-center justify-center text-studio-violet font-heading font-bold text-lg'>
                         {household.name.charAt(0)}
                       </div>
                       <div>
@@ -411,7 +411,7 @@ export function GuestsTable({ households }: GuestsTableProps) {
                   <TableCell>
                     <div className='flex flex-col gap-1'>
                       <div className='flex items-center gap-1 text-sm font-medium'>
-                        <Users className='w-4 h-4 text-muted-foreground' />
+                        <Users className='w-4 h-4 text-studio-violet/50' />
                         {t("guest_count", { count: household.guestCount })}
                       </div>
                       <div className='flex flex-wrap gap-1.5 max-w-[250px]'>
@@ -419,19 +419,19 @@ export function GuestsTable({ households }: GuestsTableProps) {
                           <button
                             key={guest.id}
                             onClick={() => setEditingGuest(guest)}
-                            className='group flex items-center gap-1.5 bg-studio-lavande/10 hover:bg-primary/10 px-2.5 py-1.5 rounded-md text-xs transition-all hover:shadow-sm border border-transparent hover:border-primary/20 cursor-pointer'
+                            className='group flex items-center gap-1.5 bg-studio-lavande/10 hover:bg-studio-violet/10 px-2.5 py-1.5 rounded-md text-xs transition-all hover:shadow-sm border border-transparent hover:border-studio-violet/20 cursor-pointer'
                           >
-                            <span className='text-studio-violet/70 group-hover:text-primary font-medium'>
+                            <span className='text-studio-violet/70 group-hover:text-studio-violet font-medium'>
                               {guest.first_name}
                             </span>
-                            <Pencil className='w-3 h-3 text-studio-violet/40 group-hover:text-primary transition-colors' />
+                            <Pencil className='w-3 h-3 text-studio-violet/40 group-hover:text-studio-violet transition-colors' />
                           </button>
                         ))}
                       </div>
                     </div>
                   </TableCell>
                   <TableCell>
-                    <div className='space-y-1 text-sm text-muted-foreground'>
+                    <div className='space-y-1 text-sm text-studio-violet/60'>
                       {household.email && (
                         <div className='flex items-center gap-2'>
                           <Mail className='w-3 h-3' /> {household.email}
@@ -450,14 +450,14 @@ export function GuestsTable({ households }: GuestsTableProps) {
                       <DropdownMenuTrigger asChild>
                         <Button
                           variant='ghost'
-                          className='h-8 w-8 p-0 text-muted-foreground hover:text-foreground'
+                          className='h-8 w-8 p-0 text-studio-violet/60 hover:text-studio-violet'
                         >
                           <MoreHorizontal className='h-4 w-4' />
                         </Button>
                       </DropdownMenuTrigger>
                       <DropdownMenuContent
                         align='end'
-                        className='bg-white border-border shadow-lg'
+                        className='bg-white border-studio-lavande/40 shadow-lg'
                       >
                         <DropdownMenuItem
                           onClick={() => setEditingHousehold(household)}
@@ -489,7 +489,7 @@ export function GuestsTable({ households }: GuestsTableProps) {
       {/* Mobile View (Cards) */}
       <div className='md:hidden space-y-4'>
         {filteredAndSortedHouseholds.length === 0 ? (
-          <div className='text-center p-8 text-muted-foreground bg-white rounded-2xl border border-dashed border-studio-lavande/40'>
+          <div className='text-center p-8 text-studio-violet/60 bg-white rounded-2xl border border-dashed border-studio-lavande/40'>
             {t("no_results")}
           </div>
         ) : (
@@ -582,7 +582,7 @@ export function GuestsTable({ households }: GuestsTableProps) {
             </DialogDescription>
           </DialogHeader>
           <div className='space-y-4 py-4'>
-            <ol className='list-decimal list-inside space-y-2 text-sm text-muted-foreground'>
+            <ol className='list-decimal list-inside space-y-2 text-sm text-studio-violet/60'>
               <li>{t("help_dialog.step_1")}</li>
               <li>{t("help_dialog.step_2")}</li>
               <li>{t("help_dialog.step_3")}</li>

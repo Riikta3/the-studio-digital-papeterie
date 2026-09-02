@@ -119,8 +119,8 @@ function DietarySelect({
             onClick={() => toggle(opt)}
             className={`px-2.5 py-1 rounded-full border text-xs transition-colors ${
               selected.includes(opt)
-                ? "bg-primary/10 border-primary/40 text-primary font-medium"
-                : "border-border text-muted-foreground hover:border-primary/30"
+                ? "bg-studio-violet/10 border-studio-violet/40 text-studio-violet font-medium"
+                : "border-studio-lavande/40 text-studio-violet/60 hover:border-studio-violet/30"
             }`}
           >
             {opt}
@@ -132,7 +132,7 @@ function DietarySelect({
         value={customValue}
         onChange={(e) => handleCustom(e.target.value)}
         placeholder={customPlaceholder}
-        className={inputCls ?? "w-full bg-white border border-border rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-1 focus:ring-primary/40 placeholder:text-muted-foreground/40"}
+        className={inputCls ?? "w-full bg-white border border-studio-lavande/40 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-1 focus:ring-studio-violet/40 placeholder:text-studio-violet/40"}
       />
     </div>
   );
@@ -235,10 +235,10 @@ function ExpandPanelContent({
   };
 
   const inputCls =
-    "bg-white border border-border rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-1 focus:ring-primary/40 placeholder:text-muted-foreground/40 w-full";
+    "bg-white border border-studio-lavande/40 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-1 focus:ring-studio-violet/40 placeholder:text-studio-violet/40 w-full";
 
   return (
-    <tr className='border-b border-border'>
+    <tr className='border-b border-studio-lavande/40'>
       <td
         colSpan={9}
         className='p-0'
@@ -259,7 +259,7 @@ function ExpandPanelContent({
               <div className='space-y-4'>
                 {/* Attendance selector */}
                 <div>
-                  <p className='text-[10px] uppercase tracking-widest font-semibold text-muted-foreground mb-2'>
+                  <p className='text-[10px] uppercase tracking-widest font-semibold text-studio-violet/60 mb-2'>
                     {t("col.attendance")}
                   </p>
                   <div className='flex gap-2'>
@@ -271,7 +271,7 @@ function ExpandPanelContent({
                           cls:
                             attendance === null
                               ? "bg-studio-jaune/30 border-studio-jaune text-studio-pourpre font-medium"
-                              : "border-border text-muted-foreground hover:border-studio-jaune",
+                              : "border-studio-lavande/40 text-studio-violet/60 hover:border-studio-jaune",
                         },
                         {
                           value: true,
@@ -279,7 +279,7 @@ function ExpandPanelContent({
                           cls:
                             attendance === true
                               ? "bg-teal-50 border-teal-300 text-teal-600 font-medium"
-                              : "border-border text-muted-foreground hover:border-teal-200",
+                              : "border-studio-lavande/40 text-studio-violet/60 hover:border-teal-200",
                         },
                         {
                           value: false,
@@ -287,7 +287,7 @@ function ExpandPanelContent({
                           cls:
                             attendance === false
                               ? "bg-red-50 border-red-300 text-red-700 font-medium"
-                              : "border-border text-muted-foreground hover:border-red-200",
+                              : "border-studio-lavande/40 text-studio-violet/60 hover:border-red-200",
                         },
                       ] as {
                         value: boolean | null;
@@ -308,23 +308,23 @@ function ExpandPanelContent({
                 </div>
 
                 <div>
-                  <p className='text-[10px] uppercase tracking-widest font-semibold text-muted-foreground mb-2'>
+                  <p className='text-[10px] uppercase tracking-widest font-semibold text-studio-violet/60 mb-2'>
                     {t("col.dietary")}
                   </p>
                   <DietarySelect value={dietary} onChange={setDietary} customPlaceholder={t("dietary_other_placeholder")} />
                 </div>
                 {response.message && (
                   <div>
-                    <p className='text-[10px] uppercase tracking-widest font-semibold text-muted-foreground mb-1'>
+                    <p className='text-[10px] uppercase tracking-widest font-semibold text-studio-violet/60 mb-1'>
                       {t("col.message")}
                     </p>
-                    <p className='text-foreground italic bg-white border border-border rounded-lg px-3 py-2'>
+                    <p className='text-studio-violet italic bg-white border border-studio-lavande/40 rounded-lg px-3 py-2'>
                       &ldquo;{response.message}&rdquo;
                     </p>
                   </div>
                 )}
                 <div>
-                  <p className='text-[10px] uppercase tracking-widest font-semibold text-muted-foreground mb-1 flex items-center gap-1'>
+                  <p className='text-[10px] uppercase tracking-widest font-semibold text-studio-violet/60 mb-1 flex items-center gap-1'>
                     <NotebookPen className='h-3 w-3' />
                     {t("admin_note")}
                   </p>
@@ -333,7 +333,7 @@ function ExpandPanelContent({
                     value={note}
                     onChange={(e) => setNote(e.target.value)}
                     placeholder={t("admin_note_placeholder")}
-                    className='w-full bg-white border border-border rounded-lg px-3 py-2 text-sm resize-none focus:outline-none focus:ring-1 focus:ring-primary/40 placeholder:text-muted-foreground/40'
+                    className='w-full bg-white border border-studio-lavande/40 rounded-lg px-3 py-2 text-sm resize-none focus:outline-none focus:ring-1 focus:ring-studio-violet/40 placeholder:text-studio-violet/40'
                   />
                 </div>
               </div>
@@ -341,7 +341,7 @@ function ExpandPanelContent({
               {/* Right: nominal list */}
               {response.attendance && (
                 <div>
-                  <p className='text-[10px] uppercase tracking-widest font-semibold text-muted-foreground mb-2 flex items-center gap-1'>
+                  <p className='text-[10px] uppercase tracking-widest font-semibold text-studio-violet/60 mb-2 flex items-center gap-1'>
                     <UserPlus className='h-3 w-3' />
                     {t("participants")} ({participants.length + 1})
                   </p>
@@ -352,7 +352,7 @@ function ExpandPanelContent({
                       <input value={respondentFirstName} onChange={(e) => setRespondentFirstName(e.target.value)} placeholder={t("first_name")} className={inputCls} />
                       <input value={respondentLastName} onChange={(e) => setRespondentLastName(e.target.value)} placeholder={t("last_name")} className={inputCls} />
                       <Select disabled>
-                        <SelectTrigger className="bg-white h-9 text-muted-foreground">
+                        <SelectTrigger className="bg-white h-9 text-studio-violet/60">
                           <SelectValue placeholder={t("organizer")} />
                         </SelectTrigger>
                         <SelectContent>
@@ -379,7 +379,7 @@ function ExpandPanelContent({
                         </Select>
                         <button
                           onClick={() => removeParticipant(i)}
-                          className='text-muted-foreground/40 hover:text-red-500 transition-colors'
+                          className='text-studio-violet/40 hover:text-red-500 transition-colors'
                         >
                           <Trash2 className='h-4 w-4' />
                         </button>
@@ -389,7 +389,7 @@ function ExpandPanelContent({
                     {/* Always allow adding more */}
                     <button
                       onClick={addParticipant}
-                      className='flex items-center gap-1.5 text-xs text-primary hover:text-primary/80 transition-colors mt-1'
+                      className='flex items-center gap-1.5 text-xs text-studio-violet hover:text-studio-violet/80 transition-colors mt-1'
                     >
                       <Plus className='h-3.5 w-3.5' />
                       {t("add_participant")}
@@ -404,7 +404,7 @@ function ExpandPanelContent({
               <button
                 onClick={handleSave}
                 disabled={saving}
-                className='inline-flex items-center gap-2 px-4 py-2 bg-primary text-white text-xs font-medium rounded-lg hover:bg-primary/90 transition-colors disabled:opacity-60'
+                className='inline-flex items-center gap-2 px-4 py-2 bg-studio-violet text-white text-xs font-medium rounded-lg hover:bg-studio-violet/90 transition-colors disabled:opacity-60'
               >
                 {saving ? (
                   <Loader2 className='h-3.5 w-3.5 animate-spin' />
@@ -552,13 +552,13 @@ export function RsvpResponsesTable({
         {/* Row 1 — Search + Filters */}
         <div className='flex flex-col sm:flex-row gap-3 items-center'>
           <div className='relative w-full sm:max-w-xs'>
-            <Search className='absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground' />
+            <Search className='absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-studio-violet/60' />
             <input
               type='text'
               value={search}
               onChange={(e) => setSearch(e.target.value)}
               placeholder={t("search_placeholder")}
-              className='w-full pl-9 pr-4 py-2 rounded-lg border border-studio-lavande/30 bg-studio-lavande/5 text-sm focus:outline-none focus:ring-1 focus:ring-ring'
+              className='w-full pl-9 pr-4 py-2 rounded-lg border border-studio-lavande/30 bg-studio-lavande/5 text-sm focus:outline-none focus:ring-1 focus:ring-studio-violet/40'
             />
           </div>
           <div className='flex gap-2 flex-wrap sm:ml-auto'>
@@ -571,7 +571,7 @@ export function RsvpResponsesTable({
         </div>
 
         {/* Row 2 — Actions */}
-        <div className='flex flex-wrap gap-2 border-t border-border pt-3'>
+        <div className='flex flex-wrap gap-2 border-t border-studio-lavande/40 pt-3'>
           {/* Export */}
           <Button variant="outline" size="sm" disabled={isExporting} className="gap-2"
             onClick={async () => {
@@ -697,7 +697,7 @@ export function RsvpResponsesTable({
       {/* Table */}
       <div className='bg-white rounded-2xl border border-studio-lavande/40 shadow-sm overflow-hidden'>
         {filtered.length === 0 ? (
-          <div className='py-20 text-center text-muted-foreground text-sm'>
+          <div className='py-20 text-center text-studio-violet/60 text-sm'>
             {t("no_results")}
           </div>
         ) : (
@@ -707,7 +707,7 @@ export function RsvpResponsesTable({
               style={{ tableLayout: "fixed" }}
             >
               <thead>
-                <tr className='border-b border-border bg-studio-lavande/5'>
+                <tr className='border-b border-studio-lavande/40 bg-studio-lavande/5'>
                   <th className='w-10 px-3 py-3.5'>
                     <input
                       type='checkbox'
@@ -718,28 +718,28 @@ export function RsvpResponsesTable({
                   </th>
                   <th className='w-10 px-2 py-3.5' />
                   <th
-                    className='w-[18%] text-left px-4 py-3.5 font-medium text-muted-foreground cursor-pointer select-none hover:text-foreground'
+                    className='w-[18%] text-left px-4 py-3.5 font-medium text-studio-violet/60 cursor-pointer select-none hover:text-studio-violet'
                     onClick={() => toggleSort("name")}
                   >
                     {t("col.name")} <SortIcon col='name' />
                   </th>
                   <th
-                    className='w-[16%] text-left px-4 py-3.5 font-medium text-muted-foreground cursor-pointer select-none hover:text-foreground'
+                    className='w-[16%] text-left px-4 py-3.5 font-medium text-studio-violet/60 cursor-pointer select-none hover:text-studio-violet'
                     onClick={() => toggleSort("attendance")}
                   >
                     {t("col.attendance")} <SortIcon col='attendance' />
                   </th>
-                  <th className='w-[8%] text-left px-4 py-3.5 font-medium text-muted-foreground'>
+                  <th className='w-[8%] text-left px-4 py-3.5 font-medium text-studio-violet/60'>
                     {t("col.guests")}
                   </th>
-                  <th className='w-[20%] text-left px-4 py-3.5 font-medium text-muted-foreground hidden md:table-cell'>
+                  <th className='w-[20%] text-left px-4 py-3.5 font-medium text-studio-violet/60 hidden md:table-cell'>
                     {t("col.dietary")}
                   </th>
-                  <th className='w-[22%] text-left px-4 py-3.5 font-medium text-muted-foreground hidden lg:table-cell'>
+                  <th className='w-[22%] text-left px-4 py-3.5 font-medium text-studio-violet/60 hidden lg:table-cell'>
                     {t("col.note")}
                   </th>
                   <th
-                    className='w-[10%] text-left px-4 py-3.5 font-medium text-muted-foreground cursor-pointer select-none hover:text-foreground'
+                    className='w-[10%] text-left px-4 py-3.5 font-medium text-studio-violet/60 cursor-pointer select-none hover:text-studio-violet'
                     onClick={() => toggleSort("submitted_at")}
                   >
                     {t("col.date")} <SortIcon col='submitted_at' />
@@ -751,7 +751,7 @@ export function RsvpResponsesTable({
                 {filtered.map((r) => (
                   <React.Fragment key={r.id}>
                     <tr
-                      className={`border-b border-border hover:bg-studio-lavande/5 transition-colors cursor-pointer ${expanded === r.id ? "bg-studio-lavande/5" : ""} ${selected.has(r.id) ? "bg-primary/5" : ""}`}
+                      className={`border-b border-studio-lavande/40 hover:bg-studio-lavande/5 transition-colors cursor-pointer ${expanded === r.id ? "bg-studio-lavande/5" : ""} ${selected.has(r.id) ? "bg-studio-violet/5" : ""}`}
                       onClick={() =>
                         setExpanded(expanded === r.id ? null : r.id)
                       }
@@ -768,7 +768,7 @@ export function RsvpResponsesTable({
                       </td>
 
                       {/* Chevron */}
-                      <td className='px-2 py-4 text-muted-foreground/60'>
+                      <td className='px-2 py-4 text-studio-violet/50'>
                         <motion.div
                           animate={{ rotate: expanded === r.id ? 180 : 0 }}
                           transition={{ duration: 0.25, ease: "easeInOut" }}
@@ -783,13 +783,13 @@ export function RsvpResponsesTable({
                       </td>
 
                       {/* Name */}
-                      <td className='px-4 py-4 font-medium text-foreground'>
+                      <td className='px-4 py-4 font-medium text-studio-violet'>
                         <div className='flex items-center gap-2'>
                           {r.respondent_first_name && r.respondent_last_name
                             ? `${r.respondent_first_name} ${r.respondent_last_name}`
                             : r.name}
                           {r.admin_note && (
-                            <NotebookPen className='h-3.5 w-3.5 text-primary/60 shrink-0' />
+                            <NotebookPen className='h-3.5 w-3.5 text-studio-violet/60 shrink-0' />
                           )}
                         </div>
                       </td>
@@ -815,7 +815,7 @@ export function RsvpResponsesTable({
                       </td>
 
                       {/* Guest count */}
-                      <td className='px-4 py-4 text-muted-foreground'>
+                      <td className='px-4 py-4 text-studio-violet/60'>
                         {r.attendance !== false ? (
                           <span className='inline-flex items-center gap-1.5'>
                             <Users className='h-3.5 w-3.5' />
@@ -824,26 +824,26 @@ export function RsvpResponsesTable({
                               : 1 + (r.guest_count ?? 0)}
                           </span>
                         ) : (
-                          <span className='text-muted-foreground/40'>—</span>
+                          <span className='text-studio-violet/40'>—</span>
                         )}
                       </td>
 
                       {/* Dietary */}
-                      <td className='px-4 py-4 text-muted-foreground hidden md:table-cell'>
+                      <td className='px-4 py-4 text-studio-violet/60 hidden md:table-cell'>
                         <span className='truncate block'>
                           {r.dietary
                             ? r.dietary.length > 30
                               ? r.dietary.slice(0, 30) + "…"
                               : r.dietary
-                            : <span className='text-muted-foreground/30'>—</span>}
+                            : <span className='text-studio-violet/30'>—</span>}
                         </span>
                       </td>
 
                       {/* Admin note preview */}
-                      <td className='px-4 py-4 text-muted-foreground hidden lg:table-cell'>
+                      <td className='px-4 py-4 text-studio-violet/60 hidden lg:table-cell'>
                         {r.admin_note ? (
                           <span title={r.admin_note} className='inline-flex items-center gap-1.5 overflow-hidden cursor-help'>
-                            <MessageSquare className='h-3.5 w-3.5 shrink-0 text-primary/50' />
+                            <MessageSquare className='h-3.5 w-3.5 shrink-0 text-studio-violet/50' />
                             <span className='truncate block'>
                               {r.admin_note.length > 30
                                 ? r.admin_note.slice(0, 30) + "…"
@@ -851,12 +851,12 @@ export function RsvpResponsesTable({
                             </span>
                           </span>
                         ) : (
-                          <span className='text-muted-foreground/30'>—</span>
+                          <span className='text-studio-violet/30'>—</span>
                         )}
                       </td>
 
                       {/* Date */}
-                      <td className='px-4 py-4 text-muted-foreground text-xs'>
+                      <td className='px-4 py-4 text-studio-violet/60 text-xs'>
                         {new Intl.DateTimeFormat(locale, {
                           day: "numeric",
                           month: "short",
@@ -874,7 +874,7 @@ export function RsvpResponsesTable({
                           onClick={() =>
                             setDeleteTarget({ id: r.id, name: r.name })
                           }
-                          className='text-muted-foreground/30 hover:text-red-500 transition-colors'
+                          className='text-studio-violet/30 hover:text-red-500 transition-colors'
                         >
                           <Trash2 className='h-4 w-4' />
                         </button>
@@ -905,7 +905,7 @@ export function RsvpResponsesTable({
         )}
       </div>
 
-      <p className='text-xs text-muted-foreground text-right'>
+      <p className='text-xs text-studio-violet/60 text-right'>
         {filtered.length} / {responses.length} {t("responses")}
       </p>
 
@@ -1013,23 +1013,23 @@ export function RsvpResponsesTable({
             {/* Prénom / Nom */}
             <div className="grid grid-cols-2 gap-3">
               <div className="space-y-1.5">
-                <label className="text-[10px] font-semibold text-muted-foreground uppercase tracking-widest">{t("first_name")}</label>
+                <label className="text-[10px] font-semibold text-studio-violet/60 uppercase tracking-widest">{t("first_name")}</label>
                 <Input className="bg-white" value={createForm.firstName} onChange={(e) => setCreateForm({ ...createForm, firstName: e.target.value })} placeholder="Jean" />
               </div>
               <div className="space-y-1.5">
-                <label className="text-[10px] font-semibold text-muted-foreground uppercase tracking-widest">{t("last_name")}</label>
+                <label className="text-[10px] font-semibold text-studio-violet/60 uppercase tracking-widest">{t("last_name")}</label>
                 <Input className="bg-white" value={createForm.lastName} onChange={(e) => setCreateForm({ ...createForm, lastName: e.target.value })} placeholder="Dupont" />
               </div>
             </div>
 
             {/* Présence */}
             <div className="space-y-1.5">
-              <label className="text-[10px] font-semibold text-muted-foreground uppercase tracking-widest">{t("col.attendance")}</label>
+              <label className="text-[10px] font-semibold text-studio-violet/60 uppercase tracking-widest">{t("col.attendance")}</label>
               <div className="flex gap-2">
                 {([
-                  { value: null, label: t("pending"), cls: createForm.attendance === null ? "bg-white border-studio-jaune text-studio-pourpre font-medium" : "bg-white border-border text-muted-foreground hover:border-studio-jaune" },
-                  { value: true, label: t("present"), cls: createForm.attendance === true ? "bg-white border-teal-300 text-teal-600 font-medium" : "bg-white border-border text-muted-foreground hover:border-teal-200" },
-                  { value: false, label: t("absent"), cls: createForm.attendance === false ? "bg-white border-red-300 text-red-700 font-medium" : "bg-white border-border text-muted-foreground hover:border-red-200" },
+                  { value: null, label: t("pending"), cls: createForm.attendance === null ? "bg-white border-studio-jaune text-studio-pourpre font-medium" : "bg-white border-studio-lavande/40 text-studio-violet/60 hover:border-studio-jaune" },
+                  { value: true, label: t("present"), cls: createForm.attendance === true ? "bg-white border-teal-300 text-teal-600 font-medium" : "bg-white border-studio-lavande/40 text-studio-violet/60 hover:border-teal-200" },
+                  { value: false, label: t("absent"), cls: createForm.attendance === false ? "bg-white border-red-300 text-red-700 font-medium" : "bg-white border-studio-lavande/40 text-studio-violet/60 hover:border-red-200" },
                 ] as { value: boolean | null; label: string; cls: string }[]).map((opt) => (
                   <button key={String(opt.value)} type="button" onClick={() => setCreateForm({ ...createForm, attendance: opt.value })} className={`px-3 py-1.5 rounded-lg border text-xs transition-colors ${opt.cls}`}>
                     {opt.label}
@@ -1040,18 +1040,18 @@ export function RsvpResponsesTable({
 
             {/* Régime */}
             <div className="space-y-1.5">
-              <label className="text-[10px] font-semibold text-muted-foreground uppercase tracking-widest">{t("col.dietary")}</label>
+              <label className="text-[10px] font-semibold text-studio-violet/60 uppercase tracking-widest">{t("col.dietary")}</label>
               <DietarySelect
                 value={createForm.dietary}
                 onChange={(v) => setCreateForm({ ...createForm, dietary: v })}
-                inputCls="w-full bg-white border border-border rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-1 focus:ring-ring placeholder:text-muted-foreground/40"
+                inputCls="w-full bg-white border border-studio-lavande/40 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-1 focus:ring-studio-violet/40 placeholder:text-studio-violet/40"
                 customPlaceholder={t("dietary_other_placeholder")}
               />
             </div>
 
             {/* Note interne */}
             <div className="space-y-1.5">
-              <label className="text-[10px] font-semibold text-muted-foreground uppercase tracking-widest flex items-center gap-1">
+              <label className="text-[10px] font-semibold text-studio-violet/60 uppercase tracking-widest flex items-center gap-1">
                 <NotebookPen className="h-3 w-3" />{t("admin_note")}
               </label>
               <Textarea className="bg-white" rows={2} value={createForm.adminNote} onChange={(e) => setCreateForm({ ...createForm, adminNote: e.target.value })} placeholder={t("admin_note_placeholder")} />
@@ -1059,7 +1059,7 @@ export function RsvpResponsesTable({
 
             {/* Accompagnants */}
             <div className="space-y-2">
-              <label className="text-[10px] font-semibold text-muted-foreground uppercase tracking-widest flex items-center gap-1">
+              <label className="text-[10px] font-semibold text-studio-violet/60 uppercase tracking-widest flex items-center gap-1">
                 <UserPlus className="h-3 w-3" />{t("add_participant")}
               </label>
 
@@ -1081,13 +1081,13 @@ export function RsvpResponsesTable({
                       ))}
                     </SelectContent>
                   </Select>
-                  <button type="button" onClick={() => setCreateForm((f) => ({ ...f, participants: f.participants.filter((_, idx) => idx !== i) }))} className="text-muted-foreground/40 hover:text-red-500 transition-colors">
+                  <button type="button" onClick={() => setCreateForm((f) => ({ ...f, participants: f.participants.filter((_, idx) => idx !== i) }))} className="text-studio-violet/40 hover:text-red-500 transition-colors">
                     <Trash2 className="h-4 w-4" />
                   </button>
                 </div>
               ))}
 
-              <button type="button" onClick={() => setCreateForm((f) => ({ ...f, participants: [...f.participants, { first_name: "", last_name: "", relation_type: "" }] }))} className="flex items-center gap-1.5 text-xs text-primary hover:text-primary/80 transition-colors mt-1">
+              <button type="button" onClick={() => setCreateForm((f) => ({ ...f, participants: [...f.participants, { first_name: "", last_name: "", relation_type: "" }] }))} className="flex items-center gap-1.5 text-xs text-studio-violet hover:text-studio-violet/80 transition-colors mt-1">
                 <Plus className="h-3.5 w-3.5" />{t("add_participant")}
               </button>
             </div>

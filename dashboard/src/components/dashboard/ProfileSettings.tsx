@@ -16,7 +16,20 @@ import { useTranslations } from "next-intl";
 import { useState } from "react";
 import { toast } from "sonner";
 
-export default function ProfileSettings({ profile }: { profile: any }) {
+type Profile = {
+  first_name?: string | null;
+  partner_name?: string | null;
+  email?: string | null;
+};
+
+export default function ProfileSettings({
+  profile,
+  weddingDate,
+}: {
+  profile: Profile | null;
+  /** Plain "YYYY-MM-DD" from public.weddings, or null when not set yet. */
+  weddingDate?: string | null;
+}) {
   const t = useTranslations("Settings.profile");
   const [loadingProfile, setLoadingProfile] = useState(false);
   const [loadingEmail, setLoadingEmail] = useState(false);
@@ -82,6 +95,20 @@ export default function ProfileSettings({ profile }: { profile: any }) {
                 defaultValue={profile?.partner_name || ""}
                 required
               />
+            </div>
+            <div className='space-y-2'>
+              <Label htmlFor='weddingDate'>{t("weddingdate")}</Label>
+              <Input
+                id='weddingDate'
+                name='weddingDate'
+                type='date'
+                // Stored as a plain YYYY-MM-DD date, which is what the input
+                // both reads and writes — no timezone conversion either way.
+                defaultValue={weddingDate ?? ""}
+              />
+              <p className='text-xs text-studio-violet/60'>
+                {t("weddingdate_hint")}
+              </p>
             </div>
             <Button
               type='submit'

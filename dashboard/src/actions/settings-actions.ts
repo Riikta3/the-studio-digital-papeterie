@@ -130,6 +130,14 @@ export async function updateProfile(formData: FormData) {
 
   const firstName = formData.get("firstName") as string;
   const partnerName = formData.get("partnerName") as string;
+  const weddingDate = formData.get("weddingDate") as string | null;
+
+  // A date input yields "YYYY-MM-DD", which is exactly what a Postgres `date`
+  // column wants — no Date round-trip, which would drag the value to UTC
+  // midnight and risk shifting the day. Empty means "not set yet", so store
+  // null rather than an invalid date.
+  const weddingDateValue =
+    weddingDate && /^\d{4}-\d{2}-\d{2}$/.test(weddingDate) ? weddingDate : null;
 
   // Update public.profiles
   const { error } = await supabase
@@ -139,6 +147,20 @@ export async function updateProfile(formData: FormData) {
       partner_name: partnerName,
     })
     .eq("id", user.id);
+
+  // The date lives on public.weddings, not on profiles — the home page read it
+  // off `profile.wedding_date`, a column that does not exist, so the countdown
+  // silently had nothing to count.
+  if (!error) {
+    const { error: weddingError } = await supabase
+      .from("weddings")
+      .update({ wedding_date: weddingDateValue })
+      .eq("user_id", user.id);
+
+    if (weddingError) {
+      return { success: false, error: weddingError.message };
+    }
+  }
 
   if (error) {
     return { success: false, error: "Erreur lors de la mise à jour du profil" };

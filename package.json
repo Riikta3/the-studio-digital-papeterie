@@ -17,6 +17,7 @@
     "start:dashboard": "npm run start -w dashboard",
     "dev:builder": "npm run dev -w builder",
     "build:builder": "npm run build -w builder",
-    "start:builder": "npm run start -w builder"
+    "start:builder": "npm run start -w builder",
+    "test": "node --experimental-strip-types --test shared/lib/*.test.mjs"
   }
 }

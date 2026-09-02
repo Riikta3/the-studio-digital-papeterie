@@ -1,12 +1,13 @@
 import { CountdownTimer } from "@/components/dashboard/CountdownTimer";
-import { DashboardInsights } from "@/components/dashboard/DashboardInsights";
-import { QuickActions } from "@/components/dashboard/QuickActions";
-import { RecentActivity } from "@/components/dashboard/RecentActivity";
-import { StatCard } from "@/components/dashboard/StatCard";
+import { HomeQuickActions } from "@/components/home/HomeQuickActions";
+import { InvitationPreviewCard } from "@/components/home/InvitationPreviewCard";
+import { KpiGroupCard, type KpiTile } from "@/components/home/KpiGroupCard";
 import { Link, redirect } from "@/navigation";
 import { createClient } from "@/utils/supabase/server";
 import { Button } from "@shared/components/ui/button";
-import { CheckCircle2, Clock, Settings, Users } from "lucide-react";
+import { INVITATION_MOCK } from "@shared/data/invitation-mock";
+import { JOUR_J_MOCK } from "@shared/data/jour-j-mock";
+import { PartyPopper, Settings, Users } from "lucide-react";
 import { getTranslations } from "next-intl/server";
 
 export default async function DashboardHome() {
@@ -22,165 +23,101 @@ export default async function DashboardHome() {
     return null;
   }
 
-  // Parallel Data Fetching to eliminate waterfalls
-  const [profileResponse, guestsResponse, householdsResponse] =
-    await Promise.all([
-      supabase.from("profiles").select("*").eq("id", user.id).single(),
-      supabase.from("guests").select("status"),
-      supabase
-        .from("households")
-        .select("*", { count: "exact" })
-        .eq("status", "pending"),
-    ]);
+  // The greeting and countdown need the couple's own profile, which already
+  // works against Supabase — kept as-is. Every figure below reads
+  // INVITATION_MOCK / JOUR_J_MOCK instead, like every other screen: step 2
+  // of the spec swaps the mock for real guests/households/tables queries and
+  // nothing else on this page changes.
+  const { data: profile } = await supabase
+    .from("profiles")
+    .select("*")
+    .eq("id", user.id)
+    .single();
 
-  const profile = profileResponse.data;
-  const guests = guestsResponse.data;
-  const pendingHouseholdsCount = householdsResponse.count;
+  // wedding_date is on public.weddings, not on profiles — reading it off
+  // `profile` returned undefined and the countdown silently fell back.
+  const { data: wedding } = await supabase
+    .from("weddings")
+    .select("wedding_date")
+    .eq("user_id", user.id)
+    .maybeSingle();
 
-  // Calculate specific stats
-  const totalGuests = guests?.length || 0;
-  const confirmedGuests =
-    guests?.filter((g) => g.status === "confirmed").length || 0;
-  const declinedGuests =
-    guests?.filter((g) => g.status === "declined").length || 0;
-  const pendingGuests =
-    guests?.filter((g) => g.status === "pending" || !g.status).length || 0;
+  const { guests, events } = INVITATION_MOCK;
+  const { tables, media, settings } = JOUR_J_MOCK;
 
-  // Response rate
-  const responseRate =
-    totalGuests > 0
-      ? Math.round(((confirmedGuests + declinedGuests) / totalGuests) * 100)
-      : 0;
+  const totalGuests = guests.length;
+  const confirmedGuests = guests.filter((g) => g.status === "confirmed").length;
+  const pendingGuests = guests.filter((g) => g.status === "pending").length;
+  const childrenGuests = guests.filter((g) => g.isChild).length;
 
-  const weddingDate = profile?.wedding_date
-    ? new Date(profile.wedding_date)
-    : null;
+  const seatedIds = new Set(tables.flatMap((table) => table.guestIds));
+  const seatedCount = seatedIds.size;
+  const confirmedGuestIds = new Set(
+    guests.filter((g) => g.status === "confirmed").map((g) => g.id),
+  );
+  const toSeatCount = [...confirmedGuestIds].filter((id) => !seatedIds.has(id)).length;
+
+  const weddingDate = wedding?.wedding_date
+    ? new Date(`${wedding.wedding_date}T00:00:00`)
+    : // The mock's own ceremony date, so the hero countdown always has
+      // something real to show rather than hiding the block.
+      new Date(events.find((e) => e.key === "wedding-day")?.date ?? "2027-06-19");
+
+  const guestsTiles: KpiTile[] = [
+    { key: "total", label: t("kpi.guests.total"), value: totalGuests },
+    { key: "confirmed", label: t("kpi.guests.confirmed"), value: confirmedGuests },
+    { key: "pending", label: t("kpi.guests.pending"), value: pendingGuests },
+    { key: "children", label: t("kpi.guests.children"), value: childrenGuests },
+  ];
+
+  const jourJTiles: KpiTile[] = [
+    { key: "seated", label: t("kpi.jour_j.seated"), value: seatedCount },
+    { key: "to_seat", label: t("kpi.jour_j.to_seat"), value: toSeatCount },
+    { key: "tables", label: t("kpi.jour_j.tables"), value: tables.length },
+    { key: "media", label: t("kpi.jour_j.media"), value: media.length },
+  ];
 
   return (
-    <div className='min-h-screen p-4 md:p-8 lg:p-12 max-w-6xl mx-auto space-y-6 bg-studio-creme'>
-      <header className='flex flex-col md:flex-row justify-between items-start md:items-center border-b border-studio-lavande/30 pb-6 gap-4'>
-        <div className='space-y-3 w-full md:w-auto'>
-          <div className='flex flex-col'>
-            <h1 className='font-heading text-h1 text-studio-violet'>
-              {t("greeting", {
-                name: `${profile?.first_name || "Mariés"} & ${profile?.partner_name || "Partenaire"}`,
-              })}
-            </h1>
-            {weddingDate && (
-              <div className='mt-4 flex flex-col items-start justify-start w-full'>
-                <div className='pt-2'>
-                  <CountdownTimer date={weddingDate} />
-                </div>
-              </div>
-            )}
-          </div>
-        </div>
-        <div className='hidden md:block self-start md:self-center'>
-          <Link href='/settings'>
+    <div className='min-h-screen bg-studio-creme p-4 md:p-8 lg:p-12'>
+      <div className='mx-auto max-w-5xl space-y-6'>
+        <header className='flex flex-col items-start justify-between gap-4 border-b border-studio-lavande/30 pb-6 md:flex-row md:items-center'>
+          <h1 className='font-heading text-h3 text-studio-violet'>
+            {t("greeting", {
+              name: `${profile?.first_name || "Mariés"} & ${profile?.partner_name || "Partenaire"}`,
+            })}
+          </h1>
+          <Link href='/settings' className='w-full md:w-auto'>
             <Button
               variant='outline'
-              className='border-studio-lavande/50 bg-white text-studio-violet/70 hover:bg-studio-lavande/10 hover:text-studio-violet transition-colors'
+              className='min-h-11 w-full border-studio-lavande/50 bg-white text-studio-violet/70 transition-colors hover:bg-studio-lavande/10 hover:text-studio-violet md:w-auto'
             >
-              <Settings className='w-4 h-4 mr-2' />
+              <Settings className='mr-2 h-4 w-4' />
               {t("settings")}
             </Button>
           </Link>
-        </div>
-      </header>
+        </header>
 
-      {/* KPI Cards Section */}
-      <section className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6'>
-        {/* Card 1: Total & Taux de réponse */}
-        <StatCard
-          label={t("total_guests")}
-          value={totalGuests}
-          icon={Users}
-          description={`${responseRate}% de taux de réponse`}
-          variant='primary'
-          action={{
-            label: t("see_list"),
-            href: "/guests",
-          }}
-        />
+        {/* Countdown: the hero of the page, not an afterthought under the title. */}
+        <section className='rounded-2xl border border-studio-lavande/40 bg-white p-4 shadow-studio-card md:p-8'>
+          <p className='text-xs font-medium uppercase tracking-wider text-studio-violet/50'>
+            {t("countdown")}
+          </p>
+          <div className='mt-3'>
+            <CountdownTimer date={weddingDate} />
+          </div>
+        </section>
 
-        {/* Card 2: Confirmés */}
-        <StatCard
-          label={t("confirmed")}
-          value={confirmedGuests}
-          icon={CheckCircle2}
-          description={t("confirmed_guests_desc")}
-          variant='success'
-        />
-
-        {/* Card 3: En attente / À valider */}
-        <StatCard
-          label={t("pending")}
-          value={pendingGuests}
-          icon={Clock}
-          description={t("pending_response_desc")}
-          variant='warning'
-          action={{
-            label: t("manage_requests"),
-            href: "/guests?filter=pending",
-          }}
-        />
-      </section>
-
-      {/* Main Content Grid - 3 Equal Columns */}
-      <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6'>
-        {/* Column 1: Activity Feed */}
-        <div>
-          <RecentActivity />
+        {/* Guests and day-of only: per-event attendance and meal breakdowns
+            belong on their own pages, not on an overview. */}
+        <div className='grid grid-cols-1 gap-4 md:grid-cols-2'>
+          <KpiGroupCard title={t("kpi.guests.title")} icon={Users} tiles={guestsTiles} />
+          <KpiGroupCard title={t("kpi.jour_j.title")} icon={PartyPopper} tiles={jourJTiles} />
         </div>
 
-        {/* Column 2: Pending Validation */}
-        <div>
-          {/* Pending Validation Alert Card */}
-          {(pendingHouseholdsCount ?? 0) > 0 ? (
-            <div className='bg-white border border-studio-jaune rounded-2xl p-6 relative overflow-hidden h-[420px] flex flex-col'>
-              <div className='absolute top-0 right-0 bg-studio-jaune/60 w-16 h-16 rounded-bl-full -mr-8 -mt-8'></div>
-              <div className='relative z-10 flex flex-col h-full'>
-                <div className='flex items-center gap-3 mb-3 text-studio-violet'>
-                  <CheckCircle2 size={20} />
-                  <h3 className='font-heading text-lg'>
-                    {t("pending_validation_title")}
-                  </h3>
-                </div>
-                <p className='text-sm text-studio-violet/70 mb-4 font-light'>
-                  {t.rich("pending_validation_desc", {
-                    count: pendingHouseholdsCount ?? 0,
-                    strong: (chunks) => <strong>{chunks}</strong>,
-                  })}
-                </p>
-                <div className='mt-auto'>
-                  <Link href='/guests'>
-                    <Button
-                      size='sm'
-                      className='bg-studio-violet hover:bg-studio-violet-fonce text-white border-none w-full'
-                    >
-                      {t("review_responses")}
-                    </Button>
-                  </Link>
-                </div>
-              </div>
-            </div>
-          ) : (
-            <div className='bg-white border border-studio-lavande/40 rounded-2xl p-6 h-[420px] flex items-center justify-center'>
-              <p className='text-studio-violet/50 text-center italic'>
-                {t("no_pending_validation")}
-              </p>
-            </div>
-          )}
-        </div>
+        <HomeQuickActions noAnswerCount={pendingGuests} toSeatCount={toSeatCount} />
 
-        {/* Column 3: Quick Actions */}
-        <div>
-          <QuickActions />
-        </div>
+        <InvitationPreviewCard slug={settings.qrSlug} enabled={settings.enabled} />
       </div>
-
-      {/* Insights Section - Full Width */}
-      <DashboardInsights />
     </div>
   );
 }

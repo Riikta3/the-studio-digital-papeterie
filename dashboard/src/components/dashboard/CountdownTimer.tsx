@@ -50,7 +50,7 @@ export function CountdownTimer({ date }: CountdownTimerProps) {
 
   if (!timeLeft) {
     return (
-      <div className='text-xl font-heading text-primary'>
+      <div className='text-xl font-heading text-studio-violet'>
         {t("big_day")}
       </div>
     );
@@ -65,7 +65,7 @@ export function CountdownTimer({ date }: CountdownTimerProps) {
             <span className='text-3xl md:text-5xl font-light'>
               {timeLeft.months}
             </span>
-            <span className='text-xs uppercase text-muted-foreground font-sans tracking-wider mt-1'>
+            <span className='text-xs uppercase text-studio-violet/60 font-sans tracking-wider mt-1'>
               {t("months")}
             </span>
           </div>
@@ -76,7 +76,7 @@ export function CountdownTimer({ date }: CountdownTimerProps) {
           <span className='text-3xl md:text-5xl font-light'>
             {timeLeft.days}
           </span>
-          <span className='text-xs uppercase text-muted-foreground font-sans tracking-wider mt-1'>
+          <span className='text-xs uppercase text-studio-violet/60 font-sans tracking-wider mt-1'>
             {t("days")}
           </span>
         </div>
@@ -86,7 +86,7 @@ export function CountdownTimer({ date }: CountdownTimerProps) {
           <span className='text-3xl md:text-5xl font-light tabular-nums'>
             {timeLeft.hours.toString().padStart(2, "0")}
           </span>
-          <span className='text-xs uppercase text-muted-foreground font-sans tracking-wider mt-1'>
+          <span className='text-xs uppercase text-studio-violet/60 font-sans tracking-wider mt-1'>
             {t("hours")}
           </span>
         </div>
@@ -96,7 +96,7 @@ export function CountdownTimer({ date }: CountdownTimerProps) {
           <span className='text-3xl md:text-5xl font-light tabular-nums'>
             {timeLeft.minutes.toString().padStart(2, "0")}
           </span>
-          <span className='text-xs uppercase text-muted-foreground font-sans tracking-wider mt-1'>
+          <span className='text-xs uppercase text-studio-violet/60 font-sans tracking-wider mt-1'>
             {t("minutes")}
           </span>
         </div>
@@ -106,7 +106,7 @@ export function CountdownTimer({ date }: CountdownTimerProps) {
           <span className='text-3xl md:text-5xl font-light tabular-nums'>
             {timeLeft.seconds.toString().padStart(2, "0")}
           </span>
-          <span className='text-xs uppercase text-muted-foreground font-sans tracking-wider mt-1'>
+          <span className='text-xs uppercase text-studio-violet/60 font-sans tracking-wider mt-1'>
             {t("seconds")}
           </span>
         </div>

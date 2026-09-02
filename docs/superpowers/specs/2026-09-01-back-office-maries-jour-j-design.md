@@ -297,6 +297,16 @@ alter table public.tables
 par les réglages. On s'appuie sur les migrations `public_storage_buckets` et
 `media_storage` déjà en place.
 
+**Aucune donnée d'invités ne doit atteindre le bundle client.** Contrainte
+relevée pendant l'étape 1 : `TableFinder` et `PhotoUpload` sont des composants
+client et importaient le mock directement, ce qui embarquait tout le jeu de
+données dans le JavaScript envoyé au navigateur — lisible depuis la console,
+statuts et régimes alimentaires compris. Sans conséquence sur des noms
+fictifs; inacceptable avec de vrais invités. La page invité doit donc charger
+ses données côté serveur, ou via une route d'API qui ne renvoie que les formes
+déjà restreintes. Un composant client ne reçoit jamais la liste des invités,
+même filtrée à l'affichage.
+
 **La recherche « Ma table » passe par une RPC**, pas par un `select` direct :
 `search_guest_table(wedding_id, query)` en `security definer`, renvoyant au
 plus cinq lignes de `(first_name, last_name, table_name)`. C'est la seule façon

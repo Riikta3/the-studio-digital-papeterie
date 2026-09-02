@@ -62,14 +62,14 @@ function SortableModuleItem({ id, t }: SortableModuleItemProps) {
       className={`flex items-center gap-3 bg-white rounded-xl border transition-all ${
         isDragging
           ? "border-primary/40 shadow-lg opacity-90"
-          : "border-border"
+          : "border-studio-lavande/40"
       }`}
     >
       {/* Drag handle */}
       <button
         {...attributes}
         {...listeners}
-        className="pl-3 py-4 text-muted-foreground/40 hover:text-muted-foreground transition-colors cursor-grab active:cursor-grabbing touch-none"
+        className="pl-3 py-4 text-studio-violet/40 hover:text-studio-violet/60 transition-colors cursor-grab active:cursor-grabbing touch-none"
         tabIndex={-1}
         aria-label={t("reorder")}
       >
@@ -80,27 +80,27 @@ function SortableModuleItem({ id, t }: SortableModuleItemProps) {
       {configurable ? (
         <Link
           href={`/modules/${id}`}
-          className="flex items-center gap-3 flex-1 min-w-0 pr-4 py-4 hover:text-primary group"
+          className="flex items-center gap-3 flex-1 min-w-0 pr-4 py-4 hover:text-studio-violet group"
         >
-          <div className="w-9 h-9 bg-secondary rounded-lg flex items-center justify-center text-primary shrink-0">
+          <div className="w-9 h-9 bg-studio-lavande/20 rounded-lg flex items-center justify-center text-studio-violet shrink-0">
             <Icon size={16} />
           </div>
           <div className="flex-1 min-w-0">
-            <p className="font-medium text-sm text-foreground">{getModuleName(t, id)}</p>
-            <p className="text-xs text-muted-foreground truncate">{getModuleDescription(t, id)}</p>
+            <p className="font-medium text-sm text-studio-violet">{getModuleName(t, id)}</p>
+            <p className="text-xs text-studio-violet/60 truncate">{getModuleDescription(t, id)}</p>
           </div>
-          <ChevronRight size={14} className="text-muted-foreground group-hover:text-primary transition-colors shrink-0" />
+          <ChevronRight size={14} className="text-studio-violet/60 group-hover:text-studio-violet transition-colors shrink-0" />
         </Link>
       ) : (
         <div className="flex items-center gap-3 flex-1 min-w-0 pr-4 py-4 opacity-60">
-          <div className="w-9 h-9 bg-secondary rounded-lg flex items-center justify-center text-primary shrink-0">
+          <div className="w-9 h-9 bg-studio-lavande/20 rounded-lg flex items-center justify-center text-studio-violet shrink-0">
             <Icon size={16} />
           </div>
           <div className="flex-1 min-w-0">
-            <p className="font-medium text-sm text-foreground">{getModuleName(t, id)}</p>
-            <p className="text-xs text-muted-foreground">{t("auto_configured")}</p>
+            <p className="font-medium text-sm text-studio-violet">{getModuleName(t, id)}</p>
+            <p className="text-xs text-studio-violet/60">{t("auto_configured")}</p>
           </div>
-          <Settings2 size={14} className="text-muted-foreground shrink-0" />
+          <Settings2 size={14} className="text-studio-violet/60 shrink-0" />
         </div>
       )}
     </div>
