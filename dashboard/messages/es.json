@@ -1145,5 +1145,107 @@
     "delete_entry": "Eliminar “{title}”",
     "deleted_toast": "“{title}” eliminado",
     "untitled": "Sin título"
+  },
+  "InvitationVenue": {
+    "title": "Lugar e información práctica",
+    "subtitle": "Esta sección es solo informativa: aquí no se reservan hoteles ni se gestionan traslados, solo se orienta a los invitados.",
+    "fields": {
+      "name": "Nombre del lugar",
+      "name_placeholder": "Villa Bellavista",
+      "address": "Dirección",
+      "address_placeholder": "Via Panoramica 4",
+      "city": "Ciudad",
+      "city_placeholder": "Ravello, Italia",
+      "maps_url": "Enlace de Google Maps",
+      "maps_url_placeholder": "https://maps.google.com/...",
+      "waze_url": "Enlace de Waze",
+      "waze_url_placeholder": "https://waze.com/ul?q=...",
+      "parking_info": "Aparcamiento",
+      "parking_info_placeholder": "Dónde y cómo aparcar",
+      "access_info": "Acceso",
+      "access_info_placeholder": "Cómo llegar al lugar",
+      "transport_info": "Transporte",
+      "transport_info_placeholder": "Traslados, transporte público, etc."
+    },
+    "open_maps": "Abrir en Google Maps",
+    "open_waze": "Abrir en Waze",
+    "accommodation": {
+      "title": "Alojamientos recomendados",
+      "hint": "Una selección de opciones cercanas para ayudar a sus invitados a alojarse.",
+      "add": "Añadir",
+      "empty": "Aún no se ha añadido ningún alojamiento.",
+      "untitled": "sin nombre",
+      "fields": {
+        "name": "Nombre",
+        "city": "Ciudad",
+        "distance": "Distancia",
+        "phone": "Teléfono",
+        "booking_url": "Enlace de reserva",
+        "offer": "Oferta negociada"
+      },
+      "name_placeholder": "Nombre del alojamiento",
+      "city_placeholder": "Ciudad",
+      "distance_placeholder": "a 10 min de la finca",
+      "phone_placeholder": "+39 089 000 000",
+      "booking_url_placeholder": "https://...",
+      "offer_placeholder": "Tarifa negociada, código promocional...",
+      "open_booking": "Abrir el enlace de reserva",
+      "delete": "Eliminar {name}"
+    },
+    "move_up": "Subir",
+    "move_down": "Bajar"
+  },
+  "InvitationFaq": {
+    "title": "Preguntas frecuentes",
+    "subtitle": "Añada, edite y reordene las preguntas y respuestas para sus invitados.",
+    "add": "Añadir una pregunta",
+    "empty": "Todavía no hay preguntas.",
+    "untitled": "sin título",
+    "published": "Publicada",
+    "unpublished": "Sin publicar",
+    "published_toggle": "Publicar",
+    "unpublished_hint": "Esta pregunta sigue siendo editable aquí, pero no aparecerá en la invitación hasta que se publique.",
+    "fields": {
+      "question": "Pregunta",
+      "answer": "Respuesta"
+    },
+    "question_placeholder": "Su pregunta",
+    "answer_placeholder": "Su respuesta",
+    "move_up": "Subir",
+    "move_down": "Bajar",
+    "delete_entry": "Eliminar «{question}»",
+    "delete_dialog": {
+      "title": "¿Eliminar esta pregunta?",
+      "description": "Está a punto de eliminar «{question}». Esta acción no se puede deshacer.",
+      "cancel": "Cancelar",
+      "confirm": "Eliminar"
+    }
+  },
+  "Stats": {
+    "title": "Estadísticas",
+    "subtitle": "Cifras simples y útiles para seguir su invitación.",
+    "invitation": {
+      "title": "Invitación",
+      "visits": "Visitas",
+      "unique_visitors": "Visitantes únicos",
+      "response_rate": "Tasa de respuesta",
+      "response_rate_desc": "{responded} respuestas de {total} invitados"
+    },
+    "trend": {
+      "title": "Visitas de los últimos 30 días",
+      "aria_label": "Número de visitas por día durante los últimos 30 días",
+      "tooltip": "{date}: {visits} visitas"
+    },
+    "rsvp": {
+      "title": "RSVP",
+      "confirmed": "Confirmados",
+      "declined": "Rechazados",
+      "pending": "Sin respuesta"
+    },
+    "events": {
+      "title": "Eventos",
+      "empty": "No hay eventos activos.",
+      "count": "{confirmed} / {total} confirmados"
+    }
   }
 }

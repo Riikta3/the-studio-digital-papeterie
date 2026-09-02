@@ -1145,5 +1145,107 @@
     "delete_entry": "حذف «{title}»",
     "deleted_toast": "تم حذف «{title}»",
     "untitled": "بلا عنوان"
+  },
+  "InvitationVenue": {
+    "title": "المكان والمعلومات العملية",
+    "subtitle": "هذا القسم إعلامي فقط: لا حجز فنادق ولا تنظيم لحافلات النقل هنا، فقط ما يكفي لتوجيه ضيوفكم.",
+    "fields": {
+      "name": "اسم المكان",
+      "name_placeholder": "Villa Bellavista",
+      "address": "العنوان",
+      "address_placeholder": "Via Panoramica 4",
+      "city": "المدينة",
+      "city_placeholder": "رافيلو، إيطاليا",
+      "maps_url": "رابط خرائط جوجل",
+      "maps_url_placeholder": "https://maps.google.com/...",
+      "waze_url": "رابط Waze",
+      "waze_url_placeholder": "https://waze.com/ul?q=...",
+      "parking_info": "موقف السيارات",
+      "parking_info_placeholder": "أين وكيف يمكن ركن السيارة",
+      "access_info": "الوصول",
+      "access_info_placeholder": "كيفية الوصول إلى المكان",
+      "transport_info": "النقل",
+      "transport_info_placeholder": "حافلات، وسائل نقل عامة، إلخ."
+    },
+    "open_maps": "فتح في خرائط جوجل",
+    "open_waze": "فتح في Waze",
+    "accommodation": {
+      "title": "أماكن إقامة موصى بها",
+      "hint": "مجموعة مختارة من الأماكن القريبة لمساعدة ضيوفكم على إيجاد مكان للإقامة.",
+      "add": "إضافة",
+      "empty": "لم تتم إضافة أي مكان إقامة بعد.",
+      "untitled": "بدون اسم",
+      "fields": {
+        "name": "الاسم",
+        "city": "المدينة",
+        "distance": "المسافة",
+        "phone": "الهاتف",
+        "booking_url": "رابط الحجز",
+        "offer": "عرض خاص متفاوض عليه"
+      },
+      "name_placeholder": "اسم مكان الإقامة",
+      "city_placeholder": "المدينة",
+      "distance_placeholder": "على بعد 10 دقائق من المكان",
+      "phone_placeholder": "+39 089 000 000",
+      "booking_url_placeholder": "https://...",
+      "offer_placeholder": "سعر خاص، رمز ترويجي...",
+      "open_booking": "فتح رابط الحجز",
+      "delete": "حذف {name}"
+    },
+    "move_up": "تحريك لأعلى",
+    "move_down": "تحريك لأسفل"
+  },
+  "InvitationFaq": {
+    "title": "الأسئلة الشائعة",
+    "subtitle": "أضيفوا، عدّلوا وأعيدوا ترتيب الأسئلة والأجوبة الموجهة لضيوفكم.",
+    "add": "إضافة سؤال",
+    "empty": "لا توجد أسئلة بعد.",
+    "untitled": "بدون عنوان",
+    "published": "منشور",
+    "unpublished": "غير منشور",
+    "published_toggle": "نشر",
+    "unpublished_hint": "يبقى هذا السؤال قابلاً للتعديل هنا لكنه لن يظهر في الدعوة إلى أن يتم نشره.",
+    "fields": {
+      "question": "السؤال",
+      "answer": "الجواب"
+    },
+    "question_placeholder": "سؤالكم",
+    "answer_placeholder": "جوابكم",
+    "move_up": "تحريك لأعلى",
+    "move_down": "تحريك لأسفل",
+    "delete_entry": "حذف «{question}»",
+    "delete_dialog": {
+      "title": "هل تريدون حذف هذا السؤال؟",
+      "description": "أنتم على وشك حذف «{question}». لا يمكن التراجع عن هذا الإجراء.",
+      "cancel": "إلغاء",
+      "confirm": "حذف"
+    }
+  },
+  "Stats": {
+    "title": "الإحصائيات",
+    "subtitle": "أرقام بسيطة ومفيدة لمتابعة دعوتكم.",
+    "invitation": {
+      "title": "الدعوة",
+      "visits": "الزيارات",
+      "unique_visitors": "الزوار الفريدون",
+      "response_rate": "معدل الاستجابة",
+      "response_rate_desc": "{responded} ردًا من أصل {total} ضيف"
+    },
+    "trend": {
+      "title": "الزيارات خلال 30 يومًا",
+      "aria_label": "عدد الزيارات يوميًا خلال آخر 30 يومًا",
+      "tooltip": "{date}: {visits} زيارة"
+    },
+    "rsvp": {
+      "title": "الرد على الدعوة",
+      "confirmed": "مؤكَّد",
+      "declined": "معتذر",
+      "pending": "بلا رد"
+    },
+    "events": {
+      "title": "الفعاليات",
+      "empty": "لا توجد فعاليات نشطة.",
+      "count": "{confirmed} / {total} مؤكَّد"
+    }
   }
 }

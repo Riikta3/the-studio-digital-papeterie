@@ -1145,5 +1145,107 @@
     "delete_entry": "Supprimer « {title} »",
     "deleted_toast": "« {title} » supprimé",
     "untitled": "Sans titre"
+  },
+  "InvitationVenue": {
+    "title": "Lieu & infos pratiques",
+    "subtitle": "Ces informations sont uniquement descriptives : pas de réservation d'hôtel ni de gestion de navettes ici, juste de quoi orienter vos invités.",
+    "fields": {
+      "name": "Nom du lieu",
+      "name_placeholder": "Villa Bellavista",
+      "address": "Adresse",
+      "address_placeholder": "Via Panoramica 4",
+      "city": "Ville",
+      "city_placeholder": "Ravello, Italie",
+      "maps_url": "Lien Google Maps",
+      "maps_url_placeholder": "https://maps.google.com/...",
+      "waze_url": "Lien Waze",
+      "waze_url_placeholder": "https://waze.com/ul?q=...",
+      "parking_info": "Stationnement",
+      "parking_info_placeholder": "Où et comment se garer",
+      "access_info": "Accès",
+      "access_info_placeholder": "Comment venir jusqu'au lieu",
+      "transport_info": "Transport",
+      "transport_info_placeholder": "Navettes, transports en commun, etc."
+    },
+    "open_maps": "Ouvrir dans Google Maps",
+    "open_waze": "Ouvrir dans Waze",
+    "accommodation": {
+      "title": "Hébergements recommandés",
+      "hint": "Une sélection d'adresses à proximité, pour aider vos invités à se loger.",
+      "add": "Ajouter",
+      "empty": "Aucun hébergement ajouté pour le moment.",
+      "untitled": "sans nom",
+      "fields": {
+        "name": "Nom",
+        "city": "Ville",
+        "distance": "Distance",
+        "phone": "Téléphone",
+        "booking_url": "Lien de réservation",
+        "offer": "Offre négociée"
+      },
+      "name_placeholder": "Nom de l'hébergement",
+      "city_placeholder": "Ville",
+      "distance_placeholder": "à 10 min du domaine",
+      "phone_placeholder": "+39 089 000 000",
+      "booking_url_placeholder": "https://...",
+      "offer_placeholder": "Tarif négocié, code promo...",
+      "open_booking": "Ouvrir le lien de réservation",
+      "delete": "Supprimer {name}"
+    },
+    "move_up": "Monter",
+    "move_down": "Descendre"
+  },
+  "InvitationFaq": {
+    "title": "FAQ",
+    "subtitle": "Ajoutez, modifiez et réordonnez les questions posées à vos invités.",
+    "add": "Ajouter une question",
+    "empty": "Aucune question pour le moment.",
+    "untitled": "sans titre",
+    "published": "Publiée",
+    "unpublished": "Non publiée",
+    "published_toggle": "Publier",
+    "unpublished_hint": "Cette question reste modifiable ici mais n'apparaît pas sur le faire-part tant qu'elle n'est pas publiée.",
+    "fields": {
+      "question": "Question",
+      "answer": "Réponse"
+    },
+    "question_placeholder": "Votre question",
+    "answer_placeholder": "Votre réponse",
+    "move_up": "Monter",
+    "move_down": "Descendre",
+    "delete_entry": "Supprimer « {question} »",
+    "delete_dialog": {
+      "title": "Supprimer cette question ?",
+      "description": "Vous êtes sur le point de supprimer « {question} ». Cette action est irréversible.",
+      "cancel": "Annuler",
+      "confirm": "Supprimer"
+    }
+  },
+  "Stats": {
+    "title": "Statistiques",
+    "subtitle": "Des chiffres simples et utiles pour suivre votre faire-part.",
+    "invitation": {
+      "title": "Invitation",
+      "visits": "Visites",
+      "unique_visitors": "Visiteurs uniques",
+      "response_rate": "Taux de réponse",
+      "response_rate_desc": "{responded} réponses sur {total} invités"
+    },
+    "trend": {
+      "title": "Visites sur 30 jours",
+      "aria_label": "Nombre de visites par jour sur les 30 derniers jours",
+      "tooltip": "{date} : {visits} visites"
+    },
+    "rsvp": {
+      "title": "RSVP",
+      "confirmed": "Confirmés",
+      "declined": "Déclinés",
+      "pending": "Sans réponse"
+    },
+    "events": {
+      "title": "Événements",
+      "empty": "Aucun événement actif.",
+      "count": "{confirmed} / {total} confirmés"
+    }
   }
 }

@@ -1145,5 +1145,107 @@
     "delete_entry": "Delete “{title}”",
     "deleted_toast": "“{title}” deleted",
     "untitled": "Untitled"
+  },
+  "InvitationVenue": {
+    "title": "Venue & practical info",
+    "subtitle": "This section is purely informational: no hotel booking or shuttle logistics here, just enough to guide your guests.",
+    "fields": {
+      "name": "Venue name",
+      "name_placeholder": "Villa Bellavista",
+      "address": "Address",
+      "address_placeholder": "Via Panoramica 4",
+      "city": "City",
+      "city_placeholder": "Ravello, Italy",
+      "maps_url": "Google Maps link",
+      "maps_url_placeholder": "https://maps.google.com/...",
+      "waze_url": "Waze link",
+      "waze_url_placeholder": "https://waze.com/ul?q=...",
+      "parking_info": "Parking",
+      "parking_info_placeholder": "Where and how to park",
+      "access_info": "Access",
+      "access_info_placeholder": "How to get to the venue",
+      "transport_info": "Transport",
+      "transport_info_placeholder": "Shuttles, public transport, etc."
+    },
+    "open_maps": "Open in Google Maps",
+    "open_waze": "Open in Waze",
+    "accommodation": {
+      "title": "Recommended accommodation",
+      "hint": "A selection of nearby options to help your guests find somewhere to stay.",
+      "add": "Add",
+      "empty": "No accommodation added yet.",
+      "untitled": "untitled",
+      "fields": {
+        "name": "Name",
+        "city": "City",
+        "distance": "Distance",
+        "phone": "Phone",
+        "booking_url": "Booking link",
+        "offer": "Negotiated offer"
+      },
+      "name_placeholder": "Accommodation name",
+      "city_placeholder": "City",
+      "distance_placeholder": "10 min from the venue",
+      "phone_placeholder": "+39 089 000 000",
+      "booking_url_placeholder": "https://...",
+      "offer_placeholder": "Negotiated rate, promo code...",
+      "open_booking": "Open the booking link",
+      "delete": "Delete {name}"
+    },
+    "move_up": "Move up",
+    "move_down": "Move down"
+  },
+  "InvitationFaq": {
+    "title": "FAQ",
+    "subtitle": "Add, edit and reorder the questions asked to your guests.",
+    "add": "Add a question",
+    "empty": "No questions yet.",
+    "untitled": "untitled",
+    "published": "Published",
+    "unpublished": "Unpublished",
+    "published_toggle": "Publish",
+    "unpublished_hint": "This question stays editable here but will not appear on the invitation until it is published.",
+    "fields": {
+      "question": "Question",
+      "answer": "Answer"
+    },
+    "question_placeholder": "Your question",
+    "answer_placeholder": "Your answer",
+    "move_up": "Move up",
+    "move_down": "Move down",
+    "delete_entry": "Delete \"{question}\"",
+    "delete_dialog": {
+      "title": "Delete this question?",
+      "description": "You are about to delete \"{question}\". This cannot be undone.",
+      "cancel": "Cancel",
+      "confirm": "Delete"
+    }
+  },
+  "Stats": {
+    "title": "Statistics",
+    "subtitle": "Simple, useful numbers to track your invitation.",
+    "invitation": {
+      "title": "Invitation",
+      "visits": "Visits",
+      "unique_visitors": "Unique visitors",
+      "response_rate": "Response rate",
+      "response_rate_desc": "{responded} responses out of {total} guests"
+    },
+    "trend": {
+      "title": "30-day visit trend",
+      "aria_label": "Number of visits per day over the last 30 days",
+      "tooltip": "{date}: {visits} visits"
+    },
+    "rsvp": {
+      "title": "RSVP",
+      "confirmed": "Confirmed",
+      "declined": "Declined",
+      "pending": "No answer"
+    },
+    "events": {
+      "title": "Events",
+      "empty": "No active events.",
+      "count": "{confirmed} / {total} confirmed"
+    }
   }
 }

@@ -1,5 +1,6 @@
-import { ComingSoon } from "@/components/navigation/ComingSoon";
+import { FaqPageClient } from "@/components/invitation-info/FaqPageClient";
+import { INVITATION_MOCK } from "@shared/data/invitation-mock";
 
 export default function Page() {
-  return <ComingSoon titleKey='invitation.items.faq' />;
+  return <FaqPageClient initialFaq={INVITATION_MOCK.faq} />;
 }

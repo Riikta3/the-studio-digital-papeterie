@@ -1145,5 +1145,107 @@
     "delete_entry": "删除“{title}”",
     "deleted_toast": "已删除“{title}”",
     "untitled": "无标题"
+  },
+  "InvitationVenue": {
+    "title": "场地与实用信息",
+    "subtitle": "本部分仅用于提供信息：不涉及酒店预订或班车安排，只为宾客提供必要的指引。",
+    "fields": {
+      "name": "场地名称",
+      "name_placeholder": "Villa Bellavista",
+      "address": "地址",
+      "address_placeholder": "Via Panoramica 4",
+      "city": "城市",
+      "city_placeholder": "拉韦洛，意大利",
+      "maps_url": "谷歌地图链接",
+      "maps_url_placeholder": "https://maps.google.com/...",
+      "waze_url": "Waze 链接",
+      "waze_url_placeholder": "https://waze.com/ul?q=...",
+      "parking_info": "停车信息",
+      "parking_info_placeholder": "在哪里以及如何停车",
+      "access_info": "交通指南",
+      "access_info_placeholder": "如何抵达场地",
+      "transport_info": "交通方式",
+      "transport_info_placeholder": "班车、公共交通等"
+    },
+    "open_maps": "在谷歌地图中打开",
+    "open_waze": "在 Waze 中打开",
+    "accommodation": {
+      "title": "推荐住宿",
+      "hint": "附近住宿的精选推荐，帮助宾客安排住宿。",
+      "add": "添加",
+      "empty": "暂未添加任何住宿。",
+      "untitled": "未命名",
+      "fields": {
+        "name": "名称",
+        "city": "城市",
+        "distance": "距离",
+        "phone": "电话",
+        "booking_url": "预订链接",
+        "offer": "协议优惠"
+      },
+      "name_placeholder": "住宿名称",
+      "city_placeholder": "城市",
+      "distance_placeholder": "距场地10分钟",
+      "phone_placeholder": "+39 089 000 000",
+      "booking_url_placeholder": "https://...",
+      "offer_placeholder": "协议价、优惠码……",
+      "open_booking": "打开预订链接",
+      "delete": "删除{name}"
+    },
+    "move_up": "上移",
+    "move_down": "下移"
+  },
+  "InvitationFaq": {
+    "title": "常见问题",
+    "subtitle": "添加、编辑并重新排列向宾客展示的问答。",
+    "add": "添加问题",
+    "empty": "暂无问题。",
+    "untitled": "无标题",
+    "published": "已发布",
+    "unpublished": "未发布",
+    "published_toggle": "发布",
+    "unpublished_hint": "此问题在后台仍可编辑，但在发布之前不会显示在请柬上。",
+    "fields": {
+      "question": "问题",
+      "answer": "答案"
+    },
+    "question_placeholder": "您的问题",
+    "answer_placeholder": "您的答案",
+    "move_up": "上移",
+    "move_down": "下移",
+    "delete_entry": "删除「{question}」",
+    "delete_dialog": {
+      "title": "删除此问题？",
+      "description": "您即将删除「{question}」。此操作无法撤销。",
+      "cancel": "取消",
+      "confirm": "删除"
+    }
+  },
+  "Stats": {
+    "title": "统计数据",
+    "subtitle": "简单而有用的数据，帮助您追踪请柬情况。",
+    "invitation": {
+      "title": "请柬",
+      "visits": "访问量",
+      "unique_visitors": "独立访客",
+      "response_rate": "回复率",
+      "response_rate_desc": "{total}位宾客中有{responded}位已回复"
+    },
+    "trend": {
+      "title": "近30天访问趋势",
+      "aria_label": "最近30天每日访问量",
+      "tooltip": "{date}：{visits}次访问"
+    },
+    "rsvp": {
+      "title": "回复情况",
+      "confirmed": "已确认",
+      "declined": "已婉拒",
+      "pending": "未回复"
+    },
+    "events": {
+      "title": "活动",
+      "empty": "暂无启用的活动。",
+      "count": "已确认 {confirmed} / {total}"
+    }
   }
 }

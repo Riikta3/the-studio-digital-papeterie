@@ -1,5 +1,11 @@
-import { ComingSoon } from "@/components/navigation/ComingSoon";
+import { LieuPageClient } from "@/components/invitation-info/LieuPageClient";
+import { INVITATION_MOCK } from "@shared/data/invitation-mock";
 
 export default function Page() {
-  return <ComingSoon titleKey='invitation.items.venue' />;
+  return (
+    <LieuPageClient
+      initialVenue={INVITATION_MOCK.venue}
+      initialAccommodation={INVITATION_MOCK.accommodation}
+    />
+  );
 }

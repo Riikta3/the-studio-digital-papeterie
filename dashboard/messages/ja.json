@@ -1145,5 +1145,107 @@
     "delete_entry": "「{title}」を削除",
     "deleted_toast": "「{title}」を削除しました",
     "untitled": "無題"
+  },
+  "InvitationVenue": {
+    "title": "会場・実用情報",
+    "subtitle": "このセクションは情報提供のみを目的としています。ホテル予約やシャトルの手配はここでは行わず、ゲストへの案内に必要な内容だけを扱います。",
+    "fields": {
+      "name": "会場名",
+      "name_placeholder": "Villa Bellavista",
+      "address": "住所",
+      "address_placeholder": "Via Panoramica 4",
+      "city": "都市",
+      "city_placeholder": "ラヴェッロ、イタリア",
+      "maps_url": "Google マップのリンク",
+      "maps_url_placeholder": "https://maps.google.com/...",
+      "waze_url": "Waze のリンク",
+      "waze_url_placeholder": "https://waze.com/ul?q=...",
+      "parking_info": "駐車場",
+      "parking_info_placeholder": "駐車場所と方法",
+      "access_info": "アクセス",
+      "access_info_placeholder": "会場までの行き方",
+      "transport_info": "交通手段",
+      "transport_info_placeholder": "シャトル、公共交通機関など"
+    },
+    "open_maps": "Google マップで開く",
+    "open_waze": "Waze で開く",
+    "accommodation": {
+      "title": "おすすめの宿泊施設",
+      "hint": "ゲストが宿泊先を見つけやすいよう、近隣の施設を厳選しました。",
+      "add": "追加",
+      "empty": "宿泊施設はまだ追加されていません。",
+      "untitled": "無題",
+      "fields": {
+        "name": "名称",
+        "city": "都市",
+        "distance": "距離",
+        "phone": "電話番号",
+        "booking_url": "予約リンク",
+        "offer": "特別プラン"
+      },
+      "name_placeholder": "宿泊施設名",
+      "city_placeholder": "都市",
+      "distance_placeholder": "会場から徒歩10分",
+      "phone_placeholder": "+39 089 000 000",
+      "booking_url_placeholder": "https://...",
+      "offer_placeholder": "特別料金、割引コードなど",
+      "open_booking": "予約リンクを開く",
+      "delete": "{name}を削除"
+    },
+    "move_up": "上へ移動",
+    "move_down": "下へ移動"
+  },
+  "InvitationFaq": {
+    "title": "よくある質問",
+    "subtitle": "ゲストへのQ&Aを追加、編集、並べ替えできます。",
+    "add": "質問を追加",
+    "empty": "まだ質問がありません。",
+    "untitled": "無題",
+    "published": "公開中",
+    "unpublished": "非公開",
+    "published_toggle": "公開する",
+    "unpublished_hint": "この質問はダッシュボードでは編集できますが、公開するまで招待状には表示されません。",
+    "fields": {
+      "question": "質問",
+      "answer": "回答"
+    },
+    "question_placeholder": "質問を入力",
+    "answer_placeholder": "回答を入力",
+    "move_up": "上へ移動",
+    "move_down": "下へ移動",
+    "delete_entry": "「{question}」を削除",
+    "delete_dialog": {
+      "title": "この質問を削除しますか？",
+      "description": "「{question}」を削除しようとしています。この操作は取り消せません。",
+      "cancel": "キャンセル",
+      "confirm": "削除"
+    }
+  },
+  "Stats": {
+    "title": "統計",
+    "subtitle": "招待状の状況を把握するための、シンプルで役立つ数値です。",
+    "invitation": {
+      "title": "招待状",
+      "visits": "訪問数",
+      "unique_visitors": "ユニーク訪問者数",
+      "response_rate": "回答率",
+      "response_rate_desc": "{total}名中{responded}名が回答済み"
+    },
+    "trend": {
+      "title": "過去30日間の訪問推移",
+      "aria_label": "過去30日間の1日あたりの訪問数",
+      "tooltip": "{date}：{visits}件の訪問"
+    },
+    "rsvp": {
+      "title": "出欠回答",
+      "confirmed": "出席",
+      "declined": "欠席",
+      "pending": "未回答"
+    },
+    "events": {
+      "title": "イベント",
+      "empty": "有効なイベントがありません。",
+      "count": "{confirmed} / {total} 名確認済み"
+    }
   }
 }
