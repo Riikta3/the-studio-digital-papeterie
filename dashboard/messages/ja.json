@@ -1,53 +1,53 @@
 {
   "Dashboard": {
-    "greeting": "こんにちは、{name}さん",
+    "greeting": "こんにちは、{name}",
     "settings": "設定",
-    "view_site": "サイトを見る",
-    "wedding_space": "ウェディングスペース",
-    "responses": "回答",
-    "guests_confirmed": "{total}名中{count}名のゲストが出席確定",
-    "see_list": "リストを見る",
     "countdown": "カウントダウン",
-    "days_remaining": "残り{days}日",
-    "almost_there": "もうすぐです！",
-    "big_day": "いよいよ当日です！",
-    "date_missing": "日付は？",
-    "add_date": "結婚式の日付を追加",
-    "configure_now": "今すぐ設定する",
-    "next_step": "次のステップ：ホテル情報を送信",
-    "to_validate": "確認待ち",
-    "households_pending": "{count}世帯があなたの確認を待っています。",
-    "all_up_to_date": "すべて最新です！\n対応は必要ありません。",
-    "manage_requests": "リクエストを管理",
-    "recent_activity": "最近のアクティビティ",
-    "online_signup": "オンライン登録",
-    "admin_add": "管理者が追加",
-    "confirmed": "確定済み",
-    "pending": "保留中",
-    "no_activity": "最近のアクティビティはありません。",
-    "quick_access": "クイックアクセス",
-    "guest_list": "ゲストリスト",
-    "guest_desc": "管理、追加、削除ができます。",
-    "settings_desc": "日付、コード、各種設定。",
-    "the_site": "サイト",
-    "total_guests": "ゲスト総数",
-    "activity_confirmed": "出席を確定しました",
-    "activity_declined": "招待を辞退しました",
-    "activity_rsvp_received": "回答がありました（オンライン登録）",
-    "activity_added": "管理者によって追加されました",
-    "quick_add_guest": "ゲストを追加",
-    "quick_add_desc": "世帯を手動で追加",
-    "manage_responses": "回答を管理",
-    "manage_responses_desc": "保留中のRSVPを処理",
-    "guest_list_desc": "ゲストの全リスト",
-    "export_data": "データをエクスポート",
-    "export_desc": "Excel / CSVファイルをダウンロード",
-    "confirmed_guests_desc": "出席確定のゲスト",
-    "pending_response_desc": "回答待ち",
-    "pending_validation_title": "承認待ち",
-    "pending_validation_desc": "<strong>{count}件の世帯</strong>から回答があり、承認をお待ちしています。",
-    "review_responses": "回答を確認する",
-    "no_pending_validation": "承認待ちの項目はありません"
+    "kpi": {
+      "guests": {
+        "title": "ゲスト",
+        "total": "合計",
+        "confirmed": "出席確定",
+        "pending": "未回答",
+        "children": "子供"
+      },
+      "meals": {
+        "title": "お食事",
+        "standard": "スタンダード",
+        "vegetarian": "ベジタリアン",
+        "vegan": "ヴィーガン",
+        "dietary": "特別な配慮が必要"
+      },
+      "jour_j": {
+        "title": "結婚式当日",
+        "seated": "着席済み",
+        "to_seat": "未着席",
+        "tables": "テーブル数",
+        "media": "写真・動画"
+      }
+    },
+    "quick_actions": {
+      "title": "やること",
+      "no_answer": {
+        "label": "{count, plural, =0 {未回答のゲストはいません} other {未回答のゲスト # 名}}",
+        "description": "まだ回答していないゲストに連絡する"
+      },
+      "to_seat": {
+        "label": "{count, plural, =0 {全員の席が決まっています} other {あと # 名の席を決める必要があります}}",
+        "description": "座席表を完成させる"
+      },
+      "qr_code": {
+        "label_no_count": "QRコードを印刷する",
+        "description": "当日ゲストの入場用に掲示する"
+      }
+    },
+    "invitation_preview": {
+      "title": "招待状",
+      "live": "公開中",
+      "not_live": "非公開",
+      "edit_cta": "内容を編集",
+      "public_hint": "ゲストと共有する公開リンク"
+    }
   },
   "Guests": {
     "title": "ゲスト一覧",

@@ -2,52 +2,52 @@
   "Dashboard": {
     "greeting": "Hola, {name}",
     "settings": "Ajustes",
-    "view_site": "Ver mi sitio",
-    "wedding_space": "Espacio de la boda",
-    "responses": "Respuestas",
-    "guests_confirmed": "{count} invitados confirmados de {total}",
-    "see_list": "Ver lista",
     "countdown": "Cuenta atrás",
-    "days_remaining": "Faltan {days} días",
-    "almost_there": "¡Ya casi!",
-    "big_day": "¡Es el gran día!",
-    "date_missing": "¿Fecha?",
-    "add_date": "Añadir fecha de la boda",
-    "configure_now": "Configurar ahora",
-    "next_step": "Siguiente paso: enviar info del hotel",
-    "to_validate": "Por validar",
-    "households_pending": "{count} hogares esperan su validación.",
-    "all_up_to_date": "¡Todo al día!\nNo se requiere ninguna acción.",
-    "manage_requests": "Gestionar solicitudes",
-    "recent_activity": "Actividad reciente",
-    "online_signup": "Registro en línea",
-    "admin_add": "Añadido por el administrador",
-    "confirmed": "Confirmado",
-    "pending": "Pendiente",
-    "no_activity": "Sin actividad reciente.",
-    "quick_access": "Acceso rápido",
-    "guest_list": "Lista de invitados",
-    "guest_desc": "Gestionar, añadir o eliminar.",
-    "settings_desc": "Fecha, código y preferencias.",
-    "the_site": "El sitio",
-    "total_guests": "Total de invitados",
-    "activity_confirmed": "confirmó su asistencia",
-    "activity_declined": "rechazó la invitación",
-    "activity_rsvp_received": "respondió (inscripción en línea)",
-    "activity_added": "fue añadido por el administrador",
-    "quick_add_guest": "Añadir invitado",
-    "quick_add_desc": "Añadir manualmente un hogar",
-    "manage_responses": "Gestionar respuestas",
-    "manage_responses_desc": "Procesar RSVP pendientes",
-    "guest_list_desc": "Lista completa de invitados",
-    "export_data": "Exportar datos",
-    "export_desc": "Descargar un archivo Excel / CSV",
-    "confirmed_guests_desc": "Invitados confirmados",
-    "pending_response_desc": "Esperando respuesta",
-    "pending_validation_title": "Validaciones pendientes",
-    "pending_validation_desc": "Tienes <strong>{count} hogares</strong> que han respondido y están esperando tu validación.",
-    "review_responses": "Revisar respuestas",
-    "no_pending_validation": "No hay validaciones pendientes"
+    "kpi": {
+      "guests": {
+        "title": "Invitados",
+        "total": "Total",
+        "confirmed": "Confirmados",
+        "pending": "Pendientes",
+        "children": "Niños"
+      },
+      "meals": {
+        "title": "Comidas",
+        "standard": "Estándar",
+        "vegetarian": "Vegetariano",
+        "vegan": "Vegano",
+        "dietary": "Necesidades especiales"
+      },
+      "jour_j": {
+        "title": "Día de la boda",
+        "seated": "Sentados",
+        "to_seat": "Por sentar",
+        "tables": "Mesas",
+        "media": "Fotos y vídeos"
+      }
+    },
+    "quick_actions": {
+      "title": "Por hacer",
+      "no_answer": {
+        "label": "{count, plural, =0 {Sin respuestas pendientes} one {# invitado sin respuesta} other {# invitados sin respuesta}}",
+        "description": "Recordar a los invitados que aún no han respondido"
+      },
+      "to_seat": {
+        "label": "{count, plural, =0 {Todos están sentados} one {# invitado por sentar} other {# invitados por sentar}}",
+        "description": "Terminar el plano de mesas"
+      },
+      "qr_code": {
+        "label_no_count": "Imprimir el código QR",
+        "description": "Para mostrar el día de la boda al acceso de invitados"
+      }
+    },
+    "invitation_preview": {
+      "title": "Invitación",
+      "live": "En línea",
+      "not_live": "Fuera de línea",
+      "edit_cta": "Editar contenido",
+      "public_hint": "Enlace público compartido con sus invitados"
+    }
   },
   "Guests": {
     "title": "Sus invitados",

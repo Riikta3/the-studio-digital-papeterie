@@ -2,52 +2,52 @@
   "Dashboard": {
     "greeting": "Ciao, {name}",
     "settings": "Impostazioni",
-    "view_site": "Vedi il mio sito",
-    "wedding_space": "Spazio matrimonio",
-    "responses": "Risposte",
-    "guests_confirmed": "{count} ospiti confermati su {total}",
-    "see_list": "Vedi lista",
     "countdown": "Conto alla rovescia",
-    "days_remaining": "Mancano {days} giorni",
-    "almost_there": "Ci siamo quasi!",
-    "big_day": "È il grande giorno!",
-    "date_missing": "Data?",
-    "add_date": "Aggiungi la data del matrimonio",
-    "configure_now": "Configura ora",
-    "next_step": "Prossimo passo: invia le info dell'hotel",
-    "to_validate": "Da convalidare",
-    "households_pending": "{count} famiglie in attesa della tua convalida.",
-    "all_up_to_date": "Tutto aggiornato!\nNessuna azione richiesta.",
-    "manage_requests": "Gestisci le richieste",
-    "recent_activity": "Attività recente",
-    "online_signup": "Iscrizione online",
-    "admin_add": "Aggiunto dall'amministratore",
-    "confirmed": "Confermato",
-    "pending": "In attesa",
-    "no_activity": "Nessuna attività recente.",
-    "quick_access": "Accesso rapido",
-    "guest_list": "Lista ospiti",
-    "guest_desc": "Gestisci, aggiungi o rimuovi.",
-    "settings_desc": "Data, codice e preferenze.",
-    "the_site": "Il sito",
-    "total_guests": "Totale invitati",
-    "activity_confirmed": "ha confermato la presenza",
-    "activity_declined": "ha rifiutato l'invito",
-    "activity_rsvp_received": "ha risposto (iscrizione online)",
-    "activity_added": "è stato aggiunto dall'amministratore",
-    "quick_add_guest": "Aggiungi invitato",
-    "quick_add_desc": "Aggiungi manualmente un nucleo familiare",
-    "manage_responses": "Gestisci le risposte",
-    "manage_responses_desc": "Gestisci gli RSVP in attesa",
-    "guest_list_desc": "Elenco completo degli invitati",
-    "export_data": "Esporta i dati",
-    "export_desc": "Scarica un file Excel / CSV",
-    "confirmed_guests_desc": "Ospiti confermati",
-    "pending_response_desc": "In attesa di risposta",
-    "pending_validation_title": "Convalide in sospeso",
-    "pending_validation_desc": "Hai <strong>{count} nuclei familiari</strong> che hanno risposto e sono in attesa della tua convalida.",
-    "review_responses": "Esamina le risposte",
-    "no_pending_validation": "Nessuna convalida in sospeso"
+    "kpi": {
+      "guests": {
+        "title": "Invitati",
+        "total": "Totale",
+        "confirmed": "Confermati",
+        "pending": "In attesa",
+        "children": "Bambini"
+      },
+      "meals": {
+        "title": "Pasti",
+        "standard": "Standard",
+        "vegetarian": "Vegetariano",
+        "vegan": "Vegano",
+        "dietary": "Esigenze particolari"
+      },
+      "jour_j": {
+        "title": "Giorno del matrimonio",
+        "seated": "Seduti",
+        "to_seat": "Da sistemare",
+        "tables": "Tavoli",
+        "media": "Foto e video"
+      }
+    },
+    "quick_actions": {
+      "title": "Da fare",
+      "no_answer": {
+        "label": "{count, plural, =0 {Nessuna risposta in sospeso} one {# invitato senza risposta} other {# invitati senza risposta}}",
+        "description": "Sollecitare gli invitati che non hanno ancora risposto"
+      },
+      "to_seat": {
+        "label": "{count, plural, =0 {Tutti sono sistemati} one {# invitato da sistemare} other {# invitati da sistemare}}",
+        "description": "Completare la disposizione dei tavoli"
+      },
+      "qr_code": {
+        "label_no_count": "Stampare il codice QR",
+        "description": "Da mostrare il giorno stesso per l'accesso degli invitati"
+      }
+    },
+    "invitation_preview": {
+      "title": "Invito",
+      "live": "Online",
+      "not_live": "Offline",
+      "edit_cta": "Modifica contenuto",
+      "public_hint": "Link pubblico condiviso con i vostri invitati"
+    }
   },
   "Guests": {
     "title": "I tuoi ospiti",

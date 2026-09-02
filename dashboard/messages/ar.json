@@ -2,52 +2,52 @@
   "Dashboard": {
     "greeting": "مرحبًا، {name}",
     "settings": "الإعدادات",
-    "view_site": "عرض موقعي",
-    "wedding_space": "مساحة الزفاف",
-    "responses": "الردود",
-    "guests_confirmed": "تأكيد حضور {count} من أصل {total} ضيوف",
-    "see_list": "عرض القائمة",
     "countdown": "العد التنازلي",
-    "days_remaining": "متبقٍ {days} أيام",
-    "almost_there": "أوشكنا على الوصول!",
-    "big_day": "إنه اليوم الموعود!",
-    "date_missing": "التاريخ؟",
-    "add_date": "إضافة تاريخ الزفاف",
-    "configure_now": "الإعداد الآن",
-    "next_step": "الخطوة التالية: إرسال معلومات الفندق",
-    "to_validate": "بانتظار التأكيد",
-    "households_pending": "{count} عائلات بانتظار تأكيدك.",
-    "all_up_to_date": "كل شيء محدّث!\nلا حاجة لأي إجراء.",
-    "manage_requests": "إدارة الطلبات",
-    "recent_activity": "النشاط الأخير",
-    "online_signup": "التسجيل عبر الإنترنت",
-    "admin_add": "أُضيف من قِبل المسؤول",
-    "confirmed": "مؤكَّد",
-    "pending": "قيد الانتظار",
-    "no_activity": "لا يوجد نشاط حديث.",
-    "quick_access": "وصول سريع",
-    "guest_list": "قائمة الضيوف",
-    "guest_desc": "إدارة أو إضافة أو حذف.",
-    "settings_desc": "التاريخ والرمز والتفضيلات.",
-    "the_site": "الموقع",
-    "total_guests": "إجمالي المدعوين",
-    "activity_confirmed": "أكد حضوره",
-    "activity_declined": "اعتذر عن الحضور",
-    "activity_rsvp_received": "أجاب (تسجيل عبر الإنترنت)",
-    "activity_added": "تمت إضافته من قبل المسؤول",
-    "quick_add_guest": "إضافة مدعو",
-    "quick_add_desc": "إضافة أسرة يدويًا",
-    "manage_responses": "إدارة الردود",
-    "manage_responses_desc": "معالجة طلبات الحضور المعلقة",
-    "guest_list_desc": "القائمة الكاملة للمدعوين",
-    "export_data": "تصدير البيانات",
-    "export_desc": "تنزيل ملف Excel / CSV",
-    "confirmed_guests_desc": "الضيوف المؤكدون",
-    "pending_response_desc": "في انتظار الرد",
-    "pending_validation_title": "التحقق المعلق",
-    "pending_validation_desc": "لديك <strong>{count} أسرة</strong> ردّت وتنتظر تحققك.",
-    "review_responses": "مراجعة الردود",
-    "no_pending_validation": "لا توجد عمليات تحقق معلقة"
+    "kpi": {
+      "guests": {
+        "title": "المدعوون",
+        "total": "الإجمالي",
+        "confirmed": "مؤكدون",
+        "pending": "في الانتظار",
+        "children": "الأطفال"
+      },
+      "meals": {
+        "title": "الوجبات",
+        "standard": "عادية",
+        "vegetarian": "نباتية",
+        "vegan": "نباتية صرفة",
+        "dietary": "احتياجات خاصة"
+      },
+      "jour_j": {
+        "title": "يوم الزفاف",
+        "seated": "تم تحديد أماكنهم",
+        "to_seat": "بانتظار تحديد الأماكن",
+        "tables": "الطاولات",
+        "media": "الصور ومقاطع الفيديو"
+      }
+    },
+    "quick_actions": {
+      "title": "مهام قادمة",
+      "no_answer": {
+        "label": "{count, plural, =0 {لا توجد ردود معلقة} one {مدعو واحد لم يرد} two {مدعوان لم يردا} few {# مدعوين لم يردوا} many {# مدعوًا لم يردوا} other {# مدعو لم يردوا}}",
+        "description": "تذكير المدعوين الذين لم يردوا بعد"
+      },
+      "to_seat": {
+        "label": "{count, plural, =0 {تم تحديد أماكن الجميع} one {مدعو واحد بانتظار مكانه} two {مدعوان بانتظار مكانهما} few {# مدعوين بانتظار أماكنهم} many {# مدعوًا بانتظار أماكنهم} other {# مدعو بانتظار أماكنهم}}",
+        "description": "إنهاء خطة توزيع الطاولات"
+      },
+      "qr_code": {
+        "label_no_count": "طباعة رمز QR",
+        "description": "لعرضه يوم الحفل لوصول المدعوين"
+      }
+    },
+    "invitation_preview": {
+      "title": "الدعوة",
+      "live": "متاحة",
+      "not_live": "غير متاحة",
+      "edit_cta": "تعديل المحتوى",
+      "public_hint": "الرابط العام المشارك مع مدعويكم"
+    }
   },
   "Guests": {
     "title": "ضيوفكم",

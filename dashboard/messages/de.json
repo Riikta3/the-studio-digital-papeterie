@@ -2,52 +2,52 @@
   "Dashboard": {
     "greeting": "Hallo, {name}",
     "settings": "Einstellungen",
-    "view_site": "Meine Seite ansehen",
-    "wedding_space": "Hochzeitsbereich",
-    "responses": "Antworten",
-    "guests_confirmed": "{count} von {total} Gästen bestätigt",
-    "see_list": "Liste ansehen",
     "countdown": "Countdown",
-    "days_remaining": "Noch {days} Tage",
-    "almost_there": "Fast geschafft!",
-    "big_day": "Es ist der große Tag!",
-    "date_missing": "Datum?",
-    "add_date": "Hochzeitsdatum hinzufügen",
-    "configure_now": "Jetzt konfigurieren",
-    "next_step": "Nächster Schritt: Hotelinfos senden",
-    "to_validate": "Zu bestätigen",
-    "households_pending": "{count} Haushalte warten auf Ihre Bestätigung.",
-    "all_up_to_date": "Alles auf dem neuesten Stand!\nKeine Aktion erforderlich.",
-    "manage_requests": "Anfragen verwalten",
-    "recent_activity": "Letzte Aktivität",
-    "online_signup": "Online-Anmeldung",
-    "admin_add": "Vom Administrator hinzugefügt",
-    "confirmed": "Bestätigt",
-    "pending": "Ausstehend",
-    "no_activity": "Keine aktuelle Aktivität.",
-    "quick_access": "Schnellzugriff",
-    "guest_list": "Gästeliste",
-    "guest_desc": "Verwalten, hinzufügen oder entfernen.",
-    "settings_desc": "Datum, Code und Einstellungen.",
-    "the_site": "Die Website",
-    "total_guests": "Gäste insgesamt",
-    "activity_confirmed": "hat seine Teilnahme bestätigt",
-    "activity_declined": "hat die Einladung abgelehnt",
-    "activity_rsvp_received": "hat geantwortet (Online-Anmeldung)",
-    "activity_added": "wurde vom Admin hinzugefügt",
-    "quick_add_guest": "Gast hinzufügen",
-    "quick_add_desc": "Manuell einen Haushalt hinzufügen",
-    "manage_responses": "Antworten verwalten",
-    "manage_responses_desc": "Ausstehende RSVPs bearbeiten",
-    "guest_list_desc": "Vollständige Gästeliste",
-    "export_data": "Daten exportieren",
-    "export_desc": "Excel-/CSV-Datei herunterladen",
-    "confirmed_guests_desc": "Bestätigte Gäste",
-    "pending_response_desc": "Antwort ausstehend",
-    "pending_validation_title": "Ausstehende Bestätigungen",
-    "pending_validation_desc": "Sie haben <strong>{count} Haushalte</strong>, die geantwortet haben und auf Ihre Bestätigung warten.",
-    "review_responses": "Antworten prüfen",
-    "no_pending_validation": "Keine ausstehenden Bestätigungen"
+    "kpi": {
+      "guests": {
+        "title": "Gäste",
+        "total": "Gesamt",
+        "confirmed": "Bestätigt",
+        "pending": "Ausstehend",
+        "children": "Kinder"
+      },
+      "meals": {
+        "title": "Menüs",
+        "standard": "Standard",
+        "vegetarian": "Vegetarisch",
+        "vegan": "Vegan",
+        "dietary": "Besondere Bedürfnisse"
+      },
+      "jour_j": {
+        "title": "Hochzeitstag",
+        "seated": "Platziert",
+        "to_seat": "Noch zu platzieren",
+        "tables": "Tische",
+        "media": "Fotos & Videos"
+      }
+    },
+    "quick_actions": {
+      "title": "Zu erledigen",
+      "no_answer": {
+        "label": "{count, plural, =0 {Keine ausstehenden Antworten} one {# Gast ohne Antwort} other {# Gäste ohne Antwort}}",
+        "description": "Gäste erinnern, die noch nicht geantwortet haben"
+      },
+      "to_seat": {
+        "label": "{count, plural, =0 {Alle sind platziert} one {# Gast noch zu platzieren} other {# Gäste noch zu platzieren}}",
+        "description": "Sitzplan fertigstellen"
+      },
+      "qr_code": {
+        "label_no_count": "QR-Code drucken",
+        "description": "Am Hochzeitstag für den Gästezugang anzeigen"
+      }
+    },
+    "invitation_preview": {
+      "title": "Einladung",
+      "live": "Online",
+      "not_live": "Offline",
+      "edit_cta": "Inhalt bearbeiten",
+      "public_hint": "Öffentlicher Link, der mit Ihren Gästen geteilt wird"
+    }
   },
   "Guests": {
     "title": "Ihre Gäste",

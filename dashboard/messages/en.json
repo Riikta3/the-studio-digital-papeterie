@@ -2,52 +2,52 @@
   "Dashboard": {
     "greeting": "Hello, {name}",
     "settings": "Settings",
-    "view_site": "View my site",
-    "wedding_space": "Wedding Space",
-    "responses": "Responses",
-    "guests_confirmed": "{count} guests confirmed out of {total}",
-    "see_list": "View list",
     "countdown": "Countdown",
-    "days_remaining": "D-{days}",
-    "almost_there": "Almost there!",
-    "big_day": "It's the big day!",
-    "date_missing": "Date?",
-    "add_date": "Add wedding date",
-    "configure_now": "Configure now",
-    "next_step": "Next step: Send hotel info",
-    "to_validate": "To Validate",
-    "households_pending": "{count} households pending validation.",
-    "all_up_to_date": "All up to date!\nNo action required.",
-    "manage_requests": "Manage requests",
-    "recent_activity": "Recent Activity",
-    "online_signup": "Online signup",
-    "admin_add": "Added by admin",
-    "confirmed": "Confirmed",
-    "pending": "Pending",
-    "no_activity": "No recent activity.",
-    "quick_access": "Quick Access",
-    "guest_list": "Guest List",
-    "guest_desc": "Manage, add or remove.",
-    "settings_desc": "Date, code and preferences.",
-    "the_site": "The Site",
-    "total_guests": "Total Guests",
-    "activity_confirmed": "confirmed attendance",
-    "activity_declined": "declined invitation",
-    "activity_rsvp_received": "responded (online)",
-    "activity_added": "added by admin",
-    "quick_add_guest": "Add Guest",
-    "quick_add_desc": "Manually add a household",
-    "manage_responses": "Manage Responses",
-    "manage_responses_desc": "Process pending RSVPs",
-    "guest_list_desc": "Full guest list",
-    "export_data": "Export Data",
-    "export_desc": "Download Excel / CSV file",
-    "confirmed_guests_desc": "Confirmed guests",
-    "pending_response_desc": "Awaiting response",
-    "pending_validation_title": "Pending validations",
-    "pending_validation_desc": "You have <strong>{count} households</strong> who responded and are awaiting your validation.",
-    "review_responses": "Review responses",
-    "no_pending_validation": "No pending validations"
+    "kpi": {
+      "guests": {
+        "title": "Guests",
+        "total": "Total",
+        "confirmed": "Confirmed",
+        "pending": "Pending",
+        "children": "Children"
+      },
+      "meals": {
+        "title": "Meals",
+        "standard": "Standard",
+        "vegetarian": "Vegetarian",
+        "vegan": "Vegan",
+        "dietary": "Special needs"
+      },
+      "jour_j": {
+        "title": "Wedding Day",
+        "seated": "Seated",
+        "to_seat": "Left to seat",
+        "tables": "Tables",
+        "media": "Photos & videos"
+      }
+    },
+    "quick_actions": {
+      "title": "To do",
+      "no_answer": {
+        "label": "{count, plural, =0 {No pending responses} one {# guest with no answer} other {# guests with no answer}}",
+        "description": "Follow up with guests who haven't answered yet"
+      },
+      "to_seat": {
+        "label": "{count, plural, =0 {Everyone is seated} one {# guest left to seat} other {# guests left to seat}}",
+        "description": "Finish the seating plan"
+      },
+      "qr_code": {
+        "label_no_count": "Print the QR code",
+        "description": "To display on the day for guest access"
+      }
+    },
+    "invitation_preview": {
+      "title": "Invitation",
+      "live": "Live",
+      "not_live": "Offline",
+      "edit_cta": "Edit content",
+      "public_hint": "Public link shared with your guests"
+    }
   },
   "Guests": {
     "title": "Your Guests",

@@ -1,53 +1,53 @@
 {
   "Dashboard": {
     "greeting": "Olá, {name}",
-    "settings": "Definições",
-    "view_site": "Ver o meu site",
-    "wedding_space": "Espaço do casamento",
-    "responses": "Respostas",
-    "guests_confirmed": "{count} convidados confirmados de {total}",
-    "see_list": "Ver lista",
-    "countdown": "Contagem decrescente",
-    "days_remaining": "Faltam {days} dias",
-    "almost_there": "Estamos quase lá!",
-    "big_day": "É o grande dia!",
-    "date_missing": "Data?",
-    "add_date": "Adicionar data do casamento",
-    "configure_now": "Configurar agora",
-    "next_step": "Próximo passo: enviar info do hotel",
-    "to_validate": "Por validar",
-    "households_pending": "{count} agregados familiares aguardam a sua validação.",
-    "all_up_to_date": "Tudo atualizado!\nNenhuma ação necessária.",
-    "manage_requests": "Gerir pedidos",
-    "recent_activity": "Atividade recente",
-    "online_signup": "Inscrição online",
-    "admin_add": "Adicionado pelo administrador",
-    "confirmed": "Confirmado",
-    "pending": "Pendente",
-    "no_activity": "Sem atividade recente.",
-    "quick_access": "Acesso rápido",
-    "guest_list": "Lista de convidados",
-    "guest_desc": "Gerir, adicionar ou remover.",
-    "settings_desc": "Data, código e preferências.",
-    "the_site": "O site",
-    "total_guests": "Total de convidados",
-    "activity_confirmed": "confirmou a presença",
-    "activity_declined": "recusou o convite",
-    "activity_rsvp_received": "respondeu (inscrição online)",
-    "activity_added": "foi adicionado pelo administrador",
-    "quick_add_guest": "Adicionar convidado",
-    "quick_add_desc": "Adicionar manualmente um agregado",
-    "manage_responses": "Gerir respostas",
-    "manage_responses_desc": "Tratar os RSVP pendentes",
-    "guest_list_desc": "Lista completa de convidados",
-    "export_data": "Exportar dados",
-    "export_desc": "Transferir um ficheiro Excel / CSV",
-    "confirmed_guests_desc": "Convidados confirmados",
-    "pending_response_desc": "A aguardar resposta",
-    "pending_validation_title": "Validações pendentes",
-    "pending_validation_desc": "Tem <strong>{count} agregados</strong> que responderam e aguardam a sua validação.",
-    "review_responses": "Rever respostas",
-    "no_pending_validation": "Nenhuma validação pendente"
+    "settings": "Configurações",
+    "countdown": "Contagem regressiva",
+    "kpi": {
+      "guests": {
+        "title": "Convidados",
+        "total": "Total",
+        "confirmed": "Confirmados",
+        "pending": "Pendentes",
+        "children": "Crianças"
+      },
+      "meals": {
+        "title": "Refeições",
+        "standard": "Padrão",
+        "vegetarian": "Vegetariano",
+        "vegan": "Vegano",
+        "dietary": "Necessidades especiais"
+      },
+      "jour_j": {
+        "title": "Dia do casamento",
+        "seated": "Sentados",
+        "to_seat": "Por sentar",
+        "tables": "Mesas",
+        "media": "Fotos e vídeos"
+      }
+    },
+    "quick_actions": {
+      "title": "A fazer",
+      "no_answer": {
+        "label": "{count, plural, =0 {Nenhuma resposta pendente} one {# convidado sem resposta} other {# convidados sem resposta}}",
+        "description": "Lembrar os convidados que ainda não responderam"
+      },
+      "to_seat": {
+        "label": "{count, plural, =0 {Todos estão sentados} one {# convidado por sentar} other {# convidados por sentar}}",
+        "description": "Terminar o plano de mesas"
+      },
+      "qr_code": {
+        "label_no_count": "Imprimir o código QR",
+        "description": "Para exibir no dia, para acesso dos convidados"
+      }
+    },
+    "invitation_preview": {
+      "title": "Convite",
+      "live": "Online",
+      "not_live": "Offline",
+      "edit_cta": "Editar conteúdo",
+      "public_hint": "Link público partilhado com os seus convidados"
+    }
   },
   "Guests": {
     "title": "Os seus convidados",

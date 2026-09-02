@@ -2,52 +2,52 @@
   "Dashboard": {
     "greeting": "你好，{name}",
     "settings": "设置",
-    "view_site": "查看我的网站",
-    "wedding_space": "婚礼空间",
-    "responses": "回复",
-    "guests_confirmed": "已确认 {count}／{total} 位宾客",
-    "see_list": "查看列表",
     "countdown": "倒计时",
-    "days_remaining": "还剩 {days} 天",
-    "almost_there": "就快到了！",
-    "big_day": "今天就是大日子！",
-    "date_missing": "日期？",
-    "add_date": "添加婚礼日期",
-    "configure_now": "立即设置",
-    "next_step": "下一步：发送酒店信息",
-    "to_validate": "待确认",
-    "households_pending": "{count} 个家庭正等待您的确认。",
-    "all_up_to_date": "一切已是最新！\n无需任何操作。",
-    "manage_requests": "管理请求",
-    "recent_activity": "最近动态",
-    "online_signup": "在线报名",
-    "admin_add": "由管理员添加",
-    "confirmed": "已确认",
-    "pending": "待定",
-    "no_activity": "暂无最近动态。",
-    "quick_access": "快捷访问",
-    "guest_list": "宾客名单",
-    "guest_desc": "管理、添加或删除。",
-    "settings_desc": "日期、代码和偏好设置。",
-    "the_site": "网站",
-    "total_guests": "宾客总数",
-    "activity_confirmed": "已确认出席",
-    "activity_declined": "已婉拒邀请",
-    "activity_rsvp_received": "已回复（在线登记）",
-    "activity_added": "由管理员添加",
-    "quick_add_guest": "添加宾客",
-    "quick_add_desc": "手动添加家庭",
-    "manage_responses": "管理回复",
-    "manage_responses_desc": "处理待确认的回复",
-    "guest_list_desc": "完整的宾客名单",
-    "export_data": "导出数据",
-    "export_desc": "下载 Excel / CSV 文件",
-    "confirmed_guests_desc": "已确认的宾客",
-    "pending_response_desc": "等待回复",
-    "pending_validation_title": "待审核事项",
-    "pending_validation_desc": "您有 <strong>{count} 个家庭</strong> 已回复，正在等待您的审核。",
-    "review_responses": "查看回复",
-    "no_pending_validation": "暂无待审核事项"
+    "kpi": {
+      "guests": {
+        "title": "宾客",
+        "total": "总数",
+        "confirmed": "已确认",
+        "pending": "待回复",
+        "children": "儿童"
+      },
+      "meals": {
+        "title": "餐食",
+        "standard": "标准",
+        "vegetarian": "素食",
+        "vegan": "纯素",
+        "dietary": "特殊需求"
+      },
+      "jour_j": {
+        "title": "婚礼当天",
+        "seated": "已安排座位",
+        "to_seat": "待安排座位",
+        "tables": "桌数",
+        "media": "照片与视频"
+      }
+    },
+    "quick_actions": {
+      "title": "待办事项",
+      "no_answer": {
+        "label": "{count, plural, =0 {没有待回复的宾客} other {# 位宾客尚未回复}}",
+        "description": "提醒尚未回复的宾客"
+      },
+      "to_seat": {
+        "label": "{count, plural, =0 {所有宾客均已安排座位} other {还有 # 位宾客待安排座位}}",
+        "description": "完成座位安排"
+      },
+      "qr_code": {
+        "label_no_count": "打印二维码",
+        "description": "婚礼当天展示，供宾客使用"
+      }
+    },
+    "invitation_preview": {
+      "title": "请柬",
+      "live": "已上线",
+      "not_live": "未上线",
+      "edit_cta": "编辑内容",
+      "public_hint": "与宾客分享的公开链接"
+    }
   },
   "Guests": {
     "title": "您的宾客",

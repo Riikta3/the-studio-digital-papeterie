@@ -2,52 +2,52 @@
   "Dashboard": {
     "greeting": "Bonjour, {name}",
     "settings": "Réglages",
-    "view_site": "Voir mon faire-part",
-    "wedding_space": "Espace Mariés",
-    "responses": "Réponses",
-    "guests_confirmed": "{count} invités confirmés sur {total}",
-    "see_list": "Voir la liste",
     "countdown": "Compte à rebours",
-    "days_remaining": "J-{days}",
-    "almost_there": "On y est presque !",
-    "big_day": "C'est le grand jour !",
-    "date_missing": "Date ?",
-    "add_date": "Ajoutez la date du mariage",
-    "configure_now": "Configurer maintenant",
-    "next_step": "Prochaine étape : Envoyer les infos hôtels",
-    "to_validate": "À Valider",
-    "households_pending": "{count} foyers en attente de validation.",
-    "all_up_to_date": "Tout est à jour !\nAucune action requise.",
-    "manage_requests": "Gérer les demandes",
-    "recent_activity": "Activité Récente",
-    "online_signup": "Inscription en ligne",
-    "admin_add": "Ajouté par admin",
-    "confirmed": "Confirmé",
-    "pending": "En attente",
-    "no_activity": "Aucune activité récente.",
-    "quick_access": "Accès Rapide",
-    "guest_list": "Liste des Invités",
-    "guest_desc": "Gérer, ajouter ou supprimer.",
-    "settings_desc": "Date, code et préférences.",
-    "the_site": "Le Site",
-    "total_guests": "Total Invités",
-    "activity_confirmed": "a confirmé sa présence",
-    "activity_declined": "a décliné l'invitation",
-    "activity_rsvp_received": "a répondu (inscription en ligne)",
-    "activity_added": "a été ajouté par l'admin",
-    "quick_add_guest": "Ajouter un invité",
-    "quick_add_desc": "Ajouter manuellement un foyer",
-    "manage_responses": "Gérer les réponses",
-    "manage_responses_desc": "Traiter les RSVP en attente",
-    "guest_list_desc": "Liste complète des invités",
-    "export_data": "Exporter les données",
-    "export_desc": "Télécharger un fichier Excel / CSV",
-    "confirmed_guests_desc": "Invités confirmés",
-    "pending_response_desc": "En attente de réponse",
-    "pending_validation_title": "Validations en attente",
-    "pending_validation_desc": "Vous avez <strong>{count} foyers</strong> qui ont répondu et sont en attente de votre validation.",
-    "review_responses": "Examiner les réponses",
-    "no_pending_validation": "Aucune validation en attente"
+    "kpi": {
+      "guests": {
+        "title": "Invités",
+        "total": "Total",
+        "confirmed": "Confirmés",
+        "pending": "En attente",
+        "children": "Enfants"
+      },
+      "meals": {
+        "title": "Repas",
+        "standard": "Standard",
+        "vegetarian": "Végétarien",
+        "vegan": "Végétalien",
+        "dietary": "Besoins spécifiques"
+      },
+      "jour_j": {
+        "title": "Jour J",
+        "seated": "Placés",
+        "to_seat": "À placer",
+        "tables": "Tables",
+        "media": "Photos & vidéos"
+      }
+    },
+    "quick_actions": {
+      "title": "À faire",
+      "no_answer": {
+        "label": "{count, plural, =0 {Aucune réponse en attente} one {# invité sans réponse} other {# invités sans réponse}}",
+        "description": "Relancer les invités qui n'ont pas encore répondu"
+      },
+      "to_seat": {
+        "label": "{count, plural, =0 {Tout le monde est placé} one {# invité à placer} other {# invités à placer}}",
+        "description": "Terminer le plan de table"
+      },
+      "qr_code": {
+        "label_no_count": "Imprimer le QR code",
+        "description": "À afficher le jour J pour l'accès invités"
+      }
+    },
+    "invitation_preview": {
+      "title": "Faire-part",
+      "live": "En ligne",
+      "not_live": "Hors ligne",
+      "edit_cta": "Modifier le contenu",
+      "public_hint": "Lien public partagé avec vos invités"
+    }
   },
   "Guests": {
     "title": "Vos Invités",
