@@ -7,17 +7,19 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import type {
-  DietaryFlag,
-  Household,
-  InvitationGuest,
-  MealChoice,
-} from "@shared/types/invitation";
+import {
+  toggleDietaryFlag,
+  updateAllergies,
+  updateGuestMeal,
+} from "@/actions/guest-meals-actions";
+import type { GroupsHousehold, MealsGuest } from "@/lib/db/projections";
+import type { DietaryFlag, MealChoice } from "@shared/types/invitation";
 import { DIETARY_FLAGS, MEAL_CHOICES } from "@shared/types/invitation";
 import { cn } from "@shared/lib/utils";
 import { AlertTriangle, Info, Search } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { useMemo, useState } from "react";
+import { toast } from "sonner";
 
 type Filter = "all" | MealChoice;
 
@@ -25,8 +27,8 @@ export function GuestMealsBoard({
   initialGuests,
   households,
 }: {
-  initialGuests: InvitationGuest[];
-  households: Household[];
+  initialGuests: MealsGuest[];
+  households: GroupsHousehold[];
 }) {
   const t = useTranslations("GuestMeals");
   const [guests, setGuests] = useState(initialGuests);
@@ -93,13 +95,20 @@ export function GuestMealsBoard({
     });
   }, [guests, filter, query, householdsById]);
 
-  const changeMeal = (guestId: string, meal: MealChoice) => {
+  const changeMeal = async (guestId: string, meal: MealChoice) => {
+    const previous = guests;
     setGuests((prev) =>
       prev.map((g) => (g.id === guestId ? { ...g, meal } : g)),
     );
+    const res = await updateGuestMeal(guestId, meal);
+    if (!res.success) {
+      setGuests(previous);
+      toast.error(res.error);
+    }
   };
 
-  const toggleFlag = (guestId: string, flag: DietaryFlag) => {
+  const toggleFlag = async (guestId: string, flag: DietaryFlag) => {
+    const previous = guests;
     setGuests((prev) =>
       prev.map((g) => {
         if (g.id !== guestId) return g;
@@ -112,12 +121,26 @@ export function GuestMealsBoard({
         };
       }),
     );
+    // The server does its own read-modify-write on the current row, so two
+    // tabs open on the same guest cannot clobber each other from a stale
+    // array — this optimistic update is purely local UI feedback.
+    const res = await toggleDietaryFlag(guestId, flag);
+    if (!res.success) {
+      setGuests(previous);
+      toast.error(res.error);
+    }
   };
 
-  const changeAllergies = (guestId: string, allergies: string) => {
+  const changeAllergies = async (guestId: string, allergies: string) => {
+    const previous = guests;
     setGuests((prev) =>
       prev.map((g) => (g.id === guestId ? { ...g, allergies } : g)),
     );
+    const res = await updateAllergies(guestId, allergies);
+    if (!res.success) {
+      setGuests(previous);
+      toast.error(res.error);
+    }
   };
 
   return (
@@ -385,8 +408,8 @@ function GuestMealCard({
   onToggleFlag,
   onChangeAllergies,
 }: {
-  guest: InvitationGuest;
-  household: Household | undefined;
+  guest: MealsGuest;
+  household: GroupsHousehold | undefined;
   onChangeMeal: (meal: MealChoice) => void;
   onToggleFlag: (flag: DietaryFlag) => void;
   onChangeAllergies: (value: string) => void;

@@ -1,11 +1,10 @@
 import { GuestMealsBoard } from "@/components/guests/GuestMealsBoard";
-import { INVITATION_MOCK } from "@shared/data/invitation-mock";
+import { listMealsData } from "@/actions/guest-meals-actions";
 
-export default function GuestMealsPage() {
-  return (
-    <GuestMealsBoard
-      initialGuests={INVITATION_MOCK.guests}
-      households={INVITATION_MOCK.households}
-    />
-  );
+// The page projects BEFORE passing the prop, so the client bundle never
+// contains an email, a phone number or a private note.
+export default async function GuestMealsPage() {
+  const { guests, households } = await listMealsData();
+
+  return <GuestMealsBoard initialGuests={guests} households={households} />;
 }

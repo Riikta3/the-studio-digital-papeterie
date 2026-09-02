@@ -1,7 +1,7 @@
 "use client";
 
 import type { DayOfGuest, DayOfTable } from "@shared/types/jour-j";
-import { ChevronDown, UserPlus, X } from "lucide-react";
+import { ChevronDown, Pencil, UserPlus, X } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { useState } from "react";
 import { AssignGuestsSheet } from "./AssignGuestsSheet";
@@ -12,6 +12,7 @@ type Props = {
   unseated: DayOfGuest[];
   onAssign: (guestId: string, tableId: string) => void;
   onUnassign: (guestId: string) => void;
+  onEditTable: (tableId: string) => void;
 };
 
 /**
@@ -25,6 +26,7 @@ export function SeatingList({
   unseated,
   onAssign,
   onUnassign,
+  onEditTable,
 }: Props) {
   const t = useTranslations("Seating");
   const [openId, setOpenId] = useState<string | null>(null);
@@ -79,6 +81,19 @@ export function SeatingList({
                     }`}
                   />
                 </button>
+
+                {isOpen && (
+                  <div className='border-t border-studio-lavande/30 px-2 pt-2'>
+                    <button
+                      type='button'
+                      onClick={() => onEditTable(table.id)}
+                      className='flex min-h-11 w-full items-center gap-2 rounded-lg px-2 text-sm text-studio-violet/70 transition-colors hover:bg-studio-creme hover:text-studio-violet'
+                    >
+                      <Pencil className='h-4 w-4' />
+                      {t("edit_table")}
+                    </button>
+                  </div>
+                )}
 
                 {isOpen && (
                   <div className='border-t border-studio-lavande/30 px-2 pb-2'>

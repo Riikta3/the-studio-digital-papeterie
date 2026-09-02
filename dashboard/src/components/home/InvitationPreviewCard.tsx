@@ -3,7 +3,7 @@ import { Eye, ExternalLink, Pencil } from "lucide-react";
 import { getTranslations } from "next-intl/server";
 
 type Props = {
-  /** e.g. "emilie-jordy" — `JOUR_J_MOCK.settings.qrSlug`. */
+  /** The public slug from `sites.slug`, e.g. "camille-et-leo-demo". */
   slug: string;
   /** Whether the invitation is live for guests. */
   enabled: boolean;

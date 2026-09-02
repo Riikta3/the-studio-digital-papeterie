@@ -1,11 +1,13 @@
 import { LieuPageClient } from "@/components/invitation-info/LieuPageClient";
-import { INVITATION_MOCK } from "@shared/data/invitation-mock";
+import { getVenue, listAccommodations } from "@/actions/venue-actions";
 
-export default function Page() {
+export default async function Page() {
+  const [venue, accommodation] = await Promise.all([
+    getVenue(),
+    listAccommodations(),
+  ]);
+
   return (
-    <LieuPageClient
-      initialVenue={INVITATION_MOCK.venue}
-      initialAccommodation={INVITATION_MOCK.accommodation}
-    />
+    <LieuPageClient initialVenue={venue} initialAccommodation={accommodation} />
   );
 }

@@ -1,6 +1,7 @@
 import { EventsEditor } from "@/components/invitation/EventsEditor";
-import { INVITATION_MOCK } from "@shared/data/invitation-mock";
+import { listEvents } from "@/actions/events-actions";
 
-export default function EvenementsPage() {
-  return <EventsEditor initialEvents={INVITATION_MOCK.events} />;
+export default async function EvenementsPage() {
+  const events = await listEvents();
+  return <EventsEditor initialEvents={events} />;
 }

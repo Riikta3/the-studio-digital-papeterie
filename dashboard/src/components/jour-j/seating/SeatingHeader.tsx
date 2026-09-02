@@ -1,16 +1,22 @@
 "use client";
 
 import type { SeatingSummary } from "@shared/lib/seating";
-import { Search } from "lucide-react";
+import { Plus, Search } from "lucide-react";
 import { useTranslations } from "next-intl";
 
 type Props = {
   summary: SeatingSummary;
   query: string;
   onQueryChange: (value: string) => void;
+  onAddTable: () => void;
 };
 
-export function SeatingHeader({ summary, query, onQueryChange }: Props) {
+export function SeatingHeader({
+  summary,
+  query,
+  onQueryChange,
+  onAddTable,
+}: Props) {
   const t = useTranslations("Seating");
 
   return (
@@ -37,16 +43,27 @@ export function SeatingHeader({ summary, query, onQueryChange }: Props) {
           </div>
         </dl>
 
-        <label className='relative md:w-72'>
-          <Search className='pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-studio-violet/40' />
-          <input
-            type='search'
-            value={query}
-            onChange={(e) => onQueryChange(e.target.value)}
-            placeholder={t("search_placeholder")}
-            className='min-h-11 w-full rounded-lg border border-studio-lavande/50 bg-white pl-9 pr-3 text-sm text-studio-violet placeholder:text-studio-violet/40 focus:border-studio-violet focus:outline-none'
-          />
-        </label>
+        <div className='flex items-center gap-2'>
+          <label className='relative flex-1 md:w-72 md:flex-none'>
+            <Search className='pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-studio-violet/40' />
+            <input
+              type='search'
+              value={query}
+              onChange={(e) => onQueryChange(e.target.value)}
+              placeholder={t("search_placeholder")}
+              className='min-h-11 w-full rounded-lg border border-studio-lavande/50 bg-white pl-9 pr-3 text-sm text-studio-violet placeholder:text-studio-violet/40 focus:border-studio-violet focus:outline-none'
+            />
+          </label>
+
+          <button
+            type='button'
+            onClick={onAddTable}
+            className='flex min-h-11 shrink-0 items-center gap-1.5 rounded-lg bg-studio-violet px-3 text-sm font-medium text-white transition-colors hover:bg-studio-violet/90'
+          >
+            <Plus className='h-4 w-4' />
+            <span className='hidden sm:inline'>{t("add_table")}</span>
+          </button>
+        </div>
       </div>
     </header>
   );

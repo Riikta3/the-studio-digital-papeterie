@@ -4,6 +4,12 @@ import type { ScheduleEntry, WeddingEvent } from "@shared/types/invitation";
 import { useTranslations } from "next-intl";
 import { useState } from "react";
 import { toast } from "sonner";
+import {
+  createScheduleEntry,
+  deleteScheduleEntry,
+  reorderScheduleEntries,
+  updateScheduleEntry,
+} from "@/actions/schedule-actions";
 import { ScheduleEventGroup } from "./ScheduleEventGroup";
 
 type Props = {
@@ -16,14 +22,28 @@ export function ScheduleEditor({ events, initialSchedule }: Props) {
   const [schedule, setSchedule] = useState(initialSchedule);
   const sortedEvents = [...events].sort((a, b) => a.position - b.position);
 
-  const update = (entryId: string, patch: Partial<ScheduleEntry>) =>
+  const update = async (entryId: string, patch: Partial<ScheduleEntry>) => {
+    const previous = schedule; // capture BEFORE mutating, for rollback
     setSchedule((prev) =>
       prev.map((e) => (e.id === entryId ? { ...e, ...patch } : e)),
     );
+    const res = await updateScheduleEntry(entryId, patch);
+    if (!res.success) {
+      setSchedule(previous);
+      toast.error(res.error || t("save_failed"));
+    }
+  };
 
-  const remove = (entryId: string) => {
-    const entry = schedule.find((e) => e.id === entryId);
+  const remove = async (entryId: string) => {
+    const previous = schedule;
+    const entry = previous.find((e) => e.id === entryId);
     setSchedule((prev) => prev.filter((e) => e.id !== entryId));
+    const res = await deleteScheduleEntry(entryId);
+    if (!res.success) {
+      setSchedule(previous);
+      toast.error(res.error || t("save_failed"));
+      return;
+    }
     // No confirmation dialog for a programme entry — it's cheap to retype —
     // but the couple should still see exactly what just disappeared.
     if (entry) {
@@ -33,34 +53,46 @@ export function ScheduleEditor({ events, initialSchedule }: Props) {
     }
   };
 
-  const move = (entryId: string, direction: -1 | 1) =>
-    setSchedule((prev) => {
-      const entry = prev.find((e) => e.id === entryId);
-      if (!entry) return prev;
-      // Reorder within this entry's own event only — a brunch entry must
-      // never swap positions with a ceremony entry from another event.
-      const siblings = prev
-        .filter((e) => e.eventId === entry.eventId)
-        .sort((a, b) => a.position - b.position);
-      const index = siblings.findIndex((e) => e.id === entryId);
-      const target = index + direction;
-      if (target < 0 || target >= siblings.length) return prev;
-      [siblings[index], siblings[target]] = [siblings[target], siblings[index]];
-      const reordered = siblings.map((e, i) => ({ ...e, position: i }));
-      const byId = new Map(reordered.map((e) => [e.id, e]));
-      return prev.map((e) => byId.get(e.id) ?? e);
-    });
+  const move = async (entryId: string, direction: -1 | 1) => {
+    const previous = schedule;
+    const entry = previous.find((e) => e.id === entryId);
+    if (!entry) return;
+    // Reorder within this entry's own event only — a brunch entry must
+    // never swap positions with a ceremony entry from another event.
+    const siblings = previous
+      .filter((e) => e.eventId === entry.eventId)
+      .sort((a, b) => a.position - b.position);
+    const index = siblings.findIndex((e) => e.id === entryId);
+    const target = index + direction;
+    if (target < 0 || target >= siblings.length) return;
+    [siblings[index], siblings[target]] = [siblings[target], siblings[index]];
+    const reordered = siblings.map((e, i) => ({ ...e, position: i }));
+    const byId = new Map(reordered.map((e) => [e.id, e]));
+    const next = previous.map((e) => byId.get(e.id) ?? e);
+    setSchedule(next);
 
-  const addEntry = (eventId: string) => {
+    const res = await reorderScheduleEntries(reordered.map((e) => e.id));
+    if (!res.success) {
+      setSchedule(previous);
+      toast.error(res.error || t("save_failed"));
+    }
+  };
+
+  const addEntry = async (eventId: string) => {
     const count = schedule.filter((e) => e.eventId === eventId).length;
-    const newEntry: ScheduleEntry = {
-      id: `sc-${crypto.randomUUID()}`,
+    const res = await createScheduleEntry({
       eventId,
       time: "",
       title: t("new_entry_title"),
       position: count,
-    };
-    setSchedule((prev) => [...prev, newEntry]);
+    });
+    if (!res.success) {
+      toast.error(res.error || t("save_failed"));
+      return;
+    }
+    // Adopt the database's id — a client-generated one is not a valid uuid,
+    // and every later update would target a row that does not exist.
+    setSchedule((prev) => [...prev, res.entry]);
   };
 
   return (

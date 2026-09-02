@@ -954,7 +954,21 @@
     "move_to": "Mover para…",
     "remove": "Remover",
     "done": "Concluído",
-    "no_tables": "Ainda não há mesas"
+    "no_tables": "Ainda não há mesas",
+    "assign_failed": "Não foi possível sentar o convidado. Tente novamente.",
+    "unassign_failed": "Não foi possível remover o convidado.",
+    "move_failed": "Não foi possível mover a mesa.",
+    "add_table": "Adicionar uma mesa",
+    "edit_table": "Editar mesa",
+    "delete_table": "Eliminar mesa",
+    "table_name": "Nome da mesa",
+    "table_name_placeholder": "Capri",
+    "table_capacity": "Número de lugares",
+    "table_seats_label": "Etiqueta impressa (opcional)",
+    "table_seats_label_placeholder": "Mesa 1",
+    "capacity_below_seated": "Já estão {count} pessoas sentadas aqui. Retire algumas primeiro.",
+    "save": "Guardar",
+    "delete_failed": "Erro ao eliminar."
   },
   "QrCode": {
     "title": "Código QR do grande dia",
@@ -963,7 +977,8 @@
     "copied": "Link copiado",
     "copy_failed": "Não foi possível copiar o link. Copie-o manualmente.",
     "download_png": "Baixar em PNG",
-    "download_svg": "Baixar em SVG"
+    "download_svg": "Baixar em SVG",
+    "no_slug": "O seu site ainda não tem um endereço público. Publique o seu site para gerar o código QR."
   },
   "DayOfMenu": {
     "title": "Menu do grande dia",
@@ -979,7 +994,10 @@
       "cheese": "Queijos",
       "dessert": "Sobremesa",
       "drinks": "Bebidas"
-    }
+    },
+    "toggle_failed": "Não foi possível atualizar a categoria.",
+    "add_failed": "Não foi possível adicionar o prato.",
+    "remove_failed": "Não foi possível remover o prato."
   },
   "DayOfSettings": {
     "title": "Definições do grande dia",
@@ -990,7 +1008,8 @@
     "after_wedding_label": "Modo pós-casamento",
     "after_wedding_hint": "A página passa a uma vista de agradecimento e continua aberta a envios.",
     "uploads_until_label": "Envios abertos até",
-    "uploads_until_hint": "Após esta data, os convidados deixam de poder adicionar fotos."
+    "uploads_until_hint": "Após esta data, os convidados deixam de poder adicionar fotos.",
+    "save_failed": "Não foi possível guardar as definições."
   },
   "DayOfPhotos": {
     "title": "Fotos e vídeos",
@@ -1002,6 +1021,10 @@
     "show": "Mostrar",
     "delete": "Eliminar",
     "anonymous": "Convidado anónimo",
+    "empty": {
+      "title": "Ainda sem fotos",
+      "description": "Assim que um convidado ler o seu código QR e partilhar uma foto ou um vídeo, ela aparecerá aqui."
+    },
     "filters": {
       "all": "Tudo",
       "photo": "Fotos",
@@ -1083,13 +1106,14 @@
     "delete": "Eliminar evento",
     "delete_dialog": {
       "title": "Eliminar “{name}”?",
-      "description": "As respostas RSVP e as entradas do programa ligadas a este evento ficarão órfãs. Esta ação é irreversível.",
+      "description": "As entradas do programa e os estados de presença dos convidados ligados a este evento serão eliminados. Esta ação é irreversível.",
       "cancel": "Cancelar",
       "confirm": "Eliminar"
     },
     "add_event": "Adicionar um evento",
     "new_event_name": "Novo evento",
-    "reorder": "Reordenar"
+    "reorder": "Reordenar",
+    "save_failed": "Ocorreu um erro ao guardar."
   },
   "InvitationSchedule": {
     "title": "Programa",
@@ -1110,7 +1134,8 @@
     "move_down": "Descer",
     "delete_entry": "Eliminar “{title}”",
     "deleted_toast": "“{title}” eliminado",
-    "untitled": "Sem título"
+    "untitled": "Sem título",
+    "save_failed": "Ocorreu um erro ao guardar."
   },
   "InvitationVenue": {
     "title": "Local e informações práticas",
@@ -1160,7 +1185,8 @@
       "delete": "Eliminar {name}"
     },
     "move_up": "Subir",
-    "move_down": "Descer"
+    "move_down": "Descer",
+    "save_failed": "Ocorreu um erro ao guardar."
   },
   "InvitationFaq": {
     "title": "Perguntas frequentes",
@@ -1186,7 +1212,8 @@
       "description": "Está prestes a eliminar «{question}». Esta ação não pode ser desfeita.",
       "cancel": "Cancelar",
       "confirm": "Eliminar"
-    }
+    },
+    "save_failed": "Ocorreu um erro ao guardar."
   },
   "Stats": {
     "title": "Estatísticas",

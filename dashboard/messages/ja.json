@@ -954,7 +954,21 @@
     "move_to": "移動先…",
     "remove": "削除",
     "done": "完了",
-    "no_tables": "まだテーブルがありません"
+    "no_tables": "まだテーブルがありません",
+    "assign_failed": "ゲストを割り当てられませんでした。もう一度お試しください。",
+    "unassign_failed": "ゲストを削除できませんでした。",
+    "move_failed": "テーブルを移動できませんでした。",
+    "add_table": "テーブルを追加",
+    "edit_table": "テーブルを編集",
+    "delete_table": "テーブルを削除",
+    "table_name": "テーブル名",
+    "table_name_placeholder": "カプリ",
+    "table_capacity": "席数",
+    "table_seats_label": "印刷用ラベル（任意）",
+    "table_seats_label_placeholder": "テーブル 1",
+    "capacity_below_seated": "すでに {count} 名が着席しています。先に何名か外してください。",
+    "save": "保存",
+    "delete_failed": "削除中にエラーが発生しました。"
   },
   "QrCode": {
     "title": "当日QRコード",
@@ -963,7 +977,8 @@
     "copied": "リンクをコピーしました",
     "copy_failed": "リンクをコピーできませんでした。手動でコピーしてください。",
     "download_png": "PNGでダウンロード",
-    "download_svg": "SVGでダウンロード"
+    "download_svg": "SVGでダウンロード",
+    "no_slug": "サイトにはまだ公開アドレスがありません。サイトを公開するとQRコードが生成されます。"
   },
   "DayOfMenu": {
     "title": "当日のメニュー",
@@ -979,7 +994,10 @@
       "cheese": "チーズ",
       "dessert": "デザート",
       "drinks": "ドリンク"
-    }
+    },
+    "toggle_failed": "カテゴリーを更新できませんでした。",
+    "add_failed": "料理を追加できませんでした。",
+    "remove_failed": "料理を削除できませんでした。"
   },
   "DayOfSettings": {
     "title": "当日の設定",
@@ -990,7 +1008,8 @@
     "after_wedding_label": "結婚式後モード",
     "after_wedding_hint": "ページは感謝のメッセージ画面に切り替わり、写真のアップロードは引き続き受け付けます。",
     "uploads_until_label": "写真の受付締切日",
-    "uploads_until_hint": "この日付を過ぎると、ゲストは写真を追加できなくなります。"
+    "uploads_until_hint": "この日付を過ぎると、ゲストは写真を追加できなくなります。",
+    "save_failed": "設定を保存できませんでした。"
   },
   "DayOfPhotos": {
     "title": "写真・動画",
@@ -1002,6 +1021,10 @@
     "show": "表示する",
     "delete": "削除",
     "anonymous": "匿名ゲスト",
+    "empty": {
+      "title": "まだ写真がありません",
+      "description": "ゲストがQRコードを読み取って写真や動画を共有すると、ここに表示されます。"
+    },
     "filters": {
       "all": "すべて",
       "photo": "写真",
@@ -1083,13 +1106,14 @@
     "delete": "イベントを削除",
     "delete_dialog": {
       "title": "「{name}」を削除しますか？",
-      "description": "このイベントに紐づく RSVP の回答とプログラムの項目は孤立します。この操作は元に戻せません。",
+      "description": "このイベントに紐づくプログラムの項目とゲストの出欠ステータスは削除されます。この操作は元に戻せません。",
       "cancel": "キャンセル",
       "confirm": "削除"
     },
     "add_event": "イベントを追加",
     "new_event_name": "新しいイベント",
-    "reorder": "並び替え"
+    "reorder": "並び替え",
+    "save_failed": "保存中にエラーが発生しました。"
   },
   "InvitationSchedule": {
     "title": "プログラム",
@@ -1110,7 +1134,8 @@
     "move_down": "下に移動",
     "delete_entry": "「{title}」を削除",
     "deleted_toast": "「{title}」を削除しました",
-    "untitled": "無題"
+    "untitled": "無題",
+    "save_failed": "保存中にエラーが発生しました。"
   },
   "InvitationVenue": {
     "title": "会場・実用情報",
@@ -1160,7 +1185,8 @@
       "delete": "{name}を削除"
     },
     "move_up": "上へ移動",
-    "move_down": "下へ移動"
+    "move_down": "下へ移動",
+    "save_failed": "保存中にエラーが発生しました。"
   },
   "InvitationFaq": {
     "title": "よくある質問",
@@ -1186,7 +1212,8 @@
       "description": "「{question}」を削除しようとしています。この操作は取り消せません。",
       "cancel": "キャンセル",
       "confirm": "削除"
-    }
+    },
+    "save_failed": "保存中にエラーが発生しました。"
   },
   "Stats": {
     "title": "統計",

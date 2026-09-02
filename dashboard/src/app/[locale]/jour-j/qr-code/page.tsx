@@ -1,9 +1,28 @@
+import { getDayOfSettings } from "@/actions/day-of-settings-actions";
 import { QrCodePanel } from "@/components/jour-j/qr/QrCodePanel";
-import { JOUR_J_MOCK } from "@shared/data/jour-j-mock";
+import { getTranslations } from "next-intl/server";
 import QRCode from "qrcode";
 
 export default async function QrCodePage() {
-  const { qrSlug } = JOUR_J_MOCK.settings;
+  const { qrSlug } = await getDayOfSettings();
+
+  // `qrSlug` comes from `sites.slug`, which does not exist until the couple
+  // has published a site. Rendering a QR code from an empty slug would
+  // print a broken URL — better to say so than hand out a code that 404s.
+  if (!qrSlug) {
+    const t = await getTranslations("QrCode");
+    return (
+      <div className='min-h-screen bg-studio-creme p-4 md:p-8 lg:p-12'>
+        <div className='mx-auto max-w-2xl'>
+          <h1 className='font-heading text-h3 text-studio-violet'>{t("title")}</h1>
+          <p className='mt-6 rounded-2xl border border-studio-lavande/40 bg-white p-6 text-sm text-studio-violet/70 shadow-studio-card'>
+            {t("no_slug")}
+          </p>
+        </div>
+      </div>
+    );
+  }
+
   const url = `https://thestudio.fr/jourj/${qrSlug}`;
 
   // Rendered here rather than in the browser: the printable export must not

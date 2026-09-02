@@ -954,7 +954,21 @@
     "move_to": "Move to…",
     "remove": "Remove",
     "done": "Done",
-    "no_tables": "No tables yet"
+    "no_tables": "No tables yet",
+    "assign_failed": "Couldn't seat the guest. Please try again.",
+    "unassign_failed": "Couldn't remove the guest.",
+    "move_failed": "Couldn't move the table.",
+    "add_table": "Add a table",
+    "edit_table": "Edit table",
+    "delete_table": "Delete table",
+    "table_name": "Table name",
+    "table_name_placeholder": "Capri",
+    "table_capacity": "Number of seats",
+    "table_seats_label": "Printed label (optional)",
+    "table_seats_label_placeholder": "Table 1",
+    "capacity_below_seated": "{count} people are already seated here. Remove some first.",
+    "save": "Save",
+    "delete_failed": "Something went wrong while deleting."
   },
   "QrCode": {
     "title": "Day-of QR code",
@@ -963,7 +977,8 @@
     "copied": "Link copied",
     "copy_failed": "Couldn't copy the link. Please copy it manually.",
     "download_png": "Download PNG",
-    "download_svg": "Download SVG"
+    "download_svg": "Download SVG",
+    "no_slug": "Your site doesn't have a public address yet. Publish your site to generate the QR code."
   },
   "DayOfMenu": {
     "title": "Day-of menu",
@@ -979,7 +994,10 @@
       "cheese": "Cheese",
       "dessert": "Dessert",
       "drinks": "Drinks"
-    }
+    },
+    "toggle_failed": "Couldn't update the category.",
+    "add_failed": "Couldn't add the dish.",
+    "remove_failed": "Couldn't remove the dish."
   },
   "DayOfSettings": {
     "title": "Day-of settings",
@@ -990,7 +1008,8 @@
     "after_wedding_label": "After-wedding mode",
     "after_wedding_hint": "The page switches to a thank-you view and stays open to uploads.",
     "uploads_until_label": "Uploads open until",
-    "uploads_until_hint": "Past this date, guests can no longer add photos."
+    "uploads_until_hint": "Past this date, guests can no longer add photos.",
+    "save_failed": "Couldn't save the settings."
   },
   "DayOfPhotos": {
     "title": "Photos & videos",
@@ -1002,6 +1021,10 @@
     "show": "Show",
     "delete": "Delete",
     "anonymous": "Anonymous guest",
+    "empty": {
+      "title": "No photos yet",
+      "description": "Once guests scan your QR code and share a photo or video, it will appear here."
+    },
     "filters": {
       "all": "All",
       "photo": "Photos",
@@ -1083,13 +1106,14 @@
     "delete": "Delete event",
     "delete_dialog": {
       "title": "Delete “{name}”?",
-      "description": "RSVP answers and programme entries linked to this event will be orphaned. This cannot be undone.",
+      "description": "Programme entries and guest attendance statuses linked to this event will be deleted. This cannot be undone.",
       "cancel": "Cancel",
       "confirm": "Delete"
     },
     "add_event": "Add an event",
     "new_event_name": "New event",
-    "reorder": "Reorder"
+    "reorder": "Reorder",
+    "save_failed": "Something went wrong while saving."
   },
   "InvitationSchedule": {
     "title": "Programme",
@@ -1110,7 +1134,8 @@
     "move_down": "Move down",
     "delete_entry": "Delete “{title}”",
     "deleted_toast": "“{title}” deleted",
-    "untitled": "Untitled"
+    "untitled": "Untitled",
+    "save_failed": "Something went wrong while saving."
   },
   "InvitationVenue": {
     "title": "Venue & practical info",
@@ -1160,7 +1185,8 @@
       "delete": "Delete {name}"
     },
     "move_up": "Move up",
-    "move_down": "Move down"
+    "move_down": "Move down",
+    "save_failed": "Something went wrong while saving."
   },
   "InvitationFaq": {
     "title": "FAQ",
@@ -1186,7 +1212,8 @@
       "description": "You are about to delete \"{question}\". This cannot be undone.",
       "cancel": "Cancel",
       "confirm": "Delete"
-    }
+    },
+    "save_failed": "Something went wrong while saving."
   },
   "Stats": {
     "title": "Statistics",
