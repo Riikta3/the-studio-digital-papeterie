@@ -48,6 +48,21 @@ test("meals projection keeps the dietary fields it exists to show", () => {
   assert.equal(m.allergies, "arachides");
 });
 
+// `status` is RSVP state, not contact data — displayed all over this app —
+// and the meals screen's own "confirmed only" counters need it to filter.
+test("meals projection keeps status", () => {
+  const m = toMealsGuest(FULL_GUEST);
+  assert.equal(m.status, "confirmed");
+});
+
+test("meals projection exposes exactly the expected keys", () => {
+  const m = toMealsGuest(FULL_GUEST);
+  assert.deepEqual(Object.keys(m).sort(), [
+    "allergies", "dietaryFlags", "firstName", "householdId", "id",
+    "isChild", "lastName", "meal", "status",
+  ]);
+});
+
 test("household projection drops contact details", () => {
   const h = toGroupsHousehold({
     id: "h-1", name: "Famille Moreau", group: "family",

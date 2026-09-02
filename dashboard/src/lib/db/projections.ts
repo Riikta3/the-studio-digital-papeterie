@@ -105,6 +105,7 @@ export type MealsGuest = {
   lastName: string;
   householdId: string;
   isChild: boolean;
+  status: RsvpStatus;
   meal: InvitationGuest["meal"];
   dietaryFlags: InvitationGuest["dietaryFlags"];
   allergies?: string;
@@ -113,7 +114,9 @@ export type MealsGuest = {
 /**
  * The meals screen displays allergies and dietary flags: they are its
  * subject, so they stay. Contact details and private notes are not its
- * subject, so they are dropped like everywhere else.
+ * subject, so they are dropped like everywhere else. `status` is RSVP
+ * state, not contact data — it is displayed all over this app — and the
+ * screen's own headline counters ("confirmed only") need it to filter.
  */
 export function toMealsGuest(g: InvitationGuest): MealsGuest {
   return {
@@ -122,6 +125,7 @@ export function toMealsGuest(g: InvitationGuest): MealsGuest {
     lastName: g.lastName,
     householdId: g.householdId,
     isChild: g.isChild,
+    status: g.status,
     meal: g.meal,
     dietaryFlags: g.dietaryFlags,
     allergies: g.allergies,

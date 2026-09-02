@@ -7,16 +7,15 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import type {
-  GuestGroup,
-  Household,
-  InvitationGuest,
-} from "@shared/types/invitation";
+import { updateGuestGroup } from "@/actions/guest-groups-actions";
+import type { GroupsGuest, GroupsHousehold } from "@/lib/db/projections";
+import type { GuestGroup } from "@shared/types/invitation";
 import { GUEST_GROUPS } from "@shared/types/invitation";
 import { cn } from "@shared/lib/utils";
 import { Search } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { useMemo, useState } from "react";
+import { toast } from "sonner";
 
 type Filter = "all" | GuestGroup;
 
@@ -24,8 +23,8 @@ export function GuestGroupsBoard({
   initialGuests,
   households,
 }: {
-  initialGuests: InvitationGuest[];
-  households: Household[];
+  initialGuests: GroupsGuest[];
+  households: GroupsHousehold[];
 }) {
   const t = useTranslations("GuestGroups");
   const [guests, setGuests] = useState(initialGuests);
@@ -60,10 +59,16 @@ export function GuestGroupsBoard({
     });
   }, [guests, filter, query, householdsById]);
 
-  const changeGroup = (guestId: string, group: GuestGroup) => {
+  const changeGroup = async (guestId: string, group: GuestGroup) => {
+    const previous = guests;
     setGuests((prev) =>
       prev.map((g) => (g.id === guestId ? { ...g, group } : g)),
     );
+    const res = await updateGuestGroup(guestId, group);
+    if (!res.success) {
+      setGuests(previous);
+      toast.error(res.error);
+    }
   };
 
   return (
@@ -206,8 +211,8 @@ function GuestGroupCard({
   household,
   onChangeGroup,
 }: {
-  guest: InvitationGuest;
-  household: Household | undefined;
+  guest: GroupsGuest;
+  household: GroupsHousehold | undefined;
   onChangeGroup: (group: GuestGroup) => void;
 }) {
   const t = useTranslations("GuestGroups");
