@@ -134,6 +134,12 @@ export type Venue = {
   parkingInfo?: string;
   accessInfo?: string;
   transportInfo?: string;
+  /**
+   * A photo of the venue, shown on the invitation. A remote URL once the
+   * wiring phase stores uploads; a blob: URL while the mock holds a file the
+   * couple just picked.
+   */
+  photoUrl?: string;
 };
 
 export type Accommodation = {
@@ -146,6 +152,8 @@ export type Accommodation = {
   bookingUrl?: string;
   /** A negotiated rate or code, when the couple arranged one. */
   offer?: string;
+  /** Matches `Stay.image` in the invitation themes, which already render one. */
+  photoUrl?: string;
   position: number;
 };
 

@@ -1096,11 +1096,6 @@
     "untitled": "未命名",
     "no_date": "日期待定",
     "enabled": "宾客可见",
-    "counts": {
-      "confirmed": "{count} 人已确认",
-      "pending": "{count} 人待回复",
-      "declined": "{count} 人已拒绝"
-    },
     "fields": {
       "name": "活动名称",
       "date": "日期",
@@ -1110,8 +1105,6 @@
       "description": "描述",
       "dress_code": "着装要求"
     },
-    "move_up": "上移",
-    "move_down": "下移",
     "delete": "删除活动",
     "delete_dialog": {
       "title": "删除“{name}”？",
@@ -1120,7 +1113,8 @@
       "confirm": "删除"
     },
     "add_event": "添加活动",
-    "new_event_name": "新活动"
+    "new_event_name": "新活动",
+    "reorder": "重新排序"
   },
   "InvitationSchedule": {
     "title": "日程安排",
@@ -1162,7 +1156,8 @@
       "access_info": "交通指南",
       "access_info_placeholder": "如何抵达场地",
       "transport_info": "交通方式",
-      "transport_info_placeholder": "班车、公共交通等"
+      "transport_info_placeholder": "班车、公共交通等",
+      "photo": "场地照片"
     },
     "open_maps": "在谷歌地图中打开",
     "open_waze": "在 Waze 中打开",
@@ -1244,5 +1239,11 @@
       "empty": "暂无启用的活动。",
       "count": "已确认 {confirmed} / {total}"
     }
+  },
+  "PhotoPicker": {
+    "hint": "添加照片",
+    "remove": "移除照片",
+    "error_type": "不支持的格式。请使用 JPEG、PNG 或 WebP。",
+    "error_size": "照片过大。上限为 8 MB。"
   }
 }

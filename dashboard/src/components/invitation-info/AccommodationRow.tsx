@@ -3,6 +3,7 @@
 import type { Accommodation } from "@shared/types/invitation";
 import { ExternalLink, Trash2 } from "lucide-react";
 import { useTranslations } from "next-intl";
+import { PhotoPicker } from "./PhotoPicker";
 
 type Props = {
   accommodation: Accommodation;
@@ -30,6 +31,15 @@ export function AccommodationRow({
 
   return (
     <li className='rounded-xl bg-studio-creme p-3'>
+      {/* A thumbnail rather than a full-width picker: an accommodation row is
+          a list item, and the venue's own photo is the one that leads. */}
+      <PhotoPicker
+        value={accommodation.photoUrl}
+        onChange={(photoUrl) => onChange({ photoUrl })}
+        aspect='square'
+        className='mb-2 w-24'
+      />
+
       <div className='grid grid-cols-1 gap-2 sm:grid-cols-2'>
         <input
           value={accommodation.name}

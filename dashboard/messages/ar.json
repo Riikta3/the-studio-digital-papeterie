@@ -1096,11 +1096,6 @@
     "untitled": "بلا اسم",
     "no_date": "التاريخ لم يحدد بعد",
     "enabled": "مرئي للضيوف",
-    "counts": {
-      "confirmed": "{count} مؤكد",
-      "pending": "{count} قيد الانتظار",
-      "declined": "{count} معتذر"
-    },
     "fields": {
       "name": "اسم الفعالية",
       "date": "التاريخ",
@@ -1110,8 +1105,6 @@
       "description": "الوصف",
       "dress_code": "قواعد اللباس"
     },
-    "move_up": "تحريك لأعلى",
-    "move_down": "تحريك لأسفل",
     "delete": "حذف الفعالية",
     "delete_dialog": {
       "title": "حذف «{name}»؟",
@@ -1120,7 +1113,8 @@
       "confirm": "حذف"
     },
     "add_event": "إضافة فعالية",
-    "new_event_name": "فعالية جديدة"
+    "new_event_name": "فعالية جديدة",
+    "reorder": "إعادة الترتيب"
   },
   "InvitationSchedule": {
     "title": "البرنامج",
@@ -1162,7 +1156,8 @@
       "access_info": "الوصول",
       "access_info_placeholder": "كيفية الوصول إلى المكان",
       "transport_info": "النقل",
-      "transport_info_placeholder": "حافلات، وسائل نقل عامة، إلخ."
+      "transport_info_placeholder": "حافلات، وسائل نقل عامة، إلخ.",
+      "photo": "صورة المكان"
     },
     "open_maps": "فتح في خرائط جوجل",
     "open_waze": "فتح في Waze",
@@ -1244,5 +1239,11 @@
       "empty": "لا توجد فعاليات نشطة.",
       "count": "{confirmed} / {total} مؤكَّد"
     }
+  },
+  "PhotoPicker": {
+    "hint": "إضافة صورة",
+    "remove": "إزالة الصورة",
+    "error_type": "صيغة غير مدعومة. استخدم JPEG أو PNG أو WebP.",
+    "error_size": "الصورة كبيرة جدًا. الحد الأقصى 8 ميغابايت."
   }
 }

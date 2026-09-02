@@ -8,46 +8,39 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@shared/components/ui/dialog";
+import { useSortable } from "@dnd-kit/sortable";
+import { CSS } from "@dnd-kit/utilities";
 import { Button } from "@shared/components/ui/button";
 import { cn } from "@shared/lib/utils";
-import type { GuestEventStatus, WeddingEvent } from "@shared/types/invitation";
-import { CheckCircle, ChevronDown, Clock, Trash2, XCircle } from "lucide-react";
+import type { WeddingEvent } from "@shared/types/invitation";
+import { ChevronDown, GripVertical, Trash2 } from "lucide-react";
 import { useLocale, useTranslations } from "next-intl";
 import { useState } from "react";
 
 type Props = {
   event: WeddingEvent;
-  guestEvents: GuestEventStatus[];
-  isFirst: boolean;
-  isLast: boolean;
   onChange: (patch: Partial<WeddingEvent>) => void;
-  onMoveUp: () => void;
-  onMoveDown: () => void;
   onDelete: () => void;
 };
 
-export function EventCard({
-  event,
-  guestEvents,
-  isFirst,
-  isLast,
-  onChange,
-  onMoveUp,
-  onMoveDown,
-  onDelete,
-}: Props) {
+export function EventCard({ event, onChange, onDelete }: Props) {
   const t = useTranslations("InvitationEvents");
   const locale = useLocale();
   const [expanded, setExpanded] = useState(false);
   const [confirmOpen, setConfirmOpen] = useState(false);
 
-  const counts = guestEvents.reduce(
-    (acc, g) => {
-      if (g.eventId === event.id) acc[g.status] += 1;
-      return acc;
-    },
-    { confirmed: 0, pending: 0, declined: 0 },
-  );
+  const {
+    attributes,
+    listeners,
+    setNodeRef,
+    // The handle is a separate control from the card, so dnd-kit needs it
+    // registered as the activator — otherwise the listeners fire on an
+    // element it does not recognise and no drag ever starts.
+    setActivatorNodeRef,
+    transform,
+    transition,
+    isDragging,
+  } = useSortable({ id: event.id });
 
   const formattedDate = event.date
     ? new Intl.DateTimeFormat(locale, {
@@ -59,49 +52,52 @@ export function EventCard({
 
   return (
     <section
+      ref={setNodeRef}
+      style={{ transform: CSS.Transform.toString(transform), transition }}
       className={cn(
-        "rounded-2xl border bg-white shadow-studio-card transition-opacity",
+        "rounded-2xl border bg-white shadow-studio-card",
         event.enabled
           ? "border-studio-lavande/40"
           : "border-studio-lavande/20 opacity-60",
+        // Lift the card being dragged above its neighbours.
+        isDragging && "relative z-10 shadow-lg",
       )}
     >
-      <button
-        type='button'
-        onClick={() => setExpanded((v) => !v)}
-        className='flex min-h-14 w-full items-center justify-between gap-3 px-4 py-3 text-left'
-      >
-        <div className='min-w-0 flex-1'>
-          <h2 className='truncate font-heading text-sm text-studio-violet'>
-            {event.name || t("untitled")}
-          </h2>
-          <p className='mt-0.5 truncate text-xs text-studio-violet/60'>
-            {formattedDate ?? t("no_date")}
-            {event.time ? ` · ${event.time}` : ""}
-          </p>
-        </div>
-        <ChevronDown
-          className={cn(
-            "h-5 w-5 shrink-0 text-studio-violet/50 transition-transform",
-            expanded && "rotate-180",
-          )}
-        />
-      </button>
+      <div className='flex min-h-14 items-center gap-1 px-2 py-3'>
+        {/* The drag handle is its own control: dragging the whole header would
+            fight the expand toggle. */}
+        <button
+          type='button'
+          ref={setActivatorNodeRef}
+          aria-label={t("reorder")}
+          className='flex h-11 w-8 shrink-0 cursor-grab touch-none items-center justify-center text-studio-violet/40 hover:text-studio-violet active:cursor-grabbing'
+          {...attributes}
+          {...listeners}
+        >
+          <GripVertical className='h-4 w-4' />
+        </button>
 
-      {/* Per-event attendance — the number the couple actually cares about. */}
-      <div className='flex flex-wrap gap-2 px-4 pb-3'>
-        <span className='inline-flex min-h-8 items-center gap-1.5 rounded-full bg-teal-50 px-2.5 text-xs font-medium text-teal-700'>
-          <CheckCircle className='h-3.5 w-3.5' />
-          {t("counts.confirmed", { count: counts.confirmed })}
-        </span>
-        <span className='inline-flex min-h-8 items-center gap-1.5 rounded-full bg-studio-jaune/20 px-2.5 text-xs font-medium text-studio-pourpre'>
-          <Clock className='h-3.5 w-3.5' />
-          {t("counts.pending", { count: counts.pending })}
-        </span>
-        <span className='inline-flex min-h-8 items-center gap-1.5 rounded-full bg-red-50 px-2.5 text-xs font-medium text-red-700'>
-          <XCircle className='h-3.5 w-3.5' />
-          {t("counts.declined", { count: counts.declined })}
-        </span>
+        <button
+          type='button'
+          onClick={() => setExpanded((v) => !v)}
+          className='flex min-h-11 flex-1 items-center justify-between gap-3 pr-2 text-left'
+        >
+          <div className='min-w-0 flex-1'>
+            <h2 className='truncate font-heading text-sm text-studio-violet'>
+              {event.name || t("untitled")}
+            </h2>
+            <p className='mt-0.5 truncate text-xs text-studio-violet/60'>
+              {formattedDate ?? t("no_date")}
+              {event.time ? ` · ${event.time}` : ""}
+            </p>
+          </div>
+          <ChevronDown
+            className={cn(
+              "h-5 w-5 shrink-0 text-studio-violet/50 transition-transform",
+              expanded && "rotate-180",
+            )}
+          />
+        </button>
       </div>
 
       {expanded && (
@@ -189,34 +185,15 @@ export function EventCard({
               {t("enabled")}
             </label>
 
-            <div className='flex items-center gap-1'>
-              <button
-                type='button'
-                onClick={onMoveUp}
-                disabled={isFirst}
-                aria-label={t("move_up")}
-                className='flex h-11 w-11 items-center justify-center rounded-lg text-studio-violet/60 disabled:opacity-30'
-              >
-                ↑
-              </button>
-              <button
-                type='button'
-                onClick={onMoveDown}
-                disabled={isLast}
-                aria-label={t("move_down")}
-                className='flex h-11 w-11 items-center justify-center rounded-lg text-studio-violet/60 disabled:opacity-30'
-              >
-                ↓
-              </button>
-              <button
-                type='button'
-                onClick={() => setConfirmOpen(true)}
-                aria-label={t("delete")}
-                className='flex h-11 w-11 items-center justify-center rounded-lg text-studio-violet/40 hover:text-red-500'
-              >
-                <Trash2 className='h-4 w-4' />
-              </button>
-            </div>
+            {/* Reordering lives on the drag handle in the header. */}
+            <button
+              type='button'
+              onClick={() => setConfirmOpen(true)}
+              aria-label={t("delete")}
+              className='flex h-11 w-11 items-center justify-center rounded-lg text-studio-violet/40 hover:text-red-500'
+            >
+              <Trash2 className='h-4 w-4' />
+            </button>
           </div>
         </div>
       )}

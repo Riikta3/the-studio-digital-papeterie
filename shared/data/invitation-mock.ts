@@ -215,11 +215,14 @@ const venue: Venue = {
     "Depuis Naples : 1h30 en voiture par la côte amalfitaine. Route étroite sur les dix derniers kilomètres.",
   transportInfo:
     "Une navette part de Amalfi centre à 15h45 et repart à 1h00. Places limitées, à réserver auprès des mariés.",
+  // Placeholder asset; the wiring phase replaces this with a stored upload.
+  photoUrl:
+    "https://images.unsplash.com/photo-1519225421980-715cb0215aed?w=1200&q=70",
 };
 
 const accommodation: Accommodation[] = [
-  { id: "ac-1", name: "Hotel Villa Maria", city: "Ravello", distance: "5 min à pied", phone: "+39 089 857 255", bookingUrl: "https://example.com/villa-maria", offer: "Tarif négocié -15% avec le code BELLAVISTA", position: 0 },
-  { id: "ac-2", name: "Palazzo Avino", city: "Ravello", distance: "10 min à pied", bookingUrl: "https://example.com/palazzo-avino", position: 1 },
+  { id: "ac-1", name: "Hotel Villa Maria", city: "Ravello", distance: "5 min à pied", phone: "+39 089 857 255", bookingUrl: "https://example.com/villa-maria", offer: "Tarif négocié -15% avec le code BELLAVISTA", photoUrl: "https://images.unsplash.com/photo-1566073771259-6a8506099945?w=800&q=70", position: 0 },
+  { id: "ac-2", name: "Palazzo Avino", city: "Ravello", distance: "10 min à pied", bookingUrl: "https://example.com/palazzo-avino", photoUrl: "https://images.unsplash.com/photo-1571003123894-1f0594d2b5d9?w=800&q=70", position: 1 },
   { id: "ac-3", name: "B&B Il Limoneto", city: "Scala", distance: "12 min en voiture", phone: "+39 089 123 456", offer: "Option la plus abordable", position: 2 },
   { id: "ac-4", name: "Residence Amalfi Coast", city: "Amalfi", distance: "20 min en voiture", bookingUrl: "https://example.com/residence", position: 3 },
 ];

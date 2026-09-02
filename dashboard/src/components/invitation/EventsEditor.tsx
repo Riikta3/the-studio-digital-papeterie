@@ -1,7 +1,23 @@
 "use client";
 
+import {
+  DndContext,
+  KeyboardSensor,
+  PointerSensor,
+  closestCenter,
+  useSensor,
+  useSensors,
+  type DragEndEvent,
+} from "@dnd-kit/core";
+import { restrictToVerticalAxis } from "@dnd-kit/modifiers";
+import {
+  SortableContext,
+  arrayMove,
+  sortableKeyboardCoordinates,
+  verticalListSortingStrategy,
+} from "@dnd-kit/sortable";
 import { Button } from "@shared/components/ui/button";
-import type { GuestEventStatus, WeddingEvent } from "@shared/types/invitation";
+import type { WeddingEvent } from "@shared/types/invitation";
 import { Plus } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { useState } from "react";
@@ -9,13 +25,23 @@ import { EventCard } from "./EventCard";
 
 type Props = {
   initialEvents: WeddingEvent[];
-  guestEvents: GuestEventStatus[];
 };
 
-export function EventsEditor({ initialEvents, guestEvents }: Props) {
+export function EventsEditor({ initialEvents }: Props) {
   const t = useTranslations("InvitationEvents");
   const [events, setEvents] = useState(
     [...initialEvents].sort((a, b) => a.position - b.position),
+  );
+
+  // PointerSensor covers mouse, touch and pen in one, matching the module
+  // list's sortable elsewhere in this dashboard. 8px of travel keeps a tap on
+  // the handle from starting a drag; the keyboard sensor makes reordering
+  // reachable without a pointer at all.
+  const sensors = useSensors(
+    useSensor(PointerSensor, { activationConstraint: { distance: 8 } }),
+    useSensor(KeyboardSensor, {
+      coordinateGetter: sortableKeyboardCoordinates,
+    }),
   );
 
   const update = (id: string, patch: Partial<WeddingEvent>) =>
@@ -24,15 +50,16 @@ export function EventsEditor({ initialEvents, guestEvents }: Props) {
   const remove = (id: string) =>
     setEvents((prev) => prev.filter((e) => e.id !== id));
 
-  const move = (id: string, direction: -1 | 1) =>
+  const handleDragEnd = ({ active, over }: DragEndEvent) => {
+    if (!over || active.id === over.id) return;
     setEvents((prev) => {
-      const index = prev.findIndex((e) => e.id === id);
-      const target = index + direction;
-      if (index < 0 || target < 0 || target >= prev.length) return prev;
-      const next = [...prev];
-      [next[index], next[target]] = [next[target], next[index]];
-      return next.map((e, i) => ({ ...e, position: i }));
+      const from = prev.findIndex((e) => e.id === active.id);
+      const to = prev.findIndex((e) => e.id === over.id);
+      if (from < 0 || to < 0) return prev;
+      // Renumber after the move so `position` stays the stored order.
+      return arrayMove(prev, from, to).map((e, i) => ({ ...e, position: i }));
     });
+  };
 
   const addEvent = () => {
     const newEvent: WeddingEvent = {
@@ -51,21 +78,28 @@ export function EventsEditor({ initialEvents, guestEvents }: Props) {
         <h1 className='font-heading text-h3 text-studio-violet'>{t("title")}</h1>
         <p className='mt-2 text-sm text-studio-violet/70'>{t("subtitle")}</p>
 
-        <div className='mt-6 space-y-3'>
-          {events.map((event, index) => (
-            <EventCard
-              key={event.id}
-              event={event}
-              guestEvents={guestEvents}
-              isFirst={index === 0}
-              isLast={index === events.length - 1}
-              onChange={(patch) => update(event.id, patch)}
-              onMoveUp={() => move(event.id, -1)}
-              onMoveDown={() => move(event.id, 1)}
-              onDelete={() => remove(event.id)}
-            />
-          ))}
-        </div>
+        <DndContext
+          sensors={sensors}
+          collisionDetection={closestCenter}
+          modifiers={[restrictToVerticalAxis]}
+          onDragEnd={handleDragEnd}
+        >
+          <SortableContext
+            items={events.map((e) => e.id)}
+            strategy={verticalListSortingStrategy}
+          >
+            <div className='mt-6 space-y-3'>
+              {events.map((event) => (
+                <EventCard
+                  key={event.id}
+                  event={event}
+                  onChange={(patch) => update(event.id, patch)}
+                  onDelete={() => remove(event.id)}
+                />
+              ))}
+            </div>
+          </SortableContext>
+        </DndContext>
 
         <Button
           type='button'

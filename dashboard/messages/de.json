@@ -1096,11 +1096,6 @@
     "untitled": "Ohne Titel",
     "no_date": "Datum noch offen",
     "enabled": "Für Gäste sichtbar",
-    "counts": {
-      "confirmed": "{count} zugesagt",
-      "pending": "{count} ausstehend",
-      "declined": "{count} abgesagt"
-    },
     "fields": {
       "name": "Name der Veranstaltung",
       "date": "Datum",
@@ -1110,8 +1105,6 @@
       "description": "Beschreibung",
       "dress_code": "Dresscode"
     },
-    "move_up": "Nach oben",
-    "move_down": "Nach unten",
     "delete": "Veranstaltung löschen",
     "delete_dialog": {
       "title": "„{name}“ löschen?",
@@ -1120,7 +1113,8 @@
       "confirm": "Löschen"
     },
     "add_event": "Veranstaltung hinzufügen",
-    "new_event_name": "Neue Veranstaltung"
+    "new_event_name": "Neue Veranstaltung",
+    "reorder": "Neu anordnen"
   },
   "InvitationSchedule": {
     "title": "Ablauf",
@@ -1162,7 +1156,8 @@
       "access_info": "Anfahrt",
       "access_info_placeholder": "Wie man zum Ort gelangt",
       "transport_info": "Transport",
-      "transport_info_placeholder": "Shuttles, öffentliche Verkehrsmittel usw."
+      "transport_info_placeholder": "Shuttles, öffentliche Verkehrsmittel usw.",
+      "photo": "Foto des Veranstaltungsorts"
     },
     "open_maps": "In Google Maps öffnen",
     "open_waze": "In Waze öffnen",
@@ -1244,5 +1239,11 @@
       "empty": "Keine aktiven Veranstaltungen.",
       "count": "{confirmed} / {total} bestätigt"
     }
+  },
+  "PhotoPicker": {
+    "hint": "Foto hinzufügen",
+    "remove": "Foto entfernen",
+    "error_type": "Format nicht unterstützt. Bitte JPEG, PNG oder WebP verwenden.",
+    "error_size": "Foto zu groß. Maximal 8 MB."
   }
 }

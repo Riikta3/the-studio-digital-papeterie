@@ -1096,11 +1096,6 @@
     "untitled": "Sans nom",
     "no_date": "Date à définir",
     "enabled": "Visible par les invités",
-    "counts": {
-      "confirmed": "{count} confirmés",
-      "pending": "{count} en attente",
-      "declined": "{count} déclinés"
-    },
     "fields": {
       "name": "Nom de l'événement",
       "date": "Date",
@@ -1110,8 +1105,6 @@
       "description": "Description",
       "dress_code": "Dress code"
     },
-    "move_up": "Monter",
-    "move_down": "Descendre",
     "delete": "Supprimer l'événement",
     "delete_dialog": {
       "title": "Supprimer « {name} » ?",
@@ -1120,7 +1113,8 @@
       "confirm": "Supprimer"
     },
     "add_event": "Ajouter un événement",
-    "new_event_name": "Nouvel événement"
+    "new_event_name": "Nouvel événement",
+    "reorder": "Réordonner"
   },
   "InvitationSchedule": {
     "title": "Programme",
@@ -1162,7 +1156,8 @@
       "access_info": "Accès",
       "access_info_placeholder": "Comment venir jusqu'au lieu",
       "transport_info": "Transport",
-      "transport_info_placeholder": "Navettes, transports en commun, etc."
+      "transport_info_placeholder": "Navettes, transports en commun, etc.",
+      "photo": "Photo du lieu"
     },
     "open_maps": "Ouvrir dans Google Maps",
     "open_waze": "Ouvrir dans Waze",
@@ -1244,5 +1239,11 @@
       "empty": "Aucun événement actif.",
       "count": "{confirmed} / {total} confirmés"
     }
+  },
+  "PhotoPicker": {
+    "hint": "Ajouter une photo",
+    "remove": "Retirer la photo",
+    "error_type": "Format non pris en charge. Utilisez un JPEG, un PNG ou un WebP.",
+    "error_size": "Photo trop lourde. Le maximum est de 8 Mo."
   }
 }

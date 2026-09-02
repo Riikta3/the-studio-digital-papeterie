@@ -1096,11 +1096,6 @@
     "untitled": "Senza nome",
     "no_date": "Data da definire",
     "enabled": "Visibile agli invitati",
-    "counts": {
-      "confirmed": "{count} confermati",
-      "pending": "{count} in attesa",
-      "declined": "{count} rifiutati"
-    },
     "fields": {
       "name": "Nome dell'evento",
       "date": "Data",
@@ -1110,8 +1105,6 @@
       "description": "Descrizione",
       "dress_code": "Dress code"
     },
-    "move_up": "Sposta su",
-    "move_down": "Sposta giù",
     "delete": "Elimina evento",
     "delete_dialog": {
       "title": "Eliminare “{name}”?",
@@ -1120,7 +1113,8 @@
       "confirm": "Elimina"
     },
     "add_event": "Aggiungi un evento",
-    "new_event_name": "Nuovo evento"
+    "new_event_name": "Nuovo evento",
+    "reorder": "Riordina"
   },
   "InvitationSchedule": {
     "title": "Programma",
@@ -1162,7 +1156,8 @@
       "access_info": "Accesso",
       "access_info_placeholder": "Come raggiungere il luogo",
       "transport_info": "Trasporti",
-      "transport_info_placeholder": "Navette, trasporti pubblici, ecc."
+      "transport_info_placeholder": "Navette, trasporti pubblici, ecc.",
+      "photo": "Foto della location"
     },
     "open_maps": "Apri in Google Maps",
     "open_waze": "Apri in Waze",
@@ -1244,5 +1239,11 @@
       "empty": "Nessun evento attivo.",
       "count": "{confirmed} / {total} confermati"
     }
+  },
+  "PhotoPicker": {
+    "hint": "Aggiungi una foto",
+    "remove": "Rimuovi la foto",
+    "error_type": "Formato non supportato. Usa JPEG, PNG o WebP.",
+    "error_size": "Foto troppo grande. Il massimo è 8 MB."
   }
 }

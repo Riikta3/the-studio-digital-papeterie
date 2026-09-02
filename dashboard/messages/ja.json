@@ -1096,11 +1096,6 @@
     "untitled": "名前なし",
     "no_date": "日付未定",
     "enabled": "ゲストに表示",
-    "counts": {
-      "confirmed": "{count}人が出席回答",
-      "pending": "{count}人が未回答",
-      "declined": "{count}人が欠席回答"
-    },
     "fields": {
       "name": "イベント名",
       "date": "日付",
@@ -1110,8 +1105,6 @@
       "description": "説明",
       "dress_code": "ドレスコード"
     },
-    "move_up": "上に移動",
-    "move_down": "下に移動",
     "delete": "イベントを削除",
     "delete_dialog": {
       "title": "「{name}」を削除しますか？",
@@ -1120,7 +1113,8 @@
       "confirm": "削除"
     },
     "add_event": "イベントを追加",
-    "new_event_name": "新しいイベント"
+    "new_event_name": "新しいイベント",
+    "reorder": "並び替え"
   },
   "InvitationSchedule": {
     "title": "プログラム",
@@ -1162,7 +1156,8 @@
       "access_info": "アクセス",
       "access_info_placeholder": "会場までの行き方",
       "transport_info": "交通手段",
-      "transport_info_placeholder": "シャトル、公共交通機関など"
+      "transport_info_placeholder": "シャトル、公共交通機関など",
+      "photo": "会場の写真"
     },
     "open_maps": "Google マップで開く",
     "open_waze": "Waze で開く",
@@ -1244,5 +1239,11 @@
       "empty": "有効なイベントがありません。",
       "count": "{confirmed} / {total} 名確認済み"
     }
+  },
+  "PhotoPicker": {
+    "hint": "写真を追加",
+    "remove": "写真を削除",
+    "error_type": "対応していない形式です。JPEG、PNG、WebP をご利用ください。",
+    "error_size": "写真が大きすぎます。上限は 8 MB です。"
   }
 }

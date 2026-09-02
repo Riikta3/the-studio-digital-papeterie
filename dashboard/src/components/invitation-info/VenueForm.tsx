@@ -3,6 +3,7 @@
 import type { Venue } from "@shared/types/invitation";
 import { ExternalLink } from "lucide-react";
 import { useTranslations } from "next-intl";
+import { PhotoPicker } from "./PhotoPicker";
 
 type Props = {
   venue: Venue;
@@ -32,6 +33,18 @@ export function VenueForm({ venue, onChange }: Props) {
 
   return (
     <section className='rounded-2xl border border-studio-lavande/40 bg-white px-4 shadow-studio-card'>
+      {/* The photo leads: it is what a guest sees first on the invitation. */}
+      <div className='border-b border-studio-lavande/30 py-3'>
+        <span className='text-sm font-medium text-studio-violet'>
+          {t("fields.photo")}
+        </span>
+        <PhotoPicker
+          value={venue.photoUrl}
+          onChange={(photoUrl) => onChange({ photoUrl })}
+          className='mt-1.5'
+        />
+      </div>
+
       <FormRow label={t("fields.name")}>
         <input
           value={venue.name}
