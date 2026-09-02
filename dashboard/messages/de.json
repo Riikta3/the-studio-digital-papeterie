@@ -1010,6 +1010,10 @@
     "show": "Anzeigen",
     "delete": "Löschen",
     "anonymous": "Anonymer Gast",
+    "empty": {
+      "title": "Noch keine Fotos",
+      "description": "Sobald ein Gast Ihren QR-Code scannt und ein Foto oder Video teilt, erscheint es hier."
+    },
     "filters": {
       "all": "Alle",
       "photo": "Fotos",

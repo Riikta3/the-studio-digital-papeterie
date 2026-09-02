@@ -1010,6 +1010,10 @@
     "show": "Show",
     "delete": "Delete",
     "anonymous": "Anonymous guest",
+    "empty": {
+      "title": "No photos yet",
+      "description": "Once guests scan your QR code and share a photo or video, it will appear here."
+    },
     "filters": {
       "all": "All",
       "photo": "Photos",

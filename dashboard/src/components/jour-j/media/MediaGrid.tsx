@@ -1,5 +1,6 @@
 "use client";
 
+import { deleteMedia, setMediaHidden } from "@/actions/guest-media-actions";
 import { Button } from "@shared/components/ui/button";
 import {
   Dialog,
@@ -10,7 +11,7 @@ import {
   DialogTitle,
 } from "@shared/components/ui/dialog";
 import type { GuestMedia } from "@shared/types/jour-j";
-import { Download } from "lucide-react";
+import { Download, ImageOff } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { useMemo, useState } from "react";
 import { toast } from "sonner";
@@ -40,10 +41,32 @@ export function MediaGrid({ initialMedia }: { initialMedia: GuestMedia[] }) {
     [media],
   );
 
-  const confirmDelete = () => {
+  // Optimistic-per-gesture, per action-conventions.md: mutate local state
+  // first, then roll back and toast if the server action reports failure.
+  const toggleHidden = async (item: GuestMedia) => {
+    const previous = media;
+    const nextHidden = !item.hidden;
+    setMedia((prev) =>
+      prev.map((m) => (m.id === item.id ? { ...m, hidden: nextHidden } : m)),
+    );
+    const res = await setMediaHidden(item.id, nextHidden);
+    if (!res.success) {
+      setMedia(previous);
+      toast.error(res.error);
+    }
+  };
+
+  const confirmDelete = async () => {
     if (!deleteTarget) return;
-    setMedia((prev) => prev.filter((m) => m.id !== deleteTarget.id));
+    const target = deleteTarget;
+    const previous = media;
+    setMedia((prev) => prev.filter((m) => m.id !== target.id));
     setDeleteTarget(null);
+    const res = await deleteMedia(target.id);
+    if (!res.success) {
+      setMedia(previous);
+      toast.error(res.error);
+    }
   };
 
   return (
@@ -83,22 +106,29 @@ export function MediaGrid({ initialMedia }: { initialMedia: GuestMedia[] }) {
           ))}
         </div>
 
-        <div className='mt-4 grid grid-cols-2 gap-2 sm:grid-cols-3 md:grid-cols-4'>
-          {visible.map((item) => (
-            <MediaTile
-              key={item.id}
-              media={item}
-              onToggleHidden={() =>
-                setMedia((prev) =>
-                  prev.map((m) =>
-                    m.id === item.id ? { ...m, hidden: !m.hidden } : m,
-                  ),
-                )
-              }
-              onDelete={() => setDeleteTarget(item)}
-            />
-          ))}
-        </div>
+        {media.length === 0 ? (
+          // No guest has uploaded anything yet — expected right after launch,
+          // not a broken screen. Shown instead of an empty grid so it reads
+          // as deliberate rather than as a loading/error state.
+          <div className='mt-6 flex flex-col items-center gap-3 rounded-2xl border border-dashed border-studio-lavande/40 bg-white/60 p-12 text-center'>
+            <ImageOff className='h-8 w-8 text-studio-violet/40' />
+            <div>
+              <p className='font-heading text-h4 text-studio-violet'>{t("empty.title")}</p>
+              <p className='mt-1 text-sm text-studio-violet/60'>{t("empty.description")}</p>
+            </div>
+          </div>
+        ) : (
+          <div className='mt-4 grid grid-cols-2 gap-2 sm:grid-cols-3 md:grid-cols-4'>
+            {visible.map((item) => (
+              <MediaTile
+                key={item.id}
+                media={item}
+                onToggleHidden={() => toggleHidden(item)}
+                onDelete={() => setDeleteTarget(item)}
+              />
+            ))}
+          </div>
+        )}
       </div>
 
       {/* Delete confirmation: guest media is irreplaceable, and tile actions

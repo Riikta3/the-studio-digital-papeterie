@@ -1010,6 +1010,10 @@
     "show": "Afficher",
     "delete": "Supprimer",
     "anonymous": "Invité anonyme",
+    "empty": {
+      "title": "Aucune photo pour le moment",
+      "description": "Dès qu'un invité scanne votre QR code et partage une photo ou une vidéo, elle apparaîtra ici."
+    },
     "filters": {
       "all": "Tout",
       "photo": "Photos",

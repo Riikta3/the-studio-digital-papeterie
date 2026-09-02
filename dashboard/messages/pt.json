@@ -1010,6 +1010,10 @@
     "show": "Mostrar",
     "delete": "Eliminar",
     "anonymous": "Convidado anónimo",
+    "empty": {
+      "title": "Ainda sem fotos",
+      "description": "Assim que um convidado ler o seu código QR e partilhar uma foto ou um vídeo, ela aparecerá aqui."
+    },
     "filters": {
       "all": "Tudo",
       "photo": "Fotos",
