@@ -736,12 +736,6 @@
       "other": "其他"
     }
   },
-  "AddTableButton": {
-    "toast_success": "桌子已添加！",
-    "toast_error": "错误：{error}",
-    "creating": "创建中...",
-    "add_table": "添加一张桌子"
-  },
   "ForgotPassword": {
     "title": "忘记密码了吗？",
     "description": "请输入您的电子邮箱地址，我们将向您发送重置密码的链接。",
@@ -890,15 +884,6 @@
     "error_too_short": "密码长度至少需要6个字符。",
     "error_generic": "重置时出错，请重试。"
   },
-  "SeatingPlan": {
-    "error_title": "发生错误",
-    "error_description": "无法加载座位安排图。",
-    "title": "座位安排图",
-    "subtitle_has_tables": "拖放桌子和宾客。",
-    "subtitle_empty": "从创建第一张桌子开始。",
-    "empty_title": "您的场地还是空的",
-    "empty_description": "创建餐桌以开始安排宾客座位，之后您可以自由移动它们。"
-  },
   "CountdownTimer": {
     "big_day": "就是今天！",
     "months": "月",
@@ -944,12 +929,6 @@
     "unlock_module": "解锁此模块",
     "one_time_payment": "一次性付款，终身包含在您的网站中",
     "buy_button": "购买 — 10 欧元"
-  },
-  "GuestSidebar": {
-    "title": "宾客",
-    "all_seated": "所有宾客均已安排座位！",
-    "child": "儿童",
-    "guest": "宾客"
   },
   "MessagesPage": {
     "title": "留言",

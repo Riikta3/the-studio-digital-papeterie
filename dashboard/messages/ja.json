@@ -736,12 +736,6 @@
       "other": "その他"
     }
   },
-  "AddTableButton": {
-    "toast_success": "テーブルを追加しました！",
-    "toast_error": "エラー：{error}",
-    "creating": "作成中...",
-    "add_table": "テーブルを追加"
-  },
   "ForgotPassword": {
     "title": "パスワードをお忘れですか？",
     "description": "メールアドレスを入力すると、パスワード再設定用のリンクをお送りします。",
@@ -890,15 +884,6 @@
     "error_too_short": "パスワードは6文字以上である必要があります。",
     "error_generic": "リセット中にエラーが発生しました。もう一度お試しください。"
   },
-  "SeatingPlan": {
-    "error_title": "エラーが発生しました",
-    "error_description": "座席表を読み込めませんでした。",
-    "title": "座席表",
-    "subtitle_has_tables": "テーブルとゲストをドラッグ＆ドロップしてください。",
-    "subtitle_empty": "最初のテーブルを作成してください。",
-    "empty_title": "会場が空です",
-    "empty_description": "テーブルを作成してゲストの配置を始めましょう。後で自由に移動できます。"
-  },
   "CountdownTimer": {
     "big_day": "本番当日です！",
     "months": "ヶ月",
@@ -944,12 +929,6 @@
     "unlock_module": "このモジュールのロックを解除",
     "one_time_payment": "一度のお支払いで、サイトに永久に含まれます",
     "buy_button": "購入 — 10ユーロ"
-  },
-  "GuestSidebar": {
-    "title": "ゲスト",
-    "all_seated": "すべてのゲストの席が決まりました！",
-    "child": "子供",
-    "guest": "ゲスト"
   },
   "MessagesPage": {
     "title": "メッセージ",

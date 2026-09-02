@@ -758,12 +758,6 @@
       "other": "Autre"
     }
   },
-  "AddTableButton": {
-    "toast_success": "Table ajoutée !",
-    "toast_error": "Erreur : {error}",
-    "creating": "Création...",
-    "add_table": "Ajouter une table"
-  },
   "ForgotPassword": {
     "title": "Mot de passe oublié ?",
     "description": "Entrez votre adresse email et nous vous enverrons un lien pour réinitialiser votre mot de passe.",
@@ -890,15 +884,6 @@
     "error_too_short": "Le mot de passe doit contenir au moins 6 caractères.",
     "error_generic": "Erreur lors de la réinitialisation. Veuillez réessayer."
   },
-  "SeatingPlan": {
-    "error_title": "Une erreur est survenue",
-    "error_description": "Impossible de charger le plan de table.",
-    "title": "Plan de Table",
-    "subtitle_has_tables": "Glissez-déposez les tables et les invités.",
-    "subtitle_empty": "Commencez par créer votre première table.",
-    "empty_title": "Votre salle est vide",
-    "empty_description": "Créez des tables pour commencer à placer vos invités. Vous pourrez ensuite les déplacer librement."
-  },
   "CountdownTimer": {
     "big_day": "C'est le grand jour !",
     "months": "Mois",
@@ -950,12 +935,6 @@
     "unlock_module": "Débloquer ce module",
     "one_time_payment": "Paiement unique, inclus à vie dans votre site",
     "buy_button": "Acheter — 10 €"
-  },
-  "GuestSidebar": {
-    "title": "Invités",
-    "all_seated": "Tous les invités sont placés !",
-    "child": "Enfant",
-    "guest": "Invité"
   },
   "DashboardLayout": {
     "initializing": "Initialisation de votre espace..."

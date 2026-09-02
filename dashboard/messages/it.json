@@ -736,12 +736,6 @@
       "other": "Altro"
     }
   },
-  "AddTableButton": {
-    "toast_success": "Tavolo aggiunto!",
-    "toast_error": "Errore: {error}",
-    "creating": "Creazione...",
-    "add_table": "Aggiungi un tavolo"
-  },
   "ForgotPassword": {
     "title": "Password dimenticata?",
     "description": "Inserisci il tuo indirizzo email e ti invieremo un link per reimpostare la password.",
@@ -890,15 +884,6 @@
     "error_too_short": "La password deve contenere almeno 6 caratteri.",
     "error_generic": "Errore durante il ripristino. Riprova."
   },
-  "SeatingPlan": {
-    "error_title": "Si è verificato un errore",
-    "error_description": "Impossibile caricare la piantina dei tavoli.",
-    "title": "Piantina dei Tavoli",
-    "subtitle_has_tables": "Trascina i tavoli e gli ospiti.",
-    "subtitle_empty": "Inizia creando il tuo primo tavolo.",
-    "empty_title": "La tua sala è vuota",
-    "empty_description": "Crea dei tavoli per iniziare a posizionare i tuoi ospiti. Potrai poi spostarli liberamente."
-  },
   "CountdownTimer": {
     "big_day": "È il grande giorno!",
     "months": "Mesi",
@@ -944,12 +929,6 @@
     "unlock_module": "Sblocca questo modulo",
     "one_time_payment": "Pagamento unico, incluso a vita nel tuo sito",
     "buy_button": "Acquista — 10 €"
-  },
-  "GuestSidebar": {
-    "title": "Ospiti",
-    "all_seated": "Tutti gli ospiti sono sistemati!",
-    "child": "Bambino/a",
-    "guest": "Ospite"
   },
   "MessagesPage": {
     "title": "Messaggi",

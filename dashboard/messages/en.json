@@ -736,12 +736,6 @@
       "other": "Other"
     }
   },
-  "AddTableButton": {
-    "toast_success": "Table added!",
-    "toast_error": "Error: {error}",
-    "creating": "Creating...",
-    "add_table": "Add a table"
-  },
   "ForgotPassword": {
     "title": "Forgot your password?",
     "description": "Enter your email address and we'll send you a link to reset your password.",
@@ -890,15 +884,6 @@
     "error_too_short": "Password must be at least 6 characters.",
     "error_generic": "Error while resetting. Please try again."
   },
-  "SeatingPlan": {
-    "error_title": "An error occurred",
-    "error_description": "Unable to load the seating plan.",
-    "title": "Seating Plan",
-    "subtitle_has_tables": "Drag and drop tables and guests.",
-    "subtitle_empty": "Start by creating your first table.",
-    "empty_title": "Your room is empty",
-    "empty_description": "Create tables to start placing your guests. You'll be able to move them around freely afterwards."
-  },
   "CountdownTimer": {
     "big_day": "It's the big day!",
     "months": "Months",
@@ -944,12 +929,6 @@
     "unlock_module": "Unlock this module",
     "one_time_payment": "One-time payment, included for life on your site",
     "buy_button": "Buy — €10"
-  },
-  "GuestSidebar": {
-    "title": "Guests",
-    "all_seated": "All guests are seated!",
-    "child": "Child",
-    "guest": "Guest"
   },
   "MessagesPage": {
     "title": "Messages",

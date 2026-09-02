@@ -736,12 +736,6 @@
       "other": "Sonstiges"
     }
   },
-  "AddTableButton": {
-    "toast_success": "Tisch hinzugefügt!",
-    "toast_error": "Fehler: {error}",
-    "creating": "Wird erstellt...",
-    "add_table": "Tisch hinzufügen"
-  },
   "ForgotPassword": {
     "title": "Passwort vergessen?",
     "description": "Geben Sie Ihre E-Mail-Adresse ein und wir senden Ihnen einen Link zum Zurücksetzen Ihres Passworts.",
@@ -890,15 +884,6 @@
     "error_too_short": "Das Passwort muss mindestens 6 Zeichen lang sein.",
     "error_generic": "Fehler beim Zurücksetzen. Bitte versuchen Sie es erneut."
   },
-  "SeatingPlan": {
-    "error_title": "Ein Fehler ist aufgetreten",
-    "error_description": "Der Sitzplan konnte nicht geladen werden.",
-    "title": "Sitzplan",
-    "subtitle_has_tables": "Ziehen Sie Tische und Gäste per Drag & Drop.",
-    "subtitle_empty": "Beginnen Sie mit der Erstellung Ihres ersten Tisches.",
-    "empty_title": "Ihr Saal ist leer",
-    "empty_description": "Erstellen Sie Tische, um Ihre Gäste zu platzieren. Sie können sie anschließend frei verschieben."
-  },
   "CountdownTimer": {
     "big_day": "Es ist der große Tag!",
     "months": "Monate",
@@ -944,12 +929,6 @@
     "unlock_module": "Dieses Modul freischalten",
     "one_time_payment": "Einmalzahlung, lebenslang in Ihrer Website enthalten",
     "buy_button": "Kaufen — 10 €"
-  },
-  "GuestSidebar": {
-    "title": "Gäste",
-    "all_seated": "Alle Gäste sind platziert!",
-    "child": "Kind",
-    "guest": "Gast"
   },
   "MessagesPage": {
     "title": "Nachrichten",

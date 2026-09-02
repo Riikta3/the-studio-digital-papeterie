@@ -736,12 +736,6 @@
       "other": "أخرى"
     }
   },
-  "AddTableButton": {
-    "toast_success": "تمت إضافة الطاولة!",
-    "toast_error": "خطأ: {error}",
-    "creating": "جارٍ الإنشاء...",
-    "add_table": "إضافة طاولة"
-  },
   "ForgotPassword": {
     "title": "هل نسيت كلمة المرور؟",
     "description": "أدخل عنوان بريدك الإلكتروني وسنرسل لك رابطًا لإعادة تعيين كلمة المرور.",
@@ -890,15 +884,6 @@
     "error_too_short": "يجب أن تتكون كلمة المرور من 6 أحرف على الأقل.",
     "error_generic": "خطأ أثناء إعادة التعيين. يرجى المحاولة مرة أخرى."
   },
-  "SeatingPlan": {
-    "error_title": "حدث خطأ",
-    "error_description": "تعذّر تحميل مخطط الجلوس.",
-    "title": "مخطط الجلوس",
-    "subtitle_has_tables": "اسحب وأفلت الطاولات والضيوف.",
-    "subtitle_empty": "ابدأ بإنشاء طاولتك الأولى.",
-    "empty_title": "قاعتك فارغة",
-    "empty_description": "أنشئ طاولات لتبدأ في ترتيب ضيوفك. يمكنك بعد ذلك تحريكها بحرية."
-  },
   "CountdownTimer": {
     "big_day": "إنه اليوم المنشود!",
     "months": "أشهر",
@@ -944,12 +929,6 @@
     "unlock_module": "إلغاء قفل هذه الوحدة",
     "one_time_payment": "دفعة واحدة، مضمّنة مدى الحياة في موقعك",
     "buy_button": "شراء — 10 يورو"
-  },
-  "GuestSidebar": {
-    "title": "الضيوف",
-    "all_seated": "تم ترتيب جلوس جميع الضيوف!",
-    "child": "طفل",
-    "guest": "ضيف"
   },
   "MessagesPage": {
     "title": "الرسائل",
