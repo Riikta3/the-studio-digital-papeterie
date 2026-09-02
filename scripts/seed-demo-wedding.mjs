@@ -141,37 +141,74 @@ if (existingGuests > 0 && force) {
  * Purge, in reverse dependency order
  * ------------------------------------------------------------------ */
 
+/**
+ * Every delete below is scoped to the target wedding — either directly on
+ * `wedding_id`, or through an id list that was itself read with a
+ * `wedding_id` filter for the two child tables that have no such column.
+ *
+ * Errors are checked and fatal. A purge that fails half-way and carries on
+ * surfaces later as a baffling insert error (unique violation, or doubled
+ * rows) far from the delete that actually failed.
+ */
 async function purgeWedding(id) {
   console.log(`--force: purging existing rows for ${id}...`);
 
+  const fail = (table, error) => {
+    if (error) {
+      console.error(`Purge failed on ${table}: ${error.message}`);
+      process.exit(1);
+    }
+  };
+
   // guest_events has no wedding_id column — reach it through guests.
-  const { data: existing } = await supabase.from("guests").select("id").eq("wedding_id", id);
+  const { data: existing, error: readGuests } = await supabase
+    .from("guests")
+    .select("id")
+    .eq("wedding_id", id);
+  fail("guests (read)", readGuests);
   const guestIds = (existing ?? []).map((g) => g.id);
   if (guestIds.length > 0) {
-    await supabase.from("guest_events").delete().in("guest_id", guestIds);
+    fail(
+      "guest_events",
+      (await supabase.from("guest_events").delete().in("guest_id", guestIds)).error,
+    );
   }
 
-  await supabase.from("guests").delete().eq("wedding_id", id);
-  await supabase.from("households").delete().eq("wedding_id", id);
-  await supabase.from("tables").delete().eq("wedding_id", id);
-  await supabase.from("schedule_entries").delete().eq("wedding_id", id);
-  await supabase.from("events").delete().eq("wedding_id", id);
-  await supabase.from("venues").delete().eq("wedding_id", id);
-  await supabase.from("accommodations").delete().eq("wedding_id", id);
-  await supabase.from("faq_entries").delete().eq("wedding_id", id);
+  for (const table of [
+    "guests",
+    "households",
+    "tables",
+    "schedule_entries",
+    "events",
+    "venues",
+    "accommodations",
+    "faq_entries",
+  ]) {
+    fail(table, (await supabase.from(table).delete().eq("wedding_id", id)).error);
+  }
 
   // menu_items has no wedding_id column — reach it through menu_categories.
-  const { data: cats } = await supabase
+  const { data: cats, error: readCats } = await supabase
     .from("menu_categories")
     .select("id")
     .eq("wedding_id", id);
+  fail("menu_categories (read)", readCats);
   const catIds = (cats ?? []).map((c) => c.id);
   if (catIds.length > 0) {
-    await supabase.from("menu_items").delete().in("category_id", catIds);
+    fail(
+      "menu_items",
+      (await supabase.from("menu_items").delete().in("category_id", catIds)).error,
+    );
   }
-  await supabase.from("menu_categories").delete().eq("wedding_id", id);
+  fail(
+    "menu_categories",
+    (await supabase.from("menu_categories").delete().eq("wedding_id", id)).error,
+  );
 
-  await supabase.from("day_of_settings").delete().eq("wedding_id", id);
+  fail(
+    "day_of_settings",
+    (await supabase.from("day_of_settings").delete().eq("wedding_id", id)).error,
+  );
 }
 
 /* ------------------------------------------------------------------ *
@@ -324,7 +361,12 @@ const eventDefs = [
     description: "DJ jusqu'au bout de la nuit.",
     dressCode: null,
     position: 3,
-    enabled: true,
+    // Disabled on purpose, matching the mock this dataset ports. It is the
+    // only off-state event in the set, and the screens need one: the events
+    // editor renders enabled and disabled rows differently, and the stats
+    // screen counts attendance for enabled events only. With all four on,
+    // neither path is ever exercised.
+    enabled: false,
   },
 ];
 
