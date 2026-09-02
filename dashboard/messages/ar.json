@@ -11,13 +11,6 @@
         "pending": "في الانتظار",
         "children": "الأطفال"
       },
-      "meals": {
-        "title": "الوجبات",
-        "standard": "عادية",
-        "vegetarian": "نباتية",
-        "vegan": "نباتية صرفة",
-        "dietary": "احتياجات خاصة"
-      },
       "jour_j": {
         "title": "يوم الزفاف",
         "seated": "تم تحديد أماكنهم",
@@ -46,7 +39,8 @@
       "live": "متاحة",
       "not_live": "غير متاحة",
       "edit_cta": "تعديل المحتوى",
-      "public_hint": "الرابط العام المشارك مع مدعويكم"
+      "public_hint": "الرابط العام المشارك مع مدعويكم",
+      "view_cta": "عرض"
     }
   },
   "Guests": {
@@ -666,7 +660,9 @@
       "new_email": "بريد إلكتروني جديد",
       "update_email_btn": "تعديل البريد الإلكتروني",
       "toast_profile_success": "تم تحديث الملف الشخصي",
-      "toast_tech_error": "خطأ تقني"
+      "toast_tech_error": "خطأ تقني",
+      "weddingdate": "تاريخ الزفاف",
+      "weddingdate_hint": "تُستخدم في العدّ التنازلي في صفحتك الرئيسية وبرنامج الدعوة."
     },
     "security": {
       "password_title": "كلمة المرور",

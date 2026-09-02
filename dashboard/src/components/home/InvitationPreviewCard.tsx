@@ -1,5 +1,5 @@
 import { Link } from "@/navigation";
-import { ExternalLink, Pencil } from "lucide-react";
+import { Eye, ExternalLink, Pencil } from "lucide-react";
 import { getTranslations } from "next-intl/server";
 
 type Props = {
@@ -10,14 +10,16 @@ type Props = {
 };
 
 /**
- * The guest-facing invitation lives in the other app (`/jourj/<slug>` on
- * :3010) — the dashboard cannot link there directly in this environment, so
- * the public URL is shown as text to copy, and the only clickable action is
- * editing content in the dashboard's own /modules.
+ * Two ways in, because they answer different questions: "what do my guests
+ * see?" and "let me change it".
+ *
+ * View opens the guest-facing invitation, which lives in the other app — an
+ * absolute URL rather than a next-intl Link, since it is a different origin.
  */
 export async function InvitationPreviewCard({ slug, enabled }: Props) {
   const t = await getTranslations("Dashboard.invitation_preview");
   const publicUrl = `thestudio.fr/jourj/${slug}`;
+  const viewHref = `https://${publicUrl}`;
 
   return (
     <section className='rounded-2xl border border-studio-lavande/40 bg-white p-4 shadow-studio-card md:p-6'>
@@ -37,13 +39,26 @@ export async function InvitationPreviewCard({ slug, enabled }: Props) {
         </span>
       </div>
 
-      <Link
-        href='/modules'
-        className='mt-4 flex min-h-11 w-full items-center justify-center gap-2 rounded-lg bg-studio-violet px-4 text-sm font-medium text-white transition-colors hover:bg-studio-violet-fonce'
-      >
-        <Pencil className='h-4 w-4' />
-        {t("edit_cta")}
-      </Link>
+      {/* Side by side from sm:, stacked on the narrowest phones so neither
+          button gets squeezed below a comfortable width. */}
+      <div className='mt-4 flex flex-col gap-2 sm:flex-row'>
+        <a
+          href={viewHref}
+          target='_blank'
+          rel='noopener noreferrer'
+          className='flex min-h-11 flex-1 items-center justify-center gap-2 rounded-lg border border-studio-violet px-4 text-sm font-medium text-studio-violet transition-colors hover:bg-studio-violet/5'
+        >
+          <Eye className='h-4 w-4' />
+          {t("view_cta")}
+        </a>
+        <Link
+          href='/modules'
+          className='flex min-h-11 flex-1 items-center justify-center gap-2 rounded-lg bg-studio-violet px-4 text-sm font-medium text-white transition-colors hover:bg-studio-violet-fonce'
+        >
+          <Pencil className='h-4 w-4' />
+          {t("edit_cta")}
+        </Link>
+      </div>
       <p className='mt-2 flex items-center gap-1.5 text-xs text-studio-violet/50'>
         <ExternalLink className='h-3 w-3 shrink-0' />
         {t("public_hint")}

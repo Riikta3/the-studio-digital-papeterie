@@ -11,13 +11,6 @@
         "pending": "Pending",
         "children": "Children"
       },
-      "meals": {
-        "title": "Meals",
-        "standard": "Standard",
-        "vegetarian": "Vegetarian",
-        "vegan": "Vegan",
-        "dietary": "Special needs"
-      },
       "jour_j": {
         "title": "Wedding Day",
         "seated": "Seated",
@@ -46,7 +39,8 @@
       "live": "Live",
       "not_live": "Offline",
       "edit_cta": "Edit content",
-      "public_hint": "Public link shared with your guests"
+      "public_hint": "Public link shared with your guests",
+      "view_cta": "View"
     }
   },
   "Guests": {
@@ -288,7 +282,9 @@
       "new_email": "New Email",
       "update_email_btn": "Update email",
       "toast_profile_success": "Profile updated",
-      "toast_tech_error": "Technical error"
+      "toast_tech_error": "Technical error",
+      "weddingdate": "Wedding date",
+      "weddingdate_hint": "It drives the countdown on your home page and the invitation's schedule."
     },
     "security": {
       "password_title": "Password",

@@ -11,13 +11,6 @@
         "pending": "En attente",
         "children": "Enfants"
       },
-      "meals": {
-        "title": "Repas",
-        "standard": "Standard",
-        "vegetarian": "Végétarien",
-        "vegan": "Végétalien",
-        "dietary": "Besoins spécifiques"
-      },
       "jour_j": {
         "title": "Jour J",
         "seated": "Placés",
@@ -46,7 +39,8 @@
       "live": "En ligne",
       "not_live": "Hors ligne",
       "edit_cta": "Modifier le contenu",
-      "public_hint": "Lien public partagé avec vos invités"
+      "public_hint": "Lien public partagé avec vos invités",
+      "view_cta": "Voir"
     }
   },
   "Guests": {
@@ -385,7 +379,9 @@
       "new_email": "Nouvel Email",
       "update_email_btn": "Modifier l'email",
       "toast_profile_success": "Profil mis à jour",
-      "toast_tech_error": "Erreur technique"
+      "toast_tech_error": "Erreur technique",
+      "weddingdate": "Date du mariage",
+      "weddingdate_hint": "Elle alimente le compte à rebours de votre accueil et le programme du faire-part."
     },
     "security": {
       "password_title": "Mot de passe",

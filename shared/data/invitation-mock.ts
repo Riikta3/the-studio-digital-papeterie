@@ -50,7 +50,7 @@ const events: WeddingEvent[] = [
     id: "ev-1",
     key: "welcome-dinner",
     name: "Welcome Dinner",
-    date: "2026-06-19",
+    date: "2027-06-18",
     time: "20h00",
     address: "Trattoria del Porto, Via Marina 12, Amalfi",
     description:
@@ -63,7 +63,7 @@ const events: WeddingEvent[] = [
     id: "ev-2",
     key: "wedding-day",
     name: "Cérémonie & Réception",
-    date: "2026-06-20",
+    date: "2027-06-19",
     time: "16h30",
     address: "Villa Bellavista, Via Panoramica 4, Ravello",
     description:
@@ -76,7 +76,7 @@ const events: WeddingEvent[] = [
     id: "ev-3",
     key: "brunch",
     name: "Brunch du lendemain",
-    date: "2026-06-21",
+    date: "2027-06-20",
     time: "11h00",
     address: "Villa Bellavista, jardin bas",
     description: "Pour prolonger un peu, sans protocole.",
@@ -87,7 +87,7 @@ const events: WeddingEvent[] = [
     id: "ev-4",
     key: "party",
     name: "Soirée",
-    date: "2026-06-20",
+    date: "2027-06-19",
     time: "23h00",
     address: "Villa Bellavista, orangerie",
     description: "DJ jusqu'au bout de la nuit.",
@@ -254,7 +254,7 @@ const zoneLocks: ZoneLock[] = [
 function buildStats() {
   // 30 days ending 2026-06-18, the day before the welcome dinner.
   const visitsByDay = Array.from({ length: 30 }, (_, i) => {
-    const d = new Date(Date.UTC(2026, 4, 20 + i));
+    const d = new Date(Date.UTC(2027, 4, 19 + i));
     // Traffic builds as the date approaches, with a spike when invitations
     // went out on day 6.
     const base = 12 + Math.round(i * 1.8);

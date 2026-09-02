@@ -11,13 +11,6 @@
         "pending": "Pendentes",
         "children": "Crianças"
       },
-      "meals": {
-        "title": "Refeições",
-        "standard": "Padrão",
-        "vegetarian": "Vegetariano",
-        "vegan": "Vegano",
-        "dietary": "Necessidades especiais"
-      },
       "jour_j": {
         "title": "Dia do casamento",
         "seated": "Sentados",
@@ -46,7 +39,8 @@
       "live": "Online",
       "not_live": "Offline",
       "edit_cta": "Editar conteúdo",
-      "public_hint": "Link público partilhado com os seus convidados"
+      "public_hint": "Link público partilhado com os seus convidados",
+      "view_cta": "Ver"
     }
   },
   "Guests": {
@@ -666,7 +660,9 @@
       "new_email": "Novo Email",
       "update_email_btn": "Alterar o email",
       "toast_profile_success": "Perfil atualizado",
-      "toast_tech_error": "Erro técnico"
+      "toast_tech_error": "Erro técnico",
+      "weddingdate": "Data do casamento",
+      "weddingdate_hint": "Alimenta a contagem decrescente do seu início e o programa do convite."
     },
     "security": {
       "password_title": "Palavra-passe",

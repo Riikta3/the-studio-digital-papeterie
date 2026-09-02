@@ -126,7 +126,7 @@ function buildMedia(): GuestMedia[] {
       thumbUrl: `https://picsum.photos/seed/jourj-${i}/400/400`,
       uploaderName:
         i % 3 === 0 ? undefined : `${pick(FIRST_NAMES, i * 5)} ${pick(LAST_NAMES, i)}`,
-      uploadedAt: new Date(2026, 5, 20, 18, (i * 7) % 60).toISOString(),
+      uploadedAt: new Date(2027, 5, 19, 18, (i * 7) % 60).toISOString(),
       hidden: i % 37 === 0,
     };
   });
@@ -139,7 +139,7 @@ export const JOUR_J_MOCK: DayOfData = {
     enabled: true,
     qrSlug: "emilie-jordy",
     galleryVisibleToGuests: true,
-    uploadsOpenUntil: "2026-06-27T23:59:00.000Z",
+    uploadsOpenUntil: "2027-06-26T23:59:59.999Z",
     afterWeddingMode: false,
   },
   guests,

@@ -11,13 +11,6 @@
         "pending": "待回复",
         "children": "儿童"
       },
-      "meals": {
-        "title": "餐食",
-        "standard": "标准",
-        "vegetarian": "素食",
-        "vegan": "纯素",
-        "dietary": "特殊需求"
-      },
       "jour_j": {
         "title": "婚礼当天",
         "seated": "已安排座位",
@@ -46,7 +39,8 @@
       "live": "已上线",
       "not_live": "未上线",
       "edit_cta": "编辑内容",
-      "public_hint": "与宾客分享的公开链接"
+      "public_hint": "与宾客分享的公开链接",
+      "view_cta": "查看"
     }
   },
   "Guests": {
@@ -666,7 +660,9 @@
       "new_email": "新邮箱",
       "update_email_btn": "修改邮箱",
       "toast_profile_success": "个人资料已更新",
-      "toast_tech_error": "技术错误"
+      "toast_tech_error": "技术错误",
+      "weddingdate": "婚礼日期",
+      "weddingdate_hint": "用于首页倒计时和请柬的日程安排。"
     },
     "security": {
       "password_title": "密码",

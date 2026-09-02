@@ -11,13 +11,6 @@
         "pending": "Pendientes",
         "children": "Niños"
       },
-      "meals": {
-        "title": "Comidas",
-        "standard": "Estándar",
-        "vegetarian": "Vegetariano",
-        "vegan": "Vegano",
-        "dietary": "Necesidades especiales"
-      },
       "jour_j": {
         "title": "Día de la boda",
         "seated": "Sentados",
@@ -46,7 +39,8 @@
       "live": "En línea",
       "not_live": "Fuera de línea",
       "edit_cta": "Editar contenido",
-      "public_hint": "Enlace público compartido con sus invitados"
+      "public_hint": "Enlace público compartido con sus invitados",
+      "view_cta": "Ver"
     }
   },
   "Guests": {
@@ -666,7 +660,9 @@
       "new_email": "Nuevo Email",
       "update_email_btn": "Modificar el email",
       "toast_profile_success": "Perfil actualizado",
-      "toast_tech_error": "Error técnico"
+      "toast_tech_error": "Error técnico",
+      "weddingdate": "Fecha de la boda",
+      "weddingdate_hint": "Alimenta la cuenta atrás de tu inicio y el programa de la invitación."
     },
     "security": {
       "password_title": "Contraseña",

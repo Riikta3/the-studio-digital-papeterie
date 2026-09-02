@@ -28,6 +28,13 @@ export default async function SettingsPage() {
   // Fetch settings & profile
   const settings = await getSettings();
   const profile = await getProfile();
+
+  // The date lives on public.weddings, not on profiles.
+  const { data: wedding } = await supabase
+    .from("weddings")
+    .select("wedding_date")
+    .eq("user_id", user!.id)
+    .maybeSingle();
   const t = await getTranslations("Settings");
 
   return (
@@ -80,7 +87,7 @@ export default async function SettingsPage() {
           value='profile'
           className='space-y-8'
         >
-          <ProfileSettings profile={profile} />
+          <ProfileSettings profile={profile} weddingDate={wedding?.wedding_date ?? null} />
         </TabsContent>
 
         <TabsContent

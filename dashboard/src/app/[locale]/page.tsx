@@ -1,5 +1,4 @@
 import { CountdownTimer } from "@/components/dashboard/CountdownTimer";
-import { EventAttendanceList } from "@/components/stats/EventAttendanceList";
 import { HomeQuickActions } from "@/components/home/HomeQuickActions";
 import { InvitationPreviewCard } from "@/components/home/InvitationPreviewCard";
 import { KpiGroupCard, type KpiTile } from "@/components/home/KpiGroupCard";
@@ -8,7 +7,7 @@ import { createClient } from "@/utils/supabase/server";
 import { Button } from "@shared/components/ui/button";
 import { INVITATION_MOCK } from "@shared/data/invitation-mock";
 import { JOUR_J_MOCK } from "@shared/data/jour-j-mock";
-import { PartyPopper, Settings, UtensilsCrossed, Users } from "lucide-react";
+import { PartyPopper, Settings, Users } from "lucide-react";
 import { getTranslations } from "next-intl/server";
 
 export default async function DashboardHome() {
@@ -35,34 +34,21 @@ export default async function DashboardHome() {
     .eq("id", user.id)
     .single();
 
-  const { guests, events, guestEvents } = INVITATION_MOCK;
+  // wedding_date is on public.weddings, not on profiles — reading it off
+  // `profile` returned undefined and the countdown silently fell back.
+  const { data: wedding } = await supabase
+    .from("weddings")
+    .select("wedding_date")
+    .eq("user_id", user.id)
+    .maybeSingle();
+
+  const { guests, events } = INVITATION_MOCK;
   const { tables, media, settings } = JOUR_J_MOCK;
 
   const totalGuests = guests.length;
   const confirmedGuests = guests.filter((g) => g.status === "confirmed").length;
   const pendingGuests = guests.filter((g) => g.status === "pending").length;
   const childrenGuests = guests.filter((g) => g.isChild).length;
-
-  const eventRows = events
-    .filter((event) => event.enabled)
-    .sort((a, b) => a.position - b.position)
-    .map((event) => {
-      const rows = guestEvents.filter((row) => row.eventId === event.id);
-      return {
-        id: event.id,
-        name: event.name,
-        confirmed: rows.filter((row) => row.status === "confirmed").length,
-        total: rows.length,
-      };
-    });
-
-  const mealCounts = guests.reduce<Record<string, number>>((acc, g) => {
-    acc[g.meal] = (acc[g.meal] ?? 0) + 1;
-    return acc;
-  }, {});
-  const dietaryNeedsCount = guests.filter(
-    (g) => g.dietaryFlags.length > 0 || g.allergies,
-  ).length;
 
   const seatedIds = new Set(tables.flatMap((table) => table.guestIds));
   const seatedCount = seatedIds.size;
@@ -71,24 +57,17 @@ export default async function DashboardHome() {
   );
   const toSeatCount = [...confirmedGuestIds].filter((id) => !seatedIds.has(id)).length;
 
-  const weddingDate = profile?.wedding_date
-    ? new Date(profile.wedding_date)
+  const weddingDate = wedding?.wedding_date
+    ? new Date(`${wedding.wedding_date}T00:00:00`)
     : // The mock's own ceremony date, so the hero countdown always has
       // something real to show rather than hiding the block.
-      new Date(events.find((e) => e.key === "wedding-day")?.date ?? "2026-06-20");
+      new Date(events.find((e) => e.key === "wedding-day")?.date ?? "2027-06-19");
 
   const guestsTiles: KpiTile[] = [
     { key: "total", label: t("kpi.guests.total"), value: totalGuests },
     { key: "confirmed", label: t("kpi.guests.confirmed"), value: confirmedGuests },
     { key: "pending", label: t("kpi.guests.pending"), value: pendingGuests },
     { key: "children", label: t("kpi.guests.children"), value: childrenGuests },
-  ];
-
-  const mealsTiles: KpiTile[] = [
-    { key: "standard", label: t("kpi.meals.standard"), value: mealCounts.standard ?? 0 },
-    { key: "vegetarian", label: t("kpi.meals.vegetarian"), value: mealCounts.vegetarian ?? 0 },
-    { key: "vegan", label: t("kpi.meals.vegan"), value: mealCounts.vegan ?? 0 },
-    { key: "dietary", label: t("kpi.meals.dietary"), value: dietaryNeedsCount },
   ];
 
   const jourJTiles: KpiTile[] = [
@@ -128,12 +107,11 @@ export default async function DashboardHome() {
           </div>
         </section>
 
-        {/* KPI groups — mirrors §2 of the client brief. */}
+        {/* Guests and day-of only: per-event attendance and meal breakdowns
+            belong on their own pages, not on an overview. */}
         <div className='grid grid-cols-1 gap-4 md:grid-cols-2'>
           <KpiGroupCard title={t("kpi.guests.title")} icon={Users} tiles={guestsTiles} />
-          <KpiGroupCard title={t("kpi.meals.title")} icon={UtensilsCrossed} tiles={mealsTiles} />
           <KpiGroupCard title={t("kpi.jour_j.title")} icon={PartyPopper} tiles={jourJTiles} />
-          <EventAttendanceList rows={eventRows} />
         </div>
 
         <HomeQuickActions noAnswerCount={pendingGuests} toSeatCount={toSeatCount} />

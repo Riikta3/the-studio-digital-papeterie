@@ -11,13 +11,6 @@
         "pending": "Ausstehend",
         "children": "Kinder"
       },
-      "meals": {
-        "title": "Menüs",
-        "standard": "Standard",
-        "vegetarian": "Vegetarisch",
-        "vegan": "Vegan",
-        "dietary": "Besondere Bedürfnisse"
-      },
       "jour_j": {
         "title": "Hochzeitstag",
         "seated": "Platziert",
@@ -46,7 +39,8 @@
       "live": "Online",
       "not_live": "Offline",
       "edit_cta": "Inhalt bearbeiten",
-      "public_hint": "Öffentlicher Link, der mit Ihren Gästen geteilt wird"
+      "public_hint": "Öffentlicher Link, der mit Ihren Gästen geteilt wird",
+      "view_cta": "Ansehen"
     }
   },
   "Guests": {
@@ -666,7 +660,9 @@
       "new_email": "Neue E-Mail",
       "update_email_btn": "E-Mail ändern",
       "toast_profile_success": "Profil aktualisiert",
-      "toast_tech_error": "Technischer Fehler"
+      "toast_tech_error": "Technischer Fehler",
+      "weddingdate": "Hochzeitsdatum",
+      "weddingdate_hint": "Sie steuert den Countdown auf Ihrer Startseite und den Ablauf der Einladung."
     },
     "security": {
       "password_title": "Passwort",

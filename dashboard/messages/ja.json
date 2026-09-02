@@ -11,13 +11,6 @@
         "pending": "未回答",
         "children": "子供"
       },
-      "meals": {
-        "title": "お食事",
-        "standard": "スタンダード",
-        "vegetarian": "ベジタリアン",
-        "vegan": "ヴィーガン",
-        "dietary": "特別な配慮が必要"
-      },
       "jour_j": {
         "title": "結婚式当日",
         "seated": "着席済み",
@@ -46,7 +39,8 @@
       "live": "公開中",
       "not_live": "非公開",
       "edit_cta": "内容を編集",
-      "public_hint": "ゲストと共有する公開リンク"
+      "public_hint": "ゲストと共有する公開リンク",
+      "view_cta": "表示"
     }
   },
   "Guests": {
@@ -666,7 +660,9 @@
       "new_email": "新しいメールアドレス",
       "update_email_btn": "メールアドレスを変更",
       "toast_profile_success": "プロフィールを更新しました",
-      "toast_tech_error": "技術的エラー"
+      "toast_tech_error": "技術的エラー",
+      "weddingdate": "結婚式の日付",
+      "weddingdate_hint": "ホーム画面のカウントダウンと招待状のプログラムに使われます。"
     },
     "security": {
       "password_title": "パスワード",
