@@ -37,7 +37,7 @@ export function GuestCard({
     <>
       {/* ... (existing dialogs) ... */}
 
-      <div className='group bg-card rounded-2xl border border-studio-lavande/40 shadow-sm hover:shadow-md transition-all duration-300 overflow-hidden flex flex-col'>
+      <div className='group bg-white rounded-2xl border border-studio-lavande/40 shadow-studio-card hover:shadow-md transition-all duration-300 overflow-hidden flex flex-col'>
         <div className='p-6 flex-1'>
           <div className='flex justify-between items-start mb-4'>
             {/* ... (existing header) ... */}
@@ -53,14 +53,14 @@ export function GuestCard({
                 <button
                   key={guest.id}
                   onClick={() => onEditGuest?.(guest)}
-                  className='flex items-center gap-1.5 bg-studio-lavande/10 hover:bg-primary/10 px-3 py-1.5 rounded-lg text-sm transition-all border border-transparent hover:border-primary/20'
+                  className='flex items-center gap-1.5 bg-studio-lavande/10 hover:bg-studio-violet/10 px-3 py-1.5 rounded-lg text-sm transition-all border border-transparent hover:border-studio-violet/20'
                 >
-                  <Users className='w-3 h-3 text-muted-foreground' />
+                  <Users className='w-3 h-3 text-studio-violet/60' />
                   <span className='text-studio-violet/70 font-medium'>
                     {guest.first_name}
                   </span>
                   {onEditGuest && (
-                    <div className='ml-1 w-1.5 h-1.5 rounded-full bg-primary/40' />
+                    <div className='ml-1 w-1.5 h-1.5 rounded-full bg-studio-violet/40' />
                   )}
                 </button>
               ))}

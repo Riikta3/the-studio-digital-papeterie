@@ -80,9 +80,9 @@ function PaymentForm({ moduleId, moduleName, onSuccess }: PaymentFormProps) {
 
   return (
     <form onSubmit={handleSubmit} className="space-y-6">
-      <div className="bg-secondary/40 rounded-xl p-4 flex items-center justify-between">
-        <span className="text-sm text-foreground font-medium">{moduleName}</span>
-        <span className="font-bold text-foreground">10 €</span>
+      <div className="bg-studio-lavande/20 rounded-xl p-4 flex items-center justify-between">
+        <span className="text-sm text-studio-violet font-medium">{moduleName}</span>
+        <span className="font-bold text-studio-violet">10 €</span>
       </div>
 
       <PaymentElement
@@ -112,7 +112,7 @@ function PaymentForm({ moduleId, moduleName, onSuccess }: PaymentFormProps) {
         )}
       </Button>
 
-      <p className="text-center text-xs text-muted-foreground">
+      <p className="text-center text-xs text-studio-violet/60">
         {t("secured_by_stripe")}
       </p>
     </form>
@@ -206,8 +206,8 @@ function SuccessState({
         <CheckCircle2 className="w-8 h-8 text-green-600" />
       </div>
       <div>
-        <p className="font-semibold text-foreground text-lg">{t("module_activated")}</p>
-        <p className="text-sm text-muted-foreground mt-1">
+        <p className="font-semibold text-studio-violet text-lg">{t("module_activated")}</p>
+        <p className="text-sm text-studio-violet/60 mt-1">
           {t("module_available", { moduleName })}
         </p>
       </div>
@@ -386,7 +386,7 @@ export function BuyModuleDialog({
     if (isLoadingIntent || !clientSecret) {
       return (
         <div className="flex items-center justify-center py-12">
-          <Loader2 className="w-6 h-6 animate-spin text-muted-foreground" />
+          <Loader2 className="w-6 h-6 animate-spin text-studio-violet/60" />
         </div>
       );
     }

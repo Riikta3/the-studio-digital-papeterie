@@ -55,19 +55,19 @@ export function LockedModulesList({ modules }: LockedModulesListProps) {
 
         return (
           <div key={mod.id}>
-            <div className="w-full flex items-center gap-4 p-4 bg-white rounded-xl border border-dashed border-border hover:border-primary/40 hover:shadow-sm hover:opacity-100 opacity-60 transition-all group">
-              <div className="w-10 h-10 bg-muted rounded-lg flex items-center justify-center text-muted-foreground shrink-0 group-hover:bg-secondary group-hover:text-primary transition-colors">
+            <div className="w-full flex items-center gap-4 p-4 bg-white rounded-xl border border-dashed border-studio-lavande/50 hover:border-studio-violet/40 hover:shadow-sm hover:opacity-100 opacity-60 transition-all group">
+              <div className="w-10 h-10 bg-studio-lavande/20 rounded-lg flex items-center justify-center text-studio-violet/60 shrink-0 group-hover:bg-studio-lavande/30 group-hover:text-studio-violet transition-colors">
                 {Icon && <Icon size={18} />}
               </div>
               <div className="flex-1 min-w-0">
-                <p className="font-medium text-sm text-foreground">{mod.name}</p>
-                <p className="text-xs text-muted-foreground truncate">{mod.description}</p>
+                <p className="font-medium text-sm text-studio-violet">{mod.name}</p>
+                <p className="text-xs text-studio-violet/60 truncate">{mod.description}</p>
               </div>
               <div className="flex items-center gap-2 shrink-0">
                 {hasPreview && (
                   <button
                     onClick={() => setPreviewModuleId(mod.id)}
-                    className="flex items-center gap-1 text-xs font-medium text-muted-foreground hover:text-primary opacity-0 group-hover:opacity-100 transition-all px-2 py-1 rounded-md hover:bg-secondary"
+                    className="flex items-center gap-1 text-xs font-medium text-studio-violet/60 hover:text-studio-violet opacity-0 group-hover:opacity-100 transition-all px-2 py-1 rounded-md hover:bg-studio-lavande/20"
                   >
                     <Eye size={13} />
                     {t("preview")}
@@ -75,12 +75,12 @@ export function LockedModulesList({ modules }: LockedModulesListProps) {
                 )}
                 <button
                   onClick={() => setOpenDialogId(mod.id)}
-                  className="flex items-center gap-1 text-xs font-semibold text-primary opacity-0 group-hover:opacity-100 transition-all px-2 py-1 rounded-md bg-primary/10 hover:bg-primary/20"
+                  className="flex items-center gap-1 text-xs font-semibold text-studio-violet opacity-0 group-hover:opacity-100 transition-all px-2 py-1 rounded-md bg-studio-violet/10 hover:bg-studio-violet/20"
                 >
                   <ShoppingCart size={13} />
                   {t("price")}
                 </button>
-                <Lock size={14} className="text-muted-foreground group-hover:hidden" />
+                <Lock size={14} className="text-studio-violet/60 group-hover:hidden" />
               </div>
             </div>
 

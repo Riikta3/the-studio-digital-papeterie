@@ -156,7 +156,7 @@ export function BillingHistory({ history }: BillingHistoryProps) {
         return (
           <Badge
             variant='outline'
-            className='text-muted-foreground'
+            className='text-studio-violet/60'
           >
             {t("status_refunded")}
           </Badge>
@@ -181,13 +181,13 @@ export function BillingHistory({ history }: BillingHistoryProps) {
   if (showEmptyState) {
     return (
       <div className='flex flex-col items-center justify-center py-16 px-4 bg-studio-lavande/5 rounded-2xl border border-dashed border-studio-lavande/40'>
-        <div className='w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center mb-4'>
-          <Download className='w-8 h-8 text-primary' />
+        <div className='w-16 h-16 rounded-full bg-studio-violet/10 flex items-center justify-center mb-4'>
+          <Download className='w-8 h-8 text-studio-violet' />
         </div>
         <h3 className='text-lg font-heading font-semibold text-studio-violet mb-2'>
           {t("no_invoices_title")}
         </h3>
-        <p className='text-muted-foreground text-center max-w-md'>
+        <p className='text-studio-violet/60 text-center max-w-md'>
           {t("no_invoices_desc")}
         </p>
       </div>
@@ -246,14 +246,14 @@ export function BillingHistory({ history }: BillingHistoryProps) {
               variant='ghost'
               size='sm'
               onClick={clearFilters}
-              className='h-10 px-2 lg:px-3 text-muted-foreground hover:text-foreground'
+              className='h-10 px-2 lg:px-3 text-studio-violet/60 hover:text-studio-violet'
             >
               <X className='mr-2 h-4 w-4' />
               {t("filter_clear")}
             </Button>
           )}
         </div>
-        <div className='text-sm text-muted-foreground'>
+        <div className='text-sm text-studio-violet/60'>
           {t("results_count", { count: filteredHistory.length })}
         </div>
       </div>
@@ -266,7 +266,7 @@ export function BillingHistory({ history }: BillingHistoryProps) {
         </div>
 
         {showNoResults ? (
-          <div className='p-12 text-center text-muted-foreground'>
+          <div className='p-12 text-center text-studio-violet/60'>
             <Filter className='w-12 h-12 mx-auto mb-4 opacity-20' />
             <p>{t("no_results_filters")}</p>
             <Button
@@ -345,13 +345,13 @@ export function BillingHistory({ history }: BillingHistoryProps) {
                         href={record.invoice_url}
                         target='_blank'
                         rel='noopener noreferrer'
-                        className='inline-flex items-center gap-1.5 text-sm font-medium text-primary hover:text-primary/80 transition-colors'
+                        className='inline-flex items-center gap-1.5 text-sm font-medium text-studio-violet hover:text-studio-violet/80 transition-colors'
                       >
                         <Download className='h-4 w-4' />
                         {t("download_invoice")}
                       </a>
                     ) : (
-                      <span className='text-muted-foreground text-sm italic'>
+                      <span className='text-studio-violet/60 text-sm italic'>
                         -
                       </span>
                     )}

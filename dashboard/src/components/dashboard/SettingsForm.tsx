@@ -62,20 +62,20 @@ export default function SettingsForm({
     <div className="space-y-5 max-w-md">
       {/* Current code display */}
       {currentCode ? (
-        <div className="flex items-center gap-3 px-4 py-3 bg-primary/5 border border-primary/20 rounded-xl">
-          <div className="w-8 h-8 rounded-lg bg-primary/10 flex items-center justify-center shrink-0">
-            <KeyRound size={15} className="text-primary" />
+        <div className="flex items-center gap-3 px-4 py-3 bg-studio-lavande/10 border border-studio-violet/20 rounded-xl">
+          <div className="w-8 h-8 rounded-lg bg-studio-violet/10 flex items-center justify-center shrink-0">
+            <KeyRound size={15} className="text-studio-violet" />
           </div>
           <div className="flex-1 min-w-0">
-            <p className="text-xs text-muted-foreground">{t("active_code")}</p>
-            <p className="font-bold tracking-widest text-foreground text-sm">
+            <p className="text-xs text-studio-violet/60">{t("active_code")}</p>
+            <p className="font-bold tracking-widest text-studio-violet text-sm">
               {currentCode}
             </p>
           </div>
           <button
             onClick={handleReset}
             disabled={resetting}
-            className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium border border-border text-muted-foreground hover:bg-red-50 hover:text-red-500 hover:border-red-200 transition-colors"
+            className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium border border-studio-lavande/40 text-studio-violet/60 hover:bg-red-50 hover:text-red-500 hover:border-red-200 transition-colors"
             title={t("remove_code")}
           >
             {resetting ? (
@@ -89,9 +89,9 @@ export default function SettingsForm({
       ) : (
         <div className="flex items-center gap-3 px-4 py-3 bg-studio-lavande/5 border border-dashed border-studio-lavande/40 rounded-xl">
           <div className="w-8 h-8 rounded-lg bg-studio-lavande/20 flex items-center justify-center shrink-0">
-            <KeyRound size={15} className="text-muted-foreground" />
+            <KeyRound size={15} className="text-studio-violet/60" />
           </div>
-          <p className="text-sm text-muted-foreground">{t("no_active_code")}</p>
+          <p className="text-sm text-studio-violet/60">{t("no_active_code")}</p>
         </div>
       )}
 
@@ -109,7 +109,7 @@ export default function SettingsForm({
             className="uppercase tracking-widest"
             maxLength={20}
           />
-          <p className="text-xs text-muted-foreground">
+          <p className="text-xs text-studio-violet/60">
             {t("guest_code_hint")}
           </p>
         </div>
@@ -117,7 +117,7 @@ export default function SettingsForm({
         <button
           type="submit"
           disabled={loading || !inputValue.trim()}
-          className="flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium bg-primary text-primary-foreground hover:bg-primary/90 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+          className="flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium bg-studio-violet text-white hover:bg-studio-violet/90 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
         >
           {loading && <Loader2 size={14} className="animate-spin" />}
           {currentCode ? t("change_code") : t("save")}
