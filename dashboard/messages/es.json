@@ -111,9 +111,6 @@
       "confirm": "Cerrar sesión"
     }
   },
-  "ComingSoon": {
-    "body": "Esta sección llegará pronto. Forma parte del recorrido previsto y se activará en una próxima actualización."
-  },
   "LanguageSwitcher": {
     "select_language": "Idioma"
   },

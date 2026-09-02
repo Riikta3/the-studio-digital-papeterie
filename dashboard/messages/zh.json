@@ -111,9 +111,6 @@
       "confirm": "退出登录"
     }
   },
-  "ComingSoon": {
-    "body": "此部分即将推出。它是既定规划的一部分，将在后续更新中启用。"
-  },
   "LanguageSwitcher": {
     "select_language": "语言"
   },

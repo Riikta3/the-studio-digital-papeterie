@@ -19,8 +19,6 @@ export type NavItemDef = {
   /** i18n key under `Sidebar.sections.<section>.items` */
   key: string;
   href: string;
-  /** Renders a "coming soon" placeholder instead of a real page. */
-  comingSoon?: boolean;
 };
 
 export type NavSectionDef = {
@@ -40,8 +38,8 @@ export const NAV_SECTIONS: NavSectionDef[] = [
     items: [
       { key: "all", href: "/guests" },
       { key: "rsvp", href: "/rsvp-responses" },
-      { key: "groups", href: "/guests/groupes", comingSoon: true },
-      { key: "meals", href: "/guests/repas", comingSoon: true },
+      { key: "groups", href: "/guests/groupes" },
+      { key: "meals", href: "/guests/repas" },
     ],
   },
   {
@@ -49,10 +47,10 @@ export const NAV_SECTIONS: NavSectionDef[] = [
     icon: CalendarHeart,
     items: [
       { key: "modules", href: "/modules" },
-      { key: "events", href: "/invitation/evenements", comingSoon: true },
-      { key: "schedule", href: "/invitation/programme", comingSoon: true },
-      { key: "venue", href: "/invitation/lieu", comingSoon: true },
-      { key: "faq", href: "/invitation/faq", comingSoon: true },
+      { key: "events", href: "/invitation/evenements" },
+      { key: "schedule", href: "/invitation/programme" },
+      { key: "venue", href: "/invitation/lieu" },
+      { key: "faq", href: "/invitation/faq" },
       { key: "playlist", href: "/playlist" },
     ],
   },

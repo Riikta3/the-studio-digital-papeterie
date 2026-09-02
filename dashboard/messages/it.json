@@ -111,9 +111,6 @@
       "confirm": "Disconnetti"
     }
   },
-  "ComingSoon": {
-    "body": "Questa sezione arriva presto. Fa parte del percorso previsto e sarà attivata in un prossimo aggiornamento."
-  },
   "LanguageSwitcher": {
     "select_language": "Lingua"
   },

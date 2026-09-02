@@ -111,9 +111,6 @@
       "confirm": "Sair"
     }
   },
-  "ComingSoon": {
-    "body": "Esta secção chega em breve. Faz parte do percurso previsto e será ativada numa próxima atualização."
-  },
   "LanguageSwitcher": {
     "select_language": "Idioma"
   },

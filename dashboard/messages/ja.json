@@ -111,9 +111,6 @@
       "confirm": "ログアウト"
     }
   },
-  "ComingSoon": {
-    "body": "この機能は近日公開予定です。予定されている機能の一部であり、今後のアップデートで有効になります。"
-  },
   "LanguageSwitcher": {
     "select_language": "言語"
   },

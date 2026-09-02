@@ -352,9 +352,6 @@
       "confirm": "Se déconnecter"
     }
   },
-  "ComingSoon": {
-    "body": "Cette section arrive bientôt. Elle fait partie du parcours prévu et sera activée dans une prochaine mise à jour."
-  },
   "LanguageSwitcher": {
     "select_language": "Langue"
   },

@@ -111,9 +111,6 @@
       "confirm": "Abmelden"
     }
   },
-  "ComingSoon": {
-    "body": "Dieser Bereich kommt bald. Er ist Teil der geplanten Reise und wird in einem kommenden Update aktiviert."
-  },
   "LanguageSwitcher": {
     "select_language": "Sprache"
   },

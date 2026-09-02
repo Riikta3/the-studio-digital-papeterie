@@ -255,9 +255,6 @@
       "confirm": "Log out"
     }
   },
-  "ComingSoon": {
-    "body": "This section is on its way. It's part of the planned journey and will be switched on in a coming update."
-  },
   "NotFound": {
     "title": "Page not found",
     "description": "Sorry, the page you are looking for does not exist.",
