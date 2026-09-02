@@ -1162,7 +1162,8 @@
       "delete": "{name} löschen"
     },
     "move_up": "Nach oben",
-    "move_down": "Nach unten"
+    "move_down": "Nach unten",
+    "save_failed": "Beim Speichern ist ein Fehler aufgetreten."
   },
   "InvitationFaq": {
     "title": "FAQ",
@@ -1188,7 +1189,8 @@
       "description": "Sie sind dabei, „{question}“ zu löschen. Dies kann nicht rückgängig gemacht werden.",
       "cancel": "Abbrechen",
       "confirm": "Löschen"
-    }
+    },
+    "save_failed": "Beim Speichern ist ein Fehler aufgetreten."
   },
   "Stats": {
     "title": "Statistiken",

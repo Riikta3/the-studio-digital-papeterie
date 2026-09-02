@@ -4,6 +4,13 @@ import type { FaqEntry } from "@shared/types/invitation";
 import { Plus } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { useState } from "react";
+import { toast } from "sonner";
+import {
+  createFaqEntry,
+  deleteFaqEntry,
+  reorderFaqEntries,
+  updateFaqEntry,
+} from "@/actions/faq-actions";
 import { DeleteFaqDialog } from "./DeleteFaqDialog";
 import { FaqRow } from "./FaqRow";
 
@@ -19,38 +26,63 @@ export function FaqPageClient({ initialFaq }: Props) {
   const sorted = [...faq].sort((a, b) => a.position - b.position);
   const pendingDelete = faq.find((entry) => entry.id === pendingDeleteId);
 
-  const updateEntry = (id: string, patch: Partial<FaqEntry>) =>
+  const updateEntry = async (id: string, patch: Partial<FaqEntry>) => {
+    const previous = faq; // capture BEFORE mutating, for rollback
     setFaq((prev) =>
       prev.map((entry) => (entry.id === id ? { ...entry, ...patch } : entry)),
     );
+    const res = await updateFaqEntry(id, patch);
+    if (!res.success) {
+      setFaq(previous);
+      toast.error(res.error || t("save_failed"));
+    }
+  };
 
-  const swapPositions = (id: string, direction: -1 | 1) =>
-    setFaq((prev) => {
-      const list = [...prev].sort((a, b) => a.position - b.position);
-      const index = list.findIndex((entry) => entry.id === id);
-      const targetIndex = index + direction;
-      if (targetIndex < 0 || targetIndex >= list.length) return prev;
+  const swapPositions = (id: string, direction: -1 | 1) => {
+    const previous = faq;
+    const list = [...previous].sort((a, b) => a.position - b.position);
+    const index = list.findIndex((entry) => entry.id === id);
+    const targetIndex = index + direction;
+    if (targetIndex < 0 || targetIndex >= list.length) return;
 
-      const positions = list.map((entry) => entry.position);
-      list[index] = { ...list[index], position: positions[targetIndex] };
-      list[targetIndex] = { ...list[targetIndex], position: positions[index] };
-      return list;
+    const positions = list.map((entry) => entry.position);
+    list[index] = { ...list[index], position: positions[targetIndex] };
+    list[targetIndex] = { ...list[targetIndex], position: positions[index] };
+    setFaq(list);
+
+    void reorderFaqEntries(list.map((entry) => entry.id)).then((res) => {
+      if (!res.success) {
+        setFaq(previous);
+        toast.error(res.error || t("save_failed"));
+      }
     });
+  };
 
-  const deleteEntry = (id: string) =>
+  const deleteEntry = async (id: string) => {
+    const previous = faq;
     setFaq((prev) => prev.filter((entry) => entry.id !== id));
+    const res = await deleteFaqEntry(id);
+    if (!res.success) {
+      setFaq(previous);
+      toast.error(res.error || t("save_failed"));
+    }
+  };
 
-  const addEntry = () =>
-    setFaq((prev) => [
-      ...prev,
-      {
-        id: `fq-${crypto.randomUUID()}`,
-        question: "",
-        answer: "",
-        position: prev.length,
-        published: false,
-      },
-    ]);
+  const addEntry = async () => {
+    const res = await createFaqEntry({
+      question: "",
+      answer: "",
+      position: faq.length,
+      published: false,
+    });
+    if (!res.success) {
+      toast.error(res.error || t("save_failed"));
+      return;
+    }
+    // Adopt the database's id — a client-generated one is not a valid uuid,
+    // and every later update would target a row that does not exist.
+    setFaq((prev) => [...prev, res.entry]);
+  };
 
   return (
     <div className='min-h-screen bg-studio-creme p-4 md:p-8 lg:p-12'>
@@ -59,7 +91,7 @@ export function FaqPageClient({ initialFaq }: Props) {
           <h1 className='font-heading text-h3 text-studio-violet'>{t("title")}</h1>
           <button
             type='button'
-            onClick={addEntry}
+            onClick={() => void addEntry()}
             className='flex min-h-11 items-center gap-1.5 rounded-full bg-studio-violet px-4 text-sm font-medium text-white'
           >
             <Plus className='h-4 w-4' />
@@ -80,7 +112,7 @@ export function FaqPageClient({ initialFaq }: Props) {
                 entry={entry}
                 isFirst={index === 0}
                 isLast={index === sorted.length - 1}
-                onChange={(patch) => updateEntry(entry.id, patch)}
+                onChange={(patch) => void updateEntry(entry.id, patch)}
                 onMoveUp={() => swapPositions(entry.id, -1)}
                 onMoveDown={() => swapPositions(entry.id, 1)}
                 onDelete={() => setPendingDeleteId(entry.id)}
@@ -95,7 +127,7 @@ export function FaqPageClient({ initialFaq }: Props) {
         question={pendingDelete?.question ?? ""}
         onOpenChange={(open) => !open && setPendingDeleteId(null)}
         onConfirm={() => {
-          if (pendingDeleteId) deleteEntry(pendingDeleteId);
+          if (pendingDeleteId) void deleteEntry(pendingDeleteId);
         }}
       />
     </div>

@@ -1162,7 +1162,8 @@
       "delete": "{name}を削除"
     },
     "move_up": "上へ移動",
-    "move_down": "下へ移動"
+    "move_down": "下へ移動",
+    "save_failed": "保存中にエラーが発生しました。"
   },
   "InvitationFaq": {
     "title": "よくある質問",
@@ -1188,7 +1189,8 @@
       "description": "「{question}」を削除しようとしています。この操作は取り消せません。",
       "cancel": "キャンセル",
       "confirm": "削除"
-    }
+    },
+    "save_failed": "保存中にエラーが発生しました。"
   },
   "Stats": {
     "title": "統計",

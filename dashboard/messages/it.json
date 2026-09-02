@@ -1162,7 +1162,8 @@
       "delete": "Elimina {name}"
     },
     "move_up": "Sposta su",
-    "move_down": "Sposta giù"
+    "move_down": "Sposta giù",
+    "save_failed": "Si è verificato un errore durante il salvataggio."
   },
   "InvitationFaq": {
     "title": "FAQ",
@@ -1188,7 +1189,8 @@
       "description": "Stai per eliminare «{question}». Questa azione non può essere annullata.",
       "cancel": "Annulla",
       "confirm": "Elimina"
-    }
+    },
+    "save_failed": "Si è verificato un errore durante il salvataggio."
   },
   "Stats": {
     "title": "Statistiche",

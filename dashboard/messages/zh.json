@@ -1162,7 +1162,8 @@
       "delete": "删除{name}"
     },
     "move_up": "上移",
-    "move_down": "下移"
+    "move_down": "下移",
+    "save_failed": "保存时出错。"
   },
   "InvitationFaq": {
     "title": "常见问题",
@@ -1188,7 +1189,8 @@
       "description": "您即将删除「{question}」。此操作无法撤销。",
       "cancel": "取消",
       "confirm": "删除"
-    }
+    },
+    "save_failed": "保存时出错。"
   },
   "Stats": {
     "title": "统计数据",

@@ -1162,7 +1162,8 @@
       "delete": "Eliminar {name}"
     },
     "move_up": "Subir",
-    "move_down": "Descer"
+    "move_down": "Descer",
+    "save_failed": "Ocorreu um erro ao guardar."
   },
   "InvitationFaq": {
     "title": "Perguntas frequentes",
@@ -1188,7 +1189,8 @@
       "description": "Está prestes a eliminar «{question}». Esta ação não pode ser desfeita.",
       "cancel": "Cancelar",
       "confirm": "Eliminar"
-    }
+    },
+    "save_failed": "Ocorreu um erro ao guardar."
   },
   "Stats": {
     "title": "Estatísticas",

@@ -1162,7 +1162,8 @@
       "delete": "Delete {name}"
     },
     "move_up": "Move up",
-    "move_down": "Move down"
+    "move_down": "Move down",
+    "save_failed": "Something went wrong while saving."
   },
   "InvitationFaq": {
     "title": "FAQ",
@@ -1188,7 +1189,8 @@
       "description": "You are about to delete \"{question}\". This cannot be undone.",
       "cancel": "Cancel",
       "confirm": "Delete"
-    }
+    },
+    "save_failed": "Something went wrong while saving."
   },
   "Stats": {
     "title": "Statistics",

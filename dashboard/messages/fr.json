@@ -1162,7 +1162,8 @@
       "delete": "Supprimer {name}"
     },
     "move_up": "Monter",
-    "move_down": "Descendre"
+    "move_down": "Descendre",
+    "save_failed": "Erreur lors de l'enregistrement."
   },
   "InvitationFaq": {
     "title": "FAQ",
@@ -1188,7 +1189,8 @@
       "description": "Vous êtes sur le point de supprimer « {question} ». Cette action est irréversible.",
       "cancel": "Annuler",
       "confirm": "Supprimer"
-    }
+    },
+    "save_failed": "Erreur lors de l'enregistrement."
   },
   "Stats": {
     "title": "Statistiques",
