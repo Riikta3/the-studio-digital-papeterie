@@ -1083,13 +1083,14 @@
     "delete": "删除活动",
     "delete_dialog": {
       "title": "删除“{name}”？",
-      "description": "与此活动关联的 RSVP 回复和日程安排将变为孤立数据。此操作无法撤销。",
+      "description": "与此活动关联的日程安排和宾客出席状态将被删除。此操作无法撤销。",
       "cancel": "取消",
       "confirm": "删除"
     },
     "add_event": "添加活动",
     "new_event_name": "新活动",
-    "reorder": "重新排序"
+    "reorder": "重新排序",
+    "save_failed": "保存时出错。"
   },
   "InvitationSchedule": {
     "title": "日程安排",
@@ -1110,7 +1111,8 @@
     "move_down": "下移",
     "delete_entry": "删除“{title}”",
     "deleted_toast": "已删除“{title}”",
-    "untitled": "无标题"
+    "untitled": "无标题",
+    "save_failed": "保存时出错。"
   },
   "InvitationVenue": {
     "title": "场地与实用信息",

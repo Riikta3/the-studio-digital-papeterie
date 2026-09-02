@@ -1083,13 +1083,14 @@
     "delete": "イベントを削除",
     "delete_dialog": {
       "title": "「{name}」を削除しますか？",
-      "description": "このイベントに紐づく RSVP の回答とプログラムの項目は孤立します。この操作は元に戻せません。",
+      "description": "このイベントに紐づくプログラムの項目とゲストの出欠ステータスは削除されます。この操作は元に戻せません。",
       "cancel": "キャンセル",
       "confirm": "削除"
     },
     "add_event": "イベントを追加",
     "new_event_name": "新しいイベント",
-    "reorder": "並び替え"
+    "reorder": "並び替え",
+    "save_failed": "保存中にエラーが発生しました。"
   },
   "InvitationSchedule": {
     "title": "プログラム",
@@ -1110,7 +1111,8 @@
     "move_down": "下に移動",
     "delete_entry": "「{title}」を削除",
     "deleted_toast": "「{title}」を削除しました",
-    "untitled": "無題"
+    "untitled": "無題",
+    "save_failed": "保存中にエラーが発生しました。"
   },
   "InvitationVenue": {
     "title": "会場・実用情報",

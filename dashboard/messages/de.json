@@ -1083,13 +1083,14 @@
     "delete": "Veranstaltung löschen",
     "delete_dialog": {
       "title": "„{name}“ löschen?",
-      "description": "RSVP-Antworten und Programmpunkte, die mit dieser Veranstaltung verknüpft sind, werden verwaist. Dies kann nicht rückgängig gemacht werden.",
+      "description": "Programmpunkte und Teilnahmestatus der Gäste, die mit dieser Veranstaltung verknüpft sind, werden gelöscht. Dies kann nicht rückgängig gemacht werden.",
       "cancel": "Abbrechen",
       "confirm": "Löschen"
     },
     "add_event": "Veranstaltung hinzufügen",
     "new_event_name": "Neue Veranstaltung",
-    "reorder": "Neu anordnen"
+    "reorder": "Neu anordnen",
+    "save_failed": "Beim Speichern ist ein Fehler aufgetreten."
   },
   "InvitationSchedule": {
     "title": "Ablauf",
@@ -1110,7 +1111,8 @@
     "move_down": "Nach unten",
     "delete_entry": "„{title}“ löschen",
     "deleted_toast": "„{title}“ gelöscht",
-    "untitled": "Ohne Titel"
+    "untitled": "Ohne Titel",
+    "save_failed": "Beim Speichern ist ein Fehler aufgetreten."
   },
   "InvitationVenue": {
     "title": "Ort & praktische Infos",

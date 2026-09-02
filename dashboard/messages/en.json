@@ -1083,13 +1083,14 @@
     "delete": "Delete event",
     "delete_dialog": {
       "title": "Delete “{name}”?",
-      "description": "RSVP answers and programme entries linked to this event will be orphaned. This cannot be undone.",
+      "description": "Programme entries and guest attendance statuses linked to this event will be deleted. This cannot be undone.",
       "cancel": "Cancel",
       "confirm": "Delete"
     },
     "add_event": "Add an event",
     "new_event_name": "New event",
-    "reorder": "Reorder"
+    "reorder": "Reorder",
+    "save_failed": "Something went wrong while saving."
   },
   "InvitationSchedule": {
     "title": "Programme",
@@ -1110,7 +1111,8 @@
     "move_down": "Move down",
     "delete_entry": "Delete “{title}”",
     "deleted_toast": "“{title}” deleted",
-    "untitled": "Untitled"
+    "untitled": "Untitled",
+    "save_failed": "Something went wrong while saving."
   },
   "InvitationVenue": {
     "title": "Venue & practical info",

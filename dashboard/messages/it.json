@@ -1083,13 +1083,14 @@
     "delete": "Elimina evento",
     "delete_dialog": {
       "title": "Eliminare “{name}”?",
-      "description": "Le risposte RSVP e le voci del programma collegate a questo evento resteranno orfane. Questa azione è irreversibile.",
+      "description": "Le voci del programma e gli stati di partecipazione degli invitati collegati a questo evento verranno eliminati. Questa azione è irreversibile.",
       "cancel": "Annulla",
       "confirm": "Elimina"
     },
     "add_event": "Aggiungi un evento",
     "new_event_name": "Nuovo evento",
-    "reorder": "Riordina"
+    "reorder": "Riordina",
+    "save_failed": "Si è verificato un errore durante il salvataggio."
   },
   "InvitationSchedule": {
     "title": "Programma",
@@ -1110,7 +1111,8 @@
     "move_down": "Sposta giù",
     "delete_entry": "Elimina “{title}”",
     "deleted_toast": "“{title}” eliminato",
-    "untitled": "Senza titolo"
+    "untitled": "Senza titolo",
+    "save_failed": "Si è verificato un errore durante il salvataggio."
   },
   "InvitationVenue": {
     "title": "Luogo e informazioni pratiche",
