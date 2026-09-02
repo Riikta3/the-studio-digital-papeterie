@@ -333,7 +333,9 @@ function DietaryFlagPicker({
             type='button'
             onClick={() => onToggle(flag)}
             className={cn(
-              "min-h-8 rounded-full px-2.5 text-xs transition-colors",
+              // These are toggles, not labels — they carry the 44px floor
+              // like every other tap target, even at six per guest row.
+              "min-h-11 rounded-full px-3 text-xs transition-colors",
               active
                 ? "bg-studio-violet text-white"
                 : "bg-studio-creme text-studio-violet/70",
