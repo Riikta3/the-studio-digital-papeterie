@@ -1042,5 +1042,55 @@
       "cancel": "Abbrechen",
       "confirm": "Löschen"
     }
+  },
+  "GuestGroups": {
+    "title": "Gästegruppen",
+    "count": "{count} Gäste insgesamt",
+    "search_placeholder": "Gast oder Haushalt suchen...",
+    "no_results": "Kein Gast entspricht dieser Suche.",
+    "child_badge": "Kind",
+    "groups": {
+      "all": "Alle",
+      "family": "Familie",
+      "friends": "Freunde",
+      "colleagues": "Kollegen",
+      "other": "Sonstige"
+    },
+    "table": {
+      "guest": "Gast",
+      "household": "Haushalt",
+      "group": "Gruppe"
+    }
+  },
+  "GuestMeals": {
+    "title": "Menüs & Ernährungsbedürfnisse",
+    "count": "{count} Gäste insgesamt",
+    "search_placeholder": "Gast, Haushalt, Allergie suchen...",
+    "no_results": "Kein Gast entspricht dieser Suche.",
+    "confirmed_only_notice": "Diese Summen zählen nur die {count} bestätigten Gäste — ein absagender Gast isst nicht mit.",
+    "dietary_totals_title": "Ernährungshinweise (bestätigte Gäste)",
+    "allergy_notice": "{count} bestätigte(r) Gast/Gäste haben eine Allergie angegeben — prüfen Sie die Spalte Allergien, bevor Sie die Liste an den Caterer senden.",
+    "allergies_placeholder": "Z. B. Nüsse",
+    "meals": {
+      "all": "Alle",
+      "standard": "Standard",
+      "vegetarian": "Vegetarisch",
+      "vegan": "Vegan",
+      "child": "Kind"
+    },
+    "dietary": {
+      "gluten-free": "Glutenfrei",
+      "lactose-free": "Laktosefrei",
+      "no-pork": "Ohne Schweinefleisch",
+      "no-alcohol": "Ohne Alkohol",
+      "halal": "Halal",
+      "kosher": "Koscher"
+    },
+    "table": {
+      "guest": "Gast",
+      "meal": "Menü",
+      "dietary": "Ernährungshinweise",
+      "allergies": "Allergien"
+    }
   }
 }

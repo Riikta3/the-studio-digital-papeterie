@@ -1042,5 +1042,55 @@
       "cancel": "Annuler",
       "confirm": "Supprimer"
     }
+  },
+  "GuestGroups": {
+    "title": "Groupes d'invités",
+    "count": "{count} invité(s) au total",
+    "search_placeholder": "Rechercher un invité ou un foyer...",
+    "no_results": "Aucun invité ne correspond à cette recherche.",
+    "child_badge": "Enfant",
+    "groups": {
+      "all": "Tous",
+      "family": "Famille",
+      "friends": "Amis",
+      "colleagues": "Collègues",
+      "other": "Autres"
+    },
+    "table": {
+      "guest": "Invité",
+      "household": "Foyer",
+      "group": "Groupe"
+    }
+  },
+  "GuestMeals": {
+    "title": "Repas & régimes",
+    "count": "{count} invité(s) au total",
+    "search_placeholder": "Rechercher un invité, un foyer, une allergie...",
+    "no_results": "Aucun invité ne correspond à cette recherche.",
+    "confirmed_only_notice": "Ces totaux ne comptent que les {count} invités confirmés — un invité décliné ne mange pas.",
+    "dietary_totals_title": "Régimes particuliers (invités confirmés)",
+    "allergy_notice": "{count} invité(s) confirmé(s) ont signalé une allergie — vérifiez la colonne Allergies avant de transmettre au traiteur.",
+    "allergies_placeholder": "Ex : fruits à coque",
+    "meals": {
+      "all": "Tous",
+      "standard": "Standard",
+      "vegetarian": "Végétarien",
+      "vegan": "Vegan",
+      "child": "Enfant"
+    },
+    "dietary": {
+      "gluten-free": "Sans gluten",
+      "lactose-free": "Sans lactose",
+      "no-pork": "Sans porc",
+      "no-alcohol": "Sans alcool",
+      "halal": "Halal",
+      "kosher": "Casher"
+    },
+    "table": {
+      "guest": "Invité",
+      "meal": "Repas",
+      "dietary": "Régimes",
+      "allergies": "Allergies"
+    }
   }
 }

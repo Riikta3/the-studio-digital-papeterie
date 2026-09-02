@@ -1042,5 +1042,55 @@
       "cancel": "Annulla",
       "confirm": "Elimina"
     }
+  },
+  "GuestGroups": {
+    "title": "Gruppi di invitati",
+    "count": "{count} invitato/i in totale",
+    "search_placeholder": "Cerca un invitato o un nucleo familiare...",
+    "no_results": "Nessun invitato corrisponde a questa ricerca.",
+    "child_badge": "Bambino/a",
+    "groups": {
+      "all": "Tutti",
+      "family": "Famiglia",
+      "friends": "Amici",
+      "colleagues": "Colleghi",
+      "other": "Altri"
+    },
+    "table": {
+      "guest": "Invitato",
+      "household": "Nucleo familiare",
+      "group": "Gruppo"
+    }
+  },
+  "GuestMeals": {
+    "title": "Pasti e esigenze alimentari",
+    "count": "{count} invitato/i in totale",
+    "search_placeholder": "Cerca invitato, nucleo familiare, allergia...",
+    "no_results": "Nessun invitato corrisponde a questa ricerca.",
+    "confirmed_only_notice": "Questi totali contano solo i {count} invitati confermati — un invitato che ha rifiutato non mangia.",
+    "dietary_totals_title": "Esigenze alimentari (invitati confermati)",
+    "allergy_notice": "{count} invitato/i confermato/i ha/hanno segnalato un'allergia — controlla la colonna Allergie prima di inviarla al catering.",
+    "allergies_placeholder": "Es.: frutta a guscio",
+    "meals": {
+      "all": "Tutti",
+      "standard": "Standard",
+      "vegetarian": "Vegetariano",
+      "vegan": "Vegano",
+      "child": "Bambino"
+    },
+    "dietary": {
+      "gluten-free": "Senza glutine",
+      "lactose-free": "Senza lattosio",
+      "no-pork": "Senza maiale",
+      "no-alcohol": "Senza alcol",
+      "halal": "Halal",
+      "kosher": "Kosher"
+    },
+    "table": {
+      "guest": "Invitato",
+      "meal": "Pasto",
+      "dietary": "Esigenze",
+      "allergies": "Allergie"
+    }
   }
 }

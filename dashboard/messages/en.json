@@ -1042,5 +1042,55 @@
       "cancel": "Cancel",
       "confirm": "Delete"
     }
+  },
+  "GuestGroups": {
+    "title": "Guest groups",
+    "count": "{count} guest(s) in total",
+    "search_placeholder": "Search a guest or a household...",
+    "no_results": "No guest matches this search.",
+    "child_badge": "Child",
+    "groups": {
+      "all": "All",
+      "family": "Family",
+      "friends": "Friends",
+      "colleagues": "Colleagues",
+      "other": "Other"
+    },
+    "table": {
+      "guest": "Guest",
+      "household": "Household",
+      "group": "Group"
+    }
+  },
+  "GuestMeals": {
+    "title": "Meals & dietary needs",
+    "count": "{count} guest(s) in total",
+    "search_placeholder": "Search a guest, household, allergy...",
+    "no_results": "No guest matches this search.",
+    "confirmed_only_notice": "These totals count only the {count} confirmed guests — a declined guest does not eat.",
+    "dietary_totals_title": "Dietary flags (confirmed guests)",
+    "allergy_notice": "{count} confirmed guest(s) reported an allergy — check the Allergies column before sending the list to the caterer.",
+    "allergies_placeholder": "E.g. tree nuts",
+    "meals": {
+      "all": "All",
+      "standard": "Standard",
+      "vegetarian": "Vegetarian",
+      "vegan": "Vegan",
+      "child": "Child"
+    },
+    "dietary": {
+      "gluten-free": "Gluten-free",
+      "lactose-free": "Lactose-free",
+      "no-pork": "No pork",
+      "no-alcohol": "No alcohol",
+      "halal": "Halal",
+      "kosher": "Kosher"
+    },
+    "table": {
+      "guest": "Guest",
+      "meal": "Meal",
+      "dietary": "Dietary flags",
+      "allergies": "Allergies"
+    }
   }
 }

@@ -1,5 +1,11 @@
-import { ComingSoon } from "@/components/navigation/ComingSoon";
+import { GuestGroupsBoard } from "@/components/guests/GuestGroupsBoard";
+import { INVITATION_MOCK } from "@shared/data/invitation-mock";
 
-export default function Page() {
-  return <ComingSoon titleKey='guests.items.groups' />;
+export default function GuestGroupsPage() {
+  return (
+    <GuestGroupsBoard
+      initialGuests={INVITATION_MOCK.guests}
+      households={INVITATION_MOCK.households}
+    />
+  );
 }

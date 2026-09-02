@@ -1042,5 +1042,55 @@
       "cancel": "إلغاء",
       "confirm": "حذف"
     }
+  },
+  "GuestGroups": {
+    "title": "مجموعات الضيوف",
+    "count": "{count} ضيف إجمالاً",
+    "search_placeholder": "ابحث عن ضيف أو أسرة...",
+    "no_results": "لا يوجد ضيف يطابق هذا البحث.",
+    "child_badge": "طفل",
+    "groups": {
+      "all": "الكل",
+      "family": "العائلة",
+      "friends": "الأصدقاء",
+      "colleagues": "الزملاء",
+      "other": "أخرى"
+    },
+    "table": {
+      "guest": "الضيف",
+      "household": "الأسرة",
+      "group": "المجموعة"
+    }
+  },
+  "GuestMeals": {
+    "title": "الوجبات والاحتياجات الغذائية",
+    "count": "{count} ضيف إجمالاً",
+    "search_placeholder": "ابحث عن ضيف أو أسرة أو حساسية...",
+    "no_results": "لا يوجد ضيف يطابق هذا البحث.",
+    "confirmed_only_notice": "تحتسب هذه الإجماليات فقط الضيوف المؤكدين البالغ عددهم {count} — الضيف الذي اعتذر لا يتناول الطعام.",
+    "dietary_totals_title": "الاحتياجات الغذائية (الضيوف المؤكدون)",
+    "allergy_notice": "أبلغ {count} من الضيوف المؤكدين عن حساسية — تحقق من عمود الحساسية قبل إرسال القائمة إلى مقدم خدمة الطعام.",
+    "allergies_placeholder": "مثال: المكسرات",
+    "meals": {
+      "all": "الكل",
+      "standard": "عادي",
+      "vegetarian": "نباتي",
+      "vegan": "نباتي صرف",
+      "child": "أطفال"
+    },
+    "dietary": {
+      "gluten-free": "خالٍ من الغلوتين",
+      "lactose-free": "خالٍ من اللاكتوز",
+      "no-pork": "بدون لحم خنزير",
+      "no-alcohol": "بدون كحول",
+      "halal": "حلال",
+      "kosher": "كوشر"
+    },
+    "table": {
+      "guest": "الضيف",
+      "meal": "الوجبة",
+      "dietary": "الاحتياجات الغذائية",
+      "allergies": "الحساسية"
+    }
   }
 }

@@ -1042,5 +1042,55 @@
       "cancel": "キャンセル",
       "confirm": "削除"
     }
+  },
+  "GuestGroups": {
+    "title": "ゲストグループ",
+    "count": "合計 {count} 名のゲスト",
+    "search_placeholder": "ゲストまたは世帯を検索...",
+    "no_results": "該当するゲストがいません。",
+    "child_badge": "子ども",
+    "groups": {
+      "all": "すべて",
+      "family": "家族",
+      "friends": "友人",
+      "colleagues": "同僚",
+      "other": "その他"
+    },
+    "table": {
+      "guest": "ゲスト",
+      "household": "世帯",
+      "group": "グループ"
+    }
+  },
+  "GuestMeals": {
+    "title": "食事とアレルギー対応",
+    "count": "合計 {count} 名のゲスト",
+    "search_placeholder": "ゲスト、世帯、アレルギーを検索...",
+    "no_results": "該当するゲストがいません。",
+    "confirmed_only_notice": "この集計は出席確定済みの {count} 名のみを対象としています — 欠席のゲストは食事をしません。",
+    "dietary_totals_title": "食事制限の集計（出席確定ゲスト）",
+    "allergy_notice": "出席確定済みのゲストのうち {count} 名がアレルギーを報告しています — ケータリング業者へ共有する前に「アレルギー」列を確認してください。",
+    "allergies_placeholder": "例：ナッツ類",
+    "meals": {
+      "all": "すべて",
+      "standard": "スタンダード",
+      "vegetarian": "ベジタリアン",
+      "vegan": "ヴィーガン",
+      "child": "キッズ"
+    },
+    "dietary": {
+      "gluten-free": "グルテンフリー",
+      "lactose-free": "乳糖不使用",
+      "no-pork": "豚肉不使用",
+      "no-alcohol": "アルコール不使用",
+      "halal": "ハラール",
+      "kosher": "コーシャ"
+    },
+    "table": {
+      "guest": "ゲスト",
+      "meal": "食事",
+      "dietary": "食事制限",
+      "allergies": "アレルギー"
+    }
   }
 }

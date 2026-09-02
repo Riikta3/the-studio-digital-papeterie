@@ -1042,5 +1042,55 @@
       "cancel": "取消",
       "confirm": "删除"
     }
+  },
+  "GuestGroups": {
+    "title": "宾客分组",
+    "count": "共 {count} 位宾客",
+    "search_placeholder": "搜索宾客或家庭...",
+    "no_results": "没有符合条件的宾客。",
+    "child_badge": "儿童",
+    "groups": {
+      "all": "全部",
+      "family": "家人",
+      "friends": "朋友",
+      "colleagues": "同事",
+      "other": "其他"
+    },
+    "table": {
+      "guest": "宾客",
+      "household": "家庭",
+      "group": "分组"
+    }
+  },
+  "GuestMeals": {
+    "title": "餐食与饮食需求",
+    "count": "共 {count} 位宾客",
+    "search_placeholder": "搜索宾客、家庭、过敏源...",
+    "no_results": "没有符合条件的宾客。",
+    "confirmed_only_notice": "此统计仅计算 {count} 位已确认出席的宾客——婉拒出席的宾客不会用餐。",
+    "dietary_totals_title": "饮食限制统计（已确认宾客）",
+    "allergy_notice": "{count} 位已确认宾客报告了过敏源——发送给餐饮服务商前，请检查“过敏源”一列。",
+    "allergies_placeholder": "例如：坚果",
+    "meals": {
+      "all": "全部",
+      "standard": "标准餐",
+      "vegetarian": "素食",
+      "vegan": "纯素食",
+      "child": "儿童餐"
+    },
+    "dietary": {
+      "gluten-free": "无麸质",
+      "lactose-free": "无乳糖",
+      "no-pork": "不含猪肉",
+      "no-alcohol": "不含酒精",
+      "halal": "清真",
+      "kosher": "犹太洁食"
+    },
+    "table": {
+      "guest": "宾客",
+      "meal": "餐食",
+      "dietary": "饮食限制",
+      "allergies": "过敏源"
+    }
   }
 }
