@@ -1,6 +1,7 @@
+import { getDayOfSettings } from "@/actions/day-of-settings-actions";
 import { DayOfSettingsForm } from "@/components/jour-j/settings/DayOfSettingsForm";
-import { JOUR_J_MOCK } from "@shared/data/jour-j-mock";
 
-export default function DayOfSettingsPage() {
-  return <DayOfSettingsForm initialSettings={JOUR_J_MOCK.settings} />;
+export default async function DayOfSettingsPage() {
+  const settings = await getDayOfSettings();
+  return <DayOfSettingsForm initialSettings={settings} />;
 }

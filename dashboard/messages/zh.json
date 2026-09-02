@@ -954,7 +954,10 @@
     "move_to": "移动到…",
     "remove": "移除",
     "done": "完成",
-    "no_tables": "暂无餐桌"
+    "no_tables": "暂无餐桌",
+    "assign_failed": "无法安排该宾客，请重试。",
+    "unassign_failed": "无法移除该宾客。",
+    "move_failed": "无法移动该餐桌。"
   },
   "QrCode": {
     "title": "婚礼当天二维码",
@@ -963,7 +966,8 @@
     "copied": "链接已复制",
     "copy_failed": "无法复制链接，请手动复制。",
     "download_png": "下载 PNG",
-    "download_svg": "下载 SVG"
+    "download_svg": "下载 SVG",
+    "no_slug": "您的网站尚未拥有公开地址。请先发布网站以生成二维码。"
   },
   "DayOfMenu": {
     "title": "婚礼当日菜单",
@@ -979,7 +983,10 @@
       "cheese": "奶酪",
       "dessert": "甜点",
       "drinks": "饮品"
-    }
+    },
+    "toggle_failed": "无法更新该分类。",
+    "add_failed": "无法添加该菜肴。",
+    "remove_failed": "无法删除该菜肴。"
   },
   "DayOfSettings": {
     "title": "婚礼当日设置",
@@ -990,7 +997,8 @@
     "after_wedding_label": "婚礼后模式",
     "after_wedding_hint": "页面将切换为感谢页面，并继续开放上传。",
     "uploads_until_label": "照片上传截止日期",
-    "uploads_until_hint": "超过此日期后，宾客将无法再添加照片。"
+    "uploads_until_hint": "超过此日期后，宾客将无法再添加照片。",
+    "save_failed": "无法保存设置。"
   },
   "DayOfPhotos": {
     "title": "照片和视频",

@@ -954,7 +954,10 @@
     "move_to": "Mover a…",
     "remove": "Quitar",
     "done": "Listo",
-    "no_tables": "Todavía no hay mesas"
+    "no_tables": "Todavía no hay mesas",
+    "assign_failed": "No se pudo ubicar al invitado. Inténtalo de nuevo.",
+    "unassign_failed": "No se pudo quitar al invitado.",
+    "move_failed": "No se pudo mover la mesa."
   },
   "QrCode": {
     "title": "Código QR del gran día",
@@ -963,7 +966,8 @@
     "copied": "Enlace copiado",
     "copy_failed": "No se pudo copiar el enlace. Cópialo manualmente.",
     "download_png": "Descargar en PNG",
-    "download_svg": "Descargar en SVG"
+    "download_svg": "Descargar en SVG",
+    "no_slug": "Tu sitio aún no tiene una dirección pública. Publica tu sitio para generar el código QR."
   },
   "DayOfMenu": {
     "title": "Menú del gran día",
@@ -979,7 +983,10 @@
       "cheese": "Quesos",
       "dessert": "Postre",
       "drinks": "Bebidas"
-    }
+    },
+    "toggle_failed": "No se pudo actualizar la categoría.",
+    "add_failed": "No se pudo añadir el plato.",
+    "remove_failed": "No se pudo eliminar el plato."
   },
   "DayOfSettings": {
     "title": "Ajustes del gran día",
@@ -990,7 +997,8 @@
     "after_wedding_label": "Modo después de la boda",
     "after_wedding_hint": "La página pasa a una vista de agradecimiento y sigue abierta para subir fotos.",
     "uploads_until_label": "Envíos abiertos hasta",
-    "uploads_until_hint": "Pasada esta fecha, los invitados ya no podrán añadir fotos."
+    "uploads_until_hint": "Pasada esta fecha, los invitados ya no podrán añadir fotos.",
+    "save_failed": "No se pudieron guardar los ajustes."
   },
   "DayOfPhotos": {
     "title": "Fotos y vídeos",

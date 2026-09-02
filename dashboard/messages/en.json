@@ -954,7 +954,10 @@
     "move_to": "Move to…",
     "remove": "Remove",
     "done": "Done",
-    "no_tables": "No tables yet"
+    "no_tables": "No tables yet",
+    "assign_failed": "Couldn't seat the guest. Please try again.",
+    "unassign_failed": "Couldn't remove the guest.",
+    "move_failed": "Couldn't move the table."
   },
   "QrCode": {
     "title": "Day-of QR code",
@@ -963,7 +966,8 @@
     "copied": "Link copied",
     "copy_failed": "Couldn't copy the link. Please copy it manually.",
     "download_png": "Download PNG",
-    "download_svg": "Download SVG"
+    "download_svg": "Download SVG",
+    "no_slug": "Your site doesn't have a public address yet. Publish your site to generate the QR code."
   },
   "DayOfMenu": {
     "title": "Day-of menu",
@@ -979,7 +983,10 @@
       "cheese": "Cheese",
       "dessert": "Dessert",
       "drinks": "Drinks"
-    }
+    },
+    "toggle_failed": "Couldn't update the category.",
+    "add_failed": "Couldn't add the dish.",
+    "remove_failed": "Couldn't remove the dish."
   },
   "DayOfSettings": {
     "title": "Day-of settings",
@@ -990,7 +997,8 @@
     "after_wedding_label": "After-wedding mode",
     "after_wedding_hint": "The page switches to a thank-you view and stays open to uploads.",
     "uploads_until_label": "Uploads open until",
-    "uploads_until_hint": "Past this date, guests can no longer add photos."
+    "uploads_until_hint": "Past this date, guests can no longer add photos.",
+    "save_failed": "Couldn't save the settings."
   },
   "DayOfPhotos": {
     "title": "Photos & videos",

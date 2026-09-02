@@ -954,7 +954,10 @@
     "move_to": "移動先…",
     "remove": "削除",
     "done": "完了",
-    "no_tables": "まだテーブルがありません"
+    "no_tables": "まだテーブルがありません",
+    "assign_failed": "ゲストを割り当てられませんでした。もう一度お試しください。",
+    "unassign_failed": "ゲストを削除できませんでした。",
+    "move_failed": "テーブルを移動できませんでした。"
   },
   "QrCode": {
     "title": "当日QRコード",
@@ -963,7 +966,8 @@
     "copied": "リンクをコピーしました",
     "copy_failed": "リンクをコピーできませんでした。手動でコピーしてください。",
     "download_png": "PNGでダウンロード",
-    "download_svg": "SVGでダウンロード"
+    "download_svg": "SVGでダウンロード",
+    "no_slug": "サイトにはまだ公開アドレスがありません。サイトを公開するとQRコードが生成されます。"
   },
   "DayOfMenu": {
     "title": "当日のメニュー",
@@ -979,7 +983,10 @@
       "cheese": "チーズ",
       "dessert": "デザート",
       "drinks": "ドリンク"
-    }
+    },
+    "toggle_failed": "カテゴリーを更新できませんでした。",
+    "add_failed": "料理を追加できませんでした。",
+    "remove_failed": "料理を削除できませんでした。"
   },
   "DayOfSettings": {
     "title": "当日の設定",
@@ -990,7 +997,8 @@
     "after_wedding_label": "結婚式後モード",
     "after_wedding_hint": "ページは感謝のメッセージ画面に切り替わり、写真のアップロードは引き続き受け付けます。",
     "uploads_until_label": "写真の受付締切日",
-    "uploads_until_hint": "この日付を過ぎると、ゲストは写真を追加できなくなります。"
+    "uploads_until_hint": "この日付を過ぎると、ゲストは写真を追加できなくなります。",
+    "save_failed": "設定を保存できませんでした。"
   },
   "DayOfPhotos": {
     "title": "写真・動画",
