@@ -16,10 +16,12 @@ type Props = {
   onChange: (photoUrl: string | undefined) => void;
   /**
    * Uploads the picked file and resolves to the public URL Supabase storage
-   * gave it. When provided, the picker shows the local blob: preview right
-   * away (instant feedback) then swaps it for the real URL once the upload
-   * resolves — reverting to the previous value and surfacing an error if it
-   * fails. Without it, the picker only ever produces a blob: URL, which does
+   * gave it. When provided, the picker shows the blob: preview *locally* for
+   * instant feedback and calls `onChange` only once with the real URL —
+   * reverting to the previous value and surfacing an error if the upload
+   * fails. The blob is deliberately never handed to `onChange`: the caller
+   * persists what it receives, and a blob: URL means nothing outside this tab.
+   * Without `onUpload`, the picker only ever produces a blob: URL, which does
    * not survive a reload.
    */
   onUpload?: (file: File) => Promise<{ success: true; url: string } | { success: false; error: string }>;
@@ -47,6 +49,16 @@ export function PhotoPicker({
   const inputRef = useRef<HTMLInputElement>(null);
   const [error, setError] = useState<string | null>(null);
   const [uploading, setUploading] = useState(false);
+  /**
+   * The blob: URL shown while an upload is in flight. Held here rather than
+   * pushed through `onChange` so it is never persisted: it means nothing
+   * outside this browser tab.
+   */
+  const [localPreview, setLocalPreview] = useState<string | null>(null);
+
+  // What the user sees: the in-flight preview if there is one, else the stored
+  // photo.
+  const shown = localPreview ?? value;
   // Only URLs this component created may be revoked — never one from the data.
   const ownedUrl = useRef<string | null>(null);
 
@@ -75,13 +87,24 @@ export function PhotoPicker({
     const url = URL.createObjectURL(file);
     ownedUrl.current = url;
     setError(null);
-    onChange(url);
 
-    if (!onUpload) return;
+    // Without an upload handler the blob IS the value — the file never leaves
+    // the browser, and the caller holds it so the preview survives a re-render.
+    if (!onUpload) {
+      onChange(url);
+      return;
+    }
 
+    // With one, the blob stays local. Handing it to `onChange` would persist a
+    // `blob:` URL to the database — meaningless outside this tab, and left
+    // behind as a broken image if the upload that was meant to replace it
+    // fails.
+    setLocalPreview(url);
     setUploading(true);
     const res = await onUpload(file);
     setUploading(false);
+    setLocalPreview(null);
+
     if (res.success) {
       onChange(res.url);
     } else {
@@ -111,7 +134,7 @@ export function PhotoPicker({
         onChange={(e) => void accept(e.target.files)}
       />
 
-      {value ? (
+      {shown ? (
         <div
           className={cn(
             "relative w-full overflow-hidden rounded-xl border border-studio-lavande/40 bg-studio-beige",
@@ -123,7 +146,7 @@ export function PhotoPicker({
               image config does not allowlist; the wiring phase moves these to
               Supabase storage, where next/image applies. */}
           <img
-            src={value}
+            src={shown}
             alt=''
             className={cn(
               "h-full w-full object-cover transition-opacity",
