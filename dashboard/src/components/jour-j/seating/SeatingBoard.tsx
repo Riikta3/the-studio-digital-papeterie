@@ -4,9 +4,8 @@ import type { DayOfGuest, DayOfTable } from "@shared/types/jour-j";
 import {
   DndContext,
   DragOverlay,
-  MouseSensor,
+  PointerSensor,
   pointerWithin,
-  TouchSensor,
   useSensor,
   useSensors,
   type DragEndEvent,
@@ -37,14 +36,13 @@ export function SeatingBoard({
   // follows the cursor instead of staying put in a panel that scrolls.
   const [draggedGuest, setDraggedGuest] = useState<DayOfGuest | null>(null);
 
+  // PointerSensor covers mouse, touch and pen through one event stream. The
+  // MouseSensor + TouchSensor pair it replaces is the same combination that
+  // never fired here, while the two sortables that do work in this dashboard
+  // (the events editor and the module list) both use PointerSensor.
   // 8px of travel before a drag starts, so a click to remove still registers.
-  // Touch waits instead of measuring distance, so a tablet can still scroll
-  // the panel with a flick — only a deliberate press-and-hold starts a drag.
   const sensors = useSensors(
-    useSensor(MouseSensor, { activationConstraint: { distance: 8 } }),
-    useSensor(TouchSensor, {
-      activationConstraint: { delay: 200, tolerance: 8 },
-    }),
+    useSensor(PointerSensor, { activationConstraint: { distance: 8 } }),
   );
 
   const handleDragStart = ({ active }: DragStartEvent) => {
