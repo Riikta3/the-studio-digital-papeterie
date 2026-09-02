@@ -16,7 +16,7 @@ type Props = {
 };
 
 const inputClass =
-  "min-h-11 w-full rounded-lg border border-studio-lavande/50 bg-white px-3 text-sm text-studio-violet";
+  "min-h-11 w-full rounded-lg border border-studio-lavande/50 bg-studio-creme px-3 text-sm text-studio-violet";
 
 export function AccommodationRow({
   accommodation,
@@ -30,14 +30,18 @@ export function AccommodationRow({
   const t = useTranslations("InvitationVenue");
 
   return (
-    <li className='rounded-xl bg-studio-creme p-3'>
+    /* White, not cream: the page behind is already cream, so a cream card
+       reads as a transparent hole rather than a surface. */
+    <li className='rounded-xl border border-studio-lavande/40 bg-white p-3 shadow-studio-card'>
       {/* A thumbnail rather than a full-width picker: an accommodation row is
           a list item, and the venue's own photo is the one that leads. */}
       <PhotoPicker
         value={accommodation.photoUrl}
         onChange={(photoUrl) => onChange({ photoUrl })}
         aspect='square'
-        className='mb-2 w-24'
+        // 32 rather than 24: the remove button holds the 44px tap floor, and
+        // on a 96px thumbnail that covered a fifth of the image.
+        className='mb-2 w-32'
       />
 
       <div className='grid grid-cols-1 gap-2 sm:grid-cols-2'>

@@ -29,10 +29,12 @@ export function FaqRow({
   return (
     <li
       className={cn(
-        "rounded-xl border p-3",
+        // Solid white on the cream page: the card used to be bg-studio-creme
+        // on a bg-studio-creme page, which read as transparent.
+        "rounded-xl border bg-white p-3 shadow-studio-card",
         entry.published
-          ? "border-studio-lavande/40 bg-studio-creme"
-          : "border-dashed border-studio-violet/30 bg-white",
+          ? "border-studio-lavande/40"
+          : "border-dashed border-studio-violet/40",
       )}
     >
       <div className='flex items-center justify-between gap-2'>
@@ -41,7 +43,7 @@ export function FaqRow({
             "inline-flex min-h-7 items-center rounded-full px-2.5 text-xs font-semibold",
             entry.published
               ? "bg-teal-100 text-teal-700"
-              : "bg-studio-jaune/60 text-studio-violet",
+              : "bg-studio-beurre text-studio-violet",
           )}
         >
           {entry.published ? t("published") : t("unpublished")}
@@ -63,7 +65,7 @@ export function FaqRow({
           onChange={(e) => onChange({ question: e.target.value })}
           placeholder={t("question_placeholder")}
           aria-label={t("fields.question")}
-          className='min-h-11 w-full rounded-lg border border-studio-lavande/50 bg-white px-3 text-sm font-medium text-studio-violet'
+          className='min-h-11 w-full rounded-lg border border-studio-lavande/50 bg-studio-creme px-3 text-sm font-medium text-studio-violet'
         />
         <textarea
           value={entry.answer}
@@ -71,7 +73,7 @@ export function FaqRow({
           placeholder={t("answer_placeholder")}
           aria-label={t("fields.answer")}
           rows={3}
-          className='min-h-24 w-full resize-none rounded-lg border border-studio-lavande/50 bg-white px-3 py-2 text-sm text-studio-violet'
+          className='min-h-24 w-full resize-none rounded-lg border border-studio-lavande/50 bg-studio-creme px-3 py-2 text-sm text-studio-violet'
         />
       </div>
 
