@@ -49,15 +49,17 @@ export default async function PlaylistPage() {
     : [];
 
   return (
-    <div className="min-h-screen p-6 md:p-12 max-w-4xl mx-auto space-y-8 bg-studio-creme">
-      <header className="flex flex-col gap-1 pb-4 border-b border-studio-lavande/30">
-        <h1 className="font-heading text-h1 text-studio-violet">
-          {t("title")}
-        </h1>
-        <p className="text-muted-foreground text-sm">{t("subtitle")}</p>
-      </header>
+    <div className="min-h-screen bg-studio-creme p-4 md:p-8 lg:p-12">
+      <div className="mx-auto max-w-4xl space-y-6">
+        <header className="pb-4 border-b border-studio-lavande/30">
+          <h1 className="font-heading text-h3 text-studio-violet">
+            {t("title")}
+          </h1>
+          <p className="mt-2 text-sm text-studio-violet/70">{t("subtitle")}</p>
+        </header>
 
-      <PlaylistClient suggestions={suggestions} weddingId={wedding?.id ?? ""} />
+        <PlaylistClient suggestions={suggestions} weddingId={wedding?.id ?? ""} />
+      </div>
     </div>
   );
 }
