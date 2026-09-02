@@ -119,86 +119,16 @@ export async function assignHousehold(
   return { success: true };
 }
 
-/**
- * The one non-optimistic mutation here, mirroring `createEvent`/`createFaqEntry`:
- * the client mints no id for a new household. The caller must await this and
- * adopt `household.id`.
+/*
+ * No household CRUD here on purpose.
+ *
+ * `guest-actions.ts` already exports `createHousehold`, `updateHousehold`
+ * and `deleteHousehold`, and those are the ones the household dialog and the
+ * guest table actually call. An earlier version of this file exported the
+ * same three names with DIFFERENT delete semantics — it detached guests,
+ * where the live one deletes them — so anyone who switched the import while
+ * following this file's conventions would have silently changed a
+ * destructive operation. Two same-named pairs is worse than none.
+ *
+ * If household CRUD needs reworking, change `guest-actions.ts` in one place.
  */
-export async function createHousehold(
-  input: Pick<Household, "name" | "group">,
-): Promise<
-  { success: true; household: Household } | { success: false; error: string }
-> {
-  const ctx = await requireWeddingForWrite();
-  if (ctx.failure) return ctx.failure;
-  const { supabase, weddingId } = ctx;
-
-  const { data, error } = await supabase
-    .from("households")
-    .insert({
-      wedding_id: weddingId,
-      name: input.name,
-      guest_group: input.group,
-    })
-    .select()
-    .single();
-
-  if (error) {
-    console.error("Error creating household:", error);
-    return { success: false, error: "Erreur lors de la création du foyer." };
-  }
-
-  revalidateGroups();
-  return { success: true, household: rowToHousehold(data) };
-}
-
-export async function updateHousehold(
-  id: string,
-  patch: Partial<Household>,
-): Promise<ActionResult> {
-  const ctx = await requireWeddingForWrite();
-  if (ctx.failure) return ctx.failure;
-  const { supabase, weddingId } = ctx;
-
-  const { error } = await supabase
-    .from("households")
-    .update(householdPatchToRow(patch))
-    .eq("id", id)
-    .eq("wedding_id", weddingId);
-
-  if (error) {
-    console.error("Error updating household:", error);
-    return { success: false, error: "Erreur lors de la modification." };
-  }
-
-  revalidateGroups();
-  return { success: true };
-}
-
-/**
- * `guests.household_id` is `on delete set null` (verified in
- * `00000000000000_full_db_reset.sql:158`): deleting a household DETACHES its
- * guests rather than deleting them — nothing to work around here, this is
- * the intended behaviour. The confirmation shown to the couple must say so
- * explicitly (in French), or a couple who fears losing guests will not use
- * the button.
- */
-export async function deleteHousehold(id: string): Promise<ActionResult> {
-  const ctx = await requireWeddingForWrite();
-  if (ctx.failure) return ctx.failure;
-  const { supabase, weddingId } = ctx;
-
-  const { error } = await supabase
-    .from("households")
-    .delete()
-    .eq("id", id)
-    .eq("wedding_id", weddingId);
-
-  if (error) {
-    console.error("Error deleting household:", error);
-    return { success: false, error: "Erreur lors de la suppression du foyer." };
-  }
-
-  revalidateGroups();
-  return { success: true };
-}

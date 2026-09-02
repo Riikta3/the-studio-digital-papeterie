@@ -299,6 +299,14 @@ export type GuestPageMedia = {
 const GALLERY_LIMIT = 60;
 
 /**
+ * How long a gallery link stays valid. This is the window in which a photo the
+ * couple has just hidden is still reachable by someone who loaded the page
+ * before — so it is a privacy bound, not a caching knob. An hour matches the
+ * dashboard's own TTL.
+ */
+const GALLERY_URL_TTL_SECONDS = 60 * 60;
+
+/**
  * The photos and videos guests may browse — visible ones only.
  *
  * `visibleMedia()` lives in the dashboard's projections, where it documents
@@ -330,23 +338,44 @@ export async function listGuestGallery(slug: string): Promise<GuestPageMedia[]> 
 
   if (error || !data) return [];
 
-  // `guest-media` is a public bucket (see 20260902140000_guest_media_storage.sql),
-  // so a public URL is the right call here: signing would gain nothing an
-  // anonymous guest cannot already reach, and would expire mid-party.
-  return data.map((row) => {
-    const storagePath = row.storage_path as string;
-    const thumbPath = (row.thumb_path as string | null) ?? storagePath;
-    return {
-      id: row.id as string,
-      kind: row.kind as "photo" | "video",
-      url: supabase.storage.from(GUEST_MEDIA_BUCKET).getPublicUrl(storagePath)
-        .data.publicUrl,
-      thumbUrl: supabase.storage
-        .from(GUEST_MEDIA_BUCKET)
-        .getPublicUrl(thumbPath).data.publicUrl,
-      uploadedAt: row.created_at as string,
-    };
-  });
+  // Signed URLs, not public ones — `guest-media` is private as of
+  // 20260902200000_guest_media_private.sql.
+  //
+  // A public URL is permanent, and that quietly breaks the couple's hide
+  // button: a guest who opened the gallery would keep working URLs for every
+  // photo, so hiding one afterwards would revoke nothing. Signing bounds the
+  // exposure to the TTL below. It costs a round trip per file and the links go
+  // stale after an hour — a guest who leaves the page open re-fetches on
+  // reload, which is the right trade for making "hidden" mean hidden.
+  const signed = await Promise.all(
+    data.map(async (row) => {
+      const storagePath = row.storage_path as string;
+      const thumbPath = (row.thumb_path as string | null) ?? storagePath;
+
+      const [full, thumb] = await Promise.all([
+        supabase.storage
+          .from(GUEST_MEDIA_BUCKET)
+          .createSignedUrl(storagePath, GALLERY_URL_TTL_SECONDS),
+        supabase.storage
+          .from(GUEST_MEDIA_BUCKET)
+          .createSignedUrl(thumbPath, GALLERY_URL_TTL_SECONDS),
+      ]);
+
+      // A file whose object is missing (deleted from the bucket but not the
+      // row) cannot be signed. Drop it rather than render a broken tile.
+      if (!full.data?.signedUrl) return null;
+
+      return {
+        id: row.id as string,
+        kind: row.kind as "photo" | "video",
+        url: full.data.signedUrl,
+        thumbUrl: thumb.data?.signedUrl ?? full.data.signedUrl,
+        uploadedAt: row.created_at as string,
+      };
+    }),
+  );
+
+  return signed.filter((m): m is GuestPageMedia => m !== null);
 }
 
 /* ------------------------------------------------------------------ *
