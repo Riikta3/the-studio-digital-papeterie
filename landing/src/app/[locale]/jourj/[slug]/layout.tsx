@@ -1,14 +1,21 @@
+import { resolveGuestPage } from "@/actions/guest-page-actions";
 import { GuestNav } from "@/components/jourj/GuestNav";
-import { JOUR_J_MOCK } from "@shared/data/jour-j-mock";
 import { notFound } from "next/navigation";
 
 /**
  * The page a guest lands on after scanning the QR code. Phone-only in
  * practice — laid out for a thumb, capped at a readable width beyond that.
  *
- * Step 2 of the spec resolves `slug` through
- * `sites.slug → weddings → sites.theme_id → resolveTheme()` so the page wears
- * the couple's own art direction. Until then it uses the studio palette.
+ * `resolveGuestPage` resolves `sites.slug → wedding_id` through the ANON
+ * client, then requires `day_of_settings.enabled`. An unknown slug and a
+ * wedding that has not switched the module on both yield null, and both 404
+ * here — deliberately indistinguishable from outside, so this page cannot be
+ * used to probe which couples exist. Rendering an empty page instead would
+ * confirm the slug.
+ *
+ * The theme is still the studio palette: wearing the couple's own art
+ * direction means resolving `sites.theme_id` through `resolveTheme()`, which
+ * belongs with the invitation theme work rather than here.
  */
 export default async function JourJLayout({
   children,
@@ -18,8 +25,9 @@ export default async function JourJLayout({
   params: Promise<{ slug: string }>;
 }) {
   const { slug } = await params;
-  if (slug !== JOUR_J_MOCK.settings.qrSlug) notFound();
-  if (!JOUR_J_MOCK.settings.enabled) notFound();
+
+  const page = await resolveGuestPage(slug);
+  if (!page) notFound();
 
   return (
     <div className='flex min-h-[100svh] flex-col bg-studio-creme'>

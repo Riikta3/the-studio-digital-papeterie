@@ -36,8 +36,9 @@ function revalidateDayOf() {
  * `updateDayOfSettings`). Every field here must still be present, because
  * `DayOfSettingsForm.tsx` calls `.slice(0, 10)` on `uploadsOpenUntil`
  * unconditionally: a missing field throws on first render for every new
- * couple. These mirror the defaults `shared/data/jour-j-mock.ts` used to
- * ship.
+ * couple. The values below are the "module off, nothing shared, no upload
+ * window" state, which is the only safe default: a couple must switch the
+ * guest page on deliberately, never find it already live.
  */
 const DEFAULT_SETTINGS: Omit<DayOfSettings, "qrSlug"> = {
   enabled: false,
