@@ -17,14 +17,14 @@ export default function BillingLoading() {
       </div>
 
       {/* Table card */}
-      <div className="rounded-xl border border-border bg-white shadow-sm overflow-hidden animate-pulse">
+      <div className="rounded-xl border border-studio-lavande/40 bg-white shadow-studio-card overflow-hidden animate-pulse">
         {/* Card header */}
-        <div className="px-6 py-4 border-b border-border bg-gray-50/50">
+        <div className="px-6 py-4 border-b border-studio-lavande/40 bg-gray-50/50">
           <div className="h-5 w-36 bg-gray-200/70 rounded" />
         </div>
 
         {/* Table header */}
-        <div className="grid grid-cols-[1fr_1fr_1fr_1fr_100px] gap-4 px-6 py-3 border-b border-border bg-gray-50/30">
+        <div className="grid grid-cols-[1fr_1fr_1fr_1fr_100px] gap-4 px-6 py-3 border-b border-studio-lavande/40 bg-gray-50/30">
           {["w-16", "w-20", "w-16", "w-14", "w-20"].map((w, i) => (
             <div key={i} className={`h-3 ${w} bg-gray-200/60 rounded`} />
           ))}
@@ -34,7 +34,7 @@ export default function BillingLoading() {
         {Array.from({ length: 5 }).map((_, i) => (
           <div
             key={i}
-            className="grid grid-cols-[1fr_1fr_1fr_1fr_100px] gap-4 px-6 py-4 border-b border-border last:border-0"
+            className="grid grid-cols-[1fr_1fr_1fr_1fr_100px] gap-4 px-6 py-4 border-b border-studio-lavande/40 last:border-0"
             style={{ opacity: 1 - i * 0.12 }}
           >
             <div className="h-4 w-24 bg-gray-100 rounded" />

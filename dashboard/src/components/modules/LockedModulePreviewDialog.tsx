@@ -35,19 +35,21 @@ export function LockedModulePreviewDialog({
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent className="max-w-3xl max-h-[85vh] flex flex-col gap-0 p-0 overflow-hidden">
-        <DialogHeader className="px-6 pt-6 pb-4 border-b border-border shrink-0">
-          <DialogTitle className="text-base font-semibold">{moduleName}</DialogTitle>
-          <p className="text-sm text-muted-foreground mt-0.5">{moduleDescription}</p>
+        <DialogHeader className="px-6 pt-6 pb-4 border-b border-studio-lavande/40 shrink-0">
+          <DialogTitle className="text-base font-semibold text-studio-violet">{moduleName}</DialogTitle>
+          <p className="text-sm text-studio-violet/70 mt-0.5">{moduleDescription}</p>
         </DialogHeader>
 
+        {/* ModulePreview renders inside .theme-floral internally (remaps shadcn
+            tokens to the invitation palette) — left untouched, see ModulePreview.tsx */}
         <div className="flex-1 overflow-y-auto px-6 py-5">
           <ModulePreview moduleId={moduleId} config={config} />
         </div>
 
-        <div className="px-6 py-4 border-t border-border flex items-center justify-between shrink-0 bg-muted/30">
+        <div className="px-6 py-4 border-t border-studio-lavande/40 flex items-center justify-between shrink-0 bg-studio-creme">
           <div>
-            <p className="text-sm font-semibold text-foreground">{t("unlock_module")}</p>
-            <p className="text-xs text-muted-foreground">{t("one_time_payment")}</p>
+            <p className="text-sm font-semibold text-studio-violet">{t("unlock_module")}</p>
+            <p className="text-xs text-studio-violet/70">{t("one_time_payment")}</p>
           </div>
           <Button
             onClick={() => {
