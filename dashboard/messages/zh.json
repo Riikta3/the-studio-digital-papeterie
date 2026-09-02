@@ -2,52 +2,46 @@
   "Dashboard": {
     "greeting": "你好，{name}",
     "settings": "设置",
-    "view_site": "查看我的网站",
-    "wedding_space": "婚礼空间",
-    "responses": "回复",
-    "guests_confirmed": "已确认 {count}／{total} 位宾客",
-    "see_list": "查看列表",
     "countdown": "倒计时",
-    "days_remaining": "还剩 {days} 天",
-    "almost_there": "就快到了！",
-    "big_day": "今天就是大日子！",
-    "date_missing": "日期？",
-    "add_date": "添加婚礼日期",
-    "configure_now": "立即设置",
-    "next_step": "下一步：发送酒店信息",
-    "to_validate": "待确认",
-    "households_pending": "{count} 个家庭正等待您的确认。",
-    "all_up_to_date": "一切已是最新！\n无需任何操作。",
-    "manage_requests": "管理请求",
-    "recent_activity": "最近动态",
-    "online_signup": "在线报名",
-    "admin_add": "由管理员添加",
-    "confirmed": "已确认",
-    "pending": "待定",
-    "no_activity": "暂无最近动态。",
-    "quick_access": "快捷访问",
-    "guest_list": "宾客名单",
-    "guest_desc": "管理、添加或删除。",
-    "settings_desc": "日期、代码和偏好设置。",
-    "the_site": "网站",
-    "total_guests": "宾客总数",
-    "activity_confirmed": "已确认出席",
-    "activity_declined": "已婉拒邀请",
-    "activity_rsvp_received": "已回复（在线登记）",
-    "activity_added": "由管理员添加",
-    "quick_add_guest": "添加宾客",
-    "quick_add_desc": "手动添加家庭",
-    "manage_responses": "管理回复",
-    "manage_responses_desc": "处理待确认的回复",
-    "guest_list_desc": "完整的宾客名单",
-    "export_data": "导出数据",
-    "export_desc": "下载 Excel / CSV 文件",
-    "confirmed_guests_desc": "已确认的宾客",
-    "pending_response_desc": "等待回复",
-    "pending_validation_title": "待审核事项",
-    "pending_validation_desc": "您有 <strong>{count} 个家庭</strong> 已回复，正在等待您的审核。",
-    "review_responses": "查看回复",
-    "no_pending_validation": "暂无待审核事项"
+    "kpi": {
+      "guests": {
+        "title": "宾客",
+        "total": "总数",
+        "confirmed": "已确认",
+        "pending": "待回复",
+        "children": "儿童"
+      },
+      "jour_j": {
+        "title": "婚礼当天",
+        "seated": "已安排座位",
+        "to_seat": "待安排座位",
+        "tables": "桌数",
+        "media": "照片与视频"
+      }
+    },
+    "quick_actions": {
+      "title": "待办事项",
+      "no_answer": {
+        "label": "{count, plural, =0 {没有待回复的宾客} other {# 位宾客尚未回复}}",
+        "description": "提醒尚未回复的宾客"
+      },
+      "to_seat": {
+        "label": "{count, plural, =0 {所有宾客均已安排座位} other {还有 # 位宾客待安排座位}}",
+        "description": "完成座位安排"
+      },
+      "qr_code": {
+        "label_no_count": "打印二维码",
+        "description": "婚礼当天展示，供宾客使用"
+      }
+    },
+    "invitation_preview": {
+      "title": "请柬",
+      "live": "已上线",
+      "not_live": "未上线",
+      "edit_cta": "编辑内容",
+      "public_hint": "与宾客分享的公开链接",
+      "view_cta": "查看"
+    }
   },
   "Guests": {
     "title": "您的宾客",
@@ -56,18 +50,54 @@
     "subtitle": "管理您的名单，跟踪回复，安排您的活动。"
   },
   "Sidebar": {
-    "home": "首页",
-    "guests": "宾客",
-    "messages": "消息",
-    "billing": "账单",
-    "settings": "设置",
+    "sections": {
+      "home": {
+        "label": "首页"
+      },
+      "guests": {
+        "label": "宾客",
+        "items": {
+          "all": "所有宾客",
+          "rsvp": "回复情况",
+          "groups": "分组",
+          "meals": "餐食"
+        }
+      },
+      "invitation": {
+        "label": "请柬",
+        "items": {
+          "modules": "我的模块",
+          "events": "活动",
+          "schedule": "流程安排",
+          "venue": "场地与实用信息",
+          "faq": "常见问题",
+          "playlist": "歌单"
+        }
+      },
+      "day_of": {
+        "label": "婚礼当天",
+        "items": {
+          "seating": "座位安排",
+          "qr_code": "二维码",
+          "menu": "菜单",
+          "photos": "照片与视频",
+          "settings": "设置"
+        }
+      },
+      "stats": {
+        "label": "统计数据"
+      },
+      "settings": {
+        "label": "设置",
+        "items": {
+          "couple": "新人",
+          "billing": "账单",
+          "messages": "消息"
+        }
+      }
+    },
     "view_site": "查看我的网站",
     "logout": "退出登录",
-    "modules": "我的模块",
-    "rsvp_responses": "回复情况",
-    "playlist": "歌单",
-    "seating_plan": "座位安排",
-    "config_section": "配置",
     "logout_confirmation": {
       "title": "确认退出登录",
       "description": "您确定要退出登录吗？",
@@ -630,7 +660,9 @@
       "new_email": "新邮箱",
       "update_email_btn": "修改邮箱",
       "toast_profile_success": "个人资料已更新",
-      "toast_tech_error": "技术错误"
+      "toast_tech_error": "技术错误",
+      "weddingdate": "婚礼日期",
+      "weddingdate_hint": "用于首页倒计时和请柬的日程安排。"
     },
     "security": {
       "password_title": "密码",
@@ -703,12 +735,6 @@
       "allergies": "过敏",
       "other": "其他"
     }
-  },
-  "AddTableButton": {
-    "toast_success": "桌子已添加！",
-    "toast_error": "错误：{error}",
-    "creating": "创建中...",
-    "add_table": "添加一张桌子"
   },
   "ForgotPassword": {
     "title": "忘记密码了吗？",
@@ -858,15 +884,6 @@
     "error_too_short": "密码长度至少需要6个字符。",
     "error_generic": "重置时出错，请重试。"
   },
-  "SeatingPlan": {
-    "error_title": "发生错误",
-    "error_description": "无法加载座位安排图。",
-    "title": "座位安排图",
-    "subtitle_has_tables": "拖放桌子和宾客。",
-    "subtitle_empty": "从创建第一张桌子开始。",
-    "empty_title": "您的场地还是空的",
-    "empty_description": "创建餐桌以开始安排宾客座位，之后您可以自由移动它们。"
-  },
   "CountdownTimer": {
     "big_day": "就是今天！",
     "months": "月",
@@ -913,12 +930,6 @@
     "one_time_payment": "一次性付款，终身包含在您的网站中",
     "buy_button": "购买 — 10 欧元"
   },
-  "GuestSidebar": {
-    "title": "宾客",
-    "all_seated": "所有宾客均已安排座位！",
-    "child": "儿童",
-    "guest": "宾客"
-  },
   "MessagesPage": {
     "title": "留言",
     "description": "宾客留给您的话语。",
@@ -927,5 +938,287 @@
   },
   "DashboardLayout": {
     "initializing": "正在初始化您的空间..."
+  },
+  "Seating": {
+    "title": "座位安排",
+    "seated": "已入座",
+    "remaining": "待安排",
+    "capacity": "容量",
+    "search_placeholder": "搜索宾客…",
+    "unseated_title": "待安排的宾客",
+    "all_seated": "所有宾客均已安排",
+    "assign": "安排宾客",
+    "assign_title": "安排至 {table} 桌",
+    "seats_left": "剩余 {count} 个座位",
+    "table_full": "该桌已满",
+    "move_to": "移动到…",
+    "remove": "移除",
+    "done": "完成",
+    "no_tables": "暂无餐桌"
+  },
+  "QrCode": {
+    "title": "婚礼当天二维码",
+    "permanent_note": "此二维码是永久性的，即使您修改了桌位、菜单、宾客或流程，它也绝不会改变。您现在就可以放心打印。",
+    "copy": "复制",
+    "copied": "链接已复制",
+    "copy_failed": "无法复制链接，请手动复制。",
+    "download_png": "下载 PNG",
+    "download_svg": "下载 SVG"
+  },
+  "DayOfMenu": {
+    "title": "婚礼当日菜单",
+    "subtitle": "开启您要供应的菜品分类，并添加您的菜肴。",
+    "enabled": "已启用",
+    "add_placeholder": "添加一道菜…",
+    "add_item": "添加",
+    "remove_item": "删除",
+    "categories": {
+      "cocktail": "鸡尾酒",
+      "starter": "前菜",
+      "main": "主菜",
+      "cheese": "奶酪",
+      "dessert": "甜点",
+      "drinks": "饮品"
+    }
+  },
+  "DayOfSettings": {
+    "title": "婚礼当日设置",
+    "enabled_label": "开启婚礼当日模块",
+    "enabled_hint": "宾客扫描二维码后即可查看自己的桌位、菜单和照片。",
+    "gallery_visible_label": "相册对宾客可见",
+    "gallery_visible_hint": "与上传相互独立：即使相册保持私密，宾客仍然可以分享照片。",
+    "after_wedding_label": "婚礼后模式",
+    "after_wedding_hint": "页面将切换为感谢页面，并继续开放上传。",
+    "uploads_until_label": "照片上传截止日期",
+    "uploads_until_hint": "超过此日期后，宾客将无法再添加照片。"
+  },
+  "DayOfPhotos": {
+    "title": "照片和视频",
+    "count": "宾客已分享 {count} 项内容",
+    "download_all": "全部下载",
+    "zip_pending": "待接入真实照片后即可批量下载。",
+    "download": "下载",
+    "hide": "隐藏",
+    "show": "显示",
+    "delete": "删除",
+    "anonymous": "匿名宾客",
+    "filters": {
+      "all": "全部",
+      "photo": "照片",
+      "video": "视频",
+      "hidden": "已隐藏"
+    },
+    "delete_dialog": {
+      "title": "删除此内容？",
+      "description": "宾客分享的这项内容将被永久删除，此操作无法撤销。",
+      "cancel": "取消",
+      "confirm": "删除"
+    }
+  },
+  "GuestGroups": {
+    "title": "宾客分组",
+    "count": "共 {count} 位宾客",
+    "search_placeholder": "搜索宾客或家庭...",
+    "no_results": "没有符合条件的宾客。",
+    "child_badge": "儿童",
+    "groups": {
+      "all": "全部",
+      "family": "家人",
+      "friends": "朋友",
+      "colleagues": "同事",
+      "other": "其他"
+    },
+    "table": {
+      "guest": "宾客",
+      "household": "家庭",
+      "group": "分组"
+    }
+  },
+  "GuestMeals": {
+    "title": "餐食与饮食需求",
+    "count": "共 {count} 位宾客",
+    "search_placeholder": "搜索宾客、家庭、过敏源...",
+    "no_results": "没有符合条件的宾客。",
+    "confirmed_only_notice": "此统计仅计算 {count} 位已确认出席的宾客——婉拒出席的宾客不会用餐。",
+    "dietary_totals_title": "饮食限制统计（已确认宾客）",
+    "allergy_notice": "{count} 位已确认宾客报告了过敏源——发送给餐饮服务商前，请检查“过敏源”一列。",
+    "allergies_placeholder": "例如：坚果",
+    "meals": {
+      "all": "全部",
+      "standard": "标准餐",
+      "vegetarian": "素食",
+      "vegan": "纯素食",
+      "child": "儿童餐"
+    },
+    "dietary": {
+      "gluten-free": "无麸质",
+      "lactose-free": "无乳糖",
+      "no-pork": "不含猪肉",
+      "no-alcohol": "不含酒精",
+      "halal": "清真",
+      "kosher": "犹太洁食"
+    },
+    "table": {
+      "guest": "宾客",
+      "meal": "餐食",
+      "dietary": "饮食限制",
+      "allergies": "过敏源"
+    }
+  },
+  "InvitationEvents": {
+    "title": "活动",
+    "subtitle": "婚礼不只是一个时刻，请分别管理每个环节。",
+    "untitled": "未命名",
+    "no_date": "日期待定",
+    "enabled": "宾客可见",
+    "fields": {
+      "name": "活动名称",
+      "date": "日期",
+      "time": "时间",
+      "time_placeholder": "17:00",
+      "address": "地址",
+      "description": "描述",
+      "dress_code": "着装要求"
+    },
+    "delete": "删除活动",
+    "delete_dialog": {
+      "title": "删除“{name}”？",
+      "description": "与此活动关联的 RSVP 回复和日程安排将变为孤立数据。此操作无法撤销。",
+      "cancel": "取消",
+      "confirm": "删除"
+    },
+    "add_event": "添加活动",
+    "new_event_name": "新活动",
+    "reorder": "重新排序"
+  },
+  "InvitationSchedule": {
+    "title": "日程安排",
+    "subtitle": "每个活动的流程，按实际顺序排列。",
+    "event_disabled": "活动已禁用",
+    "empty": "暂无安排。",
+    "add_entry": "添加环节",
+    "new_entry_title": "新环节",
+    "time_placeholder": "17:00",
+    "title_placeholder": "环节标题",
+    "description_placeholder": "描述（选填）",
+    "fields": {
+      "time": "时间",
+      "title": "标题",
+      "description": "描述"
+    },
+    "move_up": "上移",
+    "move_down": "下移",
+    "delete_entry": "删除“{title}”",
+    "deleted_toast": "已删除“{title}”",
+    "untitled": "无标题"
+  },
+  "InvitationVenue": {
+    "title": "场地与实用信息",
+    "subtitle": "本部分仅用于提供信息：不涉及酒店预订或班车安排，只为宾客提供必要的指引。",
+    "fields": {
+      "name": "场地名称",
+      "name_placeholder": "Villa Bellavista",
+      "address": "地址",
+      "address_placeholder": "Via Panoramica 4",
+      "city": "城市",
+      "city_placeholder": "拉韦洛，意大利",
+      "maps_url": "谷歌地图链接",
+      "maps_url_placeholder": "https://maps.google.com/...",
+      "waze_url": "Waze 链接",
+      "waze_url_placeholder": "https://waze.com/ul?q=...",
+      "parking_info": "停车信息",
+      "parking_info_placeholder": "在哪里以及如何停车",
+      "access_info": "交通指南",
+      "access_info_placeholder": "如何抵达场地",
+      "transport_info": "交通方式",
+      "transport_info_placeholder": "班车、公共交通等",
+      "photo": "场地照片"
+    },
+    "open_maps": "在谷歌地图中打开",
+    "open_waze": "在 Waze 中打开",
+    "accommodation": {
+      "title": "推荐住宿",
+      "hint": "附近住宿的精选推荐，帮助宾客安排住宿。",
+      "add": "添加",
+      "empty": "暂未添加任何住宿。",
+      "untitled": "未命名",
+      "fields": {
+        "name": "名称",
+        "city": "城市",
+        "distance": "距离",
+        "phone": "电话",
+        "booking_url": "预订链接",
+        "offer": "协议优惠"
+      },
+      "name_placeholder": "住宿名称",
+      "city_placeholder": "城市",
+      "distance_placeholder": "距场地10分钟",
+      "phone_placeholder": "+39 089 000 000",
+      "booking_url_placeholder": "https://...",
+      "offer_placeholder": "协议价、优惠码……",
+      "open_booking": "打开预订链接",
+      "delete": "删除{name}"
+    },
+    "move_up": "上移",
+    "move_down": "下移"
+  },
+  "InvitationFaq": {
+    "title": "常见问题",
+    "subtitle": "添加、编辑并重新排列向宾客展示的问答。",
+    "add": "添加问题",
+    "empty": "暂无问题。",
+    "untitled": "无标题",
+    "published": "已发布",
+    "unpublished": "未发布",
+    "published_toggle": "发布",
+    "unpublished_hint": "此问题在后台仍可编辑，但在发布之前不会显示在请柬上。",
+    "fields": {
+      "question": "问题",
+      "answer": "答案"
+    },
+    "question_placeholder": "您的问题",
+    "answer_placeholder": "您的答案",
+    "move_up": "上移",
+    "move_down": "下移",
+    "delete_entry": "删除「{question}」",
+    "delete_dialog": {
+      "title": "删除此问题？",
+      "description": "您即将删除「{question}」。此操作无法撤销。",
+      "cancel": "取消",
+      "confirm": "删除"
+    }
+  },
+  "Stats": {
+    "title": "统计数据",
+    "subtitle": "简单而有用的数据，帮助您追踪请柬情况。",
+    "invitation": {
+      "title": "请柬",
+      "visits": "访问量",
+      "unique_visitors": "独立访客",
+      "response_rate": "回复率",
+      "response_rate_desc": "{total}位宾客中有{responded}位已回复"
+    },
+    "trend": {
+      "title": "近30天访问趋势",
+      "aria_label": "最近30天每日访问量",
+      "tooltip": "{date}：{visits}次访问"
+    },
+    "rsvp": {
+      "title": "回复情况",
+      "confirmed": "已确认",
+      "declined": "已婉拒",
+      "pending": "未回复"
+    },
+    "events": {
+      "title": "活动",
+      "empty": "暂无启用的活动。",
+      "count": "已确认 {confirmed} / {total}"
+    }
+  },
+  "PhotoPicker": {
+    "hint": "添加照片",
+    "remove": "移除照片",
+    "error_type": "不支持的格式。请使用 JPEG、PNG 或 WebP。",
+    "error_size": "照片过大。上限为 8 MB。"
   }
 }

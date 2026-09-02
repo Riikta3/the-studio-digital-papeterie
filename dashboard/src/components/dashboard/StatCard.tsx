@@ -86,7 +86,7 @@ export async function StatCard({
         </div>
         {description && (
           <div
-            className={`text-sm mt-2 font-light ${variant === "default" ? "text-muted-foreground" : styles.label}`}
+            className={`text-sm mt-2 font-light ${variant === "default" ? "text-studio-violet/60" : styles.label}`}
           >
             {description}
           </div>
@@ -101,21 +101,21 @@ export async function StatCard({
           >
             {trend.isPositive ? "↑" : "↓"} {Math.abs(trend.value)}%
           </span>
-          <span className='text-muted-foreground'>{t("trend_vs_last_week")}</span>
+          <span className='text-studio-violet/60'>{t("trend_vs_last_week")}</span>
         </div>
       )}
 
       {/* Action */}
       {action && (
         <div
-          className={`pt-4 mt-4 border-t relative z-10 ${variant === "primary" ? "border-white/10" : "border-border"}`}
+          className={`pt-4 mt-4 border-t relative z-10 ${variant === "primary" ? "border-white/10" : "border-studio-lavande/40"}`}
         >
           <a
             href={action.href}
             className={`text-sm font-medium flex items-center gap-2 group-hover:gap-3 transition-all ${
               variant === "primary"
-                ? "text-primary-foreground/90 hover:text-primary-foreground"
-                : "text-primary hover:text-primary/80"
+                ? "text-white/90 hover:text-white"
+                : "text-studio-violet hover:text-studio-violet/80"
             }`}
           >
             {action.label}

@@ -2,6 +2,7 @@
 
 import { useId, useState } from "react";
 
+import { withChildrenPolicyFaq } from "../../faq";
 import type { InvitationData } from "../../types";
 
 /**
@@ -16,7 +17,9 @@ import type { InvitationData } from "../../types";
  * wide screen scatters the questions too far apart to scan.
  */
 export function FaqSection({ data }: { data: InvitationData }) {
-  const faq = data.faq ?? [];
+  // The children question is derived from `settings.adults_only` rather than
+  // written by hand, so the answer can never contradict the RSVP form above.
+  const faq = withChildrenPolicyFaq(data);
   const baseId = useId();
   const [openIndex, setOpenIndex] = useState<number | null>(0);
 

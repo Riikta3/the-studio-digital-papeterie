@@ -71,7 +71,16 @@ export type Stay = {
   secondary?: boolean;
 };
 
-export type FaqEntry = { question: string; answer: string };
+export type FaqEntry = {
+  /**
+   * Stable key for an entry whose content a setting decides, so a couple's own
+   * version can replace the derived default instead of appearing beside it.
+   * See `themes/faq.ts`. Free-text entries leave it unset.
+   */
+  id?: string;
+  question: string;
+  answer: string;
+};
 
 export type PlaylistSuggestion = { title: string; artist: string };
 
@@ -173,6 +182,21 @@ export type InvitationData = {
 
   rsvp?: {
     allowPartner?: boolean;
+    /**
+     * Whether a guest may declare accompanying children.
+     *
+     * Mirrors `settings.adults_only` (migration 20260324100000), which the
+     * couple sets in the studio's options step — inverted on the way in, so a
+     * theme reads a positive statement instead of a negation:
+     *
+     *     allowChildren: !settings.adults_only
+     *
+     * Defaults to `true` when absent, matching the column's `DEFAULT false`:
+     * a wedding that never answered the question accepts children. An
+     * adults-only wedding must render NO child field at all — not a disabled
+     * one — so the form never suggests what the couple has ruled out.
+     */
+    allowChildren?: boolean;
     dietaryOptions?: string[];
     collectMessage?: boolean;
     /** carte-blanche asks about these two as separate RSVP questions. */

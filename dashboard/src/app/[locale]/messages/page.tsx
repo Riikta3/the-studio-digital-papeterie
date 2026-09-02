@@ -41,7 +41,7 @@ export default async function MessagesPage() {
         <h1 className="font-heading text-h1 text-studio-violet">
           {t("title")}
         </h1>
-        <p className="text-muted-foreground">
+        <p className="text-studio-violet/70">
           {t("description")}
         </p>
       </header>
@@ -49,15 +49,15 @@ export default async function MessagesPage() {
       {responses.length === 0 ? (
         <div className="flex flex-col items-center justify-center py-32 text-center gap-4">
           <div className="w-16 h-16 rounded-full bg-studio-lavande/20 flex items-center justify-center">
-            <MessageSquare className="w-7 h-7 text-muted-foreground/40" />
+            <MessageSquare className="w-7 h-7 text-studio-violet/40" />
           </div>
-          <p className="text-muted-foreground text-sm">
+          <p className="text-studio-violet/70 text-sm">
             {t("no_messages")}
           </p>
         </div>
       ) : (
         <>
-          <p className="text-xs text-muted-foreground -mt-4">
+          <p className="text-xs text-studio-violet/60 -mt-4">
             {t("message_count", { count: responses.length })}
           </p>
 

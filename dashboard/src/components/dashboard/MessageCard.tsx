@@ -41,12 +41,12 @@ export function MessageCard({ id, name, message, date }: MessageCardProps) {
   };
 
   return (
-    <div className="break-inside-avoid bg-white border border-border rounded-2xl p-6 shadow-sm flex flex-col gap-4 group">
+    <div className="break-inside-avoid bg-white border border-studio-lavande/40 rounded-2xl p-6 shadow-studio-card flex flex-col gap-4 group">
       <div className="flex items-start justify-between gap-2">
-        <Quote className="w-5 h-5 text-primary/30 shrink-0" />
+        <Quote className="w-5 h-5 text-studio-violet/30 shrink-0" />
         <Dialog open={open} onOpenChange={setOpen}>
           <DialogTrigger asChild>
-            <button className="opacity-0 group-hover:opacity-100 transition-opacity p-1 rounded-lg text-muted-foreground hover:text-red-500 hover:bg-red-50">
+            <button className="opacity-0 group-hover:opacity-100 transition-opacity p-1 rounded-lg text-studio-violet/60 hover:text-red-500 hover:bg-red-50">
               <Trash2 size={15} />
             </button>
           </DialogTrigger>
@@ -77,18 +77,18 @@ export function MessageCard({ id, name, message, date }: MessageCardProps) {
         </Dialog>
       </div>
 
-      <p className="text-foreground font-light leading-relaxed italic text-sm flex-1">
+      <p className="text-studio-violet font-light leading-relaxed italic text-sm flex-1">
         {message}
       </p>
 
-      <div className="flex items-center justify-between pt-3 border-t border-border/50">
+      <div className="flex items-center justify-between pt-3 border-t border-studio-lavande/40">
         <div className="flex items-center gap-2.5">
-          <div className="w-7 h-7 rounded-full bg-primary/10 flex items-center justify-center text-[11px] font-semibold text-primary uppercase">
+          <div className="w-7 h-7 rounded-full bg-studio-violet/10 flex items-center justify-center text-[11px] font-semibold text-studio-violet uppercase">
             {name.charAt(0)}
           </div>
-          <span className="text-sm font-medium text-foreground">{name}</span>
+          <span className="text-sm font-medium text-studio-violet">{name}</span>
         </div>
-        <span className="text-[11px] text-muted-foreground/60">{date}</span>
+        <span className="text-[11px] text-studio-violet/50">{date}</span>
       </div>
     </div>
   );

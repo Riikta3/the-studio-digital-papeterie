@@ -1,12 +1,25 @@
 import { NextResponse } from "next/server";
-import Stripe from "stripe";
+import type Stripe from "stripe";
 
 import { findUserByEmail } from "@/lib/find-user-by-email";
+import { stripe } from "@/lib/stripe";
 import { supabaseAdmin } from "@/lib/supabase-admin";
 
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY as string, {
-  apiVersion: "2024-06-20" as any,
-});
+/*
+ * Uses the shared lazy client from `@/lib/stripe` rather than constructing its
+ * own at module scope.
+ *
+ * `new Stripe(process.env.STRIPE_SECRET_KEY as string)` ran the moment this
+ * module was imported, and `next build` imports every route to collect page
+ * data. With no key in the build environment the constructor threw
+ * "Neither apiKey nor config.authenticator provided" and the whole build
+ * failed on this file — the `as string` cast hid an undefined at compile time
+ * and moved the failure to build time.
+ *
+ * The shared client constructs on first real request instead, and refuses to
+ * run with a missing or test key in production. This route was the last one
+ * still holding its own instance.
+ */
 
 const webhookSecret = process.env.STRIPE_WEBHOOK_SECRET;
 

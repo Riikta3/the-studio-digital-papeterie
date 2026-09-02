@@ -4,29 +4,30 @@ on:
   push:
     branches:
       - main
+    # The Supabase root is `supabase/` at the repo root — the one holding
+    # config.toml. `dashboard/supabase/` is a leftover from the v2 schema work
+    # and has no config, so a push from there could never have worked.
     paths:
-      - "dashboard/supabase/migrations/**"
+      - "supabase/migrations/**"
 
 jobs:
   deploy_migrations:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
 
       - uses: supabase/setup-cli@v1
         with:
           version: latest
 
-      - name: Link Supabase Project
+      - name: Link Supabase project
         run: supabase link --project-ref $SUPABASE_PROJECT_ID
-        working-directory: dashboard
         env:
           SUPABASE_ACCESS_TOKEN: ${{ secrets.SUPABASE_ACCESS_TOKEN }}
           SUPABASE_PROJECT_ID: ${{ secrets.SUPABASE_PROJECT_ID }}
 
-      - name: Push Database Migrations
+      - name: Push database migrations
         run: supabase db push
-        working-directory: dashboard
         env:
           SUPABASE_ACCESS_TOKEN: ${{ secrets.SUPABASE_ACCESS_TOKEN }}
           SUPABASE_DB_PASSWORD: ${{ secrets.SUPABASE_DB_PASSWORD }}

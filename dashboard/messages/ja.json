@@ -1,53 +1,47 @@
 {
   "Dashboard": {
-    "greeting": "こんにちは、{name}さん",
+    "greeting": "こんにちは、{name}",
     "settings": "設定",
-    "view_site": "サイトを見る",
-    "wedding_space": "ウェディングスペース",
-    "responses": "回答",
-    "guests_confirmed": "{total}名中{count}名のゲストが出席確定",
-    "see_list": "リストを見る",
     "countdown": "カウントダウン",
-    "days_remaining": "残り{days}日",
-    "almost_there": "もうすぐです！",
-    "big_day": "いよいよ当日です！",
-    "date_missing": "日付は？",
-    "add_date": "結婚式の日付を追加",
-    "configure_now": "今すぐ設定する",
-    "next_step": "次のステップ：ホテル情報を送信",
-    "to_validate": "確認待ち",
-    "households_pending": "{count}世帯があなたの確認を待っています。",
-    "all_up_to_date": "すべて最新です！\n対応は必要ありません。",
-    "manage_requests": "リクエストを管理",
-    "recent_activity": "最近のアクティビティ",
-    "online_signup": "オンライン登録",
-    "admin_add": "管理者が追加",
-    "confirmed": "確定済み",
-    "pending": "保留中",
-    "no_activity": "最近のアクティビティはありません。",
-    "quick_access": "クイックアクセス",
-    "guest_list": "ゲストリスト",
-    "guest_desc": "管理、追加、削除ができます。",
-    "settings_desc": "日付、コード、各種設定。",
-    "the_site": "サイト",
-    "total_guests": "ゲスト総数",
-    "activity_confirmed": "出席を確定しました",
-    "activity_declined": "招待を辞退しました",
-    "activity_rsvp_received": "回答がありました（オンライン登録）",
-    "activity_added": "管理者によって追加されました",
-    "quick_add_guest": "ゲストを追加",
-    "quick_add_desc": "世帯を手動で追加",
-    "manage_responses": "回答を管理",
-    "manage_responses_desc": "保留中のRSVPを処理",
-    "guest_list_desc": "ゲストの全リスト",
-    "export_data": "データをエクスポート",
-    "export_desc": "Excel / CSVファイルをダウンロード",
-    "confirmed_guests_desc": "出席確定のゲスト",
-    "pending_response_desc": "回答待ち",
-    "pending_validation_title": "承認待ち",
-    "pending_validation_desc": "<strong>{count}件の世帯</strong>から回答があり、承認をお待ちしています。",
-    "review_responses": "回答を確認する",
-    "no_pending_validation": "承認待ちの項目はありません"
+    "kpi": {
+      "guests": {
+        "title": "ゲスト",
+        "total": "合計",
+        "confirmed": "出席確定",
+        "pending": "未回答",
+        "children": "子供"
+      },
+      "jour_j": {
+        "title": "結婚式当日",
+        "seated": "着席済み",
+        "to_seat": "未着席",
+        "tables": "テーブル数",
+        "media": "写真・動画"
+      }
+    },
+    "quick_actions": {
+      "title": "やること",
+      "no_answer": {
+        "label": "{count, plural, =0 {未回答のゲストはいません} other {未回答のゲスト # 名}}",
+        "description": "まだ回答していないゲストに連絡する"
+      },
+      "to_seat": {
+        "label": "{count, plural, =0 {全員の席が決まっています} other {あと # 名の席を決める必要があります}}",
+        "description": "座席表を完成させる"
+      },
+      "qr_code": {
+        "label_no_count": "QRコードを印刷する",
+        "description": "当日ゲストの入場用に掲示する"
+      }
+    },
+    "invitation_preview": {
+      "title": "招待状",
+      "live": "公開中",
+      "not_live": "非公開",
+      "edit_cta": "内容を編集",
+      "public_hint": "ゲストと共有する公開リンク",
+      "view_cta": "表示"
+    }
   },
   "Guests": {
     "title": "ゲスト一覧",
@@ -56,18 +50,54 @@
     "subtitle": "リストを管理し、回答を確認し、イベントを計画しましょう。"
   },
   "Sidebar": {
-    "home": "ホーム",
-    "guests": "ゲスト",
-    "messages": "メッセージ",
-    "billing": "請求",
-    "settings": "設定",
+    "sections": {
+      "home": {
+        "label": "ホーム"
+      },
+      "guests": {
+        "label": "ゲスト",
+        "items": {
+          "all": "ゲスト一覧",
+          "rsvp": "出欠回答",
+          "groups": "グループ",
+          "meals": "食事"
+        }
+      },
+      "invitation": {
+        "label": "招待状",
+        "items": {
+          "modules": "マイモジュール",
+          "events": "イベント",
+          "schedule": "プログラム",
+          "venue": "会場・実用情報",
+          "faq": "よくある質問",
+          "playlist": "プレイリスト"
+        }
+      },
+      "day_of": {
+        "label": "当日",
+        "items": {
+          "seating": "座席表",
+          "qr_code": "QRコード",
+          "menu": "メニュー",
+          "photos": "写真・動画",
+          "settings": "設定"
+        }
+      },
+      "stats": {
+        "label": "統計"
+      },
+      "settings": {
+        "label": "設定",
+        "items": {
+          "couple": "新郎新婦",
+          "billing": "請求",
+          "messages": "メッセージ"
+        }
+      }
+    },
     "view_site": "サイトを見る",
     "logout": "ログアウト",
-    "modules": "マイモジュール",
-    "rsvp_responses": "出欠回答",
-    "playlist": "プレイリスト",
-    "seating_plan": "座席表",
-    "config_section": "設定",
     "logout_confirmation": {
       "title": "ログアウトの確認",
       "description": "本当にログアウトしますか？",
@@ -630,7 +660,9 @@
       "new_email": "新しいメールアドレス",
       "update_email_btn": "メールアドレスを変更",
       "toast_profile_success": "プロフィールを更新しました",
-      "toast_tech_error": "技術的エラー"
+      "toast_tech_error": "技術的エラー",
+      "weddingdate": "結婚式の日付",
+      "weddingdate_hint": "ホーム画面のカウントダウンと招待状のプログラムに使われます。"
     },
     "security": {
       "password_title": "パスワード",
@@ -703,12 +735,6 @@
       "allergies": "アレルギー",
       "other": "その他"
     }
-  },
-  "AddTableButton": {
-    "toast_success": "テーブルを追加しました！",
-    "toast_error": "エラー：{error}",
-    "creating": "作成中...",
-    "add_table": "テーブルを追加"
   },
   "ForgotPassword": {
     "title": "パスワードをお忘れですか？",
@@ -858,15 +884,6 @@
     "error_too_short": "パスワードは6文字以上である必要があります。",
     "error_generic": "リセット中にエラーが発生しました。もう一度お試しください。"
   },
-  "SeatingPlan": {
-    "error_title": "エラーが発生しました",
-    "error_description": "座席表を読み込めませんでした。",
-    "title": "座席表",
-    "subtitle_has_tables": "テーブルとゲストをドラッグ＆ドロップしてください。",
-    "subtitle_empty": "最初のテーブルを作成してください。",
-    "empty_title": "会場が空です",
-    "empty_description": "テーブルを作成してゲストの配置を始めましょう。後で自由に移動できます。"
-  },
   "CountdownTimer": {
     "big_day": "本番当日です！",
     "months": "ヶ月",
@@ -913,12 +930,6 @@
     "one_time_payment": "一度のお支払いで、サイトに永久に含まれます",
     "buy_button": "購入 — 10ユーロ"
   },
-  "GuestSidebar": {
-    "title": "ゲスト",
-    "all_seated": "すべてのゲストの席が決まりました！",
-    "child": "子供",
-    "guest": "ゲスト"
-  },
   "MessagesPage": {
     "title": "メッセージ",
     "description": "ゲストから届いたメッセージ。",
@@ -927,5 +938,287 @@
   },
   "DashboardLayout": {
     "initializing": "スペースを準備しています..."
+  },
+  "Seating": {
+    "title": "座席表",
+    "seated": "着席済み",
+    "remaining": "未割り当て",
+    "capacity": "定員",
+    "search_placeholder": "ゲストを検索…",
+    "unseated_title": "未割り当てのゲスト",
+    "all_seated": "全員着席済みです",
+    "assign": "ゲストを割り当てる",
+    "assign_title": "{table}に割り当てる",
+    "seats_left": "残り{count}席",
+    "table_full": "満席です",
+    "move_to": "移動先…",
+    "remove": "削除",
+    "done": "完了",
+    "no_tables": "まだテーブルがありません"
+  },
+  "QrCode": {
+    "title": "当日QRコード",
+    "permanent_note": "このQRコードは変更されることのない永久版です。テーブル、メニュー、ゲスト、プログラムを編集しても内容は変わりません。今すぐ印刷いただけます。",
+    "copy": "コピー",
+    "copied": "リンクをコピーしました",
+    "copy_failed": "リンクをコピーできませんでした。手動でコピーしてください。",
+    "download_png": "PNGでダウンロード",
+    "download_svg": "SVGでダウンロード"
+  },
+  "DayOfMenu": {
+    "title": "当日のメニュー",
+    "subtitle": "提供するカテゴリーを有効にして、お料理を追加してください。",
+    "enabled": "有効",
+    "add_placeholder": "料理を追加…",
+    "add_item": "追加",
+    "remove_item": "削除",
+    "categories": {
+      "cocktail": "カクテル",
+      "starter": "前菜",
+      "main": "メイン",
+      "cheese": "チーズ",
+      "dessert": "デザート",
+      "drinks": "ドリンク"
+    }
+  },
+  "DayOfSettings": {
+    "title": "当日の設定",
+    "enabled_label": "当日モジュールを有効にする",
+    "enabled_hint": "ゲストはQRコードを読み取ると、自分の席、メニュー、写真にアクセスできます。",
+    "gallery_visible_label": "ゲストにギャラリーを公開する",
+    "gallery_visible_hint": "アップロードとは独立した設定です。ギャラリーを非公開にしていても、ゲストは写真を共有できます。",
+    "after_wedding_label": "結婚式後モード",
+    "after_wedding_hint": "ページは感謝のメッセージ画面に切り替わり、写真のアップロードは引き続き受け付けます。",
+    "uploads_until_label": "写真の受付締切日",
+    "uploads_until_hint": "この日付を過ぎると、ゲストは写真を追加できなくなります。"
+  },
+  "DayOfPhotos": {
+    "title": "写真・動画",
+    "count": "ゲストが共有したコンテンツ {count} 件",
+    "download_all": "すべてダウンロード",
+    "zip_pending": "一括ダウンロードは実際の写真が連携された後にご利用いただけます。",
+    "download": "ダウンロード",
+    "hide": "非表示にする",
+    "show": "表示する",
+    "delete": "削除",
+    "anonymous": "匿名ゲスト",
+    "filters": {
+      "all": "すべて",
+      "photo": "写真",
+      "video": "動画",
+      "hidden": "非表示"
+    },
+    "delete_dialog": {
+      "title": "このコンテンツを削除しますか？",
+      "description": "ゲストが共有したこのコンテンツは完全に削除されます。この操作は取り消せません。",
+      "cancel": "キャンセル",
+      "confirm": "削除"
+    }
+  },
+  "GuestGroups": {
+    "title": "ゲストグループ",
+    "count": "合計 {count} 名のゲスト",
+    "search_placeholder": "ゲストまたは世帯を検索...",
+    "no_results": "該当するゲストがいません。",
+    "child_badge": "子ども",
+    "groups": {
+      "all": "すべて",
+      "family": "家族",
+      "friends": "友人",
+      "colleagues": "同僚",
+      "other": "その他"
+    },
+    "table": {
+      "guest": "ゲスト",
+      "household": "世帯",
+      "group": "グループ"
+    }
+  },
+  "GuestMeals": {
+    "title": "食事とアレルギー対応",
+    "count": "合計 {count} 名のゲスト",
+    "search_placeholder": "ゲスト、世帯、アレルギーを検索...",
+    "no_results": "該当するゲストがいません。",
+    "confirmed_only_notice": "この集計は出席確定済みの {count} 名のみを対象としています — 欠席のゲストは食事をしません。",
+    "dietary_totals_title": "食事制限の集計（出席確定ゲスト）",
+    "allergy_notice": "出席確定済みのゲストのうち {count} 名がアレルギーを報告しています — ケータリング業者へ共有する前に「アレルギー」列を確認してください。",
+    "allergies_placeholder": "例：ナッツ類",
+    "meals": {
+      "all": "すべて",
+      "standard": "スタンダード",
+      "vegetarian": "ベジタリアン",
+      "vegan": "ヴィーガン",
+      "child": "キッズ"
+    },
+    "dietary": {
+      "gluten-free": "グルテンフリー",
+      "lactose-free": "乳糖不使用",
+      "no-pork": "豚肉不使用",
+      "no-alcohol": "アルコール不使用",
+      "halal": "ハラール",
+      "kosher": "コーシャ"
+    },
+    "table": {
+      "guest": "ゲスト",
+      "meal": "食事",
+      "dietary": "食事制限",
+      "allergies": "アレルギー"
+    }
+  },
+  "InvitationEvents": {
+    "title": "イベント",
+    "subtitle": "結婚式は一つの瞬間ではありません。各イベントを個別に管理しましょう。",
+    "untitled": "名前なし",
+    "no_date": "日付未定",
+    "enabled": "ゲストに表示",
+    "fields": {
+      "name": "イベント名",
+      "date": "日付",
+      "time": "時間",
+      "time_placeholder": "17時00分",
+      "address": "住所",
+      "description": "説明",
+      "dress_code": "ドレスコード"
+    },
+    "delete": "イベントを削除",
+    "delete_dialog": {
+      "title": "「{name}」を削除しますか？",
+      "description": "このイベントに紐づく RSVP の回答とプログラムの項目は孤立します。この操作は元に戻せません。",
+      "cancel": "キャンセル",
+      "confirm": "削除"
+    },
+    "add_event": "イベントを追加",
+    "new_event_name": "新しいイベント",
+    "reorder": "並び替え"
+  },
+  "InvitationSchedule": {
+    "title": "プログラム",
+    "subtitle": "各イベントの進行を、実際の順番で。",
+    "event_disabled": "イベントは無効",
+    "empty": "まだ項目がありません。",
+    "add_entry": "項目を追加",
+    "new_entry_title": "新しい項目",
+    "time_placeholder": "17時00分",
+    "title_placeholder": "項目のタイトル",
+    "description_placeholder": "説明（任意）",
+    "fields": {
+      "time": "時間",
+      "title": "タイトル",
+      "description": "説明"
+    },
+    "move_up": "上に移動",
+    "move_down": "下に移動",
+    "delete_entry": "「{title}」を削除",
+    "deleted_toast": "「{title}」を削除しました",
+    "untitled": "無題"
+  },
+  "InvitationVenue": {
+    "title": "会場・実用情報",
+    "subtitle": "このセクションは情報提供のみを目的としています。ホテル予約やシャトルの手配はここでは行わず、ゲストへの案内に必要な内容だけを扱います。",
+    "fields": {
+      "name": "会場名",
+      "name_placeholder": "Villa Bellavista",
+      "address": "住所",
+      "address_placeholder": "Via Panoramica 4",
+      "city": "都市",
+      "city_placeholder": "ラヴェッロ、イタリア",
+      "maps_url": "Google マップのリンク",
+      "maps_url_placeholder": "https://maps.google.com/...",
+      "waze_url": "Waze のリンク",
+      "waze_url_placeholder": "https://waze.com/ul?q=...",
+      "parking_info": "駐車場",
+      "parking_info_placeholder": "駐車場所と方法",
+      "access_info": "アクセス",
+      "access_info_placeholder": "会場までの行き方",
+      "transport_info": "交通手段",
+      "transport_info_placeholder": "シャトル、公共交通機関など",
+      "photo": "会場の写真"
+    },
+    "open_maps": "Google マップで開く",
+    "open_waze": "Waze で開く",
+    "accommodation": {
+      "title": "おすすめの宿泊施設",
+      "hint": "ゲストが宿泊先を見つけやすいよう、近隣の施設を厳選しました。",
+      "add": "追加",
+      "empty": "宿泊施設はまだ追加されていません。",
+      "untitled": "無題",
+      "fields": {
+        "name": "名称",
+        "city": "都市",
+        "distance": "距離",
+        "phone": "電話番号",
+        "booking_url": "予約リンク",
+        "offer": "特別プラン"
+      },
+      "name_placeholder": "宿泊施設名",
+      "city_placeholder": "都市",
+      "distance_placeholder": "会場から徒歩10分",
+      "phone_placeholder": "+39 089 000 000",
+      "booking_url_placeholder": "https://...",
+      "offer_placeholder": "特別料金、割引コードなど",
+      "open_booking": "予約リンクを開く",
+      "delete": "{name}を削除"
+    },
+    "move_up": "上へ移動",
+    "move_down": "下へ移動"
+  },
+  "InvitationFaq": {
+    "title": "よくある質問",
+    "subtitle": "ゲストへのQ&Aを追加、編集、並べ替えできます。",
+    "add": "質問を追加",
+    "empty": "まだ質問がありません。",
+    "untitled": "無題",
+    "published": "公開中",
+    "unpublished": "非公開",
+    "published_toggle": "公開する",
+    "unpublished_hint": "この質問はダッシュボードでは編集できますが、公開するまで招待状には表示されません。",
+    "fields": {
+      "question": "質問",
+      "answer": "回答"
+    },
+    "question_placeholder": "質問を入力",
+    "answer_placeholder": "回答を入力",
+    "move_up": "上へ移動",
+    "move_down": "下へ移動",
+    "delete_entry": "「{question}」を削除",
+    "delete_dialog": {
+      "title": "この質問を削除しますか？",
+      "description": "「{question}」を削除しようとしています。この操作は取り消せません。",
+      "cancel": "キャンセル",
+      "confirm": "削除"
+    }
+  },
+  "Stats": {
+    "title": "統計",
+    "subtitle": "招待状の状況を把握するための、シンプルで役立つ数値です。",
+    "invitation": {
+      "title": "招待状",
+      "visits": "訪問数",
+      "unique_visitors": "ユニーク訪問者数",
+      "response_rate": "回答率",
+      "response_rate_desc": "{total}名中{responded}名が回答済み"
+    },
+    "trend": {
+      "title": "過去30日間の訪問推移",
+      "aria_label": "過去30日間の1日あたりの訪問数",
+      "tooltip": "{date}：{visits}件の訪問"
+    },
+    "rsvp": {
+      "title": "出欠回答",
+      "confirmed": "出席",
+      "declined": "欠席",
+      "pending": "未回答"
+    },
+    "events": {
+      "title": "イベント",
+      "empty": "有効なイベントがありません。",
+      "count": "{confirmed} / {total} 名確認済み"
+    }
+  },
+  "PhotoPicker": {
+    "hint": "写真を追加",
+    "remove": "写真を削除",
+    "error_type": "対応していない形式です。JPEG、PNG、WebP をご利用ください。",
+    "error_size": "写真が大きすぎます。上限は 8 MB です。"
   }
 }

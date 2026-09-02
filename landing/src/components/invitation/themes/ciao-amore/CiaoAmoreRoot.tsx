@@ -14,6 +14,7 @@ import { HeroSection } from "./sections/HeroSection";
 import { PlaylistSection } from "./sections/PlaylistSection";
 import { RsvpSection } from "./sections/RsvpSection";
 import { ScheduleSection } from "./sections/ScheduleSection";
+import { ScrollTopButton } from "./sections/ScrollTopButton";
 import { StaysSection } from "./sections/StaysSection";
 import { VenueSection } from "./sections/VenueSection";
 import { ciaoAmoreFontVars } from "./fonts";
@@ -49,6 +50,10 @@ export function CiaoAmoreRoot({ data }: { data: InvitationData }) {
       {has("rsvp") ? <RsvpSection data={data} /> : null}
 
       <FooterSection data={data} />
+
+      {/* Fixed, so its position in the tree is only about reading order: last,
+          after the content it lets you escape. It watches the hero itself. */}
+      <ScrollTopButton />
     </main>
   );
 }

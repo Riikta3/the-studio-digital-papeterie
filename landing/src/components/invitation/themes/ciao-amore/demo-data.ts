@@ -156,11 +156,6 @@ export const CIAO_AMORE_DEMO: InvitationData = {
       answer: "Le dîner aura lieu à l'intérieur, dans une salle climatisée.",
     },
     {
-      question: "Les enfants sont-ils conviés ?",
-      answer:
-        "Afin que tous les parents puissent profiter pleinement de la soirée et faire la fête jusqu'au bout de la nuit, notre mariage se déroulera entre adultes. Profitez de cette parenthèse rien que pour vous.",
-    },
-    {
       question: "Jusqu'à quelle date confirmer ?",
       answer: `Merci de répondre avant le ${demoLabel.long(demoDate(4))}.`,
     },
@@ -168,6 +163,11 @@ export const CIAO_AMORE_DEMO: InvitationData = {
 
   rsvp: {
     allowPartner: true,
+    // The demo accepts children so the showcase exercises the fields. The
+    // matching FAQ answer is derived from this same flag by
+    // `themes/faq.ts` — the entry is deliberately NOT written in the list
+    // above, so the two can never disagree.
+    allowChildren: true,
     collectMessage: true,
     dietaryOptions: [
       "Aucune restriction",

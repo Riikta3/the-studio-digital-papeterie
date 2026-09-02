@@ -2,52 +2,46 @@
   "Dashboard": {
     "greeting": "Hola, {name}",
     "settings": "Ajustes",
-    "view_site": "Ver mi sitio",
-    "wedding_space": "Espacio de la boda",
-    "responses": "Respuestas",
-    "guests_confirmed": "{count} invitados confirmados de {total}",
-    "see_list": "Ver lista",
     "countdown": "Cuenta atrás",
-    "days_remaining": "Faltan {days} días",
-    "almost_there": "¡Ya casi!",
-    "big_day": "¡Es el gran día!",
-    "date_missing": "¿Fecha?",
-    "add_date": "Añadir fecha de la boda",
-    "configure_now": "Configurar ahora",
-    "next_step": "Siguiente paso: enviar info del hotel",
-    "to_validate": "Por validar",
-    "households_pending": "{count} hogares esperan su validación.",
-    "all_up_to_date": "¡Todo al día!\nNo se requiere ninguna acción.",
-    "manage_requests": "Gestionar solicitudes",
-    "recent_activity": "Actividad reciente",
-    "online_signup": "Registro en línea",
-    "admin_add": "Añadido por el administrador",
-    "confirmed": "Confirmado",
-    "pending": "Pendiente",
-    "no_activity": "Sin actividad reciente.",
-    "quick_access": "Acceso rápido",
-    "guest_list": "Lista de invitados",
-    "guest_desc": "Gestionar, añadir o eliminar.",
-    "settings_desc": "Fecha, código y preferencias.",
-    "the_site": "El sitio",
-    "total_guests": "Total de invitados",
-    "activity_confirmed": "confirmó su asistencia",
-    "activity_declined": "rechazó la invitación",
-    "activity_rsvp_received": "respondió (inscripción en línea)",
-    "activity_added": "fue añadido por el administrador",
-    "quick_add_guest": "Añadir invitado",
-    "quick_add_desc": "Añadir manualmente un hogar",
-    "manage_responses": "Gestionar respuestas",
-    "manage_responses_desc": "Procesar RSVP pendientes",
-    "guest_list_desc": "Lista completa de invitados",
-    "export_data": "Exportar datos",
-    "export_desc": "Descargar un archivo Excel / CSV",
-    "confirmed_guests_desc": "Invitados confirmados",
-    "pending_response_desc": "Esperando respuesta",
-    "pending_validation_title": "Validaciones pendientes",
-    "pending_validation_desc": "Tienes <strong>{count} hogares</strong> que han respondido y están esperando tu validación.",
-    "review_responses": "Revisar respuestas",
-    "no_pending_validation": "No hay validaciones pendientes"
+    "kpi": {
+      "guests": {
+        "title": "Invitados",
+        "total": "Total",
+        "confirmed": "Confirmados",
+        "pending": "Pendientes",
+        "children": "Niños"
+      },
+      "jour_j": {
+        "title": "Día de la boda",
+        "seated": "Sentados",
+        "to_seat": "Por sentar",
+        "tables": "Mesas",
+        "media": "Fotos y vídeos"
+      }
+    },
+    "quick_actions": {
+      "title": "Por hacer",
+      "no_answer": {
+        "label": "{count, plural, =0 {Sin respuestas pendientes} one {# invitado sin respuesta} other {# invitados sin respuesta}}",
+        "description": "Recordar a los invitados que aún no han respondido"
+      },
+      "to_seat": {
+        "label": "{count, plural, =0 {Todos están sentados} one {# invitado por sentar} other {# invitados por sentar}}",
+        "description": "Terminar el plano de mesas"
+      },
+      "qr_code": {
+        "label_no_count": "Imprimir el código QR",
+        "description": "Para mostrar el día de la boda al acceso de invitados"
+      }
+    },
+    "invitation_preview": {
+      "title": "Invitación",
+      "live": "En línea",
+      "not_live": "Fuera de línea",
+      "edit_cta": "Editar contenido",
+      "public_hint": "Enlace público compartido con sus invitados",
+      "view_cta": "Ver"
+    }
   },
   "Guests": {
     "title": "Sus invitados",
@@ -56,18 +50,54 @@
     "subtitle": "Gestiona tu lista, sigue las respuestas y organiza tu evento."
   },
   "Sidebar": {
-    "home": "Inicio",
-    "guests": "Invitados",
-    "messages": "Mensajes",
-    "billing": "Facturación",
-    "settings": "Ajustes",
+    "sections": {
+      "home": {
+        "label": "Inicio"
+      },
+      "guests": {
+        "label": "Invitados",
+        "items": {
+          "all": "Todos los invitados",
+          "rsvp": "Respuestas RSVP",
+          "groups": "Grupos",
+          "meals": "Comidas"
+        }
+      },
+      "invitation": {
+        "label": "Invitación",
+        "items": {
+          "modules": "Mis módulos",
+          "events": "Eventos",
+          "schedule": "Programa",
+          "venue": "Lugar e información práctica",
+          "faq": "Preguntas frecuentes",
+          "playlist": "Playlist"
+        }
+      },
+      "day_of": {
+        "label": "El gran día",
+        "items": {
+          "seating": "Plano de mesas",
+          "qr_code": "Código QR",
+          "menu": "Menú",
+          "photos": "Fotos y vídeos",
+          "settings": "Ajustes"
+        }
+      },
+      "stats": {
+        "label": "Estadísticas"
+      },
+      "settings": {
+        "label": "Ajustes",
+        "items": {
+          "couple": "Pareja",
+          "billing": "Facturación",
+          "messages": "Mensajes"
+        }
+      }
+    },
     "view_site": "Ver mi sitio",
     "logout": "Cerrar sesión",
-    "modules": "Mis Módulos",
-    "rsvp_responses": "Respuestas RSVP",
-    "playlist": "Playlist",
-    "seating_plan": "Plano de Mesas",
-    "config_section": "Configuración",
     "logout_confirmation": {
       "title": "Confirmar cierre de sesión",
       "description": "¿Está seguro de que desea cerrar sesión?",
@@ -630,7 +660,9 @@
       "new_email": "Nuevo Email",
       "update_email_btn": "Modificar el email",
       "toast_profile_success": "Perfil actualizado",
-      "toast_tech_error": "Error técnico"
+      "toast_tech_error": "Error técnico",
+      "weddingdate": "Fecha de la boda",
+      "weddingdate_hint": "Alimenta la cuenta atrás de tu inicio y el programa de la invitación."
     },
     "security": {
       "password_title": "Contraseña",
@@ -703,12 +735,6 @@
       "allergies": "Alergias",
       "other": "Otro"
     }
-  },
-  "AddTableButton": {
-    "toast_success": "¡Mesa añadida!",
-    "toast_error": "Error: {error}",
-    "creating": "Creando...",
-    "add_table": "Añadir una mesa"
   },
   "ForgotPassword": {
     "title": "¿Olvidaste tu contraseña?",
@@ -858,15 +884,6 @@
     "error_too_short": "La contraseña debe tener al menos 6 caracteres.",
     "error_generic": "Error al restablecer. Inténtalo de nuevo."
   },
-  "SeatingPlan": {
-    "error_title": "Se ha producido un error",
-    "error_description": "No se pudo cargar el plano de mesas.",
-    "title": "Plano de Mesas",
-    "subtitle_has_tables": "Arrastra y suelta las mesas y los invitados.",
-    "subtitle_empty": "Empieza creando tu primera mesa.",
-    "empty_title": "Tu sala está vacía",
-    "empty_description": "Crea mesas para empezar a colocar a tus invitados. Después podrás moverlas libremente."
-  },
   "CountdownTimer": {
     "big_day": "¡Es el gran día!",
     "months": "Meses",
@@ -913,12 +930,6 @@
     "one_time_payment": "Pago único, incluido de por vida en tu sitio",
     "buy_button": "Comprar — 10 €"
   },
-  "GuestSidebar": {
-    "title": "Invitados",
-    "all_seated": "¡Todos los invitados están ubicados!",
-    "child": "Niño/a",
-    "guest": "Invitado/a"
-  },
   "MessagesPage": {
     "title": "Mensajes",
     "description": "Las palabras que tus invitados te han dejado.",
@@ -927,5 +938,287 @@
   },
   "DashboardLayout": {
     "initializing": "Preparando tu espacio..."
+  },
+  "Seating": {
+    "title": "Plano de mesas",
+    "seated": "Ubicados",
+    "remaining": "Por ubicar",
+    "capacity": "Capacidad",
+    "search_placeholder": "Buscar un invitado…",
+    "unseated_title": "Invitados por ubicar",
+    "all_seated": "Todos los invitados están ubicados",
+    "assign": "Ubicar invitados",
+    "assign_title": "Ubicar en la mesa {table}",
+    "seats_left": "{count} plaza(s) disponible(s)",
+    "table_full": "Mesa completa",
+    "move_to": "Mover a…",
+    "remove": "Quitar",
+    "done": "Listo",
+    "no_tables": "Todavía no hay mesas"
+  },
+  "QrCode": {
+    "title": "Código QR del gran día",
+    "permanent_note": "Este código QR es definitivo. Nunca cambiará, aunque modifiques tus mesas, tu menú, tus invitados o tu programa. Puedes imprimirlo desde ahora.",
+    "copy": "Copiar",
+    "copied": "Enlace copiado",
+    "copy_failed": "No se pudo copiar el enlace. Cópialo manualmente.",
+    "download_png": "Descargar en PNG",
+    "download_svg": "Descargar en SVG"
+  },
+  "DayOfMenu": {
+    "title": "Menú del gran día",
+    "subtitle": "Activa las categorías que vas a servir y añade tus platos.",
+    "enabled": "Activada",
+    "add_placeholder": "Añadir un plato…",
+    "add_item": "Añadir",
+    "remove_item": "Eliminar",
+    "categories": {
+      "cocktail": "Cóctel",
+      "starter": "Entrante",
+      "main": "Plato principal",
+      "cheese": "Quesos",
+      "dessert": "Postre",
+      "drinks": "Bebidas"
+    }
+  },
+  "DayOfSettings": {
+    "title": "Ajustes del gran día",
+    "enabled_label": "Activar el módulo del gran día",
+    "enabled_hint": "Tus invitados acceden a su mesa, al menú y a las fotos tras escanear el código QR.",
+    "gallery_visible_label": "Galería visible para los invitados",
+    "gallery_visible_hint": "Independiente del envío: tus invitados pueden seguir compartiendo fotos aunque la galería permanezca privada.",
+    "after_wedding_label": "Modo después de la boda",
+    "after_wedding_hint": "La página pasa a una vista de agradecimiento y sigue abierta para subir fotos.",
+    "uploads_until_label": "Envíos abiertos hasta",
+    "uploads_until_hint": "Pasada esta fecha, los invitados ya no podrán añadir fotos."
+  },
+  "DayOfPhotos": {
+    "title": "Fotos y vídeos",
+    "count": "{count} contenido(s) compartido(s) por sus invitados",
+    "download_all": "Descargar todo",
+    "zip_pending": "La descarga masiva estará disponible cuando se conecten las fotos reales.",
+    "download": "Descargar",
+    "hide": "Ocultar",
+    "show": "Mostrar",
+    "delete": "Eliminar",
+    "anonymous": "Invitado anónimo",
+    "filters": {
+      "all": "Todo",
+      "photo": "Fotos",
+      "video": "Vídeos",
+      "hidden": "Ocultos"
+    },
+    "delete_dialog": {
+      "title": "¿Eliminar este contenido?",
+      "description": "Este contenido compartido por sus invitados se eliminará definitivamente. Esta acción no se puede deshacer.",
+      "cancel": "Cancelar",
+      "confirm": "Eliminar"
+    }
+  },
+  "GuestGroups": {
+    "title": "Grupos de invitados",
+    "count": "{count} invitado(s) en total",
+    "search_placeholder": "Buscar un invitado o un hogar...",
+    "no_results": "Ningún invitado coincide con esta búsqueda.",
+    "child_badge": "Niño/a",
+    "groups": {
+      "all": "Todos",
+      "family": "Familia",
+      "friends": "Amigos",
+      "colleagues": "Colegas",
+      "other": "Otros"
+    },
+    "table": {
+      "guest": "Invitado",
+      "household": "Hogar",
+      "group": "Grupo"
+    }
+  },
+  "GuestMeals": {
+    "title": "Comidas y necesidades dietéticas",
+    "count": "{count} invitado(s) en total",
+    "search_placeholder": "Buscar invitado, hogar, alergia...",
+    "no_results": "Ningún invitado coincide con esta búsqueda.",
+    "confirmed_only_notice": "Estos totales solo cuentan a los {count} invitados confirmados — un invitado que declina no come.",
+    "dietary_totals_title": "Restricciones alimentarias (invitados confirmados)",
+    "allergy_notice": "{count} invitado(s) confirmado(s) han indicado una alergia — revise la columna Alergias antes de enviarla al catering.",
+    "allergies_placeholder": "Ej.: frutos secos",
+    "meals": {
+      "all": "Todos",
+      "standard": "Estándar",
+      "vegetarian": "Vegetariano",
+      "vegan": "Vegano",
+      "child": "Infantil"
+    },
+    "dietary": {
+      "gluten-free": "Sin gluten",
+      "lactose-free": "Sin lactosa",
+      "no-pork": "Sin cerdo",
+      "no-alcohol": "Sin alcohol",
+      "halal": "Halal",
+      "kosher": "Kosher"
+    },
+    "table": {
+      "guest": "Invitado",
+      "meal": "Comida",
+      "dietary": "Restricciones",
+      "allergies": "Alergias"
+    }
+  },
+  "InvitationEvents": {
+    "title": "Eventos",
+    "subtitle": "Vuestra boda no es un solo momento: gestionad cada celebración por separado.",
+    "untitled": "Sin nombre",
+    "no_date": "Fecha por definir",
+    "enabled": "Visible para los invitados",
+    "fields": {
+      "name": "Nombre del evento",
+      "date": "Fecha",
+      "time": "Hora",
+      "time_placeholder": "17:00",
+      "address": "Dirección",
+      "description": "Descripción",
+      "dress_code": "Código de vestimenta"
+    },
+    "delete": "Eliminar evento",
+    "delete_dialog": {
+      "title": "¿Eliminar “{name}”?",
+      "description": "Las respuestas RSVP y las entradas del programa vinculadas a este evento quedarán huérfanas. Esta acción no se puede deshacer.",
+      "cancel": "Cancelar",
+      "confirm": "Eliminar"
+    },
+    "add_event": "Añadir un evento",
+    "new_event_name": "Nuevo evento",
+    "reorder": "Reordenar"
+  },
+  "InvitationSchedule": {
+    "title": "Programa",
+    "subtitle": "El desarrollo de cada evento, en el orden en que ocurre.",
+    "event_disabled": "Evento desactivado",
+    "empty": "Aún no hay etapas.",
+    "add_entry": "Añadir una etapa",
+    "new_entry_title": "Nueva etapa",
+    "time_placeholder": "17:00",
+    "title_placeholder": "Título de la etapa",
+    "description_placeholder": "Descripción (opcional)",
+    "fields": {
+      "time": "Hora",
+      "title": "Título",
+      "description": "Descripción"
+    },
+    "move_up": "Subir",
+    "move_down": "Bajar",
+    "delete_entry": "Eliminar “{title}”",
+    "deleted_toast": "“{title}” eliminado",
+    "untitled": "Sin título"
+  },
+  "InvitationVenue": {
+    "title": "Lugar e información práctica",
+    "subtitle": "Esta sección es solo informativa: aquí no se reservan hoteles ni se gestionan traslados, solo se orienta a los invitados.",
+    "fields": {
+      "name": "Nombre del lugar",
+      "name_placeholder": "Villa Bellavista",
+      "address": "Dirección",
+      "address_placeholder": "Via Panoramica 4",
+      "city": "Ciudad",
+      "city_placeholder": "Ravello, Italia",
+      "maps_url": "Enlace de Google Maps",
+      "maps_url_placeholder": "https://maps.google.com/...",
+      "waze_url": "Enlace de Waze",
+      "waze_url_placeholder": "https://waze.com/ul?q=...",
+      "parking_info": "Aparcamiento",
+      "parking_info_placeholder": "Dónde y cómo aparcar",
+      "access_info": "Acceso",
+      "access_info_placeholder": "Cómo llegar al lugar",
+      "transport_info": "Transporte",
+      "transport_info_placeholder": "Traslados, transporte público, etc.",
+      "photo": "Foto del lugar"
+    },
+    "open_maps": "Abrir en Google Maps",
+    "open_waze": "Abrir en Waze",
+    "accommodation": {
+      "title": "Alojamientos recomendados",
+      "hint": "Una selección de opciones cercanas para ayudar a sus invitados a alojarse.",
+      "add": "Añadir",
+      "empty": "Aún no se ha añadido ningún alojamiento.",
+      "untitled": "sin nombre",
+      "fields": {
+        "name": "Nombre",
+        "city": "Ciudad",
+        "distance": "Distancia",
+        "phone": "Teléfono",
+        "booking_url": "Enlace de reserva",
+        "offer": "Oferta negociada"
+      },
+      "name_placeholder": "Nombre del alojamiento",
+      "city_placeholder": "Ciudad",
+      "distance_placeholder": "a 10 min de la finca",
+      "phone_placeholder": "+39 089 000 000",
+      "booking_url_placeholder": "https://...",
+      "offer_placeholder": "Tarifa negociada, código promocional...",
+      "open_booking": "Abrir el enlace de reserva",
+      "delete": "Eliminar {name}"
+    },
+    "move_up": "Subir",
+    "move_down": "Bajar"
+  },
+  "InvitationFaq": {
+    "title": "Preguntas frecuentes",
+    "subtitle": "Añada, edite y reordene las preguntas y respuestas para sus invitados.",
+    "add": "Añadir una pregunta",
+    "empty": "Todavía no hay preguntas.",
+    "untitled": "sin título",
+    "published": "Publicada",
+    "unpublished": "Sin publicar",
+    "published_toggle": "Publicar",
+    "unpublished_hint": "Esta pregunta sigue siendo editable aquí, pero no aparecerá en la invitación hasta que se publique.",
+    "fields": {
+      "question": "Pregunta",
+      "answer": "Respuesta"
+    },
+    "question_placeholder": "Su pregunta",
+    "answer_placeholder": "Su respuesta",
+    "move_up": "Subir",
+    "move_down": "Bajar",
+    "delete_entry": "Eliminar «{question}»",
+    "delete_dialog": {
+      "title": "¿Eliminar esta pregunta?",
+      "description": "Está a punto de eliminar «{question}». Esta acción no se puede deshacer.",
+      "cancel": "Cancelar",
+      "confirm": "Eliminar"
+    }
+  },
+  "Stats": {
+    "title": "Estadísticas",
+    "subtitle": "Cifras simples y útiles para seguir su invitación.",
+    "invitation": {
+      "title": "Invitación",
+      "visits": "Visitas",
+      "unique_visitors": "Visitantes únicos",
+      "response_rate": "Tasa de respuesta",
+      "response_rate_desc": "{responded} respuestas de {total} invitados"
+    },
+    "trend": {
+      "title": "Visitas de los últimos 30 días",
+      "aria_label": "Número de visitas por día durante los últimos 30 días",
+      "tooltip": "{date}: {visits} visitas"
+    },
+    "rsvp": {
+      "title": "RSVP",
+      "confirmed": "Confirmados",
+      "declined": "Rechazados",
+      "pending": "Sin respuesta"
+    },
+    "events": {
+      "title": "Eventos",
+      "empty": "No hay eventos activos.",
+      "count": "{confirmed} / {total} confirmados"
+    }
+  },
+  "PhotoPicker": {
+    "hint": "Añadir una foto",
+    "remove": "Quitar la foto",
+    "error_type": "Formato no compatible. Usa JPEG, PNG o WebP.",
+    "error_size": "Foto demasiado grande. El máximo es 8 MB."
   }
 }

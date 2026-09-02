@@ -231,10 +231,10 @@ export function PlaylistClient({ suggestions, weddingId }: Props) {
     <button
       onClick={() => handleSort(k)}
       className={cn(
-        "flex items-center gap-1 text-xs px-2 py-1 rounded-md border transition-colors",
+        "flex min-h-11 items-center gap-1 text-xs px-2 py-1 rounded-md border transition-colors",
         sortKey === k
-          ? "border-foreground/30 bg-foreground/5 text-foreground font-medium"
-          : "border-border text-muted-foreground hover:border-foreground/20",
+          ? "border-studio-violet/30 bg-studio-violet/5 text-studio-violet font-medium"
+          : "border-studio-lavande/40 text-studio-violet/60 hover:border-studio-violet/20",
       )}
     >
       {label}
@@ -252,35 +252,35 @@ export function PlaylistClient({ suggestions, weddingId }: Props) {
   return (
     <div className="space-y-6">
       {/* Stats */}
-      <div className="grid gap-4 md:grid-cols-3">
-        <div className="bg-white/50 border border-studio-lavande/30 shadow-sm rounded-2xl p-5">
-          <p className="text-sm font-medium text-muted-foreground mb-1">{tStats("suggestions")}</p>
-          <p className="text-2xl font-bold font-heading">{suggestions.filter(s => s.guest_name !== "__admin__").length}</p>
-          <p className="text-xs text-muted-foreground mt-0.5">{tStats("guests_submitted")}</p>
+      <div className="grid grid-cols-3 gap-2 md:gap-4">
+        <div className="rounded-2xl border border-studio-lavande/40 bg-white p-3 shadow-studio-card md:p-5">
+          <p className="text-xs font-medium text-studio-violet/60 mb-1 md:text-sm">{tStats("suggestions")}</p>
+          <p className="text-xl font-bold font-heading text-studio-violet md:text-2xl">{suggestions.filter(s => s.guest_name !== "__admin__").length}</p>
+          <p className="hidden text-xs text-studio-violet/60 mt-0.5 md:block">{tStats("guests_submitted")}</p>
         </div>
-        <div className="bg-teal-50/50 border border-teal-100 shadow-sm rounded-2xl p-5">
-          <p className="text-sm font-medium text-teal-600 mb-1">{tStats("accepted")}</p>
-          <p className="text-2xl font-bold font-heading text-teal-600">{stats.accepted}</p>
-          <p className="text-xs text-teal-500/70 mt-0.5">{tStats("accepted_of_total", { total: stats.total })}</p>
+        <div className="rounded-2xl border border-teal-200 bg-white p-3 shadow-studio-card md:p-5">
+          <p className="text-xs font-medium text-teal-600 mb-1 md:text-sm">{tStats("accepted")}</p>
+          <p className="text-xl font-bold font-heading text-teal-600 md:text-2xl">{stats.accepted}</p>
+          <p className="hidden text-xs text-teal-600/70 mt-0.5 md:block">{tStats("accepted_of_total", { total: stats.total })}</p>
         </div>
-        <div className="bg-primary/5 border border-primary/10 shadow-sm rounded-2xl p-5">
-          <p className="text-sm font-medium text-primary mb-1">{tStats("tracks")}</p>
-          <p className="text-2xl font-bold font-heading text-primary">{stats.total}</p>
-          <p className="text-xs text-primary/70 mt-0.5">{tStats("tracks_proposed")}</p>
+        <div className="rounded-2xl border border-studio-lavande/40 bg-white p-3 shadow-studio-card md:p-5">
+          <p className="text-xs font-medium text-studio-violet/60 mb-1 md:text-sm">{tStats("tracks")}</p>
+          <p className="text-xl font-bold font-heading text-studio-violet md:text-2xl">{stats.total}</p>
+          <p className="hidden text-xs text-studio-violet/60 mt-0.5 md:block">{tStats("tracks_proposed")}</p>
         </div>
       </div>
 
       {/* Unified search bar */}
-      <div className="bg-white border border-studio-lavande/40 rounded-2xl overflow-hidden">
+      <div className="bg-white border border-studio-lavande/40 rounded-2xl overflow-hidden shadow-studio-card">
         {/* Mode tabs */}
-        <div className="flex border-b border-border">
+        <div className="flex border-b border-studio-lavande/30">
           <button
             onClick={() => setShowAddPanel(false)}
             className={cn(
-              "flex-1 flex items-center justify-center gap-2 py-2.5 text-sm font-medium transition-colors",
+              "flex-1 flex min-h-11 items-center justify-center gap-2 py-2.5 text-sm font-medium transition-colors",
               !showAddPanel
-                ? "text-foreground border-b-2 border-primary -mb-px"
-                : "text-muted-foreground hover:text-foreground",
+                ? "text-studio-violet border-b-2 border-studio-violet -mb-px"
+                : "text-studio-violet/60 hover:text-studio-violet",
             )}
           >
             <Search size={14} />
@@ -289,10 +289,10 @@ export function PlaylistClient({ suggestions, weddingId }: Props) {
           <button
             onClick={() => setShowAddPanel(true)}
             className={cn(
-              "flex-1 flex items-center justify-center gap-2 py-2.5 text-sm font-medium transition-colors",
+              "flex-1 flex min-h-11 items-center justify-center gap-2 py-2.5 text-sm font-medium transition-colors",
               showAddPanel
-                ? "text-foreground border-b-2 border-[#1DB954] -mb-px"
-                : "text-muted-foreground hover:text-foreground",
+                ? "text-studio-violet border-b-2 border-[#1DB954] -mb-px"
+                : "text-studio-violet/60 hover:text-studio-violet",
             )}
           >
             <Plus size={14} />
@@ -302,14 +302,14 @@ export function PlaylistClient({ suggestions, weddingId }: Props) {
 
         {/* Input */}
         <div className="relative p-3">
-          <Search size={14} className="absolute left-6 top-1/2 -translate-y-1/2 text-muted-foreground" />
+          <Search size={14} className="absolute left-6 top-1/2 -translate-y-1/2 text-studio-violet/50" />
           {!showAddPanel ? (
             <input
               type="text"
               value={search}
               onChange={(e) => setSearch(e.target.value)}
               placeholder={t("search_placeholder")}
-              className="w-full pl-8 pr-8 py-2 text-sm rounded-lg bg-studio-lavande/10 focus:outline-none focus:ring-1 focus:ring-primary/30 focus:bg-white transition-colors"
+              className="w-full min-h-11 pl-8 pr-8 py-2 text-sm rounded-lg border border-studio-lavande/50 bg-studio-creme text-studio-violet focus:outline-none focus:ring-1 focus:ring-studio-violet/30 transition-colors"
             />
           ) : (
             <input
@@ -318,18 +318,18 @@ export function PlaylistClient({ suggestions, weddingId }: Props) {
               value={addQuery}
               onChange={(e) => setAddQuery(e.target.value)}
               placeholder={t("search_spotify_placeholder")}
-              className="w-full pl-8 pr-8 py-2 text-sm rounded-lg bg-studio-lavande/10 focus:outline-none focus:ring-1 focus:ring-[#1DB954]/40 focus:bg-white transition-colors"
+              className="w-full min-h-11 pl-8 pr-8 py-2 text-sm rounded-lg border border-studio-lavande/50 bg-studio-creme text-studio-violet focus:outline-none focus:ring-1 focus:ring-[#1DB954]/40 transition-colors"
             />
           )}
           <div className="absolute right-6 top-1/2 -translate-y-1/2">
             {!showAddPanel && search && (
-              <button onClick={() => setSearch("")} className="text-muted-foreground hover:text-foreground">
+              <button onClick={() => setSearch("")} className="text-studio-violet/50 hover:text-studio-violet">
                 <X size={13} />
               </button>
             )}
-            {showAddPanel && addSearching && <Loader2 size={14} className="text-muted-foreground animate-spin" />}
+            {showAddPanel && addSearching && <Loader2 size={14} className="text-studio-violet/50 animate-spin" />}
             {showAddPanel && !addSearching && addQuery && (
-              <button onClick={() => setAddQuery("")} className="text-muted-foreground hover:text-foreground">
+              <button onClick={() => setAddQuery("")} className="text-studio-violet/50 hover:text-studio-violet">
                 <X size={13} />
               </button>
             )}
@@ -338,23 +338,23 @@ export function PlaylistClient({ suggestions, weddingId }: Props) {
 
         {/* Spotify results */}
         {showAddPanel && addResults.length > 0 && (
-          <div className="divide-y divide-border border-t border-border">
+          <div className="divide-y divide-studio-lavande/30 border-t border-studio-lavande/30">
             {addResults.map((track) => {
               const alreadyIn = existingTrackIds.has(track.id);
               return (
                 <div key={track.id} className="flex items-center gap-3 px-4 py-2.5 hover:bg-studio-lavande/10 transition-colors">
                   <img src={track.coverUrl} alt={track.title} className="w-9 h-9 rounded-md object-cover shrink-0" />
                   <div className="flex-1 min-w-0">
-                    <p className="text-sm font-medium truncate">{track.title}</p>
-                    <p className="text-xs text-muted-foreground truncate">{track.artist}</p>
+                    <p className="text-sm font-medium text-studio-violet truncate">{track.title}</p>
+                    <p className="text-xs text-studio-violet/60 truncate">{track.artist}</p>
                   </div>
                   <button
                     onClick={() => handleAddTrack(track)}
                     disabled={alreadyIn || addingId === track.id}
                     className={cn(
-                      "flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium transition-colors shrink-0",
+                      "flex min-h-11 items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium transition-colors shrink-0",
                       alreadyIn
-                        ? "bg-studio-lavande/15 text-muted-foreground cursor-default"
+                        ? "bg-studio-lavande/15 text-studio-violet/60 cursor-default"
                         : "bg-[#1DB954] text-white hover:bg-[#1DB954]/90",
                     )}
                   >
@@ -373,7 +373,7 @@ export function PlaylistClient({ suggestions, weddingId }: Props) {
         )}
 
         {showAddPanel && addQuery.length >= 2 && !addSearching && addResults.length === 0 && (
-          <p className="text-sm text-muted-foreground text-center py-4 border-t border-border">{t("no_results")}</p>
+          <p className="text-sm text-studio-violet/60 text-center py-4 border-t border-studio-lavande/30">{t("no_results")}</p>
         )}
       </div>
 
@@ -385,13 +385,13 @@ export function PlaylistClient({ suggestions, weddingId }: Props) {
               key={key}
               onClick={() => handleFilterChange(key)}
               className={cn(
-                "flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-sm font-medium border transition-colors",
+                "flex min-h-11 items-center gap-1.5 px-3.5 py-1.5 rounded-full text-sm font-medium border transition-colors",
                 filter === key
                   ? key === "accepted" ? "bg-teal-500 text-white border-teal-500"
                     : key === "rejected" ? "bg-red-500 text-white border-red-500"
                     : key === "pending" ? "bg-studio-jaune text-studio-violet border-studio-jaune"
-                    : "bg-foreground text-background border-foreground"
-                  : "bg-white border-border text-muted-foreground hover:border-foreground/30",
+                    : "bg-studio-violet text-white border-studio-violet"
+                  : "bg-white border-studio-lavande/40 text-studio-violet/60 hover:border-studio-violet/30",
               )}
             >
               {label}
@@ -404,7 +404,7 @@ export function PlaylistClient({ suggestions, weddingId }: Props) {
 
         {/* Sort */}
         <div className="flex items-center gap-1.5">
-          <span className="text-xs text-muted-foreground mr-1">{t("sort_label")}</span>
+          <span className="text-xs text-studio-violet/60 mr-1">{t("sort_label")}</span>
           <SortButton k="date" label={t("sort_date")} />
           <SortButton k="title" label={t("sort_title")} />
           <SortButton k="artist" label={t("sort_artist")} />
@@ -415,10 +415,10 @@ export function PlaylistClient({ suggestions, weddingId }: Props) {
       {/* Tracks list */}
       {filteredAndSorted.length === 0 ? (
         <div className="flex flex-col items-center justify-center py-20 text-center gap-4">
-          <div className="w-16 h-16 rounded-full bg-secondary flex items-center justify-center text-primary">
+          <div className="w-16 h-16 rounded-full bg-studio-violet/10 flex items-center justify-center text-studio-violet">
             <Music2 size={28} />
           </div>
-          <p className="font-medium text-foreground">
+          <p className="font-medium text-studio-violet">
             {search ? t("no_match_search") :
               filter === "all" ? t("no_suggestions") :
               filter === "accepted" ? t("no_tracks_accepted") :
@@ -427,49 +427,49 @@ export function PlaylistClient({ suggestions, weddingId }: Props) {
           </p>
         </div>
       ) : (
-        <div className="bg-white border border-studio-lavande/40 rounded-2xl overflow-hidden">
+        <div className="bg-white border border-studio-lavande/40 rounded-2xl overflow-hidden shadow-studio-card">
           {/* Header */}
-          <div className="flex items-center gap-3 px-5 py-2.5 border-b border-border bg-studio-lavande/5">
+          <div className="flex items-center gap-3 px-5 py-2.5 border-b border-studio-lavande/30 bg-studio-lavande/5">
             <input
               type="checkbox"
               checked={allFilteredSelected}
               onChange={toggleSelectAll}
-              className="w-4 h-4 rounded border-studio-lavande/50 accent-foreground cursor-pointer"
+              className="w-4 h-4 rounded border-studio-lavande/50 accent-[#4B3F72] cursor-pointer"
             />
             {selected.size > 0 ? (
               <>
-                <span className="text-xs text-muted-foreground">
+                <span className="text-xs text-studio-violet/60">
                   {t("selected_count", { count: selected.size })}
                 </span>
                 <div className="flex items-center gap-2 ml-auto">
                   <button
                     onClick={() => setConfirmBatch("accepted")}
-                    className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium bg-teal-400 text-white hover:bg-teal-500 transition-colors"
+                    className="flex min-h-11 items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium bg-teal-400 text-white hover:bg-teal-500 transition-colors"
                   >
                     <CheckCheck size={13} /> {t("accept")}
                   </button>
                   <button
                     onClick={() => setConfirmBatch("rejected")}
-                    className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium bg-red-500 text-white hover:bg-red-600 transition-colors"
+                    className="flex min-h-11 items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium bg-red-500 text-white hover:bg-red-600 transition-colors"
                   >
                     <X size={13} /> {t("reject")}
                   </button>
                   <button
                     onClick={() => setConfirmBatch("pending")}
-                    className="px-3 py-1.5 rounded-lg text-xs font-medium border border-border text-muted-foreground hover:bg-studio-lavande/10 transition-colors"
+                    className="min-h-11 px-3 py-1.5 rounded-lg text-xs font-medium border border-studio-lavande/40 text-studio-violet/60 hover:bg-studio-lavande/10 transition-colors"
                   >
                     {t("reset")}
                   </button>
                 </div>
               </>
             ) : (
-              <span className="text-xs text-muted-foreground">
+              <span className="text-xs text-studio-violet/60">
                 {t("track_count", { count: filteredAndSorted.length })}
               </span>
             )}
           </div>
 
-          <div className="divide-y divide-border">
+          <div className="divide-y divide-studio-lavande/20">
             {filteredAndSorted.map(({ track, suggestion }) => {
               const status = getStatus(suggestion, track.id);
               const key = makeKey(suggestion.id, track.id);
@@ -492,7 +492,7 @@ export function PlaylistClient({ suggestions, weddingId }: Props) {
                       type="checkbox"
                       checked={isSelected}
                       onChange={() => toggleSelect(key)}
-                      className="w-4 h-4 rounded border-studio-lavande/50 accent-foreground cursor-pointer shrink-0"
+                      className="w-4 h-4 rounded border-studio-lavande/50 accent-[#4B3F72] cursor-pointer shrink-0"
                     />
 
                     {/* Cover + embed toggle */}
@@ -512,9 +512,9 @@ export function PlaylistClient({ suggestions, weddingId }: Props) {
 
                     {/* Track info */}
                     <div className="flex-1 min-w-0">
-                      <p className="text-sm font-medium text-foreground truncate">{track.title}</p>
-                      <p className="text-xs text-muted-foreground truncate">{track.artist}</p>
-                      <p className="text-xs text-muted-foreground/60 mt-0.5">
+                      <p className="text-sm font-medium text-studio-violet truncate">{track.title}</p>
+                      <p className="text-xs text-studio-violet/60 truncate">{track.artist}</p>
+                      <p className="text-xs text-studio-violet/40 mt-0.5">
                         {isAdmin ? t("added_by_you") : t("added_by_guest", { name: suggestion.guest_name ?? t("anonymous_guest") })}
                         {" · "}
                         {t("added_on")}{" "}
@@ -527,8 +527,8 @@ export function PlaylistClient({ suggestions, weddingId }: Props) {
                       <button
                         onClick={() => handleStatusToggle(suggestion, track, "accepted")}
                         className={cn(
-                          "p-1.5 rounded-lg transition-colors",
-                          status === "accepted" ? "bg-teal-400 text-white" : "text-muted-foreground hover:bg-teal-50 hover:text-teal-600",
+                          "flex h-11 w-11 items-center justify-center rounded-lg transition-colors",
+                          status === "accepted" ? "bg-teal-400 text-white" : "text-studio-violet/50 hover:bg-teal-50 hover:text-teal-600",
                         )}
                         title={t("accept")}
                       >
@@ -537,8 +537,8 @@ export function PlaylistClient({ suggestions, weddingId }: Props) {
                       <button
                         onClick={() => handleStatusToggle(suggestion, track, "rejected")}
                         className={cn(
-                          "p-1.5 rounded-lg transition-colors",
-                          status === "rejected" ? "bg-red-500 text-white" : "text-muted-foreground hover:bg-red-50 hover:text-red-500",
+                          "flex h-11 w-11 items-center justify-center rounded-lg transition-colors",
+                          status === "rejected" ? "bg-red-500 text-white" : "text-studio-violet/50 hover:bg-red-50 hover:text-red-500",
                         )}
                         title={t("reject")}
                       >
@@ -547,7 +547,7 @@ export function PlaylistClient({ suggestions, weddingId }: Props) {
                       <button
                         onClick={() => setConfirmDelete({ suggestion, track })}
                         disabled={isDeleting}
-                        className="p-1.5 rounded-lg text-muted-foreground hover:bg-red-50 hover:text-red-500 transition-colors disabled:opacity-40"
+                        className="flex h-11 w-11 items-center justify-center rounded-lg text-studio-violet/50 hover:bg-red-50 hover:text-red-500 transition-colors disabled:opacity-40"
                         title={t("delete")}
                       >
                         {isDeleting ? <Loader2 size={14} className="animate-spin" /> : <Trash2 size={14} />}
@@ -557,12 +557,12 @@ export function PlaylistClient({ suggestions, weddingId }: Props) {
 
                   {/* Spotify embed */}
                   {isExpanded && (
-                    <div className="px-5 pb-4 bg-studio-lavande/5 border-t border-border">
+                    <div className="px-5 pb-4 bg-studio-lavande/5 border-t border-studio-lavande/30">
                       <div className="flex items-center justify-between mt-3 mb-1">
-                        <span className="text-xs text-muted-foreground">{t("spotify_preview")}</span>
+                        <span className="text-xs text-studio-violet/60">{t("spotify_preview")}</span>
                         <button
                           onClick={() => setExpandedTrackId(null)}
-                          className="text-xs text-muted-foreground hover:text-foreground flex items-center gap-1 transition-colors"
+                          className="text-xs text-studio-violet/60 hover:text-studio-violet flex items-center gap-1 transition-colors"
                         >
                           <X size={12} /> {t("close")}
                         </button>
@@ -616,7 +616,7 @@ export function PlaylistClient({ suggestions, weddingId }: Props) {
           confirmClassName={
             confirmBatch === "accepted" ? "bg-teal-400 hover:bg-teal-500" :
             confirmBatch === "rejected" ? "bg-red-500 hover:bg-red-600" :
-            "bg-foreground hover:bg-foreground/80"
+            "bg-studio-violet hover:bg-studio-violet/90"
           }
           onCancel={() => setConfirmBatch(null)}
           onConfirm={() => executeBatch(confirmBatch)}
@@ -642,19 +642,19 @@ function ConfirmModal({
       <div className="absolute inset-0 bg-black/50" onClick={onCancel} />
       <div className="relative bg-white rounded-2xl shadow-xl p-6 max-w-sm w-full mx-4 space-y-4">
         <div className="space-y-1.5">
-          <h3 className="text-base font-semibold text-foreground">{title}</h3>
-          <p className="text-sm text-muted-foreground">{description}</p>
+          <h3 className="text-base font-semibold text-studio-violet">{title}</h3>
+          <p className="text-sm text-studio-violet/60">{description}</p>
         </div>
         <div className="flex justify-end gap-2 pt-2">
           <button
             onClick={onCancel}
-            className="px-4 py-2 rounded-lg text-sm border border-border text-muted-foreground hover:bg-studio-lavande/10 transition-colors"
+            className="min-h-11 px-4 py-2 rounded-lg text-sm border border-studio-lavande/40 text-studio-violet/60 hover:bg-studio-lavande/10 transition-colors"
           >
             {cancelLabel}
           </button>
           <button
             onClick={onConfirm}
-            className={cn("px-4 py-2 rounded-lg text-sm font-medium text-white transition-colors", confirmClassName)}
+            className={cn("min-h-11 px-4 py-2 rounded-lg text-sm font-medium text-white transition-colors", confirmClassName)}
           >
             {confirmLabel}
           </button>

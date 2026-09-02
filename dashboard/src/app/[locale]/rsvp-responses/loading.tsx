@@ -2,7 +2,7 @@ export default function RsvpResponsesLoading() {
   return (
     <div className="min-h-screen p-6 md:p-12 max-w-7xl mx-auto space-y-8 bg-[#FDFBF7]">
       {/* Header */}
-      <header className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 pb-4 border-b border-border">
+      <header className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 pb-4 border-b border-studio-lavande/40">
         <div className="space-y-2">
           <div className="h-9 w-56 bg-gray-200/70 rounded-lg animate-pulse" />
           <div className="h-4 w-80 bg-gray-100/80 rounded animate-pulse" />
@@ -16,7 +16,7 @@ export default function RsvpResponsesLoading() {
           "bg-amber-50/50 border-amber-100",
           "bg-green-50/50 border-green-100",
           "bg-red-50/50 border-red-100",
-          "bg-primary/5 border-primary/10",
+          "bg-studio-violet/5 border-studio-violet/10",
         ].map((cls, i) => (
           <div key={i} className={`${cls} border shadow-sm rounded-xl p-5 space-y-2 animate-pulse`}>
             <div className="h-3.5 w-24 bg-gray-200/60 rounded" />
@@ -27,7 +27,7 @@ export default function RsvpResponsesLoading() {
       </div>
 
       {/* Toolbar */}
-      <div className="bg-white rounded-xl border border-border shadow-sm p-4 space-y-3 animate-pulse">
+      <div className="bg-white rounded-2xl border border-studio-lavande/40 shadow-sm p-4 space-y-3 animate-pulse">
         {/* Row 1 — search + filters */}
         <div className="flex flex-col sm:flex-row gap-3 items-center">
           <div className="h-9 w-full sm:max-w-xs bg-gray-100 rounded-lg" />
@@ -38,7 +38,7 @@ export default function RsvpResponsesLoading() {
           </div>
         </div>
         {/* Row 2 — actions */}
-        <div className="flex gap-2 border-t border-border pt-3">
+        <div className="flex gap-2 border-t border-studio-lavande/40 pt-3">
           <div className="h-8 w-24 bg-gray-100 rounded-md" />
           <div className="h-8 w-24 bg-gray-100 rounded-md" />
           <div className="h-8 w-20 bg-gray-100 rounded-md" />
@@ -47,9 +47,9 @@ export default function RsvpResponsesLoading() {
       </div>
 
       {/* Table */}
-      <div className="bg-white rounded-xl border border-border shadow-sm overflow-hidden animate-pulse">
+      <div className="bg-white rounded-2xl border border-studio-lavande/40 shadow-sm overflow-hidden animate-pulse">
         {/* Header row */}
-        <div className="border-b border-border bg-gray-50/50 px-4 py-3.5 grid grid-cols-[40px_40px_18%_16%_8%_1fr_1fr_10%_40px] gap-4 items-center">
+        <div className="border-b border-studio-lavande/40 bg-studio-lavande/10 px-4 py-3.5 grid grid-cols-[40px_40px_18%_16%_8%_1fr_1fr_10%_40px] gap-4 items-center">
           {[20, 20, 80, 64, 32, 100, 80, 48, 20].map((w, i) => (
             <div key={i} className="h-3 bg-gray-200/60 rounded" style={{ maxWidth: w }} />
           ))}
@@ -59,7 +59,7 @@ export default function RsvpResponsesLoading() {
         {Array.from({ length: 8 }).map((_, i) => (
           <div
             key={i}
-            className="border-b border-border px-4 py-4 grid grid-cols-[40px_40px_18%_16%_8%_1fr_1fr_10%_40px] gap-4 items-center"
+            className="border-b border-studio-lavande/30 px-4 py-4 grid grid-cols-[40px_40px_18%_16%_8%_1fr_1fr_10%_40px] gap-4 items-center"
             style={{ opacity: 1 - i * 0.09 }}
           >
             <div className="h-4 w-4 bg-gray-100 rounded" />

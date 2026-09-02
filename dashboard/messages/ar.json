@@ -2,52 +2,46 @@
   "Dashboard": {
     "greeting": "مرحبًا، {name}",
     "settings": "الإعدادات",
-    "view_site": "عرض موقعي",
-    "wedding_space": "مساحة الزفاف",
-    "responses": "الردود",
-    "guests_confirmed": "تأكيد حضور {count} من أصل {total} ضيوف",
-    "see_list": "عرض القائمة",
     "countdown": "العد التنازلي",
-    "days_remaining": "متبقٍ {days} أيام",
-    "almost_there": "أوشكنا على الوصول!",
-    "big_day": "إنه اليوم الموعود!",
-    "date_missing": "التاريخ؟",
-    "add_date": "إضافة تاريخ الزفاف",
-    "configure_now": "الإعداد الآن",
-    "next_step": "الخطوة التالية: إرسال معلومات الفندق",
-    "to_validate": "بانتظار التأكيد",
-    "households_pending": "{count} عائلات بانتظار تأكيدك.",
-    "all_up_to_date": "كل شيء محدّث!\nلا حاجة لأي إجراء.",
-    "manage_requests": "إدارة الطلبات",
-    "recent_activity": "النشاط الأخير",
-    "online_signup": "التسجيل عبر الإنترنت",
-    "admin_add": "أُضيف من قِبل المسؤول",
-    "confirmed": "مؤكَّد",
-    "pending": "قيد الانتظار",
-    "no_activity": "لا يوجد نشاط حديث.",
-    "quick_access": "وصول سريع",
-    "guest_list": "قائمة الضيوف",
-    "guest_desc": "إدارة أو إضافة أو حذف.",
-    "settings_desc": "التاريخ والرمز والتفضيلات.",
-    "the_site": "الموقع",
-    "total_guests": "إجمالي المدعوين",
-    "activity_confirmed": "أكد حضوره",
-    "activity_declined": "اعتذر عن الحضور",
-    "activity_rsvp_received": "أجاب (تسجيل عبر الإنترنت)",
-    "activity_added": "تمت إضافته من قبل المسؤول",
-    "quick_add_guest": "إضافة مدعو",
-    "quick_add_desc": "إضافة أسرة يدويًا",
-    "manage_responses": "إدارة الردود",
-    "manage_responses_desc": "معالجة طلبات الحضور المعلقة",
-    "guest_list_desc": "القائمة الكاملة للمدعوين",
-    "export_data": "تصدير البيانات",
-    "export_desc": "تنزيل ملف Excel / CSV",
-    "confirmed_guests_desc": "الضيوف المؤكدون",
-    "pending_response_desc": "في انتظار الرد",
-    "pending_validation_title": "التحقق المعلق",
-    "pending_validation_desc": "لديك <strong>{count} أسرة</strong> ردّت وتنتظر تحققك.",
-    "review_responses": "مراجعة الردود",
-    "no_pending_validation": "لا توجد عمليات تحقق معلقة"
+    "kpi": {
+      "guests": {
+        "title": "المدعوون",
+        "total": "الإجمالي",
+        "confirmed": "مؤكدون",
+        "pending": "في الانتظار",
+        "children": "الأطفال"
+      },
+      "jour_j": {
+        "title": "يوم الزفاف",
+        "seated": "تم تحديد أماكنهم",
+        "to_seat": "بانتظار تحديد الأماكن",
+        "tables": "الطاولات",
+        "media": "الصور ومقاطع الفيديو"
+      }
+    },
+    "quick_actions": {
+      "title": "مهام قادمة",
+      "no_answer": {
+        "label": "{count, plural, =0 {لا توجد ردود معلقة} one {مدعو واحد لم يرد} two {مدعوان لم يردا} few {# مدعوين لم يردوا} many {# مدعوًا لم يردوا} other {# مدعو لم يردوا}}",
+        "description": "تذكير المدعوين الذين لم يردوا بعد"
+      },
+      "to_seat": {
+        "label": "{count, plural, =0 {تم تحديد أماكن الجميع} one {مدعو واحد بانتظار مكانه} two {مدعوان بانتظار مكانهما} few {# مدعوين بانتظار أماكنهم} many {# مدعوًا بانتظار أماكنهم} other {# مدعو بانتظار أماكنهم}}",
+        "description": "إنهاء خطة توزيع الطاولات"
+      },
+      "qr_code": {
+        "label_no_count": "طباعة رمز QR",
+        "description": "لعرضه يوم الحفل لوصول المدعوين"
+      }
+    },
+    "invitation_preview": {
+      "title": "الدعوة",
+      "live": "متاحة",
+      "not_live": "غير متاحة",
+      "edit_cta": "تعديل المحتوى",
+      "public_hint": "الرابط العام المشارك مع مدعويكم",
+      "view_cta": "عرض"
+    }
   },
   "Guests": {
     "title": "ضيوفكم",
@@ -56,18 +50,54 @@
     "subtitle": "أدر قائمتك، وتابع الردود، ونظّم مناسبتك."
   },
   "Sidebar": {
-    "home": "الرئيسية",
-    "guests": "الضيوف",
-    "messages": "الرسائل",
-    "billing": "الفوترة",
-    "settings": "الإعدادات",
+    "sections": {
+      "home": {
+        "label": "الرئيسية"
+      },
+      "guests": {
+        "label": "الضيوف",
+        "items": {
+          "all": "جميع الضيوف",
+          "rsvp": "ردود الحضور",
+          "groups": "المجموعات",
+          "meals": "الوجبات"
+        }
+      },
+      "invitation": {
+        "label": "الدعوة",
+        "items": {
+          "modules": "وحداتي",
+          "events": "الفعاليات",
+          "schedule": "البرنامج",
+          "venue": "المكان والمعلومات العملية",
+          "faq": "الأسئلة الشائعة",
+          "playlist": "قائمة التشغيل"
+        }
+      },
+      "day_of": {
+        "label": "يوم الزفاف",
+        "items": {
+          "seating": "مخطط الجلوس",
+          "qr_code": "رمز QR",
+          "menu": "القائمة",
+          "photos": "الصور ومقاطع الفيديو",
+          "settings": "الإعدادات"
+        }
+      },
+      "stats": {
+        "label": "الإحصائيات"
+      },
+      "settings": {
+        "label": "الإعدادات",
+        "items": {
+          "couple": "الزوجان",
+          "billing": "الفوترة",
+          "messages": "الرسائل"
+        }
+      }
+    },
     "view_site": "عرض موقعي",
     "logout": "تسجيل الخروج",
-    "modules": "وحداتي",
-    "rsvp_responses": "ردود الحضور",
-    "playlist": "قائمة التشغيل",
-    "seating_plan": "مخطط الجلوس",
-    "config_section": "الإعدادات",
     "logout_confirmation": {
       "title": "تأكيد تسجيل الخروج",
       "description": "هل أنت متأكد من رغبتك في تسجيل الخروج؟",
@@ -630,7 +660,9 @@
       "new_email": "بريد إلكتروني جديد",
       "update_email_btn": "تعديل البريد الإلكتروني",
       "toast_profile_success": "تم تحديث الملف الشخصي",
-      "toast_tech_error": "خطأ تقني"
+      "toast_tech_error": "خطأ تقني",
+      "weddingdate": "تاريخ الزفاف",
+      "weddingdate_hint": "تُستخدم في العدّ التنازلي في صفحتك الرئيسية وبرنامج الدعوة."
     },
     "security": {
       "password_title": "كلمة المرور",
@@ -703,12 +735,6 @@
       "allergies": "حساسية",
       "other": "أخرى"
     }
-  },
-  "AddTableButton": {
-    "toast_success": "تمت إضافة الطاولة!",
-    "toast_error": "خطأ: {error}",
-    "creating": "جارٍ الإنشاء...",
-    "add_table": "إضافة طاولة"
   },
   "ForgotPassword": {
     "title": "هل نسيت كلمة المرور؟",
@@ -858,15 +884,6 @@
     "error_too_short": "يجب أن تتكون كلمة المرور من 6 أحرف على الأقل.",
     "error_generic": "خطأ أثناء إعادة التعيين. يرجى المحاولة مرة أخرى."
   },
-  "SeatingPlan": {
-    "error_title": "حدث خطأ",
-    "error_description": "تعذّر تحميل مخطط الجلوس.",
-    "title": "مخطط الجلوس",
-    "subtitle_has_tables": "اسحب وأفلت الطاولات والضيوف.",
-    "subtitle_empty": "ابدأ بإنشاء طاولتك الأولى.",
-    "empty_title": "قاعتك فارغة",
-    "empty_description": "أنشئ طاولات لتبدأ في ترتيب ضيوفك. يمكنك بعد ذلك تحريكها بحرية."
-  },
   "CountdownTimer": {
     "big_day": "إنه اليوم المنشود!",
     "months": "أشهر",
@@ -913,12 +930,6 @@
     "one_time_payment": "دفعة واحدة، مضمّنة مدى الحياة في موقعك",
     "buy_button": "شراء — 10 يورو"
   },
-  "GuestSidebar": {
-    "title": "الضيوف",
-    "all_seated": "تم ترتيب جلوس جميع الضيوف!",
-    "child": "طفل",
-    "guest": "ضيف"
-  },
   "MessagesPage": {
     "title": "الرسائل",
     "description": "الكلمات التي تركها لك ضيوفك.",
@@ -927,5 +938,287 @@
   },
   "DashboardLayout": {
     "initializing": "جارٍ تهيئة مساحتك..."
+  },
+  "Seating": {
+    "title": "مخطط الجلوس",
+    "seated": "تم التنسيق",
+    "remaining": "بانتظار التنسيق",
+    "capacity": "السعة",
+    "search_placeholder": "ابحث عن ضيف…",
+    "unseated_title": "الضيوف بانتظار التنسيق",
+    "all_seated": "تم تنسيق جميع الضيوف",
+    "assign": "تنسيق الضيوف",
+    "assign_title": "تنسيق على طاولة {table}",
+    "seats_left": "{count} مقعد(مقاعد) متبقٍّ",
+    "table_full": "الطاولة ممتلئة",
+    "move_to": "نقل إلى…",
+    "remove": "إزالة",
+    "done": "تم",
+    "no_tables": "لا توجد طاولات بعد"
+  },
+  "QrCode": {
+    "title": "رمز QR ليوم الزفاف",
+    "permanent_note": "رمز QR هذا نهائي. لن يتغيّر أبدًا حتى لو عدّلتم الطاولات أو قائمة الطعام أو الضيوف أو البرنامج. يمكنكم طباعته منذ الآن.",
+    "copy": "نسخ",
+    "copied": "تم نسخ الرابط",
+    "copy_failed": "تعذّر نسخ الرابط. يُرجى نسخه يدويًا.",
+    "download_png": "تنزيل بصيغة PNG",
+    "download_svg": "تنزيل بصيغة SVG"
+  },
+  "DayOfMenu": {
+    "title": "قائمة يوم الزفاف",
+    "subtitle": "فعّلوا الأصناف التي ستقدمونها وأضيفوا أطباقكم.",
+    "enabled": "مفعّلة",
+    "add_placeholder": "أضف طبقًا…",
+    "add_item": "إضافة",
+    "remove_item": "حذف",
+    "categories": {
+      "cocktail": "كوكتيل",
+      "starter": "مقبلات",
+      "main": "طبق رئيسي",
+      "cheese": "أجبان",
+      "dessert": "حلويات",
+      "drinks": "مشروبات"
+    }
+  },
+  "DayOfSettings": {
+    "title": "إعدادات يوم الزفاف",
+    "enabled_label": "تفعيل وحدة يوم الزفاف",
+    "enabled_hint": "يصل ضيوفكم إلى طاولتهم والقائمة والصور بعد مسح رمز الاستجابة السريعة.",
+    "gallery_visible_label": "المعرض مرئي للضيوف",
+    "gallery_visible_hint": "مستقل عن الإرسال: يمكن للضيوف مشاركة صورهم حتى لو ظل المعرض خاصًا.",
+    "after_wedding_label": "وضع ما بعد الزفاف",
+    "after_wedding_hint": "تتحول الصفحة إلى واجهة شكر وتبقى مفتوحة لاستقبال الصور.",
+    "uploads_until_label": "الإرسال متاح حتى",
+    "uploads_until_hint": "بعد هذا التاريخ، لن يتمكن الضيوف من إضافة صور جديدة."
+  },
+  "DayOfPhotos": {
+    "title": "الصور ومقاطع الفيديو",
+    "count": "{count} من المحتوى الذي شاركه ضيوفكم",
+    "download_all": "تنزيل الكل",
+    "zip_pending": "سيتوفر التنزيل الجماعي بمجرد ربط الصور الحقيقية.",
+    "download": "تنزيل",
+    "hide": "إخفاء",
+    "show": "إظهار",
+    "delete": "حذف",
+    "anonymous": "ضيف مجهول",
+    "filters": {
+      "all": "الكل",
+      "photo": "الصور",
+      "video": "مقاطع الفيديو",
+      "hidden": "المخفية"
+    },
+    "delete_dialog": {
+      "title": "هل تريد حذف هذا المحتوى؟",
+      "description": "سيتم حذف هذا المحتوى الذي شاركه ضيوفكم نهائيًا. لا يمكن التراجع عن هذا الإجراء.",
+      "cancel": "إلغاء",
+      "confirm": "حذف"
+    }
+  },
+  "GuestGroups": {
+    "title": "مجموعات الضيوف",
+    "count": "{count} ضيف إجمالاً",
+    "search_placeholder": "ابحث عن ضيف أو أسرة...",
+    "no_results": "لا يوجد ضيف يطابق هذا البحث.",
+    "child_badge": "طفل",
+    "groups": {
+      "all": "الكل",
+      "family": "العائلة",
+      "friends": "الأصدقاء",
+      "colleagues": "الزملاء",
+      "other": "أخرى"
+    },
+    "table": {
+      "guest": "الضيف",
+      "household": "الأسرة",
+      "group": "المجموعة"
+    }
+  },
+  "GuestMeals": {
+    "title": "الوجبات والاحتياجات الغذائية",
+    "count": "{count} ضيف إجمالاً",
+    "search_placeholder": "ابحث عن ضيف أو أسرة أو حساسية...",
+    "no_results": "لا يوجد ضيف يطابق هذا البحث.",
+    "confirmed_only_notice": "تحتسب هذه الإجماليات فقط الضيوف المؤكدين البالغ عددهم {count} — الضيف الذي اعتذر لا يتناول الطعام.",
+    "dietary_totals_title": "الاحتياجات الغذائية (الضيوف المؤكدون)",
+    "allergy_notice": "أبلغ {count} من الضيوف المؤكدين عن حساسية — تحقق من عمود الحساسية قبل إرسال القائمة إلى مقدم خدمة الطعام.",
+    "allergies_placeholder": "مثال: المكسرات",
+    "meals": {
+      "all": "الكل",
+      "standard": "عادي",
+      "vegetarian": "نباتي",
+      "vegan": "نباتي صرف",
+      "child": "أطفال"
+    },
+    "dietary": {
+      "gluten-free": "خالٍ من الغلوتين",
+      "lactose-free": "خالٍ من اللاكتوز",
+      "no-pork": "بدون لحم خنزير",
+      "no-alcohol": "بدون كحول",
+      "halal": "حلال",
+      "kosher": "كوشر"
+    },
+    "table": {
+      "guest": "الضيف",
+      "meal": "الوجبة",
+      "dietary": "الاحتياجات الغذائية",
+      "allergies": "الحساسية"
+    }
+  },
+  "InvitationEvents": {
+    "title": "الفعاليات",
+    "subtitle": "زفافكما ليس لحظة واحدة: أديرا كل مناسبة على حدة.",
+    "untitled": "بلا اسم",
+    "no_date": "التاريخ لم يحدد بعد",
+    "enabled": "مرئي للضيوف",
+    "fields": {
+      "name": "اسم الفعالية",
+      "date": "التاريخ",
+      "time": "الوقت",
+      "time_placeholder": "17:00",
+      "address": "العنوان",
+      "description": "الوصف",
+      "dress_code": "قواعد اللباس"
+    },
+    "delete": "حذف الفعالية",
+    "delete_dialog": {
+      "title": "حذف «{name}»؟",
+      "description": "ستصبح ردود RSVP وعناصر البرنامج المرتبطة بهذه الفعالية يتيمة بلا مرجع. لا يمكن التراجع عن هذا الإجراء.",
+      "cancel": "إلغاء",
+      "confirm": "حذف"
+    },
+    "add_event": "إضافة فعالية",
+    "new_event_name": "فعالية جديدة",
+    "reorder": "إعادة الترتيب"
+  },
+  "InvitationSchedule": {
+    "title": "البرنامج",
+    "subtitle": "سير كل فعالية، بالترتيب الذي تجري فيه.",
+    "event_disabled": "الفعالية معطلة",
+    "empty": "لا توجد عناصر بعد.",
+    "add_entry": "إضافة عنصر",
+    "new_entry_title": "عنصر جديد",
+    "time_placeholder": "17:00",
+    "title_placeholder": "عنوان العنصر",
+    "description_placeholder": "الوصف (اختياري)",
+    "fields": {
+      "time": "الوقت",
+      "title": "العنوان",
+      "description": "الوصف"
+    },
+    "move_up": "تحريك لأعلى",
+    "move_down": "تحريك لأسفل",
+    "delete_entry": "حذف «{title}»",
+    "deleted_toast": "تم حذف «{title}»",
+    "untitled": "بلا عنوان"
+  },
+  "InvitationVenue": {
+    "title": "المكان والمعلومات العملية",
+    "subtitle": "هذا القسم إعلامي فقط: لا حجز فنادق ولا تنظيم لحافلات النقل هنا، فقط ما يكفي لتوجيه ضيوفكم.",
+    "fields": {
+      "name": "اسم المكان",
+      "name_placeholder": "Villa Bellavista",
+      "address": "العنوان",
+      "address_placeholder": "Via Panoramica 4",
+      "city": "المدينة",
+      "city_placeholder": "رافيلو، إيطاليا",
+      "maps_url": "رابط خرائط جوجل",
+      "maps_url_placeholder": "https://maps.google.com/...",
+      "waze_url": "رابط Waze",
+      "waze_url_placeholder": "https://waze.com/ul?q=...",
+      "parking_info": "موقف السيارات",
+      "parking_info_placeholder": "أين وكيف يمكن ركن السيارة",
+      "access_info": "الوصول",
+      "access_info_placeholder": "كيفية الوصول إلى المكان",
+      "transport_info": "النقل",
+      "transport_info_placeholder": "حافلات، وسائل نقل عامة، إلخ.",
+      "photo": "صورة المكان"
+    },
+    "open_maps": "فتح في خرائط جوجل",
+    "open_waze": "فتح في Waze",
+    "accommodation": {
+      "title": "أماكن إقامة موصى بها",
+      "hint": "مجموعة مختارة من الأماكن القريبة لمساعدة ضيوفكم على إيجاد مكان للإقامة.",
+      "add": "إضافة",
+      "empty": "لم تتم إضافة أي مكان إقامة بعد.",
+      "untitled": "بدون اسم",
+      "fields": {
+        "name": "الاسم",
+        "city": "المدينة",
+        "distance": "المسافة",
+        "phone": "الهاتف",
+        "booking_url": "رابط الحجز",
+        "offer": "عرض خاص متفاوض عليه"
+      },
+      "name_placeholder": "اسم مكان الإقامة",
+      "city_placeholder": "المدينة",
+      "distance_placeholder": "على بعد 10 دقائق من المكان",
+      "phone_placeholder": "+39 089 000 000",
+      "booking_url_placeholder": "https://...",
+      "offer_placeholder": "سعر خاص، رمز ترويجي...",
+      "open_booking": "فتح رابط الحجز",
+      "delete": "حذف {name}"
+    },
+    "move_up": "تحريك لأعلى",
+    "move_down": "تحريك لأسفل"
+  },
+  "InvitationFaq": {
+    "title": "الأسئلة الشائعة",
+    "subtitle": "أضيفوا، عدّلوا وأعيدوا ترتيب الأسئلة والأجوبة الموجهة لضيوفكم.",
+    "add": "إضافة سؤال",
+    "empty": "لا توجد أسئلة بعد.",
+    "untitled": "بدون عنوان",
+    "published": "منشور",
+    "unpublished": "غير منشور",
+    "published_toggle": "نشر",
+    "unpublished_hint": "يبقى هذا السؤال قابلاً للتعديل هنا لكنه لن يظهر في الدعوة إلى أن يتم نشره.",
+    "fields": {
+      "question": "السؤال",
+      "answer": "الجواب"
+    },
+    "question_placeholder": "سؤالكم",
+    "answer_placeholder": "جوابكم",
+    "move_up": "تحريك لأعلى",
+    "move_down": "تحريك لأسفل",
+    "delete_entry": "حذف «{question}»",
+    "delete_dialog": {
+      "title": "هل تريدون حذف هذا السؤال؟",
+      "description": "أنتم على وشك حذف «{question}». لا يمكن التراجع عن هذا الإجراء.",
+      "cancel": "إلغاء",
+      "confirm": "حذف"
+    }
+  },
+  "Stats": {
+    "title": "الإحصائيات",
+    "subtitle": "أرقام بسيطة ومفيدة لمتابعة دعوتكم.",
+    "invitation": {
+      "title": "الدعوة",
+      "visits": "الزيارات",
+      "unique_visitors": "الزوار الفريدون",
+      "response_rate": "معدل الاستجابة",
+      "response_rate_desc": "{responded} ردًا من أصل {total} ضيف"
+    },
+    "trend": {
+      "title": "الزيارات خلال 30 يومًا",
+      "aria_label": "عدد الزيارات يوميًا خلال آخر 30 يومًا",
+      "tooltip": "{date}: {visits} زيارة"
+    },
+    "rsvp": {
+      "title": "الرد على الدعوة",
+      "confirmed": "مؤكَّد",
+      "declined": "معتذر",
+      "pending": "بلا رد"
+    },
+    "events": {
+      "title": "الفعاليات",
+      "empty": "لا توجد فعاليات نشطة.",
+      "count": "{confirmed} / {total} مؤكَّد"
+    }
+  },
+  "PhotoPicker": {
+    "hint": "إضافة صورة",
+    "remove": "إزالة الصورة",
+    "error_type": "صيغة غير مدعومة. استخدم JPEG أو PNG أو WebP.",
+    "error_size": "الصورة كبيرة جدًا. الحد الأقصى 8 ميغابايت."
   }
 }
