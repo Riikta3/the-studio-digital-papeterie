@@ -146,12 +146,15 @@ export async function getInvitationPage(
 
   const supabase = await createClient();
 
-  const { data: site, error: siteError } = await supabase
-    .from("sites")
-    .select("wedding_id, slug, theme_id, status")
-    .eq("slug", slug)
-    .maybeSingle();
+  // Via `resolve_public_slug` rather than reading `sites`: the broad anon
+  // policy that used to allow that leaked every column and let anyone list
+  // every published slug (20260903120000 replaced it).
+  const { data: resolved, error: siteError } = await supabase.rpc(
+    "resolve_public_slug",
+    { p_slug: slug },
+  );
 
+  const site = resolved?.[0];
   if (siteError || !site?.wedding_id) return null;
 
   const weddingId = site.wedding_id as string;
@@ -240,7 +243,7 @@ export async function getInvitationPage(
 
   return {
     weddingId,
-    slug: site.slug as string,
+    slug,
     themeId: (site.theme_id as string | null) ?? null,
     partner1: (names?.first_name as string | null) ?? "",
     partner2: (names?.partner_name as string | null) ?? "",

@@ -102,12 +102,15 @@ export async function resolveGuestPage(
 
   const supabase = await createClient();
 
-  const { data: site } = await supabase
-    .from("sites")
-    .select("wedding_id")
-    .eq("slug", slug)
-    .maybeSingle();
+  // Through an RPC, not a table read: the broad anon policy on `sites` let
+  // anyone select every column AND list every published slug, so it was
+  // replaced by `resolve_public_slug` (20260903120000), which answers one slug
+  // at a time and returns only what these pages need.
+  const { data: resolved } = await supabase.rpc("resolve_public_slug", {
+    p_slug: slug,
+  });
 
+  const site = resolved?.[0];
   if (!site?.wedding_id) return null;
 
   const weddingId = site.wedding_id as string;
@@ -356,9 +359,25 @@ export async function listGuestGallery(slug: string): Promise<GuestPageMedia[]> 
         supabase.storage
           .from(GUEST_MEDIA_BUCKET)
           .createSignedUrl(storagePath, GALLERY_URL_TTL_SECONDS),
-        supabase.storage
-          .from(GUEST_MEDIA_BUCKET)
-          .createSignedUrl(thumbPath, GALLERY_URL_TTL_SECONDS),
+        // `thumb_path` is never written — nothing generates a separate
+        // thumbnail file — so this used to resolve to the original and the
+        // phone grid downloaded full-size photos, up to the bucket's 100MB
+        // ceiling, over mobile data. Supabase transforms the image on the fly
+        // instead: same object, resized at the edge, no second file to store,
+        // upload or clean up.
+        //
+        // 640px wide covers a 2-column grid at 3× density. Videos are left
+        // alone: the transformer only handles images, and a video tile shows a
+        // poster frame the browser fetches lazily.
+        row.kind === "video"
+          ? supabase.storage
+              .from(GUEST_MEDIA_BUCKET)
+              .createSignedUrl(thumbPath, GALLERY_URL_TTL_SECONDS)
+          : supabase.storage
+              .from(GUEST_MEDIA_BUCKET)
+              .createSignedUrl(thumbPath, GALLERY_URL_TTL_SECONDS, {
+                transform: { width: 640, quality: 70, resize: "contain" },
+              }),
       ]);
 
       // A file whose object is missing (deleted from the bucket but not the
