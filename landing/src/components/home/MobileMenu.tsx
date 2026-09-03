@@ -18,6 +18,7 @@ const PRODUCT_LINK_ANCHORS = [
   "fonctionnalites",
   "tarifs",
   "sur-mesure",
+  "espace-maries",
   "temoignages",
   "faq",
 ];

@@ -48,8 +48,8 @@ const CHAPTERS: Chapter[] = [
     ms: 2000,
     url: "dashboard.the-studio-digital-papeterie.fr/fr",
     rail: "Accueil",
-    title: "Tout le mariage sur un seul ecran",
-    body: "Des la connexion, les maries voient ou ils en sont : le compte a rebours, les reponses recues, les invites qui restent a placer. Aucun chiffre n'est saisi a la main.",
+    title: "Tout le mariage sur un seul écran",
+    body: "Dès la connexion, les mariés voient où ils en sont : le compte à rebours, les réponses reçues, les invités qui restent à placer. Aucun chiffre n'est saisi à la main.",
   },
   {
     panel: "guests",
@@ -57,9 +57,9 @@ const CHAPTERS: Chapter[] = [
     sub: "all",
     ms: 4000,
     url: "dashboard.the-studio-digital-papeterie.fr/fr/guests",
-    rail: "Invites",
+    rail: "Invités",
     title: "Une ligne par foyer, pas par personne",
-    body: "On invite des familles, pas des individus : la liste est donc organisee par foyer, avec son contact et son statut. Les reponses arrivent depuis le faire-part et remontent ici toutes seules.",
+    body: "On invite des familles, pas des individus : la liste est donc organisée par foyer, avec son contact et son statut. Les réponses arrivent depuis le faire-part et remontent ici toutes seules.",
   },
   {
     panel: "seating",
@@ -68,8 +68,8 @@ const CHAPTERS: Chapter[] = [
     ms: 3000,
     url: "dashboard.the-studio-digital-papeterie.fr/fr/jour-j/plan-de-table",
     rail: "Plan de table",
-    title: "On attrape un invite, on le pose",
-    body: "Les invites a placer attendent dans la colonne de gauche ; il suffit de les faire glisser sur une table. Seuls ceux qui ont accepte apparaissent, et une table refuse plus de convives qu'elle n'a de places.",
+    title: "On attrape un invité, on le pose",
+    body: "Les invités à placer attendent dans la colonne de gauche ; il suffit de les faire glisser sur une table. Seuls ceux qui ont accepté apparaissent, et une table refuse plus de convives qu'elle n'a de places.",
   },
   {
     panel: "dayof",
@@ -78,8 +78,8 @@ const CHAPTERS: Chapter[] = [
     ms: 3000,
     url: "the-studio-digital-papeterie.fr/fr/jourj/marie-et-thomas",
     rail: "Ma table",
-    title: "Le soir meme, les invites se debrouillent",
-    body: "Un QR code sur la table, l'invite tape son prenom et trouve sa place. Il decouvre aussi le menu, le programme et depose ses photos. La liste complete des invites, elle, reste privee.",
+    title: "Le soir même, les invités se débrouillent",
+    body: "Un QR code sur la table, l'invité tape son prénom et trouve sa place. Il découvre aussi le menu, le programme et dépose ses photos. La liste complète des invités, elle, reste privée.",
   },
   {
     panel: "stats",
@@ -88,8 +88,8 @@ const CHAPTERS: Chapter[] = [
     ms: 3000,
     url: "dashboard.the-studio-digital-papeterie.fr/fr/stats",
     rail: "Statistiques",
-    title: "Savoir qui vient, et a quoi",
-    body: "La repartition des reponses et la participation par evenement -- ceremonie, diner, brunch. De quoi confirmer un traiteur sans relancer cent personnes une par une.",
+    title: "Savoir qui vient, et à quoi",
+    body: "La répartition des réponses et la participation par événement — cérémonie, dîner, brunch. De quoi confirmer un traiteur sans relancer cent personnes une par une.",
   },
 ];
 
