@@ -21,7 +21,11 @@ const PRODUCT_LINK_ANCHORS = [
   "temoignages",
   "faq",
 ];
-const MARIES_LINK_HREFS = ["/login"];
+// Sign-in is in the dashboard app, a different origin: there is no /login page
+// here, so an in-app <Link> 404s. Absolute URL, plain anchor below.
+const DASHBOARD_URL =
+  process.env.NEXT_PUBLIC_DASHBOARD_URL || "http://localhost:3003";
+const MARIES_LINK_HREFS = [`${DASHBOARD_URL}/fr/login`];
 
 export function MobileMenu({
   open,
@@ -119,13 +123,15 @@ export function MobileMenu({
               <ul className="mt-4 flex flex-col gap-4">
                 {mariesLabels.map((label, i) => (
                   <li key={label}>
-                    <Link
+                    {/* Another origin, so a plain anchor: next-intl's Link
+                        would prefix it with a locale. */}
+                    <a
                       href={MARIES_LINK_HREFS[i] ?? "#"}
                       onClick={onClose}
                       className="font-body text-base text-studio-jaune"
                     >
                       {label}
-                    </Link>
+                    </a>
                   </li>
                 ))}
               </ul>

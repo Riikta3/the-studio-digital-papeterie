@@ -160,7 +160,20 @@ export async function importGuestsFromExcel(formData: FormData) {
 
     if (!user) return { success: false, error: "Non authentifié" };
 
-    const weddingId = user.id;
+    // `user.id` is not the wedding id: `weddings.id` is an independent uuid, so
+    // the old `const weddingId = user.id` matched no wedding at all (verified:
+    // zero of 11 weddings have id == user_id). Resolve the real one.
+    const { data: wedding } = await supabase
+      .from("weddings")
+      .select("id")
+      .eq("user_id", user.id)
+      .single();
+
+    if (!wedding) {
+      return { success: false, error: "Mariage introuvable" };
+    }
+
+    const weddingId = wedding.id as string;
 
     // Read and parse file
     const buffer = await file.arrayBuffer();

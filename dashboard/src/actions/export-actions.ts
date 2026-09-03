@@ -134,9 +134,20 @@ export async function exportGuestsToExcel(
       return { success: false, error: "Non authentifié" };
     }
 
-    // Use user.id as wedding_id directly (1 user = 1 wedding pattern)
-    // This avoids issues if the profile record is missing or incomplete
-    const weddingId = user.id;
+    // `user.id` is not the wedding id: `weddings.id` is an independent uuid, so
+    // the old `const weddingId = user.id` matched no wedding at all (verified:
+    // zero of 11 weddings have id == user_id). Resolve the real one.
+    const { data: wedding } = await supabase
+      .from("weddings")
+      .select("id")
+      .eq("user_id", user.id)
+      .single();
+
+    if (!wedding) {
+      return { success: false, error: "Mariage introuvable" };
+    }
+
+    const weddingId = wedding.id as string;
 
     // Fetch all households with their guests
     const { data: households, error: householdsError } = await supabase
