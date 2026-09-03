@@ -37,7 +37,21 @@ export default async function RootLayout({
   const messages = await getMessages();
 
   return (
-    <html lang={locale}>
+    /* `suppressHydrationWarning` on <html>, not only on <body>: browser
+       extensions (LanguageTool adds `data-lt-installed`, translators and dark
+       -mode add their own) mutate the <html> element before React hydrates, and
+       React reports the mismatch as an error the couple sees in the console.
+       There is nothing to patch up — the markup we render is correct.
+       `landing/src/app/layout.tsx` already does this; the dashboard had it on
+       <body> alone.
+
+       `dir` was missing entirely here, so Arabic rendered left-to-right in the
+       admin while the public site got it right. */
+    <html
+      lang={locale}
+      dir={locale === "ar" ? "rtl" : "ltr"}
+      suppressHydrationWarning
+    >
       <body
         suppressHydrationWarning
         className={`${libreCaslonDisplay.variable} ${urbanist.variable} font-body bg-studio-creme text-studio-violet antialiased`}

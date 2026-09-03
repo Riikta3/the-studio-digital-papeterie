@@ -8,8 +8,11 @@ import Error from "next/error";
 
 export default function NotFound() {
   return (
-    <html lang='en'>
-      <body>
+    /* Same extension-hydration guard as the locale layout. `lang` is French
+       because this file sits outside `[locale]` and has no locale to read —
+       the product's default. */
+    <html lang='fr' suppressHydrationWarning>
+      <body suppressHydrationWarning>
         <Error statusCode={404} />
       </body>
     </html>
