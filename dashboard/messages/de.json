@@ -973,7 +973,12 @@
     "table_seats_label_placeholder": "Tisch 1",
     "capacity_below_seated": "Hier sitzen bereits {count} Personen. Entfernen Sie zuerst einige.",
     "save": "Speichern",
-    "delete_failed": "Beim Löschen ist ein Fehler aufgetreten."
+    "delete_failed": "Beim Löschen ist ein Fehler aufgetreten.",
+    "assigned_toast": "Gast platziert",
+    "unassigned_toast": "Gast entfernt",
+    "table_added": "Tisch hinzugefügt",
+    "table_saved": "Tisch gespeichert",
+    "table_deleted": "Tisch gelöscht"
   },
   "QrCode": {
     "title": "QR-Code für den großen Tag",
@@ -1002,7 +1007,11 @@
     },
     "toggle_failed": "Die Kategorie konnte nicht aktualisiert werden.",
     "add_failed": "Das Gericht konnte nicht hinzugefügt werden.",
-    "remove_failed": "Das Gericht konnte nicht entfernt werden."
+    "remove_failed": "Das Gericht konnte nicht entfernt werden.",
+    "category_enabled": "Kategorie aktiviert",
+    "category_disabled": "Kategorie deaktiviert",
+    "item_added": "Gericht hinzugefügt",
+    "item_removed": "Gericht entfernt"
   },
   "DayOfSettings": {
     "title": "Einstellungen für den Hochzeitstag",
@@ -1014,7 +1023,8 @@
     "after_wedding_hint": "Die Seite wechselt zu einer Dankesansicht und bleibt für Uploads geöffnet.",
     "uploads_until_label": "Uploads geöffnet bis",
     "uploads_until_hint": "Nach diesem Datum können Gäste keine Fotos mehr hinzufügen.",
-    "save_failed": "Die Einstellungen konnten nicht gespeichert werden."
+    "save_failed": "Die Einstellungen konnten nicht gespeichert werden.",
+    "settings_saved": "Einstellungen gespeichert"
   },
   "DayOfPhotos": {
     "title": "Fotos & Videos",
@@ -1041,7 +1051,10 @@
       "description": "Dieser von Ihren Gästen geteilte Inhalt wird endgültig gelöscht. Diese Aktion kann nicht rückgängig gemacht werden.",
       "cancel": "Abbrechen",
       "confirm": "Löschen"
-    }
+    },
+    "hidden_toast": "Foto ausgeblendet",
+    "shown_toast": "Foto eingeblendet",
+    "deleted_toast": "Foto gelöscht"
   },
   "GuestGroups": {
     "title": "Gästegruppen",
@@ -1060,7 +1073,9 @@
       "guest": "Gast",
       "household": "Haushalt",
       "group": "Gruppe"
-    }
+    },
+    "group_updated": "Gruppe aktualisiert",
+    "household_updated": "Haushalt aktualisiert"
   },
   "GuestMeals": {
     "title": "Menüs & Ernährungsbedürfnisse",
@@ -1091,7 +1106,9 @@
       "meal": "Menü",
       "dietary": "Ernährungshinweise",
       "allergies": "Allergien"
-    }
+    },
+    "meal_updated": "Menü aktualisiert",
+    "dietary_updated": "Ernährungspräferenz aktualisiert"
   },
   "InvitationEvents": {
     "title": "Veranstaltungen",
@@ -1118,7 +1135,12 @@
     "add_event": "Veranstaltung hinzufügen",
     "new_event_name": "Neue Veranstaltung",
     "reorder": "Neu anordnen",
-    "save_failed": "Beim Speichern ist ein Fehler aufgetreten."
+    "save_failed": "Beim Speichern ist ein Fehler aufgetreten.",
+    "event_added": "Event hinzugefügt",
+    "event_deleted": "Event gelöscht",
+    "order_saved": "Reihenfolge gespeichert",
+    "event_enabled_toast": "Event aktiviert",
+    "event_disabled_toast": "Event deaktiviert"
   },
   "InvitationSchedule": {
     "title": "Ablauf",
@@ -1140,7 +1162,9 @@
     "delete_entry": "„{title}“ löschen",
     "deleted_toast": "„{title}“ gelöscht",
     "untitled": "Ohne Titel",
-    "save_failed": "Beim Speichern ist ein Fehler aufgetreten."
+    "save_failed": "Beim Speichern ist ein Fehler aufgetreten.",
+    "entry_added": "Eintrag hinzugefügt",
+    "order_saved": "Reihenfolge gespeichert"
   },
   "InvitationVenue": {
     "title": "Ort & praktische Infos",
@@ -1191,7 +1215,10 @@
     },
     "move_up": "Nach oben",
     "move_down": "Nach unten",
-    "save_failed": "Beim Speichern ist ein Fehler aufgetreten."
+    "save_failed": "Beim Speichern ist ein Fehler aufgetreten.",
+    "accommodation_added": "Unterkunft hinzugefügt",
+    "accommodation_deleted": "Unterkunft gelöscht",
+    "order_saved": "Reihenfolge gespeichert"
   },
   "InvitationFaq": {
     "title": "FAQ",
@@ -1218,7 +1245,12 @@
       "cancel": "Abbrechen",
       "confirm": "Löschen"
     },
-    "save_failed": "Beim Speichern ist ein Fehler aufgetreten."
+    "save_failed": "Beim Speichern ist ein Fehler aufgetreten.",
+    "entry_added": "Frage hinzugefügt",
+    "entry_deleted": "Frage gelöscht",
+    "order_saved": "Reihenfolge gespeichert",
+    "published_toast": "Frage veröffentlicht",
+    "unpublished_toast": "Frage ausgeblendet"
   },
   "Stats": {
     "title": "Statistiken",

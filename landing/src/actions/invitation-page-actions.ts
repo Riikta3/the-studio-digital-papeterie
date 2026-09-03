@@ -178,12 +178,14 @@ export async function getInvitationPage(
         .order("position", { ascending: true }),
       supabase
         .from("venues")
-        .select("*")
+        .select(
+          "name, address, city, maps_url, waze_url, parking_info, access_info, transport_info, photo_url",
+        )
         .eq("wedding_id", weddingId)
         .maybeSingle(),
       supabase
         .from("accommodations")
-        .select("*")
+        .select("id, name, city, distance, phone, booking_url, offer, photo_url")
         .eq("wedding_id", weddingId)
         .order("position", { ascending: true }),
       supabase

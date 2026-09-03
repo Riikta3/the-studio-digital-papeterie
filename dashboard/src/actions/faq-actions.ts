@@ -49,7 +49,7 @@ export async function listFaq(): Promise<FaqEntry[]> {
 
   const { data, error } = await supabase
     .from("faq_entries")
-    .select("*")
+    .select("id, question, answer, position, published")
     .eq("wedding_id", weddingId)
     .order("position", { ascending: true });
 

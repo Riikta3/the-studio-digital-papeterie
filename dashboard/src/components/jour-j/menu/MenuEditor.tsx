@@ -26,7 +26,9 @@ export function MenuEditor({ initialMenu }: { initialMenu: MenuCategory[] }) {
     if (!res.success) {
       setMenu(previous);
       toast.error(res.error || t("toggle_failed"));
+      return;
     }
+    toast.success(nextEnabled ? t("category_enabled") : t("category_disabled"));
   };
 
   // `MenuCategoryCard` mints a temporary `mi-<uuid>` id so the item renders
@@ -51,6 +53,7 @@ export function MenuEditor({ initialMenu }: { initialMenu: MenuCategory[] }) {
       ...c,
       items: c.items.map((i) => (i.id === tempItem.id ? res.item : i)),
     }));
+    toast.success(t("item_added"));
   };
 
   const onRemoveItem = async (category: MenuCategory, itemId: string) => {
@@ -63,7 +66,9 @@ export function MenuEditor({ initialMenu }: { initialMenu: MenuCategory[] }) {
     if (!res.success) {
       setMenu(previous);
       toast.error(res.error || t("remove_failed"));
+      return;
     }
+    toast.success(t("item_removed"));
   };
 
   return (

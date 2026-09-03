@@ -29,6 +29,9 @@ export function LieuPageClient({ initialVenue, initialAccommodation }: Props) {
   const [venue, setVenue] = useState(initialVenue ?? EMPTY_VENUE);
   const [accommodation, setAccommodation] = useState(initialAccommodation);
 
+  // No success toast on venue/accommodation field edits: they are plain text
+  // inputs that already show the saved value inline, and a toast on every
+  // debounced keystroke would just be noise.
   const updateVenue = (patch: Partial<Venue>) => {
     const previous = venue; // capture BEFORE mutating, for rollback
     setVenue((prev) => ({ ...prev, ...patch }));
@@ -68,7 +71,9 @@ export function LieuPageClient({ initialVenue, initialAccommodation }: Props) {
       if (!res.success) {
         setAccommodation(previous);
         toast.error(res.error || t("save_failed"));
+        return;
       }
+      toast.success(t("order_saved"));
     });
   };
 
@@ -79,7 +84,9 @@ export function LieuPageClient({ initialVenue, initialAccommodation }: Props) {
     if (!res.success) {
       setAccommodation(previous);
       toast.error(res.error || t("save_failed"));
+      return;
     }
+    toast.success(t("accommodation_deleted"));
   };
 
   const addItem = async () => {
@@ -94,6 +101,7 @@ export function LieuPageClient({ initialVenue, initialAccommodation }: Props) {
     // Adopt the database's id — a client-generated one is not a valid uuid,
     // and every later update would target a row that does not exist.
     setAccommodation((prev) => [...prev, res.accommodation]);
+    toast.success(t("accommodation_added"));
   };
 
   return (

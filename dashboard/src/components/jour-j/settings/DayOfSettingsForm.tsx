@@ -38,6 +38,8 @@ export function DayOfSettingsForm({
   // Optimistic write on every gesture (spec §3.4) — the patch sent to the
   // server never includes `qrSlug`: it is derived from `sites.slug`, not
   // stored on `day_of_settings`.
+  // Every control here is a discrete on/off toggle or a single date pick —
+  // never continuous typing — so each save is worth confirming.
   const save = async (
     patch: Partial<Omit<DayOfSettings, "qrSlug">>,
     previous: DayOfSettings,
@@ -46,7 +48,9 @@ export function DayOfSettingsForm({
     if (!res.success) {
       setSettings(previous);
       toast.error(res.error || t("save_failed"));
+      return;
     }
+    toast.success(t("settings_saved"));
   };
 
   const toggle = (key: keyof Omit<DayOfSettings, "qrSlug">) => {

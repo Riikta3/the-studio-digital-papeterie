@@ -58,6 +58,13 @@ export function EventsEditor({ initialEvents }: Props) {
     if (!res.success) {
       setEvents(previous);
       toast.error(res.error || t("save_failed"));
+      return;
+    }
+    // The enable/disable checkbox is a deliberate on/off decision, worth
+    // confirming — unlike the name/date/address fields on the same card,
+    // which already show their saved value inline and would just add noise.
+    if (typeof patch.enabled === "boolean") {
+      toast.success(patch.enabled ? t("event_enabled_toast") : t("event_disabled_toast"));
     }
   };
 
@@ -68,7 +75,9 @@ export function EventsEditor({ initialEvents }: Props) {
     if (!res.success) {
       setEvents(previous);
       toast.error(res.error || t("save_failed"));
+      return;
     }
+    toast.success(t("event_deleted"));
   };
 
   const handleDragEnd = (event: DragEndEvent) => {
@@ -91,7 +100,9 @@ export function EventsEditor({ initialEvents }: Props) {
       if (!res.success) {
         setEvents(previous);
         toast.error(res.error || t("save_failed"));
+        return;
       }
+      toast.success(t("order_saved"));
     });
   };
 
@@ -109,6 +120,7 @@ export function EventsEditor({ initialEvents }: Props) {
     // Adopt the database's id — a client-generated one is not a valid uuid,
     // and every later update would target a row that does not exist.
     setEvents((prev) => [...prev, res.event]);
+    toast.success(t("event_added"));
   };
 
   return (

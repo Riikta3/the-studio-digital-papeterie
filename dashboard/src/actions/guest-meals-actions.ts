@@ -50,8 +50,18 @@ export async function listMealsData(): Promise<{
   const { supabase, weddingId } = await requireWedding();
 
   const [guestsRes, householdsRes] = await Promise.all([
-    supabase.from("guests").select("*").eq("wedding_id", weddingId),
-    supabase.from("households").select("*").eq("wedding_id", weddingId),
+    // Columns match what rowToGuest reads; dietary_requirements is a
+    // deprecated column and deliberately excluded.
+    supabase
+      .from("guests")
+      .select(
+        "id, first_name, last_name, email, phone, household_id, guest_group, is_child, is_plus_one, status, meal, dietary_flags, allergies, notes, table_id",
+      )
+      .eq("wedding_id", weddingId),
+    supabase
+      .from("households")
+      .select("id, name, guest_group, email, phone, address")
+      .eq("wedding_id", weddingId),
   ]);
 
   if (guestsRes.error) throw new Error(guestsRes.error.message);

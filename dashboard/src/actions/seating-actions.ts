@@ -52,10 +52,17 @@ export async function listSeating(): Promise<{
   const [tablesRes, guestsRes] = await Promise.all([
     supabase
       .from("tables")
-      .select("*")
+      .select("id, name, seats_label, shape, capacity, x, y, position")
       .eq("wedding_id", weddingId)
       .order("position", { ascending: true }),
-    supabase.from("guests").select("*").eq("wedding_id", weddingId),
+    // Columns match what rowToGuest reads; dietary_requirements is a
+    // deprecated column and deliberately excluded.
+    supabase
+      .from("guests")
+      .select(
+        "id, first_name, last_name, email, phone, household_id, guest_group, is_child, is_plus_one, status, meal, dietary_flags, allergies, notes, table_id",
+      )
+      .eq("wedding_id", weddingId),
   ]);
 
   if (tablesRes.error) throw new Error(tablesRes.error.message);

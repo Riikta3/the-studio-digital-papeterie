@@ -27,25 +27,19 @@ export type DashboardSummary = {
  * comes from `weddings.wedding_date` — reading it off `profiles` is the bug
  * step 1 fixed (the column does not exist there), do not reintroduce it.
  *
- * Every count below is a `head: true` count query, never a fetched row set:
- * counting 140 guests by fetching them would also drag guest PII (names,
- * dietary data) into a server component that has no use for it.
+ * The ten counters come from one `dashboard_counts` RPC rather than ten
+ * separate `count: "exact"` queries. Measured against the seeded wedding, the
+ * old shape cost 317ms even fired in parallel, because each count paid its own
+ * round trip to eu-west-2; Postgres computes all ten in a single pass.
+ *
+ * The RPC returns counts only — never guest rows. Counting 140 guests by
+ * fetching them would drag guest PII (names, dietary data) into a server
+ * component that has no use for it, so nothing here selects a guest row.
  */
 export async function getDashboardSummary(): Promise<DashboardSummary> {
   const { supabase, weddingId, user } = await requireWedding();
 
-  const [
-    profileRes,
-    weddingRes,
-    siteRes,
-    dayOfRes,
-    totalRes,
-    confirmedRes,
-    pendingRes,
-    childrenRes,
-    seatedRes,
-    mediaRes,
-  ] = await Promise.all([
+  const [profileRes, weddingRes, siteRes, dayOfRes, countsRes] = await Promise.all([
     supabase.from("profiles").select("first_name, partner_name").eq("id", user.id).single(),
     supabase.from("weddings").select("wedding_date").eq("id", weddingId).single(),
     supabase.from("sites").select("slug").eq("wedding_id", weddingId).maybeSingle(),
@@ -54,48 +48,21 @@ export async function getDashboardSummary(): Promise<DashboardSummary> {
       .select("enabled")
       .eq("wedding_id", weddingId)
       .maybeSingle(),
-    supabase
-      .from("guests")
-      .select("*", { count: "exact", head: true })
-      .eq("wedding_id", weddingId),
-    supabase
-      .from("guests")
-      .select("*", { count: "exact", head: true })
-      .eq("wedding_id", weddingId)
-      .eq("status", "confirmed"),
-    supabase
-      .from("guests")
-      .select("*", { count: "exact", head: true })
-      .eq("wedding_id", weddingId)
-      .eq("status", "pending"),
-    supabase
-      .from("guests")
-      .select("*", { count: "exact", head: true })
-      .eq("wedding_id", weddingId)
-      .eq("is_child", true),
-    supabase
-      .from("guests")
-      .select("*", { count: "exact", head: true })
-      .eq("wedding_id", weddingId)
-      .not("table_id", "is", null),
-    supabase
-      .from("guest_media")
-      .select("*", { count: "exact", head: true })
-      .eq("wedding_id", weddingId),
+    supabase.rpc("dashboard_counts", { p_wedding_id: weddingId }),
   ]);
 
   if (weddingRes.error) throw new Error(weddingRes.error.message);
-  if (totalRes.error) throw new Error(totalRes.error.message);
-  if (confirmedRes.error) throw new Error(confirmedRes.error.message);
-  if (pendingRes.error) throw new Error(pendingRes.error.message);
-  if (childrenRes.error) throw new Error(childrenRes.error.message);
-  if (seatedRes.error) throw new Error(seatedRes.error.message);
-  if (mediaRes.error) throw new Error(mediaRes.error.message);
+  if (countsRes.error) throw new Error(countsRes.error.message);
+
+  // The RPC checks ownership itself and returns no row for a wedding the
+  // caller does not own. `requireWedding` already resolved this one from the
+  // session, so an empty result here means a wedding with nothing in it.
+  const counts = countsRes.data?.[0];
 
   const profile = profileRes.data;
-  const totalGuests = totalRes.count ?? 0;
-  const confirmedGuests = confirmedRes.count ?? 0;
-  const seatedCount = seatedRes.count ?? 0;
+  const totalGuests = counts?.guests_total ?? 0;
+  const confirmedGuests = counts?.guests_confirmed ?? 0;
+  const seatedCount = counts?.guests_seated ?? 0;
 
   // "To seat" is confirmed guests still unassigned — confirmed minus seated,
   // never negative (a guest can be seated before their RSVP is recorded as
@@ -110,11 +77,11 @@ export async function getDashboardSummary(): Promise<DashboardSummary> {
     guests: {
       total: totalGuests,
       confirmed: confirmedGuests,
-      pending: pendingRes.count ?? 0,
-      children: childrenRes.count ?? 0,
+      pending: counts?.guests_pending ?? 0,
+      children: counts?.guests_children ?? 0,
     },
     seating: { seated: seatedCount, toSeat: toSeatCount },
-    media: { total: mediaRes.count ?? 0 },
+    media: { total: counts?.media_total ?? 0 },
     dayOf: {
       enabled: dayOfRes.data?.enabled ?? false,
       qrSlug: siteRes.data?.slug ?? null,
@@ -142,30 +109,17 @@ export type StatsSummary = {
  *
  * `guest_events` has no `wedding_id` column of its own; it is reached
  * through `guests.wedding_id`, same join pattern as its RLS policy.
+ *
+ * The RSVP breakdown shares `dashboard_counts` with the home screen — the
+ * same four numbers this screen used to fetch as four separate count
+ * queries. The per-event attendance below still needs its own queries: those
+ * are per-event, and the RPC deliberately returns only wedding-wide counters.
  */
 export async function getStatsSummary(): Promise<StatsSummary> {
   const { supabase, weddingId } = await requireWedding();
 
-  const [confirmedRes, declinedRes, pendingRes, totalRes, eventsRes] = await Promise.all([
-    supabase
-      .from("guests")
-      .select("*", { count: "exact", head: true })
-      .eq("wedding_id", weddingId)
-      .eq("status", "confirmed"),
-    supabase
-      .from("guests")
-      .select("*", { count: "exact", head: true })
-      .eq("wedding_id", weddingId)
-      .eq("status", "declined"),
-    supabase
-      .from("guests")
-      .select("*", { count: "exact", head: true })
-      .eq("wedding_id", weddingId)
-      .eq("status", "pending"),
-    supabase
-      .from("guests")
-      .select("*", { count: "exact", head: true })
-      .eq("wedding_id", weddingId),
+  const [countsRes, eventsRes] = await Promise.all([
+    supabase.rpc("dashboard_counts", { p_wedding_id: weddingId }),
     supabase
       .from("events")
       .select("id, name, position")
@@ -174,16 +128,14 @@ export async function getStatsSummary(): Promise<StatsSummary> {
       .order("position", { ascending: true }),
   ]);
 
-  if (confirmedRes.error) throw new Error(confirmedRes.error.message);
-  if (declinedRes.error) throw new Error(declinedRes.error.message);
-  if (pendingRes.error) throw new Error(pendingRes.error.message);
-  if (totalRes.error) throw new Error(totalRes.error.message);
+  if (countsRes.error) throw new Error(countsRes.error.message);
   if (eventsRes.error) throw new Error(eventsRes.error.message);
 
-  const confirmed = confirmedRes.count ?? 0;
-  const declined = declinedRes.count ?? 0;
-  const pending = pendingRes.count ?? 0;
-  const total = totalRes.count ?? 0;
+  const counts = countsRes.data?.[0];
+  const confirmed = counts?.guests_confirmed ?? 0;
+  const declined = counts?.guests_declined ?? 0;
+  const pending = counts?.guests_pending ?? 0;
+  const total = counts?.guests_total ?? 0;
 
   // A pending guest has not answered, so only confirmed + declined count as
   // a response — matches the mock-era logic this replaces.

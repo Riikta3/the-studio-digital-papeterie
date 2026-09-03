@@ -973,7 +973,12 @@
     "table_seats_label_placeholder": "Tavolo 1",
     "capacity_below_seated": "Ci sono già {count} persone sedute qui. Rimuovine alcune prima.",
     "save": "Salva",
-    "delete_failed": "Errore durante l'eliminazione."
+    "delete_failed": "Errore durante l'eliminazione.",
+    "assigned_toast": "Ospite sistemato",
+    "unassigned_toast": "Ospite rimosso",
+    "table_added": "Tavolo aggiunto",
+    "table_saved": "Tavolo salvato",
+    "table_deleted": "Tavolo eliminato"
   },
   "QrCode": {
     "title": "QR code del grande giorno",
@@ -1002,7 +1007,11 @@
     },
     "toggle_failed": "Impossibile aggiornare la categoria.",
     "add_failed": "Impossibile aggiungere il piatto.",
-    "remove_failed": "Impossibile rimuovere il piatto."
+    "remove_failed": "Impossibile rimuovere il piatto.",
+    "category_enabled": "Categoria attivata",
+    "category_disabled": "Categoria disattivata",
+    "item_added": "Piatto aggiunto",
+    "item_removed": "Piatto rimosso"
   },
   "DayOfSettings": {
     "title": "Impostazioni del grande giorno",
@@ -1014,7 +1023,8 @@
     "after_wedding_hint": "La pagina passa a una vista di ringraziamento e resta aperta ai caricamenti.",
     "uploads_until_label": "Caricamenti aperti fino al",
     "uploads_until_hint": "Dopo questa data, gli invitati non potranno più aggiungere foto.",
-    "save_failed": "Impossibile salvare le impostazioni."
+    "save_failed": "Impossibile salvare le impostazioni.",
+    "settings_saved": "Impostazioni salvate"
   },
   "DayOfPhotos": {
     "title": "Foto e video",
@@ -1041,7 +1051,10 @@
       "description": "Questo contenuto condiviso dai tuoi invitati verrà eliminato definitivamente. Questa azione non può essere annullata.",
       "cancel": "Annulla",
       "confirm": "Elimina"
-    }
+    },
+    "hidden_toast": "Foto nascosta",
+    "shown_toast": "Foto visibile",
+    "deleted_toast": "Foto eliminata"
   },
   "GuestGroups": {
     "title": "Gruppi di invitati",
@@ -1060,7 +1073,9 @@
       "guest": "Invitato",
       "household": "Nucleo familiare",
       "group": "Gruppo"
-    }
+    },
+    "group_updated": "Gruppo aggiornato",
+    "household_updated": "Nucleo familiare aggiornato"
   },
   "GuestMeals": {
     "title": "Pasti e esigenze alimentari",
@@ -1091,7 +1106,9 @@
       "meal": "Pasto",
       "dietary": "Esigenze",
       "allergies": "Allergie"
-    }
+    },
+    "meal_updated": "Pasto aggiornato",
+    "dietary_updated": "Preferenza alimentare aggiornata"
   },
   "InvitationEvents": {
     "title": "Eventi",
@@ -1118,7 +1135,12 @@
     "add_event": "Aggiungi un evento",
     "new_event_name": "Nuovo evento",
     "reorder": "Riordina",
-    "save_failed": "Si è verificato un errore durante il salvataggio."
+    "save_failed": "Si è verificato un errore durante il salvataggio.",
+    "event_added": "Evento aggiunto",
+    "event_deleted": "Evento eliminato",
+    "order_saved": "Ordine salvato",
+    "event_enabled_toast": "Evento attivato",
+    "event_disabled_toast": "Evento disattivato"
   },
   "InvitationSchedule": {
     "title": "Programma",
@@ -1140,7 +1162,9 @@
     "delete_entry": "Elimina “{title}”",
     "deleted_toast": "“{title}” eliminato",
     "untitled": "Senza titolo",
-    "save_failed": "Si è verificato un errore durante il salvataggio."
+    "save_failed": "Si è verificato un errore durante il salvataggio.",
+    "entry_added": "Voce aggiunta",
+    "order_saved": "Ordine salvato"
   },
   "InvitationVenue": {
     "title": "Luogo e informazioni pratiche",
@@ -1191,7 +1215,10 @@
     },
     "move_up": "Sposta su",
     "move_down": "Sposta giù",
-    "save_failed": "Si è verificato un errore durante il salvataggio."
+    "save_failed": "Si è verificato un errore durante il salvataggio.",
+    "accommodation_added": "Alloggio aggiunto",
+    "accommodation_deleted": "Alloggio eliminato",
+    "order_saved": "Ordine salvato"
   },
   "InvitationFaq": {
     "title": "FAQ",
@@ -1218,7 +1245,12 @@
       "cancel": "Annulla",
       "confirm": "Elimina"
     },
-    "save_failed": "Si è verificato un errore durante il salvataggio."
+    "save_failed": "Si è verificato un errore durante il salvataggio.",
+    "entry_added": "Domanda aggiunta",
+    "entry_deleted": "Domanda eliminata",
+    "order_saved": "Ordine salvato",
+    "published_toast": "Domanda pubblicata",
+    "unpublished_toast": "Domanda nascosta"
   },
   "Stats": {
     "title": "Statistiche",

@@ -183,7 +183,9 @@ export async function exportRsvpToExcel(
 
     const { data: responses, error } = await supabase
       .from("rsvp_responses")
-      .select("*")
+      .select(
+        "name, attendance, guest_count, dietary, message, admin_note, participants, respondent_first_name, respondent_last_name, submitted_at",
+      )
       .eq("wedding_id", wedding.id)
       .order("submitted_at", { ascending: false });
 

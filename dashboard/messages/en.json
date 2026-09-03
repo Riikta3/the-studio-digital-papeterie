@@ -973,7 +973,12 @@
     "table_seats_label_placeholder": "Table 1",
     "capacity_below_seated": "{count} people are already seated here. Remove some first.",
     "save": "Save",
-    "delete_failed": "Something went wrong while deleting."
+    "delete_failed": "Something went wrong while deleting.",
+    "assigned_toast": "Guest seated",
+    "unassigned_toast": "Guest removed",
+    "table_added": "Table added",
+    "table_saved": "Table saved",
+    "table_deleted": "Table deleted"
   },
   "QrCode": {
     "title": "Day-of QR code",
@@ -1002,7 +1007,11 @@
     },
     "toggle_failed": "Couldn't update the category.",
     "add_failed": "Couldn't add the dish.",
-    "remove_failed": "Couldn't remove the dish."
+    "remove_failed": "Couldn't remove the dish.",
+    "category_enabled": "Category enabled",
+    "category_disabled": "Category disabled",
+    "item_added": "Dish added",
+    "item_removed": "Dish removed"
   },
   "DayOfSettings": {
     "title": "Day-of settings",
@@ -1014,7 +1023,8 @@
     "after_wedding_hint": "The page switches to a thank-you view and stays open to uploads.",
     "uploads_until_label": "Uploads open until",
     "uploads_until_hint": "Past this date, guests can no longer add photos.",
-    "save_failed": "Couldn't save the settings."
+    "save_failed": "Couldn't save the settings.",
+    "settings_saved": "Settings saved"
   },
   "DayOfPhotos": {
     "title": "Photos & videos",
@@ -1041,7 +1051,10 @@
       "description": "This item shared by your guests will be permanently deleted. This action cannot be undone.",
       "cancel": "Cancel",
       "confirm": "Delete"
-    }
+    },
+    "hidden_toast": "Photo hidden",
+    "shown_toast": "Photo shown",
+    "deleted_toast": "Photo deleted"
   },
   "GuestGroups": {
     "title": "Guest groups",
@@ -1060,7 +1073,9 @@
       "guest": "Guest",
       "household": "Household",
       "group": "Group"
-    }
+    },
+    "group_updated": "Group updated",
+    "household_updated": "Household updated"
   },
   "GuestMeals": {
     "title": "Meals & dietary needs",
@@ -1091,7 +1106,9 @@
       "meal": "Meal",
       "dietary": "Dietary flags",
       "allergies": "Allergies"
-    }
+    },
+    "meal_updated": "Meal updated",
+    "dietary_updated": "Dietary preference updated"
   },
   "InvitationEvents": {
     "title": "Events",
@@ -1118,7 +1135,12 @@
     "add_event": "Add an event",
     "new_event_name": "New event",
     "reorder": "Reorder",
-    "save_failed": "Something went wrong while saving."
+    "save_failed": "Something went wrong while saving.",
+    "event_added": "Event added",
+    "event_deleted": "Event deleted",
+    "order_saved": "Order saved",
+    "event_enabled_toast": "Event enabled",
+    "event_disabled_toast": "Event disabled"
   },
   "InvitationSchedule": {
     "title": "Programme",
@@ -1140,7 +1162,9 @@
     "delete_entry": "Delete “{title}”",
     "deleted_toast": "“{title}” deleted",
     "untitled": "Untitled",
-    "save_failed": "Something went wrong while saving."
+    "save_failed": "Something went wrong while saving.",
+    "entry_added": "Entry added",
+    "order_saved": "Order saved"
   },
   "InvitationVenue": {
     "title": "Venue & practical info",
@@ -1191,7 +1215,10 @@
     },
     "move_up": "Move up",
     "move_down": "Move down",
-    "save_failed": "Something went wrong while saving."
+    "save_failed": "Something went wrong while saving.",
+    "accommodation_added": "Accommodation added",
+    "accommodation_deleted": "Accommodation deleted",
+    "order_saved": "Order saved"
   },
   "InvitationFaq": {
     "title": "FAQ",
@@ -1218,7 +1245,12 @@
       "cancel": "Cancel",
       "confirm": "Delete"
     },
-    "save_failed": "Something went wrong while saving."
+    "save_failed": "Something went wrong while saving.",
+    "entry_added": "Question added",
+    "entry_deleted": "Question deleted",
+    "order_saved": "Order saved",
+    "published_toast": "Question published",
+    "unpublished_toast": "Question hidden"
   },
   "Stats": {
     "title": "Statistics",

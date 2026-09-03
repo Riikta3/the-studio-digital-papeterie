@@ -973,7 +973,12 @@
     "table_seats_label_placeholder": "الطاولة ١",
     "capacity_below_seated": "يجلس هنا {count} أشخاص بالفعل. أزل بعضهم أولاً.",
     "save": "حفظ",
-    "delete_failed": "حدث خطأ أثناء الحذف."
+    "delete_failed": "حدث خطأ أثناء الحذف.",
+    "assigned_toast": "تم إجلاس الضيف",
+    "unassigned_toast": "تمت إزالة الضيف",
+    "table_added": "تمت إضافة الطاولة",
+    "table_saved": "تم حفظ الطاولة",
+    "table_deleted": "تم حذف الطاولة"
   },
   "QrCode": {
     "title": "رمز QR ليوم الزفاف",
@@ -1002,7 +1007,11 @@
     },
     "toggle_failed": "تعذّر تحديث الفئة.",
     "add_failed": "تعذّرت إضافة الطبق.",
-    "remove_failed": "تعذّر حذف الطبق."
+    "remove_failed": "تعذّر حذف الطبق.",
+    "category_enabled": "تم تفعيل الفئة",
+    "category_disabled": "تم تعطيل الفئة",
+    "item_added": "تمت إضافة الطبق",
+    "item_removed": "تمت إزالة الطبق"
   },
   "DayOfSettings": {
     "title": "إعدادات يوم الزفاف",
@@ -1014,7 +1023,8 @@
     "after_wedding_hint": "تتحول الصفحة إلى واجهة شكر وتبقى مفتوحة لاستقبال الصور.",
     "uploads_until_label": "الإرسال متاح حتى",
     "uploads_until_hint": "بعد هذا التاريخ، لن يتمكن الضيوف من إضافة صور جديدة.",
-    "save_failed": "تعذّر حفظ الإعدادات."
+    "save_failed": "تعذّر حفظ الإعدادات.",
+    "settings_saved": "تم حفظ الإعدادات"
   },
   "DayOfPhotos": {
     "title": "الصور ومقاطع الفيديو",
@@ -1041,7 +1051,10 @@
       "description": "سيتم حذف هذا المحتوى الذي شاركه ضيوفكم نهائيًا. لا يمكن التراجع عن هذا الإجراء.",
       "cancel": "إلغاء",
       "confirm": "حذف"
-    }
+    },
+    "hidden_toast": "تم إخفاء الصورة",
+    "shown_toast": "تم إظهار الصورة",
+    "deleted_toast": "تم حذف الصورة"
   },
   "GuestGroups": {
     "title": "مجموعات الضيوف",
@@ -1060,7 +1073,9 @@
       "guest": "الضيف",
       "household": "الأسرة",
       "group": "المجموعة"
-    }
+    },
+    "group_updated": "تم تحديث المجموعة",
+    "household_updated": "تم تحديث الأسرة"
   },
   "GuestMeals": {
     "title": "الوجبات والاحتياجات الغذائية",
@@ -1091,7 +1106,9 @@
       "meal": "الوجبة",
       "dietary": "الاحتياجات الغذائية",
       "allergies": "الحساسية"
-    }
+    },
+    "meal_updated": "تم تحديث الوجبة",
+    "dietary_updated": "تم تحديث التفضيل الغذائي"
   },
   "InvitationEvents": {
     "title": "الفعاليات",
@@ -1118,7 +1135,12 @@
     "add_event": "إضافة فعالية",
     "new_event_name": "فعالية جديدة",
     "reorder": "إعادة الترتيب",
-    "save_failed": "حدث خطأ أثناء الحفظ."
+    "save_failed": "حدث خطأ أثناء الحفظ.",
+    "event_added": "تمت إضافة الحدث",
+    "event_deleted": "تم حذف الحدث",
+    "order_saved": "تم حفظ الترتيب",
+    "event_enabled_toast": "تم تفعيل الحدث",
+    "event_disabled_toast": "تم تعطيل الحدث"
   },
   "InvitationSchedule": {
     "title": "البرنامج",
@@ -1140,7 +1162,9 @@
     "delete_entry": "حذف «{title}»",
     "deleted_toast": "تم حذف «{title}»",
     "untitled": "بلا عنوان",
-    "save_failed": "حدث خطأ أثناء الحفظ."
+    "save_failed": "حدث خطأ أثناء الحفظ.",
+    "entry_added": "تمت إضافة العنصر",
+    "order_saved": "تم حفظ الترتيب"
   },
   "InvitationVenue": {
     "title": "المكان والمعلومات العملية",
@@ -1191,7 +1215,10 @@
     },
     "move_up": "تحريك لأعلى",
     "move_down": "تحريك لأسفل",
-    "save_failed": "حدث خطأ أثناء الحفظ."
+    "save_failed": "حدث خطأ أثناء الحفظ.",
+    "accommodation_added": "تمت إضافة مكان الإقامة",
+    "accommodation_deleted": "تم حذف مكان الإقامة",
+    "order_saved": "تم حفظ الترتيب"
   },
   "InvitationFaq": {
     "title": "الأسئلة الشائعة",
@@ -1218,7 +1245,12 @@
       "cancel": "إلغاء",
       "confirm": "حذف"
     },
-    "save_failed": "حدث خطأ أثناء الحفظ."
+    "save_failed": "حدث خطأ أثناء الحفظ.",
+    "entry_added": "تمت إضافة السؤال",
+    "entry_deleted": "تم حذف السؤال",
+    "order_saved": "تم حفظ الترتيب",
+    "published_toast": "تم نشر السؤال",
+    "unpublished_toast": "تم إخفاء السؤال"
   },
   "Stats": {
     "title": "الإحصائيات",

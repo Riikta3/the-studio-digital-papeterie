@@ -63,7 +63,7 @@ export async function listEvents(): Promise<WeddingEvent[]> {
 
   const { data, error } = await supabase
     .from("events")
-    .select("*")
+    .select("id, key, name, date, time, address, description, dress_code, position, enabled")
     // Explicit even though RLS already filters by owner — see the plan's
     // global constraints.
     .eq("wedding_id", weddingId)

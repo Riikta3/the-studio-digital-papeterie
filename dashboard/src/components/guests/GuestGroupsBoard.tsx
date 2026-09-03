@@ -87,6 +87,8 @@ export function GuestGroupsBoard({
     });
   }, [guests, filter, query, householdsById]);
 
+  // Both selects below are a one-shot deliberate choice (not a text field),
+  // so each gets its own confirmation.
   const changeGroup = async (guestId: string, group: GuestGroup) => {
     const previous = guests;
     setGuests((prev) =>
@@ -96,7 +98,9 @@ export function GuestGroupsBoard({
     if (!res.success) {
       setGuests(previous);
       toast.error(res.error);
+      return;
     }
+    toast.success(t("group_updated"));
   };
 
   const changeHousehold = async (guestId: string, householdId: string) => {
@@ -108,7 +112,9 @@ export function GuestGroupsBoard({
     if (!res.success) {
       setGuests(previous);
       toast.error(res.error);
+      return;
     }
+    toast.success(t("household_updated"));
   };
 
   return (

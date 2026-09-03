@@ -104,7 +104,9 @@ export function GuestMealsBoard({
     if (!res.success) {
       setGuests(previous);
       toast.error(res.error);
+      return;
     }
+    toast.success(t("meal_updated"));
   };
 
   const toggleFlag = async (guestId: string, flag: DietaryFlag) => {
@@ -128,9 +130,13 @@ export function GuestMealsBoard({
     if (!res.success) {
       setGuests(previous);
       toast.error(res.error);
+      return;
     }
+    toast.success(t("dietary_updated"));
   };
 
+  // No success toast: allergies is a free-text field that already shows its
+  // saved value inline, and a toast per debounced keystroke would be noise.
   const changeAllergies = async (guestId: string, allergies: string) => {
     const previous = guests;
     setGuests((prev) =>

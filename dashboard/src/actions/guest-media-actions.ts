@@ -56,7 +56,7 @@ export async function listGuestMedia(): Promise<GuestMedia[]> {
 
   const { data, error } = await supabase
     .from("guest_media")
-    .select("*")
+    .select("id, kind, uploader_name, created_at, hidden, storage_path, thumb_path")
     .eq("wedding_id", weddingId)
     .order("created_at", { ascending: false });
 

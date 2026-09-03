@@ -973,7 +973,12 @@
     "table_seats_label_placeholder": "第 1 桌",
     "capacity_below_seated": "此桌已安排 {count} 位客人，请先移除部分客人。",
     "save": "保存",
-    "delete_failed": "删除时出错。"
+    "delete_failed": "删除时出错。",
+    "assigned_toast": "宾客已入座",
+    "unassigned_toast": "宾客已移除",
+    "table_added": "桌位已添加",
+    "table_saved": "桌位已保存",
+    "table_deleted": "桌位已删除"
   },
   "QrCode": {
     "title": "婚礼当天二维码",
@@ -1002,7 +1007,11 @@
     },
     "toggle_failed": "无法更新该分类。",
     "add_failed": "无法添加该菜肴。",
-    "remove_failed": "无法删除该菜肴。"
+    "remove_failed": "无法删除该菜肴。",
+    "category_enabled": "分类已启用",
+    "category_disabled": "分类已停用",
+    "item_added": "菜品已添加",
+    "item_removed": "菜品已移除"
   },
   "DayOfSettings": {
     "title": "婚礼当日设置",
@@ -1014,7 +1023,8 @@
     "after_wedding_hint": "页面将切换为感谢页面，并继续开放上传。",
     "uploads_until_label": "照片上传截止日期",
     "uploads_until_hint": "超过此日期后，宾客将无法再添加照片。",
-    "save_failed": "无法保存设置。"
+    "save_failed": "无法保存设置。",
+    "settings_saved": "设置已保存"
   },
   "DayOfPhotos": {
     "title": "照片和视频",
@@ -1041,7 +1051,10 @@
       "description": "宾客分享的这项内容将被永久删除，此操作无法撤销。",
       "cancel": "取消",
       "confirm": "删除"
-    }
+    },
+    "hidden_toast": "照片已隐藏",
+    "shown_toast": "照片已显示",
+    "deleted_toast": "照片已删除"
   },
   "GuestGroups": {
     "title": "宾客分组",
@@ -1060,7 +1073,9 @@
       "guest": "宾客",
       "household": "家庭",
       "group": "分组"
-    }
+    },
+    "group_updated": "分组已更新",
+    "household_updated": "家庭已更新"
   },
   "GuestMeals": {
     "title": "餐食与饮食需求",
@@ -1091,7 +1106,9 @@
       "meal": "餐食",
       "dietary": "饮食限制",
       "allergies": "过敏源"
-    }
+    },
+    "meal_updated": "餐食已更新",
+    "dietary_updated": "饮食偏好已更新"
   },
   "InvitationEvents": {
     "title": "活动",
@@ -1118,7 +1135,12 @@
     "add_event": "添加活动",
     "new_event_name": "新活动",
     "reorder": "重新排序",
-    "save_failed": "保存时出错。"
+    "save_failed": "保存时出错。",
+    "event_added": "活动已添加",
+    "event_deleted": "活动已删除",
+    "order_saved": "顺序已保存",
+    "event_enabled_toast": "活动已启用",
+    "event_disabled_toast": "活动已停用"
   },
   "InvitationSchedule": {
     "title": "日程安排",
@@ -1140,7 +1162,9 @@
     "delete_entry": "删除“{title}”",
     "deleted_toast": "已删除“{title}”",
     "untitled": "无标题",
-    "save_failed": "保存时出错。"
+    "save_failed": "保存时出错。",
+    "entry_added": "行程已添加",
+    "order_saved": "顺序已保存"
   },
   "InvitationVenue": {
     "title": "场地与实用信息",
@@ -1191,7 +1215,10 @@
     },
     "move_up": "上移",
     "move_down": "下移",
-    "save_failed": "保存时出错。"
+    "save_failed": "保存时出错。",
+    "accommodation_added": "住宿已添加",
+    "accommodation_deleted": "住宿已删除",
+    "order_saved": "顺序已保存"
   },
   "InvitationFaq": {
     "title": "常见问题",
@@ -1218,7 +1245,12 @@
       "cancel": "取消",
       "confirm": "删除"
     },
-    "save_failed": "保存时出错。"
+    "save_failed": "保存时出错。",
+    "entry_added": "问题已添加",
+    "entry_deleted": "问题已删除",
+    "order_saved": "顺序已保存",
+    "published_toast": "问题已发布",
+    "unpublished_toast": "问题已隐藏"
   },
   "Stats": {
     "title": "统计数据",

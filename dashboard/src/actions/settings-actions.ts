@@ -23,8 +23,10 @@ export async function getSettings() {
   if (!wedding) return null;
 
   const { data, error } = await supabase
+    // Only `guest_code` is read by SettingsForm; the PGRST116 insert path
+    // below still needs the full row shape, so `select()` there stays default.
     .from("settings")
-    .select("*")
+    .select("guest_code")
     .eq("wedding_id", wedding.id)
     .single();
 
@@ -61,7 +63,7 @@ export async function getProfile() {
   // Get profile data
   const { data: profile } = await supabase
     .from("profiles")
-    .select("*")
+    .select("first_name, partner_name")
     .eq("id", user.id)
     .single();
 

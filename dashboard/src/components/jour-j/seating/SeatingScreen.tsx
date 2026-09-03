@@ -72,7 +72,9 @@ export function SeatingScreen({ initialTables, guests }: Props) {
     if (!res.success) {
       setTables(previous);
       toast.error(res.error || t("assign_failed"));
+      return;
     }
+    toast.success(t("assigned_toast"));
   };
 
   const onUnassign = async (guestId: string) => {
@@ -82,12 +84,16 @@ export function SeatingScreen({ initialTables, guests }: Props) {
     if (!res.success) {
       setTables(previous);
       toast.error(res.error || t("unassign_failed"));
+      return;
     }
+    toast.success(t("unassigned_toast"));
   };
 
   // A drag fires dozens of move events; only the last one is worth a round
   // trip. Local state updates immediately so the card follows the cursor;
-  // the write is debounced.
+  // the write is debounced. No success toast on this path, ever: a toast per
+  // drag (or per debounced write) would fire constantly while repositioning
+  // tables on the board and would be maddening.
   const moveTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
   useEffect(() => {
     return () => {
@@ -126,6 +132,7 @@ export function SeatingScreen({ initialTables, guests }: Props) {
         return;
       }
       setTables((prev) => [...prev, res.table]);
+      toast.success(t("table_added"));
       return;
     }
 
@@ -146,7 +153,9 @@ export function SeatingScreen({ initialTables, guests }: Props) {
     if (!res.success) {
       setTables(previous);
       toast.error(res.error || t("save_failed"));
+      return;
     }
+    toast.success(t("table_saved"));
   };
 
   const removeTable = async () => {
@@ -157,7 +166,9 @@ export function SeatingScreen({ initialTables, guests }: Props) {
     if (!res.success) {
       setTables(previous);
       toast.error(res.error || t("delete_failed"));
+      return;
     }
+    toast.success(t("table_deleted"));
   };
 
   return (

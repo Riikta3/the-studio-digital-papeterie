@@ -22,6 +22,9 @@ export function ScheduleEditor({ events, initialSchedule }: Props) {
   const [schedule, setSchedule] = useState(initialSchedule);
   const sortedEvents = [...events].sort((a, b) => a.position - b.position);
 
+  // No success toast here: every patch is a per-field edit (time, title,
+  // description...) that already shows its saved value inline — a toast per
+  // keystroke-debounced field would be noise, not confirmation.
   const update = async (entryId: string, patch: Partial<ScheduleEntry>) => {
     const previous = schedule; // capture BEFORE mutating, for rollback
     setSchedule((prev) =>
@@ -75,7 +78,9 @@ export function ScheduleEditor({ events, initialSchedule }: Props) {
     if (!res.success) {
       setSchedule(previous);
       toast.error(res.error || t("save_failed"));
+      return;
     }
+    toast.success(t("order_saved"));
   };
 
   const addEntry = async (eventId: string) => {
@@ -93,6 +98,7 @@ export function ScheduleEditor({ events, initialSchedule }: Props) {
     // Adopt the database's id — a client-generated one is not a valid uuid,
     // and every later update would target a row that does not exist.
     setSchedule((prev) => [...prev, res.entry]);
+    toast.success(t("entry_added"));
   };
 
   return (

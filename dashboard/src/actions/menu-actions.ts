@@ -69,7 +69,7 @@ export async function listMenu(): Promise<MenuCategory[]> {
 
   const { data: categoryRows, error: categoriesError } = await supabase
     .from("menu_categories")
-    .select("*")
+    .select("id, key, enabled, position")
     .eq("wedding_id", weddingId)
     .order("position", { ascending: true });
 
@@ -80,7 +80,7 @@ export async function listMenu(): Promise<MenuCategory[]> {
 
   const { data: itemRows, error: itemsError } = await supabase
     .from("menu_items")
-    .select("*")
+    .select("id, category_id, name, description, variant")
     .in("category_id", categoryIds)
     .order("position", { ascending: true });
 

@@ -76,7 +76,9 @@ export async function getVenue(): Promise<Venue | null> {
 
   const { data, error } = await supabase
     .from("venues")
-    .select("*")
+    .select(
+      "name, address, city, maps_url, waze_url, parking_info, access_info, transport_info, photo_url",
+    )
     .eq("wedding_id", weddingId)
     .maybeSingle();
 
@@ -115,7 +117,7 @@ export async function listAccommodations(): Promise<Accommodation[]> {
 
   const { data, error } = await supabase
     .from("accommodations")
-    .select("*")
+    .select("id, name, city, distance, phone, booking_url, offer, photo_url, position")
     .eq("wedding_id", weddingId)
     .order("position", { ascending: true });
 

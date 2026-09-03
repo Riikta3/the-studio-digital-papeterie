@@ -35,6 +35,13 @@ export function FaqPageClient({ initialFaq }: Props) {
     if (!res.success) {
       setFaq(previous);
       toast.error(res.error || t("save_failed"));
+      return;
+    }
+    // The publish toggle is a deliberate visibility decision worth
+    // confirming — question/answer text edits on the same row are not: they
+    // already show their saved value inline.
+    if (typeof patch.published === "boolean") {
+      toast.success(patch.published ? t("published_toast") : t("unpublished_toast"));
     }
   };
 
@@ -54,7 +61,9 @@ export function FaqPageClient({ initialFaq }: Props) {
       if (!res.success) {
         setFaq(previous);
         toast.error(res.error || t("save_failed"));
+        return;
       }
+      toast.success(t("order_saved"));
     });
   };
 
@@ -65,7 +74,9 @@ export function FaqPageClient({ initialFaq }: Props) {
     if (!res.success) {
       setFaq(previous);
       toast.error(res.error || t("save_failed"));
+      return;
     }
+    toast.success(t("entry_deleted"));
   };
 
   const addEntry = async () => {
@@ -82,6 +93,7 @@ export function FaqPageClient({ initialFaq }: Props) {
     // Adopt the database's id — a client-generated one is not a valid uuid,
     // and every later update would target a row that does not exist.
     setFaq((prev) => [...prev, res.entry]);
+    toast.success(t("entry_added"));
   };
 
   return (

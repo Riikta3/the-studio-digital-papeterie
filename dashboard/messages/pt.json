@@ -973,7 +973,12 @@
     "table_seats_label_placeholder": "Mesa 1",
     "capacity_below_seated": "Já estão {count} pessoas sentadas aqui. Retire algumas primeiro.",
     "save": "Guardar",
-    "delete_failed": "Erro ao eliminar."
+    "delete_failed": "Erro ao eliminar.",
+    "assigned_toast": "Convidado sentado",
+    "unassigned_toast": "Convidado removido",
+    "table_added": "Mesa adicionada",
+    "table_saved": "Mesa guardada",
+    "table_deleted": "Mesa eliminada"
   },
   "QrCode": {
     "title": "Código QR do grande dia",
@@ -1002,7 +1007,11 @@
     },
     "toggle_failed": "Não foi possível atualizar a categoria.",
     "add_failed": "Não foi possível adicionar o prato.",
-    "remove_failed": "Não foi possível remover o prato."
+    "remove_failed": "Não foi possível remover o prato.",
+    "category_enabled": "Categoria ativada",
+    "category_disabled": "Categoria desativada",
+    "item_added": "Prato adicionado",
+    "item_removed": "Prato removido"
   },
   "DayOfSettings": {
     "title": "Definições do grande dia",
@@ -1014,7 +1023,8 @@
     "after_wedding_hint": "A página passa a uma vista de agradecimento e continua aberta a envios.",
     "uploads_until_label": "Envios abertos até",
     "uploads_until_hint": "Após esta data, os convidados deixam de poder adicionar fotos.",
-    "save_failed": "Não foi possível guardar as definições."
+    "save_failed": "Não foi possível guardar as definições.",
+    "settings_saved": "Definições guardadas"
   },
   "DayOfPhotos": {
     "title": "Fotos e vídeos",
@@ -1041,7 +1051,10 @@
       "description": "Este conteúdo partilhado pelos seus convidados será eliminado definitivamente. Esta ação não pode ser anulada.",
       "cancel": "Cancelar",
       "confirm": "Eliminar"
-    }
+    },
+    "hidden_toast": "Foto ocultada",
+    "shown_toast": "Foto exibida",
+    "deleted_toast": "Foto eliminada"
   },
   "GuestGroups": {
     "title": "Grupos de convidados",
@@ -1060,7 +1073,9 @@
       "guest": "Convidado",
       "household": "Agregado",
       "group": "Grupo"
-    }
+    },
+    "group_updated": "Grupo atualizado",
+    "household_updated": "Agregado familiar atualizado"
   },
   "GuestMeals": {
     "title": "Refeições e necessidades alimentares",
@@ -1091,7 +1106,9 @@
       "meal": "Refeição",
       "dietary": "Restrições",
       "allergies": "Alergias"
-    }
+    },
+    "meal_updated": "Refeição atualizada",
+    "dietary_updated": "Preferência alimentar atualizada"
   },
   "InvitationEvents": {
     "title": "Eventos",
@@ -1118,7 +1135,12 @@
     "add_event": "Adicionar um evento",
     "new_event_name": "Novo evento",
     "reorder": "Reordenar",
-    "save_failed": "Ocorreu um erro ao guardar."
+    "save_failed": "Ocorreu um erro ao guardar.",
+    "event_added": "Evento adicionado",
+    "event_deleted": "Evento eliminado",
+    "order_saved": "Ordem guardada",
+    "event_enabled_toast": "Evento ativado",
+    "event_disabled_toast": "Evento desativado"
   },
   "InvitationSchedule": {
     "title": "Programa",
@@ -1140,7 +1162,9 @@
     "delete_entry": "Eliminar “{title}”",
     "deleted_toast": "“{title}” eliminado",
     "untitled": "Sem título",
-    "save_failed": "Ocorreu um erro ao guardar."
+    "save_failed": "Ocorreu um erro ao guardar.",
+    "entry_added": "Entrada adicionada",
+    "order_saved": "Ordem guardada"
   },
   "InvitationVenue": {
     "title": "Local e informações práticas",
@@ -1191,7 +1215,10 @@
     },
     "move_up": "Subir",
     "move_down": "Descer",
-    "save_failed": "Ocorreu um erro ao guardar."
+    "save_failed": "Ocorreu um erro ao guardar.",
+    "accommodation_added": "Alojamento adicionado",
+    "accommodation_deleted": "Alojamento eliminado",
+    "order_saved": "Ordem guardada"
   },
   "InvitationFaq": {
     "title": "Perguntas frequentes",
@@ -1218,7 +1245,12 @@
       "cancel": "Cancelar",
       "confirm": "Eliminar"
     },
-    "save_failed": "Ocorreu um erro ao guardar."
+    "save_failed": "Ocorreu um erro ao guardar.",
+    "entry_added": "Pergunta adicionada",
+    "entry_deleted": "Pergunta eliminada",
+    "order_saved": "Ordem guardada",
+    "published_toast": "Pergunta publicada",
+    "unpublished_toast": "Pergunta ocultada"
   },
   "Stats": {
     "title": "Estatísticas",

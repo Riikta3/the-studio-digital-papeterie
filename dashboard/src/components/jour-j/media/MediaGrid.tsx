@@ -53,7 +53,9 @@ export function MediaGrid({ initialMedia }: { initialMedia: GuestMedia[] }) {
     if (!res.success) {
       setMedia(previous);
       toast.error(res.error);
+      return;
     }
+    toast.success(nextHidden ? t("hidden_toast") : t("shown_toast"));
   };
 
   const confirmDelete = async () => {
@@ -66,7 +68,9 @@ export function MediaGrid({ initialMedia }: { initialMedia: GuestMedia[] }) {
     if (!res.success) {
       setMedia(previous);
       toast.error(res.error);
+      return;
     }
+    toast.success(t("deleted_toast"));
   };
 
   return (

@@ -63,7 +63,9 @@ export async function getDayOfSettings(): Promise<DayOfSettings> {
   const [settingsRes, siteRes] = await Promise.all([
     supabase
       .from("day_of_settings")
-      .select("*")
+      .select(
+        "enabled, gallery_visible_to_guests, uploads_open_until, after_wedding_mode, venue_plan_url",
+      )
       .eq("wedding_id", weddingId)
       .maybeSingle(),
     supabase.from("sites").select("slug").eq("wedding_id", weddingId).maybeSingle(),

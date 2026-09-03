@@ -973,7 +973,12 @@
     "table_seats_label_placeholder": "テーブル 1",
     "capacity_below_seated": "すでに {count} 名が着席しています。先に何名か外してください。",
     "save": "保存",
-    "delete_failed": "削除中にエラーが発生しました。"
+    "delete_failed": "削除中にエラーが発生しました。",
+    "assigned_toast": "ゲストを着席させました",
+    "unassigned_toast": "ゲストを外しました",
+    "table_added": "テーブルを追加しました",
+    "table_saved": "テーブルを保存しました",
+    "table_deleted": "テーブルを削除しました"
   },
   "QrCode": {
     "title": "当日QRコード",
@@ -1002,7 +1007,11 @@
     },
     "toggle_failed": "カテゴリーを更新できませんでした。",
     "add_failed": "料理を追加できませんでした。",
-    "remove_failed": "料理を削除できませんでした。"
+    "remove_failed": "料理を削除できませんでした。",
+    "category_enabled": "カテゴリーを有効にしました",
+    "category_disabled": "カテゴリーを無効にしました",
+    "item_added": "料理を追加しました",
+    "item_removed": "料理を削除しました"
   },
   "DayOfSettings": {
     "title": "当日の設定",
@@ -1014,7 +1023,8 @@
     "after_wedding_hint": "ページは感謝のメッセージ画面に切り替わり、写真のアップロードは引き続き受け付けます。",
     "uploads_until_label": "写真の受付締切日",
     "uploads_until_hint": "この日付を過ぎると、ゲストは写真を追加できなくなります。",
-    "save_failed": "設定を保存できませんでした。"
+    "save_failed": "設定を保存できませんでした。",
+    "settings_saved": "設定を保存しました"
   },
   "DayOfPhotos": {
     "title": "写真・動画",
@@ -1041,7 +1051,10 @@
       "description": "ゲストが共有したこのコンテンツは完全に削除されます。この操作は取り消せません。",
       "cancel": "キャンセル",
       "confirm": "削除"
-    }
+    },
+    "hidden_toast": "写真を非表示にしました",
+    "shown_toast": "写真を表示しました",
+    "deleted_toast": "写真を削除しました"
   },
   "GuestGroups": {
     "title": "ゲストグループ",
@@ -1060,7 +1073,9 @@
       "guest": "ゲスト",
       "household": "世帯",
       "group": "グループ"
-    }
+    },
+    "group_updated": "グループを更新しました",
+    "household_updated": "世帯を更新しました"
   },
   "GuestMeals": {
     "title": "食事とアレルギー対応",
@@ -1091,7 +1106,9 @@
       "meal": "食事",
       "dietary": "食事制限",
       "allergies": "アレルギー"
-    }
+    },
+    "meal_updated": "食事を更新しました",
+    "dietary_updated": "食事制限を更新しました"
   },
   "InvitationEvents": {
     "title": "イベント",
@@ -1118,7 +1135,12 @@
     "add_event": "イベントを追加",
     "new_event_name": "新しいイベント",
     "reorder": "並び替え",
-    "save_failed": "保存中にエラーが発生しました。"
+    "save_failed": "保存中にエラーが発生しました。",
+    "event_added": "イベントを追加しました",
+    "event_deleted": "イベントを削除しました",
+    "order_saved": "順序を保存しました",
+    "event_enabled_toast": "イベントを有効にしました",
+    "event_disabled_toast": "イベントを無効にしました"
   },
   "InvitationSchedule": {
     "title": "プログラム",
@@ -1140,7 +1162,9 @@
     "delete_entry": "「{title}」を削除",
     "deleted_toast": "「{title}」を削除しました",
     "untitled": "無題",
-    "save_failed": "保存中にエラーが発生しました。"
+    "save_failed": "保存中にエラーが発生しました。",
+    "entry_added": "項目を追加しました",
+    "order_saved": "順序を保存しました"
   },
   "InvitationVenue": {
     "title": "会場・実用情報",
@@ -1191,7 +1215,10 @@
     },
     "move_up": "上へ移動",
     "move_down": "下へ移動",
-    "save_failed": "保存中にエラーが発生しました。"
+    "save_failed": "保存中にエラーが発生しました。",
+    "accommodation_added": "宿泊施設を追加しました",
+    "accommodation_deleted": "宿泊施設を削除しました",
+    "order_saved": "順序を保存しました"
   },
   "InvitationFaq": {
     "title": "よくある質問",
@@ -1218,7 +1245,12 @@
       "cancel": "キャンセル",
       "confirm": "削除"
     },
-    "save_failed": "保存中にエラーが発生しました。"
+    "save_failed": "保存中にエラーが発生しました。",
+    "entry_added": "質問を追加しました",
+    "entry_deleted": "質問を削除しました",
+    "order_saved": "順序を保存しました",
+    "published_toast": "質問を公開しました",
+    "unpublished_toast": "質問を非公開にしました"
   },
   "Stats": {
     "title": "統計",
