@@ -2,16 +2,46 @@
 
 import { Link } from "@/navigation";
 import { Button } from "@shared/components/ui/button";
-import { motion, useReducedMotion } from "framer-motion";
 import { ArrowLeft } from "lucide-react";
 import { useTranslations } from "next-intl";
-import { useEffect, useState } from "react";
 
 // The card and the wording arrive together, then the stamp lands on top.
 const CARD_IN = 0.15;
 const STAMP_HIT = 0.95;
 
-const EASE_OUT = [0.22, 1, 0.36, 1] as const;
+// `backwards` is what kills the flash: it applies the 0% frame from the very
+// first paint, so nothing shows during the delay. The stamp's slight overshoot
+// past full size is the recoil of the ink.
+const NF_KEYFRAMES = `
+@keyframes nf-rise {
+  from { opacity: 0; transform: rotate(-2.5deg) translateY(-24px); }
+  to   { opacity: 1; transform: rotate(-2.5deg) translateY(0); }
+}
+@keyframes nf-copy-rise {
+  from { opacity: 0; transform: translateY(14px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes nf-strike {
+  0%   { opacity: 0; transform: scale(2.4) rotate(-2deg); }
+  20%  { opacity: 1; }
+  70%  { transform: scale(0.94) rotate(-13deg); }
+  85%  { transform: scale(1.03) rotate(-13deg); }
+  100% { opacity: 1; transform: scale(1) rotate(-13deg); }
+}
+.nf-card {
+  animation: nf-rise 0.85s cubic-bezier(0.22, 1, 0.36, 1) ${CARD_IN}s backwards;
+  transform: rotate(-2.5deg);
+}
+.nf-copy {
+  animation: nf-copy-rise 0.7s cubic-bezier(0.22, 1, 0.36, 1) ${CARD_IN}s backwards;
+}
+.nf-stamp {
+  animation: nf-strike 0.42s cubic-bezier(0.7, 0, 0.2, 1) ${STAMP_HIT}s backwards;
+}
+@media (prefers-reduced-motion: reduce) {
+  .nf-card, .nf-copy, .nf-stamp { animation-duration: 0.01ms; animation-delay: 0s; }
+}
+`;
 
 /**
  * The postal cancel, in the dashboard's own palette. Drawn as SVG so the
@@ -132,41 +162,23 @@ function NotFoundStamp({ label, code }: { label: string; code: string }) {
 
 export function NotFoundView() {
   const t = useTranslations("NotFound");
-  const reduce = useReducedMotion() ?? false;
-
-  // The entrance is gated on a mounted flag rather than Framer's `initial`:
-  // rendered through `not-found.tsx`, the mount-time initial → animate never
-  // fires, and per-element initial states leave the page stranded invisible.
-  const [entered, setEntered] = useState(false);
-  const [struck, setStruck] = useState(false);
-  useEffect(() => {
-    setEntered(true);
-    const id = setTimeout(() => setStruck(true), reduce ? 0 : STAMP_HIT * 1000);
-    return () => clearTimeout(id);
-  }, [reduce]);
-
-  const d = (beat: number) => (reduce ? 0 : beat);
 
   return (
-    <div
-      // Hidden in the server markup and revealed on mount, so the finished
-      // scene never flashes before the entrance plays.
-      className={`flex min-h-[70vh] flex-col items-center justify-center px-6 py-12 ${
-        entered ? "" : "invisible"
-      }`}
-    >
+    <div className="flex min-h-[70vh] flex-col items-center justify-center px-6 py-12">
+      {/* The entrance is CSS, not Framer. This view is mounted by the
+          client-side DashboardLayout and Framer's entrance does not run in
+          that tree — `document.getAnimations()` stays at 0 here while it
+          reports animations on other dashboard routes — so the elements
+          painted at the browser's defaults and the finished stamp flashed at
+          full size before anything else happened. A keyframe animation needs
+          no JavaScript: it starts on the element's first paint, and
+          `backwards` holds the hidden first frame throughout the delay. */}
+      <style>{NF_KEYFRAMES}</style>
       {/* The card sits off-square from the first frame and keeps that angle:
           it drops onto the table, it does not straighten itself out. */}
-      <motion.div
-        className="relative w-[300px] rounded-[3px] border border-studio-lavande/30 bg-white px-7 pb-20 pt-9 md:w-[390px] md:px-10 md:pb-24 md:pt-12"
-        style={{
-          boxShadow: "0 24px 48px -24px rgba(75, 63, 114, 0.28)",
-          rotate: -2.5,
-        }}
-        animate={
-          entered ? { opacity: 1, y: 0 } : { opacity: 0, y: reduce ? 0 : -24 }
-        }
-        transition={{ duration: 0.85, delay: d(CARD_IN), ease: EASE_OUT }}
+      <div
+        className="nf-card relative w-[300px] rounded-[3px] border border-studio-lavande/30 bg-white px-7 pb-20 pt-9 md:w-[390px] md:px-10 md:pb-24 md:pt-12"
+        style={{ boxShadow: "0 24px 48px -24px rgba(75, 63, 114, 0.28)" }}
       >
         <span
           aria-hidden
@@ -188,38 +200,14 @@ export function NotFoundView() {
         {/* Struck fully inside the card: violet ink reads on the paper and
             would vanish against anything darker, so none of the ring may
             overhang the edge. */}
-        <motion.div
-          className="pointer-events-none absolute -bottom-1 -right-1 h-[104px] w-[104px] origin-center md:-bottom-1 md:-right-1 md:h-[128px] md:w-[128px]"
-          animate={
-            struck
-              ? { opacity: 1, scale: 1, rotate: -13 }
-              : { opacity: 0, scale: 2.4, rotate: -2 }
-          }
-          // Tweened, not sprung: a spring interrupted mid-flight by the
-          // hydration hand-off settles wherever it happens to be, leaving a
-          // half-scaled ghost. The overshoot lives in the easing curve, so the
-          // end state is always exactly scale 1.
-          transition={
-            reduce
-              ? { duration: 0 }
-              : {
-                  opacity: { duration: 0.09 },
-                  scale: { duration: 0.34, ease: [0.34, 1.42, 0.64, 1] },
-                  rotate: { duration: 0.34, ease: [0.34, 1.42, 0.64, 1] },
-                }
-          }
+        <div
+          className="nf-stamp pointer-events-none absolute -bottom-1 -right-1 h-[104px] w-[104px] origin-center md:-bottom-1 md:-right-1 md:h-[128px] md:w-[128px]"
         >
           <NotFoundStamp label={t("stampLabel")} code={t("stampCode")} />
-        </motion.div>
-      </motion.div>
+        </div>
+      </div>
 
-      <motion.div
-        className="mt-14 max-w-sm text-center md:mt-16"
-        animate={
-          entered ? { opacity: 1, y: 0 } : { opacity: 0, y: reduce ? 0 : 14 }
-        }
-        transition={{ duration: 0.7, delay: d(CARD_IN), ease: EASE_OUT }}
-      >
+      <div className="nf-copy mt-14 max-w-sm text-center md:mt-16">
         <h1 className="font-heading text-h3 leading-tight text-studio-violet">
           {t("title")}
         </h1>
@@ -235,7 +223,7 @@ export function NotFoundView() {
             </Link>
           </Button>
         </div>
-      </motion.div>
+      </div>
     </div>
   );
 }
