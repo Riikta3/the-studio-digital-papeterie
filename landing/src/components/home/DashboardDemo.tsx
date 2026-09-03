@@ -443,6 +443,23 @@ export function DashboardDemo() {
 
   return (
     <div className="demoRoot" ref={rootRef}>
+      {/* Shown only under 760px, where the tour is hidden instead of being
+          squeezed. The back-office is a desktop/tablet tool -- the seating
+          plan is a drag-and-drop board and the guest list is a five-column
+          table -- so a phone rendition would misrepresent it. CSS decides,
+          not a width read in JS: no hydration mismatch, and a rotated tablet
+          is handled without a listener. */}
+      <div className="desktopOnly">
+        <span className="icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round">
+            <rect x="2" y="3" width="20" height="14" rx="2" />
+            <path d="M8 21h8M12 17v4" />
+          </svg>
+        </span>
+        <h3>{t("desktopOnlyTitle")}</h3>
+        <p>{t("desktopOnlyBody")}</p>
+      </div>
+
       {/* The wrapper exists so the responsive scale can correct the height:
           `transform: scale` leaves the original box reserved, which would
           otherwise leave a growing gap under the frame as it shrinks. */}

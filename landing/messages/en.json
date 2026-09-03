@@ -373,7 +373,9 @@
       "previous": "Previous",
       "next": "Next",
       "replay": "Replay",
-      "note": "Figures from a demo wedding: 140 guests, 65 households, 10 tables."
+      "note": "Figures from a demo wedding: 140 guests, 65 households, 10 tables.",
+      "desktopOnlyTitle": "Best explored on a larger screen",
+      "desktopOnlyBody": "This guided tour is built for desktop and tablet, like the back-office itself: the seating plan is drag-and-drop and the guest list runs five columns wide. Come back from a computer to walk through it."
     }
   },
   "Faq": {

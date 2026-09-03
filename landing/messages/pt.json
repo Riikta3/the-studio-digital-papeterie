@@ -369,7 +369,9 @@
       "previous": "Anterior",
       "next": "Seguinte",
       "replay": "Ver novamente",
-      "note": "Números de um casamento de demonstração: 140 convidados, 65 famílias, 10 mesas."
+      "note": "Números de um casamento de demonstração: 140 convidados, 65 famílias, 10 mesas.",
+      "desktopOnlyTitle": "Melhor explorado num ecrã maior",
+      "desktopOnlyBody": "Esta visita guiada foi feita para computador e tablet, tal como o back-office: o plano de mesas faz-se arrastando e a lista de convidados tem cinco colunas. Volte a partir de um computador para a percorrer."
     }
   },
   "Faq": {

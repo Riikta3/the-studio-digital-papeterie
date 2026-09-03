@@ -745,21 +745,24 @@
 .demoRoot .screen { margin-top: 0; }
 
 /* ---------------- responsive ----------------
-   Two regimes, because scaling has a floor. Down to ~0.7 the frame stays
-   perfectly readable and shrinking it whole is the honest thing to do: the
-   visitor sees the real desktop screen. Below that the body text would fall
-   under ~9px, so scaling further would hand a phone user a blurry, unreadable
-   thumbnail -- worse than showing less.
+   Scaling has a floor. Down to ~0.72 the frame stays perfectly readable and
+   shrinking it whole is the honest thing to do: the visitor sees the real
+   desktop screen. Below that the body text falls under ~9px, and a blurry
+   thumbnail nobody can read is worse than not showing it.
 
-   So on a phone the frame stops being a whole desktop screen and becomes a
-   PHONE-WIDTH crop of the one region that carries each chapter: the sidebar
-   is dropped, the panel fills the width, and type returns to full size. Less
-   is shown, at a size that can actually be read.
+   And the product itself is the reason not to force it: the back-office is
+   built for desktop and tablet -- a seating plan is a drag-and-drop board,
+   the guest list is a five-column table. Showing a cramped phone rendition
+   would misrepresent how the tool is actually used. So on a phone the frame
+   is replaced by a short note saying exactly that, and the tour is left for
+   a bigger screen.
 
-   `transform: scale` does not shrink reserved space, so the scaled frame sits
-   in `.screenWrap`, whose height is corrected to match. */
+   `transform: scale` does not shrink reserved space, so the scaled frame
+   sits in `.screenWrap`, whose height is corrected to match. */
 
-/* --- regime 1: scale the real screen (>= 760px) --- */
+/* The mobile note is hidden by default; the phone breakpoint swaps them. */
+.demoRoot .desktopOnly { display: none; }
+
 @media (max-width: 1080px) and (min-width: 760px) {
   .demoRoot .screen {
     transform: scale(var(--demo-scale, 1));
@@ -776,68 +779,51 @@
 @media (max-width: 920px)  and (min-width: 760px) { .demoRoot { --demo-scale: 0.78; } }
 @media (max-width: 850px)  and (min-width: 760px) { .demoRoot { --demo-scale: 0.72; } }
 
-/* --- regime 2: a readable phone-width crop (< 760px) --- */
+/* --- phone: the note replaces the tour entirely --- */
 @media (max-width: 759px) {
-  /* No scaling at all: every size below is a real, legible size. */
-  .demoRoot .screen { transform: none; width: auto; }
-  .demoRoot .screenWrap { height: auto; overflow: visible; }
+  .demoRoot .screenWrap,
+  .demoRoot .narrate,
+  .demoRoot .rail,
+  .demoRoot .transport { display: none; }
 
-  /* The sidebar is navigation, not content -- the chapter rail already tells
-     the visitor where they are, so it goes rather than eating half the width. */
-  .demoRoot .side { display: none; }
-  .demoRoot .app { grid-template-columns: 1fr; height: 560px; }
-
-  .demoRoot .pad { padding: 14px 14px; gap: 12px; }
-  .demoRoot [data-panel="home"] .pad,
-  .demoRoot [data-panel="stats"] .pad { gap: 11px; }
-
-  /* One column for anything that was a row of four. */
-  .demoRoot .kpi-grid,
-  .demoRoot .stat-cols,
-  .demoRoot .jourj { grid-template-columns: 1fr; }
-  .demoRoot .gs-grid,
-  .demoRoot .sc-grid { grid-template-columns: 1fr 1fr; }
-  .demoRoot .tiles { grid-template-columns: repeat(4, 1fr); }
-  .demoRoot .qa-grid { grid-template-columns: 1fr; }
-
-  /* The countdown keeps five units but tightens, so it still reads as one row. */
-  .demoRoot .cd-units { gap: 14px; }
-  .demoRoot .cd-unit { min-width: 0; }
-  .demoRoot .cd-unit b { font-size: 30px; }
-
-  /* Tables scroll sideways in their own container rather than squeezing
-     five columns into 360px. */
-  .demoRoot .hh-wrap { overflow-x: auto; }
-  .demoRoot table.hh { min-width: 560px; }
-
-  /* Seating: the aside is the point of the chapter (you drag FROM it), so it
-     stays -- it is the board that can afford to be cropped. */
-  .demoRoot .unseated { width: 148px; }
-  .demoRoot .seat-head { padding: 12px 14px; }
-  .demoRoot .seat-tools .field { display: none; }
-
-  .demoRoot .toolbar { gap: 10px; padding: 10px 12px; }
-  .demoRoot .field { min-width: 0; flex: 1; }
-  .demoRoot .tool-acts { display: none; }
-
-  .demoRoot .ip-btns { flex-direction: column; }
-  .demoRoot .trend { min-width: 340px; }
-}
-
-@media (max-width: 759px) {
-  /* Narration and controls: real UI, full-size type. */
-  .demoRoot .narrate { grid-template-columns: 1fr; gap: 8px; padding: 15px 16px; }
-  .demoRoot .chapno { font-size: 22px; }
-  .demoRoot .narrate h3 { font-size: 17px; }
-  .demoRoot .narrate p { font-size: 13px; min-height: calc(1.55em * 5); }
-  .demoRoot .transport { gap: 7px; }
-  .demoRoot .tbtn { padding: 8px 13px; font-size: 12.5px; }
-  .demoRoot .clock { width: 100%; margin-left: 0; text-align: right; }
-  /* Five chapter names across a phone would be unreadable slivers; the rail
-     still works as a progress indicator and the buttons stay tappable. */
-  .demoRoot .rail-name { display: none; }
-  .demoRoot .rail { gap: 4px; }
-  .demoRoot .rail button { min-height: 24px; }
+  .demoRoot .desktopOnly {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 14px;
+    text-align: center;
+    padding: 34px 22px;
+    background: #FFFFFF;
+    border: 1px solid var(--rule);
+    border-radius: 14px;
+    box-shadow: 0 12px 34px -26px var(--shadow);
+  }
+  .demoRoot .desktopOnly .icon {
+    display: grid;
+    place-items: center;
+    width: 46px;
+    height: 46px;
+    border-radius: 12px;
+    background: var(--beurre);
+    border: 1px solid var(--beige);
+    color: var(--violet);
+  }
+  .demoRoot .desktopOnly .icon svg { width: 22px; height: 22px; stroke-width: 1.7; }
+  .demoRoot .desktopOnly h3 {
+    margin: 0;
+    font-family: var(--font-head);
+    font-weight: 400;
+    font-size: 19px;
+    color: var(--violet);
+    text-wrap: balance;
+  }
+  .demoRoot .desktopOnly p {
+    margin: 0;
+    max-width: 34ch;
+    font-size: 13.5px;
+    line-height: 1.6;
+    color: var(--page-ink-soft);
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {

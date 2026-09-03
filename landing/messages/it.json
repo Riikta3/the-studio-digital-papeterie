@@ -369,7 +369,9 @@
       "previous": "Precedente",
       "next": "Successivo",
       "replay": "Rivedi",
-      "note": "Numeri di un matrimonio dimostrativo: 140 invitati, 65 nuclei, 10 tavoli."
+      "note": "Numeri di un matrimonio dimostrativo: 140 invitati, 65 nuclei, 10 tavoli.",
+      "desktopOnlyTitle": "Da esplorare su uno schermo più grande",
+      "desktopOnlyBody": "Questo tour è pensato per desktop e tablet, come il back-office stesso: la disposizione dei tavoli si fa trascinando e la lista invitati occupa cinque colonne. Torna da un computer per sfogliarlo."
     }
   },
   "Faq": {
