@@ -172,8 +172,7 @@
       "next": "Suivant",
       "replay": "Revoir",
       "note": "Chiffres d'un mariage de démonstration : 140 invités, 65 foyers, 10 tables.",
-      "desktopOnlyTitle": "Le back-office se visite sur grand écran",
-      "desktopOnlyBody": "Cette visite guidée est conçue pour desktop et tablette, comme le back-office lui-même : le plan de table se fait au glisser-déposer et la liste d'invités tient sur cinq colonnes. Revenez depuis un ordinateur pour la parcourir."
+      "mobileNote": "Le back-office est optimisé pour ordinateur et tablette. Cet aperçu reste consultable ici, en version réduite."
     }
   },
   "Testimonials": {

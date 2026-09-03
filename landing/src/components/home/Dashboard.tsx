@@ -50,10 +50,7 @@ export function Dashboard() {
       <div className="mx-auto mt-12 w-full max-w-5xl">
         <DashboardDemo />
 
-        {/* Hidden with the tour it annotates: under 760px the demo is replaced
-            by a "come back on a bigger screen" note, and a line about demo
-            figures would be explaining numbers nobody can see. */}
-        <p className="mt-4 hidden text-center font-body text-xs text-studio-violet/50 min-[760px]:block">
+        <p className="mt-4 text-center font-body text-xs text-studio-violet/50">
           {t("demo.note")}
         </p>
       </div>

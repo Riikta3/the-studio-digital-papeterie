@@ -371,8 +371,7 @@
       "next": "Siguiente",
       "replay": "Ver de nuevo",
       "note": "Cifras de una boda de demostración: 140 invitados, 65 hogares, 10 mesas.",
-      "desktopOnlyTitle": "Se explora mejor en una pantalla grande",
-      "desktopOnlyBody": "Esta visita guiada está pensada para escritorio y tablet, igual que el back-office: el plano de mesas se hace arrastrando y la lista de invitados ocupa cinco columnas. Vuelve desde un ordenador para recorrerla."
+      "mobileNote": "El back-office está optimizado para ordenador y tablet. Esta vista previa sigue disponible aquí, en versión reducida."
     }
   },
   "Faq": {

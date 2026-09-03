@@ -111,7 +111,9 @@ export function DashboardDemo() {
   const fillRef = useRef<HTMLSpanElement | null>(null);
   const clockRef = useRef<HTMLSpanElement | null>(null);
   const timers = useRef<Array<ReturnType<typeof setTimeout>>>([]);
-  const raf = useRef<number | null>(null);
+  /** Count-up intervals, cancelled alongside the timers on a chapter change. */
+  const counters = useRef<Array<ReturnType<typeof setInterval>>>([]);
+  const ticker = useRef<ReturnType<typeof setInterval> | null>(null);
   const startedAt = useRef(0);
   const heldMs = useRef(0);
   /** Set once the viewer has used a control, so autoplay stops fighting them. */
@@ -122,6 +124,8 @@ export function DashboardDemo() {
   const clearTimers = useCallback(() => {
     timers.current.forEach(clearTimeout);
     timers.current = [];
+    counters.current.forEach(clearInterval);
+    counters.current = [];
   }, []);
 
   const panelClass = (panel: string) =>
@@ -159,14 +163,20 @@ export function DashboardDemo() {
       return;
     }
     const t0 = performance.now();
-    const step = (now: number) => {
-      const p = Math.min(1, (now - t0) / ms);
+    // setInterval, not requestAnimationFrame: rAF callbacks do not run for
+    // content thousands of pixels outside the viewport, which left every KPI
+    // frozen at 0. Progress comes from elapsed time, so the figure still
+    // lands exactly on `to`.
+    const id = setInterval(() => {
+      const p = Math.min(1, (performance.now() - t0) / ms);
       // easeOutCubic: quick off the mark, gentle landing.
       write(Math.round(to * (1 - Math.pow(1 - p, 3))));
-      if (p < 1) requestAnimationFrame(step);
-      else write(to);
-    };
-    requestAnimationFrame(step);
+      if (p >= 1) {
+        write(to);
+        clearInterval(id);
+      }
+    }, 40);
+    counters.current.push(id);
   }, []);
 
   // Both helpers read from a ref, so they are created once and never
@@ -325,16 +335,16 @@ export function DashboardDemo() {
         // Two frames after the reset zeroed them, so there is a real 0 width
         // to transition from. A plain timer here raced the reset and left the
         // bars empty.
-        requestAnimationFrame(() =>
-          requestAnimationFrame(() => {
-            qa<HTMLElement>('[data-panel="stats"] .seg').forEach((f, i) => {
-              later(() => (f.style.width = `${f.dataset.w}%`), 40 + i * 40);
-            });
-            qa<HTMLElement>('[data-panel="stats"] .ev-fill').forEach((f, i) => {
-              later(() => (f.style.width = `${f.dataset.w}%`), 40 + i * 60);
-            });
-          }),
-        );
+        // A short timeout rather than nested rAF, same throttling reason:
+        // two frames that never arrive meant the bars never grew.
+        later(() => {
+          qa<HTMLElement>('[data-panel="stats"] .seg').forEach((f, i) => {
+            later(() => (f.style.width = `${f.dataset.w}%`), 40 + i * 40);
+          });
+          qa<HTMLElement>('[data-panel="stats"] .ev-fill').forEach((f, i) => {
+            later(() => (f.style.width = `${f.dataset.w}%`), 40 + i * 60);
+          });
+        }, 30);
       }
     },
     [countUp, later, q, qa],
@@ -380,11 +390,18 @@ export function DashboardDemo() {
       if (clockRef.current) {
         clockRef.current.textContent = `${clock(elapsedBefore + into)} / ${clock(TOTAL_MS)}`;
       }
-      raf.current = requestAnimationFrame(tick);
     };
-    raf.current = requestAnimationFrame(tick);
+
+    // Deliberately setInterval, NOT requestAnimationFrame: this block sits
+    // thousands of pixels down the page, and Chrome runs no rAF callbacks for
+    // content that far outside the viewport -- the loop never got a single
+    // frame and the tour stayed frozen at 00:00. 20Hz is plenty for a
+    // progress bar, and `into` comes from real elapsed time, so a throttled
+    // background tab resumes on the correct chapter rather than drifting.
+    ticker.current = setInterval(tick, 50);
+    tick();
     return () => {
-      if (raf.current) cancelAnimationFrame(raf.current);
+      if (ticker.current) clearInterval(ticker.current);
       clearTimers();
     };
   }, [playing, index, clearTimers]);
@@ -443,22 +460,19 @@ export function DashboardDemo() {
 
   return (
     <div className="demoRoot" ref={rootRef}>
-      {/* Shown only under 760px, where the tour is hidden instead of being
-          squeezed. The back-office is a desktop/tablet tool -- the seating
-          plan is a drag-and-drop board and the guest list is a five-column
-          table -- so a phone rendition would misrepresent it. CSS decides,
-          not a width read in JS: no hydration mismatch, and a rotated tablet
-          is handled without a listener. */}
-      <div className="desktopOnly">
-        <span className="icon" aria-hidden="true">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round">
-            <rect x="2" y="3" width="20" height="14" rx="2" />
-            <path d="M8 21h8M12 17v4" />
-          </svg>
-        </span>
-        <h3>{t("desktopOnlyTitle")}</h3>
-        <p>{t("desktopOnlyBody")}</p>
-      </div>
+      {/* Shown only under 760px. The tour stays fully usable there, but the
+          back-office itself is built for desktop and tablet -- the seating
+          plan is a drag-and-drop board, the guest list runs five columns --
+          and a visitor deciding whether to buy should know that before they
+          sign up rather than after. CSS decides, not a width read in JS: no
+          hydration mismatch, and a rotated tablet needs no listener. */}
+      <p className="mobileNote">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+          <circle cx="12" cy="12" r="10" />
+          <path d="M12 16v-4M12 8h.01" />
+        </svg>
+        <span>{t("mobileNote")}</span>
+      </p>
 
       {/* The wrapper exists so the responsive scale can correct the height:
           `transform: scale` leaves the original box reserved, which would
