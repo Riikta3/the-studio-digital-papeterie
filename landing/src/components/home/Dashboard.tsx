@@ -10,7 +10,10 @@ export function Dashboard() {
   const t = useTranslations("Dashboard");
 
   return (
-    <section className="relative overflow-hidden bg-studio-beurre px-6 py-20 md:px-12">
+    <section
+      id="espace-maries"
+      className="relative overflow-hidden bg-studio-beurre px-6 py-20 md:px-12"
+    >
       <div className="mx-auto max-w-3xl text-center">
         <FadeIn>
           <div className="flex items-center justify-center gap-3 font-body text-h5 tracking-luxe text-studio-pourpre">
