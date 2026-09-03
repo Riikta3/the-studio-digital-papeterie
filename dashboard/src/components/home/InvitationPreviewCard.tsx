@@ -18,8 +18,17 @@ type Props = {
  */
 export async function InvitationPreviewCard({ slug, enabled }: Props) {
   const t = await getTranslations("Dashboard.invitation_preview");
-  const publicUrl = `thestudio.fr/jourj/${slug}`;
-  const viewHref = `https://${publicUrl}`;
+  // The invitation, not the Jour J page: this card is about the stationery the
+  // couple sends out, and /jourj/ is the day-of page guests reach by scanning
+  // the printed QR code. They are different things and this used to link to
+  // the wrong one.
+  //
+  // The base comes from the environment because the landing app is a separate
+  // origin; the dev port matches `landing/package.json` (3010).
+  const landingBase =
+    process.env.NEXT_PUBLIC_LANDING_URL || "https://the-studio.digital";
+  const publicUrl = `${landingBase.replace(/^https?:\/\//, "")}/fr/invitation/${slug}`;
+  const viewHref = `${landingBase}/fr/invitation/${slug}`;
 
   return (
     <section className='rounded-2xl border border-studio-lavande/40 bg-white p-4 shadow-studio-card md:p-6'>

@@ -23,7 +23,18 @@ export default async function QrCodePage() {
     );
   }
 
-  const url = `https://thestudio.fr/jourj/${qrSlug}`;
+  // `thestudio.fr` was hardcoded here and is not this project's domain — the
+  // configured one is NEXT_PUBLIC_LANDING_URL. Every QR code generated before
+  // this fix pointed at a host that was never ours, so none of them could have
+  // worked.
+  //
+  // ⚠️ This URL is PRINTED. Once a couple has printed their code, changing the
+  // domain here breaks it permanently — a guest scanning the card gets
+  // nothing, and there is no way to reach them. If the domain ever moves, keep
+  // the old host alive and redirect it rather than editing this line.
+  const landingBase =
+    process.env.NEXT_PUBLIC_LANDING_URL || "https://the-studio.digital";
+  const url = `${landingBase}/fr/jourj/${qrSlug}`;
 
   // Rendered here rather than in the browser: the printable export must not
   // depend on a canvas being mounted. The URL depends only on the slug, so
