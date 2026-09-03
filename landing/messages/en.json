@@ -366,7 +366,15 @@
     "titleLine1": "One space.",
     "titleAccent": "Your whole wedding.",
     "subtitle": "Manage your guests, your RSVPs, your invitation: edit, adjust, and update your invitation whenever you like, with no middleman.",
-    "placeholder": "Dashboard preview coming soon"
+    "demo": {
+      "chapters": "Chapters",
+      "pause": "Pause",
+      "resume": "Resume",
+      "previous": "Previous",
+      "next": "Next",
+      "replay": "Replay",
+      "note": "Figures from a demo wedding: 140 guests, 65 households, 10 tables."
+    }
   },
   "Faq": {
     "eyebrow": "A question?",

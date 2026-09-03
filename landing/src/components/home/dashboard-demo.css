@@ -1,0 +1,847 @@
+/*
+ * Styles for <DashboardDemo />, the guided tour of the couple's back-office.
+ *
+ * Every screen this stylesheet paints is transcribed from the dashboard's own
+ * components, so the landing page shows the real product rather than an
+ * illustration of it. When the dashboard's UI changes, this is the file that
+ * has to follow:
+ *
+ *   home    -> dashboard/src/app/[locale]/page.tsx, CountdownTimer,
+ *              KpiGroupCard, HomeQuickActions, InvitationPreviewCard
+ *   guests  -> dashboard/src/components/dashboard/{GuestStats,GuestsTable}
+ *   seating -> dashboard/src/components/jour-j/seating/*
+ *   stats   -> dashboard/src/components/stats/*, StatCard
+ *   sidebar -> dashboard/src/components/dashboard/{Sidebar,LanguageSwitcher}
+ *              and components/navigation/NavSection
+ *
+ * Colour tokens are copied from shared/tailwind-preset.js. The teal / red /
+ * blue accents are Tailwind's own 500/700 shades, matching what those
+ * components resolve to -- RsvpBreakdown deliberately uses blue for "sans
+ * reponse" rather than studio-jaune, and its own comment explains why.
+ *
+ * EVERY selector is scoped under `.demoRoot`. The class names here (card,
+ * field, badge, toast, legend, side, sub, nav...) are generic enough to
+ * collide with the landing's own styles in both directions. It is a plain
+ * stylesheet rather than a CSS module because the markup is a large block of
+ * transcribed JSX that would otherwise need a `styles.x` lookup on every
+ * node, which makes diffing it against the dashboard much harder.
+ *
+ * The frame is a FIXED height, never min-height: this sits in the middle of a
+ * landing page, and a block that resizes as chapters change shoves everything
+ * below it. Measured identical (844x1072 at desktop) across all five
+ * chapters, with no panel overflowing.
+ */
+
+
+/* ------------------------------------------------------------------
+   Every screen below is transcribed from the application's own
+   components, not designed here. Where a colour, a label or a layout
+   looks surprising, it is because that is what the code does:
+
+     home        → app/[locale]/page.tsx + CountdownTimer + KpiGroupCard
+     guests      → components/dashboard/GuestStats + GuestsTable
+     seating     → components/jour-j/seating/{SeatingHeader,Board,
+                   UnseatedPanel,TableCard}
+     ma table    → landing/components/jourj/TableFinder
+     stats       → components/stats/{RsvpBreakdown,EventAttendanceList}
+
+   Colour tokens come from shared/tailwind-preset.js. The teal / red /
+   blue / jaune accents on the stat cards and the RSVP bar are the real
+   ones — RsvpBreakdown deliberately uses blue for "sans réponse", with
+   a comment explaining why it is not studio-jaune.
+   ------------------------------------------------------------------ */
+.demoRoot {
+  --violet: #4B3F72;
+  --violet-clair: #7560B1;
+  --violet-fonce: #584984;
+  --lavande: #B7AFD1;
+  --jaune: #F2E5AA;
+  --pourpre: #8C6E8C;
+  --beige: #E6DCC6;
+  --creme: #FFFDE8;
+  --beurre: #FFF9D6;
+
+  /* Page shell sits a shade deeper than the app, so the frame reads as
+     a screen inside a page rather than merging with it. */
+  --page: #F3F0E4;
+  --page-ink: #3A3157;
+  --page-ink-soft: #6F6689;
+  --rule: rgba(75, 63, 114, 0.16);
+  --rule-soft: rgba(75, 63, 114, 0.09);
+  --shadow: rgba(75, 63, 114, 0.13);
+
+  /* Tailwind's teal-500/700, red-500/700, blue-500/700 — the exact
+     values the dashboard's own cards and RSVP bar resolve to. */
+  --teal-50: #F0FAF9;
+  --teal-100: #CCFBF1;
+  --teal-500: #14B8A6;
+  --teal-600: #0D9488;
+  --teal-700: #0F766E;
+  --red-50: #FEF4F4;
+  --red-100: #FEE2E2;
+  --red-500: #EF4444;
+  --red-600: #DC2626;
+  --red-700: #B91C1C;
+  --blue-500: #3B82F6;
+  --blue-700: #1D4ED8;
+
+  --font-head: "Libre Caslon Display", Georgia, "Times New Roman", serif;
+  --font-body: "Urbanist", "Helvetica Neue", Arial, sans-serif;
+}
+
+.demoRoot /* This page commits to one warm, light world on purpose: it recreates a
+   product whose UI has a single cream identity, and a dark repaint would
+   misrepresent what a prospect sees after signing up. Every colour is
+   painted explicitly, including the body ground, so the page holds on
+   either host theme. */
+
+* { box-sizing: border-box; }
+
+
+
+.demoRoot /* ---------------- browser frame ---------------- */
+.screen {
+  margin-top: 30px; border-radius: 14px; overflow: hidden;
+  background: #FFFFFF; border: 1px solid var(--rule);
+  box-shadow: 0 24px 60px -30px var(--shadow), 0 2px 4px rgba(75,63,114,.05);
+}
+.demoRoot .chrome {
+  display: flex; align-items: center; gap: 14px;
+  padding: 11px 16px; background: #EFEBF4;
+  border-bottom: 1px solid var(--rule-soft);
+}
+.demoRoot .dots { display: flex; gap: 6px; }
+.demoRoot .dots i { width: 10px; height: 10px; border-radius: 50%; background: var(--lavande); display: block; }
+.demoRoot .omnibox {
+  flex: 1; background: #FFFFFF; border: 1px solid var(--rule-soft);
+  border-radius: 6px; padding: 4px 12px; font-size: 12px;
+  color: var(--page-ink-soft); white-space: nowrap;
+  overflow: hidden; text-overflow: ellipsis;
+}
+
+.demoRoot /* ---------------- app viewport ---------------- */
+/* DashboardLayout: `min-h-screen bg-studio-creme`, a fixed `w-64`
+   (256px) sidebar, and `<main class="md:ml-64">`. */
+  /* FIXED height, never min-height: the frame is a screen, and a screen
+   does not change size when you navigate inside it. Every chapter gets
+   exactly this box; a panel taller than it scrolls internally. */
+.app {
+  display: grid; grid-template-columns: 256px 1fr;
+  height: 790px; background: var(--creme);
+}
+
+.demoRoot /* Sidebar.tsx: `h-full w-64 bg-studio-violet`, inner `flex flex-col h-full p-6`. */
+.side {
+  background: var(--violet);
+  padding: 24px;
+  display: flex; flex-direction: column;
+  min-height: 0; overflow: hidden;
+}
+.demoRoot /* Logo block: `mb-10 pl-2`, logo-jaune.svg at h-8, then font-heading text-xl. */
+.side-logo { display: flex; align-items: center; gap: 8px; margin: 0 0 40px; padding-left: 8px; }
+.demoRoot .side-logo svg,
+.demoRoot .demoLogo { height: 32px; width: auto; flex: none; }
+.demoRoot .side-logo span { font-family: var(--font-head); font-size: 20px; color: #FFFFFF; }
+
+.demoRoot /* nav: `flex-1 space-y-1` */
+.nav {
+  list-style: none; margin: 0 0 24px; padding: 0;
+  flex: 1 1 auto; min-height: 0;
+  display: flex; flex-direction: column; gap: 4px;
+  overflow-y: auto; scrollbar-width: none;
+}
+.demoRoot .nav::-webkit-scrollbar { display: none; }
+
+.demoRoot /* NavSection: min-h-11, rounded-lg, px-3, gap-3, text-sm.
+   Active → bg-white/15 font-medium text-white; idle → text-white/70. */
+.nav-row {
+  display: flex; align-items: center; gap: 12px;
+  min-height: 44px; padding: 0 12px; border-radius: 8px;
+  font-size: 14px; color: rgba(255,255,255,.7);
+}
+.demoRoot .nav-row svg.ico { width: 20px; height: 20px; flex: none; stroke-width: 1.7; }
+.demoRoot .nav-row .lab { flex: 1; text-align: left; }
+.demoRoot .nav-row .chev { width: 16px; height: 16px; flex: none; stroke-width: 2; transition: transform .18s ease; }
+.demoRoot /* A section with its own page highlights; an accordion header only
+   brightens — the highlight lands on the open sub-item instead. */
+.nav > li.on.leaf > .nav-row { background: rgba(255,255,255,.15); color: #FFFFFF; font-weight: 500; }
+.demoRoot .nav > li.on:not(.leaf) > .nav-row { color: #FFFFFF; }
+.demoRoot .nav > li.on > .nav-row .chev { transform: rotate(180deg); }
+
+.demoRoot /* Submenu: `mt-1 space-y-0.5 border-l border-white/15 pl-4 ml-5`. */
+.sub {
+  list-style: none; margin: 4px 0 0 20px; padding-left: 16px;
+  border-left: 1px solid rgba(255,255,255,.15);
+  display: flex; flex-direction: column; gap: 2px;
+}
+.demoRoot .sub li {
+  display: flex; align-items: center; min-height: 44px;
+  padding: 0 12px; border-radius: 8px;
+  font-size: 14px; color: rgba(255,255,255,.6);
+}
+.demoRoot .sub li.on { background: rgba(255,255,255,.15); color: #FFFFFF; font-weight: 500; }
+.demoRoot .nav > li:not(.on) > .sub { display: none; }
+
+.demoRoot /* "Voir mon faire-part": bg-studio-jaune, text-studio-violet, rounded-lg. */
+.view-site {
+  display: flex; align-items: center; justify-content: center; gap: 8px;
+  margin-bottom: 24px; padding: 10px 12px;
+  background: var(--jaune); color: var(--violet);
+  border-radius: 8px; font-size: 14px; font-weight: 500; white-space: nowrap;
+  box-shadow: 0 1px 2px rgba(0,0,0,.08);
+}
+.demoRoot .view-site svg { width: 16px; height: 16px; stroke-width: 2; }
+
+.demoRoot /* Footer: `mt-auto border-t border-white/10 pt-6 space-y-2`. */
+.side-foot { margin-top: auto; border-top: 1px solid rgba(255,255,255,.1); padding-top: 24px; }
+.demoRoot .lang, .demoRoot .logout {
+  display: flex; align-items: center; gap: 12px;
+  min-height: 40px; padding: 0 12px; border-radius: 8px; font-size: 14px;
+}
+.demoRoot .lang { color: rgba(255,255,255,.7); margin-bottom: 8px; }
+.demoRoot .lang > svg:first-child { width: 18px; height: 18px; flex: none; stroke-width: 1.8; }
+.demoRoot .lang .flag { margin-right: -6px; }
+.demoRoot .lang .grow { flex: 1; }
+.demoRoot .lang .chev { width: 16px; height: 16px; opacity: .7; stroke-width: 2; }
+.demoRoot /* text-red-300, matching the real logout button. */
+.logout { color: #FCA5A5; }
+.demoRoot .logout svg { width: 18px; height: 18px; flex: none; stroke-width: 1.9; }
+
+.demoRoot /* The app body is bg-studio-creme on the dashboard screens; the seating
+   screen and the guest page paint their own grounds. */
+  .stage {
+  position: relative; display: flex; flex-direction: column;
+  background: var(--creme);
+  min-height: 0; overflow: hidden;
+}
+.demoRoot .panel { display: none; animation: rise .2s cubic-bezier(.2,.8,.3,1) both; }
+  .demoRoot .panel.live { display: flex; flex: 1; flex-direction: column; min-height: 0; }
+.demoRoot /* Content taller than the frame scrolls here instead of pushing the box.
+   `scrollbar-width: none` keeps the demo looking like a screenshot. */
+.panel.live > .pad { overflow-y: auto; scrollbar-width: none; }
+.demoRoot .panel.live > .pad::-webkit-scrollbar { display: none; }
+@keyframes rise { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
+
+.demoRoot /* Most panels get the page's own padding; seating is edge-to-edge
+   because its real screen is a full-bleed board with a sticky header. */
+.pad { padding: 20px 24px; display: flex; flex-direction: column; flex: 1; gap: 16px; }
+.demoRoot /* Accueil and Statistiques carry five and six blocks; a slightly tighter
+   rhythm lets both fit the fixed frame with nothing below the fold. */
+[data-panel="home"] .pad, .demoRoot [data-panel="stats"] .pad { gap: 13px; }
+
+.demoRoot /* ---------------- shared studio card ---------------- */
+.card {
+  background: #FFFFFF;
+  background-clip: padding-box;
+  border: 1px solid rgba(183,175,209,.4);
+  border-radius: 16px;
+  box-shadow: 0 1px 3px rgba(75,63,114,.06), 0 8px 24px -18px var(--shadow);
+}
+
+.demoRoot /* ---------------- 1 · Accueil ---------------- */
+.home-head {
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 16px; padding-bottom: 14px; border-bottom: 1px solid rgba(183,175,209,.3);
+}
+.demoRoot .home-head h2 {
+  font-family: var(--font-head); font-weight: 400; font-size: 23px;
+  margin: 0; color: var(--violet);
+}
+.demoRoot .ghost-btn {
+  display: inline-flex; align-items: center; gap: 7px;
+  border: 1px solid rgba(183,175,209,.5); background: #FFFFFF;
+  color: rgba(75,63,114,.7); border-radius: 8px;
+  padding: 7px 13px; font-size: 12.5px; white-space: nowrap;
+}
+.demoRoot .ghost-btn svg { width: 14px; height: 14px; stroke-width: 1.8; }
+
+.demoRoot .cd-card { padding: 16px 20px; }
+.demoRoot .cd-card > .lbl {
+  font-size: 11px; font-weight: 500; letter-spacing: 0.09em;
+  text-transform: uppercase; color: rgba(75,63,114,.5); margin: 0;
+}
+.demoRoot /* CountdownTimer: left-aligned, gap-6, five units, font-light. */
+.cd-units { display: flex; flex-wrap: wrap; align-items: baseline; gap: 24px; margin-top: 12px; }
+.demoRoot .cd-unit { display: flex; flex-direction: column; align-items: center; min-width: 4rem; }
+.demoRoot .cd-unit b {
+  font-family: var(--font-head); font-weight: 300; font-size: 40px;
+  line-height: 1; color: var(--violet); font-variant-numeric: tabular-nums;
+}
+.demoRoot .cd-unit span {
+  margin-top: 4px; font-size: 11px; letter-spacing: 0.08em;
+  text-transform: uppercase; color: rgba(75,63,114,.6);
+}
+
+.demoRoot .kpi-grid { display: grid; gap: 16px; grid-template-columns: 1fr 1fr; }
+.demoRoot .kpi-card { padding: 18px; }
+.demoRoot .kpi-card > h3 {
+  display: flex; align-items: center; gap: 8px;
+  font-family: var(--font-head); font-weight: 400; font-size: 16px;
+  color: var(--violet); margin: 0 0 14px;
+}
+.demoRoot .kpi-card > h3 svg { width: 15px; height: 15px; stroke-width: 1.8; flex: none; }
+.demoRoot .tiles { display: grid; gap: 10px; grid-template-columns: repeat(4, 1fr); }
+.demoRoot /* bg-studio-creme on a white card — the contrast the app has and the
+   first pass lost. */
+.tile {
+  background: var(--creme); border-radius: 12px; padding: 11px 10px;
+  display: flex; flex-direction: column; align-items: flex-start;
+}
+.demoRoot .tile b {
+  display: block; font-family: var(--font-head); font-weight: 300;
+  font-size: 26px; line-height: 1; color: var(--violet);
+  font-variant-numeric: tabular-nums;
+}
+.demoRoot .tile span { display: block; margin-top: 5px; font-size: 11px; color: rgba(75,63,114,.6); line-height: 1.25; }
+.demoRoot /* Tiles in a row share a baseline, so the one with a wrapping label does
+   not make its neighbours taller. */
+.tiles { align-items: stretch; }
+
+.demoRoot /* HomeQuickActions tiles: bg-studio-creme, rounded-xl, white round icon. */
+.qa-grid { display: grid; gap: 12px; grid-template-columns: repeat(3, 1fr); }
+.demoRoot .qa {
+  display: flex; align-items: center; gap: 12px;
+  background: var(--creme); border-radius: 12px; padding: 12px;
+  min-width: 0;
+}
+.demoRoot .qa-ic {
+  width: 36px; height: 36px; border-radius: 50%; flex: none;
+  background: #FFFFFF; color: var(--violet);
+  display: grid; place-items: center;
+}
+.demoRoot .qa-ic svg { width: 16px; height: 16px; stroke-width: 1.8; }
+.demoRoot .qa-txt { min-width: 0; }
+.demoRoot .qa-txt b {
+  display: block; font-size: 13px; font-weight: 500; color: var(--violet);
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+.demoRoot .qa-txt > span {
+  display: block; font-size: 11.5px; color: rgba(75,63,114,.6);
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+
+.demoRoot /* InvitationPreviewCard */
+.ip-head { display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; }
+.demoRoot .ip-t { min-width: 0; }
+.demoRoot .ip-url {
+  margin: 4px 0 0; font-size: 12.5px; color: rgba(75,63,114,.7);
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+.demoRoot .ip-pill {
+  flex: none; background: #CCFBF1; color: var(--teal-700);
+  border-radius: 999px; padding: 3px 11px; font-size: 11.5px; font-weight: 600;
+}
+.demoRoot .ip-btns { display: flex; gap: 8px; margin-top: 16px; }
+.demoRoot .btn-outline, .demoRoot .btn-solid {
+  flex: 1; display: flex; align-items: center; justify-content: center; gap: 8px;
+  min-height: 44px; border-radius: 8px; font-size: 13.5px; font-weight: 500;
+}
+.demoRoot .btn-outline { border: 1px solid var(--violet); color: var(--violet); background: #FFFFFF; }
+.demoRoot .btn-solid { background: var(--violet); color: #FFFFFF; }
+.demoRoot .btn-outline svg, .demoRoot .btn-solid svg { width: 15px; height: 15px; stroke-width: 1.9; }
+.demoRoot .ip-hint {
+  display: flex; align-items: center; gap: 6px; margin: 8px 0 0;
+  font-size: 11.5px; color: rgba(75,63,114,.5);
+}
+.demoRoot .ip-hint svg { width: 12px; height: 12px; flex: none; stroke-width: 2; }
+
+.demoRoot /* ---------------- 2 · Invités ---------------- */
+/* GuestStats: four cards, each with its own surface and accent. */
+.gs-grid { display: grid; gap: 14px; grid-template-columns: repeat(4, 1fr); }
+.demoRoot .gs {
+  border-radius: 14px; padding: 13px 15px 15px;
+  border: 1px solid rgba(183,175,209,.4); background: #FFFFFF;
+  box-shadow: 0 1px 3px rgba(75,63,114,.05);
+}
+.demoRoot .gs-top { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
+.demoRoot .gs-top span { font-size: 12.5px; font-weight: 500; color: rgba(75,63,114,.6); }
+.demoRoot .gs-top svg { width: 15px; height: 15px; stroke-width: 1.9; flex: none; color: var(--violet); }
+.demoRoot .gs b {
+  display: block; margin-top: 7px;
+  font-family: var(--font-head); font-weight: 700; font-size: 25px;
+  line-height: 1; color: var(--violet); font-variant-numeric: tabular-nums;
+}
+.demoRoot .gs small { display: block; margin-top: 4px; font-size: 11px; color: rgba(75,63,114,.5); }
+
+.demoRoot .gs.teal { background: var(--teal-50); border-color: var(--teal-100); }
+.demoRoot .gs.teal .gs-top span, .demoRoot .gs.teal .gs-top svg { color: var(--teal-600); }
+.demoRoot .gs.teal .gs-top svg { color: var(--teal-500); }
+.demoRoot .gs.teal b { color: var(--teal-600); }
+.demoRoot .gs.teal small { color: rgba(13,148,136,.8); }
+
+.demoRoot .gs.jaune { background: rgba(242,229,170,.2); border-color: var(--jaune); }
+.demoRoot .gs.jaune .gs-top span, .demoRoot .gs.jaune .gs-top svg { color: var(--pourpre); }
+.demoRoot .gs.jaune small { color: rgba(140,110,140,.85); }
+
+.demoRoot .gs.red { background: var(--red-50); border-color: var(--red-100); }
+.demoRoot .gs.red .gs-top span { color: var(--red-700); }
+.demoRoot .gs.red .gs-top svg { color: var(--red-600); }
+.demoRoot .gs.red b { color: var(--red-700); }
+.demoRoot .gs.red small { color: rgba(185,28,28,.8); }
+
+.demoRoot /* The toolbar above the table: search, filter chips, export / import. */
+.toolbar {
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 14px; flex-wrap: wrap;
+  background: #FFFFFF; border: 1px solid rgba(183,175,209,.4);
+  border-radius: 16px; padding: 12px 14px;
+  box-shadow: 0 1px 3px rgba(75,63,114,.05);
+}
+.demoRoot .field {
+  display: flex; align-items: center; gap: 8px;
+  background: rgba(183,175,209,.05);
+  border: 1px solid rgba(183,175,209,.3);
+  border-radius: 8px; padding: 7px 11px;
+  font-size: 12.5px; color: rgba(75,63,114,.55);
+  min-width: 232px;
+}
+.demoRoot .field svg { width: 14px; height: 14px; flex: none; color: rgba(75,63,114,.5); }
+.demoRoot .chips { display: flex; gap: 6px; flex-wrap: wrap; }
+.demoRoot .chip {
+  font-size: 12px; padding: 5px 12px; border-radius: 8px;
+  border: 1px solid rgba(183,175,209,.4); background: #FFFFFF;
+  color: rgba(75,63,114,.72);
+}
+.demoRoot .chip.on { background: var(--violet); border-color: var(--violet); color: #FFFFFF; font-weight: 500; }
+.demoRoot .tool-acts { display: flex; gap: 7px; }
+
+.demoRoot table.hh { width: 100%; border-collapse: collapse; font-size: 12.5px; }
+.demoRoot .hh-wrap {
+  background: #FFFFFF; border: 1px solid rgba(183,175,209,.4);
+  border-radius: 16px; overflow: hidden;
+  box-shadow: 0 1px 3px rgba(75,63,114,.05);
+}
+.demoRoot table.hh thead tr { background: rgba(183,175,209,.05); }
+.demoRoot table.hh th {
+  text-align: left; font-size: 11.5px; font-weight: 500;
+  color: rgba(75,63,114,.72); padding: 11px 14px; white-space: nowrap;
+}
+.demoRoot table.hh th:last-child { text-align: right; }
+.demoRoot table.hh td {
+  padding: 11px 14px; border-top: 1px solid var(--rule-soft);
+  color: var(--violet); vertical-align: middle;
+}
+.demoRoot table.hh tbody tr { transition: background .22s ease; }
+.demoRoot table.hh tbody tr.flash { background: var(--beurre); }
+.demoRoot .who { display: flex; align-items: center; gap: 11px; }
+.demoRoot .av {
+  width: 34px; height: 34px; border-radius: 50%;
+  background: rgba(75,63,114,.1); color: var(--violet);
+  font-family: var(--font-head); font-weight: 700; font-size: 15px;
+  display: grid; place-items: center; flex: none;
+}
+.demoRoot .who .nm { font-family: var(--font-head); font-size: 15px; line-height: 1.2; }
+.demoRoot .who .sub { font-size: 11px; color: rgba(75,63,114,.5); }
+.demoRoot .stack { display: flex; flex-direction: column; gap: 2px; font-size: 11.5px; color: rgba(75,63,114,.72); }
+
+.demoRoot /* Badge variants from shared/components/ui/badge. */
+.badge {
+  display: inline-flex; align-items: center; gap: 5px;
+  font-size: 11px; font-weight: 600; padding: 3px 10px;
+  border-radius: 999px; white-space: nowrap;
+}
+.demoRoot .badge::before { content: ""; width: 5px; height: 5px; border-radius: 50%; background: currentColor; flex: none; }
+.demoRoot .badge.ok { background: #CCFBF1; color: var(--teal-700); }
+.demoRoot .badge.wait { background: #DBEAFE; color: var(--blue-700); }
+.demoRoot .badge.wait::before { border-radius: 1px; transform: rotate(45deg); }
+.demoRoot .badge.no { background: var(--red-100); color: var(--red-700); }
+.demoRoot .badge.no::before { border-radius: 1px; }
+.demoRoot .rowacts { display: flex; gap: 5px; justify-content: flex-end; color: rgba(75,63,114,.4); }
+.demoRoot .rowacts svg { width: 14px; height: 14px; stroke-width: 1.8; }
+
+.demoRoot /* ---------------- 3 · Plan de table ---------------- */
+/* Edge-to-edge: sticky white header, then unseated aside + creme board. */
+.seat-wrap { display: flex; flex-direction: column; flex: 1; min-height: 0; }
+.demoRoot .seat-head {
+  background: rgba(255,255,255,.95); border-bottom: 1px solid rgba(183,175,209,.3);
+  padding: 14px 20px;
+}
+.demoRoot .seat-head h2 {
+  font-family: var(--font-head); font-weight: 400; font-size: 22px;
+  margin: 0; color: var(--violet);
+}
+.demoRoot .seat-meta {
+  display: flex; flex-wrap: wrap; align-items: center;
+  justify-content: space-between; gap: 12px; margin-top: 11px;
+}
+.demoRoot .seat-dl { display: flex; flex-wrap: wrap; gap: 4px 20px; font-size: 13px; margin: 0; }
+.demoRoot .seat-dl div { display: flex; gap: 6px; }
+.demoRoot .seat-dl dt { color: rgba(75,63,114,.6); margin: 0; }
+.demoRoot .seat-dl dd { margin: 0; font-weight: 500; color: var(--violet); font-variant-numeric: tabular-nums; }
+.demoRoot .seat-tools { display: flex; align-items: center; gap: 8px; }
+.demoRoot .violet-btn {
+  display: inline-flex; align-items: center; gap: 6px;
+  background: var(--violet); color: #FFFFFF; border-radius: 8px;
+  padding: 8px 13px; font-size: 12.5px; font-weight: 500; white-space: nowrap;
+}
+.demoRoot .violet-btn svg { width: 14px; height: 14px; stroke-width: 2.2; }
+
+.demoRoot .seat-body { display: flex; flex: 1; min-height: 0; }
+.demoRoot .unseated {
+  width: 200px; flex: none; background: #FFFFFF;
+  border-right: 1px solid rgba(183,175,209,.3);
+  padding: 14px 0 14px; display: flex; flex-direction: column;
+}
+.demoRoot .unseated-top {
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 8px; padding: 0 14px 11px;
+}
+.demoRoot .unseated-top h3 { font-size: 12.5px; font-weight: 500; color: var(--violet); margin: 0; }
+.demoRoot .count-pill {
+  background: var(--beige); color: var(--violet);
+  border-radius: 999px; padding: 1px 9px; font-size: 11px;
+  font-variant-numeric: tabular-nums;
+}
+.demoRoot .unseated ul { list-style: none; margin: 0; padding: 0 14px; display: grid; gap: 6px; }
+.demoRoot .unseated li {
+  border: 1px solid rgba(183,175,209,.4); background: #FFFFFF;
+  border-radius: 8px; padding: 7px 11px; font-size: 12px; color: var(--violet);
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+  transition: opacity .22s ease, transform .22s ease;
+}
+.demoRoot .unseated li.gone { opacity: 0; transform: translateX(-10px); }
+
+.demoRoot .board { position: relative; flex: 1; background: var(--creme); overflow: hidden; }
+.demoRoot .tbl {
+  position: absolute; width: 158px;
+  background: #FFFFFF; border: 1px solid rgba(183,175,209,.4);
+  border-radius: 12px; padding: 10px 11px;
+  box-shadow: 0 2px 8px -4px var(--shadow);
+  transition: border-color .16s ease, box-shadow .16s ease;
+}
+.demoRoot .tbl.target { border-color: var(--violet); box-shadow: 0 6px 18px -8px rgba(75,63,114,.45); }
+.demoRoot .tbl h4 { font-family: var(--font-head); font-weight: 400; font-size: 13px; margin: 0; color: var(--violet); }
+.demoRoot .tbl .cap { font-size: 10.5px; color: rgba(75,63,114,.6); margin: 1px 0 7px; font-variant-numeric: tabular-nums; }
+.demoRoot .tbl ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 2px; }
+.demoRoot .tbl li {
+  font-size: 10.5px; color: var(--violet); padding: 3px 6px;
+  border-radius: 4px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+.demoRoot .tbl li.landed { animation: land .32s cubic-bezier(.2,.8,.3,1) both; }
+@keyframes land {
+  from { opacity: 0; transform: translateX(-12px); background: var(--jaune); }
+  to   { opacity: 1; transform: none; background: transparent; }
+}
+.demoRoot /* DragOverlay: a white pill with a violet border, at the cursor. */
+.drag-pill {
+  position: absolute; z-index: 5;
+  border: 1px solid var(--violet); background: #FFFFFF;
+  border-radius: 8px; padding: 7px 11px; font-size: 12px; color: var(--violet);
+  box-shadow: 0 10px 24px -10px rgba(75,63,114,.5);
+  opacity: 0; pointer-events: none;
+  transition: opacity .12s ease, transform .42s cubic-bezier(.34,.75,.26,1);
+}
+.demoRoot .drag-pill.on { opacity: 1; }
+
+.demoRoot .toast {
+  position: absolute; right: 14px; bottom: 14px; z-index: 6;
+  background: var(--violet); color: #FFFFFF; font-size: 11.5px;
+  padding: 8px 14px; border-radius: 8px;
+  display: flex; align-items: center; gap: 8px;
+  opacity: 0; transform: translateY(8px);
+  transition: opacity .22s ease, transform .22s ease;
+  box-shadow: 0 8px 20px -8px rgba(75,63,114,.5);
+}
+.demoRoot .toast.show { opacity: 1; transform: none; }
+.demoRoot .toast svg { width: 13px; height: 13px; stroke-width: 2.4; }
+
+.demoRoot /* ---------------- 4 · Ma table ---------------- */
+.jourj { display: grid; grid-template-columns: 236px 1fr; gap: 28px; align-items: start; }
+.demoRoot .phone {
+  border: 9px solid var(--violet); border-radius: 30px; overflow: hidden;
+  background: var(--creme); box-shadow: 0 14px 32px -18px var(--shadow);
+}
+.demoRoot .phone-top { background: var(--violet); height: 18px; display: grid; place-items: center; }
+.demoRoot .phone-top i { display: block; width: 44px; height: 4px; border-radius: 999px; background: rgba(255,255,255,.34); }
+.demoRoot .phone-body { padding: 18px 15px 22px; }
+.demoRoot .phone-body h3 { font-family: var(--font-head); font-weight: 400; font-size: 22px; color: var(--violet); margin: 0; }
+.demoRoot .phone-body .hint { margin: 7px 0 0; font-size: 12px; color: rgba(75,63,114,.7); }
+.demoRoot /* min-h-14, rounded-xl, pl-10 — the real search field. */
+.finder {
+  display: flex; align-items: center; gap: 9px; margin-top: 18px;
+  background: #FFFFFF; border: 1px solid rgba(183,175,209,.5);
+  border-radius: 12px; padding: 13px 12px; font-size: 14px; color: var(--violet);
+}
+.demoRoot .finder svg { width: 15px; height: 15px; flex: none; color: rgba(75,63,114,.4); }
+.demoRoot .finder .ph { color: rgba(75,63,114,.4); }
+.demoRoot .caret { display: inline-block; width: 1.5px; height: 15px; background: var(--violet); vertical-align: -3px; animation: blink 1s steps(1) infinite; }
+@keyframes blink { 50% { opacity: 0; } }
+.demoRoot .tooshort { margin: 10px 0 0; font-size: 11px; color: rgba(75,63,114,.5); min-height: 15px; }
+.demoRoot .result {
+  margin-top: 14px; background: #FFFFFF;
+  border: 1px solid rgba(183,175,209,.4); border-radius: 12px;
+  padding: 19px 14px; text-align: center;
+  opacity: 0; transform: translateY(6px);
+  transition: opacity .26s ease, transform .26s ease;
+}
+.demoRoot .result.show { opacity: 1; transform: none; }
+.demoRoot .result .lead { margin: 0; font-size: 13px; color: rgba(75,63,114,.7); }
+.demoRoot .result .tname {
+  margin: 9px 0 0; font-family: var(--font-head); font-size: 23px;
+  text-transform: uppercase; letter-spacing: 0.05em; color: var(--violet);
+}
+.demoRoot .result .seat { margin: 5px 0 0; font-size: 11px; color: rgba(75,63,114,.5); }
+
+.demoRoot .featlist { list-style: none; margin: 0; padding: 0; }
+.demoRoot .featlist li {
+  display: grid; grid-template-columns: 28px 1fr; gap: 12px;
+  padding: 12px 0; border-bottom: 1px solid var(--rule-soft);
+}
+.demoRoot .featlist li:last-child { border-bottom: 0; }
+.demoRoot .featlist .ic {
+  width: 28px; height: 28px; border-radius: 8px;
+  background: var(--beurre); border: 1px solid var(--beige);
+  display: grid; place-items: center; color: var(--violet-fonce);
+}
+.demoRoot .featlist .ic svg { width: 14px; height: 14px; stroke-width: 1.9; }
+.demoRoot .featlist b { display: block; font-size: 13.5px; color: var(--violet); font-weight: 600; }
+.demoRoot .featlist span { font-size: 12.5px; color: var(--page-ink-soft); }
+
+.demoRoot /* ---------------- 5 · Statistiques ---------------- */
+/* The page's own heading, which the first pass replaced with a card head. */
+.pg-title { font-family: var(--font-head); font-weight: 400; font-size: 23px; margin: 0; color: var(--violet); }
+.demoRoot .pg-sub { margin: 6px 0 0; font-size: 13px; color: rgba(75,63,114,.7); }
+.demoRoot .sec-h { font-family: var(--font-head); font-weight: 400; font-size: 17px; color: var(--violet); margin: 0; }
+
+.demoRoot /* StatCard: p-6 rounded-2xl, uppercase label, round icon badge, a
+   text-4xl/5xl font-light value, and a 40px watermark icon at 4% opacity. */
+.sc-grid { display: grid; gap: 16px; grid-template-columns: repeat(3, 1fr); }
+.demoRoot .sc {
+  position: relative; overflow: hidden;
+  background: #FFFFFF; border: 1px solid rgba(183,175,209,.4);
+  border-radius: 16px; padding: 20px;
+  box-shadow: 0 1px 3px rgba(75,63,114,.06);
+}
+.demoRoot .sc-mark { position: absolute; right: 0; top: 0; opacity: .04; pointer-events: none; color: var(--violet); }
+.demoRoot .sc-mark svg { width: 40px; height: 40px; stroke-width: 1.7; display: block; }
+.demoRoot .sc-top { position: relative; z-index: 1; display: flex; align-items: flex-start; justify-content: space-between; gap: 10px; }
+.demoRoot .sc-lab {
+  font-size: 11px; font-weight: 500; letter-spacing: 0.08em;
+  text-transform: uppercase; color: rgba(75,63,114,.6);
+}
+.demoRoot .sc-ic {
+  flex: none; width: 34px; height: 34px; border-radius: 50%;
+  background: rgba(75,63,114,.1); color: var(--violet);
+  display: grid; place-items: center;
+}
+.demoRoot .sc-ic svg { width: 18px; height: 18px; stroke-width: 1.8; }
+.demoRoot .sc-val {
+  position: relative; z-index: 1; margin-top: 10px;
+  font-family: var(--font-head); font-weight: 300; font-size: 40px;
+  line-height: 1; color: var(--violet); font-variant-numeric: tabular-nums;
+}
+.demoRoot .sc-desc { position: relative; z-index: 1; margin: 8px 0 0; font-size: 12.5px; font-weight: 300; color: rgba(75,63,114,.6); }
+.demoRoot /* variant="primary": the violet card with white type. */
+.sc.primary { background: var(--violet); border-color: var(--violet); }
+.demoRoot .sc.primary .sc-mark { color: #FFFFFF; opacity: .09; }
+.demoRoot .sc.primary .sc-lab { color: rgba(255,255,255,.7); }
+.demoRoot .sc.primary .sc-ic { background: rgba(255,255,255,.1); color: #FFFFFF; }
+.demoRoot .sc.primary .sc-val { color: #FFFFFF; }
+.demoRoot .sc.primary .sc-desc { color: rgba(255,255,255,.7); }
+
+.demoRoot .trend-h { font-size: 13px; font-weight: 500; color: var(--violet); margin: 0 0 12px; }
+.demoRoot .trend-wrap { overflow-x: auto; }
+.demoRoot .trend { height: 132px; width: 100%; min-width: 420px; display: block; }
+.demoRoot .trend rect { transition: opacity .18s ease; }
+.demoRoot .trend-x { display: flex; justify-content: space-between; margin-top: 4px; font-size: 11px; color: rgba(75,63,114,.5); font-variant-numeric: tabular-nums; }
+
+.demoRoot .stat-cols { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; align-items: start; }
+.demoRoot .sect { padding: 16px 18px; }
+.demoRoot .sect > h3 {
+  font-family: var(--font-head); font-weight: 400; font-size: 16px;
+  color: var(--violet); margin: 0 0 14px;
+}
+.demoRoot .seg-bar {
+  display: flex; height: 12px; border-radius: 999px;
+  overflow: hidden; background: var(--creme);
+  /* isolate so the children's edges cannot paint over the radius */
+  isolation: isolate;
+}
+.demoRoot .seg { height: 100%; width: 0; transition: width .5s cubic-bezier(.25,.8,.3,1); }
+.demoRoot .seg.c { background: var(--teal-500); }
+.demoRoot .seg.d { background: var(--red-500); }
+.demoRoot .seg.p { background: var(--blue-500); }
+.demoRoot .legend { list-style: none; margin: 16px 0 0; padding: 0; display: grid; gap: 9px; }
+.demoRoot .legend li { display: flex; align-items: center; justify-content: space-between; gap: 12px; font-size: 13px; }
+.demoRoot .legend .k { display: flex; align-items: center; gap: 8px; color: var(--violet); }
+.demoRoot .legend .dot { width: 9px; height: 9px; border-radius: 50%; flex: none; }
+.demoRoot .legend .dot.c { background: var(--teal-500); }
+.demoRoot .legend .dot.d { background: var(--red-500); }
+.demoRoot .legend .dot.p { background: var(--blue-500); }
+.demoRoot .legend .v { font-variant-numeric: tabular-nums; color: rgba(75,63,114,.7); font-size: 12.5px; }
+
+.demoRoot .events { list-style: none; margin: 0; padding: 0; display: grid; gap: 16px; }
+.demoRoot .ev-top { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; }
+.demoRoot .ev-top .n { font-size: 13px; font-weight: 500; color: var(--violet); }
+.demoRoot .ev-top .c { font-size: 11.5px; color: rgba(75,63,114,.6); font-variant-numeric: tabular-nums; }
+.demoRoot .ev-track { margin-top: 6px; height: 10px; border-radius: 999px; background: var(--creme); overflow: hidden; }
+.demoRoot .ev-fill { height: 100%; border-radius: 999px; background: var(--violet); width: 0; transition: width .5s cubic-bezier(.25,.8,.3,1); }
+
+  
+/* ---------------- narration + transport ---------------- */
+.demoRoot .narrate {
+  display: grid; grid-template-columns: auto 1fr; gap: 16px; align-items: start;
+  margin-top: 20px; padding: 18px 20px;
+  background: #FFFFFF; border: 1px solid var(--rule); border-radius: 12px;
+}
+.demoRoot .chapno {
+  font-family: var(--font-head); font-size: 28px; line-height: 1;
+  color: var(--lavande); font-variant-numeric: tabular-nums;
+}
+.demoRoot .narrate h3 {
+  font-family: var(--font-head); font-weight: 400; font-size: 19px;
+  margin: 0 0 5px; color: var(--violet); text-wrap: balance;
+  /* One line for a two-word title and a five-word one alike. */
+  min-height: 1.2em;
+}
+.demoRoot .narrate p {
+  margin: 0; max-width: 62ch; color: var(--page-ink-soft); font-size: 14px;
+  /* Three lines reserved for every chapter: the bodies run two lines to
+     three, and letting this block resize undoes the fixed frame above it. */
+  min-height: calc(1.55em * 3);
+}
+
+.demoRoot .rail { display: flex; align-items: flex-start; gap: 5px; margin-top: 16px; }
+.demoRoot .rail button {
+  /* `display: block` so the track and the label stack and the button has a
+     real height — as inline-flex children they collapsed to zero and the
+     transport row below was drawn on top of the chapter names. */
+  display: block; flex: 1 1 0; min-width: 0;
+  background: none; border: 0; padding: 0;
+  cursor: pointer; text-align: left; font: inherit; color: inherit;
+}
+.demoRoot .rail-track { height: 4px; border-radius: 999px; background: var(--beige); overflow: hidden; }
+.demoRoot .rail-fill { display: block; height: 100%; background: var(--violet); border-radius: 999px; }
+.demoRoot .rail-name {
+  display: block; margin-top: 7px; font-size: 10.5px;
+  /* One reserved line, so a wrapped label cannot change the rail's height. */
+  line-height: 1.4; min-height: 1.4em;
+  letter-spacing: 0.07em; text-transform: uppercase;
+  color: rgba(75,63,114,.5); transition: color .2s ease;
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+.demoRoot .rail button[aria-current="true"] .rail-name { color: var(--violet); font-weight: 600; }
+.demoRoot .rail button:focus-visible { outline: 2px solid var(--violet-clair); outline-offset: 3px; border-radius: 4px; }
+
+.demoRoot .transport { display: flex; align-items: center; gap: 10px; margin-top: 18px; flex-wrap: wrap; }
+.demoRoot .tbtn {
+  display: inline-flex; align-items: center; gap: 7px;
+  background: #FFFFFF; border: 1px solid var(--lavande); color: var(--violet);
+  border-radius: 999px; padding: 8px 15px; font: inherit; font-size: 13px;
+  cursor: pointer; transition: background .2s ease, border-color .2s ease;
+}
+.demoRoot .tbtn:hover { background: var(--beurre); border-color: var(--pourpre); }
+.demoRoot .tbtn:focus-visible { outline: 2px solid var(--violet-clair); outline-offset: 2px; }
+.demoRoot .tbtn svg { width: 14px; height: 14px; stroke-width: 2; }
+.demoRoot .tbtn.main { background: var(--violet); color: #FFFFFF; border-color: var(--violet); }
+.demoRoot .tbtn.main:hover { background: var(--violet-fonce); border-color: var(--violet-fonce); }
+.demoRoot .clock {
+  margin-left: auto; font-size: 12px; color: var(--page-ink-soft);
+  font-variant-numeric: tabular-nums;
+}
+
+/* The demo's own `.screen` margin-top belonged to a standalone page; inside
+   a landing section the section supplies the spacing above it. */
+.demoRoot .screen { margin-top: 0; }
+
+/* ---------------- responsive ----------------
+   Two regimes, because scaling has a floor. Down to ~0.7 the frame stays
+   perfectly readable and shrinking it whole is the honest thing to do: the
+   visitor sees the real desktop screen. Below that the body text would fall
+   under ~9px, so scaling further would hand a phone user a blurry, unreadable
+   thumbnail -- worse than showing less.
+
+   So on a phone the frame stops being a whole desktop screen and becomes a
+   PHONE-WIDTH crop of the one region that carries each chapter: the sidebar
+   is dropped, the panel fills the width, and type returns to full size. Less
+   is shown, at a size that can actually be read.
+
+   `transform: scale` does not shrink reserved space, so the scaled frame sits
+   in `.screenWrap`, whose height is corrected to match. */
+
+/* --- regime 1: scale the real screen (>= 760px) --- */
+@media (max-width: 1080px) and (min-width: 760px) {
+  .demoRoot .screen {
+    transform: scale(var(--demo-scale, 1));
+    transform-origin: top left;
+    width: 1024px;
+  }
+  .demoRoot .screenWrap {
+    height: calc(838px * var(--demo-scale, 1));
+    overflow: hidden;
+  }
+}
+@media (max-width: 1080px) and (min-width: 760px) { .demoRoot { --demo-scale: 0.93; } }
+@media (max-width: 1000px) and (min-width: 760px) { .demoRoot { --demo-scale: 0.86; } }
+@media (max-width: 920px)  and (min-width: 760px) { .demoRoot { --demo-scale: 0.78; } }
+@media (max-width: 850px)  and (min-width: 760px) { .demoRoot { --demo-scale: 0.72; } }
+
+/* --- regime 2: a readable phone-width crop (< 760px) --- */
+@media (max-width: 759px) {
+  /* No scaling at all: every size below is a real, legible size. */
+  .demoRoot .screen { transform: none; width: auto; }
+  .demoRoot .screenWrap { height: auto; overflow: visible; }
+
+  /* The sidebar is navigation, not content -- the chapter rail already tells
+     the visitor where they are, so it goes rather than eating half the width. */
+  .demoRoot .side { display: none; }
+  .demoRoot .app { grid-template-columns: 1fr; height: 560px; }
+
+  .demoRoot .pad { padding: 14px 14px; gap: 12px; }
+  .demoRoot [data-panel="home"] .pad,
+  .demoRoot [data-panel="stats"] .pad { gap: 11px; }
+
+  /* One column for anything that was a row of four. */
+  .demoRoot .kpi-grid,
+  .demoRoot .stat-cols,
+  .demoRoot .jourj { grid-template-columns: 1fr; }
+  .demoRoot .gs-grid,
+  .demoRoot .sc-grid { grid-template-columns: 1fr 1fr; }
+  .demoRoot .tiles { grid-template-columns: repeat(4, 1fr); }
+  .demoRoot .qa-grid { grid-template-columns: 1fr; }
+
+  /* The countdown keeps five units but tightens, so it still reads as one row. */
+  .demoRoot .cd-units { gap: 14px; }
+  .demoRoot .cd-unit { min-width: 0; }
+  .demoRoot .cd-unit b { font-size: 30px; }
+
+  /* Tables scroll sideways in their own container rather than squeezing
+     five columns into 360px. */
+  .demoRoot .hh-wrap { overflow-x: auto; }
+  .demoRoot table.hh { min-width: 560px; }
+
+  /* Seating: the aside is the point of the chapter (you drag FROM it), so it
+     stays -- it is the board that can afford to be cropped. */
+  .demoRoot .unseated { width: 148px; }
+  .demoRoot .seat-head { padding: 12px 14px; }
+  .demoRoot .seat-tools .field { display: none; }
+
+  .demoRoot .toolbar { gap: 10px; padding: 10px 12px; }
+  .demoRoot .field { min-width: 0; flex: 1; }
+  .demoRoot .tool-acts { display: none; }
+
+  .demoRoot .ip-btns { flex-direction: column; }
+  .demoRoot .trend { min-width: 340px; }
+}
+
+@media (max-width: 759px) {
+  /* Narration and controls: real UI, full-size type. */
+  .demoRoot .narrate { grid-template-columns: 1fr; gap: 8px; padding: 15px 16px; }
+  .demoRoot .chapno { font-size: 22px; }
+  .demoRoot .narrate h3 { font-size: 17px; }
+  .demoRoot .narrate p { font-size: 13px; min-height: calc(1.55em * 5); }
+  .demoRoot .transport { gap: 7px; }
+  .demoRoot .tbtn { padding: 8px 13px; font-size: 12.5px; }
+  .demoRoot .clock { width: 100%; margin-left: 0; text-align: right; }
+  /* Five chapter names across a phone would be unreadable slivers; the rail
+     still works as a progress indicator and the buttons stay tappable. */
+  .demoRoot .rail-name { display: none; }
+  .demoRoot .rail { gap: 4px; }
+  .demoRoot .rail button { min-height: 24px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .demoRoot, .demoRoot *, .demoRoot *::before, .demoRoot *::after {
+    animation-duration: .001ms !important; transition-duration: .001ms !important;
+  }
+}

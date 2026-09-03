@@ -362,7 +362,15 @@
     "titleLine1": "Un unico spazio.",
     "titleAccent": "Tutto il tuo matrimonio.",
     "subtitle": "Gestisci i tuoi invitati, le tue risposte RSVP, il tuo invito: modifica, adatta e aggiorna il tuo invito quando vuoi, senza intermediari.",
-    "placeholder": "Anteprima dashboard in arrivo"
+    "demo": {
+      "chapters": "Capitoli",
+      "pause": "Pausa",
+      "resume": "Riprendi",
+      "previous": "Precedente",
+      "next": "Successivo",
+      "replay": "Rivedi",
+      "note": "Numeri di un matrimonio dimostrativo: 140 invitati, 65 nuclei, 10 tavoli."
+    }
   },
   "Faq": {
     "eyebrow": "Una domanda?",

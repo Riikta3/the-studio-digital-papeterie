@@ -363,7 +363,15 @@
     "titleLine1": "Un solo espacio.",
     "titleAccent": "Toda tu boda.",
     "subtitle": "Gestiona tus invitados, tus respuestas RSVP, tu invitación: modifica, ajusta y actualiza tu invitación cuando quieras, sin intermediarios.",
-    "placeholder": "Vista previa del panel próximamente"
+    "demo": {
+      "chapters": "Capítulos",
+      "pause": "Pausa",
+      "resume": "Reanudar",
+      "previous": "Anterior",
+      "next": "Siguiente",
+      "replay": "Ver de nuevo",
+      "note": "Cifras de una boda de demostración: 140 invitados, 65 hogares, 10 mesas."
+    }
   },
   "Faq": {
     "eyebrow": "¿Alguna pregunta?",

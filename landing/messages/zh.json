@@ -362,7 +362,15 @@
     "titleLine1": "一个空间，",
     "titleAccent": "掌控整场婚礼。",
     "subtitle": "管理宾客名单、RSVP 回复、请柬内容：随时修改、调整、更新请柬信息，无需任何中间环节。",
-    "placeholder": "控制面板预览即将上线"
+    "demo": {
+      "chapters": "章节",
+      "pause": "暂停",
+      "resume": "继续",
+      "previous": "上一步",
+      "next": "下一步",
+      "replay": "重新观看",
+      "note": "演示婚礼的数据：140 位来宾、65 个家庭、10 张餐桌。"
+    }
   },
   "Faq": {
     "eyebrow": "还有疑问？",

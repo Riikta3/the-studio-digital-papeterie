@@ -363,7 +363,15 @@
     "titleLine1": "Ein Ort.",
     "titleAccent": "Ihre ganze Hochzeit.",
     "subtitle": "Verwalten Sie Ihre Gäste, Ihre RSVP-Antworten, Ihre Einladung: Bearbeiten, anpassen und aktualisieren Sie Ihre Einladung, wann immer Sie möchten, ganz ohne Mittelsmann.",
-    "placeholder": "Dashboard-Vorschau folgt bald"
+    "demo": {
+      "chapters": "Kapitel",
+      "pause": "Pause",
+      "resume": "Fortsetzen",
+      "previous": "Zurück",
+      "next": "Weiter",
+      "replay": "Erneut ansehen",
+      "note": "Zahlen einer Beispielhochzeit: 140 Gäste, 65 Haushalte, 10 Tische."
+    }
   },
   "Faq": {
     "eyebrow": "Eine Frage?",
