@@ -7,16 +7,15 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import type {
-  GuestGroup,
-  Household,
-  InvitationGuest,
-} from "@shared/types/invitation";
+import { assignHousehold, updateGuestGroup } from "@/actions/guest-groups-actions";
+import type { GroupsGuest, GroupsHousehold } from "@/lib/db/projections";
+import type { GuestGroup } from "@shared/types/invitation";
 import { GUEST_GROUPS } from "@shared/types/invitation";
 import { cn } from "@shared/lib/utils";
 import { Search } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { useMemo, useState } from "react";
+import { toast } from "sonner";
 
 type Filter = "all" | GuestGroup;
 
@@ -24,13 +23,41 @@ export function GuestGroupsBoard({
   initialGuests,
   households,
 }: {
-  initialGuests: InvitationGuest[];
-  households: Household[];
+  initialGuests: GroupsGuest[];
+  households: GroupsHousehold[];
 }) {
   const t = useTranslations("GuestGroups");
   const [guests, setGuests] = useState(initialGuests);
   const [filter, setFilter] = useState<Filter>("all");
   const [query, setQuery] = useState("");
+
+  /**
+   * Who is in each household, as a short "Clara, Léa" line.
+   *
+   * Household names are not unique — the same "Famille Lefèvre" can legitimately
+   * appear a dozen times, and a picker showing thirteen identical rows cannot be
+   * used. The members are what actually tell them apart. Computed here from the
+   * guests already in props: no extra query, and nothing new crosses to the
+   * client.
+   */
+  const membersByHousehold = useMemo(() => {
+    const map = new Map<string, string>();
+    const buckets = new Map<string, string[]>();
+    for (const g of guests) {
+      const list = buckets.get(g.householdId);
+      if (list) list.push(g.firstName);
+      else buckets.set(g.householdId, [g.firstName]);
+    }
+    for (const [id, names] of buckets) {
+      map.set(
+        id,
+        names.length > 3
+          ? `${names.slice(0, 3).join(", ")}…`
+          : names.join(", "),
+      );
+    }
+    return map;
+  }, [guests]);
 
   const householdsById = useMemo(
     () => new Map(households.map((h) => [h.id, h])),
@@ -60,10 +87,34 @@ export function GuestGroupsBoard({
     });
   }, [guests, filter, query, householdsById]);
 
-  const changeGroup = (guestId: string, group: GuestGroup) => {
+  // Both selects below are a one-shot deliberate choice (not a text field),
+  // so each gets its own confirmation.
+  const changeGroup = async (guestId: string, group: GuestGroup) => {
+    const previous = guests;
     setGuests((prev) =>
       prev.map((g) => (g.id === guestId ? { ...g, group } : g)),
     );
+    const res = await updateGuestGroup(guestId, group);
+    if (!res.success) {
+      setGuests(previous);
+      toast.error(res.error);
+      return;
+    }
+    toast.success(t("group_updated"));
+  };
+
+  const changeHousehold = async (guestId: string, householdId: string) => {
+    const previous = guests;
+    setGuests((prev) =>
+      prev.map((g) => (g.id === guestId ? { ...g, householdId } : g)),
+    );
+    const res = await assignHousehold(guestId, householdId);
+    if (!res.success) {
+      setGuests(previous);
+      toast.error(res.error);
+      return;
+    }
+    toast.success(t("household_updated"));
   };
 
   return (
@@ -146,8 +197,13 @@ export function GuestGroupsBoard({
                       </span>
                     )}
                   </td>
-                  <td className='px-4 py-3 text-studio-violet/70'>
-                    {householdsById.get(guest.householdId)?.name ?? "—"}
+                  <td className='px-4 py-3'>
+                    <HouseholdSelect
+                      value={guest.householdId}
+                      households={households}
+                      membersById={membersByHousehold}
+                      onChange={(id) => changeHousehold(guest.id, id)}
+                    />
                   </td>
                   <td className='px-4 py-3'>
                     <GroupSelect
@@ -173,6 +229,50 @@ export function GuestGroupsBoard({
         </div>
       </div>
     </div>
+  );
+}
+
+/**
+ * Moves a guest to another household. Households group people who receive one
+ * invitation and answer together, so a guest sitting in the wrong one gets the
+ * wrong invitation — this is the control that fixes it.
+ *
+ * Same shape as `GroupSelect` below rather than a dialog: the couple is
+ * scanning a list and correcting as they read, and a modal per row would make
+ * that unbearable.
+ */
+function HouseholdSelect({
+  value,
+  households,
+  membersById,
+  onChange,
+}: {
+  value: string;
+  households: GroupsHousehold[];
+  membersById: Map<string, string>;
+  onChange: (householdId: string) => void;
+}) {
+  return (
+    <Select value={value} onValueChange={onChange}>
+      <SelectTrigger className='h-11 min-h-11 w-full min-w-[9rem] bg-studio-creme text-left text-studio-violet md:w-auto'>
+        <SelectValue />
+      </SelectTrigger>
+      <SelectContent>
+        {households.map((household) => {
+          const members = membersById.get(household.id);
+          return (
+            <SelectItem key={household.id} value={household.id}>
+              {household.name}
+              {members && (
+                <span className='ml-2 text-xs text-studio-violet/50'>
+                  {members}
+                </span>
+              )}
+            </SelectItem>
+          );
+        })}
+      </SelectContent>
+    </Select>
   );
 }
 
@@ -206,8 +306,8 @@ function GuestGroupCard({
   household,
   onChangeGroup,
 }: {
-  guest: InvitationGuest;
-  household: Household | undefined;
+  guest: GroupsGuest;
+  household: GroupsHousehold | undefined;
   onChangeGroup: (group: GuestGroup) => void;
 }) {
   const t = useTranslations("GuestGroups");

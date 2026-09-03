@@ -1,6 +1,7 @@
 import { FaqPageClient } from "@/components/invitation-info/FaqPageClient";
-import { INVITATION_MOCK } from "@shared/data/invitation-mock";
+import { listFaq } from "@/actions/faq-actions";
 
-export default function Page() {
-  return <FaqPageClient initialFaq={INVITATION_MOCK.faq} />;
+export default async function Page() {
+  const faq = await listFaq();
+  return <FaqPageClient initialFaq={faq} />;
 }

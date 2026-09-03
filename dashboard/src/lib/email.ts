@@ -1,8 +1,23 @@
 import { createClient } from "@/utils/supabase/server";
 import { Resend } from "resend";
 
-// Initialize Resend with API Key from environment variables
-const resend = new Resend(process.env.RESEND_API_KEY);
+/**
+ * Resend is constructed lazily, per call, NOT at module scope.
+ *
+ * `new Resend(undefined)` throws immediately, so a top-level instance made
+ * every server action in any file that transitively imports this one fail
+ * before its own code ran — creating a household, editing one, deleting one.
+ * With RESEND_API_KEY unset (as in local development) the whole guest screen's
+ * writes were dead, and the UI reported nothing useful.
+ *
+ * Returning null instead lets the caller degrade: the email is skipped and
+ * said so, while the database work it accompanies still happens.
+ */
+function getResend(): Resend | null {
+  const key = process.env.RESEND_API_KEY;
+  if (!key) return null;
+  return new Resend(key);
+}
 
 // Default sender address (update with your verified domain)
 const DEFAULT_SENDER = "Acme <onboarding@resend.dev>";
@@ -33,9 +48,18 @@ export async function sendEmail({
     );
   }
 
+  const client = getResend();
+  if (!client) {
+    // No key configured (local development, or a deploy that never set it).
+    // Say so rather than throwing: the caller's database work must not be
+    // rolled back because an email could not be sent.
+    console.warn("RESEND_API_KEY is not set — email skipped.");
+    return { success: false, error: "Service d'envoi d'e-mails non configuré." };
+  }
+
   try {
     // 1. Send Email via Resend
-    const { data: resendData, error: resendError } = await resend.emails.send({
+    const { data: resendData, error: resendError } = await client.emails.send({
       from: DEFAULT_SENDER,
       to: [to],
       subject: subject,

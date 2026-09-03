@@ -22,6 +22,7 @@ type Props = {
   onAssign: (guestId: string, tableId: string) => void;
   onUnassign: (guestId: string) => void;
   onMoveTable: (tableId: string, x: number, y: number) => void;
+  onEditTable: (tableId: string) => void;
 };
 
 export function SeatingBoard({
@@ -31,6 +32,7 @@ export function SeatingBoard({
   onAssign,
   onUnassign,
   onMoveTable,
+  onEditTable,
 }: Props) {
   // The guest currently being dragged, rendered in the overlay so the pill
   // follows the cursor instead of staying put in a panel that scrolls.
@@ -94,6 +96,7 @@ export function SeatingBoard({
                   .map((id) => guestsById.get(id))
                   .filter((g): g is DayOfGuest => Boolean(g))}
                 onUnassign={onUnassign}
+          onEdit={() => onEditTable(table.id)}
               />
             ))}
           </div>

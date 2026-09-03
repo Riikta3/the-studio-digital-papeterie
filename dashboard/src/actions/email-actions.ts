@@ -22,7 +22,7 @@ export async function sendMagicLinkToHousehold(
   // 1. Get Household Data
   const { data: household, error: fetchError } = await supabase
     .from("households")
-    .select("*")
+    .select("id, name, email")
     .eq("id", householdId)
     .single();
 

@@ -25,10 +25,16 @@ export default function proxy(request: NextRequest) {
     }
   }
 
+  // The root `not-found.tsx` renders for unmatched localized URLs too, and has
+  // no params to read the locale from — forward the path so it can.
+  request.headers.set("x-pathname", pathname);
+
   return intlMiddleware(request);
 }
 
 export const config = {
-  // Match only internationalized pathnames
-  matcher: ["/", "/(fr|en|de|es|pt|it|ar|zh|ja)/:path*"],
+  // Everything except Next internals, the API routes and files with an
+  // extension, so unknown paths without a locale prefix (e.g. /foobar) still
+  // go through next-intl and land on the localized 404 with a 404 status.
+  matcher: ["/((?!api|_next|_vercel|.*\\..*).*)"],
 };

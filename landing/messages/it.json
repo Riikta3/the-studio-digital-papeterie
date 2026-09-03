@@ -783,5 +783,18 @@
         }
       ]
     }
+  },
+  "NotFound": {
+    "stampLabel": "RITORNO AL MITTENTE",
+    "stampCode": "NON RECAPITATO",
+    "cardTitle": "The Studio",
+    "cardLine": "Cartoleria digitale per i matrimoni di oggi",
+    "cardFooter": "INVITO DIGITALE",
+    "title": "Questo indirizzo non è nella lista degli invitati",
+    "subtitle": "Controlla il link o torna alla home.",
+    "homeButton": "Torna alla home",
+    "createButton": "Crea il mio invito",
+    "menuAriaLabel": "Apri il menu",
+    "homeAriaLabel": "Torna alla home"
   }
 }

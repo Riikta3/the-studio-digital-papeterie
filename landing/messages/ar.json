@@ -783,5 +783,18 @@
         }
       ]
     }
+  },
+  "NotFound": {
+    "stampLabel": "إعادة إلى المرسل",
+    "stampCode": "لم يُسلَّم",
+    "cardTitle": "The Studio",
+    "cardLine": "قرطاسية رقمية لأعراس اليوم",
+    "cardFooter": "دعوة رقمية",
+    "title": "هذا العنوان غير مدرج في قائمة المدعوين",
+    "subtitle": "تحقق من الرابط أو عد إلى الصفحة الرئيسية.",
+    "homeButton": "العودة إلى الرئيسية",
+    "createButton": "إنشاء دعوتي",
+    "menuAriaLabel": "فتح القائمة",
+    "homeAriaLabel": "العودة إلى الرئيسية"
   }
 }

@@ -1,8 +1,10 @@
 "use client";
 
+import { updateDayOfSettings } from "@/actions/day-of-settings-actions";
 import type { DayOfSettings } from "@shared/types/jour-j";
 import { useTranslations } from "next-intl";
 import { useState } from "react";
+import { toast } from "sonner";
 
 function Toggle({
   label, hint, checked, onChange,
@@ -33,8 +35,30 @@ export function DayOfSettingsForm({
   const t = useTranslations("DayOfSettings");
   const [settings, setSettings] = useState(initialSettings);
 
-  const toggle = (key: keyof DayOfSettings) =>
-    setSettings((prev) => ({ ...prev, [key]: !prev[key] }));
+  // Optimistic write on every gesture (spec §3.4) — the patch sent to the
+  // server never includes `qrSlug`: it is derived from `sites.slug`, not
+  // stored on `day_of_settings`.
+  // Every control here is a discrete on/off toggle or a single date pick —
+  // never continuous typing — so each save is worth confirming.
+  const save = async (
+    patch: Partial<Omit<DayOfSettings, "qrSlug">>,
+    previous: DayOfSettings,
+  ) => {
+    const res = await updateDayOfSettings(patch);
+    if (!res.success) {
+      setSettings(previous);
+      toast.error(res.error || t("save_failed"));
+      return;
+    }
+    toast.success(t("settings_saved"));
+  };
+
+  const toggle = (key: keyof Omit<DayOfSettings, "qrSlug">) => {
+    const previous = settings;
+    const nextValue = !previous[key];
+    setSettings((prev) => ({ ...prev, [key]: nextValue }));
+    void save({ [key]: nextValue }, previous);
+  };
 
   return (
     <div className='min-h-screen bg-studio-creme p-4 md:p-8 lg:p-12'>
@@ -74,13 +98,15 @@ export function DayOfSettingsForm({
               value={settings.uploadsOpenUntil.slice(0, 10)}
               onChange={(e) => {
                 const day = e.target.value;
-                setSettings((prev) => ({
-                  ...prev,
-                  // A date input yields "YYYY-MM-DD", which Date parses as UTC midnight.
-                  // Uploads stay open *through* the chosen day, so pin the end of it
-                  // rather than letting the parse collapse it to the start.
-                  uploadsOpenUntil: day ? `${day}T23:59:59.999Z` : prev.uploadsOpenUntil,
-                }));
+                const previous = settings;
+                // A date input yields "YYYY-MM-DD", which Date parses as UTC midnight.
+                // Uploads stay open *through* the chosen day, so pin the end of it
+                // rather than letting the parse collapse it to the start.
+                const uploadsOpenUntil = day
+                  ? `${day}T23:59:59.999Z`
+                  : previous.uploadsOpenUntil;
+                setSettings((prev) => ({ ...prev, uploadsOpenUntil }));
+                void save({ uploadsOpenUntil }, previous);
               }}
               className='mt-1 min-h-11 w-full rounded-lg border border-studio-lavande/50 px-3 text-sm text-studio-violet sm:w-56'
             />

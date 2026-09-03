@@ -2,6 +2,9 @@ import {
   Libre_Caslon_Display,
   Urbanist,
 } from "next/font/google";
+import { headers } from "next/headers";
+
+import { routing } from "@/navigation";
 
 const urbanist = Urbanist({
   subsets: ["latin"],
@@ -25,7 +28,17 @@ export default async function RootLayout({
   params: Promise<{ locale?: string }>;
 }) {
   const resolvedParams = await params;
-  const locale = resolvedParams?.locale || "fr";
+  // On the root `not-found.tsx` there is no locale param, so fall back to the
+  // path forwarded by the proxy to keep `lang`/`dir` correct (RTL for `ar`).
+  const headerLocale = (await headers())
+    .get("x-pathname")
+    ?.split("/")
+    .filter(Boolean)[0];
+  const locale =
+    resolvedParams?.locale ||
+    ((routing.locales as readonly string[]).includes(headerLocale ?? "")
+      ? headerLocale
+      : routing.defaultLocale);
 
   return (
     <html

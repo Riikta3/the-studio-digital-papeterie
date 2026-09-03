@@ -23,8 +23,9 @@ export function MediaTile({ media, onToggleHidden, onDelete }: Props) {
 
   return (
     <figure className='group relative aspect-square overflow-hidden rounded-lg bg-studio-beige'>
-      {/* eslint-disable-next-line @next/next/no-img-element -- guest uploads are
-          arbitrary remote URLs; step 2 moves them to Supabase storage. */}
+      {/* eslint-disable-next-line @next/next/no-img-element -- these are
+          short-lived signed URLs from Supabase storage, not a static asset
+          next/image could cache or optimize. */}
       <img
         src={media.thumbUrl}
         alt=''
@@ -52,9 +53,10 @@ export function MediaTile({ media, onToggleHidden, onDelete }: Props) {
         <p className='text-[10px] leading-tight text-white/70'>{uploadedAt}</p>
 
         <div className='mt-1 flex items-center justify-end gap-0.5'>
-          {/* `download` is ignored cross-origin, so on the current picsum
-              placeholder URLs this link navigates instead of saving; it
-              starts working once uploads move to Supabase storage. */}
+          {/* `download` is ignored cross-origin: on Supabase's signed storage
+              URL this link still navigates instead of saving directly, same
+              browser limitation as before — a real "save" needs fetching the
+              blob client-side, out of scope here. */}
           <a
             href={media.url}
             download

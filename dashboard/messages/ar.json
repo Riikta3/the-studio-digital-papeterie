@@ -253,9 +253,14 @@
     "toast_remove_error": "خطأ أثناء الإزالة"
   },
   "NotFound": {
-    "title": "الصفحة غير موجودة",
-    "description": "عذرًا، الصفحة التي تبحث عنها غير موجودة.",
-    "back_home": "العودة إلى الصفحة الرئيسية"
+    "title": "هذه الصفحة غير موجودة في مساحتك",
+    "description": "قد يكون الرابط غير مكتمل، أو أن الصفحة غيّرت عنوانها.",
+    "back_home": "العودة إلى لوحة التحكم",
+    "stampLabel": "عنوان غير معروف",
+    "stampCode": "غير مُدرجة",
+    "cardTitle": "The Studio",
+    "cardLine": "مساحتك للتحضير لحفل الزفاف",
+    "cardFooter": "لوحة التحكم"
   },
   "WelcomePopup": {
     "title": "مرحبًا بك في The Studio!",
@@ -954,7 +959,26 @@
     "move_to": "نقل إلى…",
     "remove": "إزالة",
     "done": "تم",
-    "no_tables": "لا توجد طاولات بعد"
+    "no_tables": "لا توجد طاولات بعد",
+    "assign_failed": "تعذّر تنسيق الضيف. يُرجى المحاولة مرة أخرى.",
+    "unassign_failed": "تعذّرت إزالة الضيف.",
+    "move_failed": "تعذّر نقل الطاولة.",
+    "add_table": "إضافة طاولة",
+    "edit_table": "تعديل الطاولة",
+    "delete_table": "حذف الطاولة",
+    "table_name": "اسم الطاولة",
+    "table_name_placeholder": "كابري",
+    "table_capacity": "عدد المقاعد",
+    "table_seats_label": "التسمية المطبوعة (اختياري)",
+    "table_seats_label_placeholder": "الطاولة ١",
+    "capacity_below_seated": "يجلس هنا {count} أشخاص بالفعل. أزل بعضهم أولاً.",
+    "save": "حفظ",
+    "delete_failed": "حدث خطأ أثناء الحذف.",
+    "assigned_toast": "تم إجلاس الضيف",
+    "unassigned_toast": "تمت إزالة الضيف",
+    "table_added": "تمت إضافة الطاولة",
+    "table_saved": "تم حفظ الطاولة",
+    "table_deleted": "تم حذف الطاولة"
   },
   "QrCode": {
     "title": "رمز QR ليوم الزفاف",
@@ -963,7 +987,8 @@
     "copied": "تم نسخ الرابط",
     "copy_failed": "تعذّر نسخ الرابط. يُرجى نسخه يدويًا.",
     "download_png": "تنزيل بصيغة PNG",
-    "download_svg": "تنزيل بصيغة SVG"
+    "download_svg": "تنزيل بصيغة SVG",
+    "no_slug": "لا يمتلك موقعكم عنوانًا عامًا بعد. انشروا موقعكم لإنشاء رمز الاستجابة السريعة."
   },
   "DayOfMenu": {
     "title": "قائمة يوم الزفاف",
@@ -979,7 +1004,14 @@
       "cheese": "أجبان",
       "dessert": "حلويات",
       "drinks": "مشروبات"
-    }
+    },
+    "toggle_failed": "تعذّر تحديث الفئة.",
+    "add_failed": "تعذّرت إضافة الطبق.",
+    "remove_failed": "تعذّر حذف الطبق.",
+    "category_enabled": "تم تفعيل الفئة",
+    "category_disabled": "تم تعطيل الفئة",
+    "item_added": "تمت إضافة الطبق",
+    "item_removed": "تمت إزالة الطبق"
   },
   "DayOfSettings": {
     "title": "إعدادات يوم الزفاف",
@@ -990,7 +1022,9 @@
     "after_wedding_label": "وضع ما بعد الزفاف",
     "after_wedding_hint": "تتحول الصفحة إلى واجهة شكر وتبقى مفتوحة لاستقبال الصور.",
     "uploads_until_label": "الإرسال متاح حتى",
-    "uploads_until_hint": "بعد هذا التاريخ، لن يتمكن الضيوف من إضافة صور جديدة."
+    "uploads_until_hint": "بعد هذا التاريخ، لن يتمكن الضيوف من إضافة صور جديدة.",
+    "save_failed": "تعذّر حفظ الإعدادات.",
+    "settings_saved": "تم حفظ الإعدادات"
   },
   "DayOfPhotos": {
     "title": "الصور ومقاطع الفيديو",
@@ -1002,6 +1036,10 @@
     "show": "إظهار",
     "delete": "حذف",
     "anonymous": "ضيف مجهول",
+    "empty": {
+      "title": "لا توجد صور بعد",
+      "description": "بمجرد أن يمسح أحد الضيوف رمز QR الخاص بكم ويشارك صورة أو فيديو، سيظهر هنا."
+    },
     "filters": {
       "all": "الكل",
       "photo": "الصور",
@@ -1013,7 +1051,10 @@
       "description": "سيتم حذف هذا المحتوى الذي شاركه ضيوفكم نهائيًا. لا يمكن التراجع عن هذا الإجراء.",
       "cancel": "إلغاء",
       "confirm": "حذف"
-    }
+    },
+    "hidden_toast": "تم إخفاء الصورة",
+    "shown_toast": "تم إظهار الصورة",
+    "deleted_toast": "تم حذف الصورة"
   },
   "GuestGroups": {
     "title": "مجموعات الضيوف",
@@ -1032,7 +1073,9 @@
       "guest": "الضيف",
       "household": "الأسرة",
       "group": "المجموعة"
-    }
+    },
+    "group_updated": "تم تحديث المجموعة",
+    "household_updated": "تم تحديث الأسرة"
   },
   "GuestMeals": {
     "title": "الوجبات والاحتياجات الغذائية",
@@ -1063,7 +1106,9 @@
       "meal": "الوجبة",
       "dietary": "الاحتياجات الغذائية",
       "allergies": "الحساسية"
-    }
+    },
+    "meal_updated": "تم تحديث الوجبة",
+    "dietary_updated": "تم تحديث التفضيل الغذائي"
   },
   "InvitationEvents": {
     "title": "الفعاليات",
@@ -1083,13 +1128,19 @@
     "delete": "حذف الفعالية",
     "delete_dialog": {
       "title": "حذف «{name}»؟",
-      "description": "ستصبح ردود RSVP وعناصر البرنامج المرتبطة بهذه الفعالية يتيمة بلا مرجع. لا يمكن التراجع عن هذا الإجراء.",
+      "description": "سيتم حذف عناصر البرنامج وحالات حضور الضيوف المرتبطة بهذه الفعالية. لا يمكن التراجع عن هذا الإجراء.",
       "cancel": "إلغاء",
       "confirm": "حذف"
     },
     "add_event": "إضافة فعالية",
     "new_event_name": "فعالية جديدة",
-    "reorder": "إعادة الترتيب"
+    "reorder": "إعادة الترتيب",
+    "save_failed": "حدث خطأ أثناء الحفظ.",
+    "event_added": "تمت إضافة الحدث",
+    "event_deleted": "تم حذف الحدث",
+    "order_saved": "تم حفظ الترتيب",
+    "event_enabled_toast": "تم تفعيل الحدث",
+    "event_disabled_toast": "تم تعطيل الحدث"
   },
   "InvitationSchedule": {
     "title": "البرنامج",
@@ -1110,7 +1161,10 @@
     "move_down": "تحريك لأسفل",
     "delete_entry": "حذف «{title}»",
     "deleted_toast": "تم حذف «{title}»",
-    "untitled": "بلا عنوان"
+    "untitled": "بلا عنوان",
+    "save_failed": "حدث خطأ أثناء الحفظ.",
+    "entry_added": "تمت إضافة العنصر",
+    "order_saved": "تم حفظ الترتيب"
   },
   "InvitationVenue": {
     "title": "المكان والمعلومات العملية",
@@ -1160,7 +1214,11 @@
       "delete": "حذف {name}"
     },
     "move_up": "تحريك لأعلى",
-    "move_down": "تحريك لأسفل"
+    "move_down": "تحريك لأسفل",
+    "save_failed": "حدث خطأ أثناء الحفظ.",
+    "accommodation_added": "تمت إضافة مكان الإقامة",
+    "accommodation_deleted": "تم حذف مكان الإقامة",
+    "order_saved": "تم حفظ الترتيب"
   },
   "InvitationFaq": {
     "title": "الأسئلة الشائعة",
@@ -1186,7 +1244,13 @@
       "description": "أنتم على وشك حذف «{question}». لا يمكن التراجع عن هذا الإجراء.",
       "cancel": "إلغاء",
       "confirm": "حذف"
-    }
+    },
+    "save_failed": "حدث خطأ أثناء الحفظ.",
+    "entry_added": "تمت إضافة السؤال",
+    "entry_deleted": "تم حذف السؤال",
+    "order_saved": "تم حفظ الترتيب",
+    "published_toast": "تم نشر السؤال",
+    "unpublished_toast": "تم إخفاء السؤال"
   },
   "Stats": {
     "title": "الإحصائيات",

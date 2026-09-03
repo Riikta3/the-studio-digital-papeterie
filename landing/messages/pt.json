@@ -783,5 +783,18 @@
         }
       ]
     }
+  },
+  "NotFound": {
+    "stampLabel": "DEVOLVER AO REMETENTE",
+    "stampCode": "NÃO ENTREGUE",
+    "cardTitle": "The Studio",
+    "cardLine": "Papelaria digital para os casamentos de hoje",
+    "cardFooter": "CONVITE DIGITAL",
+    "title": "Este endereço não consta da lista de convidados",
+    "subtitle": "Verifique o link ou volte ao início.",
+    "homeButton": "Voltar ao início",
+    "createButton": "Criar o meu convite",
+    "menuAriaLabel": "Abrir o menu",
+    "homeAriaLabel": "Voltar ao início"
   }
 }

@@ -21,6 +21,13 @@ import type { WeddingEvent } from "@shared/types/invitation";
 import { Plus } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { useState } from "react";
+import { toast } from "sonner";
+import {
+  createEvent,
+  deleteEvent,
+  reorderEvents,
+  updateEvent,
+} from "@/actions/events-actions";
 import { EventCard } from "./EventCard";
 
 type Props = {
@@ -44,32 +51,76 @@ export function EventsEditor({ initialEvents }: Props) {
     }),
   );
 
-  const update = (id: string, patch: Partial<WeddingEvent>) =>
+  const update = async (id: string, patch: Partial<WeddingEvent>) => {
+    const previous = events; // capture BEFORE mutating, for rollback
     setEvents((prev) => prev.map((e) => (e.id === id ? { ...e, ...patch } : e)));
+    const res = await updateEvent(id, patch);
+    if (!res.success) {
+      setEvents(previous);
+      toast.error(res.error || t("save_failed"));
+      return;
+    }
+    // The enable/disable checkbox is a deliberate on/off decision, worth
+    // confirming — unlike the name/date/address fields on the same card,
+    // which already show their saved value inline and would just add noise.
+    if (typeof patch.enabled === "boolean") {
+      toast.success(patch.enabled ? t("event_enabled_toast") : t("event_disabled_toast"));
+    }
+  };
 
-  const remove = (id: string) =>
+  const remove = async (id: string) => {
+    const previous = events;
     setEvents((prev) => prev.filter((e) => e.id !== id));
+    const res = await deleteEvent(id);
+    if (!res.success) {
+      setEvents(previous);
+      toast.error(res.error || t("save_failed"));
+      return;
+    }
+    toast.success(t("event_deleted"));
+  };
 
-  const handleDragEnd = ({ active, over }: DragEndEvent) => {
+  const handleDragEnd = (event: DragEndEvent) => {
+    const { active, over } = event;
     if (!over || active.id === over.id) return;
-    setEvents((prev) => {
-      const from = prev.findIndex((e) => e.id === active.id);
-      const to = prev.findIndex((e) => e.id === over.id);
-      if (from < 0 || to < 0) return prev;
-      // Renumber after the move so `position` stays the stored order.
-      return arrayMove(prev, from, to).map((e, i) => ({ ...e, position: i }));
+
+    const previous = events;
+    const from = previous.findIndex((e) => e.id === active.id);
+    const to = previous.findIndex((e) => e.id === over.id);
+    if (from < 0 || to < 0) return;
+
+    // Renumber after the move so `position` stays the stored order.
+    const reordered = arrayMove(previous, from, to).map((e, i) => ({
+      ...e,
+      position: i,
+    }));
+    setEvents(reordered);
+
+    void reorderEvents(reordered.map((e) => e.id)).then((res) => {
+      if (!res.success) {
+        setEvents(previous);
+        toast.error(res.error || t("save_failed"));
+        return;
+      }
+      toast.success(t("order_saved"));
     });
   };
 
-  const addEvent = () => {
-    const newEvent: WeddingEvent = {
-      id: `ev-${crypto.randomUUID()}`,
+  const addEvent = async () => {
+    const res = await createEvent({
       key: "party",
       name: t("new_event_name"),
       position: events.length,
       enabled: true,
-    };
-    setEvents((prev) => [...prev, newEvent]);
+    });
+    if (!res.success) {
+      toast.error(res.error || t("save_failed"));
+      return;
+    }
+    // Adopt the database's id — a client-generated one is not a valid uuid,
+    // and every later update would target a row that does not exist.
+    setEvents((prev) => [...prev, res.event]);
+    toast.success(t("event_added"));
   };
 
   return (

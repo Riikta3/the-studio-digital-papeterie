@@ -350,9 +350,14 @@
     "select_language": "Langue"
   },
   "NotFound": {
-    "title": "Page introuvable",
-    "description": "Désolé, la page que vous recherchez n'existe pas.",
-    "back_home": "Retour à l'accueil"
+    "title": "Cette page n'existe pas dans votre espace",
+    "description": "Le lien est peut-être incomplet, ou la page a changé d'adresse.",
+    "back_home": "Retour au tableau de bord",
+    "stampLabel": "ADRESSE INCONNUE",
+    "stampCode": "NON RÉFÉRENCÉE",
+    "cardTitle": "The Studio",
+    "cardLine": "Votre espace de préparation de mariage",
+    "cardFooter": "TABLEAU DE BORD"
   },
   "Settings": {
     "title": "Réglages",
@@ -954,7 +959,26 @@
     "move_to": "Déplacer vers…",
     "remove": "Retirer",
     "done": "Terminé",
-    "no_tables": "Aucune table pour l'instant"
+    "no_tables": "Aucune table pour l'instant",
+    "assign_failed": "Erreur lors de l'affectation. L'invité n'a pas été placé.",
+    "unassign_failed": "Erreur lors du retrait de l'invité.",
+    "move_failed": "Erreur lors du déplacement de la table.",
+    "add_table": "Ajouter une table",
+    "edit_table": "Modifier la table",
+    "delete_table": "Supprimer la table",
+    "table_name": "Nom de la table",
+    "table_name_placeholder": "Capri",
+    "table_capacity": "Nombre de places",
+    "table_seats_label": "Libellé imprimé (facultatif)",
+    "table_seats_label_placeholder": "Table 1",
+    "capacity_below_seated": "{count} personnes y sont déjà placées. Retirez-en d'abord.",
+    "save": "Enregistrer",
+    "delete_failed": "Erreur lors de la suppression.",
+    "assigned_toast": "Invité placé",
+    "unassigned_toast": "Invité retiré",
+    "table_added": "Table ajoutée",
+    "table_saved": "Table enregistrée",
+    "table_deleted": "Table supprimée"
   },
   "QrCode": {
     "title": "QR Code Jour J",
@@ -963,7 +987,8 @@
     "copied": "Lien copié",
     "copy_failed": "Impossible de copier le lien. Copiez-le manuellement.",
     "download_png": "Télécharger en PNG",
-    "download_svg": "Télécharger en SVG"
+    "download_svg": "Télécharger en SVG",
+    "no_slug": "Votre site n'a pas encore d'adresse publique. Publiez votre site pour générer le QR code."
   },
   "DayOfMenu": {
     "title": "Menu du Jour J",
@@ -979,7 +1004,14 @@
       "cheese": "Fromage",
       "dessert": "Dessert",
       "drinks": "Boissons"
-    }
+    },
+    "toggle_failed": "Erreur lors de la modification de la catégorie.",
+    "add_failed": "Erreur lors de l'ajout du plat.",
+    "remove_failed": "Erreur lors de la suppression du plat.",
+    "category_enabled": "Catégorie activée",
+    "category_disabled": "Catégorie désactivée",
+    "item_added": "Plat ajouté",
+    "item_removed": "Plat retiré"
   },
   "DayOfSettings": {
     "title": "Paramètres Jour J",
@@ -990,7 +1022,9 @@
     "after_wedding_label": "Mode après-mariage",
     "after_wedding_hint": "La page passe en mode « Merci » et reste ouverte aux envois.",
     "uploads_until_label": "Envois ouverts jusqu'au",
-    "uploads_until_hint": "Au-delà de cette date, vos invités ne peuvent plus ajouter de photos."
+    "uploads_until_hint": "Au-delà de cette date, vos invités ne peuvent plus ajouter de photos.",
+    "save_failed": "Erreur lors de l'enregistrement.",
+    "settings_saved": "Réglages enregistrés"
   },
   "DayOfPhotos": {
     "title": "Photos & vidéos",
@@ -1002,6 +1036,10 @@
     "show": "Afficher",
     "delete": "Supprimer",
     "anonymous": "Invité anonyme",
+    "empty": {
+      "title": "Aucune photo pour le moment",
+      "description": "Dès qu'un invité scanne votre QR code et partage une photo ou une vidéo, elle apparaîtra ici."
+    },
     "filters": {
       "all": "Tout",
       "photo": "Photos",
@@ -1013,7 +1051,10 @@
       "description": "Ce contenu partagé par vos invités sera définitivement supprimé. Cette action est irréversible.",
       "cancel": "Annuler",
       "confirm": "Supprimer"
-    }
+    },
+    "hidden_toast": "Photo masquée",
+    "shown_toast": "Photo affichée",
+    "deleted_toast": "Photo supprimée"
   },
   "GuestGroups": {
     "title": "Groupes d'invités",
@@ -1032,7 +1073,9 @@
       "guest": "Invité",
       "household": "Foyer",
       "group": "Groupe"
-    }
+    },
+    "group_updated": "Groupe mis à jour",
+    "household_updated": "Foyer mis à jour"
   },
   "GuestMeals": {
     "title": "Repas & régimes",
@@ -1063,7 +1106,9 @@
       "meal": "Repas",
       "dietary": "Régimes",
       "allergies": "Allergies"
-    }
+    },
+    "meal_updated": "Repas mis à jour",
+    "dietary_updated": "Régime mis à jour"
   },
   "InvitationEvents": {
     "title": "Événements",
@@ -1083,13 +1128,19 @@
     "delete": "Supprimer l'événement",
     "delete_dialog": {
       "title": "Supprimer « {name} » ?",
-      "description": "Les réponses RSVP et les entrées du programme liées à cet événement seront orphelines. Cette action est irréversible.",
+      "description": "Les entrées du programme et les statuts de présence des invités liés à cet événement seront supprimés. Cette action est irréversible.",
       "cancel": "Annuler",
       "confirm": "Supprimer"
     },
     "add_event": "Ajouter un événement",
     "new_event_name": "Nouvel événement",
-    "reorder": "Réordonner"
+    "reorder": "Réordonner",
+    "save_failed": "Erreur lors de l'enregistrement.",
+    "event_added": "Événement ajouté",
+    "event_deleted": "Événement supprimé",
+    "order_saved": "Ordre enregistré",
+    "event_enabled_toast": "Événement activé",
+    "event_disabled_toast": "Événement désactivé"
   },
   "InvitationSchedule": {
     "title": "Programme",
@@ -1110,7 +1161,10 @@
     "move_down": "Descendre",
     "delete_entry": "Supprimer « {title} »",
     "deleted_toast": "« {title} » supprimé",
-    "untitled": "Sans titre"
+    "untitled": "Sans titre",
+    "save_failed": "Erreur lors de l'enregistrement.",
+    "entry_added": "Entrée ajoutée",
+    "order_saved": "Ordre enregistré"
   },
   "InvitationVenue": {
     "title": "Lieu & infos pratiques",
@@ -1160,7 +1214,11 @@
       "delete": "Supprimer {name}"
     },
     "move_up": "Monter",
-    "move_down": "Descendre"
+    "move_down": "Descendre",
+    "save_failed": "Erreur lors de l'enregistrement.",
+    "accommodation_added": "Hébergement ajouté",
+    "accommodation_deleted": "Hébergement supprimé",
+    "order_saved": "Ordre enregistré"
   },
   "InvitationFaq": {
     "title": "FAQ",
@@ -1186,7 +1244,13 @@
       "description": "Vous êtes sur le point de supprimer « {question} ». Cette action est irréversible.",
       "cancel": "Annuler",
       "confirm": "Supprimer"
-    }
+    },
+    "save_failed": "Erreur lors de l'enregistrement.",
+    "entry_added": "Question ajoutée",
+    "entry_deleted": "Question supprimée",
+    "order_saved": "Ordre enregistré",
+    "published_toast": "Question publiée",
+    "unpublished_toast": "Question masquée"
   },
   "Stats": {
     "title": "Statistiques",

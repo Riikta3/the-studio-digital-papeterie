@@ -3,6 +3,7 @@
 import type { Accommodation } from "@shared/types/invitation";
 import { ExternalLink, Trash2 } from "lucide-react";
 import { useTranslations } from "next-intl";
+import { uploadAccommodationPhoto } from "@/actions/venue-actions";
 import { PhotoPicker } from "./PhotoPicker";
 
 type Props = {
@@ -38,6 +39,11 @@ export function AccommodationRow({
       <PhotoPicker
         value={accommodation.photoUrl}
         onChange={(photoUrl) => onChange({ photoUrl })}
+        onUpload={async (file) => {
+          const formData = new FormData();
+          formData.set("file", file);
+          return uploadAccommodationPhoto(formData);
+        }}
         aspect='square'
         // 32 rather than 24: the remove button holds the 44px tap floor, and
         // on a 96px thumbnail that covered a fifth of the image.

@@ -3,8 +3,7 @@
   "workspaces": [
     "landing",
     "landing-deprecated",
-    "dashboard",
-    "builder"
+    "dashboard"
   ],
   "scripts": {
     "dev:landing": "npm run dev -w landing",
@@ -15,9 +14,6 @@
     "dev:dashboard": "npm run dev -w dashboard",
     "build:dashboard": "npm run build -w dashboard",
     "start:dashboard": "npm run start -w dashboard",
-    "dev:builder": "npm run dev -w builder",
-    "build:builder": "npm run build -w builder",
-    "start:builder": "npm run start -w builder",
     "test": "node --experimental-strip-types --test shared/lib/*.test.mjs"
   }
 }

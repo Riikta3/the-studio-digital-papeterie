@@ -253,9 +253,14 @@
     "toast_remove_error": "Erro ao remover"
   },
   "NotFound": {
-    "title": "Página não encontrada",
-    "description": "Desculpe, a página que procura não existe.",
-    "back_home": "Voltar ao início"
+    "title": "Esta página não existe no seu espaço",
+    "description": "O link pode estar incompleto ou a página mudou de endereço.",
+    "back_home": "Voltar ao painel",
+    "stampLabel": "ENDEREÇO DESCONHECIDO",
+    "stampCode": "NÃO LISTADA",
+    "cardTitle": "The Studio",
+    "cardLine": "O seu espaço de preparação do casamento",
+    "cardFooter": "PAINEL"
   },
   "WelcomePopup": {
     "title": "Bem-vindo(a) ao The Studio!",
@@ -954,7 +959,26 @@
     "move_to": "Mover para…",
     "remove": "Remover",
     "done": "Concluído",
-    "no_tables": "Ainda não há mesas"
+    "no_tables": "Ainda não há mesas",
+    "assign_failed": "Não foi possível sentar o convidado. Tente novamente.",
+    "unassign_failed": "Não foi possível remover o convidado.",
+    "move_failed": "Não foi possível mover a mesa.",
+    "add_table": "Adicionar uma mesa",
+    "edit_table": "Editar mesa",
+    "delete_table": "Eliminar mesa",
+    "table_name": "Nome da mesa",
+    "table_name_placeholder": "Capri",
+    "table_capacity": "Número de lugares",
+    "table_seats_label": "Etiqueta impressa (opcional)",
+    "table_seats_label_placeholder": "Mesa 1",
+    "capacity_below_seated": "Já estão {count} pessoas sentadas aqui. Retire algumas primeiro.",
+    "save": "Guardar",
+    "delete_failed": "Erro ao eliminar.",
+    "assigned_toast": "Convidado sentado",
+    "unassigned_toast": "Convidado removido",
+    "table_added": "Mesa adicionada",
+    "table_saved": "Mesa guardada",
+    "table_deleted": "Mesa eliminada"
   },
   "QrCode": {
     "title": "Código QR do grande dia",
@@ -963,7 +987,8 @@
     "copied": "Link copiado",
     "copy_failed": "Não foi possível copiar o link. Copie-o manualmente.",
     "download_png": "Baixar em PNG",
-    "download_svg": "Baixar em SVG"
+    "download_svg": "Baixar em SVG",
+    "no_slug": "O seu site ainda não tem um endereço público. Publique o seu site para gerar o código QR."
   },
   "DayOfMenu": {
     "title": "Menu do grande dia",
@@ -979,7 +1004,14 @@
       "cheese": "Queijos",
       "dessert": "Sobremesa",
       "drinks": "Bebidas"
-    }
+    },
+    "toggle_failed": "Não foi possível atualizar a categoria.",
+    "add_failed": "Não foi possível adicionar o prato.",
+    "remove_failed": "Não foi possível remover o prato.",
+    "category_enabled": "Categoria ativada",
+    "category_disabled": "Categoria desativada",
+    "item_added": "Prato adicionado",
+    "item_removed": "Prato removido"
   },
   "DayOfSettings": {
     "title": "Definições do grande dia",
@@ -990,7 +1022,9 @@
     "after_wedding_label": "Modo pós-casamento",
     "after_wedding_hint": "A página passa a uma vista de agradecimento e continua aberta a envios.",
     "uploads_until_label": "Envios abertos até",
-    "uploads_until_hint": "Após esta data, os convidados deixam de poder adicionar fotos."
+    "uploads_until_hint": "Após esta data, os convidados deixam de poder adicionar fotos.",
+    "save_failed": "Não foi possível guardar as definições.",
+    "settings_saved": "Definições guardadas"
   },
   "DayOfPhotos": {
     "title": "Fotos e vídeos",
@@ -1002,6 +1036,10 @@
     "show": "Mostrar",
     "delete": "Eliminar",
     "anonymous": "Convidado anónimo",
+    "empty": {
+      "title": "Ainda sem fotos",
+      "description": "Assim que um convidado ler o seu código QR e partilhar uma foto ou um vídeo, ela aparecerá aqui."
+    },
     "filters": {
       "all": "Tudo",
       "photo": "Fotos",
@@ -1013,7 +1051,10 @@
       "description": "Este conteúdo partilhado pelos seus convidados será eliminado definitivamente. Esta ação não pode ser anulada.",
       "cancel": "Cancelar",
       "confirm": "Eliminar"
-    }
+    },
+    "hidden_toast": "Foto ocultada",
+    "shown_toast": "Foto exibida",
+    "deleted_toast": "Foto eliminada"
   },
   "GuestGroups": {
     "title": "Grupos de convidados",
@@ -1032,7 +1073,9 @@
       "guest": "Convidado",
       "household": "Agregado",
       "group": "Grupo"
-    }
+    },
+    "group_updated": "Grupo atualizado",
+    "household_updated": "Agregado familiar atualizado"
   },
   "GuestMeals": {
     "title": "Refeições e necessidades alimentares",
@@ -1063,7 +1106,9 @@
       "meal": "Refeição",
       "dietary": "Restrições",
       "allergies": "Alergias"
-    }
+    },
+    "meal_updated": "Refeição atualizada",
+    "dietary_updated": "Preferência alimentar atualizada"
   },
   "InvitationEvents": {
     "title": "Eventos",
@@ -1083,13 +1128,19 @@
     "delete": "Eliminar evento",
     "delete_dialog": {
       "title": "Eliminar “{name}”?",
-      "description": "As respostas RSVP e as entradas do programa ligadas a este evento ficarão órfãs. Esta ação é irreversível.",
+      "description": "As entradas do programa e os estados de presença dos convidados ligados a este evento serão eliminados. Esta ação é irreversível.",
       "cancel": "Cancelar",
       "confirm": "Eliminar"
     },
     "add_event": "Adicionar um evento",
     "new_event_name": "Novo evento",
-    "reorder": "Reordenar"
+    "reorder": "Reordenar",
+    "save_failed": "Ocorreu um erro ao guardar.",
+    "event_added": "Evento adicionado",
+    "event_deleted": "Evento eliminado",
+    "order_saved": "Ordem guardada",
+    "event_enabled_toast": "Evento ativado",
+    "event_disabled_toast": "Evento desativado"
   },
   "InvitationSchedule": {
     "title": "Programa",
@@ -1110,7 +1161,10 @@
     "move_down": "Descer",
     "delete_entry": "Eliminar “{title}”",
     "deleted_toast": "“{title}” eliminado",
-    "untitled": "Sem título"
+    "untitled": "Sem título",
+    "save_failed": "Ocorreu um erro ao guardar.",
+    "entry_added": "Entrada adicionada",
+    "order_saved": "Ordem guardada"
   },
   "InvitationVenue": {
     "title": "Local e informações práticas",
@@ -1160,7 +1214,11 @@
       "delete": "Eliminar {name}"
     },
     "move_up": "Subir",
-    "move_down": "Descer"
+    "move_down": "Descer",
+    "save_failed": "Ocorreu um erro ao guardar.",
+    "accommodation_added": "Alojamento adicionado",
+    "accommodation_deleted": "Alojamento eliminado",
+    "order_saved": "Ordem guardada"
   },
   "InvitationFaq": {
     "title": "Perguntas frequentes",
@@ -1186,7 +1244,13 @@
       "description": "Está prestes a eliminar «{question}». Esta ação não pode ser desfeita.",
       "cancel": "Cancelar",
       "confirm": "Eliminar"
-    }
+    },
+    "save_failed": "Ocorreu um erro ao guardar.",
+    "entry_added": "Pergunta adicionada",
+    "entry_deleted": "Pergunta eliminada",
+    "order_saved": "Ordem guardada",
+    "published_toast": "Pergunta publicada",
+    "unpublished_toast": "Pergunta ocultada"
   },
   "Stats": {
     "title": "Estatísticas",

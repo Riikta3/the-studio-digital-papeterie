@@ -784,5 +784,18 @@
         }
       ]
     }
+  },
+  "NotFound": {
+    "stampLabel": "ZURÜCK AN ABSENDER",
+    "stampCode": "UNZUSTELLBAR",
+    "cardTitle": "The Studio",
+    "cardLine": "Digitale Papeterie für Hochzeiten von heute",
+    "cardFooter": "DIGITALE EINLADUNG",
+    "title": "Diese Adresse steht nicht auf der Gästeliste",
+    "subtitle": "Prüfen Sie den Link oder kehren Sie zur Startseite zurück.",
+    "homeButton": "Zur Startseite",
+    "createButton": "Einladung erstellen",
+    "menuAriaLabel": "Menü öffnen",
+    "homeAriaLabel": "Zur Startseite"
   }
 }

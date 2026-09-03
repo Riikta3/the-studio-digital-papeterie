@@ -787,5 +787,18 @@
         }
       ]
     }
+  },
+  "NotFound": {
+    "stampLabel": "RETURN TO SENDER",
+    "stampCode": "UNDELIVERED",
+    "cardTitle": "The Studio",
+    "cardLine": "Digital stationery for today's weddings",
+    "cardFooter": "DIGITAL INVITATION",
+    "title": "This address isn't on the guest list",
+    "subtitle": "Check the link, or head back home.",
+    "homeButton": "Back to home",
+    "createButton": "Create my invitation",
+    "menuAriaLabel": "Open menu",
+    "homeAriaLabel": "Back to home"
   }
 }

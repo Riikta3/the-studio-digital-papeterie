@@ -4,6 +4,19 @@ import { ActionResult } from "@/types";
 import { createClient } from "@/utils/supabase/server";
 import { revalidatePath } from "next/cache";
 
+const LOCALES = ["fr", "en", "de", "es", "pt", "it", "ar", "zh", "ja"] as const;
+
+/**
+ * Every dashboard route lives under `[locale]`, so a bare
+ * `revalidatePath("/guests")` matches nothing and the couple kept seeing stale
+ * data after an edit. Same loop the newer action files use.
+ */
+function revalidateGuests() {
+  for (const locale of LOCALES) {
+    revalidatePath(`/${locale}/guests`);
+  }
+}
+
 export async function createHousehold(
   formData: FormData,
 ): Promise<ActionResult> {
@@ -21,9 +34,22 @@ export async function createHousehold(
     return { success: false, error: "Vous devez être connecté" };
   }
 
-  // Get the profile/wedding ID associated with the user
-  // Assuming profile.id is the user.id
-  const weddingId = user.id;
+  // Resolve the real wedding. `user.id` is NOT the wedding id — `weddings.id`
+  // is an independent uuid — so the previous `const weddingId = user.id` meant
+  // every write here targeted a wedding that does not exist. Verified: of 11
+  // weddings, zero have id == user_id, so this matched nothing, ever, while
+  // still reporting success.
+  const { data: wedding } = await supabase
+    .from("weddings")
+    .select("id")
+    .eq("user_id", user.id)
+    .single();
+
+  if (!wedding) {
+    return { success: false, error: "Mariage introuvable" };
+  }
+
+  const weddingId = wedding.id as string;
 
   // 1. Create Household
   const { data: householdData, error: householdError } = await supabase
@@ -93,7 +119,7 @@ export async function createHousehold(
     }
   }
 
-  revalidatePath("/guests");
+  revalidateGuests();
   return { success: true };
 }
 
@@ -125,7 +151,7 @@ export async function deleteHousehold(householdId: string) {
     return { success: false, error: "Erreur lors de la suppression du foyer." };
   }
 
-  revalidatePath("/guests");
+  revalidateGuests();
   return { success: true };
 }
 
@@ -176,15 +202,29 @@ export async function updateHousehold(
       };
     }
 
-    // Get wedding_id from user
+    // Same bug as createHousehold above, and worse here: this function deletes
+    // the household's guests before re-inserting them, so an invalid
+    // `wedding_id` meant the re-insert failed silently and the guests were
+    // simply gone. `user.id` is not the wedding id.
     const {
       data: { user },
     } = await supabase.auth.getUser();
-    const weddingId = user?.id;
 
-    if (!weddingId) {
+    if (!user) {
       return { success: false, error: "Utilisateur non connecté" };
     }
+
+    const { data: wedding } = await supabase
+      .from("weddings")
+      .select("id")
+      .eq("user_id", user.id)
+      .single();
+
+    if (!wedding) {
+      return { success: false, error: "Mariage introuvable" };
+    }
+
+    const weddingId = wedding.id as string;
 
     // Then, create new guests with updated info
     const guestsToInsert = guestNamesRaw
@@ -223,7 +263,7 @@ export async function updateHousehold(
     }
   }
 
-  revalidatePath("/guests");
+  revalidateGuests();
   return { success: true };
 }
 
@@ -330,34 +370,20 @@ export async function updateGuest(
   }
   // --- End: Sync Guest Status to Household ---
 
-  revalidatePath("/guests");
+  revalidateGuests();
   return { success: true };
 }
 
-export async function assignGuestToTable(
-  guestId: string,
-  tableId: string | null,
-): Promise<ActionResult> {
-  const supabase = await createClient();
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
-
-  if (!user) {
-    return { success: false, error: "Unauthorized" };
-  }
-
-  const { error } = await supabase
-    .from("guests")
-    .update({ table_id: tableId })
-    .eq("id", guestId)
-    .eq("wedding_id", user.id);
-
-  if (error) {
-    console.error("Error assigning guest to table:", error);
-    return { success: false, error: error.message };
-  }
-
-  revalidatePath("/[locale]/seating-plan", "page");
-  return { success: true };
-}
+/*
+ * `assignGuestToTable` deliberately does NOT live here.
+ *
+ * This file used to export one, duplicating the name `seating-actions.ts`
+ * exports — and the copy here was broken twice over: it filtered
+ * `.eq("wedding_id", user.id)`, which matches no wedding (weddings.id is an
+ * independent uuid), and it skipped the server-side capacity re-check, so a
+ * caller reaching it could seat 13 people at a table of 12. It reported
+ * success either way.
+ *
+ * `SeatingScreen` imports the correct one from `seating-actions.ts`. Removing
+ * this duplicate means a future import cannot silently pick the unsafe half.
+ */

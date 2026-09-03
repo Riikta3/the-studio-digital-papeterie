@@ -26,7 +26,8 @@ export async function getBillingHistory() {
     // Use admin client to bypass RLS — filter manually by user_id
     const { data, error } = await supabaseAdmin
       .from("billing")
-      .select("*")
+      // Matches BillingRecord above.
+      .select("id, amount, currency, status, plan_name, payment_method, invoice_url, created_at")
       .eq("user_id", user.id)
       .order("created_at", { ascending: false });
 

@@ -3,6 +3,7 @@
 import type { Venue } from "@shared/types/invitation";
 import { ExternalLink } from "lucide-react";
 import { useTranslations } from "next-intl";
+import { uploadVenuePhoto } from "@/actions/venue-actions";
 import { PhotoPicker } from "./PhotoPicker";
 
 type Props = {
@@ -41,6 +42,11 @@ export function VenueForm({ venue, onChange }: Props) {
         <PhotoPicker
           value={venue.photoUrl}
           onChange={(photoUrl) => onChange({ photoUrl })}
+          onUpload={async (file) => {
+            const formData = new FormData();
+            formData.set("file", file);
+            return uploadVenuePhoto(formData);
+          }}
           className='mt-1.5'
         />
       </div>

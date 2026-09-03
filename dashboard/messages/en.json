@@ -250,9 +250,14 @@
     }
   },
   "NotFound": {
-    "title": "Page not found",
-    "description": "Sorry, the page you are looking for does not exist.",
-    "back_home": "Back to home"
+    "title": "This page isn't part of your space",
+    "description": "The link may be incomplete, or the page has moved.",
+    "back_home": "Back to dashboard",
+    "stampLabel": "ADDRESS UNKNOWN",
+    "stampCode": "UNLISTED",
+    "cardTitle": "The Studio",
+    "cardLine": "Your wedding planning space",
+    "cardFooter": "DASHBOARD"
   },
   "LanguageSwitcher": {
     "select_language": "Language"
@@ -954,7 +959,26 @@
     "move_to": "Move to…",
     "remove": "Remove",
     "done": "Done",
-    "no_tables": "No tables yet"
+    "no_tables": "No tables yet",
+    "assign_failed": "Couldn't seat the guest. Please try again.",
+    "unassign_failed": "Couldn't remove the guest.",
+    "move_failed": "Couldn't move the table.",
+    "add_table": "Add a table",
+    "edit_table": "Edit table",
+    "delete_table": "Delete table",
+    "table_name": "Table name",
+    "table_name_placeholder": "Capri",
+    "table_capacity": "Number of seats",
+    "table_seats_label": "Printed label (optional)",
+    "table_seats_label_placeholder": "Table 1",
+    "capacity_below_seated": "{count} people are already seated here. Remove some first.",
+    "save": "Save",
+    "delete_failed": "Something went wrong while deleting.",
+    "assigned_toast": "Guest seated",
+    "unassigned_toast": "Guest removed",
+    "table_added": "Table added",
+    "table_saved": "Table saved",
+    "table_deleted": "Table deleted"
   },
   "QrCode": {
     "title": "Day-of QR code",
@@ -963,7 +987,8 @@
     "copied": "Link copied",
     "copy_failed": "Couldn't copy the link. Please copy it manually.",
     "download_png": "Download PNG",
-    "download_svg": "Download SVG"
+    "download_svg": "Download SVG",
+    "no_slug": "Your site doesn't have a public address yet. Publish your site to generate the QR code."
   },
   "DayOfMenu": {
     "title": "Day-of menu",
@@ -979,7 +1004,14 @@
       "cheese": "Cheese",
       "dessert": "Dessert",
       "drinks": "Drinks"
-    }
+    },
+    "toggle_failed": "Couldn't update the category.",
+    "add_failed": "Couldn't add the dish.",
+    "remove_failed": "Couldn't remove the dish.",
+    "category_enabled": "Category enabled",
+    "category_disabled": "Category disabled",
+    "item_added": "Dish added",
+    "item_removed": "Dish removed"
   },
   "DayOfSettings": {
     "title": "Day-of settings",
@@ -990,7 +1022,9 @@
     "after_wedding_label": "After-wedding mode",
     "after_wedding_hint": "The page switches to a thank-you view and stays open to uploads.",
     "uploads_until_label": "Uploads open until",
-    "uploads_until_hint": "Past this date, guests can no longer add photos."
+    "uploads_until_hint": "Past this date, guests can no longer add photos.",
+    "save_failed": "Couldn't save the settings.",
+    "settings_saved": "Settings saved"
   },
   "DayOfPhotos": {
     "title": "Photos & videos",
@@ -1002,6 +1036,10 @@
     "show": "Show",
     "delete": "Delete",
     "anonymous": "Anonymous guest",
+    "empty": {
+      "title": "No photos yet",
+      "description": "Once guests scan your QR code and share a photo or video, it will appear here."
+    },
     "filters": {
       "all": "All",
       "photo": "Photos",
@@ -1013,7 +1051,10 @@
       "description": "This item shared by your guests will be permanently deleted. This action cannot be undone.",
       "cancel": "Cancel",
       "confirm": "Delete"
-    }
+    },
+    "hidden_toast": "Photo hidden",
+    "shown_toast": "Photo shown",
+    "deleted_toast": "Photo deleted"
   },
   "GuestGroups": {
     "title": "Guest groups",
@@ -1032,7 +1073,9 @@
       "guest": "Guest",
       "household": "Household",
       "group": "Group"
-    }
+    },
+    "group_updated": "Group updated",
+    "household_updated": "Household updated"
   },
   "GuestMeals": {
     "title": "Meals & dietary needs",
@@ -1063,7 +1106,9 @@
       "meal": "Meal",
       "dietary": "Dietary flags",
       "allergies": "Allergies"
-    }
+    },
+    "meal_updated": "Meal updated",
+    "dietary_updated": "Dietary preference updated"
   },
   "InvitationEvents": {
     "title": "Events",
@@ -1083,13 +1128,19 @@
     "delete": "Delete event",
     "delete_dialog": {
       "title": "Delete “{name}”?",
-      "description": "RSVP answers and programme entries linked to this event will be orphaned. This cannot be undone.",
+      "description": "Programme entries and guest attendance statuses linked to this event will be deleted. This cannot be undone.",
       "cancel": "Cancel",
       "confirm": "Delete"
     },
     "add_event": "Add an event",
     "new_event_name": "New event",
-    "reorder": "Reorder"
+    "reorder": "Reorder",
+    "save_failed": "Something went wrong while saving.",
+    "event_added": "Event added",
+    "event_deleted": "Event deleted",
+    "order_saved": "Order saved",
+    "event_enabled_toast": "Event enabled",
+    "event_disabled_toast": "Event disabled"
   },
   "InvitationSchedule": {
     "title": "Programme",
@@ -1110,7 +1161,10 @@
     "move_down": "Move down",
     "delete_entry": "Delete “{title}”",
     "deleted_toast": "“{title}” deleted",
-    "untitled": "Untitled"
+    "untitled": "Untitled",
+    "save_failed": "Something went wrong while saving.",
+    "entry_added": "Entry added",
+    "order_saved": "Order saved"
   },
   "InvitationVenue": {
     "title": "Venue & practical info",
@@ -1160,7 +1214,11 @@
       "delete": "Delete {name}"
     },
     "move_up": "Move up",
-    "move_down": "Move down"
+    "move_down": "Move down",
+    "save_failed": "Something went wrong while saving.",
+    "accommodation_added": "Accommodation added",
+    "accommodation_deleted": "Accommodation deleted",
+    "order_saved": "Order saved"
   },
   "InvitationFaq": {
     "title": "FAQ",
@@ -1186,7 +1244,13 @@
       "description": "You are about to delete \"{question}\". This cannot be undone.",
       "cancel": "Cancel",
       "confirm": "Delete"
-    }
+    },
+    "save_failed": "Something went wrong while saving.",
+    "entry_added": "Question added",
+    "entry_deleted": "Question deleted",
+    "order_saved": "Order saved",
+    "published_toast": "Question published",
+    "unpublished_toast": "Question hidden"
   },
   "Stats": {
     "title": "Statistics",

@@ -783,5 +783,18 @@
         }
       ]
     }
+  },
+  "NotFound": {
+    "stampLabel": "差出人に返送",
+    "stampCode": "配達不能",
+    "cardTitle": "The Studio",
+    "cardLine": "現代の結婚式のためのデジタルペーパーアイテム",
+    "cardFooter": "デジタル招待状",
+    "title": "このアドレスは招待リストにありません",
+    "subtitle": "リンクをご確認いただくか、ホームにお戻りください。",
+    "homeButton": "ホームに戻る",
+    "createButton": "招待状を作成する",
+    "menuAriaLabel": "メニューを開く",
+    "homeAriaLabel": "ホームに戻る"
   }
 }
