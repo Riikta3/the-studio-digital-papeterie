@@ -253,9 +253,14 @@
     "toast_remove_error": "Error al eliminar"
   },
   "NotFound": {
-    "title": "Página no encontrada",
-    "description": "Lo sentimos, la página que buscas no existe.",
-    "back_home": "Volver al inicio"
+    "title": "Esta página no existe en tu espacio",
+    "description": "Puede que el enlace esté incompleto o que la página haya cambiado de dirección.",
+    "back_home": "Volver al panel",
+    "stampLabel": "DIRECCIÓN DESCONOCIDA",
+    "stampCode": "NO LISTADA",
+    "cardTitle": "The Studio",
+    "cardLine": "Tu espacio de preparación de la boda",
+    "cardFooter": "PANEL"
   },
   "WelcomePopup": {
     "title": "¡Bienvenido a The Studio!",

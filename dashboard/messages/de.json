@@ -253,9 +253,14 @@
     "toast_remove_error": "Fehler beim Entfernen"
   },
   "NotFound": {
-    "title": "Seite nicht gefunden",
-    "description": "Es tut uns leid, die gesuchte Seite existiert nicht.",
-    "back_home": "Zurück zur Startseite"
+    "title": "Diese Seite gibt es in Ihrem Bereich nicht",
+    "description": "Der Link ist womöglich unvollständig, oder die Seite wurde verschoben.",
+    "back_home": "Zurück zum Dashboard",
+    "stampLabel": "ADRESSE UNBEKANNT",
+    "stampCode": "NICHT GELISTET",
+    "cardTitle": "The Studio",
+    "cardLine": "Ihr Bereich für die Hochzeitsplanung",
+    "cardFooter": "DASHBOARD"
   },
   "WelcomePopup": {
     "title": "Willkommen bei The Studio!",

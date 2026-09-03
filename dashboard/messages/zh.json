@@ -253,9 +253,14 @@
     "toast_remove_error": "删除时出错"
   },
   "NotFound": {
-    "title": "页面未找到",
-    "description": "抱歉，您要查找的页面不存在。",
-    "back_home": "返回首页"
+    "title": "您的空间中没有此页面",
+    "description": "链接可能不完整，或页面地址已更改。",
+    "back_home": "返回控制面板",
+    "stampLabel": "地址不详",
+    "stampCode": "未收录",
+    "cardTitle": "The Studio",
+    "cardLine": "您的婚礼筹备空间",
+    "cardFooter": "控制面板"
   },
   "WelcomePopup": {
     "title": "欢迎使用 The Studio！",

@@ -250,9 +250,14 @@
     }
   },
   "NotFound": {
-    "title": "Page not found",
-    "description": "Sorry, the page you are looking for does not exist.",
-    "back_home": "Back to home"
+    "title": "This page isn't part of your space",
+    "description": "The link may be incomplete, or the page has moved.",
+    "back_home": "Back to dashboard",
+    "stampLabel": "ADDRESS UNKNOWN",
+    "stampCode": "UNLISTED",
+    "cardTitle": "The Studio",
+    "cardLine": "Your wedding planning space",
+    "cardFooter": "DASHBOARD"
   },
   "LanguageSwitcher": {
     "select_language": "Language"

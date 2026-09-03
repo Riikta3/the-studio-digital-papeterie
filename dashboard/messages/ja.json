@@ -253,9 +253,14 @@
     "toast_remove_error": "削除中にエラーが発生しました"
   },
   "NotFound": {
-    "title": "ページが見つかりません",
-    "description": "申し訳ございませんが、お探しのページは存在しません。",
-    "back_home": "ホームに戻る"
+    "title": "このページはお使いのスペースにありません",
+    "description": "リンクが不完全か、ページの場所が変わった可能性があります。",
+    "back_home": "ダッシュボードに戻る",
+    "stampLabel": "宛先不明",
+    "stampCode": "未登録",
+    "cardTitle": "The Studio",
+    "cardLine": "結婚式の準備スペース",
+    "cardFooter": "ダッシュボード"
   },
   "WelcomePopup": {
     "title": "The Studioへようこそ！",

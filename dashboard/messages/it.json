@@ -253,9 +253,14 @@
     "toast_remove_error": "Errore durante la rimozione"
   },
   "NotFound": {
-    "title": "Pagina non trovata",
-    "description": "Siamo spiacenti, la pagina che stai cercando non esiste.",
-    "back_home": "Torna alla home"
+    "title": "Questa pagina non esiste nel tuo spazio",
+    "description": "Il link potrebbe essere incompleto, o la pagina è stata spostata.",
+    "back_home": "Torna al cruscotto",
+    "stampLabel": "INDIRIZZO SCONOSCIUTO",
+    "stampCode": "NON ELENCATA",
+    "cardTitle": "The Studio",
+    "cardLine": "Il tuo spazio per organizzare il matrimonio",
+    "cardFooter": "CRUSCOTTO"
   },
   "WelcomePopup": {
     "title": "Benvenuto su The Studio!",
