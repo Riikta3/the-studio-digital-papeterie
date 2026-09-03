@@ -14,9 +14,10 @@ import { TextureOverlay } from "./TextureOverlay";
 
 // One orchestrated moment: the invitation card settles, then the postal stamp
 // hits it. Everything else fades in quietly behind that beat.
+// The card and the wording arrive together, then the stamp lands on top.
 const CARD_IN = 0.2;
-const STAMP_HIT = 1.05;
-const COPY_IN = 1.5;
+const COPY_IN = 0.2;
+const STAMP_HIT = 1.1;
 
 const EASE_OUT = [0.22, 1, 0.36, 1] as const;
 
@@ -34,16 +35,19 @@ function ReturnStamp({ label, code }: { label: string; code: string }) {
       aria-label={`${label} — ${code}`}
     >
       <defs>
-        {/* The arc runs the full circle so long labels keep their first and
-            last letters: a half-circle path drops whatever overflows it. */}
+        {/* Full circles, so a long label keeps its first and last letters —
+            a half-circle path silently drops whatever overflows it. The top
+            arc starts at 9 o'clock going clockwise, so its 50% offset sits at
+            the top; the bottom one runs counter-clockwise so its text reads
+            left-to-right along the underside. */}
         <path
           id="stamp-arc-top"
-          d="M 100 100 m 0 -68 a 68 68 0 1 1 -0.1 0"
+          d="M 32 100 a 68 68 0 1 1 136 0 a 68 68 0 1 1 -136 0"
           fill="none"
         />
         <path
           id="stamp-arc-bottom"
-          d="M 100 100 m 0 58 a 58 58 0 1 0 -0.1 0"
+          d="M 42 100 a 58 58 0 1 0 116 0 a 58 58 0 1 0 -116 0"
           fill="none"
         />
         {/* Uneven ink: the strokes wobble slightly, the way a rubber stamp
@@ -81,9 +85,9 @@ function ReturnStamp({ label, code }: { label: string; code: string }) {
           fill="#4B3F72"
           stroke="none"
           fontFamily="var(--font-body), sans-serif"
-          fontSize="15"
-          fontWeight="600"
-          letterSpacing="2"
+          fontSize="17"
+          fontWeight="700"
+          letterSpacing="0.5"
         >
           <textPath href="#stamp-arc-top" startOffset="25%" textAnchor="middle">
             {label}
@@ -94,13 +98,13 @@ function ReturnStamp({ label, code }: { label: string; code: string }) {
           fill="#4B3F72"
           stroke="none"
           fontFamily="var(--font-body), sans-serif"
-          fontSize="11"
-          fontWeight="500"
-          letterSpacing="3"
+          fontSize="13"
+          fontWeight="600"
+          letterSpacing="1"
         >
           <textPath
             href="#stamp-arc-bottom"
-            startOffset="75%"
+            startOffset="25%"
             textAnchor="middle"
           >
             {code}
@@ -135,7 +139,12 @@ export function NotFoundView() {
   // the client. Driving the sequence from a state flipped in an effect makes
   // it a real state change, which does animate.
   const [entered, setEntered] = useState(false);
-  useEffect(() => setEntered(true), []);
+  const [struck, setStruck] = useState(false);
+  useEffect(() => {
+    setEntered(true);
+    const id = setTimeout(() => setStruck(true), reduce ? 0 : STAMP_HIT * 1000);
+    return () => clearTimeout(id);
+  }, [reduce]);
 
   const d = (beat: number) => (reduce ? 0 : beat);
 
@@ -174,15 +183,27 @@ export function NotFoundView() {
         <MobileMenu open={menuOpen} onClose={() => setMenuOpen(false)} />
       </div>
 
-      <div className="relative z-10 flex flex-1 flex-col items-center justify-center px-6 py-12 md:px-12">
-        {/* The card, laid slightly off-square as if dropped on a table */}
+      <div
+        // Hidden in the server markup and revealed on mount, so the finished
+        // scene never flashes before the entrance plays. `entered` is the same
+        // flag that starts the animation, so reveal and motion stay in step.
+        className={`relative z-10 flex flex-1 flex-col items-center justify-center px-6 py-12 md:px-12 ${
+          entered ? "" : "invisible"
+        }`}
+      >
+        {/* The card sits off-square from the first frame and keeps that angle:
+            it drops onto the table, it does not straighten itself out. The
+            tilt lives in `style`, outside anything Framer animates. */}
         <motion.div
-          className="relative w-[268px] rounded-[3px] bg-studio-beige px-7 py-10 md:w-[340px] md:px-9 md:py-14"
-          style={{ boxShadow: "0 40px 70px -30px rgba(0,0,0,0.6)" }}
+          className="relative w-[300px] rounded-[3px] bg-studio-beige px-7 pb-20 pt-9 md:w-[390px] md:px-10 md:pb-24 md:pt-12"
+          style={{
+            boxShadow: "0 40px 70px -30px rgba(0,0,0,0.6)",
+            rotate: -2.5,
+          }}
           animate={
             entered
-              ? { opacity: 1, y: 0, rotate: -2.5 }
-              : { opacity: 0, y: reduce ? 0 : -28, rotate: -4.5 }
+              ? { opacity: 1, y: 0 }
+              : { opacity: 0, y: reduce ? 0 : -28 }
           }
           transition={{ duration: 0.9, delay: d(CARD_IN), ease: EASE_OUT }}
         >
@@ -201,49 +222,44 @@ export function NotFoundView() {
 
           {/* What the card was carrying, now cancelled. No couple's name here:
               this is the studio's own stationery, not somebody's invitation. */}
-          <div className="relative text-center text-studio-violet/45">
+          <div className="relative pr-1 text-center text-studio-violet/70">
             <p className="font-heading text-xl leading-tight md:text-2xl">
               {t("cardTitle")}
             </p>
             <p className="mt-4 font-body text-[0.7rem] leading-relaxed md:text-xs">
               {t("cardLine")}
             </p>
-            <p className="mt-6 font-body text-[0.6rem] tracking-luxe md:text-[0.65rem]">
+            <p className="mt-5 font-body text-[0.6rem] tracking-luxe text-studio-violet/45 md:text-[0.65rem]">
               {t("cardFooter")}
             </p>
           </div>
 
-          {/* The stamp: struck onto the card, overhanging its edge */}
+          {/* The stamp, struck fully inside the card: violet ink reads on
+              the beige paper and vanishes against the violet background, so
+              none of the ring may overhang the edge. */}
           <motion.div
-            className="pointer-events-none absolute -right-6 top-1/2 h-[150px] w-[150px] md:-right-9 md:h-[190px] md:w-[190px]"
+            className="pointer-events-none absolute -bottom-1 -right-1 h-[104px] w-[104px] origin-center md:-bottom-1 md:-right-1 md:h-[128px] md:w-[128px]"
+            // Serialised into the SSR markup so the stamp is already invisible
+            // on the first painted frame — without it the finished stamp shows,
+            // then vanishes when the client takes over.
             animate={
-              entered
-                ? {
-                    opacity: 1,
-                    scale: reduce ? 1 : [2.6, 0.94, 1.03, 1],
-                    rotate: 14,
-                    y: "-50%",
-                  }
+              struck
+                ? { opacity: 1, scale: 1, rotate: -13 }
+                : { opacity: 0, scale: 2.4, rotate: -2 }
+            }
+            // Tweened, not sprung: a spring interrupted mid-flight by the
+            // hydration hand-off settles wherever it happens to be, leaving a
+            // half-scaled ghost. The overshoot is baked into the easing curve
+            // instead, so the end state is always exactly scale 1.
+            transition={
+              reduce
+                ? { duration: 0 }
                 : {
-                    opacity: 0,
-                    scale: reduce ? 1 : 2.6,
-                    rotate: reduce ? 14 : 26,
-                    y: "-50%",
+                    opacity: { duration: 0.09 },
+                    scale: { duration: 0.34, ease: [0.34, 1.42, 0.64, 1] },
+                    rotate: { duration: 0.34, ease: [0.34, 1.42, 0.64, 1] },
                   }
             }
-            // Per-property transitions: `times` only applies to the keyframed
-            // scale. Sharing one transition across a scalar opacity and a
-            // 4-keyframe scale silently strands both at their initial value.
-            transition={{
-              opacity: { duration: 0.12, delay: d(STAMP_HIT) },
-              scale: {
-                duration: reduce ? 0 : 0.42,
-                delay: d(STAMP_HIT),
-                ease: [0.7, 0, 0.2, 1],
-                times: [0, 0.55, 0.78, 1],
-              },
-              rotate: { duration: 0.3, delay: d(STAMP_HIT) },
-            }}
           >
             <ReturnStamp label={t("stampLabel")} code={t("stampCode")} />
           </motion.div>

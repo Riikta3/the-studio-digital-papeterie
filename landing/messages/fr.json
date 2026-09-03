@@ -740,5 +740,18 @@
         }
       ]
     }
+  },
+  "NotFound": {
+    "stampLabel": "RETOUR À L'ENVOYEUR",
+    "stampCode": "NON DISTRIBUÉ",
+    "cardTitle": "The Studio",
+    "cardLine": "Papeterie digitale pour les mariages d'aujourd'hui",
+    "cardFooter": "FAIRE-PART DIGITAL",
+    "title": "Cette adresse ne figure pas sur la liste des invités",
+    "subtitle": "Vérifiez le lien, ou revenez à l'accueil.",
+    "homeButton": "Retour à l'accueil",
+    "createButton": "Créer mon invitation",
+    "menuAriaLabel": "Ouvrir le menu",
+    "homeAriaLabel": "Retour à l'accueil"
   }
 }

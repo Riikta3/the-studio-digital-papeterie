@@ -783,5 +783,18 @@
         }
       ]
     }
+  },
+  "NotFound": {
+    "stampLabel": "退回寄件人",
+    "stampCode": "无法投递",
+    "cardTitle": "The Studio",
+    "cardLine": "为当代婚礼打造的数字请柬",
+    "cardFooter": "数字请柬",
+    "title": "此地址不在宾客名单上",
+    "subtitle": "请检查链接，或返回首页。",
+    "homeButton": "返回首页",
+    "createButton": "创建我的请柬",
+    "menuAriaLabel": "打开菜单",
+    "homeAriaLabel": "返回首页"
   }
 }

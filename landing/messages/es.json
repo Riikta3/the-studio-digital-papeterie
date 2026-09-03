@@ -784,5 +784,18 @@
         }
       ]
     }
+  },
+  "NotFound": {
+    "stampLabel": "DEVOLVER AL REMITENTE",
+    "stampCode": "NO ENTREGADO",
+    "cardTitle": "The Studio",
+    "cardLine": "Papelería digital para las bodas de hoy",
+    "cardFooter": "INVITACIÓN DIGITAL",
+    "title": "Esta dirección no está en la lista de invitados",
+    "subtitle": "Comprueba el enlace o vuelve al inicio.",
+    "homeButton": "Volver al inicio",
+    "createButton": "Crear mi invitación",
+    "menuAriaLabel": "Abrir el menú",
+    "homeAriaLabel": "Volver al inicio"
   }
 }
