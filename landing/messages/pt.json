@@ -362,7 +362,16 @@
     "titleLine1": "Um único espaço.",
     "titleAccent": "Todo o seu casamento.",
     "subtitle": "Gira os seus convidados, as suas respostas RSVP, o seu convite: edite, ajuste e atualize o seu convite sempre que quiser, sem intermediários.",
-    "placeholder": "Pré-visualização do painel brevemente"
+    "demo": {
+      "chapters": "Capítulos",
+      "pause": "Pausa",
+      "resume": "Retomar",
+      "previous": "Anterior",
+      "next": "Seguinte",
+      "replay": "Ver novamente",
+      "note": "Números de um casamento de demonstração: 140 convidados, 65 famílias, 10 mesas.",
+      "mobileNote": "O back-office está otimizado para computador e tablet. Esta pré-visualização continua disponível aqui, em versão reduzida."
+    }
   },
   "Faq": {
     "eyebrow": "Alguma pergunta?",

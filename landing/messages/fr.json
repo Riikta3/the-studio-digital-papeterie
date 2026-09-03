@@ -164,7 +164,16 @@
     "titleLine1": "Un seul espace.",
     "titleAccent": "Tout votre mariage.",
     "subtitle": "Gérez vos invités, vos réponses RSVP, votre invitation : modifiez, ajustez, mettez à jour votre faire-part quand vous voulez, sans intermédiaire.",
-    "placeholder": "Aperçu du dashboard à venir"
+    "demo": {
+      "chapters": "Chapitres",
+      "pause": "Pause",
+      "resume": "Reprendre",
+      "previous": "Précédent",
+      "next": "Suivant",
+      "replay": "Revoir",
+      "note": "Chiffres d'un mariage de démonstration : 140 invités, 65 foyers, 10 tables.",
+      "mobileNote": "Le back-office est optimisé pour ordinateur et tablette. Cet aperçu reste consultable ici, en version réduite."
+    }
   },
   "Testimonials": {
     "eyebrow": "Ils nous ont fait confiance",

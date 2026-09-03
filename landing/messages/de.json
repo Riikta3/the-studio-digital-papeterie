@@ -363,7 +363,16 @@
     "titleLine1": "Ein Ort.",
     "titleAccent": "Ihre ganze Hochzeit.",
     "subtitle": "Verwalten Sie Ihre Gäste, Ihre RSVP-Antworten, Ihre Einladung: Bearbeiten, anpassen und aktualisieren Sie Ihre Einladung, wann immer Sie möchten, ganz ohne Mittelsmann.",
-    "placeholder": "Dashboard-Vorschau folgt bald"
+    "demo": {
+      "chapters": "Kapitel",
+      "pause": "Pause",
+      "resume": "Fortsetzen",
+      "previous": "Zurück",
+      "next": "Weiter",
+      "replay": "Erneut ansehen",
+      "note": "Zahlen einer Beispielhochzeit: 140 Gäste, 65 Haushalte, 10 Tische.",
+      "mobileNote": "Das Back-Office ist für Desktop und Tablet optimiert. Diese Vorschau bleibt hier in verkürzter Form verfügbar."
+    }
   },
   "Faq": {
     "eyebrow": "Eine Frage?",

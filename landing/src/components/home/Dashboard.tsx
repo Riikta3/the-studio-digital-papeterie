@@ -1,9 +1,9 @@
 "use client";
 
-import { ImageIcon } from "lucide-react";
 import { useTranslations } from "next-intl";
 import Image from "next/image";
 
+import { DashboardDemo } from "./DashboardDemo";
 import { FadeIn } from "./FadeIn";
 
 export function Dashboard() {
@@ -41,18 +41,19 @@ export function Dashboard() {
         </FadeIn>
       </div>
 
-      {/* Placeholder until a real dashboard screenshot is exported. */}
-      <FadeIn
-        amount={0.2}
-        className="mx-auto mt-12 w-full max-w-4xl"
-      >
-        <div className="flex aspect-[16/10] w-full flex-col items-center justify-center gap-3 rounded-2xl border border-studio-lavande/50 bg-white shadow-xl">
-          <ImageIcon className="h-10 w-10 text-studio-lavande" />
-          <p className="font-body text-h5 text-studio-violet/60">
-            {t("placeholder")}
-          </p>
-        </div>
-      </FadeIn>
+      {/* The guided tour replaces the screenshot placeholder that stood here.
+          Deliberately NOT wrapped in FadeIn: the block is ~840px tall, so
+          FadeIn's `whileInView` threshold never resolves on a laptop viewport
+          and the whole demo sat at opacity 0. The demo does its own reveal
+          anyway — its IntersectionObserver starts playback once it is on
+          screen, which is the effect FadeIn would have been buying. */}
+      <div className="mx-auto mt-12 w-full max-w-5xl">
+        <DashboardDemo />
+
+        <p className="mt-4 text-center font-body text-xs text-studio-violet/50">
+          {t("demo.note")}
+        </p>
+      </div>
     </section>
   );
 }
