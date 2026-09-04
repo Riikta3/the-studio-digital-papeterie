@@ -51,6 +51,24 @@ export async function generateMetadata({
       index: true,
       follow: true,
     },
+    // Declared explicitly rather than relying on file-convention icons: the
+    // set lives in public/ (favicon.ico there is also what bare-/favicon.ico
+    // requests hit), and the .ico carries the 48px variant browsers prefer
+    // for bookmarks and pinned tabs.
+    icons: {
+      icon: [
+        { url: "/favicon.ico", sizes: "any" },
+        { url: "/favicon-32x32.png", sizes: "32x32", type: "image/png" },
+        { url: "/favicon-16x16.png", sizes: "16x16", type: "image/png" },
+      ],
+      apple: [{ url: "/apple-touch-icon.png", sizes: "180x180" }],
+    },
+    manifest: "/manifest.webmanifest",
+    appleWebApp: {
+      title: "The Studio",
+      capable: true,
+      statusBarStyle: "default",
+    },
   };
 }
 
