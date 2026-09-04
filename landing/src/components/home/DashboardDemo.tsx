@@ -4,7 +4,13 @@ import Image from "next/image";
 import { useTranslations } from "next-intl";
 import { useCallback, useEffect, useRef, useState } from "react";
 
-import "./dashboard-demo.css";
+// The stylesheet is NOT imported: at 27 KB it was emitted as a render-blocking
+// <link> in <head> for a demo that sits in section 7 of 11 and is never in the
+// viewport at load — it accounted for essentially all of Lighthouse's "unused
+// CSS". It lives in public/styles/ and is attached on mount instead. Every
+// selector in it is scoped under `.demoRoot`, so applying it late cannot
+// restyle anything else on the page.
+const DEMO_STYLESHEET = "/styles/dashboard-demo.css";
 
 /**
  * A guided tour of the couple's back-office, for the landing page.
@@ -104,7 +110,12 @@ export function DashboardDemo() {
   const t = useTranslations("Dashboard.demo");
 
   const [index, setIndex] = useState(0);
-  const [playing, setPlaying] = useState(true);
+  // Starts paused, NOT playing: the demo sits in section 7 of 11, so it is
+  // never on screen at load. Autoplaying from mount ran the 20Hz chapter
+  // ticker plus up to 13 concurrent 25Hz counter intervals during the whole
+  // page load — the single largest contributor to Total Blocking Time. The
+  // visibility effect below flips this on as soon as the block is on screen.
+  const [playing, setPlaying] = useState(false);
 
   const rootRef = useRef<HTMLDivElement | null>(null);
   /** The active chapter's rail fill and the clock, written to directly. */
@@ -199,8 +210,12 @@ export function DashboardDemo() {
       });
 
       if (panel === "stats") {
-        qa<HTMLElement>('[data-panel="stats"] .seg, [data-panel="stats"] .ev-fill').forEach(
+        qa<HTMLElement>('[data-panel="stats"] .seg').forEach(
           (f) => (f.style.width = "0"),
+        );
+        // `.ev-fill` animates transform, not width (see dashboard-demo.css).
+        qa<HTMLElement>('[data-panel="stats"] .ev-fill').forEach(
+          (f) => (f.style.transform = "scaleX(0)"),
         );
       }
 
@@ -342,7 +357,11 @@ export function DashboardDemo() {
             later(() => (f.style.width = `${f.dataset.w}%`), 40 + i * 40);
           });
           qa<HTMLElement>('[data-panel="stats"] .ev-fill').forEach((f, i) => {
-            later(() => (f.style.width = `${f.dataset.w}%`), 40 + i * 60);
+            later(
+              () =>
+                (f.style.transform = `scaleX(${Number(f.dataset.w) / 100})`),
+              40 + i * 60,
+            );
           });
         }, 30);
       }
@@ -385,7 +404,9 @@ export function DashboardDemo() {
         return;
       }
       if (fillRef.current) {
-        fillRef.current.style.width = `${(into / ms) * 100}%`;
+        // transform, not width: this runs 20x a second, and a width write
+        // forced a layout + paint on every tick.
+        fillRef.current.style.transform = `scaleX(${into / ms})`;
       }
       if (clockRef.current) {
         clockRef.current.textContent = `${clock(elapsedBefore + into)} / ${clock(TOTAL_MS)}`;
@@ -437,6 +458,10 @@ export function DashboardDemo() {
 
     window.addEventListener("scroll", check, { passive: true });
     window.addEventListener("resize", check);
+    // Evaluate once on mount: `playing` now starts false, so without this the
+    // demo would stay frozen for anyone landing with it already in view
+    // (deep link to #espace-maries, restored scroll position, short viewport).
+    check();
     return () => {
       window.removeEventListener("scroll", check);
       window.removeEventListener("resize", check);
@@ -456,10 +481,60 @@ export function DashboardDemo() {
     setPlaying((p) => !p);
   };
 
+  // Attach the demo's own stylesheet once, out of the critical path. Kept in
+  // state so the wrapper can reserve the frame's height until the rules land,
+  // otherwise the unstyled markup would collapse and then jump.
+  const [cssReady, setCssReady] = useState(false);
+  useEffect(() => {
+    const existing = document.querySelector<HTMLLinkElement>(
+      `link[data-demo-css="1"]`,
+    );
+    if (existing) {
+      // Another instance already added it; it may or may not have loaded yet.
+      if (existing.sheet) setCssReady(true);
+      else existing.addEventListener("load", () => setCssReady(true), { once: true });
+      return;
+    }
+    const link = document.createElement("link");
+    link.rel = "stylesheet";
+    link.href = DEMO_STYLESHEET;
+    link.dataset.demoCss = "1";
+    link.addEventListener("load", () => setCssReady(true), { once: true });
+    // A failed stylesheet must not leave the section permanently blank.
+    link.addEventListener("error", () => setCssReady(true), { once: true });
+    document.head.appendChild(link);
+  }, []);
+
   const elapsedBefore = CHAPTERS.slice(0, index).reduce((n, c) => n + c.ms, 0);
 
   return (
-    <div className="demoRoot" ref={rootRef}>
+    <div
+      className="demoRoot"
+      ref={rootRef}
+      // Hidden until its stylesheet lands, with the frame's height reserved by
+      // the rule below so nothing shifts. `content-visibility: hidden` keeps
+      // the subtree out of layout and paint while it waits, which also spares
+      // the main thread the ~775 elements this demo renders.
+      style={
+        cssReady
+          ? undefined
+          : { contentVisibility: "hidden", contain: "layout style" }
+      }
+    >
+      {!cssReady && (
+        // Mirrors dashboard-demo.css: the frame is 838px tall (scaled by
+        // --demo-scale between 760 and 1080px) and reflows to `auto` on
+        // phones, so the placeholder must too — a single hardcoded height
+        // would introduce the layout shift this page currently does not have.
+        <style>{`
+          .demoRoot { min-height: 838px; }
+          @media (max-width: 1080px) and (min-width: 760px) { .demoRoot { min-height: 779px; } }
+          @media (max-width: 1000px) and (min-width: 760px) { .demoRoot { min-height: 721px; } }
+          @media (max-width: 920px)  and (min-width: 760px) { .demoRoot { min-height: 654px; } }
+          @media (max-width: 850px)  and (min-width: 760px) { .demoRoot { min-height: 603px; } }
+          @media (max-width: 759px) { .demoRoot { min-height: 560px; } }
+        `}</style>
+      )}
       {/* Shown only under 760px. The tour stays fully usable there, but the
           back-office itself is built for desktop and tablet -- the seating
           plan is a drag-and-drop board, the guest list runs five columns --
@@ -1103,7 +1178,10 @@ export function DashboardDemo() {
               <span
                 className="rail-fill"
                 ref={i === index ? fillRef : undefined}
-                style={{ width: i < index ? "100%" : i === index ? "0%" : "0%" }}
+                // Matches the transform-driven fill in dashboard-demo.css:
+                // played chapters stay full, the current and upcoming ones
+                // start empty and are advanced by the ticker.
+                style={{ transform: `scaleX(${i < index ? 1 : 0})` }}
               />
             </span>
             <span className="rail-name">{`${i + 1}. ${c.rail}`}</span>

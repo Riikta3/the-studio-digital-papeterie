@@ -51,7 +51,7 @@ export function WhyUs() {
         <h2 className="mt-4 font-heading text-h1 text-studio-violet">
           {t("titleLine1")}
           <br />
-          <span className="text-studio-lavande">{t("titleAccent")}</span>
+          <span className="text-studio-violet-clair">{t("titleAccent")}</span>
         </h2>
       </FadeIn>
 

@@ -328,9 +328,12 @@ function ThemeCarousel({
                     "ring-2 ring-studio-violet ring-offset-2 ring-offset-studio-creme",
                 )}
               >
+                {/* Decorative: the theme name is already the visible caption
+                    directly below, so an alt repeating it makes a screen
+                    reader announce the same words twice. */}
                 <Image
                   src={theme.image}
-                  alt={t("themeLabel", { name: theme.name })}
+                  alt=""
                   fill
                   sizes="144px"
                   className="object-cover"

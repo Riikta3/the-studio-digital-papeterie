@@ -211,8 +211,9 @@ export function NotFoundView() {
             aria-hidden
             className="pointer-events-none absolute inset-0 rounded-[3px] opacity-50 mix-blend-multiply"
             style={{
-              backgroundImage: "url(/images/hero-texture.png)",
-              backgroundSize: "cover",
+              backgroundImage: "url(/images/hero-texture.webp)",
+              backgroundRepeat: "repeat",
+              backgroundSize: "256px 256px",
             }}
           />
           <span
