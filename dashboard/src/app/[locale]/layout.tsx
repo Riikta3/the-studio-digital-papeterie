@@ -24,6 +24,28 @@ const urbanist = Urbanist({
 export const metadata: Metadata = {
   title: "The Studio | Digital Papeterie",
   description: "L'élégance de la papeterie, la puissance du digital.",
+  // Same icon set as the landing app: this is the couple's back-office, so a
+  // shared identity is the point. The bordeaux monogram that used to sit in
+  // public/ predated the current palette.
+  //
+  // The .ico is NOT listed here: `src/app/favicon.ico` already exists, and
+  // Next emits a <link> for it from the file convention — declaring it again
+  // shipped two competing icon tags.
+  icons: {
+    icon: [
+      { url: "/favicon-32x32.png", sizes: "32x32", type: "image/png" },
+      { url: "/favicon-16x16.png", sizes: "16x16", type: "image/png" },
+    ],
+    apple: [{ url: "/apple-touch-icon.png", sizes: "180x180" }],
+  },
+  manifest: "/manifest.webmanifest",
+  appleWebApp: {
+    title: "The Studio",
+    capable: true,
+    statusBarStyle: "default",
+  },
+  // The back-office is private: never index it, whatever links to it.
+  robots: { index: false, follow: false },
 };
 
 export default async function RootLayout({
