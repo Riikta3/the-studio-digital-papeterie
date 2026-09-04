@@ -1,10 +1,16 @@
 {
+  "Metadata": {
+    "title": "Convite de casamento digital | The Studio Digital Papeterie",
+    "ogTitle": "The Studio — O convite de casamento digital, reinventado",
+    "description": "Crie o seu convite de casamento digital: um convite de casamento online elegante, com RSVP integrado e todas as informações do seu casamento num só lugar. Pagamento único, sem subscrição.",
+    "keywords": "convite de casamento digital, convite de casamento online, RSVP casamento, convite de casamento personalizado, papelaria digital casamento, site de casamento"
+  },
   "Navbar": {
     "product": "Produto",
     "features": "Funcionalidades",
     "dashboard": "Painel",
     "themes": "Temas",
-    "testimonials": "Depoimentos",
+    "jourj": "Dia do casamento",
     "pricing": "Preços",
     "faq": "FAQ",
     "createButton": "Criar convite"
@@ -13,24 +19,11 @@
     "eyebrow": "Convite de casamento digital",
     "titleLine1": "O convite de casamento",
     "titleLine2": "reinventado",
-    "subtitle": "Pensado para os casamentos de hoje",
+    "subtitle": "Um convite pensado como uma verdadeira experiência.",
     "menuAriaLabel": "Abrir menu",
-    "discoverButton": "Descobrir",
-    "createButton": "Criar o meu",
+    "discoverButton": "Descobrir as coleções",
+    "createButton": "Criar o meu convite",
     "themeCta": "Experimentar o tema {name}"
-  },
-  "Features": {
-    "titleLine1": "A elegância do papel,",
-    "titleLine2": "a magia do digital",
-    "subtitle": "Por que escolher entre beleza e praticidade? The Studio Papeterie Digital oferece o melhor dos dois mundos.",
-    "ecoTitle": "Ecológico e Responsável",
-    "ecoDesc": "Poupe centenas de envelopes e selos. Um gesto elegante para o planeta, sem comprometer o estilo.",
-    "editTitle": "Infinitamente Editável",
-    "editDesc": "Um erro na data? Uma mudança de local? Atualize o seu site instantaneamente, mesmo após o envio.",
-    "rsvpTitle": "Gestão de RSVP Simplificada",
-    "rsvpDesc": "Acabaram-se os cartões de resposta perdidos. Acompanhe a presença, requisitos dietéticos e acompanhantes em tempo real.",
-    "langTitle": "Multilíngue Internacional",
-    "langDesc": "Dê as boas-vindas a convidados de todo o mundo. O seu site está disponível em Francês, Inglês, Espanhol, Italiano, Alemão, Português, Árabe, Chinês e Japonês."
   },
   "FAQ": {
     "titleLine1": "Perguntas",
@@ -51,14 +44,15 @@
   },
   "HowItWorks": {
     "eyebrow": "Simples, rápido e 100% personalizado",
-    "titleLine1": "O seu convite",
-    "titleAccent": "em 3 passos",
+    "titleLine1": "O seu convite,",
+    "titleAccent": "simplesmente.",
     "universeMockLabel": "Selecionar um estilo",
     "personalizeMockLabel": "Personalize o seu convite",
     "personalizeMockRows": [
-      "Livro de assinaturas",
       "Programa",
-      "Menu"
+      "RSVP",
+      "Alojamentos",
+      "Dress code"
     ],
     "shareMockLabel": "Partilhe o seu convite",
     "shareMockActions": [
@@ -71,128 +65,24 @@
       {
         "number": "01",
         "titleLine1": "Escolha",
-        "titleLine2": "o seu estilo",
-        "description": "Escolha um design que se pareça consigo. Minimalista, romântico, ousado — cada estilo foi pensado para contar a sua história."
+        "titleLine2": "o seu universo",
+        "description": "Descubra as nossas coleções e escolha aquela que se parece com o seu casamento. Cada universo tem a sua própria direção artística, as suas animações e os seus detalhes, mantendo-se personalizável com os seus conteúdos."
       },
       {
         "number": "02",
-        "titleLine1": "Personalize",
-        "titleLine2": "o seu convite",
-        "description": "Adicione as suas fotos, textos e as informações essenciais — RSVP, programa, alojamento — tudo personalizável em poucos cliques."
+        "titleLine1": "Faça-o",
+        "titleLine2": "seu",
+        "description": "Nomes, fotos, textos, programa, locais, dress code, RSVP, alojamentos… Escolhe as informações que quer partilhar e personaliza o seu convite à sua imagem."
       },
       {
         "number": "03",
-        "titleLine1": "Anuncie",
-        "titleLine2": "o grande dia",
-        "description": "Envie o seu convite por SMS, WhatsApp ou email. Os seus convidados respondem em segundos, onde quer que estejam."
+        "titleLine1": "Partilhe",
+        "titleLine2": "o seu convite",
+        "description": "Quando o seu convite estiver pronto, só falta enviá-lo. WhatsApp, SMS, e-mail ou um simples link: os seus convidados descobrem o seu universo e encontram todas as informações do casamento no mesmo lugar."
       }
     ],
     "upcomingTitle": "Novas coleções",
     "upcomingSubtitle": "Em breve, mais temas"
-  },
-  "DemoSection": {
-    "eyebrow": "Voir en vrai",
-    "title": "Une invitation",
-    "titleAccent": "comme la vôtre",
-    "subtitle": "Ouvrez une vraie invitation et vivez l'expérience de vos invités.",
-    "ctaButton": "Voir la démo live",
-    "ctaSubtext": "Ouvrir une vraie invitation"
-  },
-  "ProductDemo": {
-    "eyebrow": "Découvrez l'expérience",
-    "titleLine1": "À quoi ressemble",
-    "titleLine2": "une invitation digitale ?",
-    "subtitle": "Une invitation interactive à envoyer en un lien. Élégante, personnalisable et instantanée.",
-    "createButton": "Créer mon invitation",
-    "step1Title": "L'enveloppe qui s'ouvre",
-    "step1Desc": "Une animation d'ouverture unique — enveloppe, rideaux, portes. Le premier frisson avant même de lire un mot.",
-    "step2Title": "L'invitation révélée",
-    "step2Desc": "Votre site dans votre thème personnalisé. Noms, date, lieu — tout votre style, en un regard.",
-    "step3Title": "Programme & infos",
-    "step3Desc": "Cérémonie, cocktail, dîner — lisible en un scroll, modifiable à tout moment.",
-    "step4Title": "Galerie & playlist",
-    "step4Desc": "Photos, vidéos, musique — vos invités vivent l'ambiance avant même d'arriver.",
-    "step5Title": "RSVP en ligne",
-    "step5Desc": "Présence, accompagnants, régimes — tout dans votre tableau de bord en temps réel.",
-    "demosEyebrow": "Exemples réels",
-    "demosTitleLine1": "Voyez le produit",
-    "demosTitleLine2": "en direct",
-    "demosSub": "Choisissez un thème et explorez une vraie invitation — comme la vivrait l'un de vos invités.",
-    "openFullscreen": "Ouvrir en plein écran",
-    "deviceMobile": "Mobile",
-    "deviceDesktop": "Desktop",
-    "animationLabel": "Animation",
-    "animationEnvelope": "Enveloppe",
-    "animationDoors": "Portes",
-    "animationCurtains": "Rideaux"
-  },
-  "PricingComparison": {
-    "eyebrow": "Pour 200 invités",
-    "title": "La différence",
-    "titleAccent": "qui compte",
-    "paperLabel": "Papier traditionnel",
-    "paperDetails": "Impression + timbres + enveloppes",
-    "studioLabel": "The Studio",
-    "studioDetails": "Tout inclus, illimité",
-    "studioFrom": "À partir de",
-    "savingBadge": "Économisez {amount}€",
-    "feature1": "Envoi instantané",
-    "feature2": "Modifiable",
-    "feature3": "RSVP intégré",
-    "feature4": "Zéro papier"
-  },
-  "ValueCards": {
-    "eyebrow": "Pourquoi The Studio",
-    "title": "Tout ce dont",
-    "titleAccent": "vous avez besoin",
-    "card1Title": "Design élégant",
-    "card1Desc": "Thèmes créés par des graphistes, pour un rendu haut de gamme.",
-    "card2Title": "Envoi instantané",
-    "card2Desc": "Partagez le lien en un clic, vos invités l'ouvrent immédiatement.",
-    "card3Title": "Écologique",
-    "card3Desc": "Zéro papier, zéro timbre, zéro gaspillage.",
-    "card4Title": "Modifiable",
-    "card4Desc": "Changez les infos à tout moment, même après l'envoi.",
-    "card5Title": "Sur-mesure",
-    "card5Desc": "Modules au choix, langues multiples, votre histoire racontée à votre façon."
-  },
-  "Customization": {
-    "eyebrow": "Aller plus loin",
-    "title": "Personnalisation",
-    "titleAccent": "sur-mesure",
-    "subtitle": "Chaque mariage est unique. Votre invitation aussi.",
-    "feature1Title": "Programme",
-    "feature1Desc": "Déroulé de la journée, horaires, lieux.",
-    "feature2Title": "Galerie photos",
-    "feature2Desc": "Partagez vos plus belles photos en avant-première.",
-    "feature3Title": "Liste de cadeaux",
-    "feature3Desc": "Intégrez votre liste directement dans l'invitation.",
-    "bespokeBadge": "100% sur-mesure",
-    "bespokeTitle": "Un projet unique ?",
-    "bespokeDesc": "Pour les mariages d'exception, nous proposons une création entièrement sur-mesure sur rendez-vous.",
-    "bespokeButton": "Nous contacter",
-    "bespokeEmail": "contact@thestudiopapeteriedigitale.com"
-  },
-  "Testimonials": {
-    "eyebrow": "Confiaram em nós",
-    "title": "O que dizem",
-    "items": [
-      {
-        "quote": "Os nossos convidados ficaram impressionados com a animação do envelope! Foi o detalhe que mudou tudo. O RSVP poupou-nos um tempo precioso.",
-        "names": "Juliette & Pierre",
-        "date": "Casados em setembro de 2024"
-      },
-      {
-        "quote": "O ambiente foi mágico, com luzes cintilantes e música envolvente. Cada momento foi imortalizado.",
-        "names": "Sophie & Antoine",
-        "date": "Casados em junho de 2023"
-      },
-      {
-        "quote": "Descobrimos paisagens deslumbrantes na nossa lua de mel. As memórias dessas aventuras ficarão gravadas para sempre.",
-        "names": "Emma & Lucas",
-        "date": "Casados em maio de 2022"
-      }
-    ]
   },
   "Catalogue": {
     "eyebrow": "Créez votre invitation",
@@ -243,7 +133,7 @@
       "Preços",
       "Sob medida",
       "Espaço dos noivos",
-      "Testemunhos",
+      "Dia do casamento",
       "FAQ"
     ],
     "login": "Iniciar sessão",
@@ -270,10 +160,10 @@
   "Preview": {
     "eyebrow": "Personalize ao vivo",
     "titleLine1": "Explore",
-    "titleAccent": "cada criação",
-    "subtitle": "Experimente cada tema e encontre o que conta a sua história.",
+    "titleAccent": "as nossas coleções",
+    "subtitle": "Cada casamento tem o seu universo. O seu também. Descubra as nossas criações, explore cada convite e escolha o design que se parece consigo.",
     "scrollHint": "Deslize",
-    "discoverButton": "Descobrir",
+    "discoverButton": "Descobrir os convites",
     "createButton": "Criar o meu convite",
     "prevThemesAriaLabel": "Temas anteriores",
     "nextThemesAriaLabel": "Próximos temas",
@@ -285,33 +175,33 @@
   },
   "WhyUs": {
     "eyebrow": "Por que escolher o The Studio?",
-    "titleLine1": "A elegância da papelaria,",
-    "titleAccent": "o poder do digital",
+    "titleLine1": "Tudo o que gostamos no convite.",
+    "titleAccent": "Sem as suas limitações.",
     "reasons": [
       {
-        "titleLine1": "Um design digno das melhores",
-        "titleLine2": "papelarias",
-        "description": "A elegância da papelaria, sem as limitações do papel."
+        "titleLine1": "Uma verdadeira direção",
+        "titleLine2": "artística",
+        "description": "Não é um simples site de casamento. Cada convite de casamento digital The Studio é pensado como um verdadeiro objeto de papelaria digital: tipografias, composições, animações e detalhes criam uma primeira impressão memorável."
       },
       {
         "titleLine1": "Zero logística",
         "titleLine2": "",
-        "description": "Sem impressão. Sem selos. Sem \"Já enviaste os 150 convites?\""
+        "description": "Não precisa de recolher todos os endereços postais, comprar 150 selos, preparar os envelopes ou passar pelos correios. O seu convite partilha-se simplesmente, sem toda a logística do papel."
       },
       {
         "titleLine1": "Sempre à mão",
         "titleLine2": "",
-        "description": "Chega de convites esquecidos numa gaveta. Os seus convidados encontram todas as informações com um clique."
+        "description": "Programa, local, horários, dress code, alojamentos, RSVP casamento… os seus convidados encontram todas as informações úteis diretamente no telemóvel, no mesmo lugar."
       },
       {
-        "titleLine1": "Ecológico",
+        "titleLine1": "Sem impressão",
         "titleLine2": "",
-        "description": "As árvores agradecem. Um convite sem impressão nem transporte."
+        "description": "Sem impressão, sem envelopes, sem selos e sem envio postal. Uma papelaria digital casamento pensada sem as limitações materiais do convite tradicional."
       },
       {
         "titleLine1": "Instantâneo",
         "titleLine2": "",
-        "description": "Enviado com um clique, recebido num segundo. Sem prazos de impressão, sem espera pelo correio."
+        "description": "WhatsApp, SMS ou e-mail: o seu convite de casamento online partilha-se em segundos e os seus convidados podem consultá-lo imediatamente."
       }
     ]
   },
@@ -330,39 +220,39 @@
   },
   "Atelier": {
     "eyebrow": "Confie a sua visão ao nosso Studio",
-    "titleLine1": "Um convite",
-    "titleLine2": "tão único",
-    "titleLine3": "quanto a sua história",
-    "subtitle": "Tem uma visão. Nós damos-lhe vida. O nosso Studio cria o seu convite digital com precisão, bom gosto e intenção para refletir perfeitamente o espírito do seu casamento.",
+    "titleLine1": "O seu casamento não se parece com nenhum outro.",
+    "titleLine2": "O seu convite",
+    "titleLine3": "também não.",
+    "subtitle": "Tem uma ideia precisa, uma cor, um local, um ambiente ou simplesmente uma vontade difícil de pôr em palavras? Imaginamos consigo um convite de casamento digital criado inteiramente em torno do seu universo.",
     "steps": [
       {
         "number": "1.",
-        "title": "O Atelier",
-        "description": "Uma videochamada ou chamada telefónica com o nosso diretor artístico para compreender a sua história, os seus desejos, o seu estilo e o que torna o seu casamento único."
+        "title": "O encontro",
+        "description": "Uma primeira conversa para descobrir o seu casamento, as suas inspirações e a experiência que quer criar para os seus convidados."
       },
       {
         "number": "2.",
-        "title": "O Esboço",
-        "description": "É criado um moodboard personalizado para alinharmos o ambiente, os códigos e a estética do seu convite."
+        "title": "A direção artística",
+        "description": "Definimos juntos as cores, as tipografias, as referências e a atmosfera do seu convite."
       },
       {
         "number": "3.",
-        "title": "O Design",
-        "description": "Chegou a hora da criação. O seu convite ganha vida com um design exclusivo, pensado ao mais ínfimo detalhe."
+        "title": "A criação",
+        "description": "O seu convite é desenhado e desenvolvido especialmente para si, com as suas próprias composições, interações e animações."
       },
       {
         "number": "4.",
-        "title": "O Lançamento",
-        "description": "O seu convite está pronto. Um link único, pronto a ser partilhado instantaneamente com os seus convidados."
+        "title": "A publicação",
+        "description": "Após a sua validação, o seu convite está pronto para ser partilhado com os seus convidados."
       }
     ],
-    "ctaButton": "Marcar uma reunião"
+    "ctaButton": "Falar do meu projeto"
   },
   "Dashboard": {
     "eyebrow": "O seu espaço de noivos",
-    "titleLine1": "Um único espaço.",
-    "titleAccent": "Todo o seu casamento.",
-    "subtitle": "Gira os seus convidados, as suas respostas RSVP, o seu convite: edite, ajuste e atualize o seu convite sempre que quiser, sem intermediários.",
+    "titleLine1": "O seu casamento.",
+    "titleAccent": "O seu espaço.",
+    "subtitle": "O seu convite não termina no momento em que o envia. No seu espaço de noivos, encontre as informações úteis para acompanhar os seus convidados e preparar o seu dia mais facilmente.",
     "demo": {
       "chapters": "Capítulos",
       "pause": "Pausa",
@@ -370,9 +260,34 @@
       "previous": "Anterior",
       "next": "Seguinte",
       "replay": "Ver novamente",
-      "note": "Números de um casamento de demonstração: 140 convidados, 65 famílias, 10 mesas.",
+      "note": "Dados apresentados a título de exemplo sobre um casamento de demonstração.",
       "mobileNote": "O back-office está otimizado para computador e tablet. Esta pré-visualização continua disponível aqui, em versão reduzida."
     }
+  },
+  "JourJ": {
+    "eyebrow": "No grande dia, para os seus convidados",
+    "titleLine1": "No grande dia, os seus convidados",
+    "titleAccent": "sabem para onde ir.",
+    "subtitle": "Um QR code único permite aos seus convidados acederem facilmente às informações úteis do seu casamento no grande dia.",
+    "qrCaption": "Um QR code único, próprio do seu casamento",
+    "features": [
+      {
+        "title": "Encontrar a sua mesa",
+        "description": "O convidado indica o seu nome e encontra a sua mesa em segundos."
+      },
+      {
+        "title": "Sem aplicação",
+        "description": "Basta uma simples leitura a partir do telemóvel."
+      },
+      {
+        "title": "Informações sempre acessíveis",
+        "description": "Menu, programa e informações práticas permanecem acessíveis no mesmo espaço."
+      },
+      {
+        "title": "As memórias dos seus convidados",
+        "description": "A partir do mesmo QR code, os seus convidados podem partilhar as suas fotos e vídeos do casamento. Depois encontra todas essas memórias diretamente no seu espaço."
+      }
+    ]
   },
   "Faq": {
     "eyebrow": "Alguma pergunta?",
@@ -380,30 +295,34 @@
     "titleAccent": "Frequentes",
     "items": [
       {
-        "question": "Posso editar o meu site depois de enviar os convites?",
-        "answer": "Com certeza! Essa é a magia do digital. Pode alterar os horários, adicionar informações de alojamento ou mudar uma foto a qualquer momento. Os seus convidados verão sempre a versão mais atual."
+        "question": "Posso alterar o meu convite depois de o enviar?",
+        "answer": "Sim. Se uma informação mudar antes do seu casamento, o seu convite de casamento digital pode ser atualizado sem ter de enviar um novo convite aos seus convidados."
       },
       {
-        "question": "Tenho de pagar uma subscrição mensal?",
-        "answer": "Não, nunca. O pagamento é único. O seu site permanece online durante 12 meses após o casamento, dando-lhe tempo suficiente para partilhar fotos recordação."
+        "question": "Existe uma subscrição?",
+        "answer": "Não. O seu convite The Studio é um pagamento único. Não é necessária nenhuma subscrição mensal."
       },
       {
-        "question": "Como confirmam os meus convidados a presença (RSVP)?",
-        "answer": "Um formulário simples e elegante está integrado no seu site. Recebe as respostas instantaneamente no seu painel (e por email, se preferir). Pode exportar a lista de convidados com um clique."
+        "question": "Como funciona o RSVP?",
+        "answer": "Os seus convidados respondem diretamente a partir do seu convite. As respostas são depois reunidas no seu espaço de noivos."
       },
       {
-        "question": "Posso ter um domínio personalizado?",
-        "answer": "Sim! Com a opção \"Domínio Personalizado\" (+65 €), ou incluída no pacote Premium, pode ter um endereço como www.paula-e-marcos.com."
+        "question": "Durante quanto tempo o meu convite fica acessível?",
+        "answer": "A duração da publicação é-lhe indicada no momento da encomenda."
       },
       {
-        "question": "Oferecem convites em papel a condizer?",
-        "answer": "Por enquanto estamos focados na experiência digital, mas podemos fornecer-lhe os ficheiros PDF em alta resolução do seu design para que os imprima na sua gráfica local."
+        "question": "Posso ter o meu próprio nome de domínio?",
+        "answer": "Um nome de domínio personalizado pode ser proposto como opção, de acordo com o seu projeto."
+      },
+      {
+        "question": "Propõem uma versão em papel?",
+        "answer": "A The Studio é especializada em papelaria digital. A nossa prioridade é criar uma experiência pensada para o telemóvel e a web."
       }
     ]
   },
   "FinalCta": {
-    "titleLine1": "O local já está escolhido, o catering também.",
-    "titleAccent": "Só falta o convite",
+    "titleLine1": "O local está escolhido. O catering também.",
+    "titleAccent": "Só falta anunciar a novidade.",
     "createButton": "Criar o meu convite"
   },
   "ScrollToTop": {
@@ -421,7 +340,7 @@
       "Preços",
       "Sob medida",
       "Espaço dos noivos",
-      "Testemunhos",
+      "Dia do casamento",
       "FAQ"
     ],
     "mariesLinks": [

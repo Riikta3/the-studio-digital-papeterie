@@ -1,4 +1,10 @@
 {
+  "Metadata": {
+    "title": "Faire-part de mariage digital | The Studio Digital Papeterie",
+    "ogTitle": "The Studio — Le faire-part de mariage digital, réinventé",
+    "description": "Créez votre faire-part de mariage digital : une invitation mariage digitale élégante, avec RSVP mariage intégré et toutes les informations de votre mariage au même endroit. Paiement unique, sans abonnement.",
+    "keywords": "faire-part de mariage digital, invitation mariage digitale, faire-part mariage en ligne, RSVP mariage, invitation de mariage personnalisée, papeterie digitale mariage"
+  },
   "Navbar": {
     "product": "Produit",
     "features": "Fonctionnalités",
@@ -7,66 +13,31 @@
     "demo": "Démo",
     "pricing": "Tarifs",
     "faq": "FAQ",
-    "testimonials": "Témoignages",
+    "jourj": "Jour J",
     "login": "Espace Mariés",
     "createButton": "Créer mon invitation"
   },
   "Hero": {
-    "eyebrow": "Faire-part digital",
+    "eyebrow": "Faire-part de mariage digital",
     "titleLine1": "Le faire-part",
     "titleLine2": "réinventé",
-    "subtitle": "Pensé pour les mariages d'aujourd'hui",
+    "subtitle": "Un faire-part pensé comme une véritable expérience.",
     "menuAriaLabel": "Ouvrir le menu",
-    "discoverButton": "Découvrir",
-    "createButton": "Créer le mien",
-    "themeCta": "Tester le thème {name}"
-  },
-  "DemoSection": {
-    "eyebrow": "Voir en vrai",
-    "title": "Une invitation",
-    "titleAccent": "comme la vôtre",
-    "subtitle": "Ouvrez une vraie invitation et vivez l'expérience de vos invités.",
-    "ctaButton": "Voir la démo live",
-    "ctaSubtext": "Ouvrir une vraie invitation"
-  },
-  "ProductDemo": {
-    "eyebrow": "Découvrez l'expérience",
-    "titleLine1": "À quoi ressemble",
-    "titleLine2": "une invitation digitale ?",
-    "subtitle": "Une invitation interactive à envoyer en un lien. Élégante, personnalisable et instantanée.",
+    "discoverButton": "Découvrir les collections",
     "createButton": "Créer mon invitation",
-    "step1Title": "L'enveloppe qui s'ouvre",
-    "step1Desc": "Une animation d'ouverture unique — enveloppe, rideaux, portes. Le premier frisson avant même de lire un mot.",
-    "step2Title": "L'invitation révélée",
-    "step2Desc": "Votre site dans votre thème personnalisé. Noms, date, lieu — tout votre style, en un regard.",
-    "step3Title": "Programme & infos",
-    "step3Desc": "Cérémonie, cocktail, dîner — lisible en un scroll, modifiable à tout moment.",
-    "step4Title": "Galerie & playlist",
-    "step4Desc": "Photos, vidéos, musique — vos invités vivent l'ambiance avant même d'arriver.",
-    "step5Title": "RSVP en ligne",
-    "step5Desc": "Présence, accompagnants, régimes — tout dans votre tableau de bord en temps réel.",
-    "demosEyebrow": "Votre faire-part digital : la démo en un clic",
-    "demosTitleLine1": "Découvrez la papeterie de demain",
-    "demosTitleLine2": "avec The Studio.",
-    "demosSub": "Choisissez un thème et parcourez une véritable invitation en ligne. Voyez comment l'élégance du papier se transforme en une expérience numérique unique pour vos proches.",
-    "openFullscreen": "Ouvrir en plein écran",
-    "deviceMobile": "Mobile",
-    "deviceDesktop": "Desktop",
-    "animationLabel": "Animation",
-    "animationEnvelope": "Enveloppe",
-    "animationDoors": "Portes",
-    "animationCurtains": "Rideaux"
+    "themeCta": "Tester le thème {name}"
   },
   "HowItWorks": {
     "eyebrow": "Simple, rapide et 100% personnalisé",
-    "titleLine1": "Votre faire-part",
-    "titleAccent": "en 3 étapes",
+    "titleLine1": "Votre faire-part,",
+    "titleAccent": "simplement.",
     "universeMockLabel": "Sélectionner un univers",
     "personalizeMockLabel": "Personnalisez votre invitation",
     "personalizeMockRows": [
-      "Livre d'or",
-      "Planning",
-      "Menu"
+      "Programme",
+      "RSVP",
+      "Hébergements",
+      "Dress code"
     ],
     "shareMockLabel": "Partager votre invitation",
     "shareMockActions": [
@@ -80,90 +51,29 @@
         "number": "01",
         "titleLine1": "Choisissez",
         "titleLine2": "votre univers",
-        "description": "Sélectionnez un design qui vous ressemble. Minimaliste, romantique, audacieux, chaque univers est pensé pour raconter votre histoire."
+        "description": "Découvrez nos collections et choisissez celle qui ressemble à votre mariage. Chaque univers possède sa propre direction artistique, ses animations et ses détails, tout en restant personnalisable avec vos contenus."
       },
       {
         "number": "02",
-        "titleLine1": "Personnalisez",
-        "titleLine2": "votre invitation",
-        "description": "Ajoutez vos photos, vos textes et les informations essentielles, RSVP, programme, hébergements… tout se personnalise en quelques clics."
+        "titleLine1": "Faites-le",
+        "titleLine2": "vôtre",
+        "description": "Prénoms, photos, textes, programme, lieux, dress code, RSVP, hébergements… Vous choisissez les informations que vous souhaitez partager et personnalisez votre invitation à votre image."
       },
       {
         "number": "03",
-        "titleLine1": "Annoncez",
-        "titleLine2": "le grand jour",
-        "description": "Envoyez votre invitation par SMS, Whatsapp ou e-mail. Vos invités répondent en quelques secondes, où qu'ils soient."
+        "titleLine1": "Partagez",
+        "titleLine2": "votre invitation",
+        "description": "Une fois votre invitation prête, il ne reste plus qu'à l'envoyer. WhatsApp, SMS, e-mail ou simple lien : vos invités découvrent votre univers et retrouvent toutes les informations de votre mariage au même endroit."
       }
     ],
     "upcomingTitle": "Nouvelles collections",
     "upcomingSubtitle": "D'autres thèmes arrivent bientôt"
   },
-  "Features": {
-    "titleLine1": "L'élégance du papier,",
-    "titleLine2": "la magie du digital",
-    "subtitle": "Pourquoi choisir entre beauté et praticité ? The Studio Papeterie Digital vous offre le meilleur des deux mondes.",
-    "ecoTitle": "Écologique & Responsable",
-    "ecoDesc": "Économisez des centaines d'enveloppes et de timbres. Un geste élégant pour la planète, sans compromis sur le style.",
-    "editTitle": "Modifiable à l'infini",
-    "editDesc": "Une erreur de date ? Un changement de lieu ? Mettez à jour votre site instantanément, même après l'envoi.",
-    "rsvpTitle": "Gestion RSVP Simplifiée",
-    "rsvpDesc": "Fini les cartons réponses perdus. Suivez les présences, les régimes alimentaires et les accompagnants en temps réel.",
-    "langTitle": "Multi-langues International",
-    "langDesc": "Accueillez vos invités du monde entier. Votre site est disponible en Français, Anglais, Espagnol, Italien, Allemand, Portugais, Arabe, Chinois et Japonais."
-  },
-  "PricingComparison": {
-    "eyebrow": "Pour 150 invités",
-    "title": "La différence",
-    "titleAccent": "qui compte",
-    "paperLabel": "Papier traditionnel",
-    "paperDetails": "Impression + timbres + enveloppes",
-    "studioLabel": "The Studio",
-    "studioDetails": "Tout inclus, illimité",
-    "studioFrom": "À partir de",
-    "savingBadge": "Économisez {amount}€",
-    "feature1": "Envoi instantané",
-    "feature2": "Modifiable",
-    "feature3": "RSVP intégré",
-    "feature4": "Zéro papier"
-  },
-  "ValueCards": {
-    "eyebrow": "Pourquoi choisir l'invitation digitale avec The Studio ?",
-    "title": "L'élégance de la papeterie, la puissance du numérique",
-    "titleAccent": "",
-    "card1Title": "Design Haut de Gamme",
-    "card1Desc": "Fini le look \"email classique\". Nos thèmes sont conçus par des graphistes experts pour offrir un rendu esthétique digne de la papeterie de luxe.",
-    "card2Title": "Disponibilité Immédiate",
-    "card2Desc": "Pas de délais d'impression ni de livraison postale. Votre faire-part de mariage digital est prêt et accessible dès la validation de votre commande.",
-    "card3Title": "Partage Simplifié",
-    "card3Desc": "Diffusez votre bonheur en un clic. Envoyez votre lien unique via WhatsApp, SMS ou réseaux sociaux. Vos invités accèdent à l'invitation sans téléchargement.",
-    "card4Title": "Éco-responsable & Durable",
-    "card4Desc": "Optez pour un mariage zéro déchet. En choisissant le numérique, vous supprimez le papier, les timbres et l'empreinte carbone liée au transport.",
-    "card5Title": "Création 100% Sur-Mesure",
-    "card5Desc": "Collaborez en direct avec l'une de nos graphistes dédiées. Confiez-nous votre vision pour une invitation digitale unique au monde. Nous créons pour vous un design exclusif, une mise en page personnalisée et des modules adaptés à votre histoire.",
-    "card6Title": "Modifiable",
-    "card6Desc": "Une erreur de frappe ? Un changement d'horaire ? Modifiez les informations de votre invitation en ligne en temps réel, même après l'envoi."
-  },
-  "Customization": {
-    "eyebrow": "Confiez votre vision à notre Studio Créatif",
-    "title": "Un accompagnement privilégié",
-    "titleAccent": "pour un mariage unique",
-    "subtitle": "Allez plus loin dans la personnalisation en collaborant main dans la main avec l'une de nos graphistes. Nous créons pour vous une invitation digitale exclusive, conçue de A à Z pour refléter parfaitement l'esprit de votre union.",
-    "step1Title": "L'Atelier",
-    "step1Desc": "Un atelier téléphone ou visio avec Victoria pour comprendre l'histoire que vous voulez raconter.",
-    "step2Title": "L'Esquisse",
-    "step2Desc": "L’esquisse de votre projet : Création d’un moodboard pour aligner notre vision créative sur vos attentes.",
-    "step3Title": "Le Design",
-    "step3Desc": "Le design de votre invitation : Création graphique complète de votre faire-part interactif, de A à Z.",
-    "step4Title": "Le Lancement",
-    "step4Desc": "Le grand lancement : Livraison de votre lien final pour une diffusion immédiate à tous vos proches.",
-    "bespokeButton": "Prendre rendez-vous",
-    "bespokeEmail": "contact@thestudiopapeteriedigitale.com"
-  },
   "Dashboard": {
     "eyebrow": "Votre espace mariés",
-    "titleLine1": "Un seul espace.",
-    "titleAccent": "Tout votre mariage.",
-    "subtitle": "Gérez vos invités, vos réponses RSVP, votre invitation : modifiez, ajustez, mettez à jour votre faire-part quand vous voulez, sans intermédiaire.",
+    "titleLine1": "Votre mariage.",
+    "titleAccent": "Votre espace.",
+    "subtitle": "Votre invitation ne s'arrête pas au moment où vous l'envoyez. Depuis votre espace mariés, retrouvez les informations utiles pour suivre vos invités et préparer votre journée plus simplement.",
     "demo": {
       "chapters": "Chapitres",
       "pause": "Pause",
@@ -171,28 +81,32 @@
       "previous": "Précédent",
       "next": "Suivant",
       "replay": "Revoir",
-      "note": "Chiffres d'un mariage de démonstration : 140 invités, 65 foyers, 10 tables.",
+      "note": "Données présentées à titre d'exemple sur un mariage de démonstration.",
       "mobileNote": "Le back-office est optimisé pour ordinateur et tablette. Cet aperçu reste consultable ici, en version réduite."
     }
   },
-  "Testimonials": {
-    "eyebrow": "Ils nous ont fait confiance",
-    "title": "Ce qu'ils en pensent",
-    "items": [
+  "JourJ": {
+    "eyebrow": "Le Jour J, côté invités",
+    "titleLine1": "Le Jour J, vos invités",
+    "titleAccent": "savent où aller.",
+    "subtitle": "Un QR code unique permet à vos invités d'accéder simplement aux informations utiles de votre mariage le Jour J.",
+    "qrCaption": "Un QR code unique, propre à votre mariage",
+    "features": [
       {
-        "quote": "Nos invités ont été bluffés par l'animation de l'enveloppe ! C'est le détail qui a tout changé. Les RSVP nous a sauvé un temps précieux.",
-        "names": "Juliette & Pierre",
-        "date": "Mariés en Septembre 2024"
+        "title": "Trouver sa table",
+        "description": "L'invité renseigne son nom et retrouve sa table en quelques secondes."
       },
       {
-        "quote": "L'ambiance était magique, avec des lumières scintillantes et une musique envoûtante. Chaque moment a été immortalisé.",
-        "names": "Sophie & Antoine",
-        "date": "Mariés en Juin 2023"
+        "title": "Sans application",
+        "description": "Un simple scan depuis son téléphone suffit."
       },
       {
-        "quote": "Nous avons découvert des paysages époustouflants lors de notre lune de miel. Les souvenirs de ces aventures resteront gravés.",
-        "names": "Emma & Lucas",
-        "date": "Mariés en Mai 2022"
+        "title": "Des informations toujours accessibles",
+        "description": "Menu, programme et informations pratiques restent accessibles depuis le même espace."
+      },
+      {
+        "title": "Les souvenirs de vos invités",
+        "description": "Depuis le même QR code, vos invités peuvent partager leurs photos et vidéos du mariage. Les mariés retrouvent ensuite tous ces souvenirs directement depuis leur espace."
       }
     ]
   },
@@ -216,7 +130,7 @@
       "Tarifs",
       "Sur-mesure",
       "Espace mariés",
-      "Témoignages",
+      "Jour J",
       "FAQ"
     ],
     "login": "Se connecter",
@@ -243,10 +157,10 @@
   "Preview": {
     "eyebrow": "Configurez en direct",
     "titleLine1": "Explorez",
-    "titleAccent": "chaque création",
-    "subtitle": "Essayez chaque thème et trouvez celui qui raconte votre histoire.",
+    "titleAccent": "nos collections",
+    "subtitle": "Chaque mariage a son univers. Le vôtre aussi. Découvrez nos créations, explorez chaque invitation et choisissez le design qui vous ressemble.",
     "scrollHint": "Scroll",
-    "discoverButton": "Découvrir",
+    "discoverButton": "Découvrir les invitations",
     "createButton": "Créer mon invitation",
     "prevThemesAriaLabel": "Thèmes précédents",
     "nextThemesAriaLabel": "Thèmes suivants",
@@ -258,33 +172,33 @@
   },
   "WhyUs": {
     "eyebrow": "Pourquoi choisir The Studio ?",
-    "titleLine1": "L'élégance de la papeterie,",
-    "titleAccent": "la puissance du numérique",
+    "titleLine1": "Tout ce que l'on aime du faire-part.",
+    "titleAccent": "Sans ses contraintes.",
     "reasons": [
       {
-        "titleLine1": "Design digne des plus",
-        "titleLine2": "belles papeteries",
-        "description": "L'élégance de la papeterie, sans les contraintes du papier."
+        "titleLine1": "Une vraie direction",
+        "titleLine2": "artistique",
+        "description": "Pas un simple site de mariage. Chaque faire-part de mariage digital The Studio est pensé comme un véritable objet de papeterie digitale : typographies, compositions, animations et détails créent une première impression mémorable."
       },
       {
         "titleLine1": "Zéro logistique",
         "titleLine2": "",
-        "description": "Pas d'impression. Pas de timbres. Pas de « Tu as pensé à poster les 150 faire-part ? »"
+        "description": "Pas besoin de récolter toutes les adresses postales, d'acheter 150 timbres, de préparer les enveloppes ou de passer par La Poste. Votre invitation se partage simplement, sans toute la logistique du papier."
       },
       {
-        "titleLine1": "Toujours à portée de main",
-        "titleLine2": "",
-        "description": "Fini les faire-part dans un tiroir. Vos invités retrouvent toutes les informations en un clic."
+        "titleLine1": "Toujours à portée",
+        "titleLine2": "de main",
+        "description": "Programme, lieu, horaires, dress code, hébergements, RSVP mariage… vos invités retrouvent toutes les informations utiles directement depuis leur téléphone, au même endroit."
       },
       {
-        "titleLine1": "Écologique",
+        "titleLine1": "Sans impression",
         "titleLine2": "",
-        "description": "Les arbres vous disent merci. Une invitation sans impression ni transport."
+        "description": "Pas d'impression, pas d'enveloppes, pas de timbres et pas d'acheminement postal. Une papeterie digitale mariage pensée sans les contraintes matérielles du faire-part traditionnel."
       },
       {
         "titleLine1": "Instantané",
         "titleLine2": "",
-        "description": "Envoyé en un clic, reçu dans la seconde. Pas de délai d'impression, pas d'attente postale."
+        "description": "WhatsApp, SMS ou e-mail : votre faire-part mariage en ligne se partage en quelques secondes et vos invités peuvent le consulter immédiatement."
       }
     ]
   },
@@ -303,33 +217,33 @@
   },
   "Atelier": {
     "eyebrow": "Confiez votre vision à notre Studio",
-    "titleLine1": "Un faire-part",
-    "titleLine2": "aussi unique",
-    "titleLine3": "que votre histoire",
-    "subtitle": "Vous avez une vision. Nous lui donnons vie. Notre Studio conçoit votre invitation digitale avec précision, goût et intention pour refléter l'essence de votre mariage.",
+    "titleLine1": "Votre mariage ne ressemble",
+    "titleLine2": "à aucun autre.",
+    "titleLine3": "Votre invitation non plus.",
+    "subtitle": "Vous avez une idée précise, une couleur, un lieu, une ambiance ou simplement une envie difficile à mettre en mots ? Nous imaginons avec vous un faire-part de mariage digital entièrement créé autour de votre univers.",
     "steps": [
       {
         "number": "1.",
-        "title": "L'Atelier",
-        "description": "Un échange visio ou téléphonique avec notre directeur artistique pour comprendre votre histoire, vos envies, votre univers et ce qui rend votre mariage unique."
+        "title": "La rencontre",
+        "description": "Un premier échange pour découvrir votre mariage, vos inspirations et l'expérience que vous souhaitez créer pour vos invités."
       },
       {
         "number": "2.",
-        "title": "L'Esquisse",
-        "description": "Un moodboard sur-mesure est créé pour valider ensemble l'ambiance, les codes et l'esthétique de votre invitation."
+        "title": "La direction artistique",
+        "description": "Nous définissons ensemble les couleurs, les typographies, les références et l'atmosphère de votre invitation."
       },
       {
         "number": "3.",
-        "title": "Le Design",
-        "description": "Place à la création. Votre faire-part prend vie dans un design exclusif, pensé dans les moindres détails."
+        "title": "La création",
+        "description": "Votre invitation est dessinée et développée spécialement pour vous, avec ses propres compositions, interactions et animations."
       },
       {
         "number": "4.",
-        "title": "Le Lancement",
-        "description": "Votre invitation est prête. Un lien unique, prêt à être partagé instantanément avec vos invités."
+        "title": "La mise en ligne",
+        "description": "Après validation, votre invitation est prête à être partagée avec vos invités."
       }
     ],
-    "ctaButton": "Prendre rendez-vous"
+    "ctaButton": "Parler de mon projet"
   },
   "Faq": {
     "eyebrow": "Une question ?",
@@ -337,31 +251,35 @@
     "titleAccent": "Fréquentes",
     "items": [
       {
-        "question": "Puis-je modifier mon site après l'envoi des invitations ?",
-        "answer": "Absolument ! C'est la magie du digital. Vous pouvez modifier les horaires, ajouter des infos sur l'hébergement ou changer une photo à tout moment. Vos invités verront toujours la version à jour."
+        "question": "Puis-je modifier mon invitation après l'avoir envoyée ?",
+        "answer": "Oui. Si une information évolue avant votre mariage, votre invitation de mariage digitale peut être mise à jour sans avoir à renvoyer un nouveau faire-part à vos invités."
       },
       {
-        "question": "Est-ce que je dois payer un abonnement mensuel ?",
-        "answer": "Non, jamais. Le paiement est unique. Votre site reste en ligne pendant 12 mois après votre mariage, ce qui vous laisse le temps de partager les photos souvenirs."
+        "question": "Y a-t-il un abonnement ?",
+        "answer": "Non. Votre invitation The Studio fait l'objet d'un paiement unique. Aucun abonnement mensuel n'est nécessaire."
       },
       {
-        "question": "Comment mes invités confirment-ils leur présence (RSVP) ?",
-        "answer": "Un formulaire simple et élégant est intégré à votre site. Vous recevez les réponses instantanément dans votre tableau de bord (et par email si vous le souhaitez). Vous pouvez exporter la liste des invités en un clic."
+        "question": "Comment fonctionne le RSVP ?",
+        "answer": "Vos invités répondent directement depuis votre invitation. Leurs réponses sont ensuite regroupées dans votre espace mariés."
       },
       {
-        "question": "Puis-je avoir un nom de domaine personnalisé ?",
-        "answer": "Oui ! Avec l'option « Custom Domain » (+65€) ou incluse dans le pack Premium, vous pouvez avoir une adresse comme www.paula-et-marcos.com."
+        "question": "Combien de temps mon invitation reste-t-elle accessible ?",
+        "answer": "La durée de mise en ligne vous est précisée lors de votre commande."
       },
       {
-        "question": "Proposez-vous des faire-part papier assortis ?",
-        "answer": "Nous nous concentrons sur l'expérience digitale pour l'instant, mais nous pouvons vous fournir les fichiers PDF haute définition de votre design pour que vous puissiez les imprimer chez votre imprimeur local."
+        "question": "Puis-je avoir mon propre nom de domaine ?",
+        "answer": "Un nom de domaine personnalisé peut être proposé en option selon votre projet."
+      },
+      {
+        "question": "Proposez-vous une version papier ?",
+        "answer": "The Studio est spécialisé dans la papeterie digitale. Notre priorité est de créer une expérience pensée pour le téléphone et le web."
       }
     ]
   },
   "FinalCta": {
-    "titleLine1": "Le lieu est choisi, le traiteur aussi.",
-    "titleAccent": "Il reste le faire-part",
-    "createButton": "Créer mon invitation"
+    "titleLine1": "Le lieu est choisi. Le traiteur aussi.",
+    "titleAccent": "Il ne reste plus qu'à annoncer la nouvelle.",
+    "createButton": "Créer mon faire-part"
   },
   "MobileMenu": {
     "ariaLabel": "Menu de navigation",
@@ -375,7 +293,7 @@
       "Tarifs",
       "Sur-mesure",
       "Espace mariés",
-      "Témoignages",
+      "Jour J",
       "FAQ"
     ],
     "mariesLinks": [

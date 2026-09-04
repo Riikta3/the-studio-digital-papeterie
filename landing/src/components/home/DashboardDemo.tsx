@@ -48,8 +48,8 @@ const CHAPTERS: Chapter[] = [
     ms: 2000,
     url: "dashboard.the-studio-digital-papeterie.fr/fr",
     rail: "Accueil",
-    title: "Tout le mariage sur un seul écran",
-    body: "Dès la connexion, les mariés voient où ils en sont : le compte à rebours, les réponses reçues, les invités qui restent à placer. Aucun chiffre n'est saisi à la main.",
+    title: "Une vision claire, au même endroit.",
+    body: "Réponses reçues, invités à placer, préparation du Jour J… votre tableau de bord vous permet de retrouver rapidement les informations dont vous avez besoin, sans multiplier les fichiers et les outils.",
   },
   {
     panel: "guests",

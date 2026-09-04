@@ -1,4 +1,10 @@
 {
+  "Metadata": {
+    "title": "Digital Wedding Invitation | The Studio Digital Papeterie",
+    "ogTitle": "The Studio — The digital wedding invitation, reinvented",
+    "description": "Create your digital wedding invitation: an elegant online wedding invitation with built-in wedding RSVP and all your wedding details in one place. One-time payment, no subscription.",
+    "keywords": "digital wedding invitation, online wedding invitation, wedding RSVP, personalised wedding invitation, digital wedding stationery, wedding website"
+  },
   "Navbar": {
     "product": "Product",
     "features": "Features",
@@ -7,7 +13,7 @@
     "demo": "Demo",
     "pricing": "Pricing",
     "faq": "FAQ",
-    "testimonials": "Testimonials",
+    "jourj": "Wedding day",
     "createButton": "Create my invitation",
     "login": "Couple's Area"
   },
@@ -15,58 +21,23 @@
     "eyebrow": "Digital wedding invitation",
     "titleLine1": "The wedding invitation",
     "titleLine2": "reinvented",
-    "subtitle": "Designed for today's weddings",
+    "subtitle": "An invitation designed as a true experience.",
     "menuAriaLabel": "Open menu",
-    "discoverButton": "Discover",
-    "createButton": "Create mine",
-    "themeCta": "Try the {name} theme"
-  },
-  "DemoSection": {
-    "eyebrow": "See it real",
-    "title": "An invitation",
-    "titleAccent": "like yours",
-    "subtitle": "Open a real invitation and experience what your guests will experience.",
-    "ctaButton": "See live demo",
-    "ctaSubtext": "Open a real invitation"
-  },
-  "ProductDemo": {
-    "eyebrow": "Discover the experience",
-    "titleLine1": "What does a digital",
-    "titleLine2": "invitation look like?",
-    "subtitle": "An interactive invitation sent in a single link. Elegant, customizable and instant.",
+    "discoverButton": "Discover the collections",
     "createButton": "Create my invitation",
-    "step1Title": "The envelope opens",
-    "step1Desc": "A unique opening animation — envelope, curtains, doors. The first thrill before reading a single word.",
-    "step2Title": "The invitation revealed",
-    "step2Desc": "Your site in your custom theme. Names, date, venue — your entire style at a glance.",
-    "step3Title": "Schedule & info",
-    "step3Desc": "Ceremony, cocktail, dinner — readable in one scroll, editable at any time.",
-    "step4Title": "Gallery & playlist",
-    "step4Desc": "Photos, videos, music — your guests feel the atmosphere before they even arrive.",
-    "step5Title": "Online RSVP",
-    "step5Desc": "Attendance, plus-ones, dietary needs — all in your dashboard in real time.",
-    "demosEyebrow": "Real examples",
-    "demosTitleLine1": "See the product",
-    "demosTitleLine2": "live",
-    "demosSub": "Choose a theme and explore a real invitation — exactly as your guests would experience it.",
-    "openFullscreen": "Open full screen",
-    "deviceMobile": "Mobile",
-    "deviceDesktop": "Desktop",
-    "animationLabel": "Animation",
-    "animationEnvelope": "Enveloppe",
-    "animationDoors": "Portes",
-    "animationCurtains": "Rideaux"
+    "themeCta": "Try the {name} theme"
   },
   "HowItWorks": {
     "eyebrow": "Simple, fast, and 100% personalized",
-    "titleLine1": "Your invitation",
-    "titleAccent": "in 3 steps",
+    "titleLine1": "Your invitation,",
+    "titleAccent": "made simple.",
     "universeMockLabel": "Select a style",
     "personalizeMockLabel": "Personalize your invitation",
     "personalizeMockRows": [
-      "Guestbook",
       "Schedule",
-      "Menu"
+      "RSVP",
+      "Accommodation",
+      "Dress code"
     ],
     "shareMockLabel": "Share your invitation",
     "shareMockActions": [
@@ -79,20 +50,20 @@
       {
         "number": "01",
         "titleLine1": "Choose",
-        "titleLine2": "your style",
-        "description": "Pick a design that feels like you. Minimalist, romantic, bold — every style is crafted to tell your story."
+        "titleLine2": "your world",
+        "description": "Explore our collections and pick the one that looks like your wedding. Each world has its own art direction, animations and details, while staying fully customisable with your content."
       },
       {
         "number": "02",
-        "titleLine1": "Personalize",
-        "titleLine2": "your invitation",
-        "description": "Add your photos, your texts, and the essential details — RSVP, schedule, accommodations — all customized in a few clicks."
+        "titleLine1": "Make it",
+        "titleLine2": "yours",
+        "description": "First names, photos, texts, schedule, venues, dress code, RSVP, accommodation… You choose the information you want to share and personalise your invitation to reflect who you are."
       },
       {
         "number": "03",
-        "titleLine1": "Announce",
-        "titleLine2": "the big day",
-        "description": "Send your invitation by SMS, WhatsApp, or email. Your guests respond in seconds, wherever they are."
+        "titleLine1": "Share",
+        "titleLine2": "your invitation",
+        "description": "Once your invitation is ready, all that's left is to send it. WhatsApp, SMS, email or a simple link: your guests discover your world and find every detail of your wedding in one place."
       }
     ],
     "upcomingTitle": "New collections",
@@ -130,89 +101,6 @@
     "ctaLive": "live demo",
     "phoneCaption": "Aperçu en live selon votre sélection"
   },
-  "Features": {
-    "titleLine1": "The elegance of paper,",
-    "titleLine2": "the magic of digital",
-    "subtitle": "Why choose between beauty and practicality? The Studio Papeterie Digital offers you the best of both worlds.",
-    "ecoTitle": "Eco-friendly & Responsible",
-    "ecoDesc": "Save hundreds of envelopes and stamps. An elegant gesture for the planet, without compromising on style.",
-    "editTitle": "Infinitely Editable",
-    "editDesc": "A date error? A change of venue? Update your site instantly, even after sending.",
-    "rsvpTitle": "Simplified RSVP Management",
-    "rsvpDesc": "No more lost reply cards. Track attendance, dietary requirements, and plus-ones in real-time.",
-    "langTitle": "International Multi-language",
-    "langDesc": "Welcome guests from all over the world. Your site is available in French, English, Spanish, Italian, German, Portuguese, Arabic, Chinese, and Japanese."
-  },
-  "PricingComparison": {
-    "eyebrow": "For 150 guests",
-    "title": "The difference",
-    "titleAccent": "that matters",
-    "paperLabel": "Traditional paper",
-    "paperDetails": "Printing + stamps + envelopes",
-    "studioLabel": "The Studio",
-    "studioDetails": "All included, unlimited",
-    "studioFrom": "From",
-    "savingBadge": "Save {amount}€",
-    "feature1": "Instant sending",
-    "feature2": "Editable",
-    "feature3": "Built-in RSVP",
-    "feature4": "Zero paper"
-  },
-  "ValueCards": {
-    "eyebrow": "Why The Studio",
-    "title": "Everything you",
-    "titleAccent": "need",
-    "card1Title": "Elegant design",
-    "card1Desc": "Themes created by designers, for a premium look.",
-    "card2Title": "Instant sending",
-    "card2Desc": "Share the link in one click, your guests open it immediately.",
-    "card3Title": "Eco-friendly",
-    "card3Desc": "Zero paper, zero stamp, zero waste.",
-    "card4Title": "Editable",
-    "card4Desc": "Change info anytime, even after sending.",
-    "card5Title": "Bespoke",
-    "card5Desc": "Modules of your choice, multiple languages, your story told your way.",
-    "card6Title": "Instant Delivery",
-    "card6Desc": "No more printing or shipping delays. Your digital invitation is ready to use and accessible instantly after your payment."
-  },
-  "Customization": {
-    "eyebrow": "Go further",
-    "title": "Customization",
-    "titleAccent": "bespoke",
-    "subtitle": "Every wedding is unique. Your invitation too.",
-    "feature1Title": "Schedule",
-    "feature1Desc": "Day timeline, times, venues.",
-    "feature2Title": "Photo gallery",
-    "feature2Desc": "Share your best photos in preview.",
-    "feature3Title": "Gift list",
-    "feature3Desc": "Integrate your wishlist directly in the invitation.",
-    "bespokeBadge": "100% bespoke",
-    "bespokeTitle": "A unique project?",
-    "bespokeDesc": "For exceptional weddings, we offer fully custom creation by appointment.",
-    "bespokeButton": "Contact us",
-    "bespokeEmail": "contact@thestudiopapeteriedigitale.com"
-  },
-  "Testimonials": {
-    "eyebrow": "They trusted us",
-    "title": "What they think",
-    "items": [
-      {
-        "quote": "Our guests were blown away by the envelope animation! It's the detail that changed everything. The RSVP feature saved us so much time.",
-        "names": "Juliette & Pierre",
-        "date": "Married in September 2024"
-      },
-      {
-        "quote": "The atmosphere was magical, with twinkling lights and enchanting music. Every moment was captured.",
-        "names": "Sophie & Antoine",
-        "date": "Married in June 2023"
-      },
-      {
-        "quote": "We discovered breathtaking landscapes on our honeymoon. The memories of these adventures will stay with us forever.",
-        "names": "Emma & Lucas",
-        "date": "Married in May 2022"
-      }
-    ]
-  },
   "FAQ": {
     "titleLine1": "Frequently Asked",
     "titleLine2": "Questions",
@@ -247,7 +135,7 @@
       "Pricing",
       "Custom",
       "Couple space",
-      "Testimonials",
+      "Wedding day",
       "FAQ"
     ],
     "login": "Log in",
@@ -274,10 +162,10 @@
   "Preview": {
     "eyebrow": "Customize live",
     "titleLine1": "Explore",
-    "titleAccent": "every creation",
-    "subtitle": "Try every theme and find the one that tells your story.",
+    "titleAccent": "our collections",
+    "subtitle": "Every wedding has its own world. So does yours. Discover our creations, explore each invitation and choose the design that feels like you.",
     "scrollHint": "Scroll",
-    "discoverButton": "Discover",
+    "discoverButton": "Discover the invitations",
     "createButton": "Create my invitation",
     "prevThemesAriaLabel": "Previous themes",
     "nextThemesAriaLabel": "Next themes",
@@ -289,33 +177,33 @@
   },
   "WhyUs": {
     "eyebrow": "Why choose The Studio?",
-    "titleLine1": "The elegance of stationery,",
-    "titleAccent": "the power of digital",
+    "titleLine1": "Everything we love about invitations.",
+    "titleAccent": "Without the hassle.",
     "reasons": [
       {
-        "titleLine1": "Design worthy of the finest",
-        "titleLine2": "stationery",
-        "description": "The elegance of stationery, without the constraints of paper."
+        "titleLine1": "A genuine art",
+        "titleLine2": "direction",
+        "description": "Not just another wedding website. Every The Studio digital wedding invitation is designed as a true piece of digital stationery: typography, composition, animation and detail create a memorable first impression."
       },
       {
         "titleLine1": "Zero logistics",
         "titleLine2": "",
-        "description": "No printing. No stamps. No \"Did you remember to mail the 150 invitations?\""
+        "description": "No need to collect every postal address, buy 150 stamps, stuff envelopes or queue at the post office. Your invitation is shared simply, without any of the paper logistics."
       },
       {
-        "titleLine1": "Always within reach",
-        "titleLine2": "",
-        "description": "No more invitations lost in a drawer. Your guests find all the details in one click."
+        "titleLine1": "Always within",
+        "titleLine2": "reach",
+        "description": "Schedule, venue, timings, dress code, accommodation, wedding RSVP… your guests find every useful detail straight from their phone, all in one place."
       },
       {
-        "titleLine1": "Eco-friendly",
+        "titleLine1": "No printing",
         "titleLine2": "",
-        "description": "The trees thank you. An invitation with no printing or transport."
+        "description": "No printing, no envelopes, no stamps and no postal delivery. Digital wedding stationery designed without the material constraints of traditional invitations."
       },
       {
         "titleLine1": "Instant",
         "titleLine2": "",
-        "description": "Sent in one click, received in a second. No printing delay, no waiting for the post."
+        "description": "WhatsApp, SMS or email: your online wedding invitation is shared in seconds and your guests can open it straight away."
       }
     ]
   },
@@ -334,39 +222,39 @@
   },
   "Atelier": {
     "eyebrow": "Entrust your vision to our Studio",
-    "titleLine1": "An invitation",
-    "titleLine2": "as unique",
-    "titleLine3": "as your story",
-    "subtitle": "You have a vision. We bring it to life. Our Studio designs your digital invitation with precision, taste, and intention to perfectly reflect the spirit of your wedding.",
+    "titleLine1": "Your wedding is like no other.",
+    "titleLine2": "Neither is",
+    "titleLine3": "your invitation.",
+    "subtitle": "Do you have a precise idea, a colour, a venue, a mood, or simply a feeling that's hard to put into words? Together we imagine a digital wedding invitation created entirely around your world.",
     "steps": [
       {
         "number": "1.",
-        "title": "The Studio Call",
-        "description": "A video or phone call with our art director to understand your story, your wishes, your style, and what makes your wedding unique."
+        "title": "The meeting",
+        "description": "A first conversation to discover your wedding, your inspirations and the experience you want to create for your guests."
       },
       {
         "number": "2.",
-        "title": "The Sketch",
-        "description": "A bespoke moodboard is created together to agree on the mood, codes, and aesthetic of your invitation."
+        "title": "The art direction",
+        "description": "Together we define the colours, typography, references and atmosphere of your invitation."
       },
       {
         "number": "3.",
-        "title": "The Design",
-        "description": "Time to create. Your invitation comes to life with an exclusive design, crafted down to the finest detail."
+        "title": "The creation",
+        "description": "Your invitation is designed and built especially for you, with its own compositions, interactions and animations."
       },
       {
         "number": "4.",
-        "title": "The Launch",
-        "description": "Your invitation is ready. A unique link, ready to be shared instantly with your guests."
+        "title": "Going live",
+        "description": "Once approved, your invitation is ready to be shared with your guests."
       }
     ],
-    "ctaButton": "Book a call"
+    "ctaButton": "Let's talk about my project"
   },
   "Dashboard": {
     "eyebrow": "Your couple space",
-    "titleLine1": "One space.",
-    "titleAccent": "Your whole wedding.",
-    "subtitle": "Manage your guests, your RSVPs, your invitation: edit, adjust, and update your invitation whenever you like, with no middleman.",
+    "titleLine1": "Your wedding.",
+    "titleAccent": "Your space.",
+    "subtitle": "Your invitation doesn't stop the moment you send it. From your couple space, find the details you need to follow your guests and prepare your day more easily.",
     "demo": {
       "chapters": "Chapters",
       "pause": "Pause",
@@ -374,9 +262,34 @@
       "previous": "Previous",
       "next": "Next",
       "replay": "Replay",
-      "note": "Figures from a demo wedding: 140 guests, 65 households, 10 tables.",
+      "note": "Figures shown as an example, from a demo wedding.",
       "mobileNote": "The back-office is built for desktop and tablet. This preview stays available here, in a condensed form."
     }
+  },
+  "JourJ": {
+    "eyebrow": "On the day, for your guests",
+    "titleLine1": "On the day, your guests",
+    "titleAccent": "know where to go.",
+    "subtitle": "A unique QR code lets your guests easily access all the useful details of your wedding on the day.",
+    "qrCaption": "One unique QR code, just for your wedding",
+    "features": [
+      {
+        "title": "Find their table",
+        "description": "Guests enter their name and find their table in seconds."
+      },
+      {
+        "title": "No app needed",
+        "description": "A simple scan from their phone is all it takes."
+      },
+      {
+        "title": "Details always at hand",
+        "description": "Menu, schedule and practical information stay available from the same place."
+      },
+      {
+        "title": "Your guests' memories",
+        "description": "From the same QR code, your guests can share their photos and videos of the wedding. You then find all those memories directly in your space."
+      }
+    ]
   },
   "Faq": {
     "eyebrow": "A question?",
@@ -384,30 +297,34 @@
     "titleAccent": "Asked Questions",
     "items": [
       {
-        "question": "Can I edit my site after sending the invitations?",
-        "answer": "Absolutely! That's the magic of digital. You can update the schedule, add accommodation details, or change a photo at any time. Your guests will always see the latest version."
+        "question": "Can I edit my invitation after sending it?",
+        "answer": "Yes. If something changes before your wedding, your digital wedding invitation can be updated without having to send a new invitation to your guests."
       },
       {
-        "question": "Do I have to pay a monthly subscription?",
-        "answer": "No, never. It's a one-time payment. Your site stays online for 12 months after your wedding, giving you plenty of time to share memory photos."
+        "question": "Is there a subscription?",
+        "answer": "No. Your The Studio invitation is a one-time payment. No monthly subscription is required."
       },
       {
-        "question": "How do my guests confirm their attendance (RSVP)?",
-        "answer": "A simple, elegant form is built into your site. You receive responses instantly in your dashboard (and by email if you wish). You can export your guest list in one click."
+        "question": "How does the RSVP work?",
+        "answer": "Your guests reply directly from your invitation. Their answers are then gathered in your couple space."
       },
       {
-        "question": "Can I have a custom domain name?",
-        "answer": "Yes! With the \"Custom Domain\" option (+€65), or included in the Premium pack, you can have an address like www.paula-and-marcos.com."
+        "question": "How long does my invitation stay online?",
+        "answer": "The time your invitation stays online is confirmed when you place your order."
       },
       {
-        "question": "Do you offer matching paper invitations?",
-        "answer": "We're focused on the digital experience for now, but we can provide high-resolution PDF files of your design so you can have them printed at your local print shop."
+        "question": "Can I have my own domain name?",
+        "answer": "A custom domain name can be offered as an option depending on your project."
+      },
+      {
+        "question": "Do you offer a paper version?",
+        "answer": "The Studio specialises in digital stationery. Our focus is on creating an experience designed for mobile and web."
       }
     ]
   },
   "FinalCta": {
-    "titleLine1": "The venue is booked, the caterer too.",
-    "titleAccent": "All that's left is the invitation",
+    "titleLine1": "The venue is booked. The caterer too.",
+    "titleAccent": "All that's left is to share the news.",
     "createButton": "Create my invitation"
   },
   "ScrollToTop": {
@@ -425,7 +342,7 @@
       "Pricing",
       "Custom",
       "Couple space",
-      "Testimonials",
+      "Wedding day",
       "FAQ"
     ],
     "mariesLinks": [

@@ -1,10 +1,16 @@
 {
+  "Metadata": {
+    "title": "デジタル結婚式招待状 | The Studio Digital Papeterie",
+    "ogTitle": "The Studio — 生まれ変わったデジタル結婚式招待状",
+    "description": "デジタル結婚式招待状を作成しましょう。上品なオンライン結婚式招待状に出欠確認機能を搭載し、結婚式の情報をひとつの場所にまとめます。買い切り、サブスクリプション不要。",
+    "keywords": "デジタル結婚式招待状, オンライン結婚式招待状, 結婚式 出欠確認, オリジナル結婚式招待状, デジタルペーパーアイテム, 結婚式ウェブサイト"
+  },
   "Navbar": {
     "product": "製品",
     "features": "機能",
     "dashboard": "ダッシュボード",
     "themes": "テーマ",
-    "testimonials": "お客様の声",
+    "jourj": "挙式当日",
     "pricing": "料金",
     "faq": "FAQ",
     "createButton": "招待状を作成"
@@ -13,24 +19,11 @@
     "eyebrow": "デジタル結婚式招待状",
     "titleLine1": "結婚式の招待状を",
     "titleLine2": "再発明する",
-    "subtitle": "今の時代の結婚式のために",
+    "subtitle": "ひとつの体験として設計された招待状。",
     "menuAriaLabel": "メニューを開く",
-    "discoverButton": "詳しく見る",
-    "createButton": "作成する",
+    "discoverButton": "コレクションを見る",
+    "createButton": "招待状をつくる",
     "themeCta": "{name} テーマを試す"
-  },
-  "Features": {
-    "titleLine1": "紙の優雅さ、",
-    "titleLine2": "デジタルの魔法",
-    "subtitle": "美しさと実用性のどちらかを選ぶ必要はありません。The Studio Papeterie Digitalは両方の長所を提供します。",
-    "ecoTitle": "環境に優しく責任ある選択",
-    "ecoDesc": "何百もの封筒と切手を節約。スタイルを損なうことなく、地球への優雅な配慮を。",
-    "editTitle": "無制限に編集可能",
-    "editDesc": "日付の間違い？場所の変更？送信後でも、サイトを即座に更新できます。",
-    "rsvpTitle": "シンプルなRSVP管理",
-    "rsvpDesc": "返信ハガキの紛失はもうありません。出席状況、食事制限、同伴者をリアルタイムで追跡できます。",
-    "langTitle": "国際的な多言語対応",
-    "langDesc": "世界中のゲストを歓迎します。あなたのサイトは、フランス語、英語、スペイン語、イタリア語、ドイツ語、ポルトガル語、アラビア語、中国語、日本語で利用可能です。"
   },
   "FAQ": {
     "titleLine1": "よくある",
@@ -51,14 +44,15 @@
   },
   "HowItWorks": {
     "eyebrow": "シンプル・スピーディー・100%オーダーメイド",
-    "titleLine1": "招待状づくりは",
-    "titleAccent": "たった3ステップ",
+    "titleLine1": "あなたの招待状を、",
+    "titleAccent": "シンプルに。",
     "universeMockLabel": "スタイルを選ぶ",
     "personalizeMockLabel": "招待状をカスタマイズ",
     "personalizeMockRows": [
-      "ゲストブック",
-      "スケジュール",
-      "メニュー"
+      "当日のスケジュール",
+      "出欠確認",
+      "宿泊のご案内",
+      "ドレスコード"
     ],
     "shareMockLabel": "招待状をシェア",
     "shareMockActions": [
@@ -70,129 +64,25 @@
     "steps": [
       {
         "number": "01",
-        "titleLine1": "選ぶ",
-        "titleLine2": "あなたらしいスタイルを",
-        "description": "自分たちらしいデザインを選びましょう。ミニマル、ロマンチック、大胆——それぞれのスタイルがあなたの物語を語ります。"
+        "titleLine1": "世界観を",
+        "titleLine2": "選ぶ",
+        "description": "コレクションの中から、おふたりの結婚式に似合うものをお選びください。それぞれに独自のアートディレクション、アニメーション、ディテールがあり、内容は自由にカスタマイズできます。"
       },
       {
         "number": "02",
-        "titleLine1": "カスタマイズする",
-        "titleLine2": "招待状を",
-        "description": "写真やメッセージ、出欠確認・スケジュール・宿泊情報などの重要な情報を数クリックで追加できます。"
+        "titleLine1": "あなたらしく",
+        "titleLine2": "仕上げる",
+        "description": "お名前、写真、文章、スケジュール、会場、ドレスコード、出欠確認、宿泊のご案内……共有したい情報を選び、おふたりらしい招待状に仕上げられます。"
       },
       {
         "number": "03",
-        "titleLine1": "発表する",
-        "titleLine2": "特別な日を",
-        "description": "SMS、WhatsApp、メールで招待状を送信。ゲストはどこにいても数秒で返信できます。"
+        "titleLine1": "招待状を",
+        "titleLine2": "共有する",
+        "description": "招待状が完成したら、あとは送るだけ。WhatsApp、SMS、メール、あるいはリンクひとつで、ゲストはおふたりの世界観に触れ、結婚式のすべての情報をひとつの場所で確認できます。"
       }
     ],
     "upcomingTitle": "新しいコレクション",
     "upcomingSubtitle": "新しいテーマを準備中です"
-  },
-  "DemoSection": {
-    "eyebrow": "Voir en vrai",
-    "title": "Une invitation",
-    "titleAccent": "comme la vôtre",
-    "subtitle": "Ouvrez une vraie invitation et vivez l'expérience de vos invités.",
-    "ctaButton": "Voir la démo live",
-    "ctaSubtext": "Ouvrir une vraie invitation"
-  },
-  "ProductDemo": {
-    "eyebrow": "Découvrez l'expérience",
-    "titleLine1": "À quoi ressemble",
-    "titleLine2": "une invitation digitale ?",
-    "subtitle": "Une invitation interactive à envoyer en un lien. Élégante, personnalisable et instantanée.",
-    "createButton": "Créer mon invitation",
-    "step1Title": "L'enveloppe qui s'ouvre",
-    "step1Desc": "Une animation d'ouverture unique — enveloppe, rideaux, portes. Le premier frisson avant même de lire un mot.",
-    "step2Title": "L'invitation révélée",
-    "step2Desc": "Votre site dans votre thème personnalisé. Noms, date, lieu — tout votre style, en un regard.",
-    "step3Title": "Programme & infos",
-    "step3Desc": "Cérémonie, cocktail, dîner — lisible en un scroll, modifiable à tout moment.",
-    "step4Title": "Galerie & playlist",
-    "step4Desc": "Photos, vidéos, musique — vos invités vivent l'ambiance avant même d'arriver.",
-    "step5Title": "RSVP en ligne",
-    "step5Desc": "Présence, accompagnants, régimes — tout dans votre tableau de bord en temps réel.",
-    "demosEyebrow": "Exemples réels",
-    "demosTitleLine1": "Voyez le produit",
-    "demosTitleLine2": "en direct",
-    "demosSub": "Choisissez un thème et explorez une vraie invitation — comme la vivrait l'un de vos invités.",
-    "openFullscreen": "Ouvrir en plein écran",
-    "deviceMobile": "Mobile",
-    "deviceDesktop": "Desktop",
-    "animationLabel": "Animation",
-    "animationEnvelope": "Enveloppe",
-    "animationDoors": "Portes",
-    "animationCurtains": "Rideaux"
-  },
-  "PricingComparison": {
-    "eyebrow": "Pour 200 invités",
-    "title": "La différence",
-    "titleAccent": "qui compte",
-    "paperLabel": "Papier traditionnel",
-    "paperDetails": "Impression + timbres + enveloppes",
-    "studioLabel": "The Studio",
-    "studioDetails": "Tout inclus, illimité",
-    "studioFrom": "À partir de",
-    "savingBadge": "Économisez {amount}€",
-    "feature1": "Envoi instantané",
-    "feature2": "Modifiable",
-    "feature3": "RSVP intégré",
-    "feature4": "Zéro papier"
-  },
-  "ValueCards": {
-    "eyebrow": "Pourquoi The Studio",
-    "title": "Tout ce dont",
-    "titleAccent": "vous avez besoin",
-    "card1Title": "Design élégant",
-    "card1Desc": "Thèmes créés par des graphistes, pour un rendu haut de gamme.",
-    "card2Title": "Envoi instantané",
-    "card2Desc": "Partagez le lien en un clic, vos invités l'ouvrent immédiatement.",
-    "card3Title": "Écologique",
-    "card3Desc": "Zéro papier, zéro timbre, zéro gaspillage.",
-    "card4Title": "Modifiable",
-    "card4Desc": "Changez les infos à tout moment, même après l'envoi.",
-    "card5Title": "Sur-mesure",
-    "card5Desc": "Modules au choix, langues multiples, votre histoire racontée à votre façon."
-  },
-  "Customization": {
-    "eyebrow": "Aller plus loin",
-    "title": "Personnalisation",
-    "titleAccent": "sur-mesure",
-    "subtitle": "Chaque mariage est unique. Votre invitation aussi.",
-    "feature1Title": "Programme",
-    "feature1Desc": "Déroulé de la journée, horaires, lieux.",
-    "feature2Title": "Galerie photos",
-    "feature2Desc": "Partagez vos plus belles photos en avant-première.",
-    "feature3Title": "Liste de cadeaux",
-    "feature3Desc": "Intégrez votre liste directement dans l'invitation.",
-    "bespokeBadge": "100% sur-mesure",
-    "bespokeTitle": "Un projet unique ?",
-    "bespokeDesc": "Pour les mariages d'exception, nous proposons une création entièrement sur-mesure sur rendez-vous.",
-    "bespokeButton": "Nous contacter",
-    "bespokeEmail": "contact@thestudiopapeteriedigitale.com"
-  },
-  "Testimonials": {
-    "eyebrow": "選んでいただいたご夫婦の声",
-    "title": "利用者の声",
-    "items": [
-      {
-        "quote": "封筒が開くアニメーションにゲストが驚いていました！この演出が全てを変えたんです。出欠確認機能のおかげで貴重な時間を節約できました。",
-        "names": "ジュリエット & ピエール",
-        "date": "2024年9月挙式"
-      },
-      {
-        "quote": "きらめく照明と魅惑的な音楽で、まるで魔法のような雰囲気でした。すべての瞬間が心に刻まれました。",
-        "names": "ソフィー & アントワーヌ",
-        "date": "2023年6月挙式"
-      },
-      {
-        "quote": "新婚旅行で息をのむような絶景に出会いました。その冒険の思い出は永遠に残ります。",
-        "names": "エマ & ルカ",
-        "date": "2022年5月挙式"
-      }
-    ]
   },
   "Catalogue": {
     "eyebrow": "Créez votre invitation",
@@ -243,7 +133,7 @@
       "料金",
       "オーダーメイド",
       "新郎新婦の管理画面",
-      "お客様の声",
+      "挙式当日",
       "よくある質問"
     ],
     "login": "ログイン",
@@ -269,11 +159,11 @@
   },
   "Preview": {
     "eyebrow": "リアルタイムでカスタマイズ",
-    "titleLine1": "すべての",
-    "titleAccent": "デザインを見る",
-    "subtitle": "各テーマを試して、お二人の物語にぴったりの一つを見つけてください。",
+    "titleLine1": "コレクションを",
+    "titleAccent": "見る",
+    "subtitle": "結婚式にはそれぞれの世界観があります。おふたりにも。作品をご覧いただき、一つひとつの招待状を確かめて、おふたりらしいデザインをお選びください。",
     "scrollHint": "スクロール",
-    "discoverButton": "詳しく見る",
+    "discoverButton": "招待状を見る",
     "createButton": "招待状を作成する",
     "prevThemesAriaLabel": "前のテーマ",
     "nextThemesAriaLabel": "次のテーマ",
@@ -285,33 +175,33 @@
   },
   "WhyUs": {
     "eyebrow": "The Studio が選ばれる理由",
-    "titleLine1": "紙の優雅さと、",
-    "titleAccent": "デジタルの力",
+    "titleLine1": "招待状の魅力は、そのまま。",
+    "titleAccent": "面倒だけを、なくしました。",
     "reasons": [
       {
-        "titleLine1": "一流の紙製招待状に",
-        "titleLine2": "匹敵するデザイン",
-        "description": "紙の優雅さを、紙という制約なしで。"
+        "titleLine1": "本物の",
+        "titleLine2": "アートディレクション",
+        "description": "ただの結婚式サイトではありません。The Studio のデジタル結婚式招待状は、本物のデジタルペーパーアイテムとして設計されています。書体、構成、アニメーション、ディテールが忘れられない第一印象をつくります。"
       },
       {
-        "titleLine1": "面倒な手間ゼロ",
+        "titleLine1": "手間はゼロ",
         "titleLine2": "",
-        "description": "印刷不要。切手も不要。「150通の招待状、送り忘れてない？」なんて心配もいりません。"
+        "description": "住所をすべて集めたり、切手を150枚買ったり、封筒を用意したり、郵便局へ行く必要はありません。紙の招待状にまつわる手間なく、招待状をシンプルに共有できます。"
       },
       {
-        "titleLine1": "いつでも手元に",
-        "titleLine2": "",
-        "description": "招待状を引き出しにしまい忘れる心配もありません。ゲストはワンクリックで必要な情報を確認できます。"
+        "titleLine1": "いつでも",
+        "titleLine2": "手元に",
+        "description": "スケジュール、会場、時間、ドレスコード、宿泊のご案内、出欠確認……ゲストは必要な情報すべてを、スマートフォンからひとつの場所で確認できます。"
       },
       {
-        "titleLine1": "環境にやさしい",
+        "titleLine1": "印刷なし",
         "titleLine2": "",
-        "description": "木々も喜ぶ、印刷も輸送も不要な招待状です。"
+        "description": "印刷も、封筒も、切手も、郵送も不要。従来の招待状のような物理的な制約のないデジタルペーパーアイテムです。"
       },
       {
-        "titleLine1": "瞬時に届く",
+        "titleLine1": "すぐに届く",
         "titleLine2": "",
-        "description": "ワンクリックで送信、一瞬で届く。印刷の待ち時間も郵送の遅れもありません。"
+        "description": "WhatsApp、SMS、メール。オンライン結婚式招待状は数秒で共有でき、ゲストはすぐに開くことができます。"
       }
     ]
   },
@@ -330,39 +220,39 @@
   },
   "Atelier": {
     "eyebrow": "お二人の想いを私たちのスタジオに",
-    "titleLine1": "お二人の物語のように",
-    "titleLine2": "唯一無二の",
-    "titleLine3": "招待状を",
-    "subtitle": "お二人にはビジョンがあります。私たちがそれを形にします。私たちのスタジオが、精密さとセンス、そして真心を込めて、結婚式の想いを完璧に表現するデジタル招待状を制作します。",
+    "titleLine1": "おふたりの結婚式は、ほかにありません。",
+    "titleLine2": "招待状も、",
+    "titleLine3": "同じように。",
+    "subtitle": "はっきりとした構想、色、会場、雰囲気、あるいは言葉にしづらい思いはありますか。おふたりの世界観を軸に、デジタル結婚式招待状を一緒に考えます。",
     "steps": [
       {
         "number": "1.",
-        "title": "アトリエ",
-        "description": "アートディレクターとのビデオまたは電話でのやり取りを通じて、お二人の物語、ご希望、スタイル、結婚式の魅力を伺います。"
+        "title": "お打ち合わせ",
+        "description": "おふたりの結婚式、インスピレーション、ゲストに届けたい体験について伺う最初の対話です。"
       },
       {
         "number": "2.",
-        "title": "スケッチ",
-        "description": "オーダーメイドのムードボードを作成し、招待状の雰囲気やコンセプト、デザインの方向性をすり合わせます。"
+        "title": "アートディレクション",
+        "description": "色、書体、参考イメージ、そして招待状の雰囲気を一緒に決めていきます。"
       },
       {
         "number": "3.",
-        "title": "デザイン",
-        "description": "いよいよ制作の時間です。細部まで丁寧にデザインされた、独自の招待状が形になります。"
+        "title": "制作",
+        "description": "おふたりのために構成、インタラクション、アニメーションを設計し、招待状を制作します。"
       },
       {
         "number": "4.",
         "title": "公開",
-        "description": "招待状の完成です。専用リンクをすぐにゲストへ共有できます。"
+        "description": "ご確認いただいたら、招待状はゲストへ共有できる状態になります。"
       }
     ],
-    "ctaButton": "打ち合わせを予約する"
+    "ctaButton": "プロジェクトの相談をする"
   },
   "Dashboard": {
     "eyebrow": "新郎新婦専用スペース",
-    "titleLine1": "ひとつの場所で、",
-    "titleAccent": "結婚式のすべてを。",
-    "subtitle": "ゲスト管理、RSVP回答、招待状の編集まで、いつでも自由に更新・調整でき、仲介も不要です。",
+    "titleLine1": "おふたりの結婚式。",
+    "titleAccent": "おふたりの空間。",
+    "subtitle": "招待状は、送った瞬間に終わるものではありません。新郎新婦専用ページから、ゲストの状況を把握し、当日の準備をより簡単に進めるための情報を確認できます。",
     "demo": {
       "chapters": "チャプター",
       "pause": "一時停止",
@@ -370,9 +260,34 @@
       "previous": "前へ",
       "next": "次へ",
       "replay": "もう一度見る",
-      "note": "デモ用の結婚式の数値：ゲスト140名、65世帯、テーブル10卓。",
+      "note": "デモ用の結婚式をもとにした参考データです。",
       "mobileNote": "管理画面はパソコンとタブレット向けに最適化されています。このプレビューは簡易版としてここでご覧いただけます。"
     }
+  },
+  "JourJ": {
+    "eyebrow": "当日、ゲストのために",
+    "titleLine1": "挙式当日、ゲストは",
+    "titleAccent": "迷いません。",
+    "subtitle": "専用のQRコードひとつで、ゲストは挙式当日に必要な情報へ簡単にアクセスできます。",
+    "qrCaption": "おふたりの結婚式だけの、専用QRコード",
+    "features": [
+      {
+        "title": "席を見つける",
+        "description": "ゲストが名前を入力すると、数秒で自分のテーブルがわかります。"
+      },
+      {
+        "title": "アプリ不要",
+        "description": "スマートフォンで読み取るだけです。"
+      },
+      {
+        "title": "情報はいつでも",
+        "description": "メニュー、スケジュール、実用的な情報は同じ場所でいつでも確認できます。"
+      },
+      {
+        "title": "ゲストの思い出",
+        "description": "同じQRコードから、ゲストは結婚式の写真や動画を共有できます。おふたりは後から、その思い出すべてを専用ページで見ることができます。"
+      }
+    ]
   },
   "Faq": {
     "eyebrow": "ご質問はありますか？",
@@ -380,31 +295,35 @@
     "titleAccent": "ご質問",
     "items": [
       {
-        "question": "招待状を送った後でもサイトを編集できますか？",
-        "answer": "もちろんです！それがデジタルの魅力です。日程の変更や宿泊情報の追加、写真の差し替えなど、いつでも自由に更新できます。ゲストには常に最新版が表示されます。"
+        "question": "送った後に招待状を修正できますか。",
+        "answer": "はい。結婚式前に情報が変わった場合も、デジタル結婚式招待状を更新できます。新しい招待状をゲストへ送り直す必要はありません。"
       },
       {
-        "question": "月額料金が発生しますか？",
-        "answer": "いいえ、一切かかりません。お支払いは一度きりです。サイトは結婚式後12か月間公開され、思い出の写真をゆっくり共有していただけます。"
+        "question": "サブスクリプションはありますか。",
+        "answer": "いいえ。The Studio の招待状は買い切りです。月額のサブスクリプションは必要ありません。"
       },
       {
-        "question": "ゲストの出欠確認（RSVP）はどのように行いますか？",
-        "answer": "シンプルで洗練されたフォームがサイトに組み込まれています。回答はダッシュボードにリアルタイムで届きます（ご希望によりメール通知も可能）。ゲストリストはワンクリックでエクスポートできます。"
+        "question": "出欠確認はどのように機能しますか。",
+        "answer": "ゲストは招待状から直接回答できます。回答は新郎新婦専用ページにまとめられます。"
       },
       {
-        "question": "独自ドメインを取得できますか？",
-        "answer": "はい！「カスタムドメイン」オプション（+65€）またはPremiumプランに含まれる形で、www.paula-et-marcos.com のような専用アドレスを取得できます。"
+        "question": "招待状はどのくらいの期間公開されますか。",
+        "answer": "公開期間はご注文の際にお伝えします。"
       },
       {
-        "question": "お揃いの紙の招待状も注文できますか？",
-        "answer": "現在はデジタル体験に注力しておりますが、デザインの高解像度PDFファイルをお渡しすることができますので、お近くの印刷店でプリントしていただけます。"
+        "question": "独自ドメインを使えますか。",
+        "answer": "プロジェクトの内容に応じて、オプションとして独自ドメインをご提案できます。"
+      },
+      {
+        "question": "紙版はありますか。",
+        "answer": "The Studio はデジタルペーパーアイテムを専門としています。スマートフォンとウェブのために設計された体験づくりを大切にしています。"
       }
     ]
   },
   "FinalCta": {
-    "titleLine1": "会場もケータリングも決まりました。",
-    "titleAccent": "あとは招待状だけです",
-    "createButton": "招待状を作成する"
+    "titleLine1": "会場も決まりました。ケータリングも。",
+    "titleAccent": "あとは、お知らせするだけ。",
+    "createButton": "招待状をつくる"
   },
   "ScrollToTop": {
     "ariaLabel": "トップに戻る"
@@ -421,7 +340,7 @@
       "料金",
       "オーダーメイド",
       "新郎新婦の管理画面",
-      "お客様の声",
+      "挙式当日",
       "よくある質問"
     ],
     "mariesLinks": [
