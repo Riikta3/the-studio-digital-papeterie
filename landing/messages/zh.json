@@ -574,7 +574,16 @@
     "paymentSuccessTitle": "支付已确认！",
     "paymentSuccessBody": "我们正在创建您的空间，稍后将自动跳转。",
     "creatingAccount": "正在创建您的空间…",
-    "magicLinkNote": "您将收到一封含登录链接的邮件 — 无需记住密码。"
+    "magicLinkNote": "您将收到一封含登录链接的邮件 — 无需记住密码。",
+    "provisionFailedTitle": "已收到付款，正在等待创建",
+    "provisionFailedBody": "您的付款已成功记录——不会重复扣款。您的空间未创建完成，但数据没有丢失。",
+    "provisionRetry": "重试创建",
+    "provisionRetrying": "正在重试…",
+    "paymentReference": "付款参考编号",
+    "paymentReferenceHint": "请保留此编号：我们可凭此找到您的订单。",
+    "contactSupport": "联系客服",
+    "reassurePaid": "您的付款是安全的",
+    "errorDetails": "技术详情"
   },
   "Legal": {
     "backHome": "返回首页",

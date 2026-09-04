@@ -575,7 +575,16 @@
     "paymentSuccessTitle": "¡Pago confirmado!",
     "paymentSuccessBody": "Estamos creando vuestro espacio. Seréis redirigidos automáticamente.",
     "creatingAccount": "Creando vuestro espacio…",
-    "magicLinkNote": "Recibiréis un enlace de acceso por email — sin contraseña que recordar."
+    "magicLinkNote": "Recibiréis un enlace de acceso por email — sin contraseña que recordar.",
+    "provisionFailedTitle": "Pago recibido, configuración pendiente",
+    "provisionFailedBody": "Su pago se ha registrado — no se le cobrará de nuevo. La creación de su espacio no se completó, pero no se ha perdido nada.",
+    "provisionRetry": "Reintentar la creación",
+    "provisionRetrying": "Reintentando…",
+    "paymentReference": "Referencia de pago",
+    "paymentReferenceHint": "Guarde esta referencia: nos permite localizar su pedido.",
+    "contactSupport": "Contactar con soporte",
+    "reassurePaid": "Su pago está seguro",
+    "errorDetails": "Detalle técnico"
   },
   "Legal": {
     "backHome": "Volver al inicio",

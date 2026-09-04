@@ -7,7 +7,16 @@ import {
   useStripe,
 } from "@stripe/react-stripe-js";
 import { loadStripe } from "@stripe/stripe-js";
-import { Check, ChevronLeft, CreditCard, Loader2, Pencil } from "lucide-react";
+import {
+  AlertTriangle,
+  Check,
+  ChevronLeft,
+  CreditCard,
+  Loader2,
+  Mail,
+  Pencil,
+  ShieldCheck,
+} from "lucide-react";
 import { useLocale, useTranslations } from "next-intl";
 import { useSearchParams } from "next/navigation";
 import { useCallback, useEffect, useRef, useState } from "react";
@@ -25,6 +34,9 @@ import { selectTotalPrice, useOrderStore } from "@/stores/use-order-store";
 const stripePromise = loadStripe(
   process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY!,
 );
+
+/** Where a customer whose provisioning failed can reach a human. */
+const SUPPORT_EMAIL = "contact@thestudiopapeteriedigitale.com";
 
 const MONTHS_FR = [
   "Janvier", "Février", "Mars", "Avril", "Mai", "Juin",
@@ -307,40 +319,117 @@ export default function StudioCheckoutPage() {
   }, [hasHydrated, isPaymentSuccess, plan, modules, languages, extras]);
 
   // ── Post-payment: provisioning screen ──
+  //
+  // The failure branch here is the costliest state in the whole funnel: the
+  // money has left the customer's account and they have nothing to show for
+  // it. It used to reuse the success title ("Paiement confirmé !") with the
+  // raw error underneath and a retry button labelled "Traitement…", and it
+  // never showed the payment reference — so a customer who could not recover
+  // had nothing to quote to support either.
   if (isPaymentSuccess) {
+    const reference = intentIdFromUrl ?? paymentIntentId;
+
+    if (provisionError) {
+      const supportSubject = t("paymentReference") + (reference ? `: ${reference}` : "");
+
+      return (
+        <StepTransition>
+          <div className="mx-auto flex min-h-[50vh] w-full max-w-md flex-col items-center justify-center gap-5 text-center">
+            <div className="flex h-14 w-14 items-center justify-center rounded-full bg-studio-jaune">
+              <AlertTriangle
+                className="h-7 w-7 text-studio-violet"
+                strokeWidth={2}
+              />
+            </div>
+
+            <div className="space-y-2">
+              <h1 className="font-heading text-h3 text-studio-violet">
+                {t("provisionFailedTitle")}
+              </h1>
+              <p className="font-body text-sm leading-relaxed text-studio-violet/70">
+                {t("provisionFailedBody")}
+              </p>
+            </div>
+
+            {/* Reassurance first: the charge succeeded, and retrying cannot
+                double-bill — provisioning is idempotent per PaymentIntent. */}
+            <p className="flex items-center gap-2 font-body text-xs font-semibold text-studio-violet/60">
+              <ShieldCheck className="h-4 w-4" />
+              {t("reassurePaid")}
+            </p>
+
+            {reference && (
+              <div className="w-full rounded-2xl border border-studio-lavande/60 bg-white/60 px-4 py-3 text-left">
+                <p className="font-body text-[10px] font-bold uppercase tracking-wider text-studio-violet/50">
+                  {t("paymentReference")}
+                </p>
+                <p className="mt-1 break-all font-mono text-xs text-studio-violet">
+                  {reference}
+                </p>
+                <p className="mt-2 font-body text-[11px] leading-relaxed text-studio-violet/50">
+                  {t("paymentReferenceHint")}
+                </p>
+              </div>
+            )}
+
+            {/* The underlying reason, folded away. Server-side failures carry
+                hardcoded strings in mixed French and English
+                ("Failed to create wedding entity.") that no locale translates,
+                so it must never be the headline a paying customer reads — but
+                it is the first thing support will ask for. */}
+            <details className="w-full text-left">
+              <summary className="cursor-pointer list-none font-body text-[11px] text-studio-violet/50 underline underline-offset-2 hover:text-studio-violet/80">
+                {t("errorDetails")}
+              </summary>
+              <p className="mt-2 break-words font-mono text-[11px] leading-relaxed text-studio-violet/60">
+                {provisionError}
+              </p>
+            </details>
+
+            <div className="flex w-full flex-col gap-2">
+              <button
+                type="button"
+                onClick={provision}
+                disabled={isProvisioning}
+                className="flex w-full items-center justify-center gap-2 rounded-full bg-studio-violet px-6 py-3.5 font-body text-sm font-semibold text-white transition-colors hover:bg-studio-violet/90 disabled:cursor-not-allowed disabled:opacity-60"
+              >
+                {isProvisioning && (
+                  <Loader2 className="h-4 w-4 animate-spin" />
+                )}
+                {isProvisioning ? t("provisionRetrying") : t("provisionRetry")}
+              </button>
+
+              <a
+                href={`mailto:${SUPPORT_EMAIL}?subject=${encodeURIComponent(supportSubject)}`}
+                className="flex w-full items-center justify-center gap-2 rounded-full border border-studio-lavande px-6 py-3 font-body text-sm font-semibold text-studio-violet/80 transition-colors hover:border-studio-violet hover:text-studio-violet"
+              >
+                <Mail className="h-4 w-4" />
+                {t("contactSupport")}
+              </a>
+            </div>
+          </div>
+        </StepTransition>
+      );
+    }
+
     return (
       <StepTransition>
         <div className="flex min-h-[50vh] flex-col items-center justify-center gap-5 text-center">
           <div className="flex h-14 w-14 items-center justify-center rounded-full bg-studio-violet">
-            {provisionError ? (
-              <CreditCard className="h-6 w-6 text-white" />
-            ) : (
-              <Check className="h-7 w-7 text-white" strokeWidth={2} />
-            )}
+            <Check className="h-7 w-7 text-white" strokeWidth={2} />
           </div>
           <div className="space-y-2">
             <h1 className="font-heading text-h3 text-studio-violet">
               {t("paymentSuccessTitle")}
             </h1>
             <p className="mx-auto max-w-xs font-body text-sm text-studio-violet/60">
-              {provisionError ?? t("paymentSuccessBody")}
+              {t("paymentSuccessBody")}
             </p>
           </div>
-          {!provisionError && (
-            <div className="flex items-center gap-2 font-body text-sm text-studio-violet/50">
-              <Loader2 className="h-4 w-4 animate-spin" />
-              {t("creatingAccount")}
-            </div>
-          )}
-          {provisionError && (
-            <button
-              type="button"
-              onClick={provision}
-              className="rounded-full bg-studio-violet px-6 py-3 font-body text-sm font-semibold text-white"
-            >
-              {t("processing")}
-            </button>
-          )}
+          <div className="flex items-center gap-2 font-body text-sm text-studio-violet/50">
+            <Loader2 className="h-4 w-4 animate-spin" />
+            {t("creatingAccount")}
+          </div>
         </div>
       </StepTransition>
     );

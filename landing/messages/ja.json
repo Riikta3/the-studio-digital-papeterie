@@ -574,7 +574,16 @@
     "paymentSuccessTitle": "お支払いが完了しました！",
     "paymentSuccessBody": "スペースを作成しています。自動的に移動します。",
     "creatingAccount": "スペースを作成中…",
-    "magicLinkNote": "ログインリンクをメールでお送りします — パスワードは不要です。"
+    "magicLinkNote": "ログインリンクをメールでお送りします — パスワードは不要です。",
+    "provisionFailedTitle": "お支払い完了、セットアップ保留中",
+    "provisionFailedBody": "お支払いは記録されています。二重に請求されることはありません。スペースの作成が完了しませんでしたが、データは失われていません。",
+    "provisionRetry": "作成をやり直す",
+    "provisionRetrying": "再試行中…",
+    "paymentReference": "お支払い参照番号",
+    "paymentReferenceHint": "この番号を保管してください。ご注文の照会に使用します。",
+    "contactSupport": "サポートに問い合わせる",
+    "reassurePaid": "お支払いは安全に処理されています",
+    "errorDetails": "技術的な詳細"
   },
   "Legal": {
     "backHome": "ホームに戻る",

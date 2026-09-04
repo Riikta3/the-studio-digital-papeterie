@@ -575,7 +575,16 @@
     "paymentSuccessTitle": "Zahlung bestätigt!",
     "paymentSuccessBody": "Wir erstellen Ihren Bereich. Sie werden automatisch weitergeleitet.",
     "creatingAccount": "Ihr Bereich wird erstellt…",
-    "magicLinkNote": "Sie erhalten einen Anmeldelink per E-Mail — kein Passwort nötig."
+    "magicLinkNote": "Sie erhalten einen Anmeldelink per E-Mail — kein Passwort nötig.",
+    "provisionFailedTitle": "Zahlung erhalten, Einrichtung ausstehend",
+    "provisionFailedBody": "Ihre Zahlung ist eingegangen — Sie werden nicht erneut belastet. Die Einrichtung Ihres Bereichs wurde nicht abgeschlossen, aber nichts ist verloren.",
+    "provisionRetry": "Einrichtung wiederholen",
+    "provisionRetrying": "Erneuter Versuch…",
+    "paymentReference": "Zahlungsreferenz",
+    "paymentReferenceHint": "Bewahren Sie diese Referenz auf: damit finden wir Ihre Bestellung.",
+    "contactSupport": "Support kontaktieren",
+    "reassurePaid": "Ihre Zahlung ist sicher",
+    "errorDetails": "Technische Details"
   },
   "Legal": {
     "backHome": "Zurück zur Startseite",

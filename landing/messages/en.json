@@ -576,7 +576,16 @@
     "paymentSuccessTitle": "Payment confirmed!",
     "paymentSuccessBody": "We are creating your space. You will be redirected automatically.",
     "creatingAccount": "Creating your space…",
-    "magicLinkNote": "You will receive a sign-in link by email — no password to remember."
+    "magicLinkNote": "You will receive a sign-in link by email — no password to remember.",
+    "provisionFailedTitle": "Payment received, setup pending",
+    "provisionFailedBody": "Your payment went through — you will not be charged again. Creating your space did not complete, but nothing is lost.",
+    "provisionRetry": "Retry setup",
+    "provisionRetrying": "Trying again…",
+    "paymentReference": "Payment reference",
+    "paymentReferenceHint": "Keep this reference: it lets us find your order.",
+    "contactSupport": "Contact support",
+    "reassurePaid": "Your payment is secure",
+    "errorDetails": "Technical detail"
   },
   "Legal": {
     "backHome": "Back to home",

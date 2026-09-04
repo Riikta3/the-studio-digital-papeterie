@@ -574,7 +574,16 @@
     "paymentSuccessTitle": "تم تأكيد الدفع!",
     "paymentSuccessBody": "نقوم بإنشاء مساحتكم. ستتم إعادة توجيهكم تلقائياً.",
     "creatingAccount": "جارٍ إنشاء مساحتكم…",
-    "magicLinkNote": "ستصلكم رسالة تحتوي على رابط الدخول — دون كلمة مرور."
+    "magicLinkNote": "ستصلكم رسالة تحتوي على رابط الدخول — دون كلمة مرور.",
+    "provisionFailedTitle": "تم استلام الدفع، الإعداد قيد الانتظار",
+    "provisionFailedBody": "تم تسجيل دفعتك — لن يتم خصم المبلغ مرة أخرى. لم يكتمل إنشاء مساحتك، لكن لم يُفقد شيء.",
+    "provisionRetry": "إعادة محاولة الإنشاء",
+    "provisionRetrying": "جارٍ إعادة المحاولة…",
+    "paymentReference": "مرجع الدفع",
+    "paymentReferenceHint": "احتفظ بهذا المرجع: فهو يساعدنا في العثور على طلبك.",
+    "contactSupport": "الاتصال بالدعم",
+    "reassurePaid": "دفعتك آمنة",
+    "errorDetails": "التفاصيل التقنية"
   },
   "Legal": {
     "backHome": "العودة إلى الصفحة الرئيسية",

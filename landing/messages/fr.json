@@ -530,7 +530,16 @@
     "paymentSuccessTitle": "Paiement confirmé !",
     "paymentSuccessBody": "Nous créons votre espace. Vous allez être redirigé automatiquement.",
     "creatingAccount": "Création de votre espace…",
-    "magicLinkNote": "Vous recevrez un lien de connexion par email — aucun mot de passe à retenir."
+    "magicLinkNote": "Vous recevrez un lien de connexion par email — aucun mot de passe à retenir.",
+    "provisionFailedTitle": "Paiement reçu, création en attente",
+    "provisionFailedBody": "Votre paiement est bien enregistré — vous ne serez pas débité une seconde fois. La création de votre espace n'a pas abouti, mais rien n'est perdu.",
+    "provisionRetry": "Réessayer la création",
+    "provisionRetrying": "Nouvelle tentative…",
+    "paymentReference": "Référence de paiement",
+    "paymentReferenceHint": "Conservez cette référence : elle nous permet de retrouver votre commande.",
+    "contactSupport": "Contacter le support",
+    "reassurePaid": "Votre paiement est sécurisé",
+    "errorDetails": "Détail technique"
   },
   "Legal": {
     "backHome": "Retour à l'accueil",
