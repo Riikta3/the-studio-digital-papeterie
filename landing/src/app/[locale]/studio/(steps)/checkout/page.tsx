@@ -159,6 +159,7 @@ export default function StudioCheckoutPage() {
   const t = useTranslations("StudioCheckout");
   const tLayout = useTranslations("StudioLayout");
   const tModules = useTranslations("StudioModules");
+  const locale = useLocale();
   const router = useRouter();
   const searchParams = useSearchParams();
 
@@ -232,6 +233,8 @@ export default function StudioCheckoutPage() {
       plan: plan ?? "experience",
       adultsOnly,
       animationId: animation,
+      // Opens the dashboard in the language they bought in.
+      locale,
     });
 
     if (result.success && result.loginLink) {
@@ -242,7 +245,7 @@ export default function StudioCheckoutPage() {
     }
   }, [
     weddingInfo, theme, modules, extras, languages, plan, adultsOnly,
-    animation, t, intentIdFromUrl,
+    animation, t, intentIdFromUrl, locale,
   ]);
 
   // Provision right away when Stripe redirected back after payment.
