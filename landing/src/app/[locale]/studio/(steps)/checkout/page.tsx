@@ -10,7 +10,7 @@ import { loadStripe } from "@stripe/stripe-js";
 import { Check, ChevronLeft, CreditCard, Loader2, Pencil } from "lucide-react";
 import { useLocale, useTranslations } from "next-intl";
 import { useSearchParams } from "next/navigation";
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 
 import { getModuleName } from "@shared/data/modules";
 import { cn } from "@shared/lib/utils";
@@ -183,17 +183,28 @@ export default function StudioCheckoutPage() {
   const [isProvisioning, setIsProvisioning] = useState(false);
   const [provisionError, setProvisionError] = useState<string | null>(null);
 
+  // Mirrors paymentIntentId for the repricing effect below, which must not
+  // re-run when the id changes (that would loop) yet still needs the current
+  // value. Reading the state variable there captured the initial null and
+  // created a fresh intent on every cart edit instead of repricing one.
+  const intentIdRef = useRef<string | null>(null);
+
+  // Provisioning must fire exactly once per payment: the effect that triggers
+  // it runs again on every re-render caused by its own state updates.
+  const provisionStartedRef = useRef(false);
+
   // Stripe appends this on redirect-based methods; for inline ones we still
   // hold the id in state.
   const intentIdFromUrl = searchParams.get("payment_intent");
 
   const provision = useCallback(async () => {
-    const intentId = intentIdFromUrl ?? paymentIntentId;
+    const intentId = intentIdFromUrl ?? intentIdRef.current;
     if (!intentId) {
       setProvisionError(t("paymentError"));
       return;
     }
 
+    provisionStartedRef.current = true;
     setIsProvisioning(true);
     setProvisionError(null);
 
@@ -231,20 +242,25 @@ export default function StudioCheckoutPage() {
     }
   }, [
     weddingInfo, theme, modules, extras, languages, plan, adultsOnly,
-    animation, t, intentIdFromUrl, paymentIntentId,
+    animation, t, intentIdFromUrl,
   ]);
 
   // Provision right away when Stripe redirected back after payment.
   useEffect(() => {
-    if (isPaymentSuccess && hasHydrated && !isProvisioning) {
-      provision();
-    }
+    if (!isPaymentSuccess || !hasHydrated) return;
+    if (provisionStartedRef.current) return;
+    provision();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isPaymentSuccess, hasHydrated]);
 
   // Create the payment intent once the persisted order is available.
   useEffect(() => {
     if (isPaymentSuccess || !hasHydrated || !plan) return;
+
+    // A fast sequence of cart edits fires overlapping requests; only the last
+    // one may set the client secret, or the PaymentElement ends up mounted
+    // against a superseded (wrongly priced) intent.
+    let cancelled = false;
 
     fetch("/api/create-payment-intent", {
       method: "POST",
@@ -254,20 +270,36 @@ export default function StudioCheckoutPage() {
         email: weddingInfo.email,
         // Reprice the same intent when the cart changed, instead of leaving a
         // stale amount attached to the mounted PaymentElement.
-        paymentIntentId,
+        paymentIntentId: intentIdRef.current,
       }),
     })
       .then((res) => res.json())
       .then((data) => {
+        if (cancelled) return;
+
+        // A zero total yields no client secret by design. Surface it instead
+        // of dropping into the loading branch, which never resolves.
+        if (!data.error && data.clientSecret === null && data.amount === 0) {
+          setFetchError(t("paymentError"));
+          return;
+        }
+
         if (data.clientSecret) {
           setClientSecret(data.clientSecret);
+          intentIdRef.current = data.paymentIntentId ?? null;
           setPaymentIntentId(data.paymentIntentId ?? null);
           setFetchError(null);
         } else {
           setFetchError(data.error ?? t("paymentError"));
         }
       })
-      .catch(() => setFetchError(t("paymentError")));
+      .catch(() => {
+        if (!cancelled) setFetchError(t("paymentError"));
+      });
+
+    return () => {
+      cancelled = true;
+    };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [hasHydrated, isPaymentSuccess, plan, modules, languages, extras]);
 
@@ -314,7 +346,9 @@ export default function StudioCheckoutPage() {
   const recapRows = [
     {
       label: t("offer"),
-      value: plan === "premium" ? "Premium" : "Essentiel",
+      // Falls back to the "none" label rather than silently claiming Essentiel:
+      // the guard in the steps layout sends a planless order back to /start.
+      value: plan === "premium" ? "Premium" : plan ? "Essentiel" : t("none"),
       href: "/studio/start",
     },
     {
