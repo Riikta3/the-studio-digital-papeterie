@@ -35,16 +35,19 @@ export default function RootLayout({
       suppressHydrationWarning
       className={`${urbanist.variable} ${libreCaslonDisplay.variable}`}
     >
-      {/* Marks JS as available before first paint, so the scroll-reveal rules
-          in globals.css can hide their targets. Without this flag the reveal
-          would have to start hidden in the SSR markup, and a slow or failed
-          hydration would leave the page blank. Inline and synchronous on
-          purpose: it must win the race against first paint. */}
-      <script
-        dangerouslySetInnerHTML={{
-          __html: `document.documentElement.classList.add('js-ready')`,
-        }}
-      />
+      <head>
+        {/* Marks JS as available before first paint, so the scroll-reveal rules
+            in globals.css can hide their targets. Without this flag the reveal
+            would have to start hidden in the SSR markup, and a slow or failed
+            hydration would leave the page blank. Inline and synchronous on
+            purpose: it must win the race against first paint, so it lives in
+            the root <head> rather than floating as a child of <html>. */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `document.documentElement.classList.add('js-ready')`,
+          }}
+        />
+      </head>
       <body
         className='w-full overflow-x-hidden bg-studio-jaune text-foreground'
         suppressHydrationWarning
