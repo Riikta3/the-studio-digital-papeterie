@@ -360,6 +360,15 @@ export function HowItWorks() {
         {steps.map((step, i) => (
           <StackCard key={step.number} step={step} content={mocks[i]} />
         ))}
+        {/* Scroll runway for the last card. A sticky element can only stay
+            pinned while its containing block still has scrollable height
+            below it, and the last card's `last:mb-0` ends the container on
+            its own bottom edge — so card 03 reached its sticky top and was
+            immediately released, sliding over card 02 instead of stacking
+            onto it. This spacer gives the pile somewhere left to scroll,
+            which is what holds every card pinned at STICKY_TOP until the
+            whole section leaves the viewport. */}
+        <div aria-hidden className="h-[60vh]" />
       </div>
     </section>
   );
