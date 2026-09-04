@@ -8,7 +8,7 @@ import {
 } from "@stripe/react-stripe-js";
 import { loadStripe } from "@stripe/stripe-js";
 import { Check, ChevronLeft, CreditCard, Loader2, Pencil } from "lucide-react";
-import { useTranslations } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 import { useSearchParams } from "next/navigation";
 import { useCallback, useEffect, useState } from "react";
 
@@ -45,6 +45,7 @@ function PaymentForm({
   onSuccess: () => void;
 }) {
   const t = useTranslations("StudioCheckout");
+  const locale = useLocale();
   const stripe = useStripe();
   const elements = useElements();
   const [isLoading, setIsLoading] = useState(false);
@@ -61,7 +62,10 @@ function PaymentForm({
     const { error } = await stripe.confirmPayment({
       elements,
       confirmParams: {
-        return_url: `${window.location.origin}/fr/studio/checkout?payment_success=true`,
+        // Locale-prefixed: a redirect-based method (Klarna, iDEAL, Bancontact —
+        // all enabled by automatic_payment_methods) must bring the customer
+        // back to the language they were paying in, not to /fr.
+        return_url: `${window.location.origin}/${locale}/studio/checkout?payment_success=true`,
       },
       redirect: "if_required",
     });
