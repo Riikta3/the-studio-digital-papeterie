@@ -63,27 +63,27 @@ export function WhyUs() {
             <FadeIn
               key={reason.titleLine1}
               className={cn(
-                // Icon beside the text on phones — stacked, each reason ran
-                // as one tall column and a single card filled the screen.
-                // From md up the grid has room for the centred layout again.
-                "flex gap-4 md:flex-col md:items-center md:gap-0 md:text-center",
+                "md:flex md:flex-col md:items-center md:text-center",
                 isLastOdd && "md:col-span-2",
               )}
             >
-              <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl bg-studio-lavande shadow-sm">
-                <Icon className="h-6 w-6 text-studio-violet" />
-              </div>
-              <div>
-                <h3 className="font-heading text-h2 text-studio-violet md:mt-5">
+              {/* Same shape as the Atelier steps: icon and heading share a
+                  row on phones, description below across the full width;
+                  from md up the whole thing stacks and centres. */}
+              <div className="flex items-center gap-4 md:flex-col md:gap-3">
+                <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl bg-studio-lavande shadow-sm">
+                  <Icon className="h-6 w-6 text-studio-violet" />
+                </div>
+                <h3 className="font-heading text-h2 text-studio-violet">
                   <span className="block">{reason.titleLine1}</span>
                   {reason.titleLine2 && (
                     <span className="block">{reason.titleLine2}</span>
                   )}
                 </h3>
-                <p className="mt-3 max-w-md font-body text-sm text-studio-violet/70 md:text-base">
-                  {reason.description}
-                </p>
               </div>
+              <p className="mt-4 max-w-md font-body text-sm text-studio-violet/70 md:text-base">
+                {reason.description}
+              </p>
             </FadeIn>
           );
         })}
