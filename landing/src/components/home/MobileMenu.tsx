@@ -19,13 +19,14 @@ const PRODUCT_LINK_ANCHORS = [
   "tarifs",
   "sur-mesure",
   "espace-maries",
-  "temoignages",
+  "jour-j",
   "faq",
 ];
 // Sign-in is in the dashboard app, a different origin: there is no /login page
 // here, so an in-app <Link> 404s. Absolute URL, plain anchor below.
 const DASHBOARD_URL =
-  process.env.NEXT_PUBLIC_DASHBOARD_URL || "http://localhost:3003";
+  process.env.NEXT_PUBLIC_DASHBOARD_URL ||
+  "https://app-the-studio-digital-papeterie.vercel.app";
 const MARIES_LINK_HREFS = [`${DASHBOARD_URL}/fr/login`];
 
 export function MobileMenu({

@@ -43,11 +43,25 @@ export async function POST(req: Request) {
     return NextResponse.json({ error: err.message }, { status: 400 });
   }
 
-  // Persist every event before acting on it. The unique constraint on
-  // stripe_event_id makes redeliveries no-ops, and the stored payload keeps a
-  // paid order recoverable if provisioning never completed.
   const intentForLog = event.data.object as Stripe.PaymentIntent;
-  const { error: logError } = await supabaseAdmin.from("stripe_events").insert({
+
+  // Idempotency gate. Only an event whose handler actually completed is marked
+  // "processed", so a delivery that failed mid-handler is retried on Stripe's
+  // next attempt instead of being waved through as a duplicate.
+  const { data: seen } = await supabaseAdmin
+    .from("stripe_events")
+    .select("id, status")
+    .eq("stripe_event_id", event.id)
+    .maybeSingle();
+
+  if (seen?.status === "processed") {
+    console.log(`↩️ Duplicate Stripe event ignored: ${event.id}`);
+    return NextResponse.json({ received: true, duplicate: true });
+  }
+
+  // Record the event before acting on it: the stored payload carries the full
+  // basket, so a paid order stays recoverable even if the handler below dies.
+  const eventRow = {
     stripe_event_id: event.id,
     event_type: event.type,
     payment_intent_id: intentForLog?.id ?? null,
@@ -55,15 +69,15 @@ export async function POST(req: Request) {
       intentForLog?.metadata?.email ?? intentForLog?.receipt_email ?? null,
     amount_cents: intentForLog?.amount ?? null,
     currency: intentForLog?.currency ?? null,
-    status: intentForLog?.status ?? "received",
     raw_payload: event as unknown as Record<string, unknown>,
-  });
+  };
 
-  if (logError?.code === "23505") {
-    // Already processed — Stripe retries deliveries, so acknowledge and stop.
-    console.log(`↩️ Duplicate Stripe event ignored: ${event.id}`);
-    return NextResponse.json({ received: true, duplicate: true });
-  }
+  await supabaseAdmin
+    .from("stripe_events")
+    .upsert(
+      { ...eventRow, status: intentForLog?.status ?? "received" },
+      { onConflict: "stripe_event_id" },
+    );
 
   try {
     switch (event.type) {
@@ -77,16 +91,34 @@ export async function POST(req: Request) {
           const user = await findUserByEmail(email);
 
           if (user) {
-            await supabaseAdmin.from("billing").insert({
-              user_id: user.id,
-              amount: paymentIntent.amount, // in cents
-              currency: paymentIntent.currency,
-              status: "succeeded",
-              plan_name: paymentIntent.metadata.plan || "unknown",
-              payment_method:
-                paymentIntent.payment_method_types?.[0] || "unknown",
-            });
-            console.log(`🧾 Billing record inserted for ${email}`);
+            // Upsert on stripe_payment_intent_id (unique): the column exists
+            // precisely so a Stripe redelivery cannot bill the couple twice.
+            // A plain insert left it null, so the constraint never applied and
+            // every retry added another row.
+            const { error: billingError } = await supabaseAdmin
+              .from("billing")
+              .upsert(
+                {
+                  user_id: user.id,
+                  stripe_payment_intent_id: paymentIntent.id,
+                  amount: paymentIntent.amount, // in cents
+                  currency: paymentIntent.currency,
+                  status: "succeeded",
+                  plan_name: paymentIntent.metadata.plan || "unknown",
+                  payment_method:
+                    paymentIntent.payment_method_types?.[0] || "unknown",
+                },
+                { onConflict: "stripe_payment_intent_id" },
+              );
+
+            if (billingError) {
+              // Surface it: a paid order with no billing row is a support case,
+              // and returning 500 makes Stripe retry the delivery.
+              console.error("[BILLING_INSERT_FAILED]", paymentIntent.id, billingError);
+              throw billingError;
+            }
+
+            console.log(`🧾 Billing record recorded for ${email}`);
           } else {
             // The customer paid but no account exists yet: either provisioning
             // is still running, or the browser died right after payment.
@@ -132,6 +164,12 @@ export async function POST(req: Request) {
       default:
         console.log(`Unhandled Stripe event type: ${event.type}`);
     }
+
+    // Handler completed: close the idempotency gate so retries stop here.
+    await supabaseAdmin
+      .from("stripe_events")
+      .update({ status: "processed" })
+      .eq("stripe_event_id", event.id);
 
     return NextResponse.json({ received: true });
   } catch (error) {

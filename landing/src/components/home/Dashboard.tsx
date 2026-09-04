@@ -35,7 +35,7 @@ export function Dashboard() {
           <h2 className="mt-4 font-heading text-h1 text-studio-violet">
             {t("titleLine1")}
             <br />
-            <span className="text-studio-lavande">{t("titleAccent")}</span>
+            <span className="text-studio-violet-clair">{t("titleAccent")}</span>
           </h2>
 
           <p className="mx-auto mt-6 max-w-md font-body text-sm text-studio-violet/70 md:text-base">
@@ -53,7 +53,9 @@ export function Dashboard() {
       <div className="mx-auto mt-12 w-full max-w-5xl">
         <DashboardDemo />
 
-        <p className="mt-4 text-center font-body text-xs text-studio-violet/50">
+        {/* /75 not /50: at 12px this is small text, and violet/50 on beurre
+            is 2.51:1 — below the 4.5:1 AA floor. /75 gives 4.49:1. */}
+        <p className="mt-4 text-center font-body text-xs text-studio-violet/75">
           {t("demo.note")}
         </p>
       </div>

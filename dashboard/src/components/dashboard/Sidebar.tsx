@@ -134,7 +134,7 @@ export function Sidebar({ slug }: { slug: string | null }) {
                 const baseUrl = isDev
                   ? "http://localhost:3010"
                   : process.env.NEXT_PUBLIC_LANDING_URL ||
-                    "https://the-studio.digital";
+                    "https://www.thestudiopapeteriedigitale.com";
                 window.open(`${baseUrl}/fr/invitation/${slug}`, "_blank");
               }}
               className={cn(

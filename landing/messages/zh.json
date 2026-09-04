@@ -1,36 +1,29 @@
 {
+  "Metadata": {
+    "title": "电子婚礼邀请函 | The Studio Digital Papeterie",
+    "ogTitle": "The Studio — 重新定义的电子婚礼邀请函",
+    "description": "创建您的电子婚礼邀请函：优雅的在线婚礼邀请，内置婚礼回复功能，所有婚礼信息集中呈现。一次付费，无需订阅。",
+    "keywords": "电子婚礼邀请函, 在线婚礼邀请, 婚礼回复, 定制婚礼邀请函, 婚礼电子请柬, 婚礼网站"
+  },
   "Navbar": {
     "product": "产品",
     "features": "功能",
     "dashboard": "仪表板",
     "themes": "主题",
-    "testimonials": "推荐",
+    "jourj": "婚礼当天",
     "pricing": "价格",
     "faq": "常见问题",
     "createButton": "创建我的请柬"
   },
   "Hero": {
-    "eyebrow": "数字婚礼请柬",
+    "eyebrow": "电子婚礼邀请函",
     "titleLine1": "婚礼请柬，",
     "titleLine2": "焕然一新",
-    "subtitle": "专为当代婚礼打造",
+    "subtitle": "一份如真实体验般精心设计的邀请函。",
     "menuAriaLabel": "打开菜单",
-    "discoverButton": "了解更多",
-    "createButton": "创建我的请柬",
+    "discoverButton": "探索系列",
+    "createButton": "创建我的邀请函",
     "themeCta": "试用{name}主题"
-  },
-  "Features": {
-    "titleLine1": "纸张的优雅，",
-    "titleLine2": "数字的魔力",
-    "subtitle": "为什么要美丽和实用之间做选择？The Studio Papeterie Digital 为您提供两全其美的方案。",
-    "ecoTitle": "环保且负责任",
-    "ecoDesc": "节省数百个信封和邮票。对地球的优雅姿态，且不失格调。",
-    "editTitle": "无限修改",
-    "editDesc": "日期错了？地点变了？即时更新您的网站，即使在发送之后。",
-    "rsvpTitle": "简化的 RSVP 管理",
-    "rsvpDesc": "不再丢失回复卡。实时跟踪出席情况、饮食要求和同伴。",
-    "langTitle": "国际多语言",
-    "langDesc": "欢迎来自世界各地的客人。您的网站提供法语、英语、西班牙语、意大利语、德语、葡萄牙语、阿拉伯语、中文和日语版本。"
   },
   "FAQ": {
     "titleLine1": "常见",
@@ -51,14 +44,15 @@
   },
   "HowItWorks": {
     "eyebrow": "简单、快速、100% 个性化",
-    "titleLine1": "您的请柬",
-    "titleAccent": "只需 3 步",
+    "titleLine1": "您的邀请函，",
+    "titleAccent": "简单从容。",
     "universeMockLabel": "选择风格",
     "personalizeMockLabel": "个性化您的请柬",
     "personalizeMockRows": [
-      "留言簿",
-      "流程安排",
-      "菜单"
+      "婚礼流程",
+      "回复邀约",
+      "住宿安排",
+      "着装要求"
     ],
     "shareMockLabel": "分享您的请柬",
     "shareMockActions": [
@@ -72,127 +66,23 @@
         "number": "01",
         "titleLine1": "选择",
         "titleLine2": "您的风格",
-        "description": "挑选最能代表您的设计。简约、浪漫、大胆——每种风格都为讲述您的故事而设计。"
+        "description": "浏览我们的系列，选择与您婚礼气质相符的那一款。每个风格都有独立的艺术方向、动效与细节，同时可用您的内容自由定制。"
       },
       {
         "number": "02",
-        "titleLine1": "个性化",
-        "titleLine2": "您的请柬",
-        "description": "添加您的照片、文字和必要信息——RSVP、流程安排、住宿——只需几步即可完成定制。"
+        "titleLine1": "让它",
+        "titleLine2": "独属于您",
+        "description": "名字、照片、文字、流程、地点、着装要求、回复邀约、住宿安排……您来决定想要分享的信息，并将邀请函打造成您的模样。"
       },
       {
         "number": "03",
-        "titleLine1": "宣布",
-        "titleLine2": "重要的日子",
-        "description": "通过短信、WhatsApp 或邮件发送请柬。无论宾客身在何处，都能在几秒内回复。"
+        "titleLine1": "分享",
+        "titleLine2": "您的邀请函",
+        "description": "邀请函完成后，只需发送即可。WhatsApp、短信、邮件或一个简单链接：宾客即可领略您的风格，并在同一处找到婚礼的全部信息。"
       }
     ],
     "upcomingTitle": "新系列",
     "upcomingSubtitle": "更多主题即将推出"
-  },
-  "DemoSection": {
-    "eyebrow": "Voir en vrai",
-    "title": "Une invitation",
-    "titleAccent": "comme la vôtre",
-    "subtitle": "Ouvrez une vraie invitation et vivez l'expérience de vos invités.",
-    "ctaButton": "Voir la démo live",
-    "ctaSubtext": "Ouvrir une vraie invitation"
-  },
-  "ProductDemo": {
-    "eyebrow": "Découvrez l'expérience",
-    "titleLine1": "À quoi ressemble",
-    "titleLine2": "une invitation digitale ?",
-    "subtitle": "Une invitation interactive à envoyer en un lien. Élégante, personnalisable et instantanée.",
-    "createButton": "Créer mon invitation",
-    "step1Title": "L'enveloppe qui s'ouvre",
-    "step1Desc": "Une animation d'ouverture unique — enveloppe, rideaux, portes. Le premier frisson avant même de lire un mot.",
-    "step2Title": "L'invitation révélée",
-    "step2Desc": "Votre site dans votre thème personnalisé. Noms, date, lieu — tout votre style, en un regard.",
-    "step3Title": "Programme & infos",
-    "step3Desc": "Cérémonie, cocktail, dîner — lisible en un scroll, modifiable à tout moment.",
-    "step4Title": "Galerie & playlist",
-    "step4Desc": "Photos, vidéos, musique — vos invités vivent l'ambiance avant même d'arriver.",
-    "step5Title": "RSVP en ligne",
-    "step5Desc": "Présence, accompagnants, régimes — tout dans votre tableau de bord en temps réel.",
-    "demosEyebrow": "Exemples réels",
-    "demosTitleLine1": "Voyez le produit",
-    "demosTitleLine2": "en direct",
-    "demosSub": "Choisissez un thème et explorez une vraie invitation — comme la vivrait l'un de vos invités.",
-    "openFullscreen": "Ouvrir en plein écran",
-    "deviceMobile": "Mobile",
-    "deviceDesktop": "Desktop",
-    "animationLabel": "Animation",
-    "animationEnvelope": "Enveloppe",
-    "animationDoors": "Portes",
-    "animationCurtains": "Rideaux"
-  },
-  "PricingComparison": {
-    "eyebrow": "Pour 200 invités",
-    "title": "La différence",
-    "titleAccent": "qui compte",
-    "paperLabel": "Papier traditionnel",
-    "paperDetails": "Impression + timbres + enveloppes",
-    "studioLabel": "The Studio",
-    "studioDetails": "Tout inclus, illimité",
-    "studioFrom": "À partir de",
-    "savingBadge": "Économisez {amount}€",
-    "feature1": "Envoi instantané",
-    "feature2": "Modifiable",
-    "feature3": "RSVP intégré",
-    "feature4": "Zéro papier"
-  },
-  "ValueCards": {
-    "eyebrow": "Pourquoi The Studio",
-    "title": "Tout ce dont",
-    "titleAccent": "vous avez besoin",
-    "card1Title": "Design élégant",
-    "card1Desc": "Thèmes créés par des graphistes, pour un rendu haut de gamme.",
-    "card2Title": "Envoi instantané",
-    "card2Desc": "Partagez le lien en un clic, vos invités l'ouvrent immédiatement.",
-    "card3Title": "Écologique",
-    "card3Desc": "Zéro papier, zéro timbre, zéro gaspillage.",
-    "card4Title": "Modifiable",
-    "card4Desc": "Changez les infos à tout moment, même après l'envoi.",
-    "card5Title": "Sur-mesure",
-    "card5Desc": "Modules au choix, langues multiples, votre histoire racontée à votre façon."
-  },
-  "Customization": {
-    "eyebrow": "Aller plus loin",
-    "title": "Personnalisation",
-    "titleAccent": "sur-mesure",
-    "subtitle": "Chaque mariage est unique. Votre invitation aussi.",
-    "feature1Title": "Programme",
-    "feature1Desc": "Déroulé de la journée, horaires, lieux.",
-    "feature2Title": "Galerie photos",
-    "feature2Desc": "Partagez vos plus belles photos en avant-première.",
-    "feature3Title": "Liste de cadeaux",
-    "feature3Desc": "Intégrez votre liste directement dans l'invitation.",
-    "bespokeBadge": "100% sur-mesure",
-    "bespokeTitle": "Un projet unique ?",
-    "bespokeDesc": "Pour les mariages d'exception, nous proposons une création entièrement sur-mesure sur rendez-vous.",
-    "bespokeButton": "Nous contacter",
-    "bespokeEmail": "contact@thestudiopapeteriedigitale.com"
-  },
-  "Testimonials": {
-    "eyebrow": "他们信任我们",
-    "title": "他们的真实评价",
-    "items": [
-      {
-        "quote": "我们的宾客都被信封开启动画惊艳到了！正是这个细节改变了一切。RSVP 功能为我们节省了宝贵的时间。",
-        "names": "Juliette 与 Pierre",
-        "date": "2024 年 9 月完婚"
-      },
-      {
-        "quote": "氛围如梦如幻，闪烁的灯光配上迷人的音乐，每一刻都被永久定格。",
-        "names": "Sophie 与 Antoine",
-        "date": "2023 年 6 月完婚"
-      },
-      {
-        "quote": "我们在蜜月旅行中发现了令人惊叹的风景。这些冒险的回忆将永远铭刻在心。",
-        "names": "Emma 与 Lucas",
-        "date": "2022 年 5 月完婚"
-      }
-    ]
   },
   "Catalogue": {
     "eyebrow": "Créez votre invitation",
@@ -243,7 +133,7 @@
       "价格",
       "定制服务",
       "新人空间",
-      "客户评价",
+      "婚礼当天",
       "常见问题"
     ],
     "login": "登录",
@@ -270,10 +160,10 @@
   "Preview": {
     "eyebrow": "实时定制",
     "titleLine1": "探索",
-    "titleAccent": "每一款设计",
-    "subtitle": "尝试每一种主题，找到最能讲述你们故事的那一款。",
+    "titleAccent": "我们的系列",
+    "subtitle": "每场婚礼都有独特的风格，您的也是。浏览我们的作品，探索每一份邀请函，选择最像您的设计。",
     "scrollHint": "滑动查看",
-    "discoverButton": "了解更多",
+    "discoverButton": "探索邀请函",
     "createButton": "创建我的请柬",
     "prevThemesAriaLabel": "上一组主题",
     "nextThemesAriaLabel": "下一组主题",
@@ -285,33 +175,33 @@
   },
   "WhyUs": {
     "eyebrow": "为什么选择 The Studio？",
-    "titleLine1": "纸艺的优雅，",
-    "titleAccent": "数字的力量",
+    "titleLine1": "传统请柬所有的美好。没有它的束缚。",
+    "titleAccent": "",
     "reasons": [
       {
-        "titleLine1": "媲美顶级纸艺工坊",
-        "titleLine2": "的精致设计",
-        "description": "纸艺的优雅，不再受限于纸张。"
+        "titleLine1": "真正的",
+        "titleLine2": "艺术方向",
+        "description": "这不是普通的婚礼网站。每一份 The Studio 电子婚礼邀请函都被视为真正的电子请柬作品：字体、构图、动效与细节共同营造难忘的第一印象。"
       },
       {
-        "titleLine1": "零后勤烦恼",
+        "titleLine1": "零繁琐",
         "titleLine2": "",
-        "description": "无需印刷，无需邮票，不用再问「150 份请柬寄出去了吗？」"
+        "description": "无需收集所有邮寄地址、购买 150 张邮票、准备信封或前往邮局。您的邀请函可轻松分享，免去纸质请柬的全部繁琐。"
       },
       {
-        "titleLine1": "随时触手可及",
-        "titleLine2": "",
-        "description": "告别被遗忘在抽屉里的请柬。宾客只需一键即可获取所有信息。"
+        "titleLine1": "随时",
+        "titleLine2": "触手可及",
+        "description": "流程、地点、时间、着装要求、住宿安排、婚礼回复……宾客可直接在手机上查看所有实用信息，全部集中一处。"
       },
       {
-        "titleLine1": "环保低碳",
+        "titleLine1": "无需印刷",
         "titleLine2": "",
-        "description": "树木感谢你们。一份无需印刷与运输的请柬。"
+        "description": "无需印刷、无需信封、无需邮票、无需邮寄。一份电子请柬，摆脱传统请柬的实物限制。"
       },
       {
-        "titleLine1": "即时送达",
+        "titleLine1": "即刻送达",
         "titleLine2": "",
-        "description": "一键发送，秒级送达。无需等待印刷，无需邮寄延误。"
+        "description": "WhatsApp、短信或邮件：您的在线婚礼邀请数秒即可分享，宾客可立即查看。"
       }
     ]
   },
@@ -330,39 +220,39 @@
   },
   "Atelier": {
     "eyebrow": "把你们的构想交给我们的工作室",
-    "titleLine1": "一份",
-    "titleLine2": "独一无二",
-    "titleLine3": "属于你们故事的请柬",
-    "subtitle": "你们有构想，我们让它成真。我们的工作室以精准的手法、独到的品味和用心的态度，为你们打造完美呈现婚礼精神的数字请柬。",
+    "titleLine1": "您的婚礼独一无二。",
+    "titleLine2": "您的邀请函",
+    "titleLine3": "亦是如此。",
+    "subtitle": "您心中已有明确的构想、一种色彩、一处场地、一种氛围，或只是一份难以言表的期待？我们将与您一同构思一份完全围绕您的风格打造的电子婚礼邀请函。",
     "steps": [
       {
         "number": "1.",
-        "title": "沟通交流",
-        "description": "与我们的艺术总监进行视频或电话沟通，了解你们的故事、心愿、风格以及婚礼的独特之处。"
+        "title": "初次沟通",
+        "description": "第一次交流，了解您的婚礼、您的灵感，以及您希望为宾客创造的体验。"
       },
       {
         "number": "2.",
-        "title": "草案构思",
-        "description": "共同创建专属情绪板，确定请柬的氛围、风格元素与美学方向。"
+        "title": "艺术方向",
+        "description": "我们共同确定邀请函的色彩、字体、参考风格与整体氛围。"
       },
       {
         "number": "3.",
-        "title": "设计制作",
-        "description": "正式进入创作阶段。你们的请柬以独家设计呈现，每个细节都经过精心打磨。"
+        "title": "创作",
+        "description": "您的邀请函将专为您设计与开发，拥有独立的构图、交互与动效。"
       },
       {
         "number": "4.",
-        "title": "正式发布",
-        "description": "请柬准备就绪，一个专属链接，随时可即时分享给所有宾客。"
+        "title": "上线",
+        "description": "确认无误后，您的邀请函即可分享给宾客。"
       }
     ],
-    "ctaButton": "预约咨询"
+    "ctaButton": "聊聊我的项目"
   },
   "Dashboard": {
     "eyebrow": "属于新人的专属空间",
-    "titleLine1": "一个空间，",
-    "titleAccent": "掌控整场婚礼。",
-    "subtitle": "管理宾客名单、RSVP 回复、请柬内容：随时修改、调整、更新请柬信息，无需任何中间环节。",
+    "titleLine1": "您的婚礼。",
+    "titleAccent": "您的空间。",
+    "subtitle": "邀请函并非发送后就结束。在新人专属空间中，您可查看实用信息，跟进宾客情况，更从容地筹备婚礼当天。",
     "demo": {
       "chapters": "章节",
       "pause": "暂停",
@@ -370,9 +260,34 @@
       "previous": "上一步",
       "next": "下一步",
       "replay": "重新观看",
-      "note": "演示婚礼的数据：140 位来宾、65 个家庭、10 张餐桌。",
+      "note": "此处数据为示例，来自一场演示婚礼。",
       "mobileNote": "后台针对电脑和平板优化。此预览在此处仍可查看，为精简版本。"
     }
+  },
+  "JourJ": {
+    "eyebrow": "婚礼当天，为您的宾客",
+    "titleLine1": "婚礼当天，宾客",
+    "titleAccent": "知道该去哪里。",
+    "subtitle": "一个专属二维码，让宾客在婚礼当天轻松获取所有实用信息。",
+    "qrCaption": "一个专属二维码，只属于您的婚礼",
+    "features": [
+      {
+        "title": "找到座位",
+        "description": "宾客输入姓名，数秒内即可找到自己的餐桌。"
+      },
+      {
+        "title": "无需下载应用",
+        "description": "用手机扫一扫即可。"
+      },
+      {
+        "title": "信息随时可查",
+        "description": "菜单、流程与实用信息均可在同一处查看。"
+      },
+      {
+        "title": "宾客的珍贵回忆",
+        "description": "通过同一个二维码，宾客可分享婚礼照片与视频。之后您可在自己的空间中找到所有这些回忆。"
+      }
+    ]
   },
   "Faq": {
     "eyebrow": "还有疑问？",
@@ -380,30 +295,34 @@
     "titleAccent": "问题",
     "items": [
       {
-        "question": "请柬发出后还能修改网站内容吗？",
-        "answer": "当然可以！这正是数字化的魅力所在。你们可以随时修改时间安排、添加住宿信息或更换照片。宾客看到的将始终是最新版本。"
+        "question": "发送后还能修改邀请函吗？",
+        "answer": "可以。若婚礼前信息有变，您的电子婚礼邀请函可随时更新，无需向宾客重新发送新的请柬。"
       },
       {
-        "question": "需要支付月费吗？",
-        "answer": "完全不需要，只需一次性付款。婚礼结束后网站将保持在线 12 个月，让你们有充足时间分享美好回忆的照片。"
+        "question": "需要订阅吗？",
+        "answer": "不需要。The Studio 邀请函为一次性付费，无需按月订阅。"
       },
       {
-        "question": "宾客如何确认出席（RSVP）？",
-        "answer": "网站内置了简洁优雅的表单。你们可以在控制面板中实时收到回复（如需要也可通过邮件接收）。宾客名单可一键导出。"
+        "question": "回复邀约如何运作？",
+        "answer": "宾客可直接在您的邀请函上回复。所有回复将汇总到您的新人专属空间。"
       },
       {
-        "question": "可以使用自定义域名吗？",
-        "answer": "可以！选择「自定义域名」服务（+65€），或包含在 Premium 套餐中，你们可以拥有类似 www.paula-et-marcos.com 的专属网址。"
+        "question": "我的邀请函可以保留多久？",
+        "answer": "上线时长将在您下单时告知。"
       },
       {
-        "question": "是否提供配套的纸质请柬？",
-        "answer": "目前我们专注于数字体验，但可以为你们提供设计的高清 PDF 文件，方便在当地印刷店自行打印。"
+        "question": "我可以使用自己的域名吗？",
+        "answer": "可根据您的项目情况，作为可选服务提供定制域名。"
+      },
+      {
+        "question": "你们提供纸质版本吗？",
+        "answer": "The Studio 专注于电子请柬。我们的重心是打造专为手机与网页设计的体验。"
       }
     ]
   },
   "FinalCta": {
-    "titleLine1": "场地已定，餐饮也已安排妥当。",
-    "titleAccent": "只差一份请柬",
+    "titleLine1": "场地已定。餐饮也已安排。",
+    "titleAccent": "接下来，只需宣布这个好消息。",
     "createButton": "创建我的请柬"
   },
   "ScrollToTop": {
@@ -421,7 +340,7 @@
       "价格",
       "定制服务",
       "新人空间",
-      "客户评价",
+      "婚礼当天",
       "常见问题"
     ],
     "mariesLinks": [
@@ -655,7 +574,16 @@
     "paymentSuccessTitle": "支付已确认！",
     "paymentSuccessBody": "我们正在创建您的空间，稍后将自动跳转。",
     "creatingAccount": "正在创建您的空间…",
-    "magicLinkNote": "您将收到一封含登录链接的邮件 — 无需记住密码。"
+    "magicLinkNote": "您将收到一封含登录链接的邮件 — 无需记住密码。",
+    "provisionFailedTitle": "已收到付款，正在等待创建",
+    "provisionFailedBody": "您的付款已成功记录——不会重复扣款。您的空间未创建完成，但数据没有丢失。",
+    "provisionRetry": "重试创建",
+    "provisionRetrying": "正在重试…",
+    "paymentReference": "付款参考编号",
+    "paymentReferenceHint": "请保留此编号：我们可凭此找到您的订单。",
+    "contactSupport": "联系客服",
+    "reassurePaid": "您的付款是安全的",
+    "errorDetails": "技术详情"
   },
   "Legal": {
     "backHome": "返回首页",

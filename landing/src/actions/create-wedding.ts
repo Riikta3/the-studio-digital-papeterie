@@ -2,11 +2,21 @@
 
 import { findUserByEmail } from "@/lib/find-user-by-email";
 import { supabaseAdmin } from "@/lib/supabase-admin";
+import { getDashboardUrl } from "@/lib/urls";
 import {
   markPaymentProvisioned,
   verifyPaymentForOrder,
 } from "@/lib/verify-payment";
 import { APP_MODULES } from "@shared/data/modules";
+
+/**
+ * Locales the dashboard actually serves (dashboard/src/navigation.ts). Kept in
+ * sync by hand: the two apps are separate Next projects, so the landing cannot
+ * import the dashboard's routing config.
+ */
+const DASHBOARD_LOCALES = [
+  "fr", "en", "de", "es", "pt", "it", "ar", "zh", "ja",
+];
 
 interface CreateWeddingData {
   /** Stripe PaymentIntent proving this order was paid for. */
@@ -23,6 +33,8 @@ interface CreateWeddingData {
   plan: string;
   adultsOnly?: boolean;
   animationId?: string;
+  /** Locale the couple bought in, so the dashboard opens in their language. */
+  locale?: string;
 }
 
 export async function createWedding(data: CreateWeddingData) {
@@ -48,7 +60,7 @@ export async function createWedding(data: CreateWeddingData) {
   // Replay guard: a page reload after payment must not create a second wedding.
   if (payment.alreadyProvisionedAs) {
     console.log("♻️ Payment already provisioned:", payment.alreadyProvisionedAs);
-    const link = await generateLoginLink(data.email);
+    const link = await generateLoginLink(data.email, undefined, data.locale);
     return {
       success: true,
       weddingId: payment.alreadyProvisionedAs,
@@ -256,7 +268,7 @@ export async function createWedding(data: CreateWeddingData) {
   await markPaymentProvisioned(data.paymentIntentId, weddingId);
 
   // 7. Generate Auto-Login Link (Magic Link)
-  const loginLink = await generateLoginLink(data.email, finalSlug);
+  const loginLink = await generateLoginLink(data.email, finalSlug, data.locale);
 
   return {
     success: true,
@@ -271,11 +283,22 @@ export async function createWedding(data: CreateWeddingData) {
 async function generateLoginLink(
   email: string,
   slug?: string,
+  locale?: string,
 ): Promise<string | undefined> {
-  const dashboardUrl =
-    process.env.NEXT_PUBLIC_DASHBOARD_URL || "http://localhost:3003";
+  // Throws in production when unset rather than falling back to localhost:
+  // this URL is where a paying customer lands right after checkout, and a
+  // localhost redirect there is invisible in logs and unrecoverable for them.
+  const dashboardUrl = getDashboardUrl();
 
-  const next = `/fr?first=true${slug ? `&slug=${slug}` : ""}`;
+  // Was hardcoded to /fr, so a couple who bought in English landed on a
+  // French dashboard. Validated against the dashboard's own locale list —
+  // both apps ship the same nine — so an unexpected value can never build a
+  // URL that 404s instead of signing them in.
+  const targetLocale = DASHBOARD_LOCALES.includes(locale ?? "")
+    ? (locale as string)
+    : "fr";
+
+  const next = `/${targetLocale}?first=true${slug ? `&slug=${slug}` : ""}`;
 
   const { data: linkData, error: linkError } =
     await supabaseAdmin.auth.admin.generateLink({

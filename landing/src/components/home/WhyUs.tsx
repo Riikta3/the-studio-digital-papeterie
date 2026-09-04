@@ -1,12 +1,16 @@
 "use client";
 
-import { Leaf, Palette, Send, Smartphone, Zap } from "lucide-react";
+import { cn } from "@shared/lib/utils";
+import { Palette, Printer, Send, Smartphone, Zap } from "lucide-react";
 import { useTranslations } from "next-intl";
 import Image from "next/image";
 
 import { FadeIn } from "./FadeIn";
 
-const REASON_ICONS = [Palette, Send, Smartphone, Leaf, Zap];
+// Order matches WhyUs.reasons in the message files. The fourth card is
+// "Sans impression" — a Printer, not the old Leaf: a leaf reads as the
+// environmental claim the copy deliberately dropped.
+const REASON_ICONS = [Palette, Send, Smartphone, Printer, Zap];
 
 type Reason = {
   titleLine1: string;
@@ -47,7 +51,7 @@ export function WhyUs() {
         <h2 className="mt-4 font-heading text-h1 text-studio-violet">
           {t("titleLine1")}
           <br />
-          <span className="text-studio-lavande">{t("titleAccent")}</span>
+          <span className="text-studio-violet-clair">{t("titleAccent")}</span>
         </h2>
       </FadeIn>
 
@@ -58,22 +62,26 @@ export function WhyUs() {
           return (
             <FadeIn
               key={reason.titleLine1}
-              className={
-                isLastOdd
-                  ? "md:col-span-2 md:flex md:flex-col md:items-center md:text-center"
-                  : "md:flex md:flex-col md:items-center md:text-center"
-              }
+              className={cn(
+                "md:flex md:flex-col md:items-center md:text-center",
+                isLastOdd && "md:col-span-2",
+              )}
             >
-              <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-studio-lavande shadow-sm">
-                <Icon className="h-6 w-6 text-studio-violet" />
+              {/* Same shape as the Atelier steps: icon and heading share a
+                  row on phones, description below across the full width;
+                  from md up the whole thing stacks and centres. */}
+              <div className="flex items-center gap-4 md:flex-col md:gap-3">
+                <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl bg-studio-lavande shadow-sm">
+                  <Icon className="h-6 w-6 text-studio-violet" />
+                </div>
+                <h3 className="font-heading text-h2 text-studio-violet">
+                  <span className="block">{reason.titleLine1}</span>
+                  {reason.titleLine2 && (
+                    <span className="block">{reason.titleLine2}</span>
+                  )}
+                </h3>
               </div>
-              <h3 className="mt-5 font-heading text-h2 text-studio-violet">
-                <span className="block">{reason.titleLine1}</span>
-                {reason.titleLine2 && (
-                  <span className="block">{reason.titleLine2}</span>
-                )}
-              </h3>
-              <p className="mt-3 max-w-md font-body text-sm text-studio-violet/70 md:text-base">
+              <p className="mt-4 max-w-md font-body text-sm text-studio-violet/70 md:text-base">
                 {reason.description}
               </p>
             </FadeIn>

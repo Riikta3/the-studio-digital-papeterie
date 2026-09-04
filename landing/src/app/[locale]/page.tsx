@@ -4,13 +4,26 @@ import { Faq } from "@/components/home/Faq";
 import { FinalCtaAndFooter } from "@/components/home/FinalCtaAndFooter";
 import { Hero } from "@/components/home/Hero";
 import { HowItWorks } from "@/components/home/HowItWorks";
+import { JourJ } from "@/components/home/JourJ";
 import { Preview } from "@/components/home/Preview";
 import { Pricing } from "@/components/home/Pricing";
 import { ScrollToTop } from "@/components/home/ScrollToTop";
-import { Testimonials } from "@/components/home/Testimonials";
 import { WhyUs } from "@/components/home/WhyUs";
+import { routing } from "@/navigation";
+import { setRequestLocale } from "next-intl/server";
 
-export default function HomePage() {
+export function generateStaticParams() {
+  return routing.locales.map((locale) => ({ locale }));
+}
+
+export default async function HomePage({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}) {
+  const { locale } = await params;
+  setRequestLocale(locale);
+
   return (
     <main>
       <Hero />
@@ -20,7 +33,7 @@ export default function HomePage() {
       <Pricing />
       <Atelier />
       <Dashboard />
-      <Testimonials />
+      <JourJ />
       <Faq />
       <FinalCtaAndFooter />
       <ScrollToTop />

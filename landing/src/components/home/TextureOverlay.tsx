@@ -6,9 +6,9 @@ export function TextureOverlay() {
       aria-hidden
       className="pointer-events-none absolute inset-0 opacity-40 mix-blend-soft-light"
       style={{
-        backgroundImage: "url(/images/hero-texture.png)",
-        backgroundSize: "cover",
-        backgroundPosition: "center",
+        backgroundImage: "url(/images/hero-texture.webp)",
+        backgroundRepeat: "repeat",
+        backgroundSize: "512px 512px",
       }}
     />
   );

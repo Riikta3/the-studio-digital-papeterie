@@ -26,7 +26,7 @@ export async function InvitationPreviewCard({ slug, enabled }: Props) {
   // The base comes from the environment because the landing app is a separate
   // origin; the dev port matches `landing/package.json` (3010).
   const landingBase =
-    process.env.NEXT_PUBLIC_LANDING_URL || "https://the-studio.digital";
+    process.env.NEXT_PUBLIC_LANDING_URL || "https://www.thestudiopapeteriedigitale.com";
   const publicUrl = `${landingBase.replace(/^https?:\/\//, "")}/fr/invitation/${slug}`;
   const viewHref = `${landingBase}/fr/invitation/${slug}`;
 

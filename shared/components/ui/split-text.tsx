@@ -17,6 +17,7 @@ export function SplitText({
   startDelay = 0,
   stagger = 0.2,
   duration = 0.4,
+  animate = true,
 }: {
   text: string;
   as?: React.ElementType;
@@ -25,8 +26,17 @@ export function SplitText({
   startDelay?: number;
   stagger?: number;
   duration?: number;
+  // Set false to render the text plainly, with no per-word motion. Use it for
+  // copy that is already in the initial viewport: every word starts at
+  // opacity 0, so animating above-the-fold text delays the largest paint
+  // instead of decorating it.
+  animate?: boolean;
 }) {
   const words = text.split(" ");
+
+  // No wrappers, no motion, no invisible initial state — just the text, so it
+  // is present and painted in the server-rendered HTML.
+  if (!animate) return <Tag className={cn(className)}>{text}</Tag>;
 
   return (
     <Tag className={cn(className)}>

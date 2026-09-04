@@ -675,7 +675,13 @@
 .demoRoot .ev-top .n { font-size: 13px; font-weight: 500; color: var(--violet); }
 .demoRoot .ev-top .c { font-size: 11.5px; color: rgba(75,63,114,.6); font-variant-numeric: tabular-nums; }
 .demoRoot .ev-track { margin-top: 6px; height: 10px; border-radius: 999px; background: var(--creme); overflow: hidden; }
-.demoRoot .ev-fill { height: 100%; border-radius: 999px; background: var(--violet); width: 0; transition: width .5s cubic-bezier(.25,.8,.3,1); }
+/* transform rather than width, so the fill animation is composited. Safe
+   here (unlike `.seg`, which are flex siblings whose widths must add up). */
+.demoRoot .ev-fill {
+  height: 100%; border-radius: 999px; background: var(--violet);
+  width: 100%; transform: scaleX(0); transform-origin: left center;
+  transition: transform .5s cubic-bezier(.25,.8,.3,1);
+}
 
   
 /* ---------------- narration + transport ---------------- */
@@ -711,7 +717,14 @@
   cursor: pointer; text-align: left; font: inherit; color: inherit;
 }
 .demoRoot .rail-track { height: 4px; border-radius: 999px; background: var(--beige); overflow: hidden; }
-.demoRoot .rail-fill { display: block; height: 100%; background: var(--violet); border-radius: 999px; }
+/* Driven by transform, not width: the chapter ticker rewrites this 20x a
+   second, and animating width forced layout + paint on every tick. scaleX is
+   compositor-only. */
+.demoRoot .rail-fill {
+  display: block; height: 100%; width: 100%;
+  background: var(--violet); border-radius: 999px;
+  transform: scaleX(0); transform-origin: left center;
+}
 .demoRoot .rail-name {
   display: block; margin-top: 7px; font-size: 10.5px;
   /* One reserved line, so a wrapped label cannot change the rail's height. */

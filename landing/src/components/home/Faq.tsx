@@ -1,7 +1,6 @@
 "use client";
 
 import { cn } from "@shared/lib/utils";
-import { motion } from "framer-motion";
 import { Minus, Plus } from "lucide-react";
 import { useTranslations } from "next-intl";
 import Image from "next/image";
@@ -83,19 +82,29 @@ export function Faq() {
                   </button>
                 </h3>
 
-                <motion.div
-                  initial={false}
-                  animate={{
-                    height: isOpen ? "auto" : 0,
+                {/* Height animated with grid-template-rows rather than
+                    framer-motion's `height: auto`: it interpolates to the
+                    content's natural height in pure CSS, and animating
+                    `height` on six panels was a non-composited animation
+                    Lighthouse flagged. */}
+                {/* Animated with max-height + opacity rather than
+                    framer-motion's `height: auto`. `grid-template-rows:
+                    1fr/0fr` was tried first and does not work here: the row
+                    stayed collapsed at 0px because this container has no
+                    height of its own to distribute. A generous max-height cap
+                    is the reliable option — the transition is CSS-only, so
+                    framer-motion is no longer needed for the accordion. */}
+                <div
+                  className="overflow-hidden transition-all duration-300 ease-in-out"
+                  style={{
+                    maxHeight: isOpen ? "40rem" : 0,
                     opacity: isOpen ? 1 : 0,
                   }}
-                  transition={{ duration: 0.3, ease: "easeInOut" }}
-                  className="overflow-hidden"
                 >
                   <p className="px-6 pb-6 pt-0 font-body text-sm leading-relaxed text-studio-violet/70 md:text-base">
                     {faq.answer}
                   </p>
-                </motion.div>
+                </div>
               </div>
             </FadeIn>
           );

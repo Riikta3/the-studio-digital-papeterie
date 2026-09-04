@@ -332,7 +332,7 @@ export function HowItWorks() {
   ];
 
   return (
-    <section className="bg-studio-beurre px-6 pt-20 md:px-12">
+    <section className="bg-studio-beurre px-6 pb-8 pt-20 md:px-12">
       <FadeIn className="mx-auto mb-16 max-w-3xl text-center">
         <div className="flex items-center justify-center gap-3 font-body text-h5 tracking-luxe text-studio-pourpre">
           <Image
@@ -360,6 +360,19 @@ export function HowItWorks() {
         {steps.map((step, i) => (
           <StackCard key={step.number} step={step} content={mocks[i]} />
         ))}
+        {/* Scroll runway for the last card, so it pins at STICKY_TOP and
+            stacks onto card 02 instead of sliding over it — a sticky element
+            only stays pinned while its containing block has scrollable
+            height left beneath it.
+            Being the last child, this element takes the cards' `last:mb-0`
+            instead of card 03, so card 03 keeps its mb-8 — and those 32px
+            are the whole runway the pile needs.
+            Keep it at zero height: any taller and the container outlasts
+            the pinned pile by the excess, which reads as a dead patch where
+            you scroll and nothing on screen moves (measured, 32px bought
+            64px of dead scroll, 96px bought 128px, 60vh bought 499px).
+            Card 03's own mb-8 is absorbed by the section's pb-8 instead. */}
+        <div aria-hidden className="h-0" />
       </div>
     </section>
   );

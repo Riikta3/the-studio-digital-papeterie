@@ -2,16 +2,15 @@
 
 import { Button } from "@shared/components/ui/button";
 import { SplitText } from "@shared/components/ui/split-text";
-import { motion } from "framer-motion";
 import { ArrowRight, Menu } from "lucide-react";
 import { useTranslations } from "next-intl";
+import dynamic from "next/dynamic";
 import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
 
 import { Link } from "@/navigation";
 
 import { HeroCarousel } from "./HeroCarousel";
-import { MobileMenu } from "./MobileMenu";
 import {
   setSelectedThemeIndex,
   useSelectedThemeIndex,
@@ -19,27 +18,31 @@ import {
 import { THEMES } from "./themes";
 import { TextureOverlay } from "./TextureOverlay";
 
-// Continuous word-by-word reveal: each block starts after the previous one's
-// last word. Delay of a block = start of previous + (its word count × STAGGER).
-const STAGGER = 0.2;
-const START = 0.2;
-const w = (text: string) => text.split(" ").length;
+// The drawer is closed on load and never opens during a page-load trace, but
+// it (and the language switcher inside it) was pulling its whole subtree into
+// the homepage's eager entry graph. Named export, hence the explicit .then().
+// Gating the render is required, not cosmetic: without it next/dynamic still
+// fetches the chunk on mount. It stays mounted after the first open so
+// MobileMenu's own <AnimatePresence> can still play its exit animation.
+const MobileMenu = dynamic(
+  () => import("./MobileMenu").then((m) => m.MobileMenu),
+  { ssr: false },
+);
+
+// The hero copy renders plainly (`animate={false}`). The word-by-word reveal
+// this component used to run staggered every block behind the previous one's
+// last word, which put a ~3.6s chain in front of text that is already in the
+// initial viewport — it delayed the largest paint rather than decorating it.
 
 export function Hero() {
   const t = useTranslations("Hero");
   const [menuOpen, setMenuOpen] = useState(false);
+  // Latches on the first open: gates the dynamic import without discarding
+  // the drawer's exit animation on close.
+  const [menuMounted, setMenuMounted] = useState(false);
   const eyebrowText = t("eyebrow");
   const title1Text = t("titleLine1");
   const subtitleText = t("subtitle");
-
-  const D = (() => {
-    const eyebrow = START;
-    const title1 = eyebrow + w(eyebrowText) * STAGGER;
-    const title2 = title1 + w(title1Text) * STAGGER;
-    const subtitle = title2 + w(t("titleLine2")) * STAGGER;
-    const cta = subtitle + w(subtitleText) * STAGGER;
-    return { eyebrow, title1, title2, subtitle, cta };
-  })();
 
   // The violet backdrop must always stop exactly at the vertical midpoint of
   // the carousel, regardless of screen size or translated text length (both
@@ -72,24 +75,26 @@ export function Hero() {
 
   return (
     <div id="accueil" className="relative bg-studio-beurre">
-      {violetHeight !== null && (
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 0.8, ease: "easeOut" }}
-          style={{ height: violetHeight }}
-          className="absolute inset-x-0 top-0 overflow-hidden bg-studio-violet"
-        >
-          <TextureOverlay />
-          <Image
-            src="/images/hero-leaf-top.svg"
-            alt=""
-            width={82}
-            height={138}
-            className="pointer-events-none absolute right-0 top-16 h-auto w-24 md:top-24 md:w-40"
-          />
-        </motion.div>
-      )}
+      {/* Rendered server-side with a viewport-derived fallback height, then
+          refined by the measurement effect. It used to be gated on
+          `violetHeight !== null` and fade itself in, which meant the hero's
+          own background colour was absent from the SSR HTML and only appeared
+          after hydration — pure Speed Index cost for no visual gain. */}
+      <div
+        style={{ height: violetHeight ?? undefined }}
+        className={`absolute inset-x-0 top-0 overflow-hidden bg-studio-violet ${
+          violetHeight === null ? "h-[62vh] md:h-[68vh]" : ""
+        }`}
+      >
+        <TextureOverlay />
+        <Image
+          src="/images/hero-leaf-top.svg"
+          alt=""
+          width={82}
+          height={138}
+          className="pointer-events-none absolute right-0 top-16 h-auto w-24 md:top-24 md:w-40"
+        />
+      </div>
 
       <div className="relative z-10 flex flex-col items-center pt-8 md:pt-10">
         <div ref={contentRef} className="flex w-full flex-col items-center">
@@ -97,7 +102,10 @@ export function Hero() {
           <Image src="/logo.svg" alt="The Studio Digital Papeterie" width={40} height={42} />
           <button
             type="button"
-            onClick={() => setMenuOpen(true)}
+            onClick={() => {
+              setMenuMounted(true);
+              setMenuOpen(true);
+            }}
             aria-label={t("menuAriaLabel")}
             className="flex h-12 w-12 items-center justify-center rounded-full bg-studio-jaune text-studio-violet"
           >
@@ -105,43 +113,25 @@ export function Hero() {
           </button>
         </nav>
 
-        <MobileMenu open={menuOpen} onClose={() => setMenuOpen(false)} />
+        {menuMounted && (
+          <MobileMenu open={menuOpen} onClose={() => setMenuOpen(false)} />
+        )}
 
         <div className="flex flex-col items-center px-6 md:px-12">
           <div className="mt-10 flex items-center gap-3 font-body text-h5 tracking-luxe text-studio-lavande md:mt-14">
-            <motion.div
-              initial={{ opacity: 0, y: 24 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.65, delay: D.eyebrow, ease: "easeOut" }}
-            >
-              <Image
-                src="/images/eyebrow-separator-left.svg"
-                alt=""
-                width={42}
-                height={1}
-              />
-            </motion.div>
-            <SplitText
-              text={eyebrowText}
-              className="font-body"
-              startDelay={D.eyebrow}
+            <Image
+              src="/images/eyebrow-separator-left.svg"
+              alt=""
+              width={42}
+              height={1}
             />
-            <motion.div
-              initial={{ opacity: 0, y: 24 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{
-                duration: 0.65,
-                delay: D.eyebrow + 2 * STAGGER,
-                ease: "easeOut",
-              }}
-            >
-              <Image
-                src="/images/eyebrow-separator-right.svg"
-                alt=""
-                width={42}
-                height={1}
-              />
-            </motion.div>
+            <SplitText text={eyebrowText} className="font-body" animate={false} />
+            <Image
+              src="/images/eyebrow-separator-right.svg"
+              alt=""
+              width={42}
+              height={1}
+            />
           </div>
 
           <h1 className="mt-6 text-center font-heading text-h1">
@@ -149,13 +139,13 @@ export function Hero() {
               as="span"
               text={title1Text}
               className="block text-white"
-              startDelay={D.title1}
+              animate={false}
             />
             <SplitText
               as="span"
               text={t("titleLine2")}
               className="block text-studio-jaune"
-              startDelay={D.title2}
+              animate={false}
             />
           </h1>
 
@@ -163,15 +153,10 @@ export function Hero() {
             as="p"
             text={subtitleText}
             className="mt-4 text-center font-body text-body-p text-white/80"
-            startDelay={D.subtitle}
+            animate={false}
           />
 
-          <motion.div
-            initial={{ opacity: 0, y: 24 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.65, delay: D.cta, ease: "easeOut" }}
-            className="mt-8 flex flex-row gap-3 sm:gap-4"
-          >
+          <div className="mt-8 flex flex-row gap-3 sm:gap-4">
             <Button
               variant="studio-outline"
               size="pill"
@@ -188,7 +173,7 @@ export function Hero() {
                 {t("createButton")} <ArrowRight className="ml-2 h-4 w-4" />
               </Link>
             </Button>
-          </motion.div>
+          </div>
         </div>
         </div>
 
@@ -205,12 +190,7 @@ export function Hero() {
           />
         </div>
 
-        <motion.div
-          initial={{ opacity: 0, y: 24 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 1.4, ease: "easeOut" }}
-          className="relative z-10 mt-4 flex w-full justify-center px-6 md:px-12"
-        >
+        <div className="relative z-10 mt-4 flex w-full justify-center px-6 md:px-12">
           <Button
             variant="studio-violet"
             size="pill"
@@ -224,7 +204,7 @@ export function Hero() {
             {t("themeCta", { name: activeThemeName })}{" "}
             <ArrowRight className="ml-2 h-4 w-4" />
           </Button>
-        </motion.div>
+        </div>
       </div>
     </div>
   );

@@ -10,6 +10,17 @@ import "./globals.css";
 export const metadata: Metadata = {
   title: "Page introuvable — The Studio Papeterie Digitale",
   robots: { index: false, follow: false },
+  // Repeated here rather than inherited: this route sits outside `[locale]/`,
+  // so it does not pick up that layout's metadata, and a 404 with a blank tab
+  // icon looks like a broken site rather than a missing page.
+  icons: {
+    icon: [
+      { url: "/favicon.ico", sizes: "any" },
+      { url: "/favicon-32x32.png", sizes: "32x32", type: "image/png" },
+      { url: "/favicon-16x16.png", sizes: "16x16", type: "image/png" },
+    ],
+    apple: [{ url: "/apple-touch-icon.png", sizes: "180x180" }],
+  },
 };
 
 // Rendered for any URL that matches no route, including localized ones:

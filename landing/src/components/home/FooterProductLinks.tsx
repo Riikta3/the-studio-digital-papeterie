@@ -8,7 +8,7 @@ const PRODUCT_LINK_ANCHORS = [
   "tarifs",
   "sur-mesure",
   "espace-maries",
-  "temoignages",
+  "jour-j",
   "faq",
 ];
 

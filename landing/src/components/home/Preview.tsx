@@ -328,9 +328,12 @@ function ThemeCarousel({
                     "ring-2 ring-studio-violet ring-offset-2 ring-offset-studio-creme",
                 )}
               >
+                {/* Decorative: the theme name is already the visible caption
+                    directly below, so an alt repeating it makes a screen
+                    reader announce the same words twice. */}
                 <Image
                   src={theme.image}
-                  alt={t("themeLabel", { name: theme.name })}
+                  alt=""
                   fill
                   sizes="144px"
                   className="object-cover"
@@ -431,7 +434,11 @@ export function Preview() {
         <PhoneFrame theme={THEMES[activeTheme]} />
       </FadeIn>
 
-      <FadeIn className="mt-10 flex flex-row justify-center gap-3 sm:gap-4">
+      {/* mt-20, not mt-10: the phone's drop shadow (0 32px 80px) reaches
+          roughly 72px below the frame, and at mt-10 the buttons sat inside
+          that grey wash. Clearing the shadow rather than shrinking it keeps
+          the phone looking like it rests on the page. */}
+      <FadeIn className="mt-20 flex flex-row justify-center gap-3 sm:gap-4">
         <Button
           variant="studio-outline"
           size="pill"

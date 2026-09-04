@@ -45,7 +45,7 @@ export function WelcomePopup({ slug, isOpen, onClose }: WelcomePopupProps) {
                 const baseUrl = isDev
                   ? "http://localhost:3010"
                   : process.env.NEXT_PUBLIC_LANDING_URL ||
-                    "https://the-studio.digital";
+                    "https://www.thestudiopapeteriedigitale.com";
                 window.open(`${baseUrl}/fr/invitation/${slug}`, "_blank");
               }}
               className='w-full py-6 rounded-2xl bg-primary text-white hover:bg-primary/90 transition-all text-lg font-medium shadow-lg shadow-primary/20 gap-2'

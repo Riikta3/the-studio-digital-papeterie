@@ -56,8 +56,21 @@ export async function POST(req: Request) {
         }
 
         if (REUSABLE_STATUSES.has(existing.status)) {
+          // Always resync the metadata, not just when the amount moved: two
+          // different baskets can cost the same (swapping one 45€ extra for
+          // another, or one paid language for another). Skipping the update
+          // there left Stripe describing the previous order, and Stripe is
+          // what a failed provisioning is reconstructed from.
+          // Key order differs between our literal and Stripe's response, so
+          // compare entries sorted rather than raw JSON.
+          const stable = (m: Record<string, string>) =>
+            JSON.stringify(Object.entries(m).sort());
+          const metadataChanged =
+            stable((existing.metadata ?? {}) as Record<string, string>) !==
+            stable(orderMetadata);
+
           const updated =
-            existing.amount === amountInCents
+            existing.amount === amountInCents && !metadataChanged
               ? existing
               : await stripe.paymentIntents.update(paymentIntentId, {
                   amount: amountInCents,

@@ -2,12 +2,29 @@ import { DashboardLayout } from "@/components/dashboard/DashboardLayout";
 import { NotFoundView } from "@/components/dashboard/NotFoundView";
 import { routing } from "@/navigation";
 import { Toaster } from "@shared/components/ui/sonner";
+import type { Metadata } from "next";
 import { NextIntlClientProvider } from "next-intl";
 import { Libre_Caslon_Display, Urbanist } from "next/font/google";
 import { headers } from "next/headers";
 import { Suspense } from "react";
 
 import "./globals.css";
+
+// This route sits outside `[locale]/`, so it inherits none of that layout's
+// metadata — without this the 404 tab falls back to a blank glyph.
+export const metadata: Metadata = {
+  title: "Page introuvable — The Studio",
+  robots: { index: false, follow: false },
+  // The .ico comes from the `src/app/favicon.ico` file convention; listing it
+  // again here would emit a second, competing icon tag.
+  icons: {
+    icon: [
+      { url: "/favicon-32x32.png", sizes: "32x32", type: "image/png" },
+      { url: "/favicon-16x16.png", sizes: "16x16", type: "image/png" },
+    ],
+    apple: [{ url: "/apple-touch-icon.png", sizes: "180x180" }],
+  },
+};
 
 const libreCaslonDisplay = Libre_Caslon_Display({
   subsets: ["latin"],

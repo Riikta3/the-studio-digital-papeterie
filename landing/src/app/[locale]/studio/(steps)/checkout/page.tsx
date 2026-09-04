@@ -7,10 +7,19 @@ import {
   useStripe,
 } from "@stripe/react-stripe-js";
 import { loadStripe } from "@stripe/stripe-js";
-import { Check, ChevronLeft, CreditCard, Loader2, Pencil } from "lucide-react";
-import { useTranslations } from "next-intl";
+import {
+  AlertTriangle,
+  Check,
+  ChevronLeft,
+  CreditCard,
+  Loader2,
+  Mail,
+  Pencil,
+  ShieldCheck,
+} from "lucide-react";
+import { useLocale, useTranslations } from "next-intl";
 import { useSearchParams } from "next/navigation";
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 
 import { getModuleName } from "@shared/data/modules";
 import { cn } from "@shared/lib/utils";
@@ -25,6 +34,9 @@ import { selectTotalPrice, useOrderStore } from "@/stores/use-order-store";
 const stripePromise = loadStripe(
   process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY!,
 );
+
+/** Where a customer whose provisioning failed can reach a human. */
+const SUPPORT_EMAIL = "contact@thestudiopapeteriedigitale.com";
 
 const MONTHS_FR = [
   "Janvier", "Février", "Mars", "Avril", "Mai", "Juin",
@@ -45,6 +57,7 @@ function PaymentForm({
   onSuccess: () => void;
 }) {
   const t = useTranslations("StudioCheckout");
+  const locale = useLocale();
   const stripe = useStripe();
   const elements = useElements();
   const [isLoading, setIsLoading] = useState(false);
@@ -61,7 +74,10 @@ function PaymentForm({
     const { error } = await stripe.confirmPayment({
       elements,
       confirmParams: {
-        return_url: `${window.location.origin}/fr/studio/checkout?payment_success=true`,
+        // Locale-prefixed: a redirect-based method (Klarna, iDEAL, Bancontact —
+        // all enabled by automatic_payment_methods) must bring the customer
+        // back to the language they were paying in, not to /fr.
+        return_url: `${window.location.origin}/${locale}/studio/checkout?payment_success=true`,
       },
       redirect: "if_required",
     });
@@ -155,6 +171,7 @@ export default function StudioCheckoutPage() {
   const t = useTranslations("StudioCheckout");
   const tLayout = useTranslations("StudioLayout");
   const tModules = useTranslations("StudioModules");
+  const locale = useLocale();
   const router = useRouter();
   const searchParams = useSearchParams();
 
@@ -179,17 +196,28 @@ export default function StudioCheckoutPage() {
   const [isProvisioning, setIsProvisioning] = useState(false);
   const [provisionError, setProvisionError] = useState<string | null>(null);
 
+  // Mirrors paymentIntentId for the repricing effect below, which must not
+  // re-run when the id changes (that would loop) yet still needs the current
+  // value. Reading the state variable there captured the initial null and
+  // created a fresh intent on every cart edit instead of repricing one.
+  const intentIdRef = useRef<string | null>(null);
+
+  // Provisioning must fire exactly once per payment: the effect that triggers
+  // it runs again on every re-render caused by its own state updates.
+  const provisionStartedRef = useRef(false);
+
   // Stripe appends this on redirect-based methods; for inline ones we still
   // hold the id in state.
   const intentIdFromUrl = searchParams.get("payment_intent");
 
   const provision = useCallback(async () => {
-    const intentId = intentIdFromUrl ?? paymentIntentId;
+    const intentId = intentIdFromUrl ?? intentIdRef.current;
     if (!intentId) {
       setProvisionError(t("paymentError"));
       return;
     }
 
+    provisionStartedRef.current = true;
     setIsProvisioning(true);
     setProvisionError(null);
 
@@ -217,6 +245,8 @@ export default function StudioCheckoutPage() {
       plan: plan ?? "experience",
       adultsOnly,
       animationId: animation,
+      // Opens the dashboard in the language they bought in.
+      locale,
     });
 
     if (result.success && result.loginLink) {
@@ -227,20 +257,25 @@ export default function StudioCheckoutPage() {
     }
   }, [
     weddingInfo, theme, modules, extras, languages, plan, adultsOnly,
-    animation, t, intentIdFromUrl, paymentIntentId,
+    animation, t, intentIdFromUrl, locale,
   ]);
 
   // Provision right away when Stripe redirected back after payment.
   useEffect(() => {
-    if (isPaymentSuccess && hasHydrated && !isProvisioning) {
-      provision();
-    }
+    if (!isPaymentSuccess || !hasHydrated) return;
+    if (provisionStartedRef.current) return;
+    provision();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isPaymentSuccess, hasHydrated]);
 
   // Create the payment intent once the persisted order is available.
   useEffect(() => {
     if (isPaymentSuccess || !hasHydrated || !plan) return;
+
+    // A fast sequence of cart edits fires overlapping requests; only the last
+    // one may set the client secret, or the PaymentElement ends up mounted
+    // against a superseded (wrongly priced) intent.
+    let cancelled = false;
 
     fetch("/api/create-payment-intent", {
       method: "POST",
@@ -250,58 +285,151 @@ export default function StudioCheckoutPage() {
         email: weddingInfo.email,
         // Reprice the same intent when the cart changed, instead of leaving a
         // stale amount attached to the mounted PaymentElement.
-        paymentIntentId,
+        paymentIntentId: intentIdRef.current,
       }),
     })
       .then((res) => res.json())
       .then((data) => {
+        if (cancelled) return;
+
+        // A zero total yields no client secret by design. Surface it instead
+        // of dropping into the loading branch, which never resolves.
+        if (!data.error && data.clientSecret === null && data.amount === 0) {
+          setFetchError(t("paymentError"));
+          return;
+        }
+
         if (data.clientSecret) {
           setClientSecret(data.clientSecret);
+          intentIdRef.current = data.paymentIntentId ?? null;
           setPaymentIntentId(data.paymentIntentId ?? null);
           setFetchError(null);
         } else {
           setFetchError(data.error ?? t("paymentError"));
         }
       })
-      .catch(() => setFetchError(t("paymentError")));
+      .catch(() => {
+        if (!cancelled) setFetchError(t("paymentError"));
+      });
+
+    return () => {
+      cancelled = true;
+    };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [hasHydrated, isPaymentSuccess, plan, modules, languages, extras]);
 
   // ── Post-payment: provisioning screen ──
+  //
+  // The failure branch here is the costliest state in the whole funnel: the
+  // money has left the customer's account and they have nothing to show for
+  // it. It used to reuse the success title ("Paiement confirmé !") with the
+  // raw error underneath and a retry button labelled "Traitement…", and it
+  // never showed the payment reference — so a customer who could not recover
+  // had nothing to quote to support either.
   if (isPaymentSuccess) {
+    const reference = intentIdFromUrl ?? paymentIntentId;
+
+    if (provisionError) {
+      const supportSubject = t("paymentReference") + (reference ? `: ${reference}` : "");
+
+      return (
+        <StepTransition>
+          <div className="mx-auto flex min-h-[50vh] w-full max-w-md flex-col items-center justify-center gap-5 text-center">
+            <div className="flex h-14 w-14 items-center justify-center rounded-full bg-studio-jaune">
+              <AlertTriangle
+                className="h-7 w-7 text-studio-violet"
+                strokeWidth={2}
+              />
+            </div>
+
+            <div className="space-y-2">
+              <h1 className="font-heading text-h3 text-studio-violet">
+                {t("provisionFailedTitle")}
+              </h1>
+              <p className="font-body text-sm leading-relaxed text-studio-violet/70">
+                {t("provisionFailedBody")}
+              </p>
+            </div>
+
+            {/* Reassurance first: the charge succeeded, and retrying cannot
+                double-bill — provisioning is idempotent per PaymentIntent. */}
+            <p className="flex items-center gap-2 font-body text-xs font-semibold text-studio-violet/60">
+              <ShieldCheck className="h-4 w-4" />
+              {t("reassurePaid")}
+            </p>
+
+            {reference && (
+              <div className="w-full rounded-2xl border border-studio-lavande/60 bg-white/60 px-4 py-3 text-left">
+                <p className="font-body text-[10px] font-bold uppercase tracking-wider text-studio-violet/50">
+                  {t("paymentReference")}
+                </p>
+                <p className="mt-1 break-all font-mono text-xs text-studio-violet">
+                  {reference}
+                </p>
+                <p className="mt-2 font-body text-[11px] leading-relaxed text-studio-violet/50">
+                  {t("paymentReferenceHint")}
+                </p>
+              </div>
+            )}
+
+            {/* The underlying reason, folded away. Server-side failures carry
+                hardcoded strings in mixed French and English
+                ("Failed to create wedding entity.") that no locale translates,
+                so it must never be the headline a paying customer reads — but
+                it is the first thing support will ask for. */}
+            <details className="w-full text-left">
+              <summary className="cursor-pointer list-none font-body text-[11px] text-studio-violet/50 underline underline-offset-2 hover:text-studio-violet/80">
+                {t("errorDetails")}
+              </summary>
+              <p className="mt-2 break-words font-mono text-[11px] leading-relaxed text-studio-violet/60">
+                {provisionError}
+              </p>
+            </details>
+
+            <div className="flex w-full flex-col gap-2">
+              <button
+                type="button"
+                onClick={provision}
+                disabled={isProvisioning}
+                className="flex w-full items-center justify-center gap-2 rounded-full bg-studio-violet px-6 py-3.5 font-body text-sm font-semibold text-white transition-colors hover:bg-studio-violet/90 disabled:cursor-not-allowed disabled:opacity-60"
+              >
+                {isProvisioning && (
+                  <Loader2 className="h-4 w-4 animate-spin" />
+                )}
+                {isProvisioning ? t("provisionRetrying") : t("provisionRetry")}
+              </button>
+
+              <a
+                href={`mailto:${SUPPORT_EMAIL}?subject=${encodeURIComponent(supportSubject)}`}
+                className="flex w-full items-center justify-center gap-2 rounded-full border border-studio-lavande px-6 py-3 font-body text-sm font-semibold text-studio-violet/80 transition-colors hover:border-studio-violet hover:text-studio-violet"
+              >
+                <Mail className="h-4 w-4" />
+                {t("contactSupport")}
+              </a>
+            </div>
+          </div>
+        </StepTransition>
+      );
+    }
+
     return (
       <StepTransition>
         <div className="flex min-h-[50vh] flex-col items-center justify-center gap-5 text-center">
           <div className="flex h-14 w-14 items-center justify-center rounded-full bg-studio-violet">
-            {provisionError ? (
-              <CreditCard className="h-6 w-6 text-white" />
-            ) : (
-              <Check className="h-7 w-7 text-white" strokeWidth={2} />
-            )}
+            <Check className="h-7 w-7 text-white" strokeWidth={2} />
           </div>
           <div className="space-y-2">
             <h1 className="font-heading text-h3 text-studio-violet">
               {t("paymentSuccessTitle")}
             </h1>
             <p className="mx-auto max-w-xs font-body text-sm text-studio-violet/60">
-              {provisionError ?? t("paymentSuccessBody")}
+              {t("paymentSuccessBody")}
             </p>
           </div>
-          {!provisionError && (
-            <div className="flex items-center gap-2 font-body text-sm text-studio-violet/50">
-              <Loader2 className="h-4 w-4 animate-spin" />
-              {t("creatingAccount")}
-            </div>
-          )}
-          {provisionError && (
-            <button
-              type="button"
-              onClick={provision}
-              className="rounded-full bg-studio-violet px-6 py-3 font-body text-sm font-semibold text-white"
-            >
-              {t("processing")}
-            </button>
-          )}
+          <div className="flex items-center gap-2 font-body text-sm text-studio-violet/50">
+            <Loader2 className="h-4 w-4 animate-spin" />
+            {t("creatingAccount")}
+          </div>
         </div>
       </StepTransition>
     );
@@ -310,7 +438,9 @@ export default function StudioCheckoutPage() {
   const recapRows = [
     {
       label: t("offer"),
-      value: plan === "premium" ? "Premium" : "Essentiel",
+      // Falls back to the "none" label rather than silently claiming Essentiel:
+      // the guard in the steps layout sends a planless order back to /start.
+      value: plan === "premium" ? "Premium" : plan ? "Essentiel" : t("none"),
       href: "/studio/start",
     },
     {

@@ -24,7 +24,7 @@ const STEPS = [
   "/studio/checkout",
 ];
 
-export default function StudioStepsLayout({
+function StudioStepsLayoutInner({
   children,
 }: {
   children: React.ReactNode;
@@ -187,5 +187,17 @@ export default function StudioStepsLayout({
         </div>
       </main>
     </div>
+  );
+}
+
+export default function StudioStepsLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
+  return (
+    <React.Suspense fallback={null}>
+      <StudioStepsLayoutInner>{children}</StudioStepsLayoutInner>
+    </React.Suspense>
   );
 }

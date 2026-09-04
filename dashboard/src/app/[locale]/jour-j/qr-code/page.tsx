@@ -33,7 +33,7 @@ export default async function QrCodePage() {
   // nothing, and there is no way to reach them. If the domain ever moves, keep
   // the old host alive and redirect it rather than editing this line.
   const landingBase =
-    process.env.NEXT_PUBLIC_LANDING_URL || "https://the-studio.digital";
+    process.env.NEXT_PUBLIC_LANDING_URL || "https://www.thestudiopapeteriedigitale.com";
   const url = `${landingBase}/fr/jourj/${qrSlug}`;
 
   // Rendered here rather than in the browser: the printable export must not
