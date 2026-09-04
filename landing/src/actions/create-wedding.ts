@@ -2,6 +2,7 @@
 
 import { findUserByEmail } from "@/lib/find-user-by-email";
 import { supabaseAdmin } from "@/lib/supabase-admin";
+import { getDashboardUrl } from "@/lib/urls";
 import {
   markPaymentProvisioned,
   verifyPaymentForOrder,
@@ -272,8 +273,10 @@ async function generateLoginLink(
   email: string,
   slug?: string,
 ): Promise<string | undefined> {
-  const dashboardUrl =
-    process.env.NEXT_PUBLIC_DASHBOARD_URL || "http://localhost:3003";
+  // Throws in production when unset rather than falling back to localhost:
+  // this URL is where a paying customer lands right after checkout, and a
+  // localhost redirect there is invisible in logs and unrecoverable for them.
+  const dashboardUrl = getDashboardUrl();
 
   const next = `/fr?first=true${slug ? `&slug=${slug}` : ""}`;
 

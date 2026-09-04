@@ -13,7 +13,8 @@ export async function Footer() {
   // /login page in this app, so an in-app <Link> here 404s. Same pattern as
   // `actions/create-wedding.ts`, which already redirects there after checkout.
   const dashboardUrl =
-    process.env.NEXT_PUBLIC_DASHBOARD_URL || "http://localhost:3003";
+    process.env.NEXT_PUBLIC_DASHBOARD_URL ||
+    "https://app-the-studio-digital-papeterie.vercel.app";
   const mariesLinks = [
     { label: t("login"), href: `${dashboardUrl}/fr/login`, external: true },
   ];
