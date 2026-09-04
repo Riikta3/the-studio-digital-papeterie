@@ -431,7 +431,11 @@ export function Preview() {
         <PhoneFrame theme={THEMES[activeTheme]} />
       </FadeIn>
 
-      <FadeIn className="mt-10 flex flex-row justify-center gap-3 sm:gap-4">
+      {/* mt-20, not mt-10: the phone's drop shadow (0 32px 80px) reaches
+          roughly 72px below the frame, and at mt-10 the buttons sat inside
+          that grey wash. Clearing the shadow rather than shrinking it keeps
+          the phone looking like it rests on the page. */}
+      <FadeIn className="mt-20 flex flex-row justify-center gap-3 sm:gap-4">
         <Button
           variant="studio-outline"
           size="pill"
