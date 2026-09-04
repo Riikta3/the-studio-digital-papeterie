@@ -4,10 +4,10 @@ import { Faq } from "@/components/home/Faq";
 import { FinalCtaAndFooter } from "@/components/home/FinalCtaAndFooter";
 import { Hero } from "@/components/home/Hero";
 import { HowItWorks } from "@/components/home/HowItWorks";
+import { JourJ } from "@/components/home/JourJ";
 import { Preview } from "@/components/home/Preview";
 import { Pricing } from "@/components/home/Pricing";
 import { ScrollToTop } from "@/components/home/ScrollToTop";
-import { Testimonials } from "@/components/home/Testimonials";
 import { WhyUs } from "@/components/home/WhyUs";
 
 export default function HomePage() {
@@ -20,7 +20,7 @@ export default function HomePage() {
       <Pricing />
       <Atelier />
       <Dashboard />
-      <Testimonials />
+      <JourJ />
       <Faq />
       <FinalCtaAndFooter />
       <ScrollToTop />

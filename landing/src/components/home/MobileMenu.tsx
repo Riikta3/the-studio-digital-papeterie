@@ -19,7 +19,7 @@ const PRODUCT_LINK_ANCHORS = [
   "tarifs",
   "sur-mesure",
   "espace-maries",
-  "temoignages",
+  "jour-j",
   "faq",
 ];
 // Sign-in is in the dashboard app, a different origin: there is no /login page
