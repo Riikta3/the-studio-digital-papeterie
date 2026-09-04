@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { useTranslations } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 import { useCallback, useEffect, useRef, useState } from "react";
 
 // The stylesheet is NOT imported: at 27 KB it was emitted as a render-blocking
@@ -41,6 +41,10 @@ type Chapter = {
   sub: string | null;
   ms: number;
   url: string;
+};
+
+/** The localisable half of a chapter, read from the message files. */
+type ChapterText = {
   rail: string;
   title: string;
   body: string;
@@ -52,50 +56,35 @@ const CHAPTERS: Chapter[] = [
     nav: "home",
     sub: null,
     ms: 2000,
-    url: "dashboard.the-studio-digital-papeterie.fr/fr",
-    rail: "Accueil",
-    title: "Une vision claire, au même endroit.",
-    body: "Réponses reçues, invités à placer, préparation du Jour J… votre tableau de bord vous permet de retrouver rapidement les informations dont vous avez besoin, sans multiplier les fichiers et les outils.",
+    url: "dashboard.the-studio-digital-papeterie.fr/{locale}",
   },
   {
     panel: "guests",
     nav: "guests",
     sub: "all",
     ms: 4000,
-    url: "dashboard.the-studio-digital-papeterie.fr/fr/guests",
-    rail: "Invités",
-    title: "Une ligne par foyer, pas par personne",
-    body: "On invite des familles, pas des individus : la liste est donc organisée par foyer, avec son contact et son statut. Les réponses arrivent depuis le faire-part et remontent ici toutes seules.",
+    url: "dashboard.the-studio-digital-papeterie.fr/{locale}/guests",
   },
   {
     panel: "seating",
     nav: "dayof",
     sub: "seating",
     ms: 3000,
-    url: "dashboard.the-studio-digital-papeterie.fr/fr/jour-j/plan-de-table",
-    rail: "Plan de table",
-    title: "On attrape un invité, on le pose",
-    body: "Les invités à placer attendent dans la colonne de gauche ; il suffit de les faire glisser sur une table. Seuls ceux qui ont accepté apparaissent, et une table refuse plus de convives qu'elle n'a de places.",
+    url: "dashboard.the-studio-digital-papeterie.fr/{locale}/jour-j/plan-de-table",
   },
   {
     panel: "dayof",
     nav: "dayof",
     sub: "qr",
     ms: 3000,
-    url: "the-studio-digital-papeterie.fr/fr/jourj/marie-et-thomas",
-    rail: "Ma table",
-    title: "Le soir même, les invités se débrouillent",
-    body: "Un QR code sur la table, l'invité tape son prénom et trouve sa place. Il découvre aussi le menu, le programme et dépose ses photos. La liste complète des invités, elle, reste privée.",
+    url: "the-studio-digital-papeterie.fr/{locale}/jourj/marie-et-thomas",
   },
   {
     panel: "stats",
     nav: "stats",
     sub: null,
     ms: 3000,
-    url: "dashboard.the-studio-digital-papeterie.fr/fr/stats",
-    rail: "Statistiques",
-    title: "Savoir qui vient, et à quoi",
-    body: "La répartition des réponses et la participation par événement — cérémonie, dîner, brunch. De quoi confirmer un traiteur sans relancer cent personnes une par une.",
+    url: "dashboard.the-studio-digital-papeterie.fr/{locale}/stats",
   },
 ];
 
@@ -108,6 +97,7 @@ function clock(ms: number): string {
 
 export function DashboardDemo() {
   const t = useTranslations("Dashboard.demo");
+  const locale = useLocale();
 
   const [index, setIndex] = useState(0);
   // Starts paused, NOT playing: the demo sits in section 7 of 11, so it is
@@ -130,7 +120,15 @@ export function DashboardDemo() {
   /** Set once the viewer has used a control, so autoplay stops fighting them. */
   const manual = useRef(false);
 
-  const chapter = CHAPTERS[index];
+  // The chapter's timing and panel wiring are static (CHAPTERS); its rail
+  // name, title and body come from the message files, and the fake omnibox
+  // URL carries the active locale so it matches what the visitor is reading.
+  const chapterTexts = t.raw("chapters_list") as ChapterText[];
+  const chapter = {
+    ...CHAPTERS[index],
+    ...chapterTexts[index],
+    url: CHAPTERS[index].url.replace("{locale}", locale),
+  };
 
   const clearTimers = useCallback(() => {
     timers.current.forEach(clearTimeout);
@@ -224,7 +222,7 @@ export function DashboardDemo() {
         const badge = q<HTMLElement>("#demoBadgeSwap");
         if (badge) {
           badge.className = "badge wait";
-          badge.textContent = "En attente";
+          badge.textContent = t("ui.badgePending");
         }
       }
 
@@ -237,7 +235,7 @@ export function DashboardDemo() {
         q<HTMLElement>("#demoTargetTable")?.classList.remove("target");
         q<HTMLElement>("#demoToast")?.classList.remove("show");
         const cap = q<HTMLElement>("#demoTargetCap");
-        if (cap) cap.textContent = "8 / 12 places";
+        if (cap) cap.textContent = t("ui.tableSeats", { taken: 8, total: 12 });
         const list = q<HTMLElement>("#demoTargetList");
         if (list) {
           list.innerHTML =
@@ -264,7 +262,7 @@ export function DashboardDemo() {
         q<HTMLElement>("#demoResult")?.classList.remove("show");
       }
     },
-    [q, qa],
+    [q, qa, t],
   );
 
   /** Play a panel's beats. Every one lands inside the chapter's own window. */
@@ -283,7 +281,7 @@ export function DashboardDemo() {
           const badge = q<HTMLElement>("#demoBadgeSwap");
           if (badge) {
             badge.className = "badge ok";
-            badge.textContent = "Confirm\u00e9s";
+            badge.textContent = t("ui.badgeConfirmed");
           }
         }, 1650);
         later(() => q<HTMLElement>('[data-flash="1"]')?.classList.remove("flash"), 3300);
@@ -315,7 +313,7 @@ export function DashboardDemo() {
           q<HTMLElement>("#demoTargetList")?.appendChild(li);
 
           const cap = q<HTMLElement>("#demoTargetCap");
-          if (cap) cap.textContent = "9 / 12 places";
+          if (cap) cap.textContent = t("ui.tableSeats", { taken: 9, total: 12 });
           const seated = q<HTMLElement>("#demoSeated");
           if (seated) seated.textContent = "117";
           const left = q<HTMLElement>("#demoLeft");
@@ -366,7 +364,7 @@ export function DashboardDemo() {
         }, 30);
       }
     },
-    [countUp, later, q, qa],
+    [countUp, later, q, qa, t],
   );
 
   // The beat functions are read through a ref so the effect below can depend
@@ -564,7 +562,7 @@ export function DashboardDemo() {
         </div>
 
         <div className="app">
-        <nav className="side" aria-label="Navigation du back-office">
+        <nav className="side" aria-label={t("ui.sideNavAria")}>
           <div className="side-logo">
   <Image
               src="/logo.svg"
@@ -580,110 +578,110 @@ export function DashboardDemo() {
             <li data-nav="home" className={navClass("home", true)}>
               <div className="nav-row">
                 <svg className="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round"><path d="M15 21v-8a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v8"/><path d="M3 10a2 2 0 0 1 .709-1.528l7-6a2 2 0 0 1 2.582 0l7 6A2 2 0 0 1 21 10v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>
-                <span className="lab">Accueil</span>
+                <span className="lab">{t("ui.navHome")}</span>
               </div>
             </li>
             <li data-nav="guests" className={navClass("guests")}>
               <div className="nav-row">
                 <svg className="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><path d="M16 3.128a4 4 0 0 1 0 7.744"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><circle cx="9" cy="7" r="4"/></svg>
-                <span className="lab">Invités</span>
+                <span className="lab">{t("ui.navGuests")}</span>
                 <svg className="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round"><path d="m6 9 6 6 6-6"/></svg>
               </div>
               <ul className="sub">
-                <li data-sub="all" className={subClass("all")}>Tous les invités</li>
-                <li data-sub="rsvp" className={subClass("rsvp")}>Réponses RSVP</li>
-                <li data-sub="groups" className={subClass("groups")}>Groupes</li>
-                <li data-sub="meals" className={subClass("meals")}>Repas</li>
+                <li data-sub="all" className={subClass("all")}>{t("ui.subAll")}</li>
+                <li data-sub="rsvp" className={subClass("rsvp")}>{t("ui.subRsvp")}</li>
+                <li data-sub="groups" className={subClass("groups")}>{t("ui.subGroups")}</li>
+                <li data-sub="meals" className={subClass("meals")}>{t("ui.subMeals")}</li>
               </ul>
             </li>
             <li data-nav="invitation" className={navClass("invitation")}>
               <div className="nav-row">
                 <svg className="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round"><path d="M12.127 22H5a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v5.125"/><path d="M14.62 18.8A2.25 2.25 0 1 1 18 15.836a2.25 2.25 0 1 1 3.38 2.966l-2.626 2.856a.998.998 0 0 1-1.507 0z"/><path d="M16 2v4"/><path d="M3 10h18"/><path d="M8 2v4"/></svg>
-                <span className="lab">Invitation</span>
+                <span className="lab">{t("ui.navInvitation")}</span>
                 <svg className="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round"><path d="m6 9 6 6 6-6"/></svg>
               </div>
               <ul className="sub">
-                <li data-sub="modules" className={subClass("modules")}>Mes modules</li>
-                <li data-sub="events" className={subClass("events")}>Événements</li>
-                <li data-sub="schedule" className={subClass("schedule")}>Programme</li>
-                <li data-sub="venue" className={subClass("venue")}>Lieu &amp; infos pratiques</li>
-                <li data-sub="faq" className={subClass("faq")}>FAQ</li>
-                <li data-sub="playlist" className={subClass("playlist")}>Playlist</li>
+                <li data-sub="modules" className={subClass("modules")}>{t("ui.subModules")}</li>
+                <li data-sub="events" className={subClass("events")}>{t("ui.subEvents")}</li>
+                <li data-sub="schedule" className={subClass("schedule")}>{t("ui.subSchedule")}</li>
+                <li data-sub="venue" className={subClass("venue")}>{t("ui.subVenue")}</li>
+                <li data-sub="faq" className={subClass("faq")}>{t("ui.subFaq")}</li>
+                <li data-sub="playlist" className={subClass("playlist")}>{t("ui.subPlaylist")}</li>
               </ul>
             </li>
             <li data-nav="dayof" className={navClass("dayof")}>
               <div className="nav-row">
                 <svg className="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round"><path d="M5.8 11.3 2 22l10.7-3.79"/><path d="M4 3h.01"/><path d="M22 8h.01"/><path d="M15 2h.01"/><path d="M22 20h.01"/><path d="m22 2-2.24.75a2.9 2.9 0 0 0-1.96 3.12c.1.86-.57 1.63-1.45 1.63h-.38c-.86 0-1.6.6-1.76 1.44L14 10"/><path d="m22 13-.82-.33c-.86-.34-1.82.2-1.98 1.11c-.11.7-.72 1.22-1.43 1.22H17"/><path d="m11 2 .33.82c.34.86-.2 1.82-1.11 1.98C9.52 4.9 9 5.52 9 6.23V7"/><path d="M11 13c1.93 1.93 2.83 4.17 2 5-.83.83-3.07-.07-5-2-1.93-1.93-2.83-4.17-2-5 .83-.83 3.07.07 5 2Z"/></svg>
-                <span className="lab">Jour J</span>
+                <span className="lab">{t("ui.navDayOf")}</span>
                 <svg className="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round"><path d="m6 9 6 6 6-6"/></svg>
               </div>
               <ul className="sub">
-                <li data-sub="seating" className={subClass("seating")}>Plan de table</li>
-                <li data-sub="qr" className={subClass("qr")}>QR Code</li>
-                <li data-sub="menu" className={subClass("menu")}>Menu</li>
-                <li data-sub="photos" className={subClass("photos")}>Photos &amp; vidéos</li>
-                <li data-sub="settings" className={subClass("settings")}>Paramètres</li>
+                <li data-sub="seating" className={subClass("seating")}>{t("ui.subSeating")}</li>
+                <li data-sub="qr" className={subClass("qr")}>{t("ui.subQr")}</li>
+                <li data-sub="menu" className={subClass("menu")}>{t("ui.subMenu")}</li>
+                <li data-sub="photos" className={subClass("photos")}>{t("ui.subPhotos")}</li>
+                <li data-sub="settings" className={subClass("settings")}>{t("ui.subSettings")}</li>
               </ul>
             </li>
             <li data-nav="stats" className="leaf">
               <div className="nav-row">
                 <svg className="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round"><path d="M3 3v16a2 2 0 0 0 2 2h16"/><path d="M18 17V9"/><path d="M13 17V5"/><path d="M8 17v-3"/></svg>
-                <span className="lab">Statistiques</span>
+                <span className="lab">{t("ui.navStats")}</span>
               </div>
             </li>
             <li data-nav="settings" className={navClass("settings")}>
               <div className="nav-row">
                 <svg className="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round"><path d="M9.671 4.136a2.34 2.34 0 0 1 4.659 0 2.34 2.34 0 0 0 3.319 1.915 2.34 2.34 0 0 1 2.33 4.033 2.34 2.34 0 0 0 0 3.831 2.34 2.34 0 0 1-2.33 4.033 2.34 2.34 0 0 0-3.319 1.915 2.34 2.34 0 0 1-4.659 0 2.34 2.34 0 0 0-3.32-1.915 2.34 2.34 0 0 1-2.33-4.033 2.34 2.34 0 0 0 0-3.831A2.34 2.34 0 0 1 6.35 6.051a2.34 2.34 0 0 0 3.319-1.915"/><circle cx="12" cy="12" r="3"/></svg>
-                <span className="lab">Paramètres</span>
+                <span className="lab">{t("ui.navSettings")}</span>
                 <svg className="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round"><path d="m6 9 6 6 6-6"/></svg>
               </div>
               <ul className="sub">
-                <li data-sub="couple" className={subClass("couple")}>Couple</li>
-                <li data-sub="billing" className={subClass("billing")}>Facturation</li>
-                <li data-sub="messages" className={subClass("messages")}>Messages</li>
+                <li data-sub="couple" className={subClass("couple")}>{t("ui.subCouple")}</li>
+                <li data-sub="billing" className={subClass("billing")}>{t("ui.subBilling")}</li>
+                <li data-sub="messages" className={subClass("messages")}>{t("ui.subMessages")}</li>
               </ul>
             </li>
           </ul>
 
           <div className="view-site">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round"><path d="m22 7-8.991 5.727a2 2 0 0 1-2.009 0L2 7"/><rect x="2" y="4" width="20" height="16" rx="2"/></svg>
-            Voir mon faire-part
+            {t("ui.viewSite")}
           </div>
 
           <div className="side-foot">
             <div className="lang">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"/><path d="M2 12h20"/></svg>
               <span className="flag">🇫🇷</span>
-              <span className="grow">Français</span>
+              <span className="grow">{t("ui.langName")}</span>
               <svg className="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round"><path d="m6 9 6 6 6-6"/></svg>
             </div>
             <div className="logout">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round"><path d="m16 17 5-5-5-5"/><path d="M21 12H9"/><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/></svg>
-              Déconnexion
+              {t("ui.logout")}
             </div>
           </div>
         </nav>
           <div className="stage">
             {/* ============ 1 · Accueil ============ */}
-            <section className={panelClass("home")} data-panel="home" aria-label="Accueil">
+            <section className={panelClass("home")} data-panel="home" aria-label={t("ui.navHome")}>
               <div className="pad">
                 <div className="home-head">
-                  <h2>Bonjour, Marie &amp; Thomas</h2>
+                  <h2>{t("ui.greeting")}</h2>
                   <span className="ghost-btn">
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round"><path d="M9.671 4.136a2.34 2.34 0 0 1 4.659 0 2.34 2.34 0 0 0 3.319 1.915 2.34 2.34 0 0 1 2.33 4.033 2.34 2.34 0 0 0 0 3.831 2.34 2.34 0 0 1-2.33 4.033 2.34 2.34 0 0 0-3.319 1.915 2.34 2.34 0 0 1-4.659 0 2.34 2.34 0 0 0-3.32-1.915 2.34 2.34 0 0 1-2.33-4.033 2.34 2.34 0 0 0 0-3.831A2.34 2.34 0 0 1 6.35 6.051a2.34 2.34 0 0 0 3.319-1.915"/><circle cx="12" cy="12" r="3"/></svg>
-                    Réglages
+                    {t("ui.settingsBtn")}
                   </span>
                 </div>
 
                 {/* CountdownTimer inside its own card: label, then five units. */}
                 <div className="card cd-card">
-                  <p className="lbl">Compte à rebours</p>
+                  <p className="lbl">{t("ui.countdownLabel")}</p>
                   <div className="cd-units">
-                    <div className="cd-unit"><b data-count="9">0</b><span>Mois</span></div>
-                    <div className="cd-unit"><b data-count="15">0</b><span>Jours</span></div>
-                    <div className="cd-unit"><b data-count="5" data-pad="2">00</b><span>H</span></div>
-                    <div className="cd-unit"><b data-count="32" data-pad="2">00</b><span>Min</span></div>
-                    <div className="cd-unit"><b data-count="38" data-pad="2">00</b><span>Sec</span></div>
+                    <div className="cd-unit"><b data-count="9">0</b><span>{t("ui.cdMonths")}</span></div>
+                    <div className="cd-unit"><b data-count="15">0</b><span>{t("ui.cdDays")}</span></div>
+                    <div className="cd-unit"><b data-count="5" data-pad="2">00</b><span>{t("ui.cdHours")}</span></div>
+                    <div className="cd-unit"><b data-count="32" data-pad="2">00</b><span>{t("ui.cdMinutes")}</span></div>
+                    <div className="cd-unit"><b data-count="38" data-pad="2">00</b><span>{t("ui.cdSeconds")}</span></div>
                   </div>
                 </div>
 
@@ -691,26 +689,26 @@ export function DashboardDemo() {
                   <div className="card kpi-card">
                     <h3>
                       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><path d="M16 3.128a4 4 0 0 1 0 7.744"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><circle cx="9" cy="7" r="4"/></svg>
-                      Invités
+                      {t("ui.navGuests")}
                     </h3>
                     <div className="tiles">
-                      <div className="tile"><b data-count="140">0</b><span>Total</span></div>
-                      <div className="tile"><b data-count="124">0</b><span>Confirmés</span></div>
-                      <div className="tile"><b data-count="4">0</b><span>En attente</span></div>
-                      <div className="tile"><b data-count="12">0</b><span>Enfants</span></div>
+                      <div className="tile"><b data-count="140">0</b><span>{t("ui.tileTotal")}</span></div>
+                      <div className="tile"><b data-count="124">0</b><span>{t("ui.tileConfirmed")}</span></div>
+                      <div className="tile"><b data-count="4">0</b><span>{t("ui.tilePending")}</span></div>
+                      <div className="tile"><b data-count="12">0</b><span>{t("ui.tileChildren")}</span></div>
                     </div>
                   </div>
 
                   <div className="card kpi-card">
                     <h3>
                       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round"><path d="M5.8 11.3 2 22l10.7-3.79"/><path d="M4 3h.01"/><path d="M22 8h.01"/><path d="M15 2h.01"/><path d="M22 20h.01"/><path d="m22 2-2.24.75a2.9 2.9 0 0 0-1.96 3.12c.1.86-.57 1.63-1.45 1.63h-.38c-.86 0-1.6.6-1.76 1.44L14 10"/><path d="m22 13-.82-.33c-.86-.34-1.82.2-1.98 1.11c-.11.7-.72 1.22-1.43 1.22H17"/><path d="m11 2 .33.82c.34.86-.2 1.82-1.11 1.98C9.52 4.9 9 5.52 9 6.23V7"/><path d="M11 13c1.93 1.93 2.83 4.17 2 5-.83.83-3.07-.07-5-2-1.93-1.93-2.83-4.17-2-5 .83-.83 3.07.07 5 2Z"/></svg>
-                      Jour J
+                      {t("ui.navDayOf")}
                     </h3>
                     <div className="tiles">
-                      <div className="tile"><b data-count="116">0</b><span>Placés</span></div>
-                      <div className="tile"><b data-count="8">0</b><span>À placer</span></div>
-                      <div className="tile"><b data-count="10">0</b><span>Tables</span></div>
-                      <div className="tile"><b data-count="47">0</b><span>Photos &amp; vidéos</span></div>
+                      <div className="tile"><b data-count="116">0</b><span>{t("ui.tileSeated")}</span></div>
+                      <div className="tile"><b data-count="8">0</b><span>{t("ui.tileToSeat")}</span></div>
+                      <div className="tile"><b data-count="10">0</b><span>{t("ui.tileTables")}</span></div>
+                      <div className="tile"><b data-count="47">0</b><span>{t("ui.tilePhotos")}</span></div>
                     </div>
                   </div>
                 </div>
@@ -718,27 +716,27 @@ export function DashboardDemo() {
                 {/* HomeQuickActions: "À faire", three creme tiles, each with a
                      white circular icon, a count label and a description. */}
                 <div className="card sect">
-                  <h3>À faire</h3>
+                  <h3>{t("ui.todoTitle")}</h3>
                   <div className="qa-grid">
                     <div className="qa">
                       <span className="qa-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m2 7 10 6 10-6"/></svg></span>
                       <span className="qa-txt">
-                        <b>4 invités sans réponse</b>
-                        <span>Relancer les invités qui n'ont pas encore répondu</span>
+                        <b>{t("ui.todo1Title")}</b>
+                        <span>{t("ui.todo1Body")}</span>
                       </span>
                     </div>
                     <div className="qa">
                       <span className="qa-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round"><path d="M19 9V6a2 2 0 0 0-2-2H7a2 2 0 0 0-2 2v3"/><path d="M3 16a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-5a2 2 0 0 0-4 0v1.5a.5.5 0 0 1-.5.5h-9a.5.5 0 0 1-.5-.5V11a2 2 0 0 0-4 0z"/><path d="M5 18v2"/><path d="M19 18v2"/></svg></span>
                       <span className="qa-txt">
-                        <b>8 invités à placer</b>
-                        <span>Terminer le plan de table</span>
+                        <b>{t("ui.todo2Title")}</b>
+                        <span>{t("ui.todo2Body")}</span>
                       </span>
                     </div>
                     <div className="qa">
                       <span className="qa-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round"><rect width="5" height="5" x="3" y="3" rx="1"/><rect width="5" height="5" x="16" y="3" rx="1"/><rect width="5" height="5" x="3" y="16" rx="1"/><path d="M21 16h-3a2 2 0 0 0-2 2v3"/><path d="M21 21v.01"/><path d="M12 7v3a2 2 0 0 1-2 2H7"/><path d="M3 12h.01"/><path d="M12 3h.01"/><path d="M12 16v.01"/><path d="M16 12h1"/><path d="M21 12v.01"/><path d="M12 21v-1"/></svg></span>
                       <span className="qa-txt">
-                        <b>Imprimer le QR code</b>
-                        <span>À afficher le jour J pour l'accès invités</span>
+                        <b>{t("ui.todo3Title")}</b>
+                        <span>{t("ui.todo3Body")}</span>
                       </span>
                     </div>
                   </div>
@@ -749,89 +747,89 @@ export function DashboardDemo() {
                 <div className="card sect">
                   <div className="ip-head">
                     <div className="ip-t">
-                      <h3 style={{ margin: "0" }}>Faire-part</h3>
-                      <p className="ip-url">the-studio-digital-papeterie.fr/fr/invitation/marie-et-thomas</p>
+                      <h3 style={{ margin: "0" }}>{t("ui.invitationCard")}</h3>
+                      <p className="ip-url">{`the-studio-digital-papeterie.fr/${locale}/invitation/marie-et-thomas`}</p>
                     </div>
-                    <span className="ip-pill">En ligne</span>
+                    <span className="ip-pill">{t("ui.online")}</span>
                   </div>
                   <div className="ip-btns">
                     <span className="btn-outline">
                       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round"><path d="M2.062 12.348a1 1 0 0 1 0-.696 10.75 10.75 0 0 1 19.876 0 1 1 0 0 1 0 .696 10.75 10.75 0 0 1-19.876 0"/><circle cx="12" cy="12" r="3"/></svg>
-                      Voir
+                      {t("ui.btnView")}
                     </span>
                     <span className="btn-solid">
                       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round"><path d="M21.174 6.812a1 1 0 0 0-3.986-3.987L3.842 16.174a2 2 0 0 0-.5.83l-1.321 4.352a.5.5 0 0 0 .623.622l4.353-1.32a2 2 0 0 0 .83-.497z"/><path d="m15 5 4 4"/></svg>
-                      Modifier le contenu
+                      {t("ui.btnEditContent")}
                     </span>
                   </div>
                   <p className="ip-hint">
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round"><path d="M15 3h6v6"/><path d="M10 14 21 3"/><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/></svg>
-                    Lien public partagé avec vos invités
+                    {t("ui.publicLinkHint")}
                   </p>
                 </div>
               </div>
             </section>
 
             {/* ============ 2 · Invités (par foyer) ============ */}
-            <section className={panelClass("guests")} data-panel="guests" aria-label="Vos invités">
+            <section className={panelClass("guests")} data-panel="guests" aria-label={t("ui.guestsAria")}>
               <div className="pad">
                 <div className="home-head">
-                  <h2>Vos Invités</h2>
+                  <h2>{t("ui.guestsTitle")}</h2>
                   <span className="violet-btn">
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round"><path d="M5 12h14"/><path d="M12 5v14"/></svg>
-                    Ajouter un Foyer
+                    {t("ui.addHousehold")}
                   </span>
                 </div>
 
                 <div className="gs-grid">
                   <div className="gs">
                     <div className="gs-top">
-                      <span>Total Invités</span>
+                      <span>{t("ui.statTotal")}</span>
                       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><path d="M16 3.128a4 4 0 0 1 0 7.744"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><circle cx="9" cy="7" r="4"/></svg>
                     </div>
                     <b data-count="140">0</b>
-                    <small>Personnes invitées</small>
+                    <small>{t("ui.statTotalSub")}</small>
                   </div>
                   <div className="gs teal">
                     <div className="gs-top">
-                      <span>Confirmés</span>
+                      <span>{t("ui.statConfirmed")}</span>
                       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round"><path d="M21.801 10A10 10 0 1 1 17 3.335"/><path d="m9 11 3 3L22 4"/></svg>
                     </div>
                     <b data-count="124">0</b>
-                    <small>Seront présents</small>
+                    <small>{t("ui.statConfirmedSub")}</small>
                   </div>
                   <div className="gs jaune">
                     <div className="gs-top">
-                      <span>En attente</span>
+                      <span>{t("ui.statPending")}</span>
                       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round"><path d="M12 6v6l4 2"/><circle cx="12" cy="12" r="10"/></svg>
                     </div>
                     <b data-count="4">0</b>
-                    <small>Pas encore de réponse</small>
+                    <small>{t("ui.statPendingSub")}</small>
                   </div>
                   <div className="gs red">
                     <div className="gs-top">
-                      <span>Déclinés</span>
+                      <span>{t("ui.statDeclined")}</span>
                       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10"/><path d="m15 9-6 6"/><path d="m9 9 6 6"/></svg>
                     </div>
                     <b data-count="12">0</b>
-                    <small>Ne viendront pas</small>
+                    <small>{t("ui.statDeclinedSub")}</small>
                   </div>
                 </div>
 
                 <div className="toolbar">
                   <span className="field">
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round"><path d="m21 21-4.34-4.34"/><circle cx="11" cy="11" r="8"/></svg>
-                    Rechercher un foyer...
+                    {t("ui.searchHousehold")}
                   </span>
                   <div className="chips">
-                    <span className="chip on">Tous</span>
-                    <span className="chip">Confirmés</span>
-                    <span className="chip">En attente</span>
-                    <span className="chip">Déclinés</span>
+                    <span className="chip on">{t("ui.chipAll")}</span>
+                    <span className="chip">{t("ui.badgeConfirmed")}</span>
+                    <span className="chip">{t("ui.badgePending")}</span>
+                    <span className="chip">{t("ui.badgeDeclined")}</span>
                   </div>
                   <div className="tool-acts">
-                    <span className="chip">Exporter</span>
-                    <span className="chip">Importer</span>
+                    <span className="chip">{t("ui.export")}</span>
+                    <span className="chip">{t("ui.import")}</span>
                   </div>
                 </div>
 
@@ -839,11 +837,11 @@ export function DashboardDemo() {
                   <table className="hh">
                     <thead>
                       <tr>
-                        <th style={{ width: "250px" }}>Foyer / Famille</th>
-                        <th>Invités</th>
-                        <th>Contact</th>
-                        <th>Statut</th>
-                        <th>Actions</th>
+                        <th style={{ width: "250px" }}>{t("ui.thHousehold")}</th>
+                        <th>{t("ui.thGuests")}</th>
+                        <th>{t("ui.thContact")}</th>
+                        <th>{t("ui.thStatus")}</th>
+                        <th>{t("ui.thActions")}</th>
                       </tr>
                     </thead>
                     <tbody>
@@ -851,12 +849,12 @@ export function DashboardDemo() {
                         <td>
                           <div className="who">
                             <span className="av">L</span>
-                            <span><span className="nm">Famille Lefèvre</span><span className="sub">4 invité(s)</span></span>
+                            <span><span className="nm">Famille Lefèvre</span><span className="sub">{t("ui.guestCount", { count: 4 })}</span></span>
                           </div>
                         </td>
                         <td><div className="stack"><span>Camille, Hugo</span><span>Léonie, Jules</span></div></td>
                         <td><div className="stack"><span>c.lefevre@email.fr</span><span>06 12 34 56 78</span></div></td>
-                        <td><span className="badge ok">Confirmés</span></td>
+                        <td><span className="badge ok">{t("ui.badgeConfirmed")}</span></td>
                         <td>
                           <div className="rowacts">
                             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round"><path d="M21.174 6.812a1 1 0 0 0-3.986-3.987L3.842 16.174a2 2 0 0 0-.5.83l-1.321 4.352a.5.5 0 0 0 .623.622l4.353-1.32a2 2 0 0 0 .83-.497z"/><path d="m15 5 4 4"/></svg>
@@ -868,12 +866,12 @@ export function DashboardDemo() {
                         <td>
                           <div className="who">
                             <span className="av">M</span>
-                            <span><span className="nm">Famille Moreau</span><span className="sub">3 invité(s)</span></span>
+                            <span><span className="nm">Famille Moreau</span><span className="sub">{t("ui.guestCount", { count: 3 })}</span></span>
                           </div>
                         </td>
                         <td><div className="stack"><span>Jeanne, Paul</span><span>Léa</span></div></td>
                         <td><div className="stack"><span>jeanne.moreau@email.fr</span><span>06 98 76 54 32</span></div></td>
-                        <td><span className="badge ok">Confirmés</span></td>
+                        <td><span className="badge ok">{t("ui.badgeConfirmed")}</span></td>
                         <td>
                           <div className="rowacts">
                             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round"><path d="M21.174 6.812a1 1 0 0 0-3.986-3.987L3.842 16.174a2 2 0 0 0-.5.83l-1.321 4.352a.5.5 0 0 0 .623.622l4.353-1.32a2 2 0 0 0 .83-.497z"/><path d="m15 5 4 4"/></svg>
@@ -885,12 +883,12 @@ export function DashboardDemo() {
                         <td>
                           <div className="who">
                             <span className="av">B</span>
-                            <span><span className="nm">Famille Barral</span><span className="sub">2 invité(s)</span></span>
+                            <span><span className="nm">Famille Barral</span><span className="sub">{t("ui.guestCount", { count: 2 })}</span></span>
                           </div>
                         </td>
                         <td><div className="stack"><span>Théo, Sarah</span></div></td>
                         <td><div className="stack"><span>theo.barral@email.fr</span><span>07 45 12 88 03</span></div></td>
-                        <td><span className="badge wait" id="demoBadgeSwap">En attente</span></td>
+                        <td><span className="badge wait" id="demoBadgeSwap">{t("ui.badgePending")}</span></td>
                         <td>
                           <div className="rowacts">
                             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round"><path d="M21.174 6.812a1 1 0 0 0-3.986-3.987L3.842 16.174a2 2 0 0 0-.5.83l-1.321 4.352a.5.5 0 0 0 .623.622l4.353-1.32a2 2 0 0 0 .83-.497z"/><path d="m15 5 4 4"/></svg>
@@ -902,12 +900,12 @@ export function DashboardDemo() {
                         <td>
                           <div className="who">
                             <span className="av">S</span>
-                            <span><span className="nm">Famille Sorel</span><span className="sub">2 invité(s)</span></span>
+                            <span><span className="nm">Famille Sorel</span><span className="sub">{t("ui.guestCount", { count: 2 })}</span></span>
                           </div>
                         </td>
                         <td><div className="stack"><span>Raphaël, Inès</span></div></td>
                         <td><div className="stack"><span>r.sorel@email.fr</span><span>—</span></div></td>
-                        <td><span className="badge no">Déclinés</span></td>
+                        <td><span className="badge no">{t("ui.badgeDeclined")}</span></td>
                         <td>
                           <div className="rowacts">
                             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round"><path d="M21.174 6.812a1 1 0 0 0-3.986-3.987L3.842 16.174a2 2 0 0 0-.5.83l-1.321 4.352a.5.5 0 0 0 .623.622l4.353-1.32a2 2 0 0 0 .83-.497z"/><path d="m15 5 4 4"/></svg>
@@ -922,24 +920,24 @@ export function DashboardDemo() {
             </section>
 
             {/* ============ 3 · Plan de table ============ */}
-            <section className={panelClass("seating")} data-panel="seating" aria-label="Plan de table">
+            <section className={panelClass("seating")} data-panel="seating" aria-label={t("ui.seatingAria")}>
               <div className="seat-wrap">
                 <div className="seat-head">
-                  <h2>Plan de table</h2>
+                  <h2>{t("ui.seatingTitle")}</h2>
                   <div className="seat-meta">
                     <dl className="seat-dl">
-                      <div><dt>Placés</dt><dd id="demoSeated">116</dd></div>
-                      <div><dt>À placer</dt><dd id="demoLeft">8</dd></div>
-                      <div><dt>Capacité</dt><dd>120</dd></div>
+                      <div><dt>{t("ui.seatingSeated")}</dt><dd id="demoSeated">116</dd></div>
+                      <div><dt>{t("ui.seatingToSeat")}</dt><dd id="demoLeft">8</dd></div>
+                      <div><dt>{t("ui.seatingCapacity")}</dt><dd>120</dd></div>
                     </dl>
                     <div className="seat-tools">
                       <span className="field" style={{ minWidth: "180px" }}>
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round"><path d="m21 21-4.34-4.34"/><circle cx="11" cy="11" r="8"/></svg>
-                        Rechercher un invité…
+                        {t("ui.searchGuest")}
                       </span>
                       <span className="violet-btn">
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round"><path d="M5 12h14"/><path d="M12 5v14"/></svg>
-                        Table
+                        {t("ui.addTable")}
                       </span>
                     </div>
                   </div>
@@ -948,7 +946,7 @@ export function DashboardDemo() {
                 <div className="seat-body">
                   <aside className="unseated">
                     <div className="unseated-top">
-                      <h3>Invités à placer</h3>
+                      <h3>{t("ui.guestsToSeat")}</h3>
                       <span className="count-pill" id="demoUnseatedCount">8</span>
                     </div>
                     <ul id="demoUnseatedList">
@@ -964,19 +962,19 @@ export function DashboardDemo() {
                   <div className="board" id="demoBoard">
                     <div className="tbl" style={{ left: "22px", top: "20px" }}>
                       <h4>Amalfi</h4>
-                      <p className="cap">12 / 12 places</p>
+                      <p className="cap">{t("ui.tableSeats", { taken: 12, total: 12 })}</p>
                       <ul><li>Jeanne Moreau</li><li>Paul Moreau</li><li>Léa Sanchez</li></ul>
                     </div>
 
                     <div className="tbl" style={{ left: "196px", top: "20px" }}>
                       <h4>Positano</h4>
-                      <p className="cap">12 / 12 places</p>
+                      <p className="cap">{t("ui.tableSeats", { taken: 12, total: 12 })}</p>
                       <ul><li>Alice Nguyen</li><li>Kim Nguyen</li><li>Rosa Bellini</li></ul>
                     </div>
 
                     <div className="tbl" id="demoTargetTable" style={{ left: "370px", top: "20px" }}>
                       <h4>Maiori</h4>
-                      <p className="cap" id="demoTargetCap">8 / 12 places</p>
+                      <p className="cap" id="demoTargetCap">{t("ui.tableSeats", { taken: 8, total: 12 })}</p>
                       <ul id="demoTargetList">
                         <li>Camille Lefèvre</li>
                         <li>Hugo Lefèvre</li>
@@ -985,13 +983,13 @@ export function DashboardDemo() {
 
                     <div className="tbl" style={{ left: "22px", top: "172px" }}>
                       <h4>Ravello</h4>
-                      <p className="cap">12 / 12 places</p>
+                      <p className="cap">{t("ui.tableSeats", { taken: 12, total: 12 })}</p>
                       <ul><li>Yanis Cherif</li><li>Nour Cherif</li><li>Marc Abadie</li></ul>
                     </div>
 
                     <div className="tbl" style={{ left: "196px", top: "172px" }}>
                       <h4>Sorrento</h4>
-                      <p className="cap">12 / 12 places</p>
+                      <p className="cap">{t("ui.tableSeats", { taken: 12, total: 12 })}</p>
                       <ul><li>Emma Ferrand</li><li>Luc Ferrand</li><li>Alba Costa</li></ul>
                     </div>
 
@@ -1000,7 +998,7 @@ export function DashboardDemo() {
 
                     <div className="toast" id="demoToast">
                       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
-                      <span id="demoToastText">Invité placé</span>
+                      <span id="demoToastText">{t("ui.guestSeated")}</span>
                     </div>
                   </div>
                 </div>
@@ -1008,28 +1006,28 @@ export function DashboardDemo() {
             </section>
 
             {/* ============ 4 · Ma table ============ */}
-            <section className={panelClass("dayof")} data-panel="dayof" aria-label="Ma table, côté invités">
+            <section className={panelClass("dayof")} data-panel="dayof" aria-label={t("ui.dayOfAria")}>
               <div className="pad">
                 <div className="home-head">
-                  <h2>Le jour J, côté invités</h2>
-                  <span className="ghost-btn">Un QR code sur la table</span>
+                  <h2>{t("ui.dayOfTitle")}</h2>
+                  <span className="ghost-btn">{t("ui.dayOfSubtitle")}</span>
                 </div>
 
                 <div className="jourj">
                   <div className="phone">
                     <div className="phone-top"><i></i></div>
                     <div className="phone-body">
-                      <h3>Ma table</h3>
-                      <p className="hint">Entrez votre prénom ou votre nom.</p>
+                      <h3>{t("ui.myTable")}</h3>
+                      <p className="hint">{t("ui.myTablePrompt")}</p>
                       <div className="finder">
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round"><path d="m21 21-4.34-4.34"/><circle cx="11" cy="11" r="8"/></svg>
-                        <span id="demoTyped"></span><span className="ph" id="demoPlaceholder">Marie…</span><span className="caret"></span>
+                        <span id="demoTyped"></span><span className="ph" id="demoPlaceholder">{t("ui.myTablePlaceholder")}</span><span className="caret"></span>
                       </div>
                       <p className="tooshort" id="demoTooShort"></p>
                       <div className="result" id="demoResult">
-                        <p className="lead">Camille, votre table est…</p>
+                        <p className="lead">{t("ui.myTableResult")}</p>
                         <p className="tname">Maiori</p>
-                        <p className="seat">Près de la terrasse · 12 couverts</p>
+                        <p className="seat">{t("ui.myTableDetail")}</p>
                       </div>
                     </div>
                   </div>
@@ -1037,19 +1035,19 @@ export function DashboardDemo() {
                   <ul className="featlist">
                     <li>
                       <span className="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round"><rect width="5" height="5" x="3" y="3" rx="1"/><rect width="5" height="5" x="16" y="3" rx="1"/><rect width="5" height="5" x="3" y="16" rx="1"/><path d="M21 16h-3a2 2 0 0 0-2 2v3"/><path d="M21 21v.01"/><path d="M12 7v3a2 2 0 0 1-2 2H7"/><path d="M3 12h.01"/><path d="M12 3h.01"/><path d="M12 16v.01"/><path d="M16 12h1"/><path d="M21 12v.01"/><path d="M12 21v-1"/></svg></span>
-                      <div><b>Un QR code par mariage</b><span>Imprimé sur le menu ou le marque-place. Pas d'application à installer.</span></div>
+                      <div><b>{t("ui.dayOf1Title")}</b><span>{t("ui.dayOf1Body")}</span></div>
                     </li>
                     <li>
                       <span className="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round"><path d="m21 21-4.34-4.34"/><circle cx="11" cy="11" r="8"/></svg></span>
-                      <div><b>Chacun trouve sa table</b><span>Deux lettres suffisent, et seuls les invités placés remontent. La liste complète reste privée.</span></div>
+                      <div><b>{t("ui.dayOf2Title")}</b><span>{t("ui.dayOf2Body")}</span></div>
                     </li>
                     <li>
                       <span className="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round"><path d="M14.5 4h-5L7 7H4a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-3z"/><circle cx="12" cy="13" r="3.5"/></svg></span>
-                      <div><b>Les photos remontent au fil de la soirée</b><span>Les invités déposent, vous validez. Une photo masquée devient inaccessible.</span></div>
+                      <div><b>{t("ui.dayOf3Title")}</b><span>{t("ui.dayOf3Body")}</span></div>
                     </li>
                     <li>
                       <span className="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round"><path d="M4 5h16M4 12h16M4 19h10"/></svg></span>
-                      <div><b>Menu, programme et FAQ</b><span>Modifiables jusqu'au dernier moment. Les invités voient la version à jour.</span></div>
+                      <div><b>{t("ui.dayOf4Title")}</b><span>{t("ui.dayOf4Body")}</span></div>
                     </li>
                   </ul>
                 </div>
@@ -1057,20 +1055,20 @@ export function DashboardDemo() {
             </section>
 
             {/* ============ 5 · Statistiques ============ */}
-            <section className={panelClass("stats")} data-panel="stats" aria-label="Statistiques">
+            <section className={panelClass("stats")} data-panel="stats" aria-label={t("ui.statsAria")}>
               <div className="pad">
                 <div>
-                  <h2 className="pg-title">Statistiques</h2>
-                  <p className="pg-sub">Des chiffres simples et utiles pour suivre votre faire-part.</p>
+                  <h2 className="pg-title">{t("ui.statsTitle")}</h2>
+                  <p className="pg-sub">{t("ui.statsSubtitle")}</p>
                 </div>
 
                 {/* Invitation: three StatCards, the third `variant="primary"`. */}
-                <h3 className="sec-h">Invitation</h3>
+                <h3 className="sec-h">{t("ui.statsInvitation")}</h3>
                 <div className="sc-grid">
                   <div className="sc">
                     <span className="sc-mark"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round"><path d="M2.062 12.348a1 1 0 0 1 0-.696 10.75 10.75 0 0 1 19.876 0 1 1 0 0 1 0 .696 10.75 10.75 0 0 1-19.876 0"/><circle cx="12" cy="12" r="3"/></svg></span>
                     <div className="sc-top">
-                      <span className="sc-lab">Visites</span>
+                      <span className="sc-lab">{t("ui.statsVisits")}</span>
                       <span className="sc-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round"><path d="M2.062 12.348a1 1 0 0 1 0-.696 10.75 10.75 0 0 1 19.876 0 1 1 0 0 1 0 .696 10.75 10.75 0 0 1-19.876 0"/><circle cx="12" cy="12" r="3"/></svg></span>
                     </div>
                     <div className="sc-val" data-count="1842">0</div>
@@ -1079,7 +1077,7 @@ export function DashboardDemo() {
                   <div className="sc">
                     <span className="sc-mark"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><path d="M16 3.128a4 4 0 0 1 0 7.744"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><circle cx="9" cy="7" r="4"/></svg></span>
                     <div className="sc-top">
-                      <span className="sc-lab">Visiteurs uniques</span>
+                      <span className="sc-lab">{t("ui.statsUniqueVisitors")}</span>
                       <span className="sc-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><path d="M16 3.128a4 4 0 0 1 0 7.744"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><circle cx="9" cy="7" r="4"/></svg></span>
                     </div>
                     <div className="sc-val" data-count="214">0</div>
@@ -1088,19 +1086,19 @@ export function DashboardDemo() {
                   <div className="sc primary">
                     <span className="sc-mark"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round"><path d="M3 3v16a2 2 0 0 0 2 2h16"/><path d="M18 17V9"/><path d="M13 17V5"/><path d="M8 17v-3"/></svg></span>
                     <div className="sc-top">
-                      <span className="sc-lab">Taux de réponse</span>
+                      <span className="sc-lab">{t("ui.statsResponseRate")}</span>
                       <span className="sc-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round"><path d="M3 3v16a2 2 0 0 0 2 2h16"/><path d="M18 17V9"/><path d="M13 17V5"/><path d="M8 17v-3"/></svg></span>
                     </div>
                     <div className="sc-val"><span data-count="97">0</span>%</div>
-                    <p className="sc-desc">136 réponses sur 140 invités</p>
+                    <p className="sc-desc">{t("ui.statsResponseDetail")}</p>
                   </div>
                 </div>
 
                 {/* VisitTrendChart: 30 thin bars, single violet hue. */}
                 <div className="card sect">
-                  <h4 className="trend-h">Visites sur 30 jours</h4>
+                  <h4 className="trend-h">{t("ui.statsVisits30")}</h4>
                   <div className="trend-wrap">
-                    <svg viewBox="0 0 600 160" className="trend" role="img" aria-label="Nombre de visites par jour sur les 30 derniers jours">
+                    <svg viewBox="0 0 600 160" className="trend" role="img" aria-label={t("ui.statsChartAria")}>
                       <defs>
                         <linearGradient id="demoVisitGradient" x1="0" y1="0" x2="0" y2="1">
                           <stop offset="0%" stopColor="#4B3F72" stopOpacity="0.9"/>
@@ -1115,32 +1113,32 @@ export function DashboardDemo() {
 
                 <div className="stat-cols">
                   <div className="card sect">
-                    <h3>RSVP</h3>
+                    <h3>{t("ui.statsRsvp")}</h3>
                     <div className="seg-bar">
                       <span className="seg c" data-w="88.6"></span>
                       <span className="seg d" data-w="8.6"></span>
                       <span className="seg p" data-w="2.8"></span>
                     </div>
                     <ul className="legend">
-                      <li><span className="k"><span className="dot c"></span>Confirmés</span><span className="v">124</span></li>
-                      <li><span className="k"><span className="dot d"></span>Déclinés</span><span className="v">12</span></li>
-                      <li><span className="k"><span className="dot p"></span>Sans réponse</span><span className="v">4</span></li>
+                      <li><span className="k"><span className="dot c"></span>{t("ui.statsConfirmed")}</span><span className="v">124</span></li>
+                      <li><span className="k"><span className="dot d"></span>{t("ui.statsDeclined")}</span><span className="v">12</span></li>
+                      <li><span className="k"><span className="dot p"></span>{t("ui.statsNoAnswer")}</span><span className="v">4</span></li>
                     </ul>
                   </div>
 
                   <div className="card sect">
-                    <h3>Événements</h3>
+                    <h3>{t("ui.statsEvents")}</h3>
                     <ul className="events">
                       <li>
-                        <div className="ev-top"><span className="n">Cérémonie</span><span className="c">122 / 124 confirmés</span></div>
+                        <div className="ev-top"><span className="n">{t("ui.evCeremony")}</span><span className="c">{t("ui.evConfirmed", { n: 122, total: 124 })}</span></div>
                         <div className="ev-track"><span className="ev-fill" data-w="98"></span></div>
                       </li>
                       <li>
-                        <div className="ev-top"><span className="n">Dîner</span><span className="c">117 / 124 confirmés</span></div>
+                        <div className="ev-top"><span className="n">{t("ui.evDinner")}</span><span className="c">{t("ui.evConfirmed", { n: 117, total: 124 })}</span></div>
                         <div className="ev-track"><span className="ev-fill" data-w="94"></span></div>
                       </li>
                       <li>
-                        <div className="ev-top"><span className="n">Brunch</span><span className="c">76 / 124 confirmés</span></div>
+                        <div className="ev-top"><span className="n">{t("ui.evBrunch")}</span><span className="c">{t("ui.evConfirmed", { n: 76, total: 124 })}</span></div>
                         <div className="ev-track"><span className="ev-fill" data-w="61"></span></div>
                       </li>
                     </ul>
@@ -1171,7 +1169,7 @@ export function DashboardDemo() {
             type="button"
             role="tab"
             aria-current={i === index}
-            aria-label={`${i + 1}. ${c.rail}`}
+            aria-label={`${i + 1}. ${chapterTexts[i].rail}`}
             onClick={() => goTo(i)}
           >
             <span className="rail-track">
@@ -1184,7 +1182,7 @@ export function DashboardDemo() {
                 style={{ transform: `scaleX(${i < index ? 1 : 0})` }}
               />
             </span>
-            <span className="rail-name">{`${i + 1}. ${c.rail}`}</span>
+            <span className="rail-name">{`${i + 1}. ${chapterTexts[i].rail}`}</span>
           </button>
         ))}
       </div>
