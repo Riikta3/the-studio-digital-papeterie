@@ -9,8 +9,21 @@ import { Preview } from "@/components/home/Preview";
 import { Pricing } from "@/components/home/Pricing";
 import { ScrollToTop } from "@/components/home/ScrollToTop";
 import { WhyUs } from "@/components/home/WhyUs";
+import { routing } from "@/navigation";
+import { setRequestLocale } from "next-intl/server";
 
-export default function HomePage() {
+export function generateStaticParams() {
+  return routing.locales.map((locale) => ({ locale }));
+}
+
+export default async function HomePage({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}) {
+  const { locale } = await params;
+  setRequestLocale(locale);
+
   return (
     <main>
       <Hero />
