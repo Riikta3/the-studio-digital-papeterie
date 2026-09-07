@@ -229,13 +229,18 @@ function ShareMock({
  * The mechanism, after several rewrites that failed by adding rules instead
  * of removing them:
  *
- *  1. The title and the cards are all `sticky` siblings in ONE container.
- *     Sharing the container is what lets the cards accumulate: a sticky
- *     element is confined to its containing block, so per-card wrappers
- *     release each card the instant its own wrapper scrolls past — the bug
- *     that made this section play as three cards filing past one another.
- *     The title needs the same container for the same reason, or it scrolls
- *     away as the first card arrives.
+ *  1. The cards are `sticky` siblings in ONE container. Sharing the container
+ *     is what lets them accumulate: a sticky element is confined to its
+ *     containing block, so per-card wrappers release each card the instant
+ *     its own wrapper scrolls past — the bug that made this section play as
+ *     three cards filing past one another.
+ *
+ *     The section title scrolls away normally rather than pinning above the
+ *     pile. Pinning it was tried and abandoned: it forced the cards into
+ *     whatever height was left under the band, and on a screen too short for
+ *     both, every fallback looked worse than the plain version — a static
+ *     title painted under the `z-10` cards is visibly sliced in half as a
+ *     card passes it.
  *  2. Every card is the same height, fixed to what its content needs.
  *     Equal heights keep the pile's edges clean; fixing them to the content
  *     rather than to the viewport is what stops the mocks being clipped.
@@ -245,13 +250,7 @@ function ShareMock({
  *     small on purpose: 34svh and a full viewport both read as a stretch of
  *     empty beurre to scroll through.
  *
- * Stacking order is deliberate: the cards paint ABOVE the opaque title band
- * (`z-10` vs `z-0`). Their pinned life ends before the container does, so on
- * the way out they cross the band — over it that reads as the pile leaving,
- * under it the band clipped each step's heading. On the way in the band still
- * hides them, because the pin floor keeps a pinned card from ever rising
- * above the title.
- *
+
  * The depth cue is a vertical offset plus a veil, never `scale` (scaling
  * shrinks width too, so a buried card is narrower than the one landing on it
  * and their edges cannot line up) and never `opacity` (fading a card fades
@@ -277,41 +276,28 @@ const MAX_LIFT = LIFT_STEP * 2;
 const CARD_HEIGHT_MOBILE = 528;
 const CARD_HEIGHT_DESKTOP = 492;
 
-// The band the pinned title occupies. At least its own rendered height
-// (~143px mobile, ~175px desktop), since the pin floor below is derived from
-// it: under-reserving lets the lifted card edges climb behind the opaque band
-// and clip the step heading.
-const TITLE_BAND_MOBILE = 148;
-const TITLE_BAND_DESKTOP = 180;
+// The pile's minimum distance from the top of the screen, so a pinned card
+// never sits flush against the viewport edge (or under the site header on
+// desktop).
+const MIN_TOP_MOBILE = 16;
+const MIN_TOP_DESKTOP = 88;
 
-// The shortest viewport that fits the title band, the lift and a whole card.
-// Below it the three cannot coexist, so the title stops being sticky (see the
-// media query in the markup) and the pile gets the full screen instead of a
-// clipped card.
-const MIN_VIEWPORT_MOBILE = TITLE_BAND_MOBILE + MAX_LIFT + CARD_HEIGHT_MOBILE;
-const MIN_VIEWPORT_DESKTOP =
-  TITLE_BAND_DESKTOP + MAX_LIFT + CARD_HEIGHT_DESKTOP;
-
-// Where the pile pins, derived from the viewport so it lands centred in the
-// space below the title rather than clinging to the top of the screen.
+// Where the pile pins: derived from the viewport so it lands centred, rather
+// than clinging to the top of the screen.
 //
-// Two things this has to respect. First, the pinned card sits AT the line
-// while the buried ones are lifted ABOVE it, so the clearance that matters is
-// `pin - MAX_LIFT`: with a 163.5px pin and a 36px lift the deepest edge
-// reached 127.5px, under a 151px title band, and slid behind the opaque bar,
-// clipping "03 Partagez" off the card. The `max()` is the floor that
-// guarantees `pin - MAX_LIFT >= titleAllowance`.
-//
-// Second, a small `top` pushes those lifted edges off the top of the screen
-// altogether — measured with `top: 16px`, the first card's edge sat at -20px
-// while 167px of empty beurre sat below the pile.
+// The pinned card sits AT the line while the buried ones are lifted ABOVE it,
+// so a small `top` pushes their edges off the top of the screen altogether —
+// measured with `top: 16px` and a 36px deepest lift, the first card's edge
+// sat at -20px, out of sight, while 167px of empty beurre sat below the pile.
+// The `max()` floor keeps `pin - MAX_LIFT` clear of the screen edge (and of
+// the site header on desktop).
 //
 // CENTRE_BIAS then lifts the pile a little above dead centre, leaving more air
 // under the bottom card than above it; exact centring read as sitting low,
 // with the card's bottom edge close to the fold.
 const CENTRE_BIAS = 22;
-const stickyTop = (titleAllowance: number, cardHeight: number) =>
-  `max(${titleAllowance + MAX_LIFT}px, calc(${titleAllowance}px + (100svh - ${titleAllowance}px - ${cardHeight}px - ${MAX_LIFT}px) / 2 + ${MAX_LIFT}px - ${CENTRE_BIAS}px))`;
+const stickyTop = (minTop: number, cardHeight: number) =>
+  `max(${minTop + MAX_LIFT}px, calc((100svh - ${cardHeight}px - ${MAX_LIFT}px) / 2 + ${MAX_LIFT}px - ${CENTRE_BIAS}px))`;
 
 function StackCard({
   step,
@@ -473,71 +459,29 @@ export function HowItWorks() {
         [data-stack] {
           --stack-hold: 80px;
           --stack-card-height: ${CARD_HEIGHT_MOBILE}px;
-          --stack-top: ${stickyTop(TITLE_BAND_MOBILE, CARD_HEIGHT_MOBILE)};
+          --stack-top: ${stickyTop(MIN_TOP_MOBILE, CARD_HEIGHT_MOBILE)};
         }
         @media (min-width: 768px) {
           [data-stack] {
             --stack-card-height: ${CARD_HEIGHT_DESKTOP}px;
-            --stack-top: ${stickyTop(TITLE_BAND_DESKTOP, CARD_HEIGHT_DESKTOP)};
-          }
-        }
-        /* Too short for a pinned title AND a whole card: the title goes back
-           to being an ordinary heading that scrolls away, and the pile gets
-           the full screen. The alternative was shrinking the card, which
-           clips the mock — measured, a 667px phone gave it 459px for 525px of
-           content. */
-        @media (max-height: ${MIN_VIEWPORT_MOBILE - 1}px) {
-          [data-stack] [data-stack-title] {
-            position: static;
-          }
-          [data-stack] {
-            --stack-top: ${MAX_LIFT + 8}px;
-          }
-        }
-        @media (min-width: 768px) and (max-height: ${MIN_VIEWPORT_DESKTOP - 1}px) {
-          [data-stack] [data-stack-title] {
-            position: static;
-          }
-          [data-stack] {
-            --stack-top: ${MAX_LIFT + 8}px;
+            --stack-top: ${stickyTop(MIN_TOP_DESKTOP, CARD_HEIGHT_DESKTOP)};
           }
         }
       `}</style>
 
       <div ref={containerRef} data-stack className="relative">
-        {/* The sticky title. Three details, each of them a bug that showed on
-            screen before it was fixed:
+        {/* The section title, in normal flow: it scrolls away as the pile
+            arrives, and the cards' `z-10` carries them cleanly over it.
 
-            - It is inside the stack container. Outside it, its containing
-              block ended at the cards' first pixel, so it scrolled away just
-              as the first card arrived.
-            - It is opaque and full-bleed (the negative margins undo the
-              section's padding). Transparent, the cards slid visibly through
-              the words as the pile scrolled away.
-            - It is a plain div, not `FadeIn`. That wrapper's hidden state is a
-              `translateY`, and a transform creates a containing block a
-              descendant sticky would pin against instead of the viewport; its
-              IntersectionObserver also flipped the title back to hidden once
-              the pinned band left the observed area, fading it to opacity
-              0.09 while still on screen. The title is visible as soon as the
-              section is, so a reveal adds nothing. */}
-        <div
-          // BELOW the cards in stacking order (`z-0` against their `z-10`),
-          // which is what stops the exit looking broken. The title's pinned
-          // life outlasts the cards' — sticky is released with its containing
-          // block, and the cards' travel ends before the container does — so
-          // on the way out they scroll up across the title's band. Painted
-          // over it that reads as the pile leaving; painted under it, the
-          // opaque band clipped each step's heading (measured: cards at
-          // -177px while the title still held at 0).
-          //
-          // The band still hides the cards while they are BELOW it, because
-          // the pinned card never rises above the title: see the `max()`
-          // floor in `stickyTop`.
-          data-stack-title
-          className="sticky z-0 -mx-6 mb-6 bg-studio-beurre px-6 pb-2 text-center md:-mx-12 md:px-12"
-          style={{ top: 0 }}
-        >
+            Pinning it here was tried and reverted. It cost the cards the
+            height the band occupied, and no fallback for a screen too short
+            for both looked right — a static title under the `z-10` cards is
+            sliced in half as a card crosses it. It is also deliberately not
+            wrapped in `FadeIn`: that wrapper's hidden state is a `translateY`,
+            and its IntersectionObserver flipped the title back to hidden once
+            it left the observed area, fading it to opacity 0.09 while still
+            on screen. */}
+        <div data-stack-title className="mb-10 text-center">
           <div className="mx-auto max-w-3xl">
             <div className="flex items-center justify-center gap-3 font-body text-h5 tracking-luxe text-studio-pourpre">
               <Image
