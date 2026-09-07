@@ -887,5 +887,18 @@
     "createButton": "招待状を作成する",
     "menuAriaLabel": "メニューを開く",
     "homeAriaLabel": "ホームに戻る"
+  },
+  "ComingSoon": {
+    "metaTitle": "近日公開 — The Studio Papeterie Digitale",
+    "metaDescription": "アトリエで新しいものが生まれています。デジタル結婚招待状はもうすぐ公開です。",
+    "eyebrow": "アトリエ準備中",
+    "cardTitle": "まだ封を切っていない招待状",
+    "cardLine": "ペンを揃え、インクを乾かしているところです。すべて整いしだい、このページは開きます。",
+    "sealLabel": "THE STUDIO · 近日公開",
+    "title": "近日公開",
+    "subtitle": "このページに最後の仕上げをしています。どうぞもう少しお待ちください。",
+    "signature": "またすぐに",
+    "copyright": "© {year} The Studio Digital Papeterie. All rights reserved.",
+    "homeAriaLabel": "ホームに戻る"
   }
 }

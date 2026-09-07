@@ -887,5 +887,18 @@
     "createButton": "创建我的请柬",
     "menuAriaLabel": "打开菜单",
     "homeAriaLabel": "返回首页"
+  },
+  "ComingSoon": {
+    "metaTitle": "即将上线 — The Studio Papeterie Digitale",
+    "metaDescription": "工作室里正酝酿着新作品。我们的数字婚礼请柬即将上线。",
+    "eyebrow": "工作室筹备中",
+    "cardTitle": "一封尚未启封的请柬",
+    "cardLine": "笔已备好，墨迹待干。一切就绪之时，此页便会开启。",
+    "sealLabel": "THE STUDIO · 即将上线",
+    "title": "即将上线",
+    "subtitle": "我们正在为这个页面做最后的润色。请稍后再来，值得等待。",
+    "signature": "很快与你相见",
+    "copyright": "© {year} The Studio Digital Papeterie. 保留所有权利。",
+    "homeAriaLabel": "返回首页"
   }
 }

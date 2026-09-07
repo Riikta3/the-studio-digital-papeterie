@@ -887,5 +887,18 @@
     "createButton": "إنشاء دعوتي",
     "menuAriaLabel": "فتح القائمة",
     "homeAriaLabel": "العودة إلى الرئيسية"
+  },
+  "ComingSoon": {
+    "metaTitle": "قريبًا — The Studio Papeterie Digitale",
+    "metaDescription": "شيء ما يُحضَّر في الأتيليه. قرطاسيتنا الرقمية للأعراس تصل قريبًا جدًا.",
+    "eyebrow": "في الأتيليه",
+    "cardTitle": "دعوة لا تزال مختومة",
+    "cardLine": "الأقلام جاهزة والحبر يجفّ. ستُفتح هذه الصفحة بمجرد أن يكون كل شيء جاهزًا.",
+    "sealLabel": "THE STUDIO · قريبًا",
+    "title": "قريبًا",
+    "subtitle": "نضع اللمسات الأخيرة على هذه الصفحة. عُد قريبًا: ستستحقّ الانتظار.",
+    "signature": "إلى قريب جدًا",
+    "copyright": "© {year} The Studio Digital Papeterie. جميع الحقوق محفوظة.",
+    "homeAriaLabel": "العودة إلى الصفحة الرئيسية"
   }
 }

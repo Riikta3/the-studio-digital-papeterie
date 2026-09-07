@@ -888,5 +888,18 @@
     "createButton": "Einladung erstellen",
     "menuAriaLabel": "Menü öffnen",
     "homeAriaLabel": "Zur Startseite"
+  },
+  "ComingSoon": {
+    "metaTitle": "Demnächst verfügbar — The Studio Papeterie Digitale",
+    "metaDescription": "Im Atelier entsteht etwas Neues. Unsere digitale Hochzeitspapeterie ist fast fertig.",
+    "eyebrow": "IM ATELIER",
+    "cardTitle": "Eine noch versiegelte Einladung",
+    "cardLine": "Die Federn liegen bereit, die Tinte trocknet. Diese Seite öffnet sich, sobald alles fertig ist.",
+    "sealLabel": "THE STUDIO · DEMNÄCHST",
+    "title": "Demnächst verfügbar",
+    "subtitle": "Wir legen die letzte Hand an diese Seite. Kommen Sie bald wieder — das Warten lohnt sich.",
+    "signature": "BIS GANZ BALD",
+    "copyright": "© {year} The Studio Digital Papeterie. Alle Rechte vorbehalten.",
+    "homeAriaLabel": "Zurück zur Startseite"
   }
 }

@@ -888,5 +888,18 @@
     "createButton": "Crear mi invitación",
     "menuAriaLabel": "Abrir el menú",
     "homeAriaLabel": "Volver al inicio"
+  },
+  "ComingSoon": {
+    "metaTitle": "Muy pronto — The Studio Papeterie Digitale",
+    "metaDescription": "Algo se está preparando en el taller. Nuestra papelería digital de boda llega muy pronto.",
+    "eyebrow": "EN EL TALLER",
+    "cardTitle": "Una invitación aún sellada",
+    "cardLine": "Las plumas ya están fuera y la tinta se seca. Esta página se abrirá en cuanto todo esté listo.",
+    "sealLabel": "THE STUDIO · MUY PRONTO",
+    "title": "Muy pronto",
+    "subtitle": "Estamos dando los últimos toques a esta página. Vuelve pronto: valdrá la espera.",
+    "signature": "HASTA MUY PRONTO",
+    "copyright": "© {year} The Studio Digital Papeterie. Todos los derechos reservados.",
+    "homeAriaLabel": "Volver al inicio"
   }
 }

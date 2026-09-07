@@ -887,5 +887,18 @@
     "createButton": "Criar o meu convite",
     "menuAriaLabel": "Abrir o menu",
     "homeAriaLabel": "Voltar ao início"
+  },
+  "ComingSoon": {
+    "metaTitle": "Em breve — The Studio Papeterie Digitale",
+    "metaDescription": "Algo está a nascer no atelier. A nossa papelaria digital de casamento chega muito em breve.",
+    "eyebrow": "NO ATELIER",
+    "cardTitle": "Um convite ainda selado",
+    "cardLine": "As canetas já saíram e a tinta está a secar. Esta página abrirá assim que tudo estiver pronto.",
+    "sealLabel": "THE STUDIO · EM BREVE",
+    "title": "Em breve",
+    "subtitle": "Estamos a dar os últimos retoques nesta página. Volte em breve: vale a espera.",
+    "signature": "ATÉ MUITO BREVE",
+    "copyright": "© {year} The Studio Digital Papeterie. Todos os direitos reservados.",
+    "homeAriaLabel": "Voltar ao início"
   }
 }

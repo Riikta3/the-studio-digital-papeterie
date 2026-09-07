@@ -889,5 +889,18 @@
     "createButton": "Create my invitation",
     "menuAriaLabel": "Open menu",
     "homeAriaLabel": "Back to home"
+  },
+  "ComingSoon": {
+    "metaTitle": "Coming soon — The Studio Papeterie Digitale",
+    "metaDescription": "Something is taking shape in the studio. Our digital wedding stationery is almost here.",
+    "eyebrow": "IN THE STUDIO",
+    "cardTitle": "An invitation still sealed",
+    "cardLine": "The pens are out and the ink is drying. This page will open the moment everything is ready.",
+    "sealLabel": "THE STUDIO · SOON",
+    "title": "Coming soon",
+    "subtitle": "We are putting the finishing touches to this page. Come back shortly — it will be worth the wait.",
+    "signature": "SEE YOU VERY SOON",
+    "copyright": "© {year} The Studio Digital Papeterie. All rights reserved.",
+    "homeAriaLabel": "Back to home"
   }
 }

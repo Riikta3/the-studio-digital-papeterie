@@ -843,5 +843,18 @@
     "createButton": "Créer mon invitation",
     "menuAriaLabel": "Ouvrir le menu",
     "homeAriaLabel": "Retour à l'accueil"
+  },
+  "ComingSoon": {
+    "metaTitle": "Bientôt disponible — The Studio Papeterie Digitale",
+    "metaDescription": "Quelque chose se prépare à l'atelier. Nos faire-part digitaux arrivent très bientôt.",
+    "eyebrow": "L'ATELIER PRÉPARE",
+    "cardTitle": "Une invitation encore cachetée",
+    "cardLine": "Nos plumes sont sorties, l'encre sèche. Cette page s'ouvrira dès que tout sera prêt.",
+    "sealLabel": "THE STUDIO · BIENTÔT",
+    "title": "Bientôt disponible",
+    "subtitle": "Nous mettons la dernière main à cette page. Revenez très vite : elle en vaudra l'attente.",
+    "signature": "À TRÈS BIENTÔT",
+    "copyright": "© {year} The Studio Digital Papeterie. Tous droits réservés.",
+    "homeAriaLabel": "Retour à l'accueil"
   }
 }

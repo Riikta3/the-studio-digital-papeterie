@@ -887,5 +887,18 @@
     "createButton": "Crea il mio invito",
     "menuAriaLabel": "Apri il menu",
     "homeAriaLabel": "Torna alla home"
+  },
+  "ComingSoon": {
+    "metaTitle": "Disponibile a breve — The Studio Papeterie Digitale",
+    "metaDescription": "Qualcosa sta prendendo forma in atelier. La nostra cartoleria digitale per matrimoni arriva a breve.",
+    "eyebrow": "IN ATELIER",
+    "cardTitle": "Un invito ancora sigillato",
+    "cardLine": "Le penne sono pronte e l'inchiostro sta asciugando. Questa pagina si aprirà appena tutto sarà pronto.",
+    "sealLabel": "THE STUDIO · A BREVE",
+    "title": "Disponibile a breve",
+    "subtitle": "Stiamo dando gli ultimi tocchi a questa pagina. Torna presto: ne varrà l'attesa.",
+    "signature": "A PRESTISSIMO",
+    "copyright": "© {year} The Studio Digital Papeterie. Tutti i diritti riservati.",
+    "homeAriaLabel": "Torna alla home"
   }
 }
