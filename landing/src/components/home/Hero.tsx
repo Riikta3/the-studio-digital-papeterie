@@ -15,6 +15,7 @@ import {
   setSelectedThemeIndex,
   useSelectedThemeIndex,
 } from "./selected-theme";
+import { StickyHeader } from "./StickyHeader";
 import { THEMES } from "./themes";
 import { TextureOverlay } from "./TextureOverlay";
 
@@ -112,6 +113,14 @@ export function Hero() {
             <Menu className="h-5 w-5" />
           </button>
         </nav>
+
+        <StickyHeader
+          onOpenMenu={() => {
+            setMenuMounted(true);
+            setMenuOpen(true);
+          }}
+          menuAriaLabel={t("menuAriaLabel")}
+        />
 
         {menuMounted && (
           <MobileMenu open={menuOpen} onClose={() => setMenuOpen(false)} />
