@@ -2,9 +2,21 @@ import Stripe from "stripe";
 
 let cached: Stripe | undefined;
 
-// Checked lazily (on first real request) instead of at module load: `next build`
-// always runs with NODE_ENV=production even for local/CI builds, so a module-level
-// check would fail every build that has a test key in .env.local.
+/*
+ * Only a real production deploy is strict — the same rule as `lib/urls.ts`.
+ *
+ * NODE_ENV is "production" for `next build` AND `next start`, so including it
+ * here rejected legitimate test keys locally: running the production server on
+ * a dev machine failed with "Refusing to start: a Stripe TEST key is
+ * configured in production", which made the checkout impossible to try end to
+ * end. Deferring the check to the first request did not help, because
+ * `next start` does serve real requests. VERCEL_ENV is set on Vercel deploys
+ * only, so it is the one signal that actually means "this is production".
+ */
+const isProduction = process.env.VERCEL_ENV === "production";
+
+// Checked lazily (on first real request) instead of at module load, so a build
+// never fails on a key it will not use.
 function getStripe(): Stripe {
   if (cached) return cached;
 
@@ -12,7 +24,7 @@ function getStripe(): Stripe {
 
   // Fail loudly in production rather than silently accepting fake payments:
   // a test key in production would make every order free.
-  if (process.env.VERCEL_ENV === "production" || process.env.NODE_ENV === "production") {
+  if (isProduction) {
     if (!secretKey) {
       throw new Error("STRIPE_SECRET_KEY is required in production.");
     }
