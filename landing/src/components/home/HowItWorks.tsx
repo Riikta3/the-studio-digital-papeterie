@@ -262,17 +262,25 @@ const MAX_LIFT = LIFT_STEP * 2;
 // pile. That is the "on ne voit pas le dessus" symptom.
 //
 // So: centre the whole pile (a card plus the lift stack above it) in the
-// space left by the header, then push down by MAX_LIFT so the line refers to
-// the pinned card while the lifted edges stay on screen. `max()` keeps it
-// clear of the header on short viewports.
+// space left below the sticky title, then push down by MAX_LIFT so the line
+// refers to the pinned card while the lifted edges stay on screen.
 //
 // BIAS lifts the pile slightly above dead centre, which leaves a little more
 // air under the bottom card than above the pile. Exact centring left the two
 // margins identical (measured 73.5px each at a 723px viewport) and the pile
 // read as sitting low, with the card's bottom edge close to the fold.
 const CENTRE_BIAS = 22;
-const stickyTop = (headerAllowance: number) =>
-  `max(${headerAllowance}px, calc((100svh - var(--stack-card-height) - ${MAX_LIFT}px) / 2 + ${MAX_LIFT}px - ${CENTRE_BIAS}px))`;
+// The vertical band the pinned title occupies: its own height (measured 135px
+// on mobile, larger on desktop where the heading is bigger) plus a little air
+// before the pile. Kept tight — over-reserving here comes straight out of the
+// cards' height budget, and at 176px it starved them to 479px for ~538px of
+// content, which clipped every mock.
+const TITLE_BAND_MOBILE = 152;
+const TITLE_BAND_DESKTOP = 184;
+// The title stays pinned above the pile for the whole section, so every
+// measurement below works from the space under it, not from the raw viewport.
+const stickyTop = (titleAllowance: number) =>
+  `calc(${titleAllowance}px + (100svh - ${titleAllowance}px - var(--stack-card-height) - ${MAX_LIFT}px) / 2 + ${MAX_LIFT}px - ${CENTRE_BIAS}px)`;
 // One height for every card, so the pile has clean edges: a card shorter than
 // the one behind it lets that card's bottom show below the stack, and a taller
 // one overhangs it. Natural heights differ by ~25px here (measured 503/528/508
@@ -288,8 +296,15 @@ const stickyTop = (headerAllowance: number) =>
 // The cap leaves room for the lifted edges above the pinned card and a
 // margin below, since a card taller than the space around the pin line
 // cannot pin at all — it just scrolls past.
-const CARD_HEIGHT_MOBILE = `min(540px, calc(100svh - ${MAX_LIFT}px - 48px))`;
-const CARD_HEIGHT_DESKTOP = `min(500px, calc(100svh - ${MAX_LIFT}px - 140px))`;
+// The subtraction covers the pinned title band plus the lifted edges above
+// the pinned card and a margin below it.
+// Fixed, and driven by the content rather than by the viewport: the cards need
+// ~538px at mobile width and ~488px at desktop. Capping them against the
+// screen instead (`min(…, 100svh - title - lift)`) is what clipped every mock
+// once the title band claimed its share — a short screen would rather scroll
+// a little than hide the illustration the step is explaining.
+const CARD_HEIGHT_MOBILE = "540px";
+const CARD_HEIGHT_DESKTOP = "500px";
 
 function StackCard({
   step,
@@ -434,48 +449,73 @@ export function HowItWorks() {
 
   return (
     <section className="bg-studio-beurre px-6 pb-8 pt-20 md:px-12">
-      <FadeIn className="mx-auto mb-16 max-w-3xl text-center">
-        <div className="flex items-center justify-center gap-3 font-body text-h5 tracking-luxe text-studio-pourpre">
-          <Image
-            src="/images/eyebrow-separator-left.svg"
-            alt=""
-            width={42}
-            height={1}
-          />
-          <span>{t("eyebrow")}</span>
-          <Image
-            src="/images/eyebrow-separator-right.svg"
-            alt=""
-            width={42}
-            height={1}
-          />
-        </div>
-        <h2 className="mt-4 font-heading text-h1 text-studio-violet">
-          {t("titleLine1")}
-          <br />
-          <span className="text-studio-lavande">{t("titleAccent")}</span>
-        </h2>
-      </FadeIn>
-
       {/* `--stack-top` is read by both the cards' CSS and the progress
           measurement above, so the pin line can never disagree between the
           two. A media query is the only way to vary it, since the cards set
           `top` inline (alongside the gradient border, which Tailwind cannot
-          express) and inline styles beat utility classes. */}
+          express) and inline styles beat utility classes.
+
+          `--stack-title-h` is the band the pinned title occupies: the cards
+          pin below it and their height budget starts from what it leaves. */}
       <style>{`
         [data-stack] {
+          --stack-title-h: ${TITLE_BAND_MOBILE}px;
           --stack-card-height: ${CARD_HEIGHT_MOBILE};
-          --stack-top: ${stickyTop(16)};
+          --stack-top: ${stickyTop(TITLE_BAND_MOBILE)};
         }
         @media (min-width: 768px) {
           [data-stack] {
+            --stack-title-h: ${TITLE_BAND_DESKTOP}px;
             --stack-card-height: ${CARD_HEIGHT_DESKTOP};
-            --stack-top: ${stickyTop(88)};
+            --stack-top: ${stickyTop(TITLE_BAND_DESKTOP)};
           }
         }
       `}</style>
 
+      {/* The title lives INSIDE the stack container and is sticky, so it holds
+          above the pile for the whole section instead of scrolling away as the
+          first card arrives. Outside the container it could not: a sticky
+          element is released when its own containing block scrolls past, and
+          the title's block ended at the cards' first pixel.
+
+          It is not in the `FadeIn` wrapper any more either — that wrapper is a
+          transformed element, and a transform creates a containing block that
+          a descendant sticky would pin against instead of the viewport. */}
       <div ref={containerRef} data-stack className="relative">
+        {/* Opaque, and full-bleed via the negative inline margins that undo
+            the section's padding. A transparent sticky title let the cards
+            slide visibly *through* the words as the pile scrolled away —
+            "Votre faire-part, simplement." overlapping the share rows. The
+            beurre background is the section's own, so the band is invisible
+            until something passes behind it. */}
+        <FadeIn
+          className="sticky z-20 -mx-6 mb-10 bg-studio-beurre px-6 pb-4 text-center md:-mx-12 md:px-12"
+          style={{ top: 0 }}
+        >
+          <div className="mx-auto max-w-3xl">
+            <div className="flex items-center justify-center gap-3 font-body text-h5 tracking-luxe text-studio-pourpre">
+              <Image
+                src="/images/eyebrow-separator-left.svg"
+                alt=""
+                width={42}
+                height={1}
+              />
+              <span>{t("eyebrow")}</span>
+              <Image
+                src="/images/eyebrow-separator-right.svg"
+                alt=""
+                width={42}
+                height={1}
+              />
+            </div>
+            <h2 className="mt-4 font-heading text-h1 text-studio-violet">
+              {t("titleLine1")}
+              <br />
+              <span className="text-studio-lavande">{t("titleAccent")}</span>
+            </h2>
+          </div>
+        </FadeIn>
+
         {steps.map((step, i) => (
           <StackCard
             key={step.number}
