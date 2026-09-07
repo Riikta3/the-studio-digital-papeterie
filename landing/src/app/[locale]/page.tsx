@@ -8,6 +8,7 @@ import { JourJ } from "@/components/home/JourJ";
 import { Preview } from "@/components/home/Preview";
 import { Pricing } from "@/components/home/Pricing";
 import { ScrollToTop } from "@/components/home/ScrollToTop";
+import { StructuredData } from "@/components/seo/StructuredData";
 import { WhyUs } from "@/components/home/WhyUs";
 import { routing } from "@/navigation";
 import { setRequestLocale } from "next-intl/server";
@@ -26,6 +27,7 @@ export default async function HomePage({
 
   return (
     <main>
+      <StructuredData locale={locale} />
       <Hero />
       <HowItWorks />
       <Preview />

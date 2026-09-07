@@ -39,12 +39,24 @@ export function ComingSoonLanguageSwitcher() {
   const [pendingLocale, setPendingLocale] = useState<string | null>(null);
   const rootRef = useRef<HTMLDivElement>(null);
 
+  // Warm every other locale's RSC payload while the list is open, so the
+  // switch resolves from the router cache instead of a fresh round-trip.
+  useEffect(() => {
+    if (!open) return;
+    for (const language of LANGUAGES) {
+      if (language.value === locale) continue;
+      router.prefetch(pathname, { locale: language.value });
+    }
+  }, [open, locale, pathname, router]);
+
   const selectLocale = (nextLocale: string) => {
     setOpen(false);
     if (nextLocale === locale) return;
     setPendingLocale(nextLocale);
     startTransition(() => {
-      router.replace(pathname, { locale: nextLocale });
+      // See home/LanguageSwitcher: keep the scroll position across the
+      // remount the locale segment change forces.
+      router.replace(pathname, { locale: nextLocale, scroll: false });
     });
   };
 

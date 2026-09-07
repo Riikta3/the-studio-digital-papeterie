@@ -62,7 +62,10 @@ export function LanguageSwitcher({
     // would never be painted — the drawer is closed in the effect below,
     // once the new locale has actually landed.
     startTransition(() => {
-      router.replace(pathname, { locale: nextLocale });
+      // `scroll: false` keeps the reader where they were: the locale segment
+      // changes, so React remounts the tree and Next would otherwise jump
+      // them back to the top of a page they had scrolled halfway down.
+      router.replace(pathname, { locale: nextLocale, scroll: false });
     });
   };
 
@@ -75,6 +78,19 @@ export function LanguageSwitcher({
       onLocaleChangeRef.current?.();
     }
   }, [isPending, pendingLocale]);
+
+  // Warm the RSC payload for every other locale the moment the menu opens.
+  // The switch is a server round-trip, and the user staring at an open list
+  // of nine languages is dead time we can spend fetching all of them — by the
+  // time they click, the payload is usually already in the router cache and
+  // the transition resolves without a visible spinner.
+  useEffect(() => {
+    if (!open) return;
+    for (const language of LANGUAGES) {
+      if (language.value === locale) continue;
+      router.prefetch(pathname, { locale: language.value });
+    }
+  }, [open, locale, pathname, router]);
 
   // Close on outside click and on Escape, the two behaviours the primitive
   // gave us for free that actually matter here.
