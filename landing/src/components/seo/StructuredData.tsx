@@ -12,7 +12,7 @@ type FaqItem = { question: string; answer: string };
  *
  * Three graph nodes, each earning its place:
  * - Organization — brand identity, feeds the Knowledge Panel.
- * - Product/Offer — makes the price eligible to show in the SERP.
+ * - Product/AggregateOffer — makes the price range eligible to show in the SERP.
  * - FAQPage — the six questions already translated in `Faq`, which can
  *   double the result's vertical footprint.
  */
@@ -27,9 +27,16 @@ export async function StructuredData({ locale }: { locale: string }) {
   const localeUrl = `${siteUrl}/${locale}`;
   const faqs = tFaq.raw("items") as FaqItem[];
 
-  // "175€" in the messages; Offer.price wants a bare number and the currency
-  // in its own field.
-  const price = tPricing("studioPrice").replace(/[^0-9.,]/g, "").replace(",", ".");
+  // The pricing section now offers three tiers; the SERP wants the range, so
+  // the cheapest and dearest are read off the same translated plan list the
+  // section renders. Prices are formatted per locale ("199€", "€199",
+  // "199 يورو"), and AggregateOffer wants bare numbers with the currency in
+  // its own field.
+  type PricingPlan = { price: string };
+  const planPrices = (tPricing.raw("plans") as PricingPlan[])
+    .map((plan) => Number(plan.price.replace(/[^0-9.,]/g, "").replace(",", ".")))
+    .filter((value) => Number.isFinite(value) && value > 0)
+    .sort((a, b) => a - b);
 
   const graph = [
     {
@@ -55,8 +62,10 @@ export async function StructuredData({ locale }: { locale: string }) {
       description: tMeta("description"),
       brand: { "@id": `${siteUrl}/#organization` },
       offers: {
-        "@type": "Offer",
-        price,
+        "@type": "AggregateOffer",
+        lowPrice: planPrices[0],
+        highPrice: planPrices[planPrices.length - 1],
+        offerCount: planPrices.length,
         priceCurrency: "EUR",
         availability: "https://schema.org/InStock",
         url: localeUrl,

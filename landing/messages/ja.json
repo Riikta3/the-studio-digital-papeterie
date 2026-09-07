@@ -168,7 +168,6 @@
     "prevThemesAriaLabel": "前のテーマ",
     "nextThemesAriaLabel": "次のテーマ",
     "themeLabel": "{name} テーマ",
-    "themeAlt": "結婚式招待状 — {name} テーマ",
     "demoIframeTitle": "招待状デモ — {name} テーマ",
     "upcomingTitle": "新しいコレクション",
     "upcomingSubtitle": "新しいテーマを準備中です"
@@ -201,17 +200,49 @@
     ]
   },
   "Pricing": {
-    "eyebrow": "ゲスト150名の場合",
-    "titleLine1": "その違いが",
-    "titleAccent": "大切なのです",
-    "paperLabel": "従来の紙の招待状",
-    "paperPrice": "645€",
-    "paperDetails": "印刷代 + 切手代 + 封筒代",
-    "studioLabel": "The Studio",
-    "studioPrice": "175€",
-    "studioDetails": "すべて込み、無制限",
-    "features": "即時送信・編集自由・RSVP機能内蔵・ペーパーレス",
-    "createButton": "招待状を作成する"
+    "eyebrow": "料金",
+    "titleLine1": "おふたりらしい",
+    "titleAccent": "プランを選んで",
+    "intro": "The Studio のデザインから完全オーダーメイドの制作まで、おふたりの結婚式に合ったカスタマイズのレベルをお選びください。",
+    "note": "一回のお支払いのみ。サブスクリプションはありません。",
+    "recommendedLabel": "おすすめ",
+    "plans": [
+      {
+        "id": "signature",
+        "name": "Signature",
+        "price": "199€",
+        "positioning": "既存のデザインをお選びになるおふたりへ。",
+        "description": "The Studio のデザインからひとつをお選びいただき、結婚式の情報や写真、世界観を反映してカスタマイズします。",
+        "cta": "Signature を選ぶ"
+      },
+      {
+        "id": "sur-mesure",
+        "name": "オーダーメイド",
+        "price": "299€",
+        "positioning": "",
+        "description": "おふたりの世界観、色、会場、そして伝えたい物語をもとに描く、完全オリジナルの結婚式招待状です。",
+        "cta": "オーダーメイドの招待状を作る"
+      },
+      {
+        "id": "prestige",
+        "name": "Prestige エディション",
+        "price": "499€",
+        "positioning": "",
+        "description": "招待状のカスタマイズをさらに追求したいおふたりのための、The Studio でもっとも充実したご提案です。",
+        "cta": "Prestige エディションを見る",
+        "features": [
+          "オリジナルアニメーション",
+          "グラフィックアイデンティティ一式",
+          "結婚式のカラーに合わせた調整",
+          "モジュール数無制限",
+          "優先サポート",
+          "修正回数無制限",
+          "独自ドメイン",
+          "挙式後のフォトギャラリー",
+          "ゲストブック"
+        ]
+      }
+    ]
   },
   "Atelier": {
     "eyebrow": "お二人の想いを私たちのスタジオに",
@@ -498,9 +529,7 @@
   "ThemeConfigSheet": {
     "ariaLabel": "{name}テーマを設定",
     "closeAriaLabel": "閉じる",
-    "themeAlt": "{name}テーマ",
     "titlePrefix": "招待状",
-    "themeDescription": "{name}テーマの魅惑的な雰囲気にゲストを誘います。あなたの招待状は物語の中心から届いた手紙のように、太陽の光と甘美さ、そして優雅さをもって息づきます。",
     "modulesTitle": "オプションモジュール",
     "modules": {
       "guestbook": "ゲストブック",
@@ -522,7 +551,12 @@
     "summaryOpeningStyle": "選択したアニメーション",
     "summaryTheme": "テーマ",
     "validateButton": "招待状を確定する",
-    "saveButton": "保存して後で続ける"
+    "saveButton": "保存して後で続ける",
+    "themeDescriptions": {
+      "ciao-amore": "イタリア海岸の陽光あふれる雰囲気にゲストを誘います。あなたの招待状はアマルフィから届いた手紙のように、太陽と甘美さ、そして優雅さをもって息づきます。",
+      "blanc-couture": "ゲストにクチュールのような幕開けを。あなたの招待状は白い紙の小箱のように開かれ、清らかな線と繊細な陰影、極上の洗練を映します。",
+      "belle-rive": "水辺へとゲストを誘います。あなたの招待状は海風のように開き、やわらかな緑と穏やかな光、静けさを運びます。"
+    }
   },
   "StudioStart": {
     "titlePrefix": "招待状を",

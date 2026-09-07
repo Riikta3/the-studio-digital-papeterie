@@ -168,7 +168,6 @@
     "prevThemesAriaLabel": "上一组主题",
     "nextThemesAriaLabel": "下一组主题",
     "themeLabel": "{name} 主题",
-    "themeAlt": "婚礼请柬 — {name} 主题",
     "demoIframeTitle": "请柬演示 — {name} 主题",
     "upcomingTitle": "新系列",
     "upcomingSubtitle": "更多主题即将推出"
@@ -201,17 +200,49 @@
     ]
   },
   "Pricing": {
-    "eyebrow": "适用于 150 位宾客",
-    "titleLine1": "不同之处",
-    "titleAccent": "尽在细节",
-    "paperLabel": "传统纸质请柬",
-    "paperPrice": "645€",
-    "paperDetails": "印刷 + 邮票 + 信封",
-    "studioLabel": "The Studio",
-    "studioPrice": "175€",
-    "studioDetails": "全包无限次使用",
-    "features": "即时发送 · 可随时修改 · 内置 RSVP · 零纸张",
-    "createButton": "创建我的请柬"
+    "eyebrow": "价格",
+    "titleLine1": "选择属于你们的",
+    "titleAccent": "那一款",
+    "intro": "从 The Studio 的现有设计到完全定制的创作，选择适合你们婚礼的个性化程度。",
+    "note": "一次性付款，无需订阅。",
+    "recommendedLabel": "推荐",
+    "plans": [
+      {
+        "id": "signature",
+        "name": "Signature",
+        "price": "199€",
+        "positioning": "适合选择现有设计的新人。",
+        "description": "从 The Studio 的作品中选择一款，并用你们婚礼的信息、照片与氛围进行个性化设计。",
+        "cta": "选择 Signature"
+      },
+      {
+        "id": "sur-mesure",
+        "name": "定制",
+        "price": "299€",
+        "positioning": "",
+        "description": "一份专属定制的婚礼请柬，围绕你们的风格、色彩、场地，以及你们想讲述的故事而设计。",
+        "cta": "创建我的定制请柬"
+      },
+      {
+        "id": "prestige",
+        "name": "Prestige 尊享版",
+        "price": "499€",
+        "positioning": "",
+        "description": "The Studio 最完整的体验，为希望在请柬个性化上走得更远的新人而设。",
+        "cta": "了解 Prestige 尊享版",
+        "features": [
+          "定制动画",
+          "完整视觉识别设计",
+          "配合婚礼主色调",
+          "无限模块",
+          "优先支持",
+          "无限次修改",
+          "专属域名",
+          "婚礼后照片库",
+          "留言簿"
+        ]
+      }
+    ]
   },
   "Atelier": {
     "eyebrow": "把你们的构想交给我们的工作室",
@@ -498,9 +529,7 @@
   "ThemeConfigSheet": {
     "ariaLabel": "配置{name}主题",
     "closeAriaLabel": "关闭",
-    "themeAlt": "{name}主题",
     "titlePrefix": "请柬",
-    "themeDescription": "让您的宾客沉浸在{name}主题迷人的氛围中。您的请柬如同来自故事核心的一封信般栩栩如生——阳光、甜蜜与优雅。",
     "modulesTitle": "可选模块",
     "modules": {
       "guestbook": "留言簿",
@@ -522,7 +551,12 @@
     "summaryOpeningStyle": "所选动画",
     "summaryTheme": "主题",
     "validateButton": "确认我的请柬",
-    "saveButton": "保存并稍后继续"
+    "saveButton": "保存并稍后继续",
+    "themeDescriptions": {
+      "ciao-amore": "让您的宾客沉浸在意大利海岸的阳光氛围中。您的请柬如同一封来自阿马尔菲的信笺般栩栩如生——阳光、闲适与优雅。",
+      "blanc-couture": "为您的宾客献上高级定制般的开场。您的请柬如同一只白纸匣缓缓展开——线条纯净、浮雕细腻、格调极致。",
+      "belle-rive": "邀请您的宾客来到水岸之畔。您的请柬如同一缕海风般开启——草木轻柔、光影朦胧、宁静悠远。"
+    }
   },
   "StudioStart": {
     "titlePrefix": "让我们一起制作",

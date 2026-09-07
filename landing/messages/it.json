@@ -168,7 +168,6 @@
     "prevThemesAriaLabel": "Temi precedenti",
     "nextThemesAriaLabel": "Temi successivi",
     "themeLabel": "Tema {name}",
-    "themeAlt": "Invito di matrimonio — tema {name}",
     "demoIframeTitle": "Demo invito — tema {name}",
     "upcomingTitle": "Nuove collezioni",
     "upcomingSubtitle": "Presto altri temi"
@@ -201,17 +200,49 @@
     ]
   },
   "Pricing": {
-    "eyebrow": "Per 150 invitati",
-    "titleLine1": "La differenza",
-    "titleAccent": "che conta",
-    "paperLabel": "Carta tradizionale",
-    "paperPrice": "645 €",
-    "paperDetails": "Stampa + francobolli + buste",
-    "studioLabel": "The Studio",
-    "studioPrice": "175 €",
-    "studioDetails": "Tutto incluso, illimitato",
-    "features": "Invio istantaneo · Modificabile · RSVP integrato · Zero carta",
-    "createButton": "Crea il mio invito"
+    "eyebrow": "Tariffe",
+    "titleLine1": "Scegliete la formula",
+    "titleAccent": "che vi somiglia",
+    "intro": "Da un modello The Studio a una creazione interamente personalizzata, scegliete il livello di personalizzazione adatto al vostro matrimonio.",
+    "note": "Pagamento unico. Nessun abbonamento.",
+    "recommendedLabel": "Consigliato",
+    "plans": [
+      {
+        "id": "signature",
+        "name": "Signature",
+        "price": "199 €",
+        "positioning": "Per le coppie che scelgono un modello esistente.",
+        "description": "Scegliete una delle creazioni The Studio e personalizzatela con le informazioni, le immagini e l’universo del vostro matrimonio.",
+        "cta": "Scegliere Signature"
+      },
+      {
+        "id": "sur-mesure",
+        "name": "Su misura",
+        "price": "299 €",
+        "positioning": "",
+        "description": "Un invito di matrimonio personalizzato, immaginato attorno al vostro universo, ai vostri colori, al vostro luogo e alla storia che desiderate raccontare.",
+        "cta": "Creare il mio invito su misura"
+      },
+      {
+        "id": "prestige",
+        "name": "Edizione Prestige",
+        "price": "499 €",
+        "positioning": "",
+        "description": "L’esperienza The Studio più completa, pensata per le coppie che desiderano andare oltre nella personalizzazione del loro invito.",
+        "cta": "Scoprire l’Edizione Prestige",
+        "features": [
+          "Animazione personalizzata",
+          "Identità grafica completa",
+          "Adattamento ai colori del matrimonio",
+          "Moduli illimitati",
+          "Assistenza prioritaria",
+          "Modifiche illimitate",
+          "Dominio personalizzato",
+          "Galleria fotografica dopo il matrimonio",
+          "Libro degli ospiti"
+        ]
+      }
+    ]
   },
   "Atelier": {
     "eyebrow": "Affida la tua visione al nostro Studio",
@@ -498,9 +529,7 @@
   "ThemeConfigSheet": {
     "ariaLabel": "Configura il tema {name}",
     "closeAriaLabel": "Chiudi",
-    "themeAlt": "Tema {name}",
     "titlePrefix": "L'invito",
-    "themeDescription": "Immergi i tuoi ospiti nell'atmosfera incantevole del tema {name}. Il tuo invito prende vita come una lettera arrivata dal cuore della storia — sole, dolcezza ed eleganza.",
     "modulesTitle": "Moduli opzionali",
     "modules": {
       "guestbook": "Libro degli ospiti",
@@ -522,7 +551,12 @@
     "summaryOpeningStyle": "Animazione scelta",
     "summaryTheme": "Tema",
     "validateButton": "Conferma il mio invito",
-    "saveButton": "Salva e continua più tardi"
+    "saveButton": "Salva e continua più tardi",
+    "themeDescriptions": {
+      "ciao-amore": "Immergi i tuoi ospiti nell'atmosfera solare della costa italiana. Il tuo invito si anima come una lettera arrivata da Amalfi: sole, dolce far niente ed eleganza.",
+      "blanc-couture": "Regala ai tuoi ospiti un esordio couture. Il tuo invito si svela come uno scrigno di carta bianca: linee pure, rilievi delicati e raffinatezza assoluta.",
+      "belle-rive": "Invita i tuoi ospiti in riva all'acqua. Il tuo invito si apre come una brezza marina: dolcezza vegetale, luce tenue e serenità."
+    }
   },
   "StudioStart": {
     "titlePrefix": "Creiamo il vostro invito",

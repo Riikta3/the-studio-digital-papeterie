@@ -169,7 +169,6 @@
     "prevThemesAriaLabel": "Vorherige Designs",
     "nextThemesAriaLabel": "Nächste Designs",
     "themeLabel": "Design {name}",
-    "themeAlt": "Hochzeitseinladung — Design {name}",
     "demoIframeTitle": "Einladungsdemo — Design {name}",
     "upcomingTitle": "Neue Kollektionen",
     "upcomingSubtitle": "Weitere Designs folgen in Kürze"
@@ -202,17 +201,49 @@
     ]
   },
   "Pricing": {
-    "eyebrow": "Für 150 Gäste",
-    "titleLine1": "Der Unterschied,",
-    "titleAccent": "der zählt",
-    "paperLabel": "Traditionelles Papier",
-    "paperPrice": "645 €",
-    "paperDetails": "Druck + Briefmarken + Umschläge",
-    "studioLabel": "The Studio",
-    "studioPrice": "175 €",
-    "studioDetails": "Alles inklusive, unbegrenzt",
-    "features": "Sofortiger Versand · Bearbeitbar · Integriertes RSVP · Kein Papier",
-    "createButton": "Meine Einladung erstellen"
+    "eyebrow": "Preise",
+    "titleLine1": "Wählen Sie das Paket,",
+    "titleAccent": "das zu Ihnen passt",
+    "intro": "Von einer The-Studio-Vorlage bis zur vollständig individuellen Gestaltung: Wählen Sie den Grad der Personalisierung, der zu Ihrer Hochzeit passt.",
+    "note": "Einmalige Zahlung. Kein Abonnement.",
+    "recommendedLabel": "Empfohlen",
+    "plans": [
+      {
+        "id": "signature",
+        "name": "Signature",
+        "price": "199 €",
+        "positioning": "Für Paare, die eine bestehende Vorlage wählen.",
+        "description": "Wählen Sie eine der The-Studio-Kreationen und personalisieren Sie sie mit den Informationen, Bildern und der Welt Ihrer Hochzeit.",
+        "cta": "Signature wählen"
+      },
+      {
+        "id": "sur-mesure",
+        "name": "Maßgeschneidert",
+        "price": "299 €",
+        "positioning": "",
+        "description": "Eine personalisierte Hochzeitseinladung, gestaltet rund um Ihre Welt, Ihre Farben, Ihren Ort und die Geschichte, die Sie erzählen möchten.",
+        "cta": "Einladung gestalten"
+      },
+      {
+        "id": "prestige",
+        "name": "Prestige Edition",
+        "price": "499 €",
+        "positioning": "",
+        "description": "Das umfassendste The-Studio-Erlebnis, für Paare, die bei der Personalisierung ihrer Einladung noch weiter gehen möchten.",
+        "cta": "Prestige Edition entdecken",
+        "features": [
+          "Individuelle Animation",
+          "Vollständige grafische Identität",
+          "Anpassung an die Hochzeitsfarben",
+          "Unbegrenzte Module",
+          "Prioritäts-Support",
+          "Unbegrenzte Änderungen",
+          "Eigene Domain",
+          "Fotogalerie nach der Hochzeit",
+          "Gästebuch"
+        ]
+      }
+    ]
   },
   "Atelier": {
     "eyebrow": "Vertrauen Sie Ihre Vision unserem Studio an",
@@ -499,9 +530,7 @@
   "ThemeConfigSheet": {
     "ariaLabel": "Thema {name} konfigurieren",
     "closeAriaLabel": "Schließen",
-    "themeAlt": "Thema {name}",
     "titlePrefix": "Die Einladung",
-    "themeDescription": "Tauchen Sie Ihre Gäste in die zauberhafte Atmosphäre des Themas {name} ein. Ihre Einladung erwacht zum Leben wie ein Brief aus dem Herzen der Geschichte — Sonne, Leichtigkeit und Eleganz.",
     "modulesTitle": "Optionale Module",
     "modules": {
       "guestbook": "Gästebuch",
@@ -523,7 +552,12 @@
     "summaryOpeningStyle": "Gewählte Animation",
     "summaryTheme": "Thema",
     "validateButton": "Einladung bestätigen",
-    "saveButton": "Speichern und später fortfahren"
+    "saveButton": "Speichern und später fortfahren",
+    "themeDescriptions": {
+      "ciao-amore": "Tauchen Sie Ihre Gäste in die sonnige Atmosphäre der italienischen Küste ein. Ihre Einladung erwacht wie ein Brief aus Amalfi — Sonne, Dolce far niente und Eleganz.",
+      "blanc-couture": "Schenken Sie Ihren Gästen einen Couture-Auftakt. Ihre Einladung entfaltet sich wie ein Etui aus weißem Papier — klare Linien, feines Relief und höchste Raffinesse.",
+      "belle-rive": "Laden Sie Ihre Gäste ans Wasser ein. Ihre Einladung öffnet sich wie eine Meeresbrise — sanftes Grün, gedämpftes Licht und Gelassenheit."
+    }
   },
   "StudioStart": {
     "titlePrefix": "Lasst uns eure Einladung",
