@@ -420,29 +420,27 @@
     }
   },
   "JourJ": {
-    "eyebrow": "Am Hochzeitstag, für Ihre Gäste",
-    "titleLine1": "Am Hochzeitstag wissen",
-    "titleAccent": "Ihre Gäste, wohin.",
-    "subtitle": "Ein einzigartiger QR-Code gibt Ihren Gästen am Hochzeitstag einfachen Zugang zu allen nützlichen Informationen.",
+    "eyebrow": "Der Hochzeitstag",
+    "titleLine1": "Ihre Gäste finden ihren Platz",
+    "titleAccent": "in Sekunden.",
+    "intro": "Dank eines QR-Codes, der in Ihre digitale Hochzeitspapeterie integriert ist, findet jeder Gast seinen Tisch – einfach durch Eingabe seines Vornamens.",
     "qrCaption": "Ein einzigartiger QR-Code, nur für Ihre Hochzeit",
-    "features": [
+    "mockFieldLabel": "Ihr Vorname",
+    "mockFieldValue": "Camille",
+    "mockResultLabel": "Ihr Tisch",
+    "mockResultValue": "Tisch 4",
+    "steps": [
       {
-        "title": "Den Tisch finden",
-        "description": "Der Gast gibt seinen Namen ein und findet seinen Tisch in Sekunden."
+        "label": "Ein Scan."
       },
       {
-        "title": "Ohne App",
-        "description": "Ein einfacher Scan mit dem Handy genügt."
+        "label": "Ein Vorname."
       },
       {
-        "title": "Informationen immer verfügbar",
-        "description": "Menü, Programm und praktische Hinweise bleiben am selben Ort abrufbar."
-      },
-      {
-        "title": "Die Erinnerungen Ihrer Gäste",
-        "description": "Über denselben QR-Code können Ihre Gäste ihre Fotos und Videos der Hochzeit teilen. Sie finden all diese Erinnerungen anschließend direkt in Ihrem Bereich."
+        "label": "Sein Tisch."
       }
-    ]
+    ],
+    "outro": "Ein reibungsloses Erlebnis für Ihre Gäste, direkt in Ihre digitale Hochzeitseinladung integriert und darauf ausgelegt, die Organisation des großen Tages zu vereinfachen."
   },
   "Faq": {
     "eyebrow": "Eine Frage?",

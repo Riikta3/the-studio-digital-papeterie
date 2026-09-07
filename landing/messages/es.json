@@ -420,29 +420,27 @@
     }
   },
   "JourJ": {
-    "eyebrow": "El gran día, para tus invitados",
-    "titleLine1": "El gran día, tus invitados",
-    "titleAccent": "saben dónde ir.",
-    "subtitle": "Un código QR único permite a tus invitados acceder fácilmente a la información útil de tu boda el gran día.",
+    "eyebrow": "El gran día",
+    "titleLine1": "Tus invitados encuentran su sitio",
+    "titleAccent": "en unos segundos.",
+    "intro": "Gracias a un código QR integrado en tu papelería digital de boda, cada invitado puede encontrar su mesa simplemente escribiendo su nombre.",
     "qrCaption": "Un código QR único, propio de tu boda",
-    "features": [
+    "mockFieldLabel": "Tu nombre",
+    "mockFieldValue": "Camille",
+    "mockResultLabel": "Tu mesa",
+    "mockResultValue": "Mesa 4",
+    "steps": [
       {
-        "title": "Encontrar su mesa",
-        "description": "El invitado escribe su nombre y encuentra su mesa en segundos."
+        "label": "Un escaneo."
       },
       {
-        "title": "Sin aplicación",
-        "description": "Basta con un simple escaneo desde su teléfono."
+        "label": "Un nombre."
       },
       {
-        "title": "Información siempre accesible",
-        "description": "Menú, programa e información práctica siguen accesibles desde el mismo espacio."
-      },
-      {
-        "title": "Los recuerdos de tus invitados",
-        "description": "Desde el mismo código QR, tus invitados pueden compartir sus fotos y vídeos de la boda. Después encuentras todos esos recuerdos directamente en tu espacio."
+        "label": "Su mesa."
       }
-    ]
+    ],
+    "outro": "Una experiencia fluida para tus invitados, integrada directamente en tu invitación de boda digital y pensada para simplificar la organización del gran día."
   },
   "Faq": {
     "eyebrow": "¿Alguna pregunta?",

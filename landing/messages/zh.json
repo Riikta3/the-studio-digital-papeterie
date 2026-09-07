@@ -419,29 +419,27 @@
     }
   },
   "JourJ": {
-    "eyebrow": "婚礼当天，为您的宾客",
-    "titleLine1": "婚礼当天，宾客",
-    "titleAccent": "知道该去哪里。",
-    "subtitle": "一个专属二维码，让宾客在婚礼当天轻松获取所有实用信息。",
+    "eyebrow": "婚礼当天",
+    "titleLine1": "宾客几秒钟",
+    "titleAccent": "就能找到自己的位置。",
+    "intro": "婚礼数字请柬中嵌入了专属二维码，宾客只需输入自己的名字，即可找到所在餐桌。",
     "qrCaption": "一个专属二维码，只属于您的婚礼",
-    "features": [
+    "mockFieldLabel": "您的名字",
+    "mockFieldValue": "小雅",
+    "mockResultLabel": "您的餐桌",
+    "mockResultValue": "第 4 桌",
+    "steps": [
       {
-        "title": "找到座位",
-        "description": "宾客输入姓名，数秒内即可找到自己的餐桌。"
+        "label": "一次扫码。"
       },
       {
-        "title": "无需下载应用",
-        "description": "用手机扫一扫即可。"
+        "label": "一个名字。"
       },
       {
-        "title": "信息随时可查",
-        "description": "菜单、流程与实用信息均可在同一处查看。"
-      },
-      {
-        "title": "宾客的珍贵回忆",
-        "description": "通过同一个二维码，宾客可分享婚礼照片与视频。之后您可在自己的空间中找到所有这些回忆。"
+        "label": "找到餐桌。"
       }
-    ]
+    ],
+    "outro": "为宾客带来顺畅体验，直接融入您的数字婚礼请柬，让婚礼当天的组织更轻松。"
   },
   "Faq": {
     "eyebrow": "还有疑问？",

@@ -419,29 +419,27 @@
     }
   },
   "JourJ": {
-    "eyebrow": "No grande dia, para os seus convidados",
-    "titleLine1": "No grande dia, os seus convidados",
-    "titleAccent": "sabem para onde ir.",
-    "subtitle": "Um QR code único permite aos seus convidados acederem facilmente às informações úteis do seu casamento no grande dia.",
+    "eyebrow": "O grande dia",
+    "titleLine1": "Os seus convidados encontram o lugar",
+    "titleAccent": "em poucos segundos.",
+    "intro": "Graças a um QR code integrado na sua papelaria digital de casamento, cada convidado pode encontrar a sua mesa bastando indicar o primeiro nome.",
     "qrCaption": "Um QR code único, próprio do seu casamento",
-    "features": [
+    "mockFieldLabel": "O seu primeiro nome",
+    "mockFieldValue": "Camille",
+    "mockResultLabel": "A sua mesa",
+    "mockResultValue": "Mesa 4",
+    "steps": [
       {
-        "title": "Encontrar a sua mesa",
-        "description": "O convidado indica o seu nome e encontra a sua mesa em segundos."
+        "label": "Uma leitura."
       },
       {
-        "title": "Sem aplicação",
-        "description": "Basta uma simples leitura a partir do telemóvel."
+        "label": "Um nome."
       },
       {
-        "title": "Informações sempre acessíveis",
-        "description": "Menu, programa e informações práticas permanecem acessíveis no mesmo espaço."
-      },
-      {
-        "title": "As memórias dos seus convidados",
-        "description": "A partir do mesmo QR code, os seus convidados podem partilhar as suas fotos e vídeos do casamento. Depois encontra todas essas memórias diretamente no seu espaço."
+        "label": "A sua mesa."
       }
-    ]
+    ],
+    "outro": "Uma experiência fluida para os seus convidados, integrada diretamente no seu convite de casamento digital e pensada para simplificar a organização do grande dia."
   },
   "Faq": {
     "eyebrow": "Alguma pergunta?",

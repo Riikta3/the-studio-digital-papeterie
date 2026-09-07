@@ -419,29 +419,27 @@
     }
   },
   "JourJ": {
-    "eyebrow": "Il grande giorno, per i tuoi invitati",
-    "titleLine1": "Il grande giorno, i tuoi invitati",
-    "titleAccent": "sanno dove andare.",
-    "subtitle": "Un QR code unico permette ai tuoi invitati di accedere facilmente alle informazioni utili del tuo matrimonio il grande giorno.",
+    "eyebrow": "Il grande giorno",
+    "titleLine1": "I tuoi invitati trovano il loro posto",
+    "titleAccent": "in pochi secondi.",
+    "intro": "Grazie a un QR code integrato nella tua cartoleria digitale di matrimonio, ogni invitato può trovare il proprio tavolo semplicemente inserendo il suo nome.",
     "qrCaption": "Un QR code unico, dedicato al tuo matrimonio",
-    "features": [
+    "mockFieldLabel": "Il tuo nome",
+    "mockFieldValue": "Camille",
+    "mockResultLabel": "Il tuo tavolo",
+    "mockResultValue": "Tavolo 4",
+    "steps": [
       {
-        "title": "Trovare il proprio tavolo",
-        "description": "L'invitato inserisce il suo nome e trova il suo tavolo in pochi secondi."
+        "label": "Una scansione."
       },
       {
-        "title": "Senza applicazione",
-        "description": "Basta una semplice scansione dal telefono."
+        "label": "Un nome."
       },
       {
-        "title": "Informazioni sempre accessibili",
-        "description": "Menù, programma e informazioni pratiche restano accessibili dallo stesso spazio."
-      },
-      {
-        "title": "I ricordi dei tuoi invitati",
-        "description": "Dallo stesso QR code, i tuoi invitati possono condividere le loro foto e i loro video del matrimonio. Poi ritrovi tutti questi ricordi direttamente nel tuo spazio."
+        "label": "Il suo tavolo."
       }
-    ]
+    ],
+    "outro": "Un’esperienza fluida per i tuoi invitati, integrata direttamente nel tuo invito di matrimonio digitale e pensata per semplificare l’organizzazione del grande giorno."
   },
   "Faq": {
     "eyebrow": "Una domanda?",

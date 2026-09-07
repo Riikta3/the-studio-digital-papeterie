@@ -240,29 +240,27 @@
     }
   },
   "JourJ": {
-    "eyebrow": "Le Jour J, côté invités",
-    "titleLine1": "Le Jour J, vos invités",
-    "titleAccent": "savent où aller.",
-    "subtitle": "Un QR code unique permet à vos invités d'accéder simplement aux informations utiles de votre mariage le Jour J.",
+    "eyebrow": "Le Jour J",
+    "titleLine1": "Vos invités trouvent leur place",
+    "titleAccent": "en quelques secondes.",
+    "intro": "Grâce à un QR code intégré à votre papeterie digitale de mariage, chaque invité peut retrouver sa table simplement en renseignant son prénom.",
     "qrCaption": "Un QR code unique, propre à votre mariage",
-    "features": [
+    "mockFieldLabel": "Votre prénom",
+    "mockFieldValue": "Camille",
+    "mockResultLabel": "Votre table",
+    "mockResultValue": "Table 4",
+    "steps": [
       {
-        "title": "Trouver sa table",
-        "description": "L'invité renseigne son nom et retrouve sa table en quelques secondes."
+        "label": "Un scan."
       },
       {
-        "title": "Sans application",
-        "description": "Un simple scan depuis son téléphone suffit."
+        "label": "Un prénom."
       },
       {
-        "title": "Des informations toujours accessibles",
-        "description": "Menu, programme et informations pratiques restent accessibles depuis le même espace."
-      },
-      {
-        "title": "Les souvenirs de vos invités",
-        "description": "Depuis le même QR code, vos invités peuvent partager leurs photos et vidéos du mariage. Les mariés retrouvent ensuite tous ces souvenirs directement depuis leur espace."
+        "label": "Sa table."
       }
-    ]
+    ],
+    "outro": "Une expérience fluide pour vos invités, directement intégrée à votre invitation de mariage digitale et pensée pour simplifier l’organisation du Jour J."
   },
   "Common": {
     "loading": "Chargement..."

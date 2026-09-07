@@ -421,29 +421,27 @@
     }
   },
   "JourJ": {
-    "eyebrow": "On the day, for your guests",
-    "titleLine1": "On the day, your guests",
-    "titleAccent": "know where to go.",
-    "subtitle": "A unique QR code lets your guests easily access all the useful details of your wedding on the day.",
+    "eyebrow": "The big day",
+    "titleLine1": "Your guests find their seat",
+    "titleAccent": "in seconds.",
+    "intro": "Thanks to a QR code built into your digital wedding stationery, every guest can find their table simply by entering their first name.",
     "qrCaption": "One unique QR code, just for your wedding",
-    "features": [
+    "mockFieldLabel": "Your first name",
+    "mockFieldValue": "Camille",
+    "mockResultLabel": "Your table",
+    "mockResultValue": "Table 4",
+    "steps": [
       {
-        "title": "Find their table",
-        "description": "Guests enter their name and find their table in seconds."
+        "label": "One scan."
       },
       {
-        "title": "No app needed",
-        "description": "A simple scan from their phone is all it takes."
+        "label": "One name."
       },
       {
-        "title": "Details always at hand",
-        "description": "Menu, schedule and practical information stay available from the same place."
-      },
-      {
-        "title": "Your guests' memories",
-        "description": "From the same QR code, your guests can share their photos and videos of the wedding. You then find all those memories directly in your space."
+        "label": "Their table."
       }
-    ]
+    ],
+    "outro": "A seamless experience for your guests, built right into your digital wedding invitation and designed to make organising the big day simpler."
   },
   "Faq": {
     "eyebrow": "A question?",

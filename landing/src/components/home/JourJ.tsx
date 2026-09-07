@@ -1,17 +1,16 @@
 "use client";
 
-import { Camera, Images, QrCode, ScanLine } from "lucide-react";
+import { MapPin, ScanLine, Search } from "lucide-react";
 import { useTranslations } from "next-intl";
 import Image from "next/image";
 
 import { FadeIn } from "./FadeIn";
 
-// Same order as JourJ.features in the message files.
-const FEATURE_ICONS = [ScanLine, QrCode, Images, Camera];
+// Same order as JourJ.steps in the message files: scan, first name, table.
+const STEP_ICONS = [ScanLine, Search, MapPin];
 
-type Feature = {
-  title: string;
-  description: string;
+type Step = {
+  label: string;
 };
 
 // Decorative QR placeholder. Drawn as a grid of squares rather than shipping a
@@ -72,9 +71,59 @@ function QrPlaceholder() {
   );
 }
 
+/**
+ * The phone mock: what an actual guest sees after scanning. It answers the
+ * promise of the section literally — a first-name field, then the table.
+ *
+ * An illustration, not a control: the working version lives on the guest
+ * route (`/jourj/[slug]/ma-table`), so nothing here is focusable or typable.
+ */
+function TableLookupMock({
+  fieldLabel,
+  fieldValue,
+  resultLabel,
+  resultValue,
+}: {
+  fieldLabel: string;
+  fieldValue: string;
+  resultLabel: string;
+  resultValue: string;
+}) {
+  return (
+    // The 4px bezel and the notch are what make this read as a phone rather
+    // than as a second card next to the QR one — without them the two objects
+    // look like a pair of panels and the "scan, then look" story is lost.
+    <div className="w-[248px] rounded-[2.5rem] border-4 border-studio-violet bg-white p-4 pt-3 shadow-studio-card">
+      <div
+        aria-hidden
+        className="mx-auto mb-4 h-1.5 w-14 rounded-full bg-studio-violet/25"
+      />
+      <p className="font-body text-h5 tracking-luxe text-studio-pourpre">
+        {fieldLabel}
+      </p>
+      <div className="mt-2 flex items-center gap-2 rounded-xl border border-studio-beige bg-studio-creme px-3 py-2.5">
+        <Search className="h-4 w-4 shrink-0 text-studio-violet/50" />
+        <span className="font-body text-h4 text-studio-violet">
+          {fieldValue}
+        </span>
+      </div>
+      {/* The answer, on the section's light surface: the violet card next to
+          it is the code, this is the screen it opens. */}
+      <div className="mt-4 rounded-2xl bg-studio-beurre px-4 py-5 text-center">
+        <p className="font-body text-h5 tracking-luxe text-studio-pourpre">
+          {resultLabel}
+        </p>
+        <p className="mt-1 font-heading text-h2 text-studio-violet">
+          {resultValue}
+        </p>
+      </div>
+    </div>
+  );
+}
+
 export function JourJ() {
   const t = useTranslations("JourJ");
-  const features = t.raw("features") as Feature[];
+  const steps = t.raw("steps") as Step[];
 
   return (
     <section
@@ -110,53 +159,77 @@ export function JourJ() {
           <br />
           <span className="text-studio-lavande">{t("titleAccent")}</span>
         </h2>
-        <p className="mx-auto mt-6 max-w-md font-body text-sm text-studio-violet/70 md:text-base">
-          {t("subtitle")}
+        <p className="mx-auto mt-6 max-w-xl font-body text-sm text-studio-violet/70 md:text-base">
+          {t("intro")}
         </p>
       </FadeIn>
 
-      <div className="mx-auto grid max-w-2xl grid-cols-1 items-center gap-12 md:max-w-5xl md:grid-cols-2 md:gap-16">
-        {/* The QR card: the one violet surface in this section, so the code
-            reads as the object it is rather than as another text block.
-            No TextureOverlay here — the grain is sized for full-width section
-            backgrounds, and its soft-light blend washes the violet out at
-            card scale. */}
+      {/* Two objects, in the order the guest meets them: the code on the
+          stationery, then the screen it opens. The arrow between them is the
+          whole story of the section, so it points across on desktop and down
+          on mobile where the mocks stack. */}
+      <div className="mx-auto flex max-w-2xl flex-col items-center gap-8 md:max-w-4xl md:flex-row md:justify-center md:gap-12">
         <FadeIn className="flex justify-center">
           <div className="overflow-hidden rounded-3xl bg-studio-violet p-8 shadow-studio-card md:p-10">
-            <div className="mx-auto h-48 w-48 rounded-2xl bg-studio-jaune p-4 md:h-56 md:w-56">
+            <div className="mx-auto h-44 w-44 rounded-2xl bg-studio-jaune p-4 md:h-52 md:w-52">
               <QrPlaceholder />
             </div>
-            <p className="mt-6 text-center font-body text-h5 tracking-luxe text-studio-lavande">
+            <p className="mt-6 max-w-[13rem] text-center font-body text-h5 tracking-luxe text-studio-lavande">
               {t("qrCaption")}
             </p>
           </div>
         </FadeIn>
 
-        <div className="flex flex-col gap-8">
-          {features.map((feature, i) => {
-            const Icon = FEATURE_ICONS[i] ?? ScanLine;
-            return (
-              <FadeIn
-                key={feature.title}
-                delay={i * 0.05}
-                className="flex gap-5"
-              >
-                <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl bg-studio-lavande shadow-sm">
-                  <Icon className="h-6 w-6 text-studio-violet" />
-                </div>
-                <div>
-                  <h3 className="font-heading text-h3 text-studio-violet">
-                    {feature.title}
-                  </h3>
-                  <p className="mt-2 font-body text-sm text-studio-violet/70 md:text-base">
-                    {feature.description}
-                  </p>
-                </div>
-              </FadeIn>
-            );
-          })}
-        </div>
+        <FadeIn delay={0.05} aria-hidden className="text-studio-lavande">
+          <svg
+            viewBox="0 0 40 24"
+            className="h-6 w-10 rotate-90 md:rotate-0"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="1.5"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            aria-hidden="true"
+          >
+            <path d="M2 12h34" />
+            <path d="M28 5l8 7-8 7" />
+          </svg>
+        </FadeIn>
+
+        <FadeIn delay={0.1} className="flex justify-center">
+          <TableLookupMock
+            fieldLabel={t("mockFieldLabel")}
+            fieldValue={t("mockFieldValue")}
+            resultLabel={t("mockResultLabel")}
+            resultValue={t("mockResultValue")}
+          />
+        </FadeIn>
       </div>
+
+      {/* "Un scan. Un prénom. Sa table." — the punchline, laid out as the
+          three beats it is rather than run together in a paragraph. */}
+      <FadeIn className="mx-auto mt-14 flex max-w-3xl flex-col items-stretch gap-4 sm:flex-row sm:justify-center">
+        {steps.map((step, i) => {
+          const Icon = STEP_ICONS[i] ?? ScanLine;
+          return (
+            <div
+              key={step.label}
+              className="flex flex-1 items-center justify-center gap-3 rounded-2xl bg-studio-creme px-5 py-4 shadow-studio-card"
+            >
+              <Icon className="h-5 w-5 shrink-0 text-studio-lavande" />
+              <span className="font-heading text-h3 text-studio-violet">
+                {step.label}
+              </span>
+            </div>
+          );
+        })}
+      </FadeIn>
+
+      <FadeIn className="mx-auto mt-12 max-w-2xl text-center">
+        <p className="font-body text-sm text-studio-violet/70 md:text-base">
+          {t("outro")}
+        </p>
+      </FadeIn>
     </section>
   );
 }
