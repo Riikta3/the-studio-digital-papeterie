@@ -1,8 +1,7 @@
 import type { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
 
-import { getSiteUrl } from "@/lib/site";
-import { routing } from "@/navigation";
+import { buildAlternates } from "@/lib/seo-metadata";
 
 /**
  * Metadata for the two legal pages.
@@ -25,19 +24,10 @@ export async function buildLegalMetadata({
   path: string;
 }): Promise<Metadata> {
   const t = await getTranslations({ locale, namespace });
-  const siteUrl = getSiteUrl();
 
   return {
     title: t("metaTitle"),
-    alternates: {
-      canonical: `${siteUrl}/${locale}${path}`,
-      languages: {
-        ...Object.fromEntries(
-          routing.locales.map((l) => [l, `${siteUrl}/${l}${path}`]),
-        ),
-        "x-default": `${siteUrl}/${routing.defaultLocale}${path}`,
-      },
-    },
+    alternates: buildAlternates(locale, path),
     robots: { index: false, follow: true },
   };
 }

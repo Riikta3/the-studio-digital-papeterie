@@ -16,23 +16,21 @@ export async function generateMetadata({
   const { locale } = await params;
   const t = await getTranslations({ locale, namespace: "Metadata" });
 
-  // hreflang map: every locale points at its own prefixed route so Google
-  // serves the right language instead of picking one and ignoring the rest.
-  const languages = Object.fromEntries(
-    routing.locales.map((l) => [l, `${getSiteUrl()}/${l}`]),
-  );
-
   return {
     metadataBase: new URL(getSiteUrl()),
     title: t("title"),
     description: t("description"),
-    alternates: {
-      canonical: `${getSiteUrl()}/${locale}`,
-      languages: {
-        ...languages,
-        "x-default": `${getSiteUrl()}/${routing.defaultLocale}`,
-      },
-    },
+    // No `alternates` and no `openGraph.url` here, deliberately.
+    //
+    // Next merges metadata per key: a page that returns no `alternates`
+    // inherits this object verbatim, and because a canonical written as an
+    // absolute string is never re-resolved against the current pathname, every
+    // sub-page used to announce `/{locale}` — the homepage — as its canonical.
+    // That asks Google to drop the sub-page in favour of `/`.
+    //
+    // Each indexable page now declares its own via `buildAlternates`. A page
+    // that forgets emits no canonical at all, which is a missed opportunity
+    // rather than a request to be deindexed.
     openGraph: {
       type: "website",
       siteName: "The Studio Digital Papeterie",
@@ -40,7 +38,6 @@ export async function generateMetadata({
       // Tells Facebook and LinkedIn the other eight versions exist, so a
       // share picks the reader's language rather than the sharer's.
       alternateLocale: routing.locales.filter((l) => l !== locale),
-      url: `${getSiteUrl()}/${locale}`,
       title: t("ogTitle"),
       description: t("description"),
       // `images` is filled in by Next from the `opengraph-image.tsx` file

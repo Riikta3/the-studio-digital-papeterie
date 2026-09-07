@@ -2,8 +2,7 @@
   "Metadata": {
     "title": "电子婚礼邀请函 | The Studio Digital Papeterie",
     "ogTitle": "The Studio — 重新定义的电子婚礼邀请函",
-    "description": "创建您的电子婚礼邀请函：优雅的在线婚礼邀请，内置婚礼回复功能，所有婚礼信息集中呈现。一次付费，无需订阅。",
-    "keywords": "电子婚礼邀请函, 在线婚礼邀请, 婚礼回复, 定制婚礼邀请函, 婚礼电子请柬, 婚礼网站"
+    "description": "创建您的电子婚礼邀请函：优雅的在线婚礼邀请，内置婚礼回复功能，所有婚礼信息集中呈现。一次付费，无需订阅。"
   },
   "Navbar": {
     "product": "产品",
@@ -696,20 +695,6 @@
     "stepOf": "第 {current} 步，共 {total} 步",
     "menuAriaLabel": "打开菜单"
   },
-  "StudioAnimation": {
-    "titlePrefix": "开场",
-    "titleHighlight": "动画",
-    "subtitle": "这是您的宾客最先看到的内容。",
-    "viewDemo": "查看演示",
-    "comingSoon": "即将推出",
-    "categories": {
-      "envelope": "信封",
-      "door": "门",
-      "curtain": "帷幕",
-      "book": "书",
-      "floral": "花卉"
-    }
-  },
   "StudioTheme": {
     "titlePrefix": "您婚礼的",
     "titleHighlight": "氛围",
@@ -810,7 +795,6 @@
     "titleHighlight": "订单摘要",
     "subtitle": "付款前请核对您的订单。",
     "offer": "套餐",
-    "animation": "动画",
     "theme": "主题",
     "modulesLabel": "模块",
     "languagesLabel": "附加语言",

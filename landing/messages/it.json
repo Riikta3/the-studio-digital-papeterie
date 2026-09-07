@@ -2,8 +2,7 @@
   "Metadata": {
     "title": "Invito di matrimonio digitale | The Studio Digital Papeterie",
     "ogTitle": "The Studio — L'invito di matrimonio digitale, reinventato",
-    "description": "Crea il tuo invito di matrimonio digitale: un invito di nozze online elegante, con RSVP integrato e tutte le informazioni del tuo matrimonio in un unico posto. Pagamento unico, nessun abbonamento.",
-    "keywords": "invito di matrimonio digitale, invito di nozze online, RSVP matrimonio, invito di matrimonio personalizzato, cartoleria digitale matrimonio, sito matrimonio"
+    "description": "Crea il tuo invito di matrimonio digitale: un invito di nozze online elegante, con RSVP integrato e tutte le informazioni del tuo matrimonio in un unico posto. Pagamento unico, nessun abbonamento."
   },
   "Navbar": {
     "product": "Prodotto",
@@ -696,20 +695,6 @@
     "stepOf": "Passo {current} di {total}",
     "menuAriaLabel": "Apri il menu"
   },
-  "StudioAnimation": {
-    "titlePrefix": "Animazione di ",
-    "titleHighlight": "apertura",
-    "subtitle": "La prima cosa che vedranno i tuoi ospiti.",
-    "viewDemo": "Vedi demo",
-    "comingSoon": "Prossimamente",
-    "categories": {
-      "envelope": "Busta",
-      "door": "Porta",
-      "curtain": "Tenda",
-      "book": "Libro",
-      "floral": "Floreale"
-    }
-  },
   "StudioTheme": {
     "titlePrefix": "L'atmosfera del vostro ",
     "titleHighlight": "Matrimonio",
@@ -810,7 +795,6 @@
     "titleHighlight": "riepilogo",
     "subtitle": "Verificate l'ordine prima del pagamento.",
     "offer": "Piano",
-    "animation": "Animazione",
     "theme": "Tema",
     "modulesLabel": "Moduli",
     "languagesLabel": "Lingue aggiuntive",

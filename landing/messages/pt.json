@@ -2,8 +2,7 @@
   "Metadata": {
     "title": "Convite de casamento digital | The Studio Digital Papeterie",
     "ogTitle": "The Studio — O convite de casamento digital, reinventado",
-    "description": "Crie o seu convite de casamento digital: um convite de casamento online elegante, com RSVP integrado e todas as informações do seu casamento num só lugar. Pagamento único, sem subscrição.",
-    "keywords": "convite de casamento digital, convite de casamento online, RSVP casamento, convite de casamento personalizado, papelaria digital casamento, site de casamento"
+    "description": "Crie o seu convite de casamento digital: um convite de casamento online elegante, com RSVP integrado e todas as informações do seu casamento num só lugar. Pagamento único, sem subscrição."
   },
   "Navbar": {
     "product": "Produto",
@@ -696,20 +695,6 @@
     "stepOf": "Passo {current} de {total}",
     "menuAriaLabel": "Abrir menu"
   },
-  "StudioAnimation": {
-    "titlePrefix": "Animação de ",
-    "titleHighlight": "abertura",
-    "subtitle": "A primeira coisa que os seus convidados verão.",
-    "viewDemo": "Ver demo",
-    "comingSoon": "Em breve",
-    "categories": {
-      "envelope": "Envelope",
-      "door": "Porta",
-      "curtain": "Cortina",
-      "book": "Livro",
-      "floral": "Floral"
-    }
-  },
   "StudioTheme": {
     "titlePrefix": "O ambiente do vosso ",
     "titleHighlight": "Casamento",
@@ -810,7 +795,6 @@
     "titleHighlight": "resumo",
     "subtitle": "Verifiquem a encomenda antes de pagar.",
     "offer": "Plano",
-    "animation": "Animação",
     "theme": "Tema",
     "modulesLabel": "Módulos",
     "languagesLabel": "Idiomas adicionais",

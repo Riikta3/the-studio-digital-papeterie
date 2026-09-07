@@ -2,8 +2,7 @@
   "Metadata": {
     "title": "Faire-part de mariage digital | The Studio Digital Papeterie",
     "ogTitle": "The Studio — Le faire-part de mariage digital, réinventé",
-    "description": "Créez votre faire-part de mariage digital : une invitation mariage digitale élégante, avec RSVP mariage intégré et toutes les informations de votre mariage au même endroit. Paiement unique, sans abonnement.",
-    "keywords": "faire-part de mariage digital, invitation mariage digitale, faire-part mariage en ligne, RSVP mariage, invitation de mariage personnalisée, papeterie digitale mariage"
+    "description": "Créez votre faire-part de mariage digital : une invitation mariage digitale élégante, avec RSVP mariage intégré et toutes les informations de votre mariage au même endroit. Paiement unique, sans abonnement."
   },
   "Navbar": {
     "product": "Produit",
@@ -652,20 +651,6 @@
     "stepOf": "Étape {current} sur {total}",
     "menuAriaLabel": "Ouvrir le menu"
   },
-  "StudioAnimation": {
-    "titlePrefix": "Animation d'",
-    "titleHighlight": "ouverture",
-    "subtitle": "La première chose que verront vos invités.",
-    "viewDemo": "Voir la démo",
-    "comingSoon": "Bientôt disponible",
-    "categories": {
-      "envelope": "Enveloppe",
-      "door": "Porte",
-      "curtain": "Rideau",
-      "book": "Livre",
-      "floral": "Floral"
-    }
-  },
   "StudioTheme": {
     "titlePrefix": "L'ambiance de votre ",
     "titleHighlight": "Mariage",
@@ -766,7 +751,6 @@
     "titleHighlight": "récapitulatif",
     "subtitle": "Vérifiez votre commande avant le paiement.",
     "offer": "Offre",
-    "animation": "Animation",
     "theme": "Thème",
     "modulesLabel": "Modules",
     "languagesLabel": "Langues supplémentaires",

@@ -2,8 +2,7 @@
   "Metadata": {
     "title": "デジタル結婚式招待状 | The Studio Digital Papeterie",
     "ogTitle": "The Studio — 生まれ変わったデジタル結婚式招待状",
-    "description": "デジタル結婚式招待状を作成しましょう。上品なオンライン結婚式招待状に出欠確認機能を搭載し、結婚式の情報をひとつの場所にまとめます。買い切り、サブスクリプション不要。",
-    "keywords": "デジタル結婚式招待状, オンライン結婚式招待状, 結婚式 出欠確認, オリジナル結婚式招待状, デジタルペーパーアイテム, 結婚式ウェブサイト"
+    "description": "デジタル結婚式招待状を作成しましょう。上品なオンライン結婚式招待状に出欠確認機能を搭載し、結婚式の情報をひとつの場所にまとめます。買い切り、サブスクリプション不要。"
   },
   "Navbar": {
     "product": "製品",
@@ -696,20 +695,6 @@
     "stepOf": "ステップ {current}/{total}",
     "menuAriaLabel": "メニューを開く"
   },
-  "StudioAnimation": {
-    "titlePrefix": "オープニング",
-    "titleHighlight": "アニメーション",
-    "subtitle": "ゲストが最初に目にするものです。",
-    "viewDemo": "デモを見る",
-    "comingSoon": "近日公開",
-    "categories": {
-      "envelope": "封筒",
-      "door": "扉",
-      "curtain": "カーテン",
-      "book": "本",
-      "floral": "フローラル"
-    }
-  },
   "StudioTheme": {
     "titlePrefix": "結婚式の",
     "titleHighlight": "雰囲気",
@@ -810,7 +795,6 @@
     "titleHighlight": "内容",
     "subtitle": "お支払い前にご注文内容をご確認ください。",
     "offer": "プラン",
-    "animation": "アニメーション",
     "theme": "テーマ",
     "modulesLabel": "モジュール",
     "languagesLabel": "追加言語",

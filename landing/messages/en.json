@@ -2,8 +2,7 @@
   "Metadata": {
     "title": "Digital Wedding Invitation | The Studio Digital Papeterie",
     "ogTitle": "The Studio — The digital wedding invitation, reinvented",
-    "description": "Create your digital wedding invitation: an elegant online wedding invitation with built-in wedding RSVP and all your wedding details in one place. One-time payment, no subscription.",
-    "keywords": "digital wedding invitation, online wedding invitation, wedding RSVP, personalised wedding invitation, digital wedding stationery, wedding website"
+    "description": "Create your digital wedding invitation: an elegant online wedding invitation with built-in wedding RSVP and all your wedding details in one place. One-time payment, no subscription."
   },
   "Navbar": {
     "product": "Product",
@@ -698,20 +697,6 @@
     "stepOf": "Step {current} of {total}",
     "menuAriaLabel": "Open menu"
   },
-  "StudioAnimation": {
-    "titlePrefix": "Opening ",
-    "titleHighlight": "animation",
-    "subtitle": "The first thing your guests will see.",
-    "viewDemo": "View demo",
-    "comingSoon": "Coming soon",
-    "categories": {
-      "envelope": "Envelope",
-      "door": "Door",
-      "curtain": "Curtain",
-      "book": "Book",
-      "floral": "Floral"
-    }
-  },
   "StudioTheme": {
     "titlePrefix": "The mood of your ",
     "titleHighlight": "Wedding",
@@ -812,7 +797,6 @@
     "titleHighlight": "summary",
     "subtitle": "Check your order before paying.",
     "offer": "Plan",
-    "animation": "Animation",
     "theme": "Theme",
     "modulesLabel": "Modules",
     "languagesLabel": "Extra languages",

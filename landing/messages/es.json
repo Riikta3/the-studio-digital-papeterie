@@ -2,8 +2,7 @@
   "Metadata": {
     "title": "Invitación de boda digital | The Studio Digital Papeterie",
     "ogTitle": "The Studio — La invitación de boda digital, reinventada",
-    "description": "Crea tu invitación de boda digital: una invitación de boda online elegante, con RSVP integrado y toda la información de tu boda en un solo lugar. Pago único, sin suscripción.",
-    "keywords": "invitación de boda digital, invitación de boda online, RSVP boda, invitación de boda personalizada, papelería digital de boda, web de boda"
+    "description": "Crea tu invitación de boda digital: una invitación de boda online elegante, con RSVP integrado y toda la información de tu boda en un solo lugar. Pago único, sin suscripción."
   },
   "Navbar": {
     "product": "Producto",
@@ -697,20 +696,6 @@
     "stepOf": "Paso {current} de {total}",
     "menuAriaLabel": "Abrir menú"
   },
-  "StudioAnimation": {
-    "titlePrefix": "Animación de ",
-    "titleHighlight": "apertura",
-    "subtitle": "Lo primero que verán tus invitados.",
-    "viewDemo": "Ver demo",
-    "comingSoon": "Próximamente",
-    "categories": {
-      "envelope": "Sobre",
-      "door": "Puerta",
-      "curtain": "Cortina",
-      "book": "Libro",
-      "floral": "Floral"
-    }
-  },
   "StudioTheme": {
     "titlePrefix": "El ambiente de vuestra ",
     "titleHighlight": "Boda",
@@ -811,7 +796,6 @@
     "titleHighlight": "resumen",
     "subtitle": "Revisad vuestro pedido antes de pagar.",
     "offer": "Plan",
-    "animation": "Animación",
     "theme": "Tema",
     "modulesLabel": "Módulos",
     "languagesLabel": "Idiomas adicionales",

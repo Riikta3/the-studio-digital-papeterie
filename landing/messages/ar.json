@@ -2,8 +2,7 @@
   "Metadata": {
     "title": "دعوة زفاف رقمية | The Studio Digital Papeterie",
     "ogTitle": "The Studio — دعوة الزفاف الرقمية، بشكل جديد",
-    "description": "أنشئوا دعوة زفافكم الرقمية: دعوة زفاف إلكترونية أنيقة مع تأكيد الحضور المدمج وكل معلومات زفافكم في مكان واحد. دفعة واحدة، بدون اشتراك.",
-    "keywords": "دعوة زفاف رقمية, دعوة زفاف إلكترونية, تأكيد الحضور للزفاف, دعوة زفاف مخصصة, قرطاسية زفاف رقمية, موقع زفاف"
+    "description": "أنشئوا دعوة زفافكم الرقمية: دعوة زفاف إلكترونية أنيقة مع تأكيد الحضور المدمج وكل معلومات زفافكم في مكان واحد. دفعة واحدة، بدون اشتراك."
   },
   "Navbar": {
     "product": "المنتج",
@@ -696,20 +695,6 @@
     "stepOf": "الخطوة {current} من {total}",
     "menuAriaLabel": "فتح القائمة"
   },
-  "StudioAnimation": {
-    "titlePrefix": "رسوم ",
-    "titleHighlight": "الافتتاح",
-    "subtitle": "أول ما سيراه ضيوفك.",
-    "viewDemo": "عرض توضيحي",
-    "comingSoon": "قريباً",
-    "categories": {
-      "envelope": "مظروف",
-      "door": "باب",
-      "curtain": "ستارة",
-      "book": "كتاب",
-      "floral": "زهور"
-    }
-  },
   "StudioTheme": {
     "titlePrefix": "أجواء ",
     "titleHighlight": "زفافكم",
@@ -810,7 +795,6 @@
     "titleHighlight": "ملخصكم",
     "subtitle": "راجعوا طلبكم قبل الدفع.",
     "offer": "الباقة",
-    "animation": "الرسوم",
     "theme": "السمة",
     "modulesLabel": "الوحدات",
     "languagesLabel": "لغات إضافية",

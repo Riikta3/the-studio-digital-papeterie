@@ -2,8 +2,7 @@
   "Metadata": {
     "title": "Digitale Hochzeitseinladung | The Studio Digital Papeterie",
     "ogTitle": "The Studio — Die digitale Hochzeitseinladung, neu gedacht",
-    "description": "Gestalten Sie Ihre digitale Hochzeitseinladung: eine elegante Online-Hochzeitseinladung mit integriertem RSVP und allen Hochzeitsinfos an einem Ort. Einmalige Zahlung, kein Abo.",
-    "keywords": "digitale Hochzeitseinladung, Online-Hochzeitseinladung, Hochzeit RSVP, personalisierte Hochzeitseinladung, digitale Hochzeitspapeterie, Hochzeitswebsite"
+    "description": "Gestalten Sie Ihre digitale Hochzeitseinladung: eine elegante Online-Hochzeitseinladung mit integriertem RSVP und allen Hochzeitsinfos an einem Ort. Einmalige Zahlung, kein Abo."
   },
   "Navbar": {
     "product": "Produkt",
@@ -697,20 +696,6 @@
     "stepOf": "Schritt {current} von {total}",
     "menuAriaLabel": "Menü öffnen"
   },
-  "StudioAnimation": {
-    "titlePrefix": "Eröffnungs",
-    "titleHighlight": "animation",
-    "subtitle": "Das Erste, was Ihre Gäste sehen werden.",
-    "viewDemo": "Demo ansehen",
-    "comingSoon": "Demnächst",
-    "categories": {
-      "envelope": "Umschlag",
-      "door": "Tür",
-      "curtain": "Vorhang",
-      "book": "Buch",
-      "floral": "Blumen"
-    }
-  },
   "StudioTheme": {
     "titlePrefix": "Die Stimmung Ihrer ",
     "titleHighlight": "Hochzeit",
@@ -811,7 +796,6 @@
     "titleHighlight": "Zusammenfassung",
     "subtitle": "Prüfen Sie Ihre Bestellung vor der Zahlung.",
     "offer": "Paket",
-    "animation": "Animation",
     "theme": "Thema",
     "modulesLabel": "Module",
     "languagesLabel": "Zusätzliche Sprachen",

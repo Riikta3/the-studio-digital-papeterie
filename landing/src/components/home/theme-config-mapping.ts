@@ -32,11 +32,12 @@ const MODULE_ID_BY_DIALOG_KEY: Record<ModuleKey, string> = {
  * Dialog opening style → a concrete animation variant.
  *
  * The dialog offers a family ("Porte"), but the order stores one variant
- * (`door-royal`) because that is what /studio/animation selects and what the
- * asset lookups key on. We persist the family's first variant, which leaves
- * the animation step opening on a valid, already-selected choice the couple
- * can then refine. Note the singular `curtain-*`: the dialog's key is
- * "curtains", the animation category is "curtain".
+ * (`door-royal`) because that is the granularity `create-wedding` writes to
+ * `sites.animation_id`. This dialog is now the only place an entrance
+ * animation is chosen — /studio no longer has a step for it — so the variant
+ * picked here is the one the invitation ships with. Note the singular
+ * `curtain-*`: the dialog's key is "curtains", the variant family is
+ * "curtain".
  */
 const ANIMATION_ID_BY_OPENING_STYLE: Record<OpeningStyle, string> = {
   envelope: "envelope-classic",
@@ -89,14 +90,18 @@ export function fromOrderModules(
   return keys.some((key) => restored[key]) ? restored : defaults;
 }
 
-/** The opening style whose family owns this animation variant. */
+/**
+ * The opening style whose family owns this animation variant. Still needed
+ * when reopening the dialog on an order saved earlier, including one whose
+ * variant predates the removal of the /studio animation step.
+ */
 export function fromOrderAnimation(
   animation: string,
   fallback: OpeningStyle,
 ): OpeningStyle {
   const match = (Object.keys(ANIMATION_FAMILY_PREFIX) as OpeningStyle[]).find(
-    // Match on the family prefix, so a variant the couple refined in
-    // /studio/animation ("door-floral") still maps back to "Porte".
+    // Match on the family prefix, so any variant in a family ("door-floral")
+    // still maps back to that family's toggle ("Porte").
     (style) => animation.startsWith(`${ANIMATION_FAMILY_PREFIX[style]}-`),
   );
   return match ?? fallback;
