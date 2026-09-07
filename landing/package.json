@@ -7,7 +7,7 @@
     "dev": "next dev --webpack -p 3010",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint",
+    "lint": "eslint",
     "themes:sync": "node scripts/sync-themes.mjs",
     "themes:check": "node scripts/sync-themes.mjs --check",
     "themes:scope-css": "node scripts/scope-theme-css.mjs",
