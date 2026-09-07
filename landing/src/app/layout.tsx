@@ -3,7 +3,24 @@ import {
   Urbanist,
 } from "next/font/google";
 
+import { headers } from "next/headers";
+
 import { routing } from "@/navigation";
+
+// The locale lives in the URL, but a root layout gets no params — Next does
+// not forward a child segment's params upward. `proxy.ts` already sets
+// `x-pathname` for the root not-found page; the first segment of it is the
+// locale whenever the request went through next-intl's prefixing.
+async function resolveLocale() {
+  const headerList = await headers();
+  const pathname =
+    headerList.get("x-pathname") ?? headerList.get("x-invoke-path") ?? "";
+  const segment = pathname.split("/").filter(Boolean)[0];
+
+  return (routing.locales as readonly string[]).includes(segment ?? "")
+    ? (segment as (typeof routing.locales)[number])
+    : routing.defaultLocale;
+}
 
 const urbanist = Urbanist({
   subsets: ["latin"],
@@ -19,19 +36,23 @@ const libreCaslonDisplay = Libre_Caslon_Display({
   variable: "--font-heading",
 });
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
+  const locale = await resolveLocale();
+
   return (
     <html
-      // Defaults for the root `not-found.tsx`, which has no locale segment.
-      // Every route under `[locale]/` overwrites both from its own layout —
-      // Next does not forward the child segment's params up to here, and
-      // reading headers() would cost the whole app its static rendering.
-      lang={routing.defaultLocale}
-      dir='ltr'
+      // Read from the path the proxy forwards, so the SSR markup itself
+      // carries the right language. A client script used to patch these after
+      // hydration, which crawlers and screen readers never see: every locale
+      // was served announcing itself as French, and Arabic was laid out LTR.
+      // headers() costs no static rendering here — `proxy.ts` already makes
+      // every page in this app render on demand.
+      lang={locale}
+      dir={locale === 'ar' ? 'rtl' : 'ltr'}
       suppressHydrationWarning
       className={`${urbanist.variable} ${libreCaslonDisplay.variable}`}
     >
@@ -48,8 +69,12 @@ export default function RootLayout({
           }}
         />
       </head>
+      {/* Horizontal clipping lives in `shared/styles/globals.css`, on html
+          and body together — and as `overflow-x: clip`, not `hidden`, so it
+          does not make either element a scroll container and break every
+          `position: sticky` in the app. */}
       <body
-        className='w-full overflow-x-hidden bg-studio-jaune text-foreground'
+        className='w-full bg-studio-jaune text-foreground'
         suppressHydrationWarning
       >
         {children}

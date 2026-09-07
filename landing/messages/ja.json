@@ -2,8 +2,7 @@
   "Metadata": {
     "title": "デジタル結婚式招待状 | The Studio Digital Papeterie",
     "ogTitle": "The Studio — 生まれ変わったデジタル結婚式招待状",
-    "description": "デジタル結婚式招待状を作成しましょう。上品なオンライン結婚式招待状に出欠確認機能を搭載し、結婚式の情報をひとつの場所にまとめます。買い切り、サブスクリプション不要。",
-    "keywords": "デジタル結婚式招待状, オンライン結婚式招待状, 結婚式 出欠確認, オリジナル結婚式招待状, デジタルペーパーアイテム, 結婚式ウェブサイト"
+    "description": "デジタル結婚式招待状を作成しましょう。上品なオンライン結婚式招待状に出欠確認機能を搭載し、結婚式の情報をひとつの場所にまとめます。買い切り、サブスクリプション不要。"
   },
   "Navbar": {
     "product": "製品",
@@ -168,7 +167,6 @@
     "prevThemesAriaLabel": "前のテーマ",
     "nextThemesAriaLabel": "次のテーマ",
     "themeLabel": "{name} テーマ",
-    "themeAlt": "結婚式招待状 — {name} テーマ",
     "demoIframeTitle": "招待状デモ — {name} テーマ",
     "upcomingTitle": "新しいコレクション",
     "upcomingSubtitle": "新しいテーマを準備中です"
@@ -194,11 +192,6 @@
         "description": "スケジュール、会場、時間、ドレスコード、宿泊のご案内、出欠確認……ゲストは必要な情報すべてを、スマートフォンからひとつの場所で確認できます。"
       },
       {
-        "titleLine1": "印刷なし",
-        "titleLine2": "",
-        "description": "印刷も、封筒も、切手も、郵送も不要。従来の招待状のような物理的な制約のないデジタルペーパーアイテムです。"
-      },
-      {
         "titleLine1": "すぐに届く",
         "titleLine2": "",
         "description": "WhatsApp、SMS、メール。オンライン結婚式招待状は数秒で共有でき、ゲストはすぐに開くことができます。"
@@ -206,17 +199,125 @@
     ]
   },
   "Pricing": {
-    "eyebrow": "ゲスト150名の場合",
-    "titleLine1": "その違いが",
-    "titleAccent": "大切なのです",
-    "paperLabel": "従来の紙の招待状",
-    "paperPrice": "645€",
-    "paperDetails": "印刷代 + 切手代 + 封筒代",
-    "studioLabel": "The Studio",
-    "studioPrice": "175€",
-    "studioDetails": "すべて込み、無制限",
-    "features": "即時送信・編集自由・RSVP機能内蔵・ペーパーレス",
-    "createButton": "招待状を作成する"
+    "eyebrow": "プランのご案内",
+    "titleLine1": "おふたりらしい",
+    "titleAccent": "プランを選んで",
+    "intro": "The Studio のデザインから完全オーダーメイドの制作まで、おふたりの結婚式に合ったカスタマイズのレベルをお選びください。",
+    "note": "一回のお支払いのみ。サブスクリプションはありません。",
+    "recommendedLabel": "最も選ばれています",
+    "planLabel": "おふたりのプラン",
+    "fromLabel": "〜",
+    "tablistLabel": "プランを選ぶ",
+    "compareLabel": "比較する",
+    "compareTitle": "プランを比較する",
+    "compareSubtitle": "各プランに含まれる内容がひと目でわかります",
+    "compareFeatureHeader": "内容",
+    "compareCloseLabel": "比較を閉じる",
+    "compareIncluded": "含まれる",
+    "compareExcluded": "含まれない",
+    "compareChoose": "選ぶ",
+    "plans": [
+      {
+        "id": "signature",
+        "name": "Signature",
+        "price": "199€",
+        "positioning": "既存のデザインをお選びになるおふたりへ。",
+        "description": "The Studio のデザインからひとつをお選びいただき、結婚式の情報や写真、世界観を反映してカスタマイズします。",
+        "cta": "Signature を選ぶ"
+      },
+      {
+        "id": "sur-mesure",
+        "name": "オーダーメイド",
+        "price": "299€",
+        "positioning": "",
+        "description": "おふたりの世界観、色、会場、そして伝えたい物語をもとに描く、完全オリジナルの結婚式招待状です。",
+        "cta": "オーダーメイドの招待状を作る"
+      },
+      {
+        "id": "prestige",
+        "name": "Prestige",
+        "price": "499€",
+        "positioning": "",
+        "description": "招待状のカスタマイズをさらに追求したいおふたりのための、The Studio でもっとも充実したご提案です。",
+        "cta": "Prestige を見る",
+        "features": [
+          "オリジナルアニメーション",
+          "グラフィックアイデンティティ一式",
+          "結婚式のカラーに合わせた調整",
+          "モジュール数無制限",
+          "優先サポート",
+          "修正回数無制限",
+          "独自ドメイン",
+          "挙式後のフォトギャラリー",
+          "ゲストブック"
+        ]
+      }
+    ],
+    "compareRows": [
+      {
+        "key": "animation",
+        "label": "オリジナルアニメーション",
+        "signature": "no",
+        "sur-mesure": "no",
+        "prestige": "inc"
+      },
+      {
+        "key": "identity",
+        "label": "グラフィックアイデンティティ一式",
+        "signature": "no",
+        "sur-mesure": "inc",
+        "prestige": "inc"
+      },
+      {
+        "key": "colors",
+        "label": "結婚式のカラーに合わせた調整",
+        "signature": "no",
+        "sur-mesure": "inc",
+        "prestige": "inc"
+      },
+      {
+        "key": "modules",
+        "label": "モジュール数無制限",
+        "signature": "no",
+        "sur-mesure": "no",
+        "prestige": "inc"
+      },
+      {
+        "key": "support",
+        "label": "優先サポート",
+        "signature": "no",
+        "sur-mesure": "no",
+        "prestige": "inc"
+      },
+      {
+        "key": "revisions",
+        "label": "修正回数無制限",
+        "signature": "no",
+        "sur-mesure": "no",
+        "prestige": "inc"
+      },
+      {
+        "key": "domain",
+        "label": "独自ドメイン",
+        "signature": "no",
+        "sur-mesure": "no",
+        "prestige": "inc"
+      },
+      {
+        "key": "gallery",
+        "label": "挙式後のフォトギャラリー",
+        "signature": "no",
+        "sur-mesure": "no",
+        "prestige": "inc"
+      },
+      {
+        "key": "guestbook",
+        "label": "ゲストブック",
+        "signature": "no",
+        "sur-mesure": "no",
+        "prestige": "inc"
+      }
+    ]
   },
   "Atelier": {
     "eyebrow": "お二人の想いを私たちのスタジオに",
@@ -503,9 +604,7 @@
   "ThemeConfigSheet": {
     "ariaLabel": "{name}テーマを設定",
     "closeAriaLabel": "閉じる",
-    "themeAlt": "{name}テーマ",
     "titlePrefix": "招待状",
-    "themeDescription": "{name}テーマの魅惑的な雰囲気にゲストを誘います。あなたの招待状は物語の中心から届いた手紙のように、太陽の光と甘美さ、そして優雅さをもって息づきます。",
     "modulesTitle": "オプションモジュール",
     "modules": {
       "guestbook": "ゲストブック",
@@ -527,7 +626,12 @@
     "summaryOpeningStyle": "選択したアニメーション",
     "summaryTheme": "テーマ",
     "validateButton": "招待状を確定する",
-    "saveButton": "保存して後で続ける"
+    "saveButton": "保存して後で続ける",
+    "themeDescriptions": {
+      "ciao-amore": "イタリア海岸の陽光あふれる雰囲気にゲストを誘います。あなたの招待状はアマルフィから届いた手紙のように、太陽と甘美さ、そして優雅さをもって息づきます。",
+      "blanc-couture": "ゲストにクチュールのような幕開けを。あなたの招待状は白い紙の小箱のように開かれ、清らかな線と繊細な陰影、極上の洗練を映します。",
+      "belle-rive": "水辺へとゲストを誘います。あなたの招待状は海風のように開き、やわらかな緑と穏やかな光、静けさを運びます。"
+    }
   },
   "StudioStart": {
     "titlePrefix": "招待状を",
@@ -590,20 +694,6 @@
     "finish": "完了",
     "stepOf": "ステップ {current}/{total}",
     "menuAriaLabel": "メニューを開く"
-  },
-  "StudioAnimation": {
-    "titlePrefix": "オープニング",
-    "titleHighlight": "アニメーション",
-    "subtitle": "ゲストが最初に目にするものです。",
-    "viewDemo": "デモを見る",
-    "comingSoon": "近日公開",
-    "categories": {
-      "envelope": "封筒",
-      "door": "扉",
-      "curtain": "カーテン",
-      "book": "本",
-      "floral": "フローラル"
-    }
   },
   "StudioTheme": {
     "titlePrefix": "結婚式の",
@@ -705,7 +795,6 @@
     "titleHighlight": "内容",
     "subtitle": "お支払い前にご注文内容をご確認ください。",
     "offer": "プラン",
-    "animation": "アニメーション",
     "theme": "テーマ",
     "modulesLabel": "モジュール",
     "languagesLabel": "追加言語",

@@ -21,9 +21,11 @@ import { fileURLToPath } from "node:url";
 const here = dirname(fileURLToPath(import.meta.url));
 const THEMES_DIR = join(here, "..", "src", "components", "invitation", "themes");
 const REGISTRY = join(THEMES_DIR, "registry.ts");
+const THEME_IDS_FILE = join(THEMES_DIR, "theme-ids.ts");
 
 const START = "// ─── THEME IMPORTS — generated, do not edit by hand ───────────────────────────";
 const END = "// ─── END GENERATED ───────────────────────────────────────────────────────────";
+const IDS_START = "// ─── THEME IDS — generated, do not edit by hand ───────────────────────────────";
 
 function camel(folder) {
   return folder.replace(/-([a-z0-9])/g, (_, c) => c.toUpperCase());
@@ -67,26 +69,48 @@ const block = [
   END,
 ].join("\n");
 
-const current = readFileSync(REGISTRY, "utf8");
-const startAt = current.indexOf(START);
-const endAt = current.indexOf(END);
+const idsBlock = [
+  IDS_START,
+  `export const THEME_IDS = [${folders.map((f) => `"${f}"`).join(", ")}] as const;`,
+  END,
+].join("\n");
 
-if (startAt === -1 || endAt === -1) {
-  console.error(`Could not find the generated block markers in ${REGISTRY}`);
-  process.exit(1);
-}
+/** Swap the text between a generated block's markers. */
+function regenerate(file, startMarker, replacement) {
+  const current = readFileSync(file, "utf8");
+  const startAt = current.indexOf(startMarker);
+  const endAt = current.indexOf(END, startAt === -1 ? 0 : startAt);
 
-const next = current.slice(0, startAt) + block + current.slice(endAt + END.length);
-
-if (process.argv.includes("--check")) {
-  if (next !== current) {
-    console.error("Theme registry is out of date. Run: npm run themes:sync");
+  if (startAt === -1 || endAt === -1) {
+    console.error(`Could not find the generated block markers in ${file}`);
     process.exit(1);
   }
-  console.log(`Theme registry is up to date (${folders.length} themes).`);
-} else if (next === current) {
-  console.log(`Theme registry already up to date (${folders.length} themes).`);
+
+  const next =
+    current.slice(0, startAt) + replacement + current.slice(endAt + END.length);
+  return { current, next };
+}
+
+const targets = [
+  { file: REGISTRY, ...regenerate(REGISTRY, START, block) },
+  { file: THEME_IDS_FILE, ...regenerate(THEME_IDS_FILE, IDS_START, idsBlock) },
+];
+
+const stale = targets.filter(({ current, next }) => current !== next);
+
+if (process.argv.includes("--check")) {
+  if (stale.length > 0) {
+    console.error(
+      `Theme files are out of date (${stale
+        .map(({ file }) => file)
+        .join(", ")}). Run: npm run themes:sync`,
+    );
+    process.exit(1);
+  }
+  console.log(`Theme registry and ids are up to date (${folders.length} themes).`);
+} else if (stale.length === 0) {
+  console.log(`Theme registry and ids already up to date (${folders.length} themes).`);
 } else {
-  writeFileSync(REGISTRY, next);
-  console.log(`Theme registry updated: ${folders.join(", ")}`);
+  for (const { file, next } of stale) writeFileSync(file, next);
+  console.log(`Theme registry and ids updated: ${folders.join(", ")}`);
 }

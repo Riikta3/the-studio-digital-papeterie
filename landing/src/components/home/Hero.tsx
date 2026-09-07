@@ -15,6 +15,7 @@ import {
   setSelectedThemeIndex,
   useSelectedThemeIndex,
 } from "./selected-theme";
+import { StickyHeader } from "./StickyHeader";
 import { THEMES } from "./themes";
 import { TextureOverlay } from "./TextureOverlay";
 
@@ -113,6 +114,14 @@ export function Hero() {
           </button>
         </nav>
 
+        <StickyHeader
+          onOpenMenu={() => {
+            setMenuMounted(true);
+            setMenuOpen(true);
+          }}
+          menuAriaLabel={t("menuAriaLabel")}
+        />
+
         {menuMounted && (
           <MobileMenu open={menuOpen} onClose={() => setMenuOpen(false)} />
         )}
@@ -156,7 +165,7 @@ export function Hero() {
             animate={false}
           />
 
-          <div className="mt-8 flex flex-row gap-3 sm:gap-4">
+          <div className="mt-8 flex w-full flex-col items-stretch gap-3 sm:w-auto sm:flex-row sm:justify-center sm:gap-4">
             <Button
               variant="studio-outline"
               size="pill"
@@ -195,10 +204,13 @@ export function Hero() {
             variant="studio-violet"
             size="pill"
             className="text-studio-jaune"
+            // Targets the phone mockup, not the #demo section: the visitor
+            // asked to *see* the theme, so the scroll should settle on the
+            // preview itself rather than on the section heading above it.
             onClick={() =>
               document
-                .getElementById("demo")
-                ?.scrollIntoView({ behavior: "smooth" })
+                .getElementById("demo-phone")
+                ?.scrollIntoView({ behavior: "smooth", block: "center" })
             }
           >
             {t("themeCta", { name: activeThemeName })}{" "}

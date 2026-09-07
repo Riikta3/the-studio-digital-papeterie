@@ -2,8 +2,7 @@
   "Metadata": {
     "title": "دعوة زفاف رقمية | The Studio Digital Papeterie",
     "ogTitle": "The Studio — دعوة الزفاف الرقمية، بشكل جديد",
-    "description": "أنشئوا دعوة زفافكم الرقمية: دعوة زفاف إلكترونية أنيقة مع تأكيد الحضور المدمج وكل معلومات زفافكم في مكان واحد. دفعة واحدة، بدون اشتراك.",
-    "keywords": "دعوة زفاف رقمية, دعوة زفاف إلكترونية, تأكيد الحضور للزفاف, دعوة زفاف مخصصة, قرطاسية زفاف رقمية, موقع زفاف"
+    "description": "أنشئوا دعوة زفافكم الرقمية: دعوة زفاف إلكترونية أنيقة مع تأكيد الحضور المدمج وكل معلومات زفافكم في مكان واحد. دفعة واحدة، بدون اشتراك."
   },
   "Navbar": {
     "product": "المنتج",
@@ -168,7 +167,6 @@
     "prevThemesAriaLabel": "التصاميم السابقة",
     "nextThemesAriaLabel": "التصاميم التالية",
     "themeLabel": "تصميم {name}",
-    "themeAlt": "دعوة زفاف — تصميم {name}",
     "demoIframeTitle": "عرض الدعوة — تصميم {name}",
     "upcomingTitle": "مجموعات جديدة",
     "upcomingSubtitle": "قوالب أخرى قريبًا"
@@ -194,11 +192,6 @@
         "description": "البرنامج، المكان، المواعيد، قواعد اللباس، أماكن الإقامة، تأكيد الحضور… يجد مدعوّوكم كل المعلومات المفيدة مباشرة من هواتفهم، في مكان واحد."
       },
       {
-        "titleLine1": "دون طباعة",
-        "titleLine2": "",
-        "description": "لا طباعة، ولا مغلفات، ولا طوابع، ولا إرسال بريدي. قرطاسية زفاف رقمية مصمّمة دون القيود المادية للدعوة التقليدية."
-      },
-      {
         "titleLine1": "فوري",
         "titleLine2": "",
         "description": "واتساب أو رسالة نصية أو بريد إلكتروني: تُشارك دعوة زفافكم الإلكترونية في ثوانٍ ويمكن لمدعوّيكم الاطلاع عليها فوراً."
@@ -206,17 +199,125 @@
     ]
   },
   "Pricing": {
-    "eyebrow": "لـ150 ضيفاً",
-    "titleLine1": "الفرق",
-    "titleAccent": "الذي يهم",
-    "paperLabel": "الورق التقليدي",
-    "paperPrice": "645 يورو",
-    "paperDetails": "طباعة + طوابع + مغلفات",
-    "studioLabel": "The Studio",
-    "studioPrice": "175 يورو",
-    "studioDetails": "كل شيء مشمول، بلا حدود",
-    "features": "إرسال فوري · قابلة للتعديل · تأكيد حضور مدمج · بلا ورق",
-    "createButton": "أنشئي دعوتي"
+    "eyebrow": "صيغنا",
+    "titleLine1": "اختاري الصيغة",
+    "titleAccent": "التي تشبهكما",
+    "intro": "من تصميم جاهز من The Studio إلى إبداع مخصص بالكامل، اختاري مستوى التخصيص المناسب لحفل زفافكما.",
+    "note": "دفعة واحدة. بدون اشتراك.",
+    "recommendedLabel": "الأكثر اختياراً",
+    "planLabel": "صيغتكما",
+    "fromLabel": "من",
+    "tablistLabel": "اختيار صيغة",
+    "compareLabel": "مقارنة",
+    "compareTitle": "مقارنة الصيغ",
+    "compareSubtitle": "كل ما تتضمنه كل صيغة، في لمحة واحدة",
+    "compareFeatureHeader": "الخدمة",
+    "compareCloseLabel": "إغلاق المقارنة",
+    "compareIncluded": "مشمول",
+    "compareExcluded": "غير مشمول",
+    "compareChoose": "اختيار",
+    "plans": [
+      {
+        "id": "signature",
+        "name": "Signature",
+        "price": "199 يورو",
+        "positioning": "للثنائي الذي يختار تصميماً جاهزاً.",
+        "description": "اختاري أحد تصاميم The Studio وخصّصيه بمعلومات حفل زفافكما وصوره وأجوائه.",
+        "cta": "اختيار Signature"
+      },
+      {
+        "id": "sur-mesure",
+        "name": "تصميم خاص",
+        "price": "299 يورو",
+        "positioning": "",
+        "description": "دعوة زفاف مخصصة، مستوحاة من عالمكما وألوانكما ومكان حفلكما والقصة التي ترغبان في سردها.",
+        "cta": "إنشاء دعوتي المخصصة"
+      },
+      {
+        "id": "prestige",
+        "name": "Prestige",
+        "price": "499 يورو",
+        "positioning": "",
+        "description": "تجربة The Studio الأكثر اكتمالاً، مصمّمة للثنائي الذي يرغب في الذهاب أبعد في تخصيص دعوته.",
+        "cta": "اكتشاف Prestige",
+        "features": [
+          "رسوم متحركة مخصصة",
+          "هوية بصرية كاملة",
+          "ملاءمة ألوان حفل الزفاف",
+          "وحدات غير محدودة",
+          "دعم بأولوية",
+          "تعديلات غير محدودة",
+          "نطاق مخصص",
+          "معرض صور بعد الزفاف",
+          "سجل التهاني"
+        ]
+      }
+    ],
+    "compareRows": [
+      {
+        "key": "animation",
+        "label": "رسوم متحركة مخصصة",
+        "signature": "no",
+        "sur-mesure": "no",
+        "prestige": "inc"
+      },
+      {
+        "key": "identity",
+        "label": "هوية بصرية كاملة",
+        "signature": "no",
+        "sur-mesure": "inc",
+        "prestige": "inc"
+      },
+      {
+        "key": "colors",
+        "label": "ملاءمة ألوان حفل الزفاف",
+        "signature": "no",
+        "sur-mesure": "inc",
+        "prestige": "inc"
+      },
+      {
+        "key": "modules",
+        "label": "وحدات غير محدودة",
+        "signature": "no",
+        "sur-mesure": "no",
+        "prestige": "inc"
+      },
+      {
+        "key": "support",
+        "label": "دعم بأولوية",
+        "signature": "no",
+        "sur-mesure": "no",
+        "prestige": "inc"
+      },
+      {
+        "key": "revisions",
+        "label": "تعديلات غير محدودة",
+        "signature": "no",
+        "sur-mesure": "no",
+        "prestige": "inc"
+      },
+      {
+        "key": "domain",
+        "label": "نطاق مخصص",
+        "signature": "no",
+        "sur-mesure": "no",
+        "prestige": "inc"
+      },
+      {
+        "key": "gallery",
+        "label": "معرض صور بعد الزفاف",
+        "signature": "no",
+        "sur-mesure": "no",
+        "prestige": "inc"
+      },
+      {
+        "key": "guestbook",
+        "label": "سجل التهاني",
+        "signature": "no",
+        "sur-mesure": "no",
+        "prestige": "inc"
+      }
+    ]
   },
   "Atelier": {
     "eyebrow": "أَوكلي رؤيتكما إلى الاستوديو الخاص بنا",
@@ -503,9 +604,7 @@
   "ThemeConfigSheet": {
     "ariaLabel": "تخصيص السمة {name}",
     "closeAriaLabel": "إغلاق",
-    "themeAlt": "سمة {name}",
     "titlePrefix": "الدعوة",
-    "themeDescription": "أغمر ضيوفك في الأجواء الساحرة لسمة {name}. تنبض دعوتك بالحياة كرسالة قادمة من قلب القصة — شمس وحلاوة وأناقة.",
     "modulesTitle": "وحدات اختيارية",
     "modules": {
       "guestbook": "سجل الضيوف",
@@ -527,7 +626,12 @@
     "summaryOpeningStyle": "الرسوم المختارة",
     "summaryTheme": "السمة",
     "validateButton": "تأكيد دعوتي",
-    "saveButton": "حفظ والمتابعة لاحقًا"
+    "saveButton": "حفظ والمتابعة لاحقًا",
+    "themeDescriptions": {
+      "ciao-amore": "أغمر ضيوفك في الأجواء المشمسة للساحل الإيطالي. تنبض دعوتك بالحياة كرسالة قادمة من أمالفي — شمس ودعة وأناقة.",
+      "blanc-couture": "امنح ضيوفك افتتاحية من عالم الأزياء الراقية. تتكشف دعوتك كعلبة من الورق الأبيض — خطوط نقية ونقوش رقيقة ورقيّ مطلق.",
+      "belle-rive": "ادعُ ضيوفك إلى حافة الماء. تنفتح دعوتك كنسمة بحرية — نعومة نباتية وضوء خفيف وصفاء."
+    }
   },
   "StudioStart": {
     "titlePrefix": "لننشئ دعوتكما",
@@ -590,20 +694,6 @@
     "finish": "إنهاء",
     "stepOf": "الخطوة {current} من {total}",
     "menuAriaLabel": "فتح القائمة"
-  },
-  "StudioAnimation": {
-    "titlePrefix": "رسوم ",
-    "titleHighlight": "الافتتاح",
-    "subtitle": "أول ما سيراه ضيوفك.",
-    "viewDemo": "عرض توضيحي",
-    "comingSoon": "قريباً",
-    "categories": {
-      "envelope": "مظروف",
-      "door": "باب",
-      "curtain": "ستارة",
-      "book": "كتاب",
-      "floral": "زهور"
-    }
   },
   "StudioTheme": {
     "titlePrefix": "أجواء ",
@@ -705,7 +795,6 @@
     "titleHighlight": "ملخصكم",
     "subtitle": "راجعوا طلبكم قبل الدفع.",
     "offer": "الباقة",
-    "animation": "الرسوم",
     "theme": "السمة",
     "modulesLabel": "الوحدات",
     "languagesLabel": "لغات إضافية",

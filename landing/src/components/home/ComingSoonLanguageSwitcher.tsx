@@ -36,21 +36,34 @@ export function ComingSoonLanguageSwitcher() {
   // Switching locale is a server round-trip for a new RSC payload, so it is
   // not instant — this is what turns a frozen trigger into a visible spinner.
   const [isPending, startTransition] = useTransition();
-  const [pendingLocale, setPendingLocale] = useState<string | null>(null);
+  // The locale being switched to, kept only so the trigger can show it while
+  // the transition runs. Read through `isPending` rather than cleared by an
+  // effect: it is derived state, and resetting it from an effect body cost a
+  // cascading render on every switch.
+  const [requestedLocale, setRequestedLocale] = useState<string | null>(null);
+  const pendingLocale = isPending ? requestedLocale : null;
   const rootRef = useRef<HTMLDivElement>(null);
+
+  // Warm every other locale's RSC payload while the list is open, so the
+  // switch resolves from the router cache instead of a fresh round-trip.
+  useEffect(() => {
+    if (!open) return;
+    for (const language of LANGUAGES) {
+      if (language.value === locale) continue;
+      router.prefetch(pathname, { locale: language.value });
+    }
+  }, [open, locale, pathname, router]);
 
   const selectLocale = (nextLocale: string) => {
     setOpen(false);
     if (nextLocale === locale) return;
-    setPendingLocale(nextLocale);
+    setRequestedLocale(nextLocale);
     startTransition(() => {
-      router.replace(pathname, { locale: nextLocale });
+      // See home/LanguageSwitcher: keep the scroll position across the
+      // remount the locale segment change forces.
+      router.replace(pathname, { locale: nextLocale, scroll: false });
     });
   };
-
-  useEffect(() => {
-    if (pendingLocale && !isPending) setPendingLocale(null);
-  }, [isPending, pendingLocale]);
 
   // Close on a click anywhere outside this component, and on Escape.
   //

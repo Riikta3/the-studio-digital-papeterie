@@ -2,8 +2,7 @@
   "Metadata": {
     "title": "Digital Wedding Invitation | The Studio Digital Papeterie",
     "ogTitle": "The Studio — The digital wedding invitation, reinvented",
-    "description": "Create your digital wedding invitation: an elegant online wedding invitation with built-in wedding RSVP and all your wedding details in one place. One-time payment, no subscription.",
-    "keywords": "digital wedding invitation, online wedding invitation, wedding RSVP, personalised wedding invitation, digital wedding stationery, wedding website"
+    "description": "Create your digital wedding invitation: an elegant online wedding invitation with built-in wedding RSVP and all your wedding details in one place. One-time payment, no subscription."
   },
   "Navbar": {
     "product": "Product",
@@ -170,7 +169,6 @@
     "prevThemesAriaLabel": "Previous themes",
     "nextThemesAriaLabel": "Next themes",
     "themeLabel": "{name} theme",
-    "themeAlt": "Wedding invitation — {name} theme",
     "demoIframeTitle": "Invitation demo — {name} theme",
     "upcomingTitle": "New collections",
     "upcomingSubtitle": "More themes coming soon"
@@ -196,11 +194,6 @@
         "description": "Schedule, venue, timings, dress code, accommodation, wedding RSVP… your guests find every useful detail straight from their phone, all in one place."
       },
       {
-        "titleLine1": "No printing",
-        "titleLine2": "",
-        "description": "No printing, no envelopes, no stamps and no postal delivery. Digital wedding stationery designed without the material constraints of traditional invitations."
-      },
-      {
         "titleLine1": "Instant",
         "titleLine2": "",
         "description": "WhatsApp, SMS or email: your online wedding invitation is shared in seconds and your guests can open it straight away."
@@ -208,17 +201,125 @@
     ]
   },
   "Pricing": {
-    "eyebrow": "For 150 guests",
-    "titleLine1": "The difference",
-    "titleAccent": "that matters",
-    "paperLabel": "Traditional paper",
-    "paperPrice": "€645",
-    "paperDetails": "Printing + stamps + envelopes",
-    "studioLabel": "The Studio",
-    "studioPrice": "€175",
-    "studioDetails": "All inclusive, unlimited",
-    "features": "Instant sending · Editable · Built-in RSVP · Zero paper",
-    "createButton": "Create my invitation"
+    "eyebrow": "Our packages",
+    "titleLine1": "Choose the package",
+    "titleAccent": "that feels like you",
+    "intro": "From a The Studio design to an entirely bespoke creation, choose the level of personalisation that suits your wedding.",
+    "note": "One-time payment. No subscription.",
+    "recommendedLabel": "Most chosen",
+    "planLabel": "Your plan",
+    "fromLabel": "from",
+    "tablistLabel": "Choose a package",
+    "compareLabel": "Compare",
+    "compareTitle": "Compare packages",
+    "compareSubtitle": "Everything each package includes, at a glance",
+    "compareFeatureHeader": "Feature",
+    "compareCloseLabel": "Close the comparison",
+    "compareIncluded": "Included",
+    "compareExcluded": "Not included",
+    "compareChoose": "Choose",
+    "plans": [
+      {
+        "id": "signature",
+        "name": "Signature",
+        "price": "€199",
+        "positioning": "For couples who choose an existing design.",
+        "description": "Choose one of The Studio designs and personalise it with the details, images and world of your wedding.",
+        "cta": "Choose Signature"
+      },
+      {
+        "id": "sur-mesure",
+        "name": "Bespoke",
+        "price": "€299",
+        "positioning": "",
+        "description": "A personalised wedding invitation, imagined around your world, your colours, your venue and the story you want to tell.",
+        "cta": "Create my bespoke invitation"
+      },
+      {
+        "id": "prestige",
+        "name": "Prestige",
+        "price": "€499",
+        "positioning": "",
+        "description": "The most complete The Studio experience, designed for couples who want to go further in personalising their invitation.",
+        "cta": "Discover Prestige",
+        "features": [
+          "Custom animation",
+          "Complete visual identity",
+          "Matched to your wedding colours",
+          "Unlimited modules",
+          "Priority support",
+          "Unlimited revisions",
+          "Custom domain",
+          "Post-wedding photo gallery",
+          "Guest book"
+        ]
+      }
+    ],
+    "compareRows": [
+      {
+        "key": "animation",
+        "label": "Custom animation",
+        "signature": "no",
+        "sur-mesure": "no",
+        "prestige": "inc"
+      },
+      {
+        "key": "identity",
+        "label": "Complete visual identity",
+        "signature": "no",
+        "sur-mesure": "inc",
+        "prestige": "inc"
+      },
+      {
+        "key": "colors",
+        "label": "Matched to your wedding colours",
+        "signature": "no",
+        "sur-mesure": "inc",
+        "prestige": "inc"
+      },
+      {
+        "key": "modules",
+        "label": "Unlimited modules",
+        "signature": "no",
+        "sur-mesure": "no",
+        "prestige": "inc"
+      },
+      {
+        "key": "support",
+        "label": "Priority support",
+        "signature": "no",
+        "sur-mesure": "no",
+        "prestige": "inc"
+      },
+      {
+        "key": "revisions",
+        "label": "Unlimited revisions",
+        "signature": "no",
+        "sur-mesure": "no",
+        "prestige": "inc"
+      },
+      {
+        "key": "domain",
+        "label": "Custom domain",
+        "signature": "no",
+        "sur-mesure": "no",
+        "prestige": "inc"
+      },
+      {
+        "key": "gallery",
+        "label": "Post-wedding photo gallery",
+        "signature": "no",
+        "sur-mesure": "no",
+        "prestige": "inc"
+      },
+      {
+        "key": "guestbook",
+        "label": "Guest book",
+        "signature": "no",
+        "sur-mesure": "no",
+        "prestige": "inc"
+      }
+    ]
   },
   "Atelier": {
     "eyebrow": "Entrust your vision to our Studio",
@@ -505,9 +606,7 @@
   "ThemeConfigSheet": {
     "ariaLabel": "Configure the {name} theme",
     "closeAriaLabel": "Close",
-    "themeAlt": "{name} theme",
     "titlePrefix": "The",
-    "themeDescription": "Immerse your guests in the enchanting atmosphere of the {name} theme. Your invitation comes to life like a letter delivered from the heart of the story — sun, sweetness, and elegance.",
     "modulesTitle": "Optional modules",
     "modules": {
       "guestbook": "Guestbook",
@@ -529,7 +628,12 @@
     "summaryOpeningStyle": "Chosen animation",
     "summaryTheme": "Theme",
     "validateButton": "Confirm my invitation",
-    "saveButton": "Save and continue later"
+    "saveButton": "Save and continue later",
+    "themeDescriptions": {
+      "ciao-amore": "Immerse your guests in the sunlit atmosphere of the Italian coast. Your invitation comes alive like a letter from Amalfi — sunshine, dolce far niente and elegance.",
+      "blanc-couture": "Give your guests a couture first impression. Your invitation unfolds like a case of white paper — clean lines, delicate texture and absolute refinement.",
+      "belle-rive": "Invite your guests to the water's edge. Your invitation opens like a sea breeze — soft greenery, gentle light and serenity."
+    }
   },
   "StudioStart": {
     "titlePrefix": "Let's create your invitation",
@@ -592,20 +696,6 @@
     "finish": "Finish",
     "stepOf": "Step {current} of {total}",
     "menuAriaLabel": "Open menu"
-  },
-  "StudioAnimation": {
-    "titlePrefix": "Opening ",
-    "titleHighlight": "animation",
-    "subtitle": "The first thing your guests will see.",
-    "viewDemo": "View demo",
-    "comingSoon": "Coming soon",
-    "categories": {
-      "envelope": "Envelope",
-      "door": "Door",
-      "curtain": "Curtain",
-      "book": "Book",
-      "floral": "Floral"
-    }
   },
   "StudioTheme": {
     "titlePrefix": "The mood of your ",
@@ -707,7 +797,6 @@
     "titleHighlight": "summary",
     "subtitle": "Check your order before paying.",
     "offer": "Plan",
-    "animation": "Animation",
     "theme": "Theme",
     "modulesLabel": "Modules",
     "languagesLabel": "Extra languages",

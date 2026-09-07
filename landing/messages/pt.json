@@ -2,8 +2,7 @@
   "Metadata": {
     "title": "Convite de casamento digital | The Studio Digital Papeterie",
     "ogTitle": "The Studio — O convite de casamento digital, reinventado",
-    "description": "Crie o seu convite de casamento digital: um convite de casamento online elegante, com RSVP integrado e todas as informações do seu casamento num só lugar. Pagamento único, sem subscrição.",
-    "keywords": "convite de casamento digital, convite de casamento online, RSVP casamento, convite de casamento personalizado, papelaria digital casamento, site de casamento"
+    "description": "Crie o seu convite de casamento digital: um convite de casamento online elegante, com RSVP integrado e todas as informações do seu casamento num só lugar. Pagamento único, sem subscrição."
   },
   "Navbar": {
     "product": "Produto",
@@ -168,7 +167,6 @@
     "prevThemesAriaLabel": "Temas anteriores",
     "nextThemesAriaLabel": "Próximos temas",
     "themeLabel": "Tema {name}",
-    "themeAlt": "Convite de casamento — tema {name}",
     "demoIframeTitle": "Demonstração do convite — tema {name}",
     "upcomingTitle": "Novas coleções",
     "upcomingSubtitle": "Em breve, mais temas"
@@ -194,11 +192,6 @@
         "description": "Programa, local, horários, dress code, alojamentos, RSVP casamento… os seus convidados encontram todas as informações úteis diretamente no telemóvel, no mesmo lugar."
       },
       {
-        "titleLine1": "Sem impressão",
-        "titleLine2": "",
-        "description": "Sem impressão, sem envelopes, sem selos e sem envio postal. Uma papelaria digital casamento pensada sem as limitações materiais do convite tradicional."
-      },
-      {
         "titleLine1": "Instantâneo",
         "titleLine2": "",
         "description": "WhatsApp, SMS ou e-mail: o seu convite de casamento online partilha-se em segundos e os seus convidados podem consultá-lo imediatamente."
@@ -206,17 +199,125 @@
     ]
   },
   "Pricing": {
-    "eyebrow": "Para 150 convidados",
-    "titleLine1": "A diferença",
-    "titleAccent": "que conta",
-    "paperLabel": "Papel tradicional",
-    "paperPrice": "645 €",
-    "paperDetails": "Impressão + selos + envelopes",
-    "studioLabel": "The Studio",
-    "studioPrice": "175 €",
-    "studioDetails": "Tudo incluído, ilimitado",
-    "features": "Envio instantâneo · Editável · RSVP integrado · Zero papel",
-    "createButton": "Criar o meu convite"
+    "eyebrow": "As nossas fórmulas",
+    "titleLine1": "Escolham a fórmula",
+    "titleAccent": "que se parece consigo",
+    "intro": "De um modelo The Studio a uma criação inteiramente personalizada, escolham o nível de personalização adequado ao seu casamento.",
+    "note": "Pagamento único. Sem subscrição.",
+    "recommendedLabel": "A mais escolhida",
+    "planLabel": "A sua fórmula",
+    "fromLabel": "desde",
+    "tablistLabel": "Escolher uma fórmula",
+    "compareLabel": "Comparar",
+    "compareTitle": "Comparar fórmulas",
+    "compareSubtitle": "Tudo o que cada fórmula inclui, num relance",
+    "compareFeatureHeader": "Prestação",
+    "compareCloseLabel": "Fechar a comparação",
+    "compareIncluded": "Incluído",
+    "compareExcluded": "Não incluído",
+    "compareChoose": "Escolher",
+    "plans": [
+      {
+        "id": "signature",
+        "name": "Signature",
+        "price": "199 €",
+        "positioning": "Para os casais que escolhem um modelo existente.",
+        "description": "Escolham uma das criações The Studio e personalizem-na com as informações, as imagens e o universo do seu casamento.",
+        "cta": "Escolher Signature"
+      },
+      {
+        "id": "sur-mesure",
+        "name": "Por medida",
+        "price": "299 €",
+        "positioning": "",
+        "description": "Um convite de casamento personalizado, imaginado em torno do seu universo, das suas cores, do seu local e da história que desejam contar.",
+        "cta": "Criar o meu convite por medida"
+      },
+      {
+        "id": "prestige",
+        "name": "Prestige",
+        "price": "499 €",
+        "positioning": "",
+        "description": "A experiência The Studio mais completa, pensada para os casais que desejam ir mais longe na personalização do seu convite.",
+        "cta": "Descobrir Prestige",
+        "features": [
+          "Animação personalizada",
+          "Identidade gráfica completa",
+          "Adaptação às cores do casamento",
+          "Módulos ilimitados",
+          "Assistência prioritária",
+          "Modificações ilimitadas",
+          "Domínio personalizado",
+          "Galeria de fotos após o casamento",
+          "Livro de honra"
+        ]
+      }
+    ],
+    "compareRows": [
+      {
+        "key": "animation",
+        "label": "Animação personalizada",
+        "signature": "no",
+        "sur-mesure": "no",
+        "prestige": "inc"
+      },
+      {
+        "key": "identity",
+        "label": "Identidade gráfica completa",
+        "signature": "no",
+        "sur-mesure": "inc",
+        "prestige": "inc"
+      },
+      {
+        "key": "colors",
+        "label": "Adaptação às cores do casamento",
+        "signature": "no",
+        "sur-mesure": "inc",
+        "prestige": "inc"
+      },
+      {
+        "key": "modules",
+        "label": "Módulos ilimitados",
+        "signature": "no",
+        "sur-mesure": "no",
+        "prestige": "inc"
+      },
+      {
+        "key": "support",
+        "label": "Assistência prioritária",
+        "signature": "no",
+        "sur-mesure": "no",
+        "prestige": "inc"
+      },
+      {
+        "key": "revisions",
+        "label": "Modificações ilimitadas",
+        "signature": "no",
+        "sur-mesure": "no",
+        "prestige": "inc"
+      },
+      {
+        "key": "domain",
+        "label": "Domínio personalizado",
+        "signature": "no",
+        "sur-mesure": "no",
+        "prestige": "inc"
+      },
+      {
+        "key": "gallery",
+        "label": "Galeria de fotos após o casamento",
+        "signature": "no",
+        "sur-mesure": "no",
+        "prestige": "inc"
+      },
+      {
+        "key": "guestbook",
+        "label": "Livro de honra",
+        "signature": "no",
+        "sur-mesure": "no",
+        "prestige": "inc"
+      }
+    ]
   },
   "Atelier": {
     "eyebrow": "Confie a sua visão ao nosso Studio",
@@ -503,9 +604,7 @@
   "ThemeConfigSheet": {
     "ariaLabel": "Configurar o tema {name}",
     "closeAriaLabel": "Fechar",
-    "themeAlt": "Tema {name}",
     "titlePrefix": "O convite",
-    "themeDescription": "Mergulhe seus convidados na atmosfera encantadora do tema {name}. Seu convite ganha vida como uma carta vinda do coração da história — sol, doçura e elegância.",
     "modulesTitle": "Módulos opcionais",
     "modules": {
       "guestbook": "Livro de visitas",
@@ -527,7 +626,12 @@
     "summaryOpeningStyle": "Animação escolhida",
     "summaryTheme": "Tema",
     "validateButton": "Confirmar meu convite",
-    "saveButton": "Salvar e continuar depois"
+    "saveButton": "Salvar e continuar depois",
+    "themeDescriptions": {
+      "ciao-amore": "Mergulhe seus convidados na atmosfera solar da costa italiana. Seu convite ganha vida como uma carta vinda de Amalfi — sol, dolce far niente e elegância.",
+      "blanc-couture": "Ofereça aos seus convidados uma abertura de alta-costura. Seu convite se revela como um estojo de papel branco — linhas puras, relevos delicados e requinte absoluto.",
+      "belle-rive": "Convide os seus para a beira da água. Seu convite se abre como uma brisa marinha — suavidade vegetal, luz suave e serenidade."
+    }
   },
   "StudioStart": {
     "titlePrefix": "Vamos criar o vosso convite",
@@ -590,20 +694,6 @@
     "finish": "Finalizar",
     "stepOf": "Passo {current} de {total}",
     "menuAriaLabel": "Abrir menu"
-  },
-  "StudioAnimation": {
-    "titlePrefix": "Animação de ",
-    "titleHighlight": "abertura",
-    "subtitle": "A primeira coisa que os seus convidados verão.",
-    "viewDemo": "Ver demo",
-    "comingSoon": "Em breve",
-    "categories": {
-      "envelope": "Envelope",
-      "door": "Porta",
-      "curtain": "Cortina",
-      "book": "Livro",
-      "floral": "Floral"
-    }
   },
   "StudioTheme": {
     "titlePrefix": "O ambiente do vosso ",
@@ -705,7 +795,6 @@
     "titleHighlight": "resumo",
     "subtitle": "Verifiquem a encomenda antes de pagar.",
     "offer": "Plano",
-    "animation": "Animação",
     "theme": "Tema",
     "modulesLabel": "Módulos",
     "languagesLabel": "Idiomas adicionais",

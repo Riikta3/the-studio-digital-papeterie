@@ -6,15 +6,22 @@ import { useTranslations } from "next-intl";
 import { APP_MODULES, getModuleDescription, getModuleName } from "@shared/data/modules";
 import { cn } from "@shared/lib/utils";
 import { StepTransition } from "@/components/studio/StepTransition";
+import {
+  EXTRA_MODULE_PRICE,
+  FREE_MODULES_LIMIT,
+  hasMeteredModules,
+} from "@/lib/pricing";
 import { useOrderStore } from "@/stores/use-order-store";
 
 export default function StudioModulesPage() {
   const t = useTranslations("StudioModules");
   const { modules, toggleModule, plan } = useOrderStore();
 
-  const isEssential = plan === "experience";
-  const extraCount = isEssential ? Math.max(0, modules.length - 4) : 0;
-  const extraCost = extraCount * 5;
+  const isEssential = hasMeteredModules(plan);
+  const extraCount = isEssential
+    ? Math.max(0, modules.length - FREE_MODULES_LIMIT)
+    : 0;
+  const extraCost = extraCount * EXTRA_MODULE_PRICE;
 
   function counterLabel() {
     if (modules.length === 0) {
@@ -63,7 +70,7 @@ export default function StudioModulesPage() {
             const isSelected = modules.includes(mod.id);
             // In the Essential plan, anything past the 4th pick costs extra.
             const isExtra =
-              isEssential && isSelected && modules.indexOf(mod.id) >= 4;
+              isEssential && isSelected && modules.indexOf(mod.id) >= FREE_MODULES_LIMIT;
             const Icon = mod.icon;
 
             return (

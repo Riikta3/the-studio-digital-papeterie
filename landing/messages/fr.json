@@ -2,8 +2,7 @@
   "Metadata": {
     "title": "Faire-part de mariage digital | The Studio Digital Papeterie",
     "ogTitle": "The Studio — Le faire-part de mariage digital, réinventé",
-    "description": "Créez votre faire-part de mariage digital : une invitation mariage digitale élégante, avec RSVP mariage intégré et toutes les informations de votre mariage au même endroit. Paiement unique, sans abonnement.",
-    "keywords": "faire-part de mariage digital, invitation mariage digitale, faire-part mariage en ligne, RSVP mariage, invitation de mariage personnalisée, papeterie digitale mariage"
+    "description": "Créez votre faire-part de mariage digital : une invitation mariage digitale élégante, avec RSVP mariage intégré et toutes les informations de votre mariage au même endroit. Paiement unique, sans abonnement."
   },
   "Navbar": {
     "product": "Produit",
@@ -317,7 +316,6 @@
     "prevThemesAriaLabel": "Thèmes précédents",
     "nextThemesAriaLabel": "Thèmes suivants",
     "themeLabel": "Thème {name}",
-    "themeAlt": "Invitation de mariage — thème {name}",
     "demoIframeTitle": "Démo invitation — thème {name}",
     "upcomingTitle": "Nouvelles collections",
     "upcomingSubtitle": "D'autres thèmes arrivent bientôt"
@@ -343,11 +341,6 @@
         "description": "Programme, lieu, horaires, dress code, hébergements, RSVP mariage… vos invités retrouvent toutes les informations utiles directement depuis leur téléphone, au même endroit."
       },
       {
-        "titleLine1": "Sans impression",
-        "titleLine2": "",
-        "description": "Pas d'impression, pas d'enveloppes, pas de timbres et pas d'acheminement postal. Une papeterie digitale mariage pensée sans les contraintes matérielles du faire-part traditionnel."
-      },
-      {
         "titleLine1": "Instantané",
         "titleLine2": "",
         "description": "WhatsApp, SMS ou e-mail : votre faire-part mariage en ligne se partage en quelques secondes et vos invités peuvent le consulter immédiatement."
@@ -355,17 +348,125 @@
     ]
   },
   "Pricing": {
-    "eyebrow": "Pour 150 invités",
-    "titleLine1": "La différence",
-    "titleAccent": "qui compte",
-    "paperLabel": "Papier traditionnel",
-    "paperPrice": "645€",
-    "paperDetails": "Impression + timbres + enveloppes",
-    "studioLabel": "The Studio",
-    "studioPrice": "175€",
-    "studioDetails": "Tout inclus, illimité",
-    "features": "Envoi instantané · Modifiable · RSVP intégré · Zéro papier",
-    "createButton": "Créer mon invitation"
+    "eyebrow": "Nos formules",
+    "titleLine1": "Choisissez la formule",
+    "titleAccent": "qui vous ressemble",
+    "intro": "Du modèle The Studio à la création entièrement personnalisée, choisissez le niveau de personnalisation adapté à votre mariage.",
+    "note": "Paiement unique. Aucun abonnement.",
+    "recommendedLabel": "Le plus choisi",
+    "planLabel": "Votre formule",
+    "fromLabel": "dès",
+    "tablistLabel": "Choisir une formule",
+    "compareLabel": "Comparer",
+    "compareTitle": "Comparer les formules",
+    "compareSubtitle": "Tout ce que chaque formule comprend, en un coup d’œil",
+    "compareFeatureHeader": "Prestation",
+    "compareCloseLabel": "Fermer le comparatif",
+    "compareIncluded": "Inclus",
+    "compareExcluded": "Non inclus",
+    "compareChoose": "Choisir",
+    "plans": [
+      {
+        "id": "signature",
+        "name": "Signature",
+        "price": "199€",
+        "positioning": "Pour les couples qui choisissent un modèle existant.",
+        "description": "Choisissez l’une des créations The Studio et personnalisez-la avec les informations, les images et l’univers de votre mariage.",
+        "cta": "Choisir Signature"
+      },
+      {
+        "id": "sur-mesure",
+        "name": "Sur-mesure",
+        "price": "299€",
+        "positioning": "",
+        "description": "Une invitation de mariage personnalisée, imaginée autour de votre univers, de vos couleurs, de votre lieu et de l’histoire que vous souhaitez raconter.",
+        "cta": "Créer mon invitation sur-mesure"
+      },
+      {
+        "id": "prestige",
+        "name": "Prestige",
+        "price": "499€",
+        "positioning": "",
+        "description": "L’expérience The Studio la plus complète, pensée pour les couples qui souhaitent aller plus loin dans la personnalisation de leur invitation.",
+        "cta": "Découvrir Prestige",
+        "features": [
+          "Animation personnalisée",
+          "Identité graphique complète",
+          "Adaptation aux couleurs du mariage",
+          "Modules illimités",
+          "Assistance prioritaire",
+          "Modifications illimitées",
+          "Domaine personnalisé",
+          "Galerie photo après mariage",
+          "Livre d’or"
+        ]
+      }
+    ],
+    "compareRows": [
+      {
+        "key": "animation",
+        "label": "Animation personnalisée",
+        "signature": "no",
+        "sur-mesure": "no",
+        "prestige": "inc"
+      },
+      {
+        "key": "identity",
+        "label": "Identité graphique complète",
+        "signature": "no",
+        "sur-mesure": "inc",
+        "prestige": "inc"
+      },
+      {
+        "key": "colors",
+        "label": "Adaptation aux couleurs du mariage",
+        "signature": "no",
+        "sur-mesure": "inc",
+        "prestige": "inc"
+      },
+      {
+        "key": "modules",
+        "label": "Modules illimités",
+        "signature": "no",
+        "sur-mesure": "no",
+        "prestige": "inc"
+      },
+      {
+        "key": "support",
+        "label": "Assistance prioritaire",
+        "signature": "no",
+        "sur-mesure": "no",
+        "prestige": "inc"
+      },
+      {
+        "key": "revisions",
+        "label": "Modifications illimitées",
+        "signature": "no",
+        "sur-mesure": "no",
+        "prestige": "inc"
+      },
+      {
+        "key": "domain",
+        "label": "Domaine personnalisé",
+        "signature": "no",
+        "sur-mesure": "no",
+        "prestige": "inc"
+      },
+      {
+        "key": "gallery",
+        "label": "Galerie photo après mariage",
+        "signature": "no",
+        "sur-mesure": "no",
+        "prestige": "inc"
+      },
+      {
+        "key": "guestbook",
+        "label": "Livre d’or",
+        "signature": "no",
+        "sur-mesure": "no",
+        "prestige": "inc"
+      }
+    ]
   },
   "Atelier": {
     "eyebrow": "Confiez votre vision à notre Studio",
@@ -459,13 +560,11 @@
   "ThemeConfigSheet": {
     "ariaLabel": "Configurer le thème {name}",
     "closeAriaLabel": "Fermer",
-    "themeAlt": "Thème {name}",
     "titlePrefix": "L'invitation",
-    "themeDescription": "Plongez vos invités dans l'atmosphère envoûtante du thème {name}. Votre faire-part s'anime comme une lettre reçue au cœur de l'histoire, soleil, dolce far niente et élégance.",
     "modulesTitle": "Modules optionnels",
     "modules": {
       "guestbook": "Livre d'or",
-      "planning": "Planning",
+      "planning": "Programme",
       "menu": "Menu",
       "rsvp": "RSVP",
       "accommodation": "Hébergements",
@@ -483,7 +582,12 @@
     "summaryOpeningStyle": "Animation choisie",
     "summaryTheme": "Thème",
     "validateButton": "Valider mon invitation",
-    "saveButton": "Sauvegarder et continuer plus tard"
+    "saveButton": "Sauvegarder et continuer plus tard",
+    "themeDescriptions": {
+      "ciao-amore": "Plongez vos invités dans l'atmosphère solaire de la côte italienne. Votre faire-part s'anime comme une lettre reçue d'Amalfi — soleil, dolce far niente et élégance.",
+      "blanc-couture": "Offrez à vos invités une entrée en matière couture. Votre faire-part se dévoile comme un écrin de papier blanc — lignes pures, reliefs délicats et raffinement absolu.",
+      "belle-rive": "Invitez vos convives au bord de l'eau. Votre faire-part s'ouvre comme une brise marine — douceur végétale, lumière tamisée et sérénité."
+    }
   },
   "StudioStart": {
     "titlePrefix": "Créons votre invitation",
@@ -546,20 +650,6 @@
     "finish": "Finaliser",
     "stepOf": "Étape {current} sur {total}",
     "menuAriaLabel": "Ouvrir le menu"
-  },
-  "StudioAnimation": {
-    "titlePrefix": "Animation d'",
-    "titleHighlight": "ouverture",
-    "subtitle": "La première chose que verront vos invités.",
-    "viewDemo": "Voir la démo",
-    "comingSoon": "Bientôt disponible",
-    "categories": {
-      "envelope": "Enveloppe",
-      "door": "Porte",
-      "curtain": "Rideau",
-      "book": "Livre",
-      "floral": "Floral"
-    }
   },
   "StudioTheme": {
     "titlePrefix": "L'ambiance de votre ",
@@ -661,7 +751,6 @@
     "titleHighlight": "récapitulatif",
     "subtitle": "Vérifiez votre commande avant le paiement.",
     "offer": "Offre",
-    "animation": "Animation",
     "theme": "Thème",
     "modulesLabel": "Modules",
     "languagesLabel": "Langues supplémentaires",

@@ -1,14 +1,27 @@
 "use client";
 
-import { ArrowRight, Check, HeadphonesIcon, ShieldCheck, Sparkles, Menu } from "lucide-react";
+import {
+  ArrowRight,
+  Check,
+  HeadphonesIcon,
+  ShieldCheck,
+  Sparkles,
+  Menu,
+} from "lucide-react";
 import { useTranslations } from "next-intl";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 
 import { Button } from "@shared/components/ui/button";
 import { cn } from "@shared/lib/utils";
-import { useOrderStore, selectTotalPrice } from "@/stores/use-order-store";
+import { PLAN_PRICES } from "@/lib/pricing";
+import {
+  useOrderStore,
+  selectTotalPrice,
+  type PlanType,
+} from "@/stores/use-order-store";
 import { useRouter } from "@/navigation";
+import { useSearchParams } from "next/navigation";
 import { MobileMenu } from "@/components/home/MobileMenu";
 
 const TODAY = new Date();
@@ -17,8 +30,17 @@ const CURRENT_MONTH = TODAY.getMonth() + 1;
 const CURRENT_DAY = TODAY.getDate();
 const DEFAULT_YEAR = CURRENT_YEAR + 1;
 
-const PREMIUM_PRICE = 575;
-const ESSENTIAL_PRICE = 175;
+// Matches HIGHLIGHTED_PLAN_ID in the homepage's Pricing section, so the same
+// offer is flagged in both places.
+const RECOMMENDED_PLAN_ID = "sur-mesure";
+
+type PricingPlan = {
+  id: PlanType & string;
+  name: string;
+  positioning?: string;
+  description?: string;
+  features?: string[];
+};
 
 function isDateInPast(day: string, monthIndex: number, year: string): boolean {
   const y = parseInt(year);
@@ -62,8 +84,10 @@ function SelectDot({ selected }: { selected: boolean }) {
 export default function StudioStartPage() {
   const t = useTranslations("StudioStart");
   const months = t.raw("months") as string[];
-  const premiumFeatures = t.raw("premiumFeatures") as string[];
-  const essentialFeatures = t.raw("essentialFeatures") as string[];
+  // The offer cards are driven by the same catalogue the homepage renders, so
+  // the two can no longer show different names, prices or a different count.
+  const plans = useTranslations("Pricing").raw("plans") as PricingPlan[];
+  const searchParams = useSearchParams();
 
   const router = useRouter();
   const {
@@ -80,12 +104,17 @@ export default function StudioStartPage() {
   const [emailChecking, setEmailChecking] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
 
-  // Premium is the recommended plan and pre-selected, matching the mockup.
-  // Wait for the persisted store to rehydrate so we don't overwrite a
-  // previously chosen plan.
+  // Preselect from `?plan=` — the pricing cards on the homepage link here with
+  // it, and it used to be ignored entirely, so clicking "Choisir Signature"
+  // landed on a page with a different offer already ticked. Falls back to the
+  // recommended plan. Waits for rehydration so a previously chosen plan is not
+  // overwritten.
   useEffect(() => {
-    if (_hasHydrated && !plan) setPlan("premium");
-  }, [_hasHydrated, plan, setPlan]);
+    if (!_hasHydrated || plan) return;
+    const requested = searchParams.get("plan");
+    const valid = plans.some((p) => p.id === requested);
+    setPlan((valid ? requested : RECOMMENDED_PLAN_ID) as PlanType);
+  }, [_hasHydrated, plan, setPlan, searchParams, plans]);
 
   async function checkEmail(email: string) {
     if (!email || !email.includes("@")) return;
@@ -117,10 +146,12 @@ export default function StudioStartPage() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [_hasHydrated]);
 
-  const premiumSelected = plan === "premium";
-  const essentialSelected = plan === "experience";
   const monthIndex = months.indexOf(weddingInfo.month) + 1;
-  const dateInPast = isDateInPast(weddingInfo.day, monthIndex, weddingInfo.year);
+  const dateInPast = isDateInPast(
+    weddingInfo.day,
+    monthIndex,
+    weddingInfo.year,
+  );
 
   const isFormValid =
     !!plan &&
@@ -166,7 +197,11 @@ export default function StudioStartPage() {
           </button>
         </nav>
 
-        <MobileMenu open={menuOpen} onClose={() => setMenuOpen(false)} hideCreateButton />
+        <MobileMenu
+          open={menuOpen}
+          onClose={() => setMenuOpen(false)}
+          hideCreateButton
+        />
 
         <div className="mt-10 space-y-3 text-center">
           <h1 className="font-heading text-h2 leading-tight text-studio-violet">
@@ -179,7 +214,7 @@ export default function StudioStartPage() {
         </div>
 
         <div className="mt-8 flex flex-col gap-8 md:grid md:grid-cols-2 md:items-start md:gap-8">
-          {/* ── OFFRES + TRUST ── */}
+          {/* ── OFFRES ── */}
           <div className="flex flex-col gap-8">
             <section className="studio-card-border studio-card-fill relative rounded-3xl p-5">
               <h2 className="mb-4 font-heading text-lg font-bold text-studio-violet">
@@ -187,88 +222,219 @@ export default function StudioStartPage() {
               </h2>
 
               <div className="flex flex-col gap-6">
-                {/* Premium — the "recommended" pill straddles the card's top edge */}
-                <button
-                  type="button"
-                  onClick={() => setPlan("premium")}
-                  className={cn(
-                    "studio-card-border relative mt-3 w-full rounded-2xl p-4 pt-6 text-left transition-colors duration-200",
-                    premiumSelected
-                      ? "bg-studio-card-selected"
-                      : "bg-white hover:bg-studio-card-selected/60",
-                  )}
-                >
-                  <span className="absolute -top-3 left-3 z-10 inline-block rounded-full bg-studio-violet-clair px-4 py-1.5 font-body text-[11px] uppercase tracking-[0.14em] text-white">
-                    {t("recommended")}
-                  </span>
-                  <div className="flex items-center justify-between gap-4">
-                    <div className="flex-1">
-                      <p className="mb-2 font-body text-base font-semibold text-studio-violet">
-                        {t("premiumTitle")}
-                      </p>
-                      <ul className="flex flex-col gap-1">
-                        {premiumFeatures.map((f) => (
-                          <li key={f} className="flex items-start gap-2">
-                            <span className="mt-0.5 flex-shrink-0 text-studio-violet/40">
-                              ·
-                            </span>
-                            <span className="font-body text-[13px] leading-snug text-studio-violet/75">
-                              {f}
-                            </span>
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
-                    <div className="flex flex-shrink-0 items-center gap-2.5">
-                      <span className="font-heading text-2xl text-studio-violet">
-                        {PREMIUM_PRICE}€
-                      </span>
-                      <SelectDot selected={premiumSelected} />
-                    </div>
-                  </div>
-                </button>
-
-                {/* Essentiel */}
-                <button
-                  type="button"
-                  onClick={() => setPlan("experience")}
-                  className={cn(
-                    "studio-card-border relative w-full rounded-2xl p-4 text-left transition-colors duration-200",
-                    essentialSelected
-                      ? "bg-studio-card-selected"
-                      : "bg-white hover:bg-studio-card-selected/60",
-                  )}
-                >
-                  <div className="flex items-center justify-between gap-4">
-                    <div className="flex-1">
-                      <p className="mb-2 font-body text-base font-semibold text-studio-violet">
-                        {t("essentialTitle")}
-                      </p>
-                      <ul className="flex flex-col gap-1">
-                        {essentialFeatures.map((f) => (
-                          <li key={f} className="flex items-start gap-2">
-                            <span className="mt-0.5 flex-shrink-0 text-studio-violet/40">
-                              ·
-                            </span>
-                            <span className="font-body text-[13px] leading-snug text-studio-violet/75">
-                              {f}
-                            </span>
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
-                    <div className="flex flex-shrink-0 items-center gap-2.5">
-                      <span className="font-heading text-2xl text-studio-violet">
-                        {ESSENTIAL_PRICE}€
-                      </span>
-                      <SelectDot selected={essentialSelected} />
-                    </div>
-                  </div>
-                </button>
+                {plans.map((offer) => {
+                  const selected = plan === offer.id;
+                  const isRecommended = offer.id === RECOMMENDED_PLAN_ID;
+                  return (
+                    <button
+                      key={offer.id}
+                      type="button"
+                      onClick={() => setPlan(offer.id)}
+                      className={cn(
+                        "studio-card-border relative w-full rounded-2xl p-4 text-left transition-colors duration-200",
+                        // The "recommended" pill straddles the card's top edge,
+                        // so that card needs room above it and inside it.
+                        isRecommended && "mt-3 pt-6",
+                        selected
+                          ? "bg-studio-card-selected"
+                          : "bg-white hover:bg-studio-card-selected/60",
+                      )}
+                    >
+                      {isRecommended && (
+                        <span className="absolute -top-3 left-3 z-10 inline-block rounded-full bg-studio-violet-clair px-4 py-1.5 font-body text-[11px] uppercase tracking-[0.14em] text-white">
+                          {t("recommended")}
+                        </span>
+                      )}
+                      <div className="flex items-center justify-between gap-4">
+                        <div className="flex-1">
+                          <p className="mb-2 font-body text-base font-semibold text-studio-violet">
+                            {offer.name}
+                          </p>
+                          {/* Features exist only on the top tier; the others
+                              carry a positioning sentence instead. Both are
+                              already translated for the homepage. */}
+                          {offer.features?.length ? (
+                            <ul className="flex flex-col gap-1">
+                              {offer.features.map((f) => (
+                                <li key={f} className="flex items-start gap-2">
+                                  <span className="mt-0.5 flex-shrink-0 text-studio-violet/40">
+                                    ·
+                                  </span>
+                                  <span className="font-body text-[13px] leading-snug text-studio-violet/75">
+                                    {f}
+                                  </span>
+                                </li>
+                              ))}
+                            </ul>
+                          ) : (
+                            <p className="font-body text-[13px] leading-snug text-studio-violet/75">
+                              {offer.positioning || offer.description}
+                            </p>
+                          )}
+                        </div>
+                        <div className="flex flex-shrink-0 items-center gap-2.5">
+                          <span className="font-heading text-2xl text-studio-violet">
+                            {PLAN_PRICES[offer.id]}€
+                          </span>
+                          <SelectDot selected={selected} />
+                        </div>
+                      </div>
+                    </button>
+                  );
+                })}
               </div>
             </section>
+          </div>
 
-            {/* Trust row */}
+          {/* ── FORMULAIRE + RÉASSURANCE ── */}
+          <div className="flex flex-col gap-8">
+            <section className="studio-card-border studio-card-fill relative flex flex-col rounded-3xl p-5">
+              <h2 className="mb-4 font-heading text-lg font-bold text-studio-violet">
+                {t("coupleLabel")}
+              </h2>
+
+              <div className="grid grid-cols-2 gap-3">
+                <div>
+                  <FieldLabel>{t("partner1Label")}</FieldLabel>
+                  <input
+                    type="text"
+                    placeholder={t("partner1Placeholder")}
+                    value={weddingInfo.partner1}
+                    onChange={(e) =>
+                      setWeddingInfo({ partner1: e.target.value })
+                    }
+                    className={FIELD_CLASS}
+                  />
+                </div>
+                <div>
+                  <FieldLabel>{t("partner2Label")}</FieldLabel>
+                  <input
+                    type="text"
+                    placeholder={t("partner2Placeholder")}
+                    value={weddingInfo.partner2}
+                    onChange={(e) =>
+                      setWeddingInfo({ partner2: e.target.value })
+                    }
+                    className={FIELD_CLASS}
+                  />
+                </div>
+              </div>
+
+              <h3 className="mb-3 mt-6 font-body text-[13px] font-bold uppercase tracking-[0.08em] text-studio-violet">
+                {t("dateLocationLabel")}
+              </h3>
+
+              <div className="grid grid-cols-[1fr_1.6fr_1fr] gap-3">
+                <div>
+                  <FieldLabel>{t("dayLabel")}</FieldLabel>
+                  <input
+                    type="number"
+                    placeholder="14"
+                    min="1"
+                    max="31"
+                    value={weddingInfo.day}
+                    onChange={(e) => handleDayChange(e.target.value)}
+                    className={FIELD_CLASS}
+                  />
+                </div>
+                <div>
+                  <FieldLabel>{t("monthLabel")}</FieldLabel>
+                  <select
+                    value={weddingInfo.month}
+                    onChange={(e) => setWeddingInfo({ month: e.target.value })}
+                    className={cn(
+                      FIELD_CLASS,
+                      // appearance-none makes some browsers fall back to a white
+                      // control background, so re-assert the field color here.
+                      "cursor-pointer appearance-none !bg-studio-card-bg bg-[url('data:image/svg+xml;utf8,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%2216%22 height=%2216%22 viewBox=%220 0 24 24%22 fill=%22none%22 stroke=%22%234B3F72%22 stroke-width=%222%22 stroke-linecap=%22round%22 stroke-linejoin=%22round%22><polyline points=%226 9 12 15 18 9%22/></svg>')] bg-[length:16px_16px] bg-[right_0.9rem_center] bg-no-repeat pr-10",
+                      !weddingInfo.month && "text-studio-violet/35",
+                    )}
+                  >
+                    <option value="">—</option>
+                    {months.map((m) => (
+                      <option key={m} value={m} className="text-studio-violet">
+                        {m}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+                <div>
+                  <FieldLabel>{t("yearLabel")}</FieldLabel>
+                  <input
+                    type="number"
+                    placeholder={String(DEFAULT_YEAR)}
+                    min={CURRENT_YEAR}
+                    value={weddingInfo.year}
+                    onChange={(e) => handleYearChange(e.target.value)}
+                    className={FIELD_CLASS}
+                  />
+                </div>
+              </div>
+
+              {dateInPast && (
+                <p className="mt-2 font-body text-[12px] text-red-500">
+                  {t("dateInPastError")}
+                </p>
+              )}
+
+              <div className="mt-4">
+                <FieldLabel>{t("venueLabel")}</FieldLabel>
+                <input
+                  type="text"
+                  placeholder={t("venuePlaceholder")}
+                  value={weddingInfo.venue}
+                  onChange={(e) => setWeddingInfo({ venue: e.target.value })}
+                  className={FIELD_CLASS}
+                />
+              </div>
+
+              <h3 className="mb-3 mt-6 font-body text-[13px] font-bold uppercase tracking-[0.08em] text-studio-violet">
+                {t("accountLabel")}
+              </h3>
+
+              <FieldLabel>{t("emailLabel")}</FieldLabel>
+              <input
+                type="email"
+                placeholder={t("emailPlaceholder")}
+                value={weddingInfo.email}
+                onChange={(e) => {
+                  setWeddingInfo({ email: e.target.value });
+                  setEmailError(null);
+                  setEmailExists(false);
+                }}
+                onBlur={(e) => checkEmail(e.target.value.trim())}
+                className={FIELD_CLASS}
+              />
+              {emailChecking && (
+                <p className="mt-1.5 font-body text-[12px] text-studio-violet/40">
+                  {t("emailChecking")}
+                </p>
+              )}
+              {emailError && (
+                <p className="mt-1.5 font-body text-[12px] text-red-500">
+                  {emailError}
+                </p>
+              )}
+
+              <p className="mt-3 font-body text-[12px] text-studio-violet/45">
+                {t("privacyHint")}
+              </p>
+
+              <Button
+                variant="studio-violet"
+                size="pill"
+                disabled={!isFormValid}
+                onClick={() => router.push("/studio/theme")}
+                className="mt-6 w-full"
+              >
+                {totalPrice}€ - {t("submitButton")}
+                <ArrowRight className="ml-2 h-4 w-4" />
+              </Button>
+            </section>
+
+            {/* Reassurance sits under the form, next to the fields it is
+                reassuring about — the account and the personal details —
+                rather than under the offer cards. */}
             <div className="grid grid-cols-3 gap-3">
               {[
                 { label: t("trustCustomize"), icon: Sparkles },
@@ -287,145 +453,6 @@ export default function StudioStartPage() {
               ))}
             </div>
           </div>
-
-          {/* ── FORMULAIRE ── */}
-          <section className="studio-card-border studio-card-fill relative flex flex-col rounded-3xl p-5">
-            <h2 className="mb-4 font-heading text-lg font-bold text-studio-violet">
-              {t("coupleLabel")}
-            </h2>
-
-            <div className="grid grid-cols-2 gap-3">
-              <div>
-                <FieldLabel>{t("partner1Label")}</FieldLabel>
-                <input
-                  type="text"
-                  placeholder={t("partner1Placeholder")}
-                  value={weddingInfo.partner1}
-                  onChange={(e) => setWeddingInfo({ partner1: e.target.value })}
-                  className={FIELD_CLASS}
-                />
-              </div>
-              <div>
-                <FieldLabel>{t("partner2Label")}</FieldLabel>
-                <input
-                  type="text"
-                  placeholder={t("partner2Placeholder")}
-                  value={weddingInfo.partner2}
-                  onChange={(e) => setWeddingInfo({ partner2: e.target.value })}
-                  className={FIELD_CLASS}
-                />
-              </div>
-            </div>
-
-            <h3 className="mb-3 mt-6 font-body text-[13px] font-bold uppercase tracking-[0.08em] text-studio-violet">
-              {t("dateLocationLabel")}
-            </h3>
-
-            <div className="grid grid-cols-[1fr_1.6fr_1fr] gap-3">
-              <div>
-                <FieldLabel>{t("dayLabel")}</FieldLabel>
-                <input
-                  type="number"
-                  placeholder="14"
-                  min="1"
-                  max="31"
-                  value={weddingInfo.day}
-                  onChange={(e) => handleDayChange(e.target.value)}
-                  className={FIELD_CLASS}
-                />
-              </div>
-              <div>
-                <FieldLabel>{t("monthLabel")}</FieldLabel>
-                <select
-                  value={weddingInfo.month}
-                  onChange={(e) => setWeddingInfo({ month: e.target.value })}
-                  className={cn(
-                    FIELD_CLASS,
-                    // appearance-none makes some browsers fall back to a white
-                    // control background, so re-assert the field color here.
-                    "cursor-pointer appearance-none !bg-studio-card-bg bg-[url('data:image/svg+xml;utf8,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%2216%22 height=%2216%22 viewBox=%220 0 24 24%22 fill=%22none%22 stroke=%22%234B3F72%22 stroke-width=%222%22 stroke-linecap=%22round%22 stroke-linejoin=%22round%22><polyline points=%226 9 12 15 18 9%22/></svg>')] bg-[length:16px_16px] bg-[right_0.9rem_center] bg-no-repeat pr-10",
-                    !weddingInfo.month && "text-studio-violet/35",
-                  )}
-                >
-                  <option value="">—</option>
-                  {months.map((m) => (
-                    <option key={m} value={m} className="text-studio-violet">
-                      {m}
-                    </option>
-                  ))}
-                </select>
-              </div>
-              <div>
-                <FieldLabel>{t("yearLabel")}</FieldLabel>
-                <input
-                  type="number"
-                  placeholder={String(DEFAULT_YEAR)}
-                  min={CURRENT_YEAR}
-                  value={weddingInfo.year}
-                  onChange={(e) => handleYearChange(e.target.value)}
-                  className={FIELD_CLASS}
-                />
-              </div>
-            </div>
-
-            {dateInPast && (
-              <p className="mt-2 font-body text-[12px] text-red-500">
-                {t("dateInPastError")}
-              </p>
-            )}
-
-            <div className="mt-4">
-              <FieldLabel>{t("venueLabel")}</FieldLabel>
-              <input
-                type="text"
-                placeholder={t("venuePlaceholder")}
-                value={weddingInfo.venue}
-                onChange={(e) => setWeddingInfo({ venue: e.target.value })}
-                className={FIELD_CLASS}
-              />
-            </div>
-
-            <h3 className="mb-3 mt-6 font-body text-[13px] font-bold uppercase tracking-[0.08em] text-studio-violet">
-              {t("accountLabel")}
-            </h3>
-
-            <FieldLabel>{t("emailLabel")}</FieldLabel>
-            <input
-              type="email"
-              placeholder={t("emailPlaceholder")}
-              value={weddingInfo.email}
-              onChange={(e) => {
-                setWeddingInfo({ email: e.target.value });
-                setEmailError(null);
-                setEmailExists(false);
-              }}
-              onBlur={(e) => checkEmail(e.target.value.trim())}
-              className={FIELD_CLASS}
-            />
-            {emailChecking && (
-              <p className="mt-1.5 font-body text-[12px] text-studio-violet/40">
-                {t("emailChecking")}
-              </p>
-            )}
-            {emailError && (
-              <p className="mt-1.5 font-body text-[12px] text-red-500">{emailError}</p>
-            )}
-
-            <p className="mt-3 font-body text-[12px] text-studio-violet/45">
-              {t("privacyHint")}
-            </p>
-
-            <Button
-              variant="studio-violet"
-              size="pill"
-              disabled={!isFormValid}
-              onClick={() => router.push("/studio/animation")}
-              className="mt-6 w-full"
-            >
-              {totalPrice}€ - {t("submitButton")}
-              <ArrowRight className="ml-2 h-4 w-4" />
-            </Button>
-          </section>
         </div>
       </div>
     </div>

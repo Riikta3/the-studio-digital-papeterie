@@ -10,14 +10,20 @@ import React, { useEffect, useState } from "react";
 import { Button } from "@shared/components/ui/button";
 import { cn } from "@shared/lib/utils";
 import { MobileMenu } from "@/components/home/MobileMenu";
+import { useHeaderReveal } from "@/lib/use-header-reveal";
 import { usePathname, useRouter } from "@/navigation";
+import { FREE_MODULES_LIMIT, hasMeteredModules } from "@/lib/pricing";
 import { selectTotalPrice, useOrderStore } from "@/stores/use-order-store";
 
 // /start lives outside this layout: it keeps its own nav and CTA.
-// The dots still count it as the first of six steps.
+// The dots still count it as the first of five steps.
+//
+// The entrance animation no longer has a step of its own: it is chosen in the
+// home page's theme dialog ("Style d'ouverture") and, failing that, defaults
+// in `create-wedding`. It is still stored on the order and shown in the
+// checkout summary.
 const STEPS = [
   "/studio/start",
-  "/studio/animation",
   "/studio/theme",
   "/studio/modules",
   "/studio/options",
@@ -36,7 +42,6 @@ function StudioStepsLayoutInner({
 
   const totalPrice = useOrderStore(selectTotalPrice);
   const plan = useOrderStore((s) => s.plan);
-  const animation = useOrderStore((s) => s.animation);
   const theme = useOrderStore((s) => s.theme);
   const modules = useOrderStore((s) => s.modules);
   const weddingInfo = useOrderStore((s) => s.weddingInfo);
@@ -44,6 +49,11 @@ function StudioStepsLayoutInner({
   const hasHydrated = useOrderStore((s) => s._hasHydrated);
 
   const [menuOpen, setMenuOpen] = useState(false);
+  // Checkout is the one long step in the funnel (summary + Stripe form), so
+  // the nav scrolls out of reach there. Reveal a floating copy of it on any
+  // upward scroll rather than pinning it permanently, which would eat vertical
+  // room on mobile right where the payment fields need it.
+  const headerRevealed = useHeaderReveal(180);
 
   const currentStepIndex = STEPS.findIndex((step) => pathname.includes(step));
   const nextStep = STEPS[currentStepIndex + 1] ?? STEPS[STEPS.length - 1];
@@ -60,15 +70,16 @@ function StudioStepsLayoutInner({
     !!(weddingInfo?.email ?? "").trim() &&
     !emailExists;
 
-  const isModulesValid = plan === "premium" || (modules ?? []).length >= 4;
+  // Only the metered plan has to reach the included allowance before moving
+  // on; the unlimited ones can continue with any selection.
+  const isModulesValid =
+    !hasMeteredModules(plan) || (modules ?? []).length >= FREE_MODULES_LIMIT;
 
-  const isStepValid = pathname.includes("/studio/animation")
-    ? !!animation
-    : pathname.includes("/studio/theme")
-      ? !!theme
-      : pathname.includes("/studio/modules")
-        ? isModulesValid
-        : true; // options + checkout are always passable
+  const isStepValid = pathname.includes("/studio/theme")
+    ? !!theme
+    : pathname.includes("/studio/modules")
+      ? isModulesValid
+      : true; // options + checkout are always passable
 
   // Guard: send the user back to the furthest valid step if they jump ahead
   // via the URL. Waits for the persisted store so we don't redirect on a
@@ -79,18 +90,15 @@ function StudioStepsLayoutInner({
 
     if (currentStepIndex >= 1 && !isStartValid) {
       router.push("/studio/start");
-    } else if (currentStepIndex >= 2 && !animation) {
-      router.push("/studio/animation");
-    } else if (currentStepIndex >= 3 && !theme) {
+    } else if (currentStepIndex >= 2 && !theme) {
       router.push("/studio/theme");
-    } else if (currentStepIndex >= 4 && !isModulesValid) {
+    } else if (currentStepIndex >= 3 && !isModulesValid) {
       router.push("/studio/modules");
     }
   }, [
     hasHydrated,
     currentStepIndex,
     isStartValid,
-    animation,
     theme,
     isModulesValid,
     router,
@@ -99,6 +107,51 @@ function StudioStepsLayoutInner({
 
   return (
     <div className="relative flex min-h-screen flex-col bg-studio-beurre">
+      {/* Floating twin of the inline nav below, hidden until the visitor
+          scrolls back up. Two separate capsules rather than the inline nav's
+          single full-width bar: overlaying content, a bar reads as a heavy
+          band across the page, while corner pills leave the middle clear. */}
+      <div
+        // `inert` while hidden: a translated-away header still holds its place
+        // in the tab order otherwise, so the first Tab lands on an invisible
+        // menu button.
+        inert={!headerRevealed ? true : undefined}
+        aria-hidden={!headerRevealed}
+        // Opacity only on the row: animating its transform moved the buttons
+        // mid-reveal, so a click during the fade missed them entirely. The
+        // pills below carry the slide instead.
+        className={cn(
+          "fixed inset-x-0 top-0 z-30 mx-auto flex w-full max-w-4xl items-center justify-between px-5 pt-4 transition-opacity duration-200 ease-out",
+          headerRevealed ? "opacity-100" : "pointer-events-none opacity-0",
+        )}
+      >
+        <div
+          className={cn(
+            "flex h-11 items-center rounded-full bg-white px-4 shadow-[0_2px_12px_rgba(75,63,114,0.12)] transition-transform duration-200 ease-out",
+            headerRevealed ? "translate-y-0" : "-translate-y-3",
+          )}
+        >
+          <Image
+            src="/logo-violet.svg"
+            alt="The Studio Digital Papeterie"
+            width={32}
+            height={34}
+            className="h-[34px] w-auto"
+          />
+        </div>
+        <button
+          type="button"
+          onClick={() => setMenuOpen(true)}
+          aria-label={t("menuAriaLabel")}
+          className={cn(
+            "flex h-11 w-11 items-center justify-center rounded-full bg-studio-jaune text-studio-violet shadow-[0_2px_12px_rgba(75,63,114,0.12)] transition-transform duration-200 ease-out hover:scale-105 active:scale-95",
+            headerRevealed ? "translate-y-0" : "-translate-y-3",
+          )}
+        >
+          <Menu className="h-5 w-5" />
+        </button>
+      </div>
+
       <div className="mx-auto w-full max-w-4xl px-5 pt-6">
         {/* Same pill nav as /studio/start */}
         <nav className="flex w-full items-center justify-between rounded-full bg-white px-5 py-3 shadow-[0_2px_12px_rgba(75,63,114,0.06)]">

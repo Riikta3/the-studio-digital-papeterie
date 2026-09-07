@@ -2,8 +2,7 @@
   "Metadata": {
     "title": "Invitación de boda digital | The Studio Digital Papeterie",
     "ogTitle": "The Studio — La invitación de boda digital, reinventada",
-    "description": "Crea tu invitación de boda digital: una invitación de boda online elegante, con RSVP integrado y toda la información de tu boda en un solo lugar. Pago único, sin suscripción.",
-    "keywords": "invitación de boda digital, invitación de boda online, RSVP boda, invitación de boda personalizada, papelería digital de boda, web de boda"
+    "description": "Crea tu invitación de boda digital: una invitación de boda online elegante, con RSVP integrado y toda la información de tu boda en un solo lugar. Pago único, sin suscripción."
   },
   "Navbar": {
     "product": "Producto",
@@ -169,7 +168,6 @@
     "prevThemesAriaLabel": "Temas anteriores",
     "nextThemesAriaLabel": "Temas siguientes",
     "themeLabel": "Tema {name}",
-    "themeAlt": "Invitación de boda — tema {name}",
     "demoIframeTitle": "Demo de invitación — tema {name}",
     "upcomingTitle": "Nuevas colecciones",
     "upcomingSubtitle": "Pronto habrá más temas"
@@ -195,11 +193,6 @@
         "description": "Programa, lugar, horarios, código de vestimenta, alojamientos, RSVP boda… tus invitados encuentran toda la información útil directamente desde su teléfono, en un mismo lugar."
       },
       {
-        "titleLine1": "Sin impresión",
-        "titleLine2": "",
-        "description": "Sin impresión, sin sobres, sin sellos y sin envío postal. Una papelería digital de boda pensada sin las limitaciones materiales de la invitación tradicional."
-      },
-      {
         "titleLine1": "Instantáneo",
         "titleLine2": "",
         "description": "WhatsApp, SMS o email: tu invitación de boda online se comparte en segundos y tus invitados pueden consultarla al instante."
@@ -207,17 +200,125 @@
     ]
   },
   "Pricing": {
-    "eyebrow": "Para 150 invitados",
-    "titleLine1": "La diferencia",
-    "titleAccent": "que importa",
-    "paperLabel": "Papel tradicional",
-    "paperPrice": "645 €",
-    "paperDetails": "Impresión + sellos + sobres",
-    "studioLabel": "The Studio",
-    "studioPrice": "175 €",
-    "studioDetails": "Todo incluido, ilimitado",
-    "features": "Envío instantáneo · Editable · RSVP integrado · Cero papel",
-    "createButton": "Crear mi invitación"
+    "eyebrow": "Nuestras fórmulas",
+    "titleLine1": "Elige la fórmula",
+    "titleAccent": "que os representa",
+    "intro": "Desde un modelo de The Studio hasta una creación totalmente personalizada, elige el nivel de personalización que se adapta a vuestra boda.",
+    "note": "Pago único. Sin suscripción.",
+    "recommendedLabel": "La más elegida",
+    "planLabel": "Vuestra fórmula",
+    "fromLabel": "desde",
+    "tablistLabel": "Elegir una fórmula",
+    "compareLabel": "Comparar",
+    "compareTitle": "Comparar fórmulas",
+    "compareSubtitle": "Todo lo que incluye cada fórmula, de un vistazo",
+    "compareFeatureHeader": "Prestación",
+    "compareCloseLabel": "Cerrar la comparación",
+    "compareIncluded": "Incluido",
+    "compareExcluded": "No incluido",
+    "compareChoose": "Elegir",
+    "plans": [
+      {
+        "id": "signature",
+        "name": "Signature",
+        "price": "199 €",
+        "positioning": "Para las parejas que eligen un modelo existente.",
+        "description": "Elige una de las creaciones de The Studio y personalízala con la información, las imágenes y el universo de vuestra boda.",
+        "cta": "Elegir Signature"
+      },
+      {
+        "id": "sur-mesure",
+        "name": "A medida",
+        "price": "299 €",
+        "positioning": "",
+        "description": "Una invitación de boda personalizada, imaginada en torno a vuestro universo, vuestros colores, vuestro lugar y la historia que queréis contar.",
+        "cta": "Crear mi invitación a medida"
+      },
+      {
+        "id": "prestige",
+        "name": "Prestige",
+        "price": "499 €",
+        "positioning": "",
+        "description": "La experiencia The Studio más completa, pensada para las parejas que desean ir más lejos en la personalización de su invitación.",
+        "cta": "Descubrir Prestige",
+        "features": [
+          "Animación personalizada",
+          "Identidad gráfica completa",
+          "Adaptación a los colores de la boda",
+          "Módulos ilimitados",
+          "Asistencia prioritaria",
+          "Modificaciones ilimitadas",
+          "Dominio personalizado",
+          "Galería de fotos después de la boda",
+          "Libro de firmas"
+        ]
+      }
+    ],
+    "compareRows": [
+      {
+        "key": "animation",
+        "label": "Animación personalizada",
+        "signature": "no",
+        "sur-mesure": "no",
+        "prestige": "inc"
+      },
+      {
+        "key": "identity",
+        "label": "Identidad gráfica completa",
+        "signature": "no",
+        "sur-mesure": "inc",
+        "prestige": "inc"
+      },
+      {
+        "key": "colors",
+        "label": "Adaptación a los colores de la boda",
+        "signature": "no",
+        "sur-mesure": "inc",
+        "prestige": "inc"
+      },
+      {
+        "key": "modules",
+        "label": "Módulos ilimitados",
+        "signature": "no",
+        "sur-mesure": "no",
+        "prestige": "inc"
+      },
+      {
+        "key": "support",
+        "label": "Asistencia prioritaria",
+        "signature": "no",
+        "sur-mesure": "no",
+        "prestige": "inc"
+      },
+      {
+        "key": "revisions",
+        "label": "Modificaciones ilimitadas",
+        "signature": "no",
+        "sur-mesure": "no",
+        "prestige": "inc"
+      },
+      {
+        "key": "domain",
+        "label": "Dominio personalizado",
+        "signature": "no",
+        "sur-mesure": "no",
+        "prestige": "inc"
+      },
+      {
+        "key": "gallery",
+        "label": "Galería de fotos después de la boda",
+        "signature": "no",
+        "sur-mesure": "no",
+        "prestige": "inc"
+      },
+      {
+        "key": "guestbook",
+        "label": "Libro de firmas",
+        "signature": "no",
+        "sur-mesure": "no",
+        "prestige": "inc"
+      }
+    ]
   },
   "Atelier": {
     "eyebrow": "Confía tu visión a nuestro Studio",
@@ -504,9 +605,7 @@
   "ThemeConfigSheet": {
     "ariaLabel": "Configurar el tema {name}",
     "closeAriaLabel": "Cerrar",
-    "themeAlt": "Tema {name}",
     "titlePrefix": "La invitación",
-    "themeDescription": "Sumerja a sus invitados en la atmósfera encantadora del tema {name}. Su invitación cobra vida como una carta llegada del corazón de la historia — sol, dulzura y elegancia.",
     "modulesTitle": "Módulos opcionales",
     "modules": {
       "guestbook": "Libro de visitas",
@@ -528,7 +627,12 @@
     "summaryOpeningStyle": "Animación elegida",
     "summaryTheme": "Tema",
     "validateButton": "Confirmar mi invitación",
-    "saveButton": "Guardar y continuar más tarde"
+    "saveButton": "Guardar y continuar más tarde",
+    "themeDescriptions": {
+      "ciao-amore": "Sumerja a sus invitados en la atmósfera soleada de la costa italiana. Su invitación cobra vida como una carta llegada de Amalfi: sol, dolce far niente y elegancia.",
+      "blanc-couture": "Ofrezca a sus invitados una presentación de alta costura. Su invitación se revela como un estuche de papel blanco: líneas puras, relieves delicados y refinamiento absoluto.",
+      "belle-rive": "Invite a sus convidados a la orilla del agua. Su invitación se abre como una brisa marina: suavidad vegetal, luz tamizada y serenidad."
+    }
   },
   "StudioStart": {
     "titlePrefix": "Creemos vuestra invitación",
@@ -591,20 +695,6 @@
     "finish": "Finalizar",
     "stepOf": "Paso {current} de {total}",
     "menuAriaLabel": "Abrir menú"
-  },
-  "StudioAnimation": {
-    "titlePrefix": "Animación de ",
-    "titleHighlight": "apertura",
-    "subtitle": "Lo primero que verán tus invitados.",
-    "viewDemo": "Ver demo",
-    "comingSoon": "Próximamente",
-    "categories": {
-      "envelope": "Sobre",
-      "door": "Puerta",
-      "curtain": "Cortina",
-      "book": "Libro",
-      "floral": "Floral"
-    }
   },
   "StudioTheme": {
     "titlePrefix": "El ambiente de vuestra ",
@@ -706,7 +796,6 @@
     "titleHighlight": "resumen",
     "subtitle": "Revisad vuestro pedido antes de pagar.",
     "offer": "Plan",
-    "animation": "Animación",
     "theme": "Tema",
     "modulesLabel": "Módulos",
     "languagesLabel": "Idiomas adicionales",

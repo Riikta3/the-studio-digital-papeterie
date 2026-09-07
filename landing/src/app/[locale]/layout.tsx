@@ -16,31 +16,32 @@ export async function generateMetadata({
   const { locale } = await params;
   const t = await getTranslations({ locale, namespace: "Metadata" });
 
-  // hreflang map: every locale points at its own prefixed route so Google
-  // serves the right language instead of picking one and ignoring the rest.
-  const languages = Object.fromEntries(
-    routing.locales.map((l) => [l, `${getSiteUrl()}/${l}`]),
-  );
-
   return {
     metadataBase: new URL(getSiteUrl()),
     title: t("title"),
     description: t("description"),
-    keywords: t("keywords").split(", "),
-    alternates: {
-      canonical: `${getSiteUrl()}/${locale}`,
-      languages: {
-        ...languages,
-        "x-default": `${getSiteUrl()}/${routing.defaultLocale}`,
-      },
-    },
+    // No `alternates` and no `openGraph.url` here, deliberately.
+    //
+    // Next merges metadata per key: a page that returns no `alternates`
+    // inherits this object verbatim, and because a canonical written as an
+    // absolute string is never re-resolved against the current pathname, every
+    // sub-page used to announce `/{locale}` — the homepage — as its canonical.
+    // That asks Google to drop the sub-page in favour of `/`.
+    //
+    // Each indexable page now declares its own via `buildAlternates`. A page
+    // that forgets emits no canonical at all, which is a missed opportunity
+    // rather than a request to be deindexed.
     openGraph: {
       type: "website",
       siteName: "The Studio Digital Papeterie",
       locale,
-      url: `${getSiteUrl()}/${locale}`,
+      // Tells Facebook and LinkedIn the other eight versions exist, so a
+      // share picks the reader's language rather than the sharer's.
+      alternateLocale: routing.locales.filter((l) => l !== locale),
       title: t("ogTitle"),
       description: t("description"),
+      // `images` is filled in by Next from the `opengraph-image.tsx` file
+      // convention in this segment — declaring it here would override it.
     },
     twitter: {
       card: "summary_large_image",
@@ -87,25 +88,11 @@ export default async function LocaleLayout({
   setRequestLocale(locale);
   const messages = await getMessages({ locale });
 
-  const dir = locale === "ar" ? "rtl" : "ltr";
-
+  // `lang`/`dir` are stamped by the root layout, which reads the locale off
+  // the `x-pathname` header the proxy forwards. They used to be patched here
+  // by a client script, which left the SSR markup — the only thing crawlers
+  // and screen readers see — claiming French on every locale.
   return (
-    <NextIntlClientProvider messages={messages}>
-      {/* `lang`/`dir` belong on <html>, owned by the root layout — which
-          cannot see this segment's params, and must not call headers() or the
-          whole app loses static rendering. Stamped from here instead, inline
-          and synchronous so it lands before first paint: RTL text laid out as
-          LTR and then reflowed is a visible jump. The SSR HTML therefore
-          carries the default locale; `generateMetadata` already emits the
-          correct hreflang/canonical for crawlers. */}
-      <script
-        dangerouslySetInnerHTML={{
-          __html:
-            `document.documentElement.lang=${JSON.stringify(locale)};` +
-            `document.documentElement.dir=${JSON.stringify(dir)}`,
-        }}
-      />
-      {children}
-    </NextIntlClientProvider>
+    <NextIntlClientProvider messages={messages}>{children}</NextIntlClientProvider>
   );
 }

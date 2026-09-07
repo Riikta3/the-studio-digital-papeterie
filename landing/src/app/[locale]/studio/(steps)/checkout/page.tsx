@@ -25,7 +25,6 @@ import { getModuleName } from "@shared/data/modules";
 import { cn } from "@shared/lib/utils";
 import { createWedding } from "@/actions/create-wedding";
 import { StepTransition } from "@/components/studio/StepTransition";
-import { ANIMATION_CATEGORIES } from "@/components/studio/animations";
 import { ALL_LANGUAGES, EXTRAS } from "@/components/studio/options";
 import { THEMES } from "@/components/studio/themes";
 import { useRouter } from "@/navigation";
@@ -43,7 +42,6 @@ const MONTHS_FR = [
   "Juillet", "Août", "Septembre", "Octobre", "Novembre", "Décembre",
 ];
 
-const ALL_VARIANTS = ANIMATION_CATEGORIES.flatMap((c) => c.variants);
 
 function labelFor(id: string, list: { id: string; name: string }[]): string {
   return list.find((x) => x.id === id)?.name ?? id;
@@ -171,6 +169,12 @@ export default function StudioCheckoutPage() {
   const t = useTranslations("StudioCheckout");
   const tLayout = useTranslations("StudioLayout");
   const tModules = useTranslations("StudioModules");
+  // The plan names shown on the homepage, so the recap calls the offer exactly
+  // what the couple clicked rather than a second hardcoded vocabulary.
+  const pricingPlans = useTranslations("Pricing").raw("plans") as {
+    id: string;
+    name: string;
+  }[];
   const locale = useLocale();
   const router = useRouter();
   const searchParams = useSearchParams();
@@ -242,7 +246,7 @@ export default function StudioCheckoutPage() {
       modules,
       extras,
       languages,
-      plan: plan ?? "experience",
+      plan: plan ?? "signature",
       adultsOnly,
       animationId: animation,
       // Opens the dashboard in the language they bought in.
@@ -440,13 +444,8 @@ export default function StudioCheckoutPage() {
       label: t("offer"),
       // Falls back to the "none" label rather than silently claiming Essentiel:
       // the guard in the steps layout sends a planless order back to /start.
-      value: plan === "premium" ? "Premium" : plan ? "Essentiel" : t("none"),
+      value: plan ? labelFor(plan, pricingPlans) : t("none"),
       href: "/studio/start",
-    },
-    {
-      label: t("animation"),
-      value: labelFor(animation, ALL_VARIANTS) || t("none"),
-      href: "/studio/animation",
     },
     {
       label: t("theme"),

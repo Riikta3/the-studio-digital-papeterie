@@ -386,7 +386,7 @@ export function Preview() {
   const [configOpen, setConfigOpen] = useState(false);
 
   return (
-    <section id="demo" className="bg-studio-creme px-6 py-20 md:px-12">
+    <section id="demo" className="relative overflow-hidden bg-studio-creme px-6 py-20 md:px-12">
       <FadeIn className="mx-auto mb-12 max-w-3xl text-center">
         <div className="flex items-center justify-center gap-3 font-body text-h5 tracking-luxe text-studio-pourpre">
           <Image
@@ -413,7 +413,11 @@ export function Preview() {
         </p>
       </FadeIn>
 
+      {/* Scroll target for the hero's "Tester le thème X" button: landing on
+          the phone itself, not the section title, so the preview is what the
+          visitor sees when the scroll settles. */}
       <FadeIn
+        id="demo-phone"
         amount={0.15}
         className="relative mx-auto w-full max-w-[340px] md:max-w-[416px]"
       >
@@ -438,7 +442,7 @@ export function Preview() {
           roughly 72px below the frame, and at mt-10 the buttons sat inside
           that grey wash. Clearing the shadow rather than shrinking it keeps
           the phone looking like it rests on the page. */}
-      <FadeIn className="mt-20 flex flex-row justify-center gap-3 sm:gap-4">
+      <FadeIn className="mt-20 flex w-full flex-col items-stretch gap-3 px-6 sm:flex-row sm:justify-center sm:gap-4">
         <Button
           variant="studio-outline"
           size="pill"
@@ -461,9 +465,8 @@ export function Preview() {
       <ThemeConfigSheet
         open={configOpen}
         onClose={() => setConfigOpen(false)}
+        themeId={THEMES[activeTheme].id}
         themeName={THEMES[activeTheme].name}
-        themeImage={THEMES[activeTheme].image}
-        onSave={(config) => console.log("Theme config saved:", config)}
       />
     </section>
   );

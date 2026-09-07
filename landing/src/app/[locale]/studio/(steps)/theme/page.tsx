@@ -37,7 +37,7 @@ export default function StudioThemePage() {
           </p>
         </div>
 
-        <div className="mx-auto grid w-full max-w-2xl grid-cols-2 gap-6">
+        <div className="mx-auto grid w-full max-w-2xl grid-cols-2 gap-6 md:grid-cols-3">
           {THEMES.map((th) => {
             const isSelected = theme === th.id;
             return (

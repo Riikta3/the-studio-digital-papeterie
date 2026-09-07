@@ -44,17 +44,20 @@ export function LanguageSwitcher({
   // segment), so it is not instant. `useTransition` gives us the pending flag
   // that turns a frozen UI into a visible "working on it".
   const [isPending, startTransition] = useTransition();
-  const [pendingLocale, setPendingLocale] = useState<string | null>(null);
+  const [requestedLocale, setRequestedLocale] = useState<string | null>(null);
   const rootRef = useRef<HTMLDivElement>(null);
   // Call sites pass inline arrows, so their identity changes on every render.
-  // Held in a ref to keep them out of the effect's dependencies.
+  // Held in a ref to keep them out of the effect's dependencies — written in
+  // an effect rather than during render, which React forbids.
   const onLocaleChangeRef = useRef(onLocaleChange);
-  onLocaleChangeRef.current = onLocaleChange;
+  useEffect(() => {
+    onLocaleChangeRef.current = onLocaleChange;
+  });
 
   const selectLocale = (nextLocale: string) => {
     setOpen(false);
     if (nextLocale === locale) return;
-    setPendingLocale(nextLocale);
+    setRequestedLocale(nextLocale);
     onSwitchStart?.();
     // Navigate inside a transition and keep this component mounted while it
     // runs, so the trigger can show the spinner. Closing the drawer here
@@ -62,19 +65,48 @@ export function LanguageSwitcher({
     // would never be painted — the drawer is closed in the effect below,
     // once the new locale has actually landed.
     startTransition(() => {
-      router.replace(pathname, { locale: nextLocale });
+      // `scroll: false` keeps the reader where they were: the locale segment
+      // changes, so React remounts the tree and Next would otherwise jump
+      // them back to the top of a page they had scrolled halfway down.
+      router.replace(pathname, { locale: nextLocale, scroll: false });
     });
   };
 
   // The transition resolves when the new locale's RSC payload has rendered,
   // which is also the moment the drawer's exit animation can play against
   // fully-translated content. Closing any earlier looks like a snap.
+  //
+  // `requestedLocale` stays set — it is read through `isPending` below, so
+  // clearing it from here would only buy a cascading render. The guard ref is
+  // what keeps this to one call: without it the callback fires again on every
+  // later render where a locale was once requested and nothing is pending.
+  const notifiedRef = useRef(false);
   useEffect(() => {
-    if (pendingLocale && !isPending) {
-      setPendingLocale(null);
+    if (isPending) {
+      notifiedRef.current = false;
+      return;
+    }
+    if (requestedLocale && !notifiedRef.current) {
+      notifiedRef.current = true;
       onLocaleChangeRef.current?.();
     }
-  }, [isPending, pendingLocale]);
+  }, [isPending, requestedLocale]);
+
+  // Shown on the trigger while the switch is in flight.
+  const pendingLocale = isPending ? requestedLocale : null;
+
+  // Warm the RSC payload for every other locale the moment the menu opens.
+  // The switch is a server round-trip, and the user staring at an open list
+  // of nine languages is dead time we can spend fetching all of them — by the
+  // time they click, the payload is usually already in the router cache and
+  // the transition resolves without a visible spinner.
+  useEffect(() => {
+    if (!open) return;
+    for (const language of LANGUAGES) {
+      if (language.value === locale) continue;
+      router.prefetch(pathname, { locale: language.value });
+    }
+  }, [open, locale, pathname, router]);
 
   // Close on outside click and on Escape, the two behaviours the primitive
   // gave us for free that actually matter here.
