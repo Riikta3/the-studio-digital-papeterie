@@ -21,9 +21,11 @@ export function FadeIn({
   className,
   style,
   delay = 0,
+  id,
 }: {
   children: React.ReactNode;
   className?: string;
+  id?: string;
   style?: React.CSSProperties;
   delay?: number;
   // Accepted for backwards compatibility with the 21 existing call sites and
@@ -68,6 +70,7 @@ export function FadeIn({
   return (
     <div
       ref={ref}
+      id={id}
       data-reveal={shown ? "in" : "out"}
       className={className}
       style={{

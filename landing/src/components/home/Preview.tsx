@@ -413,7 +413,11 @@ export function Preview() {
         </p>
       </FadeIn>
 
+      {/* Scroll target for the hero's "Tester le thème X" button: landing on
+          the phone itself, not the section title, so the preview is what the
+          visitor sees when the scroll settles. */}
       <FadeIn
+        id="demo-phone"
         amount={0.15}
         className="relative mx-auto w-full max-w-[340px] md:max-w-[416px]"
       >

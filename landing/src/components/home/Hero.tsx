@@ -195,10 +195,13 @@ export function Hero() {
             variant="studio-violet"
             size="pill"
             className="text-studio-jaune"
+            // Targets the phone mockup, not the #demo section: the visitor
+            // asked to *see* the theme, so the scroll should settle on the
+            // preview itself rather than on the section heading above it.
             onClick={() =>
               document
-                .getElementById("demo")
-                ?.scrollIntoView({ behavior: "smooth" })
+                .getElementById("demo-phone")
+                ?.scrollIntoView({ behavior: "smooth", block: "center" })
             }
           >
             {t("themeCta", { name: activeThemeName })}{" "}
