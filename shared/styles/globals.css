@@ -2,6 +2,17 @@
 @tailwind components;
 @tailwind utilities;
 
+/* `overflow-x: hidden` must sit on BOTH html and body. Set on body alone,
+   the viewport adopts the value by propagation instead of clipping, and iOS
+   Safari happily side-scrolls the whole page — which is what surfaced the
+   body background as a band down the right edge. Pinning max-width stops a
+   stray full-bleed child from widening the root box in the first place. */
+html,
+body {
+  max-width: 100%;
+  overflow-x: hidden;
+}
+
 html {
   scroll-behavior: smooth;
   scrollbar-width: thin;

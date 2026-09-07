@@ -386,7 +386,7 @@ export function Preview() {
   const [configOpen, setConfigOpen] = useState(false);
 
   return (
-    <section id="demo" className="bg-studio-creme px-6 py-20 md:px-12">
+    <section id="demo" className="relative overflow-hidden bg-studio-creme px-6 py-20 md:px-12">
       <FadeIn className="mx-auto mb-12 max-w-3xl text-center">
         <div className="flex items-center justify-center gap-3 font-body text-h5 tracking-luxe text-studio-pourpre">
           <Image
