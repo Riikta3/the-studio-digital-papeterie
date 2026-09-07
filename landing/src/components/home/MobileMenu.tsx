@@ -1,10 +1,11 @@
 "use client";
 
 import { Button } from "@shared/components/ui/button";
+import { cn } from "@shared/lib/utils";
 import { AnimatePresence, motion } from "framer-motion";
 import { ArrowRight, X } from "lucide-react";
 import { useTranslations } from "next-intl";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 import { Link } from "@/navigation";
 
@@ -39,6 +40,10 @@ export function MobileMenu({
   hideCreateButton?: boolean;
 }) {
   const t = useTranslations("MobileMenu");
+  // A locale switch is a server round-trip. The drawer stays open and dims
+  // while it runs — the switcher inside it is what shows the spinner, so
+  // closing on click would unmount the only feedback the user gets.
+  const [switchingLocale, setSwitchingLocale] = useState(false);
   const productLabels = t.raw("productLinks") as string[];
   const mariesLabels = t.raw("mariesLinks") as string[];
 
@@ -85,10 +90,16 @@ export function MobileMenu({
             role="dialog"
             aria-modal="true"
             aria-label={t("ariaLabel")}
-            className="fixed inset-y-0 right-0 z-50 flex w-[85%] max-w-sm flex-col overflow-y-auto rounded-l-3xl bg-studio-violet px-6 py-8"
+            className="fixed inset-y-0 right-0 z-50 flex w-[85%] max-w-sm flex-col rounded-l-3xl bg-studio-violet px-6 py-8"
           >
-            <div className="flex items-center justify-between">
-              <LanguageSwitcher />
+            {/* The scroll lives on the nav below, not on the drawer itself:
+                a scroll container clips on both axes, which cut off the
+                language dropdown that overlays this row. */}
+            <div className="flex shrink-0 items-center justify-between">
+              <LanguageSwitcher
+                onSwitchStart={() => setSwitchingLocale(true)}
+                onLocaleChange={onClose}
+              />
               <button
                 type="button"
                 onClick={onClose}
@@ -99,7 +110,12 @@ export function MobileMenu({
               </button>
             </div>
 
-            <nav className="mt-10">
+            <nav
+              className={cn(
+                "mt-10 min-h-0 flex-1 overflow-y-auto transition-opacity duration-200",
+                switchingLocale && "pointer-events-none opacity-40",
+              )}
+            >
               <p className="font-body text-h5 tracking-luxe text-white/50">
                 {t("colProduct")}
               </p>
@@ -140,7 +156,12 @@ export function MobileMenu({
             </nav>
 
             {!hideCreateButton && (
-              <Button variant="studio-jaune" size="pill" className="mt-8" asChild>
+              <Button
+                variant="studio-jaune"
+                size="pill"
+                className="mt-8 shrink-0"
+                asChild
+              >
                 <Link href="/studio/start" onClick={onClose}>
                   {t("createButton")} <ArrowRight className="ml-2 h-4 w-4" />
                 </Link>
