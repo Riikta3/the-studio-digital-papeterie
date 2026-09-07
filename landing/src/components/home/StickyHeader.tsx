@@ -40,22 +40,34 @@ export function StickyHeader({
       // button.
       inert={!visible ? true : undefined}
       aria-hidden={!visible}
-      // z-50, above the hero carousel's arrow buttons: those sit at the same
-      // top offset on wide screens, so at a lower z-index the arrows punched
-      // through the pills.
-      className={`fixed inset-x-0 top-0 z-50 flex items-center justify-between px-4 pt-3 transition-[transform,opacity] duration-300 ease-out md:px-6 md:pt-4 ${
-        visible
-          ? "translate-y-0 opacity-100"
-          : "pointer-events-none -translate-y-4 opacity-0"
+      // z-30 threads between two neighbours: above the hero carousel's arrow
+      // buttons (z-20), which sit at the same top offset on wide screens and
+      // otherwise punch through the pills, but BELOW MobileMenu's scrim (z-40)
+      // and panel (z-50) — at z-50 the pills floated on top of the open
+      // drawer, which read as a header stuck over the menu.
+      // The row itself never moves — only its opacity changes, and the two
+      // pills slide. Animating `transform` on this container shifted the
+      // buttons while they were fading in, so a click landing during the
+      // 200ms reveal hit whatever the pill had just moved off of and the menu
+      // silently failed to open. A stationary hit target is the whole point.
+      className={`fixed inset-x-0 top-0 z-30 flex items-center justify-between px-4 pt-3 transition-opacity duration-200 ease-out md:px-6 md:pt-4 ${
+        visible ? "opacity-100" : "pointer-events-none opacity-0"
       }`}
     >
-      <div className="flex h-12 items-center rounded-full bg-studio-violet px-4 shadow-studio-card">
+      <div
+        className={`flex h-12 items-center rounded-full bg-studio-violet px-4 shadow-studio-card transition-transform duration-200 ease-out ${
+          visible ? "translate-y-0" : "-translate-y-3"
+        }`}
+      >
         <Image
           src="/logo.svg"
           alt="The Studio Digital Papeterie"
           width={28}
           height={30}
+          // width+height are the intrinsic ratio; `h-auto` alongside `w-auto`
+          // keeps next/image from warning about a one-sided CSS override.
           className="h-[30px] w-auto"
+          style={{ height: 30, width: "auto" }}
         />
       </div>
 
@@ -63,7 +75,9 @@ export function StickyHeader({
         type="button"
         onClick={onOpenMenu}
         aria-label={menuAriaLabel}
-        className="flex h-12 w-12 items-center justify-center rounded-full bg-studio-jaune text-studio-violet shadow-studio-card transition-transform hover:scale-105 active:scale-95"
+        className={`flex h-12 w-12 items-center justify-center rounded-full bg-studio-jaune text-studio-violet shadow-studio-card transition-transform duration-200 ease-out hover:scale-105 active:scale-95 ${
+          visible ? "translate-y-0" : "-translate-y-3"
+        }`}
       >
         <Menu className="h-5 w-5" />
       </button>

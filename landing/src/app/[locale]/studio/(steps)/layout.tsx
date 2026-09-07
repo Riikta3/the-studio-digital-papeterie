@@ -117,14 +117,20 @@ function StudioStepsLayoutInner({
         // menu button.
         inert={!headerRevealed ? true : undefined}
         aria-hidden={!headerRevealed}
+        // Opacity only on the row: animating its transform moved the buttons
+        // mid-reveal, so a click during the fade missed them entirely. The
+        // pills below carry the slide instead.
         className={cn(
-          "fixed inset-x-0 top-0 z-50 mx-auto flex w-full max-w-4xl items-center justify-between px-5 pt-4 transition-[transform,opacity] duration-300 ease-out",
-          headerRevealed
-            ? "translate-y-0 opacity-100"
-            : "pointer-events-none -translate-y-4 opacity-0",
+          "fixed inset-x-0 top-0 z-30 mx-auto flex w-full max-w-4xl items-center justify-between px-5 pt-4 transition-opacity duration-200 ease-out",
+          headerRevealed ? "opacity-100" : "pointer-events-none opacity-0",
         )}
       >
-        <div className="flex h-11 items-center rounded-full bg-white px-4 shadow-[0_2px_12px_rgba(75,63,114,0.12)]">
+        <div
+          className={cn(
+            "flex h-11 items-center rounded-full bg-white px-4 shadow-[0_2px_12px_rgba(75,63,114,0.12)] transition-transform duration-200 ease-out",
+            headerRevealed ? "translate-y-0" : "-translate-y-3",
+          )}
+        >
           <Image
             src="/logo-violet.svg"
             alt="The Studio Digital Papeterie"
@@ -137,7 +143,10 @@ function StudioStepsLayoutInner({
           type="button"
           onClick={() => setMenuOpen(true)}
           aria-label={t("menuAriaLabel")}
-          className="flex h-11 w-11 items-center justify-center rounded-full bg-studio-jaune text-studio-violet shadow-[0_2px_12px_rgba(75,63,114,0.12)] transition-transform hover:scale-105 active:scale-95"
+          className={cn(
+            "flex h-11 w-11 items-center justify-center rounded-full bg-studio-jaune text-studio-violet shadow-[0_2px_12px_rgba(75,63,114,0.12)] transition-transform duration-200 ease-out hover:scale-105 active:scale-95",
+            headerRevealed ? "translate-y-0" : "-translate-y-3",
+          )}
         >
           <Menu className="h-5 w-5" />
         </button>

@@ -23,6 +23,21 @@ export function useHeaderReveal(revealAfter: number) {
 
     const onScroll = () => {
       const y = window.scrollY;
+
+      // The top zone is checked BEFORE the noise threshold, and wins outright.
+      // Two reasons it cannot live below the early return:
+      //   - Drifting into it in sub-threshold steps (a slow wheel, momentum
+      //     settling) would return early every frame, so the header stayed
+      //     revealed and overlapped the page's own inline nav.
+      //   - Bounce past the top (iOS rubber-banding) reports upward deltas
+      //     while the inline nav is fully in view, which reads as "scrolling
+      //     up" and would reveal the floating copy on top of it.
+      if (y < revealAfter) {
+        setVisible(false);
+        lastY.current = y;
+        return;
+      }
+
       const delta = y - lastY.current;
 
       // Ignore the noise, but do NOT update lastY on an ignored frame: a slow
@@ -30,11 +45,7 @@ export function useHeaderReveal(revealAfter: number) {
       // be discarded, so the direction has to accumulate.
       if (Math.abs(delta) < DIRECTION_THRESHOLD) return;
 
-      // Bounce past the top (iOS rubber-banding) reports upward deltas while
-      // the top of the page is still in view — that zone is always "hidden".
-      if (y < revealAfter) setVisible(false);
-      else setVisible(delta < 0);
-
+      setVisible(delta < 0);
       lastY.current = y;
     };
 
