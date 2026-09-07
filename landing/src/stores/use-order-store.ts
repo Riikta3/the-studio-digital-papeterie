@@ -3,7 +3,8 @@ import { persist } from "zustand/middleware";
 
 import { computeOrderTotal } from "@/lib/pricing";
 
-export type PlanType = "experience" | "premium" | null;
+/** Ids match `Pricing.plans` in the message files and `PLAN_PRICES`. */
+export type PlanType = "signature" | "sur-mesure" | "prestige" | null;
 
 export interface WeddingInfo {
   partner1: string;
@@ -55,6 +56,12 @@ export { EXTRA_PRICES, LANGUAGE_PRICE } from "@/lib/pricing";
  * imports; `studio/themes.ts` is the source of truth for the cards themselves.
  */
 const VALID_THEME_IDS = ["ciao-amore", "blanc-couture", "belle-rive"];
+
+/**
+ * Plan ids the studio can price. Mirrors `PLAN_PRICES` in `lib/pricing.ts`,
+ * kept as a literal list so the store stays free of that import cycle.
+ */
+const VALID_PLAN_IDS: string[] = ["signature", "sur-mesure", "prestige"];
 
 const DEFAULT_WEDDING_INFO: WeddingInfo = {
   partner1: "",
@@ -127,16 +134,33 @@ export const useOrderStore = create<OrderState>()(
     }),
     {
       name: "order-store-v2",
-      version: 1,
-      // v0 stores hold a theme id from the retired catalogue ("Amalfi", or a
-      // "theme-*" id). Those match nothing the theme step now renders, so the
-      // card would come back unselected while the guard still waved the user
-      // through. Clearing the value sends them to the theme step instead.
+      version: 2,
+      // Each bump clears values that name something the app no longer renders.
+      // A stale id is worse than an empty one: the card comes back unselected
+      // while the guard still waves the user through, and here the price shown
+      // would not match any offer on the page.
+      //
+      //  v1 — theme ids from the retired catalogue ("Amalfi", "theme-*").
+      //  v2 — plan ids from the two-tier pricing ("experience", "premium"),
+      //       replaced by the homepage's "signature"/"sur-mesure"/"prestige".
       migrate: (persisted, version) => {
-        const state = persisted as Partial<OrderState>;
-        if (version < 1 && state?.theme && !VALID_THEME_IDS.includes(state.theme)) {
-          return { ...state, theme: "" } as OrderState;
+        const state = { ...(persisted as Partial<OrderState>) };
+
+        if (version < 1 && state.theme && !VALID_THEME_IDS.includes(state.theme)) {
+          state.theme = "";
         }
+
+        if (
+          version < 2 &&
+          state.plan &&
+          !VALID_PLAN_IDS.includes(state.plan)
+        ) {
+          // Cleared rather than mapped: the old tiers priced differently, so
+          // guessing an equivalent would quietly change what the couple pays.
+          // An empty plan re-runs the preselect on /studio/start.
+          state.plan = null;
+        }
+
         return state as OrderState;
       },
       onRehydrateStorage: () => (state) => {

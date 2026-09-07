@@ -7,8 +7,14 @@ import { useEffect, useState } from "react";
 
 import { Button } from "@shared/components/ui/button";
 import { cn } from "@shared/lib/utils";
-import { useOrderStore, selectTotalPrice } from "@/stores/use-order-store";
+import { PLAN_PRICES } from "@/lib/pricing";
+import {
+  useOrderStore,
+  selectTotalPrice,
+  type PlanType,
+} from "@/stores/use-order-store";
 import { useRouter } from "@/navigation";
+import { useSearchParams } from "next/navigation";
 import { MobileMenu } from "@/components/home/MobileMenu";
 
 const TODAY = new Date();
@@ -17,8 +23,17 @@ const CURRENT_MONTH = TODAY.getMonth() + 1;
 const CURRENT_DAY = TODAY.getDate();
 const DEFAULT_YEAR = CURRENT_YEAR + 1;
 
-const PREMIUM_PRICE = 575;
-const ESSENTIAL_PRICE = 175;
+// Matches HIGHLIGHTED_PLAN_ID in the homepage's Pricing section, so the same
+// offer is flagged in both places.
+const RECOMMENDED_PLAN_ID = "sur-mesure";
+
+type PricingPlan = {
+  id: PlanType & string;
+  name: string;
+  positioning?: string;
+  description?: string;
+  features?: string[];
+};
 
 function isDateInPast(day: string, monthIndex: number, year: string): boolean {
   const y = parseInt(year);
@@ -62,8 +77,10 @@ function SelectDot({ selected }: { selected: boolean }) {
 export default function StudioStartPage() {
   const t = useTranslations("StudioStart");
   const months = t.raw("months") as string[];
-  const premiumFeatures = t.raw("premiumFeatures") as string[];
-  const essentialFeatures = t.raw("essentialFeatures") as string[];
+  // The offer cards are driven by the same catalogue the homepage renders, so
+  // the two can no longer show different names, prices or a different count.
+  const plans = useTranslations("Pricing").raw("plans") as PricingPlan[];
+  const searchParams = useSearchParams();
 
   const router = useRouter();
   const {
@@ -80,12 +97,17 @@ export default function StudioStartPage() {
   const [emailChecking, setEmailChecking] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
 
-  // Premium is the recommended plan and pre-selected, matching the mockup.
-  // Wait for the persisted store to rehydrate so we don't overwrite a
-  // previously chosen plan.
+  // Preselect from `?plan=` — the pricing cards on the homepage link here with
+  // it, and it used to be ignored entirely, so clicking "Choisir Signature"
+  // landed on a page with a different offer already ticked. Falls back to the
+  // recommended plan. Waits for rehydration so a previously chosen plan is not
+  // overwritten.
   useEffect(() => {
-    if (_hasHydrated && !plan) setPlan("premium");
-  }, [_hasHydrated, plan, setPlan]);
+    if (!_hasHydrated || plan) return;
+    const requested = searchParams.get("plan");
+    const valid = plans.some((p) => p.id === requested);
+    setPlan((valid ? requested : RECOMMENDED_PLAN_ID) as PlanType);
+  }, [_hasHydrated, plan, setPlan, searchParams, plans]);
 
   async function checkEmail(email: string) {
     if (!email || !email.includes("@")) return;
@@ -117,8 +139,6 @@ export default function StudioStartPage() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [_hasHydrated]);
 
-  const premiumSelected = plan === "premium";
-  const essentialSelected = plan === "experience";
   const monthIndex = months.indexOf(weddingInfo.month) + 1;
   const dateInPast = isDateInPast(weddingInfo.day, monthIndex, weddingInfo.year);
 
@@ -187,84 +207,66 @@ export default function StudioStartPage() {
               </h2>
 
               <div className="flex flex-col gap-6">
-                {/* Premium — the "recommended" pill straddles the card's top edge */}
-                <button
-                  type="button"
-                  onClick={() => setPlan("premium")}
-                  className={cn(
-                    "studio-card-border relative mt-3 w-full rounded-2xl p-4 pt-6 text-left transition-colors duration-200",
-                    premiumSelected
-                      ? "bg-studio-card-selected"
-                      : "bg-white hover:bg-studio-card-selected/60",
-                  )}
-                >
-                  <span className="absolute -top-3 left-3 z-10 inline-block rounded-full bg-studio-violet-clair px-4 py-1.5 font-body text-[11px] uppercase tracking-[0.14em] text-white">
-                    {t("recommended")}
-                  </span>
-                  <div className="flex items-center justify-between gap-4">
-                    <div className="flex-1">
-                      <p className="mb-2 font-body text-base font-semibold text-studio-violet">
-                        {t("premiumTitle")}
-                      </p>
-                      <ul className="flex flex-col gap-1">
-                        {premiumFeatures.map((f) => (
-                          <li key={f} className="flex items-start gap-2">
-                            <span className="mt-0.5 flex-shrink-0 text-studio-violet/40">
-                              ·
-                            </span>
-                            <span className="font-body text-[13px] leading-snug text-studio-violet/75">
-                              {f}
-                            </span>
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
-                    <div className="flex flex-shrink-0 items-center gap-2.5">
-                      <span className="font-heading text-2xl text-studio-violet">
-                        {PREMIUM_PRICE}€
-                      </span>
-                      <SelectDot selected={premiumSelected} />
-                    </div>
-                  </div>
-                </button>
-
-                {/* Essentiel */}
-                <button
-                  type="button"
-                  onClick={() => setPlan("experience")}
-                  className={cn(
-                    "studio-card-border relative w-full rounded-2xl p-4 text-left transition-colors duration-200",
-                    essentialSelected
-                      ? "bg-studio-card-selected"
-                      : "bg-white hover:bg-studio-card-selected/60",
-                  )}
-                >
-                  <div className="flex items-center justify-between gap-4">
-                    <div className="flex-1">
-                      <p className="mb-2 font-body text-base font-semibold text-studio-violet">
-                        {t("essentialTitle")}
-                      </p>
-                      <ul className="flex flex-col gap-1">
-                        {essentialFeatures.map((f) => (
-                          <li key={f} className="flex items-start gap-2">
-                            <span className="mt-0.5 flex-shrink-0 text-studio-violet/40">
-                              ·
-                            </span>
-                            <span className="font-body text-[13px] leading-snug text-studio-violet/75">
-                              {f}
-                            </span>
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
-                    <div className="flex flex-shrink-0 items-center gap-2.5">
-                      <span className="font-heading text-2xl text-studio-violet">
-                        {ESSENTIAL_PRICE}€
-                      </span>
-                      <SelectDot selected={essentialSelected} />
-                    </div>
-                  </div>
-                </button>
+                {plans.map((offer) => {
+                  const selected = plan === offer.id;
+                  const isRecommended = offer.id === RECOMMENDED_PLAN_ID;
+                  return (
+                    <button
+                      key={offer.id}
+                      type="button"
+                      onClick={() => setPlan(offer.id)}
+                      className={cn(
+                        "studio-card-border relative w-full rounded-2xl p-4 text-left transition-colors duration-200",
+                        // The "recommended" pill straddles the card's top edge,
+                        // so that card needs room above it and inside it.
+                        isRecommended && "mt-3 pt-6",
+                        selected
+                          ? "bg-studio-card-selected"
+                          : "bg-white hover:bg-studio-card-selected/60",
+                      )}
+                    >
+                      {isRecommended && (
+                        <span className="absolute -top-3 left-3 z-10 inline-block rounded-full bg-studio-violet-clair px-4 py-1.5 font-body text-[11px] uppercase tracking-[0.14em] text-white">
+                          {t("recommended")}
+                        </span>
+                      )}
+                      <div className="flex items-center justify-between gap-4">
+                        <div className="flex-1">
+                          <p className="mb-2 font-body text-base font-semibold text-studio-violet">
+                            {offer.name}
+                          </p>
+                          {/* Features exist only on the top tier; the others
+                              carry a positioning sentence instead. Both are
+                              already translated for the homepage. */}
+                          {offer.features?.length ? (
+                            <ul className="flex flex-col gap-1">
+                              {offer.features.map((f) => (
+                                <li key={f} className="flex items-start gap-2">
+                                  <span className="mt-0.5 flex-shrink-0 text-studio-violet/40">
+                                    ·
+                                  </span>
+                                  <span className="font-body text-[13px] leading-snug text-studio-violet/75">
+                                    {f}
+                                  </span>
+                                </li>
+                              ))}
+                            </ul>
+                          ) : (
+                            <p className="font-body text-[13px] leading-snug text-studio-violet/75">
+                              {offer.positioning || offer.description}
+                            </p>
+                          )}
+                        </div>
+                        <div className="flex flex-shrink-0 items-center gap-2.5">
+                          <span className="font-heading text-2xl text-studio-violet">
+                            {PLAN_PRICES[offer.id]}€
+                          </span>
+                          <SelectDot selected={selected} />
+                        </div>
+                      </div>
+                    </button>
+                  );
+                })}
               </div>
             </section>
 
@@ -419,7 +421,7 @@ export default function StudioStartPage() {
               variant="studio-violet"
               size="pill"
               disabled={!isFormValid}
-              onClick={() => router.push("/studio/animation")}
+              onClick={() => router.push("/studio/theme")}
               className="mt-6 w-full"
             >
               {totalPrice}€ - {t("submitButton")}

@@ -6,10 +6,31 @@
  * actually charged can never drift apart.
  */
 
+/**
+ * Plan ids match the `Pricing.plans` entries on the homepage, so the card a
+ * couple clicks there and the plan the studio charges for are the same thing.
+ * They used to be two disconnected vocabularies — "experience"/"premium" at
+ * 175/575 here against "signature"/"sur-mesure"/"prestige" at 199/299/499 in
+ * the messages — which meant the marketing price and the billed price simply
+ * disagreed.
+ */
 export const PLAN_PRICES: Record<string, number> = {
-  experience: 175,
-  premium: 575,
+  signature: 199,
+  "sur-mesure": 299,
+  prestige: 499,
 };
+
+/**
+ * Plans whose module allowance is capped; every other plan is unlimited.
+ * Signature is the entry tier and includes FREE_MODULES_LIMIT modules, then
+ * bills EXTRA_MODULE_PRICE for each additional one.
+ */
+const METERED_MODULE_PLANS = new Set(["signature"]);
+
+/** Whether this plan bills per extra module beyond the included allowance. */
+export function hasMeteredModules(plan: string | null | undefined): boolean {
+  return METERED_MODULE_PLANS.has(plan ?? "");
+}
 
 export const EXTRA_PRICES: Record<string, number> = {
   "custom-music": 10,
@@ -20,7 +41,7 @@ export const EXTRA_PRICES: Record<string, number> = {
 
 export const LANGUAGE_PRICE = 15;
 
-/** The Essential plan includes 4 modules; each extra one costs 5€. */
+/** Signature includes 4 modules; each extra one costs 5€. */
 export const FREE_MODULES_LIMIT = 4;
 export const EXTRA_MODULE_PRICE = 5;
 
@@ -37,10 +58,9 @@ export function computeOrderTotal(items: OrderItems): number | null {
   if (basePrice === undefined) return null;
 
   const modules = items.modules ?? [];
-  const moduleSurcharge =
-    items.plan === "experience"
-      ? Math.max(0, modules.length - FREE_MODULES_LIMIT) * EXTRA_MODULE_PRICE
-      : 0;
+  const moduleSurcharge = hasMeteredModules(items.plan)
+    ? Math.max(0, modules.length - FREE_MODULES_LIMIT) * EXTRA_MODULE_PRICE
+    : 0;
 
   const languagesTotal = (items.languages ?? []).length * LANGUAGE_PRICE;
 

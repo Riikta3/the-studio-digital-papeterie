@@ -11,13 +11,18 @@ import { Button } from "@shared/components/ui/button";
 import { cn } from "@shared/lib/utils";
 import { MobileMenu } from "@/components/home/MobileMenu";
 import { usePathname, useRouter } from "@/navigation";
+import { FREE_MODULES_LIMIT, hasMeteredModules } from "@/lib/pricing";
 import { selectTotalPrice, useOrderStore } from "@/stores/use-order-store";
 
 // /start lives outside this layout: it keeps its own nav and CTA.
-// The dots still count it as the first of six steps.
+// The dots still count it as the first of five steps.
+//
+// The entrance animation no longer has a step of its own: it is chosen in the
+// home page's theme dialog ("Style d'ouverture") and, failing that, defaults
+// in `create-wedding`. It is still stored on the order and shown in the
+// checkout summary.
 const STEPS = [
   "/studio/start",
-  "/studio/animation",
   "/studio/theme",
   "/studio/modules",
   "/studio/options",
@@ -36,7 +41,6 @@ function StudioStepsLayoutInner({
 
   const totalPrice = useOrderStore(selectTotalPrice);
   const plan = useOrderStore((s) => s.plan);
-  const animation = useOrderStore((s) => s.animation);
   const theme = useOrderStore((s) => s.theme);
   const modules = useOrderStore((s) => s.modules);
   const weddingInfo = useOrderStore((s) => s.weddingInfo);
@@ -60,15 +64,16 @@ function StudioStepsLayoutInner({
     !!(weddingInfo?.email ?? "").trim() &&
     !emailExists;
 
-  const isModulesValid = plan === "premium" || (modules ?? []).length >= 4;
+  // Only the metered plan has to reach the included allowance before moving
+  // on; the unlimited ones can continue with any selection.
+  const isModulesValid =
+    !hasMeteredModules(plan) || (modules ?? []).length >= FREE_MODULES_LIMIT;
 
-  const isStepValid = pathname.includes("/studio/animation")
-    ? !!animation
-    : pathname.includes("/studio/theme")
-      ? !!theme
-      : pathname.includes("/studio/modules")
-        ? isModulesValid
-        : true; // options + checkout are always passable
+  const isStepValid = pathname.includes("/studio/theme")
+    ? !!theme
+    : pathname.includes("/studio/modules")
+      ? isModulesValid
+      : true; // options + checkout are always passable
 
   // Guard: send the user back to the furthest valid step if they jump ahead
   // via the URL. Waits for the persisted store so we don't redirect on a
@@ -79,18 +84,15 @@ function StudioStepsLayoutInner({
 
     if (currentStepIndex >= 1 && !isStartValid) {
       router.push("/studio/start");
-    } else if (currentStepIndex >= 2 && !animation) {
-      router.push("/studio/animation");
-    } else if (currentStepIndex >= 3 && !theme) {
+    } else if (currentStepIndex >= 2 && !theme) {
       router.push("/studio/theme");
-    } else if (currentStepIndex >= 4 && !isModulesValid) {
+    } else if (currentStepIndex >= 3 && !isModulesValid) {
       router.push("/studio/modules");
     }
   }, [
     hasHydrated,
     currentStepIndex,
     isStartValid,
-    animation,
     theme,
     isModulesValid,
     router,
