@@ -245,11 +245,34 @@ function ShareMock({
  * its background, so the card underneath shows through).
  */
 
-const STICKY_TOP_MOBILE = 16;
-const STICKY_TOP_DESKTOP = 88;
 // Per-card-behind depth cue for cards already in the pile.
 const LIFT_STEP = 18;
 const DIM_STEP = 0.16;
+// How far the deepest card in the pile ends up above the pin line: the top
+// card sits at the line, and each card behind it is lifted one step further.
+const MAX_LIFT = LIFT_STEP * 2;
+
+// Where the pile pins.
+//
+// This is derived from the viewport rather than being a fixed offset, so the
+// pile lands centred. The pinned card sits AT this line and the buried ones
+// sit above it, so a small `top` pushes their edges off the top of the screen
+// — measured with `top: 16px` and a 36px deepest lift, the first card's edge
+// ended up at -20px, out of sight, while 167px of empty beurre sat below the
+// pile. That is the "on ne voit pas le dessus" symptom.
+//
+// So: centre the whole pile (a card plus the lift stack above it) in the
+// space left by the header, then push down by MAX_LIFT so the line refers to
+// the pinned card while the lifted edges stay on screen. `max()` keeps it
+// clear of the header on short viewports.
+//
+// BIAS lifts the pile slightly above dead centre, which leaves a little more
+// air under the bottom card than above the pile. Exact centring left the two
+// margins identical (measured 73.5px each at a 723px viewport) and the pile
+// read as sitting low, with the card's bottom edge close to the fold.
+const CENTRE_BIAS = 22;
+const stickyTop = (headerAllowance: number) =>
+  `max(${headerAllowance}px, calc((100svh - var(--stack-card-height) - ${MAX_LIFT}px) / 2 + ${MAX_LIFT}px - ${CENTRE_BIAS}px))`;
 // One height for every card, so the pile has clean edges: a card shorter than
 // the one behind it lets that card's bottom show below the stack, and a taller
 // one overhangs it. Natural heights differ by ~25px here (measured 503/528/508
@@ -262,8 +285,11 @@ const DIM_STEP = 0.16;
 // `100svh - top` cannot pin at all: it just scrolls past. `svh`, not `vh`: on
 // a phone the URL bar makes `vh` describe a taller viewport than the visible
 // one, and that difference is precisely the overhang that breaks the pin.
-const CARD_HEIGHT_MOBILE = `min(540px, calc(100svh - ${STICKY_TOP_MOBILE}px - 16px))`;
-const CARD_HEIGHT_DESKTOP = `min(500px, calc(100svh - ${STICKY_TOP_DESKTOP}px - 24px))`;
+// The cap leaves room for the lifted edges above the pinned card and a
+// margin below, since a card taller than the space around the pin line
+// cannot pin at all — it just scrolls past.
+const CARD_HEIGHT_MOBILE = `min(540px, calc(100svh - ${MAX_LIFT}px - 48px))`;
+const CARD_HEIGHT_DESKTOP = `min(500px, calc(100svh - ${MAX_LIFT}px - 140px))`;
 
 function StackCard({
   step,
@@ -357,10 +383,15 @@ export function HowItWorks() {
 
     const update = () => {
       const rect = container.getBoundingClientRect();
+      // Read the resolved `top` off a card, not the custom property off the
+      // container: `--stack-top` is a `max(calc(...))` expression, and
+      // `getPropertyValue` hands back that string unresolved, so parsing it
+      // yields NaN and the pin line silently collapses to 0.
+      const firstCard = container.firstElementChild;
       const pinLine =
-        parseFloat(
-          getComputedStyle(container).getPropertyValue("--stack-top"),
-        ) || 0;
+        firstCard instanceof HTMLElement
+          ? parseFloat(getComputedStyle(firstCard).top) || 0
+          : 0;
       const travel = rect.height - window.innerHeight;
       if (travel <= 0) {
         progress.set(0);
@@ -433,13 +464,13 @@ export function HowItWorks() {
           express) and inline styles beat utility classes. */}
       <style>{`
         [data-stack] {
-          --stack-top: ${STICKY_TOP_MOBILE}px;
           --stack-card-height: ${CARD_HEIGHT_MOBILE};
+          --stack-top: ${stickyTop(16)};
         }
         @media (min-width: 768px) {
           [data-stack] {
-            --stack-top: ${STICKY_TOP_DESKTOP}px;
             --stack-card-height: ${CARD_HEIGHT_DESKTOP};
+            --stack-top: ${stickyTop(88)};
           }
         }
       `}</style>
