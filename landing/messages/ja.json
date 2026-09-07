@@ -200,12 +200,23 @@
     ]
   },
   "Pricing": {
-    "eyebrow": "料金",
+    "eyebrow": "プランのご案内",
     "titleLine1": "おふたりらしい",
     "titleAccent": "プランを選んで",
     "intro": "The Studio のデザインから完全オーダーメイドの制作まで、おふたりの結婚式に合ったカスタマイズのレベルをお選びください。",
     "note": "一回のお支払いのみ。サブスクリプションはありません。",
-    "recommendedLabel": "おすすめ",
+    "recommendedLabel": "最も選ばれています",
+    "planLabel": "おふたりのプラン",
+    "fromLabel": "〜",
+    "tablistLabel": "プランを選ぶ",
+    "compareLabel": "比較する",
+    "compareTitle": "プランを比較する",
+    "compareSubtitle": "各プランに含まれる内容がひと目でわかります",
+    "compareFeatureHeader": "内容",
+    "compareCloseLabel": "比較を閉じる",
+    "compareIncluded": "含まれる",
+    "compareExcluded": "含まれない",
+    "compareChoose": "選ぶ",
     "plans": [
       {
         "id": "signature",
@@ -225,11 +236,11 @@
       },
       {
         "id": "prestige",
-        "name": "Prestige エディション",
+        "name": "Prestige",
         "price": "499€",
         "positioning": "",
         "description": "招待状のカスタマイズをさらに追求したいおふたりのための、The Studio でもっとも充実したご提案です。",
-        "cta": "Prestige エディションを見る",
+        "cta": "Prestige を見る",
         "features": [
           "オリジナルアニメーション",
           "グラフィックアイデンティティ一式",
@@ -241,6 +252,71 @@
           "挙式後のフォトギャラリー",
           "ゲストブック"
         ]
+      }
+    ],
+    "compareRows": [
+      {
+        "key": "animation",
+        "label": "オリジナルアニメーション",
+        "signature": "no",
+        "sur-mesure": "no",
+        "prestige": "inc"
+      },
+      {
+        "key": "identity",
+        "label": "グラフィックアイデンティティ一式",
+        "signature": "no",
+        "sur-mesure": "inc",
+        "prestige": "inc"
+      },
+      {
+        "key": "colors",
+        "label": "結婚式のカラーに合わせた調整",
+        "signature": "no",
+        "sur-mesure": "inc",
+        "prestige": "inc"
+      },
+      {
+        "key": "modules",
+        "label": "モジュール数無制限",
+        "signature": "no",
+        "sur-mesure": "no",
+        "prestige": "inc"
+      },
+      {
+        "key": "support",
+        "label": "優先サポート",
+        "signature": "no",
+        "sur-mesure": "no",
+        "prestige": "inc"
+      },
+      {
+        "key": "revisions",
+        "label": "修正回数無制限",
+        "signature": "no",
+        "sur-mesure": "no",
+        "prestige": "inc"
+      },
+      {
+        "key": "domain",
+        "label": "独自ドメイン",
+        "signature": "no",
+        "sur-mesure": "no",
+        "prestige": "inc"
+      },
+      {
+        "key": "gallery",
+        "label": "挙式後のフォトギャラリー",
+        "signature": "no",
+        "sur-mesure": "no",
+        "prestige": "inc"
+      },
+      {
+        "key": "guestbook",
+        "label": "ゲストブック",
+        "signature": "no",
+        "sur-mesure": "no",
+        "prestige": "inc"
       }
     ]
   },

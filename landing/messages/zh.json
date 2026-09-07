@@ -200,12 +200,23 @@
     ]
   },
   "Pricing": {
-    "eyebrow": "价格",
+    "eyebrow": "我们的方案",
     "titleLine1": "选择属于你们的",
     "titleAccent": "那一款",
     "intro": "从 The Studio 的现有设计到完全定制的创作，选择适合你们婚礼的个性化程度。",
     "note": "一次性付款，无需订阅。",
-    "recommendedLabel": "推荐",
+    "recommendedLabel": "最多人选择",
+    "planLabel": "你们的方案",
+    "fromLabel": "起",
+    "tablistLabel": "选择方案",
+    "compareLabel": "对比",
+    "compareTitle": "对比各方案",
+    "compareSubtitle": "一目了然地查看每个方案包含的内容",
+    "compareFeatureHeader": "项目",
+    "compareCloseLabel": "关闭对比",
+    "compareIncluded": "包含",
+    "compareExcluded": "不包含",
+    "compareChoose": "选择",
     "plans": [
       {
         "id": "signature",
@@ -225,11 +236,11 @@
       },
       {
         "id": "prestige",
-        "name": "Prestige 尊享版",
+        "name": "Prestige",
         "price": "499€",
         "positioning": "",
         "description": "The Studio 最完整的体验，为希望在请柬个性化上走得更远的新人而设。",
-        "cta": "了解 Prestige 尊享版",
+        "cta": "了解 Prestige",
         "features": [
           "定制动画",
           "完整视觉识别设计",
@@ -241,6 +252,71 @@
           "婚礼后照片库",
           "留言簿"
         ]
+      }
+    ],
+    "compareRows": [
+      {
+        "key": "animation",
+        "label": "定制动画",
+        "signature": "no",
+        "sur-mesure": "no",
+        "prestige": "inc"
+      },
+      {
+        "key": "identity",
+        "label": "完整视觉识别设计",
+        "signature": "no",
+        "sur-mesure": "inc",
+        "prestige": "inc"
+      },
+      {
+        "key": "colors",
+        "label": "配合婚礼主色调",
+        "signature": "no",
+        "sur-mesure": "inc",
+        "prestige": "inc"
+      },
+      {
+        "key": "modules",
+        "label": "无限模块",
+        "signature": "no",
+        "sur-mesure": "no",
+        "prestige": "inc"
+      },
+      {
+        "key": "support",
+        "label": "优先支持",
+        "signature": "no",
+        "sur-mesure": "no",
+        "prestige": "inc"
+      },
+      {
+        "key": "revisions",
+        "label": "无限次修改",
+        "signature": "no",
+        "sur-mesure": "no",
+        "prestige": "inc"
+      },
+      {
+        "key": "domain",
+        "label": "专属域名",
+        "signature": "no",
+        "sur-mesure": "no",
+        "prestige": "inc"
+      },
+      {
+        "key": "gallery",
+        "label": "婚礼后照片库",
+        "signature": "no",
+        "sur-mesure": "no",
+        "prestige": "inc"
+      },
+      {
+        "key": "guestbook",
+        "label": "留言簿",
+        "signature": "no",
+        "sur-mesure": "no",
+        "prestige": "inc"
       }
     ]
   },

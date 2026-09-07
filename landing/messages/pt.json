@@ -200,12 +200,23 @@
     ]
   },
   "Pricing": {
-    "eyebrow": "Preços",
+    "eyebrow": "As nossas fórmulas",
     "titleLine1": "Escolham a fórmula",
     "titleAccent": "que se parece consigo",
     "intro": "De um modelo The Studio a uma criação inteiramente personalizada, escolham o nível de personalização adequado ao seu casamento.",
     "note": "Pagamento único. Sem subscrição.",
-    "recommendedLabel": "Recomendado",
+    "recommendedLabel": "A mais escolhida",
+    "planLabel": "A sua fórmula",
+    "fromLabel": "desde",
+    "tablistLabel": "Escolher uma fórmula",
+    "compareLabel": "Comparar",
+    "compareTitle": "Comparar fórmulas",
+    "compareSubtitle": "Tudo o que cada fórmula inclui, num relance",
+    "compareFeatureHeader": "Prestação",
+    "compareCloseLabel": "Fechar a comparação",
+    "compareIncluded": "Incluído",
+    "compareExcluded": "Não incluído",
+    "compareChoose": "Escolher",
     "plans": [
       {
         "id": "signature",
@@ -225,11 +236,11 @@
       },
       {
         "id": "prestige",
-        "name": "Edição Prestige",
+        "name": "Prestige",
         "price": "499 €",
         "positioning": "",
         "description": "A experiência The Studio mais completa, pensada para os casais que desejam ir mais longe na personalização do seu convite.",
-        "cta": "Descobrir a Edição Prestige",
+        "cta": "Descobrir Prestige",
         "features": [
           "Animação personalizada",
           "Identidade gráfica completa",
@@ -241,6 +252,71 @@
           "Galeria de fotos após o casamento",
           "Livro de honra"
         ]
+      }
+    ],
+    "compareRows": [
+      {
+        "key": "animation",
+        "label": "Animação personalizada",
+        "signature": "no",
+        "sur-mesure": "no",
+        "prestige": "inc"
+      },
+      {
+        "key": "identity",
+        "label": "Identidade gráfica completa",
+        "signature": "no",
+        "sur-mesure": "inc",
+        "prestige": "inc"
+      },
+      {
+        "key": "colors",
+        "label": "Adaptação às cores do casamento",
+        "signature": "no",
+        "sur-mesure": "inc",
+        "prestige": "inc"
+      },
+      {
+        "key": "modules",
+        "label": "Módulos ilimitados",
+        "signature": "no",
+        "sur-mesure": "no",
+        "prestige": "inc"
+      },
+      {
+        "key": "support",
+        "label": "Assistência prioritária",
+        "signature": "no",
+        "sur-mesure": "no",
+        "prestige": "inc"
+      },
+      {
+        "key": "revisions",
+        "label": "Modificações ilimitadas",
+        "signature": "no",
+        "sur-mesure": "no",
+        "prestige": "inc"
+      },
+      {
+        "key": "domain",
+        "label": "Domínio personalizado",
+        "signature": "no",
+        "sur-mesure": "no",
+        "prestige": "inc"
+      },
+      {
+        "key": "gallery",
+        "label": "Galeria de fotos após o casamento",
+        "signature": "no",
+        "sur-mesure": "no",
+        "prestige": "inc"
+      },
+      {
+        "key": "guestbook",
+        "label": "Livro de honra",
+        "signature": "no",
+        "sur-mesure": "no",
+        "prestige": "inc"
       }
     ]
   },

@@ -200,12 +200,23 @@
     ]
   },
   "Pricing": {
-    "eyebrow": "Tariffe",
+    "eyebrow": "Le nostre formule",
     "titleLine1": "Scegliete la formula",
     "titleAccent": "che vi somiglia",
     "intro": "Da un modello The Studio a una creazione interamente personalizzata, scegliete il livello di personalizzazione adatto al vostro matrimonio.",
     "note": "Pagamento unico. Nessun abbonamento.",
-    "recommendedLabel": "Consigliato",
+    "recommendedLabel": "La più scelta",
+    "planLabel": "La vostra formula",
+    "fromLabel": "da",
+    "tablistLabel": "Scegliere una formula",
+    "compareLabel": "Confronta",
+    "compareTitle": "Confronta le formule",
+    "compareSubtitle": "Tutto ciò che ogni formula comprende, in un colpo d’occhio",
+    "compareFeatureHeader": "Prestazione",
+    "compareCloseLabel": "Chiudere il confronto",
+    "compareIncluded": "Incluso",
+    "compareExcluded": "Non incluso",
+    "compareChoose": "Scegliere",
     "plans": [
       {
         "id": "signature",
@@ -225,11 +236,11 @@
       },
       {
         "id": "prestige",
-        "name": "Edizione Prestige",
+        "name": "Prestige",
         "price": "499 €",
         "positioning": "",
         "description": "L’esperienza The Studio più completa, pensata per le coppie che desiderano andare oltre nella personalizzazione del loro invito.",
-        "cta": "Scoprire l’Edizione Prestige",
+        "cta": "Scoprire Prestige",
         "features": [
           "Animazione personalizzata",
           "Identità grafica completa",
@@ -241,6 +252,71 @@
           "Galleria fotografica dopo il matrimonio",
           "Libro degli ospiti"
         ]
+      }
+    ],
+    "compareRows": [
+      {
+        "key": "animation",
+        "label": "Animazione personalizzata",
+        "signature": "no",
+        "sur-mesure": "no",
+        "prestige": "inc"
+      },
+      {
+        "key": "identity",
+        "label": "Identità grafica completa",
+        "signature": "no",
+        "sur-mesure": "inc",
+        "prestige": "inc"
+      },
+      {
+        "key": "colors",
+        "label": "Adattamento ai colori del matrimonio",
+        "signature": "no",
+        "sur-mesure": "inc",
+        "prestige": "inc"
+      },
+      {
+        "key": "modules",
+        "label": "Moduli illimitati",
+        "signature": "no",
+        "sur-mesure": "no",
+        "prestige": "inc"
+      },
+      {
+        "key": "support",
+        "label": "Assistenza prioritaria",
+        "signature": "no",
+        "sur-mesure": "no",
+        "prestige": "inc"
+      },
+      {
+        "key": "revisions",
+        "label": "Modifiche illimitate",
+        "signature": "no",
+        "sur-mesure": "no",
+        "prestige": "inc"
+      },
+      {
+        "key": "domain",
+        "label": "Dominio personalizzato",
+        "signature": "no",
+        "sur-mesure": "no",
+        "prestige": "inc"
+      },
+      {
+        "key": "gallery",
+        "label": "Galleria fotografica dopo il matrimonio",
+        "signature": "no",
+        "sur-mesure": "no",
+        "prestige": "inc"
+      },
+      {
+        "key": "guestbook",
+        "label": "Libro degli ospiti",
+        "signature": "no",
+        "sur-mesure": "no",
+        "prestige": "inc"
       }
     ]
   },

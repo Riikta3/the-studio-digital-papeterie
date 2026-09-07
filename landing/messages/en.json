@@ -202,12 +202,23 @@
     ]
   },
   "Pricing": {
-    "eyebrow": "Pricing",
+    "eyebrow": "Our packages",
     "titleLine1": "Choose the package",
     "titleAccent": "that feels like you",
     "intro": "From a The Studio design to an entirely bespoke creation, choose the level of personalisation that suits your wedding.",
     "note": "One-time payment. No subscription.",
-    "recommendedLabel": "Recommended",
+    "recommendedLabel": "Most chosen",
+    "planLabel": "Your plan",
+    "fromLabel": "from",
+    "tablistLabel": "Choose a package",
+    "compareLabel": "Compare",
+    "compareTitle": "Compare packages",
+    "compareSubtitle": "Everything each package includes, at a glance",
+    "compareFeatureHeader": "Feature",
+    "compareCloseLabel": "Close the comparison",
+    "compareIncluded": "Included",
+    "compareExcluded": "Not included",
+    "compareChoose": "Choose",
     "plans": [
       {
         "id": "signature",
@@ -227,11 +238,11 @@
       },
       {
         "id": "prestige",
-        "name": "Prestige Edition",
+        "name": "Prestige",
         "price": "€499",
         "positioning": "",
         "description": "The most complete The Studio experience, designed for couples who want to go further in personalising their invitation.",
-        "cta": "Discover the Prestige Edition",
+        "cta": "Discover Prestige",
         "features": [
           "Custom animation",
           "Complete visual identity",
@@ -243,6 +254,71 @@
           "Post-wedding photo gallery",
           "Guest book"
         ]
+      }
+    ],
+    "compareRows": [
+      {
+        "key": "animation",
+        "label": "Custom animation",
+        "signature": "no",
+        "sur-mesure": "no",
+        "prestige": "inc"
+      },
+      {
+        "key": "identity",
+        "label": "Complete visual identity",
+        "signature": "no",
+        "sur-mesure": "inc",
+        "prestige": "inc"
+      },
+      {
+        "key": "colors",
+        "label": "Matched to your wedding colours",
+        "signature": "no",
+        "sur-mesure": "inc",
+        "prestige": "inc"
+      },
+      {
+        "key": "modules",
+        "label": "Unlimited modules",
+        "signature": "no",
+        "sur-mesure": "no",
+        "prestige": "inc"
+      },
+      {
+        "key": "support",
+        "label": "Priority support",
+        "signature": "no",
+        "sur-mesure": "no",
+        "prestige": "inc"
+      },
+      {
+        "key": "revisions",
+        "label": "Unlimited revisions",
+        "signature": "no",
+        "sur-mesure": "no",
+        "prestige": "inc"
+      },
+      {
+        "key": "domain",
+        "label": "Custom domain",
+        "signature": "no",
+        "sur-mesure": "no",
+        "prestige": "inc"
+      },
+      {
+        "key": "gallery",
+        "label": "Post-wedding photo gallery",
+        "signature": "no",
+        "sur-mesure": "no",
+        "prestige": "inc"
+      },
+      {
+        "key": "guestbook",
+        "label": "Guest book",
+        "signature": "no",
+        "sur-mesure": "no",
+        "prestige": "inc"
       }
     ]
   },

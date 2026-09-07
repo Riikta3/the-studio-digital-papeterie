@@ -201,12 +201,23 @@
     ]
   },
   "Pricing": {
-    "eyebrow": "Preise",
+    "eyebrow": "Unsere Pakete",
     "titleLine1": "Wählen Sie das Paket,",
     "titleAccent": "das zu Ihnen passt",
     "intro": "Von einer The-Studio-Vorlage bis zur vollständig individuellen Gestaltung: Wählen Sie den Grad der Personalisierung, der zu Ihrer Hochzeit passt.",
     "note": "Einmalige Zahlung. Kein Abonnement.",
-    "recommendedLabel": "Empfohlen",
+    "recommendedLabel": "Am häufigsten gewählt",
+    "planLabel": "Ihr Paket",
+    "fromLabel": "ab",
+    "tablistLabel": "Paket wählen",
+    "compareLabel": "Vergleichen",
+    "compareTitle": "Pakete vergleichen",
+    "compareSubtitle": "Alle Leistungen der Pakete auf einen Blick",
+    "compareFeatureHeader": "Leistung",
+    "compareCloseLabel": "Vergleich schließen",
+    "compareIncluded": "Enthalten",
+    "compareExcluded": "Nicht enthalten",
+    "compareChoose": "Wählen",
     "plans": [
       {
         "id": "signature",
@@ -218,7 +229,7 @@
       },
       {
         "id": "sur-mesure",
-        "name": "Maßgeschneidert",
+        "name": "Individuell",
         "price": "299 €",
         "positioning": "",
         "description": "Eine personalisierte Hochzeitseinladung, gestaltet rund um Ihre Welt, Ihre Farben, Ihren Ort und die Geschichte, die Sie erzählen möchten.",
@@ -226,11 +237,11 @@
       },
       {
         "id": "prestige",
-        "name": "Prestige Edition",
+        "name": "Prestige",
         "price": "499 €",
         "positioning": "",
         "description": "Das umfassendste The-Studio-Erlebnis, für Paare, die bei der Personalisierung ihrer Einladung noch weiter gehen möchten.",
-        "cta": "Prestige Edition entdecken",
+        "cta": "Prestige entdecken",
         "features": [
           "Individuelle Animation",
           "Vollständige grafische Identität",
@@ -242,6 +253,71 @@
           "Fotogalerie nach der Hochzeit",
           "Gästebuch"
         ]
+      }
+    ],
+    "compareRows": [
+      {
+        "key": "animation",
+        "label": "Individuelle Animation",
+        "signature": "no",
+        "sur-mesure": "no",
+        "prestige": "inc"
+      },
+      {
+        "key": "identity",
+        "label": "Vollständige grafische Identität",
+        "signature": "no",
+        "sur-mesure": "inc",
+        "prestige": "inc"
+      },
+      {
+        "key": "colors",
+        "label": "Anpassung an die Hochzeitsfarben",
+        "signature": "no",
+        "sur-mesure": "inc",
+        "prestige": "inc"
+      },
+      {
+        "key": "modules",
+        "label": "Unbegrenzte Module",
+        "signature": "no",
+        "sur-mesure": "no",
+        "prestige": "inc"
+      },
+      {
+        "key": "support",
+        "label": "Prioritäts-Support",
+        "signature": "no",
+        "sur-mesure": "no",
+        "prestige": "inc"
+      },
+      {
+        "key": "revisions",
+        "label": "Unbegrenzte Änderungen",
+        "signature": "no",
+        "sur-mesure": "no",
+        "prestige": "inc"
+      },
+      {
+        "key": "domain",
+        "label": "Eigene Domain",
+        "signature": "no",
+        "sur-mesure": "no",
+        "prestige": "inc"
+      },
+      {
+        "key": "gallery",
+        "label": "Fotogalerie nach der Hochzeit",
+        "signature": "no",
+        "sur-mesure": "no",
+        "prestige": "inc"
+      },
+      {
+        "key": "guestbook",
+        "label": "Gästebuch",
+        "signature": "no",
+        "sur-mesure": "no",
+        "prestige": "inc"
       }
     ]
   },
