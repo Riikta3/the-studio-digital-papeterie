@@ -30,6 +30,16 @@
 - React sérialise hreflang en **hrefLang** dans le HTML : un grep 'hreflang' ne trouve rien, c'est normal et valide
 - Satori (next/og) ne sait pas façonner l'arabe : lookupType 5 / substFormat 3 non supporté, même avec Noto Sans Arabic → fallback wordmark latin
 - Satori a besoin d'une police par écriture (défaut = latin only ; CJK → Noto Sans SC/JP)
-- npm run lint est cassé (next lint supprimé en Next 16, pas d'eslint.config.js) → utiliser tsc + build
+- npm run lint fonctionne à nouveau (eslint.config.mjs à plat), mais sort en code 1 sur 7 erreurs pré-existantes (Stripe/i18n/tailwind.config.js) → juger sur les fichiers touchés, pas sur l'exit code
 
 Voir [[SEO Landing]].
+
+## Responsive mobile
+- `size="pill"` fait h-14 px-8 → un CTA mesure ~230px : **deux ne tiennent jamais côte à côte** sur un viewport de 360-390px (mesuré : 388px requis pour 312px utiles)
+- Toute rangée de deux CTA s'empile donc en mobile : `flex w-full flex-col items-stretch gap-3 sm:flex-row sm:justify-center` (Hero.tsx, Preview.tsx). Ne pas rétrécir le pill — il est partagé avec le dashboard
+- Les libellés longs ("Découvrir les invitations", et leurs traductions de/es) rendent l'empilement plus robuste que le wrap
+- `next dev` laisse un `.next/dev/lock` orphelin si le process meurt mal → `rm -rf .next/dev/lock` avant de relancer
+
+## Sections landing
+- `WhyUs.reasons` est un tableau dans les 9 messages/{locale}.json, aligné par index sur `REASON_ICONS` dans WhyUs.tsx — retirer une carte = retirer l'entrée dans les 9 locales **et** l'icône correspondante, sinon décalage silencieux des icônes
+- La carte "Sans impression" a été retirée (2026-09-07) : 4 cartes, grille 2×2 paire, le fallback `isLastOdd` ne s'active plus

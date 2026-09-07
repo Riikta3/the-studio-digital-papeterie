@@ -156,7 +156,7 @@ export function Hero() {
             animate={false}
           />
 
-          <div className="mt-8 flex flex-row gap-3 sm:gap-4">
+          <div className="mt-8 flex w-full flex-col items-stretch gap-3 sm:w-auto sm:flex-row sm:justify-center sm:gap-4">
             <Button
               variant="studio-outline"
               size="pill"

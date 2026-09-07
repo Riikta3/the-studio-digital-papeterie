@@ -1,16 +1,14 @@
 "use client";
 
 import { cn } from "@shared/lib/utils";
-import { Palette, Printer, Send, Smartphone, Zap } from "lucide-react";
+import { Palette, Send, Smartphone, Zap } from "lucide-react";
 import { useTranslations } from "next-intl";
 import Image from "next/image";
 
 import { FadeIn } from "./FadeIn";
 
-// Order matches WhyUs.reasons in the message files. The fourth card is
-// "Sans impression" — a Printer, not the old Leaf: a leaf reads as the
-// environmental claim the copy deliberately dropped.
-const REASON_ICONS = [Palette, Send, Smartphone, Printer, Zap];
+// Order matches WhyUs.reasons in the message files.
+const REASON_ICONS = [Palette, Send, Smartphone, Zap];
 
 type Reason = {
   titleLine1: string;

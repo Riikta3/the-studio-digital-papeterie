@@ -438,7 +438,7 @@ export function Preview() {
           roughly 72px below the frame, and at mt-10 the buttons sat inside
           that grey wash. Clearing the shadow rather than shrinking it keeps
           the phone looking like it rests on the page. */}
-      <FadeIn className="mt-20 flex flex-row justify-center gap-3 sm:gap-4">
+      <FadeIn className="mt-20 flex w-full flex-col items-stretch gap-3 px-6 sm:flex-row sm:justify-center sm:gap-4">
         <Button
           variant="studio-outline"
           size="pill"
