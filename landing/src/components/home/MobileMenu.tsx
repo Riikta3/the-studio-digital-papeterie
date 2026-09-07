@@ -7,7 +7,8 @@ import { ArrowRight, X } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { useEffect, useState } from "react";
 
-import { Link } from "@/navigation";
+import { scrollToSection } from "@/lib/scroll-to-section";
+import { Link, usePathname, useRouter } from "@/navigation";
 
 import { LanguageSwitcher } from "./LanguageSwitcher";
 
@@ -47,9 +48,17 @@ export function MobileMenu({
   const productLabels = t.raw("productLinks") as string[];
   const mariesLabels = t.raw("mariesLinks") as string[];
 
+  const pathname = usePathname();
+  const router = useRouter();
+  // `usePathname` from `@/navigation` is already locale-stripped, so the
+  // homepage is exactly "/" in every language.
+  const isHome = pathname === "/";
+
   const scrollToAnchor = (anchor: string) => {
     onClose();
-    document.getElementById(anchor)?.scrollIntoView({ behavior: "smooth" });
+    // Off the homepage these sections do not exist, so scrolling in place did
+    // nothing at all — every product link in the studio funnel was dead.
+    scrollToSection(anchor, { isHome, navigate: (href) => router.push(href) });
   };
 
   // Lock body scroll while the sidebar is open. Compensate for the
