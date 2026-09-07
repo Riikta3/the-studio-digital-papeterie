@@ -224,44 +224,52 @@ function ShareMock({
 }
 
 /**
- * Stacking cards.
+ * Stacking cards, pinned together with their title as one block.
  *
- * The mechanism, after several rewrites that failed by adding rules instead
- * of removing them:
+ * The whole section — heading and all three cards — is a SINGLE sticky block.
+ * The title therefore cannot drift relative to the pile: they pin together,
+ * hold while the cards stack, and are released together, so the finished pile
+ * scrolls away with its heading still attached.
  *
- *  1. The cards are `sticky` siblings in ONE container. Sharing the container
- *     is what lets them accumulate: a sticky element is confined to its
- *     containing block, so per-card wrappers release each card the instant
- *     its own wrapper scrolls past — the bug that made this section play as
- *     three cards filing past one another.
+ * Two earlier architectures failed, and this one is shaped around both
+ * failures:
  *
- *     The section title scrolls away normally rather than pinning above the
- *     pile. Pinning it was tried and abandoned: it forced the cards into
- *     whatever height was left under the band, and on a screen too short for
- *     both, every fallback looked worse than the plain version — a static
- *     title painted under the `z-10` cards is visibly sliced in half as a
- *     card passes it.
- *  2. Every card is the same height, fixed to what its content needs.
- *     Equal heights keep the pile's edges clean; fixing them to the content
- *     rather than to the viewport is what stops the mocks being clipped.
- *  3. An 80px hold closes the container. Without it the container ends where
- *     the last card ends, so card 03 reaches its pin line and is released in
- *     the same frame — the residual twitch at the end of the pile. It stays
- *     small on purpose: 34svh and a full viewport both read as a stretch of
- *     empty beurre to scroll through.
+ *  - Sticky cards as siblings with the title in normal flow. The cards
+ *    accumulated correctly, but the title scrolled off on its own as the
+ *    animation began, which is what this rewrite exists to fix.
+ *  - Sticky cards plus a SEPARATELY sticky title. Two stickies competed for
+ *    the same vertical space: the title's band was subtracted from the height
+ *    left to the cards, and on a screen too short for both, every fallback
+ *    read worse than having no pinned title at all — a static title painted
+ *    under the cards is visibly sliced in half as one crosses it.
  *
-
- * The depth cue is a vertical offset plus a veil, never `scale` (scaling
- * shrinks width too, so a buried card is narrower than the one landing on it
- * and their edges cannot line up) and never `opacity` (fading a card fades
- * its background, so the card underneath shows through).
+ * With one block there is no competition and no stacking order to get wrong:
+ * the title is inside the pinned box, so no card can pass over or under it.
+ *
+ * The mechanism:
+ *
+ *  1. `[data-stack]` is the runway — a tall, plain element sized to the block
+ *     plus a screen of travel per card after the first. Its height is the
+ *     only thing giving the pile something to scroll through.
+ *  2. `[data-stack-pin]` is the sticky block inside it, one viewport tall,
+ *     holding the title above the card well.
+ *  3. Inside the well the cards are ABSOLUTELY positioned on a shared origin.
+ *     Absolute rather than sticky because the block is already pinned: a card
+ *     no longer has to pin itself, it only has to arrive. Each starts
+ *     translated below the well and slides to the origin across its own step.
+ *
+ * The depth cue for cards already in the pile is a vertical offset plus a
+ * veil, never `scale` (scaling shrinks width too, so a buried card is
+ * narrower than the one landing on it and their edges cannot line up) and
+ * never `opacity` (fading a card fades its background, so the card underneath
+ * shows through).
  */
 
 // Per-card-behind depth cue for the cards already in the pile.
 const LIFT_STEP = 18;
 const DIM_STEP = 0.16;
-// How far the deepest card ends up above the pin line: the top card sits at
-// the line, each card behind it is lifted one step further.
+// How far the deepest card ends up above the pile's origin: the top card sits
+// at the origin, each card behind it is lifted one step further.
 const MAX_LIFT = LIFT_STEP * 2;
 
 // Card heights, driven by content and NOT capped against the viewport.
@@ -269,35 +277,18 @@ const MAX_LIFT = LIFT_STEP * 2;
 // The mocks are incompressible — measured, the tallest card's content needs
 // 525px at mobile width and 488px at desktop — and every card shares one
 // height so the pile keeps clean edges. Capping the height against the screen
-// (`min(ideal, 100svh - title - lift)`) is a trap that bit twice: on a 723px
-// viewport it produced a 515px card for 525px of content, silently clipping
-// the last toggle row, and on a 667px phone it fell to 459px. Whatever has to
-// give on a short screen, it is not the illustration the step is explaining.
+// is a trap that bit twice: on a 723px viewport it produced a 515px card for
+// 525px of content, silently clipping the last toggle row, and on a 667px
+// phone it fell to 459px. Whatever gives on a short screen, it is not the
+// illustration the step is explaining — it is the heading, which is why the
+// title has a compact variant rather than the card having a cap.
 const CARD_HEIGHT_MOBILE = 528;
 const CARD_HEIGHT_DESKTOP = 492;
 
-// The pile's minimum distance from the top of the screen, so a pinned card
-// never sits flush against the viewport edge (or under the site header on
-// desktop).
-const MIN_TOP_MOBILE = 16;
-const MIN_TOP_DESKTOP = 88;
-
-// Where the pile pins: derived from the viewport so it lands centred, rather
-// than clinging to the top of the screen.
-//
-// The pinned card sits AT the line while the buried ones are lifted ABOVE it,
-// so a small `top` pushes their edges off the top of the screen altogether —
-// measured with `top: 16px` and a 36px deepest lift, the first card's edge
-// sat at -20px, out of sight, while 167px of empty beurre sat below the pile.
-// The `max()` floor keeps `pin - MAX_LIFT` clear of the screen edge (and of
-// the site header on desktop).
-//
-// CENTRE_BIAS then lifts the pile a little above dead centre, leaving more air
-// under the bottom card than above it; exact centring read as sitting low,
-// with the card's bottom edge close to the fold.
-const CENTRE_BIAS = 22;
-const stickyTop = (minTop: number, cardHeight: number) =>
-  `max(${minTop + MAX_LIFT}px, calc((100svh - ${cardHeight}px - ${MAX_LIFT}px) / 2 + ${MAX_LIFT}px - ${CENTRE_BIAS}px))`;
+// How much of a screen of scrolling one card's arrival takes. Below 1 the
+// next card starts before the previous has fully settled, which reads as a
+// pile being dealt rather than three separate slides.
+const SCROLL_PER_CARD = 0.9;
 
 function StackCard({
   step,
@@ -314,14 +305,43 @@ function StackCard({
   progress: MotionValue<number>;
   reduceMotion: boolean;
 }) {
-  // `progress` runs 0 → 1 across the pile, one step per card. A card holds
-  // still until it lands, then recedes as the others stack onto it. The last
-  // card has nothing behind it, so it never offsets — it is the top of the
-  // pile, and its motion is the scroll carrying it into place.
+  // `progress` runs 0 → 1 across the pile, one step per card AFTER the first:
+  // card 01 is already in place when the block pins, so it has no arrival.
+  const steps = total - 1 || 1;
+  const land = index / steps;
+  const start = (index - 1) / steps;
   const cardsBehind = total - 1 - index;
-  const land = index / (total - 1 || 1);
 
-  const y = useTransform(progress, [land, 1], [0, -LIFT_STEP * cardsBehind]);
+  // Arrival and recede are ONE motion value, not two.
+  //
+  // `y` and `translateY` are aliases for the same transform channel in Framer,
+  // so setting both writes only one of them — measured, a card given
+  // `translateY: "108%"` and `y: 0` rendered `translateY(108%)` with the `y`
+  // silently dropped. That is harmless only while the lift is 0; at the end of
+  // the pile the two would collide and one of the movements would vanish. So
+  // the arrival (a fraction of the card's own height) and the depth lift
+  // (pixels) are composed here into a single `calc()`.
+  const offset = useTransform(progress, (p) => {
+    // Arrival: card 01 is already home when the block pins; the others slide
+    // up from just below the well across their own step.
+    const arriveSpan = land - Math.max(start, 0);
+    const arrived =
+      index === 0 || arriveSpan <= 0
+        ? 1
+        : Math.min(Math.max((p - Math.max(start, 0)) / arriveSpan, 0), 1);
+    const enterPct = (1 - arrived) * 108;
+
+    // Recede: once landed, sink one step per card that lands on top.
+    const settleSpan = 1 - land;
+    const settled =
+      settleSpan <= 0
+        ? 1
+        : Math.min(Math.max((p - land) / settleSpan, 0), 1);
+    const liftPx = -LIFT_STEP * cardsBehind * settled;
+
+    return `calc(${enterPct}% + ${liftPx}px)`;
+  });
+
   const veilOpacity = useTransform(
     progress,
     [land, 1],
@@ -331,16 +351,19 @@ function StackCard({
   return (
     <motion.div
       style={{
-        top: "var(--stack-top)",
-        y: reduceMotion ? 0 : y,
+        // One vertical transform carrying both the arrival and the depth lift
+        // — see `offset` above for why they cannot be two separate props.
+        translateY: reduceMotion ? 0 : offset,
         backgroundImage: CARD_BORDER_GRADIENT,
         backgroundOrigin: "border-box",
         backgroundClip: "padding-box, border-box",
         boxShadow: CARD_SHADOW,
         height: "var(--stack-card-height)",
+        // Later cards paint over earlier ones, so the pile reads top-down.
+        zIndex: index + 1,
       }}
       data-stack-card
-      className="sticky z-10 mx-auto flex w-full max-w-[370px] flex-col items-start gap-4 overflow-hidden rounded-2xl border border-transparent px-4 pb-6 pt-8 text-left md:max-w-2xl md:px-8 lg:max-w-4xl"
+      className="absolute inset-x-0 top-0 mx-auto flex w-full max-w-[370px] flex-col items-start gap-4 overflow-hidden rounded-2xl border border-transparent px-4 pb-6 pt-8 text-left md:max-w-2xl md:px-8 lg:max-w-4xl"
     >
       {/* The veil sits inside the card's own clipped, rounded box so it
           follows the corners, and is inert so a buried card's contents never
@@ -374,54 +397,50 @@ function StackCard({
 export function HowItWorks() {
   const t = useTranslations("HowItWorks");
   const containerRef = useRef<HTMLDivElement>(null);
+  const pinRef = useRef<HTMLDivElement>(null);
   const reduceMotion = useReducedMotion();
   const progress = useMotionValue(0);
 
-  // Progress is measured off the container's own rect against `scrollY`
-  // rather than with `useScroll({ target })`. That hook finds its scroll
-  // container by walking up for a scrollable ancestor, and this layout has a
-  // trap for it: `<body>` carries `overflow-x-hidden`, and CSS turns the other
-  // axis of a single-axis `hidden` into `auto`, so body advertises
-  // `overflow-y: auto` while never scrolling (its scrollTop stays 0 — the
-  // document element is the real scroller). Framer Motion latched onto body
-  // and left progress frozen at 0: the cards stacked via plain CSS sticky but
-  // nothing ever moved or dimmed.
+  // Progress is measured off the runway's own rect rather than with
+  // `useScroll({ target })`. That hook finds its scroll container by walking
+  // up for a scrollable ancestor, and this layout has a trap for it: a
+  // single-axis `overflow: hidden` makes CSS compute the other axis as `auto`,
+  // so body can advertise `overflow-y: auto` while never scrolling (its
+  // scrollTop stays 0 — the document element is the real scroller). Framer
+  // Motion latched onto body and left progress frozen at 0: the cards stacked
+  // via plain CSS sticky but nothing ever moved or dimmed. That is also why
+  // `shared/styles/globals.css` clips with `clip` and not `hidden`.
   useEffect(() => {
     const container = containerRef.current;
-    if (!container) return;
+    const pin = pinRef.current;
+    if (!container || !pin) return;
 
     const update = () => {
       const rect = container.getBoundingClientRect();
-      // Read the resolved `top` off a CARD, not off the container's custom
-      // property and not off the container's first child. `--stack-top` is a
-      // `calc(...)` expression that `getPropertyValue` hands back unresolved
-      // (parsing it yields NaN, collapsing the pin line to 0), and the first
-      // child is now the sticky title, whose `top` is 0 rather than the
-      // cards' pin line.
-      const card = container.querySelector("[data-stack-card]");
-      const pinLine =
-        card instanceof HTMLElement
-          ? parseFloat(getComputedStyle(card).top) || 0
-          : 0;
-      // The hold at the end of the container is not part of the timeline: the
-      // pile is already complete while it scrolls past, so counting it would
-      // stretch the animation past the moment the last card lands.
-      const spacer = container.lastElementChild;
-      const hold = spacer instanceof HTMLElement ? spacer.offsetHeight : 0;
-      const travel = rect.height - hold - window.innerHeight;
+      // The block is pinned, so it is not part of the timeline: the travel is
+      // the runway's height minus the block's.
+      const travel = rect.height - pin.offsetHeight;
       if (travel <= 0) {
-        progress.set(0);
+        progress.set(1);
         return;
       }
-      progress.set(Math.min(Math.max((pinLine - rect.top) / travel, 0), 1));
+      // `-rect.top` is how far the runway's top has passed the viewport top,
+      // which is exactly how long the block has been held.
+      progress.set(Math.min(Math.max(-rect.top / travel, 0), 1));
     };
 
     update();
     window.addEventListener("scroll", update, { passive: true });
     window.addEventListener("resize", update);
+    // The heading's height moves with the font-size clamp, so the block's
+    // height changes with the width — and a mobile URL bar collapsing changes
+    // it without firing `resize`.
+    const observer = new ResizeObserver(update);
+    observer.observe(pin);
     return () => {
       window.removeEventListener("scroll", update);
       window.removeEventListener("resize", update);
+      observer.disconnect();
     };
   }, [progress]);
 
@@ -448,89 +467,124 @@ export function HowItWorks() {
     />,
   ];
 
+  // The block (one screen) plus a screen of travel per arriving card.
+  const runway = `calc(100svh + ${(steps.length - 1) * SCROLL_PER_CARD * 100}svh)`;
+
   return (
     <section className="bg-studio-beurre px-6 pb-8 pt-20 md:px-12">
-      {/* `--stack-top` is read by both the cards' CSS and the progress
-          measurement above, so the pin line can never disagree between the
-          two. A media query is the only way to vary it, since the cards set
-          `top` inline (alongside the gradient border, which Tailwind cannot
-          express) and inline styles beat utility classes. */}
+      {/* The card height is read by the cards' inline styles, which have to be
+          inline anyway (the gradient border is not expressible in Tailwind)
+          and inline styles beat utility classes — so a media query on a custom
+          property is the only way to vary it per breakpoint.
+
+          The heading's compact variant is a media query too, but on HEIGHT
+          rather than width. Measured, the full heading needs 175px (134.6px of
+          text plus its 40px margin at 606px wide); with a 528px card and the
+          36px deepest lift that is 739px of block against a 723px screen, and
+          a 667px phone falls short by 72px. Rather than cap the card — which
+          silently clips the very mock the step is explaining — the heading
+          drops its eyebrow and one size step, taking the band to ~69px and
+          fitting the whole block inside 645px. */}
       <style>{`
         [data-stack] {
-          --stack-hold: 80px;
           --stack-card-height: ${CARD_HEIGHT_MOBILE}px;
-          --stack-top: ${stickyTop(MIN_TOP_MOBILE, CARD_HEIGHT_MOBILE)};
         }
         @media (min-width: 768px) {
           [data-stack] {
             --stack-card-height: ${CARD_HEIGHT_DESKTOP}px;
-            --stack-top: ${stickyTop(MIN_TOP_DESKTOP, CARD_HEIGHT_DESKTOP)};
           }
+        }
+        @media (max-height: 780px) {
+          [data-stack-eyebrow] { display: none; }
+          [data-stack-title] h2 { font-size: 1.875rem; line-height: 1.15; margin-top: 0; }
+          [data-stack-title] { margin-bottom: 0.75rem; }
+        }
+        /* Under 645px even the compact heading cannot pay for the block: the
+           deficit is 25px at 620px, and only the card could cover it. Clipping
+           the mock is the mistake this rewrite exists to avoid, so the block
+           keeps its full height and the heading shrinks as far as it usefully
+           can. The block then slightly exceeds the screen and the title's top
+           may sit just above it — the cards still stack against a fixed
+           heading and the whole thing still scrolls as one piece.
+
+           Every phone in real use clears the 645px floor (a 375×667 iPhone SE
+           is the shortest common viewport), so this is a guard for desktop
+           windows dragged very short, not a mobile path. */
+        @media (max-height: 644px) {
+          [data-stack-title] h2 { font-size: 1.5rem; }
+          [data-stack-title] { margin-bottom: 0.5rem; }
         }
       `}</style>
 
-      <div ref={containerRef} data-stack className="relative">
-        {/* The section title, in normal flow: it scrolls away as the pile
-            arrives, and the cards' `z-10` carries them cleanly over it.
-
-            Pinning it here was tried and reverted. It cost the cards the
-            height the band occupied, and no fallback for a screen too short
-            for both looked right — a static title under the `z-10` cards is
-            sliced in half as a card crosses it. It is also deliberately not
-            wrapped in `FadeIn`: that wrapper's hidden state is a `translateY`,
-            and its IntersectionObserver flipped the title back to hidden once
-            it left the observed area, fading it to opacity 0.09 while still
-            on screen. */}
-        <div data-stack-title className="mb-10 text-center">
-          <div className="mx-auto max-w-3xl">
-            <div className="flex items-center justify-center gap-3 font-body text-h5 tracking-luxe text-studio-pourpre">
-              <Image
-                src="/images/eyebrow-separator-left.svg"
-                alt=""
-                width={42}
-                height={1}
-              />
-              <span>{t("eyebrow")}</span>
-              <Image
-                src="/images/eyebrow-separator-right.svg"
-                alt=""
-                width={42}
-                height={1}
-              />
+      {/* The runway. Plain and tall: it exists only to give the pinned block
+          something to be held against. */}
+      <div
+        ref={containerRef}
+        data-stack
+        className="relative"
+        style={{ height: runway }}
+      >
+        {/* The pinned block: heading and cards together, one viewport tall so
+            it fills the screen while held, and centring its own contents —
+            there is no separate pin line to keep in sync any more. */}
+        <div
+          ref={pinRef}
+          data-stack-pin
+          className="sticky top-0 flex h-[100svh] flex-col justify-center"
+        >
+          <div data-stack-title className="mb-6 shrink-0 text-center">
+            <div className="mx-auto max-w-3xl">
+              <div
+                data-stack-eyebrow
+                className="flex items-center justify-center gap-3 font-body text-h5 tracking-luxe text-studio-pourpre"
+              >
+                <Image
+                  src="/images/eyebrow-separator-left.svg"
+                  alt=""
+                  width={42}
+                  height={1}
+                />
+                <span>{t("eyebrow")}</span>
+                <Image
+                  src="/images/eyebrow-separator-right.svg"
+                  alt=""
+                  width={42}
+                  height={1}
+                />
+              </div>
+              <h2 className="mt-4 font-heading text-h1 text-studio-violet">
+                {t("titleLine1")}
+                <br />
+                <span className="text-studio-lavande">{t("titleAccent")}</span>
+              </h2>
             </div>
-            <h2 className="mt-4 font-heading text-h1 text-studio-violet">
-              {t("titleLine1")}
-              <br />
-              <span className="text-studio-lavande">{t("titleAccent")}</span>
-            </h2>
+          </div>
+
+          {/* The card well: one card tall plus the deepest lift, so a receded
+              card's top edge stays inside the block rather than being cut off.
+              The cards within are absolute and share this box's origin. */}
+          <div
+            className="relative mx-auto w-full shrink-0"
+            style={{
+              height: `calc(var(--stack-card-height) + ${MAX_LIFT}px)`,
+              paddingTop: `${MAX_LIFT}px`,
+            }}
+          >
+            <div className="relative h-full w-full">
+              {steps.map((step, i) => (
+                <StackCard
+                  key={step.number}
+                  step={step}
+                  content={mocks[i]}
+                  index={i}
+                  total={steps.length}
+                  progress={progress}
+                  reduceMotion={Boolean(reduceMotion)}
+                />
+              ))}
+            </div>
           </div>
         </div>
-
-        {steps.map((step, i) => (
-          <StackCard
-            key={step.number}
-            step={step}
-            content={mocks[i]}
-            index={i}
-            total={steps.length}
-            progress={progress}
-            reduceMotion={Boolean(reduceMotion)}
-          />
-        ))}
-        {/* A short hold at the end, and only that.
-            
-            A sticky element is released the moment its containing block's
-            bottom reaches it, and the container ends exactly where the last
-            card ends — so card 03 arrived at its pin line and immediately
-            started moving again, which is the small residual scroll the pile
-            still showed once everything else was fixed (measured: zero pinned
-            travel for the last card).
-            
-            Deliberately small — 80px, not a fraction of the viewport. Earlier
-            attempts used 34svh and then a whole screen, and both read as an
-            empty stretch of beurre you scroll through under the finished
-            pile. This is just enough to stop the last card twitching. */}
-        <div aria-hidden style={{ height: "var(--stack-hold)" }} />
       </div>
     </section>
   );
