@@ -1,6 +1,13 @@
 "use client";
 
-import { ArrowRight, Check, HeadphonesIcon, ShieldCheck, Sparkles, Menu } from "lucide-react";
+import {
+  ArrowRight,
+  Check,
+  HeadphonesIcon,
+  ShieldCheck,
+  Sparkles,
+  Menu,
+} from "lucide-react";
 import { useTranslations } from "next-intl";
 import Image from "next/image";
 import { useEffect, useState } from "react";
@@ -140,7 +147,11 @@ export default function StudioStartPage() {
   }, [_hasHydrated]);
 
   const monthIndex = months.indexOf(weddingInfo.month) + 1;
-  const dateInPast = isDateInPast(weddingInfo.day, monthIndex, weddingInfo.year);
+  const dateInPast = isDateInPast(
+    weddingInfo.day,
+    monthIndex,
+    weddingInfo.year,
+  );
 
   const isFormValid =
     !!plan &&
@@ -186,7 +197,11 @@ export default function StudioStartPage() {
           </button>
         </nav>
 
-        <MobileMenu open={menuOpen} onClose={() => setMenuOpen(false)} hideCreateButton />
+        <MobileMenu
+          open={menuOpen}
+          onClose={() => setMenuOpen(false)}
+          hideCreateButton
+        />
 
         <div className="mt-10 space-y-3 text-center">
           <h1 className="font-heading text-h2 leading-tight text-studio-violet">
@@ -199,7 +214,7 @@ export default function StudioStartPage() {
         </div>
 
         <div className="mt-8 flex flex-col gap-8 md:grid md:grid-cols-2 md:items-start md:gap-8">
-          {/* ── OFFRES + TRUST ── */}
+          {/* ── OFFRES ── */}
           <div className="flex flex-col gap-8">
             <section className="studio-card-border studio-card-fill relative rounded-3xl p-5">
               <h2 className="mb-4 font-heading text-lg font-bold text-studio-violet">
@@ -269,8 +284,157 @@ export default function StudioStartPage() {
                 })}
               </div>
             </section>
+          </div>
 
-            {/* Trust row */}
+          {/* ── FORMULAIRE + RÉASSURANCE ── */}
+          <div className="flex flex-col gap-8">
+            <section className="studio-card-border studio-card-fill relative flex flex-col rounded-3xl p-5">
+              <h2 className="mb-4 font-heading text-lg font-bold text-studio-violet">
+                {t("coupleLabel")}
+              </h2>
+
+              <div className="grid grid-cols-2 gap-3">
+                <div>
+                  <FieldLabel>{t("partner1Label")}</FieldLabel>
+                  <input
+                    type="text"
+                    placeholder={t("partner1Placeholder")}
+                    value={weddingInfo.partner1}
+                    onChange={(e) =>
+                      setWeddingInfo({ partner1: e.target.value })
+                    }
+                    className={FIELD_CLASS}
+                  />
+                </div>
+                <div>
+                  <FieldLabel>{t("partner2Label")}</FieldLabel>
+                  <input
+                    type="text"
+                    placeholder={t("partner2Placeholder")}
+                    value={weddingInfo.partner2}
+                    onChange={(e) =>
+                      setWeddingInfo({ partner2: e.target.value })
+                    }
+                    className={FIELD_CLASS}
+                  />
+                </div>
+              </div>
+
+              <h3 className="mb-3 mt-6 font-body text-[13px] font-bold uppercase tracking-[0.08em] text-studio-violet">
+                {t("dateLocationLabel")}
+              </h3>
+
+              <div className="grid grid-cols-[1fr_1.6fr_1fr] gap-3">
+                <div>
+                  <FieldLabel>{t("dayLabel")}</FieldLabel>
+                  <input
+                    type="number"
+                    placeholder="14"
+                    min="1"
+                    max="31"
+                    value={weddingInfo.day}
+                    onChange={(e) => handleDayChange(e.target.value)}
+                    className={FIELD_CLASS}
+                  />
+                </div>
+                <div>
+                  <FieldLabel>{t("monthLabel")}</FieldLabel>
+                  <select
+                    value={weddingInfo.month}
+                    onChange={(e) => setWeddingInfo({ month: e.target.value })}
+                    className={cn(
+                      FIELD_CLASS,
+                      // appearance-none makes some browsers fall back to a white
+                      // control background, so re-assert the field color here.
+                      "cursor-pointer appearance-none !bg-studio-card-bg bg-[url('data:image/svg+xml;utf8,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%2216%22 height=%2216%22 viewBox=%220 0 24 24%22 fill=%22none%22 stroke=%22%234B3F72%22 stroke-width=%222%22 stroke-linecap=%22round%22 stroke-linejoin=%22round%22><polyline points=%226 9 12 15 18 9%22/></svg>')] bg-[length:16px_16px] bg-[right_0.9rem_center] bg-no-repeat pr-10",
+                      !weddingInfo.month && "text-studio-violet/35",
+                    )}
+                  >
+                    <option value="">—</option>
+                    {months.map((m) => (
+                      <option key={m} value={m} className="text-studio-violet">
+                        {m}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+                <div>
+                  <FieldLabel>{t("yearLabel")}</FieldLabel>
+                  <input
+                    type="number"
+                    placeholder={String(DEFAULT_YEAR)}
+                    min={CURRENT_YEAR}
+                    value={weddingInfo.year}
+                    onChange={(e) => handleYearChange(e.target.value)}
+                    className={FIELD_CLASS}
+                  />
+                </div>
+              </div>
+
+              {dateInPast && (
+                <p className="mt-2 font-body text-[12px] text-red-500">
+                  {t("dateInPastError")}
+                </p>
+              )}
+
+              <div className="mt-4">
+                <FieldLabel>{t("venueLabel")}</FieldLabel>
+                <input
+                  type="text"
+                  placeholder={t("venuePlaceholder")}
+                  value={weddingInfo.venue}
+                  onChange={(e) => setWeddingInfo({ venue: e.target.value })}
+                  className={FIELD_CLASS}
+                />
+              </div>
+
+              <h3 className="mb-3 mt-6 font-body text-[13px] font-bold uppercase tracking-[0.08em] text-studio-violet">
+                {t("accountLabel")}
+              </h3>
+
+              <FieldLabel>{t("emailLabel")}</FieldLabel>
+              <input
+                type="email"
+                placeholder={t("emailPlaceholder")}
+                value={weddingInfo.email}
+                onChange={(e) => {
+                  setWeddingInfo({ email: e.target.value });
+                  setEmailError(null);
+                  setEmailExists(false);
+                }}
+                onBlur={(e) => checkEmail(e.target.value.trim())}
+                className={FIELD_CLASS}
+              />
+              {emailChecking && (
+                <p className="mt-1.5 font-body text-[12px] text-studio-violet/40">
+                  {t("emailChecking")}
+                </p>
+              )}
+              {emailError && (
+                <p className="mt-1.5 font-body text-[12px] text-red-500">
+                  {emailError}
+                </p>
+              )}
+
+              <p className="mt-3 font-body text-[12px] text-studio-violet/45">
+                {t("privacyHint")}
+              </p>
+
+              <Button
+                variant="studio-violet"
+                size="pill"
+                disabled={!isFormValid}
+                onClick={() => router.push("/studio/theme")}
+                className="mt-6 w-full"
+              >
+                {totalPrice}€ - {t("submitButton")}
+                <ArrowRight className="ml-2 h-4 w-4" />
+              </Button>
+            </section>
+
+            {/* Reassurance sits under the form, next to the fields it is
+                reassuring about — the account and the personal details —
+                rather than under the offer cards. */}
             <div className="grid grid-cols-3 gap-3">
               {[
                 { label: t("trustCustomize"), icon: Sparkles },
@@ -289,145 +453,6 @@ export default function StudioStartPage() {
               ))}
             </div>
           </div>
-
-          {/* ── FORMULAIRE ── */}
-          <section className="studio-card-border studio-card-fill relative flex flex-col rounded-3xl p-5">
-            <h2 className="mb-4 font-heading text-lg font-bold text-studio-violet">
-              {t("coupleLabel")}
-            </h2>
-
-            <div className="grid grid-cols-2 gap-3">
-              <div>
-                <FieldLabel>{t("partner1Label")}</FieldLabel>
-                <input
-                  type="text"
-                  placeholder={t("partner1Placeholder")}
-                  value={weddingInfo.partner1}
-                  onChange={(e) => setWeddingInfo({ partner1: e.target.value })}
-                  className={FIELD_CLASS}
-                />
-              </div>
-              <div>
-                <FieldLabel>{t("partner2Label")}</FieldLabel>
-                <input
-                  type="text"
-                  placeholder={t("partner2Placeholder")}
-                  value={weddingInfo.partner2}
-                  onChange={(e) => setWeddingInfo({ partner2: e.target.value })}
-                  className={FIELD_CLASS}
-                />
-              </div>
-            </div>
-
-            <h3 className="mb-3 mt-6 font-body text-[13px] font-bold uppercase tracking-[0.08em] text-studio-violet">
-              {t("dateLocationLabel")}
-            </h3>
-
-            <div className="grid grid-cols-[1fr_1.6fr_1fr] gap-3">
-              <div>
-                <FieldLabel>{t("dayLabel")}</FieldLabel>
-                <input
-                  type="number"
-                  placeholder="14"
-                  min="1"
-                  max="31"
-                  value={weddingInfo.day}
-                  onChange={(e) => handleDayChange(e.target.value)}
-                  className={FIELD_CLASS}
-                />
-              </div>
-              <div>
-                <FieldLabel>{t("monthLabel")}</FieldLabel>
-                <select
-                  value={weddingInfo.month}
-                  onChange={(e) => setWeddingInfo({ month: e.target.value })}
-                  className={cn(
-                    FIELD_CLASS,
-                    // appearance-none makes some browsers fall back to a white
-                    // control background, so re-assert the field color here.
-                    "cursor-pointer appearance-none !bg-studio-card-bg bg-[url('data:image/svg+xml;utf8,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%2216%22 height=%2216%22 viewBox=%220 0 24 24%22 fill=%22none%22 stroke=%22%234B3F72%22 stroke-width=%222%22 stroke-linecap=%22round%22 stroke-linejoin=%22round%22><polyline points=%226 9 12 15 18 9%22/></svg>')] bg-[length:16px_16px] bg-[right_0.9rem_center] bg-no-repeat pr-10",
-                    !weddingInfo.month && "text-studio-violet/35",
-                  )}
-                >
-                  <option value="">—</option>
-                  {months.map((m) => (
-                    <option key={m} value={m} className="text-studio-violet">
-                      {m}
-                    </option>
-                  ))}
-                </select>
-              </div>
-              <div>
-                <FieldLabel>{t("yearLabel")}</FieldLabel>
-                <input
-                  type="number"
-                  placeholder={String(DEFAULT_YEAR)}
-                  min={CURRENT_YEAR}
-                  value={weddingInfo.year}
-                  onChange={(e) => handleYearChange(e.target.value)}
-                  className={FIELD_CLASS}
-                />
-              </div>
-            </div>
-
-            {dateInPast && (
-              <p className="mt-2 font-body text-[12px] text-red-500">
-                {t("dateInPastError")}
-              </p>
-            )}
-
-            <div className="mt-4">
-              <FieldLabel>{t("venueLabel")}</FieldLabel>
-              <input
-                type="text"
-                placeholder={t("venuePlaceholder")}
-                value={weddingInfo.venue}
-                onChange={(e) => setWeddingInfo({ venue: e.target.value })}
-                className={FIELD_CLASS}
-              />
-            </div>
-
-            <h3 className="mb-3 mt-6 font-body text-[13px] font-bold uppercase tracking-[0.08em] text-studio-violet">
-              {t("accountLabel")}
-            </h3>
-
-            <FieldLabel>{t("emailLabel")}</FieldLabel>
-            <input
-              type="email"
-              placeholder={t("emailPlaceholder")}
-              value={weddingInfo.email}
-              onChange={(e) => {
-                setWeddingInfo({ email: e.target.value });
-                setEmailError(null);
-                setEmailExists(false);
-              }}
-              onBlur={(e) => checkEmail(e.target.value.trim())}
-              className={FIELD_CLASS}
-            />
-            {emailChecking && (
-              <p className="mt-1.5 font-body text-[12px] text-studio-violet/40">
-                {t("emailChecking")}
-              </p>
-            )}
-            {emailError && (
-              <p className="mt-1.5 font-body text-[12px] text-red-500">{emailError}</p>
-            )}
-
-            <p className="mt-3 font-body text-[12px] text-studio-violet/45">
-              {t("privacyHint")}
-            </p>
-
-            <Button
-              variant="studio-violet"
-              size="pill"
-              disabled={!isFormValid}
-              onClick={() => router.push("/studio/theme")}
-              className="mt-6 w-full"
-            >
-              {totalPrice}€ - {t("submitButton")}
-              <ArrowRight className="ml-2 h-4 w-4" />
-            </Button>
-          </section>
         </div>
       </div>
     </div>
