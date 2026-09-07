@@ -7,8 +7,17 @@ import { cn } from "@shared/lib/utils";
 import { AnimatePresence, motion } from "framer-motion";
 import { ArrowRight, X } from "lucide-react";
 import { useTranslations } from "next-intl";
-import Image from "next/image";
 import { useEffect, useMemo, useState } from "react";
+
+import { useRouter } from "@/navigation";
+import { useOrderStore } from "@/stores/use-order-store";
+
+import {
+  fromOrderAnimation,
+  fromOrderModules,
+  toOrderAnimation,
+  toOrderModules,
+} from "./theme-config-mapping";
 
 const CARD_SHADOW = `0px 22px 53.9px 0px ${studioColors.cardShadow}3D`;
 
@@ -43,7 +52,9 @@ export type OpeningStyle = "envelope" | "door" | "curtains";
 const OPENING_STYLES: OpeningStyle[] = ["envelope", "door", "curtains"];
 
 export type ThemeConfig = {
+  /** Catalogue id, as persisted in the order store. */
   theme: string;
+  themeName: string;
   modules: Record<ModuleKey, boolean>;
   openingStyle: OpeningStyle;
 };
@@ -51,28 +62,36 @@ export type ThemeConfig = {
 export function ThemeConfigSheet({
   open,
   onClose,
+  themeId,
   themeName,
-  themeImage,
   onSave,
 }: {
   open: boolean;
   onClose: () => void;
+  /** Catalogue id (e.g. "ciao-amore") — this is what the order persists. */
+  themeId: string;
+  /** Display name, used for the copy only. */
   themeName: string;
-  themeImage: string;
-  onSave: (config: ThemeConfig) => void;
+  /** Optional hook for callers that want to react to a save; the dialog
+   *  persists the configuration itself either way. */
+  onSave?: (config: ThemeConfig) => void;
 }) {
   const t = useTranslations("ThemeConfigSheet");
+  const router = useRouter();
   const [modules, setModules] =
     useState<Record<ModuleKey, boolean>>(DEFAULT_MODULES);
   const [openingStyle, setOpeningStyle] = useState<OpeningStyle>("envelope");
 
-  // Reset config whenever the sheet is opened for a (possibly new) theme.
+  // Reopen on whatever was last saved, falling back to the curated defaults
+  // on a first visit. Read imperatively rather than through a selector: this
+  // is a one-shot seed, and subscribing would fight the local toggles the
+  // moment /studio wrote to the same store.
   useEffect(() => {
-    if (open) {
-      setModules(DEFAULT_MODULES);
-      setOpeningStyle("envelope");
-    }
-  }, [open, themeName]);
+    if (!open) return;
+    const { modules: orderModules, animation } = useOrderStore.getState();
+    setModules(fromOrderModules(orderModules, DEFAULT_MODULES));
+    setOpeningStyle(fromOrderAnimation(animation, "envelope"));
+  }, [open, themeId]);
 
   useEffect(() => {
     if (!open) return;
@@ -83,6 +102,14 @@ export function ThemeConfigSheet({
     };
   }, [open]);
 
+  // Each theme has its own description: the copy used to be a single string
+  // that talked about Ciao Amore's "dolce far niente" no matter which theme
+  // was open. `has` guards a theme added to the catalogue before its copy is
+  // translated — next-intl would otherwise throw on the missing key.
+  const themeDescription = t.has(`themeDescriptions.${themeId}`)
+    ? t(`themeDescriptions.${themeId}`)
+    : "";
+
   const activeCount = useMemo(
     () => Object.values(modules).filter(Boolean).length,
     [modules],
@@ -91,9 +118,32 @@ export function ThemeConfigSheet({
   const toggleModule = (key: ModuleKey) =>
     setModules((prev) => ({ ...prev, [key]: !prev[key] }));
 
-  const handleSave = () => {
-    onSave({ theme: themeName, modules, openingStyle });
+  /**
+   * Writes the dialog's choices into the persisted order (localStorage, via
+   * the store's `persist` middleware) so /studio reopens on them — whether the
+   * couple heads to the configurator now or comes back days later.
+   *
+   * Module ids are replaced wholesale rather than toggled: `toggleModule`
+   * would flip whatever a previous visit had left in there, and the dialog is
+   * showing an absolute selection, not a diff.
+   */
+  const persistConfig = () => {
+    const store = useOrderStore.getState();
+    store.setTheme(themeId);
+    store.setAnimation(toOrderAnimation(openingStyle));
+    store.setModules(toOrderModules(modules));
+  };
+
+  const handleSave = (destination: "studio" | "stay") => {
+    persistConfig();
+    onSave?.({ theme: themeId, themeName, modules, openingStyle });
     onClose();
+    if (destination === "studio") {
+      // /studio/checkout is guarded behind the plan and the couple's details,
+      // which the home page never collects — so the flow continues at the
+      // first step, with theme/modules/animation already filled in.
+      router.push("/studio/start");
+    }
   };
 
   return (
@@ -131,25 +181,13 @@ export function ThemeConfigSheet({
               </button>
             </div>
 
-            <div className="px-6 md:px-10">
-              <div className="relative h-40 w-full mt-4 overflow-hidden rounded-2xl border-2 border-studio-lavande">
-                <Image
-                  src={themeImage}
-                  alt={t("themeAlt", { name: themeName })}
-                  fill
-                  sizes="480px"
-                  className="object-cover"
-                />
-              </div>
-            </div>
-
             <div className="flex flex-col gap-8 px-6 pb-8 pt-6 md:px-10">
               <div className="text-center">
                 <h3 className="font-heading text-h2 text-studio-violet">
                   {t("titlePrefix")} {themeName}
                 </h3>
                 <p className="mx-auto mt-2 max-w-md font-body text-sm text-studio-violet/70">
-                  {t("themeDescription", { name: themeName })}
+                  {themeDescription}
                 </p>
               </div>
 
@@ -253,7 +291,7 @@ export function ThemeConfigSheet({
                   variant="studio-violet"
                   size="pill"
                   className="text-studio-jaune"
-                  onClick={handleSave}
+                  onClick={() => handleSave("studio")}
                 >
                   {t("validateButton")} <ArrowRight className="ml-2 h-4 w-4" />
                 </Button>
@@ -261,7 +299,7 @@ export function ThemeConfigSheet({
                   variant="studio-outline"
                   size="pill"
                   className="border-studio-violet text-studio-violet hover:bg-studio-violet/10"
-                  onClick={handleSave}
+                  onClick={() => handleSave("stay")}
                 >
                   {t("saveButton")}
                 </Button>

@@ -2,15 +2,25 @@
 @tailwind components;
 @tailwind utilities;
 
-/* `overflow-x: hidden` must sit on BOTH html and body. Set on body alone,
+/* Horizontal overflow is clipped on BOTH html and body. Set on body alone,
    the viewport adopts the value by propagation instead of clipping, and iOS
    Safari happily side-scrolls the whole page — which is what surfaced the
    body background as a band down the right edge. Pinning max-width stops a
-   stray full-bleed child from widening the root box in the first place. */
+   stray full-bleed child from widening the root box in the first place.
+
+   `clip`, NOT `hidden`. Both stop the side-scrolling this rule exists for,
+   but `overflow: hidden` on one axis makes CSS compute the other axis as
+   `auto`, which turns the element into a scroll container — and a scroll
+   container ancestor is what `position: sticky` pins against. With it on
+   html and body (neither of which actually scrolls; the viewport does),
+   every sticky element in the app silently stopped pinning: the stacking
+   cards in `HowItWorks` scrolled straight past their pin line and the
+   section played as three cards filing past instead of a pile. `clip`
+   creates no scroll container, so sticky works and the clipping is kept. */
 html,
 body {
   max-width: 100%;
-  overflow-x: hidden;
+  overflow-x: clip;
 }
 
 html {

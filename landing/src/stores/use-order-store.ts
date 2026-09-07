@@ -35,6 +35,8 @@ export interface OrderState {
   setAnimation: (animation: string) => void;
   setTheme: (theme: string) => void;
   toggleModule: (module: string) => void;
+  /** Replaces the whole module selection (used by the home theme dialog). */
+  setModules: (modules: string[]) => void;
   setPrimaryLanguage: (code: string) => void;
   toggleLanguage: (code: string) => void;
   setAdultsOnly: (value: boolean) => void;
@@ -46,6 +48,13 @@ export interface OrderState {
 // Prices live in lib/pricing.ts so the server can charge exactly what the
 // client displays. Re-exported here to keep existing imports working.
 export { EXTRA_PRICES, LANGUAGE_PRICE } from "@/lib/pricing";
+
+/**
+ * Theme ids the configurator can actually render. Kept as a plain list rather
+ * than importing the catalogue so the store stays free of React/component
+ * imports; `studio/themes.ts` is the source of truth for the cards themselves.
+ */
+const VALID_THEME_IDS = ["ciao-amore", "blanc-couture", "belle-rive"];
 
 const DEFAULT_WEDDING_INFO: WeddingInfo = {
   partner1: "",
@@ -63,7 +72,7 @@ export const useOrderStore = create<OrderState>()(
     (set) => ({
       plan: null,
       animation: "",
-      theme: "Amalfi",
+      theme: "",
       modules: [],
       primaryLanguage: "fr",
       languages: [],
@@ -84,6 +93,7 @@ export const useOrderStore = create<OrderState>()(
             ? state.modules.filter((m) => m !== module)
             : [...state.modules, module],
         })),
+      setModules: (modules) => set({ modules }),
       toggleLanguage: (code) =>
         set((state) => ({
           languages: state.languages.includes(code)
@@ -105,7 +115,7 @@ export const useOrderStore = create<OrderState>()(
         set({
           plan: null,
           animation: "",
-          theme: "Amalfi",
+          theme: "",
           modules: [],
           primaryLanguage: "fr",
           languages: [],
@@ -117,6 +127,18 @@ export const useOrderStore = create<OrderState>()(
     }),
     {
       name: "order-store-v2",
+      version: 1,
+      // v0 stores hold a theme id from the retired catalogue ("Amalfi", or a
+      // "theme-*" id). Those match nothing the theme step now renders, so the
+      // card would come back unselected while the guard still waved the user
+      // through. Clearing the value sends them to the theme step instead.
+      migrate: (persisted, version) => {
+        const state = persisted as Partial<OrderState>;
+        if (version < 1 && state?.theme && !VALID_THEME_IDS.includes(state.theme)) {
+          return { ...state, theme: "" } as OrderState;
+        }
+        return state as OrderState;
+      },
       onRehydrateStorage: () => (state) => {
         state?.setHasHydrated(true);
       },

@@ -69,8 +69,12 @@ export default async function RootLayout({
           }}
         />
       </head>
+      {/* Horizontal clipping lives in `shared/styles/globals.css`, on html
+          and body together — and as `overflow-x: clip`, not `hidden`, so it
+          does not make either element a scroll container and break every
+          `position: sticky` in the app. */}
       <body
-        className='w-full overflow-x-hidden bg-studio-jaune text-foreground'
+        className='w-full bg-studio-jaune text-foreground'
         suppressHydrationWarning
       >
         {children}

@@ -3,7 +3,7 @@
 import { AnimatePresence, motion } from "framer-motion";
 import { Check, Eye } from "lucide-react";
 import { useTranslations } from "next-intl";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import { cn } from "@shared/lib/utils";
 import { AnimationPreviewOverlay } from "@/components/studio/AnimationPreviewOverlay";
@@ -19,7 +19,23 @@ import { useOrderStore } from "@/stores/use-order-store";
 export default function StudioAnimationPage() {
   const t = useTranslations("StudioAnimation");
   const { animation, setAnimation } = useOrderStore();
+  const hasHydrated = useOrderStore((s) => s._hasHydrated);
   const [activeCategory, setActiveCategory] = useState("envelope");
+
+  // Open on the family the saved variant belongs to, so a choice made earlier
+  // (in the home page's theme dialog, or on a previous visit) is visible
+  // rather than hidden behind another tab. This has to wait for the persisted
+  // store: seeding the initial state from localStorage instead would render a
+  // different tab than the server did and trip a hydration mismatch.
+  useEffect(() => {
+    if (!hasHydrated || !animation) return;
+    const family = ANIMATION_CATEGORIES.find((c) =>
+      animation.startsWith(`${c.id}-`),
+    );
+    if (family) setActiveCategory(family.id);
+    // Only re-runs when the persisted animation itself changes, so it never
+    // fights the user's own tab clicks.
+  }, [hasHydrated, animation]);
   const [previewVariant, setPreviewVariant] = useState<AnimationVariant | null>(
     null,
   );

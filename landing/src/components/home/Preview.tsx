@@ -461,9 +461,8 @@ export function Preview() {
       <ThemeConfigSheet
         open={configOpen}
         onClose={() => setConfigOpen(false)}
+        themeId={THEMES[activeTheme].id}
         themeName={THEMES[activeTheme].name}
-        themeImage={THEMES[activeTheme].image}
-        onSave={(config) => console.log("Theme config saved:", config)}
       />
     </section>
   );

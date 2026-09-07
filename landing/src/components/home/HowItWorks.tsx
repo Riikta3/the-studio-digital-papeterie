@@ -2,6 +2,13 @@
 
 import { studioColors } from "@shared/lib/studio-colors";
 import { cn } from "@shared/lib/utils";
+import type { MotionValue } from "framer-motion";
+import {
+  motion,
+  useMotionValue,
+  useReducedMotion,
+  useTransform,
+} from "framer-motion";
 import { Link2, Mail, Send } from "lucide-react";
 import { useTranslations } from "next-intl";
 import Image from "next/image";
@@ -209,33 +216,107 @@ function ShareMock({
   );
 }
 
-// Shared sticky anchor for every card in the stack.
-const STICKY_TOP = 96;
+/**
+ * Stacking cards.
+ *
+ * Deliberately minimal, after several rewrites that failed by adding rules
+ * instead of removing them. The mechanism is three ingredients and nothing
+ * else:
+ *
+ *  1. The cards are `sticky` siblings sharing one container, all pinned at
+ *     the same `top`. Same container is what lets them accumulate: a sticky
+ *     element is confined to its containing block, so per-card wrappers
+ *     release each card the instant its own wrapper scrolls past — the bug
+ *     that made this section play as three cards filing past one another.
+ *  2. Every card is the same height, and that height leaves room below the
+ *     pin line. Both halves matter: equal heights keep the pile's edges
+ *     clean, and a card sized to the full `100svh - top` would fill the
+ *     screen with no room for the next one to climb into. The figures are two
+ *     constants in CSS, not a JS measuring pass.
+ *  3. Nothing follows the cards. An earlier version added a trailing spacer
+ *     to lengthen the section; it only produced a screen of empty beurre to
+ *     scroll through under the finished pile. The travel the pile needs is
+ *     already there — the container is three card-heights tall while one card
+ *     is on screen at a time.
+ *
+ * The depth cue is a vertical offset plus a veil, never `scale` (scaling
+ * shrinks width too, so a buried card is narrower than the one landing on it
+ * and their edges cannot line up) and never `opacity` (fading a card fades
+ * its background, so the card underneath shows through).
+ */
 
-// The card itself is the sticky element (no wrapper) — matches the
-// reference stacking-cards implementation. Later cards sit later in the
-// DOM, so they naturally paint over earlier ones without any z-index.
-// All cards share the same sticky top so each one covers the previous
-// exactly and the final pile is perfectly aligned when the section exits.
+const STICKY_TOP_MOBILE = 16;
+const STICKY_TOP_DESKTOP = 88;
+// Per-card-behind depth cue for cards already in the pile.
+const LIFT_STEP = 18;
+const DIM_STEP = 0.16;
+// One height for every card, so the pile has clean edges: a card shorter than
+// the one behind it lets that card's bottom show below the stack, and a taller
+// one overhangs it. Natural heights differ by ~25px here (measured 503/528/508
+// at mobile width, 466/488/468 at desktop), which is exactly the sort of
+// ragged edge that reads as a mistake in a stack.
+//
+// Two values because the cards are not the same shape at both widths — the
+// titles wrap to two lines and the descriptions run longer on a phone — and
+// each is capped against the viewport, because a sticky element taller than
+// `100svh - top` cannot pin at all: it just scrolls past. `svh`, not `vh`: on
+// a phone the URL bar makes `vh` describe a taller viewport than the visible
+// one, and that difference is precisely the overhang that breaks the pin.
+const CARD_HEIGHT_MOBILE = `min(540px, calc(100svh - ${STICKY_TOP_MOBILE}px - 16px))`;
+const CARD_HEIGHT_DESKTOP = `min(500px, calc(100svh - ${STICKY_TOP_DESKTOP}px - 24px))`;
+
 function StackCard({
   step,
   content,
+  index,
+  total,
+  progress,
+  reduceMotion,
 }: {
   step: Step;
   content: React.ReactNode;
+  index: number;
+  total: number;
+  progress: MotionValue<number>;
+  reduceMotion: boolean;
 }) {
+  // `progress` runs 0 → 1 across the pile, one step per card. A card holds
+  // still until it lands, then recedes as the others stack onto it. The last
+  // card has nothing behind it, so it never offsets — it is the top of the
+  // pile, and its motion is the scroll carrying it into place.
+  const cardsBehind = total - 1 - index;
+  const land = index / (total - 1 || 1);
+
+  const y = useTransform(progress, [land, 1], [0, -LIFT_STEP * cardsBehind]);
+  const veilOpacity = useTransform(
+    progress,
+    [land, 1],
+    [0, Math.min(1, DIM_STEP * cardsBehind)],
+  );
+
   return (
-    <div
+    <motion.div
       style={{
-        top: STICKY_TOP,
+        top: "var(--stack-top)",
+        y: reduceMotion ? 0 : y,
         backgroundImage: CARD_BORDER_GRADIENT,
         backgroundOrigin: "border-box",
         backgroundClip: "padding-box, border-box",
         boxShadow: CARD_SHADOW,
-        transformOrigin: "top center",
+        height: "var(--stack-card-height)",
       }}
-      className="stack-card sticky mx-auto mb-8 flex min-h-[560px] w-full max-w-[370px] flex-col items-start gap-4 rounded-2xl border border-transparent px-4 pt-8 pb-4 text-left last:mb-0 md:max-w-2xl md:px-8 lg:max-w-4xl"
+      className="sticky mx-auto flex w-full max-w-[370px] flex-col items-start gap-4 overflow-hidden rounded-2xl border border-transparent px-4 pb-6 pt-8 text-left md:max-w-2xl md:px-8 lg:max-w-4xl"
     >
+      {/* The veil sits inside the card's own clipped, rounded box so it
+          follows the corners, and is inert so a buried card's contents never
+          intercept clicks. */}
+      {!reduceMotion && (
+        <motion.div
+          aria-hidden
+          style={{ opacity: veilOpacity }}
+          className="pointer-events-none absolute inset-0 z-10 bg-studio-beurre"
+        />
+      )}
       <div className="flex items-end gap-4">
         <span className="font-heading text-7xl leading-none text-studio-violet md:text-8xl">
           {step.number}
@@ -248,65 +329,54 @@ function StackCard({
       <p className="font-body text-sm text-studio-violet/70 md:text-base">
         {step.description}
       </p>
-      <div className="flex w-full flex-1 items-center justify-center">
+      <div className="flex w-full items-center justify-center pt-2">
         {content}
       </div>
-    </div>
+    </motion.div>
   );
-}
-
-// Ported from the reference stacking-cards main.js: one shared scroll
-// listener shrinks each card slightly as it nears the viewport top.
-//
-// It also locks every card to the tallest card's height. Sticky release
-// order at the end of the section depends on card heights: with unequal
-// heights, card bottoms pin to the container bottom as the stack unpins,
-// so a taller first card pokes out above the last one. Equal heights keep
-// the stack perfectly aligned while it scrolls away.
-function useStackCards(containerRef: React.RefObject<HTMLDivElement | null>) {
-  useEffect(() => {
-    const container = containerRef.current;
-    if (!container) return;
-    const cards = Array.from(
-      container.querySelectorAll<HTMLElement>(".stack-card"),
-    );
-
-    const syncHeights = () => {
-      cards.forEach((card) => {
-        card.style.height = "auto";
-      });
-      const tallest = Math.max(...cards.map((card) => card.offsetHeight));
-      cards.forEach((card) => {
-        card.style.height = `${tallest}px`;
-      });
-    };
-
-    const updateScale = () => {
-      cards.forEach((card) => {
-        const rect = card.getBoundingClientRect();
-        const progress = Math.min(Math.max((120 - rect.top) / 300, 0), 1);
-        const scale = 1 - progress * 0.035;
-        card.style.transform = `scale(${scale.toFixed(3)})`;
-      });
-    };
-
-    syncHeights();
-    updateScale();
-    // Fonts loading in can change card heights after first paint.
-    document.fonts?.ready.then(syncHeights);
-    window.addEventListener("resize", syncHeights);
-    window.addEventListener("scroll", updateScale, { passive: true });
-    return () => {
-      window.removeEventListener("resize", syncHeights);
-      window.removeEventListener("scroll", updateScale);
-    };
-  }, [containerRef]);
 }
 
 export function HowItWorks() {
   const t = useTranslations("HowItWorks");
   const containerRef = useRef<HTMLDivElement>(null);
-  useStackCards(containerRef);
+  const reduceMotion = useReducedMotion();
+  const progress = useMotionValue(0);
+
+  // Progress is measured off the container's own rect against `scrollY`
+  // rather than with `useScroll({ target })`. That hook finds its scroll
+  // container by walking up for a scrollable ancestor, and this layout has a
+  // trap for it: `<body>` carries `overflow-x-hidden`, and CSS turns the other
+  // axis of a single-axis `hidden` into `auto`, so body advertises
+  // `overflow-y: auto` while never scrolling (its scrollTop stays 0 — the
+  // document element is the real scroller). Framer Motion latched onto body
+  // and left progress frozen at 0: the cards stacked via plain CSS sticky but
+  // nothing ever moved or dimmed.
+  useEffect(() => {
+    const container = containerRef.current;
+    if (!container) return;
+
+    const update = () => {
+      const rect = container.getBoundingClientRect();
+      const pinLine =
+        parseFloat(
+          getComputedStyle(container).getPropertyValue("--stack-top"),
+        ) || 0;
+      const travel = rect.height - window.innerHeight;
+      if (travel <= 0) {
+        progress.set(0);
+        return;
+      }
+      progress.set(Math.min(Math.max((pinLine - rect.top) / travel, 0), 1));
+    };
+
+    update();
+    window.addEventListener("scroll", update, { passive: true });
+    window.addEventListener("resize", update);
+    return () => {
+      window.removeEventListener("scroll", update);
+      window.removeEventListener("resize", update);
+    };
+  }, [progress]);
 
   const steps = t.raw("steps") as Step[];
   const personalizeMockRows = t.raw("personalizeMockRows") as string[];
@@ -356,23 +426,43 @@ export function HowItWorks() {
         </h2>
       </FadeIn>
 
-      <div ref={containerRef}>
+      {/* `--stack-top` is read by both the cards' CSS and the progress
+          measurement above, so the pin line can never disagree between the
+          two. A media query is the only way to vary it, since the cards set
+          `top` inline (alongside the gradient border, which Tailwind cannot
+          express) and inline styles beat utility classes. */}
+      <style>{`
+        [data-stack] {
+          --stack-top: ${STICKY_TOP_MOBILE}px;
+          --stack-card-height: ${CARD_HEIGHT_MOBILE};
+        }
+        @media (min-width: 768px) {
+          [data-stack] {
+            --stack-top: ${STICKY_TOP_DESKTOP}px;
+            --stack-card-height: ${CARD_HEIGHT_DESKTOP};
+          }
+        }
+      `}</style>
+
+      <div ref={containerRef} data-stack className="relative">
         {steps.map((step, i) => (
-          <StackCard key={step.number} step={step} content={mocks[i]} />
+          <StackCard
+            key={step.number}
+            step={step}
+            content={mocks[i]}
+            index={i}
+            total={steps.length}
+            progress={progress}
+            reduceMotion={Boolean(reduceMotion)}
+          />
         ))}
-        {/* Scroll runway for the last card, so it pins at STICKY_TOP and
-            stacks onto card 02 instead of sliding over it — a sticky element
-            only stays pinned while its containing block has scrollable
-            height left beneath it.
-            Being the last child, this element takes the cards' `last:mb-0`
-            instead of card 03, so card 03 keeps its mb-8 — and those 32px
-            are the whole runway the pile needs.
-            Keep it at zero height: any taller and the container outlasts
-            the pinned pile by the excess, which reads as a dead patch where
-            you scroll and nothing on screen moves (measured, 32px bought
-            64px of dead scroll, 96px bought 128px, 60vh bought 499px).
-            Card 03's own mb-8 is absorbed by the section's pb-8 instead. */}
-        <div aria-hidden className="h-0" />
+        {/* No trailing spacer. It used to supply the surplus height that keeps
+            the earlier cards pinned, but it is dead space: you scroll through
+            a screen of empty beurre under the finished pile. The scroll the
+            pile needs comes from the cards' own stacked heights instead — the
+            container is three card-heights tall while only one card is on
+            screen at a time, so there is a card-height of travel per card
+            with nothing left over. */}
       </div>
     </section>
   );
