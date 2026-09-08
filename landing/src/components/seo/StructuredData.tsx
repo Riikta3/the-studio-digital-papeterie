@@ -10,11 +10,22 @@ type FaqItem = { question: string; answer: string };
  * Emitted server-side as one `<script type="application/ld+json">`: Google
  * parses this from the served HTML, so it must not depend on hydration.
  *
- * Three graph nodes, each earning its place:
+ * Four graph nodes, each earning its place:
  * - Organization — brand identity, feeds the Knowledge Panel.
+ * - WebSite — ties the locale pages to one publisher.
  * - Product/AggregateOffer — makes the price range eligible to show in the SERP.
- * - FAQPage — the six questions already translated in `Faq`, which can
- *   double the result's vertical footprint.
+ * - FAQPage — the questions already translated in `Faq`, read from the same
+ *   `items` array the section renders, so the two cannot drift.
+ *
+ * On what FAQPage is actually worth, since the previous note here was
+ * out of date: in August 2023 Google restricted the expanded FAQ rich result
+ * to government and health sites, so this markup no longer widens our SERP
+ * entry — the "doubles the vertical footprint" claim it used to make has not
+ * been true for years. It is kept because it still earns its keep elsewhere:
+ * it states question/answer pairs unambiguously for featured-snippet
+ * selection, and it is clean structured text for AI Overviews and other
+ * LLM-driven surfaces that read schema.org in preference to parsing prose.
+ * Those are real but modest wins. No rich result should be expected.
  */
 export async function StructuredData({ locale }: { locale: string }) {
   const [tMeta, tFaq, tPricing] = await Promise.all([

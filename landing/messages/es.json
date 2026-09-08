@@ -550,27 +550,51 @@
     "items": [
       {
         "question": "¿Puedo modificar mi invitación después de enviarla?",
-        "answer": "Sí. Si algún dato cambia antes de tu boda, tu invitación de boda digital puede actualizarse sin tener que enviar una nueva invitación a tus invitados."
+        "answer": "Sí. Es una de las grandes ventajas de una invitación de boda digital. Si algún dato cambia después del envío (horario, lugar, traslados, alojamiento, programa u otro detalle práctico), el contenido puede actualizarse sin necesidad de enviar una nueva invitación a tus invitados. El enlace sigue siendo el mismo."
       },
       {
-        "question": "¿Hay una suscripción?",
-        "answer": "No. Tu invitación The Studio es un pago único. No se necesita ninguna suscripción mensual."
+        "question": "¿Hay alguna suscripción?",
+        "answer": "No. Eliges tu fórmula en el momento de crear tu invitación. No hay que contratar ninguna suscripción mensual para seguir utilizando tu invitación digital mientras esté publicada."
       },
       {
-        "question": "¿Cómo funciona el RSVP?",
-        "answer": "Tus invitados responden directamente desde tu invitación. Sus respuestas se agrupan después en tu espacio de novios."
+        "question": "¿Cómo funciona el RSVP de boda online?",
+        "answer": "Tus invitados pueden confirmar su asistencia directamente desde tu invitación de boda digital. Según tu proyecto, el formulario de RSVP también puede recoger información complementaria como la elección de menú, las alergias alimentarias, la asistencia al brunch, las necesidades de transporte u otras respuestas personalizadas. Toda la información queda centralizada para facilitar tu organización y el seguimiento de las respuestas."
       },
       {
         "question": "¿Cuánto tiempo permanece accesible mi invitación?",
-        "answer": "La duración de la publicación se te indica al realizar tu pedido."
+        "answer": "Tu invitación permanece accesible durante el tiempo previsto en tu fórmula. La duración exacta se te indica al realizar tu pedido. Durante ese periodo, tus invitados pueden volver a consultar el programa, los lugares, la información práctica y su invitación desde el mismo enlace."
       },
       {
-        "question": "¿Puedo tener mi propio nombre de dominio?",
-        "answer": "Un nombre de dominio personalizado puede ofrecerse como opción según tu proyecto."
+        "question": "¿Puedo personalizar la dirección de mi invitación con mi propio nombre de dominio?",
+        "answer": "Sí, según la fórmula elegida. Es posible personalizar la dirección de tu invitación para crear una experiencia aún más coherente con la identidad de tu boda. Esta opción está disponible sobre todo en las creaciones más personalizadas."
       },
       {
         "question": "¿Ofrecéis una versión en papel?",
-        "answer": "The Studio está especializado en papelería digital. Nuestra prioridad es crear una experiencia pensada para el móvil y la web."
+        "answer": "The Studio está especializado en papelería digital de boda. El objetivo es crear una invitación interactiva, pensada para el móvil, que reúna toda la información útil para tus invitados. No obstante, esta experiencia puede completarse con un soporte físico que incluya, por ejemplo, un código QR que remita a tu invitación digital."
+      },
+      {
+        "question": "¿Qué es una invitación de boda digital?",
+        "answer": "Una invitación de boda digital es una invitación accesible online a través de un enlace, pensada principalmente para consultarse desde el móvil. A diferencia de una simple imagen enviada por mensaje, puede integrar varios módulos interactivos: cuenta atrás, programa, ubicación, código de vestimenta, alojamiento, RSVP, playlist, transporte, FAQ o galería de fotos. De este modo es a la vez una invitación y una auténtica herramienta de organización."
+      },
+      {
+        "question": "¿Cómo enviar una invitación de boda digital a los invitados?",
+        "answer": "Tu invitación de boda digital puede enviarse fácilmente por WhatsApp, SMS o email. También puede estar accesible mediante un código QR impreso en un Save the Date, una tarjeta o cualquier elemento de señalización. Tus invitados no tienen que descargar nada: abren la invitación directamente desde su teléfono."
+      },
+      {
+        "question": "¿Se puede añadir un código QR a la invitación de boda?",
+        "answer": "Sí. Un código QR puede integrarse en un soporte impreso para remitir directamente a tu invitación de boda digital. Puede utilizarse en un Save the Date, una tarjeta de invitación, un cartel de bienvenida u otra pieza de papelería. El código QR permite a tus invitados acceder de inmediato a tu invitación interactiva y a tu RSVP online."
+      },
+      {
+        "question": "¿Qué información se puede incluir en una invitación de boda interactiva?",
+        "answer": "Una invitación de boda interactiva puede reunir toda la información útil antes del gran día: fecha, cuenta atrás, programa, lugares, itinerarios, código de vestimenta, alojamiento, elecciones de menú, RSVP, playlist, transporte, FAQ, regalos o información práctica. Cada elemento puede presentarse en su propio módulo para mantener una experiencia clara y agradable."
+      },
+      {
+        "question": "¿Cuál es la diferencia entre una invitación digital y una web de boda?",
+        "answer": "Una web de boda sirve sobre todo para centralizar información. La invitación digital está concebida ante todo como una invitación: crea una primera impresión, presenta el universo de la boda y acompaña al invitado hasta su respuesta RSVP. Suele ser más breve, más inmersiva, más editorial y está pensada sobre todo como una experiencia móvil."
+      },
+      {
+        "question": "¿La invitación funciona en todos los teléfonos?",
+        "answer": "Las invitaciones The Studio están diseñadas con un enfoque mobile first para consultarse cómodamente desde el móvil. Los textos, las animaciones, los botones y los módulos están pensados para ofrecer una navegación fluida sin necesidad de instalar ninguna aplicación."
       }
     ]
   },

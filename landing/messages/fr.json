@@ -505,27 +505,51 @@
     "items": [
       {
         "question": "Puis-je modifier mon invitation après l'avoir envoyée ?",
-        "answer": "Oui. Si une information évolue avant votre mariage, votre invitation de mariage digitale peut être mise à jour sans avoir à renvoyer un nouveau faire-part à vos invités."
+        "answer": "Oui. C'est l'un des grands avantages d'un faire-part de mariage digital. Si une information change après l'envoi — horaire, lieu, navette, hébergement, programme ou détail pratique — le contenu peut être mis à jour sans avoir à renvoyer une nouvelle invitation à vos invités. Le lien reste le même."
       },
       {
         "question": "Y a-t-il un abonnement ?",
-        "answer": "Non. Votre invitation The Studio fait l'objet d'un paiement unique. Aucun abonnement mensuel n'est nécessaire."
+        "answer": "Non. Vous choisissez votre formule au moment de la création de votre invitation. Il n'y a pas d'abonnement mensuel à prévoir pour continuer à utiliser votre faire-part digital pendant sa période de mise en ligne."
       },
       {
-        "question": "Comment fonctionne le RSVP ?",
-        "answer": "Vos invités répondent directement depuis votre invitation. Leurs réponses sont ensuite regroupées dans votre espace mariés."
+        "question": "Comment fonctionne le RSVP mariage en ligne ?",
+        "answer": "Vos invités peuvent confirmer leur présence directement depuis votre invitation de mariage digitale. Selon votre projet, le formulaire RSVP peut également permettre de recueillir des informations complémentaires comme les choix de menu, les allergies alimentaires, la présence au brunch, les besoins de transport ou d'autres réponses personnalisées. Les informations sont ensuite centralisées pour faciliter votre organisation et vos relances."
       },
       {
         "question": "Combien de temps mon invitation reste-t-elle accessible ?",
-        "answer": "La durée de mise en ligne vous est précisée lors de votre commande."
+        "answer": "Votre invitation reste accessible pendant la durée prévue dans votre formule. Cette durée vous est précisée lors de votre commande. Pendant cette période, vos invités peuvent consulter à nouveau le programme, les lieux, les informations pratiques et leur invitation depuis le même lien."
       },
       {
-        "question": "Puis-je avoir mon propre nom de domaine ?",
-        "answer": "Un nom de domaine personnalisé peut être proposé en option selon votre projet."
+        "question": "Puis-je personnaliser l'adresse de mon invitation avec mon propre nom de domaine ?",
+        "answer": "Oui, selon la formule choisie. Il est possible de personnaliser l'adresse de votre invitation afin de créer une expérience encore plus cohérente avec l'identité de votre mariage. Cette option peut notamment être intégrée dans les prestations les plus personnalisées."
       },
       {
         "question": "Proposez-vous une version papier ?",
-        "answer": "The Studio est spécialisé dans la papeterie digitale. Notre priorité est de créer une expérience pensée pour le téléphone et le web."
+        "answer": "The Studio est spécialisé dans la papeterie digitale de mariage. L'objectif est de créer une invitation interactive, pensée pour mobile, qui centralise toutes les informations utiles à vos invités. Il est toutefois possible de compléter cette expérience avec un support physique intégrant, par exemple, un QR code renvoyant vers votre invitation digitale."
+      },
+      {
+        "question": "Qu'est-ce qu'un faire-part de mariage digital ?",
+        "answer": "Un faire-part de mariage digital est une invitation accessible en ligne depuis un lien, principalement pensée pour être consultée sur smartphone. Contrairement à une simple image envoyée par message, il peut intégrer plusieurs modules interactifs : compte à rebours, programme, lieu, dress code, hébergements, RSVP, playlist, covoiturage, FAQ ou galerie photo. Il devient ainsi à la fois une invitation et un véritable outil d'organisation."
+      },
+      {
+        "question": "Comment envoyer une invitation de mariage digitale à ses invités ?",
+        "answer": "Votre invitation mariage digitale peut être envoyée simplement par WhatsApp, SMS ou email. Elle peut également être accessible grâce à un QR code imprimé sur un Save the Date, une carte ou une signalétique. Vos invités n'ont rien à télécharger : ils ouvrent directement l'invitation depuis leur téléphone."
+      },
+      {
+        "question": "Peut-on ajouter un QR code à son faire-part de mariage ?",
+        "answer": "Oui. Un QR code peut être intégré à un support imprimé afin de renvoyer directement vers votre faire-part de mariage digital. Il peut être utilisé sur un Save the Date, une carte d'invitation, un panneau d'accueil ou une autre pièce de papeterie. Le QR code permet à vos invités d'accéder immédiatement à votre invitation interactive et à votre RSVP en ligne."
+      },
+      {
+        "question": "Quelles informations peut-on intégrer dans une invitation de mariage interactive ?",
+        "answer": "Une invitation de mariage interactive peut réunir toutes les informations utiles avant le Jour J : date, compte à rebours, programme, lieux, itinéraires, dress code, hébergements, choix alimentaires, RSVP, playlist, covoiturage, FAQ, cadeaux ou informations pratiques. Chaque élément peut être présenté dans un module dédié pour garder une expérience claire et agréable à consulter."
+      },
+      {
+        "question": "Quelle est la différence entre un faire-part digital et un site de mariage ?",
+        "answer": "Un site de mariage sert principalement à centraliser des informations. Le faire-part digital est d'abord pensé comme une invitation : il crée une première impression, présente l'univers du mariage et accompagne l'invité jusqu'à sa réponse RSVP. Il est généralement plus court, plus immersif, plus éditorial et davantage conçu comme une expérience mobile."
+      },
+      {
+        "question": "L'invitation fonctionne-t-elle sur tous les téléphones ?",
+        "answer": "Les invitations The Studio sont conçues selon une logique mobile first afin d'être consultées facilement sur smartphone. Les textes, animations, boutons et modules sont pensés pour offrir une navigation fluide sans avoir besoin d'installer une application."
       }
     ]
   },

@@ -16,7 +16,9 @@ type FaqItem = {
 export function Faq() {
   const t = useTranslations("Faq");
   const faqs = t.raw("items") as FaqItem[];
-  const [openIndex, setOpenIndex] = useState<number | null>(0);
+  // All panels start closed: at twelve items an open first answer pushed the
+  // rest of the list below the fold before the visitor had asked anything.
+  const [openIndex, setOpenIndex] = useState<number | null>(null);
 
   return (
     <section id="faq" className="relative overflow-hidden bg-studio-creme px-6 py-20 md:px-12">
@@ -54,15 +56,29 @@ export function Faq() {
       <div className="mx-auto flex max-w-2xl flex-col gap-4">
         {faqs.map((faq, index) => {
           const isOpen = openIndex === index;
+          const panelId = `faq-panel-${index}`;
+          const buttonId = `faq-button-${index}`;
           return (
-            <FadeIn key={faq.question} delay={index * 0.05}>
+            // `key` is the index, not the question: the open/closed state is
+            // itself index-based, so a content-derived key would let an editor
+            // reordering the locale JSON move the open panel to a different
+            // question. The list is static, so there is nothing to reconcile.
+            //
+            // The stagger is capped at 5 steps (0.25s). Each card is its own
+            // IntersectionObserver target, so the delay is counted from when
+            // that card scrolls into view — uncapped, `index * 0.05` made the
+            // twelfth card sit visibly blank for 0.55s after it was already
+            // on screen, which reads as lag rather than choreography.
+            <FadeIn key={index} delay={Math.min(index, 5) * 0.05}>
               <div className="overflow-hidden rounded-2xl border border-studio-lavande/40 bg-white">
                 <h3>
                   <button
                     type="button"
+                    id={buttonId}
                     onClick={() => setOpenIndex(isOpen ? null : index)}
                     aria-expanded={isOpen}
-                    className="flex w-full items-center justify-between gap-4 p-6 text-left"
+                    aria-controls={panelId}
+                    className="flex w-full items-center justify-between gap-4 p-6 text-start"
                   >
                     <span className="font-heading text-lg text-studio-violet md:text-xl">
                       {faq.question}
@@ -82,23 +98,56 @@ export function Faq() {
                   </button>
                 </h3>
 
-                {/* Height animated with grid-template-rows rather than
-                    framer-motion's `height: auto`: it interpolates to the
-                    content's natural height in pure CSS, and animating
-                    `height` on six panels was a non-composited animation
-                    Lighthouse flagged. */}
                 {/* Animated with max-height + opacity rather than
                     framer-motion's `height: auto`. `grid-template-rows:
                     1fr/0fr` was tried first and does not work here: the row
                     stayed collapsed at 0px because this container has no
                     height of its own to distribute. A generous max-height cap
                     is the reliable option — the transition is CSS-only, so
-                    framer-motion is no longer needed for the accordion. */}
+                    framer-motion is no longer needed for the accordion.
+
+                    The cap is 56rem (896px), up from 40rem. Measured by
+                    wrapping every locale's longest answer against the real
+                    Urbanist advance widths at the narrowest layout that
+                    actually occurs — a 320px viewport, where the section and
+                    the <p> each contribute px-6 and leave a 224px text
+                    column, not the 272px the card is wide — the tallest panel
+                    is Portuguese at ~365px (15 lines), ahead of French and
+                    Spanish at ~343px. So nothing in this set clips at either
+                    cap; 40rem already had ~275px spare. The increase buys
+                    room for future copy and translation drift (a single
+                    answer would have to reach roughly 38 mobile lines,
+                    ~1,200 characters, to clip 56rem).
+
+                    The trade-off is real but small: `max-height` interpolates
+                    over the declared range rather than the content height, so
+                    the visible motion finishes early and the rest of the
+                    300ms is dead time — about 180ms of it for a 365px panel
+                    at this cap. That is perceptible as a slightly soft finish
+                    if you look for it, and it is the price of a fixed cap.
+                    If it ever needs to be exact, animate a measured
+                    scrollHeight and set `maxHeight: none` on transitionend
+                    (still CSS-only, still no framer-motion); that was judged
+                    not worth the ref-per-panel complexity at this scale.
+
+                    `visibility` is transitioned alongside: max-height 0 plus
+                    opacity 0 hides a panel visually but leaves its text in the
+                    accessibility tree and its links in the tab order. That
+                    matters now the answers are long, and will matter more once
+                    internal links go into them. `visibility: hidden` prunes
+                    both; it is delayed by the transition duration on close so
+                    the collapse remains visible, and applied immediately on
+                    open. */}
                 <div
+                  id={panelId}
+                  role="region"
+                  aria-labelledby={buttonId}
                   className="overflow-hidden transition-all duration-300 ease-in-out"
                   style={{
-                    maxHeight: isOpen ? "40rem" : 0,
+                    maxHeight: isOpen ? "56rem" : 0,
                     opacity: isOpen ? 1 : 0,
+                    visibility: isOpen ? "visible" : "hidden",
+                    transitionProperty: "max-height, opacity, visibility",
                   }}
                 >
                   <p className="px-6 pb-6 pt-0 font-body text-sm leading-relaxed text-studio-violet/70 md:text-base">
