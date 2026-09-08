@@ -210,8 +210,16 @@ export function Pricing() {
               </ul>
             )}
 
-            <div className="mt-8">
-              <Button variant="studio-violet" size="pill" asChild>
+            {/* Full width on phones so the CTA is the full tap target the
+                card's own padding allows, centred from sm up where a
+                text-width button under left-aligned copy read as stranded. */}
+            <div className="mt-8 flex justify-center">
+              <Button
+                variant="studio-violet"
+                size="pill"
+                className="w-full sm:w-auto"
+                asChild
+              >
                 <Link href={`/studio/start?plan=${selected.id}`}>
                   {selected.cta}
                   <ArrowRight className="ml-2 h-4 w-4 shrink-0" />

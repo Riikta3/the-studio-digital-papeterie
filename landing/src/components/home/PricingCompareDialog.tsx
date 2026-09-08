@@ -93,14 +93,11 @@ export function PricingCompareDialog({
             aria-label={labels.title}
             className="fixed inset-x-0 bottom-0 z-50 flex max-h-[92vh] flex-col rounded-t-[32px] bg-studio-beurre"
           >
-            {/* Grab handle, then the sheet's own close affordance — same
-                placement and styling as ThemeConfigSheet. */}
-            <div className="shrink-0 px-6 pt-3 md:px-10">
-              <div
-                className="mx-auto h-1 w-10 rounded-full bg-studio-violet/20"
-                aria-hidden="true"
-              />
-              <div className="mt-3 flex items-start justify-between gap-4">
+            {/* No grab handle: the sheet is dismissed by the close button or
+                the scrim, never by dragging, so a handle promised an
+                interaction that does not exist. */}
+            <div className="shrink-0 px-6 pt-6 md:px-10">
+              <div className="flex items-start justify-between gap-4">
                 <div>
                   <h3 className="font-heading text-h2 text-studio-violet">
                     {labels.title}
