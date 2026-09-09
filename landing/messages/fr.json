@@ -555,6 +555,62 @@
       }
     ]
   },
+  "Themes": {
+    "metaTitle": "Nos collections de faire-part de mariage digital | The Studio",
+    "metaDescription": "Découvrez nos collections de faire-part de mariage digital : trois univers, du minimalisme couture à la dolce vita italienne. RSVP intégré, programme et informations pratiques réunis.",
+    "eyebrow": "Nos collections",
+    "h1": "Faire-part de mariage digital : nos collections",
+    "intro": "Chaque collection est un univers complet, pensé pour le téléphone : une invitation qui se déroule au fil du pouce, avec le programme, les lieux, le dress code, les hébergements et le RSVP réunis au même endroit. Choisissez celle qui ressemble à votre mariage.",
+    "cardCta": "Découvrir la collection",
+    "discoverAll": "Voir toutes les collections",
+    "previewCta": "Voir la démo interactive",
+    "createCta": "Créer mon invitation",
+    "backToCollections": "Toutes les collections",
+    "sectionsTitle": "Ce que contient cette invitation",
+    "paletteTitle": "La palette",
+    "items": {
+      "ciao-amore": {
+        "metaTitle": "Ciao Amore — faire-part de mariage digital italien | The Studio",
+        "metaDescription": "Ciao Amore : un faire-part de mariage digital aux couleurs de la côte amalfitaine. Citrons, pastel et lumière d'Italie, avec RSVP et programme intégrés.",
+        "h1": "Ciao Amore, le faire-part de mariage digital de la dolce vita",
+        "tagline": "Dolce vita sur la côte amalfitaine",
+        "intro": "Ciao Amore est né d'un mariage à Ravello, sur les hauteurs de la côte amalfitaine. C'est la collection des mariages qui sentent le citron et la pierre chaude : un jaune franc, un vert olive profond, des pastels lavés par le soleil, et une typographie qui a la générosité des enseignes italiennes.",
+        "body1": "L'invitation s'ouvre sur une arche méditerranéenne et se déroule ensuite comme une journée en Italie. Le compte à rebours, le programme heure par heure, le lieu avec son itinéraire, le dress code, les hébergements à réserver et la playlist que vos invités alimentent : chaque module a sa place, et rien ne sort de l'univers.",
+        "body2": "Ciao Amore porte aussi une section « lendemain » : le brunch au bord de la piscine, la seconde journée, ce moment que les faire-part papier ne savent pas raconter. Vos invités répondent au RSVP directement depuis l'invitation, et vous retrouvez leurs réponses réunies dans votre espace.",
+        "body3": "Techniquement, c'est une page web : vos invités reçoivent un lien par message ou scannent un QR code, et l'invitation s'ouvre dans leur navigateur. Rien à installer, rien à créer comme compte. Elle se consulte aussi bien depuis un iPhone que depuis un vieil Android, et reste accessible pendant toute la durée prévue dans votre formule — utile quand un invité cherche l'adresse du domaine la veille.",
+        "bestFor": "Un mariage en Italie, sur la Riviera, ou partout où la lumière compte autant que le lieu.",
+        "faqTitle": "Et si notre mariage n'est pas en Italie ?",
+        "faqBody": "Ciao Amore n'impose pas de destination. Les prénoms, les dates, le lieu, le programme et les textes sont les vôtres : la collection apporte une palette et une typographie, pas un décor imposé. Beaucoup de mariages en France choisissent cet univers pour sa lumière, simplement parce qu'il ressemble à l'ambiance qu'ils veulent donner."
+      },
+      "blanc-couture": {
+        "metaTitle": "Blanc Couture — faire-part de mariage digital minimaliste | The Studio",
+        "metaDescription": "Blanc Couture : un faire-part de mariage digital épuré, papeterie blanche et dorure fine. L'élégance couture de la Riviera, avec RSVP intégré.",
+        "h1": "Blanc Couture, le faire-part de mariage digital minimaliste",
+        "tagline": "Papeterie blanche et dorure fine",
+        "intro": "Blanc Couture est la collection du presque rien. Du blanc, un or fin, des cadres ovales, beaucoup d'air : c'est la papeterie de haute couture transposée à l'écran, celle qui laisse vos prénoms occuper toute la place. Sa démo se déroule à la Villa Ephrussi de Rothschild, à Saint-Jean-Cap-Ferrat.",
+        "body1": "Rien n'y est décoratif par défaut. Les filets dorés soulignent, ils ne remplissent pas. Le compte à rebours est une horloge sobre, le programme une colonne lisible, le dress code une note et une palette. C'est la collection à choisir quand l'invitation doit s'effacer derrière l'information.",
+        "body2": "Blanc Couture intègre une section covoiturage : vos invités qui viennent de loin trouvent qui part d'où, sans groupe de discussion à créer. Le RSVP, le programme, les hébergements et les questions fréquentes tiennent dans la même page, et se mettent à jour sans renvoyer d'invitation.",
+        "body3": "Vos invités ouvrent l'invitation depuis un lien, sur leur téléphone, sans application ni compte à créer. La page se corrige jusqu'au dernier moment : un horaire qui bouge, une navette ajoutée, un hébergement complet — vous modifiez, le lien reste le même, et personne ne reçoit un second faire-part contradictoire.",
+        "bestFor": "Un mariage épuré, une cérémonie en blanc, ou un couple qui préfère la retenue à l'ornement.",
+        "faqTitle": "Le minimalisme, est-ce que ça reste chaleureux ?",
+        "faqBody": "C'est la question qu'on nous pose le plus sur cette collection. La réponse tient dans les photographies : Blanc Couture laisse vos images occuper toute la largeur, sans cadre décoratif qui les concurrence. Le blanc n'est pas un vide, c'est ce qui met vos visages en valeur."
+      },
+      "belle-rive": {
+        "metaTitle": "Belle Rive — faire-part de mariage digital Riviera | The Studio",
+        "metaDescription": "Belle Rive : un faire-part de mariage digital aux teintes nacre, olivier et doré. L'élégance Riviera pour un mariage au soleil, avec RSVP intégré.",
+        "h1": "Belle Rive, le faire-part de mariage digital de la Riviera",
+        "tagline": "Nacre, olivier et dorures",
+        "intro": "Belle Rive est la plus généreuse des trois. Nacre, feuilles d'olivier, dorures discrètes, perles : c'est un mariage du Sud raconté en entier, du vin d'honneur jusqu'aux activités du lendemain. Sa démo se tient au Domaine de la Trinité, près de Montpellier.",
+        "body1": "C'est la collection des mariages qui durent plus d'une journée. Au-delà du programme et du lieu, elle porte une section activités — piscine, pétanque, tennis —, un covoiturage, une liste de cadeaux, et un dress code illustré. Les invités savent quoi prévoir dans leur valise avant d'arriver.",
+        "body2": "Belle Rive assume la matière : des photographies pleine largeur, des textures nacrées, des vidéos de la cérémonie et du cocktail. Le tout reste une page unique qui s'ouvre depuis un lien, sans application à installer, et dont le contenu se corrige jusqu'au dernier moment.",
+        "body3": "Comme les deux autres collections, Belle Rive s'ouvre depuis un simple lien, sur mobile, sans rien à installer. Sa particularité est le volume d'informations qu'elle absorbe sans devenir illisible : quand un mariage se déroule sur deux ou trois jours, chaque module a sa section, et vos invités trouvent ce qu'ils cherchent sans faire défiler la moitié de la page.",
+        "bestFor": "Un mariage de plusieurs jours, un domaine dans le Sud, une fête qui commence la veille.",
+        "faqTitle": "Autant de contenu, est-ce que ça reste rapide à charger ?",
+        "faqBody": "Les photographies sont converties au format WebP et chargées au fur et à mesure du défilement, pas toutes d'un coup. Les vidéos ne se déclenchent qu'à l'arrivée dans la section concernée. Une invitation riche reste une page mobile : c'est la contrainte que nous nous imposons sur chaque collection."
+      }
+    },
+    "faqSectionTitle": "Bon à savoir"
+  },
   "FinalCta": {
     "titleLine1": "Le lieu est choisi. Le traiteur aussi.",
     "titleAccent": "Il ne reste plus qu'à annoncer la nouvelle.",
