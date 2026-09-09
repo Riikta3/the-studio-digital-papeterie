@@ -22,16 +22,22 @@ const MobileMenu = dynamic(
  * `StickyHeader`/the inline nav in Hero.tsx are not reusable as-is: they are
  * wired into the homepage's own scroll and carousel state (violet backdrop
  * height, theme selection) and only make sense sitting on top of the hero.
- * Every other indexable page (themes, journal, legal) ships with no header
- * at all today, but the owner brief for Contact explicitly asks to "add
- * Contact to the main navigation" — which requires a way to actually reach
- * the rest of the site (and the menu that now lists Contact) from this page.
  * This is the minimal reusable slice: the same logo, the same burger button
  * opening the same MobileMenu component, styled identically to the one in
  * Hero.tsx's own inline <nav>, without any of the homepage-only scroll
  * machinery.
+ *
+ * Mounted on every indexable page outside the homepage — contact, themes,
+ * journal (index and articles) and the (landing) slugs. Those shipped with no
+ * header at all, which left a visitor arriving from search with no way back
+ * to the homepage and no way into the menu: the logo is the affordance every
+ * site puts there, and it was the one thing missing.
+ *
+ * The colours assume a light ground: every page mounting this uses
+ * `bg-studio-creme` or `bg-studio-beurre`. On a dark section it would need the
+ * hero's inverted pairing instead.
  */
-export function ContactPageHeader() {
+export function PageHeader() {
   const t = useTranslations("Hero");
   const [menuOpen, setMenuOpen] = useState(false);
   const [menuMounted, setMenuMounted] = useState(false);

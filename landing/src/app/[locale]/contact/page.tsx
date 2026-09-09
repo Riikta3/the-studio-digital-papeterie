@@ -3,7 +3,7 @@ import Image from "next/image";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 
 import { ContactForm } from "@/components/contact/ContactForm";
-import { ContactPageHeader } from "@/components/contact/ContactPageHeader";
+import { PageHeader } from "@/components/home/PageHeader";
 import { Footer } from "@/components/home/Footer";
 import { TextureOverlay } from "@/components/home/TextureOverlay";
 import { buildAlternates, buildOpenGraph } from "@/lib/seo-metadata";
@@ -67,7 +67,7 @@ export default async function ContactPage({
   // the yellow UI on top of it keeps its edge.
   return (
     <main className="bg-studio-beurre">
-      <ContactPageHeader />
+      <PageHeader />
 
       {/* ── HERO — short on purpose, no big block before the form ── */}
       <section className="px-6 pb-4 pt-6 md:px-12 md:pb-10 md:pt-10">
