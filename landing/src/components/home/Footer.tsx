@@ -6,6 +6,7 @@ import { hasLandingPages } from "@/lib/landing-pages";
 import { hasThemePages } from "@/lib/theme-pages";
 import { Link } from "@/navigation";
 
+import { CookieSettingsLink } from "./CookieSettingsLink";
 import { FooterProductLinks } from "./FooterProductLinks";
 
 export async function Footer() {
@@ -126,6 +127,11 @@ export async function Footer() {
                   </Link>
                 </li>
               ))}
+              {/* The only way back to the consent choice once the banner has
+                  been answered — withdrawing has to be as easy as giving. */}
+              <li>
+                <CookieSettingsLink />
+              </li>
             </ul>
           </nav>
         </div>

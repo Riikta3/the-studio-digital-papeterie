@@ -104,10 +104,11 @@
     "loading": "Loading..."
   },
   "CookieConsent": {
-    "bannerText": "We use cookies to enhance your user experience and analyze traffic.",
+    "bannerText": "With your agreement, we set analytics and advertising cookies to understand how the site is used. Nothing is set before you choose.",
     "acceptButton": "Accept",
     "declineButton": "Decline",
-    "learnMore": "Learn more"
+    "learnMore": "Learn more",
+    "reopen": "Manage cookies"
   },
   "Footer": {
     "logoAlt": "The Studio Digital Papeterie",
