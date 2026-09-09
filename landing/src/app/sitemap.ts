@@ -95,16 +95,25 @@ export default function sitemap(): MetadataRoute.Sitemap {
     })),
   ]);
 
-  // The Journal, same shape and same reasoning: French-only, no hreflang.
-  // Driven off JOURNAL_SLUGS so publishing an article is one list to edit.
+  // The Journal. Unlike the theme pages this one now has two locales written,
+  // so its entries DO carry an hreflang map — built from JOURNAL_LOCALES so it
+  // only ever names URLs that exist. Driven off JOURNAL_SLUGS so publishing an
+  // article is one list to edit.
+  const journalLanguages = (slug?: string) =>
+    Object.fromEntries(
+      JOURNAL_LOCALES.map((l) => [l, `${siteUrl}${journalPath(l, slug)}`]),
+    );
+
   const journalPages = JOURNAL_LOCALES.flatMap((locale) => [
     {
       url: `${siteUrl}${journalPath(locale)}`,
       lastModified: JOURNAL_LAST_MODIFIED,
+      alternates: { languages: journalLanguages() },
     },
     ...JOURNAL_SLUGS.map((slug) => ({
       url: `${siteUrl}${journalPath(locale, slug)}`,
       lastModified: JOURNAL_LAST_MODIFIED,
+      alternates: { languages: journalLanguages(slug) },
     })),
   ]);
 
