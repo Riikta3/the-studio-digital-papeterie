@@ -29,17 +29,23 @@ export function isJournalSlug(slug: string): slug is JournalSlug {
 /**
  * The locales the Journal is published in.
  *
- * French only, for the same reason as the theme pages: the copy exists in
- * `messages/fr.json` alone, and next-intl's default `getMessageFallback`
- * renders a missing key as the key itself, so another locale would serve
- * `Journal.articles.gerer-rsvp-mariage.h1` as its heading and Google would
- * index it. Machine-translating long-form editorial copy into eight languages
- * would be worse — thin duplicate content on pages whose only job is to rank.
+ * A locale appears here only once its `Journal` namespace is written in that
+ * locale's message file. next-intl's default `getMessageFallback` renders a
+ * missing key as the key itself, so a locale listed here without copy would
+ * serve `Journal.articles.gerer-rsvp-mariage.h1` as its heading, and Google
+ * would index that.
  *
- * Kept separate from `THEME_PAGE_LOCALES` deliberately: the two sets will
- * diverge as soon as one of them is translated first.
+ * The English articles are not a translation of the French ones. The slugs are
+ * shared, but the titles, metas and section headings target the terms people
+ * actually search in English — "wedding invitation wording", "when to send
+ * wedding invitations", "what to include in a wedding invitation". Rendering
+ * "textes de faire-part" literally would produce a page matching no real
+ * English query, which is the trap in translating keyword-led content.
+ *
+ * Kept separate from `THEME_PAGE_LOCALES` deliberately: the two sets diverge,
+ * and this one moves as copy is written.
  */
-export const JOURNAL_LOCALES = ["fr"] as const;
+export const JOURNAL_LOCALES = ["fr", "en"] as const;
 
 export function hasJournal(locale: string): boolean {
   return (JOURNAL_LOCALES as readonly string[]).includes(locale);
@@ -75,7 +81,22 @@ export function journalPath(locale: string, slug?: string): string {
  * reasoning as `themePageAlternates`.
  */
 export function journalAlternates(locale: string, siteUrl: string, slug?: string) {
-  return { canonical: `${siteUrl}${journalPath(locale, slug)}` };
+  return {
+    canonical: `${siteUrl}${journalPath(locale, slug)}`,
+    // Built from JOURNAL_LOCALES, not from routing.locales: an hreflang map is
+    // a claim that each URL in it exists, and the locales without copy 404.
+    // With French and English written, the pair is now worth declaring — it
+    // stops the two versions competing and lets Google serve the reader's
+    // language. A locale joins the map by joining JOURNAL_LOCALES.
+    languages: {
+      ...Object.fromEntries(
+        JOURNAL_LOCALES.map((l) => [l, `${siteUrl}${journalPath(l, slug)}`]),
+      ),
+      // French is the source: it is the version to serve when no listed
+      // language matches the reader.
+      "x-default": `${siteUrl}${journalPath("fr", slug)}`,
+    },
+  };
 }
 
 /**

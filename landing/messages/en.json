@@ -591,6 +591,218 @@
       }
     ]
   },
+  "Journal": {
+    "metaTitle": "The Journal | The Studio Digital Papeterie",
+    "metaDescription": "Advice, timelines and wording for planning your wedding invitations: what to include, when to send, how to track the replies.",
+    "eyebrow": "The Journal",
+    "h1": "The Journal",
+    "intro": "What we wish we had read while planning a wedding: precise answers on invitations, send timelines, wording and tracking replies.",
+    "readMore": "Read the article",
+    "backToJournal": "All articles",
+    "relatedTitle": "Read next",
+    "faqSectionTitle": "Worth knowing",
+    "ctaTitle": "Create your invitation",
+    "ctaBody": "The Studio designs digital wedding invitations: three collections, an experience built for the phone, a built-in RSVP and all your wedding details in one place.",
+    "ctaCollections": "View the collections",
+    "ctaCreate": "Create my invitation",
+    "articles": {
+      "faire-part-mariage-digital": {
+        "metaTitle": "Digital wedding invitations: how they work",
+        "metaDescription": "How a digital wedding invitation works: shared by link, RSVP built in, a QR code for print, and content you can correct after sending.",
+        "h1": "Digital wedding invitations, in practice",
+        "lede": "A digital wedding invitation is not a picture of an invitation sent by message. It is a web page in your names that opens from a link, reads on a phone, and holds the invitation and the planning in one place. Here is what that changes.",
+        "sections": [
+          {
+            "title": "What it actually is",
+            "body": "A page at its own web address. Your guests get that link by message, or scan it from a printed QR code. Nothing to download, no account, no app — the phone's browser is enough. That is the real difference from a PDF or an image: a page can hold a form, a map, a countdown, and it can be changed after you have sent it."
+          },
+          {
+            "title": "Three collections, not a template",
+            "body": "Ciao Amore borrows from the Amalfi Coast — bright lemon, deep olive, sun-washed pastels. Blanc Couture is the collection of almost nothing: white, fine gold, a great deal of air. Belle Rive is the most generous, mother-of-pearl and olive leaves, built for weddings that run over several days. Each one opens as an interactive demo, with real content, before you choose."
+          },
+          {
+            "title": "What the RSVP form can ask",
+            "body": "You decide the questions: a plus-one, children, dietary needs, attendance at the next-day brunch or the welcome dinner, a lift, a free-text message. An adults-only wedding shows no children field at all — not a disabled one, none. Answers land in your account, filtered by status and exportable for your caterer."
+          },
+          {
+            "title": "The modules your wedding needs",
+            "body": "Countdown, hour-by-hour schedule, venue and directions, dress code, accommodation, transport, menu, a playlist your guests add to, guest book, gift list, photo gallery, FAQ. Each becomes a section of the invitation, and you take only the ones your day calls for."
+          },
+          {
+            "title": "Editable from your account",
+            "body": "After sending, you keep control of the content: times, accommodation, dress code, the FAQ. The invitation's link does not change, so there is nothing to resend to anyone. It is why your guests go back to it in the week of the wedding instead of writing to you."
+          },
+          {
+            "title": "A single payment",
+            "body": "You pick your package when you create the invitation, and it is a one-time payment — no monthly subscription to keep using it while it is live. Three levels, from a personalised collection to a design drawn entirely around your wedding."
+          }
+        ],
+        "faqTitle": "What if we want something printed too?",
+        "faqBody": "The two complement each other better than they compete. A printed card carrying a QR code keeps the gesture — the envelope you open — and points to the full invitation for everything practical. Your account generates your invitation's QR code, ready to hand to your printer.",
+        "related": [
+          "que-mettre-faire-part-mariage",
+          "gerer-rsvp-mariage",
+          "textes-faire-part-mariage"
+        ]
+      },
+      "que-mettre-faire-part-mariage": {
+        "metaTitle": "What to include in a wedding invitation",
+        "metaDescription": "What to write on a wedding invitation: the details that must be there, what can wait, and the wording that works.",
+        "h1": "What to include in a wedding invitation",
+        "lede": "An invitation has to answer four things before anything else: who is marrying, when, where, and how to reply. Everything after that is comfort — useful, but secondary. Here is how to rank it, and where the invitation should stop.",
+        "sections": [
+          {
+            "title": "The four details that are not optional",
+            "body": "Both your names, the full date including the year, the town and the venue, and how to confirm. That is the floor: a guest with those four can hold the date and start planning. Include the year even for a near date — an invitation received in November for a wedding in June is genuinely ambiguous without it."
+          },
+          {
+            "title": "Separating the moments and the guests",
+            "body": "This is the most common and most awkward mistake. If your day runs a ceremony, a dinner, a party and a brunch, and not every guest is invited to all of it, the invitation has to say so plainly. A guest arriving for dinner when they were expected at the party is a situation nobody wants to handle on the day. Phrase it positively: \"We would love to see you for the evening, from 9pm\" reads better than an implied exclusion."
+          },
+          {
+            "title": "The practical details that stop the questions",
+            "body": "Dress code, parking, nearby accommodation, arriving by train or car, whether children are welcome, the gift question. None is essential to the announcement; all of them save you messages. On paper they end up as loose insert cards that get lost. In a digital invitation each becomes a section you consult when you need it — a guest looking for the venue address the night before knows where to look."
+          },
+          {
+            "title": "The RSVP: what to ask on the first pass",
+            "body": "Attendance, obviously. But also whatever you will need for the caterer and the logistics and would hate to chase separately: the number of guests, allergies or dietary needs, the brunch, a lift. One question asked at the right moment is worth three follow-ups."
+          },
+          {
+            "title": "Tone: short, personal, and yours",
+            "body": "The formal constructions inherited from official correspondence say nothing to anyone now. One sentence that sounds like you beats a paragraph of convention. \"We said yes. All that is missing is you\" works because it is direct and it sets the tone of the party. Write the sentence you would say to a friend on the phone, then cut it in half."
+          },
+          {
+            "title": "What not to put on it",
+            "body": "Internal running order (when the photographer arrives), anything that will change (the weather, a shuttle number), and anything that belongs to a family negotiation. An invitation announces and invites; it does not arbitrate. Moving details belong in a digital invitation precisely because they can be corrected there without resending anything."
+          }
+        ],
+        "faqTitle": "Should the gift registry go on the invitation?",
+        "faqBody": "Convention is still to leave it off the invitation itself. In a digital invitation it can live in its own section, which a guest opens if they want to: available without being pushed, which settles a subject that is always slightly delicate.",
+        "related": [
+          "quand-envoyer-faire-part-mariage",
+          "faire-part-mariage-digital",
+          "textes-faire-part-mariage"
+        ]
+      },
+      "quand-envoyer-faire-part-mariage": {
+        "metaTitle": "When to send wedding invitations: the full timeline",
+        "metaDescription": "Save the date, invitation, RSVP deadline, follow-ups: the real timeline for sending wedding invitations, month by month.",
+        "h1": "When to send your wedding invitations",
+        "lede": "The short answer: invitations go out four to six months ahead, save-the-dates nine to twelve months ahead if your guests have to travel. But the real question is not the send date — it is the date you need the answers by.",
+        "sections": [
+          {
+            "title": "Count back from the deadline, not the wedding",
+            "body": "Your caterer wants a final number by a certain date — often three to four weeks out. Your follow-ups take two to three weeks. Your guests need three to four weeks to answer. Add it up: your invitation has to go out at least two and a half months before the wedding, and that is a floor, not a target. Set the RSVP deadline first, then place the send date."
+          },
+          {
+            "title": "Nine to twelve months: the save-the-date",
+            "body": "It only earns its place in three cases: a wedding abroad, a full weekend that costs guests annual leave, or a busy season where they are choosing between events. It holds the bare minimum — your names, the date, the region, and the fact that a full invitation follows. A save-the-date that says too much makes the invitation redundant."
+          },
+          {
+            "title": "Four to six months: the full invitation",
+            "body": "This is the window where a guest can still book a reasonable train and arrange time off. Earlier and they note the date and forget to reply. Later and you collect refusals caused by conflicts they could have avoided. For a peak-season wedding in a tourist region, aim for six: your guests' accommodation needs booking too."
+          },
+          {
+            "title": "Two to three months: tracking the replies",
+            "body": "The thankless phase. Out of a hundred guests, expect a third to answer in the first week, a third after one nudge, and the last third to need individual effort. This is where structured tracking earns its keep: The Studio invitations show every guest as confirmed, declined or awaiting, filterable, with an export — you chase the right people without rereading three group chats."
+          },
+          {
+            "title": "One month: targeted follow-ups",
+            "body": "Chasing everyone is the surest way to annoy the people who already replied. Contact only the guests still outstanding, and by name — a personal message gets an answer, a group message dissolves. It is also the moment to collect what is missing: a guest may have confirmed without mentioning a dietary need."
+          },
+          {
+            "title": "The week of the wedding: the invitation still works",
+            "body": "A paper invitation finished its job months ago. A digital one has not: this is when guests go back to check the time, the address, the dress code, the shuttle. You can still correct a last-minute detail — the link does not change, and nobody receives contradictory information."
+          }
+        ],
+        "faqTitle": "Can you send an invitation too early?",
+        "faqBody": "Yes. Beyond eight months, with no particular reason, guests note the date and postpone replying indefinitely — you lose the benefit of the notice and chase more. If you want to communicate early, a save-the-date does that job better than a full invitation sent prematurely.",
+        "related": [
+          "que-mettre-faire-part-mariage",
+          "faire-part-mariage-digital",
+          "gerer-rsvp-mariage"
+        ]
+      },
+      "textes-faire-part-mariage": {
+        "metaTitle": "Wedding invitation wording: 30 modern examples",
+        "metaDescription": "Thirty wedding invitation wording examples, from the most restrained to the most direct, with what makes each one work.",
+        "h1": "Thirty wedding invitation wordings",
+        "lede": "Good invitation wording is short and sounds like you. Here are thirty lines grouped by register — to take, to cut, to mix. They work because none of them is trying to sound ceremonial.",
+        "sections": [
+          {
+            "title": "Direct and contemporary",
+            "body": "\"We said yes. All that is missing is you.\" · \"It's official: we're getting married.\" · \"Our next chapter starts here, and you're in it.\" · \"Come and celebrate our best decision.\" · \"After all this time: yes.\" · \"We have a date. We have a place. We want you.\" — This register works because it says one thing. Resist adding a second explanatory sentence."
+          },
+          {
+            "title": "Restrained and elegant",
+            "body": "\"We would be glad to have you with us.\" · \"A promise, a party, a memory to make together.\" · \"Join us as we begin our life together.\" · \"We're getting married, and we would love you there.\" · \"On the day we say yes, we would like to see you.\" · \"Your presence matters to us that day.\" — The safest register for an invitation spanning several generations."
+          },
+          {
+            "title": "Warm and personal",
+            "body": "\"You have mattered in our story; we want you in this chapter.\" · \"Come laugh, dance and celebrate with us.\" · \"We want to mark this with the people who count. You're one of them.\" · \"There will be music, people, and a great deal of feeling. Come.\" · \"That day, we would like to be surrounded. By you.\" — Best when the guest list is short and every name counts."
+          },
+          {
+            "title": "Minimal",
+            "body": "\"Us. You. A date. A party.\" · \"One answer: yes.\" · \"To the two of us, and with you.\" · \"Two names, one date, one place.\" · \"Yes.\" · \"The date is set.\" — These need a layout that carries them: plenty of white space, one strong typeface. On a busy composition they read as an oversight."
+          },
+          {
+            "title": "Written for a digital invitation",
+            "body": "\"Scroll down, it's all here.\" · \"Your invitation starts here.\" · \"The schedule, the venue, and your reply: below.\" · \"Everything you need to know, on one page.\" · \"Welcome to our day.\" · \"Give us thirty seconds and we'll explain everything.\" — These use what a web page allows: announcing there is more, and guiding towards the reply."
+          },
+          {
+            "title": "How to choose and adapt",
+            "body": "Write the sentence you would say to a friend, without thinking about it. Compare it to the examples above: yours is probably better, just slightly too long. Cut the opening. Then check it works out loud and leaves no doubt about who is marrying. One last test: if the line could belong to any couple, it is too generic for yours."
+          }
+        ],
+        "faqTitle": "Should the parents be named in the wording?",
+        "faqBody": "It is a traditional usage that remains common, and sometimes expected by families. Nothing requires it in the announcing line itself: a digital invitation can name the parents in a section of its own, which honours the convention without weighing down the opening.",
+        "related": [
+          "que-mettre-faire-part-mariage",
+          "faire-part-mariage-digital",
+          "quand-envoyer-faire-part-mariage"
+        ]
+      },
+      "gerer-rsvp-mariage": {
+        "metaTitle": "How to track wedding RSVPs without a spreadsheet",
+        "metaDescription": "Tracking replies, dietary needs, follow-ups and a final headcount without rebuilding a spreadsheet by hand.",
+        "h1": "Tracking wedding RSVPs without a spreadsheet",
+        "lede": "The problem with RSVPs is not receiving the answers: it is knowing, at any given moment, who has not replied and what is missing. A spreadsheet manages that — at the cost of manual entry that starts again with every message.",
+        "sections": [
+          {
+            "title": "Why the spreadsheet gives out",
+            "body": "It does not fail in principle, it fails on updates. Replies arrive by message, text, email, phone and in person over dinner. Each needs entering. Three weeks in, two people are holding two versions of the file, someone has answered on behalf of their partner, and nobody knows whether \"Martin\" is confirmed or merely enthusiastic. The mistake is not using a spreadsheet — it is hand-copying a stream that arrives continuously."
+          },
+          {
+            "title": "One point of entry",
+            "body": "The useful shift is having the guest reply where they read the invitation, in a form. The answer is recorded as they typed it: their name, their attendance, their party, their dietary needs. No transcription, so no transcription error. Replies to The Studio invitations arrive straight in your account."
+          },
+          {
+            "title": "The three statuses that matter",
+            "body": "Confirmed, declined, awaiting. The third is the only one that needs action, and it is the one a spreadsheet hides: an empty row looks as much like a missed entry as an absent reply. Your RSVP view filters by status, which turns \"who is left to chase?\" into a glance rather than a reread."
+          },
+          {
+            "title": "Asking for what you need on the first pass",
+            "body": "Every detail you do not collect at RSVP time will have to be chased individually later. Allergies and dietary needs, the exact number of adults and children, attendance at the brunch or welcome dinner, a lift: asked in the form, they are answered alongside attendance. Chased in April across forty people, they take an evening."
+          },
+          {
+            "title": "Your guests type, you type nothing",
+            "body": "The reply is stored as the guest wrote it — their name, their party, their dietary needs. You transcribe nothing, so you introduce no transcription error, which is the main flaw of manual tracking and it disappears. Your account shows the current list at all times, without anyone maintaining a file."
+          },
+          {
+            "title": "Reusing the answers downstream",
+            "body": "The RSVP is not an end: its data feeds the final headcount for the caterer, the dietary list for the kitchen, the shuttle sizing, the seating plan. Exporting your guest list saves rebuilding by hand what you have already collected."
+          }
+        ],
+        "faqTitle": "What about guests who never reply?",
+        "faqBody": "Make a phone call, and treat silence as a decline at the deadline you announced. That is what the deadline is for: without one, you wait indefinitely. Build the margin into the conversation with your caterer rather than into your nerves.",
+        "related": [
+          "quand-envoyer-faire-part-mariage",
+          "faire-part-mariage-digital",
+          "que-mettre-faire-part-mariage"
+        ]
+      }
+    }
+  },
   "FinalCta": {
     "titleLine1": "The venue is booked. The caterer too.",
     "titleAccent": "All that's left is to share the news.",
