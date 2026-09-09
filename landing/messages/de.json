@@ -547,6 +547,8 @@
     "eyebrow": "Eine Frage?",
     "titleLine1": "Häufig gestellte",
     "titleAccent": "Fragen",
+    "showMore": "{count} weitere Fragen anzeigen",
+    "showLess": "Weniger anzeigen",
     "items": [
       {
         "question": "Kann ich meine Einladung nach dem Versand noch ändern?",

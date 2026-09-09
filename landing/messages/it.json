@@ -546,6 +546,8 @@
     "eyebrow": "Una domanda?",
     "titleLine1": "Domande",
     "titleAccent": "Frequenti",
+    "showMore": "Vedi altre {count} domande",
+    "showLess": "Mostra meno",
     "items": [
       {
         "question": "Posso modificare il mio invito dopo averlo inviato?",

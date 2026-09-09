@@ -502,6 +502,8 @@
     "eyebrow": "Une question ?",
     "titleLine1": "Questions",
     "titleAccent": "Fréquentes",
+    "showMore": "Voir les {count} autres questions",
+    "showLess": "Afficher moins",
     "items": [
       {
         "question": "Puis-je modifier mon invitation après l'avoir envoyée ?",

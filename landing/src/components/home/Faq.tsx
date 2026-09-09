@@ -1,7 +1,7 @@
 "use client";
 
 import { cn } from "@shared/lib/utils";
-import { Minus, Plus } from "lucide-react";
+import { ChevronDown, Minus, Plus } from "lucide-react";
 import { useTranslations } from "next-intl";
 import Image from "next/image";
 import { useState } from "react";
@@ -13,12 +13,23 @@ type FaqItem = {
   answer: string;
 };
 
+/**
+ * How many questions are on screen before the visitor asks for the rest.
+ *
+ * Six fills the column without turning the section into a wall of twelve
+ * identical cards. The other six stay in the served HTML — see the render
+ * below — so this is a layout decision, not a content one.
+ */
+const VISIBLE_COUNT = 6;
+
 export function Faq() {
   const t = useTranslations("Faq");
   const faqs = t.raw("items") as FaqItem[];
   // All panels start closed: at twelve items an open first answer pushed the
   // rest of the list below the fold before the visitor had asked anything.
   const [openIndex, setOpenIndex] = useState<number | null>(null);
+  const [showAll, setShowAll] = useState(false);
+  const hiddenCount = Math.max(0, faqs.length - VISIBLE_COUNT);
 
   return (
     <section id="faq" className="relative overflow-hidden bg-studio-creme px-6 py-20 md:px-12">
@@ -58,6 +69,22 @@ export function Faq() {
           const isOpen = openIndex === index;
           const panelId = `faq-panel-${index}`;
           const buttonId = `faq-button-${index}`;
+          // Beyond the sixth, a card is rendered but hidden until the visitor
+          // asks for it.
+          //
+          // EVERY question and answer is in the served HTML either way — this
+          // is `hidden`, not a slice of the array. That is deliberate and load
+          // bearing: the answers are the section's whole SEO value (~3,900
+          // characters of long-tail copy in French alone), and Google indexes
+          // what the HTML contains, not what the viewport shows. Rendering
+          // only the first six — `faqs.slice(0, VISIBLE_COUNT)`, a conditional
+          // return, or fetching the rest on click — would delete two thirds of
+          // that from the page. Collapsing it costs nothing.
+          //
+          // `hidden` rather than `opacity-0`: it removes the card from the
+          // accessibility tree AND from the tab order, so a keyboard user does
+          // not tab through six invisible accordion buttons.
+          const isHidden = !showAll && index >= VISIBLE_COUNT;
           return (
             // `key` is the index, not the question: the open/closed state is
             // itself index-based, so a content-derived key would let an editor
@@ -69,7 +96,11 @@ export function Faq() {
             // that card scrolls into view — uncapped, `index * 0.05` made the
             // twelfth card sit visibly blank for 0.55s after it was already
             // on screen, which reads as lag rather than choreography.
-            <FadeIn key={index} delay={Math.min(index, 5) * 0.05}>
+            <FadeIn
+              key={index}
+              delay={Math.min(index, 5) * 0.05}
+              hidden={isHidden}
+            >
               <div className="overflow-hidden rounded-2xl border border-studio-lavande/40 bg-white">
                 <h3>
                   <button
@@ -158,6 +189,38 @@ export function Faq() {
             </FadeIn>
           );
         })}
+
+        {/* Rendered only when there is something to reveal, so a shorter
+            translated `items` array cannot leave a button that does nothing. */}
+        {hiddenCount > 0 && (
+          <FadeIn delay={0.3} className="mt-2 text-center">
+            <button
+              type="button"
+              onClick={() => {
+                // Collapsing while one of the hidden answers is the open one
+                // would leave that panel expanded behind `[hidden]`, so
+                // reopening the list would show an answer the visitor did not
+                // just ask for. Close it on the way in.
+                if (showAll && openIndex !== null && openIndex >= VISIBLE_COUNT) {
+                  setOpenIndex(null);
+                }
+                setShowAll((v) => !v);
+              }}
+              aria-expanded={showAll}
+              className="inline-flex items-center gap-2 rounded-full border border-studio-lavande px-6 py-3 font-body text-sm tracking-luxe text-studio-violet transition-colors hover:bg-studio-lavande/20"
+            >
+              <span>
+                {showAll ? t("showLess") : t("showMore", { count: hiddenCount })}
+              </span>
+              <ChevronDown
+                className={cn(
+                  "h-4 w-4 transition-transform duration-300",
+                  showAll && "rotate-180",
+                )}
+              />
+            </button>
+          </FadeIn>
+        )}
       </div>
     </section>
   );

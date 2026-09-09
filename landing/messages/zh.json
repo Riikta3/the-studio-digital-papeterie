@@ -546,6 +546,8 @@
     "eyebrow": "还有疑问？",
     "titleLine1": "常见",
     "titleAccent": "问题",
+    "showMore": "查看其他 {count} 个问题",
+    "showLess": "收起",
     "items": [
       {
         "question": "发送之后还能修改邀请函吗？",

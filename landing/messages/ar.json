@@ -546,6 +546,8 @@
     "eyebrow": "لديك سؤال؟",
     "titleLine1": "الأسئلة",
     "titleAccent": "الشائعة",
+    "showMore": "عرض {count} أسئلة أخرى",
+    "showLess": "عرض أقل",
     "items": [
       {
         "question": "هل يمكنني تعديل دعوتي بعد إرسالها؟",

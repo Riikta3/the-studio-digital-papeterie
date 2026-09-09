@@ -547,6 +547,8 @@
     "eyebrow": "¿Alguna pregunta?",
     "titleLine1": "Preguntas",
     "titleAccent": "Frecuentes",
+    "showMore": "Ver {count} preguntas más",
+    "showLess": "Ver menos",
     "items": [
       {
         "question": "¿Puedo modificar mi invitación después de enviarla?",

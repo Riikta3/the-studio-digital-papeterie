@@ -546,6 +546,8 @@
     "eyebrow": "Alguma pergunta?",
     "titleLine1": "Perguntas",
     "titleAccent": "Frequentes",
+    "showMore": "Ver mais {count} perguntas",
+    "showLess": "Ver menos",
     "items": [
       {
         "question": "Posso alterar o meu convite depois de o enviar?",

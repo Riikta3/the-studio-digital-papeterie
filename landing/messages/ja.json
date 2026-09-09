@@ -546,6 +546,8 @@
     "eyebrow": "ご質問はありますか？",
     "titleLine1": "よくある",
     "titleAccent": "ご質問",
+    "showMore": "他の{count}件の質問を見る",
+    "showLess": "閉じる",
     "items": [
       {
         "question": "送った後に招待状を修正できますか。",

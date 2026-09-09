@@ -548,6 +548,8 @@
     "eyebrow": "A question?",
     "titleLine1": "Frequently",
     "titleAccent": "Asked Questions",
+    "showMore": "See {count} more questions",
+    "showLess": "Show less",
     "items": [
       {
         "question": "Can I edit my invitation after sending it?",
