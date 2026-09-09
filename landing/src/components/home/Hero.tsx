@@ -143,13 +143,23 @@ export function Hero() {
             />
           </div>
 
+          {/* The two lines carry one sentence, and the primary keyword now
+              straddles them ("Le faire-part de mariage" / "digital,
+              réinventé"), so the whitespace between the spans is content, not
+              formatting. The spans are `block`, which every layout engine and
+              Google treat as a line break, but the raw HTML has no separator
+              between the closing and opening tag — anything reading the markup
+              without applying CSS sees "de mariagedigital" and loses the term.
+              The explicit space costs nothing visually (it collapses at the end
+              of a block line) and keeps the sentence intact in the text
+              extraction. */}
           <h1 className="mt-6 text-center font-heading text-h1">
             <SplitText
               as="span"
               text={title1Text}
               className="block text-white"
               animate={false}
-            />
+            />{" "}
             <SplitText
               as="span"
               text={t("titleLine2")}
