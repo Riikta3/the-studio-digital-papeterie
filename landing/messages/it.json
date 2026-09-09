@@ -24,20 +24,6 @@
     "createButton": "Creare il mio invito",
     "themeCta": "Prova il tema {name}"
   },
-  "FAQ": {
-    "titleLine1": "Domande",
-    "titleLine2": "Frequenti",
-    "q1": "Posso modificare il mio sito dopo l'invio?",
-    "a1": "Assolutamente! Questa è la magia del digitale. Puoi cambiare orari o aggiungere info in qualsiasi momento.",
-    "q2": "Devo pagare un abbonamento mensile?",
-    "a2": "No, mai. È un pagamento unico. Il tuo sito rimane online per 12 mesi dopo il matrimonio.",
-    "q3": "Come confermano la presenza gli ospiti?",
-    "a3": "Un modulo semplice è integrato nel tuo sito. Ricevi risposte istantaneamente nella tua dashboard.",
-    "q4": "Posso avere un dominio personalizzato?",
-    "a4": "Sì! Con l'opzione 'Dominio Personalizzato' (+65€) o inclusa nel pacchetto Premium.",
-    "q5": "Offrite inviti cartacei coordinati?",
-    "a5": "Ci concentriamo sull'esperienza digitale, ma possiamo fornire file PDF ad alta definizione per la stampa."
-  },
   "Common": {
     "loading": "Caricamento..."
   },
@@ -555,7 +541,7 @@
       },
       {
         "question": "È previsto un abbonamento?",
-        "answer": "No. Scegli la tua formula al momento della creazione del tuo invito. Non è previsto alcun abbonamento mensile per continuare a utilizzare il tuo invito digitale durante il suo periodo di pubblicazione."
+        "answer": "No. Il tuo invito prevede un pagamento unico, al momento della creazione. Scegli la tua formula in quel momento e non è previsto alcun abbonamento mensile per continuare a utilizzare il tuo invito digitale durante il suo periodo di pubblicazione."
       },
       {
         "question": "Come funziona l'RSVP online per il matrimonio?",

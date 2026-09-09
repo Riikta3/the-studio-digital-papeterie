@@ -25,20 +25,6 @@
     "createButton": "Meine Einladung erstellen",
     "themeCta": "Design „{name}\" testen"
   },
-  "FAQ": {
-    "titleLine1": "Häufig gestellte",
-    "titleLine2": "Fragen",
-    "q1": "Kann ich meine Seite nach dem Versenden bearbeiten?",
-    "a1": "Absolut! Das ist die Magie des Digitalen. Sie können Zeiten ändern oder Infos jederzeit hinzufügen.",
-    "q2": "Muss ich ein monatliches Abo bezahlen?",
-    "a2": "Nein, niemals. Es ist eine einmalige Zahlung. Ihre Seite bleibt 12 Monate nach Ihrer Hochzeit online.",
-    "q3": "Wie bestätigen Gäste ihre Teilnahme?",
-    "a3": "Ein einfaches Formular ist integriert. Sie erhalten Antworten sofort in Ihrem Dashboard.",
-    "q4": "Kann ich eine eigene Domain haben?",
-    "a4": "Ja! Mit der Option 'Eigene Domain' (+65€) oder im Premium-Paket enthalten.",
-    "q5": "Bieten Sie passende Papiereinladungen an?",
-    "a5": "Wir konzentrieren uns auf das Digitale, können aber hochauflösende PDFs für den lokalen Druck bereitstellen."
-  },
   "Common": {
     "loading": "Laden..."
   },
@@ -556,7 +542,7 @@
       },
       {
         "question": "Gibt es ein Abonnement?",
-        "answer": "Nein. Ihr Paket wählen Sie bei der Erstellung Ihrer Einladung. Für die weitere Nutzung Ihrer digitalen Einladung während der Dauer ihrer Veröffentlichung ist kein monatliches Abonnement vorgesehen."
+        "answer": "Nein. Ihre Einladung wird einmalig bezahlt, bei der Erstellung. Ihr Paket wählen Sie dabei, und für die weitere Nutzung Ihrer digitalen Einladung während der Dauer ihrer Veröffentlichung fällt kein monatliches Abonnement an."
       },
       {
         "question": "Wie funktioniert das Online-RSVP für die Hochzeit?",

@@ -100,20 +100,6 @@
     "ctaLive": "live demo",
     "phoneCaption": "Aperçu en live selon votre sélection"
   },
-  "FAQ": {
-    "titleLine1": "Frequently Asked",
-    "titleLine2": "Questions",
-    "q1": "Can I edit my site after sending invitations?",
-    "a1": "Absolutely! That's the magic of digital. You can change times, add accommodation info, or change a photo at any time. Your guests will always see the up-to-date version.",
-    "q2": "Do I have to pay a monthly subscription?",
-    "a2": "No, never. It is a one-time payment. Your site stays online for 12 months after your wedding, giving you time to share memory photos.",
-    "q3": "How do guests confirm their attendance (RSVP)?",
-    "a3": "A simple and elegant form is integrated into your site. You receive responses instantly in your dashboard (and via email if you wish). You can export the guest list in one click.",
-    "q4": "Can I have a custom domain name?",
-    "a4": "Yes! With the 'Custom Domain' option (+65€) or included in the Premium pack, you can have an address like www.paula-and-marcos.com.",
-    "q5": "Do you offer matching paper invitations?",
-    "a5": "We focus on the digital experience for now, but we can provide high-definition PDF files of your design so you can print them at your local printer."
-  },
   "Common": {
     "loading": "Loading..."
   },
@@ -557,7 +543,7 @@
       },
       {
         "question": "Is there a subscription?",
-        "answer": "No. You choose your package when you create your invitation. There is no monthly subscription to keep using your digital invitation throughout the period it is live."
+        "answer": "No. Your invitation is a one-time payment, made when you create it. You choose your package at that point, and there is no monthly subscription to keep using your digital invitation throughout the period it is live."
       },
       {
         "question": "How does the online wedding RSVP work?",

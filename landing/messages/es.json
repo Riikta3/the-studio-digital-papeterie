@@ -25,20 +25,6 @@
     "createButton": "Crear mi invitación",
     "themeCta": "Probar el tema {name}"
   },
-  "FAQ": {
-    "titleLine1": "Preguntas",
-    "titleLine2": "Frecuentes",
-    "q1": "¿Puedo editar mi sitio después de enviar las invitaciones?",
-    "a1": "¡Absolutamente! Esa es la magia de lo digital. Puedes cambiar horarios, agregar información de alojamiento o cambiar una foto en cualquier momento.",
-    "q2": "¿Tengo que pagar una suscripción mensual?",
-    "a2": "No, nunca. Es un pago único. Tu sitio permanece en línea durante 12 meses después de tu boda.",
-    "q3": "¿Cómo confirman su asistencia los invitados (RSVP)?",
-    "a3": "Un formulario simple y elegante está integrado en tu sitio. Recibes respuestas al instante en tu panel de control.",
-    "q4": "¿Puedo tener un nombre de dominio personalizado?",
-    "a4": "¡Sí! Con la opción 'Dominio Personalizado' (+65€) o incluido en el paquete Premium.",
-    "q5": "¿Ofrecen invitaciones de papel a juego?",
-    "a5": "Nos centramos en la experiencia digital por ahora, pero podemos proporcionar archivos PDF de alta definición para imprimir."
-  },
   "Common": {
     "loading": "Cargando..."
   },
@@ -556,7 +542,7 @@
       },
       {
         "question": "¿Hay alguna suscripción?",
-        "answer": "No. Eliges tu fórmula en el momento de crear tu invitación. No hay que contratar ninguna suscripción mensual para seguir utilizando tu invitación digital mientras esté publicada."
+        "answer": "No. Tu invitación se paga una sola vez, en el momento de crearla. Eliges tu fórmula entonces, y no hay ninguna suscripción mensual para seguir utilizando tu invitación digital mientras esté publicada."
       },
       {
         "question": "¿Cómo funciona el RSVP de boda online?",

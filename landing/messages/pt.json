@@ -24,20 +24,6 @@
     "createButton": "Criar o meu convite",
     "themeCta": "Experimentar o tema {name}"
   },
-  "FAQ": {
-    "titleLine1": "Perguntas",
-    "titleLine2": "Frequentes",
-    "q1": "Posso editar o meu site após o envio?",
-    "a1": "Absolutamente! Essa é a magia do digital. Pode alterar horários ou adicionar informações a qualquer momento.",
-    "q2": "Tenho de pagar uma assinatura mensal?",
-    "a2": "Não, nunca. É um pagamento único. O seu site fica online durante 12 meses após o casamento.",
-    "q3": "Como é que os convidados confirmam a presença?",
-    "a3": "Um formulário simples está integrado no seu site. Recebe respostas instantaneamente no seu painel.",
-    "q4": "Posso ter um domínio personalizado?",
-    "a4": "Sim! Com a opção 'Domínio Personalizado' (+65€) ou incluído no pacote Premium.",
-    "q5": "Oferecem convites em papel a condizer?",
-    "a5": "Focamo-nos na experiência digital, mas podemos fornecer ficheiros PDF de alta definição para impressão."
-  },
   "Common": {
     "loading": "A carregar..."
   },
@@ -555,7 +541,7 @@
       },
       {
         "question": "Existe uma subscrição?",
-        "answer": "Não. A fórmula é escolhida no momento da criação do convite. Não existe qualquer subscrição mensal para continuar a utilizar o seu convite digital durante o período de publicação previsto."
+        "answer": "Não. O convite é pago uma única vez, no momento da criação. A fórmula é escolhida nessa altura e não existe qualquer subscrição mensal para continuar a utilizar o seu convite digital durante o período de publicação previsto."
       },
       {
         "question": "Como funciona o RSVP de casamento online?",
