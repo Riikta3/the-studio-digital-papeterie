@@ -114,6 +114,9 @@
     "colProduct": "Product",
     "colMaries": "Couples",
     "colLegal": "Legal",
+    "colResources": "Resources",
+    "collections": "Collections",
+    "journal": "The Journal",
     "productLinks": [
       "Demo",
       "Features",

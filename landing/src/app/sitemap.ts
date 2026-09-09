@@ -1,6 +1,11 @@
 import type { MetadataRoute } from "next";
 
 import { THEME_IDS } from "@/components/invitation/themes/theme-ids";
+import {
+  JOURNAL_LOCALES,
+  JOURNAL_SLUGS,
+  journalPath,
+} from "@/lib/journal";
 import { getSiteUrl } from "@/lib/site";
 import { THEME_PAGE_LOCALES, themePagePath } from "@/lib/theme-pages";
 import { routing } from "@/navigation";
@@ -43,6 +48,9 @@ const STATIC_PATHS: SitemapPath[] = [
  */
 const THEME_PAGES_LAST_MODIFIED = "2026-09-09";
 
+/** The Journal's own date: the five launch articles ship together. */
+const JOURNAL_LAST_MODIFIED = "2026-09-09";
+
 export default function sitemap(): MetadataRoute.Sitemap {
   // See robots.ts: resolved here rather than at module load.
   const siteUrl = getSiteUrl();
@@ -79,5 +87,18 @@ export default function sitemap(): MetadataRoute.Sitemap {
     })),
   ]);
 
-  return [...localised, ...themePages];
+  // The Journal, same shape and same reasoning: French-only, no hreflang.
+  // Driven off JOURNAL_SLUGS so publishing an article is one list to edit.
+  const journalPages = JOURNAL_LOCALES.flatMap((locale) => [
+    {
+      url: `${siteUrl}${journalPath(locale)}`,
+      lastModified: JOURNAL_LAST_MODIFIED,
+    },
+    ...JOURNAL_SLUGS.map((slug) => ({
+      url: `${siteUrl}${journalPath(locale, slug)}`,
+      lastModified: JOURNAL_LAST_MODIFIED,
+    })),
+  ]);
+
+  return [...localised, ...themePages, ...journalPages];
 }

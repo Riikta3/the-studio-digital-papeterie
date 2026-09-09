@@ -275,6 +275,9 @@
     "colProduct": "Produit",
     "colMaries": "Mariés",
     "colLegal": "Légal",
+    "colResources": "Ressources",
+    "collections": "Collections",
+    "journal": "Le Journal",
     "productLinks": [
       "Démo",
       "Fonctionnalités",
@@ -610,6 +613,218 @@
       }
     },
     "faqSectionTitle": "Bon à savoir"
+  },
+  "Journal": {
+    "metaTitle": "Le Journal | The Studio Digital Papeterie",
+    "metaDescription": "Conseils, calendriers et formulations pour préparer son faire-part de mariage : quoi écrire, quand l'envoyer, comment suivre les réponses.",
+    "eyebrow": "Le Journal",
+    "h1": "Le Journal",
+    "intro": "Ce qu'on aurait aimé lire en préparant un mariage : des réponses précises sur les faire-part, le calendrier d'envoi, les textes et le suivi des réponses.",
+    "readMore": "Lire l'article",
+    "backToJournal": "Tous les articles",
+    "relatedTitle": "À lire aussi",
+    "faqSectionTitle": "Bon à savoir",
+    "ctaTitle": "Créer votre faire-part",
+    "ctaBody": "The Studio dessine des faire-part de mariage digitaux : trois collections, une expérience pensée pour le téléphone, un RSVP intégré et toutes les informations de votre mariage au même endroit.",
+    "ctaCollections": "Voir les collections",
+    "ctaCreate": "Créer mon invitation",
+    "articles": {
+      "que-mettre-faire-part-mariage": {
+        "metaTitle": "Que mettre dans un faire-part de mariage ? Le guide complet",
+        "metaDescription": "Que faut-il écrire dans un faire-part de mariage ? La liste des informations indispensables, ce qui peut attendre, et les formulations qui fonctionnent.",
+        "h1": "Que mettre dans un faire-part de mariage ?",
+        "lede": "Un faire-part doit répondre à quatre questions avant tout le reste : qui se marie, quand, où, et comment répondre. Tout ce qui vient ensuite est du confort — utile, mais secondaire. Voici comment hiérarchiser, et où s'arrête l'invitation.",
+        "sections": [
+          {
+            "title": "Les quatre informations non négociables",
+            "body": "Vos deux prénoms, la date complète avec l'année, la ville et le lieu, et la manière de confirmer sa présence. C'est le socle : un invité qui a ces quatre éléments peut bloquer sa date et s'organiser. Tout le reste peut arriver plus tard, ou vivre ailleurs que sur la première page. Précisez l'année même pour un mariage proche : un faire-part reçu en novembre pour un mariage en juin crée une ambiguïté réelle."
+          },
+          {
+            "title": "Distinguer les moments et les invités",
+            "body": "C'est l'erreur la plus fréquente et la plus embarrassante. Si votre journée comporte une cérémonie, un dîner, une soirée puis un brunch, et que tous vos invités ne sont pas conviés à tout, l'invitation doit le dire sans détour. Un invité qui arrive au dîner alors qu'il n'était attendu qu'à la soirée est une situation que personne ne veut gérer le jour même. Formulez-le positivement : « Nous serions heureux de vous retrouver pour la soirée, à partir de 21 h » est plus élégant qu'une exclusion implicite."
+          },
+          {
+            "title": "Les informations pratiques qui évitent les questions",
+            "body": "Le dress code, le parking, les hébergements à proximité, l'accès en train ou en voiture, la question des enfants, celle des cadeaux. Aucune n'est indispensable à l'annonce, toutes vous éviteront des messages. Sur un faire-part papier, elles finissent en cartons séparés qu'on perd. Dans une invitation digitale, chacune devient une section qu'on consulte quand on en a besoin — un invité qui cherche l'adresse du domaine la veille au soir sait où regarder."
+          },
+          {
+            "title": "Le RSVP : ce qu'il faut demander dès la première réponse",
+            "body": "La présence, évidemment. Mais aussi ce dont vous aurez besoin pour le traiteur et la logistique, et qu'il serait pénible de redemander : le nombre d'accompagnants, les allergies ou régimes alimentaires, la présence au brunch, le besoin d'une navette. Une question posée au bon moment vaut trois relances. Les invitations The Studio collectent ces réponses dans un même espace, avec un statut par invité — confirmé, refusé, en attente — pour que vous sachiez qui relancer sans relire vos conversations."
+          },
+          {
+            "title": "Le ton : court, personnel, et qui vous ressemble",
+            "body": "Les formules protocolaires héritées du courrier administratif — « ont l'honneur de vous faire part » — ne disent plus rien à personne. Une phrase qui sonne comme vous vaut mieux qu'un paragraphe convenu. « On s'est dit oui, il ne manque plus que vous » fonctionne parce que c'est direct et que ça donne le ton de la fête. Écrivez la phrase que vous diriez à un ami au téléphone, puis enlevez-en la moitié."
+          },
+          {
+            "title": "Ce qu'il ne faut pas y mettre",
+            "body": "Les détails d'organisation interne (l'heure d'arrivée du photographe), les informations qui bougeront (la météo, le numéro de la navette), et tout ce qui relève de la négociation familiale. Un faire-part annonce et invite ; il n'arbitre pas. Les informations mouvantes ont leur place dans une invitation digitale, justement parce qu'elles peuvent y être corrigées sans renvoyer quoi que ce soit."
+          }
+        ],
+        "faqTitle": "Faut-il indiquer la liste de mariage sur le faire-part ?",
+        "faqBody": "L'usage français reste de ne pas la mentionner sur l'invitation elle-même. Dans une invitation digitale, elle peut vivre dans une section dédiée que l'invité consulte s'il le souhaite : l'information est disponible sans être mise en avant, ce qui règle élégamment un sujet toujours un peu délicat.",
+        "related": [
+          "quand-envoyer-faire-part-mariage",
+          "faire-part-mariage-digital",
+          "textes-faire-part-mariage"
+        ]
+      },
+      "quand-envoyer-faire-part-mariage": {
+        "metaTitle": "Quand envoyer ses faire-part de mariage ? Le calendrier complet",
+        "metaDescription": "Save the Date, invitation, date limite de RSVP, relances : le calendrier réel d'envoi d'un faire-part de mariage, mois par mois.",
+        "h1": "Quand envoyer ses faire-part de mariage ?",
+        "lede": "La règle courte : l'invitation part quatre à six mois avant, le Save the Date neuf à douze mois avant si vos invités doivent voyager. Mais la vraie question n'est pas la date d'envoi — c'est la date à laquelle vous avez besoin des réponses.",
+        "sections": [
+          {
+            "title": "Remonter depuis la date limite, pas depuis le mariage",
+            "body": "Votre traiteur veut un nombre définitif à une certaine date — souvent trois à quatre semaines avant. Vos relances prennent deux à trois semaines. Vos invités ont besoin de trois à quatre semaines pour répondre. Additionnez : votre invitation doit partir au minimum deux mois et demi avant le mariage, et c'est un plancher, pas un objectif. Fixez d'abord la date limite de RSVP, puis calez l'envoi."
+          },
+          {
+            "title": "Neuf à douze mois : le Save the Date",
+            "body": "Il ne se justifie que dans trois cas : un mariage à l'étranger, un week-end entier qui bloque plusieurs jours de congés, ou une période très demandée où vos invités arbitrent entre plusieurs événements. Il contient le strict minimum — vos prénoms, la date, la région, et le fait qu'une invitation complète suivra. Un Save the Date qui en dit trop rend l'invitation redondante."
+          },
+          {
+            "title": "Quatre à six mois : l'invitation complète",
+            "body": "C'est la fenêtre où l'invité peut encore réserver un train à un prix raisonnable et poser ses congés. Plus tôt, il notera la date et oubliera de répondre. Plus tard, vous récupérez des refus liés à des contraintes qu'il aurait pu éviter. Pour un mariage en haute saison dans une région touristique, visez six mois : les hébergements de vos invités se réservent aussi."
+          },
+          {
+            "title": "Deux à trois mois : le suivi des réponses",
+            "body": "La phase la plus ingrate. Sur cent invités, comptez qu'un tiers répondra dans la première semaine, un tiers après une relance, et que le dernier tiers demandera un effort individuel. C'est là qu'un suivi structuré change concrètement les choses : les invitations The Studio affichent chaque invité comme confirmé, refusé ou en attente, avec un filtre par statut et un export — vous relancez les bonnes personnes sans relire trois conversations WhatsApp."
+          },
+          {
+            "title": "Un mois : les relances ciblées",
+            "body": "Relancer tout le monde est le meilleur moyen d'agacer ceux qui ont déjà répondu. Ne contactez que les invités sans réponse, et nommément — un message personnel obtient une réponse, un message groupé se dilue. C'est aussi le moment de récupérer les informations manquantes : un invité peut avoir confirmé sa présence sans préciser ses allergies."
+          },
+          {
+            "title": "La semaine du mariage : l'invitation sert encore",
+            "body": "Un faire-part papier a fini son travail depuis longtemps. Une invitation digitale, non : c'est là que vos invités y retournent pour vérifier l'heure, l'adresse, le dress code, l'horaire de la navette. Vous pouvez encore y corriger un détail de dernière minute — le lien reste le même, et personne ne reçoit d'information contradictoire."
+          }
+        ],
+        "faqTitle": "Peut-on envoyer un faire-part trop tôt ?",
+        "faqBody": "Oui. Au-delà de huit mois, sans occasion particulière, l'invité note la date et repousse sa réponse indéfiniment — vous perdez le bénéfice de l'anticipation et devrez relancer davantage. Si vous voulez communiquer tôt, un Save the Date remplit ce rôle mieux qu'une invitation complète envoyée prématurément.",
+        "related": [
+          "que-mettre-faire-part-mariage",
+          "faire-part-mariage-digital",
+          "gerer-rsvp-mariage"
+        ]
+      },
+      "faire-part-mariage-digital": {
+        "metaTitle": "Faire-part de mariage digital : le guide complet",
+        "metaDescription": "Comment fonctionne un faire-part de mariage digital : diffusion par lien, RSVP intégré, QR code, mises à jour. Ce qu'il apporte et ce qu'il ne remplace pas.",
+        "h1": "Le faire-part de mariage digital, en pratique",
+        "lede": "Un faire-part digital n'est pas une image de faire-part envoyée par message. C'est une page web à votre nom, qui s'ouvre depuis un lien, se déroule sur un téléphone, et réunit l'invitation et l'organisation au même endroit. Voici ce que ça change concrètement.",
+        "sections": [
+          {
+            "title": "Ce que c'est, techniquement",
+            "body": "Une page accessible depuis une adresse web unique. Vos invités reçoivent ce lien par message, ou le scannent depuis un QR code imprimé. Rien à télécharger, aucun compte à créer, aucune application : le navigateur du téléphone suffit. C'est la différence fondamentale avec un PDF ou une image — une page peut contenir des boutons, un formulaire, une carte, et être modifiée après l'envoi."
+          },
+          {
+            "title": "Pensé pour le téléphone, pas adapté au téléphone",
+            "body": "La quasi-totalité de vos invités ouvriront l'invitation sur un smartphone, souvent dans les secondes qui suivent la réception du message. Une mise en page conçue pour l'écran d'ordinateur puis rétrécie donne un texte illisible et des images tronquées. Nos trois collections sont dessinées d'abord au format mobile : la typographie, les marges et le rythme des sections sont calés sur un écran tenu à la main."
+          },
+          {
+            "title": "Le RSVP, intégré à l'invitation",
+            "body": "L'invité répond à l'endroit même où il consulte l'invitation, sans changer d'outil. Selon votre configuration, le formulaire peut recueillir la présence, un accompagnant, les enfants, un régime alimentaire, la présence au brunch ou au dîner de veille, et un message. Les réponses arrivent dans un espace unique où chaque invité porte un statut — confirmé, refusé, en attente — avec un filtre et un export si vous devez transmettre une liste à votre traiteur."
+          },
+          {
+            "title": "Le QR code : le pont avec le papier",
+            "body": "Un QR code imprimé sur une carte, un Save the Date ou un panneau d'accueil ouvre l'invitation instantanément. C'est ce qui permet de garder un objet papier — l'émotion d'une enveloppe qu'on ouvre — sans y faire tenir toutes les informations pratiques. Votre espace The Studio génère le QR code de votre invitation, prêt à transmettre à votre imprimeur."
+          },
+          {
+            "title": "Une invitation qui se corrige",
+            "body": "C'est l'avantage que le papier ne rattrapera jamais. Un horaire qui bouge, une navette ajoutée, un hébergement complet, un changement de salle pour cause de pluie : vous modifiez le contenu, le lien reste identique, et vos invités voient la version à jour. Aucun second envoi, aucune information contradictoire en circulation."
+          },
+          {
+            "title": "Ce qu'un faire-part digital ne remplace pas",
+            "body": "Il ne remplace pas l'objet. Si vous tenez à ce que vos grands-parents aient une carte à afficher sur leur cheminée, imprimez une carte — avec un QR code renvoyant à l'invitation complète. Le digital gère l'information et l'organisation ; le papier porte le geste. Les deux se complètent mieux qu'ils ne se concurrencent."
+          }
+        ],
+        "faqTitle": "Et les invités peu à l'aise avec le numérique ?",
+        "faqBody": "L'invitation s'ouvre comme n'importe quelle page web depuis un lien reçu par SMS — c'est le geste le plus courant sur un téléphone, sans installation ni identifiant. Pour les cas délicats, la pratique la plus efficace reste une carte imprimée avec QR code, ou un appel : quelqu'un qui ne répondra pas à un formulaire ne répondait pas davantage à un carton-réponse.",
+        "related": [
+          "que-mettre-faire-part-mariage",
+          "gerer-rsvp-mariage",
+          "textes-faire-part-mariage"
+        ]
+      },
+      "gerer-rsvp-mariage": {
+        "metaTitle": "Comment gérer les RSVP de son mariage sans tableur",
+        "metaDescription": "Suivre les réponses, les régimes alimentaires, les relances et le nombre définitif d'invités sans reconstruire un tableur à la main.",
+        "h1": "Gérer les RSVP de son mariage sans tableur",
+        "lede": "Le problème du RSVP n'est pas de recevoir les réponses : c'est de savoir, à un instant donné, qui n'a pas répondu et quelle information manque. Un tableur y arrive — au prix d'une saisie manuelle qui recommence à chaque message reçu.",
+        "sections": [
+          {
+            "title": "Pourquoi le tableur finit par lâcher",
+            "body": "Il ne lâche pas sur le principe, il lâche sur la mise à jour. Les réponses arrivent par WhatsApp, SMS, e-mail, au téléphone et de vive voix à un dîner. Chacune demande une saisie. Au bout de trois semaines, deux personnes tiennent deux versions du fichier, quelqu'un a répondu pour son conjoint, et personne ne sait si « Martin » est confirmé ou juste enthousiaste. L'erreur n'est pas d'utiliser un tableur, c'est d'y recopier à la main un flux qui arrive en continu."
+          },
+          {
+            "title": "Un point d'entrée unique",
+            "body": "La bascule utile est de faire répondre l'invité là où il consulte l'invitation, dans un formulaire. La réponse est enregistrée telle qu'il l'a saisie : son nom, sa présence, ses accompagnants, son régime alimentaire. Plus de retranscription, donc plus d'erreur de retranscription. Les réponses aux invitations The Studio arrivent directement dans votre espace mariés."
+          },
+          {
+            "title": "Les trois statuts qui comptent vraiment",
+            "body": "Confirmé, refusé, en attente. Le troisième est le seul qui demande une action, et c'est celui qu'un tableur rend invisible : une ligne vide ressemble à un oubli de saisie autant qu'à une absence de réponse. Votre espace RSVP filtre par statut, ce qui rend la question « qui reste-t-il à relancer ? » immédiate au lieu d'être une relecture."
+          },
+          {
+            "title": "Demander les informations utiles dès le premier passage",
+            "body": "Chaque information que vous ne collectez pas au moment du RSVP devra être redemandée individuellement plus tard. Les allergies et régimes alimentaires, le nombre exact d'adultes et d'enfants, la présence au brunch ou au dîner de veille, un besoin de navette : posées dans le formulaire, ces questions se répondent en même temps que la présence. Redemandées en avril à quarante personnes, elles occupent une soirée."
+          },
+          {
+            "title": "Relancer sans agacer",
+            "body": "Ne relancez que les invités en attente, et nommez-les. Un message groupé à cent personnes fait répondre ceux qui avaient déjà répondu et laisse indifférents les autres. Une fois la liste des non-répondants isolée, la relance devient une tâche de vingt minutes plutôt qu'un projet."
+          },
+          {
+            "title": "Réutiliser les réponses en aval",
+            "body": "Le RSVP n'est pas une fin : ses données alimentent le nombre définitif pour le traiteur, les régimes à transmettre en cuisine, les navettes à dimensionner, le plan de table. L'export de votre liste d'invités depuis votre espace évite de reconstruire à la main ce que vous avez déjà collecté."
+          }
+        ],
+        "faqTitle": "Que faire des invités qui ne répondent jamais ?",
+        "faqBody": "Passez un appel, et considérez l'absence de réponse comme un refus à la date limite que vous avez annoncée. C'est la raison d'être de cette date : sans elle, vous attendez indéfiniment. Prévoyez la marge dans votre discussion avec le traiteur plutôt que dans vos nerfs.",
+        "related": [
+          "quand-envoyer-faire-part-mariage",
+          "faire-part-mariage-digital",
+          "que-mettre-faire-part-mariage"
+        ]
+      },
+      "textes-faire-part-mariage": {
+        "metaTitle": "Textes de faire-part de mariage : 30 formulations modernes",
+        "metaDescription": "Trente exemples de textes de faire-part de mariage, du plus sobre au plus direct, avec ce qui les fait fonctionner et comment les adapter.",
+        "h1": "Trente textes de faire-part de mariage",
+        "lede": "Un bon texte de faire-part est court et sonne comme vous. Voici trente formulations classées par registre — à reprendre, à couper, à mélanger. Elles fonctionnent parce qu'aucune n'essaie d'avoir l'air solennelle.",
+        "sections": [
+          {
+            "title": "Direct et contemporain",
+            "body": "« On s'est dit oui. Il ne manque plus que vous. » · « C'est officiel : on se marie. » · « Notre prochain chapitre commence, et vous en êtes. » · « Rendez-vous pour célébrer notre plus belle décision. » · « Après tout ce temps : oui. » · « On a une date. On a un lieu. On vous veut. » — Ce registre marche parce qu'il dit une seule chose. Résistez à l'envie d'ajouter une seconde phrase explicative."
+          },
+          {
+            "title": "Sobre et élégant",
+            "body": "« Nous serions heureux de vous avoir à nos côtés. » · « Une promesse, une fête, un souvenir à créer ensemble. » · « Rejoignez-nous pour célébrer le début de notre vie à deux. » · « Nous nous marions, et nous aimerions que vous soyez là. » · « Le jour où nous nous dirons oui, nous voudrions vous voir. » · « Pour ce jour-là, votre présence compte. » — Le registre le plus sûr pour une invitation qui s'adresse à plusieurs générations."
+          },
+          {
+            "title": "Chaleureux et personnel",
+            "body": "« Vous avez compté dans notre histoire ; nous vous voulons dans ce chapitre. » · « Venez rire, danser et célébrer avec nous. » · « On aimerait fêter ça avec les gens qui comptent. Vous en êtes. » · « Il y aura de la musique, du monde, et beaucoup d'émotion. Venez. » · « Ce jour-là, on voudrait être entourés. De vous. » · « Une journée qu'on veut passer avec vous. » — À privilégier quand la liste d'invités est courte et que chaque nom compte."
+          },
+          {
+            "title": "Minimaliste",
+            "body": "« Nous. Vous. Une date. Une fête. » · « Une seule réponse : oui. » · « À nous deux, et avec vous. » · « Deux prénoms, une date, un lieu. » · « Oui. » · « Le jour est fixé. » — Ces textes exigent une mise en page qui les porte : beaucoup de blanc, une typographie forte. Sur une composition chargée, ils passent pour un oubli."
+          },
+          {
+            "title": "Pensé pour une invitation digitale",
+            "body": "« Faites défiler, tout est là. » · « Votre invitation commence ici. » · « Le programme, le lieu, et votre réponse : en dessous. » · « Tout ce qu'il faut savoir, en une page. » · « Bienvenue dans notre journée. » · « Prenez trente secondes, on vous explique tout. » — Ces formulations tirent parti de ce qu'une page web permet : annoncer qu'il y a une suite, et guider vers la réponse."
+          },
+          {
+            "title": "Comment choisir et adapter",
+            "body": "Écrivez d'abord la phrase que vous diriez à un ami, sans y penser. Comparez-la aux exemples ci-dessus : la vôtre est probablement meilleure, juste un peu trop longue. Coupez le début. Vérifiez ensuite qu'elle fonctionne à voix haute et qu'elle ne prête pas à confusion sur qui se marie. Un dernier test : si le texte pourrait servir à n'importe quel couple, il est trop générique pour le vôtre."
+          }
+        ],
+        "faqTitle": "Faut-il mentionner les parents dans le texte ?",
+        "faqBody": "C'est un usage traditionnel qui reste courant, et parfois attendu par les familles. Rien n'oblige à le faire figurer dans la phrase d'annonce : une invitation digitale permet de nommer les parents dans une section dédiée, ce qui satisfait l'usage sans alourdir l'accroche.",
+        "related": [
+          "que-mettre-faire-part-mariage",
+          "faire-part-mariage-digital",
+          "quand-envoyer-faire-part-mariage"
+        ]
+      }
+    }
   },
   "FinalCta": {
     "titleLine1": "Le lieu est choisi. Le traiteur aussi.",
