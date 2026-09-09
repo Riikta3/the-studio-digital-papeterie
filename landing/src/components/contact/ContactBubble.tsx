@@ -78,6 +78,29 @@ export function ContactBubble() {
     "",
   );
 
+  // WhatsApp is offered on touch devices only.
+  //
+  // On a phone, wa.me opens the app and the conversation is one tap away. On a
+  // desktop without WhatsApp installed it redirects to web.whatsapp.com, which
+  // demands a QR code the visitor has to scan with a phone they may not have
+  // to hand — a dead end reached by clicking something that looked like a way
+  // to talk to us. Two working options beat three with a trap in one.
+  //
+  // Detected after mount, never during render: `window` does not exist on the
+  // server, and reading it in the render pass would make the server and client
+  // markup disagree. Starting false means the row appears on a phone rather
+  // than flickering away on a desktop.
+  const [isTouch, setIsTouch] = useState(false);
+
+  useEffect(() => {
+    // `any-pointer: coarse` rather than a user-agent sniff or a width query: it
+    // asks the real question ("is there a finger available?"), so it holds for
+    // a tablet, a touch laptop, and a narrow desktop window alike.
+    setIsTouch(window.matchMedia("(any-pointer: coarse)").matches);
+  }, []);
+
+  const showWhatsApp = Boolean(whatsapp) && isTouch;
+
   if (onContactPage) return null;
 
   return (
@@ -172,7 +195,7 @@ export function ContactBubble() {
                   </span>
                 </a>
 
-                {whatsapp && (
+                {showWhatsApp && (
                   <a
                     href={`https://wa.me/${whatsapp}`}
                     target="_blank"
