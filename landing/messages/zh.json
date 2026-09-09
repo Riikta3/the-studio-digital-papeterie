@@ -135,6 +135,7 @@
   "HeroCarousel": {
     "prevAriaLabel": "上一张卡片",
     "nextAriaLabel": "下一张卡片",
+    "activeThemeAnnouncement": "当前主题：{name}",
     "cards": [
       {
         "alt": "婚礼请柬示例 — Ciao Amore 主题"

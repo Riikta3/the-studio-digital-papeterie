@@ -135,6 +135,7 @@
   "HeroCarousel": {
     "prevAriaLabel": "前のカード",
     "nextAriaLabel": "次のカード",
+    "activeThemeAnnouncement": "表示中のテーマ：{name}",
     "cards": [
       {
         "alt": "結婚式の招待状の例 — Ciao Amore テーマ"

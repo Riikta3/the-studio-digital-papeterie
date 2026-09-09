@@ -135,6 +135,7 @@
   "HeroCarousel": {
     "prevAriaLabel": "Carta precedente",
     "nextAriaLabel": "Carta successiva",
+    "activeThemeAnnouncement": "Tema mostrato: {name}",
     "cards": [
       {
         "alt": "Esempio di invito di nozze — tema Ciao Amore"
