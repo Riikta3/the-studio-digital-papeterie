@@ -282,19 +282,25 @@ export function ContactForm() {
         getLabel={(v) => t(`interestOptions.${v}`)}
       />
 
-      {/* Soft height transition, same technique as the FAQ accordion:
-          max-height + opacity, capped generously so no locale's label set
-          clips. Only mounted once relevant, so it never occupies layout (or
-          gets submitted) before the visitor's answer makes it relevant. */}
+      {/* Soft height transition, the same max-height technique as the FAQ
+          accordion — NOT `grid-template-rows: 1fr/0fr`, which was tried here
+          first and stayed collapsed at 0px exactly as Faq.tsx documents: the
+          container has no height of its own to distribute, so the row never
+          resolves. The cap is generous so no locale's label set clips.
+
+          `visibility` rides along so a collapsed panel leaves the tab order
+          and the accessibility tree instead of being merely invisible, and is
+          delayed on close so the collapse stays watchable. */}
       <div
-        className={cn(
-          "grid transition-[grid-template-rows,opacity] duration-300 ease-out",
-          showCollection
-            ? "grid-rows-[1fr] opacity-100"
-            : "grid-rows-[0fr] opacity-0",
-        )}
+        className="overflow-hidden transition-all duration-300 ease-out"
+        style={{
+          maxHeight: showCollection ? "16rem" : 0,
+          opacity: showCollection ? 1 : 0,
+          visibility: showCollection ? "visible" : "hidden",
+          transitionProperty: "max-height, opacity, visibility",
+        }}
       >
-        <div className="overflow-hidden">
+        <div>
           <PillGroup
             legend={t("collectionLabel")}
             options={COLLECTIONS}

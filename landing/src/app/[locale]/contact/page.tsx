@@ -61,8 +61,12 @@ export default async function ContactPage({
     desc: string;
   }[];
 
+  // beurre, not creme: creme (#FFFDE8) sat so close to the jaune of the burger
+  // and the option pills that both read as washed out against it. beurre
+  // (#FFF9D6) is the deeper of the two page yellows already in the palette, so
+  // the yellow UI on top of it keeps its edge.
   return (
-    <main className="bg-studio-creme">
+    <main className="bg-studio-beurre">
       <ContactPageHeader />
 
       {/* ── HERO — short on purpose, no big block before the form ── */}
@@ -97,8 +101,12 @@ export default async function ContactPage({
           Desktop: editorial column on the start side, form on the end side —
           `order-*` handles both from one markup. */}
       <section className="px-6 pb-24 md:px-12">
-        <div className="mx-auto grid max-w-5xl gap-14 md:grid-cols-2 md:gap-16">
-          <div className="order-2 flex flex-col justify-center gap-10 md:order-1">
+        {/* `items-start`: the two columns are different heights, and without it
+            the grid stretches both to the taller one — which, combined with
+            the editorial column's own centring, pushed its heading 350px below
+            the form's first field on desktop. Both columns start at the top. */}
+        <div className="mx-auto grid max-w-5xl items-start gap-14 md:grid-cols-2 md:gap-16">
+          <div className="order-2 flex flex-col gap-10 md:order-1">
             <div>
               <h2 className="font-heading text-h3 text-studio-violet">
                 {t("editorial.title")}

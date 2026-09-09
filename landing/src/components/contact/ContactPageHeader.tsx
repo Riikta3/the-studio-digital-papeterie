@@ -40,11 +40,16 @@ export function ContactPageHeader() {
     <>
       <nav className="flex w-full max-w-6xl items-center justify-between px-6 py-6 md:px-12">
         <Link href="/">
+          {/* logo-violet, NOT logo.svg: the yellow mark is drawn for the
+              hero's violet backdrop and all but vanishes on this page's
+              yellow ground. Same asset the studio funnel uses on light
+              backgrounds. */}
           <Image
-            src="/logo.svg"
+            src="/logo-violet.svg"
             alt="The Studio Digital Papeterie"
             width={40}
             height={42}
+            className="h-[42px] w-auto"
           />
         </Link>
         <button
@@ -54,7 +59,11 @@ export function ContactPageHeader() {
             setMenuOpen(true);
           }}
           aria-label={t("menuAriaLabel")}
-          className="flex h-12 w-12 items-center justify-center rounded-full bg-studio-jaune text-studio-violet"
+          // Inverted relative to the hero's burger: there the button is yellow
+          // on violet, here the page ground IS yellow, so a yellow pill on it
+          // has no edge at all. Violet on yellow is the same pairing the
+          // studio funnel's buttons use on light pages.
+          className="flex h-12 w-12 items-center justify-center rounded-full bg-studio-violet text-studio-jaune transition-transform hover:scale-105 active:scale-95"
         >
           <Menu className="h-5 w-5" />
         </button>
