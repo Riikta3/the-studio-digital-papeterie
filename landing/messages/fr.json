@@ -1446,7 +1446,9 @@
         "message": "Votre message doit contenir au moins 10 caractères.",
         "consent": "Merci d'accepter l'utilisation de vos informations.",
         "global": "Une erreur est survenue. Votre message n'a pas pu être envoyé. Merci de réessayer dans quelques instants."
-      }
+      },
+      "optional": "(optionnel)",
+      "requiredLegend": "Les champs suivis d’un * sont obligatoires."
     },
     "success": {
       "title": "Votre message est bien arrivé",

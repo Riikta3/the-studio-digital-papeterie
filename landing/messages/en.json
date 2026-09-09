@@ -1311,7 +1311,9 @@
         "message": "Your message must be at least 10 characters long.",
         "consent": "Please agree to the use of your information.",
         "global": "Something went wrong. Your message could not be sent. Please try again in a moment."
-      }
+      },
+      "optional": "(optional)",
+      "requiredLegend": "Fields marked with * are required."
     },
     "success": {
       "title": "Your message has arrived",

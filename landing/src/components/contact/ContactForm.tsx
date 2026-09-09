@@ -196,11 +196,18 @@ export function ContactForm() {
         />
       </div>
 
+      {/* An asterisk is a convention, not self-explanatory — WCAG asks that
+          its meaning be stated once before the fields that use it. */}
+      <p className="font-body text-xs text-studio-violet/50">
+        {t("requiredLegend")}
+      </p>
+
       <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
         <Field
           id="firstName"
           label={t("firstNameLabel")}
           error={fieldErrors.firstName}
+          required
         >
           <TextInput
             id="firstName"
@@ -216,6 +223,7 @@ export function ContactForm() {
           id="lastName"
           label={t("lastNameLabel")}
           error={fieldErrors.lastName}
+          required
         >
           <TextInput
             id="lastName"
@@ -228,7 +236,7 @@ export function ContactForm() {
         </Field>
       </div>
 
-      <Field id="email" label={t("emailLabel")} error={fieldErrors.email}>
+      <Field id="email" label={t("emailLabel")} error={fieldErrors.email} required>
         <TextInput
           id="email"
           type="email"
@@ -236,12 +244,17 @@ export function ContactForm() {
           onChange={setEmail}
           placeholder={t("emailPlaceholder")}
           autoComplete="email"
+          required
           invalid={Boolean(fieldErrors.email)}
         />
       </Field>
 
       <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
-        <Field id="weddingDate" label={t("weddingDateLabel")}>
+        <Field
+          id="weddingDate"
+          label={t("weddingDateLabel")}
+          optionalLabel={t("optional")}
+        >
           <TextInput
             id="weddingDate"
             type="date"
@@ -252,7 +265,11 @@ export function ContactForm() {
           />
         </Field>
 
-        <Field id="weddingPlace" label={t("weddingPlaceLabel")}>
+        <Field
+          id="weddingPlace"
+          label={t("weddingPlaceLabel")}
+          optionalLabel={t("optional")}
+        >
           <TextInput
             id="weddingPlace"
             value={weddingPlace}
@@ -265,6 +282,7 @@ export function ContactForm() {
 
       <PillGroup
         legend={t("guestBandLabel")}
+        optionalLabel={t("optional")}
         options={GUEST_BANDS}
         value={guestBand}
         onChange={setGuestBand}
@@ -273,6 +291,7 @@ export function ContactForm() {
 
       <PillGroup
         legend={t("interestLabel")}
+        optionalLabel={t("optional")}
         options={INTERESTS}
         value={interest}
         onChange={(v) => {
@@ -303,6 +322,7 @@ export function ContactForm() {
         <div>
           <PillGroup
             legend={t("collectionLabel")}
+        optionalLabel={t("optional")}
             options={COLLECTIONS}
             value={collection}
             onChange={setCollection}
@@ -313,19 +333,27 @@ export function ContactForm() {
 
       <PillGroup
         legend={t("projectStageLabel")}
+        optionalLabel={t("optional")}
         options={PROJECT_STAGES}
         value={projectStage}
         onChange={setProjectStage}
         getLabel={(v) => t(`projectStageOptions.${v}`)}
       />
 
-      <Field id="message" label={t("messageLabel")} error={fieldErrors.message}>
+      <Field
+        id="message"
+        label={t("messageLabel")}
+        error={fieldErrors.message}
+        required
+      >
         <textarea
           id="message"
           value={message}
           onChange={(e) => setMessage(e.target.value)}
           placeholder={t("messagePlaceholder")}
           rows={5}
+          required
+          aria-required="true"
           className={cn(
             "w-full resize-none rounded-2xl border bg-transparent px-4 py-3 font-body text-sm text-studio-violet placeholder:text-studio-violet/40 transition-colors focus:outline-none focus:ring-1 focus:ring-studio-violet",
             fieldErrors.message
@@ -342,11 +370,16 @@ export function ContactForm() {
             type="checkbox"
             checked={consent}
             onChange={(e) => setConsent(e.target.checked)}
+            required
+            aria-required="true"
             className="mt-0.5 h-4 w-4 shrink-0 rounded border-studio-violet/30 text-studio-violet focus:ring-studio-violet"
             aria-invalid={Boolean(fieldErrors.consent)}
           />
           <span>
             {t("consentLabel")}{" "}
+            <span aria-hidden="true" className="text-studio-pourpre">
+              *
+            </span>{" "}
             <Link
               href="/legal/privacy"
               className="underline underline-offset-2 hover:text-studio-violet"
@@ -431,11 +464,17 @@ function Field({
   id,
   label,
   error,
+  required = false,
+  optionalLabel,
   children,
 }: {
   id: string;
   label: string;
   error?: string;
+  /** Marks the field with an asterisk. Defaults to false — say it explicitly. */
+  required?: boolean;
+  /** Shown instead of the asterisk on optional fields, e.g. "optionnel". */
+  optionalLabel?: string;
   children: React.ReactNode;
 }) {
   return (
@@ -445,6 +484,21 @@ function Field({
         className="font-body text-xs font-semibold uppercase tracking-luxe text-studio-violet/60"
       >
         {label}
+        {/* The asterisk carries `aria-hidden` because the input itself gets
+            `required`/`aria-required`, so a screen reader already announces
+            the constraint — reading "étoile" on top of that is noise. The
+            legend above the form spells out what it means, since an asterisk
+            alone is not self-explanatory. */}
+        {required && (
+          <span aria-hidden="true" className="ms-1 text-studio-pourpre">
+            *
+          </span>
+        )}
+        {!required && optionalLabel && (
+          <span className="ms-1.5 font-normal normal-case tracking-normal text-studio-violet/40">
+            {optionalLabel}
+          </span>
+        )}
       </label>
       {children}
       {error && (
@@ -466,6 +520,7 @@ function TextInput({
   invalid,
   min,
   max,
+  required,
 }: {
   id: string;
   value: string;
@@ -476,6 +531,7 @@ function TextInput({
   invalid?: boolean;
   min?: string;
   max?: string;
+  required?: boolean;
 }) {
   return (
     <input
@@ -485,6 +541,8 @@ function TextInput({
       onChange={(e) => onChange(e.target.value)}
       placeholder={placeholder}
       autoComplete={autoComplete}
+      required={required}
+      aria-required={required || undefined}
       aria-invalid={invalid}
       min={min}
       max={max}
@@ -510,17 +568,25 @@ function PillGroup<T extends string>({
   value,
   onChange,
   getLabel,
+  optionalLabel,
 }: {
   legend: string;
   options: readonly T[];
   value: T | undefined;
   onChange: (value: T) => void;
   getLabel: (value: T) => string;
+  /** Every pill group is optional, so this is only ever the "optionnel" tag. */
+  optionalLabel?: string;
 }) {
   return (
     <div className="flex flex-col gap-2">
       <span className="font-body text-xs font-semibold uppercase tracking-luxe text-studio-violet/60">
         {legend}
+        {optionalLabel && (
+          <span className="ms-1.5 font-normal normal-case tracking-normal text-studio-violet/40">
+            {optionalLabel}
+          </span>
+        )}
       </span>
       <div role="radiogroup" aria-label={legend} className="flex flex-wrap gap-2">
         {options.map((option) => {

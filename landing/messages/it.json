@@ -1097,7 +1097,9 @@
         "message": "Il tuo messaggio deve contenere almeno 10 caratteri.",
         "consent": "Accetta l'utilizzo dei tuoi dati, per favore.",
         "global": "Si è verificato un errore. Il tuo messaggio non è stato inviato. Riprova tra qualche istante."
-      }
+      },
+      "optional": "(facoltativo)",
+      "requiredLegend": "I campi contrassegnati con * sono obbligatori."
     },
     "success": {
       "title": "Il tuo messaggio è arrivato",

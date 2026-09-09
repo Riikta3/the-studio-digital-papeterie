@@ -1097,7 +1097,9 @@
         "message": "A sua mensagem deve ter pelo menos 10 caracteres.",
         "consent": "Aceite a utilização dos seus dados, por favor.",
         "global": "Ocorreu um erro. A sua mensagem não pôde ser enviada. Tente novamente dentro de instantes."
-      }
+      },
+      "optional": "(opcional)",
+      "requiredLegend": "Os campos marcados com * são obrigatórios."
     },
     "success": {
       "title": "A sua mensagem chegou com sucesso",
