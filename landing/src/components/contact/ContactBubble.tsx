@@ -10,6 +10,28 @@ import { Link, usePathname } from "@/navigation";
 const SUPPORT_EMAIL = "contact@thestudiopapeteriedigitale.com";
 
 /**
+ * WhatsApp's own glyph, inlined.
+ *
+ * Lucide has no WhatsApp icon — it ships no brand marks — and the generic
+ * `MessageCircle` used at first read as "chat", not as WhatsApp, so nobody
+ * recognised the row for what it was. Brand glyphs are the one case where a
+ * recognisable shape beats a consistent icon set: the point of the row is
+ * that a couple spots WhatsApp instantly.
+ */
+function WhatsAppIcon({ className }: { className?: string }) {
+  return (
+    <svg
+      viewBox="0 0 24 24"
+      fill="currentColor"
+      aria-hidden="true"
+      className={className}
+    >
+      <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.347-.347.52-.52.174-.174.232-.298.347-.497.116-.198.058-.371-.019-.52-.077-.148-.66-1.59-.904-2.178-.238-.573-.48-.494-.66-.503-.171-.008-.367-.01-.563-.01-.196 0-.514.074-.783.372-.27.297-1.03 1.007-1.03 2.454 0 1.446 1.054 2.844 1.2 3.041.148.198 2.075 3.166 5.026 4.44.702.303 1.25.484 1.677.62.706.224 1.348.193 1.856.117.567-.085 1.34-.548 1.53-1.077.19-.53.19-.984.133-1.08-.058-.096-.213-.153-.51-.302zM12.05 21.785h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.981.999-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.002-5.45 4.436-9.884 9.888-9.884a9.82 9.82 0 016.988 2.898 9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.885-9.886 9.885zM20.52 3.449A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.548 4.142 1.588 5.945L0 24l6.305-1.654a11.882 11.882 0 005.684 1.448h.005c6.554 0 11.89-5.335 11.893-11.893A11.821 11.821 0 0020.52 3.45z" />
+    </svg>
+  );
+}
+
+/**
  * Floating contact bubble: a small panel offering the ways to reach a human,
  * not a chat.
  *
@@ -157,7 +179,7 @@ export function ContactBubble() {
                     rel="noopener noreferrer"
                     className="flex items-center gap-3 rounded-2xl px-4 py-3 transition-colors hover:bg-studio-beurre"
                   >
-                    <MessageCircle className="h-4 w-4 shrink-0 text-studio-violet/60" />
+                    <WhatsAppIcon className="h-4 w-4 shrink-0 text-[#25D366]" />
                     <span className="font-body text-sm text-studio-violet">
                       {t("whatsappOption")}
                     </span>
