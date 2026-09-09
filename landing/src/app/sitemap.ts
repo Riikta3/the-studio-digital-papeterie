@@ -2,6 +2,11 @@ import type { MetadataRoute } from "next";
 
 import { THEME_IDS } from "@/components/invitation/themes/theme-ids";
 import {
+  LANDING_LOCALES,
+  LANDING_SLUGS,
+  landingPath,
+} from "@/lib/landing-pages";
+import {
   JOURNAL_LOCALES,
   JOURNAL_SLUGS,
   journalPath,
@@ -50,6 +55,9 @@ const THEME_PAGES_LAST_MODIFIED = "2026-09-09";
 
 /** The Journal's own date: the five launch articles ship together. */
 const JOURNAL_LAST_MODIFIED = "2026-09-09";
+
+/** The three commercial landing pages, shipped together. */
+const LANDING_LAST_MODIFIED = "2026-09-09";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   // See robots.ts: resolved here rather than at module load.
@@ -100,5 +108,15 @@ export default function sitemap(): MetadataRoute.Sitemap {
     })),
   ]);
 
-  return [...localised, ...themePages, ...journalPages];
+  // The commercial landing pages. Same French-only shape, same absence of
+  // hreflang, and listed after the Journal so the file reads in the order the
+  // sets were added.
+  const landingPages = LANDING_LOCALES.flatMap((locale) =>
+    LANDING_SLUGS.map((slug) => ({
+      url: `${siteUrl}${landingPath(locale, slug)}`,
+      lastModified: LANDING_LAST_MODIFIED,
+    })),
+  );
+
+  return [...localised, ...themePages, ...journalPages, ...landingPages];
 }

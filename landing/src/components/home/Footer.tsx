@@ -2,6 +2,7 @@ import { getLocale, getTranslations } from "next-intl/server";
 import Image from "next/image";
 
 import { hasJournal } from "@/lib/journal";
+import { hasLandingPages } from "@/lib/landing-pages";
 import { hasThemePages } from "@/lib/theme-pages";
 import { Link } from "@/navigation";
 
@@ -31,6 +32,9 @@ export async function Footer() {
   const resourceLinks = [
     ...(hasThemePages(locale)
       ? [{ label: t("collections"), href: "/themes" }]
+      : []),
+    ...(hasLandingPages(locale)
+      ? [{ label: t("pricing"), href: "/tarifs" }]
       : []),
     ...(hasJournal(locale) ? [{ label: t("journal"), href: "/journal" }] : []),
   ];

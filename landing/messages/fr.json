@@ -277,6 +277,7 @@
     "colLegal": "Légal",
     "colResources": "Ressources",
     "collections": "Collections",
+    "pricing": "Tarifs",
     "journal": "Le Journal",
     "productLinks": [
       "Démo",
@@ -823,6 +824,117 @@
           "faire-part-mariage-digital",
           "quand-envoyer-faire-part-mariage"
         ]
+      }
+    }
+  },
+  "Landing": {
+    "previewCta": "Voir la démo interactive",
+    "collectionsCta": "Voir les collections",
+    "createCta": "Créer mon invitation",
+    "pricingCta": "Voir les tarifs",
+    "faqSectionTitle": "Bon à savoir",
+    "relatedTitle": "À lire aussi",
+    "pages": {
+      "faire-part-mariage-digital": {
+        "metaTitle": "Faire-part de mariage digital | The Studio",
+        "metaDescription": "Un faire-part de mariage digital conçu comme une expérience : trois collections, RSVP intégré, QR code et toutes les informations de votre mariage au même endroit.",
+        "eyebrow": "Faire-part de mariage digital",
+        "h1": "Le faire-part de mariage digital, par The Studio",
+        "lede": "Une page web à votre nom, qui s'ouvre depuis un lien et réunit l'invitation, le programme et les réponses de vos invités. Trois collections, un paiement unique, aucun abonnement.",
+        "sections": [
+          {
+            "title": "Une invitation, pas un fichier",
+            "body": "Vos invités reçoivent un lien par message, ou scannent un QR code imprimé. L'invitation s'ouvre dans leur navigateur : rien à télécharger, aucun compte à créer, aucune application. C'est ce qui la distingue d'une image ou d'un PDF — une page peut contenir un formulaire, une carte, un compte à rebours, et être modifiée après l'envoi sans que le lien change."
+          },
+          {
+            "title": "Trois collections, pas un gabarit",
+            "body": "Ciao Amore emprunte à la côte amalfitaine — jaune franc, vert olive, pastels lavés par le soleil. Blanc Couture est la collection du presque rien : du blanc, un or fin, beaucoup d'air. Belle Rive est la plus généreuse, nacre et feuilles d'olivier, faite pour les mariages qui durent plusieurs jours. Chacune se visite en démo interactive, avec de vrais contenus, avant que vous choisissiez."
+          },
+          {
+            "title": "Ce que le formulaire RSVP peut vous demander",
+            "body": "Vous décidez des questions : accompagnant, enfants, régime alimentaire, présence au brunch du lendemain ou au dîner de veille, besoin de transport, message libre. Un mariage adults-only n'affiche aucun champ enfant — pas un champ désactivé, aucun champ. Les réponses arrivent dans votre espace mariés, filtrables par statut et exportables pour votre traiteur."
+          },
+          {
+            "title": "Les modules que votre mariage demande",
+            "body": "Compte à rebours, programme heure par heure, lieu et itinéraire, dress code, hébergements, transport, menu, playlist alimentée par vos invités, livre d'or, liste de cadeaux, galerie photo, questions fréquentes. Chacun devient une section de l'invitation, et vous ne prenez que ceux qui servent votre journée."
+          },
+          {
+            "title": "Modifiable depuis votre espace mariés",
+            "body": "Après l'envoi, vous gardez la main sur le contenu depuis votre espace : les horaires, les hébergements, le dress code, les questions fréquentes. Le lien de l'invitation ne change pas, donc rien à renvoyer à personne. C'est la raison pour laquelle vos invités y retournent la semaine du mariage plutôt que de vous écrire."
+          },
+          {
+            "title": "Un paiement unique",
+            "body": "Vous choisissez votre formule au moment de créer votre invitation, et c'est un paiement unique — aucun abonnement mensuel pour continuer à l'utiliser pendant sa période de mise en ligne. Trois niveaux, du modèle personnalisé à la création entièrement sur-mesure."
+          }
+        ],
+        "faqTitle": "Et si l'on veut garder du papier ?",
+        "faqBody": "Les deux se complètent mieux qu'ils ne se concurrencent. Une carte imprimée portant un QR code garde le geste — l'enveloppe qu'on ouvre — et renvoie vers l'invitation complète pour tout ce qui est pratique. Votre espace génère le QR code de votre invitation, prêt à transmettre à votre imprimeur.",
+        "ctaTitle": "Voir les collections",
+        "ctaBody": "Trois univers, de la dolce vita italienne au minimalisme couture. Chacun se visite en démo interactive avant de choisir."
+      },
+      "rsvp-en-ligne": {
+        "metaTitle": "RSVP mariage en ligne : le formulaire intégré à votre invitation",
+        "metaDescription": "Un RSVP mariage en ligne intégré à votre faire-part digital : présence, menu, allergies, brunch, transport. Réponses centralisées, statuts et export.",
+        "eyebrow": "RSVP mariage en ligne",
+        "h1": "Le RSVP en ligne, intégré à votre invitation",
+        "lede": "Vos invités répondent là où ils consultent votre invitation. Vous récupérez les réponses réunies, avec un statut par invité et les informations dont votre traiteur aura besoin.",
+        "sections": [
+          {
+            "title": "Répondre sans quitter l'invitation",
+            "body": "L'invité fait défiler l'invitation, arrive au RSVP et répond. Pas de lien vers un autre outil, pas de formulaire à retrouver dans une conversation, pas de compte à créer. C'est ce parcours court qui fait la différence sur le taux de réponse : chaque étape supplémentaire est une occasion de reporter à plus tard."
+          },
+          {
+            "title": "Les questions que vous choisissez",
+            "body": "Au-delà de la présence : un accompagnant, les enfants, un régime alimentaire ou une allergie, la présence au brunch du lendemain ou au dîner de veille, un besoin de transport, un message pour vous. Chaque information posée au bon moment vous épargne une relance individuelle en avril."
+          },
+          {
+            "title": "Trois statuts, et un seul qui demande une action",
+            "body": "Confirmé, refusé, en attente. Le troisième est le seul sur lequel vous avez du travail, et c'est celui qu'un tableur rend invisible — une ligne vide ressemble autant à un oubli de saisie qu'à une absence de réponse. Votre espace filtre par statut : la question « qui reste-t-il à relancer ? » devient immédiate."
+          },
+          {
+            "title": "Des relances ciblées",
+            "body": "Relancer tout le monde fait répondre ceux qui avaient déjà répondu et laisse les autres indifférents. Une fois la liste des invités en attente isolée, la relance devient une tâche de vingt minutes, nominative, et donc efficace."
+          },
+          {
+            "title": "Vos invités s'inscrivent, vous ne saisissez rien",
+            "body": "La réponse est enregistrée telle que l'invité l'a écrite : son nom, ses accompagnants, son régime. Vous ne retranscrivez rien, donc vous n'introduisez aucune erreur de retranscription — c'est le principal défaut du suivi manuel, et il disparaît. Votre espace mariés affiche la liste à jour en permanence, sans que personne ait à tenir un fichier."
+          },
+          {
+            "title": "Un QR code pour y accéder",
+            "body": "Le RSVP s'ouvre aussi depuis un QR code imprimé, sur un Save the Date, une carte ou un panneau d'accueil. L'invité scanne, l'invitation s'ouvre, il répond. C'est le chemin le plus court entre un support papier et une réponse enregistrée."
+          }
+        ],
+        "faqTitle": "Que faire des invités qui ne répondent jamais ?",
+        "faqBody": "Passez un appel, et traitez l'absence de réponse comme un refus à la date limite que vous avez annoncée. C'est la raison d'être de cette date : sans elle, vous attendez indéfiniment. Prévoyez la marge dans votre discussion avec le traiteur plutôt que dans vos nerfs.",
+        "ctaTitle": "Créer votre invitation",
+        "ctaBody": "Le RSVP est intégré à chacune des trois collections. Choisissez votre univers, configurez vos questions, envoyez le lien."
+      },
+      "tarifs": {
+        "metaTitle": "Prix d'un faire-part de mariage digital | Tarifs The Studio",
+        "metaDescription": "Trois formules de faire-part de mariage digital, de 199 € à 499 €. Paiement unique, sans abonnement. Ce que comprend chaque niveau de personnalisation.",
+        "eyebrow": "Nos formules",
+        "h1": "Combien coûte un faire-part de mariage digital ?",
+        "lede": "Trois formules, de 199 € à 499 €, selon le niveau de personnalisation. Un paiement unique dans tous les cas : aucun abonnement mensuel pour continuer à utiliser votre invitation pendant sa période de mise en ligne.",
+        "sections": [
+          {
+            "title": "Ce qui fait varier le prix",
+            "body": "Pas le nombre d'invités : une invitation digitale coûte le même prix pour cinquante ou trois cents personnes, contrairement à l'impression papier où chaque carte s'ajoute. Ce qui fait varier le tarif, c'est le niveau de personnalisation — partir d'une de nos collections, ou faire dessiner une identité graphique autour de votre mariage."
+          },
+          {
+            "title": "Ce que le digital remplace",
+            "body": "Un budget papier additionne les cartes, les enveloppes, les timbres, les cartons-réponse, les cartes d'information et les réimpressions quand une date bouge. Une invitation digitale réunit l'annonce, le programme, les informations pratiques et le suivi des réponses dans un seul poste — c'est cette comparaison-là qui compte, pas le prix d'une carte contre le prix d'une page."
+          },
+          {
+            "title": "Ce qui est inclus dans toutes les formules",
+            "body": "Une invitation dessinée pour le téléphone, un RSVP intégré, les modules dont votre journée a besoin, un QR code à imprimer, et la possibilité de corriger le contenu après l'envoi sans changer le lien. La différence entre les formules porte sur la personnalisation, pas sur le fonctionnement."
+          }
+        ],
+        "plansTitle": "Les trois formules",
+        "compareTitle": "Ce que comprend chaque formule",
+        "faqTitle": "Y a-t-il des frais supplémentaires ?",
+        "faqBody": "Le tarif de votre formule est celui que vous réglez à la création, en un paiement unique. Certaines prestations ne figurent que dans les formules les plus personnalisées — le comparatif ci-dessus indique précisément ce que chaque niveau comprend.",
+        "ctaTitle": "Choisir votre formule",
+        "ctaBody": "Le studio vous guide étape par étape : collection, modules, options, puis paiement. Vous voyez le total évoluer à chaque choix."
       }
     }
   },
