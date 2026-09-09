@@ -240,15 +240,103 @@ export async function submitContact(
   return { ok: true };
 }
 
+/* ------------------------------------------------------------------ *
+ * Notification email
+ * ------------------------------------------------------------------ */
+
+/**
+ * Human labels for the slugs the form submits.
+ *
+ * The slugs are what the database constrains and stores; nobody wants to read
+ * `decouvre` or `lt-50` in their inbox at 8am. Kept here rather than pulled
+ * from the locale files on purpose: the notification is always addressed to
+ * the studio, in French, whatever language the visitor filled the form in —
+ * `locale` is carried separately so the reply can be written in theirs.
+ */
+const GUEST_BAND_FR: Record<string, string> = {
+  "lt-50": "Moins de 50",
+  "50-100": "50 à 100",
+  "100-150": "100 à 150",
+  "150-200": "150 à 200",
+  "gt-200": "Plus de 200",
+  unknown: "Ne sait pas encore",
+};
+
+const INTEREST_FR: Record<string, string> = {
+  collection: "Une collection existante",
+  personnaliser: "Personnaliser une collection",
+  "sur-mesure": "Une création sur-mesure",
+  question: "Une question",
+  unknown: "Ne sait pas encore",
+};
+
+const COLLECTION_FR: Record<string, string> = {
+  "ciao-amore": "Ciao Amore",
+  "blanc-couture": "Blanc Couture",
+  "belle-rive": "Belle Rive",
+  unknown: "Ne sait pas encore",
+};
+
+const STAGE_FR: Record<string, string> = {
+  decouvre: "Découvre The Studio",
+  "univers-choisi": "A déjà choisi son univers",
+  "idee-precise": "A une idée assez précise",
+  "besoin-conseil": "A besoin d'être conseillé(e)",
+};
+
+const SUBJECT_FR: Record<string, string> = {
+  "avant-achat": "Avant-achat",
+  "ma-commande": "Ma commande",
+  technique: "Technique",
+  "sur-mesure": "Sur-mesure",
+  autre: "Autre",
+};
+
+/**
+ * Escape every character that could break out of an HTML text node or an
+ * attribute.
+ *
+ * This is the one thing that makes an HTML notification safe to send. The
+ * body, the names and the venue are written by a stranger; interpolated raw,
+ * a `<script>` or a forged `</td>` would become markup in the recipient's mail
+ * client. Every interpolation below goes through this — no exceptions, and any
+ * new field added later must too.
+ */
+function esc(value: string): string {
+  return value
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#39;");
+}
+
+/** A wedding date in French, falling back to the raw value if unparsable. */
+function frenchDate(iso: string): string {
+  const d = new Date(`${iso}T00:00:00Z`);
+  if (Number.isNaN(d.getTime())) return iso;
+  return new Intl.DateTimeFormat("fr-FR", {
+    day: "numeric",
+    month: "long",
+    year: "numeric",
+    timeZone: "UTC",
+  }).format(d);
+}
+
 /**
  * Announce the message by email. Never throws: the message is already stored,
  * so a notification failure must not turn a success into an error.
  *
- * Plain text, never HTML — the body is written by a stranger, and an HTML mail
- * would turn `<script>` or a forged layout into an injection surface in the
- * recipient's client. Nothing from the visitor reaches a header either: the
- * subject line is built from the enum and the couple's names, and `replyTo`
- * is the address that was already validated against a strict pattern above.
+ * Sent as styled HTML with a plain-text alternative, and EVERY interpolated
+ * value goes through `esc()` first. That escaping is not decoration: the body,
+ * the names and the venue are written by a stranger, so unescaped they would
+ * turn a `<script>` or a forged `</table>` into markup in the recipient's mail
+ * client. The plain-text part is not a fallback nobody sees either — some
+ * clients and every notification preview render it instead.
+ *
+ * Nothing from the visitor reaches a header: the subject line is built from
+ * the enum plus the escaped names, and `replyTo` is the address already
+ * validated against a strict pattern above.
  */
 async function notify(payload: {
   firstName: string;
@@ -274,28 +362,88 @@ async function notify(payload: {
 
   try {
     const resend = new Resend(apiKey);
+
+    // Studio palette, inlined: mail clients strip <style> blocks and know
+    // nothing about Tailwind, so every rule has to ride on the element.
+    const VIOLET = "#4B3F72";
+    const LAVANDE = "#B7AFD1";
+    const BEURRE = "#FFF9D6";
+    const CREME = "#FFFDE8";
+
+    // One row of the details table. `label` is ours, `value` is the visitor's
+    // — hence the escaping on the latter only.
+    const row = (label: string, value: string | undefined) =>
+      value
+        ? `<tr>
+             <td style="padding:10px 16px;border-bottom:1px solid ${LAVANDE}33;font:12px/1.4 -apple-system,Segoe UI,sans-serif;letter-spacing:.08em;text-transform:uppercase;color:${VIOLET}99;white-space:nowrap;vertical-align:top">${label}</td>
+             <td style="padding:10px 16px;border-bottom:1px solid ${LAVANDE}33;font:15px/1.5 -apple-system,Segoe UI,sans-serif;color:${VIOLET}">${esc(value)}</td>
+           </tr>`
+        : "";
+
+    const details = [
+      row("Date du mariage", payload.weddingDate && frenchDate(payload.weddingDate)),
+      row("Lieu", payload.weddingPlace),
+      row("Invités", payload.guestBand && GUEST_BAND_FR[payload.guestBand]),
+      row("Intérêt", payload.interest && INTEREST_FR[payload.interest]),
+      row("Collection", payload.collection && COLLECTION_FR[payload.collection]),
+      row("Avancement", payload.projectStage && STAGE_FR[payload.projectStage]),
+    ].join("");
+
+    const subjectLabel = SUBJECT_FR[payload.subject] ?? payload.subject;
+
+    const html = `<!doctype html>
+<html lang="fr"><body style="margin:0;padding:24px 12px;background:${CREME}">
+  <table role="presentation" cellpadding="0" cellspacing="0" style="width:100%;max-width:560px;margin:0 auto;border-collapse:collapse;background:#fff;border-radius:20px;overflow:hidden">
+    <tr>
+      <td style="padding:28px 32px;background:${VIOLET}">
+        <p style="margin:0;font:12px/1.4 -apple-system,Segoe UI,sans-serif;letter-spacing:.14em;text-transform:uppercase;color:${BEURRE}b3">Nouveau message · ${esc(subjectLabel)}</p>
+        <p style="margin:8px 0 0;font:600 24px/1.3 Georgia,serif;color:${BEURRE}">${esc(name)}</p>
+        <p style="margin:6px 0 0;font:14px/1.5 -apple-system,Segoe UI,sans-serif">
+          <a href="mailto:${esc(payload.email)}" style="color:${BEURRE};text-decoration:underline">${esc(payload.email)}</a>
+        </p>
+      </td>
+    </tr>
+    ${details ? `<tr><td style="padding:8px 16px 0"><table role="presentation" cellpadding="0" cellspacing="0" style="width:100%;border-collapse:collapse">${details}</table></td></tr>` : ""}
+    <tr>
+      <td style="padding:24px 32px 8px">
+        <p style="margin:0 0 10px;font:12px/1.4 -apple-system,Segoe UI,sans-serif;letter-spacing:.08em;text-transform:uppercase;color:${VIOLET}99">Message</p>
+        <div style="padding:16px 18px;background:${CREME};border-radius:14px;font:15px/1.65 -apple-system,Segoe UI,sans-serif;color:${VIOLET};white-space:pre-wrap;word-break:break-word">${esc(payload.message)}</div>
+      </td>
+    </tr>
+    <tr>
+      <td style="padding:20px 32px 28px">
+        <a href="mailto:${esc(payload.email)}" style="display:inline-block;padding:13px 26px;border-radius:999px;background:${VIOLET};color:${BEURRE};font:15px/1 -apple-system,Segoe UI,sans-serif;text-decoration:none">Répondre à ${esc(payload.firstName || name)}</a>
+        <p style="margin:16px 0 0;font:12px/1.5 -apple-system,Segoe UI,sans-serif;color:${VIOLET}80">Formulaire de contact · langue du visiteur : ${esc(payload.locale)}</p>
+      </td>
+    </tr>
+  </table>
+</body></html>`;
+
     await resend.emails.send({
       from: `The Studio <${NOTIFY_FROM}>`,
       to: process.env.CONTACT_NOTIFY_TO || NOTIFY_FROM,
       replyTo: payload.email,
-      subject: `[Contact] ${name}`,
+      subject: `[Contact · ${subjectLabel}] ${name}`,
+      html,
+      // Not a courtesy: some clients render this instead, and every inbox
+      // preview line is generated from it.
       text: [
-        `Prénom       : ${payload.firstName}`,
-        `Nom          : ${payload.lastName}`,
-        `Email        : ${payload.email}`,
-        `Sujet        : ${payload.subject}`,
-        `Langue       : ${payload.locale}`,
+        `${name} — ${payload.email}`,
+        `Sujet : ${subjectLabel}`,
+        `Langue du visiteur : ${payload.locale}`,
         "",
-        `Date du mariage    : ${payload.weddingDate ?? "—"}`,
-        `Lieu du mariage    : ${payload.weddingPlace ?? "—"}`,
-        `Nombre d'invités   : ${payload.guestBand ?? "—"}`,
-        `Intérêt            : ${payload.interest ?? "—"}`,
-        `Collection repérée : ${payload.collection ?? "—"}`,
-        `Avancement projet  : ${payload.projectStage ?? "—"}`,
+        payload.weddingDate ? `Date du mariage : ${frenchDate(payload.weddingDate)}` : null,
+        payload.weddingPlace ? `Lieu : ${payload.weddingPlace}` : null,
+        payload.guestBand ? `Invités : ${GUEST_BAND_FR[payload.guestBand]}` : null,
+        payload.interest ? `Intérêt : ${INTEREST_FR[payload.interest]}` : null,
+        payload.collection ? `Collection : ${COLLECTION_FR[payload.collection]}` : null,
+        payload.projectStage ? `Avancement : ${STAGE_FR[payload.projectStage]}` : null,
         "",
         "Message :",
         payload.message,
-      ].join("\n"),
+      ]
+        .filter((line) => line !== null)
+        .join("\n"),
     });
   } catch (err) {
     console.error("[contact] notification failed", err);
