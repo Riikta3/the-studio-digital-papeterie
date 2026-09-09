@@ -411,7 +411,16 @@ function ContactSuccess() {
       <p className="max-w-md whitespace-pre-line font-body text-sm leading-relaxed text-studio-violet/70 md:text-base">
         {t("text")}
       </p>
-      <Button variant="studio-outline" size="pill" asChild className="mt-2">
+      {/* studio-outline is drawn for the hero's violet ground: yellow border,
+          yellow text. On this page's yellow ground it was invisible. Same
+          violet override Preview.tsx and ThemeConfigSheet.tsx already use for
+          this variant on light backgrounds. */}
+      <Button
+        variant="studio-outline"
+        size="pill"
+        asChild
+        className="mt-2 border-studio-violet text-studio-violet hover:bg-studio-violet/10"
+      >
         <Link href="/">{t("backHome")}</Link>
       </Button>
     </div>

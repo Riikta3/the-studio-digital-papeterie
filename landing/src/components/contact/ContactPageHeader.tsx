@@ -38,7 +38,12 @@ export function ContactPageHeader() {
 
   return (
     <>
-      <nav className="flex w-full max-w-6xl items-center justify-between px-6 py-6 md:px-12">
+      {/* `mx-auto` matters here: the hero's identical nav is centred by its
+          parent (`flex flex-col items-center`), but this one sits directly in
+          a plain <main>, so `max-w-6xl` alone left it pinned to the left and
+          dropped all the slack to the right of the burger. Centring the nav
+          itself keeps the component correct wherever it is mounted. */}
+      <nav className="mx-auto flex w-full max-w-6xl items-center justify-between px-6 py-6 md:px-12">
         <Link href="/">
           {/* logo-violet, NOT logo.svg: the yellow mark is drawn for the
               hero's violet backdrop and all but vanishes on this page's
