@@ -13,6 +13,7 @@ import {
   themePageSlugPath,
 } from "@/lib/theme-pages";
 import { Link } from "@/navigation";
+import { PageHeader } from "@/components/home/PageHeader";
 
 /**
  * The theme collection page — the site's second indexable URL.
@@ -76,6 +77,8 @@ export default async function ThemesPage({
 
   return (
     <main className="bg-studio-creme">
+      <PageHeader />
+
       <section className="px-6 py-20 md:px-12">
         <div className="mx-auto max-w-3xl text-center">
           <div className="flex items-center justify-center gap-3 font-body text-h5 tracking-luxe text-studio-pourpre">

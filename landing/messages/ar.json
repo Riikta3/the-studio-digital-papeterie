@@ -130,7 +130,8 @@
     "createButton": "أنشئ دعوتي",
     "cgv": "الشروط",
     "privacy": "الخصوصية",
-    "copyright": "© {year} The Studio Digital Papeterie. جميع الحقوق محفوظة."
+    "copyright": "© {year} The Studio Digital Papeterie. جميع الحقوق محفوظة.",
+    "contact": "اتصل بنا"
   },
   "HeroCarousel": {
     "prevAriaLabel": "البطاقة السابقة",
@@ -612,7 +613,8 @@
       "حسب الطلب",
       "مساحة العروسين",
       "يوم الزفاف",
-      "الأسئلة الشائعة"
+      "الأسئلة الشائعة",
+      "اتصل بنا"
     ],
     "mariesLinks": [
       "تسجيل الدخول"
@@ -1007,5 +1009,111 @@
     "signature": "إلى قريب جدًا",
     "copyright": "© {year} The Studio Digital Papeterie. جميع الحقوق محفوظة.",
     "homeAriaLabel": "العودة إلى الصفحة الرئيسية"
+  },
+  "Contact": {
+    "meta": {
+      "title": "اتصل بنا | دعوات زفاف رقمية | The Studio",
+      "description": "تواصلوا مع The Studio بخصوص دعوة زفافكم الرقمية أو تصميم مخصص أو مشروع حسب الطلب. لنتحدث عن زفافكم."
+    },
+    "hero": {
+      "eyebrow": "مشروع، سؤال، فكرة",
+      "h1": "لنتحدث عن زفافكم",
+      "subtitle": "لديكم سؤال، أو مجموعة في ذهنكم، أو ترغبون في إنشاء دعوة لا تشبه أي دعوة أخرى؟ أخبرونا عن مشروعكم. سنساعدكم في إيجاد الصيغة الأنسب لزفافكم."
+    },
+    "editorial": {
+      "title": "مشروعكم يبدأ هنا",
+      "text": "كل زفاف مختلف. بضع معلومات تكفي لنفهم أجواءكم ورغباتكم ومستوى التخصيص الذي تبحثون عنه.",
+      "markers": [
+        {
+          "title": "لديكم سؤال؟",
+          "desc": "نجيبكم مباشرة."
+        },
+        {
+          "title": "مجموعة في ذهنكم؟",
+          "desc": "أخبرونا أيّها."
+        },
+        {
+          "title": "فكرة دقيقة جدًا؟",
+          "desc": "لنتحدث عن التصميم حسب الطلب."
+        }
+      ],
+      "signatureName": "The Studio – القرطاسية الرقمية",
+      "signatureTagline": "دعوات زفاف رقمية وتصاميم مخصصة"
+    },
+    "form": {
+      "firstNameLabel": "الاسم الأول",
+      "firstNamePlaceholder": "اسمكم الأول",
+      "lastNameLabel": "اسم العائلة",
+      "lastNamePlaceholder": "اسم عائلتكم",
+      "emailLabel": "البريد الإلكتروني",
+      "emailPlaceholder": "you@email.com",
+      "weddingDateLabel": "تاريخ الزفاف",
+      "weddingPlaceLabel": "مكان الزفاف",
+      "weddingPlacePlaceholder": "المدينة أو المكان أو البلد",
+      "guestBandLabel": "العدد التقريبي للضيوف",
+      "guestBandOptions": {
+        "lt-50": "أقل من 50",
+        "50-100": "من 50 إلى 100",
+        "100-150": "من 100 إلى 150",
+        "150-200": "من 150 إلى 200",
+        "gt-200": "أكثر من 200",
+        "unknown": "لا نعرف بعد"
+      },
+      "interestLabel": "ما الذي يهمكم؟",
+      "interestOptions": {
+        "collection": "مجموعة موجودة",
+        "personnaliser": "تخصيص مجموعة",
+        "sur-mesure": "تصميم حسب الطلب",
+        "question": "لدي سؤال",
+        "unknown": "لا أعرف بعد"
+      },
+      "collectionLabel": "ما هي المجموعة التي لفتت انتباهكم؟",
+      "collectionOptions": {
+        "ciao-amore": "Ciao Amore",
+        "blanc-couture": "Blanc Couture",
+        "belle-rive": "Belle Rive",
+        "unknown": "لا أعرف بعد"
+      },
+      "projectStageLabel": "أين أنتم في مشروعكم؟",
+      "projectStageOptions": {
+        "decouvre": "أكتشف The Studio",
+        "univers-choisi": "اخترت أجواء مشروعي بالفعل",
+        "idee-precise": "لدي فكرة دقيقة إلى حد ما",
+        "besoin-conseil": "أحتاج إلى استشارة"
+      },
+      "messageLabel": "حدثونا عن زفافكم",
+      "messagePlaceholder": "أجواؤكم، ألوانكم، رغباتكم، أسئلتكم…",
+      "consentLabel": "أوافق على استخدام معلوماتي للرد على طلبي.",
+      "privacyLinkLabel": "سياسة الخصوصية",
+      "submit": "إرسال طلبي",
+      "submitting": "جارٍ الإرسال…",
+      "submitCaption": "سنرد عليكم شخصيًا.",
+      "privacyNote": "تُستخدم المعلومات المُرسلة عبر هذا النموذج فقط للرد على طلبكم.",
+      "errors": {
+        "required": "هذا الحقل مطلوب.",
+        "firstName": "يرجى إدخال اسمكم الأول.",
+        "lastName": "يرجى إدخال اسم عائلتكم.",
+        "email": "يرجى إدخال عنوان بريد إلكتروني صالح.",
+        "message": "يجب أن تحتوي رسالتكم على 10 أحرف على الأقل.",
+        "consent": "يرجى الموافقة على استخدام معلوماتكم.",
+        "global": "حدث خطأ ما. لم يتمكن النظام من إرسال رسالتكم. يرجى المحاولة مرة أخرى بعد قليل."
+      },
+      "optional": "(اختياري)",
+      "requiredLegend": "الحقول المميزة بـ * مطلوبة."
+    },
+    "success": {
+      "title": "وصلت رسالتكم بنجاح",
+      "text": "شكرًا لحديثكم معنا عن مشروعكم.\nسنتواصل معكم للحديث عن زفافكم.",
+      "backHome": "العودة إلى الصفحة الرئيسية"
+    }
+  },
+  "ContactBubble": {
+    "bubbleAriaLabel": "اتصل بنا",
+    "title": "مرحبًا 👋",
+    "subtitle": "هل لديك سؤال عن دعوتك؟ نحن هنا.",
+    "formOption": "أخبرنا عن مشروعك",
+    "emailOption": "اكتب إلينا مباشرة",
+    "whatsappOption": "واتساب",
+    "responseTime": "نرد خلال 24 إلى 48 ساعة."
   }
 }
