@@ -1320,5 +1320,14 @@
       "text": "Thank you for telling us about your project.\nWe'll be in touch to talk about your wedding.",
       "backHome": "Back to home"
     }
+  },
+  "ContactBubble": {
+    "bubbleAriaLabel": "Contact us",
+    "title": "Hello 👋",
+    "subtitle": "A question about your invitation? We are here.",
+    "formOption": "Tell us about your project",
+    "emailOption": "Email us directly",
+    "whatsappOption": "WhatsApp",
+    "responseTime": "We reply within 24 to 48 hours."
   }
 }

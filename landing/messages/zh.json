@@ -1106,5 +1106,14 @@
       "text": "感谢您与我们分享您的项目。\n我们会与您联系，聊聊您的婚礼。",
       "backHome": "返回首页"
     }
+  },
+  "ContactBubble": {
+    "bubbleAriaLabel": "联系我们",
+    "title": "您好 👋",
+    "subtitle": "对请柬有疑问吗？我们随时为您服务。",
+    "formOption": "介绍您的项目",
+    "emailOption": "直接写信给我们",
+    "whatsappOption": "WhatsApp",
+    "responseTime": "我们会在 24 至 48 小时内回复。"
   }
 }

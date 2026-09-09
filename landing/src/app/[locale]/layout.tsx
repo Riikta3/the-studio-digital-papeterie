@@ -3,6 +3,7 @@ import { NextIntlClientProvider } from "next-intl";
 import { getMessages, getTranslations, setRequestLocale } from "next-intl/server";
 import type { ReactNode } from "react";
 
+import { ContactBubble } from "@/components/contact/ContactBubble";
 import { CookieConsent } from "@/components/home/CookieConsent";
 import { getSiteUrl } from "@/lib/site";
 import { routing } from "@/navigation";
@@ -102,6 +103,9 @@ export default async function LocaleLayout({
           homepage. It renders nothing until hydration, so it adds nothing to
           the served HTML of any of them. */}
       <CookieConsent />
+      {/* Site-wide, but the component hides itself on /contact where the form
+          is already on screen. */}
+      <ContactBubble />
     </NextIntlClientProvider>
   );
 }

@@ -1106,5 +1106,14 @@
       "text": "プロジェクトについてお聞かせいただきありがとうございます。\n結婚式について改めてご連絡いたします。",
       "backHome": "トップページへ戻る"
     }
+  },
+  "ContactBubble": {
+    "bubbleAriaLabel": "お問い合わせ",
+    "title": "こんにちは 👋",
+    "subtitle": "招待状についてご質問がありますか？",
+    "formOption": "プロジェクトについて教えてください",
+    "emailOption": "直接メールする",
+    "whatsappOption": "WhatsApp",
+    "responseTime": "24〜48時間以内にご返信いたします。"
   }
 }

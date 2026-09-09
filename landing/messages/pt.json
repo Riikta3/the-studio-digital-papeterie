@@ -1106,5 +1106,14 @@
       "text": "Obrigado por nos falar do seu projeto.\nEntraremos em contacto para falarmos sobre o seu casamento.",
       "backHome": "Voltar ao início"
     }
+  },
+  "ContactBubble": {
+    "bubbleAriaLabel": "Contacte-nos",
+    "title": "Olá 👋",
+    "subtitle": "Alguma questão sobre o seu convite? Estamos aqui.",
+    "formOption": "Fale-nos do seu projeto",
+    "emailOption": "Escreva-nos diretamente",
+    "whatsappOption": "WhatsApp",
+    "responseTime": "Respondemos em 24 a 48 horas."
   }
 }

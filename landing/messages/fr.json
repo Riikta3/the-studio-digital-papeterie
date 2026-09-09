@@ -1455,5 +1455,14 @@
       "text": "Merci de nous avoir parlé de votre projet.\nNous reviendrons vers vous pour échanger autour de votre mariage.",
       "backHome": "Retour à l'accueil"
     }
+  },
+  "ContactBubble": {
+    "bubbleAriaLabel": "Nous contacter",
+    "title": "Bonjour 👋",
+    "subtitle": "Une question sur votre faire-part ? Nous sommes là.",
+    "formOption": "Parlez-nous de votre projet",
+    "emailOption": "Écrivez-nous directement",
+    "whatsappOption": "WhatsApp",
+    "responseTime": "Réponse sous 24 à 48 heures."
   }
 }

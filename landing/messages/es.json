@@ -1107,5 +1107,14 @@
       "text": "Gracias por contarnos tu proyecto.\nNos pondremos en contacto contigo para hablar de tu boda.",
       "backHome": "Volver al inicio"
     }
+  },
+  "ContactBubble": {
+    "bubbleAriaLabel": "Contáctenos",
+    "title": "Hola 👋",
+    "subtitle": "¿Alguna pregunta sobre su invitación? Estamos aquí.",
+    "formOption": "Cuéntenos su proyecto",
+    "emailOption": "Escríbanos directamente",
+    "whatsappOption": "WhatsApp",
+    "responseTime": "Respondemos en 24 a 48 horas."
   }
 }

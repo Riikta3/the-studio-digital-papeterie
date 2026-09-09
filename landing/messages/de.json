@@ -1107,5 +1107,14 @@
       "text": "Danke, dass Sie uns von Ihrem Projekt erzählt haben.\nWir melden uns bei Ihnen, um über Ihre Hochzeit zu sprechen.",
       "backHome": "Zurück zur Startseite"
     }
+  },
+  "ContactBubble": {
+    "bubbleAriaLabel": "Kontaktieren Sie uns",
+    "title": "Hallo 👋",
+    "subtitle": "Eine Frage zu Ihrer Einladung? Wir sind für Sie da.",
+    "formOption": "Erzählen Sie uns von Ihrem Projekt",
+    "emailOption": "Schreiben Sie uns direkt",
+    "whatsappOption": "WhatsApp",
+    "responseTime": "Antwort innerhalb von 24 bis 48 Stunden."
   }
 }
