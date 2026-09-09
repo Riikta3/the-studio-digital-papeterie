@@ -224,13 +224,21 @@ erreur technique), confirmation. Aucune chaîne en dur dans les composants.
 - Double opt-in sur l'email : sans intérêt ici — un email faux empêche
   simplement de répondre, il n'y a pas d'abus derrière.
 
-## Dépendance externe à traiter par le porteur du projet
+## Dépendance externe — levée
 
-**Domaine Resend à vérifier.** Pour envoyer depuis
-`@thestudiopapeteriedigitale.com`, le domaine doit être validé chez Resend
-(enregistrements DNS). Sans cela les notifications partent en spam ou sont
-refusées. À noter : `project_n8n_setup` mentionne déjà un « problème resend
-auth » — possiblement le même sujet.
+**Domaine Resend : vérifié.** `thestudiopapeteriedigitale.com` est au statut
+`Verified` chez Resend (confirmé par capture d'écran le 2026-09-09, domaine
+enregistré depuis ~6 mois). Les notifications peuvent donc partir depuis ce
+domaine sans problème de délivrabilité, et l'expéditeur sera
+`contact@thestudiopapeteriedigitale.com` — la même adresse que
+`SUPPORT_EMAIL` dans le checkout.
+
+Reste à fournir : `RESEND_API_KEY` (une clé API, distincte de la vérification
+de domaine) en local et sur Vercel.
+
+Note : `project_n8n_setup` mentionne un « problème resend auth ». Le domaine
+étant vérifié, il s'agissait donc d'un problème de clé API côté n8n, pas de
+domaine — sans impact sur ce design.
 
 ## Point d'attention hors périmètre, mais lié
 
