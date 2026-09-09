@@ -130,7 +130,8 @@
     "createButton": "Criar o meu convite",
     "cgv": "Termos",
     "privacy": "Privacidade",
-    "copyright": "© {year} The Studio Digital Papeterie. Todos os direitos reservados."
+    "copyright": "© {year} The Studio Digital Papeterie. Todos os direitos reservados.",
+    "contact": "Contacto"
   },
   "HeroCarousel": {
     "prevAriaLabel": "Cartão anterior",
@@ -612,7 +613,8 @@
       "Sob medida",
       "Espaço dos noivos",
       "Dia do casamento",
-      "FAQ"
+      "FAQ",
+      "Contacto"
     ],
     "mariesLinks": [
       "Entrar"
@@ -1007,5 +1009,100 @@
     "signature": "ATÉ MUITO BREVE",
     "copyright": "© {year} The Studio Digital Papeterie. Todos os direitos reservados.",
     "homeAriaLabel": "Voltar ao início"
+  },
+  "Contact": {
+    "meta": {
+      "title": "Contacto | Convites de casamento digitais | The Studio",
+      "description": "Contacte The Studio para o seu convite de casamento digital, um design personalizado ou um projeto à medida. Vamos falar sobre o seu casamento."
+    },
+    "hero": {
+      "eyebrow": "UM PROJETO, UMA PERGUNTA, UMA IDEIA",
+      "h1": "Vamos falar sobre o seu casamento",
+      "subtitle": "Tem uma pergunta, uma coleção em mente ou vontade de criar um convite que não se parece com nenhum outro? Fale-nos do seu projeto. Vamos ajudá-lo a encontrar a fórmula mais adequada para o seu casamento."
+    },
+    "editorial": {
+      "title": "O seu projeto começa aqui",
+      "text": "Cada casamento é diferente. Algumas informações bastam para percebermos o seu universo, os seus desejos e o nível de personalização que procura.",
+      "markers": [
+        {
+          "title": "Uma pergunta?",
+          "desc": "Respondemos-lhe diretamente."
+        },
+        {
+          "title": "Uma coleção em mente?",
+          "desc": "Diga-nos qual."
+        },
+        {
+          "title": "Uma ideia muito precisa?",
+          "desc": "Vamos falar de um projeto à medida."
+        }
+      ],
+      "signatureName": "The Studio – Papelaria Digital",
+      "signatureTagline": "Convites de casamento digitais & designs personalizados"
+    },
+    "form": {
+      "firstNameLabel": "Primeiro nome",
+      "firstNamePlaceholder": "O seu primeiro nome",
+      "lastNameLabel": "Apelido",
+      "lastNamePlaceholder": "O seu apelido",
+      "emailLabel": "Email",
+      "emailPlaceholder": "voce@email.com",
+      "weddingDateLabel": "Data do casamento",
+      "weddingPlaceLabel": "Local do casamento",
+      "weddingPlacePlaceholder": "Cidade, quinta ou país",
+      "guestBandLabel": "Número aproximado de convidados",
+      "guestBandOptions": {
+        "lt-50": "Menos de 50",
+        "50-100": "50 a 100",
+        "100-150": "100 a 150",
+        "150-200": "150 a 200",
+        "gt-200": "Mais de 200",
+        "unknown": "Ainda não sabemos"
+      },
+      "interestLabel": "O que lhe interessa?",
+      "interestOptions": {
+        "collection": "Uma coleção existente",
+        "personnaliser": "Personalizar uma coleção",
+        "sur-mesure": "Uma criação à medida",
+        "question": "Tenho uma pergunta",
+        "unknown": "Ainda não sei"
+      },
+      "collectionLabel": "Que coleção despertou o seu interesse?",
+      "collectionOptions": {
+        "ciao-amore": "Ciao Amore",
+        "blanc-couture": "Blanc Couture",
+        "belle-rive": "Belle Rive",
+        "unknown": "Ainda não sei"
+      },
+      "projectStageLabel": "Em que fase está o seu projeto?",
+      "projectStageOptions": {
+        "decouvre": "Estou a descobrir The Studio",
+        "univers-choisi": "Já escolhi o meu universo",
+        "idee-precise": "Tenho uma ideia bastante precisa",
+        "besoin-conseil": "Preciso de aconselhamento"
+      },
+      "messageLabel": "Fale-nos do seu casamento",
+      "messagePlaceholder": "O seu universo, as suas cores, os seus desejos, as suas perguntas…",
+      "consentLabel": "Aceito que os meus dados sejam utilizados para responder ao meu pedido.",
+      "privacyLinkLabel": "política de privacidade",
+      "submit": "Enviar o meu pedido",
+      "submitting": "A enviar…",
+      "submitCaption": "Responderemos pessoalmente.",
+      "privacyNote": "As informações transmitidas através deste formulário são utilizadas apenas para responder ao seu pedido.",
+      "errors": {
+        "required": "Este campo é obrigatório.",
+        "firstName": "Indique o seu primeiro nome, por favor.",
+        "lastName": "Indique o seu apelido, por favor.",
+        "email": "Indique um endereço de email válido, por favor.",
+        "message": "A sua mensagem deve ter pelo menos 10 caracteres.",
+        "consent": "Aceite a utilização dos seus dados, por favor.",
+        "global": "Ocorreu um erro. A sua mensagem não pôde ser enviada. Tente novamente dentro de instantes."
+      }
+    },
+    "success": {
+      "title": "A sua mensagem chegou com sucesso",
+      "text": "Obrigado por nos falar do seu projeto.\nEntraremos em contacto para falarmos sobre o seu casamento.",
+      "backHome": "Voltar ao início"
+    }
   }
 }

@@ -131,7 +131,8 @@
     "createButton": "Meine Einladung erstellen",
     "cgv": "AGB",
     "privacy": "Datenschutz",
-    "copyright": "© {year} The Studio Digital Papeterie. Alle Rechte vorbehalten."
+    "copyright": "© {year} The Studio Digital Papeterie. Alle Rechte vorbehalten.",
+    "contact": "Kontakt"
   },
   "HeroCarousel": {
     "prevAriaLabel": "Vorherige Karte",
@@ -613,7 +614,8 @@
       "Maßgeschneidert",
       "Paarbereich",
       "Hochzeitstag",
-      "FAQ"
+      "FAQ",
+      "Kontakt"
     ],
     "mariesLinks": [
       "Anmelden"
@@ -1008,5 +1010,100 @@
     "signature": "BIS GANZ BALD",
     "copyright": "© {year} The Studio Digital Papeterie. Alle Rechte vorbehalten.",
     "homeAriaLabel": "Zurück zur Startseite"
+  },
+  "Contact": {
+    "meta": {
+      "title": "Kontakt | Digitale Hochzeitseinladungen | The Studio",
+      "description": "Kontaktieren Sie The Studio für Ihre digitale Hochzeitseinladung, ein personalisiertes Design oder ein individuelles Projekt. Lassen Sie uns über Ihre Hochzeit sprechen."
+    },
+    "hero": {
+      "eyebrow": "EIN PROJEKT, EINE FRAGE, EINE IDEE",
+      "h1": "Lassen Sie uns über Ihre Hochzeit sprechen",
+      "subtitle": "Haben Sie eine Frage, eine Kollektion im Kopf oder möchten Sie eine Einladung erschaffen, die es kein zweites Mal gibt? Erzählen Sie uns von Ihrem Projekt. Wir helfen Ihnen, die passende Formel für Ihre Hochzeit zu finden."
+    },
+    "editorial": {
+      "title": "Ihr Projekt beginnt hier",
+      "text": "Jede Hochzeit ist anders. Ein paar Angaben genügen uns, um Ihre Stimmung, Ihre Wünsche und den gewünschten Grad an Personalisierung zu verstehen.",
+      "markers": [
+        {
+          "title": "Eine Frage?",
+          "desc": "Wir antworten Ihnen direkt."
+        },
+        {
+          "title": "Eine Kollektion im Kopf?",
+          "desc": "Sagen Sie uns, welche."
+        },
+        {
+          "title": "Eine ganz genaue Idee?",
+          "desc": "Sprechen wir über Maßanfertigung."
+        }
+      ],
+      "signatureName": "The Studio – Digitale Papeterie",
+      "signatureTagline": "Digitale Hochzeitseinladungen & personalisierte Designs"
+    },
+    "form": {
+      "firstNameLabel": "Vorname",
+      "firstNamePlaceholder": "Ihr Vorname",
+      "lastNameLabel": "Nachname",
+      "lastNamePlaceholder": "Ihr Nachname",
+      "emailLabel": "E-Mail",
+      "emailPlaceholder": "sie@email.com",
+      "weddingDateLabel": "Hochzeitsdatum",
+      "weddingPlaceLabel": "Hochzeitsort",
+      "weddingPlacePlaceholder": "Stadt, Location oder Land",
+      "guestBandLabel": "Ungefähre Anzahl der Gäste",
+      "guestBandOptions": {
+        "lt-50": "Weniger als 50",
+        "50-100": "50 bis 100",
+        "100-150": "100 bis 150",
+        "150-200": "150 bis 200",
+        "gt-200": "Mehr als 200",
+        "unknown": "Wissen wir noch nicht"
+      },
+      "interestLabel": "Wofür interessieren Sie sich?",
+      "interestOptions": {
+        "collection": "Eine bestehende Kollektion",
+        "personnaliser": "Eine Kollektion personalisieren",
+        "sur-mesure": "Eine maßgeschneiderte Kreation",
+        "question": "Ich habe eine Frage",
+        "unknown": "Weiß ich noch nicht"
+      },
+      "collectionLabel": "Welche Kollektion haben Sie entdeckt?",
+      "collectionOptions": {
+        "ciao-amore": "Ciao Amore",
+        "blanc-couture": "Blanc Couture",
+        "belle-rive": "Belle Rive",
+        "unknown": "Weiß ich noch nicht"
+      },
+      "projectStageLabel": "Wo stehen Sie in Ihrem Projekt?",
+      "projectStageOptions": {
+        "decouvre": "Ich entdecke gerade The Studio",
+        "univers-choisi": "Ich habe meinen Stil bereits gewählt",
+        "idee-precise": "Ich habe eine recht genaue Vorstellung",
+        "besoin-conseil": "Ich brauche Beratung"
+      },
+      "messageLabel": "Erzählen Sie uns von Ihrer Hochzeit",
+      "messagePlaceholder": "Ihr Stil, Ihre Farben, Ihre Wünsche, Ihre Fragen…",
+      "consentLabel": "Ich stimme zu, dass meine Angaben zur Beantwortung meiner Anfrage verwendet werden.",
+      "privacyLinkLabel": "Datenschutzerklärung",
+      "submit": "Anfrage senden",
+      "submitting": "Wird gesendet…",
+      "submitCaption": "Wir antworten Ihnen persönlich.",
+      "privacyNote": "Die über dieses Formular übermittelten Angaben werden ausschließlich zur Beantwortung Ihrer Anfrage verwendet.",
+      "errors": {
+        "required": "Dieses Feld ist erforderlich.",
+        "firstName": "Bitte geben Sie Ihren Vornamen an.",
+        "lastName": "Bitte geben Sie Ihren Nachnamen an.",
+        "email": "Bitte geben Sie eine gültige E-Mail-Adresse an.",
+        "message": "Ihre Nachricht muss mindestens 10 Zeichen lang sein.",
+        "consent": "Bitte stimmen Sie der Verwendung Ihrer Angaben zu.",
+        "global": "Ein Fehler ist aufgetreten. Ihre Nachricht konnte nicht gesendet werden. Bitte versuchen Sie es in Kürze erneut."
+      }
+    },
+    "success": {
+      "title": "Ihre Nachricht ist angekommen",
+      "text": "Danke, dass Sie uns von Ihrem Projekt erzählt haben.\nWir melden uns bei Ihnen, um über Ihre Hochzeit zu sprechen.",
+      "backHome": "Zurück zur Startseite"
+    }
   }
 }

@@ -12,8 +12,20 @@ import { Link, usePathname, useRouter } from "@/navigation";
 
 import { LanguageSwitcher } from "./LanguageSwitcher";
 
-// Order matches MobileMenu.productLinks in the message files, which
-// mirrors the page's actual section order (see [locale]/page.tsx).
+// Order matches the first 8 entries of MobileMenu.productLinks in the
+// message files, which mirrors the homepage's actual section order (see
+// [locale]/page.tsx). Index i of this array is scrollToAnchor's target for
+// productLabels[i].
+//
+// Contact (productLabels[8]) is deliberately NOT in this array. Every entry
+// here is a same-page scroll anchor handled by `scrollToSection`, which only
+// know how to scroll to an id or, off the homepage, navigate to `/#id` and
+// then scroll — neither makes sense for Contact, which is a real route with
+// no homepage section behind it. Appending a ninth anchor (e.g. "contact")
+// would silently break the index-to-anchor mapping for nothing, since there
+// is no matching section to scroll to. Instead the render below special-cases
+// the last label and renders it as a plain <Link href="/contact">, leaving
+// the eight existing anchors and their indices completely untouched.
 const PRODUCT_LINK_ANCHORS = [
   "accueil",
   "demo",
@@ -129,19 +141,36 @@ export function MobileMenu({
                 {t("colProduct")}
               </p>
               <ul className="mt-4 flex flex-col gap-4">
-                {productLabels.map((label, i) => (
-                  <li key={label}>
-                    <button
-                      type="button"
-                      onClick={() =>
-                        scrollToAnchor(PRODUCT_LINK_ANCHORS[i] ?? "accueil")
-                      }
-                      className="font-body text-base text-studio-jaune"
-                    >
-                      {label}
-                    </button>
-                  </li>
-                ))}
+                {productLabels.map((label, i) => {
+                  // Beyond the anchor array: Contact, a real route rather
+                  // than a homepage scroll target. See the comment above
+                  // PRODUCT_LINK_ANCHORS.
+                  if (i >= PRODUCT_LINK_ANCHORS.length) {
+                    return (
+                      <li key={label}>
+                        <Link
+                          href="/contact"
+                          onClick={onClose}
+                          className="font-body text-base text-studio-jaune"
+                        >
+                          {label}
+                        </Link>
+                      </li>
+                    );
+                  }
+
+                  return (
+                    <li key={label}>
+                      <button
+                        type="button"
+                        onClick={() => scrollToAnchor(PRODUCT_LINK_ANCHORS[i])}
+                        className="font-body text-base text-studio-jaune"
+                      >
+                        {label}
+                      </button>
+                    </li>
+                  );
+                })}
               </ul>
 
               <p className="mt-8 font-body text-h5 tracking-luxe text-white/50">

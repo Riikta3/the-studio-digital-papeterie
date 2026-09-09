@@ -130,7 +130,8 @@
     "createButton": "招待状を作成する",
     "cgv": "利用規約",
     "privacy": "プライバシー",
-    "copyright": "© {year} The Studio Digital Papeterie. All rights reserved."
+    "copyright": "© {year} The Studio Digital Papeterie. All rights reserved.",
+    "contact": "お問い合わせ"
   },
   "HeroCarousel": {
     "prevAriaLabel": "前のカード",
@@ -612,7 +613,8 @@
       "オーダーメイド",
       "新郎新婦の管理画面",
       "挙式当日",
-      "よくある質問"
+      "よくある質問",
+      "お問い合わせ"
     ],
     "mariesLinks": [
       "ログイン"
@@ -1007,5 +1009,100 @@
     "signature": "またすぐに",
     "copyright": "© {year} The Studio Digital Papeterie. All rights reserved.",
     "homeAriaLabel": "ホームに戻る"
+  },
+  "Contact": {
+    "meta": {
+      "title": "お問い合わせ | デジタル結婚式招待状 | The Studio",
+      "description": "デジタル結婚式招待状、パーソナライズデザイン、オーダーメイドのプロジェクトについて The Studio にお問い合わせください。あなたの結婚式についてお話ししましょう。"
+    },
+    "hero": {
+      "eyebrow": "プロジェクト、質問、アイデア",
+      "h1": "あなたの結婚式について、お話ししましょう",
+      "subtitle": "ご質問がある、気になるコレクションがある、あるいは他とは違う招待状を作りたい。そんな想いをぜひお聞かせください。あなたの結婚式に最適なプランを一緒に見つけます。"
+    },
+    "editorial": {
+      "title": "あなたのプロジェクトはここから始まります",
+      "text": "結婚式はひとつひとつ違います。世界観やご希望、求めるパーソナライズの度合いを理解するために、いくつかの情報をお聞かせください。",
+      "markers": [
+        {
+          "title": "ご質問がありますか？",
+          "desc": "直接お答えします。"
+        },
+        {
+          "title": "気になるコレクションがありますか？",
+          "desc": "ぜひ教えてください。"
+        },
+        {
+          "title": "とても具体的なアイデアがありますか？",
+          "desc": "オーダーメイドについてお話ししましょう。"
+        }
+      ],
+      "signatureName": "The Studio – デジタルペーパリー",
+      "signatureTagline": "デジタル結婚式招待状 & パーソナライズデザイン"
+    },
+    "form": {
+      "firstNameLabel": "名",
+      "firstNamePlaceholder": "お名前",
+      "lastNameLabel": "姓",
+      "lastNamePlaceholder": "苗字",
+      "emailLabel": "メールアドレス",
+      "emailPlaceholder": "you@email.com",
+      "weddingDateLabel": "結婚式の日程",
+      "weddingPlaceLabel": "挙式場所",
+      "weddingPlacePlaceholder": "都市、会場、または国",
+      "guestBandLabel": "ゲストの概算人数",
+      "guestBandOptions": {
+        "lt-50": "50人未満",
+        "50-100": "50〜100人",
+        "100-150": "100〜150人",
+        "150-200": "150〜200人",
+        "gt-200": "200人以上",
+        "unknown": "まだ分かりません"
+      },
+      "interestLabel": "ご興味のあることは？",
+      "interestOptions": {
+        "collection": "既存のコレクション",
+        "personnaliser": "コレクションのパーソナライズ",
+        "sur-mesure": "完全オーダーメイド",
+        "question": "質問があります",
+        "unknown": "まだ分かりません"
+      },
+      "collectionLabel": "気になっているコレクションはどれですか？",
+      "collectionOptions": {
+        "ciao-amore": "Ciao Amore",
+        "blanc-couture": "Blanc Couture",
+        "belle-rive": "Belle Rive",
+        "unknown": "まだ分かりません"
+      },
+      "projectStageLabel": "プロジェクトの進み具合は？",
+      "projectStageOptions": {
+        "decouvre": "The Studioについて知り始めたところです",
+        "univers-choisi": "すでに世界観を選びました",
+        "idee-precise": "かなり具体的なイメージがあります",
+        "besoin-conseil": "アドバイスが必要です"
+      },
+      "messageLabel": "あなたの結婚式について教えてください",
+      "messagePlaceholder": "世界観、カラー、ご希望、ご質問など…",
+      "consentLabel": "入力した情報がお問い合わせへの返信に使用されることに同意します。",
+      "privacyLinkLabel": "プライバシーポリシー",
+      "submit": "送信する",
+      "submitting": "送信中…",
+      "submitCaption": "担当者より直接ご返信いたします。",
+      "privacyNote": "本フォームで送信された情報は、お問い合わせへの返信のみに使用されます。",
+      "errors": {
+        "required": "この項目は必須です。",
+        "firstName": "お名前を入力してください。",
+        "lastName": "苗字を入力してください。",
+        "email": "有効なメールアドレスを入力してください。",
+        "message": "メッセージは10文字以上で入力してください。",
+        "consent": "情報の使用について同意してください。",
+        "global": "エラーが発生しました。メッセージを送信できませんでした。しばらくしてから再度お試しください。"
+      }
+    },
+    "success": {
+      "title": "メッセージが届きました",
+      "text": "プロジェクトについてお聞かせいただきありがとうございます。\n結婚式について改めてご連絡いたします。",
+      "backHome": "トップページへ戻る"
+    }
   }
 }

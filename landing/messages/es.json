@@ -131,7 +131,8 @@
     "createButton": "Crear mi invitación",
     "cgv": "Condiciones",
     "privacy": "Privacidad",
-    "copyright": "© {year} The Studio Digital Papeterie. Todos los derechos reservados."
+    "copyright": "© {year} The Studio Digital Papeterie. Todos los derechos reservados.",
+    "contact": "Contacto"
   },
   "HeroCarousel": {
     "prevAriaLabel": "Tarjeta anterior",
@@ -613,7 +614,8 @@
       "A medida",
       "Espacio de novios",
       "El gran día",
-      "FAQ"
+      "FAQ",
+      "Contacto"
     ],
     "mariesLinks": [
       "Iniciar sesión"
@@ -1008,5 +1010,100 @@
     "signature": "HASTA MUY PRONTO",
     "copyright": "© {year} The Studio Digital Papeterie. Todos los derechos reservados.",
     "homeAriaLabel": "Volver al inicio"
+  },
+  "Contact": {
+    "meta": {
+      "title": "Contacto | Invitaciones de boda digitales | The Studio",
+      "description": "Contacta con The Studio para tu invitación de boda digital, un diseño personalizado o un proyecto a medida. Hablemos de tu boda."
+    },
+    "hero": {
+      "eyebrow": "UN PROYECTO, UNA PREGUNTA, UNA IDEA",
+      "h1": "Hablemos de tu boda",
+      "subtitle": "¿Tienes una pregunta, una colección en mente o ganas de crear una invitación que no se parezca a ninguna otra? Cuéntanos tu proyecto. Te ayudaremos a encontrar la fórmula más adecuada para tu boda."
+    },
+    "editorial": {
+      "title": "Tu proyecto empieza aquí",
+      "text": "Cada boda es diferente. Unos pocos datos nos bastan para entender tu estilo, tus deseos y el nivel de personalización que buscas.",
+      "markers": [
+        {
+          "title": "¿Una pregunta?",
+          "desc": "Te respondemos directamente."
+        },
+        {
+          "title": "¿Una colección en mente?",
+          "desc": "Dinos cuál."
+        },
+        {
+          "title": "¿Una idea muy precisa?",
+          "desc": "Hablemos de un diseño a medida."
+        }
+      ],
+      "signatureName": "The Studio – Papelería Digital",
+      "signatureTagline": "Invitaciones de boda digitales y diseños personalizados"
+    },
+    "form": {
+      "firstNameLabel": "Nombre",
+      "firstNamePlaceholder": "Tu nombre",
+      "lastNameLabel": "Apellido",
+      "lastNamePlaceholder": "Tu apellido",
+      "emailLabel": "Email",
+      "emailPlaceholder": "tu@email.com",
+      "weddingDateLabel": "Fecha de la boda",
+      "weddingPlaceLabel": "Lugar de la boda",
+      "weddingPlacePlaceholder": "Ciudad, finca o país",
+      "guestBandLabel": "Número aproximado de invitados",
+      "guestBandOptions": {
+        "lt-50": "Menos de 50",
+        "50-100": "50 a 100",
+        "100-150": "100 a 150",
+        "150-200": "150 a 200",
+        "gt-200": "Más de 200",
+        "unknown": "Todavía no lo sabemos"
+      },
+      "interestLabel": "¿Qué te interesa?",
+      "interestOptions": {
+        "collection": "Una colección existente",
+        "personnaliser": "Personalizar una colección",
+        "sur-mesure": "Una creación a medida",
+        "question": "Tengo una pregunta",
+        "unknown": "Todavía no lo sé"
+      },
+      "collectionLabel": "¿Qué colección te ha llamado la atención?",
+      "collectionOptions": {
+        "ciao-amore": "Ciao Amore",
+        "blanc-couture": "Blanc Couture",
+        "belle-rive": "Belle Rive",
+        "unknown": "Todavía no lo sé"
+      },
+      "projectStageLabel": "¿En qué punto de tu proyecto estás?",
+      "projectStageOptions": {
+        "decouvre": "Estoy descubriendo The Studio",
+        "univers-choisi": "Ya he elegido mi estilo",
+        "idee-precise": "Tengo una idea bastante precisa",
+        "besoin-conseil": "Necesito que me asesoren"
+      },
+      "messageLabel": "Cuéntanos sobre tu boda",
+      "messagePlaceholder": "Tu estilo, tus colores, tus deseos, tus preguntas…",
+      "consentLabel": "Acepto que mis datos se utilicen para responder a mi solicitud.",
+      "privacyLinkLabel": "política de privacidad",
+      "submit": "Enviar mi solicitud",
+      "submitting": "Enviando…",
+      "submitCaption": "Te responderemos personalmente.",
+      "privacyNote": "La información enviada a través de este formulario se utiliza únicamente para responder a tu solicitud.",
+      "errors": {
+        "required": "Este campo es obligatorio.",
+        "firstName": "Indica tu nombre, por favor.",
+        "lastName": "Indica tu apellido, por favor.",
+        "email": "Indica una dirección de email válida, por favor.",
+        "message": "Tu mensaje debe tener al menos 10 caracteres.",
+        "consent": "Acepta el uso de tus datos, por favor.",
+        "global": "Se ha producido un error. Tu mensaje no se ha podido enviar. Vuelve a intentarlo en unos instantes."
+      }
+    },
+    "success": {
+      "title": "Tu mensaje ha llegado correctamente",
+      "text": "Gracias por contarnos tu proyecto.\nNos pondremos en contacto contigo para hablar de tu boda.",
+      "backHome": "Volver al inicio"
+    }
   }
 }

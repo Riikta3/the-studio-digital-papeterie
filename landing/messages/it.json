@@ -130,7 +130,8 @@
     "createButton": "Crea la mia partecipazione",
     "cgv": "Termini",
     "privacy": "Privacy",
-    "copyright": "© {year} The Studio Digital Papeterie. Tutti i diritti riservati."
+    "copyright": "© {year} The Studio Digital Papeterie. Tutti i diritti riservati.",
+    "contact": "Contatti"
   },
   "HeroCarousel": {
     "prevAriaLabel": "Carta precedente",
@@ -612,7 +613,8 @@
       "Su misura",
       "Spazio sposi",
       "Il grande giorno",
-      "FAQ"
+      "FAQ",
+      "Contatti"
     ],
     "mariesLinks": [
       "Accedi"
@@ -1007,5 +1009,100 @@
     "signature": "A PRESTISSIMO",
     "copyright": "© {year} The Studio Digital Papeterie. Tutti i diritti riservati.",
     "homeAriaLabel": "Torna alla home"
+  },
+  "Contact": {
+    "meta": {
+      "title": "Contatti | Partecipazioni di nozze digitali | The Studio",
+      "description": "Contatta The Studio per la tua partecipazione di nozze digitale, un design personalizzato o un progetto su misura. Parliamo del tuo matrimonio."
+    },
+    "hero": {
+      "eyebrow": "UN PROGETTO, UNA DOMANDA, UN'IDEA",
+      "h1": "Parliamo del tuo matrimonio",
+      "subtitle": "Hai una domanda, una collezione in mente o il desiderio di creare una partecipazione che non assomigli a nessun'altra? Raccontaci il tuo progetto. Ti aiuteremo a trovare la formula più adatta al tuo matrimonio."
+    },
+    "editorial": {
+      "title": "Il tuo progetto inizia qui",
+      "text": "Ogni matrimonio è diverso. Bastano poche informazioni per farci capire il tuo stile, i tuoi desideri e il livello di personalizzazione che cerchi.",
+      "markers": [
+        {
+          "title": "Una domanda?",
+          "desc": "Ti rispondiamo direttamente."
+        },
+        {
+          "title": "Una collezione in mente?",
+          "desc": "Dicci quale."
+        },
+        {
+          "title": "Un'idea molto precisa?",
+          "desc": "Parliamo di un progetto su misura."
+        }
+      ],
+      "signatureName": "The Studio – Cartoleria Digitale",
+      "signatureTagline": "Partecipazioni di nozze digitali e design personalizzati"
+    },
+    "form": {
+      "firstNameLabel": "Nome",
+      "firstNamePlaceholder": "Il tuo nome",
+      "lastNameLabel": "Cognome",
+      "lastNamePlaceholder": "Il tuo cognome",
+      "emailLabel": "Email",
+      "emailPlaceholder": "tu@email.com",
+      "weddingDateLabel": "Data del matrimonio",
+      "weddingPlaceLabel": "Luogo del matrimonio",
+      "weddingPlacePlaceholder": "Città, location o paese",
+      "guestBandLabel": "Numero approssimativo di invitati",
+      "guestBandOptions": {
+        "lt-50": "Meno di 50",
+        "50-100": "Da 50 a 100",
+        "100-150": "Da 100 a 150",
+        "150-200": "Da 150 a 200",
+        "gt-200": "Più di 200",
+        "unknown": "Non lo sappiamo ancora"
+      },
+      "interestLabel": "Cosa ti interessa?",
+      "interestOptions": {
+        "collection": "Una collezione esistente",
+        "personnaliser": "Personalizzare una collezione",
+        "sur-mesure": "Una creazione su misura",
+        "question": "Ho una domanda",
+        "unknown": "Non lo so ancora"
+      },
+      "collectionLabel": "Quale collezione hai notato?",
+      "collectionOptions": {
+        "ciao-amore": "Ciao Amore",
+        "blanc-couture": "Blanc Couture",
+        "belle-rive": "Belle Rive",
+        "unknown": "Non lo so ancora"
+      },
+      "projectStageLabel": "A che punto sei con il tuo progetto?",
+      "projectStageOptions": {
+        "decouvre": "Sto scoprendo The Studio",
+        "univers-choisi": "Ho già scelto il mio stile",
+        "idee-precise": "Ho un'idea abbastanza precisa",
+        "besoin-conseil": "Ho bisogno di essere consigliato/a"
+      },
+      "messageLabel": "Raccontaci del tuo matrimonio",
+      "messagePlaceholder": "Il tuo stile, i tuoi colori, i tuoi desideri, le tue domande…",
+      "consentLabel": "Accetto che i miei dati siano utilizzati per rispondere alla mia richiesta.",
+      "privacyLinkLabel": "informativa sulla privacy",
+      "submit": "Invia la mia richiesta",
+      "submitting": "Invio in corso…",
+      "submitCaption": "Ti risponderemo personalmente.",
+      "privacyNote": "Le informazioni trasmesse tramite questo modulo sono utilizzate esclusivamente per rispondere alla tua richiesta.",
+      "errors": {
+        "required": "Questo campo è obbligatorio.",
+        "firstName": "Indica il tuo nome, per favore.",
+        "lastName": "Indica il tuo cognome, per favore.",
+        "email": "Indica un indirizzo email valido, per favore.",
+        "message": "Il tuo messaggio deve contenere almeno 10 caratteri.",
+        "consent": "Accetta l'utilizzo dei tuoi dati, per favore.",
+        "global": "Si è verificato un errore. Il tuo messaggio non è stato inviato. Riprova tra qualche istante."
+      }
+    },
+    "success": {
+      "title": "Il tuo messaggio è arrivato",
+      "text": "Grazie per averci parlato del tuo progetto.\nTi ricontatteremo per parlare del tuo matrimonio.",
+      "backHome": "Torna alla home"
+    }
   }
 }

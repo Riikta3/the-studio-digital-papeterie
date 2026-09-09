@@ -5,6 +5,11 @@ import { usePathname, useRouter } from "@/navigation";
 
 // Order matches Footer.productLinks in the message files, which mirrors
 // the page's actual section order (see [locale]/page.tsx).
+//
+// Contact is intentionally NOT part of this array: every entry here is a
+// homepage scroll anchor handled by scrollToSection, and Contact is a real
+// route with no section behind it. It is rendered separately by Footer.tsx
+// from the standalone `Footer.contact` key instead — see the comment there.
 const PRODUCT_LINK_ANCHORS = [
   "demo",
   "fonctionnalites",

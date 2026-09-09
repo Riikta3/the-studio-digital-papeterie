@@ -132,7 +132,8 @@
     "createButton": "Create my invitation",
     "cgv": "Terms",
     "privacy": "Privacy",
-    "copyright": "© {year} The Studio Digital Papeterie. All rights reserved."
+    "copyright": "© {year} The Studio Digital Papeterie. All rights reserved.",
+    "contact": "Contact"
   },
   "HeroCarousel": {
     "prevAriaLabel": "Previous card",
@@ -826,7 +827,8 @@
       "Custom",
       "Couple space",
       "Wedding day",
-      "FAQ"
+      "FAQ",
+      "Contact"
     ],
     "mariesLinks": [
       "Log in"
@@ -1221,5 +1223,100 @@
     "signature": "SEE YOU VERY SOON",
     "copyright": "© {year} The Studio Digital Papeterie. All rights reserved.",
     "homeAriaLabel": "Back to home"
+  },
+  "Contact": {
+    "meta": {
+      "title": "Contact | Digital wedding invitations | The Studio",
+      "description": "Contact The Studio about your digital wedding invitation, a personalised design or a fully bespoke project. Let's talk about your wedding."
+    },
+    "hero": {
+      "eyebrow": "A PROJECT, A QUESTION, AN IDEA",
+      "h1": "Let's talk about your wedding",
+      "subtitle": "Have a question, a collection in mind, or want to create an invitation like no other? Tell us about your project. We'll help you find the formula best suited to your wedding."
+    },
+    "editorial": {
+      "title": "Your project starts here",
+      "text": "Every wedding is different. A few details are enough for us to understand your style, your wishes and the level of personalisation you're looking for.",
+      "markers": [
+        {
+          "title": "A question?",
+          "desc": "We'll answer you directly."
+        },
+        {
+          "title": "A collection in mind?",
+          "desc": "Tell us which one."
+        },
+        {
+          "title": "A very precise idea?",
+          "desc": "Let's talk bespoke."
+        }
+      ],
+      "signatureName": "The Studio – Digital Stationery",
+      "signatureTagline": "Digital wedding invitations & personalised designs"
+    },
+    "form": {
+      "firstNameLabel": "First name",
+      "firstNamePlaceholder": "Your first name",
+      "lastNameLabel": "Last name",
+      "lastNamePlaceholder": "Your last name",
+      "emailLabel": "Email",
+      "emailPlaceholder": "you@email.com",
+      "weddingDateLabel": "Wedding date",
+      "weddingPlaceLabel": "Wedding location",
+      "weddingPlacePlaceholder": "City, venue or country",
+      "guestBandLabel": "Approximate number of guests",
+      "guestBandOptions": {
+        "lt-50": "Fewer than 50",
+        "50-100": "50 to 100",
+        "100-150": "100 to 150",
+        "150-200": "150 to 200",
+        "gt-200": "More than 200",
+        "unknown": "We don't know yet"
+      },
+      "interestLabel": "What are you interested in?",
+      "interestOptions": {
+        "collection": "An existing collection",
+        "personnaliser": "Personalising a collection",
+        "sur-mesure": "A fully bespoke design",
+        "question": "I have a question",
+        "unknown": "I don't know yet"
+      },
+      "collectionLabel": "Which collection caught your eye?",
+      "collectionOptions": {
+        "ciao-amore": "Ciao Amore",
+        "blanc-couture": "Blanc Couture",
+        "belle-rive": "Belle Rive",
+        "unknown": "I don't know yet"
+      },
+      "projectStageLabel": "Where are you in your project?",
+      "projectStageOptions": {
+        "decouvre": "I'm discovering The Studio",
+        "univers-choisi": "I've already chosen my style",
+        "idee-precise": "I have a fairly precise idea",
+        "besoin-conseil": "I need some advice"
+      },
+      "messageLabel": "Tell us about your wedding",
+      "messagePlaceholder": "Your style, your colours, your wishes, your questions…",
+      "consentLabel": "I agree that my information will be used to respond to my request.",
+      "privacyLinkLabel": "privacy policy",
+      "submit": "Send my request",
+      "submitting": "Sending…",
+      "submitCaption": "We'll reply to you personally.",
+      "privacyNote": "The information submitted through this form is used only to respond to your request.",
+      "errors": {
+        "required": "This field is required.",
+        "firstName": "Please enter your first name.",
+        "lastName": "Please enter your last name.",
+        "email": "Please enter a valid email address.",
+        "message": "Your message must be at least 10 characters long.",
+        "consent": "Please agree to the use of your information.",
+        "global": "Something went wrong. Your message could not be sent. Please try again in a moment."
+      }
+    },
+    "success": {
+      "title": "Your message has arrived",
+      "text": "Thank you for telling us about your project.\nWe'll be in touch to talk about your wedding.",
+      "backHome": "Back to home"
+    }
   }
 }

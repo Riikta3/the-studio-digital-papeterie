@@ -130,7 +130,8 @@
     "createButton": "创建我的请柬",
     "cgv": "条款",
     "privacy": "隐私政策",
-    "copyright": "© {year} The Studio Digital Papeterie. 保留所有权利。"
+    "copyright": "© {year} The Studio Digital Papeterie. 保留所有权利。",
+    "contact": "联系我们"
   },
   "HeroCarousel": {
     "prevAriaLabel": "上一张卡片",
@@ -612,7 +613,8 @@
       "定制服务",
       "新人空间",
       "婚礼当天",
-      "常见问题"
+      "常见问题",
+      "联系我们"
     ],
     "mariesLinks": [
       "登录"
@@ -1007,5 +1009,100 @@
     "signature": "很快与你相见",
     "copyright": "© {year} The Studio Digital Papeterie. 保留所有权利。",
     "homeAriaLabel": "返回首页"
+  },
+  "Contact": {
+    "meta": {
+      "title": "联系我们 | 数字婚礼请柬 | The Studio",
+      "description": "联系 The Studio，为您的数字婚礼请柬、个性化设计或定制项目咨询。让我们聊聊您的婚礼。"
+    },
+    "hero": {
+      "eyebrow": "一个项目，一个问题，一个想法",
+      "h1": "让我们聊聊您的婚礼",
+      "subtitle": "您有问题、心仪的系列，或想要打造独一无二的请柬？告诉我们您的项目，我们将帮您找到最适合您婚礼的方案。"
+    },
+    "editorial": {
+      "title": "您的项目从这里开始",
+      "text": "每场婚礼都独一无二。只需几项信息，我们便能了解您的风格、心愿以及您所期望的个性化程度。",
+      "markers": [
+        {
+          "title": "有问题？",
+          "desc": "我们将直接为您解答。"
+        },
+        {
+          "title": "心中有心仪系列？",
+          "desc": "告诉我们是哪一个。"
+        },
+        {
+          "title": "想法已经很明确？",
+          "desc": "让我们聊聊定制方案。"
+        }
+      ],
+      "signatureName": "The Studio – 数字文具工作室",
+      "signatureTagline": "数字婚礼请柬与个性化设计"
+    },
+    "form": {
+      "firstNameLabel": "名",
+      "firstNamePlaceholder": "您的名字",
+      "lastNameLabel": "姓",
+      "lastNamePlaceholder": "您的姓氏",
+      "emailLabel": "邮箱",
+      "emailPlaceholder": "you@email.com",
+      "weddingDateLabel": "婚礼日期",
+      "weddingPlaceLabel": "婚礼地点",
+      "weddingPlacePlaceholder": "城市、场地或国家",
+      "guestBandLabel": "宾客大致人数",
+      "guestBandOptions": {
+        "lt-50": "少于 50 人",
+        "50-100": "50 至 100 人",
+        "100-150": "100 至 150 人",
+        "150-200": "150 至 200 人",
+        "gt-200": "超过 200 人",
+        "unknown": "暂未确定"
+      },
+      "interestLabel": "您感兴趣的是？",
+      "interestOptions": {
+        "collection": "现有系列",
+        "personnaliser": "个性化定制某一系列",
+        "sur-mesure": "完全定制设计",
+        "question": "我有一个问题",
+        "unknown": "暂未确定"
+      },
+      "collectionLabel": "您看中了哪个系列？",
+      "collectionOptions": {
+        "ciao-amore": "Ciao Amore",
+        "blanc-couture": "Blanc Couture",
+        "belle-rive": "Belle Rive",
+        "unknown": "暂未确定"
+      },
+      "projectStageLabel": "您的项目进展如何？",
+      "projectStageOptions": {
+        "decouvre": "我正在了解 The Studio",
+        "univers-choisi": "我已经确定了风格",
+        "idee-precise": "我已经有比较明确的想法",
+        "besoin-conseil": "我需要一些建议"
+      },
+      "messageLabel": "和我们聊聊您的婚礼",
+      "messagePlaceholder": "您的风格、色彩、心愿、问题……",
+      "consentLabel": "我同意我的信息将被用于回复我的咨询。",
+      "privacyLinkLabel": "隐私政策",
+      "submit": "发送我的咨询",
+      "submitting": "发送中…",
+      "submitCaption": "我们将亲自回复您。",
+      "privacyNote": "通过此表单提交的信息仅用于回复您的咨询。",
+      "errors": {
+        "required": "此字段为必填项。",
+        "firstName": "请填写您的名字。",
+        "lastName": "请填写您的姓氏。",
+        "email": "请填写有效的邮箱地址。",
+        "message": "您的留言至少需要 10 个字符。",
+        "consent": "请同意信息使用条款。",
+        "global": "发生错误，您的留言未能发送。请稍后再试。"
+      }
+    },
+    "success": {
+      "title": "您的留言已成功送达",
+      "text": "感谢您与我们分享您的项目。\n我们会与您联系，聊聊您的婚礼。",
+      "backHome": "返回首页"
+    }
   }
 }

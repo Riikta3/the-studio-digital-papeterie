@@ -293,7 +293,8 @@
     "createButton": "Créer mon invitation",
     "cgv": "CGV",
     "privacy": "Confidentialité",
-    "copyright": "© {year} The Studio Digital Papeterie. Tous droits réservés."
+    "copyright": "© {year} The Studio Digital Papeterie. Tous droits réservés.",
+    "contact": "Contact"
   },
   "HeroCarousel": {
     "prevAriaLabel": "Carte précédente",
@@ -958,7 +959,8 @@
       "Sur-mesure",
       "Espace mariés",
       "Jour J",
-      "FAQ"
+      "FAQ",
+      "Contact"
     ],
     "mariesLinks": [
       "Se connecter"
@@ -1356,5 +1358,100 @@
     "signature": "À TRÈS BIENTÔT",
     "copyright": "© {year} The Studio Digital Papeterie. Tous droits réservés.",
     "homeAriaLabel": "Retour à l'accueil"
+  },
+  "Contact": {
+    "meta": {
+      "title": "Contact | Faire-part mariage digital | The Studio",
+      "description": "Contactez The Studio pour votre faire-part de mariage digital, une invitation personnalisée ou un projet sur-mesure. Parlons de votre mariage."
+    },
+    "hero": {
+      "eyebrow": "UN PROJET, UNE QUESTION, UNE IDÉE",
+      "h1": "Parlons de votre mariage",
+      "subtitle": "Vous avez une question, une collection en tête ou l'envie de créer une invitation qui ne ressemble à aucune autre ? Parlez-nous de votre projet. Nous vous aiderons à trouver la formule la plus adaptée à votre mariage."
+    },
+    "editorial": {
+      "title": "Votre projet commence ici",
+      "text": "Chaque mariage est différent. Quelques informations suffisent pour nous permettre de comprendre votre univers, vos envies et le niveau de personnalisation que vous recherchez.",
+      "markers": [
+        {
+          "title": "Une question ?",
+          "desc": "Nous vous répondons directement."
+        },
+        {
+          "title": "Une collection en tête ?",
+          "desc": "Dites-nous laquelle."
+        },
+        {
+          "title": "Une idée très précise ?",
+          "desc": "Parlons sur-mesure."
+        }
+      ],
+      "signatureName": "The Studio – Papeterie Digitale",
+      "signatureTagline": "Faire-part de mariage digital & invitations personnalisées"
+    },
+    "form": {
+      "firstNameLabel": "Prénom",
+      "firstNamePlaceholder": "Votre prénom",
+      "lastNameLabel": "Nom",
+      "lastNamePlaceholder": "Votre nom",
+      "emailLabel": "Email",
+      "emailPlaceholder": "vous@email.com",
+      "weddingDateLabel": "Date du mariage",
+      "weddingPlaceLabel": "Lieu du mariage",
+      "weddingPlacePlaceholder": "Ville, domaine ou pays",
+      "guestBandLabel": "Nombre approximatif d'invités",
+      "guestBandOptions": {
+        "lt-50": "Moins de 50",
+        "50-100": "50 à 100",
+        "100-150": "100 à 150",
+        "150-200": "150 à 200",
+        "gt-200": "Plus de 200",
+        "unknown": "Nous ne savons pas encore"
+      },
+      "interestLabel": "Qu'est-ce qui vous intéresse ?",
+      "interestOptions": {
+        "collection": "Une collection existante",
+        "personnaliser": "Personnaliser une collection",
+        "sur-mesure": "Une création sur-mesure",
+        "question": "J'ai une question",
+        "unknown": "Je ne sais pas encore"
+      },
+      "collectionLabel": "Quelle collection avez-vous repérée ?",
+      "collectionOptions": {
+        "ciao-amore": "Ciao Amore",
+        "blanc-couture": "Blanc Couture",
+        "belle-rive": "Belle Rive",
+        "unknown": "Je ne sais pas encore"
+      },
+      "projectStageLabel": "Où en êtes-vous dans votre projet ?",
+      "projectStageOptions": {
+        "decouvre": "Je découvre The Studio",
+        "univers-choisi": "J'ai déjà choisi mon univers",
+        "idee-precise": "J'ai une idée assez précise",
+        "besoin-conseil": "J'ai besoin d'être conseillé(e)"
+      },
+      "messageLabel": "Parlez-nous de votre mariage",
+      "messagePlaceholder": "Votre univers, vos couleurs, vos envies, vos questions…",
+      "consentLabel": "J'accepte que mes informations soient utilisées afin de répondre à ma demande.",
+      "privacyLinkLabel": "politique de confidentialité",
+      "submit": "Envoyer ma demande",
+      "submitting": "Envoi en cours…",
+      "submitCaption": "Nous vous répondons personnellement.",
+      "privacyNote": "Les informations transmises via ce formulaire sont utilisées uniquement pour répondre à votre demande.",
+      "errors": {
+        "required": "Ce champ est requis.",
+        "firstName": "Merci d'indiquer votre prénom.",
+        "lastName": "Merci d'indiquer votre nom.",
+        "email": "Merci d'indiquer une adresse email valide.",
+        "message": "Votre message doit contenir au moins 10 caractères.",
+        "consent": "Merci d'accepter l'utilisation de vos informations.",
+        "global": "Une erreur est survenue. Votre message n'a pas pu être envoyé. Merci de réessayer dans quelques instants."
+      }
+    },
+    "success": {
+      "title": "Votre message est bien arrivé",
+      "text": "Merci de nous avoir parlé de votre projet.\nNous reviendrons vers vous pour échanger autour de votre mariage.",
+      "backHome": "Retour à l'accueil"
+    }
   }
 }
