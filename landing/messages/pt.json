@@ -102,10 +102,11 @@
     "phoneCaption": "Aperçu en live selon votre sélection"
   },
   "CookieConsent": {
-    "bannerText": "Nous utilisons des cookies pour améliorer votre expérience utilisateur et analyser le trafic.",
-    "acceptButton": "Accepter",
-    "declineButton": "Refuser",
-    "learnMore": "En savoir plus"
+    "bannerText": "Com a sua autorização, utilizamos cookies de medição e publicidade para compreender a utilização do site. Nada é instalado antes da sua escolha.",
+    "acceptButton": "Aceitar",
+    "declineButton": "Recusar",
+    "learnMore": "Saber mais",
+    "reopen": "Gerir cookies"
   },
   "Footer": {
     "logoAlt": "The Studio Digital Papeterie",

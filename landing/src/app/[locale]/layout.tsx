@@ -3,6 +3,7 @@ import { NextIntlClientProvider } from "next-intl";
 import { getMessages, getTranslations, setRequestLocale } from "next-intl/server";
 import type { ReactNode } from "react";
 
+import { CookieConsent } from "@/components/home/CookieConsent";
 import { getSiteUrl } from "@/lib/site";
 import { routing } from "@/navigation";
 
@@ -93,6 +94,14 @@ export default async function LocaleLayout({
   // by a client script, which left the SSR markup — the only thing crawlers
   // and screen readers see — claiming French on every locale.
   return (
-    <NextIntlClientProvider messages={messages}>{children}</NextIntlClientProvider>
+    <NextIntlClientProvider messages={messages}>
+      {children}
+      {/* In the layout, not on the home page: consent has to be asked before
+          a non-essential cookie is set on ANY page, and a visitor can land on
+          an article or a theme page from search without ever seeing the
+          homepage. It renders nothing until hydration, so it adds nothing to
+          the served HTML of any of them. */}
+      <CookieConsent />
+    </NextIntlClientProvider>
   );
 }

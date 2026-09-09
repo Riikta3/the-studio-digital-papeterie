@@ -265,10 +265,11 @@
     "loading": "Chargement..."
   },
   "CookieConsent": {
-    "bannerText": "Nous utilisons des cookies pour améliorer votre expérience utilisateur et analyser le trafic.",
+    "bannerText": "Avec votre accord, nous déposons des cookies de mesure et de publicité pour comprendre l'audience du site. Rien n'est déposé sans votre choix.",
     "acceptButton": "Accepter",
     "declineButton": "Refuser",
-    "learnMore": "En savoir plus"
+    "learnMore": "En savoir plus",
+    "reopen": "Gérer les cookies"
   },
   "Footer": {
     "logoAlt": "The Studio Digital Papeterie",
