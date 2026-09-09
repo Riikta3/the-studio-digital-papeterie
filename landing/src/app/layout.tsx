@@ -1,3 +1,6 @@
+import { Analytics } from "@vercel/analytics/next";
+import { SpeedInsights } from "@vercel/speed-insights/next";
+
 import {
   Libre_Caslon_Display,
   Urbanist,
@@ -78,6 +81,21 @@ export default async function RootLayout({
         suppressHydrationWarning
       >
         {children}
+        {/* Both packages were already in package.json and mounted nowhere —
+            dead dependencies shipping no data.
+
+            Neither is gated behind the consent banner, and that is the point
+            of choosing them: Vercel Analytics sets no cookie and stores no
+            identifier that can single out a visitor, and Speed Insights only
+            reports Core Web Vitals. Cookie-less measurement of this kind does
+            not require prior consent under the CNIL's own guidance, which is
+            why this can ship today while the Meta pixel waits behind
+            `hasConsent()`.
+
+            Analytics needs no configuration: on Vercel it resolves the project
+            from the deployment. Locally it no-ops. */}
+        <Analytics />
+        <SpeedInsights />
       </body>
     </html>
   );
