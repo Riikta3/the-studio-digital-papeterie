@@ -135,6 +135,7 @@
   "HeroCarousel": {
     "prevAriaLabel": "البطاقة السابقة",
     "nextAriaLabel": "البطاقة التالية",
+    "activeThemeAnnouncement": "النمط المعروض: {name}",
     "cards": [
       {
         "alt": "نموذج دعوة زفاف — قالب Ciao Amore"

@@ -137,6 +137,7 @@
   "HeroCarousel": {
     "prevAriaLabel": "Previous card",
     "nextAriaLabel": "Next card",
+    "activeThemeAnnouncement": "Showing theme: {name}",
     "cards": [
       {
         "alt": "Wedding invitation example — Ciao Amore theme"

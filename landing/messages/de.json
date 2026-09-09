@@ -136,6 +136,7 @@
   "HeroCarousel": {
     "prevAriaLabel": "Vorherige Karte",
     "nextAriaLabel": "Nächste Karte",
+    "activeThemeAnnouncement": "Angezeigtes Thema: {name}",
     "cards": [
       {
         "alt": "Beispiel einer Hochzeitseinladung — Thema Ciao Amore"
