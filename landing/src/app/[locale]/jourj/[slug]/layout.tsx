@@ -1,6 +1,24 @@
+import type { Metadata } from "next";
+
 import { resolveGuestPage } from "@/actions/guest-page-actions";
 import { GuestNav } from "@/components/jourj/GuestNav";
 import { notFound } from "next/navigation";
+
+/**
+ * Belt and braces on top of the robots.txt Disallow.
+ *
+ * These pages carry one couple's guests, tables and menu — private content on
+ * a public domain, and the Disallow was the only thing keeping them out of
+ * search. That is a single point of failure: Disallow governs crawling, so a
+ * URL linked from anywhere else can still be indexed without ever being
+ * fetched. A page-level noindex is the directive that actually removes it.
+ *
+ * Both are kept: the Disallow stops the routine crawl, and this covers the
+ * case where a guest's shared link puts the URL in front of Google anyway.
+ */
+export const metadata: Metadata = {
+  robots: { index: false, follow: false },
+};
 
 /**
  * The page a guest lands on after scanning the QR code. Phone-only in

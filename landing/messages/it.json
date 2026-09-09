@@ -15,28 +15,14 @@
     "createButton": "Crea invito"
   },
   "Hero": {
-    "eyebrow": "Invito di matrimonio digitale",
-    "titleLine1": "La partecipazione di nozze",
-    "titleLine2": "reinventata",
+    "eyebrow": "Invito · RSVP · Info",
+    "titleLine1": "L'invito",
+    "titleLine2": "di matrimonio digitale, reinventato",
     "subtitle": "Un invito pensato come una vera esperienza.",
     "menuAriaLabel": "Apri il menu",
     "discoverButton": "Scopri le collezioni",
     "createButton": "Creare il mio invito",
     "themeCta": "Prova il tema {name}"
-  },
-  "FAQ": {
-    "titleLine1": "Domande",
-    "titleLine2": "Frequenti",
-    "q1": "Posso modificare il mio sito dopo l'invio?",
-    "a1": "Assolutamente! Questa è la magia del digitale. Puoi cambiare orari o aggiungere info in qualsiasi momento.",
-    "q2": "Devo pagare un abbonamento mensile?",
-    "a2": "No, mai. È un pagamento unico. Il tuo sito rimane online per 12 mesi dopo il matrimonio.",
-    "q3": "Come confermano la presenza gli ospiti?",
-    "a3": "Un modulo semplice è integrato nel tuo sito. Ricevi risposte istantaneamente nella tua dashboard.",
-    "q4": "Posso avere un dominio personalizzato?",
-    "a4": "Sì! Con l'opzione 'Dominio Personalizzato' (+65€) o inclusa nel pacchetto Premium.",
-    "q5": "Offrite inviti cartacei coordinati?",
-    "a5": "Ci concentriamo sull'esperienza digitale, ma possiamo fornire file PDF ad alta definizione per la stampa."
   },
   "Common": {
     "loading": "Caricamento..."
@@ -126,6 +112,9 @@
     "colProduct": "Prodotto",
     "colMaries": "Sposi",
     "colLegal": "Legale",
+    "colResources": "Risorse",
+    "collections": "Collezioni",
+    "journal": "Il Giornale",
     "productLinks": [
       "Demo",
       "Funzionalità",
@@ -546,30 +535,56 @@
     "eyebrow": "Una domanda?",
     "titleLine1": "Domande",
     "titleAccent": "Frequenti",
+    "showMore": "Vedi altre {count} domande",
+    "showLess": "Mostra meno",
     "items": [
       {
         "question": "Posso modificare il mio invito dopo averlo inviato?",
-        "answer": "Sì. Se un'informazione cambia prima del matrimonio, il tuo invito di matrimonio digitale può essere aggiornato senza dover inviare un nuovo invito ai tuoi ospiti."
+        "answer": "Sì. È uno dei grandi vantaggi di un invito di matrimonio digitale. Se un'informazione cambia dopo l'invio — orario, luogo, navetta, alloggio, programma o dettaglio pratico — il contenuto può essere aggiornato senza dover inviare di nuovo un invito ai tuoi invitati. Il link resta lo stesso."
       },
       {
-        "question": "C'è un abbonamento?",
-        "answer": "No. Il tuo invito The Studio prevede un pagamento unico. Nessun abbonamento mensile è necessario."
+        "question": "È previsto un abbonamento?",
+        "answer": "No. Il tuo invito prevede un pagamento unico, al momento della creazione. Scegli la tua formula in quel momento e non è previsto alcun abbonamento mensile per continuare a utilizzare il tuo invito digitale durante il suo periodo di pubblicazione."
       },
       {
-        "question": "Come funziona l'RSVP?",
-        "answer": "I tuoi invitati rispondono direttamente dal tuo invito. Le loro risposte vengono poi raccolte nel tuo spazio sposi."
+        "question": "Come funziona l'RSVP online per il matrimonio?",
+        "answer": "I tuoi invitati possono confermare la loro presenza direttamente dal tuo invito di matrimonio digitale. In base al tuo progetto, il modulo RSVP può anche permettere di raccogliere informazioni aggiuntive come le scelte di menu, le allergie alimentari, la presenza al brunch, le esigenze di trasporto o altre risposte personalizzate. Le informazioni vengono poi centralizzate, per facilitare la tua organizzazione e i tuoi promemoria."
       },
       {
         "question": "Per quanto tempo il mio invito resta accessibile?",
-        "answer": "La durata della pubblicazione ti viene precisata al momento dell'ordine."
+        "answer": "Il tuo invito resta accessibile per la durata prevista dalla tua formula. Questa durata ti viene precisata al momento dell'ordine. In questo periodo i tuoi invitati possono consultare di nuovo il programma, i luoghi, le informazioni pratiche e il loro invito dallo stesso link."
       },
       {
-        "question": "Posso avere un mio nome di dominio?",
-        "answer": "Un nome di dominio personalizzato può essere proposto come opzione in base al tuo progetto."
+        "question": "Posso personalizzare l'indirizzo del mio invito con un nome di dominio personale?",
+        "answer": "Sì, in base alla formula scelta. È possibile personalizzare l'indirizzo del tuo invito per creare un'esperienza ancora più coerente con l'identità del tuo matrimonio. Questa opzione può essere integrata in particolare nelle prestazioni più personalizzate."
       },
       {
         "question": "Proponete una versione cartacea?",
-        "answer": "The Studio è specializzato nella cartoleria digitale. La nostra priorità è creare un'esperienza pensata per il telefono e il web."
+        "answer": "The Studio è specializzato nella cartoleria digitale di matrimonio. L'obiettivo è creare un invito interattivo, pensato per il mobile, che riunisce tutte le informazioni utili ai tuoi invitati. È comunque possibile completare questa esperienza con un supporto fisico che integri, per esempio, un QR code che rimanda al tuo invito digitale."
+      },
+      {
+        "question": "Che cos'è un invito di matrimonio digitale?",
+        "answer": "Un invito di matrimonio digitale è un invito accessibile online tramite un link, pensato soprattutto per essere consultato da smartphone. A differenza di una semplice immagine inviata per messaggio, può integrare diversi moduli interattivi: countdown, programma, luogo, dress code, alloggi, RSVP, playlist, carpooling, FAQ o galleria fotografica. Diventa così un invito e, allo stesso tempo, un vero strumento di organizzazione."
+      },
+      {
+        "question": "Come si invia un invito di matrimonio digitale ai propri invitati?",
+        "answer": "Il tuo invito di matrimonio digitale può essere inviato semplicemente via WhatsApp, SMS o e-mail. Può anche essere raggiungibile tramite un QR code stampato su un Save the Date, un cartoncino o un elemento di segnaletica. I tuoi invitati non devono scaricare nulla: aprono l'invito direttamente dal telefono."
+      },
+      {
+        "question": "Si può aggiungere un QR code alla partecipazione di nozze?",
+        "answer": "Sì. Un QR code può essere integrato in un supporto stampato per rimandare direttamente alla tua partecipazione di nozze digitale. Può essere utilizzato su un Save the Date, un cartoncino d'invito, un pannello di benvenuto o un altro elemento di cartoleria. Il QR code permette ai tuoi invitati di accedere subito al tuo invito interattivo e al tuo RSVP online."
+      },
+      {
+        "question": "Quali informazioni si possono inserire in un invito di matrimonio interattivo?",
+        "answer": "Un invito di matrimonio interattivo può riunire tutte le informazioni utili prima del grande giorno: data, countdown, programma, luoghi, itinerari, dress code, alloggi, scelte alimentari, RSVP, playlist, carpooling, FAQ, regali o informazioni pratiche. Ogni elemento può essere presentato in un modulo dedicato, per mantenere un'esperienza chiara e piacevole da consultare."
+      },
+      {
+        "question": "Qual è la differenza tra un invito digitale e un sito di matrimonio?",
+        "answer": "Un sito di matrimonio serve principalmente a raccogliere le informazioni in un unico posto. L'invito digitale, invece, è pensato prima di tutto come un invito: crea una prima impressione, presenta l'universo del matrimonio e accompagna l'invitato fino alla sua risposta RSVP. In genere è più breve, più immersivo, più editoriale e concepito soprattutto come un'esperienza mobile."
+      },
+      {
+        "question": "L'invito funziona su tutti i telefoni?",
+        "answer": "Gli inviti The Studio sono progettati secondo una logica mobile first, per essere consultati facilmente da smartphone. Testi, animazioni, pulsanti e moduli sono pensati per offrire una navigazione fluida, senza dover installare alcuna applicazione."
       }
     ]
   },

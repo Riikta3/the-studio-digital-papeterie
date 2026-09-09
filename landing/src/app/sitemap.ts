@@ -1,7 +1,13 @@
 import type { MetadataRoute } from "next";
 
 import { THEME_IDS } from "@/components/invitation/themes/theme-ids";
+import {
+  JOURNAL_LOCALES,
+  JOURNAL_SLUGS,
+  journalPath,
+} from "@/lib/journal";
 import { getSiteUrl } from "@/lib/site";
+import { THEME_PAGE_LOCALES, themePagePath } from "@/lib/theme-pages";
 import { routing } from "@/navigation";
 
 /**
@@ -25,50 +31,34 @@ type SitemapPath = {
   lastModified: string;
 };
 
+/** Paths that exist in every locale, listed with a full hreflang set. */
 const STATIC_PATHS: SitemapPath[] = [
   { path: "", lastModified: "2026-09-07" },
-  { path: "/themes", lastModified: "2026-09-07" },
   { path: "/legal/cgv", lastModified: "2026-08-30" },
   { path: "/legal/privacy", lastModified: "2026-08-30" },
 ];
 
 /**
- * Guard against shipping this file before the pages it advertises exist.
+ * The theme pages' own date, kept apart from `STATIC_PATHS` because they are
+ * not a nine-locale route: their copy lives only in `messages/fr.json`, so
+ * `THEME_PAGE_LOCALES` is `["fr"]` and the other eight 404.
  *
- * A sitemap that lists URLs returning 404 is worse than one that omits them:
- * Google records the errors against the whole site and trusts the file less.
- * Flip this to `true` in the same commit that adds `/[locale]/themes` and
- * `/[locale]/themes/[slug]`, and delete the constant once they have shipped.
+ * They share one date because the collection page and the per-theme pages are
+ * driven by the same `Themes` namespace and change together.
  */
-const THEME_PAGES_SHIPPED = false;
+const THEME_PAGES_LAST_MODIFIED = "2026-09-09";
 
-/**
- * One entry per registered theme, derived from the generated id list so that
- * adding a theme folder adds its sitemap entry with no list to remember here.
- * `theme-ids.ts` rather than the registry: a manifest carries its theme's Root
- * component and fonts, and this route only needs the slugs.
- *
- * They share one date because a theme page's copy is generated from its
- * manifest and the shared `Themes` messages: they change together.
- */
-const THEME_PAGES_LAST_MODIFIED = "2026-09-07";
+/** The Journal's own date: the five launch articles ship together. */
+const JOURNAL_LAST_MODIFIED = "2026-09-09";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   // See robots.ts: resolved here rather than at module load.
   const siteUrl = getSiteUrl();
 
-  const paths: SitemapPath[] = THEME_PAGES_SHIPPED
-    ? [
-        ...STATIC_PATHS,
-        ...THEME_IDS.map((id) => ({
-          path: `/themes/${id}`,
-          lastModified: THEME_PAGES_LAST_MODIFIED,
-        })),
-      ]
-    : STATIC_PATHS.filter(({ path }) => !path.startsWith("/themes"));
-
-  return routing.locales.flatMap((locale) =>
-    paths.map(({ path, lastModified }) => ({
+  // Every locale × every fully-translated path, each with the complete
+  // hreflang map.
+  const localised = routing.locales.flatMap((locale) =>
+    STATIC_PATHS.map(({ path, lastModified }) => ({
       url: `${siteUrl}/${locale}${path}`,
       lastModified,
       alternates: {
@@ -78,4 +68,37 @@ export default function sitemap(): MetadataRoute.Sitemap {
       },
     })),
   );
+
+  // The theme pages, in the locales that actually have copy.
+  //
+  // No `alternates`: an hreflang map listing nine URLs when eight of them 404
+  // tells Google the cluster is broken, and a map with a single entry pointing
+  // at the URL itself says nothing the canonical does not already say. When a
+  // second locale's copy lands, add it to `THEME_PAGE_LOCALES` and give these
+  // entries a real map built from that list.
+  const themePages = THEME_PAGE_LOCALES.flatMap((locale) => [
+    {
+      url: `${siteUrl}${themePagePath(locale)}`,
+      lastModified: THEME_PAGES_LAST_MODIFIED,
+    },
+    ...THEME_IDS.map((id) => ({
+      url: `${siteUrl}${themePagePath(locale, id)}`,
+      lastModified: THEME_PAGES_LAST_MODIFIED,
+    })),
+  ]);
+
+  // The Journal, same shape and same reasoning: French-only, no hreflang.
+  // Driven off JOURNAL_SLUGS so publishing an article is one list to edit.
+  const journalPages = JOURNAL_LOCALES.flatMap((locale) => [
+    {
+      url: `${siteUrl}${journalPath(locale)}`,
+      lastModified: JOURNAL_LAST_MODIFIED,
+    },
+    ...JOURNAL_SLUGS.map((slug) => ({
+      url: `${siteUrl}${journalPath(locale, slug)}`,
+      lastModified: JOURNAL_LAST_MODIFIED,
+    })),
+  ]);
+
+  return [...localised, ...themePages, ...journalPages];
 }

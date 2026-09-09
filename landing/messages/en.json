@@ -17,9 +17,9 @@
     "login": "Couple's Area"
   },
   "Hero": {
-    "eyebrow": "Digital wedding invitation",
-    "titleLine1": "The wedding invitation",
-    "titleLine2": "reinvented",
+    "eyebrow": "Invitation · RSVP · Details",
+    "titleLine1": "The digital",
+    "titleLine2": "wedding invitation, reinvented",
     "subtitle": "An invitation designed as a true experience.",
     "menuAriaLabel": "Open menu",
     "discoverButton": "Discover the collections",
@@ -100,20 +100,6 @@
     "ctaLive": "live demo",
     "phoneCaption": "Aperçu en live selon votre sélection"
   },
-  "FAQ": {
-    "titleLine1": "Frequently Asked",
-    "titleLine2": "Questions",
-    "q1": "Can I edit my site after sending invitations?",
-    "a1": "Absolutely! That's the magic of digital. You can change times, add accommodation info, or change a photo at any time. Your guests will always see the up-to-date version.",
-    "q2": "Do I have to pay a monthly subscription?",
-    "a2": "No, never. It is a one-time payment. Your site stays online for 12 months after your wedding, giving you time to share memory photos.",
-    "q3": "How do guests confirm their attendance (RSVP)?",
-    "a3": "A simple and elegant form is integrated into your site. You receive responses instantly in your dashboard (and via email if you wish). You can export the guest list in one click.",
-    "q4": "Can I have a custom domain name?",
-    "a4": "Yes! With the 'Custom Domain' option (+65€) or included in the Premium pack, you can have an address like www.paula-and-marcos.com.",
-    "q5": "Do you offer matching paper invitations?",
-    "a5": "We focus on the digital experience for now, but we can provide high-definition PDF files of your design so you can print them at your local printer."
-  },
   "Common": {
     "loading": "Loading..."
   },
@@ -128,6 +114,9 @@
     "colProduct": "Product",
     "colMaries": "Couples",
     "colLegal": "Legal",
+    "colResources": "Resources",
+    "collections": "Collections",
+    "journal": "The Journal",
     "productLinks": [
       "Demo",
       "Features",
@@ -548,30 +537,56 @@
     "eyebrow": "A question?",
     "titleLine1": "Frequently",
     "titleAccent": "Asked Questions",
+    "showMore": "See {count} more questions",
+    "showLess": "Show less",
     "items": [
       {
         "question": "Can I edit my invitation after sending it?",
-        "answer": "Yes. If something changes before your wedding, your digital wedding invitation can be updated without having to send a new invitation to your guests."
+        "answer": "Yes. It is one of the great advantages of a digital wedding invitation. If a detail changes after you have sent it — timings, venue, shuttles, accommodation, the schedule or any practical information — the content can be updated without having to send your guests a new invitation. The link stays the same."
       },
       {
         "question": "Is there a subscription?",
-        "answer": "No. Your The Studio invitation is a one-time payment. No monthly subscription is required."
+        "answer": "No. Your invitation is a one-time payment, made when you create it. You choose your package at that point, and there is no monthly subscription to keep using your digital invitation throughout the period it is live."
       },
       {
-        "question": "How does the RSVP work?",
-        "answer": "Your guests reply directly from your invitation. Their answers are then gathered in your couple space."
+        "question": "How does the online wedding RSVP work?",
+        "answer": "Your guests can confirm their attendance straight from your digital wedding invitation. Depending on your project, the RSVP form can also gather further details such as menu choices, food allergies, whether they will join the brunch, transport needs or other bespoke questions. Everything is then gathered in one place, so that organising your wedding and chasing replies is easier."
       },
       {
-        "question": "How long does my invitation stay online?",
-        "answer": "The time your invitation stays online is confirmed when you place your order."
+        "question": "How long does my invitation stay accessible?",
+        "answer": "Your invitation stays accessible for the period set out in your package. We confirm that period when you place your order. During that time, your guests can return to the schedule, the venues, the practical details and their invitation from the same link."
       },
       {
-        "question": "Can I have my own domain name?",
-        "answer": "A custom domain name can be offered as an option depending on your project."
+        "question": "Can I use a custom domain name for my invitation?",
+        "answer": "Yes, depending on the package you choose. Your invitation can be given its own web address, for an experience even more closely in keeping with the identity of your wedding. This option can be included in the most personalised services in particular."
       },
       {
         "question": "Do you offer a paper version?",
-        "answer": "The Studio specialises in digital stationery. Our focus is on creating an experience designed for mobile and web."
+        "answer": "The Studio specialises in digital wedding stationery. The aim is to create an interactive invitation, designed for mobile, that brings together everything your guests need to know. That experience can nonetheless be complemented by a printed piece carrying, for example, a QR code that leads to your digital invitation."
+      },
+      {
+        "question": "What is a digital wedding invitation?",
+        "answer": "A digital wedding invitation is an invitation you open online from a link, designed first and foremost to be viewed on a phone. Unlike a simple image sent by message, it can bring together several interactive modules: countdown, schedule, venue, dress code, accommodation, RSVP, playlist, car sharing, FAQ or photo gallery. It becomes both an invitation and a genuine organising tool."
+      },
+      {
+        "question": "How do I send a digital wedding invitation to my guests?",
+        "answer": "Your digital wedding invitation can be sent simply by WhatsApp, SMS or email. It can also be opened through a QR code printed on a Save the Date, a card or signage. Your guests have nothing to download: they open the invitation straight from their phone."
+      },
+      {
+        "question": "Can I add a QR code to my wedding invitation?",
+        "answer": "Yes. A QR code can be added to a printed piece, leading straight to your digital wedding invitation. It can be used on a Save the Date, an invitation card, a welcome sign or another piece of stationery. The QR code gives your guests instant access to your interactive invitation and your online RSVP."
+      },
+      {
+        "question": "What information can an interactive wedding invitation include?",
+        "answer": "An interactive wedding invitation can bring together everything your guests need before the wedding day: date, countdown, schedule, venues, directions, dress code, accommodation, dietary requirements, RSVP, playlist, car sharing, FAQ, gifts or practical details. Each element can be presented in its own module, so that the experience stays clear and a pleasure to browse."
+      },
+      {
+        "question": "What is the difference between a digital invitation and a wedding website?",
+        "answer": "A wedding website exists mainly to gather information in one place. A digital invitation is conceived first as an invitation: it creates a first impression, introduces the world of the wedding and carries the guest through to their RSVP. It is generally shorter, more immersive, more editorial and designed more as a mobile experience."
+      },
+      {
+        "question": "Does the invitation work on every phone?",
+        "answer": "Invitations by The Studio are designed mobile first, so they are easy to read on a phone. The text, animations, buttons and modules are all designed to give a smooth experience, with no app to install."
       }
     ]
   },

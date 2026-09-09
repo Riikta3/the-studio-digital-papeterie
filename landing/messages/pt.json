@@ -15,28 +15,14 @@
     "createButton": "Criar convite"
   },
   "Hero": {
-    "eyebrow": "Convite de casamento digital",
-    "titleLine1": "O convite de casamento",
-    "titleLine2": "reinventado",
+    "eyebrow": "Convite · RSVP · Info",
+    "titleLine1": "O convite",
+    "titleLine2": "de casamento digital, reinventado",
     "subtitle": "Um convite pensado como uma verdadeira experiência.",
     "menuAriaLabel": "Abrir menu",
     "discoverButton": "Descobrir as coleções",
     "createButton": "Criar o meu convite",
     "themeCta": "Experimentar o tema {name}"
-  },
-  "FAQ": {
-    "titleLine1": "Perguntas",
-    "titleLine2": "Frequentes",
-    "q1": "Posso editar o meu site após o envio?",
-    "a1": "Absolutamente! Essa é a magia do digital. Pode alterar horários ou adicionar informações a qualquer momento.",
-    "q2": "Tenho de pagar uma assinatura mensal?",
-    "a2": "Não, nunca. É um pagamento único. O seu site fica online durante 12 meses após o casamento.",
-    "q3": "Como é que os convidados confirmam a presença?",
-    "a3": "Um formulário simples está integrado no seu site. Recebe respostas instantaneamente no seu painel.",
-    "q4": "Posso ter um domínio personalizado?",
-    "a4": "Sim! Com a opção 'Domínio Personalizado' (+65€) ou incluído no pacote Premium.",
-    "q5": "Oferecem convites em papel a condizer?",
-    "a5": "Focamo-nos na experiência digital, mas podemos fornecer ficheiros PDF de alta definição para impressão."
   },
   "Common": {
     "loading": "A carregar..."
@@ -126,6 +112,9 @@
     "colProduct": "Produto",
     "colMaries": "Noivos",
     "colLegal": "Legal",
+    "colResources": "Recursos",
+    "collections": "Coleções",
+    "journal": "O Jornal",
     "productLinks": [
       "Demonstração",
       "Funcionalidades",
@@ -546,30 +535,56 @@
     "eyebrow": "Alguma pergunta?",
     "titleLine1": "Perguntas",
     "titleAccent": "Frequentes",
+    "showMore": "Ver mais {count} perguntas",
+    "showLess": "Ver menos",
     "items": [
       {
         "question": "Posso alterar o meu convite depois de o enviar?",
-        "answer": "Sim. Se uma informação mudar antes do seu casamento, o seu convite de casamento digital pode ser atualizado sem ter de enviar um novo convite aos seus convidados."
+        "answer": "Sim. É uma das grandes vantagens de um convite de casamento digital. Se uma informação mudar depois do envio — horário, local, transporte, alojamento, programa ou um detalhe prático — o conteúdo pode ser atualizado sem ter de enviar um novo convite aos seus convidados. O link mantém-se o mesmo."
       },
       {
         "question": "Existe uma subscrição?",
-        "answer": "Não. O seu convite The Studio é um pagamento único. Não é necessária nenhuma subscrição mensal."
+        "answer": "Não. O convite é pago uma única vez, no momento da criação. A fórmula é escolhida nessa altura e não existe qualquer subscrição mensal para continuar a utilizar o seu convite digital durante o período de publicação previsto."
       },
       {
-        "question": "Como funciona o RSVP?",
-        "answer": "Os seus convidados respondem diretamente a partir do seu convite. As respostas são depois reunidas no seu espaço de noivos."
+        "question": "Como funciona o RSVP de casamento online?",
+        "answer": "Os seus convidados podem confirmar a presença diretamente a partir do seu convite de casamento digital. Consoante o seu projeto, o formulário de RSVP pode também recolher informações complementares, como as escolhas de menu, as alergias alimentares, a presença no brunch, as necessidades de transporte ou outras respostas personalizadas. As informações são depois centralizadas para facilitar a sua organização e o acompanhamento das respostas."
       },
       {
         "question": "Durante quanto tempo o meu convite fica acessível?",
-        "answer": "A duração da publicação é-lhe indicada no momento da encomenda."
+        "answer": "O seu convite fica acessível durante o período previsto na sua fórmula. Essa duração é-lhe indicada no momento da encomenda. Durante esse período, os seus convidados podem voltar a consultar o programa, os locais, as informações práticas e o seu convite a partir do mesmo link."
       },
       {
-        "question": "Posso ter o meu próprio nome de domínio?",
-        "answer": "Um nome de domínio personalizado pode ser proposto como opção, de acordo com o seu projeto."
+        "question": "Posso personalizar o endereço do meu convite com o meu próprio nome de domínio?",
+        "answer": "Sim, consoante a fórmula escolhida. É possível personalizar o endereço do seu convite para criar uma experiência ainda mais coerente com a identidade do seu casamento. Esta opção pode ser integrada, em particular, nas fórmulas mais personalizadas."
       },
       {
-        "question": "Propõem uma versão em papel?",
-        "answer": "A The Studio é especializada em papelaria digital. A nossa prioridade é criar uma experiência pensada para o telemóvel e a web."
+        "question": "Oferecem uma versão em papel?",
+        "answer": "A The Studio é especializada em papelaria digital de casamento. O objetivo é criar um convite interativo, pensado para o telemóvel, que reúna todas as informações úteis para os seus convidados. É no entanto possível completar esta experiência com uma peça impressa que integre, por exemplo, um QR code que remeta para o seu convite digital."
+      },
+      {
+        "question": "O que é um convite de casamento digital?",
+        "answer": "Um convite de casamento digital é um convite acessível online a partir de um link, pensado sobretudo para ser consultado no telemóvel. Ao contrário de uma simples imagem enviada por mensagem, pode integrar vários módulos interativos: contagem decrescente, programa, local, dress code, alojamentos, RSVP, playlist, boleias, FAQ ou galeria de fotos. Torna-se assim, simultaneamente, um convite e uma verdadeira ferramenta de organização."
+      },
+      {
+        "question": "Como enviar um convite de casamento digital aos convidados?",
+        "answer": "O seu convite de casamento digital pode ser enviado simplesmente por WhatsApp, SMS ou e-mail. Pode também ficar acessível através de um QR code impresso num Save the Date, num cartão ou em sinalética. Os seus convidados não têm de descarregar nada: abrem o convite diretamente no telemóvel."
+      },
+      {
+        "question": "É possível acrescentar um QR code ao convite de casamento?",
+        "answer": "Sim. Um QR code pode ser integrado numa peça impressa para remeter diretamente para o seu convite de casamento digital. Pode ser utilizado num Save the Date, num cartão de convite, num painel de boas-vindas ou noutra peça de papelaria. O QR code permite aos seus convidados aceder de imediato ao seu convite interativo e ao seu RSVP online."
+      },
+      {
+        "question": "Que informações se podem integrar num convite de casamento interativo?",
+        "answer": "Um convite de casamento interativo pode reunir todas as informações úteis antes do grande dia: data, contagem decrescente, programa, locais, itinerários, dress code, alojamentos, escolhas alimentares, RSVP, playlist, boleias, FAQ, presentes ou informações práticas. Cada elemento pode ser apresentado num módulo dedicado, para manter uma experiência clara e agradável de consultar."
+      },
+      {
+        "question": "Qual é a diferença entre um convite digital e um site de casamento?",
+        "answer": "Um site de casamento serve principalmente para centralizar informações. O convite digital é pensado, em primeiro lugar, como um convite: cria uma primeira impressão, apresenta o universo do casamento e acompanha o convidado até à sua resposta de RSVP. É geralmente mais curto, mais imersivo, mais editorial e mais concebido como uma experiência para telemóvel."
+      },
+      {
+        "question": "O convite funciona em todos os telemóveis?",
+        "answer": "Os convites The Studio são concebidos segundo uma lógica mobile first, para serem consultados facilmente no telemóvel. Os textos, as animações, os botões e os módulos são pensados para oferecer uma navegação fluida, sem necessidade de instalar qualquer aplicação."
       }
     ]
   },

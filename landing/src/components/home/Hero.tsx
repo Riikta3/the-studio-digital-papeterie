@@ -3,11 +3,12 @@
 import { Button } from "@shared/components/ui/button";
 import { SplitText } from "@shared/components/ui/split-text";
 import { ArrowRight, Menu } from "lucide-react";
-import { useTranslations } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 import dynamic from "next/dynamic";
 import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
 
+import { hasThemePages } from "@/lib/theme-pages";
 import { Link } from "@/navigation";
 
 import { HeroCarousel } from "./HeroCarousel";
@@ -37,6 +38,7 @@ const MobileMenu = dynamic(
 
 export function Hero() {
   const t = useTranslations("Hero");
+  const locale = useLocale();
   const [menuOpen, setMenuOpen] = useState(false);
   // Latches on the first open: gates the dynamic import without discarding
   // the drawer's exit animation on close.
@@ -143,13 +145,23 @@ export function Hero() {
             />
           </div>
 
+          {/* The two lines carry one sentence, and the primary keyword now
+              straddles them ("Le faire-part de mariage" / "digital,
+              réinventé"), so the whitespace between the spans is content, not
+              formatting. The spans are `block`, which every layout engine and
+              Google treat as a line break, but the raw HTML has no separator
+              between the closing and opening tag — anything reading the markup
+              without applying CSS sees "de mariagedigital" and loses the term.
+              The explicit space costs nothing visually (it collapses at the end
+              of a block line) and keeps the sentence intact in the text
+              extraction. */}
           <h1 className="mt-6 text-center font-heading text-h1">
             <SplitText
               as="span"
               text={title1Text}
               className="block text-white"
               animate={false}
-            />
+            />{" "}
             <SplitText
               as="span"
               text={t("titleLine2")}
@@ -166,17 +178,32 @@ export function Hero() {
           />
 
           <div className="mt-8 flex w-full flex-col items-stretch gap-3 sm:w-auto sm:flex-row sm:justify-center sm:gap-4">
-            <Button
-              variant="studio-outline"
-              size="pill"
-              onClick={() =>
-                document
-                  .getElementById("demo")
-                  ?.scrollIntoView({ behavior: "smooth" })
-              }
-            >
-              {t("discoverButton")}
-            </Button>
+            {/* A real link to /themes, not the `scrollIntoView("#demo")` this
+                used to be. The button said "Découvrir les collections" and
+                scrolled to the phone mockup, so the collections had no
+                crawlable path into them at all — the theme pages would have
+                been orphans, reachable only from the sitemap. Same intent for
+                the visitor, and now a link Google can follow.
+                Only where those pages exist: `hasThemePages` is false for the
+                eight locales whose `Themes` copy is unwritten, and they 404,
+                so those keep scrolling to the mockup instead. */}
+            {hasThemePages(locale) ? (
+              <Button variant="studio-outline" size="pill" asChild>
+                <Link href="/themes">{t("discoverButton")}</Link>
+              </Button>
+            ) : (
+              <Button
+                variant="studio-outline"
+                size="pill"
+                onClick={() =>
+                  document
+                    .getElementById("demo")
+                    ?.scrollIntoView({ behavior: "smooth" })
+                }
+              >
+                {t("discoverButton")}
+              </Button>
+            )}
             <Button variant="studio-jaune" size="pill" asChild>
               <Link href="/studio/start">
                 {t("createButton")} <ArrowRight className="ml-2 h-4 w-4" />

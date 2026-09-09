@@ -22,12 +22,20 @@ export function FadeIn({
   style,
   delay = 0,
   id,
+  hidden,
 }: {
   children: React.ReactNode;
   className?: string;
   id?: string;
   style?: React.CSSProperties;
   delay?: number;
+  /**
+   * Forwarded to the wrapper so a caller can collapse a revealed block —
+   * `[hidden]` removes it from the accessibility tree and the tab order, which
+   * `opacity: 0` does not. The reveal state is untouched: a block hidden after
+   * it was observed stays `data-reveal="in"` and reappears without re-animating.
+   */
+  hidden?: boolean;
   // Accepted for backwards compatibility with the 21 existing call sites and
   // ignored: the observer below uses rootMargin rather than a ratio
   // threshold, so tall blocks no longer need a lowered value to trigger.
@@ -71,6 +79,7 @@ export function FadeIn({
     <div
       ref={ref}
       id={id}
+      hidden={hidden}
       data-reveal={shown ? "in" : "out"}
       className={className}
       style={{

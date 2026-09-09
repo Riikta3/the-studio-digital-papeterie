@@ -16,28 +16,14 @@
     "login": "Login"
   },
   "Hero": {
-    "eyebrow": "Digitale Hochzeitseinladung",
-    "titleLine1": "Die Hochzeitseinladung",
+    "eyebrow": "Einladung · RSVP · Infos",
+    "titleLine1": "Die digitale Hochzeitseinladung,",
     "titleLine2": "neu gedacht",
     "subtitle": "Eine Einladung, gedacht als echtes Erlebnis.",
     "menuAriaLabel": "Menü öffnen",
     "discoverButton": "Kollektionen entdecken",
     "createButton": "Meine Einladung erstellen",
     "themeCta": "Design „{name}\" testen"
-  },
-  "FAQ": {
-    "titleLine1": "Häufig gestellte",
-    "titleLine2": "Fragen",
-    "q1": "Kann ich meine Seite nach dem Versenden bearbeiten?",
-    "a1": "Absolut! Das ist die Magie des Digitalen. Sie können Zeiten ändern oder Infos jederzeit hinzufügen.",
-    "q2": "Muss ich ein monatliches Abo bezahlen?",
-    "a2": "Nein, niemals. Es ist eine einmalige Zahlung. Ihre Seite bleibt 12 Monate nach Ihrer Hochzeit online.",
-    "q3": "Wie bestätigen Gäste ihre Teilnahme?",
-    "a3": "Ein einfaches Formular ist integriert. Sie erhalten Antworten sofort in Ihrem Dashboard.",
-    "q4": "Kann ich eine eigene Domain haben?",
-    "a4": "Ja! Mit der Option 'Eigene Domain' (+65€) oder im Premium-Paket enthalten.",
-    "q5": "Bieten Sie passende Papiereinladungen an?",
-    "a5": "Wir konzentrieren uns auf das Digitale, können aber hochauflösende PDFs für den lokalen Druck bereitstellen."
   },
   "Common": {
     "loading": "Laden..."
@@ -127,6 +113,9 @@
     "colProduct": "Produkt",
     "colMaries": "Brautpaare",
     "colLegal": "Rechtliches",
+    "colResources": "Ressourcen",
+    "collections": "Kollektionen",
+    "journal": "Das Journal",
     "productLinks": [
       "Demo",
       "Funktionen",
@@ -547,30 +536,56 @@
     "eyebrow": "Eine Frage?",
     "titleLine1": "Häufig gestellte",
     "titleAccent": "Fragen",
+    "showMore": "{count} weitere Fragen anzeigen",
+    "showLess": "Weniger anzeigen",
     "items": [
       {
-        "question": "Kann ich meine Einladung nach dem Versand ändern?",
-        "answer": "Ja. Wenn sich vor Ihrer Hochzeit eine Information ändert, kann Ihre digitale Hochzeitseinladung aktualisiert werden, ohne eine neue Einladung an Ihre Gäste zu senden."
+        "question": "Kann ich meine Einladung nach dem Versand noch ändern?",
+        "answer": "Ja. Das ist einer der großen Vorteile einer digitalen Hochzeitseinladung. Wenn sich nach dem Versand eine Information ändert — Uhrzeit, Ort, Shuttle, Unterkunft, Programm oder ein praktisches Detail —, lässt sich der Inhalt aktualisieren, ohne Ihren Gästen eine neue Einladung schicken zu müssen. Der Link bleibt derselbe."
       },
       {
         "question": "Gibt es ein Abonnement?",
-        "answer": "Nein. Ihre The Studio Einladung ist eine einmalige Zahlung. Ein monatliches Abonnement ist nicht erforderlich."
+        "answer": "Nein. Ihre Einladung wird einmalig bezahlt, bei der Erstellung. Ihr Paket wählen Sie dabei, und für die weitere Nutzung Ihrer digitalen Einladung während der Dauer ihrer Veröffentlichung fällt kein monatliches Abonnement an."
       },
       {
-        "question": "Wie funktioniert das RSVP?",
-        "answer": "Ihre Gäste antworten direkt über Ihre Einladung. Die Antworten werden anschließend in Ihrem Brautpaar-Bereich gesammelt."
+        "question": "Wie funktioniert das Online-RSVP für die Hochzeit?",
+        "answer": "Ihre Gäste können ihre Teilnahme direkt über Ihre digitale Hochzeitseinladung bestätigen. Je nach Projekt kann das RSVP-Formular auch weitere Angaben erfassen: Menüwahl, Lebensmittelallergien, Teilnahme am Brunch, Transportbedarf oder weitere individuelle Antworten. Alle Angaben laufen anschließend an einem Ort zusammen – das erleichtert Ihnen die Organisation und das Nachfassen."
       },
       {
         "question": "Wie lange bleibt meine Einladung online?",
-        "answer": "Die Dauer der Veröffentlichung wird Ihnen bei Ihrer Bestellung mitgeteilt."
+        "answer": "Ihre Einladung bleibt für die in Ihrem Paket vorgesehene Dauer erreichbar. Diese Dauer wird Ihnen bei Ihrer Bestellung mitgeteilt. In dieser Zeit können Ihre Gäste das Programm, die Orte, die praktischen Informationen und ihre Einladung erneut über denselben Link aufrufen."
       },
       {
-        "question": "Kann ich einen eigenen Domainnamen haben?",
-        "answer": "Ein personalisierter Domainname kann je nach Projekt als Option angeboten werden."
+        "question": "Kann ich die Adresse meiner Einladung mit meinem eigenen Domainnamen personalisieren?",
+        "answer": "Ja, je nach gewähltem Paket. Die Adresse Ihrer Einladung lässt sich mit Ihrem eigenen Domainnamen personalisieren, damit das Erlebnis noch stimmiger zur Identität Ihrer Hochzeit passt. Diese Option kann insbesondere bei besonders individuell gestalteten Leistungen eingebunden werden."
       },
       {
-        "question": "Bieten Sie eine Papierversion an?",
-        "answer": "The Studio ist auf digitale Papeterie spezialisiert. Unser Fokus liegt auf einem Erlebnis, das für Handy und Web gedacht ist."
+        "question": "Bieten Sie auch eine Papierversion an?",
+        "answer": "The Studio ist auf digitale Hochzeitspapeterie spezialisiert. Das Ziel ist eine interaktive, für das Smartphone gedachte Einladung, die alle wichtigen Informationen für Ihre Gäste an einem Ort bündelt. Ergänzen lässt sich dieses Erlebnis aber durchaus um ein gedrucktes Stück Papeterie – etwa mit einem QR-Code, der zu Ihrer digitalen Einladung führt."
+      },
+      {
+        "question": "Was ist eine digitale Hochzeitseinladung?",
+        "answer": "Eine digitale Hochzeitseinladung ist eine Einladung, die online über einen Link erreichbar ist und vor allem für die Ansicht auf dem Smartphone gedacht ist. Anders als ein einfaches Bild per Nachricht kann sie mehrere interaktive Module vereinen: Countdown, Programm, Ort, Dresscode, Unterkünfte, RSVP, Playlist, Mitfahrgelegenheiten, FAQ oder Fotogalerie. So wird sie zugleich Einladung und echtes Organisationswerkzeug."
+      },
+      {
+        "question": "Wie verschicke ich eine digitale Hochzeitseinladung an meine Gäste?",
+        "answer": "Ihre digitale Hochzeitseinladung lässt sich ganz einfach per WhatsApp, SMS oder E-Mail versenden. Sie ist auch über einen QR-Code erreichbar, der auf einem Save the Date, einer Karte oder einem Hinweisschild gedruckt ist. Ihre Gäste müssen nichts herunterladen: Sie öffnen die Einladung direkt auf ihrem Handy."
+      },
+      {
+        "question": "Kann man einen QR-Code auf die Hochzeitseinladung setzen?",
+        "answer": "Ja. Ein QR-Code lässt sich in ein gedrucktes Stück Papeterie einbinden und führt Ihre Gäste direkt zu Ihrer digitalen Hochzeitseinladung. Verwenden lässt er sich auf einem Save the Date, einer Einladungskarte, einem Empfangsschild oder einer anderen Drucksache. Über den QR-Code gelangen Ihre Gäste unmittelbar zu Ihrer interaktiven Einladung und zum Online-RSVP."
+      },
+      {
+        "question": "Welche Informationen lassen sich in eine interaktive Hochzeitseinladung einbinden?",
+        "answer": "Eine interaktive Hochzeitseinladung kann alle wichtigen Informationen vor dem großen Tag vereinen: Datum, Countdown, Programm, Orte, Anfahrt, Dresscode, Unterkünfte, Menüwahl, RSVP, Playlist, Mitfahrgelegenheiten, FAQ, Geschenke oder praktische Hinweise. Jedes Element kann in einem eigenen Modul erscheinen, damit alles klar und angenehm zu erfassen bleibt."
+      },
+      {
+        "question": "Was ist der Unterschied zwischen einer digitalen Hochzeitseinladung und einer Hochzeitswebsite?",
+        "answer": "Eine Hochzeitswebsite dient vor allem dazu, Informationen an einem Ort zu bündeln. Die digitale Hochzeitseinladung ist zuerst als Einladung gedacht: Sie schafft einen ersten Eindruck, macht die Welt Ihrer Hochzeit erlebbar und begleitet Ihre Gäste bis zur RSVP-Antwort. Sie ist in der Regel kürzer, immersiver, stärker redaktionell gestaltet und konsequenter als mobiles Erlebnis angelegt."
+      },
+      {
+        "question": "Funktioniert die Einladung auf allen Handys?",
+        "answer": "Die Einladungen von The Studio folgen einem Mobile-First-Ansatz, damit sie sich bequem auf dem Smartphone ansehen lassen. Texte, Animationen, Buttons und Module sind so gestaltet, dass die Navigation flüssig bleibt – ohne dass eine App installiert werden muss."
       }
     ]
   },

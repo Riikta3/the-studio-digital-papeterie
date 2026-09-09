@@ -43,8 +43,14 @@ export function buildAlternates(locale: string, path: string): Metadata["alterna
  * the `opengraph-image.tsx` image that the `[locale]` segment injects. Every
  * caller therefore gets the whole block, not a patch of it.
  *
- * `images` is deliberately absent: Next fills it from the file convention in
- * this segment whenever the page's own metadata does not declare the key.
+ * `images` points at the `[locale]/opengraph-image.tsx` route explicitly, and
+ * has to: Next injects a file-convention image only into pages in the SAME
+ * segment as the file. `/[locale]/page.tsx` is a sibling of it and gets the
+ * image for free, but any page in a deeper segment does not — `/fr/themes`
+ * shipped with no `og:image` at all until this was declared, while
+ * `/fr/legal/cgv` (which declares no `openGraph` and so inherits the layout's
+ * whole resolved object, image included) was fine. Naming the URL keeps every
+ * page's card identical regardless of depth.
  */
 export function buildOpenGraph({
   locale,
@@ -57,13 +63,24 @@ export function buildOpenGraph({
   title: string;
   description: string;
 }): Metadata["openGraph"] {
+  const siteUrl = getSiteUrl();
+
   return {
     type: "website",
     siteName: "The Studio Digital Papeterie",
     locale,
     alternateLocale: routing.locales.filter((l) => l !== locale),
-    url: `${getSiteUrl()}/${locale}${path}`,
+    url: `${siteUrl}/${locale}${path}`,
     title,
     description,
+    // Matches `size` in `[locale]/opengraph-image.tsx`.
+    images: [
+      {
+        url: `${siteUrl}/${locale}/opengraph-image`,
+        width: 1200,
+        height: 630,
+        alt: "The Studio Digital Papeterie",
+      },
+    ],
   };
 }

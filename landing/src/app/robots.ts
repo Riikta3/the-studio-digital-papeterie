@@ -16,9 +16,16 @@ export default function robots(): MetadataRoute.Robots {
     rules: {
       userAgent: "*",
       allow: "/",
-      // Locale-prefixed routes need a wildcard: a bare "/studio/checkout"
-      // would match no real URL, since every page lives under /{locale}/.
-      disallow: ["/api/", "/*/studio/checkout", "/*/jourj/"],
+      // The studio funnel is NOT disallowed here, deliberately, even though it
+      // must stay out of the index. It now serves `noindex` from
+      // `[locale]/studio/layout.tsx`, and a crawler has to fetch a page to see
+      // that header — Disallow would block the fetch and leave any already-
+      // indexed URL stuck, since the directive it needs is unreachable. Crawl
+      // it, read the noindex, drop it: that is the working order.
+      //
+      // Locale-prefixed routes need a wildcard: a bare "/jourj/" would match
+      // no real URL, since every page lives under /{locale}/.
+      disallow: ["/api/", "/*/jourj/"],
     },
     sitemap: `${siteUrl}/sitemap.xml`,
     host: siteUrl,
