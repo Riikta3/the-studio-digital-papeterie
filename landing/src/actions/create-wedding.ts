@@ -6,6 +6,7 @@ import { findUserByEmail } from "@/lib/find-user-by-email";
 import { parseOrderMetadata } from "@/lib/order-metadata";
 import { supabaseAdmin } from "@/lib/supabase-admin";
 import { getDashboardUrl } from "@/lib/urls";
+import { sendWelcomeEmail } from "@/lib/welcome-email";
 import {
   markPaymentProvisioned,
   verifyPaymentForOrder,
@@ -64,6 +65,11 @@ export async function createWedding(data: CreateWeddingData) {
   if (payment.alreadyProvisionedAs) {
     console.log("♻️ Payment already provisioned:", payment.alreadyProvisionedAs);
     const link = await generateLoginLink(data.email, undefined, data.locale);
+
+    // Deliberately no welcome email here. This branch fires on every reload of
+    // the success page, and the couple already received one when the wedding
+    // was first created — mailing a fresh link each time would be spam, and
+    // each new link silently invalidates the one they may be about to click.
     return {
       success: true,
       weddingId: payment.alreadyProvisionedAs,
@@ -272,6 +278,25 @@ export async function createWedding(data: CreateWeddingData) {
 
   // 7. Generate Auto-Login Link (Magic Link)
   const loginLink = await generateLoginLink(data.email, finalSlug, data.locale);
+
+  // 8. Email that link.
+  //
+  // The checkout page redirects the browser straight to it, which covers the
+  // happy path — but that link was the couple's ONLY way into a passwordless
+  // account, and it existed solely in a tab that may already be gone. It also
+  // matters for orders the webhook provisions on its own: without this the
+  // customer is never told their site exists.
+  //
+  // Awaited rather than fired and forgotten: this runs in a serverless
+  // function, which stops executing the moment the response is returned.
+  if (loginLink) {
+    await sendWelcomeEmail({
+      to: data.email,
+      firstName: data.firstName,
+      partnerName: data.partnerName,
+      loginLink,
+    });
+  }
 
   return {
     success: true,
