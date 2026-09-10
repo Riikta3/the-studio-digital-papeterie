@@ -929,7 +929,7 @@
         {
           "heading": "2. Erhobene Daten",
           "paragraphs": [
-            "Im Rahmen der Nutzung des Dienstes erheben wir insbesondere: Identifikations- und Kontaktdaten des Kunden (Vorname, Nachname, E-Mail-Adresse); Angaben zur Hochzeit und zu den Gästen, die im Konfigurator und im Dashboard erfasst werden (Namen der Gäste, Haushalte, Tische, RSVP-Antworten, Ernährungsgewohnheiten, Nachrichten); Zahlungsdaten, die ausschließlich von unserem Dienstleister Stripe verarbeitet werden; technische Nutzungsdaten (Cookies, IP-Adresse, Verbindungsprotokolle)."
+            "Im Rahmen der Nutzung des Dienstes erheben wir insbesondere: Identifikations- und Kontaktdaten des Kunden (Vorname, Nachname, E-Mail-Adresse); Angaben zur Hochzeit und zu den Gästen, die im Konfigurator und im Dashboard erfasst werden (Namen der Gäste, Haushalte, Tische, RSVP-Antworten, Ernährungsgewohnheiten, Nachrichten); Zahlungsdaten, die ausschließlich von unserem Dienstleister Stripe verarbeitet werden; technische Nutzungsdaten (Cookies, IP-Adresse, Verbindungsprotokolle). Wenn Sie das Kontaktformular verwenden, erfassen wir die von Ihnen eingegebenen Angaben: Vorname, Nachname, E-Mail-Adresse sowie, sofern Sie sie angeben, Datum und Ort Ihrer Hochzeit, die ungefähre Gästezahl, die Kollektion, die Sie interessiert, den Stand Ihres Projekts und den Inhalt Ihrer Nachricht. Der Zeitpunkt Ihrer Einwilligung wird ebenfalls gespeichert."
           ]
         },
         {
@@ -948,6 +948,7 @@
           "heading": "5. Hosting und Auftragsverarbeiter",
           "paragraphs": [
             "Die Daten werden von Supabase (Datenbank und Authentifizierung) gehostet, und die Zahlungen werden von Stripe verarbeitet. Diese Dienstleister können Daten außerhalb der Europäischen Union verarbeiten, im Rahmen geeigneter Garantien (Standardvertragsklauseln oder Gleichwertiges).",
+            "Über das Kontaktformular gesendete Nachrichten werden uns per E-Mail über unseren Versanddienstleister Resend zugestellt.",
             "Hosting-Anbieter der Website: [Hosting-Anbieter zu vervollständigen]."
           ]
         },
@@ -966,7 +967,7 @@
         {
           "heading": "8. Cookies",
           "paragraphs": [
-            "Die Website verwendet Cookies, die für ihren Betrieb unbedingt erforderlich sind, sowie gegebenenfalls Cookies zur Reichweitenmessung, die der Einwilligung des Besuchers unterliegen und über das auf der Website vorhandene Cookie-Verwaltungsbanner verwaltet werden können."
+            "Die Website verwendet für ihren Betrieb unbedingt erforderliche Cookies, die keine Einwilligung erfordern. Darüber hinaus können — ausschließlich nach Ihrer Zustimmung — Cookies zur Reichweitenmessung und für Werbung gesetzt werden, um die Besucherzahlen der Website zu verstehen und Kampagnen zu messen. Vor Ihrer Entscheidung wird kein nicht wesentliches Cookie gesetzt. Sie können diese Cookies im Einwilligungsfenster bei Ihrem ersten Besuch annehmen oder ablehnen und Ihre Wahl jederzeit über den Link \"Cookies verwalten\" im Fußbereich ändern."
           ]
         },
         {

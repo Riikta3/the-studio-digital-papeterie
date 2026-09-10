@@ -929,7 +929,7 @@
         {
           "heading": "2. Datos recopilados",
           "paragraphs": [
-            "En el marco del uso del Servicio, recopilamos en particular: los datos de identificación y contacto del Cliente (nombre, apellidos, dirección de correo electrónico); la información relativa a la boda y a los invitados introducida en el configurador y el panel de control (nombres de los invitados, hogares, mesas, respuestas RSVP, restricciones alimentarias, mensajes); los datos de pago, tratados exclusivamente por nuestro proveedor Stripe; los datos técnicos de navegación (cookies, dirección IP, registros de conexión)."
+            "En el marco del uso del Servicio, recopilamos en particular: los datos de identificación y contacto del Cliente (nombre, apellidos, dirección de correo electrónico); la información relativa a la boda y a los invitados introducida en el configurador y el panel de control (nombres de los invitados, hogares, mesas, respuestas RSVP, restricciones alimentarias, mensajes); los datos de pago, tratados exclusivamente por nuestro proveedor Stripe; los datos técnicos de navegación (cookies, dirección IP, registros de conexión). Cuando utiliza el formulario de contacto, recopilamos la información que introduce: nombre, apellidos, dirección de correo electrónico y, si los indica, la fecha y el lugar de su boda, el número aproximado de invitados, la colección que le interesa, el estado de su proyecto y el contenido de su mensaje. También se registra la fecha de su consentimiento."
           ]
         },
         {
@@ -948,6 +948,7 @@
           "heading": "5. Alojamiento y subcontratistas",
           "paragraphs": [
             "Los datos están alojados por Supabase (base de datos y autenticación) y los pagos son tratados por Stripe. Estos proveedores pueden tratar datos fuera de la Unión Europea, en el marco de garantías adecuadas (cláusulas contractuales tipo o equivalentes).",
+            "Los mensajes enviados a través del formulario de contacto nos llegan por correo electrónico mediante nuestro proveedor de envío Resend.",
             "Proveedor de alojamiento del sitio: [proveedor de alojamiento a completar]."
           ]
         },
@@ -966,7 +967,7 @@
         {
           "heading": "8. Cookies",
           "paragraphs": [
-            "El sitio utiliza cookies estrictamente necesarias para su funcionamiento, así como, en su caso, cookies de medición de audiencia sujetas al consentimiento del visitante, gestionables a través del banner de gestión de cookies presente en el sitio."
+            "El sitio utiliza cookies estrictamente necesarias para su funcionamiento, que no requieren su consentimiento. También puede instalar, únicamente tras su aceptación, cookies de medición de audiencia y de publicidad destinadas a comprender el tráfico del sitio y a medir sus campañas. No se instala ninguna cookie no esencial antes de que usted haya elegido. Puede aceptar o rechazar estas cookies en la ventana de consentimiento mostrada en su primera visita, y modificar su elección en cualquier momento mediante el enlace \"Gestionar cookies\" del pie de página."
           ]
         },
         {

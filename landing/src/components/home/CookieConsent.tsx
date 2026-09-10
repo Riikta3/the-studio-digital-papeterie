@@ -62,18 +62,25 @@ export function CookieConsent() {
     // it registers as an overlay the visitor can answer and dismiss, which is
     // what it is. It still spans the width on the narrowest screens, where
     // there is no room to inset anything.
+    //
+    // Anchored to the bottom-start corner from `sm` up, for two reasons: the
+    // bottom-end corner is taken by ScrollToTop and ContactBubble, and in a
+    // left-to-right locale the start corner is where the eye already rests.
+    // `start-*` and not `left-*` so it flips with the writing direction — but
+    // that flip lands it on the two floating controls in Arabic, which is why
+    // ContactBubble measures the overlap instead of assuming a side.
     <div
       role="dialog"
       aria-labelledby="cookie-consent-text"
       // Marked so ContactBubble can measure this banner and sit above it: its
       // height depends on the locale's text length, so it cannot be hardcoded.
       data-cookie-banner=""
-      className="fixed inset-x-3 bottom-3 z-50 mx-auto max-w-3xl rounded-3xl border border-studio-jaune/40 bg-studio-violet/95 px-5 py-4 shadow-[0_8px_32px_rgba(75,63,114,0.28)] backdrop-blur-sm sm:inset-x-6 sm:bottom-6 sm:px-6"
+      className="fixed inset-x-3 bottom-3 z-50 rounded-3xl border border-studio-jaune/40 bg-studio-violet/95 px-5 py-4 shadow-[0_8px_32px_rgba(75,63,114,0.28)] backdrop-blur-sm sm:inset-x-auto sm:bottom-6 sm:start-6 sm:max-w-xl sm:px-6"
     >
-      <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between sm:gap-5">
+      <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between sm:gap-4">
         <p
           id="cookie-consent-text"
-          className="font-body text-xs leading-relaxed text-studio-creme/85"
+          className="min-w-0 flex-1 font-body text-xs leading-relaxed text-studio-creme/85"
         >
           {t("bannerText")}{" "}
           <Link

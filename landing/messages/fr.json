@@ -1277,7 +1277,7 @@
         {
           "heading": "2. Données collectées",
           "paragraphs": [
-            "Dans le cadre de l'utilisation du Service, nous collectons notamment : les données d'identification et de contact du Client (nom, prénom, adresse e-mail) ; les informations relatives au mariage et aux invités saisies dans le configurateur et le tableau de bord (noms des invités, foyers, tables, réponses RSVP, régimes alimentaires, messages) ; les données de paiement, traitées exclusivement par notre prestataire Stripe ; les données de navigation techniques (cookies, adresse IP, journaux de connexion)."
+            "Dans le cadre de l'utilisation du Service, nous collectons notamment : les données d'identification et de contact du Client (nom, prénom, adresse e-mail) ; les informations relatives au mariage et aux invités saisies dans le configurateur et le tableau de bord (noms des invités, foyers, tables, réponses RSVP, régimes alimentaires, messages) ; les données de paiement, traitées exclusivement par notre prestataire Stripe ; les données de navigation techniques (cookies, adresse IP, journaux de connexion). Lorsque vous utilisez le formulaire de contact, nous collectons les informations que vous y saisissez : prénom, nom, adresse e-mail, ainsi que, si vous les renseignez, la date et le lieu de votre mariage, le nombre approximatif d'invités, la collection qui vous intéresse, l'avancement de votre projet et le contenu de votre message. La date de votre consentement est également enregistrée."
           ]
         },
         {
@@ -1296,6 +1296,7 @@
           "heading": "5. Hébergement et sous-traitants",
           "paragraphs": [
             "Les données sont hébergées par Supabase (base de données et authentification) et les paiements sont traités par Stripe. Ces prestataires sont susceptibles de traiter des données en dehors de l'Union européenne, dans le cadre de garanties appropriées (clauses contractuelles types ou équivalent).",
+            "Les messages envoyés via le formulaire de contact nous sont transmis par e-mail via notre prestataire d'envoi Resend.",
             "Hébergeur du site : [hébergeur à compléter]."
           ]
         },
@@ -1314,7 +1315,7 @@
         {
           "heading": "8. Cookies",
           "paragraphs": [
-            "Le site utilise des cookies strictement nécessaires à son fonctionnement ainsi que, le cas échéant, des cookies de mesure d'audience soumis au consentement du visiteur, gérable via le bandeau de gestion des cookies présent sur le site."
+            "Le site utilise des cookies strictement nécessaires à son fonctionnement, qui ne requièrent pas votre consentement. Il peut également déposer, uniquement après votre accord, des cookies de mesure d'audience et de publicité destinés à comprendre la fréquentation du site et à en mesurer les campagnes. Aucun cookie non essentiel n'est déposé avant que vous ayez fait votre choix. Vous pouvez accepter ou refuser ces cookies via la fenêtre de consentement affichée lors de votre première visite, et modifier votre choix à tout moment via le lien \"Gérer les cookies\" présent en pied de page."
           ]
         },
         {

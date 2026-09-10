@@ -928,7 +928,7 @@
         {
           "heading": "2. Dados recolhidos",
           "paragraphs": [
-            "No âmbito da utilização do Serviço, recolhemos, nomeadamente: os dados de identificação e contacto do Cliente (nome, apelido, endereço de e-mail); as informações relativas ao casamento e aos convidados inseridas no configurador e no painel de controlo (nomes dos convidados, agregados familiares, mesas, respostas RSVP, restrições alimentares, mensagens); os dados de pagamento, tratados exclusivamente pelo nosso prestador Stripe; os dados técnicos de navegação (cookies, endereço IP, registos de ligação)."
+            "No âmbito da utilização do Serviço, recolhemos, nomeadamente: os dados de identificação e contacto do Cliente (nome, apelido, endereço de e-mail); as informações relativas ao casamento e aos convidados inseridas no configurador e no painel de controlo (nomes dos convidados, agregados familiares, mesas, respostas RSVP, restrições alimentares, mensagens); os dados de pagamento, tratados exclusivamente pelo nosso prestador Stripe; os dados técnicos de navegação (cookies, endereço IP, registos de ligação). Quando utiliza o formulário de contacto, recolhemos as informações que introduz: nome, apelido, endereço de e-mail e, se os indicar, a data e o local do seu casamento, o número aproximado de convidados, a coleção que lhe interessa, o estado do seu projeto e o conteúdo da sua mensagem. A data do seu consentimento é igualmente registada."
           ]
         },
         {
@@ -947,6 +947,7 @@
           "heading": "5. Alojamento e subcontratantes",
           "paragraphs": [
             "Os dados são alojados pela Supabase (base de dados e autenticação) e os pagamentos são tratados pela Stripe. Estes prestadores poderão tratar dados fora da União Europeia, no âmbito de garantias adequadas (cláusulas contratuais-tipo ou equivalentes).",
+            "As mensagens enviadas através do formulário de contacto são-nos transmitidas por e-mail através do nosso prestador de envio Resend.",
             "Alojamento do site: [prestador de alojamento a completar]."
           ]
         },
@@ -965,7 +966,7 @@
         {
           "heading": "8. Cookies",
           "paragraphs": [
-            "O site utiliza cookies estritamente necessários ao seu funcionamento, bem como, se aplicável, cookies de medição de audiência sujeitos ao consentimento do visitante, geríveis através do banner de gestão de cookies presente no site."
+            "O site utiliza cookies estritamente necessários ao seu funcionamento, que não requerem o seu consentimento. Pode também instalar, apenas após o seu acordo, cookies de medição de audiência e de publicidade destinados a compreender o tráfego do site e a medir as suas campanhas. Nenhum cookie não essencial é instalado antes de ter feito a sua escolha. Pode aceitar ou recusar estes cookies na janela de consentimento apresentada na sua primeira visita e alterar a sua escolha em qualquer momento através do link \"Gerir cookies\" no rodapé."
           ]
         },
         {

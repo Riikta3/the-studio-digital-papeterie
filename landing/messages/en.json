@@ -1142,7 +1142,7 @@
         {
           "heading": "2. Data collected",
           "paragraphs": [
-            "As part of the use of the Service, we collect in particular: the Customer's identification and contact details (first name, last name, email address); information relating to the wedding and guests entered in the configurator and dashboard (guest names, households, tables, RSVP responses, dietary requirements, messages); payment data, processed exclusively by our provider Stripe; technical browsing data (cookies, IP address, connection logs)."
+            "As part of the use of the Service, we collect in particular: the Customer's identification and contact details (first name, last name, email address); information relating to the wedding and guests entered in the configurator and dashboard (guest names, households, tables, RSVP responses, dietary requirements, messages); payment data, processed exclusively by our provider Stripe; technical browsing data (cookies, IP address, connection logs). When you use the contact form, we collect the information you enter: first name, last name, e-mail address and, if you provide them, your wedding date and location, the approximate number of guests, the collection you are interested in, how far along your project is and the content of your message. The date of your consent is also recorded."
           ]
         },
         {
@@ -1161,6 +1161,7 @@
           "heading": "5. Hosting and subcontractors",
           "paragraphs": [
             "Data is hosted by Supabase (database and authentication) and payments are processed by Stripe. These providers may process data outside the European Union, subject to appropriate safeguards (standard contractual clauses or equivalent).",
+            "Messages sent through the contact form are delivered to us by e-mail via our sending provider Resend.",
             "Site host: [hosting provider to complete]."
           ]
         },
@@ -1179,7 +1180,7 @@
         {
           "heading": "8. Cookies",
           "paragraphs": [
-            "The site uses cookies strictly necessary for its operation as well as, where applicable, audience measurement cookies subject to visitor consent, manageable via the cookie management banner present on the site."
+            "The site uses cookies that are strictly necessary for it to work, which do not require your consent. It may also set, only after you agree, audience-measurement and advertising cookies intended to understand site traffic and measure campaigns. No non-essential cookie is set before you have made your choice. You can accept or decline these cookies in the consent window shown on your first visit, and change your choice at any time via the \"Manage cookies\" link in the footer."
           ]
         },
         {

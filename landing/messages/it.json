@@ -928,7 +928,7 @@
         {
           "heading": "2. Dati raccolti",
           "paragraphs": [
-            "Nell'ambito dell'utilizzo del Servizio, raccogliamo in particolare: i dati identificativi e di contatto del Cliente (nome, cognome, indirizzo e-mail); le informazioni relative al matrimonio e agli invitati inserite nel configuratore e nella dashboard (nomi degli invitati, nuclei familiari, tavoli, risposte RSVP, esigenze alimentari, messaggi); i dati di pagamento, trattati esclusivamente dal nostro fornitore Stripe; i dati tecnici di navigazione (cookie, indirizzo IP, log di connessione)."
+            "Nell'ambito dell'utilizzo del Servizio, raccogliamo in particolare: i dati identificativi e di contatto del Cliente (nome, cognome, indirizzo e-mail); le informazioni relative al matrimonio e agli invitati inserite nel configuratore e nella dashboard (nomi degli invitati, nuclei familiari, tavoli, risposte RSVP, esigenze alimentari, messaggi); i dati di pagamento, trattati esclusivamente dal nostro fornitore Stripe; i dati tecnici di navigazione (cookie, indirizzo IP, log di connessione). Quando utilizzi il modulo di contatto, raccogliamo le informazioni che inserisci: nome, cognome, indirizzo e-mail e, se le indichi, la data e il luogo del tuo matrimonio, il numero approssimativo di invitati, la collezione che ti interessa, lo stato di avanzamento del tuo progetto e il contenuto del tuo messaggio. Viene inoltre registrata la data del tuo consenso."
           ]
         },
         {
@@ -947,6 +947,7 @@
           "heading": "5. Hosting e subappaltatori",
           "paragraphs": [
             "I dati sono ospitati da Supabase (database e autenticazione) e i pagamenti sono trattati da Stripe. Questi fornitori potrebbero trattare dati al di fuori dell'Unione Europea, nel quadro di garanzie adeguate (clausole contrattuali tipo o equivalenti).",
+            "I messaggi inviati tramite il modulo di contatto ci vengono trasmessi per e-mail attraverso il nostro fornitore di invio Resend.",
             "Fornitore di hosting del sito: [fornitore di hosting da completare]."
           ]
         },
@@ -965,7 +966,7 @@
         {
           "heading": "8. Cookie",
           "paragraphs": [
-            "Il sito utilizza cookie strettamente necessari al suo funzionamento nonché, se del caso, cookie di misurazione dell'audience soggetti al consenso del visitatore, gestibili tramite il banner di gestione dei cookie presente sul sito."
+            "Il sito utilizza cookie strettamente necessari al suo funzionamento, che non richiedono il tuo consenso. Può inoltre installare, soltanto dopo il tuo accordo, cookie di misurazione del pubblico e pubblicitari destinati a comprendere il traffico del sito e a misurarne le campagne. Nessun cookie non essenziale viene installato prima che tu abbia effettuato la tua scelta. Puoi accettare o rifiutare questi cookie tramite la finestra di consenso mostrata alla tua prima visita e modificare la tua scelta in qualsiasi momento tramite il link \"Gestisci i cookie\" nel piè di pagina."
           ]
         },
         {
