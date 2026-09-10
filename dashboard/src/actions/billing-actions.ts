@@ -10,7 +10,14 @@ export type BillingRecord = {
   status: "succeeded" | "pending" | "failed" | "refunded";
   plan_name: string;
   payment_method: string;
+  /**
+   * Storage path of the invoice PDF, not a link: the bucket is private, so the
+   * browser exchanges it for a short-lived signed URL through
+   * `getInvoiceDownloadUrl()`. Null until the invoice has been issued.
+   */
   invoice_url: string | null;
+  /** Identifies the purchase when requesting that signed URL. */
+  stripe_payment_intent_id: string | null;
   created_at: string;
 };
 
@@ -27,7 +34,9 @@ export async function getBillingHistory() {
     const { data, error } = await supabaseAdmin
       .from("billing")
       // Matches BillingRecord above.
-      .select("id, amount, currency, status, plan_name, payment_method, invoice_url, created_at")
+      .select(
+        "id, amount, currency, status, plan_name, payment_method, invoice_url, stripe_payment_intent_id, created_at",
+      )
       .eq("user_id", user.id)
       .order("created_at", { ascending: false });
 
