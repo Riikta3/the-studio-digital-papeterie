@@ -1058,7 +1058,11 @@
     "paymentReferenceHint": "Keep this reference: it lets us find your order.",
     "contactSupport": "Contact support",
     "reassurePaid": "Your payment is secure",
-    "errorDetails": "Technical detail"
+    "errorDetails": "Technical detail",
+    "orderCompleteTitle": "Your order is complete",
+    "orderCompleteBody": "Your invitation has already been created. Open your space to personalise it.",
+    "orderCompleteCta": "Go to my space",
+    "orderCompleteHint": "Need a second invitation? Get in touch and we'll set it up for you."
   },
   "Legal": {
     "backHome": "Back to home",

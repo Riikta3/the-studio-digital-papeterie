@@ -58,6 +58,54 @@ export async function verifyPaymentForOrder(
   };
 }
 
+/**
+ * Refunds a payment that cannot be fulfilled.
+ *
+ * Used when a customer is charged for something they already own — navigating
+ * back from the dashboard into a still-populated checkout and paying again.
+ * Nothing is provisioned for that second charge, so holding onto the money is
+ * not an option: the refund is issued immediately rather than left as a
+ * support ticket the customer has to open themselves.
+ *
+ * Idempotent through `metadata.refunded_reason`: a retried provisioning must
+ * not stack refunds on the same intent.
+ */
+export async function refundPayment(
+  paymentIntentId: string,
+  reason: string,
+): Promise<{ refunded: boolean; detail?: string }> {
+  try {
+    const intent = await stripe.paymentIntents.retrieve(paymentIntentId);
+
+    if (intent.metadata?.refunded_reason) {
+      return { refunded: true, detail: "already refunded" };
+    }
+
+    if (intent.status !== "succeeded") {
+      return { refunded: false, detail: `status ${intent.status}` };
+    }
+
+    await stripe.refunds.create({
+      payment_intent: paymentIntentId,
+      reason: "duplicate",
+    });
+
+    // Marked after the refund succeeds, so a failure here is retried rather
+    // than recorded as done.
+    await stripe.paymentIntents.update(paymentIntentId, {
+      metadata: { ...intent.metadata, refunded_reason: reason },
+    });
+
+    console.log(`💸 Refunded ${paymentIntentId}: ${reason}`);
+    return { refunded: true };
+  } catch (err) {
+    // Surfaced loudly: the customer has been charged for nothing, and this is
+    // now a manual refund in the Stripe dashboard.
+    console.error(`[REFUND_FAILED] ${paymentIntentId}`, err);
+    return { refunded: false, detail: (err as Error).message };
+  }
+}
+
 /** Records which wedding a payment produced, making provisioning idempotent. */
 export async function markPaymentProvisioned(
   paymentIntentId: string,

@@ -844,7 +844,11 @@
     "paymentReferenceHint": "この番号を保管してください。ご注文の照会に使用します。",
     "contactSupport": "サポートに問い合わせる",
     "reassurePaid": "お支払いは安全に処理されています",
-    "errorDetails": "技術的な詳細"
+    "errorDetails": "技術的な詳細",
+    "orderCompleteTitle": "ご注文が完了しました",
+    "orderCompleteBody": "招待状は作成済みです。マイスペースからカスタマイズしてください。",
+    "orderCompleteCta": "マイスペースへ",
+    "orderCompleteHint": "2通目の招待状をご希望ですか？お問い合わせいただければお作りします。"
   },
   "Legal": {
     "backHome": "ホームに戻る",

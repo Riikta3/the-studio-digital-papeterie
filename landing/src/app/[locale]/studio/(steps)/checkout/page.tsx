@@ -219,6 +219,12 @@ export default function StudioCheckoutPage() {
   } = useOrderStore();
   const totalPrice = useOrderStore(selectTotalPrice);
   const hasHydrated = useOrderStore((s) => s._hasHydrated);
+  const completedAt = useOrderStore((s) => s.completedAt);
+
+  // Public origin, so the "back to my space" link works from a phone too. The
+  // env var is the same one the magic link is built from server-side.
+  const dashboardUrl =
+    process.env.NEXT_PUBLIC_DASHBOARD_URL || "http://localhost:3003";
 
   const isPaymentSuccess = searchParams.get("payment_success") === "true";
 
@@ -275,6 +281,12 @@ export default function StudioCheckoutPage() {
     });
 
     if (result.success && result.loginLink) {
+      // Clear the basket before leaving, or navigating back from the dashboard
+      // lands on a fully populated, working payment form: the replay guard is
+      // keyed on the PaymentIntent, and a second checkout mints a fresh one,
+      // so the couple could pay twice for the same wedding. The server refuses
+      // that second order too, but the money would already have been taken.
+      useOrderStore.getState().completeOrder();
       window.location.href = result.loginLink;
     } else if (!result.success) {
       setProvisionError(result.error ?? t("paymentError"));
@@ -484,6 +496,44 @@ export default function StudioCheckoutPage() {
             <Loader2 className="h-4 w-4 animate-spin" />
             {t("creatingAccount")}
           </div>
+        </div>
+      </StepTransition>
+    );
+  }
+
+  // ── Back-navigation after a completed order ──
+  //
+  // The basket is cleared once an order is provisioned, so without this the
+  // couple pressing Back from their dashboard would land on the configurator's
+  // empty state and be walked through buying a second time. The server refuses
+  // that order and refunds it, but nobody should be taken that far.
+  if (completedAt && !plan && hasHydrated) {
+    return (
+      <StepTransition>
+        <div className="mx-auto flex min-h-[50vh] w-full max-w-md flex-col items-center justify-center gap-5 text-center">
+          <div className="flex h-14 w-14 items-center justify-center rounded-full bg-studio-violet">
+            <Check className="h-7 w-7 text-white" strokeWidth={2} />
+          </div>
+
+          <div className="space-y-2">
+            <h1 className="font-heading text-h3 text-studio-violet">
+              {t("orderCompleteTitle")}
+            </h1>
+            <p className="font-body text-sm leading-relaxed text-studio-violet/70">
+              {t("orderCompleteBody")}
+            </p>
+          </div>
+
+          <a
+            href={dashboardUrl}
+            className="flex w-full items-center justify-center gap-2 rounded-full bg-studio-violet px-6 py-3.5 font-body text-sm font-semibold text-white transition-colors hover:bg-studio-violet/90"
+          >
+            {t("orderCompleteCta")}
+          </a>
+
+          <p className="font-body text-xs leading-relaxed text-studio-violet/50">
+            {t("orderCompleteHint")}
+          </p>
         </div>
       </StepTransition>
     );

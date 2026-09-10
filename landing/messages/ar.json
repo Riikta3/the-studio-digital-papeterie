@@ -844,7 +844,11 @@
     "paymentReferenceHint": "احتفظ بهذا المرجع: فهو يساعدنا في العثور على طلبك.",
     "contactSupport": "الاتصال بالدعم",
     "reassurePaid": "دفعتك آمنة",
-    "errorDetails": "التفاصيل التقنية"
+    "errorDetails": "التفاصيل التقنية",
+    "orderCompleteTitle": "تم إتمام طلبك",
+    "orderCompleteBody": "تم إنشاء دعوتك بالفعل. انتقل إلى مساحتك لتخصيصها.",
+    "orderCompleteCta": "الذهاب إلى مساحتي",
+    "orderCompleteHint": "هل تريد دعوة ثانية؟ تواصل معنا وسننشئها لك."
   },
   "Legal": {
     "backHome": "العودة إلى الصفحة الرئيسية",

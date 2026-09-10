@@ -844,7 +844,11 @@
     "paymentReferenceHint": "Guarde esta referência: permite-nos encontrar a sua encomenda.",
     "contactSupport": "Contactar o suporte",
     "reassurePaid": "O seu pagamento está seguro",
-    "errorDetails": "Detalhe técnico"
+    "errorDetails": "Detalhe técnico",
+    "orderCompleteTitle": "A sua encomenda está concluída",
+    "orderCompleteBody": "O seu convite já foi criado. Aceda ao seu espaço para o personalizar.",
+    "orderCompleteCta": "Aceder ao meu espaço",
+    "orderCompleteHint": "Quer um segundo convite? Contacte-nos e criamo-lo para si."
   },
   "Legal": {
     "backHome": "Voltar ao início",

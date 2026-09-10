@@ -845,7 +845,11 @@
     "paymentReferenceHint": "Bewahren Sie diese Referenz auf: damit finden wir Ihre Bestellung.",
     "contactSupport": "Support kontaktieren",
     "reassurePaid": "Ihre Zahlung ist sicher",
-    "errorDetails": "Technische Details"
+    "errorDetails": "Technische Details",
+    "orderCompleteTitle": "Ihre Bestellung ist abgeschlossen",
+    "orderCompleteBody": "Ihre Einladung wurde bereits erstellt. Öffnen Sie Ihren Bereich, um sie anzupassen.",
+    "orderCompleteCta": "Zu meinem Bereich",
+    "orderCompleteHint": "Sie möchten eine zweite Einladung? Melden Sie sich, wir richten sie für Sie ein."
   },
   "Legal": {
     "backHome": "Zurück zur Startseite",

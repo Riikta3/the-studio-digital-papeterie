@@ -9,6 +9,7 @@ import { getDashboardUrl } from "@/lib/urls";
 import { sendWelcomeEmail } from "@/lib/welcome-email";
 import {
   markPaymentProvisioned,
+  refundPayment,
   verifyPaymentForOrder,
 } from "@/lib/verify-payment";
 import { APP_MODULES } from "@shared/data/modules";
@@ -93,10 +94,53 @@ export async function createWedding(data: CreateWeddingData) {
   }
 
   if (existingUser) {
-    // Passwordless flow: an existing account is not a conflict — the payment
-    // already went through, so attach this new wedding to that user and let
-    // the magic link below sign them in.
+    // Passwordless flow: an existing account is not a conflict on its own —
+    // the payment already went through, so this signs them back in.
     userId = existingUser.id;
+
+    // One account, one wedding.
+    //
+    // Guards the double-purchase path: the order store survives checkout, so
+    // navigating back from the dashboard used to show a working payment form
+    // primed with the same basket. The replay guard above is keyed on the
+    // PaymentIntent, and that second checkout mints a fresh one — so it saw
+    // nothing, charged the couple again and built them a second site.
+    //
+    // Checked server-side rather than in the browser because the store is
+    // localStorage: clearing it is one devtools click away.
+    const { data: existingWedding } = await supabaseAdmin
+      .from("weddings")
+      .select("id")
+      .eq("user_id", userId)
+      .limit(1)
+      .maybeSingle();
+
+    if (existingWedding) {
+      console.error(
+        `[DUPLICATE_PURCHASE] ${data.email} already owns wedding ` +
+          `${existingWedding.id}; refunding intent ${data.paymentIntentId}.`,
+      );
+
+      // Refunded here rather than left for support: nothing is provisioned for
+      // this charge, so keeping the money would be taking payment for nothing.
+      const refund = await refundPayment(
+        data.paymentIntentId,
+        `duplicate purchase — account already owns wedding ${existingWedding.id}`,
+      );
+
+      return {
+        success: false,
+        error: refund.refunded
+          ? "Un espace existe déjà pour cette adresse email. Votre paiement " +
+            "a été remboursé — il apparaîtra sur votre compte sous 5 à 10 " +
+            "jours. Contactez-nous si vous souhaitiez une seconde invitation."
+          : "Un espace existe déjà pour cette adresse email, et le " +
+            "remboursement automatique a échoué. Contactez-nous : nous le " +
+            "traiterons manuellement sous 24h.",
+        duplicatePurchase: true,
+        existingWeddingId: existingWedding.id,
+      };
+    }
   } else {
     // Passwordless account: the couple signs in through the magic link
     // generated at the end of this action, so no password is ever set.

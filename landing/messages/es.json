@@ -845,7 +845,11 @@
     "paymentReferenceHint": "Guarde esta referencia: nos permite localizar su pedido.",
     "contactSupport": "Contactar con soporte",
     "reassurePaid": "Su pago está seguro",
-    "errorDetails": "Detalle técnico"
+    "errorDetails": "Detalle técnico",
+    "orderCompleteTitle": "Tu pedido está finalizado",
+    "orderCompleteBody": "Tu invitación ya ha sido creada. Accede a tu espacio para personalizarla.",
+    "orderCompleteCta": "Ir a mi espacio",
+    "orderCompleteHint": "¿Quieres una segunda invitación? Escríbenos y la crearemos para ti."
   },
   "Legal": {
     "backHome": "Volver al inicio",

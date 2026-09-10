@@ -844,7 +844,11 @@
     "paymentReferenceHint": "请保留此编号：我们可凭此找到您的订单。",
     "contactSupport": "联系客服",
     "reassurePaid": "您的付款是安全的",
-    "errorDetails": "技术详情"
+    "errorDetails": "技术详情",
+    "orderCompleteTitle": "您的订单已完成",
+    "orderCompleteBody": "您的请柬已创建。前往您的空间进行个性化设置。",
+    "orderCompleteCta": "前往我的空间",
+    "orderCompleteHint": "需要第二份请柬吗？请联系我们，我们将为您创建。"
   },
   "Legal": {
     "backHome": "返回首页",

@@ -844,7 +844,11 @@
     "paymentReferenceHint": "Conservi questo riferimento: ci permette di trovare il suo ordine.",
     "contactSupport": "Contatta l'assistenza",
     "reassurePaid": "Il suo pagamento è sicuro",
-    "errorDetails": "Dettaglio tecnico"
+    "errorDetails": "Dettaglio tecnico",
+    "orderCompleteTitle": "Il tuo ordine è completato",
+    "orderCompleteBody": "Il tuo invito è già stato creato. Vai nel tuo spazio per personalizzarlo.",
+    "orderCompleteCta": "Vai al mio spazio",
+    "orderCompleteHint": "Desideri un secondo invito? Contattaci, lo creeremo per te."
   },
   "Legal": {
     "backHome": "Torna alla home",
