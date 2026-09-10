@@ -47,6 +47,34 @@ function labelFor(id: string, list: { id: string; name: string }[]): string {
   return list.find((x) => x.id === id)?.name ?? id;
 }
 
+/**
+ * Splits the couple's identity out of the store into the shape both the
+ * PaymentIntent metadata and `createWedding()` expect.
+ *
+ * Extracted from `provision()` so the exact same values reach Stripe at intent
+ * creation: the webhook fallback provisions from that metadata alone, and a
+ * name derived differently there would create a wedding under another name.
+ */
+function toWeddingIdentity(info: {
+  partner1: string;
+  partner2: string;
+  day: string;
+  month: string;
+  year: string;
+}) {
+  const nameParts = info.partner1.trim().split(" ");
+  const firstName = nameParts[0] || info.partner1;
+  const lastName = nameParts.slice(1).join(" ") || "";
+
+  const monthIndex = MONTHS_FR.indexOf(info.month) + 1;
+  const weddingDate =
+    info.day && monthIndex > 0 && info.year
+      ? `${info.year}-${String(monthIndex).padStart(2, "0")}-${String(info.day).padStart(2, "0")}`
+      : undefined;
+
+  return { firstName, lastName, partnerName: info.partner2, weddingDate };
+}
+
 function PaymentForm({
   totalPrice,
   onSuccess,
@@ -225,22 +253,15 @@ export default function StudioCheckoutPage() {
     setIsProvisioning(true);
     setProvisionError(null);
 
-    const nameParts = weddingInfo.partner1.trim().split(" ");
-    const firstName = nameParts[0] || weddingInfo.partner1;
-    const lastName = nameParts.slice(1).join(" ") || "";
-
-    const monthIndex = MONTHS_FR.indexOf(weddingInfo.month) + 1;
-    const weddingDate =
-      weddingInfo.day && monthIndex > 0 && weddingInfo.year
-        ? `${weddingInfo.year}-${String(monthIndex).padStart(2, "0")}-${String(weddingInfo.day).padStart(2, "0")}`
-        : undefined;
+    const { firstName, lastName, partnerName, weddingDate } =
+      toWeddingIdentity(weddingInfo);
 
     const result = await createWedding({
       paymentIntentId: intentId,
       email: weddingInfo.email,
       firstName,
       lastName,
-      partnerName: weddingInfo.partner2,
+      partnerName,
       weddingDate,
       themeId: theme,
       modules,
@@ -285,8 +306,21 @@ export default function StudioCheckoutPage() {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
-        items: { plan, modules, languages, extras },
+        // theme/animation/adultsOnly ride along so the intent carries the full
+        // order: the webhook provisions from this metadata when the browser
+        // never comes back, and would otherwise fall back to defaults the
+        // couple did not choose.
+        items: {
+          plan,
+          modules,
+          languages,
+          extras,
+          themeId: theme,
+          animationId: animation,
+          adultsOnly,
+        },
         email: weddingInfo.email,
+        weddingInfo: { ...toWeddingIdentity(weddingInfo), locale },
         // Reprice the same intent when the cart changed, instead of leaving a
         // stale amount attached to the mounted PaymentElement.
         paymentIntentId: intentIdRef.current,
@@ -319,8 +353,24 @@ export default function StudioCheckoutPage() {
     return () => {
       cancelled = true;
     };
+    // theme/animation/adultsOnly/weddingInfo are dependencies too: they now
+    // travel in the intent metadata, so editing the theme and coming back must
+    // resync it. Without them Stripe would keep describing the previous order,
+    // and the webhook fallback would provision the wrong one.
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [hasHydrated, isPaymentSuccess, plan, modules, languages, extras]);
+  }, [
+    hasHydrated,
+    isPaymentSuccess,
+    plan,
+    modules,
+    languages,
+    extras,
+    theme,
+    animation,
+    adultsOnly,
+    weddingInfo,
+    locale,
+  ]);
 
   // ── Post-payment: provisioning screen ──
   //

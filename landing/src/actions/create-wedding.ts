@@ -1,6 +1,9 @@
 "use server";
 
+import type Stripe from "stripe";
+
 import { findUserByEmail } from "@/lib/find-user-by-email";
+import { parseOrderMetadata } from "@/lib/order-metadata";
 import { supabaseAdmin } from "@/lib/supabase-admin";
 import { getDashboardUrl } from "@/lib/urls";
 import {
@@ -276,6 +279,83 @@ export async function createWedding(data: CreateWeddingData) {
     weddingId,
     email: data.email,
     loginLink,
+  };
+}
+
+/**
+ * Provisions a paid order straight from its Stripe PaymentIntent.
+ *
+ * The safety net behind the browser-driven flow. Provisioning is kicked off
+ * from the checkout page, so an order was lost whenever the customer's tab
+ * died in the two seconds it takes: the charge settled, the webhook logged
+ * "Paid but unprovisioned", and nobody was told. The couple had paid for
+ * nothing, and the first sign of it was a support email.
+ *
+ * Called from the `payment_intent.succeeded` webhook, which Stripe retries on
+ * its own schedule, so the order gets fulfilled with the customer long gone.
+ * `createWedding()` re-verifies the payment and short-circuits on
+ * `alreadyProvisionedAs`, so the browser winning the race is not a conflict —
+ * whichever arrives second finds the wedding already there and stops.
+ */
+export async function provisionFromPaymentIntent(
+  intent: Stripe.PaymentIntent,
+): Promise<
+  | { provisioned: true; weddingId: string; alreadyProvisioned: boolean }
+  | { provisioned: false; reason: string }
+> {
+  // Already tied to a wedding by whichever path got there first.
+  if (intent.metadata?.wedding_id) {
+    return {
+      provisioned: true,
+      weddingId: intent.metadata.wedding_id,
+      alreadyProvisioned: true,
+    };
+  }
+
+  const order = parseOrderMetadata(intent);
+  if (!order) {
+    // An intent from before names were recorded, or not a studio checkout.
+    // Recoverable by hand from `stripe_events`, never silently half-built.
+    return {
+      provisioned: false,
+      reason: `Intent ${intent.id} carries no usable order metadata.`,
+    };
+  }
+
+  // The couple's names are what a wedding is keyed on; provisioning without
+  // them would produce a nameless site the couple cannot recognise.
+  if (!order.firstName || !order.partnerName) {
+    return {
+      provisioned: false,
+      reason: `Intent ${intent.id} is missing the couple's names.`,
+    };
+  }
+
+  const result = await createWedding({
+    paymentIntentId: intent.id,
+    email: order.email,
+    firstName: order.firstName,
+    lastName: order.lastName,
+    partnerName: order.partnerName,
+    weddingDate: order.weddingDate,
+    themeId: order.themeId,
+    modules: order.modules,
+    extras: order.extras,
+    languages: order.languages,
+    plan: order.plan,
+    adultsOnly: order.adultsOnly,
+    animationId: order.animationId,
+    locale: order.locale,
+  });
+
+  if (!result.success) {
+    return { provisioned: false, reason: result.error ?? "Unknown failure." };
+  }
+
+  return {
+    provisioned: true,
+    weddingId: result.weddingId as string,
+    alreadyProvisioned: Boolean(result.alreadyProvisioned),
   };
 }
 
