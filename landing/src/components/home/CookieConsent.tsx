@@ -75,7 +75,7 @@ export function CookieConsent() {
       // Marked so ContactBubble can measure this banner and sit above it: its
       // height depends on the locale's text length, so it cannot be hardcoded.
       data-cookie-banner=""
-      className="fixed inset-x-3 bottom-3 z-50 rounded-3xl border border-studio-jaune/40 bg-studio-violet/95 px-5 py-4 shadow-[0_8px_32px_rgba(75,63,114,0.28)] backdrop-blur-sm sm:inset-x-auto sm:bottom-6 sm:start-6 sm:max-w-xl sm:px-6"
+      className="fixed inset-x-3 bottom-3 z-50 rounded-3xl border border-studio-jaune/40 bg-studio-violet/95 px-5 py-4 shadow-[0_8px_32px_rgba(75,63,114,0.28)] backdrop-blur-sm sm:inset-x-auto sm:bottom-6 sm:start-6 sm:max-w-2xl sm:px-6"
     >
       <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between sm:gap-4">
         <p
