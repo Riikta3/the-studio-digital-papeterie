@@ -62,3 +62,20 @@ Passer à `"standard"` quand le seuil est franchi : les prix affichés deviennen
 
 Docker éteint pendant l'implémentation → migration non appliquée sur la base locale.
 Testée sur une instance Postgres jetable (numérotation + idempotence), pas sur Supabase.
+
+
+## Mise à jour 2026-09-10 — identité légale en variables d'env
+
+Les mentions légales ne sont plus dans le code : `lib/company.ts` lit
+`COMPANY_LEGAL_NAME`, `COMPANY_SIRET`, `COMPANY_ADDRESS`, etc.
+Un SIRET et une adresse de siège ne se committent pas, et diffèrent entre preview et prod.
+
+- **Serveur uniquement** (pas de `NEXT_PUBLIC_`) : les factures sont rendues dans le webhook.
+- `assertCompanyConfigured()` nomme les variables manquantes dans son message.
+- `COMPANY_VAT_REGIME` : `franchise` par défaut (mention 293 B).
+  En `standard`, `COMPANY_VAT_NUMBER` devient obligatoire.
+- Toutes documentées dans `landing/.env.example`.
+
+⚠️ **En prod** : à renseigner dans Vercel → Settings → Environment Variables.
+Sans elles le paiement et le provisioning marchent, mais aucune facture n'est émise —
+échec silencieux côté client, visible seulement dans les logs (`[INVOICE_CONFIG]`).
