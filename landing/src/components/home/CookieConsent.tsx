@@ -56,23 +56,29 @@ export function CookieConsent() {
     // modal either — the site stays usable while it is open, which is itself a
     // compliance point, since refusing must be as easy as accepting and
     // neither may be forced.
+    //
+    // A floating pill rather than a full-width bar: the bar read as a second
+    // page footer and cut the hero in half. Inset from the edges and rounded,
+    // it registers as an overlay the visitor can answer and dismiss, which is
+    // what it is. It still spans the width on the narrowest screens, where
+    // there is no room to inset anything.
     <div
       role="dialog"
       aria-labelledby="cookie-consent-text"
       // Marked so ContactBubble can measure this banner and sit above it: its
       // height depends on the locale's text length, so it cannot be hardcoded.
       data-cookie-banner=""
-      className="fixed inset-x-0 bottom-0 z-50 border-t border-studio-lavande/40 bg-white p-4 shadow-[0_-4px_24px_rgba(75,63,114,0.10)] md:p-6"
+      className="fixed inset-x-3 bottom-3 z-50 mx-auto max-w-3xl rounded-3xl border border-studio-jaune/40 bg-studio-violet/95 px-5 py-4 shadow-[0_8px_32px_rgba(75,63,114,0.28)] backdrop-blur-sm sm:inset-x-6 sm:bottom-6 sm:px-6"
     >
-      <div className="mx-auto flex max-w-5xl flex-col gap-4 md:flex-row md:items-center md:justify-between">
+      <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between sm:gap-5">
         <p
           id="cookie-consent-text"
-          className="font-body text-sm leading-relaxed text-studio-violet/80"
+          className="font-body text-xs leading-relaxed text-studio-creme/85"
         >
           {t("bannerText")}{" "}
           <Link
             href="/legal/privacy"
-            className="text-studio-pourpre underline underline-offset-4"
+            className="text-studio-jaune underline underline-offset-4 transition-opacity hover:opacity-80"
           >
             {t("learnMore")}
           </Link>
@@ -82,18 +88,18 @@ export function CookieConsent() {
             accept. A refusal that is harder to reach than an acceptance is the
             specific pattern the CNIL calls out, so neither button is a
             low-contrast afterthought. */}
-        <div className="flex shrink-0 gap-3">
+        <div className="flex shrink-0 gap-2">
           <button
             type="button"
             onClick={() => answer("denied")}
-            className="flex-1 rounded-full border border-studio-lavande px-5 py-2.5 font-body text-sm tracking-luxe text-studio-violet transition-colors hover:bg-studio-lavande/20 md:flex-none"
+            className="flex-1 rounded-full border border-studio-jaune/70 px-4 py-2 font-body text-xs tracking-luxe text-studio-jaune transition-colors hover:bg-studio-jaune/15 sm:flex-none"
           >
             {t("declineButton")}
           </button>
           <button
             type="button"
             onClick={() => answer("granted")}
-            className="flex-1 rounded-full bg-studio-jaune px-5 py-2.5 font-body text-sm tracking-luxe text-studio-violet transition-opacity hover:opacity-90 md:flex-none"
+            className="flex-1 rounded-full bg-studio-jaune px-4 py-2 font-body text-xs tracking-luxe text-studio-violet transition-opacity hover:opacity-90 sm:flex-none"
           >
             {t("acceptButton")}
           </button>

@@ -3,7 +3,7 @@
 import { AnimatePresence, motion } from "framer-motion";
 import { ArrowRight, Mail, MessageCircle, X } from "lucide-react";
 import { useTranslations } from "next-intl";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 import { Link, usePathname } from "@/navigation";
 
@@ -97,11 +97,30 @@ export function ContactBubble() {
   // hardcoded: the banner's height depends on how long the consent sentence is
   // in the current locale, and it disappears for good once answered.
   const [bannerHeight, setBannerHeight] = useState(0);
+  // Measured against the banner to decide whether the two actually overlap.
+  const buttonRef = useRef<HTMLButtonElement>(null);
 
   useEffect(() => {
     const measure = () => {
       const banner = document.querySelector<HTMLElement>("[data-cookie-banner]");
-      setBannerHeight(banner ? banner.offsetHeight + BANNER_GAP_PX : 0);
+      if (!banner) {
+        setBannerHeight(0);
+        return;
+      }
+
+      // Only step aside when the banner is actually in the way. Since it became
+      // a centred pill it clears the bubble entirely on a wide screen, and
+      // lifting anyway left the bubble floating for no reason. On a phone the
+      // pill still spans the width, so the overlap test is what decides — not
+      // a breakpoint, which would have to be kept in sync with the pill's own.
+      const box = banner.getBoundingClientRect();
+      const bubble = buttonRef.current?.getBoundingClientRect();
+      const overlapsHorizontally =
+        !bubble || (bubble.right > box.left && bubble.left < box.right);
+
+      setBannerHeight(
+        overlapsHorizontally ? banner.offsetHeight + BANNER_GAP_PX : 0,
+      );
     };
     measure();
     // The banner mounts after hydration and unmounts on answer, and it reflows
@@ -156,6 +175,7 @@ export function ContactBubble() {
           `end-*` rather than `right-*` so the bubble moves to the left in
           Arabic. z-30 keeps it under MobileMenu's scrim (z-40). */}
       <button
+        ref={buttonRef}
         type="button"
         onClick={() => setOpen((value) => !value)}
         aria-expanded={open}
