@@ -59,6 +59,9 @@ export function CookieConsent() {
     <div
       role="dialog"
       aria-labelledby="cookie-consent-text"
+      // Marked so ContactBubble can measure this banner and sit above it: its
+      // height depends on the locale's text length, so it cannot be hardcoded.
+      data-cookie-banner=""
       className="fixed inset-x-0 bottom-0 z-50 border-t border-studio-lavande/40 bg-white p-4 shadow-[0_-4px_24px_rgba(75,63,114,0.10)] md:p-6"
     >
       <div className="mx-auto flex max-w-5xl flex-col gap-4 md:flex-row md:items-center md:justify-between">

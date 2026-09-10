@@ -9,6 +9,25 @@ import { Link, usePathname } from "@/navigation";
 
 const SUPPORT_EMAIL = "contact@thestudiopapeteriedigitale.com";
 
+// Same threshold as ScrollToTop, deliberately: the two buttons share a corner,
+// so they must appear and disappear together or the stack looks broken.
+const SHOW_AFTER_PX = 600;
+
+/**
+ * How far up to sit while the cookie banner is on screen.
+ *
+ * The banner is `fixed inset-x-0 bottom-0 z-50`, full width and above this
+ * bubble, and on a phone its text wraps to three or four lines — so it covered
+ * the bubble completely on mobile while leaving it visible on desktop, where
+ * the same banner is a single flat row. Raising the z-index instead would put
+ * the bubble on top of the consent prompt, which is the one thing on the page
+ * that must be answered first.
+ *
+ * So the bubble steps out of the way and measures the banner rather than
+ * guessing a height, because that height depends on the locale's text length.
+ */
+const BANNER_GAP_PX = 12;
+
 /**
  * WhatsApp's own glyph, inlined.
  *
@@ -56,6 +75,46 @@ export function ContactBubble() {
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
 
+  // Appears on scroll, like ScrollToTop and at the same threshold, so the two
+  // floating controls arrive together instead of one greeting the visitor
+  // before they have read anything.
+  const [scrolled, setScrolled] = useState(false);
+
+  useEffect(() => {
+    const onScroll = () => {
+      const past = window.scrollY > SHOW_AFTER_PX;
+      setScrolled(past);
+      // Scrolling back to the top hides the button, so the panel has to go
+      // with it — otherwise it hangs there with nothing to close it.
+      if (!past) setOpen(false);
+    };
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
+  // Lift above the cookie banner for as long as it is on screen. Measured, not
+  // hardcoded: the banner's height depends on how long the consent sentence is
+  // in the current locale, and it disappears for good once answered.
+  const [bannerHeight, setBannerHeight] = useState(0);
+
+  useEffect(() => {
+    const measure = () => {
+      const banner = document.querySelector<HTMLElement>("[data-cookie-banner]");
+      setBannerHeight(banner ? banner.offsetHeight + BANNER_GAP_PX : 0);
+    };
+    measure();
+    // The banner mounts after hydration and unmounts on answer, and it reflows
+    // on rotation — so watch the DOM rather than measuring once.
+    const observer = new MutationObserver(measure);
+    observer.observe(document.body, { childList: true, subtree: true });
+    window.addEventListener("resize", measure);
+    return () => {
+      observer.disconnect();
+      window.removeEventListener("resize", measure);
+    };
+  }, []);
+
   // Hidden on /contact: the form is already on screen there, so the bubble
   // would only offer a route to the page the visitor is standing on.
   const onContactPage = pathname === "/contact";
@@ -101,7 +160,17 @@ export function ContactBubble() {
         onClick={() => setOpen((value) => !value)}
         aria-expanded={open}
         aria-label={t("bubbleAriaLabel")}
-        className="fixed bottom-24 end-6 z-30 flex h-12 w-12 items-center justify-center rounded-full bg-studio-violet text-studio-jaune shadow-lg transition-transform hover:scale-105 active:scale-95 md:bottom-28 md:end-8"
+        // `visibility` rather than unmounting, so the fade can play and the
+        // button leaves the tab order while hidden — same approach as
+        // ScrollToTop.
+        aria-hidden={!scrolled}
+        tabIndex={scrolled ? 0 : -1}
+        style={{ marginBottom: bannerHeight }}
+        className={`fixed bottom-24 end-6 z-30 flex h-12 w-12 items-center justify-center rounded-full bg-studio-violet text-studio-jaune shadow-lg transition-[opacity,transform,visibility] duration-200 hover:scale-105 active:scale-95 md:bottom-28 md:end-8 ${
+          scrolled
+            ? "visible translate-y-0 opacity-100"
+            : "invisible translate-y-4 opacity-0"
+        }`}
       >
         <AnimatePresence mode="wait" initial={false}>
           <motion.span
@@ -146,6 +215,7 @@ export function ContactBubble() {
               role="dialog"
               aria-modal="false"
               aria-label={t("title")}
+              style={{ marginBottom: bannerHeight }}
               className="fixed bottom-40 end-6 z-30 w-[min(20rem,calc(100vw-3rem))] overflow-hidden rounded-3xl bg-white text-start shadow-[0_18px_48px_rgba(75,63,114,0.18)] md:bottom-44 md:end-8"
             >
               <div className="bg-studio-violet px-5 py-4">
