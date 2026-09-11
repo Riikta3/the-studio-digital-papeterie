@@ -1,6 +1,6 @@
 ---
 date: 2026-09-11
-status: open
+status: in-progress
 category: security
 ---
 
@@ -17,6 +17,11 @@ Répartition : **6 critiques · 24 élevés · 13 moyens · 2 faibles**.
 > Un premier passage avait laissé 3 findings sans verdict (agents en timeout). La relance
 > les a tous traités et a fait remonter **4 findings supplémentaires, dont 3 élevés** —
 > tous dans la dimension DoS/coûts.
+
+> [!success] Correctifs appliqués — 5 lots, commits `9871f4d8` → `16d37b88`
+> Les 6 critiques et la majorité des élevés sont corrigés et vérifiés contre une
+> base locale (attaques rejouées avec la clé anon, deux mariages seedés).
+> Voir « Ce qui reste » en fin de note.
 
 > [!note] Fiabilité du tri
 > Échantillon des *réfutés* recontrôlé à la main (4 findings `guest-actions.ts`, buckets
@@ -160,11 +165,48 @@ chemin public.
   jamais depuis le client. Les ~12 actions qui l'utilisent ne sont pas vulnérables à l'IDOR.
 - **Montant du checkout non manipulable** (recalcul serveur + comparaison Stripe).
 
+## Ce qui reste ouvert
+
+- **Purge des données personnelles sur `invoices`.** La suppression de compte
+  fonctionne (la facture se détache, `user_id` → null), mais `customer_email` et
+  `customer_name` subsistent sur la pièce comptable — c'est volontaire tant que court
+  l'obligation de conservation. La purge datée reste à écrire.
+- **`rsvp_mode` par défaut `'closed'`.** Les RPC du lot 1 le respectent enfin, donc
+  l'inscription libre est refusée partout où le couple ne l'a pas activée — or il n'y a
+  **aucun réglage dans le dashboard** pour l'ouvrir. À ajouter avant de compter sur le
+  mode ouvert.
+- **`wedding_code` sans contrainte `unique`** alors qu'il est résolu avec `limit 1` :
+  deux couples tirant le même code se voleraient mutuellement leurs invités.
+- Les findings moyens et faibles non traités (voir le tableau ci-dessus).
+- **Aucun test en navigateur.** Tout est vérifié au niveau HTTP, SQL et type ; un passage
+  manuel sur le checkout, le RSVP invité et le dashboard reste à faire avant déploiement.
+
 ## Notes de méthode
 
 - Le middleware existe bien, sous le nom **`proxy.ts`** (convention Next.js 16) dans les
   deux apps — chercher `middleware.ts` donne un faux négatif.
-- `updateSession()` dans `dashboard/src/utils/supabase/middleware.ts` est **du code mort** :
-  défini, jamais importé.
+- `updateSession()` dans `dashboard/src/utils/supabase/middleware.ts` était **du code mort** :
+  défini, jamais importé. Branché depuis le lot 2.
+
+### Ce que seul le test d'exécution a révélé
+
+Trois défauts n'ont été trouvés qu'en exécutant le code contre une vraie base, jamais
+par lecture :
+
+1. **Un correctif inopérant.** La première version du lot 1 gardait les policies en
+   ajoutant un prédicat de visibilité. L'attaque rejouée renvoyait toujours les deux
+   mariages : une policy filtre la *visibilité*, jamais l'*identité*. Il a fallu passer
+   aux RPC.
+2. **`song_request` / `transportation` n'existaient pas en base** alors que le formulaire
+   les collecte et que les types TS les déclarent. Chaque RSVP échouait avec
+   `column does not exist`, erreur avalée par l'ancien code qui répondait `success`.
+3. **Une régression introduite par le lot 3.** La policy d'upload invité lit
+   `day_of_settings` via un `exists`, lecture elle-même filtrée par RLS : elle reposait
+   sur la policy anon supprimée au lot 3. Tout upload invité était refusé. Une migration
+   qui ne mentionne jamais `guest_media` cassait `guest_media`.
+
+Leçon pour la suite : sur ce projet, une policy RLS ne se valide pas en la lisant. Il faut
+insérer sous le rôle `anon` dans une transaction — `SET LOCAL` hors transaction s'exécute
+en superuser et « prouve » le contraire.
 
 Liens : [[Provisioning et Facturation]] · [[Base de Données]] · [[Conventions]]
