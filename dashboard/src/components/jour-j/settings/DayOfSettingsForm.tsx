@@ -6,6 +6,44 @@ import { useTranslations } from "next-intl";
 import { useState } from "react";
 import { toast } from "sonner";
 
+/**
+ * The last instant of `day` (a "YYYY-MM-DD" from a date input), as an ISO
+ * timestamp, in the browser's own timezone.
+ *
+ * This used to be `${day}T23:59:59.999Z`, which pins the end of the day in
+ * UTC, not where the couple lives. In Paris in summer (UTC+2) that keeps
+ * uploads open until 01:59 the following night; west of Greenwich it closes
+ * them hours before the chosen day is over. Guests uploading photos on the
+ * evening of the wedding are exactly the people that difference hits.
+ *
+ * Building the Date from its parts (rather than parsing the string) is what
+ * makes it local: `new Date("2027-06-19")` is UTC midnight, while
+ * `new Date(2027, 5, 19)` is local midnight.
+ */
+function endOfLocalDay(day: string): string {
+  const [y, m, d] = day.split("-").map(Number);
+  if (!y || !m || !d) return day;
+
+  return new Date(y, m - 1, d, 23, 59, 59, 999).toISOString();
+}
+
+/**
+ * The stored timestamp as the "YYYY-MM-DD" the date input expects, read in the
+ * browser's timezone so the field shows the day the couple actually picked.
+ *
+ * `.slice(0, 10)` on the ISO string would show the UTC day, which is the
+ * previous one for any evening timestamp east of Greenwich — the field would
+ * display a different date from the one just saved.
+ */
+function localDayOf(iso: string): string {
+  const date = new Date(iso);
+  if (Number.isNaN(date.getTime())) return iso.slice(0, 10);
+
+  const pad = (n: number) => String(n).padStart(2, "0");
+
+  return `${date.getFullYear()}-${pad(date.getMonth() + 1)}-${pad(date.getDate())}`;
+}
+
 function Toggle({
   label, hint, checked, onChange,
 }: {
@@ -95,15 +133,12 @@ export function DayOfSettingsForm({
             </span>
             <input
               type='date'
-              value={settings.uploadsOpenUntil.slice(0, 10)}
+              value={localDayOf(settings.uploadsOpenUntil)}
               onChange={(e) => {
                 const day = e.target.value;
                 const previous = settings;
-                // A date input yields "YYYY-MM-DD", which Date parses as UTC midnight.
-                // Uploads stay open *through* the chosen day, so pin the end of it
-                // rather than letting the parse collapse it to the start.
                 const uploadsOpenUntil = day
-                  ? `${day}T23:59:59.999Z`
+                  ? endOfLocalDay(day)
                   : previous.uploadsOpenUntil;
                 setSettings((prev) => ({ ...prev, uploadsOpenUntil }));
                 void save({ uploadsOpenUntil }, previous);

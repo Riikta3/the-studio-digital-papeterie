@@ -93,15 +93,26 @@ export async function saveGalleryConfig(imageUrls: string[]): Promise<void> {
     .eq("module_id", "gallery")
     .maybeSingle();
 
+  // Both branches used to discard their error, so a failed write returned
+  // normally and the screen said "photos ajoutées" over a gallery that had
+  // saved nothing. Thrown rather than returned: every caller of this action
+  // already treats a throw as the failure path.
   if (!existing) {
-    await supabase.from("site_modules").insert({
+    const { error } = await supabase.from("site_modules").insert({
       site_id: site.id,
       module_id: "gallery",
       config: { images: imageUrls },
       position: 0,
     });
+
+    if (error) throw new Error(error.message);
   } else {
-    await supabase.from("site_modules").update({ config: { images: imageUrls } }).eq("id", existing.id);
+    const { error } = await supabase
+      .from("site_modules")
+      .update({ config: { images: imageUrls } })
+      .eq("id", existing.id);
+
+    if (error) throw new Error(error.message);
   }
 
   for (const locale of ["fr", "en", "de", "es", "pt", "it", "ar", "zh", "ja"]) {
