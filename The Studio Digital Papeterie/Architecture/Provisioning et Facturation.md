@@ -79,3 +79,47 @@ Un SIRET et une adresse de siège ne se committent pas, et diffèrent entre prev
 ⚠️ **En prod** : à renseigner dans Vercel → Settings → Environment Variables.
 Sans elles le paiement et le provisioning marchent, mais aucune facture n'est émise —
 échec silencieux côté client, visible seulement dans les logs (`[INVOICE_CONFIG]`).
+
+
+## Un compte = un mariage — contrainte v1 assumée
+
+**Décision (2026-09-10)** : un compte ne peut posséder qu'un seul mariage.
+Garde serveur dans `create-wedding.ts`, après `findUserByEmail`.
+
+### Pourquoi
+
+Le store Zustand survivait au paiement : revenir en arrière depuis le dashboard
+affichait un formulaire de paiement **fonctionnel**, pré-rempli avec le même panier.
+La garde de rejeu est indexée sur le PaymentIntent — un second checkout en crée un
+nouveau, donc elle ne voyait rien. Résultat : **double débit + second site créé**.
+
+Trois protections en profondeur :
+1. `completeOrder()` vide le panier après provisioning (+ `completedAt`)
+2. Écran « commande finalisée » au retour arrière
+3. **Refus serveur** si le compte a déjà un mariage → **remboursement automatique**
+   (`refundPayment()`, idempotent via `metadata.refunded_reason`)
+
+Le refus arrive *après* encaissement : refuser en gardant l'argent serait pire que le bug.
+
+### ⚠️ À ouvrir en v2 : plusieurs mariages par compte
+
+Cas légitimes aujourd'hui refusés (puis remboursés, traités à la main) :
+wedding planner, couple offrant une invitation, second événement.
+
+**Coût réel mesuré** : ~**25 requêtes `.single()` sur `weddings` dans 18 fichiers**
+du dashboard. `.single()` **lève une exception dès qu'il y a deux lignes** — donc
+le dashboard casse silencieusement à la seconde où la contrainte saute.
+
+Ordre de migration :
+1. Router les copies inline vers `lib/db/current-wedding.ts` (`requireWedding()`)
+   — elles sont le vrai risque, pas la garde du checkout
+2. Introduire la notion de « mariage courant » (sélecteur UI + session ou URL)
+3. Ajouter un point d'entrée explicite « commander une autre invitation », porteur
+   d'un flag que la garde honore
+
+⚠️ **Ne pas simplement supprimer la garde** : ça restaurerait le double débit
+au bouton Précédent qu'elle a été écrite pour empêcher. La distinction à faire est
+*second achat intentionnel* vs *répétition accidentelle*.
+
+Tout l'aval est déjà clé par `wedding_id` et non `user_id` — c'est ce qui rend
+la v2 raisonnable.

@@ -98,7 +98,7 @@ export async function createWedding(data: CreateWeddingData) {
     // the payment already went through, so this signs them back in.
     userId = existingUser.id;
 
-    // One account, one wedding.
+    // One account, one wedding — a v1 constraint, not a domain truth.
     //
     // Guards the double-purchase path: the order store survives checkout, so
     // navigating back from the dashboard used to show a working payment form
@@ -108,6 +108,17 @@ export async function createWedding(data: CreateWeddingData) {
     //
     // Checked server-side rather than in the browser because the store is
     // localStorage: clearing it is one devtools click away.
+    //
+    // ── Planned for v2: multiple weddings per account ──────────────────────
+    // Wedding planners and couples gifting an invitation are legitimate
+    // second purchases, and today they are refused and refunded here, then
+    // handled by hand. Everything downstream is already keyed by wedding_id
+    // rather than user_id, so lifting this is mostly about telling an
+    // intentional second order apart from an accidental repeat — an explicit
+    // "order another invitation" entry point carrying a flag this guard
+    // honours, rather than removing the check. Deleting it outright would
+    // restore the Back-button double charge this was written to stop.
+    // See the vault note "Provisioning et Facturation".
     const { data: existingWedding } = await supabaseAdmin
       .from("weddings")
       .select("id")
