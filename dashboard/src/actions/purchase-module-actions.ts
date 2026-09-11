@@ -4,11 +4,10 @@ import { supabaseAdmin } from "@/lib/supabase-admin";
 import { createClient } from "@/utils/supabase/server";
 import { APP_MODULES } from "@shared/data/modules";
 import { revalidatePath } from "next/cache";
-import Stripe from "stripe";
+import type Stripe from "stripe";
 
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY || "sk_test_fallback", {
-  apiVersion: "2024-06-20" as any,
-});
+import { stripe } from "@/lib/stripe";
+
 
 /**
  * Called after Stripe payment confirmation.

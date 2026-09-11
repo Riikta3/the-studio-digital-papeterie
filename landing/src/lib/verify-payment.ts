@@ -16,6 +16,20 @@ export type PaymentCheck =
 export async function verifyPaymentForOrder(
   paymentIntentId: string,
   items: OrderItems,
+  /**
+   * The email provisioning is about to create the account under. It must match
+   * the one recorded on the intent when it was created.
+   *
+   * Without this the amount was checked but the buyer was not: a payment
+   * reference is not a secret (it reaches the browser that paid, and any
+   * proxy or log along the way), and provisioning is an unauthenticated
+   * endpoint. Whoever replayed a not-yet-provisioned id with their own address
+   * received the wedding someone else had just paid for, magic link included.
+   *
+   * Optional so the webhook path, which reads the address off the intent
+   * itself and therefore cannot disagree with it, can keep calling without it.
+   */
+  expectedEmail?: string,
 ): Promise<PaymentCheck> {
   if (!paymentIntentId) {
     return { ok: false, reason: "Référence de paiement manquante." };
@@ -38,6 +52,25 @@ export async function verifyPaymentForOrder(
       ok: false,
       reason: `Paiement non abouti (statut : ${intent.status}).`,
     };
+  }
+
+  // The buyer must be the one the intent was created for. Compared case- and
+  // whitespace-insensitively, since the address makes a round trip through the
+  // browser between checkout and provisioning.
+  if (expectedEmail) {
+    const paidBy = (
+      intent.metadata?.email ||
+      intent.receipt_email ||
+      ""
+    )
+      .trim()
+      .toLowerCase();
+
+    if (!paidBy || paidBy !== expectedEmail.trim().toLowerCase()) {
+      // Deliberately vague: this is reachable without authentication, and
+      // naming the address on the intent would leak who paid.
+      return { ok: false, reason: "Paiement introuvable." };
+    }
   }
 
   // Guards against paying for a cheap order and then upgrading the cart

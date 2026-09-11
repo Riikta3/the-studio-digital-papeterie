@@ -50,12 +50,18 @@ export async function createWedding(data: CreateWeddingData) {
 
   // 0. VERIFY PAYMENT — this action is reachable as an HTTP endpoint, so the
   // order is only provisioned once Stripe confirms it was actually paid.
-  const payment = await verifyPaymentForOrder(data.paymentIntentId, {
-    plan: data.plan,
-    modules: data.modules,
-    languages: data.languages,
-    extras: data.extras,
-  });
+  const payment = await verifyPaymentForOrder(
+    data.paymentIntentId,
+    {
+      plan: data.plan,
+      modules: data.modules,
+      languages: data.languages,
+      extras: data.extras,
+    },
+    // Ties the order to the buyer: this endpoint is unauthenticated, so a
+    // payment reference on its own must not be enough to claim the wedding.
+    data.email,
+  );
 
   if (!payment.ok) {
     console.warn("🚫 Provisioning refused:", payment.reason);
