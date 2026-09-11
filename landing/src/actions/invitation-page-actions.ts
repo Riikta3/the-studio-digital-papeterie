@@ -165,12 +165,10 @@ export async function getInvitationPage(
       // security-definer RPC is the narrow path to just the two display names
       // (see 20260902190000_couple_display_names.sql).
       supabase.rpc("get_couple_display_names", { p_wedding_id: weddingId }),
-      supabase
-        .from("events")
-        .select("id, key, name, date, time, address, description, dress_code")
-        .eq("wedding_id", weddingId)
-        .eq("enabled", true)
-        .order("position", { ascending: true }),
+      // Same narrow-RPC reason as the names above: the anon policy on `events`
+      // returned every wedding's events to a direct PostgREST call, so it was
+      // replaced by this function in 20260911110000_narrow_events_anon_read.sql.
+      supabase.rpc("public_wedding_events", { p_wedding_id: weddingId }),
       supabase
         .from("schedule_entries")
         .select("id, event_id, time, title, description, position")
@@ -197,7 +195,23 @@ export async function getInvitationPage(
     ]);
 
   const names = namesRes.data?.[0];
-  const events = (eventsRes.data ?? []).map((row) => ({
+
+  /** One row of `public_wedding_events` (20260911110000_narrow_events_anon_read.sql). */
+  type PublicEventRow = {
+    id: string;
+    key: string;
+    name: string;
+    date: string | null;
+    time: string | null;
+    address: string | null;
+    description: string | null;
+    dress_code: string | null;
+    position: number | null;
+  };
+
+  // `rpc()` gives back an untyped row (the generated types do not cover the
+  // function), so the shape is named explicitly before mapping.
+  const events = ((eventsRes.data ?? []) as PublicEventRow[]).map((row) => ({
     id: row.id as string,
     key: row.key as string,
     name: row.name as string,

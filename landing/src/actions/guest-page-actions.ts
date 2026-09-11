@@ -3,6 +3,19 @@
 import { createClient } from "@/utils/supabase/server";
 import type { MenuCategoryKey } from "@shared/types/jour-j";
 
+/** One row of `public_wedding_events` (20260911110000_narrow_events_anon_read.sql). */
+type PublicEventRow = {
+  id: string;
+  key: string;
+  name: string;
+  date: string | null;
+  time: string | null;
+  address: string | null;
+  description: string | null;
+  dress_code: string | null;
+  position: number | null;
+};
+
 /**
  * Everything the anonymous Jour J guest page reads, and its ONLY route into
  * the guest list.
@@ -115,19 +128,15 @@ export async function resolveGuestPage(
 
   const weddingId = site.wedding_id as string;
 
-  // The anon policy on `day_of_settings` is `using (enabled = true)`, so a
-  // disabled module yields no row at all rather than a row saying `false`.
-  // Filtering on `enabled` as well is redundant against that policy and kept
-  // on purpose: a policy changed by mistake must not be enough to render a
-  // page the couple has switched off.
-  const { data: settings } = await supabase
-    .from("day_of_settings")
-    .select(
-      "enabled, gallery_visible_to_guests, uploads_open_until, after_wedding_mode, venue_plan_url",
-    )
-    .eq("wedding_id", weddingId)
-    .eq("enabled", true)
-    .maybeSingle();
+  // `public_day_of_settings` returns no row at all when the module is off,
+  // rather than a row saying `false` — the same guarantee the anon policy used
+  // to give, now carried by the RPC that replaced it
+  // (20260911110000_narrow_events_anon_read.sql).
+  const { data: settingsRows } = await supabase.rpc("public_day_of_settings", {
+    p_wedding_id: weddingId,
+  });
+
+  const settings = Array.isArray(settingsRows) ? settingsRows[0] : settingsRows;
 
   if (!settings) return null;
 
@@ -220,12 +229,10 @@ export async function getGuestPageData(
 
   const [namesRes, eventsRes, menuRes] = await Promise.all([
     supabase.rpc("get_couple_display_names", { p_wedding_id: weddingId }),
-    supabase
-      .from("events")
-      .select("key, name, date, time, address, description, dress_code")
-      .eq("wedding_id", weddingId)
-      .eq("enabled", true)
-      .order("position", { ascending: true }),
+    // Narrow RPC rather than a table read: the anon policy on `events` served
+    // every wedding's events to a direct PostgREST call
+    // (20260911110000_narrow_events_anon_read.sql).
+    supabase.rpc("public_wedding_events", { p_wedding_id: weddingId }),
     supabase
       .from("menu_categories")
       .select(
@@ -240,7 +247,11 @@ export async function getGuestPageData(
     | { first_name: string | null; partner_name: string | null }[]
     | null)?.[0];
 
-  const events: GuestPageEvent[] = (eventsRes.data ?? []).map((e) => ({
+  // `rpc()` returns an untyped row here (the generated types do not cover the
+  // function), so the shape is named explicitly — same approach as `nameRow`.
+  const eventRows = (eventsRes.data ?? []) as PublicEventRow[];
+
+  const events: GuestPageEvent[] = eventRows.map((e) => ({
     key: e.key as string,
     name: e.name as string,
     date: (e.date as string | null) ?? null,
