@@ -37,10 +37,44 @@ const stripePromise = loadStripe(
 /** Where a customer whose provisioning failed can reach a human. */
 const SUPPORT_EMAIL = "contact@thestudiopapeteriedigitale.com";
 
+/**
+ * French month names, kept only to read back orders stored before the fix
+ * below — see `monthIndexFrom`.
+ */
 const MONTHS_FR = [
   "Janvier", "Février", "Mars", "Avril", "Mai", "Juin",
   "Juillet", "Août", "Septembre", "Octobre", "Novembre", "Décembre",
 ];
+
+/**
+ * Turns the stored month label into a 1-12 index.
+ *
+ * The start page writes `weddingInfo.month` as the *translated* label it
+ * rendered (`t.raw("months")`, studio/start/page.tsx:86), so it holds
+ * "January" for an English couple and "1月" for a Japanese one. This function
+ * used to match that against `MONTHS_FR` alone, which returns -1 for all eight
+ * non-French locales — `weddingDate` then fell to `undefined` and the couple's
+ * wedding date was silently dropped at checkout, with no error shown and
+ * nothing in the Stripe metadata for the webhook to recover from.
+ *
+ * The localised list is therefore the one that matters; MONTHS_FR stays as a
+ * fallback because the order store is persisted, so a basket started before
+ * this deploy still carries whatever label it was written with.
+ */
+function monthIndexFrom(month: string, localisedMonths: string[]): number {
+  const needle = month.trim().toLowerCase();
+  if (!needle) return 0;
+
+  const inLocale = localisedMonths.findIndex(
+    (m) => m.trim().toLowerCase() === needle,
+  );
+  if (inLocale >= 0) return inLocale + 1;
+
+  const inFrench = MONTHS_FR.findIndex(
+    (m) => m.trim().toLowerCase() === needle,
+  );
+  return inFrench >= 0 ? inFrench + 1 : 0;
+}
 
 
 function labelFor(id: string, list: { id: string; name: string }[]): string {
@@ -55,18 +89,22 @@ function labelFor(id: string, list: { id: string; name: string }[]): string {
  * creation: the webhook fallback provisions from that metadata alone, and a
  * name derived differently there would create a wedding under another name.
  */
-function toWeddingIdentity(info: {
-  partner1: string;
-  partner2: string;
-  day: string;
-  month: string;
-  year: string;
-}) {
+function toWeddingIdentity(
+  info: {
+    partner1: string;
+    partner2: string;
+    day: string;
+    month: string;
+    year: string;
+  },
+  /** `StudioStart.months` in the locale the couple is ordering in. */
+  localisedMonths: string[],
+) {
   const nameParts = info.partner1.trim().split(" ");
   const firstName = nameParts[0] || info.partner1;
   const lastName = nameParts.slice(1).join(" ") || "";
 
-  const monthIndex = MONTHS_FR.indexOf(info.month) + 1;
+  const monthIndex = monthIndexFrom(info.month, localisedMonths);
   const weddingDate =
     info.day && monthIndex > 0 && info.year
       ? `${info.year}-${String(monthIndex).padStart(2, "0")}-${String(info.day).padStart(2, "0")}`
@@ -195,6 +233,12 @@ function PaymentForm({
 
 export default function StudioCheckoutPage() {
   const t = useTranslations("StudioCheckout");
+  // The month labels the start page rendered, in this locale — the list
+  // `toWeddingIdentity` needs to read `weddingInfo.month` back (see
+  // `monthIndexFrom`).
+  const localisedMonths = useTranslations("StudioStart").raw(
+    "months",
+  ) as string[];
   const tLayout = useTranslations("StudioLayout");
   const tModules = useTranslations("StudioModules");
   // The plan names shown on the homepage, so the recap calls the offer exactly
@@ -260,7 +304,7 @@ export default function StudioCheckoutPage() {
     setProvisionError(null);
 
     const { firstName, lastName, partnerName, weddingDate } =
-      toWeddingIdentity(weddingInfo);
+      toWeddingIdentity(weddingInfo, localisedMonths);
 
     const result = await createWedding({
       paymentIntentId: intentId,
@@ -294,7 +338,7 @@ export default function StudioCheckoutPage() {
     }
   }, [
     weddingInfo, theme, modules, extras, languages, plan, adultsOnly,
-    animation, t, intentIdFromUrl, locale,
+    animation, t, intentIdFromUrl, locale, localisedMonths,
   ]);
 
   // Provision right away when Stripe redirected back after payment.
@@ -332,7 +376,7 @@ export default function StudioCheckoutPage() {
           adultsOnly,
         },
         email: weddingInfo.email,
-        weddingInfo: { ...toWeddingIdentity(weddingInfo), locale },
+        weddingInfo: { ...toWeddingIdentity(weddingInfo, localisedMonths), locale },
         // Reprice the same intent when the cart changed, instead of leaving a
         // stale amount attached to the mounted PaymentElement.
         paymentIntentId: intentIdRef.current,
