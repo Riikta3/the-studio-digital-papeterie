@@ -616,7 +616,8 @@
       "delete_description": "هذا الإجراء لا رجعة فيه. سيتم حذف {count} رد محدد نهائيًا.",
       "deleted": "تم حذف {count} رد"
     },
-    "dietary_other_placeholder": "أخرى (يرجى التحديد)..."
+    "dietary_other_placeholder": "أخرى (يرجى التحديد)...",
+    "truncated_notice": "يتم عرض أحدث {shown} ردًا من أصل {total}. يشمل عدد الأشخاص المتوقع هذه الردود فقط؛ أما بقية العدادات فهي كاملة."
   },
   "Billing": {
     "title": "الفواتير",

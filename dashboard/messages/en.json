@@ -687,7 +687,8 @@
       "delete_description": "This action is irreversible. The {count} selected response(s) will be permanently deleted.",
       "deleted": "{count} response(s) deleted"
     },
-    "dietary_other_placeholder": "Other (please specify)..."
+    "dietary_other_placeholder": "Other (please specify)...",
+    "truncated_notice": "Showing the {shown} most recent responses out of {total}. The expected headcount covers only these; the other counters are complete."
   },
   "EditGuestDialog": {
     "title": "Edit guest",

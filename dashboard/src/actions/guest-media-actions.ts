@@ -37,6 +37,17 @@ const BUCKET = "guest-media";
 const SIGNED_URL_TTL_SECONDS = 60 * 60;
 
 /**
+ * Most recent media the couple's gallery screen loads at once.
+ *
+ * Set well above a realistic wedding (the anon insert policy caps a wedding at
+ * 3000 files, 20260911140000) so the cap is a backstop rather than something
+ * couples meet, but low enough that the screen cannot fan out into thousands
+ * of Storage signing calls. Paging is the proper fix if a couple ever reaches
+ * this — see the note in `listGuestMedia`.
+ */
+const MAX_GALLERY_ROWS = 500;
+
+/**
  * Read action: called from the Server Component page. A throw here surfaces
  * as an error boundary, which is correct for a page that cannot render.
  *
@@ -58,7 +69,13 @@ export async function listGuestMedia(): Promise<GuestMedia[]> {
     .from("guest_media")
     .select("id, kind, uploader_name, created_at, hidden, storage_path, thumb_path")
     .eq("wedding_id", weddingId)
-    .order("created_at", { ascending: false });
+    .order("created_at", { ascending: false })
+    // Bounded because the rows below cost two Storage signing calls each, and
+    // this table is filled by anonymous guests: without a limit the couple's
+    // gallery screen issues two requests per uploaded file, on a list they
+    // cannot shorten. The guest-facing view of the same media has always
+    // capped at 60 (`GALLERY_LIMIT`, landing/src/actions/guest-page-actions.ts).
+    .limit(MAX_GALLERY_ROWS);
 
   if (error) throw new Error(error.message);
   if (!data || data.length === 0) return [];

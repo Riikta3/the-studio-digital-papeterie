@@ -616,7 +616,8 @@
       "delete_description": "Diese Aktion ist unwiderruflich. Die {count} ausgewählte(n) Antwort(en) werden endgültig gelöscht.",
       "deleted": "{count} Antwort(en) gelöscht"
     },
-    "dietary_other_placeholder": "Andere (bitte angeben)..."
+    "dietary_other_placeholder": "Andere (bitte angeben)...",
+    "truncated_notice": "Es werden die {shown} neuesten Rückmeldungen von insgesamt {total} angezeigt. Die erwartete Personenzahl bezieht sich nur auf diese; die übrigen Zähler sind vollständig."
   },
   "Billing": {
     "title": "Rechnungen",

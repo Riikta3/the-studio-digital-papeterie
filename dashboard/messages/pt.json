@@ -616,7 +616,8 @@
       "delete_description": "Esta ação é irreversível. As {count} resposta(s) selecionada(s) serão eliminadas permanentemente.",
       "deleted": "{count} resposta(s) eliminada(s)"
     },
-    "dietary_other_placeholder": "Outro (especifique)..."
+    "dietary_other_placeholder": "Outro (especifique)...",
+    "truncated_notice": "A mostrar as {shown} respostas mais recentes de um total de {total}. O número de pessoas previstas abrange apenas estas; os restantes contadores estão completos."
   },
   "Billing": {
     "title": "Faturação",

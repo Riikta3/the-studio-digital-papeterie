@@ -4,6 +4,25 @@ import { createClient } from "@/lib/supabase/server";
 import ExcelJS from "exceljs";
 import { revalidatePath } from "next/cache";
 
+/** Matches the couple-facing uploads in `media-upload-actions.ts`. */
+const MAX_IMPORT_BYTES = 10 * 1024 * 1024;
+
+const ALLOWED_IMPORT_TYPES = [
+  "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+  "application/vnd.ms-excel",
+  "application/octet-stream",
+];
+
+/**
+ * Rows read from one sheet.
+ *
+ * A guest list is a wedding's, not a mailing list's: the largest real one this
+ * product serves is a few hundred people. The cap is far above that and exists
+ * so a crafted workbook cannot turn one import into tens of thousands of
+ * inserts.
+ */
+const MAX_IMPORT_ROWS = 2000;
+
 // Mapping for headers and values (Reverse of Export)
 const IMPORT_MAPPINGS: {
   headers: { [key: string]: string };
@@ -153,6 +172,28 @@ export async function importGuestsFromExcel(formData: FormData) {
       return { success: false, error: "Aucun fichier fourni" };
     }
 
+    // Checked before `xlsx.load()`: parsing happens in memory on the server,
+    // and a workbook is compressed, so a small upload can expand into a very
+    // large sheet. Every other upload in this project already bounds its input
+    // (gallery-actions.ts:7 at 5 Mo, media-upload-actions.ts at 10 and 100 Mo);
+    // this one never did.
+    if (file.size > MAX_IMPORT_BYTES) {
+      return {
+        success: false,
+        error: `Le fichier dépasse ${MAX_IMPORT_BYTES / 1024 / 1024} Mo`,
+      };
+    }
+
+    // Some browsers post .xlsx with an empty or generic type, so an unknown
+    // type is allowed through and left for the parser to reject — only types
+    // that are definitely not a workbook are refused here.
+    if (file.type && !ALLOWED_IMPORT_TYPES.includes(file.type)) {
+      return {
+        success: false,
+        error: "Format non supporté (fichier Excel .xlsx attendu)",
+      };
+    }
+
     const supabase = await createClient();
     const {
       data: { user },
@@ -196,6 +237,16 @@ export async function importGuestsFromExcel(formData: FormData) {
 
     // Convert to JSON with raw headers
     const rawData = sheetToJson(worksheet);
+
+    // Refused rather than truncated: importing the first 2000 rows of a larger
+    // file and reporting success would leave the couple with a half-imported
+    // guest list and no way to tell which half.
+    if (rawData.length > MAX_IMPORT_ROWS) {
+      return {
+        success: false,
+        error: `Le fichier contient ${rawData.length} lignes (maximum ${MAX_IMPORT_ROWS}).`,
+      };
+    }
 
     if (rawData.length === 0) {
       return { success: false, error: "Le fichier est vide" };

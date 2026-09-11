@@ -23,21 +23,69 @@ export default async function RsvpResponsesPage() {
     .eq("user_id", user!.id)
     .single();
 
+  // Bounded: `rsvp_responses` accepts anonymous inserts (its policy is
+  // `with check (true)`), so the row count is not something the couple
+  // controls. Without a limit one flood makes this screen — their only view of
+  // who is coming — unusable.
+  //
+  // The stats below must still describe every response, so they are counted in
+  // the database rather than derived from this page of rows.
+  const MAX_ROWS = 500;
+
   const responses = wedding
     ? await supabase
         .from("rsvp_responses")
         .select("*")
         .eq("wedding_id", wedding.id)
         .order("submitted_at", { ascending: false })
+        .limit(MAX_ROWS)
         .then(({ data }) => data ?? [])
     : [];
 
-  // Stats
-  const total = responses.length;
-  const attending = responses.filter((r: any) => r.attendance === true).length;
-  const declined = responses.filter((r: any) => r.attendance === false).length;
-  const pending = responses.filter((r: any) => r.attendance === null).length;
+  const totalCount = wedding
+    ? await supabase
+        .from("rsvp_responses")
+        .select("id", { count: "exact", head: true })
+        .eq("wedding_id", wedding.id)
+        .then(({ count }) => count ?? 0)
+    : 0;
+
+  /** True when older responses exist beyond the ones listed below. */
+  const isTruncated = totalCount > responses.length;
+
+  // Stats — counted in the database, not derived from `responses`, which holds
+  // at most MAX_ROWS. Deriving them would quietly under-report the moment a
+  // couple passes that many responses.
+  const countByAttendance = async (
+    attendance: boolean | null,
+  ): Promise<number> => {
+    if (!wedding) return 0;
+
+    const base = supabase
+      .from("rsvp_responses")
+      .select("id", { count: "exact", head: true })
+      .eq("wedding_id", wedding.id);
+
+    const { count } =
+      attendance === null
+        ? await base.is("attendance", null)
+        : await base.eq("attendance", attendance);
+
+    return count ?? 0;
+  };
+
+  const [attending, declined, pending] = await Promise.all([
+    countByAttendance(true),
+    countByAttendance(false),
+    countByAttendance(null),
+  ]);
+
+  const total = totalCount;
   // Total persons = 1 respondent + actual participants list (or guest_count if list not filled yet)
+  //
+  // Unlike the counters above this one sums a jsonb array, so it is computed
+  // over the rows actually loaded. When the list is truncated the banner below
+  // says so rather than presenting a short total as the full one.
   const totalGuests = responses
     .filter((r: any) => r.attendance === true)
     .reduce((acc: number, r: any) => {
@@ -58,6 +106,20 @@ export default async function RsvpResponsesPage() {
           <p className="text-studio-violet/60">{t("subtitle")}</p>
         </div>
       </header>
+
+      {/* Only ever shown past MAX_ROWS responses, which no real wedding
+          reaches — it exists so a flood of anonymous submissions is visible as
+          a truncated list rather than as a silently short one. */}
+      {isTruncated && (
+        <div className="rounded-2xl border border-studio-jaune bg-studio-jaune/20 p-4">
+          <p className="text-sm text-studio-pourpre">
+            {t("truncated_notice", {
+              shown: responses.length,
+              total: totalCount,
+            })}
+          </p>
+        </div>
+      )}
 
       {/* Stats */}
       <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-5">

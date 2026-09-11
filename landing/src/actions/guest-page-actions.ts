@@ -1,7 +1,29 @@
 "use server";
 
+import { createHash } from "crypto";
+import { headers } from "next/headers";
+
 import { createClient } from "@/utils/supabase/server";
 import type { MenuCategoryKey } from "@shared/types/jour-j";
+
+/**
+ * An opaque per-caller bucket for the database-side rate limits.
+ *
+ * Postgres cannot see the client's IP, so it is derived here and hashed before
+ * it is sent: the database stores a digest, never an address. Not a boundary
+ * on its own — an attacker rotates IPs — which is why the RPCs also cap
+ * columns and rows, and keep a per-wedding ceiling above this one. Its job is
+ * to stop one source closing the search for a whole room.
+ */
+async function callerBucket(): Promise<string> {
+  const h = await headers();
+  const ip =
+    h.get("x-forwarded-for")?.split(",")[0]?.trim() ||
+    h.get("x-real-ip") ||
+    "unknown";
+
+  return createHash("sha256").update(ip).digest("hex");
+}
 
 /** One row of `public_wedding_events` (20260911110000_narrow_events_anon_read.sql). */
 type PublicEventRow = {
@@ -190,6 +212,7 @@ export async function searchMyTable(
   const { data, error } = await supabase.rpc("search_guest_table", {
     p_wedding_id: page.weddingId,
     p_query: trimmed,
+    p_bucket: await callerBucket(),
   });
 
   if (error || !data) return [];

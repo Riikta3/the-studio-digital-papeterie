@@ -288,7 +288,8 @@
       "delete_description": "Cette action est irréversible. Les {count} réponse(s) sélectionnée(s) seront définitivement supprimées.",
       "deleted": "{count} réponse(s) supprimée(s)"
     },
-    "dietary_other_placeholder": "Autre (précisez)..."
+    "dietary_other_placeholder": "Autre (précisez)...",
+    "truncated_notice": "Les {shown} réponses les plus récentes sont affichées, sur {total} au total. Le nombre de personnes attendues ne porte que sur celles-ci ; les autres compteurs sont complets."
   },
   "Sidebar": {
     "sections": {

@@ -616,7 +616,8 @@
       "delete_description": "この操作は取り消せません。選択した{count}件の回答は完全に削除されます。",
       "deleted": "{count}件の回答を削除しました"
     },
-    "dietary_other_placeholder": "その他（詳細を記入）..."
+    "dietary_other_placeholder": "その他（詳細を記入）...",
+    "truncated_notice": "最新の {shown} 件の回答を表示しています（全 {total} 件）。予定人数はこれらのみが対象です。他のカウンターは全件を反映しています。"
   },
   "Billing": {
     "title": "請求",

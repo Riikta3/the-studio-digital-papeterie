@@ -616,7 +616,8 @@
       "delete_description": "此操作不可撤销。所选的 {count} 条回复将被永久删除。",
       "deleted": "已删除 {count} 条回复"
     },
-    "dietary_other_placeholder": "其他（请注明）..."
+    "dietary_other_placeholder": "其他（请注明）...",
+    "truncated_notice": "显示最近的 {shown} 条回复，共 {total} 条。预计人数仅包含这些回复；其他计数器为完整数据。"
   },
   "Billing": {
     "title": "账单",
