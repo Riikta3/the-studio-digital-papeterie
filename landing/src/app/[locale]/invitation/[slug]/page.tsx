@@ -1,6 +1,6 @@
 import type { Viewport } from "next";
 import { getInvitationPage } from "@/actions/invitation-page-actions";
-import { notFound } from "next/navigation";
+import { notFound, redirect } from "next/navigation";
 import { resolveTheme } from "@/components/invitation/themes/registry";
 import { toInvitationData } from "@/lib/to-invitation-data";
 
@@ -16,6 +16,15 @@ import { toInvitationData } from "@/lib/to-invitation-data";
  * An unknown slug, an unpublished site and a wedding with no enabled event all
  * 404 identically: this page must not be usable to discover which couples
  * exist.
+ *
+ * ## Language
+ *
+ * The locale in the URL decides what the invitation is rendered in, but only
+ * among the languages the couple bought (`sites.languages`, their default
+ * first). A locale they did not buy redirects to that default rather than
+ * 404ing — a guest who opens a link with their own locale prefix should see
+ * the invitation, not an error, and half-translating it would be worse than
+ * serving the language the couple chose.
  */
 export async function generateViewport(): Promise<Viewport> {
   // The themes are drawn mobile-first around a ~390-520px frame, same as the
@@ -26,11 +35,18 @@ export async function generateViewport(): Promise<Viewport> {
 export default async function InvitationPage({
   params,
 }: {
-  params: Promise<{ slug: string }>;
+  params: Promise<{ locale: string; slug: string }>;
 }) {
-  const { slug } = await params;
+  const { locale, slug } = await params;
   const page = await getInvitationPage(slug);
   if (!page) notFound();
+
+  // An empty list means a wedding bought before languages were recorded;
+  // those render in whatever locale is asked for, as they always did.
+  const [fallback] = page.languages;
+  if (fallback && !page.languages.includes(locale)) {
+    redirect(`/${fallback}/invitation/${slug}`);
+  }
 
   // Falls back to the first registered theme rather than throwing: a stale or
   // mistyped id should still produce an invitation, not a 500 on a page a

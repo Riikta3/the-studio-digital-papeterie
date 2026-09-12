@@ -266,11 +266,26 @@ export default function StudioCheckoutPage() {
     animation,
     theme,
     modules,
+    primaryLanguage,
     languages,
     extras,
     adultsOnly,
     weddingInfo,
   } = useOrderStore();
+
+  /**
+   * The languages the invitation may be served in, default first.
+   *
+   * `languages` in the store holds only the *extra* languages the couple paid
+   * for, so the one they actually chose as their default was collected and
+   * then dropped — a wedding bought in French recorded no French at all. The
+   * order of this list is meaningful: the first entry is the default, and
+   * `/[locale]/invitation/...` only serves a locale that appears in it.
+   */
+  const orderedLanguages = [
+    primaryLanguage,
+    ...languages.filter((code) => code !== primaryLanguage),
+  ];
   const totalPrice = useOrderStore(selectTotalPrice);
   const hasHydrated = useOrderStore((s) => s._hasHydrated);
   const completedAt = useOrderStore((s) => s.completedAt);
@@ -327,7 +342,7 @@ export default function StudioCheckoutPage() {
       themeId: theme,
       modules,
       extras,
-      languages,
+      languages: orderedLanguages,
       plan: plan ?? "signature",
       adultsOnly,
       animationId: animation,
@@ -348,7 +363,7 @@ export default function StudioCheckoutPage() {
       setIsProvisioning(false);
     }
   }, [
-    weddingInfo, theme, modules, extras, languages, plan, adultsOnly,
+    weddingInfo, theme, modules, extras, orderedLanguages, plan, adultsOnly,
     animation, t, intentIdFromUrl, locale, localisedMonths,
   ]);
 
@@ -380,7 +395,7 @@ export default function StudioCheckoutPage() {
         items: {
           plan,
           modules,
-          languages,
+          languages: orderedLanguages,
           extras,
           themeId: theme,
           animationId: animation,
@@ -430,7 +445,7 @@ export default function StudioCheckoutPage() {
     isPaymentSuccess,
     plan,
     modules,
-    languages,
+    orderedLanguages,
     extras,
     theme,
     animation,

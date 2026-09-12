@@ -83,6 +83,11 @@ export type InvitationPageData = {
   /** `settings.adults_only` — drives the RSVP child fields and the FAQ entry. */
   adultsOnly: boolean;
   /**
+   * The locales this invitation may be served in (`sites.languages`), the
+   * couple's default first. A locale outside this list is not one they bought.
+   */
+  languages: string[];
+  /**
    * What the couple wrote on the dashboard's module screens
    * (`site_modules.config`), which nothing read until now.
    */
@@ -283,6 +288,7 @@ export async function getInvitationPage(
     themeId: (site.theme_id as string | null) ?? null,
     modules: (site.modules as string[] | null) ?? [],
     adultsOnly: Boolean(site.adults_only),
+    languages: (site.languages as string[] | null) ?? [],
     // `rpc()` returns untyped rows (the generated types do not cover
     // functions), so the shape is named before it is narrowed.
     moduleContent: readModuleConfigs((modulesRes.data ?? []) as ModuleConfigRow[]),
