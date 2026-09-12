@@ -92,6 +92,7 @@ export default async function DashboardHome() {
         <InvitationPreviewCard
           slug={summary.site.slug ?? ""}
           enabled={summary.site.published}
+          locale={summary.site.locale ?? undefined}
         />
       </div>
     </div>

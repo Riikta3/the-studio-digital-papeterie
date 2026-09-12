@@ -14,6 +14,21 @@ export function DashboardLayout({ children }: { children: React.ReactNode }) {
   const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [slug, setSlug] = useState<string | null>(() => searchParams.get("slug"));
+  /**
+   * Whether the invitation answers at its public URL, and the locale to open
+   * it in.
+   *
+   * Both feed the "Voir mon faire-part" button. Without them it always opened
+   * `/fr/…` and was always enabled, so a couple who bought English landed on a
+   * French page, and a couple who had unpublished their site was shown
+   * "Cette adresse ne figure pas sur la liste des invités" — a message written
+   * for a stranger, on their own invitation.
+   *
+   * `null` while unknown: the button stays disabled until the site is read
+   * rather than guessing that it is live.
+   */
+  const [isPublished, setIsPublished] = useState<boolean | null>(null);
+  const [siteLocale, setSiteLocale] = useState<string | null>(null);
   const [showWelcome, setShowWelcome] = useState(false);
 
   // Use a ref to prevent multiple concurrent fetchSlug calls for the same user
@@ -47,9 +62,11 @@ export function DashboardLayout({ children }: { children: React.ReactNode }) {
 
         if (wedding) {
           // 2. Fetch Site Slug
+          // `status` and `languages` ride along in the query that was already
+          // being made — the button needs both and neither costs a round trip.
           const { data: site, error: sError } = await supabase
             .from("sites")
-            .select("slug")
+            .select("slug, status, languages")
             .eq("wedding_id", wedding.id)
             .maybeSingle();
 
@@ -61,6 +78,10 @@ export function DashboardLayout({ children }: { children: React.ReactNode }) {
           if (site?.slug) {
             console.log("✅ [fetchSlug] Slug found:", site.slug);
             setSlug(site.slug);
+            setIsPublished(site.status === "published");
+            // The couple's own language is first in the array (the primary one
+            // they picked at checkout); `fr` only as a last resort.
+            setSiteLocale(site.languages?.[0] ?? "fr");
           } else {
             console.warn(
               "⚠️ [fetchSlug] No slug found for wedding:",
@@ -191,8 +212,14 @@ export function DashboardLayout({ children }: { children: React.ReactNode }) {
 
   return (
     <div className='min-h-screen bg-studio-creme'>
-      <WelcomePopup slug={slug || undefined} isOpen={showWelcome} onClose={() => setShowWelcome(false)} />
-      <Sidebar slug={slug} />
+      <WelcomePopup
+        slug={slug || undefined}
+        locale={siteLocale ?? undefined}
+        isPublished={isPublished}
+        isOpen={showWelcome}
+        onClose={() => setShowWelcome(false)}
+      />
+      <Sidebar slug={slug} siteLocale={siteLocale} isPublished={isPublished} />
       <main className='md:ml-64 min-h-screen transition-all'>{children}</main>
     </div>
   );

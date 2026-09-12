@@ -40,7 +40,8 @@
       "not_live": "未上线",
       "edit_cta": "编辑内容",
       "public_hint": "与宾客分享的公开链接",
-      "view_cta": "查看"
+      "view_cta": "查看",
+      "view_cta_offline": "请柬已下线 — 重新发布后即可查看"
     }
   },
   "Guests": {
@@ -98,6 +99,7 @@
       }
     },
     "view_site": "查看我的网站",
+    "view_site_unpublished": "你们的请柬尚未发布。重新发布后即可在线查看。",
     "logout": "退出登录",
     "logout_confirmation": {
       "title": "确认退出登录",

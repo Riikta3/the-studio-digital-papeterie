@@ -13,12 +13,32 @@ import { useTranslations } from "next-intl";
 
 interface WelcomePopupProps {
   slug?: string;
+  /**
+   * The locale to open the invitation in — the couple's own primary language,
+   * not the dashboard's. This link was hardcoded to `/fr/`, so the very first
+   * thing a couple who bought English saw after paying was a French page.
+   */
+  locale?: string;
+  /** `sites.status`. Freshly true here — this popup fires just after checkout —
+   *  but the button must not open a 404 if provisioning has not landed yet. */
+  isPublished?: boolean | null;
   isOpen: boolean;
   onClose: () => void;
 }
 
-export function WelcomePopup({ slug, isOpen, onClose }: WelcomePopupProps) {
+export function WelcomePopup({
+  slug,
+  locale,
+  isPublished,
+  isOpen,
+  onClose,
+}: WelcomePopupProps) {
   const t = useTranslations("WelcomePopup");
+
+  // `isPublished` is undefined for callers that do not know yet; only an
+  // explicit `false` blocks, so this popup keeps working if the layout has not
+  // read the site by the time it opens.
+  const canOpen = Boolean(slug) && isPublished !== false;
 
   return (
     <Dialog open={isOpen} onOpenChange={(open) => !open && onClose()}>
@@ -40,16 +60,19 @@ export function WelcomePopup({ slug, isOpen, onClose }: WelcomePopupProps) {
           <div className='flex flex-col w-full gap-3 pt-4'>
             <Button
               onClick={() => {
-                if (!slug) return;
+                if (!canOpen) return;
                 const isDev = window.location.hostname === "localhost";
                 const baseUrl = isDev
                   ? "http://localhost:3010"
                   : process.env.NEXT_PUBLIC_LANDING_URL ||
                     "https://www.thestudiopapeteriedigitale.com";
-                window.open(`${baseUrl}/fr/invitation/${slug}`, "_blank");
+                window.open(
+                  `${baseUrl}/${locale || "fr"}/invitation/${slug}`,
+                  "_blank",
+                );
               }}
               className='w-full py-6 rounded-2xl bg-primary text-white hover:bg-primary/90 transition-all text-lg font-medium shadow-lg shadow-primary/20 gap-2'
-              disabled={!slug}
+              disabled={!canOpen}
             >
               <ExternalLink className='w-5 h-5' />
               {t("view_site_btn")}

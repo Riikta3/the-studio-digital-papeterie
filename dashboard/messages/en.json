@@ -40,7 +40,8 @@
       "not_live": "Offline",
       "edit_cta": "Edit content",
       "public_hint": "Public link shared with your guests",
-      "view_cta": "View"
+      "view_cta": "View",
+      "view_cta_offline": "Invitation offline — publish it again to view it"
     }
   },
   "Guests": {
@@ -242,6 +243,7 @@
       }
     },
     "view_site": "View my Site",
+    "view_site_unpublished": "Your invitation is unpublished. Publish it again to see it online.",
     "logout": "Logout",
     "logout_confirmation": {
       "title": "Confirm logout",

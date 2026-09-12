@@ -40,7 +40,8 @@
       "not_live": "Offline",
       "edit_cta": "Editar conteúdo",
       "public_hint": "Link público partilhado com os seus convidados",
-      "view_cta": "Ver"
+      "view_cta": "Ver",
+      "view_cta_offline": "Convite offline — publiquem-no novamente para o ver"
     }
   },
   "Guests": {
@@ -98,6 +99,7 @@
       }
     },
     "view_site": "Ver o meu site",
+    "view_site_unpublished": "O vosso convite não está publicado. Publiquem-no novamente para o verem online.",
     "logout": "Sair",
     "logout_confirmation": {
       "title": "Confirmar desconexão",

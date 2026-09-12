@@ -40,7 +40,8 @@
       "not_live": "Offline",
       "edit_cta": "Inhalt bearbeiten",
       "public_hint": "Öffentlicher Link, der mit Ihren Gästen geteilt wird",
-      "view_cta": "Ansehen"
+      "view_cta": "Ansehen",
+      "view_cta_offline": "Einladung offline – erneut veröffentlichen, um sie anzusehen"
     }
   },
   "Guests": {
@@ -98,6 +99,7 @@
       }
     },
     "view_site": "Meine Seite ansehen",
+    "view_site_unpublished": "Eure Einladung ist nicht veröffentlicht. Veröffentlicht sie erneut, um sie online zu sehen.",
     "logout": "Abmelden",
     "logout_confirmation": {
       "title": "Abmeldung bestätigen",

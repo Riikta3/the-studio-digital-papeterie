@@ -15,8 +15,14 @@ export type DashboardSummary = {
   seating: { seated: number; toSeat: number };
   media: { total: number };
   dayOf: { enabled: boolean; qrSlug: string | null };
-  /** Publication state of the invitation (`sites.status`), not the Jour J module. */
-  site: { published: boolean; slug: string | null };
+  /**
+   * Publication state of the invitation (`sites.status`), not the Jour J
+   * module, plus the locale it should be opened in — the couple's primary
+   * language, first in `sites.languages`. The home card's links were
+   * hardcoded to `/fr/` and showed a French URL as the couple's own public
+   * address even when they had bought only English.
+   */
+  site: { published: boolean; slug: string | null; locale: string | null };
 };
 
 /**
@@ -46,7 +52,7 @@ export async function getDashboardSummary(): Promise<DashboardSummary> {
     supabase.from("weddings").select("wedding_date").eq("id", weddingId).single(),
     supabase
       .from("sites")
-      .select("slug, status")
+      .select("slug, status, languages")
       .eq("wedding_id", weddingId)
       .maybeSingle(),
     supabase
@@ -100,6 +106,7 @@ export async function getDashboardSummary(): Promise<DashboardSummary> {
     site: {
       published: siteRes.data?.status === "published",
       slug: siteRes.data?.slug ?? null,
+      locale: siteRes.data?.languages?.[0] ?? null,
     },
   };
 }

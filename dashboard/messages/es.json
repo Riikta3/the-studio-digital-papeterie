@@ -40,7 +40,8 @@
       "not_live": "Fuera de línea",
       "edit_cta": "Editar contenido",
       "public_hint": "Enlace público compartido con sus invitados",
-      "view_cta": "Ver"
+      "view_cta": "Ver",
+      "view_cta_offline": "Invitación fuera de línea: volved a publicarla para verla"
     }
   },
   "Guests": {
@@ -98,6 +99,7 @@
       }
     },
     "view_site": "Ver mi sitio",
+    "view_site_unpublished": "Vuestra invitación está sin publicar. Volved a publicarla para verla en línea.",
     "logout": "Cerrar sesión",
     "logout_confirmation": {
       "title": "Confirmar cierre de sesión",

@@ -40,7 +40,8 @@
       "not_live": "Offline",
       "edit_cta": "Modifica contenuto",
       "public_hint": "Link pubblico condiviso con i vostri invitati",
-      "view_cta": "Vedi"
+      "view_cta": "Vedi",
+      "view_cta_offline": "Partecipazione offline — ripubblicatela per vederla"
     }
   },
   "Guests": {
@@ -98,6 +99,7 @@
       }
     },
     "view_site": "Vedi il mio sito",
+    "view_site_unpublished": "La vostra partecipazione non è pubblicata. Ripubblicatela per vederla online.",
     "logout": "Esci",
     "logout_confirmation": {
       "title": "Conferma disconnessione",

@@ -40,7 +40,8 @@
       "not_live": "Hors ligne",
       "edit_cta": "Modifier le contenu",
       "public_hint": "Lien public partagé avec vos invités",
-      "view_cta": "Voir"
+      "view_cta": "Voir",
+      "view_cta_offline": "Faire-part hors ligne — republiez-le pour le voir"
     }
   },
   "Guests": {
@@ -340,6 +341,7 @@
       }
     },
     "view_site": "Voir mon faire-part",
+    "view_site_unpublished": "Votre faire-part est dépublié. Republiez-le pour le voir en ligne.",
     "logout": "Déconnexion",
     "logout_confirmation": {
       "title": "Confirmer la déconnexion",

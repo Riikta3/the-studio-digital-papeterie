@@ -40,7 +40,8 @@
       "not_live": "非公開",
       "edit_cta": "内容を編集",
       "public_hint": "ゲストと共有する公開リンク",
-      "view_cta": "表示"
+      "view_cta": "表示",
+      "view_cta_offline": "招待状は非公開です — 閲覧するには再公開してください"
     }
   },
   "Guests": {
@@ -98,6 +99,7 @@
       }
     },
     "view_site": "サイトを見る",
+    "view_site_unpublished": "招待状は非公開です。オンラインで見るには再公開してください。",
     "logout": "ログアウト",
     "logout_confirmation": {
       "title": "ログアウトの確認",
