@@ -448,7 +448,14 @@
         "name": "الأسئلة الشائعة / معلومات عملية",
         "description": "معلومات عملية للضيوف"
       }
-    }
+    },
+    "dresscode_palette": "لوحة الألوان",
+    "dresscode_palette_hint": "الألوان التي سيراها ضيوفكم على الدعوة. حتى ٦ ألوان.",
+    "dresscode_palette_swatch": "اللون {index}",
+    "dresscode_palette_remove": "إزالة اللون {index}",
+    "dresscode_photo": "صورة مُلهِمة",
+    "dresscode_note": "ملاحظة قصيرة",
+    "dresscode_note_placeholder": "مثال: يُفضَّل تجنّب الكعب الرفيع، فالمراسم تُقام على العشب"
   },
   "Playlist": {
     "title": "قائمة التشغيل التشاركية",

@@ -42,6 +42,25 @@ function list(value: unknown): Record<string, unknown>[] {
   return Array.isArray(value) ? value.filter(isRecord) : [];
 }
 
+/**
+ * A list of CSS colours, or undefined.
+ *
+ * These are interpolated straight into a `style` attribute by every theme, so
+ * what arrives from a free-form jsonb column is restricted to the two notations
+ * the dashboard's picker produces: a hex triplet, or a `rgb()`/`hsl()` function.
+ * That keeps a hand-edited row from smuggling `url(...)` or a stray `;` into
+ * the themes' inline styles.
+ */
+const CSS_COLOR = /^(#[0-9a-f]{3}|#[0-9a-f]{6}|(rgb|hsl)a?\([\d\s.,%/]+\))$/i;
+
+function colorList(value: unknown): string[] | undefined {
+  if (!Array.isArray(value)) return undefined;
+  const colors = value
+    .map((entry) => str(entry))
+    .filter((entry): entry is string => entry !== undefined && CSS_COLOR.test(entry));
+  return colors.length > 0 ? colors : undefined;
+}
+
 /* ------------------------------------------------------------------ *
  * Per-module shapes
  * ------------------------------------------------------------------ */
@@ -98,6 +117,20 @@ export type ModuleContent = {
     description?: string;
     descriptionMen?: string;
     descriptionWomen?: string;
+    /**
+     * CSS colours for the palette swatches every theme draws.
+     *
+     * All three themes have rendered `dressCode.colors` since they were
+     * ported — the source projects pinned the palette in CSS with
+     * `:nth-child()`, and that was undone so a wedding could choose its own.
+     * Nothing ever wrote it, so the feature was unreachable: every real
+     * invitation showed a dress code with no palette.
+     */
+    colors?: string[];
+    /** An inspiration photograph, shown under the guidance. */
+    imageUrl?: string;
+    /** A closing line — "les tongs restent à la maison". */
+    note?: string;
   };
   introVideo: {
     title?: string;
@@ -204,6 +237,9 @@ export function readModuleConfigs(rows: ModuleConfigRow[]): ModuleContent {
           description: str(config.description),
           descriptionMen: str(config.description_men),
           descriptionWomen: str(config.description_women),
+          colors: colorList(config.colors),
+          imageUrl: str(config.imageUrl),
+          note: str(config.note),
         };
         break;
 

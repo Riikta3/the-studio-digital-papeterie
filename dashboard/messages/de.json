@@ -448,7 +448,14 @@
         "name": "FAQ / Praktische Infos",
         "description": "Praktische Infos für Gäste"
       }
-    }
+    },
+    "dresscode_palette": "Farbpalette",
+    "dresscode_palette_hint": "Die Farben, die Ihre Gäste auf der Einladung sehen. Bis zu 6.",
+    "dresscode_palette_swatch": "Farbe {index}",
+    "dresscode_palette_remove": "Farbe {index} entfernen",
+    "dresscode_photo": "Inspirationsfoto",
+    "dresscode_note": "Kurzer Hinweis",
+    "dresscode_note_placeholder": "Z. B. Von Pfennigabsätzen raten wir ab – die Trauung findet auf der Wiese statt"
   },
   "Playlist": {
     "title": "Gemeinsame Playlist",

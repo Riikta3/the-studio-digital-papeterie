@@ -448,7 +448,14 @@
         "name": "FAQ／実用情報",
         "description": "ゲスト向けの実用情報"
       }
-    }
+    },
+    "dresscode_palette": "カラーパレット",
+    "dresscode_palette_hint": "招待状にゲストが目にする色です。最大6色。",
+    "dresscode_palette_swatch": "色 {index}",
+    "dresscode_palette_remove": "色 {index} を削除",
+    "dresscode_photo": "参考写真",
+    "dresscode_note": "ひとこと",
+    "dresscode_note_placeholder": "例：挙式は芝生の上で行いますので、ピンヒールはお控えください"
   },
   "Playlist": {
     "title": "みんなでつくるプレイリスト",

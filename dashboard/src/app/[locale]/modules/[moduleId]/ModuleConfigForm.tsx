@@ -38,7 +38,7 @@ import {
 import { CSS } from "@dnd-kit/utilities";
 import Image from "next/image";
 import { useLocale, useTranslations } from "next-intl";
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { toast } from "sonner";
 
 // ─── Types ────────────────────────────────────────────────────────────────────
@@ -89,6 +89,27 @@ function genId() {
 /** Safely extract a string from an unknown config value */
 function str(val: unknown, fallback = ""): string {
   return typeof val === "string" ? val : fallback;
+}
+
+/**
+ * The dress-code palette, as the `<input type="color">` control needs it.
+ *
+ * That control only ever emits `#rrggbb`, and only accepts it — handed
+ * anything else it silently falls back to black, which would rewrite a
+ * couple's colour the moment they opened the screen. So a stored value that is
+ * not a six-digit hex (an `rgb()` from a hand-edited row, a named colour) is
+ * dropped rather than shown wrong. `colorList` in the landing's
+ * `module-config.ts` is the matching guard on the read side.
+ */
+const MAX_PALETTE_COLORS = 6;
+
+function colorArray(val: unknown): string[] {
+  if (!Array.isArray(val)) return [];
+  return val
+    .filter((entry): entry is string => typeof entry === "string")
+    .filter((entry) => /^#[0-9a-f]{6}$/i.test(entry.trim()))
+    .map((entry) => entry.trim().toLowerCase())
+    .slice(0, MAX_PALETTE_COLORS);
 }
 
 /** Safely extract an array from an unknown config value */
@@ -186,10 +207,38 @@ function DressCodeForm({
   const [description, setDescription] = useState(str(config?.description, DEFAULTS.description));
   const [descriptionMen, setDescriptionMen] = useState(str(config?.description_men, DEFAULTS.description_men));
   const [descriptionWomen, setDescriptionWomen] = useState(str(config?.description_women, DEFAULTS.description_women));
+  /**
+   * The palette, the photograph and the closing note.
+   *
+   * All three are rendered by all three themes and were written by no screen:
+   * `dressCode.colors` exists precisely because the themes' palettes were
+   * unpinned from their CSS so a wedding could choose its own, and then nothing
+   * ever let one. A couple's dress code reached their guests as a paragraph.
+   */
+  const [colors, setColors] = useState<string[]>(colorArray(config?.colors));
+  const [dressImageUrl, setDressImageUrl] = useState(str(config?.imageUrl, ""));
+  const [note, setNote] = useState(str(config?.note, ""));
+  const [uploadingDress, setUploadingDress] = useState(false);
+  const dressFileRef = useRef<HTMLInputElement>(null);
+
+  const payload = useCallback(
+    () => ({
+      title,
+      subtitle,
+      mode,
+      description,
+      description_men: descriptionMen,
+      description_women: descriptionWomen,
+      colors,
+      imageUrl: dressImageUrl,
+      note,
+    }),
+    [title, subtitle, mode, description, descriptionMen, descriptionWomen, colors, dressImageUrl, note],
+  );
 
   useEffect(() => {
-    onPreview?.({ title, subtitle, mode, description, description_men: descriptionMen, description_women: descriptionWomen });
-  }, [title, subtitle, mode, description, descriptionMen, descriptionWomen, onPreview]);
+    onPreview?.(payload());
+  }, [payload, onPreview]);
 
   function resetToDefaults() {
     setTitle(DEFAULTS.title);
@@ -198,13 +247,32 @@ function DressCodeForm({
     setDescription(DEFAULTS.description);
     setDescriptionMen(DEFAULTS.description_men);
     setDescriptionWomen(DEFAULTS.description_women);
+    setColors([]);
+    setDressImageUrl("");
+    setNote("");
+  }
+
+  async function handleDressUpload(files: FileList | null) {
+    if (!files?.[0]) return;
+    setUploadingDress(true);
+    try {
+      const fd = new FormData();
+      fd.append("file", files[0]);
+      const { url } = await uploadVenueImage(fd);
+      setDressImageUrl(url);
+      toast.success(t("toast_photo_uploaded"));
+    } catch (e) {
+      toast.error(e instanceof Error ? e.message : t("toast_upload_error"));
+    } finally {
+      setUploadingDress(false);
+    }
   }
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
     setSaving(true);
     try {
-      await onSave({ title, subtitle, mode, description, description_men: descriptionMen, description_women: descriptionWomen });
+      await onSave(payload());
     } finally {
       setSaving(false);
     }
@@ -265,6 +333,86 @@ function DressCodeForm({
           </div>
         </div>
       )}
+
+      {/* Palette. Every theme draws these as swatches; the couple picks the
+          colours their guests should wear. */}
+      <FieldGroup label={t("dresscode_palette")}>
+        {/* `gap-3` and a little top padding: each swatch carries a remove
+            button that overhangs its top-right corner, and at a tighter gap
+            those buttons sat on the neighbouring swatch. */}
+        <div className="flex flex-wrap items-center gap-3 pt-1">
+          {colors.map((color, index) => (
+            <div key={`${color}-${index}`} className="relative">
+              <label
+                className="block h-11 w-11 cursor-pointer rounded-full border border-studio-lavande/60 shadow-sm"
+                style={{ background: color }}
+                title={color}
+              >
+                <span className="sr-only">{t("dresscode_palette_swatch", { index: index + 1 })}</span>
+                <input
+                  type="color"
+                  value={color}
+                  onChange={(e) =>
+                    setColors(colors.map((c, i) => (i === index ? e.target.value : c)))
+                  }
+                  className="h-full w-full cursor-pointer opacity-0"
+                />
+              </label>
+              <button
+                type="button"
+                onClick={() => setColors(colors.filter((_, i) => i !== index))}
+                aria-label={t("dresscode_palette_remove", { index: index + 1 })}
+                className="absolute -right-1 -top-1 flex h-5 w-5 items-center justify-center rounded-full bg-black/60 text-white transition-colors hover:bg-red-500"
+              >
+                <X size={10} />
+              </button>
+            </div>
+          ))}
+
+          {colors.length < MAX_PALETTE_COLORS ? (
+            <button
+              type="button"
+              onClick={() => setColors([...colors, "#d8c4a7"])}
+              className="flex h-11 w-11 items-center justify-center rounded-full border-2 border-dashed border-studio-lavande/60 text-studio-violet/60 transition-colors hover:border-studio-violet/40 hover:bg-studio-beurre"
+            >
+              <Plus size={15} />
+            </button>
+          ) : null}
+        </div>
+        <p className="text-xs text-studio-violet/60">{t("dresscode_palette_hint")}</p>
+      </FieldGroup>
+
+      {/* Inspiration photograph. Same upload path as the venue's — one bucket
+          of wedding images, one validated server action. */}
+      <FieldGroup label={t("dresscode_photo")}>
+        <input ref={dressFileRef} type="file" accept="image/jpeg,image/jpg,image/png" className="hidden" onChange={(e) => handleDressUpload(e.target.files)} />
+        {dressImageUrl ? (
+          <div className="relative w-full aspect-video rounded-xl overflow-hidden border border-studio-lavande/40 bg-muted">
+            <Image src={dressImageUrl} alt={t("dresscode_photo")} fill className="object-cover" sizes="600px" />
+            <button type="button" onClick={() => setDressImageUrl("")} className="absolute top-2 right-2 w-7 h-7 rounded-full bg-black/60 text-white flex items-center justify-center hover:bg-red-500 transition-colors">
+              <X size={13} />
+            </button>
+          </div>
+        ) : (
+          <button
+            type="button"
+            onClick={() => dressFileRef.current?.click()}
+            onDragOver={(e) => e.preventDefault()}
+            onDrop={(e) => { e.preventDefault(); handleDressUpload(e.dataTransfer.files); }}
+            disabled={uploadingDress}
+            className="w-full flex flex-col items-center gap-2 py-6 rounded-xl border-2 border-dashed border-studio-lavande/40 hover:border-studio-violet/40 hover:bg-studio-beurre transition-colors text-studio-violet/60"
+          >
+            <ImagePlus size={20} />
+            <span className="text-xs font-medium">{uploadingDress ? t("uploading") : t("add_photo_hint")}</span>
+          </button>
+        )}
+        <p className="text-xs text-studio-violet/60">{t("paste_url_hint")}</p>
+        <Input value={dressImageUrl} onChange={(e) => setDressImageUrl(e.target.value)} placeholder="https://..." />
+      </FieldGroup>
+
+      <FieldGroup label={t("dresscode_note")}>
+        <Input value={note} onChange={(e) => setNote(e.target.value)} placeholder={t("dresscode_note_placeholder")} />
+      </FieldGroup>
 
       <FormActions saving={saving} onReset={resetToDefaults} />
     </form>

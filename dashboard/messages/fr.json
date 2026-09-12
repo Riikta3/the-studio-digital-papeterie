@@ -617,7 +617,14 @@
         "name": "FAQ / Pratique",
         "description": "Infos pratiques pour les invités"
       }
-    }
+    },
+    "dresscode_palette": "Palette de couleurs",
+    "dresscode_palette_hint": "Les couleurs que vos invités verront sur l’invitation. Jusqu’à 6.",
+    "dresscode_palette_swatch": "Couleur {index}",
+    "dresscode_palette_remove": "Retirer la couleur {index}",
+    "dresscode_photo": "Photo d’inspiration",
+    "dresscode_note": "Petite note",
+    "dresscode_note_placeholder": "Ex : Les talons aiguilles sont déconseillés, la cérémonie se tient sur l’herbe"
   },
   "Playlist": {
     "title": "Playlist Collaborative",

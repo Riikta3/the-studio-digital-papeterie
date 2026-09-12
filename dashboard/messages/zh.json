@@ -448,7 +448,14 @@
         "name": "常见问题 / 实用信息",
         "description": "为宾客提供的实用信息"
       }
-    }
+    },
+    "dresscode_palette": "色彩搭配",
+    "dresscode_palette_hint": "宾客将在请柬上看到的颜色，最多 6 种。",
+    "dresscode_palette_swatch": "颜色 {index}",
+    "dresscode_palette_remove": "移除颜色 {index}",
+    "dresscode_photo": "着装参考照片",
+    "dresscode_note": "温馨提示",
+    "dresscode_note_placeholder": "例如：仪式在草坪上举行，建议不要穿细高跟鞋"
   },
   "Playlist": {
     "title": "共创歌单",

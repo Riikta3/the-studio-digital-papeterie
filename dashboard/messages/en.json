@@ -519,7 +519,14 @@
         "name": "FAQ / Practical Info",
         "description": "Practical info for guests"
       }
-    }
+    },
+    "dresscode_palette": "Colour palette",
+    "dresscode_palette_hint": "The colours your guests will see on the invitation. Up to 6.",
+    "dresscode_palette_swatch": "Colour {index}",
+    "dresscode_palette_remove": "Remove colour {index}",
+    "dresscode_photo": "Inspiration photo",
+    "dresscode_note": "Short note",
+    "dresscode_note_placeholder": "E.g. Stiletto heels are best avoided — the ceremony is on the lawn"
   },
   "Playlist": {
     "title": "Collaborative Playlist",

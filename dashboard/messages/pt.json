@@ -448,7 +448,14 @@
         "name": "FAQ / Info Prática",
         "description": "Informações práticas para os convidados"
       }
-    }
+    },
+    "dresscode_palette": "Paleta de cores",
+    "dresscode_palette_hint": "As cores que os vossos convidados verão no convite. Até 6.",
+    "dresscode_palette_swatch": "Cor {index}",
+    "dresscode_palette_remove": "Remover a cor {index}",
+    "dresscode_photo": "Foto de inspiração",
+    "dresscode_note": "Nota breve",
+    "dresscode_note_placeholder": "Ex.: É preferível evitar saltos finos — a cerimónia é na relva"
   },
   "Playlist": {
     "title": "Playlist Colaborativa",

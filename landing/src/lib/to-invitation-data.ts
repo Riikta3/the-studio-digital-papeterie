@@ -406,12 +406,21 @@ export function toInvitationData(page: InvitationPageData): InvitationData {
           }
         : undefined,
 
-    dressCode: dressCodeBody
-      ? {
-          title: moduleDress.subtitle ?? moduleDress.title ?? "Dress code",
-          body: dressCodeBody,
-        }
-      : undefined,
+    // The palette, the photograph and the closing note are rendered by all
+    // three themes and were written by no screen, so the feature was
+    // unreachable. Present even when the couple wrote no guidance: a palette
+    // on its own is a legitimate dress code — "wear these colours" — and
+    // dropping it because `body` is empty would hide what they did set.
+    dressCode:
+      dressCodeBody || moduleDress.colors || moduleDress.imageUrl || moduleDress.note
+        ? {
+            title: moduleDress.subtitle ?? moduleDress.title ?? "Dress code",
+            body: dressCodeBody || undefined,
+            colors: moduleDress.colors,
+            image: moduleDress.imageUrl,
+            note: moduleDress.note,
+          }
+        : undefined,
 
     stays:
       page.accommodations.length > 0
