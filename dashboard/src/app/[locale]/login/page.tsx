@@ -7,12 +7,57 @@ import { Label } from "@shared/components/ui/label";
 import { Eye, EyeOff } from "lucide-react";
 import { useTranslations } from "next-intl";
 import Image from "next/image";
-import { useActionState, useEffect, useState } from "react";
+import { useSearchParams } from "next/navigation";
+import { Suspense, useActionState, useEffect, useRef, useState } from "react";
+import { toast } from "sonner";
 import { login } from "./actions";
 
 const initialState = {
   error: "",
 };
+
+/**
+ * Explains why the couple is looking at the login page when they did not ask
+ * for it.
+ *
+ * Two redirects land here with a reason and, until now, said nothing: the
+ * middleware signs out an idle session with `?reason=expired`, and
+ * `update-password` bounces a spent recovery link with `?error=invalid_link`.
+ * Both looked to the couple like being logged out at random.
+ *
+ * Its own component because `useSearchParams` opts the subtree into client-side
+ * rendering, and a Suspense boundary keeps that from holding up the form.
+ */
+function RedirectNotice() {
+  const t = useTranslations("Login");
+  const searchParams = useSearchParams();
+  const shown = useRef(false);
+
+  const reason = searchParams.get("reason");
+  const error = searchParams.get("error");
+
+  useEffect(() => {
+    // Sonner is not idempotent and React runs effects twice in development, so
+    // without this the same toast stacks.
+    if (shown.current) return;
+
+    if (reason === "expired") {
+      shown.current = true;
+      toast.info(t("session_expired_title"), {
+        description: t("session_expired_description"),
+        duration: 8000,
+      });
+    } else if (error === "invalid_link") {
+      shown.current = true;
+      toast.error(t("invalid_link_title"), {
+        description: t("invalid_link_description"),
+        duration: 8000,
+      });
+    }
+  }, [reason, error, t]);
+
+  return null;
+}
 
 export default function LoginPage() {
   const t = useTranslations("Login");
@@ -28,6 +73,10 @@ export default function LoginPage() {
 
   return (
     <div className='min-h-screen bg-studio-creme flex flex-col items-center justify-center p-4 relative overflow-hidden'>
+      <Suspense fallback={null}>
+        <RedirectNotice />
+      </Suspense>
+
       {/* Decorative background elements */}
       <div className='absolute inset-0 opacity-[0.03]'>
         <div className='absolute top-20 left-20 w-96 h-96 bg-primary/30 rounded-full blur-[100px]' />
