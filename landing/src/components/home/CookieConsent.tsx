@@ -10,7 +10,7 @@ import {
   readConsent,
   writeConsent,
 } from "@/lib/consent";
-import { Link } from "@/navigation";
+import { Link, usePathname } from "@/navigation";
 
 /**
  * The consent gate for non-essential cookies.
@@ -27,8 +27,24 @@ import { Link } from "@/navigation";
  * returning visitor who had already answered; and a fixed overlay in the
  * served markup is content a crawler sees on every page.
  */
+/**
+ * Route prefixes that are a couple's own stationery rather than our marketing.
+ *
+ * An invitation and the Jour J pages are opened by a wedding's guests from a
+ * link the couple sent them. A consent pill over that is our banner on their
+ * paper: it is the first thing a guest sees on a page the couple paid for, and
+ * it belongs to a site the guest did not choose to visit.
+ *
+ * Safe to exclude because these pages set no non-essential cookie — nothing
+ * reads `hasConsent()` yet, and when the Meta pixel does it will live on the
+ * marketing pages. Should tracking ever reach an invitation, the banner has to
+ * come back here first.
+ */
+const PRIVATE_PREFIXES = ["/invitation", "/jourj"];
+
 export function CookieConsent() {
   const t = useTranslations("CookieConsent");
+  const pathname = usePathname();
   const [visible, setVisible] = useState(false);
 
   useEffect(() => {
@@ -48,7 +64,14 @@ export function CookieConsent() {
     setVisible(false);
   }, []);
 
-  if (!visible) return null;
+  // `usePathname` from `@/navigation` is locale-stripped, so one prefix covers
+  // all nine locales. Checked after the hooks above, never before: the effect
+  // that listens for the footer's reopen event must run on every page.
+  const isPrivatePage = PRIVATE_PREFIXES.some(
+    (prefix) => pathname === prefix || pathname.startsWith(`${prefix}/`),
+  );
+
+  if (isPrivatePage || !visible) return null;
 
   return (
     // `role="dialog"` rather than `alertdialog`: this interrupts nothing and

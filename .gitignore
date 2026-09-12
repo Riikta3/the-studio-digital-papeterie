@@ -30,6 +30,9 @@ yarn-error.log*
 # Local env files
 .env*.local
 .env
+# Backups taken when switching between the hosted and local Supabase; these
+# hold real keys and `.env*.local` does not match a suffix after `.local`.
+.env*.bak-*
 
 # Vercel
 .vercel
