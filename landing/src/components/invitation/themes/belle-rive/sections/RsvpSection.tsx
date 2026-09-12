@@ -2,28 +2,80 @@
 
 import { type FormEvent, useState } from "react";
 
+import { type RsvpCompanion, submitRsvp } from "@/actions/invitation-submissions";
 import { formatFrenchDate } from "../../format";
 import type { InvitationData } from "../../types";
 
 /**
  * RSVP form.
  *
- * DEMO BEHAVIOUR: submitting only flips to the thank-you state — nothing is
- * persisted. The real flow (`rsvp_responses` plus guest identification) belongs
- * to the dynamic phase. Every input carries a `name` regardless, so wiring a
- * server action later is a matter of reading the FormData; the source left them
- * off entirely, which would have made its own fields unreadable.
+ * Two modes, decided by `data.weddingId` (see `themes/types.ts`): a real
+ * invitation persists the answer against its wedding, while the showcase —
+ * which never carries an id — shows the same confirmation and writes nothing.
+ *
+ * This used to be demo-only in both modes, so a real wedding rendered in this
+ * theme silently dropped every reply its guests sent.
  */
 export function RsvpSection({ data }: { data: InvitationData }) {
   const [sent, setSent] = useState(false);
+  const [pending, setPending] = useState(false);
+  const [error, setError] = useState<string | null>(null);
   const [attendance, setAttendance] = useState<"solo" | "partner">("solo");
 
   const rsvp = data.rsvp;
   const deadline = formatFrenchDate(data.event.rsvpDeadline);
+  const weddingId = data.weddingId;
 
-  function handleSubmit(event: FormEvent) {
+  async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    setSent(true);
+    if (pending) return;
+
+    const form = new FormData(event.currentTarget);
+
+    // Demo: no wedding to attach the answer to. Confirm locally, persist
+    // nothing — the guard the showcase relies on.
+    if (!weddingId) {
+      setSent(true);
+      return;
+    }
+
+    // "Prénom Nom" arrives as one field; the table stores the split halves the
+    // dashboard edits.
+    const fullName = String(form.get("fullName") ?? "").trim();
+    const [firstName, ...rest] = fullName.split(" ");
+    const lastName = rest.join(" ");
+
+    const isAttending = form.get("attendance") === "yes";
+
+    // `guest_count` is derived server-side from this list, so a companion left
+    // out here is a head the caterer never counts.
+    const companions: RsvpCompanion[] = [];
+    const partnerName = String(form.get("partnerName") ?? "").trim();
+    if (isAttending && attendance === "partner" && partnerName) {
+      const [partnerFirst, ...partnerRest] = partnerName.split(" ");
+      companions.push({
+        firstName: partnerFirst ?? "",
+        lastName: partnerRest.join(" "),
+      });
+    }
+
+    setPending(true);
+    setError(null);
+
+    const result = await submitRsvp({
+      weddingId,
+      firstName: firstName ?? "",
+      lastName,
+      attendance: isAttending,
+      dietary: String(form.get("dietary") ?? ""),
+      message: String(form.get("message") ?? ""),
+      companions,
+    });
+
+    setPending(false);
+
+    if (result.ok) setSent(true);
+    else setError(result.error);
   }
 
   return (
@@ -109,8 +161,16 @@ export function RsvpSection({ data }: { data: InvitationData }) {
             </label>
           ) : null}
 
-          <button className="submit" type="submit">
-            Envoyer ma réponse
+          {/* A failed submission must say so: without this the form sits
+              silent and the guest assumes their answer was recorded. */}
+          {error ? (
+            <p className="rsvp-error" role="alert">
+              {error}
+            </p>
+          ) : null}
+
+          <button className="submit" type="submit" disabled={pending}>
+            {pending ? "Envoi…" : "Envoyer ma réponse"}
           </button>
         </form>
       )}

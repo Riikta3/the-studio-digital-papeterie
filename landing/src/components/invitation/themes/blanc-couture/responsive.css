@@ -452,3 +452,17 @@
 .theme-blanc-couture .page {
   overflow-x: hidden;
 }
+
+/* ─── RSVP failure ──────────────────────────────────────────────────────────
+   Shown when the server refuses a submission. It carries `role="alert"`, so it
+   is announced either way — this is what makes it visible, and it must read as
+   a problem beside a form the guest is about to re-submit. Sized in `em` so it
+   follows whatever the surrounding card sets. */
+.theme-blanc-couture .rsvp-error {
+  margin: 0 auto 12px;
+  max-width: 520px;
+  color: #b3261e;
+  font-size: .82em;
+  line-height: 1.45;
+  text-align: center;
+}
