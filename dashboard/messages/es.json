@@ -1332,5 +1332,28 @@
     "saving": "Guardando…",
     "saved": "Vuestras palabras están guardadas",
     "save_failed": "Error al guardar."
+  },
+  "AuthEmails": {
+    "brand": "The Studio Digital Papeterie",
+    "reset_subject": "Restablezca su contraseña",
+    "reset_heading": "Restablecer su contraseña",
+    "reset_body": "Ha solicitado restablecer la contraseña de su espacio. Haga clic abajo para elegir una nueva.",
+    "reset_cta": "Elegir una nueva contraseña",
+    "magic_subject": "Su enlace de acceso",
+    "magic_heading": "Su enlace de acceso",
+    "magic_body": "Haga clic abajo para acceder a su espacio. No necesita contraseña.",
+    "magic_cta": "Ir a mi espacio",
+    "confirm_subject": "Confirme su dirección de correo",
+    "confirm_heading": "Confirme su dirección de correo",
+    "confirm_body": "Solo queda un paso: confirme su dirección de correo para activar su espacio.",
+    "confirm_cta": "Confirmar mi dirección",
+    "change_subject": "Confirme su nueva dirección de correo",
+    "change_heading": "Confirme su nueva dirección",
+    "change_body": "Ha solicitado cambiar la dirección de correo de su espacio. Confírmela abajo para que sea efectiva.",
+    "change_cta": "Confirmar mi nueva dirección",
+    "expires": "Este enlace sirve una sola vez y caduca en {hours} horas.",
+    "ignore": "Si no ha sido usted, ignore este correo: no se cambiará nada.",
+    "fallback": "Si el botón no funciona, copie este enlace en su navegador:",
+    "footer": "¿Una pregunta? Responda simplemente a este correo."
   }
 }

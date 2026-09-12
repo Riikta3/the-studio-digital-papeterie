@@ -1332,5 +1332,28 @@
     "saving": "保存中…",
     "saved": "已保存你们的话",
     "save_failed": "保存时出错。"
+  },
+  "AuthEmails": {
+    "brand": "The Studio Digital Papeterie",
+    "reset_subject": "重置您的密码",
+    "reset_heading": "重置您的密码",
+    "reset_body": "您申请重置空间密码。请点击下方按钮设置新密码。",
+    "reset_cta": "设置新密码",
+    "magic_subject": "您的登录链接",
+    "magic_heading": "您的登录链接",
+    "magic_body": "点击下方即可进入您的空间，无需密码。",
+    "magic_cta": "进入我的空间",
+    "confirm_subject": "确认您的邮箱地址",
+    "confirm_heading": "确认您的邮箱地址",
+    "confirm_body": "还差一步：确认您的邮箱地址即可激活空间。",
+    "confirm_cta": "确认我的邮箱",
+    "change_subject": "确认您的新邮箱地址",
+    "change_heading": "确认您的新邮箱地址",
+    "change_body": "您申请更改空间的邮箱地址。请在下方确认以使其生效。",
+    "change_cta": "确认新邮箱",
+    "expires": "此链接仅可使用一次，将在 {hours} 小时后失效。",
+    "ignore": "如果这不是您本人的操作，请忽略本邮件，账户不会有任何变化。",
+    "fallback": "如果按钮无法使用，请将此链接复制到浏览器中打开：",
+    "footer": "有疑问？直接回复本邮件即可。"
   }
 }

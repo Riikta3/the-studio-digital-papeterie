@@ -1332,5 +1332,28 @@
     "saving": "Enregistrement…",
     "saved": "Vos mots sont enregistrés",
     "save_failed": "Erreur lors de l’enregistrement."
+  },
+  "AuthEmails": {
+    "brand": "The Studio Digital Papeterie",
+    "reset_subject": "Réinitialisez votre mot de passe",
+    "reset_heading": "Réinitialisation de votre mot de passe",
+    "reset_body": "Vous avez demandé à réinitialiser le mot de passe de votre espace. Cliquez ci-dessous pour en choisir un nouveau.",
+    "reset_cta": "Choisir un nouveau mot de passe",
+    "magic_subject": "Votre lien de connexion",
+    "magic_heading": "Votre lien de connexion",
+    "magic_body": "Cliquez ci-dessous pour accéder à votre espace. Aucun mot de passe n'est nécessaire.",
+    "magic_cta": "Accéder à mon espace",
+    "confirm_subject": "Confirmez votre adresse email",
+    "confirm_heading": "Confirmez votre adresse email",
+    "confirm_body": "Il ne reste qu'une étape : confirmez votre adresse email pour activer votre espace.",
+    "confirm_cta": "Confirmer mon adresse",
+    "change_subject": "Confirmez votre nouvelle adresse email",
+    "change_heading": "Confirmez votre nouvelle adresse",
+    "change_body": "Vous avez demandé à changer l'adresse email de votre espace. Confirmez-la ci-dessous pour qu'elle prenne effet.",
+    "change_cta": "Confirmer ma nouvelle adresse",
+    "expires": "Ce lien est valable une seule fois et expire dans {hours} heures.",
+    "ignore": "Si vous n'êtes pas à l'origine de cette demande, ignorez simplement cet email : rien ne sera modifié.",
+    "fallback": "Si le bouton ne fonctionne pas, copiez ce lien dans votre navigateur :",
+    "footer": "Une question ? Répondez simplement à cet email."
   }
 }

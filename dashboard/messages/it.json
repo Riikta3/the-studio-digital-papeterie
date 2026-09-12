@@ -1332,5 +1332,28 @@
     "saving": "Salvataggio…",
     "saved": "Le vostre parole sono salvate",
     "save_failed": "Errore durante il salvataggio."
+  },
+  "AuthEmails": {
+    "brand": "The Studio Digital Papeterie",
+    "reset_subject": "Reimposta la tua password",
+    "reset_heading": "Reimposta la tua password",
+    "reset_body": "Hai chiesto di reimpostare la password del tuo spazio. Clicca qui sotto per sceglierne una nuova.",
+    "reset_cta": "Scegli una nuova password",
+    "magic_subject": "Il tuo link di accesso",
+    "magic_heading": "Il tuo link di accesso",
+    "magic_body": "Clicca qui sotto per accedere al tuo spazio. Nessuna password necessaria.",
+    "magic_cta": "Vai al mio spazio",
+    "confirm_subject": "Conferma il tuo indirizzo email",
+    "confirm_heading": "Conferma il tuo indirizzo email",
+    "confirm_body": "Manca solo un passaggio: conferma il tuo indirizzo email per attivare il tuo spazio.",
+    "confirm_cta": "Conferma il mio indirizzo",
+    "change_subject": "Conferma il tuo nuovo indirizzo email",
+    "change_heading": "Conferma il tuo nuovo indirizzo",
+    "change_body": "Hai chiesto di cambiare l'indirizzo email del tuo spazio. Confermalo qui sotto per renderlo effettivo.",
+    "change_cta": "Conferma il mio nuovo indirizzo",
+    "expires": "Questo link è valido una sola volta e scade tra {hours} ore.",
+    "ignore": "Se non sei stato tu, ignora semplicemente questa email: non cambierà nulla.",
+    "fallback": "Se il pulsante non funziona, copia questo link nel tuo browser:",
+    "footer": "Una domanda? Rispondi semplicemente a questa email."
   }
 }

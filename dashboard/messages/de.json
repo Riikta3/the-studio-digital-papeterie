@@ -1332,5 +1332,28 @@
     "saving": "Wird gespeichert…",
     "saved": "Eure Worte sind gespeichert",
     "save_failed": "Beim Speichern ist ein Fehler aufgetreten."
+  },
+  "AuthEmails": {
+    "brand": "The Studio Digital Papeterie",
+    "reset_subject": "Setzen Sie Ihr Passwort zurück",
+    "reset_heading": "Passwort zurücksetzen",
+    "reset_body": "Sie haben angefordert, das Passwort für Ihren Bereich zurückzusetzen. Klicken Sie unten, um ein neues zu wählen.",
+    "reset_cta": "Neues Passwort wählen",
+    "magic_subject": "Ihr Anmeldelink",
+    "magic_heading": "Ihr Anmeldelink",
+    "magic_body": "Klicken Sie unten, um zu Ihrem Bereich zu gelangen. Kein Passwort nötig.",
+    "magic_cta": "Zu meinem Bereich",
+    "confirm_subject": "Bestätigen Sie Ihre E-Mail-Adresse",
+    "confirm_heading": "E-Mail-Adresse bestätigen",
+    "confirm_body": "Nur noch ein Schritt: Bestätigen Sie Ihre E-Mail-Adresse, um Ihren Bereich zu aktivieren.",
+    "confirm_cta": "Adresse bestätigen",
+    "change_subject": "Bestätigen Sie Ihre neue E-Mail-Adresse",
+    "change_heading": "Neue Adresse bestätigen",
+    "change_body": "Sie haben angefordert, die E-Mail-Adresse Ihres Bereichs zu ändern. Bestätigen Sie sie unten, damit sie wirksam wird.",
+    "change_cta": "Neue Adresse bestätigen",
+    "expires": "Dieser Link gilt einmalig und läuft in {hours} Stunden ab.",
+    "ignore": "Wenn Sie das nicht angefordert haben, ignorieren Sie diese E-Mail einfach — es ändert sich nichts.",
+    "fallback": "Falls der Button nicht funktioniert, kopieren Sie diesen Link in Ihren Browser:",
+    "footer": "Eine Frage? Antworten Sie einfach auf diese E-Mail."
   }
 }

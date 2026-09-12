@@ -8,3 +8,34 @@ schemas = ["public", "storage", "auth"]
 [db]
 port = 54322
 shadow_port = 54320
+
+[auth]
+# Where Supabase sends people when a link carries no usable `redirect_to`.
+# The dashboard is the only app that receives auth links.
+site_url = "http://127.0.0.1:3003"
+
+# Allowlist for `redirectTo`. Supabase SILENTLY falls back to `site_url` for
+# any URL not matched here — it does not error — so a missing entry shows up
+# as a link that works but lands on the wrong app, which is exactly how the
+# local reset flow was pointing at :3000.
+#
+# Production URLs live in the Supabase dashboard (Authentication → URL
+# Configuration) and must be kept in step with this list:
+#   https://<dashboard-domain>/auth/confirm
+additional_redirect_urls = [
+  "http://127.0.0.1:3003/**",
+  "http://localhost:3003/**",
+  "http://127.0.0.1:3010/**",
+  "http://localhost:3010/**",
+]
+
+# These links are minted by `generateLink()` and delivered by Resend
+# (dashboard/src/lib/auth-email.ts), not by Supabase's own SMTP. The lifetime
+# below is what the emails quote to the couple — keep LINK_VALIDITY_HOURS in
+# that file in step with it.
+jwt_expiry = 3600
+
+[auth.email]
+# Sign-up confirmation is not used on the paid path: `createWedding` creates
+# the account with `email_confirm: true`, because paying is the confirmation.
+enable_confirmations = false
