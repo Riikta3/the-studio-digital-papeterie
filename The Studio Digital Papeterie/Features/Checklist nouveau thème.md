@@ -23,6 +23,7 @@ Un thème **rend**, il ne décide rien. Tout ce qu'il affiche vient de `Invitati
   - Les fuites déjà vues : « vers Mauguio », « sur la Riviera », « À proximité de la Villa », un monogramme « V & G » en valeur par défaut, la photo du couple démo.
 - [ ] **Icônes de programme** : utiliser les clés de `ScheduleIcon` (`ceremony`, `cocktail`, `dinner`, `party`, `brunch`). Elles nomment **le moment**, pas le dessin. Le thème mappe ensuite vers son propre visuel.
 - [ ] **Champ manquant ?** L'ajouter à `types.ts` plutôt que de le contourner dans le thème. Un thème qui invente une prop locale est un thème qui divergera des autres.
+- [ ] **Un champ du contrat qu'aucun écran n'alimente est un champ mort.** Trois fois le même piège : `venue.access`, `dressCode.colors` et `couple.portrait` existaient dans `types.ts`, étaient rendus par un thème ou trois, et n'avaient **aucun écrivain**. La palette en particulier avait été dépinglée du CSS *pour* que chaque mariage choisisse la sienne — et rien ne le permettait. Avant de considérer une section finie : remonter la chaîne jusqu'au formulaire.
 - [ ] Le beau contenu spécifique va dans `demo-data.ts` — c'est la vitrine, elle a le droit d'être une belle histoire.
 
 ## 2. Les deux modes
@@ -74,8 +75,48 @@ Pour `ar` : vouvoiement d'un foyer (pluriel) ou d'une personne.
 | Thème | Contrat | RSVP persisté | i18n |
 |---|---|---|---|
 | ciao-amore | ✅ | ✅ | ✅ 9 locales |
-| belle-rive | ⚠️ fuites corrigées, `venue.access` non rendu | ✅ | ❌ français |
-| blanc-couture | ⚠️ idem | ✅ | ❌ français |
+| belle-rive | ✅ | ✅ | ✅ 9 locales |
+| blanc-couture | ✅ | ✅ | ❌ français |
+
+`venue.access` est désormais rendu par les trois thèmes (2026-09-12). Sur
+belle-rive il est **sous** le cadre gravé, pas dedans : `.venue-content` est
+l'image `venue-frame.webp`, dimensionnée sur son propre dessin, et plusieurs
+modes de quelques lignes débordent de la gravure. Sur blanc-couture il a sa
+propre page, pour la même raison au carré (l'ovale est `contain` sur le
+viewport) — et cette page est conditionnée au **contenu** autant qu'au module,
+sinon une page vide consomme un créneau et inverse l'alternance gauche/droite
+de toutes les sections suivantes.
+
+Reste pour blanc-couture : la passe i18n (§3). Ses libellés propres sont encore
+en français ; le contenu des accès, lui, est déjà dans les mots des mariés.
+
+---
+
+## Où les mariés écrivent quoi (2026-09-12)
+
+Trois champs du contrat ont reçu leur écran ce jour-là. Un thème peut donc
+compter dessus :
+
+| Champ du contrat | Écran |
+|---|---|
+| `venue.access` | Lieu & infos pratiques (transport / stationnement / accès) ou le module Transport |
+| `dressCode.colors` / `.image` / `.note` | Module Dress code |
+| `copy.heroKicker` / `.announcement` / `.closing` | **Nos mots** (nouveau) |
+| `couple.portrait` | **Nos mots** (nouveau) |
+
+`copy.*` et le portrait sont stockés sur `settings` (migration
+`20260912140000`) et arrivent par `resolve_public_slug`. La palette et la photo
+du dress code passent par `site_modules.config`, donc par `module-config.ts`.
+
+Les couleurs sont validées **des deux côtés, pour deux raisons différentes** :
+l'éditeur n'accepte que `#rrggbb` parce que `<input type="color">` réécrit
+silencieusement tout le reste en noir à l'ouverture ; le lecteur accepte aussi
+`rgb()`/`hsl()` et jette le reste parce que ces chaînes partent dans un
+attribut `style` et que la colonne jsonb est éditable à la main.
+
+Reste sans écran : `dressCode.mode: "split"` côté palette (une seule palette
+pour les deux), et `copy.venueIntro`/`staysIntro`/`playlistIntro`, qui viennent
+des `description` des modules concernés.
 
 ---
 
