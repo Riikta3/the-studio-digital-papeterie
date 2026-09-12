@@ -51,7 +51,107 @@ Un thème **rend**, il ne décide rien. Tout ce qu'il affiche vient de `Invitati
 - [ ] Un tableau qui sert à la fois de clés d'objet et de libellés doit être dissocié (cf. `UNITS` dans le countdown, qui affichait « 01 jours »).
 - [ ] Le décor propre au thème reste dans sa langue (ciao-amore garde « Grazie », « dolce vita »).
 
-## 4. Enregistrement et vérification
+## 4. Le CSS — deux fichiers, un seul modifiable
+
+C'est là qu'on perd le plus de temps si personne ne l'a dit.
+
+### `<id>.css` est **généré**. Ne jamais l'éditer.
+
+Il est produit par `npm run themes:scope-css` à partir de la feuille du projet
+source, et réécrit pour tenir sous `.theme-<id>`. Toute modification faite
+dedans est perdue à la régénération suivante — et **rien dans le fichier ne
+prévient** : il est minifié, sans en-tête.
+
+- [ ] Les retouches à la main vont dans **`responsive.css`**, importé *après*
+      lui, donc gagnant à spécificité égale.
+- [ ] Chaque règle ajoutée reste sous `.theme-<id>` : rien ne doit atteindre la
+      landing autour.
+- [ ] Commenter **pourquoi**, pas quoi. Une règle sans raison sera supprimée par
+      le prochain qui la croit morte.
+
+### Ne jamais retoucher du CSS minifié à la regex
+
+Une regex qui retire un sélecteur d'une liste `a, b, c` laisse `, }` — un
+fichier invalide que la vérification d'accolades ne voit pas. **Utiliser
+PostCSS**, qui comprend les listes de sélecteurs. Erreur commise : rattrapée
+par le build, pas par ma propre vérification.
+
+### Les tokens du thème, pas des hex en dur
+
+Chaque thème définit ses variables dans son premier bloc :
+
+| Thème | Variables |
+|---|---|
+| ciao-amore | `--paper --olive --deep --line` |
+| belle-rive | `--ivory --ink --gold --line` |
+| blanc-couture | `--white --gold --ink --line` |
+
+- [ ] Reprendre `var(--gold)`, `var(--ink)`… plutôt qu'un `#a9906e` recopié.
+      Sinon le jour où la palette bouge, la nouvelle section ne suit pas.
+
+### Le fond d'une section peut être une image dimensionnée sur son dessin
+
+Piège rencontré sur les deux thèmes le 12/09 :
+
+- belle-rive : `.venue-content` **est** `venue-frame.webp`, un cadre gravé.
+- blanc-couture : `.venue-paper` est un ovale en `background-size: contain`.
+
+Dans les deux cas, ajouter quelques lignes de contenu fait **déborder le texte
+hors du dessin**. La solution n'est pas de rétrécir la police : c'est de sortir
+le bloc du cadre (belle-rive) ou de lui donner sa propre page (blanc-couture).
+
+- [ ] Avant d'ajouter du contenu à une section : regarder si son fond est une
+      image d'encadrement. Si oui, **prendre une capture après ajout**.
+
+### Les polices d'affichage ne descendent pas en petit
+
+blanc-couture réserve Italiana (`--font-bc-display`) aux grands titres et
+utilise Manrope (`--font-bc-sans`) pour les libellés en capitales. Un libellé
+de 9 px en Italiana avec `letter-spacing` se disloque — invisible dans le CSS,
+évident à l'image.
+
+- [ ] Reprendre la paire police/taille d'un libellé **déjà présent** dans le
+      thème plutôt que d'en inventer une.
+
+## 5. Composer les sections — l'ordre et les créneaux
+
+Un thème choisit quelles sections rendre selon `data.modules`. Deux façons de
+le faire, et l'une des deux est un piège.
+
+### Ne jamais dépendre de la position dans le DOM
+
+blanc-couture alternait le sens d'apparition avec `.page:nth-of-type(even)`.
+Ça compte les éléments **rendus** : le jour où un mariage n'achète pas un
+module, toutes les sections suivantes basculent du mauvais côté.
+
+- [ ] Collecter les sections dans une liste **avant** de rendre, puis appliquer
+      l'alternance sur la liste des survivantes (cf. `BlancCoutureRoot`).
+
+### Une section vide consomme quand même un créneau
+
+Corollaire, rencontré le 12/09 : la page « Accès » de blanc-couture est
+conditionnée au module `map` **et** au fait qu'il y ait vraiment des
+indications. Sans la seconde condition, un mariage sans accès renseigné aurait
+une page vide qui prend un créneau et inverse le rythme de tout ce qui suit.
+
+- [ ] Une section optionnelle se garde sur **le module ET le contenu**.
+
+### `supports` est déclaratif, pas appliqué
+
+`ThemeManifest.supports` annonce les modules qu'un thème sait rendre, mais
+**rien ne le lit** (`grep -rn '\.supports' landing/src` ne renvoie que les
+`theme.config.ts` eux-mêmes). Le vrai filtrage est le `has(id)` du composant
+racine, qui teste `data.modules`.
+
+Conséquence : un module que le thème ne rend pas est abandonné en silence —
+c'est voulu, l'alternative serait un bloc non stylé au milieu d'un faire-part
+payé — mais `supports` peut mentir sans que rien ne le signale.
+
+- [ ] Garder `supports` **et** le `has(...)` du root cohérents à la main. Un
+      module listé dans `supports` sans section correspondante est vendu et
+      jamais affiché, et aucun test ne le dira.
+
+## 6. Enregistrement et vérification
 
 - [ ] `npm run themes:sync` puis `npx tsc --noEmit -p landing/tsconfig.json`
 - [ ] `npm run build:landing` → zéro erreur
@@ -61,7 +161,7 @@ Un thème **rend**, il ne décide rien. Tout ce qu'il affiche vient de `Invitati
 - [ ] `scrollW === clientW` : aucun débordement horizontal.
 - [ ] **Regarder les captures** (`npm run themes:shoot -- <id> 1440`). Les bugs de mise en page sont invisibles dans le CSS et évidents à l'image.
 
-## 5. Relecture des traductions
+## 7. Relecture des traductions
 
 `en`, `es`, `it` sont fiables. **`ja`, `ar`, `zh` et `pt` doivent être relus par un locuteur** avant d'être montrés à de vrais invités — c'est de la papeterie de mariage, le ton compte autant que le sens.
 
