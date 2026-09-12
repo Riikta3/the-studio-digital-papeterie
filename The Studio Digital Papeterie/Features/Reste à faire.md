@@ -18,7 +18,7 @@ Voir aussi [[Checklist nouveau thème]], [[Invitation]], [[Conventions]].
 | # | Chantier | Qui peut le faire | Bloquant pour la vente ? |
 |---|---|---|---|
 | 1 | i18n de blanc-couture | Claude, seul | Oui si un couple achète ce thème en non-français |
-| 2 | Base de production | Toi (créer le projet), Claude (pousser) | **Oui** — rien n'est en ligne |
+| 2 | ~~Base de production~~ | — | ~~Oui~~ — **fait le 12/09, 53 migrations en ligne** |
 | 3 | Relecture ja / ar / zh / pt | Un locuteur natif | Non, mais visible par les invités |
 | 4 | Champs du contrat sans écran | Claude, seul | Non |
 | 5 | Sur-mesure sans module | Décision produit | Non — assumé |
@@ -64,31 +64,47 @@ fois.
 
 ---
 
-## 2. Base de données de production
+## 2. Base de données de production — FAIT le 12/09/2026
 
-**Rien n'est en ligne.** Les 53 migrations vivent en local et sur le repo.
+Le projet hébergé existait déjà (`pftvcpxwbprmphhgwvxc`, eu-west-2), lié, avec
+un workflow CI qui pousse les migrations à chaque push sur `main`. Ce que cette
+note affirmait — « rien n'est en ligne » — était faux : 41 migrations étaient
+appliquées depuis le 3 septembre.
 
-### Ce qu'il y a à faire
+Ce qui manquait vraiment : **les 12 migrations des 11 et 12 septembre**, jamais
+poussées parce que la CI ne se déclenche que sur `main` et que tout le travail
+vivait sur `dev`. Les correctifs de sécurité de l'audit étaient donc absents de
+la base réelle — la zone RSVP invité tournait encore en service role sans
+authentification.
 
-1. Créer le projet Supabase de production (toi — ça demande un compte et une
-   carte, je ne le fais pas à ta place).
-2. `npx supabase link --project-ref <ref>`
-3. `npx supabase db push`
+Corrigé par un merge `dev` → `main` (79 commits), le 12/09 à 21h10.
+`Finished supabase db push.` — les 12 appliquées, zéro erreur.
 
-### Ce qui est déjà garanti
+### La leçon qui compte pour la prochaine fois
 
-Les migrations sont **rejouables** : chacune a été testée en `db reset` depuis
-zéro *et* en réexécution sur une base existante. Les `add column` sont en
-`if not exists`, les policies en `drop policy if exists` d'abord. Une
-réexécution accidentelle ne casse rien — elle émet des `NOTICE` et s'arrête.
+**Migrations et code doivent partir ensemble ici, pas les migrations d'abord.**
+`narrow_events_anon_read` *supprime* les policies anon sur `events` et
+`day_of_settings`, que le code alors déployé lisait encore en direct. Pousser
+les migrations seules aurait mis les pages invité et invitation en 404.
 
-### Le piège qui reste
+La règle « migrations d'abord » vaut pour une migration additive. Dès qu'une
+migration **retire** un accès, c'est l'inverse : le code qui cesse d'en
+dépendre doit être en ligne au même moment. D'où un merge plutôt qu'un
+`db push`.
 
-Le `seed.sql` contient le **mariage de démonstration** (`demo@studio.test` /
-`demo1234`). Il ne doit **jamais** partir en production : `db push` ne le joue
-pas, mais `db reset` si. Ne pas lancer `db reset` contre la prod.
+### Vérifié avant de merger
 
----
+- merge sans conflit, et le cherry-pick du correctif année déjà présent dans
+  l'arbre de `dev` (rien de perdu) ;
+- les 12 migrations rejouées sur une base reconstruite à l'état exact de la
+  prod : 12/12 sans erreur, puis rejouées une seconde fois sans erreur
+  (idempotentes) ;
+- les deux apps compilent.
+
+### Le piège toujours valable
+
+`seed.sql` contient le mariage de démonstration. `db push` ne le joue pas,
+`db reset` si. **Ne jamais lancer `db reset` contre la prod.**
 
 ## 3. Relecture des traductions
 
