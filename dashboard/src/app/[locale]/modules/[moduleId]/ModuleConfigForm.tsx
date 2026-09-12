@@ -163,11 +163,16 @@ function DressCodeForm({
   onSave: (data: Record<string, unknown>) => Promise<void>;
   onPreview?: (data: Record<string, unknown>) => void;
 }) {
+  // Headings keep their defaults — "Dress Code" is what the section is called,
+  // and a couple who leaves it alone has not asserted anything about their
+  // wedding. The description does not: a colour scheme is a fact, and it used
+  // to be persisted verbatim by a couple who only pressed Enregistrer. It
+  // moved to the field's placeholder.
   const DEFAULTS = {
     title: "Dress Code",
     subtitle: "Tenue de Soirée",
     mode: "global" as "global" | "split",
-    description: "Pour que la fête soit belle, nous vous invitons à porter une touche de vert sapin ou de doré dans vos tenues.",
+    description: "",
     description_men: "",
     description_women: "",
   };
@@ -237,7 +242,12 @@ function DressCodeForm({
 
       {mode === "global" ? (
         <FieldGroup label={t("field_description")}>
-          <Textarea rows={4} value={description} onChange={(e) => setDescription(e.target.value)} />
+          <Textarea
+            rows={4}
+            value={description}
+            onChange={(e) => setDescription(e.target.value)}
+            placeholder="Pour que la fête soit belle, nous vous invitons à porter une touche de vert sapin ou de doré dans vos tenues."
+          />
         </FieldGroup>
       ) : (
         <div className="space-y-4">
@@ -325,10 +335,19 @@ function MapForm({
   onSave: (data: Record<string, unknown>) => Promise<void>;
   onPreview?: (data: Record<string, unknown>) => void;
 }) {
+  // Empty, not example content. These fields used to open pre-filled with
+  // Vaux-le-Vicomte, and saving is what persists the state of a field — so a
+  // couple who opened this screen and pressed Enregistrer without typing
+  // anything wrote someone else's château into their own wedding, and their
+  // guests would have read it as the venue.
+  //
+  // The examples are not lost: each of these inputs already carries the same
+  // string as its `placeholder`, which is where an example belongs — visible
+  // as a hint, never saved as a fact.
   const MAP_DEFAULTS = {
-    name: "Château de Vaux-le-Vicomte",
-    address: "Allée Maincy, 77950 Maincy",
-    description: "Un chef-d'œuvre du XVIIe siècle niché dans un écrin de verdure, à 55 km au sud-est de Paris. Stationnement gratuit sur place.",
+    name: "",
+    address: "",
+    description: "",
     imageUrl: "",
     imageOrientation: "landscape" as const,
   };
@@ -383,7 +402,14 @@ function MapForm({
         <Input value={address} onChange={(e) => setAddress(e.target.value)} placeholder="Allée Maincy, 77950 Maincy" />
       </FieldGroup>
       <FieldGroup label={t("field_description")}>
-        <Textarea rows={3} value={description} onChange={(e) => setDescription(e.target.value)} />
+        {/* The example moved here from the field's initial value, so it still
+            shows what to write without being saved as if the couple had. */}
+        <Textarea
+          rows={3}
+          value={description}
+          onChange={(e) => setDescription(e.target.value)}
+          placeholder="Un chef-d'œuvre du XVIIe siècle niché dans un écrin de verdure, à 55 km au sud-est de Paris. Stationnement gratuit sur place."
+        />
       </FieldGroup>
       <FieldGroup label={t("field_venue_photo")}>
         <input ref={venueFileRef} type="file" accept="image/jpeg,image/jpg,image/png" className="hidden" onChange={(e) => handleVenueUpload(e.target.files)} />
@@ -451,10 +477,14 @@ function IntroVideoForm({
   onSave: (data: Record<string, unknown>) => Promise<void>;
   onPreview?: (data: Record<string, unknown>) => void;
 }) {
+  // Headings stay; the message body does not. See the dress-code defaults
+  // above for the distinction — a section title is what the block is called, a
+  // sentence addressed to the guests is something the couple has to have
+  // written.
   const VIDEO_DEFAULTS = {
     title: "Notre Histoire",
     subtitle: "Un petit mot pour vous",
-    description: "Avant le grand jour, nous tenions à vous adresser ce message...",
+    description: "",
     videoUrl: "",
     videoType: "embed" as const,
   };
@@ -536,7 +566,12 @@ function IntroVideoForm({
         <Input value={subtitle} onChange={(e) => setSubtitle(e.target.value)} />
       </FieldGroup>
       <FieldGroup label={t("field_description")}>
-        <Textarea rows={2} value={description} onChange={(e) => setDescription(e.target.value)} />
+        <Textarea
+          rows={2}
+          value={description}
+          onChange={(e) => setDescription(e.target.value)}
+          placeholder="Avant le grand jour, nous tenions à vous adresser ce message..."
+        />
       </FieldGroup>
 
       <FieldGroup label={t("field_video_source")}>
@@ -643,9 +678,11 @@ function GiftListForm({
 }) {
   const t = useTranslations("Modules");
   const [saving, setSaving] = useState(false);
-  const [description, setDescription] = useState(
-    str(config?.description, "Votre présence à nos côtés est le plus beau des cadeaux. Si vous souhaitez toutefois nous accompagner dans nos futurs projets ou notre voyage de noces, vous trouverez ci-dessous les options pour participer.")
-  );
+  // Empty, with the example moved to the field's placeholder: this paragraph
+  // is written in the couple's own voice and speaks for them about money, so
+  // it must not be something they published by pressing Enregistrer. The
+  // button label below keeps its default — a label is not a statement.
+  const [description, setDescription] = useState(str(config?.description));
   const [giftListUrl, setGiftListUrl] = useState(str(config?.gift_list_url));
   const [giftListLabel, setGiftListLabel] = useState(str(config?.gift_list_label, "Contribuer à notre projet"));
 
@@ -666,7 +703,12 @@ function GiftListForm({
   return (
     <form onSubmit={handleSubmit} className="space-y-5">
       <FieldGroup label={t("field_description")}>
-        <Textarea rows={4} value={description} onChange={(e) => setDescription(e.target.value)} />
+        <Textarea
+          rows={4}
+          value={description}
+          onChange={(e) => setDescription(e.target.value)}
+          placeholder="Votre présence à nos côtés est le plus beau des cadeaux. Si vous souhaitez toutefois nous accompagner dans nos futurs projets ou notre voyage de noces, vous trouverez ci-dessous les options pour participer."
+        />
       </FieldGroup>
       <FieldGroup label={t("field_gift_url")}>
         <Input value={giftListUrl} onChange={(e) => setGiftListUrl(e.target.value)} placeholder="https://millemercismariage.com/..." />
@@ -677,7 +719,11 @@ function GiftListForm({
       <FormActions
         saving={saving}
         onReset={() => {
-          setDescription("Votre présence à nos côtés est le plus beau des cadeaux.");
+          // Clears rather than restoring example prose — the field's
+          // placeholder shows what to write. This reset also carried a
+          // *different*, shorter version of the demo text than the initial
+          // default, so the two disagreed about what "reset" meant.
+          setDescription("");
           setGiftListUrl(""); setGiftListLabel("Contribuer à notre projet");
         }}
       />
@@ -697,9 +743,9 @@ function PlaylistForm({
 }) {
   const t = useTranslations("Modules");
   const [saving, setSaving] = useState(false);
-  const [description, setDescription] = useState(
-    str(config?.description, "Aidez le DJ à préparer la soirée parfaite ! Recherchez et proposez jusqu'à 3 titres qui vous feront danser jusqu'au bout de la nuit.")
-  );
+  // Empty, example in the placeholder: this is addressed to the guests in the
+  // couple's voice, and it assumes a DJ they may not have hired.
+  const [description, setDescription] = useState(str(config?.description));
 
   useEffect(() => {
     onPreview?.({ description });
@@ -718,21 +764,35 @@ function PlaylistForm({
   return (
     <form onSubmit={handleSubmit} className="space-y-5">
       <FieldGroup label={t("field_description")}>
-        <Textarea rows={4} value={description} onChange={(e) => setDescription(e.target.value)} />
+        <Textarea
+          rows={4}
+          value={description}
+          onChange={(e) => setDescription(e.target.value)}
+          placeholder="Aidez le DJ à préparer la soirée parfaite ! Recherchez et proposez jusqu'à 3 titres qui vous feront danser jusqu'au bout de la nuit."
+        />
       </FieldGroup>
-      <FormActions
-        saving={saving}
-        onReset={() => setDescription("Aidez le DJ à préparer la soirée parfaite ! Recherchez et proposez jusqu'à 3 titres qui vous feront danser jusqu'au bout de la nuit.")}
-      />
+      <FormActions saving={saving} onReset={() => setDescription("")} />
     </form>
   );
 }
 
 // --- Timeline ---
+/**
+ * One empty row to start from.
+ *
+ * This used to be three fully written events — a civil ceremony at the town
+ * hall of the 8th arrondissement, a reception in the château gardens — and
+ * saving persists whatever is in the fields, so a couple who opened this
+ * screen and pressed Enregistrer published a Paris timeline for a wedding that
+ * might be anywhere.
+ *
+ * Nothing is lost by removing them: every field below already carries the same
+ * text as its placeholder, which shows the couple what to write without
+ * writing it for them. The row itself stays because an empty list gives them
+ * nothing to type into.
+ */
 const TIMELINE_DEFAULTS: TimelineEvent[] = [
-  { id: "tl-1", time: "15:00", title: "Cérémonie Civile", location: "Mairie du 8e, Paris", description: "Merci d'arriver 15 min en avance." },
-  { id: "tl-2", time: "17:30", title: "Vin d'Honneur", location: "Jardins du Château", description: "Profitez de la terrasse et des jardins." },
-  { id: "tl-3", time: "20:00", title: "Dîner & Soirée", location: "Grande Salle du Château", description: "Le bal s'ouvre avec la première danse des mariés." },
+  { id: "tl-1", time: "", title: "", location: "", description: "" },
 ];
 
 function TimelineForm({
@@ -846,14 +906,21 @@ function TimelineForm({
 }
 
 // --- Accommodation ---
+/**
+ * Headings, and one empty row to fill in.
+ *
+ * The three hotels that used to be here — Ibis Melun, a gîte in Maincy, a
+ * pre-booked block at the Hôtel de la Brie, each with a booking link — were
+ * persisted by a couple who only pressed Enregistrer, and their guests could
+ * act on them: book a room, drive to the wrong town. An invented address is
+ * not a placeholder, it is a wrong answer to a question a guest asked.
+ */
 const ACCOMMODATION_DEFAULTS = {
   title: "Logements",
   subtitle: "Où dormir ?",
-  description: "Pour profiter pleinement de la fête en toute sérénité, voici nos suggestions d'hébergements à proximité du domaine.",
+  description: "",
   options: [
-    { id: "1", type: "Hotel" as const, name: "Ibis Melun", distance: "À 15 minutes du domaine", description: "Hôtel confortable idéalement situé à Melun, avec navette disponible sur demande pour rejoindre le château.", url: "https://all.accor.com", urlLabel: "Réserver une chambre" },
-    { id: "2", type: "House" as const, name: "Gîte de Maincy", distance: "À 5 minutes (village voisin)", description: "Idéal pour les familles ou groupes d'amis. Gîte spacieux avec 4 chambres au cœur du village de Maincy.", url: "https://airbnb.com", urlLabel: "Voir sur Airbnb" },
-    { id: "3", type: "Hotel" as const, name: "Hôtel de la Brie", distance: "À 20 minutes", description: "Nous avons pré-réservé quelques chambres pour nos invités. Contactez-nous rapidement pour bloquer la vôtre." },
+    { id: "1", type: "Hotel" as const, name: "", distance: "", description: "", url: "", urlLabel: "" },
   ],
 };
 
@@ -1006,15 +1073,26 @@ const TRANSPORT_ICONS: Record<string, React.ReactNode> = {
   Ship: <Ship size={14} />,
 };
 
+/**
+ * Empty rows, and no pre-filled carpool link.
+ *
+ * The three routes that used to be here gave train times from Gare de Lyon to
+ * Melun and shuttle departures at 2 h, 3 h 30 and 5 h — timetables a guest
+ * would plan their night around, for a wedding that may be nowhere near Paris.
+ * `carpoolUrl` pointed at a real third-party service, and the toggle that
+ * shows the carpool block is derived from that URL being non-empty, so the
+ * default switched the block on by itself.
+ *
+ * The labels stay: "En Train" names a row, it asserts nothing.
+ */
 const TRANSPORT_DEFAULTS = {
   options: [
-    { id: "trans-1", iconType: "Train" as const, title: "En Train", description: "Gare de Lyon → Melun en 35 min (Transilien R), puis taxi ou navette jusqu'au château (10 min)." },
-    { id: "trans-2", iconType: "Car" as const, title: "En Voiture", description: "Depuis Paris : A6 direction Lyon, sortie Melun/Vaux-le-Vicomte. Parking gratuit et surveillé sur place." },
-    { id: "trans-3", iconType: "Bus" as const, title: "Navettes Prévues", description: "Des navettes privées feront l'aller-retour depuis Paris 8e et les hôtels partenaires à 2h00, 3h30 et 5h00 du matin." },
+    { id: "trans-1", iconType: "Train" as const, title: "En Train", description: "" },
+    { id: "trans-2", iconType: "Car" as const, title: "En Voiture", description: "" },
   ],
-  carpoolUrl: "https://togetzer.com/",
+  carpoolUrl: "",
   carpoolLinkLabel: "Accéder au tableau",
-  carpoolDescription: "Pour limiter notre empreinte écologique et faciliter les trajets, nous avons mis en place un tableau de covoiturage. N'hésitez pas à proposer ou chercher une place !",
+  carpoolDescription: "",
 };
 
 function TransportForm({
@@ -1165,14 +1243,25 @@ function TransportForm({
 }
 
 // --- Menu ---
+/**
+ * Course headings, no dishes.
+ *
+ * A full gastronomic menu used to be pre-filled — butternut velouté, beef
+ * Wellington, a croquembouche — and a guest reads a menu to decide what to
+ * tell the couple about their allergies. The `dietaryNote` went further and
+ * made a claim on the couple's behalf about certified meat.
+ *
+ * The section titles stay: they are the shape of a French menu, not a choice
+ * of dish.
+ */
 const MENU_DEFAULTS = {
   sections: [
-    { id: "sec-1", title: "Pour commencer", items: [{ title: "Velouté de butternut au lait de coco", description: "Éclats de châtaignes et huile de truffe" }] },
-    { id: "sec-2", title: "Le Plat", items: [{ title: "Filet de bœuf Wellington", description: "Jus corsé au vin rouge, accompagné de sa mousseline de pommes de terre truffée et petits légumes glacés" }] },
-    { id: "sec-3", title: "La Note Sucrée", items: [{ title: "Pièce montée traditionnelle" }, { title: "Farandole de mignardises" }] },
+    { id: "sec-1", title: "Pour commencer", items: [{ title: "", description: "" }] },
+    { id: "sec-2", title: "Le Plat", items: [{ title: "", description: "" }] },
+    { id: "sec-3", title: "La Note Sucrée", items: [{ title: "", description: "" }] },
   ],
-  dietaryNote: "Toutes nos viandes sont d'origine certifiée. En cas d'allergies, d'intolérances ou de régime spécifique (végétarien, halal, sans gluten), merci de le préciser lors de votre RSVP.",
-  footer: ["Vins & Champagne inclus", "Café & Thé"],
+  dietaryNote: "",
+  footer: ["", ""],
 };
 
 function MenuForm({
@@ -1362,15 +1451,25 @@ function MenuForm({
 }
 
 // --- FAQ ---
+/**
+ * Headings, and one empty question to fill in.
+ *
+ * This was the most consequential set of pre-filled answers in the product: it
+ * told guests there would be a chapel, a marquee if it rained, a kids' area
+ * with a babysitter, and free guarded parking ten minutes' walk away. A FAQ is
+ * read precisely by the guests deciding whether to bring their children or
+ * their car, so a wrong answer here is one they act on — and every word of it
+ * was published by a couple who did nothing but press Enregistrer.
+ *
+ * Note the children question in particular: `themes/faq.ts` derives that
+ * answer from `settings.adults_only`, so a persisted default could contradict
+ * the couple's own setting and the RSVP form on the same page.
+ */
 const FAQ_DEFAULTS = {
   title: "FAQ",
   subtitle: "Infos Pratiques",
-  description: "Vous avez des questions ? Nous avons les réponses !",
-  questions: [
-    { id: "faq-1", question: "La cérémonie se déroulera-t-elle en extérieur ?", answer: "La cérémonie religieuse aura lieu dans la chapelle du château. Le vin d'honneur se tiendra dans les jardins (en cas de pluie, une tente est prévue)." },
-    { id: "faq-2", question: "Les enfants sont-ils les bienvenus ?", answer: "Nous adorons vos enfants ! Les enfants de moins de 12 ans sont les bienvenus. Un espace kids avec baby-sitter sera disponible pendant le dîner." },
-    { id: "faq-3", question: "Y a-t-il un parking sur place ?", answer: "Oui, un parking gratuit et surveillé est disponible sur le domaine. Comptez 10 min à pied depuis le parking jusqu'à la salle." },
-  ],
+  description: "",
+  questions: [{ id: "faq-1", question: "", answer: "" }],
 };
 
 function FaqForm({
