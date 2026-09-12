@@ -1,6 +1,11 @@
 "use server";
 
 import { createClient } from "@/utils/supabase/server";
+import {
+  type ModuleConfigRow,
+  type ModuleContent,
+  readModuleConfigs,
+} from "@/lib/module-config";
 
 /**
  * The couple's real invitation, assembled from Supabase.
@@ -77,6 +82,11 @@ export type InvitationPageData = {
   modules: string[];
   /** `settings.adults_only` — drives the RSVP child fields and the FAQ entry. */
   adultsOnly: boolean;
+  /**
+   * What the couple wrote on the dashboard's module screens
+   * (`site_modules.config`), which nothing read until now.
+   */
+  moduleContent: ModuleContent;
   partner1: string;
   partner2: string;
   /** ISO date of the main ceremony, for the countdown. */
@@ -166,7 +176,7 @@ export async function getInvitationPage(
 
   const weddingId = site.wedding_id as string;
 
-  const [namesRes, eventsRes, scheduleRes, venueRes, staysRes, faqRes] =
+  const [namesRes, eventsRes, scheduleRes, venueRes, staysRes, faqRes, modulesRes] =
     await Promise.all([
       // The couple's names live on `profiles`, which anon cannot read. This
       // security-definer RPC is the narrow path to just the two display names
@@ -199,6 +209,9 @@ export async function getInvitationPage(
         .eq("wedding_id", weddingId)
         .eq("published", true)
         .order("position", { ascending: true }),
+      // Per-module content. Through an RPC for the same reason as the events
+      // above: `site_modules` has no anon policy and must not gain one.
+      supabase.rpc("public_module_configs", { p_wedding_id: weddingId }),
     ]);
 
   const names = namesRes.data?.[0];
@@ -270,6 +283,9 @@ export async function getInvitationPage(
     themeId: (site.theme_id as string | null) ?? null,
     modules: (site.modules as string[] | null) ?? [],
     adultsOnly: Boolean(site.adults_only),
+    // `rpc()` returns untyped rows (the generated types do not cover
+    // functions), so the shape is named before it is narrowed.
+    moduleContent: readModuleConfigs((modulesRes.data ?? []) as ModuleConfigRow[]),
     partner1: (names?.first_name as string | null) ?? "",
     partner2: (names?.partner_name as string | null) ?? "",
     weddingDateISO: mainEvent?.date ?? null,

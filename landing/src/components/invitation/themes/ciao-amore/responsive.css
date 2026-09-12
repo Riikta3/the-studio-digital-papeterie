@@ -2062,3 +2062,48 @@
     animation: none;
   }
 }
+
+/* ─── Venue intro and access ────────────────────────────────────────────────
+   `venue.access` (how to get there) and `copy.venueIntro` reach every theme
+   through the contract and were rendered by none, so a couple's directions
+   were dropped on the way to the page. Typed in `em` so both follow whatever
+   the venue card sets, and the measure is capped because these are sentences,
+   not labels. */
+.theme-ciao-amore .venue-intro {
+  margin: 0 auto 18px;
+  max-width: 46ch;
+  font-size: .92em;
+  line-height: 1.6;
+}
+
+.theme-ciao-amore .venue-access {
+  margin: 22px auto 0;
+  max-width: 46ch;
+  text-align: start;
+}
+
+.theme-ciao-amore .venue-access > div + div {
+  margin-top: 14px;
+}
+
+.theme-ciao-amore .venue-access dt {
+  font-family: var(--font-ca-sans), Montserrat, sans-serif;
+  font-size: .62rem;
+  font-weight: 700;
+  letter-spacing: .16em;
+  text-transform: uppercase;
+  opacity: .72;
+}
+
+.theme-ciao-amore .venue-access dd {
+  margin: 4px 0 0;
+  font-size: .9em;
+  line-height: 1.55;
+}
+
+.theme-ciao-amore .venue-access dd a {
+  color: inherit;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  overflow-wrap: anywhere;
+}

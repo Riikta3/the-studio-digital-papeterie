@@ -31,6 +31,21 @@ import { formatFrenchWeekday } from "@/components/invitation/themes/format";
  * theme hides that section — an invitation must never assert a fact nobody
  * typed. Starting content is a separate concern with a separate owner:
  * `themes/defaults.ts` seeds it into real, editable rows at checkout.
+ *
+ * ## Two sources, one shape
+ *
+ * A couple's content lives in two places, because the product grew that way:
+ * dedicated tables (`venues`, `schedule_entries`, `faq_entries`,
+ * `accommodations`) written by the invitation screens, and
+ * `site_modules.config` written by the module screens. Both are real content
+ * the couple typed.
+ *
+ * Where they overlap, the tables win. They are the structured, newer source —
+ * a venue row has an address, a maps link and a photo, while the map module
+ * has three free-text fields — and the invitation screens are where the
+ * dashboard points a couple first. The module config fills what the tables
+ * have no column for (the venue blurb, the dress code, the transport notes,
+ * the gift list) and stands in where a table is empty.
  */
 
 /* ------------------------------------------------------------------ *
@@ -159,6 +174,9 @@ function toModuleIds(modules: string[] | null | undefined): ModuleId[] | undefin
  * ------------------------------------------------------------------ */
 
 export function toInvitationData(page: InvitationPageData): InvitationData {
+  /** What the couple wrote on the module screens. Read throughout. */
+  const mod = page.moduleContent;
+
   /* -- The main event, which anchors the countdown and the day-1 label ----- */
 
   // `getInvitationPage` already picks the ceremony, falling back to the first
@@ -187,6 +205,18 @@ export function toInvitationData(page: InvitationPageData): InvitationData {
     })),
   );
 
+  // Sorted by the index the form writes at save time; entries saved before
+  // that existed fall back to the order they were stored in.
+  const moduleSchedule: ScheduleEntry[] = mod.timeline
+    .slice()
+    .sort((a, b) => (a.orderIndex ?? 0) - (b.orderIndex ?? 0))
+    .map((entry) => ({
+      day: 1 as const,
+      time: entry.time ?? "",
+      title: entry.title ?? "",
+      description: [entry.description, entry.location].filter(Boolean).join(" · ") || undefined,
+    }));
+
   /* -- Day two ------------------------------------------------------------ */
 
   // A theme renders the day after as its own block rather than as timeline
@@ -197,11 +227,47 @@ export function toInvitationData(page: InvitationPageData): InvitationData {
 
   /* -- Dress code --------------------------------------------------------- */
 
-  // The database keeps a dress code per event (`events.dress_code`); the
-  // contract has one block for the invitation. The main event's is the one a
-  // theme shows, and it arrives as free text — no palette, because the couple
-  // has no way to enter one yet.
-  const dressCodeBody = mainEvent?.dressCode?.trim();
+  // Two sources: `events.dress_code` (one line per event, from the events
+  // screen) and the dress-code module (a title and a longer description, and
+  // optionally separate guidance per audience).
+  //
+  // The module wins here, against the rule that tables win elsewhere: it is
+  // the richer of the two and it is the screen that exists *for* this, while
+  // `events.dress_code` is a field on a form about something else.
+  const moduleDress = mod.dressCode;
+
+  // In "split" mode the couple wrote for two audiences; the contract has one
+  // body, so they are joined rather than one of them dropped.
+  const splitBody = [
+    moduleDress.descriptionMen && `Messieurs — ${moduleDress.descriptionMen}`,
+    moduleDress.descriptionWomen && `Mesdames — ${moduleDress.descriptionWomen}`,
+  ]
+    .filter(Boolean)
+    .join("\n");
+
+  const dressCodeBody =
+    (moduleDress.mode === "split" ? splitBody : moduleDress.description) ||
+    mainEvent?.dressCode?.trim();
+
+  /* -- Transport ---------------------------------------------------------- */
+
+  // The transport module and `venue.access` describe the same thing — how to
+  // get there, by mode — so the module's rows become access entries rather
+  // than a section the contract has no room for. Carpooling is appended as its
+  // own mode when the couple published a link.
+  const transportAccess = mod.transport.options.map((option) => ({
+    mode: option.title ?? option.iconType ?? "Accès",
+    details: option.description ? [option.description] : [],
+  }));
+
+  if (mod.transport.carpoolUrl) {
+    transportAccess.push({
+      mode: "Covoiturage",
+      details: [mod.transport.carpoolDescription, mod.transport.carpoolUrl].filter(
+        (detail): detail is string => Boolean(detail),
+      ),
+    });
+  }
 
   /* -- RSVP --------------------------------------------------------------- */
 
@@ -231,34 +297,55 @@ export function toInvitationData(page: InvitationPageData): InvitationData {
       timezone: "Europe/Paris",
     },
 
-    // Derived, not stored. None of `copy.*` has a column yet — there is no
-    // screen where a couple writes their own hero line — so the labels a theme
-    // needs are computed from the wedding itself rather than left blank, which
-    // would print a hero with no date under the names. The wording matches
-    // `themes/defaults.ts` so the page does not change when columns arrive.
+    // The hero labels are derived — no screen asks a couple for their own hero
+    // line, and a hero with no date under the names looks broken. The section
+    // intros are not: those are the module screens' `description` fields,
+    // which had no reader at all until now, so a couple who wrote them saw
+    // nothing change on their invitation.
     copy: {
       heroKicker: "Nous nous marions",
       dateLabel: dottedLabel(date),
       dateSpelled:
         formatFrenchWeekday(startsAt, { timeZone: "Europe/Paris" }) ?? undefined,
+      venueIntro: mod.venue.description,
+      staysIntro: mod.accommodation.description,
+      playlistIntro: mod.playlist.description,
+      // The dashboard writes this already formatted in the couple's locale
+      // ("14 novembre 2026"), so it is printed, never parsed — see
+      // `ModuleContent.rsvpDeadlineLabel`.
+      rsvpNote: page.moduleContent.rsvpDeadlineLabel
+        ? `Merci de répondre avant le ${page.moduleContent.rsvpDeadlineLabel}.`
+        : undefined,
     },
 
-    venue: page.venue
-      ? {
-          name: page.venue.name,
-          city: page.venue.city,
-          address: page.venue.address,
-          mapsUrl: page.venue.mapsUrl,
-          wazeUrl: page.venue.wazeUrl,
-          image: page.venue.photoUrl,
-          access: page.venue.access.length > 0 ? page.venue.access : undefined,
-        }
-      : // `Venue` is required by the contract and a theme prints its name; a
-        // wedding with no venue row yet renders the block empty rather than
-        // crashing on a missing object.
-        { name: "" },
+    venue: {
+      // The venue row wins; the map module stands in when it is empty, which
+      // is the case for a couple who only ever opened the module screen.
+      name: page.venue?.name || mod.venue.name || "",
+      city: page.venue?.city,
+      address: page.venue?.address || mod.venue.address,
+      mapsUrl: page.venue?.mapsUrl,
+      wazeUrl: page.venue?.wazeUrl,
+      image: page.venue?.photoUrl || mod.venue.imageUrl,
+      access:
+        page.venue && page.venue.access.length > 0
+          ? page.venue.access
+          : // The transport module is the same idea in another shape: one
+            // mode, one set of directions.
+            transportAccess.length > 0
+            ? transportAccess
+            : undefined,
+    },
 
-    schedule: schedule.length > 0 ? schedule : undefined,
+    // `schedule_entries` wins; the timeline module stands in when the couple
+    // built their programme there instead. Its entries carry a `location`
+    // the contract has no field for, so it is folded into the description.
+    schedule:
+      schedule.length > 0
+        ? schedule
+        : moduleSchedule.length > 0
+          ? moduleSchedule
+          : undefined,
 
     dayTwo: brunch
       ? {
@@ -269,7 +356,12 @@ export function toInvitationData(page: InvitationPageData): InvitationData {
         }
       : undefined,
 
-    dressCode: dressCodeBody ? { title: "Dress code", body: dressCodeBody } : undefined,
+    dressCode: dressCodeBody
+      ? {
+          title: moduleDress.subtitle ?? moduleDress.title ?? "Dress code",
+          body: dressCodeBody,
+        }
+      : undefined,
 
     stays:
       page.accommodations.length > 0
@@ -281,18 +373,38 @@ export function toInvitationData(page: InvitationPageData): InvitationData {
             offer: stay.offer,
             image: stay.photoUrl,
           }))
-        : undefined,
+        : mod.accommodation.options.length > 0
+          ? mod.accommodation.options.map((option) => ({
+              name: option.name ?? "",
+              distance: option.distance,
+              // The module has no `offer` column; its free-text description is
+              // where a couple writes "code X : -10 %".
+              offer: option.description,
+              url: option.url,
+            }))
+          : undefined,
 
+    // Both sources are concatenated rather than one winning: a couple may have
+    // written some questions on the FAQ screen and others in the module, and
+    // dropping either would lose answers their guests need. Duplicates are not
+    // deduplicated — there is no reliable key, and a repeated question is a
+    // smaller problem than a missing answer.
     faq:
-      page.faq.length > 0
-        ? page.faq.map((entry) => ({
-            // Deliberately not `entry.id`: the contract's `id` is a semantic
-            // key ("children-policy") that marks an entry a setting owns, and
-            // a row's uuid would never match one. A couple's own rows carry no
-            // key, which is correct — their wording is theirs.
-            question: entry.question,
-            answer: entry.answer,
-          }))
+      page.faq.length > 0 || mod.faq.questions.length > 0
+        ? [
+            ...page.faq.map((entry) => ({
+              // Deliberately not `entry.id`: the contract's `id` is a semantic
+              // key ("children-policy") that marks an entry a setting owns,
+              // and a row's uuid would never match one. A couple's own rows
+              // carry no key, which is correct — their wording is theirs.
+              question: entry.question,
+              answer: entry.answer,
+            })),
+            ...mod.faq.questions.map((entry) => ({
+              question: entry.question ?? "",
+              answer: entry.answer ?? "",
+            })),
+          ]
         : undefined,
 
     rsvp: {
