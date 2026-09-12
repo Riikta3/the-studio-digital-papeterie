@@ -3,6 +3,8 @@
 import { type FormEvent, useState } from "react";
 
 import { type RsvpCompanion, submitRsvp } from "@/actions/invitation-submissions";
+import { useLocale, useTranslations } from "next-intl";
+
 import { formatFrenchDate } from "../../format";
 import type { InvitationData } from "../../types";
 
@@ -17,13 +19,15 @@ import type { InvitationData } from "../../types";
  * theme silently dropped every reply its guests sent.
  */
 export function RsvpSection({ data }: { data: InvitationData }) {
+  const t = useTranslations("Invitation.belleRive.rsvp");
+  const locale = useLocale();
   const [sent, setSent] = useState(false);
   const [pending, setPending] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [attendance, setAttendance] = useState<"solo" | "partner">("solo");
 
   const rsvp = data.rsvp;
-  const deadline = formatFrenchDate(data.event.rsvpDeadline);
+  const deadline = formatFrenchDate(data.event.rsvpDeadline, { locale });
   const weddingId = data.weddingId;
 
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
@@ -80,14 +84,20 @@ export function RsvpSection({ data }: { data: InvitationData }) {
 
   return (
     <section className="panel rsvp pearled">
-      <p className="eyebrow">RSVP</p>
-      <h2>Serez-vous des nôtres ?</h2>
+      <p className="eyebrow">{t("eyebrow")}</p>
+      <h2>{t("title")}</h2>
       <p>
-        {data.copy?.rsvpIntro ?? "Nous serions honorés de vous compter parmi nous."}
+        {data.copy?.rsvpIntro ?? t("introFallback")}
         {deadline ? (
           <>
             {" "}
-            Merci de confirmer votre présence avant le <b>{deadline}</b>.
+            {t.rich("deadline", {
+              deadline,
+              // The date is the sentence's one emphasis, and which words fall
+              // around it differs by language — so the bold is a tag inside
+              // the message rather than markup wrapped around a slot.
+              b: (chunks) => <b>{chunks}</b>,
+            })}
           </>
         ) : null}
       </p>
@@ -95,7 +105,7 @@ export function RsvpSection({ data }: { data: InvitationData }) {
       {sent ? (
         <div className="thanks">
           <b>♡</b>
-          <h3>Merci pour votre réponse !</h3>
+          <h3>{t("thanksTitle")}</h3>
           <p>
             {data.couple.partner1} &amp; {data.couple.partner2}
           </p>
@@ -103,26 +113,24 @@ export function RsvpSection({ data }: { data: InvitationData }) {
       ) : (
         <form onSubmit={handleSubmit}>
           <label>
-            Nom et prénom
-            <input name="fullName" required placeholder="Prénom et nom" />
+            {t("nameLabel")}
+            <input name="fullName" required placeholder={t("namePlaceholder")} />
           </label>
 
           <fieldset>
-            <legend>Présence</legend>
+            <legend>{t("attendanceLegend")}</legend>
             <label>
-              <input type="radio" name="attendance" value="yes" required /> Oui, je serai là avec
-              grand plaisir
+              <input type="radio" name="attendance" value="yes" required /> {t("attendanceYes")}
             </label>
             <label>
-              <input type="radio" name="attendance" value="no" /> Non, mais je penserai fort à
-              vous
+              <input type="radio" name="attendance" value="no" /> {t("attendanceNo")}
             </label>
           </fieldset>
 
           {rsvp?.allowPartner ? (
             <>
               <label>
-                Qui sera présent ?
+                {t("partyLabel")}
                 <select
                   name="partyMode"
                   value={attendance}
@@ -130,14 +138,14 @@ export function RsvpSection({ data }: { data: InvitationData }) {
                     setAttendance(event.target.value === "partner" ? "partner" : "solo")
                   }
                 >
-                  <option value="solo">Moi uniquement</option>
-                  <option value="partner">Moi + mon/ma partenaire</option>
+                  <option value="solo">{t("partyOptionSolo")}</option>
+                  <option value="partner">{t("partyOptionPartner")}</option>
                 </select>
               </label>
               {attendance === "partner" ? (
                 <label>
-                  Prénom et nom de votre partenaire
-                  <input name="partnerName" required placeholder="Prénom et nom" />
+                  {t("partnerNameLabel")}
+                  <input name="partnerName" required placeholder={t("partnerNamePlaceholder")} />
                 </label>
               ) : null}
             </>
@@ -145,7 +153,7 @@ export function RsvpSection({ data }: { data: InvitationData }) {
 
           {rsvp?.dietaryOptions?.length ? (
             <label>
-              Restrictions alimentaires
+              {t("dietaryLabel")}
               <select name="dietary">
                 {rsvp.dietaryOptions.map((option) => (
                   <option key={option}>{option}</option>
@@ -156,8 +164,8 @@ export function RsvpSection({ data }: { data: InvitationData }) {
 
           {rsvp?.collectMessage ? (
             <label>
-              Précisions
-              <textarea name="message" placeholder="Allergie ou régime particulier…" />
+              {t("messageLabel")}
+              <textarea name="message" placeholder={t("messagePlaceholder")} />
             </label>
           ) : null}
 
@@ -170,7 +178,7 @@ export function RsvpSection({ data }: { data: InvitationData }) {
           ) : null}
 
           <button className="submit" type="submit" disabled={pending}>
-            {pending ? "Envoi…" : "Envoyer ma réponse"}
+            {pending ? t("submitPending") : t("submit")}
           </button>
         </form>
       )}

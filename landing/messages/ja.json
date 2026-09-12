@@ -1214,6 +1214,119 @@
       "scrollTop": {
         "ariaLabel": "ページの先頭に戻る"
       }
+    },
+    "belleRive": {
+      "hero": {
+        "discoverCta": "見る"
+      },
+      "countdown": {
+        "eyebrow": "カウントダウン",
+        "titleLine1": "皆さまとお祝いできる日を",
+        "titleLine2": "心よりお待ちしております",
+        "unitDays": "{count, plural, other {日}}",
+        "unitHours": "{count, plural, other {時間}}",
+        "unitMinutes": "{count, plural, other {分}}",
+        "unitSeconds": "{count, plural, other {秒}}"
+      },
+      "program": {
+        "eyebrow": "プログラム",
+        "titleFallback": "特別な二日間",
+        "dayOneEyebrow": "1日目"
+      },
+      "activities": {
+        "eyebrow": "2日目",
+        "brunchImageAlt": "美しくしつらえたブランチのテーブル",
+        "poolAlt": "プール",
+        "tennisAlt": "テニス",
+        "petanqueAlt": "ペタンク"
+      },
+      "dressCode": {
+        "eyebrow": "ドレスコード · 2日目",
+        "imageAlt": "装いのインスピレーション：{title}",
+        "guidance": "リネンや自然素材、夏らしい装いをどうぞお楽しみください。"
+      },
+      "venue": {
+        "eyebrow": "会場",
+        "wazeLink": "Waze で開く",
+        "mapsLink": "Google マップ"
+      },
+      "stays": {
+        "eyebrow": "ご宿泊",
+        "title": "厳選のご滞在先",
+        "partnerOffersKicker": "提携先の特別プラン",
+        "nearbyKicker": "近隣の一軒家・貸別荘",
+        "discoverAndBook": "詳細・ご予約",
+        "showMoreOptions": "その他の選択肢を見る"
+      },
+      "playlist": {
+        "eyebrow": "音楽",
+        "title": "みんなでつくるプレイリスト",
+        "suggestionPlaceholder": "曲名 — アーティスト",
+        "suggestionLabel": "リクエスト",
+        "add": "追加",
+        "alreadySuggested": "リクエスト済み"
+      },
+      "carpool": {
+        "eyebrow": "相乗り",
+        "titleLine1": "ご一緒に",
+        "titleLine2": "向かいませんか？",
+        "intro": "お車でお越しで、空席がございましたら、ほかのご招待客にお声がけください。",
+        "tripTo": "{departure} から {destination} へ",
+        "offeredBy": "{name} さんのご提案",
+        "seats": "{count, plural, other {# 席}}",
+        "returnTripOffered": "復路もご提案いただいています",
+        "contactDriver": "連絡する",
+        "contactUnavailable": "ご招待状の有効化後にご利用いただけます",
+        "emptyLine1": "現在ご提案はございません。",
+        "emptyLine2": "最初のお一人になりませんか。",
+        "successLine1": "ご提案を公開しました。",
+        "successLine2": "ご一緒いただきありがとうございます。",
+        "firstNameLabel": "お名前",
+        "firstNamePlaceholder": "お名前",
+        "departureLabel": "出発地",
+        "departurePlaceholder": "東京、大阪、名古屋…",
+        "dateLabel": "日付",
+        "timeLabel": "時刻",
+        "seatsLabel": "空席数",
+        "phoneLabel": "WhatsApp 番号",
+        "phonePlaceholder": "090-0000-0000",
+        "returnTripCheckbox": "復路もご一緒できます",
+        "consentCheckbox": "お名前と連絡先がご招待客に表示されることに同意します。",
+        "publishTrip": "ご提案を公開する",
+        "offerTrip": "相乗りを提案する"
+      },
+      "faq": {
+        "eyebrow": "よくあるご質問",
+        "title": "ご参考までに"
+      },
+      "rsvp": {
+        "eyebrow": "ご出欠",
+        "title": "ご列席いただけますか",
+        "introFallback": "皆さまをお迎えできますことを、心より願っております。",
+        "deadline": "<b>{deadline}</b> までにご出欠をお知らせくださいませ。",
+        "thanksTitle": "ご返信ありがとうございました",
+        "nameLabel": "お名前",
+        "namePlaceholder": "姓名",
+        "attendanceLegend": "ご出欠",
+        "attendanceYes": "喜んで出席いたします",
+        "attendanceNo": "欠席いたしますが、心よりお祝い申し上げます",
+        "partyLabel": "ご列席の方",
+        "partyOptionSolo": "本人のみ",
+        "partyOptionPartner": "本人とパートナー",
+        "partnerNameLabel": "パートナーのお名前",
+        "partnerNamePlaceholder": "姓名",
+        "dietaryLabel": "食事のご制限",
+        "messageLabel": "ご要望など",
+        "messagePlaceholder": "アレルギーや食事制限など…",
+        "submit": "返信を送る",
+        "submitPending": "送信中…"
+      },
+      "gifts": {
+        "eyebrow": "ご祝儀・ギフト",
+        "titleFallback": "皆さまのご列席が何よりの贈り物です",
+        "animationLabel": "真珠をあしらったギフトボックス",
+        "linkLabelFallback": "贈る"
+      }
     }
   }
 }

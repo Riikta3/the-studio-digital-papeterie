@@ -1,3 +1,5 @@
+import { getTranslations } from "next-intl/server";
+
 import type { InvitationData } from "../../types";
 import { Reveal } from "../Reveal";
 
@@ -16,20 +18,21 @@ import { Reveal } from "../Reveal";
  * heading keeps a default because it names the section rather than making a
  * claim; the sprite stays because it is the theme's own artwork.
  */
-export function GiftsSection({ data }: { data: InvitationData }) {
+export async function GiftsSection({ data }: { data: InvitationData }) {
+  const t = await getTranslations("Invitation.belleRive.gifts");
   const gifts = data.gifts;
   if (!gifts?.body && !gifts?.url) return null;
 
   return (
     <section className="panel gifts pearled">
       <Reveal>
-        <p className="eyebrow">Cadeaux</p>
-        <h2>{gifts.title ?? "Votre présence est notre plus beau cadeau"}</h2>
+        <p className="eyebrow">{t("eyebrow")}</p>
+        <h2>{gifts.title ?? t("titleFallback")}</h2>
       </Reveal>
 
       {/* Drawn from a two-frame sprite by the theme's CSS, so it is an empty
           element with a label rather than an <img>. */}
-      <div className="gift-animation" role="img" aria-label="Paquet cadeau orné de perles" />
+      <div className="gift-animation" role="img" aria-label={t("animationLabel")} />
 
       {gifts.body ? (
         <Reveal delay={70}>
@@ -45,7 +48,7 @@ export function GiftsSection({ data }: { data: InvitationData }) {
       {gifts.url ? (
         <div className="gift-actions">
           <a href={gifts.url} target="_blank" rel="noreferrer">
-            {gifts.linkLabel ?? "Participer"}
+            {gifts.linkLabel ?? t("linkLabelFallback")}
           </a>
         </div>
       ) : null}

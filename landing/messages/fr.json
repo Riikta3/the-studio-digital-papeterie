@@ -1563,6 +1563,119 @@
       "scrollTop": {
         "ariaLabel": "Retour en haut de la page"
       }
+    },
+    "belleRive": {
+      "hero": {
+        "discoverCta": "Découvrir"
+      },
+      "countdown": {
+        "eyebrow": "Compte à rebours",
+        "titleLine1": "Nous avons hâte",
+        "titleLine2": "de célébrer avec vous",
+        "unitDays": "{count, plural, one {jour} other {jours}}",
+        "unitHours": "{count, plural, one {heure} other {heures}}",
+        "unitMinutes": "{count, plural, one {minute} other {minutes}}",
+        "unitSeconds": "{count, plural, one {seconde} other {secondes}}"
+      },
+      "program": {
+        "eyebrow": "Le programme",
+        "titleFallback": "Deux jours d’exception",
+        "dayOneEyebrow": "Jour 1"
+      },
+      "activities": {
+        "eyebrow": "Jour 2",
+        "brunchImageAlt": "Table élégante du brunch",
+        "poolAlt": "Piscine animée",
+        "tennisAlt": "Tennis",
+        "petanqueAlt": "Pétanque"
+      },
+      "dressCode": {
+        "eyebrow": "Dress code · Jour 2",
+        "imageAlt": "Inspiration de tenues {title}",
+        "guidance": "Lin, matières naturelles et tenues estivales sont les bienvenus."
+      },
+      "venue": {
+        "eyebrow": "Le lieu",
+        "wazeLink": "Voir sur Waze",
+        "mapsLink": "Google Maps"
+      },
+      "stays": {
+        "eyebrow": "Hébergements",
+        "title": "Sélectionnés pour vous",
+        "partnerOffersKicker": "Nos offres partenaires",
+        "nearbyKicker": "Gîtes & maisons à proximité",
+        "discoverAndBook": "Découvrir & réserver",
+        "showMoreOptions": "Voir plus d’options"
+      },
+      "playlist": {
+        "eyebrow": "La musique",
+        "title": "Playlist participative",
+        "suggestionPlaceholder": "Titre — Artiste",
+        "suggestionLabel": "Votre suggestion",
+        "add": "Ajouter",
+        "alreadySuggested": "Déjà proposés"
+      },
+      "carpool": {
+        "eyebrow": "Covoiturage",
+        "titleLine1": "On fait la route",
+        "titleLine2": "ensemble ?",
+        "intro": "Vous venez en voiture et il vous reste une place ? Proposez votre trajet aux autres invités.",
+        "tripTo": "{departure} vers {destination}",
+        "offeredBy": "Proposé par {name}",
+        "seats": "{count, plural, one {# place} other {# places}}",
+        "returnTripOffered": "Trajet retour également proposé",
+        "contactDriver": "Contacter",
+        "contactUnavailable": "Disponible une fois votre invitation activée",
+        "emptyLine1": "Aucun trajet proposé pour le moment.",
+        "emptyLine2": "Soyez le premier !",
+        "successLine1": "Votre trajet est publié.",
+        "successLine2": "Merci de faire la route ensemble !",
+        "firstNameLabel": "Prénom",
+        "firstNamePlaceholder": "Votre prénom",
+        "departureLabel": "Ville de départ",
+        "departurePlaceholder": "Paris, Lyon, Marseille…",
+        "dateLabel": "Date",
+        "timeLabel": "Heure",
+        "seatsLabel": "Places disponibles",
+        "phoneLabel": "Téléphone WhatsApp",
+        "phonePlaceholder": "06 00 00 00 00",
+        "returnTripCheckbox": "Je propose aussi le trajet retour",
+        "consentCheckbox": "J’accepte que mon prénom et mon contact soient visibles par les invités.",
+        "publishTrip": "Publier mon trajet",
+        "offerTrip": "Je propose un trajet"
+      },
+      "faq": {
+        "eyebrow": "FAQ",
+        "title": "Quelques réponses utiles"
+      },
+      "rsvp": {
+        "eyebrow": "RSVP",
+        "title": "Serez-vous des nôtres ?",
+        "introFallback": "Nous serions honorés de vous compter parmi nous.",
+        "deadline": "Merci de confirmer votre présence avant le <b>{deadline}</b>.",
+        "thanksTitle": "Merci pour votre réponse !",
+        "nameLabel": "Nom et prénom",
+        "namePlaceholder": "Prénom et nom",
+        "attendanceLegend": "Présence",
+        "attendanceYes": "Oui, je serai là avec grand plaisir",
+        "attendanceNo": "Non, mais je penserai fort à vous",
+        "partyLabel": "Qui sera présent ?",
+        "partyOptionSolo": "Moi uniquement",
+        "partyOptionPartner": "Moi + mon/ma partenaire",
+        "partnerNameLabel": "Prénom et nom de votre partenaire",
+        "partnerNamePlaceholder": "Prénom et nom",
+        "dietaryLabel": "Restrictions alimentaires",
+        "messageLabel": "Précisions",
+        "messagePlaceholder": "Allergie ou régime particulier…",
+        "submit": "Envoyer ma réponse",
+        "submitPending": "Envoi…"
+      },
+      "gifts": {
+        "eyebrow": "Cadeaux",
+        "titleFallback": "Votre présence est notre plus beau cadeau",
+        "animationLabel": "Paquet cadeau orné de perles",
+        "linkLabelFallback": "Participer"
+      }
     }
   }
 }

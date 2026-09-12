@@ -1214,6 +1214,119 @@
       "scrollTop": {
         "ariaLabel": "العودة إلى أعلى الصفحة"
       }
+    },
+    "belleRive": {
+      "hero": {
+        "discoverCta": "اكتشفوا"
+      },
+      "countdown": {
+        "eyebrow": "العدّ التنازلي",
+        "titleLine1": "نتطلّع بشوق",
+        "titleLine2": "إلى الاحتفال معكم",
+        "unitDays": "{count, plural, zero {يوم} one {يوم} two {يومان} few {أيام} many {يومًا} other {يوم}}",
+        "unitHours": "{count, plural, zero {ساعة} one {ساعة} two {ساعتان} few {ساعات} many {ساعة} other {ساعة}}",
+        "unitMinutes": "{count, plural, zero {دقيقة} one {دقيقة} two {دقيقتان} few {دقائق} many {دقيقة} other {دقيقة}}",
+        "unitSeconds": "{count, plural, zero {ثانية} one {ثانية} two {ثانيتان} few {ثوانٍ} many {ثانية} other {ثانية}}"
+      },
+      "program": {
+        "eyebrow": "البرنامج",
+        "titleFallback": "يومان استثنائيان",
+        "dayOneEyebrow": "اليوم الأول"
+      },
+      "activities": {
+        "eyebrow": "اليوم الثاني",
+        "brunchImageAlt": "مائدة أنيقة لوجبة البرانش",
+        "poolAlt": "حمام السباحة",
+        "tennisAlt": "التنس",
+        "petanqueAlt": "لعبة البيتانك"
+      },
+      "dressCode": {
+        "eyebrow": "قواعد اللباس · اليوم الثاني",
+        "imageAlt": "إلهام الأزياء: {title}",
+        "guidance": "الكتّان والأقمشة الطبيعية والأزياء الصيفية موضع ترحيب."
+      },
+      "venue": {
+        "eyebrow": "المكان",
+        "wazeLink": "الفتح في Waze",
+        "mapsLink": "خرائط Google"
+      },
+      "stays": {
+        "eyebrow": "أماكن الإقامة",
+        "title": "مختارة من أجلكم",
+        "partnerOffersKicker": "عروض شركائنا",
+        "nearbyKicker": "بيوت ومنازل ريفية قريبة",
+        "discoverAndBook": "اكتشفوا واحجزوا",
+        "showMoreOptions": "عرض خيارات أخرى"
+      },
+      "playlist": {
+        "eyebrow": "الموسيقى",
+        "title": "قائمة تشغيل تشاركية",
+        "suggestionPlaceholder": "العنوان — الفنان",
+        "suggestionLabel": "اقتراحكم",
+        "add": "إضافة",
+        "alreadySuggested": "المقترحة سابقًا"
+      },
+      "carpool": {
+        "eyebrow": "مشاركة السيارة",
+        "titleLine1": "هل نقطع الطريق",
+        "titleLine2": "معًا؟",
+        "intro": "هل تأتون بالسيارة ولديكم مقعد شاغر؟ اعرضوا رحلتكم على بقية المدعوّين.",
+        "tripTo": "{departure} إلى {destination}",
+        "offeredBy": "مقترحة من {name}",
+        "seats": "{count, plural, zero {# مقعد} one {مقعد واحد} two {مقعدان} few {# مقاعد} many {# مقعدًا} other {# مقعد}}",
+        "returnTripOffered": "رحلة العودة معروضة أيضًا",
+        "contactDriver": "التواصل",
+        "contactUnavailable": "متاح بمجرد تفعيل دعوتكم",
+        "emptyLine1": "لم تُعرض أي رحلة حتى الآن.",
+        "emptyLine2": "كونوا الأوّلين!",
+        "successLine1": "تم نشر رحلتكم.",
+        "successLine2": "شكرًا لمشاركتكم الطريق!",
+        "firstNameLabel": "الاسم الأول",
+        "firstNamePlaceholder": "اسمكم الأول",
+        "departureLabel": "مدينة الانطلاق",
+        "departurePlaceholder": "الدار البيضاء، الرباط، مراكش…",
+        "dateLabel": "التاريخ",
+        "timeLabel": "الوقت",
+        "seatsLabel": "المقاعد المتاحة",
+        "phoneLabel": "رقم واتساب",
+        "phonePlaceholder": "06 00 00 00 00",
+        "returnTripCheckbox": "أعرض أيضًا رحلة العودة",
+        "consentCheckbox": "أوافق على أن يكون اسمي الأول وبيانات الاتصال بي مرئية للمدعوّين.",
+        "publishTrip": "نشر رحلتي",
+        "offerTrip": "أعرض رحلة"
+      },
+      "faq": {
+        "eyebrow": "الأسئلة الشائعة",
+        "title": "بعض الإجابات المفيدة"
+      },
+      "rsvp": {
+        "eyebrow": "تأكيد الحضور",
+        "title": "هل ستكونون معنا؟",
+        "introFallback": "يشرّفنا أن تكونوا بيننا.",
+        "deadline": "نرجو تأكيد حضوركم قبل <b>{deadline}</b>.",
+        "thanksTitle": "شكرًا لردّكم!",
+        "nameLabel": "الاسم الكامل",
+        "namePlaceholder": "الاسم الأول واسم العائلة",
+        "attendanceLegend": "الحضور",
+        "attendanceYes": "نعم، سأحضر بكل سرور",
+        "attendanceNo": "لا، لكنني سأكون معكم بقلبي",
+        "partyLabel": "من سيحضر؟",
+        "partyOptionSolo": "أنا فقط",
+        "partyOptionPartner": "أنا + شريكي/شريكتي",
+        "partnerNameLabel": "الاسم الأول واسم عائلة شريككم",
+        "partnerNamePlaceholder": "الاسم الأول واسم العائلة",
+        "dietaryLabel": "القيود الغذائية",
+        "messageLabel": "تفاصيل إضافية",
+        "messagePlaceholder": "حساسية أو نظام غذائي خاص…",
+        "submit": "إرسال ردّي",
+        "submitPending": "جارٍ الإرسال…"
+      },
+      "gifts": {
+        "eyebrow": "الهدايا",
+        "titleFallback": "حضوركم هو أجمل هدية لنا",
+        "animationLabel": "علبة هدية مزيّنة باللآلئ",
+        "linkLabelFallback": "المساهمة"
+      }
     }
   }
 }

@@ -1,5 +1,6 @@
 "use client";
 
+import { useTranslations } from "next-intl";
 import { useId, useState } from "react";
 
 import type { InvitationData } from "../../types";
@@ -25,6 +26,7 @@ import type { InvitationData } from "../../types";
  * they are rendered with `white-space: pre-line`.
  */
 export function FaqSection({ data }: { data: InvitationData }) {
+  const t = useTranslations("Invitation.belleRive.faq");
   const faq = data.faq ?? [];
   // `useId` rather than a bare index: two invitations can be mounted at once in
   // the studio's live preview, and duplicate ids would cross-wire their panels.
@@ -37,8 +39,8 @@ export function FaqSection({ data }: { data: InvitationData }) {
 
   return (
     <section className="panel faq pearled">
-      <p className="eyebrow">FAQ</p>
-      <h2>Quelques réponses utiles</h2>
+      <p className="eyebrow">{t("eyebrow")}</p>
+      <h2>{t("title")}</h2>
 
       <div className="faq-list">
         {faq.map((entry, index) => {

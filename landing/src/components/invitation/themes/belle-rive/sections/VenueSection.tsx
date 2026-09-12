@@ -1,16 +1,19 @@
+import { getTranslations } from "next-intl/server";
+
 import type { InvitationData } from "../../types";
 import { Reveal } from "../Reveal";
 import { Media } from "./Media";
 
 /** Venue, inside the ornate engraved frame (`venue-frame.webp`). */
-export function VenueSection({ data }: { data: InvitationData }) {
+export async function VenueSection({ data }: { data: InvitationData }) {
+  const t = await getTranslations("Invitation.belleRive.venue");
   const { venue } = data;
 
   return (
     <section className="panel venue ornate-venue">
       <div className="venue-content">
         <Reveal>
-          <p className="eyebrow">Le lieu</p>
+          <p className="eyebrow">{t("eyebrow")}</p>
           <h2>{venue.name}</h2>
         </Reveal>
 
@@ -37,12 +40,12 @@ export function VenueSection({ data }: { data: InvitationData }) {
           <Reveal delay={210} className="actions">
             {venue.wazeUrl ? (
               <a href={venue.wazeUrl} target="_blank" rel="noreferrer">
-                Voir sur Waze
+                {t("wazeLink")}
               </a>
             ) : null}
             {venue.mapsUrl ? (
               <a href={venue.mapsUrl} target="_blank" rel="noreferrer">
-                Google Maps
+                {t("mapsLink")}
               </a>
             ) : null}
           </Reveal>

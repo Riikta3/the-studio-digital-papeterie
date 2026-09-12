@@ -1214,6 +1214,119 @@
       "scrollTop": {
         "ariaLabel": "返回页面顶部"
       }
+    },
+    "belleRive": {
+      "hero": {
+        "discoverCta": "探索"
+      },
+      "countdown": {
+        "eyebrow": "倒计时",
+        "titleLine1": "我们满心期待",
+        "titleLine2": "与您共同庆祝",
+        "unitDays": "{count, plural, other {天}}",
+        "unitHours": "{count, plural, other {小时}}",
+        "unitMinutes": "{count, plural, other {分钟}}",
+        "unitSeconds": "{count, plural, other {秒}}"
+      },
+      "program": {
+        "eyebrow": "行程安排",
+        "titleFallback": "两天非凡时光",
+        "dayOneEyebrow": "第一天"
+      },
+      "activities": {
+        "eyebrow": "第二天",
+        "brunchImageAlt": "布置雅致的早午餐餐桌",
+        "poolAlt": "泳池",
+        "tennisAlt": "网球",
+        "petanqueAlt": "法式滚球"
+      },
+      "dressCode": {
+        "eyebrow": "着装要求 · 第二天",
+        "imageAlt": "着装灵感：{title}",
+        "guidance": "亚麻、天然面料与夏日装束皆宜。"
+      },
+      "venue": {
+        "eyebrow": "场地",
+        "wazeLink": "在 Waze 中打开",
+        "mapsLink": "Google 地图"
+      },
+      "stays": {
+        "eyebrow": "住宿",
+        "title": "为您精选",
+        "partnerOffersKicker": "合作伙伴优惠",
+        "nearbyKicker": "附近的乡舍与民宿",
+        "discoverAndBook": "了解并预订",
+        "showMoreOptions": "查看更多选项"
+      },
+      "playlist": {
+        "eyebrow": "音乐",
+        "title": "共创歌单",
+        "suggestionPlaceholder": "曲名 — 艺人",
+        "suggestionLabel": "您的推荐",
+        "add": "添加",
+        "alreadySuggested": "已推荐"
+      },
+      "carpool": {
+        "eyebrow": "拼车",
+        "titleLine1": "一同启程",
+        "titleLine2": "可好？",
+        "intro": "您自驾前来且尚有空位？欢迎将您的行程分享给其他宾客。",
+        "tripTo": "{departure} 前往 {destination}",
+        "offeredBy": "由 {name} 提供",
+        "seats": "{count, plural, other {# 个座位}}",
+        "returnTripOffered": "同时提供返程",
+        "contactDriver": "联系",
+        "contactUnavailable": "请柬激活后即可使用",
+        "emptyLine1": "目前尚无人提供行程。",
+        "emptyLine2": "欢迎您率先分享！",
+        "successLine1": "您的行程已发布。",
+        "successLine2": "感谢您与大家同行！",
+        "firstNameLabel": "名字",
+        "firstNamePlaceholder": "您的名字",
+        "departureLabel": "出发城市",
+        "departurePlaceholder": "北京、上海、广州…",
+        "dateLabel": "日期",
+        "timeLabel": "时间",
+        "seatsLabel": "可用座位",
+        "phoneLabel": "WhatsApp 号码",
+        "phonePlaceholder": "138 0000 0000",
+        "returnTripCheckbox": "我同时提供返程",
+        "consentCheckbox": "我同意将我的名字与联系方式向宾客公开。",
+        "publishTrip": "发布我的行程",
+        "offerTrip": "我要提供行程"
+      },
+      "faq": {
+        "eyebrow": "常见问题",
+        "title": "一些实用解答"
+      },
+      "rsvp": {
+        "eyebrow": "回执",
+        "title": "您会莅临吗？",
+        "introFallback": "若能有您相伴，将是我们的荣幸。",
+        "deadline": "敬请于 <b>{deadline}</b> 前确认出席。",
+        "thanksTitle": "感谢您的回复！",
+        "nameLabel": "姓名",
+        "namePlaceholder": "姓与名",
+        "attendanceLegend": "出席",
+        "attendanceYes": "是的，我很乐意出席",
+        "attendanceNo": "很遗憾无法出席，但会由衷祝福您们",
+        "partyLabel": "将有谁出席？",
+        "partyOptionSolo": "仅我一人",
+        "partyOptionPartner": "我与我的伴侣",
+        "partnerNameLabel": "您伴侣的姓名",
+        "partnerNamePlaceholder": "姓与名",
+        "dietaryLabel": "饮食禁忌",
+        "messageLabel": "补充说明",
+        "messagePlaceholder": "过敏或特殊饮食…",
+        "submit": "提交我的回复",
+        "submitPending": "提交中…"
+      },
+      "gifts": {
+        "eyebrow": "礼物",
+        "titleFallback": "您的到来便是我们最好的礼物",
+        "animationLabel": "缀以珍珠的礼盒",
+        "linkLabelFallback": "参与"
+      }
     }
   }
 }

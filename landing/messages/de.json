@@ -1215,6 +1215,119 @@
       "scrollTop": {
         "ariaLabel": "Zurück zum Seitenanfang"
       }
+    },
+    "belleRive": {
+      "hero": {
+        "discoverCta": "Entdecken"
+      },
+      "countdown": {
+        "eyebrow": "Countdown",
+        "titleLine1": "Wir freuen uns darauf,",
+        "titleLine2": "mit Ihnen zu feiern",
+        "unitDays": "{count, plural, one {Tag} other {Tage}}",
+        "unitHours": "{count, plural, one {Stunde} other {Stunden}}",
+        "unitMinutes": "{count, plural, one {Minute} other {Minuten}}",
+        "unitSeconds": "{count, plural, one {Sekunde} other {Sekunden}}"
+      },
+      "program": {
+        "eyebrow": "Das Programm",
+        "titleFallback": "Zwei besondere Tage",
+        "dayOneEyebrow": "Tag 1"
+      },
+      "activities": {
+        "eyebrow": "Tag 2",
+        "brunchImageAlt": "Festlich gedeckte Brunch-Tafel",
+        "poolAlt": "Swimmingpool",
+        "tennisAlt": "Tennis",
+        "petanqueAlt": "Boule"
+      },
+      "dressCode": {
+        "eyebrow": "Dresscode · Tag 2",
+        "imageAlt": "Outfit-Inspiration: {title}",
+        "guidance": "Leinen, natürliche Stoffe und sommerliche Garderobe sind herzlich willkommen."
+      },
+      "venue": {
+        "eyebrow": "Der Ort",
+        "wazeLink": "In Waze öffnen",
+        "mapsLink": "Google Maps"
+      },
+      "stays": {
+        "eyebrow": "Unterkünfte",
+        "title": "Für Sie ausgewählt",
+        "partnerOffersKicker": "Unsere Partnerangebote",
+        "nearbyKicker": "Gästehäuser & Ferienhäuser in der Nähe",
+        "discoverAndBook": "Entdecken & buchen",
+        "showMoreOptions": "Weitere Optionen anzeigen"
+      },
+      "playlist": {
+        "eyebrow": "Die Musik",
+        "title": "Gemeinsame Playlist",
+        "suggestionPlaceholder": "Titel — Künstler",
+        "suggestionLabel": "Ihr Vorschlag",
+        "add": "Hinzufügen",
+        "alreadySuggested": "Bereits vorgeschlagen"
+      },
+      "carpool": {
+        "eyebrow": "Fahrgemeinschaft",
+        "titleLine1": "Fahren wir",
+        "titleLine2": "gemeinsam?",
+        "intro": "Sie kommen mit dem Auto und haben noch einen Platz frei? Bieten Sie Ihre Fahrt den anderen Gästen an.",
+        "tripTo": "{departure} nach {destination}",
+        "offeredBy": "Angeboten von {name}",
+        "seats": "{count, plural, one {# Platz} other {# Plätze}}",
+        "returnTripOffered": "Rückfahrt wird ebenfalls angeboten",
+        "contactDriver": "Kontaktieren",
+        "contactUnavailable": "Verfügbar, sobald Ihre Einladung aktiviert ist",
+        "emptyLine1": "Bisher wurde noch keine Fahrt angeboten.",
+        "emptyLine2": "Seien Sie die oder der Erste!",
+        "successLine1": "Ihre Fahrt ist veröffentlicht.",
+        "successLine2": "Danke, dass Sie gemeinsam fahren!",
+        "firstNameLabel": "Vorname",
+        "firstNamePlaceholder": "Ihr Vorname",
+        "departureLabel": "Abfahrtsort",
+        "departurePlaceholder": "Berlin, München, Hamburg…",
+        "dateLabel": "Datum",
+        "timeLabel": "Uhrzeit",
+        "seatsLabel": "Freie Plätze",
+        "phoneLabel": "WhatsApp-Nummer",
+        "phonePlaceholder": "0170 0000000",
+        "returnTripCheckbox": "Ich biete auch die Rückfahrt an",
+        "consentCheckbox": "Ich bin damit einverstanden, dass mein Vorname und meine Kontaktdaten für die Gäste sichtbar sind.",
+        "publishTrip": "Meine Fahrt veröffentlichen",
+        "offerTrip": "Ich biete eine Fahrt an"
+      },
+      "faq": {
+        "eyebrow": "FAQ",
+        "title": "Einige hilfreiche Antworten"
+      },
+      "rsvp": {
+        "eyebrow": "RSVP",
+        "title": "Sind Sie dabei?",
+        "introFallback": "Es wäre uns eine Ehre, Sie bei uns zu wissen.",
+        "deadline": "Bitte bestätigen Sie Ihre Teilnahme bis zum <b>{deadline}</b>.",
+        "thanksTitle": "Vielen Dank für Ihre Antwort!",
+        "nameLabel": "Vor- und Nachname",
+        "namePlaceholder": "Vor- und Nachname",
+        "attendanceLegend": "Teilnahme",
+        "attendanceYes": "Ja, sehr gerne",
+        "attendanceNo": "Nein, aber ich denke fest an Sie",
+        "partyLabel": "Wer wird dabei sein?",
+        "partyOptionSolo": "Nur ich",
+        "partyOptionPartner": "Ich + meine Begleitung",
+        "partnerNameLabel": "Vor- und Nachname Ihrer Begleitung",
+        "partnerNamePlaceholder": "Vor- und Nachname",
+        "dietaryLabel": "Ernährungswünsche",
+        "messageLabel": "Anmerkungen",
+        "messagePlaceholder": "Allergie oder besondere Ernährung…",
+        "submit": "Antwort senden",
+        "submitPending": "Wird gesendet…"
+      },
+      "gifts": {
+        "eyebrow": "Geschenke",
+        "titleFallback": "Ihre Anwesenheit ist unser schönstes Geschenk",
+        "animationLabel": "Mit Perlen geschmücktes Geschenkpaket",
+        "linkLabelFallback": "Beitragen"
+      }
     }
   }
 }

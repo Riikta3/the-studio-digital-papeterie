@@ -1214,6 +1214,119 @@
       "scrollTop": {
         "ariaLabel": "Voltar ao topo da página"
       }
+    },
+    "belleRive": {
+      "hero": {
+        "discoverCta": "Descobrir"
+      },
+      "countdown": {
+        "eyebrow": "Contagem decrescente",
+        "titleLine1": "Estamos ansiosos",
+        "titleLine2": "por celebrar convosco",
+        "unitDays": "{count, plural, one {dia} other {dias}}",
+        "unitHours": "{count, plural, one {hora} other {horas}}",
+        "unitMinutes": "{count, plural, one {minuto} other {minutos}}",
+        "unitSeconds": "{count, plural, one {segundo} other {segundos}}"
+      },
+      "program": {
+        "eyebrow": "O programa",
+        "titleFallback": "Dois dias excecionais",
+        "dayOneEyebrow": "Dia 1"
+      },
+      "activities": {
+        "eyebrow": "Dia 2",
+        "brunchImageAlt": "Mesa elegante do brunch",
+        "poolAlt": "Piscina",
+        "tennisAlt": "Ténis",
+        "petanqueAlt": "Petanca"
+      },
+      "dressCode": {
+        "eyebrow": "Código de vestuário · Dia 2",
+        "imageAlt": "Inspiração de trajes: {title}",
+        "guidance": "O linho, os tecidos naturais e os trajes de verão são muito bem-vindos."
+      },
+      "venue": {
+        "eyebrow": "O local",
+        "wazeLink": "Ver no Waze",
+        "mapsLink": "Google Maps"
+      },
+      "stays": {
+        "eyebrow": "Alojamentos",
+        "title": "Selecionados para si",
+        "partnerOffersKicker": "As nossas ofertas parceiras",
+        "nearbyKicker": "Casas de campo e moradias nas proximidades",
+        "discoverAndBook": "Descobrir e reservar",
+        "showMoreOptions": "Ver mais opções"
+      },
+      "playlist": {
+        "eyebrow": "A música",
+        "title": "Playlist participativa",
+        "suggestionPlaceholder": "Título — Artista",
+        "suggestionLabel": "A sua sugestão",
+        "add": "Adicionar",
+        "alreadySuggested": "Já sugeridos"
+      },
+      "carpool": {
+        "eyebrow": "Boleia partilhada",
+        "titleLine1": "Fazemos a viagem",
+        "titleLine2": "juntos?",
+        "intro": "Vem de carro e ainda tem um lugar livre? Proponha a sua viagem aos restantes convidados.",
+        "tripTo": "{departure} para {destination}",
+        "offeredBy": "Proposto por {name}",
+        "seats": "{count, plural, one {# lugar} other {# lugares}}",
+        "returnTripOffered": "Viagem de regresso também disponível",
+        "contactDriver": "Contactar",
+        "contactUnavailable": "Disponível assim que o seu convite for ativado",
+        "emptyLine1": "Ainda não foi proposta nenhuma viagem.",
+        "emptyLine2": "Seja o primeiro!",
+        "successLine1": "A sua viagem foi publicada.",
+        "successLine2": "Obrigado por fazer a viagem em conjunto!",
+        "firstNameLabel": "Nome próprio",
+        "firstNamePlaceholder": "O seu nome próprio",
+        "departureLabel": "Cidade de partida",
+        "departurePlaceholder": "Lisboa, Porto, Coimbra…",
+        "dateLabel": "Data",
+        "timeLabel": "Hora",
+        "seatsLabel": "Lugares disponíveis",
+        "phoneLabel": "Telefone WhatsApp",
+        "phonePlaceholder": "910 000 000",
+        "returnTripCheckbox": "Proponho também a viagem de regresso",
+        "consentCheckbox": "Aceito que o meu nome próprio e o meu contacto sejam visíveis pelos convidados.",
+        "publishTrip": "Publicar a minha viagem",
+        "offerTrip": "Proponho uma viagem"
+      },
+      "faq": {
+        "eyebrow": "Perguntas frequentes",
+        "title": "Algumas respostas úteis"
+      },
+      "rsvp": {
+        "eyebrow": "RSVP",
+        "title": "Estará connosco?",
+        "introFallback": "Seria uma honra tê-lo entre nós.",
+        "deadline": "Agradecemos que confirme a sua presença até <b>{deadline}</b>.",
+        "thanksTitle": "Obrigado pela sua resposta!",
+        "nameLabel": "Nome completo",
+        "namePlaceholder": "Nome e apelido",
+        "attendanceLegend": "Presença",
+        "attendanceYes": "Sim, estarei presente com muito gosto",
+        "attendanceNo": "Não, mas estarei convosco em pensamento",
+        "partyLabel": "Quem estará presente?",
+        "partyOptionSolo": "Apenas eu",
+        "partyOptionPartner": "Eu + o meu/a minha parceiro(a)",
+        "partnerNameLabel": "Nome e apelido do seu/da sua parceiro(a)",
+        "partnerNamePlaceholder": "Nome e apelido",
+        "dietaryLabel": "Restrições alimentares",
+        "messageLabel": "Precisões",
+        "messagePlaceholder": "Alergia ou regime particular…",
+        "submit": "Enviar a minha resposta",
+        "submitPending": "A enviar…"
+      },
+      "gifts": {
+        "eyebrow": "Presentes",
+        "titleFallback": "A sua presença é o nosso melhor presente",
+        "animationLabel": "Embrulho de presente adornado com pérolas",
+        "linkLabelFallback": "Participar"
+      }
     }
   }
 }

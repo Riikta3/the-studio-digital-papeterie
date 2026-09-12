@@ -1428,6 +1428,119 @@
       "scrollTop": {
         "ariaLabel": "Back to top of page"
       }
+    },
+    "belleRive": {
+      "hero": {
+        "discoverCta": "Discover"
+      },
+      "countdown": {
+        "eyebrow": "Countdown",
+        "titleLine1": "We cannot wait",
+        "titleLine2": "to celebrate with you",
+        "unitDays": "{count, plural, one {day} other {days}}",
+        "unitHours": "{count, plural, one {hour} other {hours}}",
+        "unitMinutes": "{count, plural, one {minute} other {minutes}}",
+        "unitSeconds": "{count, plural, one {second} other {seconds}}"
+      },
+      "program": {
+        "eyebrow": "The programme",
+        "titleFallback": "Two exceptional days",
+        "dayOneEyebrow": "Day 1"
+      },
+      "activities": {
+        "eyebrow": "Day 2",
+        "brunchImageAlt": "Elegantly laid brunch table",
+        "poolAlt": "Swimming pool",
+        "tennisAlt": "Tennis",
+        "petanqueAlt": "Pétanque"
+      },
+      "dressCode": {
+        "eyebrow": "Dress code · Day 2",
+        "imageAlt": "Outfit inspiration: {title}",
+        "guidance": "Linen, natural fabrics and summer attire are most welcome."
+      },
+      "venue": {
+        "eyebrow": "The venue",
+        "wazeLink": "Open in Waze",
+        "mapsLink": "Google Maps"
+      },
+      "stays": {
+        "eyebrow": "Accommodation",
+        "title": "Selected for you",
+        "partnerOffersKicker": "Our partner offers",
+        "nearbyKicker": "Guesthouses & homes nearby",
+        "discoverAndBook": "Discover & book",
+        "showMoreOptions": "See more options"
+      },
+      "playlist": {
+        "eyebrow": "The music",
+        "title": "Collaborative playlist",
+        "suggestionPlaceholder": "Title — Artist",
+        "suggestionLabel": "Your suggestion",
+        "add": "Add",
+        "alreadySuggested": "Already suggested"
+      },
+      "carpool": {
+        "eyebrow": "Car sharing",
+        "titleLine1": "Shall we travel",
+        "titleLine2": "together?",
+        "intro": "Driving down with a spare seat? Offer your journey to the other guests.",
+        "tripTo": "{departure} to {destination}",
+        "offeredBy": "Offered by {name}",
+        "seats": "{count, plural, one {# seat} other {# seats}}",
+        "returnTripOffered": "Return journey also offered",
+        "contactDriver": "Get in touch",
+        "contactUnavailable": "Available once your invitation is activated",
+        "emptyLine1": "No journeys have been offered yet.",
+        "emptyLine2": "Be the first!",
+        "successLine1": "Your journey is published.",
+        "successLine2": "Thank you for travelling together!",
+        "firstNameLabel": "First name",
+        "firstNamePlaceholder": "Your first name",
+        "departureLabel": "Departure city",
+        "departurePlaceholder": "London, Manchester, Bristol…",
+        "dateLabel": "Date",
+        "timeLabel": "Time",
+        "seatsLabel": "Seats available",
+        "phoneLabel": "WhatsApp number",
+        "phonePlaceholder": "07700 900000",
+        "returnTripCheckbox": "I am also offering the return journey",
+        "consentCheckbox": "I agree that my first name and my contact details may be seen by the guests.",
+        "publishTrip": "Publish my journey",
+        "offerTrip": "I am offering a journey"
+      },
+      "faq": {
+        "eyebrow": "FAQ",
+        "title": "A few helpful answers"
+      },
+      "rsvp": {
+        "eyebrow": "RSVP",
+        "title": "Will you be joining us?",
+        "introFallback": "We would be honoured to have you with us.",
+        "deadline": "Kindly confirm your attendance by <b>{deadline}</b>.",
+        "thanksTitle": "Thank you for your reply!",
+        "nameLabel": "Full name",
+        "namePlaceholder": "First and last name",
+        "attendanceLegend": "Attendance",
+        "attendanceYes": "Yes, I shall be delighted to attend",
+        "attendanceNo": "No, but I shall be thinking of you",
+        "partyLabel": "Who will be attending?",
+        "partyOptionSolo": "Just me",
+        "partyOptionPartner": "Me + my partner",
+        "partnerNameLabel": "Your partner's first and last name",
+        "partnerNamePlaceholder": "First and last name",
+        "dietaryLabel": "Dietary requirements",
+        "messageLabel": "Further details",
+        "messagePlaceholder": "An allergy or particular diet…",
+        "submit": "Send my reply",
+        "submitPending": "Sending…"
+      },
+      "gifts": {
+        "eyebrow": "Gifts",
+        "titleFallback": "Your presence is our finest gift",
+        "animationLabel": "Gift box adorned with pearls",
+        "linkLabelFallback": "Contribute"
+      }
     }
   }
 }

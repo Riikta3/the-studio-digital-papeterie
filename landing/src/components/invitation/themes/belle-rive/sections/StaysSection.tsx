@@ -1,3 +1,5 @@
+import { getTranslations } from "next-intl/server";
+
 import type { InvitationData, Stay } from "../../types";
 import { Reveal } from "../Reveal";
 
@@ -36,7 +38,8 @@ function StayRow({ stay }: { stay: Stay }) {
   );
 }
 
-export function StaysSection({ data }: { data: InvitationData }) {
+export async function StaysSection({ data }: { data: InvitationData }) {
+  const t = await getTranslations("Invitation.belleRive.stays");
   const stays = data.stays ?? [];
   if (stays.length === 0) return null;
 
@@ -45,14 +48,14 @@ export function StaysSection({ data }: { data: InvitationData }) {
   return (
     <section className="panel stays pearled">
       <Reveal>
-        <p className="eyebrow">Hébergements</p>
-        <h2>Sélectionnés pour vous</h2>
+        <p className="eyebrow">{t("eyebrow")}</p>
+        <h2>{t("title")}</h2>
         {data.copy?.staysIntro ? <p className="stays-intro">{data.copy.staysIntro}</p> : null}
       </Reveal>
 
       {featured.length > 0 ? (
         <>
-          <p className="stays-kicker">Nos offres partenaires</p>
+          <p className="stays-kicker">{t("partnerOffersKicker")}</p>
           <Reveal delay={70} className="featured-stays">
             {featured.map((stay) => {
               const card = (
@@ -62,7 +65,7 @@ export function StaysSection({ data }: { data: InvitationData }) {
                   {stay.distance ? <p>{stay.distance}</p> : null}
                   {stay.offer ? <strong>{stay.offer}</strong> : null}
                   {stay.address ? <small>{stay.address}</small> : null}
-                  {stay.url ? <span className="stay-link">Découvrir &amp; réserver</span> : null}
+                  {stay.url ? <span className="stay-link">{t("discoverAndBook")}</span> : null}
                 </>
               );
 
@@ -88,7 +91,7 @@ export function StaysSection({ data }: { data: InvitationData }) {
 
       {nearby.length > 0 ? (
         <>
-          <p className="stays-kicker">Gîtes &amp; maisons à proximité</p>
+          <p className="stays-kicker">{t("nearbyKicker")}</p>
           <Reveal delay={140} className="stay-list">
             {nearby.map((stay) => (
               <StayRow key={stay.name} stay={stay} />
@@ -99,7 +102,7 @@ export function StaysSection({ data }: { data: InvitationData }) {
 
       {more.length > 0 ? (
         <details className="more-stays">
-          <summary>Voir plus d’options</summary>
+          <summary>{t("showMoreOptions")}</summary>
           <div className="stay-list">
             {more.map((stay) => (
               <StayRow key={stay.name} stay={stay} />

@@ -1,8 +1,9 @@
 "use client";
 
+import { useLocale, useTranslations } from "next-intl";
 import { type FormEvent, useState } from "react";
 
-import { formatFrenchWeekday, plural } from "../../format";
+import { formatFrenchWeekday } from "../../format";
 import type { InvitationData } from "../../types";
 import type { CarpoolTrip } from "../types";
 
@@ -42,6 +43,8 @@ export function CarpoolSection({
    */
   data: InvitationData;
 }) {
+  const t = useTranslations("Invitation.belleRive.carpool");
+  const locale = useLocale();
   const [open, setOpen] = useState(false);
   const [sent, setSent] = useState(false);
 
@@ -56,11 +59,11 @@ export function CarpoolSection({
 
   return (
     <section className="panel carpool pearled">
-      <p className="eyebrow">Covoiturage</p>
+      <p className="eyebrow">{t("eyebrow")}</p>
       <h2>
-        On fait la route
+        {t("titleLine1")}
         <br />
-        ensemble ?
+        {t("titleLine2")}
       </h2>
 
       {/* eslint-disable-next-line @next/next/no-img-element -- decorative overhang,
@@ -73,22 +76,20 @@ export function CarpoolSection({
         loading="lazy"
       />
 
-      <p className="carpool-intro">
-        Vous venez en voiture et il vous reste une place ? Proposez votre trajet aux autres
-        invités.
-      </p>
+      <p className="carpool-intro">{t("intro")}</p>
 
       <div className="trip-list">
         {trips.length > 0 ? (
           trips.map((trip) => {
-            const day = formatFrenchWeekday(trip.travelDate);
+            const day = formatFrenchWeekday(trip.travelDate, { locale });
             return (
               <article className="trip" key={trip.id}>
                 <div className="trip-top">
                   <div>
                     <h3>
-                      {trip.departure}
-                      {destination ? ` vers ${destination}` : null}
+                      {destination
+                        ? t("tripTo", { departure: trip.departure, destination })
+                        : trip.departure}
                     </h3>
                     <p>
                       <span style={{ textTransform: "capitalize" }}>{day}</span> ·{" "}
@@ -97,19 +98,17 @@ export function CarpoolSection({
                   </div>
                 </div>
                 <div className="trip-meta">
-                  <span>Proposé par {trip.name}</span>
-                  <strong>
-                    {trip.seats} {plural(trip.seats, { one: "place", other: "places" })}
-                  </strong>
+                  <span>{t("offeredBy", { name: trip.name })}</span>
+                  <strong>{t("seats", { count: trip.seats })}</strong>
                 </div>
-                {trip.returnTrip ? <small>Trajet retour également proposé</small> : null}
+                {trip.returnTrip ? <small>{t("returnTripOffered")}</small> : null}
                 <button
                   type="button"
                   className="contact-driver"
                   disabled
-                  title="Disponible une fois votre invitation activée"
+                  title={t("contactUnavailable")}
                 >
-                  Contacter
+                  {t("contactDriver")}
                 </button>
               </article>
             );
@@ -118,9 +117,9 @@ export function CarpoolSection({
           <div className="no-trips">
             <span>◇</span>
             <p>
-              Aucun trajet proposé pour le moment.
+              {t("emptyLine1")}
               <br />
-              Soyez le premier !
+              {t("emptyLine2")}
             </p>
           </div>
         )}
@@ -130,24 +129,24 @@ export function CarpoolSection({
         <div className="carpool-success">
           <b>✓</b>
           <p>
-            Votre trajet est publié.
+            {t("successLine1")}
             <br />
-            Merci de faire la route ensemble !
+            {t("successLine2")}
           </p>
         </div>
       ) : open ? (
         <form className="carpool-form" onSubmit={handleSubmit}>
           <label>
-            Prénom
-            <input name="name" required placeholder="Votre prénom" />
+            {t("firstNameLabel")}
+            <input name="name" required placeholder={t("firstNamePlaceholder")} />
           </label>
           <label>
-            Ville de départ
-            <input name="departure" required placeholder="Paris, Lyon, Marseille…" />
+            {t("departureLabel")}
+            <input name="departure" required placeholder={t("departurePlaceholder")} />
           </label>
           <div className="carpool-row">
             <label>
-              Date
+              {t("dateLabel")}
               <input
                 name="travelDate"
                 type="date"
@@ -156,12 +155,12 @@ export function CarpoolSection({
               />
             </label>
             <label>
-              Heure
+              {t("timeLabel")}
               <input name="travelTime" type="time" required />
             </label>
           </div>
           <label>
-            Places disponibles
+            {t("seatsLabel")}
             <select name="seats" defaultValue="1">
               {[1, 2, 3, 4, 5, 6, 7, 8].map((seats) => (
                 <option key={seats}>{seats}</option>
@@ -169,23 +168,22 @@ export function CarpoolSection({
             </select>
           </label>
           <label>
-            Téléphone WhatsApp
-            <input name="phone" type="tel" required placeholder="06 00 00 00 00" />
+            {t("phoneLabel")}
+            <input name="phone" type="tel" required placeholder={t("phonePlaceholder")} />
           </label>
           <label className="check-line">
-            <input name="returnTrip" type="checkbox" /> Je propose aussi le trajet retour
+            <input name="returnTrip" type="checkbox" /> {t("returnTripCheckbox")}
           </label>
           <label className="check-line consent">
-            <input name="consent" type="checkbox" required /> J’accepte que mon prénom et mon
-            contact soient visibles par les invités.
+            <input name="consent" type="checkbox" required /> {t("consentCheckbox")}
           </label>
           <button className="submit" type="submit">
-            Publier mon trajet
+            {t("publishTrip")}
           </button>
         </form>
       ) : (
         <button type="button" className="submit carpool-toggle" onClick={() => setOpen(true)}>
-          Je propose un trajet
+          {t("offerTrip")}
         </button>
       )}
     </section>
