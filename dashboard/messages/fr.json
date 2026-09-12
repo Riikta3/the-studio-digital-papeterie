@@ -309,6 +309,7 @@
         "label": "Invitation",
         "items": {
           "modules": "Mes modules",
+          "words": "Nos mots",
           "events": "Événements",
           "schedule": "Programme",
           "venue": "Lieu & infos pratiques",
@@ -1303,6 +1304,31 @@
     "hint_offline": "Le lien est désactivé : personne ne peut voir votre faire-part.",
     "now_online": "Votre faire-part est en ligne.",
     "now_offline": "Votre faire-part est hors ligne.",
+    "save_failed": "Erreur lors de l’enregistrement."
+  },
+  "InvitationCopy": {
+    "title": "Nos mots",
+    "subtitle": "Les phrases qui vous ressemblent, en haut et en bas de votre faire-part. Laissez un champ vide pour garder le texte par défaut.",
+    "fields": {
+      "hero_kicker": "Au-dessus de vos prénoms",
+      "announcement": "Votre annonce",
+      "closing_words": "Le mot de la fin",
+      "portrait": "Votre photo"
+    },
+    "hints": {
+      "hero_kicker": "La petite ligne qui ouvre le faire-part.",
+      "announcement": "La phrase qui accompagne vos prénoms.",
+      "closing_words": "Sur la dernière page. Les retours à la ligne sont conservés.",
+      "portrait": "Seuls certains thèmes affichent une photo du couple — sur les autres, elle ne sera pas visible."
+    },
+    "placeholders": {
+      "hero_kicker": "Nous nous marions",
+      "announcement": "Nous serions heureux de vous compter parmi nous.",
+      "closing_words": "À très bientôt"
+    },
+    "save": "Enregistrer",
+    "saving": "Enregistrement…",
+    "saved": "Vos mots sont enregistrés",
     "save_failed": "Erreur lors de l’enregistrement."
   }
 }

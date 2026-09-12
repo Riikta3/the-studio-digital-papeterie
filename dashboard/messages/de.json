@@ -67,6 +67,7 @@
         "label": "Einladung",
         "items": {
           "modules": "Meine Module",
+          "words": "Unsere Worte",
           "events": "Veranstaltungen",
           "schedule": "Ablauf",
           "venue": "Ort & praktische Infos",
@@ -1304,5 +1305,30 @@
     "now_online": "Ihre Einladung ist online.",
     "now_offline": "Ihre Einladung ist offline.",
     "save_failed": "Änderung konnte nicht gespeichert werden."
+  },
+  "InvitationCopy": {
+    "title": "Unsere Worte",
+    "subtitle": "Die Sätze, die zu euch passen – oben und unten auf eurer Einladung. Ein leeres Feld behält den Standardtext.",
+    "fields": {
+      "hero_kicker": "Über euren Namen",
+      "announcement": "Eure Ankündigung",
+      "closing_words": "Schlussworte",
+      "portrait": "Euer Foto"
+    },
+    "hints": {
+      "hero_kicker": "Die kurze Zeile, mit der die Einladung beginnt.",
+      "announcement": "Der Satz neben euren Namen.",
+      "closing_words": "Auf der letzten Seite. Zeilenumbrüche bleiben erhalten.",
+      "portrait": "Nur manche Designs zeigen ein Foto des Paares – bei den anderen erscheint es nicht."
+    },
+    "placeholders": {
+      "hero_kicker": "Wir heiraten",
+      "announcement": "Wir würden uns freuen, euch dabeizuhaben.",
+      "closing_words": "Bis ganz bald"
+    },
+    "save": "Speichern",
+    "saving": "Wird gespeichert…",
+    "saved": "Eure Worte sind gespeichert",
+    "save_failed": "Beim Speichern ist ein Fehler aufgetreten."
   }
 }

@@ -211,6 +211,7 @@
         "label": "Invitation",
         "items": {
           "modules": "My modules",
+          "words": "Our words",
           "events": "Events",
           "schedule": "Schedule",
           "venue": "Venue & practical info",
@@ -1304,5 +1305,30 @@
     "now_online": "Your invitation is online.",
     "now_offline": "Your invitation is offline.",
     "save_failed": "Could not save your change."
+  },
+  "InvitationCopy": {
+    "title": "Our words",
+    "subtitle": "The sentences that sound like you, at the top and the bottom of your invitation. Leave a field empty to keep the default wording.",
+    "fields": {
+      "hero_kicker": "Above your names",
+      "announcement": "Your announcement",
+      "closing_words": "Closing words",
+      "portrait": "Your photo"
+    },
+    "hints": {
+      "hero_kicker": "The short line that opens the invitation.",
+      "announcement": "The sentence beside your names.",
+      "closing_words": "On the final page. Line breaks are kept.",
+      "portrait": "Only some themes frame a photo of the couple — on the others it will not appear."
+    },
+    "placeholders": {
+      "hero_kicker": "We're getting married",
+      "announcement": "We would love to have you with us.",
+      "closing_words": "See you very soon"
+    },
+    "save": "Save",
+    "saving": "Saving…",
+    "saved": "Your words are saved",
+    "save_failed": "Something went wrong while saving."
   }
 }

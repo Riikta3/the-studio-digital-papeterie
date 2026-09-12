@@ -47,6 +47,7 @@ export const NAV_SECTIONS: NavSectionDef[] = [
     icon: CalendarHeart,
     items: [
       { key: "modules", href: "/modules" },
+      { key: "words", href: "/invitation/nos-mots" },
       { key: "events", href: "/invitation/evenements" },
       { key: "schedule", href: "/invitation/programme" },
       { key: "venue", href: "/invitation/lieu" },

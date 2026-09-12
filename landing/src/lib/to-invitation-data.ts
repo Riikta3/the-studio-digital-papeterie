@@ -317,6 +317,10 @@ export function toInvitationData(page: InvitationPageData): InvitationData {
     couple: {
       partner1: page.partner1,
       partner2: page.partner2,
+      // Absent for most weddings, and that is the correct state: a theme must
+      // render its closing page without one rather than substitute a stock
+      // image. blanc-couture used to hardcode the demo couple's portrait here.
+      portrait: page.couplePhotoUrl,
       monogram:
         [page.partner1, page.partner2]
           .map((name) => name.trim().charAt(0).toUpperCase())
@@ -333,13 +337,17 @@ export function toInvitationData(page: InvitationPageData): InvitationData {
       timezone: "Europe/Paris",
     },
 
-    // The hero labels are derived — no screen asks a couple for their own hero
-    // line, and a hero with no date under the names looks broken. The section
-    // intros are not: those are the module screens' `description` fields,
-    // which had no reader at all until now, so a couple who wrote them saw
-    // nothing change on their invitation.
+    // The date labels are derived, because a hero with no date under the names
+    // looks broken and no screen asks for a preformatted one. The rest is the
+    // couple's own: the hero line, the announcement and the closing words come
+    // from `settings` (20260912140000), and the section intros are the module
+    // screens' `description` fields. The literal below is now only a fallback
+    // for a couple who has not written their own — before that column existed
+    // it was every wedding's hero line.
     copy: {
-      heroKicker: "Nous nous marions",
+      heroKicker: page.heroKicker ?? "Nous nous marions",
+      announcement: page.announcement,
+      closing: page.closingWords,
       dateLabel: dottedLabel(date),
       dateSpelled:
         formatFrenchWeekday(startsAt, { timeZone: "Europe/Paris" }) ?? undefined,

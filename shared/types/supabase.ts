@@ -1522,16 +1522,19 @@ export type Database = {
       }
       guest_search_attempts: {
         Row: {
+          caller_bucket: string | null
           id: number
           searched_at: string
           wedding_id: string
         }
         Insert: {
+          caller_bucket?: string | null
           id?: number
           searched_at?: string
           wedding_id: string
         }
         Update: {
+          caller_bucket?: string | null
           id?: number
           searched_at?: string
           wedding_id?: string
@@ -1646,8 +1649,10 @@ export type Database = {
           message_to_couple: string | null
           name: string
           phone: string | null
+          song_request: string | null
           source: string | null
           status: string | null
+          transportation: string | null
           wedding_id: string
         }
         Insert: {
@@ -1661,8 +1666,10 @@ export type Database = {
           message_to_couple?: string | null
           name: string
           phone?: string | null
+          song_request?: string | null
           source?: string | null
           status?: string | null
+          transportation?: string | null
           wedding_id: string
         }
         Update: {
@@ -1676,8 +1683,10 @@ export type Database = {
           message_to_couple?: string | null
           name?: string
           phone?: string | null
+          song_request?: string | null
           source?: string | null
           status?: string | null
+          transportation?: string | null
           wedding_id?: string
         }
         Relationships: [
@@ -1719,7 +1728,7 @@ export type Database = {
           stripe_payment_intent_id: string
           subtotal_cents: number
           total_cents: number
-          user_id: string
+          user_id: string | null
           vat_cents: number
           vat_rate: number
         }
@@ -1736,7 +1745,7 @@ export type Database = {
           stripe_payment_intent_id: string
           subtotal_cents: number
           total_cents: number
-          user_id: string
+          user_id?: string | null
           vat_cents?: number
           vat_rate?: number
         }
@@ -1753,7 +1762,7 @@ export type Database = {
           stripe_payment_intent_id?: string
           subtotal_cents?: number
           total_cents?: number
-          user_id?: string
+          user_id?: string | null
           vat_cents?: number
           vat_rate?: number
         }
@@ -2000,6 +2009,38 @@ export type Database = {
           },
         ]
       }
+      rsvp_attempts: {
+        Row: {
+          attempted_at: string
+          caller_bucket: string
+          id: number
+          kind: string
+          wedding_id: string
+        }
+        Insert: {
+          attempted_at?: string
+          caller_bucket: string
+          id?: number
+          kind: string
+          wedding_id: string
+        }
+        Update: {
+          attempted_at?: string
+          caller_bucket?: string
+          id?: number
+          kind?: string
+          wedding_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "rsvp_attempts_wedding_id_fkey"
+            columns: ["wedding_id"]
+            isOneToOne: false
+            referencedRelation: "weddings"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       rsvp_responses: {
         Row: {
           admin_note: string | null
@@ -2104,8 +2145,12 @@ export type Database = {
       settings: {
         Row: {
           adults_only: boolean
+          announcement: string | null
+          closing_words: string | null
+          couple_photo_url: string | null
           created_at: string
           guest_code: string | null
+          hero_kicker: string | null
           id: string
           is_module_accommodation_enabled: boolean | null
           is_module_gallery_enabled: boolean | null
@@ -2118,8 +2163,12 @@ export type Database = {
         }
         Insert: {
           adults_only?: boolean
+          announcement?: string | null
+          closing_words?: string | null
+          couple_photo_url?: string | null
           created_at?: string
           guest_code?: string | null
+          hero_kicker?: string | null
           id?: string
           is_module_accommodation_enabled?: boolean | null
           is_module_gallery_enabled?: boolean | null
@@ -2132,8 +2181,12 @@ export type Database = {
         }
         Update: {
           adults_only?: boolean
+          announcement?: string | null
+          closing_words?: string | null
+          couple_photo_url?: string | null
           created_at?: string
           guest_code?: string | null
+          hero_kicker?: string | null
           id?: string
           is_module_accommodation_enabled?: boolean | null
           is_module_gallery_enabled?: boolean | null
@@ -2439,7 +2492,17 @@ export type Database = {
     Functions: {
       check_contact_rate: { Args: { p_email_hash: string }; Returns: boolean }
       check_guest_search_rate: {
-        Args: { p_wedding_id: string }
+        Args: { p_bucket?: string; p_wedding_id: string }
+        Returns: boolean
+      }
+      check_rsvp_rate: {
+        Args: {
+          p_bucket: string
+          p_kind: string
+          p_limit: number
+          p_wedding_id: string
+          p_window: string
+        }
         Returns: boolean
       }
       dashboard_counts: {
@@ -2464,21 +2527,91 @@ export type Database = {
           partner_name: string
         }[]
       }
+      guest_media_count: { Args: { p_wedding_id: string }; Returns: number }
+      guest_uploads_open: { Args: { p_wedding_id: string }; Returns: boolean }
+      invitation_published: { Args: { p_wedding_id: string }; Returns: boolean }
       next_invoice_number: { Args: never; Returns: string }
+      public_day_of_settings: {
+        Args: { p_wedding_id: string }
+        Returns: {
+          after_wedding_mode: boolean
+          enabled: boolean
+          gallery_visible_to_guests: boolean
+          uploads_open_until: string
+          venue_plan_url: string
+        }[]
+      }
+      public_module_configs: {
+        Args: { p_wedding_id: string }
+        Returns: {
+          config: Json
+          module_id: string
+          position: number
+        }[]
+      }
+      public_wedding_events: {
+        Args: { p_wedding_id: string }
+        Returns: {
+          address: string
+          date: string
+          description: string
+          dress_code: string
+          id: string
+          key: string
+          name: string
+          position: number
+          time: string
+        }[]
+      }
+      register_rsvp_household: {
+        Args: {
+          p_bucket: string
+          p_email: string
+          p_guests: Json
+          p_message: string
+          p_name: string
+          p_song: string
+          p_transport: string
+          p_wedding_id: string
+        }
+        Returns: string
+      }
       resolve_public_slug: {
         Args: { p_slug: string }
         Returns: {
+          adults_only: boolean
+          announcement: string
+          closing_words: string
+          couple_photo_url: string
+          hero_kicker: string
+          modules: string[]
           theme_id: string
           wedding_id: string
         }[]
       }
+      resolve_wedding_code: {
+        Args: { p_bucket: string; p_code: string }
+        Returns: {
+          couple_names: string
+          wedding_id: string
+        }[]
+      }
       search_guest_table: {
-        Args: { p_query: string; p_wedding_id: string }
+        Args: { p_bucket?: string; p_query: string; p_wedding_id: string }
         Returns: {
           first_name: string
           last_name: string
           seats_label: string
           table_name: string
+        }[]
+      }
+      search_rsvp_household: {
+        Args: { p_bucket: string; p_query: string; p_wedding_id: string }
+        Returns: {
+          guests: Json
+          id: string
+          name: string
+          status: string
         }[]
       }
       submit_contact_message: {
@@ -2497,6 +2630,19 @@ export type Database = {
           p_subject: string
           p_wedding_date?: string
           p_wedding_place?: string
+        }
+        Returns: boolean
+      }
+      submit_rsvp_household: {
+        Args: {
+          p_bucket: string
+          p_email: string
+          p_guests: Json
+          p_household_id: string
+          p_message: string
+          p_song: string
+          p_transport: string
+          p_wedding_id: string
         }
         Returns: boolean
       }

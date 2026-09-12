@@ -83,6 +83,21 @@ export type InvitationPageData = {
   /** `settings.adults_only` — drives the RSVP child fields and the FAQ entry. */
   adultsOnly: boolean;
   /**
+   * The couple's own words and their photograph (`settings`, migration
+   * 20260912140000).
+   *
+   * `InvitationData.copy` describes every one of its fields as "a sentence a
+   * couple could rewrite", and until these columns existed none of them could
+   * be: the hero line was a French literal in the mapper, so two weddings on
+   * the same theme opened with the same sentence. Each is undefined when the
+   * couple has not written it, and the mapper falls back to what it derived
+   * before.
+   */
+  heroKicker?: string;
+  announcement?: string;
+  closingWords?: string;
+  couplePhotoUrl?: string;
+  /**
    * The locales this invitation may be served in (`sites.languages`), the
    * couple's default first. A locale outside this list is not one they bought.
    */
@@ -113,6 +128,19 @@ export type InvitationPageData = {
   accommodations: InvitationAccommodation[];
   faq: InvitationFaqEntry[];
 };
+
+/**
+ * A trimmed string from an untyped RPC column, or undefined.
+ *
+ * `rpc()` rows are `any`, and an empty string in one of the copy columns means
+ * "not written" rather than "written as blank" — a theme that received `""`
+ * would render an empty line where its fallback belonged.
+ */
+function text(value: unknown): string | undefined {
+  if (typeof value !== "string") return undefined;
+  const trimmed = value.trim();
+  return trimmed.length > 0 ? trimmed : undefined;
+}
 
 /** Long French date, e.g. "samedi 19 juin 2027", for a heading. */
 function frenchDateLabel(iso: string | null | undefined): string {
@@ -288,6 +316,10 @@ export async function getInvitationPage(
     themeId: (site.theme_id as string | null) ?? null,
     modules: (site.modules as string[] | null) ?? [],
     adultsOnly: Boolean(site.adults_only),
+    heroKicker: text(site.hero_kicker),
+    announcement: text(site.announcement),
+    closingWords: text(site.closing_words),
+    couplePhotoUrl: text(site.couple_photo_url),
     languages: (site.languages as string[] | null) ?? [],
     // `rpc()` returns untyped rows (the generated types do not cover
     // functions), so the shape is named before it is narrowed.

@@ -67,6 +67,7 @@
         "label": "Invitación",
         "items": {
           "modules": "Mis módulos",
+          "words": "Nuestras palabras",
           "events": "Eventos",
           "schedule": "Programa",
           "venue": "Lugar e información práctica",
@@ -1304,5 +1305,30 @@
     "now_online": "Tu invitación está en línea.",
     "now_offline": "Tu invitación está fuera de línea.",
     "save_failed": "No se pudo guardar el cambio."
+  },
+  "InvitationCopy": {
+    "title": "Nuestras palabras",
+    "subtitle": "Las frases que os representan, arriba y abajo de vuestra invitación. Dejad un campo vacío para conservar el texto por defecto.",
+    "fields": {
+      "hero_kicker": "Encima de vuestros nombres",
+      "announcement": "Vuestro anuncio",
+      "closing_words": "Unas últimas palabras",
+      "portrait": "Vuestra foto"
+    },
+    "hints": {
+      "hero_kicker": "La línea breve que abre la invitación.",
+      "announcement": "La frase que acompaña a vuestros nombres.",
+      "closing_words": "En la última página. Se conservan los saltos de línea.",
+      "portrait": "Solo algunos temas muestran una foto de la pareja; en los demás no aparecerá."
+    },
+    "placeholders": {
+      "hero_kicker": "Nos casamos",
+      "announcement": "Nos encantaría contar con vosotros.",
+      "closing_words": "Hasta muy pronto"
+    },
+    "save": "Guardar",
+    "saving": "Guardando…",
+    "saved": "Vuestras palabras están guardadas",
+    "save_failed": "Error al guardar."
   }
 }

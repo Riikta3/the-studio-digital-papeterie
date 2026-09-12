@@ -67,6 +67,7 @@
         "label": "请柬",
         "items": {
           "modules": "我的模块",
+          "words": "我们的话",
           "events": "活动",
           "schedule": "流程安排",
           "venue": "场地与实用信息",
@@ -1304,5 +1305,30 @@
     "now_online": "您的请柬已上线。",
     "now_offline": "您的请柬已下线。",
     "save_failed": "保存失败。"
+  },
+  "InvitationCopy": {
+    "title": "我们的话",
+    "subtitle": "写在请柬开头与结尾、属于你们的句子。留空则保留默认文字。",
+    "fields": {
+      "hero_kicker": "名字上方的一行",
+      "announcement": "你们的宣告",
+      "closing_words": "结束语",
+      "portrait": "你们的合照"
+    },
+    "hints": {
+      "hero_kicker": "请柬开篇的短句。",
+      "announcement": "陪伴在名字旁的句子。",
+      "closing_words": "在最后一页。换行会被保留。",
+      "portrait": "只有部分主题会展示新人合照，其他主题不会显示。"
+    },
+    "placeholders": {
+      "hero_kicker": "我们要结婚了",
+      "announcement": "很希望你能来。",
+      "closing_words": "很快见"
+    },
+    "save": "保存",
+    "saving": "保存中…",
+    "saved": "已保存你们的话",
+    "save_failed": "保存时出错。"
   }
 }

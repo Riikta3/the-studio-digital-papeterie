@@ -67,6 +67,7 @@
         "label": "Convite",
         "items": {
           "modules": "Meus módulos",
+          "words": "As nossas palavras",
           "events": "Eventos",
           "schedule": "Programa",
           "venue": "Local & informações práticas",
@@ -1304,5 +1305,30 @@
     "now_online": "O seu convite está online.",
     "now_offline": "O seu convite está offline.",
     "save_failed": "Não foi possível guardar a alteração."
+  },
+  "InvitationCopy": {
+    "title": "As nossas palavras",
+    "subtitle": "As frases que vos representam, no início e no fim do convite. Deixem um campo vazio para manter o texto predefinido.",
+    "fields": {
+      "hero_kicker": "Acima dos vossos nomes",
+      "announcement": "O vosso anúncio",
+      "closing_words": "As últimas palavras",
+      "portrait": "A vossa fotografia"
+    },
+    "hints": {
+      "hero_kicker": "A linha curta que abre o convite.",
+      "announcement": "A frase junto aos vossos nomes.",
+      "closing_words": "Na última página. As quebras de linha são mantidas.",
+      "portrait": "Apenas alguns temas mostram uma fotografia do casal — nos restantes não aparecerá."
+    },
+    "placeholders": {
+      "hero_kicker": "Vamos casar",
+      "announcement": "Seria uma alegria ter-vos connosco.",
+      "closing_words": "Até muito breve"
+    },
+    "save": "Guardar",
+    "saving": "A guardar…",
+    "saved": "As vossas palavras foram guardadas",
+    "save_failed": "Erro ao guardar."
   }
 }

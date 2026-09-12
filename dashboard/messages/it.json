@@ -67,6 +67,7 @@
         "label": "Invito",
         "items": {
           "modules": "I miei moduli",
+          "words": "Le nostre parole",
           "events": "Eventi",
           "schedule": "Programma",
           "venue": "Location & info pratiche",
@@ -1304,5 +1305,30 @@
     "now_online": "Il tuo invito è online.",
     "now_offline": "Il tuo invito è offline.",
     "save_failed": "Impossibile salvare la modifica."
+  },
+  "InvitationCopy": {
+    "title": "Le nostre parole",
+    "subtitle": "Le frasi che vi somigliano, in cima e in fondo alla partecipazione. Lasciate un campo vuoto per mantenere il testo predefinito.",
+    "fields": {
+      "hero_kicker": "Sopra i vostri nomi",
+      "announcement": "Il vostro annuncio",
+      "closing_words": "Le ultime parole",
+      "portrait": "La vostra foto"
+    },
+    "hints": {
+      "hero_kicker": "La breve riga che apre la partecipazione.",
+      "announcement": "La frase accanto ai vostri nomi.",
+      "closing_words": "Sull’ultima pagina. Gli a capo vengono mantenuti.",
+      "portrait": "Solo alcuni temi mostrano una foto della coppia: sugli altri non comparirà."
+    },
+    "placeholders": {
+      "hero_kicker": "Ci sposiamo",
+      "announcement": "Saremmo felici di avervi con noi.",
+      "closing_words": "A prestissimo"
+    },
+    "save": "Salva",
+    "saving": "Salvataggio…",
+    "saved": "Le vostre parole sono salvate",
+    "save_failed": "Errore durante il salvataggio."
   }
 }

@@ -143,10 +143,26 @@ export async function seedInvitationContent({
       })),
     ),
 
+    /* The words above and below their names.
+     *
+     * Seeded rather than left null so the couple opens their dashboard to a
+     * sentence they can edit, instead of an empty field beside a page that
+     * shows text they cannot find. `update` because `settings` already has a
+     * row for this wedding — `create-wedding.ts` inserts it — and only these
+     * columns are touched.
+     */
+    supabaseAdmin
+      .from("settings")
+      .update({
+        hero_kicker: data.copy?.heroKicker ?? null,
+        announcement: data.copy?.announcement ?? null,
+        closing_words: data.copy?.closing ?? null,
+      })
+      .eq("wedding_id", weddingId),
   ]);
 
   results.forEach((result, index) => {
-    const step = ["schedule", "venue", "faq"][index];
+    const step = ["schedule", "venue", "faq", "copy"][index];
     if (result.status === "rejected") {
       console.error(`Seed: ${step} threw`, result.reason);
     } else if (result.value && "error" in result.value && result.value.error) {

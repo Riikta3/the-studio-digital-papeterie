@@ -67,6 +67,7 @@
         "label": "招待状",
         "items": {
           "modules": "マイモジュール",
+          "words": "ふたりの言葉",
           "events": "イベント",
           "schedule": "プログラム",
           "venue": "会場・実用情報",
@@ -1304,5 +1305,30 @@
     "now_online": "招待状を公開しました。",
     "now_offline": "招待状を非公開にしました。",
     "save_failed": "保存できませんでした。"
+  },
+  "InvitationCopy": {
+    "title": "ふたりの言葉",
+    "subtitle": "招待状の冒頭と結びに添える、おふたりらしい言葉です。空欄のままにすると既定の文面が使われます。",
+    "fields": {
+      "hero_kicker": "お名前の上の一行",
+      "announcement": "おふたりからのご挨拶",
+      "closing_words": "結びの言葉",
+      "portrait": "おふたりの写真"
+    },
+    "hints": {
+      "hero_kicker": "招待状の書き出しとなる短い一行です。",
+      "announcement": "お名前に添える一文です。",
+      "closing_words": "最後のページに入ります。改行はそのまま残ります。",
+      "portrait": "写真を飾るのは一部のテーマのみです。ほかのテーマでは表示されません。"
+    },
+    "placeholders": {
+      "hero_kicker": "結婚します",
+      "announcement": "ぜひご一緒いただけましたら幸いです。",
+      "closing_words": "またすぐお会いしましょう"
+    },
+    "save": "保存",
+    "saving": "保存中…",
+    "saved": "ふたりの言葉を保存しました",
+    "save_failed": "保存中にエラーが発生しました。"
   }
 }
