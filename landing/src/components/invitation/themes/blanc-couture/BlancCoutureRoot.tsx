@@ -8,6 +8,7 @@ import "./blanc-couture.css";
 import "./responsive.css";
 
 import { blancCoutureFontVars } from "./fonts";
+import { AccessSection } from "./sections/AccessSection";
 import { CarpoolSection } from "./sections/CarpoolSection";
 import { DressCodeSection } from "./sections/DressCodeSection";
 import { FaqSection } from "./sections/FaqSection";
@@ -59,6 +60,13 @@ export function BlancCoutureRoot({ data }: { data: InvitationData }) {
   add(true, "hero", (side) => <HeroSection data={data} side={side} />);
   add(has("countdown"), "save", (side) => <SaveTheDateSection data={data} side={side} />);
   add(has("map"), "venue", (side) => <VenueSection data={data} side={side} />);
+  // Gated on the content as well as the module: an empty access page would
+  // still take a slot and flip the left/right rhythm of everything after it.
+  add(
+    has("map") && (data.venue.access?.length ?? 0) > 0,
+    "access",
+    (side) => <AccessSection data={data} side={side} />,
+  );
   add(has("timeline"), "programme", (side) => <ProgrammeSection data={data} side={side} />);
   add(has("dress-code"), "dress", (side) => <DressCodeSection data={data} side={side} />);
   add(has("accommodation"), "stays", (side) => <StaysSection data={data} side={side} />);
