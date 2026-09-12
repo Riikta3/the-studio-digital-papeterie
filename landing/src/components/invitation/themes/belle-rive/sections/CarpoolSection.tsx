@@ -2,7 +2,7 @@
 
 import { type FormEvent, useState } from "react";
 
-import { formatFrenchWeekday } from "../../format";
+import { formatFrenchWeekday, plural } from "../../format";
 import type { InvitationData } from "../../types";
 import type { CarpoolTrip } from "../types";
 
@@ -99,7 +99,7 @@ export function CarpoolSection({
                 <div className="trip-meta">
                   <span>Proposé par {trip.name}</span>
                   <strong>
-                    {trip.seats} place{trip.seats > 1 ? "s" : ""}
+                    {trip.seats} {plural(trip.seats, { one: "place", other: "places" })}
                   </strong>
                 </div>
                 {trip.returnTrip ? <small>Trajet retour également proposé</small> : null}

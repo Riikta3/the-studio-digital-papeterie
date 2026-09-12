@@ -12,6 +12,7 @@ import {
 import { createPortal } from "react-dom";
 
 import { submitPlaylistSuggestions } from "@/actions/invitation-submissions";
+import { plural } from "../../format";
 import type { InvitationData } from "../../types";
 
 /**
@@ -116,8 +117,10 @@ export function PlaylistSection({ data }: { data: InvitationData }) {
   const weddingId = data.weddingId;
 
   const full = selected.length >= MAX_TRACKS;
-  /* French agreement: singular at 0 and 1, plural from 2 up. */
-  const plural = selected.length > 1 ? "s" : "";
+  // `Intl.PluralRules` rather than `> 1 ? "s" : ""`: the French rule is wrong
+  // in English at zero ("0 titre"), and meaningless in Arabic or Japanese.
+  const track = plural(selected.length, { one: "titre", other: "titres" });
+  const chosen = plural(selected.length, { one: "choisi", other: "choisis" });
 
   const trimmed = query.trim();
   /* No searching once the selection is full or the form has been sent —
@@ -499,7 +502,7 @@ export function PlaylistSection({ data }: { data: InvitationData }) {
                 ? `${MAX_TRACKS} titres maximum — retirez-en un pour en proposer un autre.`
                 : selected.length === 0
                   ? `Jusqu'à ${MAX_TRACKS} titres`
-                  : `${selected.length} titre${plural} choisi${plural} sur ${MAX_TRACKS}`}
+                  : `${selected.length} ${track} ${chosen} sur ${MAX_TRACKS}`}
             </p>
 
             {error ? (

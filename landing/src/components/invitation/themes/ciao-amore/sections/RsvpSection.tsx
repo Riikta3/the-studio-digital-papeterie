@@ -3,7 +3,7 @@
 import { type FormEvent, useState } from "react";
 
 import { type RsvpCompanion, submitRsvp } from "@/actions/invitation-submissions";
-import { formatFrenchDate } from "../../format";
+import { formatFrenchDate, plural } from "../../format";
 import type { InvitationData } from "../../types";
 
 /**
@@ -231,7 +231,7 @@ export function RsvpSection({ data }: { data: InvitationData }) {
                       {Array.from({ length: MAX_CHILDREN }, (_, index) => index + 1).map(
                         (count) => (
                           <option key={count} value={count}>
-                            {count} enfant{count > 1 ? "s" : ""}
+                            {count} {plural(count, { one: "enfant", other: "enfants" })}
                           </option>
                         ),
                       )}
