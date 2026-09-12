@@ -2,6 +2,16 @@
 
 import { Resend } from "resend";
 
+import {
+  button,
+  esc,
+  infoRow,
+  infoTable,
+  label,
+  panel,
+} from "@shared/emails/components";
+import { renderEmail } from "@shared/emails/layout";
+
 import { isContactSubject } from "@/lib/contact-subjects";
 import { createClient } from "@/utils/supabase/server";
 
@@ -292,24 +302,13 @@ const SUBJECT_FR: Record<string, string> = {
   autre: "Autre",
 };
 
-/**
- * Escape every character that could break out of an HTML text node or an
- * attribute.
- *
- * This is the one thing that makes an HTML notification safe to send. The
- * body, the names and the venue are written by a stranger; interpolated raw,
- * a `<script>` or a forged `</td>` would become markup in the recipient's mail
- * client. Every interpolation below goes through this — no exceptions, and any
- * new field added later must too.
+/*
+ * `esc` is imported from `@shared/emails`, and every interpolation below goes
+ * through it — no exceptions, and any new field added later must too. The body,
+ * the names and the venue are written by a stranger; interpolated raw, a
+ * `<script>` or a forged `</td>` would become markup in the recipient's mail
+ * client.
  */
-function esc(value: string): string {
-  return value
-    .replace(/&/g, "&amp;")
-    .replace(/</g, "&lt;")
-    .replace(/>/g, "&gt;")
-    .replace(/"/g, "&quot;")
-    .replace(/'/g, "&#39;");
-}
 
 /** A wedding date in French, falling back to the raw value if unparsable. */
 function frenchDate(iso: string): string {
@@ -363,61 +362,40 @@ async function notify(payload: {
   try {
     const resend = new Resend(apiKey);
 
-    // Studio palette, inlined: mail clients strip <style> blocks and know
-    // nothing about Tailwind, so every rule has to ride on the element.
-    const VIOLET = "#4B3F72";
-    const LAVANDE = "#B7AFD1";
-    const BEURRE = "#FFF9D6";
-    const CREME = "#FFFDE8";
-
-    // One row of the details table. `label` is ours, `value` is the visitor's
-    // — hence the escaping on the latter only.
-    const row = (label: string, value: string | undefined) =>
-      value
-        ? `<tr>
-             <td style="padding:10px 16px;border-bottom:1px solid ${LAVANDE}33;font:12px/1.4 -apple-system,Segoe UI,sans-serif;letter-spacing:.08em;text-transform:uppercase;color:${VIOLET}99;white-space:nowrap;vertical-align:top">${label}</td>
-             <td style="padding:10px 16px;border-bottom:1px solid ${LAVANDE}33;font:15px/1.5 -apple-system,Segoe UI,sans-serif;color:${VIOLET}">${esc(value)}</td>
-           </tr>`
-        : "";
-
-    const details = [
-      row("Date du mariage", payload.weddingDate && frenchDate(payload.weddingDate)),
-      row("Lieu", payload.weddingPlace),
-      row("Invités", payload.guestBand && GUEST_BAND_FR[payload.guestBand]),
-      row("Intérêt", payload.interest && INTEREST_FR[payload.interest]),
-      row("Collection", payload.collection && COLLECTION_FR[payload.collection]),
-      row("Avancement", payload.projectStage && STAGE_FR[payload.projectStage]),
-    ].join("");
+    const detailRows = [
+      infoRow(
+        "Date du mariage",
+        payload.weddingDate && esc(frenchDate(payload.weddingDate)),
+      ),
+      infoRow("Lieu", payload.weddingPlace && esc(payload.weddingPlace)),
+      infoRow("Invités", payload.guestBand && GUEST_BAND_FR[payload.guestBand]),
+      infoRow("Intérêt", payload.interest && INTEREST_FR[payload.interest]),
+      infoRow(
+        "Collection",
+        payload.collection && COLLECTION_FR[payload.collection],
+      ),
+      infoRow(
+        "Avancement",
+        payload.projectStage && STAGE_FR[payload.projectStage],
+      ),
+    ];
 
     const subjectLabel = SUBJECT_FR[payload.subject] ?? payload.subject;
+    const replyTo = `mailto:${esc(payload.email)}`;
 
-    const html = `<!doctype html>
-<html lang="fr"><body style="margin:0;padding:24px 12px;background:${CREME}">
-  <table role="presentation" cellpadding="0" cellspacing="0" style="width:100%;max-width:560px;margin:0 auto;border-collapse:collapse;background:#fff;border-radius:20px;overflow:hidden">
-    <tr>
-      <td style="padding:28px 32px;background:${VIOLET}">
-        <p style="margin:0;font:12px/1.4 -apple-system,Segoe UI,sans-serif;letter-spacing:.14em;text-transform:uppercase;color:${BEURRE}b3">Nouveau message · ${esc(subjectLabel)}</p>
-        <p style="margin:8px 0 0;font:600 24px/1.3 Georgia,serif;color:${BEURRE}">${esc(name)}</p>
-        <p style="margin:6px 0 0;font:14px/1.5 -apple-system,Segoe UI,sans-serif">
-          <a href="mailto:${esc(payload.email)}" style="color:${BEURRE};text-decoration:underline">${esc(payload.email)}</a>
-        </p>
-      </td>
-    </tr>
-    ${details ? `<tr><td style="padding:8px 16px 0"><table role="presentation" cellpadding="0" cellspacing="0" style="width:100%;border-collapse:collapse">${details}</table></td></tr>` : ""}
-    <tr>
-      <td style="padding:24px 32px 8px">
-        <p style="margin:0 0 10px;font:12px/1.4 -apple-system,Segoe UI,sans-serif;letter-spacing:.08em;text-transform:uppercase;color:${VIOLET}99">Message</p>
-        <div style="padding:16px 18px;background:${CREME};border-radius:14px;font:15px/1.65 -apple-system,Segoe UI,sans-serif;color:${VIOLET};white-space:pre-wrap;word-break:break-word">${esc(payload.message)}</div>
-      </td>
-    </tr>
-    <tr>
-      <td style="padding:20px 32px 28px">
-        <a href="mailto:${esc(payload.email)}" style="display:inline-block;padding:13px 26px;border-radius:999px;background:${VIOLET};color:${BEURRE};font:15px/1 -apple-system,Segoe UI,sans-serif;text-decoration:none">Répondre à ${esc(payload.firstName || name)}</a>
-        <p style="margin:16px 0 0;font:12px/1.5 -apple-system,Segoe UI,sans-serif;color:${VIOLET}80">Formulaire de contact · langue du visiteur : ${esc(payload.locale)}</p>
-      </td>
-    </tr>
-  </table>
-</body></html>`;
+    const html = renderEmail({
+      preheader: `${name} · ${subjectLabel}`,
+      eyebrow: `Nouveau message · ${esc(subjectLabel)}`,
+      title: esc(name),
+      subtitle: `<a href="${replyTo}" style="color:inherit;text-decoration:underline">${esc(payload.email)}</a>`,
+      children: [
+        infoTable(detailRows),
+        label("Message"),
+        panel(esc(payload.message)),
+        button(`Répondre à ${esc(payload.firstName || name)}`, replyTo),
+      ],
+      footer: `Formulaire de contact · langue du visiteur : ${esc(payload.locale)}`,
+    });
 
     await resend.emails.send({
       from: `The Studio <${NOTIFY_FROM}>`,

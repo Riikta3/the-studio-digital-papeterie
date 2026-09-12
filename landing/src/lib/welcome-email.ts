@@ -1,5 +1,8 @@
 import { Resend } from "resend";
 
+import { button, esc, muted, paragraph } from "@shared/emails/components";
+import { renderEmail } from "@shared/emails/layout";
+
 /**
  * The "your site is ready" email, carrying the couple's sign-in link.
  *
@@ -17,6 +20,9 @@ import { Resend } from "resend";
  * Failure here is logged, never thrown. The wedding is already created and
  * paid for — losing it because Resend had a bad day would be the worse
  * outcome, and the same reasoning the contact form documents.
+ *
+ * The markup comes from `@shared/emails`, which every message we send now
+ * shares; only the copy below is specific to this one.
  */
 
 const FROM = "The Studio <contact@thestudiopapeteriedigitale.com>";
@@ -30,74 +36,28 @@ export interface WelcomeEmailInput {
   loginLink: string;
 }
 
-/** Escapes interpolated values so a name with `<` cannot break the markup. */
-function escapeHtml(value: string): string {
-  return value
-    .replace(/&/g, "&amp;")
-    .replace(/</g, "&lt;")
-    .replace(/>/g, "&gt;")
-    .replace(/"/g, "&quot;");
-}
-
 function buildHtml(input: WelcomeEmailInput): string {
   const couple = [input.firstName, input.partnerName]
     .filter(Boolean)
-    .map((name) => escapeHtml(name as string))
-    .join(" & ");
+    .map((name) => esc(name as string))
+    .join(" &amp; ");
 
-  const greeting = couple ? `Félicitations ${couple},` : "Félicitations,";
-
-  // Inline styles and a table layout: email clients strip <style> blocks and
-  // have no flexbox worth relying on.
-  return `<!doctype html>
-<html lang="fr">
-<body style="margin:0;padding:0;background:#FDFBF7;font-family:Helvetica,Arial,sans-serif;color:#4B3F72;">
-  <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background:#FDFBF7;padding:32px 16px;">
-    <tr>
-      <td align="center">
-        <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="max-width:520px;background:#ffffff;border-radius:16px;padding:40px 32px;">
-          <tr>
-            <td style="font-size:22px;font-weight:bold;padding-bottom:24px;">
-              The Studio Digital Papeterie
-            </td>
-          </tr>
-          <tr>
-            <td style="font-size:18px;font-weight:bold;padding-bottom:12px;">
-              ${greeting}
-            </td>
-          </tr>
-          <tr>
-            <td style="font-size:15px;line-height:1.6;padding-bottom:24px;color:#4B3F72;">
-              Votre invitation est prête. Cliquez ci-dessous pour accéder à votre
-              espace et commencer à la personnaliser.
-            </td>
-          </tr>
-          <tr>
-            <td align="center" style="padding-bottom:24px;">
-              <a href="${escapeHtml(input.loginLink)}"
-                 style="display:inline-block;background:#4B3F72;color:#ffffff;text-decoration:none;padding:14px 32px;border-radius:999px;font-size:15px;font-weight:bold;">
-                Accéder à mon espace
-              </a>
-            </td>
-          </tr>
-          <tr>
-            <td style="font-size:13px;line-height:1.6;color:#8b83a3;padding-bottom:16px;">
-              Ce lien vous connecte directement, sans mot de passe. Il est
-              valable une seule fois — si vous en avez besoin d'un nouveau,
-              demandez-en un depuis la page de connexion.
-            </td>
-          </tr>
-          <tr>
-            <td style="font-size:12px;line-height:1.6;color:#8b83a3;border-top:1px solid #eceaf2;padding-top:16px;">
-              Une question ? Répondez simplement à cet email.
-            </td>
-          </tr>
-        </table>
-      </td>
-    </tr>
-  </table>
-</body>
-</html>`;
+  return renderEmail({
+    preheader:
+      "Votre invitation est prête — accédez à votre espace pour la personnaliser.",
+    eyebrow: "Votre invitation est prête",
+    title: couple ? `Félicitations ${couple}` : "Félicitations",
+    children: [
+      paragraph(
+        "Votre invitation est prête. Cliquez ci-dessous pour accéder à votre espace et commencer à la personnaliser.",
+      ),
+      button("Accéder à mon espace", esc(input.loginLink)),
+      muted(
+        "Ce lien vous connecte directement, sans mot de passe. Il est valable une seule fois — si vous en avez besoin d'un nouveau, demandez-en un depuis la page de connexion.",
+      ),
+    ],
+    footer: "Une question ? Répondez simplement à cet email.",
+  });
 }
 
 export async function sendWelcomeEmail(

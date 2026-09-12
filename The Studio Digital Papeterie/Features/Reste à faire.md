@@ -22,6 +22,7 @@ Voir aussi [[Checklist nouveau thème]], [[Invitation]], [[Conventions]].
 | 3 | Relecture ja / ar / zh / pt | Un locuteur natif | Non, mais visible par les invités |
 | 4 | Champs du contrat sans écran | Claude, seul | Non |
 | 5 | Sur-mesure sans module | Décision produit | Non — assumé |
+| 6 | `site_url` Supabase sur une preview Vercel | Toi (choisir le domaine), Claude (pousser) | Non — filet mal accroché |
 
 ---
 
@@ -157,6 +158,59 @@ programme, sans lieu et sans RSVP.
 
 **Décision : laissé en l'état** (2026-09-12). À rouvrir si des commandes
 arrivent avec `sites.modules` vide.
+
+---
+
+## 6. `site_url` du projet Supabase pointe sur une preview Vercel
+
+Sur le projet hébergé (`pftvcpxwbprmphhgwvxc`), `site_url` vaut :
+
+```
+https://the-studio-digital-papeterie-landing-riiktas-projects.vercel.app/
+```
+
+Deux problèmes : c'est une URL de déploiement Vercel et non un domaine stable,
+et c'est l'URL du **landing** alors que seul le dashboard reçoit les liens
+d'auth (cf. le commentaire de `[auth] site_url` dans `supabase/config.toml`).
+
+`site_url` est la destination d'un lien d'auth qui n'embarque pas de
+`redirect_to` utilisable. Tous nos envois passent par `sendAuthEmail`, qui
+fournit toujours un `redirectTo` explicite vers `auth/confirm` — donc rien
+n'est cassé aujourd'hui. C'est un filet mal accroché, pas une panne.
+
+**À faire** : remplacer par le domaine de production du dashboard, une fois
+qu'il est arrêté. Commande, en remplaçant l'URL :
+
+```bash
+curl -X PATCH \
+  -H "Authorization: Bearer $(cat ~/.supabase/access-token)" \
+  -H "Content-Type: application/json" \
+  -d '{"site_url": "https://DOMAINE-DASHBOARD"}' \
+  "https://api.supabase.com/v1/projects/pftvcpxwbprmphhgwvxc/config/auth"
+```
+
+Laissé en l'état le 12/09/2026 faute de domaine arrêté. Voir
+[[Templates Email]].
+
+---
+
+## Corrigé le 12/09/2026 — config auth de production
+
+Deux écarts trouvés sur le projet hébergé en vérifiant la refonte des mails.
+`supabase/config.toml` ne pilote **que** le conteneur local : ces réglages-là
+n'avaient jamais suivi.
+
+| Réglage | Avant | Après | Pourquoi |
+|---|---|---|---|
+| `mailer_autoconfirm` | `true` | `false` | Court-circuitait la double confirmation du changement d'adresse, malgré `mailer_secure_email_change_enabled: true`. Une session volée pouvait déplacer le compte vers l'adresse d'un attaquant. |
+| `mailer_otp_exp` | `3600` | `86400` | Les mails annoncent 24 h (`LINK_VALIDITY_HOURS`), les liens mouraient en 1 h. Un couple qui paie sur son téléphone et ouvre son mail plus tard tombait sur un lien mort. |
+
+Vérifié avant de basculer `autoconfirm` : aucun `signUp()` public, les comptes
+sont créés par `admin.createUser({ email_confirm: true })`
+(`create-wedding.ts:171`), donc le parcours payant n'est pas touché.
+
+Sauvegarde des 243 réglages d'avant prise avant modification ; re-lecture après
+coup : exactement 2 valeurs changées, `site_url` intact.
 
 ---
 

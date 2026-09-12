@@ -1,11 +1,13 @@
 "use server";
 
-import { MagicLinkEmail } from "@/emails/MagicLinkEmail";
+import {
+  buildGuestInviteEmail,
+  buildGuestInviteText,
+} from "@/lib/guest-invite-email";
 import { sendEmail } from "@/lib/email";
 import { ActionResult } from "@/types";
 import { createClient } from "@/utils/supabase/server";
 import { createMagicLinkForHousehold } from "@/utils/tokens";
-import { render } from "@react-email/components";
 
 export async function sendMagicLinkToHousehold(
   householdId: string,
@@ -81,18 +83,17 @@ export async function sendMagicLinkToHousehold(
     const magicLinkUrl = `${process.env.NEXT_PUBLIC_APP_URL}/auth/verify?token=${token}`;
 
     // 3. Render Email
-    const emailHtml = await render(
-      MagicLinkEmail({
-        householdName: household.name,
-        magicLink: magicLinkUrl,
-      }),
-    );
+    const invite = {
+      householdName: household.name,
+      magicLink: magicLinkUrl,
+    };
 
     // 4. Send Email
     const result = await sendEmail({
       to: household.email,
       subject: "Votre accès à l'espace invités",
-      html: emailHtml,
+      html: buildGuestInviteEmail(invite),
+      text: buildGuestInviteText(invite),
       householdId: household.id,
     });
 

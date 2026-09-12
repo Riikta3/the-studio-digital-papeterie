@@ -70,6 +70,17 @@ inactivity_timeout = "720h"
 # the account with `email_confirm: true`, because paying is the confirmation.
 enable_confirmations = false
 
+# Changing the address requires confirming from BOTH the old inbox and the new
+# one, so a stolen session cannot quietly move the account to an attacker's
+# address — whoever holds the current mailbox has to agree.
+#
+# Worth stating explicitly even though it is the default: `enable_confirmations
+# = false` above sets GOTRUE_MAILER_AUTOCONFIRM, which short-circuits the second
+# confirmation *locally*. So a local run completes the change after one link
+# while production demands two. `updateEmail` sends both regardless; do not
+# conclude from local behaviour that the second one is unused.
+secure_email_change_enabled = true
+
 # How long an emailed link stays usable, in seconds. 24h, kept deliberately
 # generous because the purchase flow is passwordless: the magic link is the
 # only way into an account that has just been paid for, and couples buy on a

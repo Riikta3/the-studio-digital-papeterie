@@ -2,6 +2,15 @@ import { createClient } from "@supabase/supabase-js";
 import { getTranslations } from "next-intl/server";
 import { Resend } from "resend";
 
+import {
+  button,
+  esc,
+  linkFallback,
+  muted,
+  paragraph,
+} from "@shared/emails/components";
+import { renderEmail } from "@shared/emails/layout";
+
 /**
  * The account emails — password reset, sign-in link, address confirmation.
  *
@@ -32,14 +41,27 @@ const FROM = "The Studio <contact@thestudiopapeteriedigitale.com>";
  */
 const LINK_VALIDITY_HOURS = 24;
 
-export type AuthEmailKind = "reset" | "magiclink" | "confirm" | "change";
+/**
+ * `change_current` and `change_new` are the two halves of one address change:
+ * Supabase confirms it from the old inbox *and* the new one, so a stolen
+ * session cannot move the account somewhere the real owner cannot reach. Both
+ * must be sent — see `secure_email_change_enabled` in supabase/config.toml for
+ * why a local run misleadingly completes after just the first.
+ */
+export type AuthEmailKind =
+  | "reset"
+  | "magiclink"
+  | "confirm"
+  | "change_current"
+  | "change_new";
 
 /** Maps our kinds onto the link types Supabase's admin API accepts. */
 const LINK_TYPE = {
   reset: "recovery",
   magiclink: "magiclink",
   confirm: "signup",
-  change: "email_change_current",
+  change_current: "email_change_current",
+  change_new: "email_change_new",
 } as const;
 
 /** Where `auth/confirm` should send the couple once the token is verified. */
@@ -47,7 +69,8 @@ const LANDING_PATH = {
   reset: "/update-password",
   magiclink: "",
   confirm: "",
-  change: "/settings",
+  change_current: "/settings",
+  change_new: "/settings",
 } as const;
 
 export interface AuthEmailInput {
@@ -60,15 +83,11 @@ export interface AuthEmailInput {
    * new address to mint the link.
    */
   password?: string;
+  /**
+   * The address being moved to. Required by both halves of a change: Supabase
+   * mints the token against it, and `change_new` is delivered there.
+   */
   newEmail?: string;
-}
-
-function escapeHtml(value: string): string {
-  return value
-    .replace(/&/g, "&amp;")
-    .replace(/</g, "&lt;")
-    .replace(/>/g, "&gt;")
-    .replace(/"/g, "&quot;");
 }
 
 /**
@@ -101,15 +120,31 @@ interface Copy {
   footer: string;
 }
 
-async function getCopy(kind: AuthEmailKind, locale: string): Promise<Copy> {
+/** Translation-key prefix for each kind; the key names predate the kind names. */
+const COPY_PREFIX = {
+  reset: "reset",
+  magiclink: "magic",
+  confirm: "confirm",
+  change_current: "change_current",
+  change_new: "change_new",
+} as const;
+
+async function getCopy(
+  kind: AuthEmailKind,
+  locale: string,
+  newEmail?: string,
+): Promise<Copy> {
   const t = await getTranslations({ locale, namespace: "AuthEmails" });
+  const prefix = COPY_PREFIX[kind];
 
   return {
     brand: t("brand"),
-    subject: t(`${kind === "magiclink" ? "magic" : kind}_subject`),
-    heading: t(`${kind === "magiclink" ? "magic" : kind}_heading`),
-    body: t(`${kind === "magiclink" ? "magic" : kind}_body`),
-    cta: t(`${kind === "magiclink" ? "magic" : kind}_cta`),
+    subject: t(`${prefix}_subject`),
+    heading: t(`${prefix}_heading`),
+    // Only `change_current_body` takes a placeholder; next-intl ignores values
+    // a message does not reference.
+    body: t(`${prefix}_body`, { newEmail: newEmail ?? "" }),
+    cta: t(`${prefix}_cta`),
     expires: t("expires", { hours: LINK_VALIDITY_HOURS }),
     ignore: t("ignore"),
     fallback: t("fallback"),
@@ -118,72 +153,28 @@ async function getCopy(kind: AuthEmailKind, locale: string): Promise<Copy> {
 }
 
 /**
- * Table layout and inline styles, mirroring `landing/src/lib/welcome-email.ts`:
- * mail clients strip `<style>` blocks and have no flexbox worth relying on.
- *
- * `dir` follows the locale so Arabic renders right to left.
+ * `dir` follows the locale so Arabic renders right to left; everything else
+ * about the shape comes from `@shared/emails`, shared with every other message
+ * we send.
  */
 function buildHtml(copy: Copy, link: string, locale: string): string {
-  const dir = locale === "ar" ? "rtl" : "ltr";
-  const safeLink = escapeHtml(link);
+  const safeLink = esc(link);
 
-  return `<!doctype html>
-<html lang="${escapeHtml(locale)}" dir="${dir}">
-<body style="margin:0;padding:0;background:#FDFBF7;font-family:Helvetica,Arial,sans-serif;color:#4B3F72;">
-  <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background:#FDFBF7;padding:32px 16px;">
-    <tr>
-      <td align="center">
-        <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="max-width:520px;background:#ffffff;border-radius:16px;padding:40px 32px;">
-          <tr>
-            <td style="font-size:22px;font-weight:bold;padding-bottom:24px;">
-              ${escapeHtml(copy.brand)}
-            </td>
-          </tr>
-          <tr>
-            <td style="font-size:18px;font-weight:bold;padding-bottom:12px;">
-              ${escapeHtml(copy.heading)}
-            </td>
-          </tr>
-          <tr>
-            <td style="font-size:15px;line-height:1.6;padding-bottom:24px;color:#4B3F72;">
-              ${escapeHtml(copy.body)}
-            </td>
-          </tr>
-          <tr>
-            <td align="center" style="padding-bottom:24px;">
-              <a href="${safeLink}"
-                 style="display:inline-block;background:#4B3F72;color:#ffffff;text-decoration:none;padding:14px 32px;border-radius:999px;font-size:15px;font-weight:bold;">
-                ${escapeHtml(copy.cta)}
-              </a>
-            </td>
-          </tr>
-          <tr>
-            <td style="font-size:13px;line-height:1.6;color:#8b83a3;padding-bottom:8px;">
-              ${escapeHtml(copy.expires)}
-            </td>
-          </tr>
-          <tr>
-            <td style="font-size:13px;line-height:1.6;color:#8b83a3;padding-bottom:16px;">
-              ${escapeHtml(copy.ignore)}
-            </td>
-          </tr>
-          <tr>
-            <td style="font-size:12px;line-height:1.6;color:#8b83a3;padding-bottom:16px;word-break:break-all;">
-              ${escapeHtml(copy.fallback)}<br>
-              <a href="${safeLink}" style="color:#8b83a3;">${safeLink}</a>
-            </td>
-          </tr>
-          <tr>
-            <td style="font-size:12px;line-height:1.6;color:#8b83a3;border-top:1px solid #eceaf2;padding-top:16px;">
-              ${escapeHtml(copy.footer)}
-            </td>
-          </tr>
-        </table>
-      </td>
-    </tr>
-  </table>
-</body>
-</html>`;
+  return renderEmail({
+    preheader: copy.subject,
+    eyebrow: copy.brand,
+    title: esc(copy.heading),
+    children: [
+      paragraph(esc(copy.body)),
+      button(esc(copy.cta), safeLink),
+      muted(esc(copy.expires)),
+      muted(esc(copy.ignore)),
+      linkFallback(esc(copy.fallback), safeLink),
+    ],
+    footer: esc(copy.footer),
+    locale,
+    dir: locale === "ar" ? "rtl" : "ltr",
+  });
 }
 
 function buildText(copy: Copy, link: string): string {
@@ -243,7 +234,8 @@ export async function sendAuthEmail(
       ...(input.kind === "confirm" && input.password
         ? { password: input.password }
         : {}),
-      ...(input.kind === "change" && input.newEmail
+      ...((input.kind === "change_current" || input.kind === "change_new") &&
+      input.newEmail
         ? { newEmail: input.newEmail }
         : {}),
       options: { redirectTo },
@@ -258,12 +250,23 @@ export async function sendAuthEmail(
       return { sent: false };
     }
 
-    const copy = await getCopy(input.kind, input.locale);
+    const copy = await getCopy(input.kind, input.locale, input.newEmail);
     const resend = new Resend(apiKey);
+
+    /*
+     * `change_new` is the half addressed to the inbox being moved TO; every
+     * other kind goes to the account's current address. Sending it to
+     * `input.to` instead would put both links in the old mailbox and defeat
+     * the point of confirming from both.
+     */
+    const recipient =
+      input.kind === "change_new" && input.newEmail
+        ? input.newEmail
+        : input.to;
 
     await resend.emails.send({
       from: FROM,
-      to: input.to,
+      to: recipient,
       subject: copy.subject,
       html: buildHtml(copy, link, input.locale),
       text: buildText(copy, link),
