@@ -31,7 +31,11 @@ export function StaysSection({ data }: { data: InvitationData }) {
         {primary.map((stay) => {
           const body = (
             <>
-              <span>À proximité de la Villa</span>
+              {/* "À proximité de la Villa" was printed on every card — the
+                  demo's Villa Cimbrone, announced beside the hotels of a
+                  wedding held anywhere else. The venue's own name is used when
+                  there is one, and the line is dropped when there is not. */}
+              {data.venue.name ? <span>À proximité de {data.venue.name}</span> : null}
               <h3>{stay.name}</h3>
               {stay.distance ? <p>{stay.distance}</p> : null}
               {stay.address ? <small>{stay.address}</small> : null}

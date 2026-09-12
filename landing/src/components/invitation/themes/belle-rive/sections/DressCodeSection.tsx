@@ -9,7 +9,19 @@ import { Reveal } from "../Reveal";
  * the stylesheet. The swatch colour is an inline style driven by
  * `dressCode.colors`; the CSS rules still supply size, border and typography.
  */
-const PALETTE_LABELS = ["Blanc", "Écru", "Beige"];
+/**
+ * The swatches carry no names.
+ *
+ * They used to be labelled from a fixed `["Blanc", "Écru", "Beige"]` indexed
+ * by position, so a couple whose palette was blue and green got a green square
+ * labelled "Écru" — the swatch shows the colour, and a wrong name beside it is
+ * worse than none. `DressCode.colors` is a list of CSS colours with nowhere to
+ * put a label, so naming them needs a contract change, not a guess.
+ *
+ * The swatch keeps its `title`/`aria-label` as the raw value, which is at
+ * least true, so the palette is not a row of unlabelled boxes to a screen
+ * reader.
+ */
 
 export function DressCodeSection({ data }: { data: InvitationData }) {
   const dress = data.dressCode;
@@ -25,10 +37,13 @@ export function DressCodeSection({ data }: { data: InvitationData }) {
 
       {dress.colors?.length ? (
         <Reveal delay={70} className="palette">
-          {dress.colors.map((color, index) => (
-            <span key={color} style={{ background: color }}>
-              {PALETTE_LABELS[index] ?? ""}
-            </span>
+          {dress.colors.map((color) => (
+            <span
+              key={color}
+              style={{ background: color }}
+              title={color}
+              aria-label={color}
+            />
           ))}
         </Reveal>
       ) : null}

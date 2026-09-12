@@ -134,6 +134,16 @@ export type InvitationData = {
     partner2: string;
     /** "V & G" — themes that print a monogram fall back to initials. */
     monogram?: string;
+    /**
+     * A photograph of the couple, for themes that frame one.
+     *
+     * Absent for most weddings: there is no screen where a couple uploads it
+     * yet, and a theme must render its closing page without one rather than
+     * substitute a stock image. `blanc-couture` used to hardcode the demo
+     * couple's portrait here, captioned with whoever's names the invitation
+     * carried.
+     */
+    portrait?: string;
   };
 
   event: {
@@ -173,6 +183,23 @@ export type InvitationData = {
     body?: string;
     note?: string;
     image?: string;
+  };
+
+  /**
+   * The gift note, for the `gift-list` module.
+   *
+   * A theme must render nothing when this is absent. `belle-rive` used to
+   * carry a whole gift section in its markup — an urn on the day, a bank
+   * transfer to come — which is a promise about a couple's own arrangements,
+   * made to every wedding that bought the module.
+   */
+  gifts?: {
+    title?: string;
+    body?: string;
+    /** A registry or contribution page the couple published. */
+    url?: string;
+    /** The link's wording — "Contribuer à notre voyage de noces". */
+    linkLabel?: string;
   };
 
   dressCode?: DressCode;

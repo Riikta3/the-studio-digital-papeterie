@@ -3,6 +3,7 @@
 import { type FormEvent, useState } from "react";
 
 import { formatFrenchWeekday } from "../../format";
+import type { InvitationData } from "../../types";
 import type { CarpoolTrip } from "../types";
 
 /**
@@ -27,9 +28,26 @@ import type { CarpoolTrip } from "../types";
  * The form still asks for a phone number because the eventual server action
  * will need one; it is submitted nowhere in this demo.
  */
-export function CarpoolSection({ trips }: { trips: CarpoolTrip[] }) {
+export function CarpoolSection({
+  trips,
+  data,
+}: {
+  trips: CarpoolTrip[];
+  /**
+   * The wedding itself, for the destination and the default travel date.
+   * Both used to be written into the markup — "vers Mauguio" (the demo
+   * domaine's town) and a `defaultValue` of 2027-06-30 — so every other
+   * wedding advertised the wrong destination and pre-filled a date in someone
+   * else's calendar.
+   */
+  data: InvitationData;
+}) {
   const [open, setOpen] = useState(false);
   const [sent, setSent] = useState(false);
+
+  // Where everyone is driving to, and the day most of them will travel.
+  const destination = data.venue.city ?? data.venue.name;
+  const weddingDay = data.event.startsAt.slice(0, 10);
 
   function handleSubmit(event: FormEvent) {
     event.preventDefault();
@@ -68,7 +86,10 @@ export function CarpoolSection({ trips }: { trips: CarpoolTrip[] }) {
               <article className="trip" key={trip.id}>
                 <div className="trip-top">
                   <div>
-                    <h3>{trip.departure} vers Mauguio</h3>
+                    <h3>
+                      {trip.departure}
+                      {destination ? ` vers ${destination}` : null}
+                    </h3>
                     <p>
                       <span style={{ textTransform: "capitalize" }}>{day}</span> ·{" "}
                       {trip.travelTime.replace(":", "h")}
@@ -127,7 +148,12 @@ export function CarpoolSection({ trips }: { trips: CarpoolTrip[] }) {
           <div className="carpool-row">
             <label>
               Date
-              <input name="travelDate" type="date" required defaultValue="2027-06-30" />
+              <input
+                name="travelDate"
+                type="date"
+                required
+                defaultValue={weddingDay}
+              />
             </label>
             <label>
               Heure

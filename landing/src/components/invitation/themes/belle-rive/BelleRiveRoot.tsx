@@ -61,10 +61,10 @@ export function BelleRiveRoot({
       {has("dress-code") ? <DressCodeSection data={data} /> : null}
       {has("accommodation") ? <StaysSection data={data} /> : null}
       {has("playlist") ? <PlaylistSection data={data} /> : null}
-      {trips.length > 0 ? <CarpoolSection trips={trips} /> : null}
+      {trips.length > 0 ? <CarpoolSection trips={trips} data={data} /> : null}
       {has("faq") ? <FaqSection data={data} /> : null}
       {has("rsvp") ? <RsvpSection data={data} /> : null}
-      {has("gift-list") ? <GiftsSection /> : null}
+      {has("gift-list") ? <GiftsSection data={data} /> : null}
 
       <FinaleSection data={data} />
     </main>

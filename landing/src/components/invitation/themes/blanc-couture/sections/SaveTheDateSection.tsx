@@ -21,7 +21,7 @@ export function SaveTheDateSection({
   const lines = (data.copy?.dateSpelled ?? "").split("\n").filter(Boolean);
 
   return (
-    <Page id="details" className="soft-floral-paper save-page" side={side}>
+    <Page id="details" className="soft-floral-paper save-page" side={side} monogram={data.couple.monogram} couple={data.couple}>
       <p className="script save-date">SAVE THE DATE</p>
       {lines.length > 0 ? (
         <h2>

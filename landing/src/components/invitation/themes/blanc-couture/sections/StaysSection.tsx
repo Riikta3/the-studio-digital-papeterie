@@ -15,12 +15,19 @@ export function StaysSection({ data, side }: { data: InvitationData; side: "left
   if (stays.length === 0) return null;
 
   return (
-    <Page className="soft-floral-paper" side={side}>
+    <Page className="soft-floral-paper" side={side} monogram={data.couple.monogram} couple={data.couple}>
       <p className="script">Où dormir</p>
+      {/* "sur la Riviera" was written here, so a wedding in Brittany invited
+          its guests to stay on the Côte d'Azur. The couple's own city is used
+          when they gave one — the cards below already do the same — and the
+          heading stands alone when they did not. */}
       <h2>
         Votre séjour
-        <br />
-        sur la Riviera
+        {data.venue.city ? (
+          <>
+            <br />à {data.venue.city}
+          </>
+        ) : null}
       </h2>
       <div className="hotel-list">
         {stays.map((stay) => {

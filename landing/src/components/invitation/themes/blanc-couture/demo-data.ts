@@ -37,6 +37,10 @@ export const BLANC_COUTURE_DEMO: InvitationData = {
     partner1: "Victoria",
     partner2: "Gabriel",
     monogram: "V & G",
+    // The showcase keeps its portrait — it is this theme's closing image and
+    // the demo is where such an image belongs. It used to be hardcoded in
+    // `FooterSection`, which meant every real wedding framed this couple too.
+    portrait: "/themes/blanc-couture/framed-couple.webp",
   },
 
   event: {

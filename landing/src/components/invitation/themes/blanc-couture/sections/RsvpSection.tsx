@@ -30,7 +30,7 @@ export function RsvpSection({ data, side }: { data: InvitationData; side: "left"
   const [guestCount, setGuestCount] = useState("1");
 
   const rsvp = data.rsvp;
-  const [first, second] = splitMonogram(data.couple.monogram);
+  const [first, second] = splitMonogram(data.couple.monogram, data.couple);
 
   // The source printed the deadline as prose. Formatting it from the ISO date
   // keeps "30 janvier" and "1er février" both correct.
@@ -106,7 +106,7 @@ export function RsvpSection({ data, side }: { data: InvitationData; side: "left"
   }
 
   return (
-    <Page className="soft-floral-paper rsvp-page" side={side}>
+    <Page className="soft-floral-paper rsvp-page" side={side} monogram={data.couple.monogram} couple={data.couple}>
       <p className="script">RSVP</p>
       <h2>
         Serez-vous
