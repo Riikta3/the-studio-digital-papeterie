@@ -2,10 +2,19 @@ import { Link } from "@/navigation";
 import { Eye, ExternalLink, Pencil } from "lucide-react";
 import { getTranslations } from "next-intl/server";
 
+import { PublishToggle } from "./PublishToggle";
+
 type Props = {
   /** The public slug from `sites.slug`, e.g. "camille-et-leo-demo". */
   slug: string;
-  /** Whether the invitation is live for guests. */
+  /**
+   * Whether the invitation is live for guests — `sites.status === 'published'`.
+   *
+   * This used to be fed `day_of_settings.enabled`, the Jour J module's switch,
+   * so the card labelled a perfectly published invitation "hors ligne" until
+   * the couple turned on a module about the printed QR code. The two were
+   * separated in migration 20260912110000.
+   */
   enabled: boolean;
 };
 
@@ -72,6 +81,13 @@ export async function InvitationPreviewCard({ slug, enabled }: Props) {
         <ExternalLink className='h-3 w-3 shrink-0' />
         {t("public_hint")}
       </p>
+
+      {/* The switch that makes the link above answer or 404. Kept on this card
+          rather than in a card of its own: the URL, its state and the control
+          over it are one thought. */}
+      <div className='mt-4 border-t border-studio-lavande/30 pt-2'>
+        <PublishToggle initialPublished={enabled} />
+      </div>
     </section>
   );
 }

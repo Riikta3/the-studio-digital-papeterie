@@ -1285,5 +1285,17 @@
     "remove": "Remover a foto",
     "error_type": "Formato não suportado. Use JPEG, PNG ou WebP.",
     "error_size": "Foto demasiado grande. O máximo é 8 MB."
+  },
+  "SitePublication": {
+    "title": "Publicação do convite",
+    "section_desc": "Escolha se os seus convidados podem abrir o convite online.",
+    "toggle_label": "Convite online",
+    "status_online": "Online",
+    "status_offline": "Offline",
+    "hint_online": "Os seus convidados podem ver o convite através do link.",
+    "hint_offline": "O link está desativado: ninguém pode ver o seu convite.",
+    "now_online": "O seu convite está online.",
+    "now_offline": "O seu convite está offline.",
+    "save_failed": "Não foi possível guardar a alteração."
   }
 }

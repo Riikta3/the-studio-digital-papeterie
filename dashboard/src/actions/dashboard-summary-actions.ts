@@ -15,6 +15,8 @@ export type DashboardSummary = {
   seating: { seated: number; toSeat: number };
   media: { total: number };
   dayOf: { enabled: boolean; qrSlug: string | null };
+  /** Publication state of the invitation (`sites.status`), not the Jour J module. */
+  site: { published: boolean; slug: string | null };
 };
 
 /**
@@ -42,7 +44,11 @@ export async function getDashboardSummary(): Promise<DashboardSummary> {
   const [profileRes, weddingRes, siteRes, dayOfRes, countsRes] = await Promise.all([
     supabase.from("profiles").select("first_name, partner_name").eq("id", user.id).single(),
     supabase.from("weddings").select("wedding_date").eq("id", weddingId).single(),
-    supabase.from("sites").select("slug").eq("wedding_id", weddingId).maybeSingle(),
+    supabase
+      .from("sites")
+      .select("slug, status")
+      .eq("wedding_id", weddingId)
+      .maybeSingle(),
     supabase
       .from("day_of_settings")
       .select("enabled")
@@ -85,6 +91,15 @@ export async function getDashboardSummary(): Promise<DashboardSummary> {
     dayOf: {
       enabled: dayOfRes.data?.enabled ?? false,
       qrSlug: siteRes.data?.slug ?? null,
+    },
+    // The invitation's own publication state. Deliberately NOT `dayOf.enabled`:
+    // that is the Jour J module's switch, and the home card used to label the
+    // invitation "en ligne / hors ligne" from it — so a published invitation
+    // read as offline until the couple turned on a module about the QR code.
+    // The two were separated in migration 20260912110000.
+    site: {
+      published: siteRes.data?.status === "published",
+      slug: siteRes.data?.slug ?? null,
     },
   };
 }

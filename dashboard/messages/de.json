@@ -1285,5 +1285,17 @@
     "remove": "Foto entfernen",
     "error_type": "Format nicht unterstützt. Bitte JPEG, PNG oder WebP verwenden.",
     "error_size": "Foto zu groß. Maximal 8 MB."
+  },
+  "SitePublication": {
+    "title": "Veröffentlichung der Einladung",
+    "section_desc": "Legen Sie fest, ob Ihre Gäste Ihre Online-Einladung öffnen können.",
+    "toggle_label": "Einladung online",
+    "status_online": "Online",
+    "status_offline": "Offline",
+    "hint_online": "Ihre Gäste können die Einladung über den Link ansehen.",
+    "hint_offline": "Der Link ist deaktiviert: Niemand kann Ihre Einladung sehen.",
+    "now_online": "Ihre Einladung ist online.",
+    "now_offline": "Ihre Einladung ist offline.",
+    "save_failed": "Änderung konnte nicht gespeichert werden."
   }
 }

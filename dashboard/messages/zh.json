@@ -1285,5 +1285,17 @@
     "remove": "移除照片",
     "error_type": "不支持的格式。请使用 JPEG、PNG 或 WebP。",
     "error_size": "照片过大。上限为 8 MB。"
+  },
+  "SitePublication": {
+    "title": "请柬发布",
+    "section_desc": "选择宾客是否可以打开您的在线请柬。",
+    "toggle_label": "请柬已上线",
+    "status_online": "已上线",
+    "status_offline": "已下线",
+    "hint_online": "宾客可以通过链接查看您的请柬。",
+    "hint_offline": "链接已停用：无人可以查看您的请柬。",
+    "now_online": "您的请柬已上线。",
+    "now_offline": "您的请柬已下线。",
+    "save_failed": "保存失败。"
   }
 }

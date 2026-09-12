@@ -1285,5 +1285,17 @@
     "remove": "Rimuovi la foto",
     "error_type": "Formato non supportato. Usa JPEG, PNG o WebP.",
     "error_size": "Foto troppo grande. Il massimo è 8 MB."
+  },
+  "SitePublication": {
+    "title": "Pubblicazione dell'invito",
+    "section_desc": "Decidi se i tuoi invitati possono aprire il tuo invito online.",
+    "toggle_label": "Invito online",
+    "status_online": "Online",
+    "status_offline": "Offline",
+    "hint_online": "I tuoi invitati possono vedere l'invito tramite il link.",
+    "hint_offline": "Il link è disattivato: nessuno può vedere il tuo invito.",
+    "now_online": "Il tuo invito è online.",
+    "now_offline": "Il tuo invito è offline.",
+    "save_failed": "Impossibile salvare la modifica."
   }
 }

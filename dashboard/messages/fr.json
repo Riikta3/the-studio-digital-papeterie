@@ -1285,5 +1285,17 @@
     "remove": "Retirer la photo",
     "error_type": "Format non pris en charge. Utilisez un JPEG, un PNG ou un WebP.",
     "error_size": "Photo trop lourde. Le maximum est de 8 Mo."
+  },
+  "SitePublication": {
+    "title": "Publication du faire-part",
+    "section_desc": "Décidez si vos invités peuvent accéder à votre faire-part en ligne.",
+    "toggle_label": "Faire-part en ligne",
+    "status_online": "En ligne",
+    "status_offline": "Hors ligne",
+    "hint_online": "Vos invités peuvent consulter votre faire-part avec le lien.",
+    "hint_offline": "Le lien est désactivé : personne ne peut voir votre faire-part.",
+    "now_online": "Votre faire-part est en ligne.",
+    "now_offline": "Votre faire-part est hors ligne.",
+    "save_failed": "Erreur lors de l'enregistrement."
   }
 }

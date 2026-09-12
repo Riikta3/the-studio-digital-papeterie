@@ -1285,5 +1285,17 @@
     "remove": "写真を削除",
     "error_type": "対応していない形式です。JPEG、PNG、WebP をご利用ください。",
     "error_size": "写真が大きすぎます。上限は 8 MB です。"
+  },
+  "SitePublication": {
+    "title": "招待状の公開",
+    "section_desc": "ゲストがオンライン招待状を開けるかどうかを設定します。",
+    "toggle_label": "招待状を公開",
+    "status_online": "公開中",
+    "status_offline": "非公開",
+    "hint_online": "ゲストはリンクから招待状を閲覧できます。",
+    "hint_offline": "リンクは無効です。招待状は誰も閲覧できません。",
+    "now_online": "招待状を公開しました。",
+    "now_offline": "招待状を非公開にしました。",
+    "save_failed": "保存できませんでした。"
   }
 }

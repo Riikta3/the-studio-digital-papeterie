@@ -1285,5 +1285,17 @@
     "remove": "Quitar la foto",
     "error_type": "Formato no compatible. Usa JPEG, PNG o WebP.",
     "error_size": "Foto demasiado grande. El máximo es 8 MB."
+  },
+  "SitePublication": {
+    "title": "Publicación de la invitación",
+    "section_desc": "Decide si tus invitados pueden abrir tu invitación en línea.",
+    "toggle_label": "Invitación en línea",
+    "status_online": "En línea",
+    "status_offline": "Fuera de línea",
+    "hint_online": "Tus invitados pueden ver la invitación con el enlace.",
+    "hint_offline": "El enlace está desactivado: nadie puede ver tu invitación.",
+    "now_online": "Tu invitación está en línea.",
+    "now_offline": "Tu invitación está fuera de línea.",
+    "save_failed": "No se pudo guardar el cambio."
   }
 }
