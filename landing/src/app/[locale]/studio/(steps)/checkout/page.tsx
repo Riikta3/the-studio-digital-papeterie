@@ -96,6 +96,7 @@ function toWeddingIdentity(
     day: string;
     month: string;
     year: string;
+    venue: string;
   },
   /** `StudioStart.months` in the locale the couple is ordering in. */
   localisedMonths: string[],
@@ -110,7 +111,16 @@ function toWeddingIdentity(
       ? `${info.year}-${String(monthIndex).padStart(2, "0")}-${String(info.day).padStart(2, "0")}`
       : undefined;
 
-  return { firstName, lastName, partnerName: info.partner2, weddingDate };
+  return {
+    firstName,
+    lastName,
+    partnerName: info.partner2,
+    weddingDate,
+    // Free text, kept verbatim. The couple typed this at the start of the
+    // studio and it used to stop here — the dashboard then asked them for it
+    // a second time. It seeds their venue row instead.
+    venue: info.venue.trim() || undefined,
+  };
 }
 
 function PaymentForm({
@@ -303,7 +313,7 @@ export default function StudioCheckoutPage() {
     setIsProvisioning(true);
     setProvisionError(null);
 
-    const { firstName, lastName, partnerName, weddingDate } =
+    const { firstName, lastName, partnerName, weddingDate, venue } =
       toWeddingIdentity(weddingInfo, localisedMonths);
 
     const result = await createWedding({
@@ -313,6 +323,7 @@ export default function StudioCheckoutPage() {
       lastName,
       partnerName,
       weddingDate,
+      venue,
       themeId: theme,
       modules,
       extras,

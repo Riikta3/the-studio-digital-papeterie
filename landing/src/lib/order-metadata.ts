@@ -34,6 +34,8 @@ export interface OrderMetadataInput {
   partnerName?: string;
   /** ISO date (YYYY-MM-DD), or undefined when the couple skipped it. */
   weddingDate?: string;
+  /** Free text as typed in the studio — "Domaine des Hauts Vents". */
+  venue?: string;
   locale?: string;
 }
 
@@ -64,6 +66,7 @@ export function buildOrderMetadata(
     last_name: input.lastName,
     partner_name: input.partnerName,
     wedding_date: input.weddingDate,
+    venue: input.venue,
     locale: input.locale,
   };
 
@@ -91,6 +94,7 @@ export interface ParsedOrder {
   lastName: string;
   partnerName: string;
   weddingDate?: string;
+  venue?: string;
   locale?: string;
 }
 
@@ -138,6 +142,7 @@ export function parseOrderMetadata(
     lastName: meta.last_name?.trim() || "",
     partnerName: meta.partner_name?.trim() || "",
     weddingDate: meta.wedding_date?.trim() || undefined,
+    venue: meta.venue?.trim() || undefined,
     locale: meta.locale?.trim() || undefined,
   };
 }

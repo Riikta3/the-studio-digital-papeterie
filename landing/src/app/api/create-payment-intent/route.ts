@@ -50,6 +50,7 @@ export async function POST(req: Request) {
       lastName: weddingInfo?.lastName,
       partnerName: weddingInfo?.partnerName,
       weddingDate: weddingInfo?.weddingDate,
+      venue: weddingInfo?.venue,
       locale: weddingInfo?.locale,
     });
 

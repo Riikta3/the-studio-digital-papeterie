@@ -2,7 +2,9 @@
 
 import type Stripe from "stripe";
 
+import type { ModuleId } from "@/components/invitation/themes/types";
 import { findUserByEmail } from "@/lib/find-user-by-email";
+import { seedInvitationContent } from "@/lib/seed-invitation-content";
 import { parseOrderMetadata } from "@/lib/order-metadata";
 import { supabaseAdmin } from "@/lib/supabase-admin";
 import { getDashboardUrl } from "@/lib/urls";
@@ -31,6 +33,8 @@ interface CreateWeddingData {
   lastName: string;
   partnerName: string;
   weddingDate?: string;
+  /** Free text as typed in the studio, seeds the couple's venue row. */
+  venue?: string;
   themeId: string;
   modules: string[];
   extras: string[];
@@ -278,7 +282,12 @@ export async function createWedding(data: CreateWeddingData) {
       extras: data.extras,
       animation_id: data.animationId || "envelope-classic",
       slug: finalSlug,
-      status: "draft",
+      // Published on purchase. `status` is what makes the invitation readable
+      // at its public slug (migration 20260912110000) — the couple bought a
+      // page to send to their guests, and a draft they have to find a switch
+      // for is a worse product. Distinct from `day_of_settings.enabled`, which
+      // stays off until they deliberately turn the Jour J guest page on.
+      status: "published",
     })
     .select("id")
     .single();
@@ -300,6 +309,27 @@ export async function createWedding(data: CreateWeddingData) {
       .insert(siteModulesEntries);
 
     if (smError) console.error("Site Modules Registry Error:", smError);
+  }
+
+  // 4.6 Seed the invitation's starting content.
+  //
+  // The couple lands on an invitation that already exists — their names, their
+  // date, their venue, and a plausible programme underneath that they edit
+  // down rather than write from nothing. It also creates the enabled event the
+  // public route requires, without which a wedding that was just paid for 404s
+  // even though its site is published.
+  //
+  // Deliberately not awaited for its result: the order is already paid, and a
+  // seeding failure must not fail provisioning. It logs internally.
+  if (data.weddingDate) {
+    await seedInvitationContent({
+      weddingId,
+      partner1: data.firstName,
+      partner2: data.partnerName,
+      weddingDate: data.weddingDate,
+      venue: data.venue,
+      modules: sortedModules as ModuleId[],
+    });
   }
 
   // 5. Record Purchases (Wallet)
@@ -424,6 +454,7 @@ export async function provisionFromPaymentIntent(
     lastName: order.lastName,
     partnerName: order.partnerName,
     weddingDate: order.weddingDate,
+    venue: order.venue,
     themeId: order.themeId,
     modules: order.modules,
     extras: order.extras,
