@@ -16,6 +16,20 @@ export type PaymentCheck =
 export async function verifyPaymentForOrder(
   paymentIntentId: string,
   items: OrderItems,
+  /**
+   * The email provisioning is about to create the account under. It must match
+   * the one recorded on the intent when it was created.
+   *
+   * Without this the amount was checked but the buyer was not: a payment
+   * reference is not a secret (it reaches the browser that paid, and any
+   * proxy or log along the way), and provisioning is an unauthenticated
+   * endpoint. Whoever replayed a not-yet-provisioned id with their own address
+   * received the wedding someone else had just paid for, magic link included.
+   *
+   * Optional so the webhook path, which reads the address off the intent
+   * itself and therefore cannot disagree with it, can keep calling without it.
+   */
+  expectedEmail?: string,
 ): Promise<PaymentCheck> {
   if (!paymentIntentId) {
     return { ok: false, reason: "Référence de paiement manquante." };
@@ -40,6 +54,25 @@ export async function verifyPaymentForOrder(
     };
   }
 
+  // The buyer must be the one the intent was created for. Compared case- and
+  // whitespace-insensitively, since the address makes a round trip through the
+  // browser between checkout and provisioning.
+  if (expectedEmail) {
+    const paidBy = (
+      intent.metadata?.email ||
+      intent.receipt_email ||
+      ""
+    )
+      .trim()
+      .toLowerCase();
+
+    if (!paidBy || paidBy !== expectedEmail.trim().toLowerCase()) {
+      // Deliberately vague: this is reachable without authentication, and
+      // naming the address on the intent would leak who paid.
+      return { ok: false, reason: "Paiement introuvable." };
+    }
+  }
+
   // Guards against paying for a cheap order and then upgrading the cart
   // before provisioning: the charged amount must match what is being ordered.
   const expectedCents = toCents(expectedTotal);
@@ -56,6 +89,54 @@ export async function verifyPaymentForOrder(
     // Set by markPaymentProvisioned() once a wedding exists for this payment.
     alreadyProvisionedAs: intent.metadata?.wedding_id || undefined,
   };
+}
+
+/**
+ * Refunds a payment that cannot be fulfilled.
+ *
+ * Used when a customer is charged for something they already own — navigating
+ * back from the dashboard into a still-populated checkout and paying again.
+ * Nothing is provisioned for that second charge, so holding onto the money is
+ * not an option: the refund is issued immediately rather than left as a
+ * support ticket the customer has to open themselves.
+ *
+ * Idempotent through `metadata.refunded_reason`: a retried provisioning must
+ * not stack refunds on the same intent.
+ */
+export async function refundPayment(
+  paymentIntentId: string,
+  reason: string,
+): Promise<{ refunded: boolean; detail?: string }> {
+  try {
+    const intent = await stripe.paymentIntents.retrieve(paymentIntentId);
+
+    if (intent.metadata?.refunded_reason) {
+      return { refunded: true, detail: "already refunded" };
+    }
+
+    if (intent.status !== "succeeded") {
+      return { refunded: false, detail: `status ${intent.status}` };
+    }
+
+    await stripe.refunds.create({
+      payment_intent: paymentIntentId,
+      reason: "duplicate",
+    });
+
+    // Marked after the refund succeeds, so a failure here is retried rather
+    // than recorded as done.
+    await stripe.paymentIntents.update(paymentIntentId, {
+      metadata: { ...intent.metadata, refunded_reason: reason },
+    });
+
+    console.log(`💸 Refunded ${paymentIntentId}: ${reason}`);
+    return { refunded: true };
+  } catch (err) {
+    // Surfaced loudly: the customer has been charged for nothing, and this is
+    // now a manual refund in the Stripe dashboard.
+    console.error(`[REFUND_FAILED] ${paymentIntentId}`, err);
+    return { refunded: false, detail: (err as Error).message };
+  }
 }
 
 /** Records which wedding a payment produced, making provisioning idempotent. */

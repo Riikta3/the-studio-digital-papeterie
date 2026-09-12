@@ -1,8 +1,6 @@
-import { ArrowLeft } from "lucide-react";
-import { getTranslations } from "next-intl/server";
-import Image from "next/image";
 import type { ReactNode } from "react";
 
+import { PageHeader } from "@/components/home/PageHeader";
 import { Link } from "@/navigation";
 
 type LegalSection = {
@@ -10,36 +8,23 @@ type LegalSection = {
   paragraphs: string[];
 };
 
-export async function LegalPageLayout({
+export function LegalPageLayout({
   title,
   sections,
 }: {
   title: string;
   sections: LegalSection[];
 }) {
-  const t = await getTranslations("Legal");
-
   return (
-    <main className="min-h-screen bg-studio-creme px-6 py-16 md:px-12">
-      <div className="mx-auto max-w-3xl">
-        <Link
-          href="/"
-          className="inline-flex items-center gap-2 font-body text-sm text-studio-pourpre hover:text-studio-violet"
-        >
-          <ArrowLeft className="h-4 w-4" />
-          {t("backHome")}
-        </Link>
+    <main className="min-h-screen bg-studio-creme">
+      {/* Replaces the "← back home" link and the small logo that used to sit
+          beside the title: the header's own logo is the way back, the same as
+          on every other page outside the homepage, and it also opens the menu
+          — which the bare link never did. */}
+      <PageHeader />
 
-        <div className="mt-8 flex items-center gap-3">
-          <Image
-            src="/logo.svg"
-            alt=""
-            width={32}
-            height={34}
-            className="h-auto w-8"
-          />
-          <h1 className="font-heading text-h2 text-studio-violet">{title}</h1>
-        </div>
+      <div className="mx-auto max-w-3xl px-6 pb-16 pt-8 md:px-12">
+        <h1 className="font-heading text-h2 text-studio-violet">{title}</h1>
 
         <article className="mt-10 flex flex-col gap-10">
           {sections.map((section) => (

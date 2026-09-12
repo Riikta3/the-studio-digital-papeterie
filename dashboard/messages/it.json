@@ -40,7 +40,8 @@
       "not_live": "Offline",
       "edit_cta": "Modifica contenuto",
       "public_hint": "Link pubblico condiviso con i vostri invitati",
-      "view_cta": "Vedi"
+      "view_cta": "Vedi",
+      "view_cta_offline": "Partecipazione offline — ripubblicatela per vederla"
     }
   },
   "Guests": {
@@ -67,6 +68,7 @@
         "label": "Invito",
         "items": {
           "modules": "I miei moduli",
+          "words": "Le nostre parole",
           "events": "Eventi",
           "schedule": "Programma",
           "venue": "Location & info pratiche",
@@ -97,6 +99,7 @@
       }
     },
     "view_site": "Vedi il mio sito",
+    "view_site_unpublished": "La vostra partecipazione non è pubblicata. Ripubblicatela per vederla online.",
     "logout": "Esci",
     "logout_confirmation": {
       "title": "Conferma disconnessione",
@@ -448,7 +451,14 @@
         "name": "FAQ / Info Pratiche",
         "description": "Informazioni pratiche per gli ospiti"
       }
-    }
+    },
+    "dresscode_palette": "Palette di colori",
+    "dresscode_palette_hint": "I colori che i vostri ospiti vedranno sull’invito. Fino a 6.",
+    "dresscode_palette_swatch": "Colore {index}",
+    "dresscode_palette_remove": "Rimuovi il colore {index}",
+    "dresscode_photo": "Foto d’ispirazione",
+    "dresscode_note": "Breve nota",
+    "dresscode_note_placeholder": "Es.: Meglio evitare i tacchi a spillo, la cerimonia si tiene sul prato"
   },
   "Playlist": {
     "title": "Playlist Collaborativa",
@@ -616,7 +626,8 @@
       "delete_description": "Questa azione è irreversibile. Le {count} risposta/e selezionata/e saranno eliminate definitivamente.",
       "deleted": "{count} risposta/e eliminata/e"
     },
-    "dietary_other_placeholder": "Altro (specificare)..."
+    "dietary_other_placeholder": "Altro (specificare)...",
+    "truncated_notice": "Sono mostrate le {shown} risposte più recenti su {total} totali. Il numero di persone attese riguarda solo queste; gli altri contatori sono completi."
   },
   "Billing": {
     "title": "Fatturazione",
@@ -876,7 +887,11 @@
     "sign_in": "Accedi",
     "error_invalid_credentials": "Credenziali non valide.",
     "footer_line1": "L'eleganza della cartoleria,",
-    "footer_line2": "la potenza del digitale"
+    "footer_line2": "la potenza del digitale",
+    "session_expired_title": "La tua sessione è scaduta",
+    "session_expired_description": "Sei stato disconnesso dopo 30 giorni di inattività. Accedi di nuovo per continuare.",
+    "invalid_link_title": "Questo link non è più valido",
+    "invalid_link_description": "Potrebbe essere già stato usato o essere scaduto. Richiedine uno nuovo."
   },
   "ResetPassword": {
     "title": "Nuova password",
@@ -1284,5 +1299,69 @@
     "remove": "Rimuovi la foto",
     "error_type": "Formato non supportato. Usa JPEG, PNG o WebP.",
     "error_size": "Foto troppo grande. Il massimo è 8 MB."
+  },
+  "SitePublication": {
+    "title": "Pubblicazione dell'invito",
+    "section_desc": "Decidi se i tuoi invitati possono aprire il tuo invito online.",
+    "toggle_label": "Invito online",
+    "status_online": "Online",
+    "status_offline": "Offline",
+    "hint_online": "I tuoi invitati possono vedere l'invito tramite il link.",
+    "hint_offline": "Il link è disattivato: nessuno può vedere il tuo invito.",
+    "now_online": "Il tuo invito è online.",
+    "now_offline": "Il tuo invito è offline.",
+    "save_failed": "Impossibile salvare la modifica."
+  },
+  "InvitationCopy": {
+    "title": "Le nostre parole",
+    "subtitle": "Le frasi che vi somigliano, in cima e in fondo alla partecipazione. Lasciate un campo vuoto per mantenere il testo predefinito.",
+    "fields": {
+      "hero_kicker": "Sopra i vostri nomi",
+      "announcement": "Il vostro annuncio",
+      "closing_words": "Le ultime parole",
+      "portrait": "La vostra foto"
+    },
+    "hints": {
+      "hero_kicker": "La breve riga che apre la partecipazione.",
+      "announcement": "La frase accanto ai vostri nomi.",
+      "closing_words": "Sull’ultima pagina. Gli a capo vengono mantenuti.",
+      "portrait": "Solo alcuni temi mostrano una foto della coppia: sugli altri non comparirà."
+    },
+    "placeholders": {
+      "hero_kicker": "Ci sposiamo",
+      "announcement": "Saremmo felici di avervi con noi.",
+      "closing_words": "A prestissimo"
+    },
+    "save": "Salva",
+    "saving": "Salvataggio…",
+    "saved": "Le vostre parole sono salvate",
+    "save_failed": "Errore durante il salvataggio."
+  },
+  "AuthEmails": {
+    "brand": "The Studio Digital Papeterie",
+    "reset_subject": "Reimposta la tua password",
+    "reset_heading": "Reimposta la tua password",
+    "reset_body": "Hai chiesto di reimpostare la password del tuo spazio. Clicca qui sotto per sceglierne una nuova.",
+    "reset_cta": "Scegli una nuova password",
+    "magic_subject": "Il tuo link di accesso",
+    "magic_heading": "Il tuo link di accesso",
+    "magic_body": "Clicca qui sotto per accedere al tuo spazio. Nessuna password necessaria.",
+    "magic_cta": "Vai al mio spazio",
+    "confirm_subject": "Conferma il tuo indirizzo email",
+    "confirm_heading": "Conferma il tuo indirizzo email",
+    "confirm_body": "Manca solo un passaggio: conferma il tuo indirizzo email per attivare il tuo spazio.",
+    "confirm_cta": "Conferma il mio indirizzo",
+    "change_current_subject": "Conferma la modifica dell'indirizzo email",
+    "change_new_subject": "Conferma il tuo nuovo indirizzo email",
+    "change_current_heading": "Conferma la modifica dell'indirizzo",
+    "change_new_heading": "Conferma il tuo nuovo indirizzo",
+    "change_current_body": "Hai richiesto di sostituire l'indirizzo email del tuo spazio con {newEmail}. Conferma qui sotto per autorizzarla.",
+    "change_new_body": "Hai chiesto di cambiare l'indirizzo email del tuo spazio. Confermalo qui sotto per renderlo effettivo.",
+    "change_current_cta": "Autorizza la modifica",
+    "change_new_cta": "Conferma il mio nuovo indirizzo",
+    "expires": "Questo link è valido una sola volta e scade tra {hours} ore.",
+    "ignore": "Se non sei stato tu, ignora semplicemente questa email: non cambierà nulla.",
+    "fallback": "Se il pulsante non funziona, copia questo link nel tuo browser:",
+    "footer": "Una domanda? Rispondi semplicemente a questa email."
   }
 }

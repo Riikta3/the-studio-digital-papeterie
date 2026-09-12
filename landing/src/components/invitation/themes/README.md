@@ -280,9 +280,39 @@ Keep each one on the side the source put it — check before batching.
 - [ ] FAQ one column, animated, `prefers-reduced-motion` honoured
 - [ ] `npm run themes:sync` run; production build passes
 
+### Then: wiring it up
+
+The list above gets a theme rendering. It does NOT make it usable by a real
+wedding — that is a second pass, and `ciao-amore` is the only theme that has
+had it:
+
+- [ ] **Zero content in the JSX.** A section that takes no props is by
+      definition hardcoded. Real leaks found this way: "vers Mauguio", "sur la
+      Riviera", "À proximité de la Villa", a `"V & G"` monogram default, and
+      the demo couple's photograph rendered on every wedding.
+- [ ] **Forms persist.** `data.weddingId` present → call `submitRsvp` /
+      `submitPlaylistSuggestions`; absent → confirm locally and write nothing.
+      Two themes shipped saying "votre réponse a bien été enregistrée" while
+      dropping every reply.
+- [ ] **Failures are visible.** An error message and a pending state, or a
+      guest believes they answered when they did not.
+- [ ] **Nine locales.** Strings to `Invitation.<camelId>` in
+      `landing/messages/*.json`; ICU plurals, never `count > 1 ? "s" : ""`;
+      pass `locale` to the date helpers or a translated page still prints
+      French dates.
+- [ ] **Icons** use `ScheduleIcon` — the moment, not the drawing.
+
+Full checklist, with the reasoning and the traps behind each line:
+`The Studio Digital Papeterie/Features/Checklist nouveau thème.md`.
+
 ---
 
 ## Known debt
+
+- **Only `ciao-amore` is fully wired.** `belle-rive` and `blanc-couture` render
+  and persist their RSVPs, but they are French-only, and `venue.access` — the
+  couple's travel directions — is still rendered by neither. They need the
+  second pass described above before they are sold.
 
 - **`belle-rive` ships 38 MB of video.** Six uncompressed `.mp4` autoplaying in a
   marketing iframe. Compressing them trades visual quality against load time, so

@@ -452,3 +452,75 @@
 .theme-blanc-couture .page {
   overflow-x: hidden;
 }
+
+/* ─── RSVP failure ──────────────────────────────────────────────────────────
+   Shown when the server refuses a submission. It carries `role="alert"`, so it
+   is announced either way — this is what makes it visible, and it must read as
+   a problem beside a form the guest is about to re-submit. Sized in `em` so it
+   follows whatever the surrounding card sets. */
+.theme-blanc-couture .rsvp-error {
+  margin: 0 auto 12px;
+  max-width: 520px;
+  color: #b3261e;
+  font-size: .82em;
+  line-height: 1.45;
+  text-align: center;
+}
+
+/* ─── Venue address and access ──────────────────────────────────────────────
+   `venue.address` and `venue.access` both reach this theme through the
+   contract and were rendered by neither of its sections, so a couple's postal
+   address and their parking, station and shuttle notes were dropped on the way
+   to the page.
+
+   The address is short enough to sit inside the oval wreath, above the route
+   links. The directions are not — they run to several modes of a few lines
+   each, and `.venue-paper .content` is held to 410px inside a `contain`-fitted
+   frame — so they get their own `.access-page` on the plain floral ground,
+   which has no artwork to overflow. */
+.theme-blanc-couture .venue-address {
+  margin: 0 auto 18px;
+  max-width: 330px;
+  font-size: 11px;
+  line-height: 1.85;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+}
+
+.theme-blanc-couture .venue-access {
+  max-width: 430px;
+  margin: 8px auto 0;
+  text-align: left;
+}
+
+.theme-blanc-couture .venue-access > div {
+  padding: 16px 4px;
+  border-bottom: 1px solid var(--line);
+}
+
+.theme-blanc-couture .venue-access > div:last-child {
+  border-bottom: 0;
+}
+
+.theme-blanc-couture .venue-access dt {
+  /* Manrope, not the Italiana of the headings: this theme reserves the display
+     face for large type, and its thin strokes come apart at label size with
+     letter-spacing on — the same pairing `.hotel p` and `.eyebrow` already use. */
+  font: 500 9px var(--font-bc-sans), Manrope, sans-serif;
+  letter-spacing: .2em;
+  text-transform: uppercase;
+  color: var(--gold-dark);
+}
+
+.theme-blanc-couture .venue-access dd {
+  margin: 6px 0 0;
+  font: 13px/1.7 var(--font-bc-sans), Manrope, sans-serif;
+  color: var(--ink);
+}
+
+.theme-blanc-couture .venue-access dd a {
+  color: var(--gold-dark);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  overflow-wrap: anywhere;
+}

@@ -62,7 +62,13 @@ export function computeOrderTotal(items: OrderItems): number | null {
     ? Math.max(0, modules.length - FREE_MODULES_LIMIT) * EXTRA_MODULE_PRICE
     : 0;
 
-  const languagesTotal = (items.languages ?? []).length * LANGUAGE_PRICE;
+  // The first entry is the couple's default language, which is included in
+  // every plan; only the ones after it are the paid extras. `sites.languages`
+  // is written default-first at checkout, and it used to hold ONLY the extras
+  // — so the couple's own language was never recorded anywhere. Recording it
+  // made this line bill for it, charging 15 € for French on a French wedding.
+  const languagesTotal =
+    Math.max(0, (items.languages ?? []).length - 1) * LANGUAGE_PRICE;
 
   const extrasTotal = (items.extras ?? []).reduce(
     (sum, extra) => sum + (EXTRA_PRICES[extra] ?? 0),

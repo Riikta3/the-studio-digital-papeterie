@@ -699,3 +699,74 @@
     grid-template-columns: 1fr;
   }
 }
+
+/* ─── RSVP failure ──────────────────────────────────────────────────────────
+   Shown when the server refuses a submission. It carries `role="alert"`, so it
+   is announced either way — this is what makes it visible, and it must read as
+   a problem beside a form the guest is about to re-submit. Sized in `em` so it
+   follows whatever the surrounding card sets. */
+.theme-belle-rive .rsvp-error {
+  margin: 0 auto 12px;
+  max-width: 520px;
+  color: #b3261e;
+  font-size: .82em;
+  line-height: 1.45;
+  text-align: center;
+}
+
+/* ─── Venue intro and access ────────────────────────────────────────────────
+   `copy.venueIntro` (the couple's words about the place) and `venue.access`
+   (how to get there, by mode) both reach this theme through the contract and
+   were rendered by neither of its sections, so a couple's parking notes,
+   station and shuttle times were dropped on the way to the page.
+
+   The access list sits on the panel's own pearl ground, UNDER the engraved
+   frame rather than inside it: `.venue-content` is `venue-frame.webp` sized to
+   its own artwork, and several lines of directions inside it run the copy past
+   the engraving. The intro is short enough to stay within the frame.
+
+   Held to the same measure as the rest of the panel and typed in `em`, so both
+   follow whatever the venue card sets. */
+.theme-belle-rive .venue-intro {
+  margin: 14px auto 0;
+  max-width: 42ch;
+  font-size: .92em;
+  line-height: 1.6;
+}
+
+.theme-belle-rive .venue .venue-access {
+  /* Centred as a block, with its lines left-aligned inside it: directions are
+     read as a list, and a centred ragged list is hard to scan. Narrower than
+     the measure so the block sits under the frame's engraving rather than
+     running out to the panel's full width. */
+  width: fit-content;
+  max-width: min(100%, var(--br-measure));
+  margin: 30px auto 0;
+  text-align: start;
+}
+
+.theme-belle-rive .venue-access > div + div {
+  margin-top: 15px;
+}
+
+.theme-belle-rive .venue-access dt {
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: .16em;
+  text-transform: uppercase;
+  color: var(--gold);
+}
+
+.theme-belle-rive .venue-access dd {
+  margin: 4px 0 0;
+  font-size: .92em;
+  line-height: 1.55;
+  color: var(--ink);
+}
+
+.theme-belle-rive .venue-access dd a {
+  color: inherit;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  overflow-wrap: anywhere;
+}

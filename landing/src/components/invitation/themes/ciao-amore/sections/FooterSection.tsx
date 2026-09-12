@@ -1,11 +1,17 @@
+import { getLocale } from "next-intl/server";
+
 import { formatFrenchDate } from "../../format";
 import type { InvitationData } from "../../types";
 
 /** Closing block: thanks, the couple, the date and the studio credit. */
-export function FooterSection({ data }: { data: InvitationData }) {
+export async function FooterSection({ data }: { data: InvitationData }) {
   const { couple, copy, venue, event } = data;
 
-  const dateLabel = formatFrenchDate(event.startsAt, { timeZone: event.timezone });
+  const locale = await getLocale();
+  const dateLabel = formatFrenchDate(event.startsAt, {
+    timeZone: event.timezone,
+    locale,
+  });
   const place = [venue.name, venue.city].filter(Boolean).join(", ");
 
   return (

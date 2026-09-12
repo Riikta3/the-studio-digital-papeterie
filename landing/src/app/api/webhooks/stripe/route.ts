@@ -1,7 +1,9 @@
 import { NextResponse } from "next/server";
 import type Stripe from "stripe";
 
+import { provisionFromPaymentIntent } from "@/actions/create-wedding";
 import { findUserByEmail } from "@/lib/find-user-by-email";
+import { issueInvoiceForPayment } from "@/lib/invoice";
 import { stripe } from "@/lib/stripe";
 import { supabaseAdmin } from "@/lib/supabase-admin";
 
@@ -88,7 +90,36 @@ export async function POST(req: Request) {
           (paymentIntent.receipt_email as string);
 
         if (email) {
-          const user = await findUserByEmail(email);
+          let user = await findUserByEmail(email);
+
+          // Safety net. Provisioning normally runs in the customer's browser
+          // right after payment; if their tab died in those two seconds the
+          // charge settled and nothing was created. This used to only warn.
+          // Stripe retries this delivery, so the order still gets fulfilled.
+          if (!user) {
+            console.warn(
+              `⚠️ Paid but unprovisioned, recovering: ${email} (${paymentIntent.id})`,
+            );
+
+            const recovery = await provisionFromPaymentIntent(paymentIntent);
+
+            if (recovery.provisioned) {
+              console.log(
+                `🛟 Recovered by webhook: wedding ${recovery.weddingId}`,
+              );
+              // Re-resolve: the billing row below needs the user just created.
+              user = await findUserByEmail(email);
+            } else {
+              // Throwing returns 500 so Stripe retries rather than dropping a
+              // paid order. `stripe_events` keeps the full basket meanwhile.
+              console.error(
+                `[PROVISION_RECOVERY_FAILED] ${paymentIntent.id}: ${recovery.reason}`,
+              );
+              throw new Error(
+                `Recovery failed for ${paymentIntent.id}: ${recovery.reason}`,
+              );
+            }
+          }
 
           if (user) {
             // Upsert on stripe_payment_intent_id (unique): the column exists
@@ -119,13 +150,21 @@ export async function POST(req: Request) {
             }
 
             console.log(`🧾 Billing record recorded for ${email}`);
+
+            // 🧾 Invoice — issued once the payment is recorded, never before:
+            // French law requires one per sale, and its number is drawn from a
+            // gapless sequence, so it must not be minted for a payment that
+            // failed to book.
+            await issueInvoiceForPayment({
+              userId: user.id,
+              email,
+              paymentIntent,
+            });
           } else {
-            // The customer paid but no account exists yet: either provisioning
-            // is still running, or the browser died right after payment.
-            // stripe_events keeps the intent metadata (the full basket), so a
-            // paid order can always be recovered.
-            console.warn(
-              `⚠️ Paid but unprovisioned: ${email} (${paymentIntent.id})`,
+            // Recovery above either produced a user or threw, so this branch
+            // means the account vanished between the two lookups. Retry.
+            throw new Error(
+              `User still missing after recovery for ${paymentIntent.id}`,
             );
           }
         }

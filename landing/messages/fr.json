@@ -18,8 +18,8 @@
   },
   "Hero": {
     "eyebrow": "Invitation · RSVP · Infos",
-    "titleLine1": "Le faire-part de mariage",
-    "titleLine2": "digital, réinventé",
+    "titleLine1": "Le faire-part de mariage digital,",
+    "titleLine2": "réinventé",
     "subtitle": "Un faire-part pensé comme une véritable expérience.",
     "menuAriaLabel": "Ouvrir le menu",
     "discoverButton": "Découvrir les collections",
@@ -62,17 +62,17 @@
         "number": "03",
         "titleLine1": "Partagez",
         "titleLine2": "votre invitation",
-        "description": "Une fois votre invitation prête, il ne reste plus qu'à l'envoyer. WhatsApp, SMS, e-mail ou simple lien : vos invités découvrent votre univers et retrouvent toutes les informations de votre mariage au même endroit."
+        "description": "Une fois votre invitation prête, il ne reste plus qu’à l’envoyer. WhatsApp, SMS, e-mail ou simple lien : vos invités découvrent votre univers et retrouvent toutes les informations de votre mariage au même endroit."
       }
     ],
     "upcomingTitle": "Nouvelles collections",
-    "upcomingSubtitle": "D'autres thèmes arrivent bientôt"
+    "upcomingSubtitle": "D’autres thèmes arrivent bientôt"
   },
   "Dashboard": {
     "eyebrow": "Votre espace mariés",
     "titleLine1": "Votre mariage.",
     "titleAccent": "Votre espace.",
-    "subtitle": "Votre invitation ne s'arrête pas au moment où vous l'envoyez. Depuis votre espace mariés, retrouvez les informations utiles pour suivre vos invités et préparer votre journée plus simplement.",
+    "subtitle": "Votre invitation ne s’arrête pas au moment où vous l’envoyez. Depuis votre espace mariés, retrouvez les informations utiles pour suivre vos invités et préparer votre journée plus simplement.",
     "demo": {
       "chapters": "Chapitres",
       "pause": "Pause",
@@ -80,7 +80,7 @@
       "previous": "Précédent",
       "next": "Suivant",
       "replay": "Revoir",
-      "note": "Données présentées à titre d'exemple sur un mariage de démonstration.",
+      "note": "Données présentées à titre d’exemple sur un mariage de démonstration.",
       "mobileNote": "Le back-office est optimisé pour ordinateur et tablette. Cet aperçu reste consultable ici, en version réduite.",
       "chapters_list": [
         {
@@ -91,7 +91,7 @@
         {
           "rail": "Invités",
           "title": "Une gestion des invités simple et organisée",
-          "body": "Votre liste d'invités, pensée par foyer. Familles, couples ou invités individuels : chaque foyer est regroupé avec ses coordonnées et son statut RSVP. Les réponses envoyées depuis votre faire-part de mariage digital sont automatiquement centralisées dans votre espace."
+          "body": "Votre liste d’invités, pensée par foyer. Familles, couples ou invités individuels : chaque foyer est regroupé avec ses coordonnées et son statut RSVP. Les réponses envoyées depuis votre faire-part de mariage digital sont automatiquement centralisées dans votre espace."
         },
         {
           "rail": "Plan de table",
@@ -101,7 +101,7 @@
         {
           "rail": "Ma table",
           "title": "Le Jour J, chacun retrouve sa table facilement",
-          "body": "Un QR code permet à vos invités de retrouver leur placement en quelques secondes. Ils renseignent leur nom et découvrent directement leur table. Selon les options choisies, ils peuvent également accéder au programme, au menu ou à l'espace de partage de photos du mariage."
+          "body": "Un QR code permet à vos invités de retrouver leur placement en quelques secondes. Ils renseignent leur nom et découvrent directement leur table. Selon les options choisies, ils peuvent également accéder au programme, au menu ou à l’espace de partage de photos du mariage."
         },
         {
           "rail": "Statistiques",
@@ -156,11 +156,11 @@
         "tilePhotos": "Photos & vidéos",
         "todoTitle": "À faire",
         "todo1Title": "4 invités sans réponse",
-        "todo1Body": "Relancer les invités qui n'ont pas encore répondu",
+        "todo1Body": "Relancer les invités qui n’ont pas encore répondu",
         "todo2Title": "8 invités à placer",
         "todo2Body": "Terminer le plan de table",
         "todo3Title": "Imprimer le QR code",
-        "todo3Body": "À afficher le jour J pour l'accès invités",
+        "todo3Body": "À afficher le jour J pour l’accès invités",
         "invitationCard": "Faire-part",
         "online": "En ligne",
         "guestsAria": "Vos invités",
@@ -199,13 +199,13 @@
         "myTableResult": "Camille, votre table est…",
         "myTableDetail": "Près de la terrasse · 12 couverts",
         "dayOf1Title": "Un QR code par mariage",
-        "dayOf1Body": "Imprimé sur le menu ou le marque-place. Pas d'application à installer.",
+        "dayOf1Body": "Imprimé sur le menu ou le marque-place. Pas d’application à installer.",
         "dayOf2Title": "Chacun trouve sa table",
         "dayOf2Body": "Deux lettres suffisent, et seuls les invités placés remontent. La liste complète reste privée.",
         "dayOf3Title": "Les photos remontent au fil de la soirée",
         "dayOf3Body": "Les invités déposent, vous validez. Une photo masquée devient inaccessible.",
         "dayOf4Title": "Menu, programme et FAQ",
-        "dayOf4Body": "Modifiables jusqu'au dernier moment. Les invités voient la version à jour.",
+        "dayOf4Body": "Modifiables jusqu’au dernier moment. Les invités voient la version à jour.",
         "statsAria": "Statistiques",
         "statsTitle": "Statistiques",
         "statsSubtitle": "Des chiffres simples et utiles pour suivre votre faire-part.",
@@ -265,7 +265,7 @@
     "loading": "Chargement..."
   },
   "CookieConsent": {
-    "bannerText": "Avec votre accord, nous déposons des cookies de mesure et de publicité pour comprendre l'audience du site. Rien n'est déposé sans votre choix.",
+    "bannerText": "Avec votre accord, nous déposons des cookies de mesure et de publicité pour comprendre l’audience du site. Rien n’est déposé sans votre choix.",
     "acceptButton": "Accepter",
     "declineButton": "Refuser",
     "learnMore": "En savoir plus",
@@ -293,20 +293,22 @@
     "createButton": "Créer mon invitation",
     "cgv": "CGV",
     "privacy": "Confidentialité",
-    "copyright": "© {year} The Studio Digital Papeterie. Tous droits réservés."
+    "copyright": "© {year} The Studio Digital Papeterie. Tous droits réservés.",
+    "contact": "Contact"
   },
   "HeroCarousel": {
     "prevAriaLabel": "Carte précédente",
     "nextAriaLabel": "Carte suivante",
+    "activeThemeAnnouncement": "Thème affiché : {name}",
     "cards": [
       {
-        "alt": "Exemple d'invitation de mariage — thème Ciao Amore"
+        "alt": "Exemple d’invitation de mariage — thème Ciao Amore"
       },
       {
-        "alt": "Exemple d'invitation de mariage — thème Blanc Couture"
+        "alt": "Exemple d’invitation de mariage — thème Blanc Couture"
       },
       {
-        "alt": "Exemple d'invitation de mariage — thème Belle Rive"
+        "alt": "Exemple d’invitation de mariage — thème Belle Rive"
       }
     ]
   },
@@ -323,11 +325,11 @@
     "themeLabel": "Thème {name}",
     "demoIframeTitle": "Démo invitation — thème {name}",
     "upcomingTitle": "Nouvelles collections",
-    "upcomingSubtitle": "D'autres thèmes arrivent bientôt"
+    "upcomingSubtitle": "D’autres thèmes arrivent bientôt"
   },
   "WhyUs": {
     "eyebrow": "Pourquoi choisir The Studio ?",
-    "titleLine1": "Tout ce que l'on aime du faire-part.",
+    "titleLine1": "Tout ce que l’on aime du faire-part.",
     "titleAccent": "Sans ses contraintes.",
     "reasons": [
       {
@@ -338,7 +340,7 @@
       {
         "titleLine1": "Zéro logistique",
         "titleLine2": "",
-        "description": "Pas besoin de récolter toutes les adresses postales, d'acheter 150 timbres, de préparer les enveloppes ou de passer par La Poste. Votre invitation se partage simplement, sans toute la logistique du papier."
+        "description": "Pas besoin de récolter toutes les adresses postales, d’acheter 150 timbres, de préparer les enveloppes ou de passer par La Poste. Votre invitation se partage simplement, sans toute la logistique du papier."
       },
       {
         "titleLine1": "Toujours à portée",
@@ -377,37 +379,58 @@
         "price": "199€",
         "positioning": "Pour les couples qui choisissent un modèle existant.",
         "description": "Choisissez l’une des créations The Studio et personnalisez-la avec les informations, les images et l’univers de votre mariage.",
-        "cta": "Choisir Signature"
+        "cta": "Choisir Signature",
+        "features": [
+          "4 modules inclus, puis 5€ par module supplémentaire",
+          "Un thème parmi les créations The Studio",
+          "Faire-part en ligne personnalisé",
+          "Espace de gestion des invités",
+          "Réponses RSVP en temps réel"
+        ]
       },
       {
         "id": "sur-mesure",
         "name": "Sur-mesure",
         "price": "299€",
-        "positioning": "",
+        "positioning": "Pour les couples qui veulent une création à leur image.",
         "description": "Une invitation de mariage personnalisée, imaginée autour de votre univers, de vos couleurs, de votre lieu et de l’histoire que vous souhaitez raconter.",
-        "cta": "Créer mon invitation sur-mesure"
+        "cta": "Créer mon invitation sur-mesure",
+        "features": [
+          "Modules illimités, tous inclus",
+          "Identité graphique complète",
+          "Adaptation aux couleurs de votre mariage",
+          "Faire-part en ligne personnalisé",
+          "Espace de gestion des invités"
+        ]
       },
       {
         "id": "prestige",
         "name": "Prestige",
         "price": "499€",
-        "positioning": "",
+        "positioning": "Pour les couples qui veulent une création unique, de A à Z.",
         "description": "L’expérience The Studio la plus complète, pensée pour les couples qui souhaitent aller plus loin dans la personnalisation de leur invitation.",
         "cta": "Découvrir Prestige",
         "features": [
+          "Création entièrement sur-mesure",
+          "Modules illimités, tous inclus",
           "Animation personnalisée",
           "Identité graphique complète",
-          "Adaptation aux couleurs du mariage",
-          "Modules illimités",
-          "Assistance prioritaire",
           "Modifications illimitées",
           "Domaine personnalisé",
+          "Assistance prioritaire",
           "Galerie photo après mariage",
           "Livre d’or"
         ]
       }
     ],
     "compareRows": [
+      {
+        "key": "modules_allowance",
+        "label": "Modules inclus",
+        "signature": "4 modules, puis +5€ l’unité",
+        "sur-mesure": "Illimités",
+        "prestige": "Illimités"
+      },
       {
         "key": "animation",
         "label": "Animation personnalisée",
@@ -427,13 +450,6 @@
         "label": "Adaptation aux couleurs du mariage",
         "signature": "no",
         "sur-mesure": "inc",
-        "prestige": "inc"
-      },
-      {
-        "key": "modules",
-        "label": "Modules illimités",
-        "signature": "no",
-        "sur-mesure": "no",
         "prestige": "inc"
       },
       {
@@ -483,12 +499,12 @@
       {
         "number": "1.",
         "title": "La rencontre",
-        "description": "Un premier échange pour découvrir votre mariage, vos inspirations et l'expérience que vous souhaitez créer pour vos invités."
+        "description": "Un premier échange pour découvrir votre mariage, vos inspirations et l’expérience que vous souhaitez créer pour vos invités."
       },
       {
         "number": "2.",
         "title": "La direction artistique",
-        "description": "Nous définissons ensemble les couleurs, les typographies, les références et l'atmosphère de votre invitation."
+        "description": "Nous définissons ensemble les couleurs, les typographies, les références et l’atmosphère de votre invitation."
       },
       {
         "number": "3.",
@@ -511,40 +527,40 @@
     "showLess": "Afficher moins",
     "items": [
       {
-        "question": "Puis-je modifier mon invitation après l'avoir envoyée ?",
-        "answer": "Oui. C'est l'un des grands avantages d'un faire-part de mariage digital. Si une information change après l'envoi — horaire, lieu, navette, hébergement, programme ou détail pratique — le contenu peut être mis à jour sans avoir à renvoyer une nouvelle invitation à vos invités. Le lien reste le même."
+        "question": "Puis-je modifier mon invitation après l’avoir envoyée ?",
+        "answer": "Oui. C’est l’un des grands avantages d’un faire-part de mariage digital. Si une information change après l’envoi — horaire, lieu, navette, hébergement, programme ou détail pratique — le contenu peut être mis à jour sans avoir à renvoyer une nouvelle invitation à vos invités. Le lien reste le même."
       },
       {
         "question": "Y a-t-il un abonnement ?",
-        "answer": "Non. Votre invitation fait l'objet d'un paiement unique, au moment de la création. Vous choisissez votre formule à ce moment-là, et il n'y a aucun abonnement mensuel à prévoir pour continuer à utiliser votre faire-part digital pendant sa période de mise en ligne."
+        "answer": "Non. Votre invitation fait l’objet d’un paiement unique, au moment de la création. Vous choisissez votre formule à ce moment-là, et il n’y a aucun abonnement mensuel à prévoir pour continuer à utiliser votre faire-part digital pendant sa période de mise en ligne."
       },
       {
         "question": "Comment fonctionne le RSVP mariage en ligne ?",
-        "answer": "Vos invités peuvent confirmer leur présence directement depuis votre invitation de mariage digitale. Selon votre projet, le formulaire RSVP peut également permettre de recueillir des informations complémentaires comme les choix de menu, les allergies alimentaires, la présence au brunch, les besoins de transport ou d'autres réponses personnalisées. Les informations sont ensuite centralisées pour faciliter votre organisation et vos relances."
+        "answer": "Vos invités peuvent confirmer leur présence directement depuis votre invitation de mariage digitale. Selon votre projet, le formulaire RSVP peut également permettre de recueillir des informations complémentaires comme les choix de menu, les allergies alimentaires, la présence au brunch, les besoins de transport ou d’autres réponses personnalisées. Les informations sont ensuite centralisées pour faciliter votre organisation et vos relances."
       },
       {
         "question": "Combien de temps mon invitation reste-t-elle accessible ?",
         "answer": "Votre invitation reste accessible pendant la durée prévue dans votre formule. Cette durée vous est précisée lors de votre commande. Pendant cette période, vos invités peuvent consulter à nouveau le programme, les lieux, les informations pratiques et leur invitation depuis le même lien."
       },
       {
-        "question": "Puis-je personnaliser l'adresse de mon invitation avec mon propre nom de domaine ?",
-        "answer": "Oui, selon la formule choisie. Il est possible de personnaliser l'adresse de votre invitation afin de créer une expérience encore plus cohérente avec l'identité de votre mariage. Cette option peut notamment être intégrée dans les prestations les plus personnalisées."
+        "question": "Puis-je personnaliser l’adresse de mon invitation avec mon propre nom de domaine ?",
+        "answer": "Oui, selon la formule choisie. Il est possible de personnaliser l’adresse de votre invitation afin de créer une expérience encore plus cohérente avec l’identité de votre mariage. Cette option peut notamment être intégrée dans les prestations les plus personnalisées."
       },
       {
         "question": "Proposez-vous une version papier ?",
-        "answer": "The Studio est spécialisé dans la papeterie digitale de mariage. L'objectif est de créer une invitation interactive, pensée pour mobile, qui centralise toutes les informations utiles à vos invités. Il est toutefois possible de compléter cette expérience avec un support physique intégrant, par exemple, un QR code renvoyant vers votre invitation digitale."
+        "answer": "The Studio est spécialisé dans la papeterie digitale de mariage. L’objectif est de créer une invitation interactive, pensée pour mobile, qui centralise toutes les informations utiles à vos invités. Il est toutefois possible de compléter cette expérience avec un support physique intégrant, par exemple, un QR code renvoyant vers votre invitation digitale."
       },
       {
-        "question": "Qu'est-ce qu'un faire-part de mariage digital ?",
-        "answer": "Un faire-part de mariage digital est une invitation accessible en ligne depuis un lien, principalement pensée pour être consultée sur smartphone. Contrairement à une simple image envoyée par message, il peut intégrer plusieurs modules interactifs : compte à rebours, programme, lieu, dress code, hébergements, RSVP, playlist, covoiturage, FAQ ou galerie photo. Il devient ainsi à la fois une invitation et un véritable outil d'organisation."
+        "question": "Qu’est-ce qu’un faire-part de mariage digital ?",
+        "answer": "Un faire-part de mariage digital est une invitation accessible en ligne depuis un lien, principalement pensée pour être consultée sur smartphone. Contrairement à une simple image envoyée par message, il peut intégrer plusieurs modules interactifs : compte à rebours, programme, lieu, dress code, hébergements, RSVP, playlist, covoiturage, FAQ ou galerie photo. Il devient ainsi à la fois une invitation et un véritable outil d’organisation."
       },
       {
         "question": "Comment envoyer une invitation de mariage digitale à ses invités ?",
-        "answer": "Votre invitation mariage digitale peut être envoyée simplement par WhatsApp, SMS ou email. Elle peut également être accessible grâce à un QR code imprimé sur un Save the Date, une carte ou une signalétique. Vos invités n'ont rien à télécharger : ils ouvrent directement l'invitation depuis leur téléphone."
+        "answer": "Votre invitation mariage digitale peut être envoyée simplement par WhatsApp, SMS ou email. Elle peut également être accessible grâce à un QR code imprimé sur un Save the Date, une carte ou une signalétique. Vos invités n’ont rien à télécharger : ils ouvrent directement l’invitation depuis leur téléphone."
       },
       {
         "question": "Peut-on ajouter un QR code à son faire-part de mariage ?",
-        "answer": "Oui. Un QR code peut être intégré à un support imprimé afin de renvoyer directement vers votre faire-part de mariage digital. Il peut être utilisé sur un Save the Date, une carte d'invitation, un panneau d'accueil ou une autre pièce de papeterie. Le QR code permet à vos invités d'accéder immédiatement à votre invitation interactive et à votre RSVP en ligne."
+        "answer": "Oui. Un QR code peut être intégré à un support imprimé afin de renvoyer directement vers votre faire-part de mariage digital. Il peut être utilisé sur un Save the Date, une carte d’invitation, un panneau d’accueil ou une autre pièce de papeterie. Le QR code permet à vos invités d’accéder immédiatement à votre invitation interactive et à votre RSVP en ligne."
       },
       {
         "question": "Quelles informations peut-on intégrer dans une invitation de mariage interactive ?",
@@ -552,11 +568,11 @@
       },
       {
         "question": "Quelle est la différence entre un faire-part digital et un site de mariage ?",
-        "answer": "Un site de mariage sert principalement à centraliser des informations. Le faire-part digital est d'abord pensé comme une invitation : il crée une première impression, présente l'univers du mariage et accompagne l'invité jusqu'à sa réponse RSVP. Il est généralement plus court, plus immersif, plus éditorial et davantage conçu comme une expérience mobile."
+        "answer": "Un site de mariage sert principalement à centraliser des informations. Le faire-part digital est d’abord pensé comme une invitation : il crée une première impression, présente l’univers du mariage et accompagne l’invité jusqu’à sa réponse RSVP. Il est généralement plus court, plus immersif, plus éditorial et davantage conçu comme une expérience mobile."
       },
       {
-        "question": "L'invitation fonctionne-t-elle sur tous les téléphones ?",
-        "answer": "Les invitations The Studio sont conçues selon une logique mobile first afin d'être consultées facilement sur smartphone. Les textes, animations, boutons et modules sont pensés pour offrir une navigation fluide sans avoir besoin d'installer une application."
+        "question": "L’invitation fonctionne-t-elle sur tous les téléphones ?",
+        "answer": "Les invitations The Studio sont conçues selon une logique mobile first afin d’être consultées facilement sur smartphone. Les textes, animations, boutons et modules sont pensés pour offrir une navigation fluide sans avoir besoin d’installer une application."
       }
     ]
   },
@@ -576,53 +592,53 @@
     "items": {
       "ciao-amore": {
         "metaTitle": "Ciao Amore — faire-part de mariage digital italien | The Studio",
-        "metaDescription": "Ciao Amore : un faire-part de mariage digital aux couleurs de la côte amalfitaine. Citrons, pastel et lumière d'Italie, avec RSVP et programme intégrés.",
+        "metaDescription": "Ciao Amore : un faire-part de mariage digital aux couleurs de la côte amalfitaine. Citrons, pastel et lumière d’Italie, avec RSVP et programme intégrés.",
         "h1": "Ciao Amore, le faire-part de mariage digital de la dolce vita",
         "tagline": "Dolce vita sur la côte amalfitaine",
-        "intro": "Ciao Amore est né d'un mariage à Ravello, sur les hauteurs de la côte amalfitaine. C'est la collection des mariages qui sentent le citron et la pierre chaude : un jaune franc, un vert olive profond, des pastels lavés par le soleil, et une typographie qui a la générosité des enseignes italiennes.",
-        "body1": "L'invitation s'ouvre sur une arche méditerranéenne et se déroule ensuite comme une journée en Italie. Le compte à rebours, le programme heure par heure, le lieu avec son itinéraire, le dress code, les hébergements à réserver et la playlist que vos invités alimentent : chaque module a sa place, et rien ne sort de l'univers.",
-        "body2": "Ciao Amore porte aussi une section « lendemain » : le brunch au bord de la piscine, la seconde journée, ce moment que les faire-part papier ne savent pas raconter. Vos invités répondent au RSVP directement depuis l'invitation, et vous retrouvez leurs réponses réunies dans votre espace.",
-        "body3": "Techniquement, c'est une page web : vos invités reçoivent un lien par message ou scannent un QR code, et l'invitation s'ouvre dans leur navigateur. Rien à installer, rien à créer comme compte. Elle se consulte aussi bien depuis un iPhone que depuis un vieil Android, et reste accessible pendant toute la durée prévue dans votre formule — utile quand un invité cherche l'adresse du domaine la veille.",
+        "intro": "Ciao Amore est né d’un mariage à Ravello, sur les hauteurs de la côte amalfitaine. C’est la collection des mariages qui sentent le citron et la pierre chaude : un jaune franc, un vert olive profond, des pastels lavés par le soleil, et une typographie qui a la générosité des enseignes italiennes.",
+        "body1": "L’invitation s’ouvre sur une arche méditerranéenne et se déroule ensuite comme une journée en Italie. Le compte à rebours, le programme heure par heure, le lieu avec son itinéraire, le dress code, les hébergements à réserver et la playlist que vos invités alimentent : chaque module a sa place, et rien ne sort de l’univers.",
+        "body2": "Ciao Amore porte aussi une section « lendemain » : le brunch au bord de la piscine, la seconde journée, ce moment que les faire-part papier ne savent pas raconter. Vos invités répondent au RSVP directement depuis l’invitation, et vous retrouvez leurs réponses réunies dans votre espace.",
+        "body3": "Techniquement, c’est une page web : vos invités reçoivent un lien par message ou scannent un QR code, et l’invitation s’ouvre dans leur navigateur. Rien à installer, rien à créer comme compte. Elle se consulte aussi bien depuis un iPhone que depuis un vieil Android, et reste accessible pendant toute la durée prévue dans votre formule — utile quand un invité cherche l’adresse du domaine la veille.",
         "bestFor": "Un mariage en Italie, sur la Riviera, ou partout où la lumière compte autant que le lieu.",
-        "faqTitle": "Et si notre mariage n'est pas en Italie ?",
-        "faqBody": "Ciao Amore n'impose pas de destination. Les prénoms, les dates, le lieu, le programme et les textes sont les vôtres : la collection apporte une palette et une typographie, pas un décor imposé. Beaucoup de mariages en France choisissent cet univers pour sa lumière, simplement parce qu'il ressemble à l'ambiance qu'ils veulent donner."
+        "faqTitle": "Et si notre mariage n’est pas en Italie ?",
+        "faqBody": "Ciao Amore n’impose pas de destination. Les prénoms, les dates, le lieu, le programme et les textes sont les vôtres : la collection apporte une palette et une typographie, pas un décor imposé. Beaucoup de mariages en France choisissent cet univers pour sa lumière, simplement parce qu’il ressemble à l’ambiance qu’ils veulent donner."
       },
       "blanc-couture": {
         "metaTitle": "Blanc Couture — faire-part de mariage digital minimaliste | The Studio",
-        "metaDescription": "Blanc Couture : un faire-part de mariage digital épuré, papeterie blanche et dorure fine. L'élégance couture de la Riviera, avec RSVP intégré.",
+        "metaDescription": "Blanc Couture : un faire-part de mariage digital épuré, papeterie blanche et dorure fine. L’élégance couture de la Riviera, avec RSVP intégré.",
         "h1": "Blanc Couture, le faire-part de mariage digital minimaliste",
         "tagline": "Papeterie blanche et dorure fine",
-        "intro": "Blanc Couture est la collection du presque rien. Du blanc, un or fin, des cadres ovales, beaucoup d'air : c'est la papeterie de haute couture transposée à l'écran, celle qui laisse vos prénoms occuper toute la place. Sa démo se déroule à la Villa Ephrussi de Rothschild, à Saint-Jean-Cap-Ferrat.",
-        "body1": "Rien n'y est décoratif par défaut. Les filets dorés soulignent, ils ne remplissent pas. Le compte à rebours est une horloge sobre, le programme une colonne lisible, le dress code une note et une palette. C'est la collection à choisir quand l'invitation doit s'effacer derrière l'information.",
-        "body2": "Blanc Couture intègre une section covoiturage : vos invités qui viennent de loin trouvent qui part d'où, sans groupe de discussion à créer. Le RSVP, le programme, les hébergements et les questions fréquentes tiennent dans la même page, et se mettent à jour sans renvoyer d'invitation.",
-        "body3": "Vos invités ouvrent l'invitation depuis un lien, sur leur téléphone, sans application ni compte à créer. La page se corrige jusqu'au dernier moment : un horaire qui bouge, une navette ajoutée, un hébergement complet — vous modifiez, le lien reste le même, et personne ne reçoit un second faire-part contradictoire.",
-        "bestFor": "Un mariage épuré, une cérémonie en blanc, ou un couple qui préfère la retenue à l'ornement.",
+        "intro": "Blanc Couture est la collection du presque rien. Du blanc, un or fin, des cadres ovales, beaucoup d’air : c’est la papeterie de haute couture transposée à l’écran, celle qui laisse vos prénoms occuper toute la place. Sa démo se déroule à la Villa Ephrussi de Rothschild, à Saint-Jean-Cap-Ferrat.",
+        "body1": "Rien n’y est décoratif par défaut. Les filets dorés soulignent, ils ne remplissent pas. Le compte à rebours est une horloge sobre, le programme une colonne lisible, le dress code une note et une palette. C’est la collection à choisir quand l’invitation doit s’effacer derrière l’information.",
+        "body2": "Blanc Couture intègre une section covoiturage : vos invités qui viennent de loin trouvent qui part d’où, sans groupe de discussion à créer. Le RSVP, le programme, les hébergements et les questions fréquentes tiennent dans la même page, et se mettent à jour sans renvoyer d’invitation.",
+        "body3": "Vos invités ouvrent l’invitation depuis un lien, sur leur téléphone, sans application ni compte à créer. La page se corrige jusqu’au dernier moment : un horaire qui bouge, une navette ajoutée, un hébergement complet — vous modifiez, le lien reste le même, et personne ne reçoit un second faire-part contradictoire.",
+        "bestFor": "Un mariage épuré, une cérémonie en blanc, ou un couple qui préfère la retenue à l’ornement.",
         "faqTitle": "Le minimalisme, est-ce que ça reste chaleureux ?",
-        "faqBody": "C'est la question qu'on nous pose le plus sur cette collection. La réponse tient dans les photographies : Blanc Couture laisse vos images occuper toute la largeur, sans cadre décoratif qui les concurrence. Le blanc n'est pas un vide, c'est ce qui met vos visages en valeur."
+        "faqBody": "C’est la question qu’on nous pose le plus sur cette collection. La réponse tient dans les photographies : Blanc Couture laisse vos images occuper toute la largeur, sans cadre décoratif qui les concurrence. Le blanc n’est pas un vide, c’est ce qui met vos visages en valeur."
       },
       "belle-rive": {
         "metaTitle": "Belle Rive — faire-part de mariage digital Riviera | The Studio",
-        "metaDescription": "Belle Rive : un faire-part de mariage digital aux teintes nacre, olivier et doré. L'élégance Riviera pour un mariage au soleil, avec RSVP intégré.",
+        "metaDescription": "Belle Rive : un faire-part de mariage digital aux teintes nacre, olivier et doré. L’élégance Riviera pour un mariage au soleil, avec RSVP intégré.",
         "h1": "Belle Rive, le faire-part de mariage digital de la Riviera",
         "tagline": "Nacre, olivier et dorures",
-        "intro": "Belle Rive est la plus généreuse des trois. Nacre, feuilles d'olivier, dorures discrètes, perles : c'est un mariage du Sud raconté en entier, du vin d'honneur jusqu'aux activités du lendemain. Sa démo se tient au Domaine de la Trinité, près de Montpellier.",
-        "body1": "C'est la collection des mariages qui durent plus d'une journée. Au-delà du programme et du lieu, elle porte une section activités — piscine, pétanque, tennis —, un covoiturage, une liste de cadeaux, et un dress code illustré. Les invités savent quoi prévoir dans leur valise avant d'arriver.",
-        "body2": "Belle Rive assume la matière : des photographies pleine largeur, des textures nacrées, des vidéos de la cérémonie et du cocktail. Le tout reste une page unique qui s'ouvre depuis un lien, sans application à installer, et dont le contenu se corrige jusqu'au dernier moment.",
-        "body3": "Comme les deux autres collections, Belle Rive s'ouvre depuis un simple lien, sur mobile, sans rien à installer. Sa particularité est le volume d'informations qu'elle absorbe sans devenir illisible : quand un mariage se déroule sur deux ou trois jours, chaque module a sa section, et vos invités trouvent ce qu'ils cherchent sans faire défiler la moitié de la page.",
+        "intro": "Belle Rive est la plus généreuse des trois. Nacre, feuilles d’olivier, dorures discrètes, perles : c’est un mariage du Sud raconté en entier, du vin d’honneur jusqu’aux activités du lendemain. Sa démo se tient au Domaine de la Trinité, près de Montpellier.",
+        "body1": "C’est la collection des mariages qui durent plus d’une journée. Au-delà du programme et du lieu, elle porte une section activités — piscine, pétanque, tennis —, un covoiturage, une liste de cadeaux, et un dress code illustré. Les invités savent quoi prévoir dans leur valise avant d’arriver.",
+        "body2": "Belle Rive assume la matière : des photographies pleine largeur, des textures nacrées, des vidéos de la cérémonie et du cocktail. Le tout reste une page unique qui s’ouvre depuis un lien, sans application à installer, et dont le contenu se corrige jusqu’au dernier moment.",
+        "body3": "Comme les deux autres collections, Belle Rive s’ouvre depuis un simple lien, sur mobile, sans rien à installer. Sa particularité est le volume d’informations qu’elle absorbe sans devenir illisible : quand un mariage se déroule sur deux ou trois jours, chaque module a sa section, et vos invités trouvent ce qu’ils cherchent sans faire défiler la moitié de la page.",
         "bestFor": "Un mariage de plusieurs jours, un domaine dans le Sud, une fête qui commence la veille.",
         "faqTitle": "Autant de contenu, est-ce que ça reste rapide à charger ?",
-        "faqBody": "Les photographies sont converties au format WebP et chargées au fur et à mesure du défilement, pas toutes d'un coup. Les vidéos ne se déclenchent qu'à l'arrivée dans la section concernée. Une invitation riche reste une page mobile : c'est la contrainte que nous nous imposons sur chaque collection."
+        "faqBody": "Les photographies sont converties au format WebP et chargées au fur et à mesure du défilement, pas toutes d’un coup. Les vidéos ne se déclenchent qu’à l’arrivée dans la section concernée. Une invitation riche reste une page mobile : c’est la contrainte que nous nous imposons sur chaque collection."
       }
     },
     "faqSectionTitle": "Bon à savoir"
   },
   "Journal": {
     "metaTitle": "Le Journal | The Studio Digital Papeterie",
-    "metaDescription": "Conseils, calendriers et formulations pour préparer son faire-part de mariage : quoi écrire, quand l'envoyer, comment suivre les réponses.",
+    "metaDescription": "Conseils, calendriers et formulations pour préparer son faire-part de mariage : quoi écrire, quand l’envoyer, comment suivre les réponses.",
     "eyebrow": "Le Journal",
     "h1": "Le Journal",
-    "intro": "Ce qu'on aurait aimé lire en préparant un mariage : des réponses précises sur les faire-part, le calendrier d'envoi, les textes et le suivi des réponses.",
-    "readMore": "Lire l'article",
+    "intro": "Ce qu’on aurait aimé lire en préparant un mariage : des réponses précises sur les faire-part, le calendrier d’envoi, les textes et le suivi des réponses.",
+    "readMore": "Lire l’article",
     "backToJournal": "Tous les articles",
     "relatedTitle": "À lire aussi",
     "faqSectionTitle": "Bon à savoir",
@@ -635,35 +651,35 @@
         "metaTitle": "Que mettre dans un faire-part de mariage ? Le guide complet",
         "metaDescription": "Que faut-il écrire dans un faire-part de mariage ? La liste des informations indispensables, ce qui peut attendre, et les formulations qui fonctionnent.",
         "h1": "Que mettre dans un faire-part de mariage ?",
-        "lede": "Un faire-part doit répondre à quatre questions avant tout le reste : qui se marie, quand, où, et comment répondre. Tout ce qui vient ensuite est du confort — utile, mais secondaire. Voici comment hiérarchiser, et où s'arrête l'invitation.",
+        "lede": "Un faire-part doit répondre à quatre questions avant tout le reste : qui se marie, quand, où, et comment répondre. Tout ce qui vient ensuite est du confort — utile, mais secondaire. Voici comment hiérarchiser, et où s’arrête l’invitation.",
         "sections": [
           {
             "title": "Les quatre informations non négociables",
-            "body": "Vos deux prénoms, la date complète avec l'année, la ville et le lieu, et la manière de confirmer sa présence. C'est le socle : un invité qui a ces quatre éléments peut bloquer sa date et s'organiser. Tout le reste peut arriver plus tard, ou vivre ailleurs que sur la première page. Précisez l'année même pour un mariage proche : un faire-part reçu en novembre pour un mariage en juin crée une ambiguïté réelle."
+            "body": "Vos deux prénoms, la date complète avec l’année, la ville et le lieu, et la manière de confirmer sa présence. C’est le socle : un invité qui a ces quatre éléments peut bloquer sa date et s’organiser. Tout le reste peut arriver plus tard, ou vivre ailleurs que sur la première page. Précisez l’année même pour un mariage proche : un faire-part reçu en novembre pour un mariage en juin crée une ambiguïté réelle."
           },
           {
             "title": "Distinguer les moments et les invités",
-            "body": "C'est l'erreur la plus fréquente et la plus embarrassante. Si votre journée comporte une cérémonie, un dîner, une soirée puis un brunch, et que tous vos invités ne sont pas conviés à tout, l'invitation doit le dire sans détour. Un invité qui arrive au dîner alors qu'il n'était attendu qu'à la soirée est une situation que personne ne veut gérer le jour même. Formulez-le positivement : « Nous serions heureux de vous retrouver pour la soirée, à partir de 21 h » est plus élégant qu'une exclusion implicite."
+            "body": "C’est l’erreur la plus fréquente et la plus embarrassante. Si votre journée comporte une cérémonie, un dîner, une soirée puis un brunch, et que tous vos invités ne sont pas conviés à tout, l’invitation doit le dire sans détour. Un invité qui arrive au dîner alors qu’il n’était attendu qu’à la soirée est une situation que personne ne veut gérer le jour même. Formulez-le positivement : « Nous serions heureux de vous retrouver pour la soirée, à partir de 21 h » est plus élégant qu’une exclusion implicite."
           },
           {
             "title": "Les informations pratiques qui évitent les questions",
-            "body": "Le dress code, le parking, les hébergements à proximité, l'accès en train ou en voiture, la question des enfants, celle des cadeaux. Aucune n'est indispensable à l'annonce, toutes vous éviteront des messages. Sur un faire-part papier, elles finissent en cartons séparés qu'on perd. Dans une invitation digitale, chacune devient une section qu'on consulte quand on en a besoin — un invité qui cherche l'adresse du domaine la veille au soir sait où regarder."
+            "body": "Le dress code, le parking, les hébergements à proximité, l’accès en train ou en voiture, la question des enfants, celle des cadeaux. Aucune n’est indispensable à l’annonce, toutes vous éviteront des messages. Sur un faire-part papier, elles finissent en cartons séparés qu’on perd. Dans une invitation digitale, chacune devient une section qu’on consulte quand on en a besoin — un invité qui cherche l’adresse du domaine la veille au soir sait où regarder."
           },
           {
-            "title": "Le RSVP : ce qu'il faut demander dès la première réponse",
-            "body": "La présence, évidemment. Mais aussi ce dont vous aurez besoin pour le traiteur et la logistique, et qu'il serait pénible de redemander : le nombre d'accompagnants, les allergies ou régimes alimentaires, la présence au brunch, le besoin d'une navette. Une question posée au bon moment vaut trois relances. Les invitations The Studio collectent ces réponses dans un même espace, avec un statut par invité — confirmé, refusé, en attente — pour que vous sachiez qui relancer sans relire vos conversations."
+            "title": "Le RSVP : ce qu’il faut demander dès la première réponse",
+            "body": "La présence, évidemment. Mais aussi ce dont vous aurez besoin pour le traiteur et la logistique, et qu’il serait pénible de redemander : le nombre d’accompagnants, les allergies ou régimes alimentaires, la présence au brunch, le besoin d’une navette. Une question posée au bon moment vaut trois relances. Les invitations The Studio collectent ces réponses dans un même espace, avec un statut par invité — confirmé, refusé, en attente — pour que vous sachiez qui relancer sans relire vos conversations."
           },
           {
             "title": "Le ton : court, personnel, et qui vous ressemble",
-            "body": "Les formules protocolaires héritées du courrier administratif — « ont l'honneur de vous faire part » — ne disent plus rien à personne. Une phrase qui sonne comme vous vaut mieux qu'un paragraphe convenu. « On s'est dit oui, il ne manque plus que vous » fonctionne parce que c'est direct et que ça donne le ton de la fête. Écrivez la phrase que vous diriez à un ami au téléphone, puis enlevez-en la moitié."
+            "body": "Les formules protocolaires héritées du courrier administratif — « ont l’honneur de vous faire part » — ne disent plus rien à personne. Une phrase qui sonne comme vous vaut mieux qu’un paragraphe convenu. « On s’est dit oui, il ne manque plus que vous » fonctionne parce que c’est direct et que ça donne le ton de la fête. Écrivez la phrase que vous diriez à un ami au téléphone, puis enlevez-en la moitié."
           },
           {
-            "title": "Ce qu'il ne faut pas y mettre",
-            "body": "Les détails d'organisation interne (l'heure d'arrivée du photographe), les informations qui bougeront (la météo, le numéro de la navette), et tout ce qui relève de la négociation familiale. Un faire-part annonce et invite ; il n'arbitre pas. Les informations mouvantes ont leur place dans une invitation digitale, justement parce qu'elles peuvent y être corrigées sans renvoyer quoi que ce soit."
+            "title": "Ce qu’il ne faut pas y mettre",
+            "body": "Les détails d’organisation interne (l’heure d’arrivée du photographe), les informations qui bougeront (la météo, le numéro de la navette), et tout ce qui relève de la négociation familiale. Un faire-part annonce et invite ; il n’arbitre pas. Les informations mouvantes ont leur place dans une invitation digitale, justement parce qu’elles peuvent y être corrigées sans renvoyer quoi que ce soit."
           }
         ],
         "faqTitle": "Faut-il indiquer la liste de mariage sur le faire-part ?",
-        "faqBody": "L'usage français reste de ne pas la mentionner sur l'invitation elle-même. Dans une invitation digitale, elle peut vivre dans une section dédiée que l'invité consulte s'il le souhaite : l'information est disponible sans être mise en avant, ce qui règle élégamment un sujet toujours un peu délicat.",
+        "faqBody": "L’usage français reste de ne pas la mentionner sur l’invitation elle-même. Dans une invitation digitale, elle peut vivre dans une section dédiée que l’invité consulte s’il le souhaite : l’information est disponible sans être mise en avant, ce qui règle élégamment un sujet toujours un peu délicat.",
         "related": [
           "quand-envoyer-faire-part-mariage",
           "faire-part-mariage-digital",
@@ -672,37 +688,37 @@
       },
       "quand-envoyer-faire-part-mariage": {
         "metaTitle": "Quand envoyer ses faire-part de mariage ? Le calendrier complet",
-        "metaDescription": "Save the Date, invitation, date limite de RSVP, relances : le calendrier réel d'envoi d'un faire-part de mariage, mois par mois.",
+        "metaDescription": "Save the Date, invitation, date limite de RSVP, relances : le calendrier réel d’envoi d’un faire-part de mariage, mois par mois.",
         "h1": "Quand envoyer ses faire-part de mariage ?",
-        "lede": "La règle courte : l'invitation part quatre à six mois avant, le Save the Date neuf à douze mois avant si vos invités doivent voyager. Mais la vraie question n'est pas la date d'envoi — c'est la date à laquelle vous avez besoin des réponses.",
+        "lede": "La règle courte : l’invitation part quatre à six mois avant, le Save the Date neuf à douze mois avant si vos invités doivent voyager. Mais la vraie question n’est pas la date d’envoi — c’est la date à laquelle vous avez besoin des réponses.",
         "sections": [
           {
             "title": "Remonter depuis la date limite, pas depuis le mariage",
-            "body": "Votre traiteur veut un nombre définitif à une certaine date — souvent trois à quatre semaines avant. Vos relances prennent deux à trois semaines. Vos invités ont besoin de trois à quatre semaines pour répondre. Additionnez : votre invitation doit partir au minimum deux mois et demi avant le mariage, et c'est un plancher, pas un objectif. Fixez d'abord la date limite de RSVP, puis calez l'envoi."
+            "body": "Votre traiteur veut un nombre définitif à une certaine date — souvent trois à quatre semaines avant. Vos relances prennent deux à trois semaines. Vos invités ont besoin de trois à quatre semaines pour répondre. Additionnez : votre invitation doit partir au minimum deux mois et demi avant le mariage, et c’est un plancher, pas un objectif. Fixez d’abord la date limite de RSVP, puis calez l’envoi."
           },
           {
             "title": "Neuf à douze mois : le Save the Date",
-            "body": "Il ne se justifie que dans trois cas : un mariage à l'étranger, un week-end entier qui bloque plusieurs jours de congés, ou une période très demandée où vos invités arbitrent entre plusieurs événements. Il contient le strict minimum — vos prénoms, la date, la région, et le fait qu'une invitation complète suivra. Un Save the Date qui en dit trop rend l'invitation redondante."
+            "body": "Il ne se justifie que dans trois cas : un mariage à l’étranger, un week-end entier qui bloque plusieurs jours de congés, ou une période très demandée où vos invités arbitrent entre plusieurs événements. Il contient le strict minimum — vos prénoms, la date, la région, et le fait qu’une invitation complète suivra. Un Save the Date qui en dit trop rend l’invitation redondante."
           },
           {
-            "title": "Quatre à six mois : l'invitation complète",
-            "body": "C'est la fenêtre où l'invité peut encore réserver un train à un prix raisonnable et poser ses congés. Plus tôt, il notera la date et oubliera de répondre. Plus tard, vous récupérez des refus liés à des contraintes qu'il aurait pu éviter. Pour un mariage en haute saison dans une région touristique, visez six mois : les hébergements de vos invités se réservent aussi."
+            "title": "Quatre à six mois : l’invitation complète",
+            "body": "C’est la fenêtre où l’invité peut encore réserver un train à un prix raisonnable et poser ses congés. Plus tôt, il notera la date et oubliera de répondre. Plus tard, vous récupérez des refus liés à des contraintes qu’il aurait pu éviter. Pour un mariage en haute saison dans une région touristique, visez six mois : les hébergements de vos invités se réservent aussi."
           },
           {
             "title": "Deux à trois mois : le suivi des réponses",
-            "body": "La phase la plus ingrate. Sur cent invités, comptez qu'un tiers répondra dans la première semaine, un tiers après une relance, et que le dernier tiers demandera un effort individuel. C'est là qu'un suivi structuré change concrètement les choses : les invitations The Studio affichent chaque invité comme confirmé, refusé ou en attente, avec un filtre par statut et un export — vous relancez les bonnes personnes sans relire trois conversations WhatsApp."
+            "body": "La phase la plus ingrate. Sur cent invités, comptez qu’un tiers répondra dans la première semaine, un tiers après une relance, et que le dernier tiers demandera un effort individuel. C’est là qu’un suivi structuré change concrètement les choses : les invitations The Studio affichent chaque invité comme confirmé, refusé ou en attente, avec un filtre par statut et un export — vous relancez les bonnes personnes sans relire trois conversations WhatsApp."
           },
           {
             "title": "Un mois : les relances ciblées",
-            "body": "Relancer tout le monde est le meilleur moyen d'agacer ceux qui ont déjà répondu. Ne contactez que les invités sans réponse, et nommément — un message personnel obtient une réponse, un message groupé se dilue. C'est aussi le moment de récupérer les informations manquantes : un invité peut avoir confirmé sa présence sans préciser ses allergies."
+            "body": "Relancer tout le monde est le meilleur moyen d’agacer ceux qui ont déjà répondu. Ne contactez que les invités sans réponse, et nommément — un message personnel obtient une réponse, un message groupé se dilue. C’est aussi le moment de récupérer les informations manquantes : un invité peut avoir confirmé sa présence sans préciser ses allergies."
           },
           {
-            "title": "La semaine du mariage : l'invitation sert encore",
-            "body": "Un faire-part papier a fini son travail depuis longtemps. Une invitation digitale, non : c'est là que vos invités y retournent pour vérifier l'heure, l'adresse, le dress code, l'horaire de la navette. Vous pouvez encore y corriger un détail de dernière minute — le lien reste le même, et personne ne reçoit d'information contradictoire."
+            "title": "La semaine du mariage : l’invitation sert encore",
+            "body": "Un faire-part papier a fini son travail depuis longtemps. Une invitation digitale, non : c’est là que vos invités y retournent pour vérifier l’heure, l’adresse, le dress code, l’horaire de la navette. Vous pouvez encore y corriger un détail de dernière minute — le lien reste le même, et personne ne reçoit d’information contradictoire."
           }
         ],
         "faqTitle": "Peut-on envoyer un faire-part trop tôt ?",
-        "faqBody": "Oui. Au-delà de huit mois, sans occasion particulière, l'invité note la date et repousse sa réponse indéfiniment — vous perdez le bénéfice de l'anticipation et devrez relancer davantage. Si vous voulez communiquer tôt, un Save the Date remplit ce rôle mieux qu'une invitation complète envoyée prématurément.",
+        "faqBody": "Oui. Au-delà de huit mois, sans occasion particulière, l’invité note la date et repousse sa réponse indéfiniment — vous perdez le bénéfice de l’anticipation et devrez relancer davantage. Si vous voulez communiquer tôt, un Save the Date remplit ce rôle mieux qu’une invitation complète envoyée prématurément.",
         "related": [
           "que-mettre-faire-part-mariage",
           "faire-part-mariage-digital",
@@ -711,37 +727,37 @@
       },
       "faire-part-mariage-digital": {
         "metaTitle": "Faire-part de mariage digital : le guide complet",
-        "metaDescription": "Comment fonctionne un faire-part de mariage digital : diffusion par lien, RSVP intégré, QR code, mises à jour. Ce qu'il apporte et ce qu'il ne remplace pas.",
+        "metaDescription": "Comment fonctionne un faire-part de mariage digital : diffusion par lien, RSVP intégré, QR code, mises à jour. Ce qu’il apporte et ce qu’il ne remplace pas.",
         "h1": "Le faire-part de mariage digital, en pratique",
-        "lede": "Un faire-part digital n'est pas une image de faire-part envoyée par message. C'est une page web à votre nom, qui s'ouvre depuis un lien, se déroule sur un téléphone, et réunit l'invitation et l'organisation au même endroit. Voici ce que ça change concrètement.",
+        "lede": "Un faire-part digital n’est pas une image de faire-part envoyée par message. C’est une page web à votre nom, qui s’ouvre depuis un lien, se déroule sur un téléphone, et réunit l’invitation et l’organisation au même endroit. Voici ce que ça change concrètement.",
         "sections": [
           {
-            "title": "Ce que c'est, techniquement",
-            "body": "Une page accessible depuis une adresse web unique. Vos invités reçoivent ce lien par message, ou le scannent depuis un QR code imprimé. Rien à télécharger, aucun compte à créer, aucune application : le navigateur du téléphone suffit. C'est la différence fondamentale avec un PDF ou une image — une page peut contenir des boutons, un formulaire, une carte, et être modifiée après l'envoi."
+            "title": "Ce que c’est, techniquement",
+            "body": "Une page accessible depuis une adresse web unique. Vos invités reçoivent ce lien par message, ou le scannent depuis un QR code imprimé. Rien à télécharger, aucun compte à créer, aucune application : le navigateur du téléphone suffit. C’est la différence fondamentale avec un PDF ou une image — une page peut contenir des boutons, un formulaire, une carte, et être modifiée après l’envoi."
           },
           {
             "title": "Pensé pour le téléphone, pas adapté au téléphone",
-            "body": "La quasi-totalité de vos invités ouvriront l'invitation sur un smartphone, souvent dans les secondes qui suivent la réception du message. Une mise en page conçue pour l'écran d'ordinateur puis rétrécie donne un texte illisible et des images tronquées. Nos trois collections sont dessinées d'abord au format mobile : la typographie, les marges et le rythme des sections sont calés sur un écran tenu à la main."
+            "body": "La quasi-totalité de vos invités ouvriront l’invitation sur un smartphone, souvent dans les secondes qui suivent la réception du message. Une mise en page conçue pour l’écran d’ordinateur puis rétrécie donne un texte illisible et des images tronquées. Nos trois collections sont dessinées d’abord au format mobile : la typographie, les marges et le rythme des sections sont calés sur un écran tenu à la main."
           },
           {
-            "title": "Le RSVP, intégré à l'invitation",
-            "body": "L'invité répond à l'endroit même où il consulte l'invitation, sans changer d'outil. Selon votre configuration, le formulaire peut recueillir la présence, un accompagnant, les enfants, un régime alimentaire, la présence au brunch ou au dîner de veille, et un message. Les réponses arrivent dans un espace unique où chaque invité porte un statut — confirmé, refusé, en attente — avec un filtre et un export si vous devez transmettre une liste à votre traiteur."
+            "title": "Le RSVP, intégré à l’invitation",
+            "body": "L’invité répond à l’endroit même où il consulte l’invitation, sans changer d’outil. Selon votre configuration, le formulaire peut recueillir la présence, un accompagnant, les enfants, un régime alimentaire, la présence au brunch ou au dîner de veille, et un message. Les réponses arrivent dans un espace unique où chaque invité porte un statut — confirmé, refusé, en attente — avec un filtre et un export si vous devez transmettre une liste à votre traiteur."
           },
           {
             "title": "Le QR code : le pont avec le papier",
-            "body": "Un QR code imprimé sur une carte, un Save the Date ou un panneau d'accueil ouvre l'invitation instantanément. C'est ce qui permet de garder un objet papier — l'émotion d'une enveloppe qu'on ouvre — sans y faire tenir toutes les informations pratiques. Votre espace The Studio génère le QR code de votre invitation, prêt à transmettre à votre imprimeur."
+            "body": "Un QR code imprimé sur une carte, un Save the Date ou un panneau d’accueil ouvre l’invitation instantanément. C’est ce qui permet de garder un objet papier — l’émotion d’une enveloppe qu’on ouvre — sans y faire tenir toutes les informations pratiques. Votre espace The Studio génère le QR code de votre invitation, prêt à transmettre à votre imprimeur."
           },
           {
             "title": "Une invitation qui se corrige",
-            "body": "C'est l'avantage que le papier ne rattrapera jamais. Un horaire qui bouge, une navette ajoutée, un hébergement complet, un changement de salle pour cause de pluie : vous modifiez le contenu, le lien reste identique, et vos invités voient la version à jour. Aucun second envoi, aucune information contradictoire en circulation."
+            "body": "C’est l’avantage que le papier ne rattrapera jamais. Un horaire qui bouge, une navette ajoutée, un hébergement complet, un changement de salle pour cause de pluie : vous modifiez le contenu, le lien reste identique, et vos invités voient la version à jour. Aucun second envoi, aucune information contradictoire en circulation."
           },
           {
-            "title": "Ce qu'un faire-part digital ne remplace pas",
-            "body": "Il ne remplace pas l'objet. Si vous tenez à ce que vos grands-parents aient une carte à afficher sur leur cheminée, imprimez une carte — avec un QR code renvoyant à l'invitation complète. Le digital gère l'information et l'organisation ; le papier porte le geste. Les deux se complètent mieux qu'ils ne se concurrencent."
+            "title": "Ce qu’un faire-part digital ne remplace pas",
+            "body": "Il ne remplace pas l’objet. Si vous tenez à ce que vos grands-parents aient une carte à afficher sur leur cheminée, imprimez une carte — avec un QR code renvoyant à l’invitation complète. Le digital gère l’information et l’organisation ; le papier porte le geste. Les deux se complètent mieux qu’ils ne se concurrencent."
           }
         ],
-        "faqTitle": "Et les invités peu à l'aise avec le numérique ?",
-        "faqBody": "L'invitation s'ouvre comme n'importe quelle page web depuis un lien reçu par SMS — c'est le geste le plus courant sur un téléphone, sans installation ni identifiant. Pour les cas délicats, la pratique la plus efficace reste une carte imprimée avec QR code, ou un appel : quelqu'un qui ne répondra pas à un formulaire ne répondait pas davantage à un carton-réponse.",
+        "faqTitle": "Et les invités peu à l’aise avec le numérique ?",
+        "faqBody": "L’invitation s’ouvre comme n’importe quelle page web depuis un lien reçu par SMS — c’est le geste le plus courant sur un téléphone, sans installation ni identifiant. Pour les cas délicats, la pratique la plus efficace reste une carte imprimée avec QR code, ou un appel : quelqu’un qui ne répondra pas à un formulaire ne répondait pas davantage à un carton-réponse.",
         "related": [
           "que-mettre-faire-part-mariage",
           "gerer-rsvp-mariage",
@@ -750,37 +766,37 @@
       },
       "gerer-rsvp-mariage": {
         "metaTitle": "Comment gérer les RSVP de son mariage sans tableur",
-        "metaDescription": "Suivre les réponses, les régimes alimentaires, les relances et le nombre définitif d'invités sans reconstruire un tableur à la main.",
+        "metaDescription": "Suivre les réponses, les régimes alimentaires, les relances et le nombre définitif d’invités sans reconstruire un tableur à la main.",
         "h1": "Gérer les RSVP de son mariage sans tableur",
-        "lede": "Le problème du RSVP n'est pas de recevoir les réponses : c'est de savoir, à un instant donné, qui n'a pas répondu et quelle information manque. Un tableur y arrive — au prix d'une saisie manuelle qui recommence à chaque message reçu.",
+        "lede": "Le problème du RSVP n’est pas de recevoir les réponses : c’est de savoir, à un instant donné, qui n’a pas répondu et quelle information manque. Un tableur y arrive — au prix d’une saisie manuelle qui recommence à chaque message reçu.",
         "sections": [
           {
             "title": "Pourquoi le tableur finit par lâcher",
-            "body": "Il ne lâche pas sur le principe, il lâche sur la mise à jour. Les réponses arrivent par WhatsApp, SMS, e-mail, au téléphone et de vive voix à un dîner. Chacune demande une saisie. Au bout de trois semaines, deux personnes tiennent deux versions du fichier, quelqu'un a répondu pour son conjoint, et personne ne sait si « Martin » est confirmé ou juste enthousiaste. L'erreur n'est pas d'utiliser un tableur, c'est d'y recopier à la main un flux qui arrive en continu."
+            "body": "Il ne lâche pas sur le principe, il lâche sur la mise à jour. Les réponses arrivent par WhatsApp, SMS, e-mail, au téléphone et de vive voix à un dîner. Chacune demande une saisie. Au bout de trois semaines, deux personnes tiennent deux versions du fichier, quelqu’un a répondu pour son conjoint, et personne ne sait si « Martin » est confirmé ou juste enthousiaste. L’erreur n’est pas d’utiliser un tableur, c’est d’y recopier à la main un flux qui arrive en continu."
           },
           {
-            "title": "Un point d'entrée unique",
-            "body": "La bascule utile est de faire répondre l'invité là où il consulte l'invitation, dans un formulaire. La réponse est enregistrée telle qu'il l'a saisie : son nom, sa présence, ses accompagnants, son régime alimentaire. Plus de retranscription, donc plus d'erreur de retranscription. Les réponses aux invitations The Studio arrivent directement dans votre espace mariés."
+            "title": "Un point d’entrée unique",
+            "body": "La bascule utile est de faire répondre l’invité là où il consulte l’invitation, dans un formulaire. La réponse est enregistrée telle qu’il l’a saisie : son nom, sa présence, ses accompagnants, son régime alimentaire. Plus de retranscription, donc plus d’erreur de retranscription. Les réponses aux invitations The Studio arrivent directement dans votre espace mariés."
           },
           {
             "title": "Les trois statuts qui comptent vraiment",
-            "body": "Confirmé, refusé, en attente. Le troisième est le seul qui demande une action, et c'est celui qu'un tableur rend invisible : une ligne vide ressemble à un oubli de saisie autant qu'à une absence de réponse. Votre espace RSVP filtre par statut, ce qui rend la question « qui reste-t-il à relancer ? » immédiate au lieu d'être une relecture."
+            "body": "Confirmé, refusé, en attente. Le troisième est le seul qui demande une action, et c’est celui qu’un tableur rend invisible : une ligne vide ressemble à un oubli de saisie autant qu’à une absence de réponse. Votre espace RSVP filtre par statut, ce qui rend la question « qui reste-t-il à relancer ? » immédiate au lieu d’être une relecture."
           },
           {
             "title": "Demander les informations utiles dès le premier passage",
-            "body": "Chaque information que vous ne collectez pas au moment du RSVP devra être redemandée individuellement plus tard. Les allergies et régimes alimentaires, le nombre exact d'adultes et d'enfants, la présence au brunch ou au dîner de veille, un besoin de navette : posées dans le formulaire, ces questions se répondent en même temps que la présence. Redemandées en avril à quarante personnes, elles occupent une soirée."
+            "body": "Chaque information que vous ne collectez pas au moment du RSVP devra être redemandée individuellement plus tard. Les allergies et régimes alimentaires, le nombre exact d’adultes et d’enfants, la présence au brunch ou au dîner de veille, un besoin de navette : posées dans le formulaire, ces questions se répondent en même temps que la présence. Redemandées en avril à quarante personnes, elles occupent une soirée."
           },
           {
             "title": "Relancer sans agacer",
-            "body": "Ne relancez que les invités en attente, et nommez-les. Un message groupé à cent personnes fait répondre ceux qui avaient déjà répondu et laisse indifférents les autres. Une fois la liste des non-répondants isolée, la relance devient une tâche de vingt minutes plutôt qu'un projet."
+            "body": "Ne relancez que les invités en attente, et nommez-les. Un message groupé à cent personnes fait répondre ceux qui avaient déjà répondu et laisse indifférents les autres. Une fois la liste des non-répondants isolée, la relance devient une tâche de vingt minutes plutôt qu’un projet."
           },
           {
             "title": "Réutiliser les réponses en aval",
-            "body": "Le RSVP n'est pas une fin : ses données alimentent le nombre définitif pour le traiteur, les régimes à transmettre en cuisine, les navettes à dimensionner, le plan de table. L'export de votre liste d'invités depuis votre espace évite de reconstruire à la main ce que vous avez déjà collecté."
+            "body": "Le RSVP n’est pas une fin : ses données alimentent le nombre définitif pour le traiteur, les régimes à transmettre en cuisine, les navettes à dimensionner, le plan de table. L’export de votre liste d’invités depuis votre espace évite de reconstruire à la main ce que vous avez déjà collecté."
           }
         ],
         "faqTitle": "Que faire des invités qui ne répondent jamais ?",
-        "faqBody": "Passez un appel, et considérez l'absence de réponse comme un refus à la date limite que vous avez annoncée. C'est la raison d'être de cette date : sans elle, vous attendez indéfiniment. Prévoyez la marge dans votre discussion avec le traiteur plutôt que dans vos nerfs.",
+        "faqBody": "Passez un appel, et considérez l’absence de réponse comme un refus à la date limite que vous avez annoncée. C’est la raison d’être de cette date : sans elle, vous attendez indéfiniment. Prévoyez la marge dans votre discussion avec le traiteur plutôt que dans vos nerfs.",
         "related": [
           "quand-envoyer-faire-part-mariage",
           "faire-part-mariage-digital",
@@ -791,19 +807,19 @@
         "metaTitle": "Textes de faire-part de mariage : 30 formulations modernes",
         "metaDescription": "Trente exemples de textes de faire-part de mariage, du plus sobre au plus direct, avec ce qui les fait fonctionner et comment les adapter.",
         "h1": "Trente textes de faire-part de mariage",
-        "lede": "Un bon texte de faire-part est court et sonne comme vous. Voici trente formulations classées par registre — à reprendre, à couper, à mélanger. Elles fonctionnent parce qu'aucune n'essaie d'avoir l'air solennelle.",
+        "lede": "Un bon texte de faire-part est court et sonne comme vous. Voici trente formulations classées par registre — à reprendre, à couper, à mélanger. Elles fonctionnent parce qu’aucune n’essaie d’avoir l’air solennelle.",
         "sections": [
           {
             "title": "Direct et contemporain",
-            "body": "« On s'est dit oui. Il ne manque plus que vous. » · « C'est officiel : on se marie. » · « Notre prochain chapitre commence, et vous en êtes. » · « Rendez-vous pour célébrer notre plus belle décision. » · « Après tout ce temps : oui. » · « On a une date. On a un lieu. On vous veut. » — Ce registre marche parce qu'il dit une seule chose. Résistez à l'envie d'ajouter une seconde phrase explicative."
+            "body": "« On s’est dit oui. Il ne manque plus que vous. » · « C’est officiel : on se marie. » · « Notre prochain chapitre commence, et vous en êtes. » · « Rendez-vous pour célébrer notre plus belle décision. » · « Après tout ce temps : oui. » · « On a une date. On a un lieu. On vous veut. » — Ce registre marche parce qu’il dit une seule chose. Résistez à l’envie d’ajouter une seconde phrase explicative."
           },
           {
             "title": "Sobre et élégant",
-            "body": "« Nous serions heureux de vous avoir à nos côtés. » · « Une promesse, une fête, un souvenir à créer ensemble. » · « Rejoignez-nous pour célébrer le début de notre vie à deux. » · « Nous nous marions, et nous aimerions que vous soyez là. » · « Le jour où nous nous dirons oui, nous voudrions vous voir. » · « Pour ce jour-là, votre présence compte. » — Le registre le plus sûr pour une invitation qui s'adresse à plusieurs générations."
+            "body": "« Nous serions heureux de vous avoir à nos côtés. » · « Une promesse, une fête, un souvenir à créer ensemble. » · « Rejoignez-nous pour célébrer le début de notre vie à deux. » · « Nous nous marions, et nous aimerions que vous soyez là. » · « Le jour où nous nous dirons oui, nous voudrions vous voir. » · « Pour ce jour-là, votre présence compte. » — Le registre le plus sûr pour une invitation qui s’adresse à plusieurs générations."
           },
           {
             "title": "Chaleureux et personnel",
-            "body": "« Vous avez compté dans notre histoire ; nous vous voulons dans ce chapitre. » · « Venez rire, danser et célébrer avec nous. » · « On aimerait fêter ça avec les gens qui comptent. Vous en êtes. » · « Il y aura de la musique, du monde, et beaucoup d'émotion. Venez. » · « Ce jour-là, on voudrait être entourés. De vous. » · « Une journée qu'on veut passer avec vous. » — À privilégier quand la liste d'invités est courte et que chaque nom compte."
+            "body": "« Vous avez compté dans notre histoire ; nous vous voulons dans ce chapitre. » · « Venez rire, danser et célébrer avec nous. » · « On aimerait fêter ça avec les gens qui comptent. Vous en êtes. » · « Il y aura de la musique, du monde, et beaucoup d’émotion. Venez. » · « Ce jour-là, on voudrait être entourés. De vous. » · « Une journée qu’on veut passer avec vous. » — À privilégier quand la liste d’invités est courte et que chaque nom compte."
           },
           {
             "title": "Minimaliste",
@@ -811,15 +827,15 @@
           },
           {
             "title": "Pensé pour une invitation digitale",
-            "body": "« Faites défiler, tout est là. » · « Votre invitation commence ici. » · « Le programme, le lieu, et votre réponse : en dessous. » · « Tout ce qu'il faut savoir, en une page. » · « Bienvenue dans notre journée. » · « Prenez trente secondes, on vous explique tout. » — Ces formulations tirent parti de ce qu'une page web permet : annoncer qu'il y a une suite, et guider vers la réponse."
+            "body": "« Faites défiler, tout est là. » · « Votre invitation commence ici. » · « Le programme, le lieu, et votre réponse : en dessous. » · « Tout ce qu’il faut savoir, en une page. » · « Bienvenue dans notre journée. » · « Prenez trente secondes, on vous explique tout. » — Ces formulations tirent parti de ce qu’une page web permet : annoncer qu’il y a une suite, et guider vers la réponse."
           },
           {
             "title": "Comment choisir et adapter",
-            "body": "Écrivez d'abord la phrase que vous diriez à un ami, sans y penser. Comparez-la aux exemples ci-dessus : la vôtre est probablement meilleure, juste un peu trop longue. Coupez le début. Vérifiez ensuite qu'elle fonctionne à voix haute et qu'elle ne prête pas à confusion sur qui se marie. Un dernier test : si le texte pourrait servir à n'importe quel couple, il est trop générique pour le vôtre."
+            "body": "Écrivez d’abord la phrase que vous diriez à un ami, sans y penser. Comparez-la aux exemples ci-dessus : la vôtre est probablement meilleure, juste un peu trop longue. Coupez le début. Vérifiez ensuite qu’elle fonctionne à voix haute et qu’elle ne prête pas à confusion sur qui se marie. Un dernier test : si le texte pourrait servir à n’importe quel couple, il est trop générique pour le vôtre."
           }
         ],
         "faqTitle": "Faut-il mentionner les parents dans le texte ?",
-        "faqBody": "C'est un usage traditionnel qui reste courant, et parfois attendu par les familles. Rien n'oblige à le faire figurer dans la phrase d'annonce : une invitation digitale permet de nommer les parents dans une section dédiée, ce qui satisfait l'usage sans alourdir l'accroche.",
+        "faqBody": "C’est un usage traditionnel qui reste courant, et parfois attendu par les familles. Rien n’oblige à le faire figurer dans la phrase d’annonce : une invitation digitale permet de nommer les parents dans une section dédiée, ce qui satisfait l’usage sans alourdir l’accroche.",
         "related": [
           "que-mettre-faire-part-mariage",
           "faire-part-mariage-digital",
@@ -841,35 +857,35 @@
         "metaDescription": "Un faire-part de mariage digital conçu comme une expérience : trois collections, RSVP intégré, QR code et toutes les informations de votre mariage au même endroit.",
         "eyebrow": "Faire-part de mariage digital",
         "h1": "Le faire-part de mariage digital, par The Studio",
-        "lede": "Une page web à votre nom, qui s'ouvre depuis un lien et réunit l'invitation, le programme et les réponses de vos invités. Trois collections, un paiement unique, aucun abonnement.",
+        "lede": "Une page web à votre nom, qui s’ouvre depuis un lien et réunit l’invitation, le programme et les réponses de vos invités. Trois collections, un paiement unique, aucun abonnement.",
         "sections": [
           {
             "title": "Une invitation, pas un fichier",
-            "body": "Vos invités reçoivent un lien par message, ou scannent un QR code imprimé. L'invitation s'ouvre dans leur navigateur : rien à télécharger, aucun compte à créer, aucune application. C'est ce qui la distingue d'une image ou d'un PDF — une page peut contenir un formulaire, une carte, un compte à rebours, et être modifiée après l'envoi sans que le lien change."
+            "body": "Vos invités reçoivent un lien par message, ou scannent un QR code imprimé. L’invitation s’ouvre dans leur navigateur : rien à télécharger, aucun compte à créer, aucune application. C’est ce qui la distingue d’une image ou d’un PDF — une page peut contenir un formulaire, une carte, un compte à rebours, et être modifiée après l’envoi sans que le lien change."
           },
           {
             "title": "Trois collections, pas un gabarit",
-            "body": "Ciao Amore emprunte à la côte amalfitaine — jaune franc, vert olive, pastels lavés par le soleil. Blanc Couture est la collection du presque rien : du blanc, un or fin, beaucoup d'air. Belle Rive est la plus généreuse, nacre et feuilles d'olivier, faite pour les mariages qui durent plusieurs jours. Chacune se visite en démo interactive, avec de vrais contenus, avant que vous choisissiez."
+            "body": "Ciao Amore emprunte à la côte amalfitaine — jaune franc, vert olive, pastels lavés par le soleil. Blanc Couture est la collection du presque rien : du blanc, un or fin, beaucoup d’air. Belle Rive est la plus généreuse, nacre et feuilles d’olivier, faite pour les mariages qui durent plusieurs jours. Chacune se visite en démo interactive, avec de vrais contenus, avant que vous choisissiez."
           },
           {
             "title": "Ce que le formulaire RSVP peut vous demander",
-            "body": "Vous décidez des questions : accompagnant, enfants, régime alimentaire, présence au brunch du lendemain ou au dîner de veille, besoin de transport, message libre. Un mariage adults-only n'affiche aucun champ enfant — pas un champ désactivé, aucun champ. Les réponses arrivent dans votre espace mariés, filtrables par statut et exportables pour votre traiteur."
+            "body": "Vous décidez des questions : accompagnant, enfants, régime alimentaire, présence au brunch du lendemain ou au dîner de veille, besoin de transport, message libre. Un mariage adults-only n’affiche aucun champ enfant — pas un champ désactivé, aucun champ. Les réponses arrivent dans votre espace mariés, filtrables par statut et exportables pour votre traiteur."
           },
           {
             "title": "Les modules que votre mariage demande",
-            "body": "Compte à rebours, programme heure par heure, lieu et itinéraire, dress code, hébergements, transport, menu, playlist alimentée par vos invités, livre d'or, liste de cadeaux, galerie photo, questions fréquentes. Chacun devient une section de l'invitation, et vous ne prenez que ceux qui servent votre journée."
+            "body": "Compte à rebours, programme heure par heure, lieu et itinéraire, dress code, hébergements, transport, menu, playlist alimentée par vos invités, livre d’or, liste de cadeaux, galerie photo, questions fréquentes. Chacun devient une section de l’invitation, et vous ne prenez que ceux qui servent votre journée."
           },
           {
             "title": "Modifiable depuis votre espace mariés",
-            "body": "Après l'envoi, vous gardez la main sur le contenu depuis votre espace : les horaires, les hébergements, le dress code, les questions fréquentes. Le lien de l'invitation ne change pas, donc rien à renvoyer à personne. C'est la raison pour laquelle vos invités y retournent la semaine du mariage plutôt que de vous écrire."
+            "body": "Après l’envoi, vous gardez la main sur le contenu depuis votre espace : les horaires, les hébergements, le dress code, les questions fréquentes. Le lien de l’invitation ne change pas, donc rien à renvoyer à personne. C’est la raison pour laquelle vos invités y retournent la semaine du mariage plutôt que de vous écrire."
           },
           {
             "title": "Un paiement unique",
-            "body": "Vous choisissez votre formule au moment de créer votre invitation, et c'est un paiement unique — aucun abonnement mensuel pour continuer à l'utiliser pendant sa période de mise en ligne. Trois niveaux, du modèle personnalisé à la création entièrement sur-mesure."
+            "body": "Vous choisissez votre formule au moment de créer votre invitation, et c’est un paiement unique — aucun abonnement mensuel pour continuer à l’utiliser pendant sa période de mise en ligne. Trois niveaux, du modèle personnalisé à la création entièrement sur-mesure."
           }
         ],
-        "faqTitle": "Et si l'on veut garder du papier ?",
-        "faqBody": "Les deux se complètent mieux qu'ils ne se concurrencent. Une carte imprimée portant un QR code garde le geste — l'enveloppe qu'on ouvre — et renvoie vers l'invitation complète pour tout ce qui est pratique. Votre espace génère le QR code de votre invitation, prêt à transmettre à votre imprimeur.",
+        "faqTitle": "Et si l’on veut garder du papier ?",
+        "faqBody": "Les deux se complètent mieux qu’ils ne se concurrencent. Une carte imprimée portant un QR code garde le geste — l’enveloppe qu’on ouvre — et renvoie vers l’invitation complète pour tout ce qui est pratique. Votre espace génère le QR code de votre invitation, prêt à transmettre à votre imprimeur.",
         "ctaTitle": "Voir les collections",
         "ctaBody": "Trois univers, de la dolce vita italienne au minimalisme couture. Chacun se visite en démo interactive avant de choisir."
       },
@@ -881,8 +897,8 @@
         "lede": "Vos invités répondent là où ils consultent votre invitation. Vous récupérez les réponses réunies, avec un statut par invité et les informations dont votre traiteur aura besoin.",
         "sections": [
           {
-            "title": "Répondre sans quitter l'invitation",
-            "body": "L'invité fait défiler l'invitation, arrive au RSVP et répond. Pas de lien vers un autre outil, pas de formulaire à retrouver dans une conversation, pas de compte à créer. C'est ce parcours court qui fait la différence sur le taux de réponse : chaque étape supplémentaire est une occasion de reporter à plus tard."
+            "title": "Répondre sans quitter l’invitation",
+            "body": "L’invité fait défiler l’invitation, arrive au RSVP et répond. Pas de lien vers un autre outil, pas de formulaire à retrouver dans une conversation, pas de compte à créer. C’est ce parcours court qui fait la différence sur le taux de réponse : chaque étape supplémentaire est une occasion de reporter à plus tard."
           },
           {
             "title": "Les questions que vous choisissez",
@@ -890,28 +906,28 @@
           },
           {
             "title": "Trois statuts, et un seul qui demande une action",
-            "body": "Confirmé, refusé, en attente. Le troisième est le seul sur lequel vous avez du travail, et c'est celui qu'un tableur rend invisible — une ligne vide ressemble autant à un oubli de saisie qu'à une absence de réponse. Votre espace filtre par statut : la question « qui reste-t-il à relancer ? » devient immédiate."
+            "body": "Confirmé, refusé, en attente. Le troisième est le seul sur lequel vous avez du travail, et c’est celui qu’un tableur rend invisible — une ligne vide ressemble autant à un oubli de saisie qu’à une absence de réponse. Votre espace filtre par statut : la question « qui reste-t-il à relancer ? » devient immédiate."
           },
           {
             "title": "Des relances ciblées",
             "body": "Relancer tout le monde fait répondre ceux qui avaient déjà répondu et laisse les autres indifférents. Une fois la liste des invités en attente isolée, la relance devient une tâche de vingt minutes, nominative, et donc efficace."
           },
           {
-            "title": "Vos invités s'inscrivent, vous ne saisissez rien",
-            "body": "La réponse est enregistrée telle que l'invité l'a écrite : son nom, ses accompagnants, son régime. Vous ne retranscrivez rien, donc vous n'introduisez aucune erreur de retranscription — c'est le principal défaut du suivi manuel, et il disparaît. Votre espace mariés affiche la liste à jour en permanence, sans que personne ait à tenir un fichier."
+            "title": "Vos invités s’inscrivent, vous ne saisissez rien",
+            "body": "La réponse est enregistrée telle que l’invité l’a écrite : son nom, ses accompagnants, son régime. Vous ne retranscrivez rien, donc vous n’introduisez aucune erreur de retranscription — c’est le principal défaut du suivi manuel, et il disparaît. Votre espace mariés affiche la liste à jour en permanence, sans que personne ait à tenir un fichier."
           },
           {
             "title": "Un QR code pour y accéder",
-            "body": "Le RSVP s'ouvre aussi depuis un QR code imprimé, sur un Save the Date, une carte ou un panneau d'accueil. L'invité scanne, l'invitation s'ouvre, il répond. C'est le chemin le plus court entre un support papier et une réponse enregistrée."
+            "body": "Le RSVP s’ouvre aussi depuis un QR code imprimé, sur un Save the Date, une carte ou un panneau d’accueil. L’invité scanne, l’invitation s’ouvre, il répond. C’est le chemin le plus court entre un support papier et une réponse enregistrée."
           }
         ],
         "faqTitle": "Que faire des invités qui ne répondent jamais ?",
-        "faqBody": "Passez un appel, et traitez l'absence de réponse comme un refus à la date limite que vous avez annoncée. C'est la raison d'être de cette date : sans elle, vous attendez indéfiniment. Prévoyez la marge dans votre discussion avec le traiteur plutôt que dans vos nerfs.",
+        "faqBody": "Passez un appel, et traitez l’absence de réponse comme un refus à la date limite que vous avez annoncée. C’est la raison d’être de cette date : sans elle, vous attendez indéfiniment. Prévoyez la marge dans votre discussion avec le traiteur plutôt que dans vos nerfs.",
         "ctaTitle": "Créer votre invitation",
         "ctaBody": "Le RSVP est intégré à chacune des trois collections. Choisissez votre univers, configurez vos questions, envoyez le lien."
       },
       "tarifs": {
-        "metaTitle": "Prix d'un faire-part de mariage digital | Tarifs The Studio",
+        "metaTitle": "Prix d’un faire-part de mariage digital | Tarifs The Studio",
         "metaDescription": "Trois formules de faire-part de mariage digital, de 199 € à 499 €. Paiement unique, sans abonnement. Ce que comprend chaque niveau de personnalisation.",
         "eyebrow": "Nos formules",
         "h1": "Combien coûte un faire-part de mariage digital ?",
@@ -919,15 +935,15 @@
         "sections": [
           {
             "title": "Ce qui fait varier le prix",
-            "body": "Pas le nombre d'invités : une invitation digitale coûte le même prix pour cinquante ou trois cents personnes, contrairement à l'impression papier où chaque carte s'ajoute. Ce qui fait varier le tarif, c'est le niveau de personnalisation — partir d'une de nos collections, ou faire dessiner une identité graphique autour de votre mariage."
+            "body": "Pas le nombre d’invités : une invitation digitale coûte le même prix pour cinquante ou trois cents personnes, contrairement à l’impression papier où chaque carte s’ajoute. Ce qui fait varier le tarif, c’est le niveau de personnalisation — partir d’une de nos collections, ou faire dessiner une identité graphique autour de votre mariage."
           },
           {
             "title": "Ce que le digital remplace",
-            "body": "Un budget papier additionne les cartes, les enveloppes, les timbres, les cartons-réponse, les cartes d'information et les réimpressions quand une date bouge. Une invitation digitale réunit l'annonce, le programme, les informations pratiques et le suivi des réponses dans un seul poste — c'est cette comparaison-là qui compte, pas le prix d'une carte contre le prix d'une page."
+            "body": "Un budget papier additionne les cartes, les enveloppes, les timbres, les cartons-réponse, les cartes d’information et les réimpressions quand une date bouge. Une invitation digitale réunit l’annonce, le programme, les informations pratiques et le suivi des réponses dans un seul poste — c’est cette comparaison-là qui compte, pas le prix d’une carte contre le prix d’une page."
           },
           {
             "title": "Ce qui est inclus dans toutes les formules",
-            "body": "Une invitation dessinée pour le téléphone, un RSVP intégré, les modules dont votre journée a besoin, un QR code à imprimer, et la possibilité de corriger le contenu après l'envoi sans changer le lien. La différence entre les formules porte sur la personnalisation, pas sur le fonctionnement."
+            "body": "Une invitation dessinée pour le téléphone, un RSVP intégré, les modules dont votre journée a besoin, un QR code à imprimer, et la possibilité de corriger le contenu après l’envoi sans changer le lien. La différence entre les formules porte sur la personnalisation, pas sur le fonctionnement."
           }
         ],
         "plansTitle": "Les trois formules",
@@ -941,7 +957,7 @@
   },
   "FinalCta": {
     "titleLine1": "Le lieu est choisi. Le traiteur aussi.",
-    "titleAccent": "Il ne reste plus qu'à annoncer la nouvelle.",
+    "titleAccent": "Il ne reste plus qu’à annoncer la nouvelle.",
     "createButton": "Créer mon faire-part"
   },
   "MobileMenu": {
@@ -957,7 +973,8 @@
       "Sur-mesure",
       "Espace mariés",
       "Jour J",
-      "FAQ"
+      "FAQ",
+      "Contact"
     ],
     "mariesLinks": [
       "Se connecter"
@@ -970,18 +987,18 @@
   "ThemeConfigSheet": {
     "ariaLabel": "Configurer le thème {name}",
     "closeAriaLabel": "Fermer",
-    "titlePrefix": "L'invitation",
+    "titlePrefix": "L’invitation",
     "modulesTitle": "Modules optionnels",
     "modules": {
-      "guestbook": "Livre d'or",
+      "guestbook": "Livre d’or",
       "planning": "Programme",
       "menu": "Menu",
       "rsvp": "RSVP",
       "accommodation": "Hébergements",
       "gallery": "Galerie photos"
     },
-    "openingStyleTitle": "Style d'ouverture",
-    "openingStyleSubtitle": "Sélectionnez l'animation qui s'affiche à l'ouverture de l'invitation — une lettre s'ouvre, révélant votre faire-part.",
+    "openingStyleTitle": "Style d’ouverture",
+    "openingStyleSubtitle": "Sélectionnez l’animation qui s’affiche à l’ouverture de l’invitation — une lettre s’ouvre, révélant votre faire-part.",
     "openingStyles": {
       "envelope": "Enveloppe",
       "door": "Porte",
@@ -994,15 +1011,15 @@
     "validateButton": "Valider mon invitation",
     "saveButton": "Sauvegarder et continuer plus tard",
     "themeDescriptions": {
-      "ciao-amore": "Plongez vos invités dans l'atmosphère solaire de la côte italienne. Votre faire-part s'anime comme une lettre reçue d'Amalfi — soleil, dolce far niente et élégance.",
+      "ciao-amore": "Plongez vos invités dans l’atmosphère solaire de la côte italienne. Votre faire-part s’anime comme une lettre reçue d’Amalfi — soleil, dolce far niente et élégance.",
       "blanc-couture": "Offrez à vos invités une entrée en matière couture. Votre faire-part se dévoile comme un écrin de papier blanc — lignes pures, reliefs délicats et raffinement absolu.",
-      "belle-rive": "Invitez vos convives au bord de l'eau. Votre faire-part s'ouvre comme une brise marine — douceur végétale, lumière tamisée et sérénité."
+      "belle-rive": "Invitez vos convives au bord de l’eau. Votre faire-part s’ouvre comme une brise marine — douceur végétale, lumière tamisée et sérénité."
     }
   },
   "StudioStart": {
     "titlePrefix": "Créons votre invitation",
     "titleHighlight": "ensemble",
-    "subtitle": "Quelques informations suffisent. On s'occupe du reste.",
+    "subtitle": "Quelques informations suffisent. On s’occupe du reste.",
     "offerLabel": "Votre offre",
     "recommended": "Recommandé",
     "premiumTitle": "Premium",
@@ -1036,7 +1053,7 @@
     "emailLabel": "Adresse email",
     "emailPlaceholder": "sophie@exemple.fr",
     "emailChecking": "Vérification…",
-    "submitButton": "C'est parti !",
+    "submitButton": "C’est parti !",
     "months": [
       "Janvier",
       "Février",
@@ -1062,7 +1079,7 @@
     "menuAriaLabel": "Ouvrir le menu"
   },
   "StudioTheme": {
-    "titlePrefix": "L'ambiance de votre ",
+    "titlePrefix": "L’ambiance de votre ",
     "titleHighlight": "Mariage",
     "subtitle": "Prévisualisez en plein écran avant de choisir.",
     "viewDemo": "Voir la démo",
@@ -1072,11 +1089,10 @@
   "StudioModules": {
     "titlePrefix": "Vos ",
     "titleHighlight": "fonctionnalités",
-    "subtitlePremium": "Tous les modules sont inclus dans votre offre.",
-    "subtitleEssential": "Choisissez au minimum 4 modules. +5€ par module supplémentaire.",
+    "subtitleEssential": "{included} modules inclus, puis {price}€ par module supplémentaire.",
     "noneSelected": "Aucun module sélectionné",
-    "selectAtLeast": "Sélectionnez au moins 4 modules",
-    "minCount": "{count} / 4 modules minimum",
+    "selectAtLeast": "Sélectionnez au moins {min} modules",
+    "minCount": "{count} / {min} modules minimum",
     "countSelected": "{count} sélectionné(s)",
     "included": "inclus",
     "catalog": {
@@ -1085,7 +1101,7 @@
         "description": "Le décompte avant le jour J"
       },
       "intro-video": {
-        "name": "Vidéo d'Intro",
+        "name": "Vidéo d’Intro",
         "description": "Message vidéo personnalisé"
       },
       "timeline": {
@@ -1106,7 +1122,7 @@
       },
       "accommodation": {
         "name": "Hébergement",
-        "description": "Suggestions d'hôtels à proximité"
+        "description": "Suggestions d’hôtels à proximité"
       },
       "transport": {
         "name": "Transport",
@@ -1129,18 +1145,21 @@
         "description": "Suggestions musicales"
       },
       "guestbook": {
-        "name": "Livre d'Or",
+        "name": "Livre d’Or",
         "description": "Messages des invités"
       },
       "video-guestbook": {
-        "name": "Livre d'Or Vidéo",
+        "name": "Livre d’Or Vidéo",
         "description": "Messages vidéo des invités"
       },
       "faq": {
         "name": "FAQ / Pratique",
         "description": "Infos pratiques pour les invités"
       }
-    }
+    },
+    "subtitleUnlimited": "Modules illimités : tout ce que vous sélectionnez est inclus.",
+    "subtitlePrestige": "Votre formule est une création sur-mesure. Sélectionnez les modules que vous souhaitez, sans limite.",
+    "unlimited": "illimités"
   },
   "StudioOptions": {
     "titlePrefix": "Options ",
@@ -1172,7 +1191,7 @@
     "total": "Total",
     "payButton": "Payer {amount}€",
     "processing": "Traitement…",
-    "acceptTerms": "J'accepte les",
+    "acceptTerms": "J’accepte les",
     "cgv": "Conditions Générales de Vente",
     "and": "et la",
     "privacy": "politique de confidentialité",
@@ -1183,17 +1202,21 @@
     "creatingAccount": "Création de votre espace…",
     "magicLinkNote": "Vous recevrez un lien de connexion par email — aucun mot de passe à retenir.",
     "provisionFailedTitle": "Paiement reçu, création en attente",
-    "provisionFailedBody": "Votre paiement est bien enregistré — vous ne serez pas débité une seconde fois. La création de votre espace n'a pas abouti, mais rien n'est perdu.",
+    "provisionFailedBody": "Votre paiement est bien enregistré — vous ne serez pas débité une seconde fois. La création de votre espace n’a pas abouti, mais rien n’est perdu.",
     "provisionRetry": "Réessayer la création",
     "provisionRetrying": "Nouvelle tentative…",
     "paymentReference": "Référence de paiement",
     "paymentReferenceHint": "Conservez cette référence : elle nous permet de retrouver votre commande.",
     "contactSupport": "Contacter le support",
     "reassurePaid": "Votre paiement est sécurisé",
-    "errorDetails": "Détail technique"
+    "errorDetails": "Détail technique",
+    "orderCompleteTitle": "Votre commande est finalisée",
+    "orderCompleteBody": "Votre invitation a déjà été créée. Retrouvez-la dans votre espace pour la personnaliser.",
+    "orderCompleteCta": "Accéder à mon espace",
+    "orderCompleteHint": "Vous souhaitez une seconde invitation ? Contactez-nous, nous la créerons pour vous."
   },
   "Legal": {
-    "backHome": "Retour à l'accueil",
+    "backHome": "Retour à l’accueil",
     "lastUpdated": "Dernière mise à jour : {date}",
     "Cgv": {
       "metaTitle": "Conditions Générales de Vente",
@@ -1203,47 +1226,47 @@
           "heading": "1. Objet",
           "paragraphs": [
             "Les présentes conditions générales de vente (ci-après les \"CGV\") régissent les relations contractuelles entre [Raison sociale à compléter], [forme juridique à compléter] au capital de [montant à compléter] euros, immatriculée au RCS de [ville à compléter] sous le numéro [SIRET à compléter], dont le siège social est situé [adresse à compléter] (ci-après \"The Studio Digital Papeterie\" ou \"le Vendeur\"), et toute personne physique ou morale souhaitant procéder à un achat via le site (ci-après le \"Client\").",
-            "Toute commande passée sur le site implique l'acceptation sans réserve des présentes CGV par le Client."
+            "Toute commande passée sur le site implique l’acceptation sans réserve des présentes CGV par le Client."
           ]
         },
         {
           "heading": "2. Services proposés",
           "paragraphs": [
-            "The Studio Digital Papeterie propose un service de création de faire-part de mariage digitaux personnalisables (le \"Service\"), incluant la mise à disposition d'un configurateur en ligne, la génération d'un site d'invitation dédié et, selon la formule choisie, d'un espace de gestion post-achat (tableau de bord) permettant notamment le suivi des réponses des invités (RSVP)."
+            "The Studio Digital Papeterie propose un service de création de faire-part de mariage digitaux personnalisables (le \"Service\"), incluant la mise à disposition d’un configurateur en ligne, la génération d’un site d’invitation dédié et, selon la formule choisie, d’un espace de gestion post-achat (tableau de bord) permettant notamment le suivi des réponses des invités (RSVP)."
           ]
         },
         {
           "heading": "3. Prix et paiement",
           "paragraphs": [
             "Les prix des Services sont indiqués en euros, toutes taxes comprises (TTC), au moment de la commande. The Studio Digital Papeterie se réserve le droit de modifier ses prix à tout moment, étant entendu que le prix figurant sur le site au jour de la commande sera le seul applicable au Client.",
-            "Le paiement s'effectue en ligne, au moment de la commande, par carte bancaire via notre prestataire de paiement sécurisé Stripe. The Studio Digital Papeterie ne stocke aucune donnée bancaire ; celles-ci sont traitées directement par Stripe conformément à la norme PCI-DSS.",
-            "La commande n'est considérée comme définitive qu'après confirmation du paiement par Stripe et envoi d'un e-mail de confirmation au Client."
+            "Le paiement s’effectue en ligne, au moment de la commande, par carte bancaire via notre prestataire de paiement sécurisé Stripe. The Studio Digital Papeterie ne stocke aucune donnée bancaire ; celles-ci sont traitées directement par Stripe conformément à la norme PCI-DSS.",
+            "La commande n’est considérée comme définitive qu’après confirmation du paiement par Stripe et envoi d’un e-mail de confirmation au Client."
           ]
         },
         {
           "heading": "4. Droit de rétractation",
           "paragraphs": [
-            "Conformément à l'article L221-28 du Code de la consommation, le droit de rétractation ne peut être exercé pour les contrats de fourniture de contenu numérique non fourni sur un support matériel dont l'exécution a commencé après accord préalable exprès du consommateur et renoncement exprès à son droit de rétractation.",
-            "En validant sa commande et en accédant immédiatement au configurateur ou à son site d'invitation, le Client reconnaît expressément demander l'exécution immédiate du Service et renoncer à son droit de rétractation."
+            "Conformément à l’article L221-28 du Code de la consommation, le droit de rétractation ne peut être exercé pour les contrats de fourniture de contenu numérique non fourni sur un support matériel dont l’exécution a commencé après accord préalable exprès du consommateur et renoncement exprès à son droit de rétractation.",
+            "En validant sa commande et en accédant immédiatement au configurateur ou à son site d’invitation, le Client reconnaît expressément demander l’exécution immédiate du Service et renoncer à son droit de rétractation."
           ]
         },
         {
           "heading": "5. Durée et résiliation",
           "paragraphs": [
-            "L'accès au site d'invitation et, le cas échéant, au tableau de bord est fourni pour la durée précisée dans l'offre souscrite par le Client au moment de l'achat. À l'issue de cette durée, l'accès pourra être suspendu ou l'offre reconduite selon les modalités communiquées au Client avant l'expiration."
+            "L’accès au site d’invitation et, le cas échéant, au tableau de bord est fourni pour la durée précisée dans l’offre souscrite par le Client au moment de l’achat. À l’issue de cette durée, l’accès pourra être suspendu ou l’offre reconduite selon les modalités communiquées au Client avant l’expiration."
           ]
         },
         {
           "heading": "6. Responsabilité",
           "paragraphs": [
-            "The Studio Digital Papeterie s'engage à mettre en œuvre tous les moyens raisonnables pour assurer un accès continu et sécurisé au Service, sans garantie d'absence totale d'interruption, notamment en cas de maintenance, de panne ou de cas de force majeure.",
-            "The Studio Digital Papeterie ne saurait être tenue responsable du contenu (textes, images, informations) fourni par le Client dans le cadre de la personnalisation de son faire-part ou de son site d'invitation."
+            "The Studio Digital Papeterie s’engage à mettre en œuvre tous les moyens raisonnables pour assurer un accès continu et sécurisé au Service, sans garantie d’absence totale d’interruption, notamment en cas de maintenance, de panne ou de cas de force majeure.",
+            "The Studio Digital Papeterie ne saurait être tenue responsable du contenu (textes, images, informations) fourni par le Client dans le cadre de la personnalisation de son faire-part ou de son site d’invitation."
           ]
         },
         {
           "heading": "7. Propriété intellectuelle",
           "paragraphs": [
-            "Les modèles, thèmes graphiques, textes, animations et éléments visuels proposés par The Studio Digital Papeterie restent la propriété exclusive de The Studio Digital Papeterie ou de ses partenaires. Le Client bénéficie d'un droit d'usage limité à la création de son faire-part et de son site d'invitation personnel, à l'exclusion de toute exploitation commerciale ou revente."
+            "Les modèles, thèmes graphiques, textes, animations et éléments visuels proposés par The Studio Digital Papeterie restent la propriété exclusive de The Studio Digital Papeterie ou de ses partenaires. Le Client bénéficie d’un droit d’usage limité à la création de son faire-part et de son site d’invitation personnel, à l’exclusion de toute exploitation commerciale ou revente."
           ]
         },
         {
@@ -1255,7 +1278,7 @@
         {
           "heading": "9. Droit applicable et litiges",
           "paragraphs": [
-            "Les présentes CGV sont soumises au droit français. En cas de litige, une solution amiable sera recherchée avant toute action judiciaire. À défaut d'accord amiable, les tribunaux français seront seuls compétents.",
+            "Les présentes CGV sont soumises au droit français. En cas de litige, une solution amiable sera recherchée avant toute action judiciaire. À défaut d’accord amiable, les tribunaux français seront seuls compétents.",
             "Contact : [email de contact à compléter]"
           ]
         }
@@ -1268,31 +1291,32 @@
         {
           "heading": "1. Responsable du traitement",
           "paragraphs": [
-            "Le responsable du traitement des données personnelles collectées sur ce site est [Raison sociale à compléter], dont le siège social est situé [adresse à compléter], joignable à l'adresse [email de contact à compléter] (ci-après \"The Studio Digital Papeterie\")."
+            "Le responsable du traitement des données personnelles collectées sur ce site est [Raison sociale à compléter], dont le siège social est situé [adresse à compléter], joignable à l’adresse [email de contact à compléter] (ci-après \"The Studio Digital Papeterie\")."
           ]
         },
         {
           "heading": "2. Données collectées",
           "paragraphs": [
-            "Dans le cadre de l'utilisation du Service, nous collectons notamment : les données d'identification et de contact du Client (nom, prénom, adresse e-mail) ; les informations relatives au mariage et aux invités saisies dans le configurateur et le tableau de bord (noms des invités, foyers, tables, réponses RSVP, régimes alimentaires, messages) ; les données de paiement, traitées exclusivement par notre prestataire Stripe ; les données de navigation techniques (cookies, adresse IP, journaux de connexion)."
+            "Dans le cadre de l’utilisation du Service, nous collectons notamment : les données d’identification et de contact du Client (nom, prénom, adresse e-mail) ; les informations relatives au mariage et aux invités saisies dans le configurateur et le tableau de bord (noms des invités, foyers, tables, réponses RSVP, régimes alimentaires, messages) ; les données de paiement, traitées exclusivement par notre prestataire Stripe ; les données de navigation techniques (cookies, adresse IP, journaux de connexion). Lorsque vous utilisez le formulaire de contact, nous collectons les informations que vous y saisissez : prénom, nom, adresse e-mail, ainsi que, si vous les renseignez, la date et le lieu de votre mariage, le nombre approximatif d’invités, la collection qui vous intéresse, l’avancement de votre projet et le contenu de votre message. La date de votre consentement est également enregistrée."
           ]
         },
         {
           "heading": "3. Finalités du traitement",
           "paragraphs": [
-            "Ces données sont collectées afin de : fournir et personnaliser le Service (création du faire-part et du site d'invitation) ; gérer la relation contractuelle et le paiement de la commande ; permettre la collecte et la gestion des réponses des invités (RSVP) pour le compte du Client ; assurer le support client ; respecter nos obligations légales et comptables."
+            "Ces données sont collectées afin de : fournir et personnaliser le Service (création du faire-part et du site d’invitation) ; gérer la relation contractuelle et le paiement de la commande ; permettre la collecte et la gestion des réponses des invités (RSVP) pour le compte du Client ; assurer le support client ; respecter nos obligations légales et comptables."
           ]
         },
         {
           "heading": "4. Base légale",
           "paragraphs": [
-            "Les traitements reposent selon les cas sur l'exécution du contrat conclu avec le Client, sur le consentement (notamment pour les cookies non essentiels) ou sur le respect d'une obligation légale."
+            "Les traitements reposent selon les cas sur l’exécution du contrat conclu avec le Client, sur le consentement (notamment pour les cookies non essentiels) ou sur le respect d’une obligation légale."
           ]
         },
         {
           "heading": "5. Hébergement et sous-traitants",
           "paragraphs": [
-            "Les données sont hébergées par Supabase (base de données et authentification) et les paiements sont traités par Stripe. Ces prestataires sont susceptibles de traiter des données en dehors de l'Union européenne, dans le cadre de garanties appropriées (clauses contractuelles types ou équivalent).",
+            "Les données sont hébergées par Supabase (base de données et authentification) et les paiements sont traités par Stripe. Ces prestataires sont susceptibles de traiter des données en dehors de l’Union européenne, dans le cadre de garanties appropriées (clauses contractuelles types ou équivalent).",
+            "Les messages envoyés via le formulaire de contact nous sont transmis par e-mail via notre prestataire d’envoi Resend.",
             "Hébergeur du site : [hébergeur à compléter]."
           ]
         },
@@ -1305,55 +1329,369 @@
         {
           "heading": "7. Partage des données",
           "paragraphs": [
-            "Les données des invités saisies par le Client (réponses RSVP notamment) sont visibles par le Client dans son tableau de bord. Elles ne sont ni vendues, ni cédées à des tiers à des fins commerciales. Elles peuvent être communiquées à nos sous-traitants techniques (hébergement, paiement) dans la stricte mesure nécessaire à l'exécution du Service."
+            "Les données des invités saisies par le Client (réponses RSVP notamment) sont visibles par le Client dans son tableau de bord. Elles ne sont ni vendues, ni cédées à des tiers à des fins commerciales. Elles peuvent être communiquées à nos sous-traitants techniques (hébergement, paiement) dans la stricte mesure nécessaire à l’exécution du Service."
           ]
         },
         {
           "heading": "8. Cookies",
           "paragraphs": [
-            "Le site utilise des cookies strictement nécessaires à son fonctionnement ainsi que, le cas échéant, des cookies de mesure d'audience soumis au consentement du visiteur, gérable via le bandeau de gestion des cookies présent sur le site."
+            "Le site utilise des cookies strictement nécessaires à son fonctionnement, qui ne requièrent pas votre consentement. Il peut également déposer, uniquement après votre accord, des cookies de mesure d’audience et de publicité destinés à comprendre la fréquentation du site et à en mesurer les campagnes. Aucun cookie non essentiel n’est déposé avant que vous ayez fait votre choix. Vous pouvez accepter ou refuser ces cookies via la fenêtre de consentement affichée lors de votre première visite, et modifier votre choix à tout moment via le lien \"Gérer les cookies\" présent en pied de page."
           ]
         },
         {
           "heading": "9. Droits des personnes",
           "paragraphs": [
-            "Conformément au Règlement Général sur la Protection des Données (RGPD) et à la loi Informatique et Libertés, toute personne dispose d'un droit d'accès, de rectification, d'effacement, de limitation, d'opposition et de portabilité de ses données, ainsi que du droit d'introduire une réclamation auprès de la CNIL (www.cnil.fr).",
+            "Conformément au Règlement Général sur la Protection des Données (RGPD) et à la loi Informatique et Libertés, toute personne dispose d’un droit d’accès, de rectification, d’effacement, de limitation, d’opposition et de portabilité de ses données, ainsi que du droit d’introduire une réclamation auprès de la CNIL (www.cnil.fr).",
             "Ces droits peuvent être exercés en écrivant à [email de contact à compléter]."
           ]
         },
         {
           "heading": "10. Sécurité",
           "paragraphs": [
-            "The Studio Digital Papeterie met en œuvre les mesures techniques et organisationnelles raisonnables pour assurer la sécurité et la confidentialité des données personnelles, notamment via le chiffrement des données en transit et des politiques d'accès restreint (RLS) sur la base de données."
+            "The Studio Digital Papeterie met en œuvre les mesures techniques et organisationnelles raisonnables pour assurer la sécurité et la confidentialité des données personnelles, notamment via le chiffrement des données en transit et des politiques d’accès restreint (RLS) sur la base de données."
           ]
         }
       ]
     }
   },
   "NotFound": {
-    "stampLabel": "RETOUR À L'ENVOYEUR",
+    "stampLabel": "RETOUR À L’ENVOYEUR",
     "stampCode": "NON DISTRIBUÉ",
     "cardTitle": "The Studio",
-    "cardLine": "Papeterie digitale pour les mariages d'aujourd'hui",
+    "cardLine": "Papeterie digitale pour les mariages d’aujourd’hui",
     "cardFooter": "FAIRE-PART DIGITAL",
     "title": "Cette adresse ne figure pas sur la liste des invités",
-    "subtitle": "Vérifiez le lien, ou revenez à l'accueil.",
-    "homeButton": "Retour à l'accueil",
+    "subtitle": "Vérifiez le lien, ou revenez à l’accueil.",
+    "homeButton": "Retour à l’accueil",
     "createButton": "Créer mon invitation",
     "menuAriaLabel": "Ouvrir le menu",
-    "homeAriaLabel": "Retour à l'accueil"
+    "homeAriaLabel": "Retour à l’accueil"
   },
   "ComingSoon": {
     "metaTitle": "Bientôt disponible — The Studio Papeterie Digitale",
-    "metaDescription": "Quelque chose se prépare à l'atelier. Nos faire-part digitaux arrivent très bientôt.",
-    "eyebrow": "L'ATELIER PRÉPARE",
+    "metaDescription": "Quelque chose se prépare à l’atelier. Nos faire-part digitaux arrivent très bientôt.",
+    "eyebrow": "L’ATELIER PRÉPARE",
     "cardTitle": "Une invitation encore cachetée",
-    "cardLine": "Nos plumes sont sorties, l'encre sèche. Cette page s'ouvrira dès que tout sera prêt.",
+    "cardLine": "Nos plumes sont sorties, l’encre sèche. Cette page s’ouvrira dès que tout sera prêt.",
     "sealLabel": "THE STUDIO · BIENTÔT",
     "title": "Bientôt disponible",
-    "subtitle": "Nous mettons la dernière main à cette page. Revenez très vite : elle en vaudra l'attente.",
+    "subtitle": "Nous mettons la dernière main à cette page. Revenez très vite : elle en vaudra l’attente.",
     "signature": "À TRÈS BIENTÔT",
     "copyright": "© {year} The Studio Digital Papeterie. Tous droits réservés.",
-    "homeAriaLabel": "Retour à l'accueil"
+    "homeAriaLabel": "Retour à l’accueil"
+  },
+  "Contact": {
+    "meta": {
+      "title": "Contact | Faire-part mariage digital | The Studio",
+      "description": "Contactez The Studio pour votre faire-part de mariage digital, une invitation personnalisée ou un projet sur-mesure. Parlons de votre mariage."
+    },
+    "hero": {
+      "eyebrow": "UN PROJET, UNE QUESTION, UNE IDÉE",
+      "h1": "Parlons de votre mariage",
+      "subtitle": "Vous avez une question, une collection en tête ou l’envie de créer une invitation qui ne ressemble à aucune autre ? Parlez-nous de votre projet. Nous vous aiderons à trouver la formule la plus adaptée à votre mariage."
+    },
+    "editorial": {
+      "title": "Votre projet commence ici",
+      "text": "Chaque mariage est différent. Quelques informations suffisent pour nous permettre de comprendre votre univers, vos envies et le niveau de personnalisation que vous recherchez.",
+      "markers": [
+        {
+          "title": "Une question ?",
+          "desc": "Nous vous répondons directement."
+        },
+        {
+          "title": "Une collection en tête ?",
+          "desc": "Dites-nous laquelle."
+        },
+        {
+          "title": "Une idée très précise ?",
+          "desc": "Parlons sur-mesure."
+        }
+      ],
+      "signatureName": "The Studio – Papeterie Digitale",
+      "signatureTagline": "Faire-part de mariage digital & invitations personnalisées"
+    },
+    "form": {
+      "firstNameLabel": "Prénom",
+      "firstNamePlaceholder": "Votre prénom",
+      "lastNameLabel": "Nom",
+      "lastNamePlaceholder": "Votre nom",
+      "emailLabel": "Email",
+      "emailPlaceholder": "vous@email.com",
+      "weddingDateLabel": "Date du mariage",
+      "weddingPlaceLabel": "Lieu du mariage",
+      "weddingPlacePlaceholder": "Ville, domaine ou pays",
+      "guestBandLabel": "Nombre approximatif d’invités",
+      "guestBandOptions": {
+        "lt-50": "Moins de 50",
+        "50-100": "50 à 100",
+        "100-150": "100 à 150",
+        "150-200": "150 à 200",
+        "gt-200": "Plus de 200",
+        "unknown": "Nous ne savons pas encore"
+      },
+      "interestLabel": "Qu’est-ce qui vous intéresse ?",
+      "interestOptions": {
+        "collection": "Une collection existante",
+        "personnaliser": "Personnaliser une collection",
+        "sur-mesure": "Une création sur-mesure",
+        "question": "J’ai une question",
+        "unknown": "Je ne sais pas encore"
+      },
+      "collectionLabel": "Quelle collection avez-vous repérée ?",
+      "collectionOptions": {
+        "ciao-amore": "Ciao Amore",
+        "blanc-couture": "Blanc Couture",
+        "belle-rive": "Belle Rive",
+        "unknown": "Je ne sais pas encore"
+      },
+      "projectStageLabel": "Où en êtes-vous dans votre projet ?",
+      "projectStageOptions": {
+        "decouvre": "Je découvre The Studio",
+        "univers-choisi": "J’ai déjà choisi mon univers",
+        "idee-precise": "J’ai une idée assez précise",
+        "besoin-conseil": "J’ai besoin d’être conseillé(e)"
+      },
+      "messageLabel": "Parlez-nous de votre mariage",
+      "messagePlaceholder": "Votre univers, vos couleurs, vos envies, vos questions…",
+      "consentLabel": "J’accepte que mes informations soient utilisées afin de répondre à ma demande.",
+      "privacyLinkLabel": "politique de confidentialité",
+      "submit": "Envoyer ma demande",
+      "submitting": "Envoi en cours…",
+      "submitCaption": "Nous vous répondons personnellement.",
+      "privacyNote": "Les informations transmises via ce formulaire sont utilisées uniquement pour répondre à votre demande.",
+      "errors": {
+        "required": "Ce champ est requis.",
+        "firstName": "Merci d’indiquer votre prénom.",
+        "lastName": "Merci d’indiquer votre nom.",
+        "email": "Merci d’indiquer une adresse email valide.",
+        "message": "Votre message doit contenir au moins 10 caractères.",
+        "consent": "Merci d’accepter l’utilisation de vos informations.",
+        "global": "Une erreur est survenue. Votre message n’a pas pu être envoyé. Merci de réessayer dans quelques instants."
+      },
+      "optional": "(optionnel)",
+      "requiredLegend": "Les champs suivis d’un * sont obligatoires."
+    },
+    "success": {
+      "title": "Votre message est bien arrivé",
+      "text": "Merci de nous avoir parlé de votre projet.\nNous reviendrons vers vous pour échanger autour de votre mariage.",
+      "backHome": "Retour à l’accueil"
+    }
+  },
+  "ContactBubble": {
+    "bubbleAriaLabel": "Nous contacter",
+    "title": "Bonjour 👋",
+    "subtitle": "Une question sur votre faire-part ? Nous sommes là.",
+    "formOption": "Parlez-nous de votre projet",
+    "emailOption": "Écrivez-nous directement",
+    "whatsappOption": "WhatsApp",
+    "responseTime": "Réponse sous 24 à 48 heures."
+  },
+  "Invitation": {
+    "ciaoAmore": {
+      "hero": {
+        "discoverCta": "Découvrir"
+      },
+      "countdown": {
+        "eyebrow": "La dolce vita commence dans",
+        "titleLine1": "Chaque seconde",
+        "titleLine2": "nous rapproche de vous",
+        "unitDays": "{count, plural, one {jour} other {jours}}",
+        "unitHours": "{count, plural, one {heure} other {heures}}",
+        "unitMinutes": "{count, plural, one {minute} other {minutes}}",
+        "unitSeconds": "{count, plural, one {seconde} other {secondes}}"
+      },
+      "schedule": {
+        "introEyebrow": "Deux jours d’exception",
+        "introTitle": "Le programme",
+        "dayOneEyebrow": "Jour 1",
+        "dayOneSeparator": " · ",
+        "dayOneTitle": "Le grand jour"
+      },
+      "dayTwo": {},
+      "dressCode": {
+        "eyebrow": "Dress code · Jour 2",
+        "imageAlt": "Tenues {title}"
+      },
+      "venue": {
+        "eyebrow": "Le lieu",
+        "wazeLink": "Voir sur Waze",
+        "mapsLink": "Google Maps"
+      },
+      "stays": {
+        "eyebrowFallback": "Sélectionnés pour vous",
+        "title": "Où dormir ?",
+        "nearVenue": "À proximité de {venueName}",
+        "hideOptions": "Masquer les options",
+        "showMoreOptions": "Voir plus d’options"
+      },
+      "playlist": {
+        "eyebrow": "La musique de notre week-end",
+        "titleLine1": "Playlist",
+        "titleLine2": "participative",
+        "success": "Grazie ! Votre titre a bien été proposé.",
+        "searchLabel": "Cherchez un titre",
+        "searchPlaceholder": "Un titre, un artiste…",
+        "searchPlaceholderFull": "{max} titres maximum",
+        "resultsLoading": "Recherche…",
+        "resultsError": "Recherche indisponible. Réessayez dans un instant.",
+        "resultsEmpty": "Aucun titre trouvé.",
+        "removeTrack": "Retirer {title}",
+        "statusFull": "{max} titres maximum — retirez-en un pour en proposer un autre.",
+        "statusEmpty": "Jusqu’à {max} titres",
+        "statusCount": "{count, plural, one {# titre choisi sur {max}} other {# titres choisis sur {max}}}"
+      },
+      "faq": {
+        "eyebrow": "Bon à savoir",
+        "titleLine1": "Quelques réponses",
+        "titleLine2": "avant le grand jour",
+        "childrenQuestion": "Les enfants sont-ils conviés ?",
+        "childrenAdultsOnly": "Afin que tous les parents puissent profiter pleinement de la soirée et faire la fête jusqu’au bout de la nuit, notre mariage se déroulera entre adultes. Profitez de cette parenthèse rien que pour vous.",
+        "childrenWelcome": "Oui, vos enfants sont les bienvenus. Merci de les indiquer dans votre réponse afin que nous puissions tout prévoir pour eux."
+      },
+      "rsvp": {
+        "deadlineEyebrow": "Réponse souhaitée avant le {deadline}",
+        "titleLine1": "Serez-vous",
+        "titleLine2": "des nôtres ?",
+        "thanksTitle": "Merci !",
+        "thanksBody": "Votre réponse a bien été prise en compte.",
+        "nameLabel": "Votre nom",
+        "namePlaceholder": "Prénom et nom",
+        "attendanceLegend": "Présence",
+        "attendanceYes": "Oui, avec grand plaisir",
+        "attendanceNo": "Non, mais je penserai fort à vous",
+        "partyLabel": "Qui sera présent ?",
+        "partyOptionSolo": "Moi uniquement",
+        "partyOptionPartner": "Moi + mon/ma partenaire",
+        "partnerNameLabel": "Nom de votre partenaire",
+        "partnerNamePlaceholder": "Prénom et nom",
+        "childrenLabel": "Enfants qui vous accompagnent",
+        "childrenOptionNone": "Aucun",
+        "childFieldLabel": "Enfant {index}",
+        "childNamePlaceholder": "Prénom et nom",
+        "dietaryLabel": "Restrictions alimentaires",
+        "messageLabel": "Un petit mot",
+        "messagePlaceholder": "Votre message…",
+        "submit": "Envoyer ma réponse",
+        "submitPending": "Envoi…",
+        "childrenOptionCount": "{count, plural, one {# enfant} other {# enfants}}"
+      },
+      "footer": {},
+      "scrollTop": {
+        "ariaLabel": "Retour en haut de la page"
+      }
+    },
+    "belleRive": {
+      "hero": {
+        "discoverCta": "Découvrir"
+      },
+      "countdown": {
+        "eyebrow": "Compte à rebours",
+        "titleLine1": "Nous avons hâte",
+        "titleLine2": "de célébrer avec vous",
+        "unitDays": "{count, plural, one {jour} other {jours}}",
+        "unitHours": "{count, plural, one {heure} other {heures}}",
+        "unitMinutes": "{count, plural, one {minute} other {minutes}}",
+        "unitSeconds": "{count, plural, one {seconde} other {secondes}}"
+      },
+      "program": {
+        "eyebrow": "Le programme",
+        "titleFallback": "Deux jours d’exception",
+        "dayOneEyebrow": "Jour 1"
+      },
+      "activities": {
+        "eyebrow": "Jour 2",
+        "brunchImageAlt": "Table élégante du brunch",
+        "poolAlt": "Piscine animée",
+        "tennisAlt": "Tennis",
+        "petanqueAlt": "Pétanque"
+      },
+      "dressCode": {
+        "eyebrow": "Dress code · Jour 2",
+        "imageAlt": "Inspiration de tenues {title}",
+        "guidance": "Lin, matières naturelles et tenues estivales sont les bienvenus."
+      },
+      "venue": {
+        "eyebrow": "Le lieu",
+        "wazeLink": "Voir sur Waze",
+        "mapsLink": "Google Maps"
+      },
+      "stays": {
+        "eyebrow": "Hébergements",
+        "title": "Sélectionnés pour vous",
+        "partnerOffersKicker": "Nos offres partenaires",
+        "nearbyKicker": "Gîtes & maisons à proximité",
+        "discoverAndBook": "Découvrir & réserver",
+        "showMoreOptions": "Voir plus d’options"
+      },
+      "playlist": {
+        "eyebrow": "La musique",
+        "title": "Playlist participative",
+        "suggestionPlaceholder": "Titre — Artiste",
+        "suggestionLabel": "Votre suggestion",
+        "add": "Ajouter",
+        "alreadySuggested": "Déjà proposés"
+      },
+      "carpool": {
+        "eyebrow": "Covoiturage",
+        "titleLine1": "On fait la route",
+        "titleLine2": "ensemble ?",
+        "intro": "Vous venez en voiture et il vous reste une place ? Proposez votre trajet aux autres invités.",
+        "tripTo": "{departure} vers {destination}",
+        "offeredBy": "Proposé par {name}",
+        "seats": "{count, plural, one {# place} other {# places}}",
+        "returnTripOffered": "Trajet retour également proposé",
+        "contactDriver": "Contacter",
+        "contactUnavailable": "Disponible une fois votre invitation activée",
+        "emptyLine1": "Aucun trajet proposé pour le moment.",
+        "emptyLine2": "Soyez le premier !",
+        "successLine1": "Votre trajet est publié.",
+        "successLine2": "Merci de faire la route ensemble !",
+        "firstNameLabel": "Prénom",
+        "firstNamePlaceholder": "Votre prénom",
+        "departureLabel": "Ville de départ",
+        "departurePlaceholder": "Paris, Lyon, Marseille…",
+        "dateLabel": "Date",
+        "timeLabel": "Heure",
+        "seatsLabel": "Places disponibles",
+        "phoneLabel": "Téléphone WhatsApp",
+        "phonePlaceholder": "06 00 00 00 00",
+        "returnTripCheckbox": "Je propose aussi le trajet retour",
+        "consentCheckbox": "J’accepte que mon prénom et mon contact soient visibles par les invités.",
+        "publishTrip": "Publier mon trajet",
+        "offerTrip": "Je propose un trajet"
+      },
+      "faq": {
+        "eyebrow": "FAQ",
+        "title": "Quelques réponses utiles"
+      },
+      "rsvp": {
+        "eyebrow": "RSVP",
+        "title": "Serez-vous des nôtres ?",
+        "introFallback": "Nous serions honorés de vous compter parmi nous.",
+        "deadline": "Merci de confirmer votre présence avant le <b>{deadline}</b>.",
+        "thanksTitle": "Merci pour votre réponse !",
+        "nameLabel": "Nom et prénom",
+        "namePlaceholder": "Prénom et nom",
+        "attendanceLegend": "Présence",
+        "attendanceYes": "Oui, je serai là avec grand plaisir",
+        "attendanceNo": "Non, mais je penserai fort à vous",
+        "partyLabel": "Qui sera présent ?",
+        "partyOptionSolo": "Moi uniquement",
+        "partyOptionPartner": "Moi + mon/ma partenaire",
+        "partnerNameLabel": "Prénom et nom de votre partenaire",
+        "partnerNamePlaceholder": "Prénom et nom",
+        "dietaryLabel": "Restrictions alimentaires",
+        "messageLabel": "Précisions",
+        "messagePlaceholder": "Allergie ou régime particulier…",
+        "submit": "Envoyer ma réponse",
+        "submitPending": "Envoi…"
+      },
+      "gifts": {
+        "eyebrow": "Cadeaux",
+        "titleFallback": "Votre présence est notre plus beau cadeau",
+        "animationLabel": "Paquet cadeau orné de perles",
+        "linkLabelFallback": "Participer"
+      }
+    }
   }
 }

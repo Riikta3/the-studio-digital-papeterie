@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 
+import { buildOrderMetadata } from "@/lib/order-metadata";
 import { computeOrderTotal } from "@/lib/pricing";
 import { stripe, toCents } from "@/lib/stripe";
 
@@ -12,7 +13,7 @@ const REUSABLE_STATUSES = new Set([
 
 export async function POST(req: Request) {
   try {
-    const { items, email, paymentIntentId } = await req.json();
+    const { items, email, paymentIntentId, weddingInfo } = await req.json();
 
     if (!items?.plan) {
       return NextResponse.json(
@@ -33,14 +34,25 @@ export async function POST(req: Request) {
     const amountInCents = toCents(amount);
 
     // Order summary kept on the intent so a failed provisioning can always be
-    // reconstructed from Stripe alone.
-    const orderMetadata = {
+    // reconstructed from Stripe alone. This now carries the couple's identity
+    // too, not just the basket: the webhook fallback provisions from this and
+    // nothing else once the customer's browser is gone.
+    const orderMetadata = buildOrderMetadata({
       plan: String(items.plan),
-      modules: (items.modules ?? []).join(","),
-      languages: (items.languages ?? []).join(","),
-      extras: (items.extras ?? []).join(","),
-      ...(email ? { email: String(email) } : {}),
-    };
+      modules: items.modules ?? [],
+      languages: items.languages ?? [],
+      extras: items.extras ?? [],
+      email: email ? String(email) : undefined,
+      themeId: items.themeId,
+      animationId: items.animationId,
+      adultsOnly: Boolean(items.adultsOnly),
+      firstName: weddingInfo?.firstName,
+      lastName: weddingInfo?.lastName,
+      partnerName: weddingInfo?.partnerName,
+      weddingDate: weddingInfo?.weddingDate,
+      venue: weddingInfo?.venue,
+      locale: weddingInfo?.locale,
+    });
 
     // Reprice the existing intent when the cart changed, so the customer can
     // never pay an amount captured before they edited their order.

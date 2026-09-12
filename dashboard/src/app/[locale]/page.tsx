@@ -89,7 +89,11 @@ export default async function DashboardHome() {
           toSeatCount={summary.seating.toSeat}
         />
 
-        <InvitationPreviewCard slug={summary.dayOf.qrSlug ?? ""} enabled={summary.dayOf.enabled} />
+        <InvitationPreviewCard
+          slug={summary.site.slug ?? ""}
+          enabled={summary.site.published}
+          locale={summary.site.locale ?? undefined}
+        />
       </div>
     </div>
   );

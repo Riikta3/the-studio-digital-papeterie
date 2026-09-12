@@ -40,7 +40,8 @@
       "not_live": "Offline",
       "edit_cta": "Editar conteúdo",
       "public_hint": "Link público partilhado com os seus convidados",
-      "view_cta": "Ver"
+      "view_cta": "Ver",
+      "view_cta_offline": "Convite offline — publiquem-no novamente para o ver"
     }
   },
   "Guests": {
@@ -67,6 +68,7 @@
         "label": "Convite",
         "items": {
           "modules": "Meus módulos",
+          "words": "As nossas palavras",
           "events": "Eventos",
           "schedule": "Programa",
           "venue": "Local & informações práticas",
@@ -97,6 +99,7 @@
       }
     },
     "view_site": "Ver o meu site",
+    "view_site_unpublished": "O vosso convite não está publicado. Publiquem-no novamente para o verem online.",
     "logout": "Sair",
     "logout_confirmation": {
       "title": "Confirmar desconexão",
@@ -448,7 +451,14 @@
         "name": "FAQ / Info Prática",
         "description": "Informações práticas para os convidados"
       }
-    }
+    },
+    "dresscode_palette": "Paleta de cores",
+    "dresscode_palette_hint": "As cores que os vossos convidados verão no convite. Até 6.",
+    "dresscode_palette_swatch": "Cor {index}",
+    "dresscode_palette_remove": "Remover a cor {index}",
+    "dresscode_photo": "Foto de inspiração",
+    "dresscode_note": "Nota breve",
+    "dresscode_note_placeholder": "Ex.: É preferível evitar saltos finos — a cerimónia é na relva"
   },
   "Playlist": {
     "title": "Playlist Colaborativa",
@@ -616,7 +626,8 @@
       "delete_description": "Esta ação é irreversível. As {count} resposta(s) selecionada(s) serão eliminadas permanentemente.",
       "deleted": "{count} resposta(s) eliminada(s)"
     },
-    "dietary_other_placeholder": "Outro (especifique)..."
+    "dietary_other_placeholder": "Outro (especifique)...",
+    "truncated_notice": "A mostrar as {shown} respostas mais recentes de um total de {total}. O número de pessoas previstas abrange apenas estas; os restantes contadores estão completos."
   },
   "Billing": {
     "title": "Faturação",
@@ -876,7 +887,11 @@
     "sign_in": "Iniciar sessão",
     "error_invalid_credentials": "Credenciais inválidas.",
     "footer_line1": "A elegância da papelaria,",
-    "footer_line2": "o poder do digital"
+    "footer_line2": "o poder do digital",
+    "session_expired_title": "A sua sessão expirou",
+    "session_expired_description": "Terminou a sessão após 30 dias de inatividade. Inicie sessão novamente para continuar.",
+    "invalid_link_title": "Este link já não é válido",
+    "invalid_link_description": "Pode já ter sido utilizado ou ter expirado. Peça um novo."
   },
   "ResetPassword": {
     "title": "Nova palavra-passe",
@@ -1284,5 +1299,69 @@
     "remove": "Remover a foto",
     "error_type": "Formato não suportado. Use JPEG, PNG ou WebP.",
     "error_size": "Foto demasiado grande. O máximo é 8 MB."
+  },
+  "SitePublication": {
+    "title": "Publicação do convite",
+    "section_desc": "Escolha se os seus convidados podem abrir o convite online.",
+    "toggle_label": "Convite online",
+    "status_online": "Online",
+    "status_offline": "Offline",
+    "hint_online": "Os seus convidados podem ver o convite através do link.",
+    "hint_offline": "O link está desativado: ninguém pode ver o seu convite.",
+    "now_online": "O seu convite está online.",
+    "now_offline": "O seu convite está offline.",
+    "save_failed": "Não foi possível guardar a alteração."
+  },
+  "InvitationCopy": {
+    "title": "As nossas palavras",
+    "subtitle": "As frases que vos representam, no início e no fim do convite. Deixem um campo vazio para manter o texto predefinido.",
+    "fields": {
+      "hero_kicker": "Acima dos vossos nomes",
+      "announcement": "O vosso anúncio",
+      "closing_words": "As últimas palavras",
+      "portrait": "A vossa fotografia"
+    },
+    "hints": {
+      "hero_kicker": "A linha curta que abre o convite.",
+      "announcement": "A frase junto aos vossos nomes.",
+      "closing_words": "Na última página. As quebras de linha são mantidas.",
+      "portrait": "Apenas alguns temas mostram uma fotografia do casal — nos restantes não aparecerá."
+    },
+    "placeholders": {
+      "hero_kicker": "Vamos casar",
+      "announcement": "Seria uma alegria ter-vos connosco.",
+      "closing_words": "Até muito breve"
+    },
+    "save": "Guardar",
+    "saving": "A guardar…",
+    "saved": "As vossas palavras foram guardadas",
+    "save_failed": "Erro ao guardar."
+  },
+  "AuthEmails": {
+    "brand": "The Studio Digital Papeterie",
+    "reset_subject": "Redefina a sua palavra-passe",
+    "reset_heading": "Redefinir a sua palavra-passe",
+    "reset_body": "Pediu para redefinir a palavra-passe do seu espaço. Clique abaixo para escolher uma nova.",
+    "reset_cta": "Escolher uma nova palavra-passe",
+    "magic_subject": "O seu link de acesso",
+    "magic_heading": "O seu link de acesso",
+    "magic_body": "Clique abaixo para aceder ao seu espaço. Não é necessária palavra-passe.",
+    "magic_cta": "Ir para o meu espaço",
+    "confirm_subject": "Confirme o seu endereço de email",
+    "confirm_heading": "Confirme o seu endereço de email",
+    "confirm_body": "Falta apenas um passo: confirme o seu endereço de email para ativar o seu espaço.",
+    "confirm_cta": "Confirmar o meu endereço",
+    "change_current_subject": "Confirme a alteração do endereço de email",
+    "change_new_subject": "Confirme o seu novo endereço de email",
+    "change_current_heading": "Confirme a alteração de endereço",
+    "change_new_heading": "Confirme o seu novo endereço",
+    "change_current_body": "Pediu para alterar o endereço de email do seu espaço para {newEmail}. Confirme abaixo para o autorizar.",
+    "change_new_body": "Pediu para alterar o endereço de email do seu espaço. Confirme-o abaixo para que produza efeito.",
+    "change_current_cta": "Autorizar a alteração",
+    "change_new_cta": "Confirmar o meu novo endereço",
+    "expires": "Este link funciona uma única vez e expira dentro de {hours} horas.",
+    "ignore": "Se não foi você, ignore simplesmente este email — nada será alterado.",
+    "fallback": "Se o botão não funcionar, copie este link para o seu navegador:",
+    "footer": "Alguma questão? Responda simplesmente a este email."
   }
 }

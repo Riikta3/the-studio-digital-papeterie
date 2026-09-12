@@ -4,6 +4,8 @@ import { LanguageSwitcher } from "@/components/dashboard/LanguageSwitcher";
 import ProfileSettings from "@/components/dashboard/ProfileSettings";
 import SecuritySettings from "@/components/dashboard/SecuritySettings";
 import SettingsForm from "@/components/dashboard/SettingsForm";
+import { PublishToggle } from "@/components/home/PublishToggle";
+import { getSitePublication } from "@/actions/site-publication-actions";
 import { redirect } from "@/navigation";
 import { createClient } from "@/utils/supabase/server";
 import {
@@ -28,6 +30,9 @@ export default async function SettingsPage() {
   // Fetch settings & profile
   const settings = await getSettings();
   const profile = await getProfile();
+  // `sites.status` — whether the invitation answers at its public slug. Not
+  // the Jour J module's switch; the two were separated in 20260912110000.
+  const publication = await getSitePublication();
 
   // The date lives on public.weddings, not on profiles.
   const { data: wedding } = await supabase
@@ -36,6 +41,7 @@ export default async function SettingsPage() {
     .eq("user_id", user!.id)
     .maybeSingle();
   const t = await getTranslations("Settings");
+  const tPub = await getTranslations("SitePublication");
 
   return (
     <div className='p-8 md:p-12 max-w-4xl mx-auto space-y-8 pb-32'>
@@ -68,6 +74,17 @@ export default async function SettingsPage() {
               {t("general.wedding_config_desc")}
             </p>
             <SettingsForm initialSettings={settings} />
+          </section>
+
+          <section className='bg-white p-6 rounded-2xl border border-studio-lavande/40 shadow-studio-card'>
+            <h2 className='text-xl font-heading mb-4'>{tPub("title")}</h2>
+            <p className='text-sm text-studio-violet/70 mb-2'>
+              {tPub("section_desc")}
+            </p>
+            <PublishToggle
+              initialPublished={publication.published}
+              withHint
+            />
           </section>
 
           <section className='bg-white p-6 rounded-2xl border border-studio-lavande/40 shadow-studio-card'>

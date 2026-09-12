@@ -37,6 +37,10 @@ export const BLANC_COUTURE_DEMO: InvitationData = {
     partner1: "Victoria",
     partner2: "Gabriel",
     monogram: "V & G",
+    // The showcase keeps its portrait — it is this theme's closing image and
+    // the demo is where such an image belongs. It used to be hardcoded in
+    // `FooterSection`, which meant every real wedding framed this couple too.
+    portrait: "/themes/blanc-couture/framed-couple.webp",
   },
 
   event: {
@@ -69,11 +73,11 @@ export const BLANC_COUTURE_DEMO: InvitationData = {
   },
 
   schedule: [
-    { day: 1, time: "16 h 30", title: "Accueil des invités", icon: "welcome" },
-    { day: 1, time: "17 h", title: "Cérémonie", icon: "rings" },
-    { day: 1, time: "18 h 30", title: "Cocktail", icon: "glasses" },
+    { day: 1, time: "16 h 30", title: "Accueil des invités", icon: "cocktail" },
+    { day: 1, time: "17 h", title: "Cérémonie", icon: "ceremony" },
+    { day: 1, time: "18 h 30", title: "Cocktail", icon: "cocktail" },
     { day: 1, time: "20 h 30", title: "Dîner", icon: "dinner" },
-    { day: 1, time: "23 h", title: "Soirée dansante", icon: "music" },
+    { day: 1, time: "23 h", title: "Soirée dansante", icon: "party" },
   ],
 
   dressCode: {

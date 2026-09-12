@@ -40,7 +40,8 @@
       "not_live": "非公開",
       "edit_cta": "内容を編集",
       "public_hint": "ゲストと共有する公開リンク",
-      "view_cta": "表示"
+      "view_cta": "表示",
+      "view_cta_offline": "招待状は非公開です — 閲覧するには再公開してください"
     }
   },
   "Guests": {
@@ -67,6 +68,7 @@
         "label": "招待状",
         "items": {
           "modules": "マイモジュール",
+          "words": "ふたりの言葉",
           "events": "イベント",
           "schedule": "プログラム",
           "venue": "会場・実用情報",
@@ -97,6 +99,7 @@
       }
     },
     "view_site": "サイトを見る",
+    "view_site_unpublished": "招待状は非公開です。オンラインで見るには再公開してください。",
     "logout": "ログアウト",
     "logout_confirmation": {
       "title": "ログアウトの確認",
@@ -448,7 +451,14 @@
         "name": "FAQ／実用情報",
         "description": "ゲスト向けの実用情報"
       }
-    }
+    },
+    "dresscode_palette": "カラーパレット",
+    "dresscode_palette_hint": "招待状にゲストが目にする色です。最大6色。",
+    "dresscode_palette_swatch": "色 {index}",
+    "dresscode_palette_remove": "色 {index} を削除",
+    "dresscode_photo": "参考写真",
+    "dresscode_note": "ひとこと",
+    "dresscode_note_placeholder": "例：挙式は芝生の上で行いますので、ピンヒールはお控えください"
   },
   "Playlist": {
     "title": "みんなでつくるプレイリスト",
@@ -616,7 +626,8 @@
       "delete_description": "この操作は取り消せません。選択した{count}件の回答は完全に削除されます。",
       "deleted": "{count}件の回答を削除しました"
     },
-    "dietary_other_placeholder": "その他（詳細を記入）..."
+    "dietary_other_placeholder": "その他（詳細を記入）...",
+    "truncated_notice": "最新の {shown} 件の回答を表示しています（全 {total} 件）。予定人数はこれらのみが対象です。他のカウンターは全件を反映しています。"
   },
   "Billing": {
     "title": "請求",
@@ -876,7 +887,11 @@
     "sign_in": "ログイン",
     "error_invalid_credentials": "認証情報が無効です。",
     "footer_line1": "ペーパリーのエレガンス、",
-    "footer_line2": "デジタルの力"
+    "footer_line2": "デジタルの力",
+    "session_expired_title": "セッションの有効期限が切れました",
+    "session_expired_description": "30日間ご利用がなかったためログアウトされました。もう一度ログインしてください。",
+    "invalid_link_title": "このリンクは無効です",
+    "invalid_link_description": "すでに使用されたか、有効期限が切れています。新しいリンクをリクエストしてください。"
   },
   "ResetPassword": {
     "title": "新しいパスワード",
@@ -1284,5 +1299,69 @@
     "remove": "写真を削除",
     "error_type": "対応していない形式です。JPEG、PNG、WebP をご利用ください。",
     "error_size": "写真が大きすぎます。上限は 8 MB です。"
+  },
+  "SitePublication": {
+    "title": "招待状の公開",
+    "section_desc": "ゲストがオンライン招待状を開けるかどうかを設定します。",
+    "toggle_label": "招待状を公開",
+    "status_online": "公開中",
+    "status_offline": "非公開",
+    "hint_online": "ゲストはリンクから招待状を閲覧できます。",
+    "hint_offline": "リンクは無効です。招待状は誰も閲覧できません。",
+    "now_online": "招待状を公開しました。",
+    "now_offline": "招待状を非公開にしました。",
+    "save_failed": "保存できませんでした。"
+  },
+  "InvitationCopy": {
+    "title": "ふたりの言葉",
+    "subtitle": "招待状の冒頭と結びに添える、おふたりらしい言葉です。空欄のままにすると既定の文面が使われます。",
+    "fields": {
+      "hero_kicker": "お名前の上の一行",
+      "announcement": "おふたりからのご挨拶",
+      "closing_words": "結びの言葉",
+      "portrait": "おふたりの写真"
+    },
+    "hints": {
+      "hero_kicker": "招待状の書き出しとなる短い一行です。",
+      "announcement": "お名前に添える一文です。",
+      "closing_words": "最後のページに入ります。改行はそのまま残ります。",
+      "portrait": "写真を飾るのは一部のテーマのみです。ほかのテーマでは表示されません。"
+    },
+    "placeholders": {
+      "hero_kicker": "結婚します",
+      "announcement": "ぜひご一緒いただけましたら幸いです。",
+      "closing_words": "またすぐお会いしましょう"
+    },
+    "save": "保存",
+    "saving": "保存中…",
+    "saved": "ふたりの言葉を保存しました",
+    "save_failed": "保存中にエラーが発生しました。"
+  },
+  "AuthEmails": {
+    "brand": "The Studio Digital Papeterie",
+    "reset_subject": "パスワードの再設定",
+    "reset_heading": "パスワードの再設定",
+    "reset_body": "スペースのパスワード再設定がリクエストされました。下のボタンから新しいパスワードを設定してください。",
+    "reset_cta": "新しいパスワードを設定",
+    "magic_subject": "ログインリンク",
+    "magic_heading": "ログインリンク",
+    "magic_body": "下のボタンからスペースにアクセスできます。パスワードは不要です。",
+    "magic_cta": "スペースへ移動",
+    "confirm_subject": "メールアドレスの確認",
+    "confirm_heading": "メールアドレスの確認",
+    "confirm_body": "あと一歩です。メールアドレスを確認してスペースを有効化してください。",
+    "confirm_cta": "メールアドレスを確認",
+    "change_current_subject": "メールアドレスの変更を確認してください",
+    "change_new_subject": "新しいメールアドレスの確認",
+    "change_current_heading": "アドレス変更の確認",
+    "change_new_heading": "新しいアドレスの確認",
+    "change_current_body": "アカウントのメールアドレスを {newEmail} に変更する申請がありました。下記より承認してください。",
+    "change_new_body": "スペースのメールアドレス変更がリクエストされました。下のボタンから確認すると反映されます。",
+    "change_current_cta": "変更を承認する",
+    "change_new_cta": "新しいアドレスを確認",
+    "expires": "このリンクは一度のみ有効で、{hours} 時間後に期限切れとなります。",
+    "ignore": "心当たりがない場合は、このメールは破棄してください。変更は行われません。",
+    "fallback": "ボタンが動作しない場合は、このリンクをブラウザに貼り付けてください：",
+    "footer": "ご不明な点があれば、このメールにご返信ください。"
   }
 }

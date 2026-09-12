@@ -29,7 +29,7 @@ export function PlaylistSection({
   }
 
   return (
-    <Page className="playlist-paper module-page" side={side}>
+    <Page className="playlist-paper module-page" side={side} monogram={data.couple.monogram} couple={data.couple}>
       <p className="script">Notre bande-son</p>
       <h2>
         Playlist

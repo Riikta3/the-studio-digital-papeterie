@@ -8,12 +8,23 @@ import { useEffect } from "react";
 
 import { Link } from "@/navigation";
 
+/**
+ * A cell is either one of the three states, or a plain sentence.
+ *
+ * The three states answer "is it included?" with a tick or a dash. Some rows
+ * cannot be answered that way: the module allowance is "4 modules, then €5
+ * each" on Signature and "unlimited" on the other two, and rendering that as a
+ * tick loses the number the couple is actually choosing between. Anything that
+ * is not one of the three states is printed as written.
+ */
+export type CompareValue = "inc" | "opt" | "no" | (string & {});
+
 export type CompareRow = {
   key: string;
   label: string;
-  signature: "inc" | "opt" | "no";
-  "sur-mesure": "inc" | "opt" | "no";
-  prestige: "inc" | "opt" | "no";
+  signature: CompareValue;
+  "sur-mesure": CompareValue;
+  prestige: CompareValue;
 };
 
 type Plan = { id: string; name: string; price: string };
@@ -181,7 +192,7 @@ export function PricingCompareDialog({
                                   {labels.included}
                                 </span>
                               </>
-                            ) : (
+                            ) : value === "no" || value === "opt" ? (
                               <>
                                 <Minus
                                   className="mx-auto h-4 w-4 text-studio-violet/30"
@@ -191,6 +202,15 @@ export function PricingCompareDialog({
                                   {labels.excluded}
                                 </span>
                               </>
+                            ) : (
+                              /* A sentence rather than a state — printed as
+                                 written. Before this, anything that was not
+                                 exactly "inc" fell through to the dash, so a
+                                 row saying "4 modules, then €5 each" read as
+                                 "not included". */
+                              <span className="font-body text-xs leading-snug text-studio-violet">
+                                {value}
+                              </span>
                             )}
                           </td>
                         );

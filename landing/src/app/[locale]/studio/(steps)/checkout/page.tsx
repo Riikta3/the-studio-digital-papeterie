@@ -37,14 +37,90 @@ const stripePromise = loadStripe(
 /** Where a customer whose provisioning failed can reach a human. */
 const SUPPORT_EMAIL = "contact@thestudiopapeteriedigitale.com";
 
+/**
+ * French month names, kept only to read back orders stored before the fix
+ * below — see `monthIndexFrom`.
+ */
 const MONTHS_FR = [
   "Janvier", "Février", "Mars", "Avril", "Mai", "Juin",
   "Juillet", "Août", "Septembre", "Octobre", "Novembre", "Décembre",
 ];
 
+/**
+ * Turns the stored month label into a 1-12 index.
+ *
+ * The start page writes `weddingInfo.month` as the *translated* label it
+ * rendered (`t.raw("months")`, studio/start/page.tsx:86), so it holds
+ * "January" for an English couple and "1月" for a Japanese one. This function
+ * used to match that against `MONTHS_FR` alone, which returns -1 for all eight
+ * non-French locales — `weddingDate` then fell to `undefined` and the couple's
+ * wedding date was silently dropped at checkout, with no error shown and
+ * nothing in the Stripe metadata for the webhook to recover from.
+ *
+ * The localised list is therefore the one that matters; MONTHS_FR stays as a
+ * fallback because the order store is persisted, so a basket started before
+ * this deploy still carries whatever label it was written with.
+ */
+function monthIndexFrom(month: string, localisedMonths: string[]): number {
+  const needle = month.trim().toLowerCase();
+  if (!needle) return 0;
+
+  const inLocale = localisedMonths.findIndex(
+    (m) => m.trim().toLowerCase() === needle,
+  );
+  if (inLocale >= 0) return inLocale + 1;
+
+  const inFrench = MONTHS_FR.findIndex(
+    (m) => m.trim().toLowerCase() === needle,
+  );
+  return inFrench >= 0 ? inFrench + 1 : 0;
+}
+
 
 function labelFor(id: string, list: { id: string; name: string }[]): string {
   return list.find((x) => x.id === id)?.name ?? id;
+}
+
+/**
+ * Splits the couple's identity out of the store into the shape both the
+ * PaymentIntent metadata and `createWedding()` expect.
+ *
+ * Extracted from `provision()` so the exact same values reach Stripe at intent
+ * creation: the webhook fallback provisions from that metadata alone, and a
+ * name derived differently there would create a wedding under another name.
+ */
+function toWeddingIdentity(
+  info: {
+    partner1: string;
+    partner2: string;
+    day: string;
+    month: string;
+    year: string;
+    venue: string;
+  },
+  /** `StudioStart.months` in the locale the couple is ordering in. */
+  localisedMonths: string[],
+) {
+  const nameParts = info.partner1.trim().split(" ");
+  const firstName = nameParts[0] || info.partner1;
+  const lastName = nameParts.slice(1).join(" ") || "";
+
+  const monthIndex = monthIndexFrom(info.month, localisedMonths);
+  const weddingDate =
+    info.day && monthIndex > 0 && info.year
+      ? `${info.year}-${String(monthIndex).padStart(2, "0")}-${String(info.day).padStart(2, "0")}`
+      : undefined;
+
+  return {
+    firstName,
+    lastName,
+    partnerName: info.partner2,
+    weddingDate,
+    // Free text, kept verbatim. The couple typed this at the start of the
+    // studio and it used to stop here — the dashboard then asked them for it
+    // a second time. It seeds their venue row instead.
+    venue: info.venue.trim() || undefined,
+  };
 }
 
 function PaymentForm({
@@ -167,6 +243,12 @@ function PaymentForm({
 
 export default function StudioCheckoutPage() {
   const t = useTranslations("StudioCheckout");
+  // The month labels the start page rendered, in this locale — the list
+  // `toWeddingIdentity` needs to read `weddingInfo.month` back (see
+  // `monthIndexFrom`).
+  const localisedMonths = useTranslations("StudioStart").raw(
+    "months",
+  ) as string[];
   const tLayout = useTranslations("StudioLayout");
   const tModules = useTranslations("StudioModules");
   // The plan names shown on the homepage, so the recap calls the offer exactly
@@ -184,13 +266,34 @@ export default function StudioCheckoutPage() {
     animation,
     theme,
     modules,
+    primaryLanguage,
     languages,
     extras,
     adultsOnly,
     weddingInfo,
   } = useOrderStore();
+
+  /**
+   * The languages the invitation may be served in, default first.
+   *
+   * `languages` in the store holds only the *extra* languages the couple paid
+   * for, so the one they actually chose as their default was collected and
+   * then dropped — a wedding bought in French recorded no French at all. The
+   * order of this list is meaningful: the first entry is the default, and
+   * `/[locale]/invitation/...` only serves a locale that appears in it.
+   */
+  const orderedLanguages = [
+    primaryLanguage,
+    ...languages.filter((code) => code !== primaryLanguage),
+  ];
   const totalPrice = useOrderStore(selectTotalPrice);
   const hasHydrated = useOrderStore((s) => s._hasHydrated);
+  const completedAt = useOrderStore((s) => s.completedAt);
+
+  // Public origin, so the "back to my space" link works from a phone too. The
+  // env var is the same one the magic link is built from server-side.
+  const dashboardUrl =
+    process.env.NEXT_PUBLIC_DASHBOARD_URL || "http://localhost:3003";
 
   const isPaymentSuccess = searchParams.get("payment_success") === "true";
 
@@ -225,27 +328,21 @@ export default function StudioCheckoutPage() {
     setIsProvisioning(true);
     setProvisionError(null);
 
-    const nameParts = weddingInfo.partner1.trim().split(" ");
-    const firstName = nameParts[0] || weddingInfo.partner1;
-    const lastName = nameParts.slice(1).join(" ") || "";
-
-    const monthIndex = MONTHS_FR.indexOf(weddingInfo.month) + 1;
-    const weddingDate =
-      weddingInfo.day && monthIndex > 0 && weddingInfo.year
-        ? `${weddingInfo.year}-${String(monthIndex).padStart(2, "0")}-${String(weddingInfo.day).padStart(2, "0")}`
-        : undefined;
+    const { firstName, lastName, partnerName, weddingDate, venue } =
+      toWeddingIdentity(weddingInfo, localisedMonths);
 
     const result = await createWedding({
       paymentIntentId: intentId,
       email: weddingInfo.email,
       firstName,
       lastName,
-      partnerName: weddingInfo.partner2,
+      partnerName,
       weddingDate,
+      venue,
       themeId: theme,
       modules,
       extras,
-      languages,
+      languages: orderedLanguages,
       plan: plan ?? "signature",
       adultsOnly,
       animationId: animation,
@@ -254,14 +351,20 @@ export default function StudioCheckoutPage() {
     });
 
     if (result.success && result.loginLink) {
+      // Clear the basket before leaving, or navigating back from the dashboard
+      // lands on a fully populated, working payment form: the replay guard is
+      // keyed on the PaymentIntent, and a second checkout mints a fresh one,
+      // so the couple could pay twice for the same wedding. The server refuses
+      // that second order too, but the money would already have been taken.
+      useOrderStore.getState().completeOrder();
       window.location.href = result.loginLink;
     } else if (!result.success) {
       setProvisionError(result.error ?? t("paymentError"));
       setIsProvisioning(false);
     }
   }, [
-    weddingInfo, theme, modules, extras, languages, plan, adultsOnly,
-    animation, t, intentIdFromUrl, locale,
+    weddingInfo, theme, modules, extras, orderedLanguages, plan, adultsOnly,
+    animation, t, intentIdFromUrl, locale, localisedMonths,
   ]);
 
   // Provision right away when Stripe redirected back after payment.
@@ -285,8 +388,21 @@ export default function StudioCheckoutPage() {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
-        items: { plan, modules, languages, extras },
+        // theme/animation/adultsOnly ride along so the intent carries the full
+        // order: the webhook provisions from this metadata when the browser
+        // never comes back, and would otherwise fall back to defaults the
+        // couple did not choose.
+        items: {
+          plan,
+          modules,
+          languages: orderedLanguages,
+          extras,
+          themeId: theme,
+          animationId: animation,
+          adultsOnly,
+        },
         email: weddingInfo.email,
+        weddingInfo: { ...toWeddingIdentity(weddingInfo, localisedMonths), locale },
         // Reprice the same intent when the cart changed, instead of leaving a
         // stale amount attached to the mounted PaymentElement.
         paymentIntentId: intentIdRef.current,
@@ -319,8 +435,24 @@ export default function StudioCheckoutPage() {
     return () => {
       cancelled = true;
     };
+    // theme/animation/adultsOnly/weddingInfo are dependencies too: they now
+    // travel in the intent metadata, so editing the theme and coming back must
+    // resync it. Without them Stripe would keep describing the previous order,
+    // and the webhook fallback would provision the wrong one.
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [hasHydrated, isPaymentSuccess, plan, modules, languages, extras]);
+  }, [
+    hasHydrated,
+    isPaymentSuccess,
+    plan,
+    modules,
+    orderedLanguages,
+    extras,
+    theme,
+    animation,
+    adultsOnly,
+    weddingInfo,
+    locale,
+  ]);
 
   // ── Post-payment: provisioning screen ──
   //
@@ -434,6 +566,44 @@ export default function StudioCheckoutPage() {
             <Loader2 className="h-4 w-4 animate-spin" />
             {t("creatingAccount")}
           </div>
+        </div>
+      </StepTransition>
+    );
+  }
+
+  // ── Back-navigation after a completed order ──
+  //
+  // The basket is cleared once an order is provisioned, so without this the
+  // couple pressing Back from their dashboard would land on the configurator's
+  // empty state and be walked through buying a second time. The server refuses
+  // that order and refunds it, but nobody should be taken that far.
+  if (completedAt && !plan && hasHydrated) {
+    return (
+      <StepTransition>
+        <div className="mx-auto flex min-h-[50vh] w-full max-w-md flex-col items-center justify-center gap-5 text-center">
+          <div className="flex h-14 w-14 items-center justify-center rounded-full bg-studio-violet">
+            <Check className="h-7 w-7 text-white" strokeWidth={2} />
+          </div>
+
+          <div className="space-y-2">
+            <h1 className="font-heading text-h3 text-studio-violet">
+              {t("orderCompleteTitle")}
+            </h1>
+            <p className="font-body text-sm leading-relaxed text-studio-violet/70">
+              {t("orderCompleteBody")}
+            </p>
+          </div>
+
+          <a
+            href={dashboardUrl}
+            className="flex w-full items-center justify-center gap-2 rounded-full bg-studio-violet px-6 py-3.5 font-body text-sm font-semibold text-white transition-colors hover:bg-studio-violet/90"
+          >
+            {t("orderCompleteCta")}
+          </a>
+
+          <p className="font-body text-xs leading-relaxed text-studio-violet/50">
+            {t("orderCompleteHint")}
+          </p>
         </div>
       </StepTransition>
     );

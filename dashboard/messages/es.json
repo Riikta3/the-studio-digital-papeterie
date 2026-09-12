@@ -40,7 +40,8 @@
       "not_live": "Fuera de línea",
       "edit_cta": "Editar contenido",
       "public_hint": "Enlace público compartido con sus invitados",
-      "view_cta": "Ver"
+      "view_cta": "Ver",
+      "view_cta_offline": "Invitación fuera de línea: volved a publicarla para verla"
     }
   },
   "Guests": {
@@ -67,6 +68,7 @@
         "label": "Invitación",
         "items": {
           "modules": "Mis módulos",
+          "words": "Nuestras palabras",
           "events": "Eventos",
           "schedule": "Programa",
           "venue": "Lugar e información práctica",
@@ -97,6 +99,7 @@
       }
     },
     "view_site": "Ver mi sitio",
+    "view_site_unpublished": "Vuestra invitación está sin publicar. Volved a publicarla para verla en línea.",
     "logout": "Cerrar sesión",
     "logout_confirmation": {
       "title": "Confirmar cierre de sesión",
@@ -448,7 +451,14 @@
         "name": "FAQ / Info Práctica",
         "description": "Información práctica para los invitados"
       }
-    }
+    },
+    "dresscode_palette": "Paleta de colores",
+    "dresscode_palette_hint": "Los colores que verán vuestros invitados en la invitación. Hasta 6.",
+    "dresscode_palette_swatch": "Color {index}",
+    "dresscode_palette_remove": "Quitar el color {index}",
+    "dresscode_photo": "Foto de inspiración",
+    "dresscode_note": "Nota breve",
+    "dresscode_note_placeholder": "Ej.: Mejor evitar los tacones de aguja: la ceremonia es sobre césped"
   },
   "Playlist": {
     "title": "Playlist Colaborativa",
@@ -616,7 +626,8 @@
       "delete_description": "Esta acción es irreversible. Las {count} respuesta(s) seleccionada(s) se eliminarán permanentemente.",
       "deleted": "{count} respuesta(s) eliminada(s)"
     },
-    "dietary_other_placeholder": "Otro (especifica)..."
+    "dietary_other_placeholder": "Otro (especifica)...",
+    "truncated_notice": "Se muestran las {shown} respuestas más recientes de un total de {total}. El número de personas previstas solo incluye estas; los demás contadores están completos."
   },
   "Billing": {
     "title": "Facturación",
@@ -876,7 +887,11 @@
     "sign_in": "Iniciar sesión",
     "error_invalid_credentials": "Credenciales inválidas.",
     "footer_line1": "La elegancia de la papelería,",
-    "footer_line2": "el poder de lo digital"
+    "footer_line2": "el poder de lo digital",
+    "session_expired_title": "Su sesión ha caducado",
+    "session_expired_description": "Se ha cerrado su sesión tras 30 días de inactividad. Vuelva a iniciar sesión para continuar.",
+    "invalid_link_title": "Este enlace ya no es válido",
+    "invalid_link_description": "Puede que ya se haya usado o que haya caducado. Solicite uno nuevo."
   },
   "ResetPassword": {
     "title": "Nueva contraseña",
@@ -1284,5 +1299,69 @@
     "remove": "Quitar la foto",
     "error_type": "Formato no compatible. Usa JPEG, PNG o WebP.",
     "error_size": "Foto demasiado grande. El máximo es 8 MB."
+  },
+  "SitePublication": {
+    "title": "Publicación de la invitación",
+    "section_desc": "Decide si tus invitados pueden abrir tu invitación en línea.",
+    "toggle_label": "Invitación en línea",
+    "status_online": "En línea",
+    "status_offline": "Fuera de línea",
+    "hint_online": "Tus invitados pueden ver la invitación con el enlace.",
+    "hint_offline": "El enlace está desactivado: nadie puede ver tu invitación.",
+    "now_online": "Tu invitación está en línea.",
+    "now_offline": "Tu invitación está fuera de línea.",
+    "save_failed": "No se pudo guardar el cambio."
+  },
+  "InvitationCopy": {
+    "title": "Nuestras palabras",
+    "subtitle": "Las frases que os representan, arriba y abajo de vuestra invitación. Dejad un campo vacío para conservar el texto por defecto.",
+    "fields": {
+      "hero_kicker": "Encima de vuestros nombres",
+      "announcement": "Vuestro anuncio",
+      "closing_words": "Unas últimas palabras",
+      "portrait": "Vuestra foto"
+    },
+    "hints": {
+      "hero_kicker": "La línea breve que abre la invitación.",
+      "announcement": "La frase que acompaña a vuestros nombres.",
+      "closing_words": "En la última página. Se conservan los saltos de línea.",
+      "portrait": "Solo algunos temas muestran una foto de la pareja; en los demás no aparecerá."
+    },
+    "placeholders": {
+      "hero_kicker": "Nos casamos",
+      "announcement": "Nos encantaría contar con vosotros.",
+      "closing_words": "Hasta muy pronto"
+    },
+    "save": "Guardar",
+    "saving": "Guardando…",
+    "saved": "Vuestras palabras están guardadas",
+    "save_failed": "Error al guardar."
+  },
+  "AuthEmails": {
+    "brand": "The Studio Digital Papeterie",
+    "reset_subject": "Restablezca su contraseña",
+    "reset_heading": "Restablecer su contraseña",
+    "reset_body": "Ha solicitado restablecer la contraseña de su espacio. Haga clic abajo para elegir una nueva.",
+    "reset_cta": "Elegir una nueva contraseña",
+    "magic_subject": "Su enlace de acceso",
+    "magic_heading": "Su enlace de acceso",
+    "magic_body": "Haga clic abajo para acceder a su espacio. No necesita contraseña.",
+    "magic_cta": "Ir a mi espacio",
+    "confirm_subject": "Confirme su dirección de correo",
+    "confirm_heading": "Confirme su dirección de correo",
+    "confirm_body": "Solo queda un paso: confirme su dirección de correo para activar su espacio.",
+    "confirm_cta": "Confirmar mi dirección",
+    "change_current_subject": "Confirme el cambio de dirección de correo",
+    "change_new_subject": "Confirme su nueva dirección de correo",
+    "change_current_heading": "Confirme el cambio de dirección",
+    "change_new_heading": "Confirme su nueva dirección",
+    "change_current_body": "Ha solicitado cambiar la dirección de correo de su espacio a {newEmail}. Confírmelo a continuación para autorizarlo.",
+    "change_new_body": "Ha solicitado cambiar la dirección de correo de su espacio. Confírmela abajo para que sea efectiva.",
+    "change_current_cta": "Autorizar el cambio",
+    "change_new_cta": "Confirmar mi nueva dirección",
+    "expires": "Este enlace sirve una sola vez y caduca en {hours} horas.",
+    "ignore": "Si no ha sido usted, ignore este correo: no se cambiará nada.",
+    "fallback": "Si el botón no funciona, copie este enlace en su navegador:",
+    "footer": "¿Una pregunta? Responda simplemente a este correo."
   }
 }

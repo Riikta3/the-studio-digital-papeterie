@@ -3,6 +3,8 @@
 import { type FormEvent, useState } from "react";
 
 import { type RsvpCompanion, submitRsvp } from "@/actions/invitation-submissions";
+import { useLocale, useTranslations } from "next-intl";
+
 import { formatFrenchDate } from "../../format";
 import type { InvitationData } from "../../types";
 
@@ -27,6 +29,8 @@ import type { InvitationData } from "../../types";
 const MAX_CHILDREN = 4;
 
 export function RsvpSection({ data }: { data: InvitationData }) {
+  const t = useTranslations("Invitation.ciaoAmore.rsvp");
+  const locale = useLocale();
   const [sent, setSent] = useState(false);
   const [pending, setPending] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -37,7 +41,7 @@ export function RsvpSection({ data }: { data: InvitationData }) {
   const [attending, setAttending] = useState<boolean | null>(null);
 
   const rsvp = data.rsvp;
-  const deadline = formatFrenchDate(data.event.rsvpDeadline);
+  const deadline = formatFrenchDate(data.event.rsvpDeadline, { locale });
   const weddingId = data.weddingId;
 
   // `settings.adults_only` reaches the theme inverted as `allowChildren`
@@ -131,30 +135,30 @@ export function RsvpSection({ data }: { data: InvitationData }) {
     <section className="rsvp-section">
       <span className="rsvp-sun" aria-hidden="true" />
       <div className="rsvp-card">
-        {deadline ? <p className="eyebrow">Réponse souhaitée avant le {deadline}</p> : null}
+        {deadline ? <p className="eyebrow">{t("deadlineEyebrow", { deadline })}</p> : null}
         <h2>
-          Serez-vous
+          {t("titleLine1")}
           <br />
-          des nôtres ?
+          {t("titleLine2")}
         </h2>
 
         {sent ? (
           <div className="thanks">
             <span>♡</span>
-            <h3>Merci !</h3>
-            <p>Votre réponse a bien été prise en compte.</p>
+            <h3>{t("thanksTitle")}</h3>
+            <p>{t("thanksBody")}</p>
           </div>
         ) : (
           <form onSubmit={handleSubmit}>
             <label>
-              Votre nom
+              {t("nameLabel")}
               <span className="rsvp-field">
-                <input required name="fullName" placeholder="Prénom et nom" />
+                <input required name="fullName" placeholder={t("namePlaceholder")} />
               </span>
             </label>
 
             <fieldset>
-              <legend>Présence</legend>
+              <legend>{t("attendanceLegend")}</legend>
               <label>
                 <input
                   type="radio"
@@ -163,7 +167,7 @@ export function RsvpSection({ data }: { data: InvitationData }) {
                   required
                   onChange={() => setAttending(true)}
                 />{" "}
-                Oui, avec grand plaisir
+                {t("attendanceYes")}
               </label>
               <label>
                 <input
@@ -172,14 +176,14 @@ export function RsvpSection({ data }: { data: InvitationData }) {
                   value="no"
                   onChange={() => setAttending(false)}
                 />{" "}
-                Non, mais je penserai fort à vous
+                {t("attendanceNo")}
               </label>
             </fieldset>
 
             {showParty && rsvp?.allowPartner ? (
               <>
                 <label>
-                  Qui sera présent ?
+                  {t("partyLabel")}
                   <span className="rsvp-field rsvp-field-select">
                     <select
                       name="partyMode"
@@ -188,17 +192,17 @@ export function RsvpSection({ data }: { data: InvitationData }) {
                         setPartyMode(event.target.value === "partner" ? "partner" : "solo")
                       }
                     >
-                      <option value="solo">Moi uniquement</option>
-                      <option value="partner">Moi + mon/ma partenaire</option>
+                      <option value="solo">{t("partyOptionSolo")}</option>
+                      <option value="partner">{t("partyOptionPartner")}</option>
                     </select>
                     <span className="rsvp-chevron" aria-hidden="true" />
                   </span>
                 </label>
                 {partyMode === "partner" ? (
                   <label className="partner-field">
-                    Nom de votre partenaire
+                    {t("partnerNameLabel")}
                     <span className="rsvp-field">
-                      <input required name="partnerName" placeholder="Prénom et nom" />
+                      <input required name="partnerName" placeholder={t("partnerNamePlaceholder")} />
                     </span>
                   </label>
                 ) : null}
@@ -220,18 +224,18 @@ export function RsvpSection({ data }: { data: InvitationData }) {
             {showParty && allowChildren ? (
               <>
                 <label>
-                  Enfants qui vous accompagnent
+                  {t("childrenLabel")}
                   <span className="rsvp-field rsvp-field-select">
                     <select
                       name="childCount"
                       value={childCount}
                       onChange={(event) => setChildCount(Number(event.target.value))}
                     >
-                      <option value={0}>Aucun</option>
+                      <option value={0}>{t("childrenOptionNone")}</option>
                       {Array.from({ length: MAX_CHILDREN }, (_, index) => index + 1).map(
                         (count) => (
                           <option key={count} value={count}>
-                            {count} enfant{count > 1 ? "s" : ""}
+                            {t("childrenOptionCount", { count })}
                           </option>
                         ),
                       )}
@@ -246,12 +250,12 @@ export function RsvpSection({ data }: { data: InvitationData }) {
                     `.rsvp-field` wrapper's focus behaviour with no new CSS. */}
                 {Array.from({ length: childCount }, (_, index) => (
                   <label className="child-field" key={index}>
-                    Enfant {index + 1}
+                    {t("childFieldLabel", { index: index + 1 })}
                     <span className="rsvp-field">
                       <input
                         required
                         name={`childName-${index}`}
-                        placeholder="Prénom et nom"
+                        placeholder={t("childNamePlaceholder")}
                         autoComplete="off"
                       />
                     </span>
@@ -262,7 +266,7 @@ export function RsvpSection({ data }: { data: InvitationData }) {
 
             {rsvp?.dietaryOptions?.length ? (
               <label>
-                Restrictions alimentaires
+                {t("dietaryLabel")}
                 <span className="rsvp-field rsvp-field-select">
                   <select name="dietary">
                     {rsvp.dietaryOptions.map((option) => (
@@ -276,9 +280,9 @@ export function RsvpSection({ data }: { data: InvitationData }) {
 
             {rsvp?.collectMessage ? (
               <label>
-                Un petit mot
+                {t("messageLabel")}
                 <span className="rsvp-field rsvp-field-area">
-                  <textarea name="message" placeholder="Votre message…" />
+                  <textarea name="message" placeholder={t("messagePlaceholder")} />
                 </span>
               </label>
             ) : null}
@@ -290,7 +294,7 @@ export function RsvpSection({ data }: { data: InvitationData }) {
             ) : null}
 
             <button className="rsvp-submit" type="submit" disabled={pending}>
-              {pending ? "Envoi…" : "Envoyer ma réponse"}
+              {pending ? t("submitPending") : t("submit")}
             </button>
           </form>
         )}

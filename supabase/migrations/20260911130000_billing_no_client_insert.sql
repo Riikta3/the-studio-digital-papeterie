@@ -1,0 +1,27 @@
+-- Take the browser's write access to `billing` away.
+--
+-- `20260312130000_billing_rls_fix.sql` granted every authenticated user
+-- `insert ... with check (auth.uid() = user_id)` on `billing`. The check stops
+-- one couple writing rows attributed to another, but not a couple writing rows
+-- attributed to themselves — with any amount, any status and any plan name.
+--
+-- Nothing in the product needs that. Every write to this table goes through
+-- the service role, which bypasses RLS and is unaffected by this migration:
+--
+--   landing/src/app/api/webhooks/stripe/route.ts:130   upsert (Stripe webhook)
+--   dashboard/src/actions/purchase-module-actions.ts:106 insert (add-on purchase)
+--   landing/src/lib/invoice.ts:169                     update (invoice_url)
+--
+-- and the only read, `dashboard/src/actions/billing-actions.ts:35`, also uses
+-- the service role and filters by `user_id` by hand.
+--
+-- The risk of leaving it is not theoretical: `purchase-module-actions.ts:85`
+-- treats an existing `billing` row with a given `stripe_payment_intent_id` as
+-- proof that a purchase was already processed. A forged row is therefore a way
+-- to poison that guard, and the billing screen is what the couple is shown as
+-- their payment history.
+--
+-- The select policy from `full_db_reset.sql:227` stays: the couple still reads
+-- their own billing rows.
+
+drop policy if exists "Users can insert own billing" on public.billing;

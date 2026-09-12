@@ -1,10 +1,9 @@
 import { createClient } from "@/utils/supabase/server";
 import { NextResponse } from "next/server";
-import Stripe from "stripe";
+import type Stripe from "stripe";
 
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY || "sk_test_fallback", {
-  apiVersion: "2024-06-20" as any,
-});
+import { stripe } from "@/lib/stripe";
+
 
 const MODULE_PRICE = 10; // €10 per module
 

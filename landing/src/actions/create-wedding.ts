@@ -1,10 +1,17 @@
 "use server";
 
+import type Stripe from "stripe";
+
+import type { ModuleId } from "@/components/invitation/themes/types";
 import { findUserByEmail } from "@/lib/find-user-by-email";
+import { seedInvitationContent } from "@/lib/seed-invitation-content";
+import { parseOrderMetadata } from "@/lib/order-metadata";
 import { supabaseAdmin } from "@/lib/supabase-admin";
 import { getDashboardUrl } from "@/lib/urls";
+import { sendWelcomeEmail } from "@/lib/welcome-email";
 import {
   markPaymentProvisioned,
+  refundPayment,
   verifyPaymentForOrder,
 } from "@/lib/verify-payment";
 import { APP_MODULES } from "@shared/data/modules";
@@ -26,6 +33,8 @@ interface CreateWeddingData {
   lastName: string;
   partnerName: string;
   weddingDate?: string;
+  /** Free text as typed in the studio, seeds the couple's venue row. */
+  venue?: string;
   themeId: string;
   modules: string[];
   extras: string[];
@@ -45,12 +54,18 @@ export async function createWedding(data: CreateWeddingData) {
 
   // 0. VERIFY PAYMENT — this action is reachable as an HTTP endpoint, so the
   // order is only provisioned once Stripe confirms it was actually paid.
-  const payment = await verifyPaymentForOrder(data.paymentIntentId, {
-    plan: data.plan,
-    modules: data.modules,
-    languages: data.languages,
-    extras: data.extras,
-  });
+  const payment = await verifyPaymentForOrder(
+    data.paymentIntentId,
+    {
+      plan: data.plan,
+      modules: data.modules,
+      languages: data.languages,
+      extras: data.extras,
+    },
+    // Ties the order to the buyer: this endpoint is unauthenticated, so a
+    // payment reference on its own must not be enough to claim the wedding.
+    data.email,
+  );
 
   if (!payment.ok) {
     console.warn("🚫 Provisioning refused:", payment.reason);
@@ -61,6 +76,11 @@ export async function createWedding(data: CreateWeddingData) {
   if (payment.alreadyProvisionedAs) {
     console.log("♻️ Payment already provisioned:", payment.alreadyProvisionedAs);
     const link = await generateLoginLink(data.email, undefined, data.locale);
+
+    // Deliberately no welcome email here. This branch fires on every reload of
+    // the success page, and the couple already received one when the wedding
+    // was first created — mailing a fresh link each time would be spam, and
+    // each new link silently invalidates the one they may be about to click.
     return {
       success: true,
       weddingId: payment.alreadyProvisionedAs,
@@ -84,10 +104,64 @@ export async function createWedding(data: CreateWeddingData) {
   }
 
   if (existingUser) {
-    // Passwordless flow: an existing account is not a conflict — the payment
-    // already went through, so attach this new wedding to that user and let
-    // the magic link below sign them in.
+    // Passwordless flow: an existing account is not a conflict on its own —
+    // the payment already went through, so this signs them back in.
     userId = existingUser.id;
+
+    // One account, one wedding — a v1 constraint, not a domain truth.
+    //
+    // Guards the double-purchase path: the order store survives checkout, so
+    // navigating back from the dashboard used to show a working payment form
+    // primed with the same basket. The replay guard above is keyed on the
+    // PaymentIntent, and that second checkout mints a fresh one — so it saw
+    // nothing, charged the couple again and built them a second site.
+    //
+    // Checked server-side rather than in the browser because the store is
+    // localStorage: clearing it is one devtools click away.
+    //
+    // ── Planned for v2: multiple weddings per account ──────────────────────
+    // Wedding planners and couples gifting an invitation are legitimate
+    // second purchases, and today they are refused and refunded here, then
+    // handled by hand. Everything downstream is already keyed by wedding_id
+    // rather than user_id, so lifting this is mostly about telling an
+    // intentional second order apart from an accidental repeat — an explicit
+    // "order another invitation" entry point carrying a flag this guard
+    // honours, rather than removing the check. Deleting it outright would
+    // restore the Back-button double charge this was written to stop.
+    // See the vault note "Provisioning et Facturation".
+    const { data: existingWedding } = await supabaseAdmin
+      .from("weddings")
+      .select("id")
+      .eq("user_id", userId)
+      .limit(1)
+      .maybeSingle();
+
+    if (existingWedding) {
+      console.error(
+        `[DUPLICATE_PURCHASE] ${data.email} already owns wedding ` +
+          `${existingWedding.id}; refunding intent ${data.paymentIntentId}.`,
+      );
+
+      // Refunded here rather than left for support: nothing is provisioned for
+      // this charge, so keeping the money would be taking payment for nothing.
+      const refund = await refundPayment(
+        data.paymentIntentId,
+        `duplicate purchase — account already owns wedding ${existingWedding.id}`,
+      );
+
+      return {
+        success: false,
+        error: refund.refunded
+          ? "Un espace existe déjà pour cette adresse email. Votre paiement " +
+            "a été remboursé — il apparaîtra sur votre compte sous 5 à 10 " +
+            "jours. Contactez-nous si vous souhaitiez une seconde invitation."
+          : "Un espace existe déjà pour cette adresse email, et le " +
+            "remboursement automatique a échoué. Contactez-nous : nous le " +
+            "traiterons manuellement sous 24h.",
+        duplicatePurchase: true,
+        existingWeddingId: existingWedding.id,
+      };
+    }
   } else {
     // Passwordless account: the couple signs in through the magic link
     // generated at the end of this action, so no password is ever set.
@@ -208,7 +282,12 @@ export async function createWedding(data: CreateWeddingData) {
       extras: data.extras,
       animation_id: data.animationId || "envelope-classic",
       slug: finalSlug,
-      status: "draft",
+      // Published on purchase. `status` is what makes the invitation readable
+      // at its public slug (migration 20260912110000) — the couple bought a
+      // page to send to their guests, and a draft they have to find a switch
+      // for is a worse product. Distinct from `day_of_settings.enabled`, which
+      // stays off until they deliberately turn the Jour J guest page on.
+      status: "published",
     })
     .select("id")
     .single();
@@ -230,6 +309,27 @@ export async function createWedding(data: CreateWeddingData) {
       .insert(siteModulesEntries);
 
     if (smError) console.error("Site Modules Registry Error:", smError);
+  }
+
+  // 4.6 Seed the invitation's starting content.
+  //
+  // The couple lands on an invitation that already exists — their names, their
+  // date, their venue, and a plausible programme underneath that they edit
+  // down rather than write from nothing. It also creates the enabled event the
+  // public route requires, without which a wedding that was just paid for 404s
+  // even though its site is published.
+  //
+  // Deliberately not awaited for its result: the order is already paid, and a
+  // seeding failure must not fail provisioning. It logs internally.
+  if (data.weddingDate) {
+    await seedInvitationContent({
+      weddingId,
+      partner1: data.firstName,
+      partner2: data.partnerName,
+      weddingDate: data.weddingDate,
+      venue: data.venue,
+      modules: sortedModules as ModuleId[],
+    });
   }
 
   // 5. Record Purchases (Wallet)
@@ -270,12 +370,109 @@ export async function createWedding(data: CreateWeddingData) {
   // 7. Generate Auto-Login Link (Magic Link)
   const loginLink = await generateLoginLink(data.email, finalSlug, data.locale);
 
+  // 8. Email that link.
+  //
+  // The checkout page redirects the browser straight to it, which covers the
+  // happy path — but that link was the couple's ONLY way into a passwordless
+  // account, and it existed solely in a tab that may already be gone. It also
+  // matters for orders the webhook provisions on its own: without this the
+  // customer is never told their site exists.
+  //
+  // Awaited rather than fired and forgotten: this runs in a serverless
+  // function, which stops executing the moment the response is returned.
+  if (loginLink) {
+    await sendWelcomeEmail({
+      to: data.email,
+      firstName: data.firstName,
+      partnerName: data.partnerName,
+      loginLink,
+    });
+  }
+
   return {
     success: true,
     userId,
     weddingId,
     email: data.email,
     loginLink,
+  };
+}
+
+/**
+ * Provisions a paid order straight from its Stripe PaymentIntent.
+ *
+ * The safety net behind the browser-driven flow. Provisioning is kicked off
+ * from the checkout page, so an order was lost whenever the customer's tab
+ * died in the two seconds it takes: the charge settled, the webhook logged
+ * "Paid but unprovisioned", and nobody was told. The couple had paid for
+ * nothing, and the first sign of it was a support email.
+ *
+ * Called from the `payment_intent.succeeded` webhook, which Stripe retries on
+ * its own schedule, so the order gets fulfilled with the customer long gone.
+ * `createWedding()` re-verifies the payment and short-circuits on
+ * `alreadyProvisionedAs`, so the browser winning the race is not a conflict —
+ * whichever arrives second finds the wedding already there and stops.
+ */
+export async function provisionFromPaymentIntent(
+  intent: Stripe.PaymentIntent,
+): Promise<
+  | { provisioned: true; weddingId: string; alreadyProvisioned: boolean }
+  | { provisioned: false; reason: string }
+> {
+  // Already tied to a wedding by whichever path got there first.
+  if (intent.metadata?.wedding_id) {
+    return {
+      provisioned: true,
+      weddingId: intent.metadata.wedding_id,
+      alreadyProvisioned: true,
+    };
+  }
+
+  const order = parseOrderMetadata(intent);
+  if (!order) {
+    // An intent from before names were recorded, or not a studio checkout.
+    // Recoverable by hand from `stripe_events`, never silently half-built.
+    return {
+      provisioned: false,
+      reason: `Intent ${intent.id} carries no usable order metadata.`,
+    };
+  }
+
+  // The couple's names are what a wedding is keyed on; provisioning without
+  // them would produce a nameless site the couple cannot recognise.
+  if (!order.firstName || !order.partnerName) {
+    return {
+      provisioned: false,
+      reason: `Intent ${intent.id} is missing the couple's names.`,
+    };
+  }
+
+  const result = await createWedding({
+    paymentIntentId: intent.id,
+    email: order.email,
+    firstName: order.firstName,
+    lastName: order.lastName,
+    partnerName: order.partnerName,
+    weddingDate: order.weddingDate,
+    venue: order.venue,
+    themeId: order.themeId,
+    modules: order.modules,
+    extras: order.extras,
+    languages: order.languages,
+    plan: order.plan,
+    adultsOnly: order.adultsOnly,
+    animationId: order.animationId,
+    locale: order.locale,
+  });
+
+  if (!result.success) {
+    return { provisioned: false, reason: result.error ?? "Unknown failure." };
+  }
+
+  return {
+    provisioned: true,
+    weddingId: result.weddingId as string,
+    alreadyProvisioned: Boolean(result.alreadyProvisioned),
   };
 }
 

@@ -45,6 +45,30 @@ export type ModuleId = (typeof MODULE_IDS)[number];
  * Invitation content — one shape, every theme
  * ------------------------------------------------------------------ */
 
+/**
+ * What a moment in the day *is*, so any theme can draw it.
+ *
+ * Named for the event, never for a picture of it: each theme has its own
+ * artwork — an engraved line, a CSS glyph, a drawn spritz — and they agree on
+ * what a ceremony is, not on how to depict one.
+ *
+ * This used to be an open `string` described as a "theme-defined icon key",
+ * and the three themes invented disjoint sets: `heart`/`cheers`/`cutlery`,
+ * `rings`/`glasses`/`dinner`, `church`/`spritz`/`plate`. An entry written for
+ * one theme therefore fell back to a default in the other two, which
+ * contradicts the promise at the top of this file — that one wedding's content
+ * can be rendered by any theme.
+ */
+export const SCHEDULE_ICONS = [
+  "ceremony",
+  "cocktail",
+  "dinner",
+  "party",
+  "brunch",
+] as const;
+
+export type ScheduleIcon = (typeof SCHEDULE_ICONS)[number];
+
 export type ScheduleEntry = {
   /** 1 for the wedding day, 2 for the day after (brunch, pool party…). */
   day: 1 | 2;
@@ -52,8 +76,11 @@ export type ScheduleEntry = {
   time: string;
   title: string;
   description?: string;
-  /** Theme-defined icon key; ignored by themes that draw their own. */
-  icon?: string;
+  /**
+   * Which moment this is. Every theme draws all five in its own style; an
+   * entry that names none gets the theme's neutral mark.
+   */
+  icon?: ScheduleIcon;
   image?: string;
 };
 
@@ -134,6 +161,16 @@ export type InvitationData = {
     partner2: string;
     /** "V & G" — themes that print a monogram fall back to initials. */
     monogram?: string;
+    /**
+     * A photograph of the couple, for themes that frame one.
+     *
+     * Absent for most weddings: there is no screen where a couple uploads it
+     * yet, and a theme must render its closing page without one rather than
+     * substitute a stock image. `blanc-couture` used to hardcode the demo
+     * couple's portrait here, captioned with whoever's names the invitation
+     * carried.
+     */
+    portrait?: string;
   };
 
   event: {
@@ -173,6 +210,23 @@ export type InvitationData = {
     body?: string;
     note?: string;
     image?: string;
+  };
+
+  /**
+   * The gift note, for the `gift-list` module.
+   *
+   * A theme must render nothing when this is absent. `belle-rive` used to
+   * carry a whole gift section in its markup — an urn on the day, a bank
+   * transfer to come — which is a promise about a couple's own arrangements,
+   * made to every wedding that bought the module.
+   */
+  gifts?: {
+    title?: string;
+    body?: string;
+    /** A registry or contribution page the couple published. */
+    url?: string;
+    /** The link's wording — "Contribuer à notre voyage de noces". */
+    linkLabel?: string;
   };
 
   dressCode?: DressCode;

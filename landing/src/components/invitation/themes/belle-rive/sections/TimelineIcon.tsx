@@ -1,3 +1,5 @@
+import type { ScheduleIcon } from "../../types";
+
 /**
  * The four engraved glyphs on the day-1 timeline.
  *
@@ -8,6 +10,12 @@
  *
  * The set is closed: an entry whose `icon` is unknown falls through to the
  * music glyph rather than leaving an empty medallion.
+ *
+ * The keys come from `ScheduleIcon`, which names the moment rather than the
+ * drawing — this theme engraves a heart for the ceremony, the other two draw
+ * rings and a church. They used to name the drawings, so each theme invented
+ * its own vocabulary and an entry written for one rendered as a fallback in
+ * the others.
  */
 const STROKE = {
   fill: "none",
@@ -17,8 +25,8 @@ const STROKE = {
   strokeLinejoin: "round" as const,
 };
 
-export function TimelineIcon({ type }: { type?: string }) {
-  if (type === "heart") {
+export function TimelineIcon({ type }: { type?: ScheduleIcon }) {
+  if (type === "ceremony") {
     return (
       <svg viewBox="0 0 32 32" aria-hidden="true">
         <path
@@ -29,7 +37,7 @@ export function TimelineIcon({ type }: { type?: string }) {
     );
   }
 
-  if (type === "cheers") {
+  if (type === "cocktail") {
     return (
       <svg viewBox="0 0 32 32" aria-hidden="true">
         <path
@@ -48,7 +56,7 @@ export function TimelineIcon({ type }: { type?: string }) {
     );
   }
 
-  if (type === "cutlery") {
+  if (type === "dinner") {
     return (
       <svg viewBox="0 0 32 32" aria-hidden="true">
         <path
@@ -62,6 +70,9 @@ export function TimelineIcon({ type }: { type?: string }) {
     );
   }
 
+  // `party`, `brunch` and an unset icon all land here: this theme engraves no
+  // separate glyph for them, and a pair of quavers reads as "the evening" well
+  // enough to be the neutral mark.
   return (
     <svg viewBox="0 0 32 32" aria-hidden="true">
       <path

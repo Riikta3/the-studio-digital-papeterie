@@ -130,11 +130,13 @@
     "createButton": "创建我的请柬",
     "cgv": "条款",
     "privacy": "隐私政策",
-    "copyright": "© {year} The Studio Digital Papeterie. 保留所有权利。"
+    "copyright": "© {year} The Studio Digital Papeterie. 保留所有权利。",
+    "contact": "联系我们"
   },
   "HeroCarousel": {
     "prevAriaLabel": "上一张卡片",
     "nextAriaLabel": "下一张卡片",
+    "activeThemeAnnouncement": "当前主题：{name}",
     "cards": [
       {
         "alt": "婚礼请柬示例 — Ciao Amore 主题"
@@ -212,39 +214,60 @@
         "id": "signature",
         "name": "Signature",
         "price": "199€",
-        "positioning": "适合选择现有设计的新人。",
+        "positioning": "适合选择现成设计的新人。",
         "description": "从 The Studio 的作品中选择一款，并用你们婚礼的信息、照片与氛围进行个性化设计。",
-        "cta": "选择 Signature"
+        "cta": "选择 Signature",
+        "features": [
+          "包含 4 个模块，之后每个 5€",
+          "从 The Studio 的设计中选择一款",
+          "个性化在线请柬",
+          "宾客管理空间",
+          "实时 RSVP 回复"
+        ]
       },
       {
         "id": "sur-mesure",
         "name": "定制",
         "price": "299€",
-        "positioning": "",
+        "positioning": "适合想要专属设计的新人。",
         "description": "一份专属定制的婚礼请柬，围绕你们的风格、色彩、场地，以及你们想讲述的故事而设计。",
-        "cta": "创建我的定制请柬"
+        "cta": "创建我的定制请柬",
+        "features": [
+          "模块不限量，全部包含",
+          "完整视觉识别",
+          "匹配婚礼的色彩",
+          "个性化在线请柬",
+          "宾客管理空间"
+        ]
       },
       {
         "id": "prestige",
         "name": "Prestige",
         "price": "499€",
-        "positioning": "",
+        "positioning": "适合想要从头到尾独一无二作品的新人。",
         "description": "The Studio 最完整的体验，为希望在请柬个性化上走得更远的新人而设。",
         "cta": "了解 Prestige",
         "features": [
-          "定制动画",
-          "完整视觉识别设计",
-          "配合婚礼主色调",
-          "无限模块",
-          "优先支持",
-          "无限次修改",
+          "完全定制的创作",
+          "模块不限量，全部包含",
+          "专属动画",
+          "完整视觉识别",
+          "不限次修改",
           "专属域名",
-          "婚礼后照片库",
+          "优先支持",
+          "婚礼后照片相册",
           "留言簿"
         ]
       }
     ],
     "compareRows": [
+      {
+        "key": "modules_allowance",
+        "label": "包含模块",
+        "signature": "4 个模块，之后每个 +5€",
+        "sur-mesure": "不限量",
+        "prestige": "不限量"
+      },
       {
         "key": "animation",
         "label": "定制动画",
@@ -264,13 +287,6 @@
         "label": "配合婚礼主色调",
         "signature": "no",
         "sur-mesure": "inc",
-        "prestige": "inc"
-      },
-      {
-        "key": "modules",
-        "label": "无限模块",
-        "signature": "no",
-        "sur-mesure": "no",
         "prestige": "inc"
       },
       {
@@ -611,7 +627,8 @@
       "定制服务",
       "新人空间",
       "婚礼当天",
-      "常见问题"
+      "常见问题",
+      "联系我们"
     ],
     "mariesLinks": [
       "登录"
@@ -723,11 +740,10 @@
   "StudioModules": {
     "titlePrefix": "您的",
     "titleHighlight": "功能",
-    "subtitlePremium": "您的套餐包含所有模块。",
-    "subtitleEssential": "请至少选择 4 个模块。每增加一个模块 +5€。",
+    "subtitleEssential": "包含 {included} 个模块，之后每增加一个模块 {price}€。",
     "noneSelected": "未选择模块",
-    "selectAtLeast": "请至少选择 4 个模块",
-    "minCount": "{count} / 至少 4 个模块",
+    "selectAtLeast": "请至少选择 {min} 个模块",
+    "minCount": "{count} / {min} 个模块（最少）",
     "countSelected": "已选 {count} 个",
     "included": "已包含",
     "catalog": {
@@ -791,7 +807,10 @@
         "name": "常见问题 / 实用信息",
         "description": "为宾客提供的实用信息"
       }
-    }
+    },
+    "subtitleUnlimited": "模块不限量：你们选择的全部包含在内。",
+    "subtitlePrestige": "你们的方案是完全定制的创作。模块任选，没有数量限制。",
+    "unlimited": "不限量"
   },
   "StudioOptions": {
     "titlePrefix": "选项",
@@ -841,7 +860,11 @@
     "paymentReferenceHint": "请保留此编号：我们可凭此找到您的订单。",
     "contactSupport": "联系客服",
     "reassurePaid": "您的付款是安全的",
-    "errorDetails": "技术详情"
+    "errorDetails": "技术详情",
+    "orderCompleteTitle": "您的订单已完成",
+    "orderCompleteBody": "您的请柬已创建。前往您的空间进行个性化设置。",
+    "orderCompleteCta": "前往我的空间",
+    "orderCompleteHint": "需要第二份请柬吗？请联系我们，我们将为您创建。"
   },
   "Legal": {
     "backHome": "返回首页",
@@ -925,7 +948,7 @@
         {
           "heading": "2. 收集的数据",
           "paragraphs": [
-            "在使用服务的过程中，我们主要收集：客户的身份和联系信息（姓名、电子邮件地址）；在配置工具和仪表盘中输入的与婚礼及宾客相关的信息（宾客姓名、家庭单位、桌位、RSVP 回复、饮食要求、留言）；仅由我们的服务商 Stripe 处理的支付数据；技术性浏览数据（Cookie、IP 地址、连接日志）。"
+            "在使用服务的过程中，我们主要收集：客户的身份和联系信息（姓名、电子邮件地址）；在配置工具和仪表盘中输入的与婚礼及宾客相关的信息（宾客姓名、家庭单位、桌位、RSVP 回复、饮食要求、留言）；仅由我们的服务商 Stripe 处理的支付数据；技术性浏览数据（Cookie、IP 地址、连接日志）。 当您使用联系表单时，我们会收集您填写的信息：名字、姓氏、电子邮件地址，以及您选择填写的婚礼日期与地点、大致宾客人数、您感兴趣的系列、项目进展阶段和留言内容。您同意的时间也会被记录。"
           ]
         },
         {
@@ -944,6 +967,7 @@
           "heading": "5. 托管服务商与分包商",
           "paragraphs": [
             "数据托管于 Supabase（数据库与身份验证），支付由 Stripe 处理。这些服务商可能在欧盟以外处理数据，但会在适当保障措施（标准合同条款或同等措施）框架内进行。",
+            "通过联系表单提交的消息，经由我们的邮件发送服务商 Resend 以电子邮件形式转达给我们。",
             "网站托管服务商：[托管服务商待补充]。"
           ]
         },
@@ -962,7 +986,7 @@
         {
           "heading": "8. Cookie",
           "paragraphs": [
-            "本网站使用其正常运行所严格必需的 Cookie，以及（如适用）需经访客同意的访客统计 Cookie，可通过网站上的 Cookie 管理横幅进行管理。"
+            "本网站使用为其运行所严格必需的 Cookie，此类 Cookie 无需您的同意。仅在获得您的同意后，本网站还可能设置用于了解网站访问量并衡量广告投放效果的受众统计与广告 Cookie。在您作出选择之前，不会设置任何非必需 Cookie。您可以在首次访问时显示的同意窗口中接受或拒绝这些 Cookie，并可随时通过页脚的「管理 Cookie」链接更改您的选择。"
           ]
         },
         {
@@ -1006,5 +1030,319 @@
     "signature": "很快与你相见",
     "copyright": "© {year} The Studio Digital Papeterie. 保留所有权利。",
     "homeAriaLabel": "返回首页"
+  },
+  "Contact": {
+    "meta": {
+      "title": "联系我们 | 数字婚礼请柬 | The Studio",
+      "description": "联系 The Studio，为您的数字婚礼请柬、个性化设计或定制项目咨询。让我们聊聊您的婚礼。"
+    },
+    "hero": {
+      "eyebrow": "一个项目，一个问题，一个想法",
+      "h1": "让我们聊聊您的婚礼",
+      "subtitle": "您有问题、心仪的系列，或想要打造独一无二的请柬？告诉我们您的项目，我们将帮您找到最适合您婚礼的方案。"
+    },
+    "editorial": {
+      "title": "您的项目从这里开始",
+      "text": "每场婚礼都独一无二。只需几项信息，我们便能了解您的风格、心愿以及您所期望的个性化程度。",
+      "markers": [
+        {
+          "title": "有问题？",
+          "desc": "我们将直接为您解答。"
+        },
+        {
+          "title": "心中有心仪系列？",
+          "desc": "告诉我们是哪一个。"
+        },
+        {
+          "title": "想法已经很明确？",
+          "desc": "让我们聊聊定制方案。"
+        }
+      ],
+      "signatureName": "The Studio – 数字文具工作室",
+      "signatureTagline": "数字婚礼请柬与个性化设计"
+    },
+    "form": {
+      "firstNameLabel": "名",
+      "firstNamePlaceholder": "您的名字",
+      "lastNameLabel": "姓",
+      "lastNamePlaceholder": "您的姓氏",
+      "emailLabel": "邮箱",
+      "emailPlaceholder": "you@email.com",
+      "weddingDateLabel": "婚礼日期",
+      "weddingPlaceLabel": "婚礼地点",
+      "weddingPlacePlaceholder": "城市、场地或国家",
+      "guestBandLabel": "宾客大致人数",
+      "guestBandOptions": {
+        "lt-50": "少于 50 人",
+        "50-100": "50 至 100 人",
+        "100-150": "100 至 150 人",
+        "150-200": "150 至 200 人",
+        "gt-200": "超过 200 人",
+        "unknown": "暂未确定"
+      },
+      "interestLabel": "您感兴趣的是？",
+      "interestOptions": {
+        "collection": "现有系列",
+        "personnaliser": "个性化定制某一系列",
+        "sur-mesure": "完全定制设计",
+        "question": "我有一个问题",
+        "unknown": "暂未确定"
+      },
+      "collectionLabel": "您看中了哪个系列？",
+      "collectionOptions": {
+        "ciao-amore": "Ciao Amore",
+        "blanc-couture": "Blanc Couture",
+        "belle-rive": "Belle Rive",
+        "unknown": "暂未确定"
+      },
+      "projectStageLabel": "您的项目进展如何？",
+      "projectStageOptions": {
+        "decouvre": "我正在了解 The Studio",
+        "univers-choisi": "我已经确定了风格",
+        "idee-precise": "我已经有比较明确的想法",
+        "besoin-conseil": "我需要一些建议"
+      },
+      "messageLabel": "和我们聊聊您的婚礼",
+      "messagePlaceholder": "您的风格、色彩、心愿、问题……",
+      "consentLabel": "我同意我的信息将被用于回复我的咨询。",
+      "privacyLinkLabel": "隐私政策",
+      "submit": "发送我的咨询",
+      "submitting": "发送中…",
+      "submitCaption": "我们将亲自回复您。",
+      "privacyNote": "通过此表单提交的信息仅用于回复您的咨询。",
+      "errors": {
+        "required": "此字段为必填项。",
+        "firstName": "请填写您的名字。",
+        "lastName": "请填写您的姓氏。",
+        "email": "请填写有效的邮箱地址。",
+        "message": "您的留言至少需要 10 个字符。",
+        "consent": "请同意信息使用条款。",
+        "global": "发生错误，您的留言未能发送。请稍后再试。"
+      },
+      "optional": "（选填）",
+      "requiredLegend": "标有 * 的字段为必填项。"
+    },
+    "success": {
+      "title": "您的留言已成功送达",
+      "text": "感谢您与我们分享您的项目。\n我们会与您联系，聊聊您的婚礼。",
+      "backHome": "返回首页"
+    }
+  },
+  "ContactBubble": {
+    "bubbleAriaLabel": "联系我们",
+    "title": "您好 👋",
+    "subtitle": "对请柬有疑问吗？我们随时为您服务。",
+    "formOption": "介绍您的项目",
+    "emailOption": "直接写信给我们",
+    "whatsappOption": "WhatsApp",
+    "responseTime": "我们会在 24 至 48 小时内回复。"
+  },
+  "Invitation": {
+    "ciaoAmore": {
+      "hero": {
+        "discoverCta": "探索"
+      },
+      "countdown": {
+        "eyebrow": "La dolce vita 即将开始",
+        "titleLine1": "每一秒",
+        "titleLine2": "都让我们离您更近",
+        "unitDays": "{count, plural, other {天}}",
+        "unitHours": "{count, plural, other {小时}}",
+        "unitMinutes": "{count, plural, other {分钟}}",
+        "unitSeconds": "{count, plural, other {秒}}"
+      },
+      "schedule": {
+        "introEyebrow": "两天非凡时光",
+        "introTitle": "活动安排",
+        "dayOneEyebrow": "第一天",
+        "dayOneSeparator": " · ",
+        "dayOneTitle": "大喜之日"
+      },
+      "dayTwo": {},
+      "dressCode": {
+        "eyebrow": "着装要求 · 第二天",
+        "imageAlt": "{title} 着装"
+      },
+      "venue": {
+        "eyebrow": "地点",
+        "wazeLink": "在 Waze 中查看",
+        "mapsLink": "Google 地图"
+      },
+      "stays": {
+        "eyebrowFallback": "为您精选",
+        "title": "住宿推荐",
+        "nearVenue": "邻近 {venueName}",
+        "hideOptions": "收起选项",
+        "showMoreOptions": "查看更多选项"
+      },
+      "playlist": {
+        "eyebrow": "我们周末的音乐",
+        "titleLine1": "共同创建的",
+        "titleLine2": "歌单",
+        "success": "Grazie！您的歌曲已成功推荐。",
+        "searchLabel": "搜索歌曲",
+        "searchPlaceholder": "歌曲或歌手…",
+        "searchPlaceholderFull": "最多 {max} 首歌曲",
+        "resultsLoading": "搜索中…",
+        "resultsError": "搜索暂不可用，请稍后再试。",
+        "resultsEmpty": "未找到歌曲。",
+        "removeTrack": "移除 {title}",
+        "statusFull": "最多 {max} 首歌曲——请移除一首后再推荐新的。",
+        "statusEmpty": "最多可选 {max} 首",
+        "statusCount": "{count, plural, other {已选 #/{max} 首}}"
+      },
+      "faq": {
+        "eyebrow": "温馨提示",
+        "titleLine1": "大喜之日前",
+        "titleLine2": "的几点说明",
+        "childrenQuestion": "孩子可以出席吗？",
+        "childrenAdultsOnly": "为了让所有父母都能尽情享受这个夜晚、畅舞至天明，我们的婚礼仅限成人出席。请好好享受这段属于您的时光。",
+        "childrenWelcome": "当然可以，欢迎您的孩子出席。请在回复中告知我们，以便为他们做好一切准备。"
+      },
+      "rsvp": {
+        "deadlineEyebrow": "敬请于 {deadline} 前回复",
+        "titleLine1": "您会",
+        "titleLine2": "出席吗？",
+        "thanksTitle": "谢谢您！",
+        "thanksBody": "您的回复已成功提交。",
+        "nameLabel": "您的姓名",
+        "namePlaceholder": "姓名",
+        "attendanceLegend": "出席情况",
+        "attendanceYes": "是的，非常荣幸",
+        "attendanceNo": "抱歉无法出席，但会一直挂念你们",
+        "partyLabel": "谁会一同出席？",
+        "partyOptionSolo": "仅本人",
+        "partyOptionPartner": "本人 + 伴侣",
+        "partnerNameLabel": "伴侣姓名",
+        "partnerNamePlaceholder": "姓名",
+        "childrenLabel": "随行的孩子",
+        "childrenOptionNone": "无",
+        "childFieldLabel": "孩子 {index}",
+        "childNamePlaceholder": "姓名",
+        "dietaryLabel": "饮食禁忌",
+        "messageLabel": "留言",
+        "messagePlaceholder": "您的留言…",
+        "submit": "提交回复",
+        "submitPending": "提交中…",
+        "childrenOptionCount": "{count, plural, other {# 位孩子}}"
+      },
+      "footer": {},
+      "scrollTop": {
+        "ariaLabel": "返回页面顶部"
+      }
+    },
+    "belleRive": {
+      "hero": {
+        "discoverCta": "探索"
+      },
+      "countdown": {
+        "eyebrow": "倒计时",
+        "titleLine1": "我们满心期待",
+        "titleLine2": "与您共同庆祝",
+        "unitDays": "{count, plural, other {天}}",
+        "unitHours": "{count, plural, other {小时}}",
+        "unitMinutes": "{count, plural, other {分钟}}",
+        "unitSeconds": "{count, plural, other {秒}}"
+      },
+      "program": {
+        "eyebrow": "行程安排",
+        "titleFallback": "两天非凡时光",
+        "dayOneEyebrow": "第一天"
+      },
+      "activities": {
+        "eyebrow": "第二天",
+        "brunchImageAlt": "布置雅致的早午餐餐桌",
+        "poolAlt": "泳池",
+        "tennisAlt": "网球",
+        "petanqueAlt": "法式滚球"
+      },
+      "dressCode": {
+        "eyebrow": "着装要求 · 第二天",
+        "imageAlt": "着装灵感：{title}",
+        "guidance": "亚麻、天然面料与夏日装束皆宜。"
+      },
+      "venue": {
+        "eyebrow": "场地",
+        "wazeLink": "在 Waze 中打开",
+        "mapsLink": "Google 地图"
+      },
+      "stays": {
+        "eyebrow": "住宿",
+        "title": "为您精选",
+        "partnerOffersKicker": "合作伙伴优惠",
+        "nearbyKicker": "附近的乡舍与民宿",
+        "discoverAndBook": "了解并预订",
+        "showMoreOptions": "查看更多选项"
+      },
+      "playlist": {
+        "eyebrow": "音乐",
+        "title": "共创歌单",
+        "suggestionPlaceholder": "曲名 — 艺人",
+        "suggestionLabel": "您的推荐",
+        "add": "添加",
+        "alreadySuggested": "已推荐"
+      },
+      "carpool": {
+        "eyebrow": "拼车",
+        "titleLine1": "一同启程",
+        "titleLine2": "可好？",
+        "intro": "您自驾前来且尚有空位？欢迎将您的行程分享给其他宾客。",
+        "tripTo": "{departure} 前往 {destination}",
+        "offeredBy": "由 {name} 提供",
+        "seats": "{count, plural, other {# 个座位}}",
+        "returnTripOffered": "同时提供返程",
+        "contactDriver": "联系",
+        "contactUnavailable": "请柬激活后即可使用",
+        "emptyLine1": "目前尚无人提供行程。",
+        "emptyLine2": "欢迎您率先分享！",
+        "successLine1": "您的行程已发布。",
+        "successLine2": "感谢您与大家同行！",
+        "firstNameLabel": "名字",
+        "firstNamePlaceholder": "您的名字",
+        "departureLabel": "出发城市",
+        "departurePlaceholder": "北京、上海、广州…",
+        "dateLabel": "日期",
+        "timeLabel": "时间",
+        "seatsLabel": "可用座位",
+        "phoneLabel": "WhatsApp 号码",
+        "phonePlaceholder": "138 0000 0000",
+        "returnTripCheckbox": "我同时提供返程",
+        "consentCheckbox": "我同意将我的名字与联系方式向宾客公开。",
+        "publishTrip": "发布我的行程",
+        "offerTrip": "我要提供行程"
+      },
+      "faq": {
+        "eyebrow": "常见问题",
+        "title": "一些实用解答"
+      },
+      "rsvp": {
+        "eyebrow": "回执",
+        "title": "您会莅临吗？",
+        "introFallback": "若能有您相伴，将是我们的荣幸。",
+        "deadline": "敬请于 <b>{deadline}</b> 前确认出席。",
+        "thanksTitle": "感谢您的回复！",
+        "nameLabel": "姓名",
+        "namePlaceholder": "姓与名",
+        "attendanceLegend": "出席",
+        "attendanceYes": "是的，我很乐意出席",
+        "attendanceNo": "很遗憾无法出席，但会由衷祝福您们",
+        "partyLabel": "将有谁出席？",
+        "partyOptionSolo": "仅我一人",
+        "partyOptionPartner": "我与我的伴侣",
+        "partnerNameLabel": "您伴侣的姓名",
+        "partnerNamePlaceholder": "姓与名",
+        "dietaryLabel": "饮食禁忌",
+        "messageLabel": "补充说明",
+        "messagePlaceholder": "过敏或特殊饮食…",
+        "submit": "提交我的回复",
+        "submitPending": "提交中…"
+      },
+      "gifts": {
+        "eyebrow": "礼物",
+        "titleFallback": "您的到来便是我们最好的礼物",
+        "animationLabel": "缀以珍珠的礼盒",
+        "linkLabelFallback": "参与"
+      }
+    }
   }
 }

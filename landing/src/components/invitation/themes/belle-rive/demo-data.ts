@@ -70,7 +70,7 @@ export const BELLE_RIVE_DEMO: InvitationData = {
       time: "17H00",
       title: "Cérémonie laïque",
       description: "Un moment d’émotion, entourés de ceux que nous aimons",
-      icon: "heart",
+      icon: "ceremony",
       image: "/themes/belle-rive/ceremony.mp4",
     },
     {
@@ -78,7 +78,7 @@ export const BELLE_RIVE_DEMO: InvitationData = {
       time: "18H00",
       title: "Cocktail",
       description: "Bulles, musique et retrouvailles",
-      icon: "cheers",
+      icon: "cocktail",
       image: "/themes/belle-rive/cocktails.mp4",
     },
     {
@@ -86,7 +86,7 @@ export const BELLE_RIVE_DEMO: InvitationData = {
       time: "20H30",
       title: "Dîner de mariage",
       description: "À table pour célébrer ensemble",
-      icon: "cutlery",
+      icon: "dinner",
       image: "/themes/belle-rive/reception.mp4",
     },
     {
@@ -94,7 +94,7 @@ export const BELLE_RIVE_DEMO: InvitationData = {
       time: "23H30",
       title: "Fête jusqu’au matin",
       description: "Place à la danse et aux souvenirs",
-      icon: "music",
+      icon: "party",
     },
   ],
 
@@ -107,11 +107,21 @@ export const BELLE_RIVE_DEMO: InvitationData = {
     image: "/themes/belle-rive/brunch-table.webp",
   },
 
+  // The showcase keeps the gift note the theme was ported with. It lived in
+  // `GiftsSection`'s markup, so every real wedding that bought the module
+  // promised an urn and a bank transfer too; here it is demo content, which is
+  // what it always was.
+  gifts: {
+    title: "Votre présence est notre plus beau cadeau",
+    body: "Si vous souhaitez malgré tout nous laisser une attention, une urne sera délicatement mise à votre disposition le jour du mariage.\nVous pourrez également nous accompagner dans cette belle aventure par virement bancaire.",
+  },
+
   dressCode: {
     title: "Riviera Chic",
     body: "Pour prolonger les festivités dans une ambiance lumineuse et élégante, nous vous invitons à porter une tenue dans les tons :",
-    // Labels and swatches are paired positionally by the section, matching the
-    // source's `.palette span:nth-child(n)` rules.
+    // Swatches only: the section no longer prints a name beside each colour,
+    // because the names were a fixed list indexed by position and wrong for
+    // any palette but this one.
     colors: ["white", "#eee7d9", "#d8c5a6"],
     note: "N’oubliez pas votre maillot de bain et votre serviette !",
     image: "/themes/belle-rive/dresscode-riviera.webp",

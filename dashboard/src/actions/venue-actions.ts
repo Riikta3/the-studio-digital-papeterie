@@ -237,9 +237,9 @@ const EXT_BY_TYPE: Record<string, string> = {
 };
 
 /**
- * Shared upload for both the venue's own photo and each accommodation's
- * photo — same bucket, same limits, only the folder prefix differs so the
- * two stay separable under `<wedding_id>/…`.
+ * Shared upload for the wedding's own photographs — the venue, each
+ * accommodation, and the couple's portrait — same bucket, same limits, only
+ * the folder prefix differs so they stay separable under `<wedding_id>/…`.
  *
  * `PhotoPicker` already enforces the 8MB cap and the JPEG/PNG/WebP allowlist
  * in the browser, but a limit checked only client-side is not a limit: both
@@ -247,7 +247,7 @@ const EXT_BY_TYPE: Record<string, string> = {
  */
 async function uploadPhoto(
   formData: FormData,
-  folder: "venue" | "accommodations",
+  folder: "venue" | "accommodations" | "couple",
 ): Promise<{ success: true; url: string } | { success: false; error: string }> {
   const ctx = await requireWeddingForWrite();
   if (ctx.failure) return ctx.failure;
@@ -297,4 +297,17 @@ export async function uploadAccommodationPhoto(
   formData: FormData,
 ): Promise<{ success: true; url: string } | { success: false; error: string }> {
   return uploadPhoto(formData, "accommodations");
+}
+
+/**
+ * The couple's own portrait, for themes that frame one on their closing page.
+ *
+ * Lives here rather than beside `saveInvitationCopy` so every wedding
+ * photograph goes through one validated path and one bucket; only the folder
+ * tells them apart.
+ */
+export async function uploadCouplePhoto(
+  formData: FormData,
+): Promise<{ success: true; url: string } | { success: false; error: string }> {
+  return uploadPhoto(formData, "couple");
 }

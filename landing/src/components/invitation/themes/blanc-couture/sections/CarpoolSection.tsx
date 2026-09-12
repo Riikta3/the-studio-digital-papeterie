@@ -28,7 +28,7 @@ export function CarpoolSection({
   }
 
   return (
-    <Page className="soft-floral-paper module-page" side={side}>
+    <Page className="soft-floral-paper module-page" side={side} monogram={data.couple.monogram} couple={data.couple}>
       <p className="script">On fait la route ensemble ?</p>
       <h2>Covoiturage</h2>
       <p className="intro">Proposez une place ou trouvez un trajet parmi les invités.</p>

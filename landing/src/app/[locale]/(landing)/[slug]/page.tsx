@@ -14,6 +14,7 @@ import {
 import { buildOpenGraph } from "@/lib/seo-metadata";
 import { getSiteUrl } from "@/lib/site";
 import { Link } from "@/navigation";
+import { PageHeader } from "@/components/home/PageHeader";
 
 type Section = { title: string; body: string };
 type Plan = {
@@ -136,6 +137,8 @@ export default async function LandingPage({
 
   return (
     <main className="bg-studio-creme">
+      <PageHeader />
+
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{

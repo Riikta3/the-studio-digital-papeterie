@@ -40,7 +40,8 @@
       "not_live": "Offline",
       "edit_cta": "Edit content",
       "public_hint": "Public link shared with your guests",
-      "view_cta": "View"
+      "view_cta": "View",
+      "view_cta_offline": "Invitation offline — publish it again to view it"
     }
   },
   "Guests": {
@@ -211,6 +212,7 @@
         "label": "Invitation",
         "items": {
           "modules": "My modules",
+          "words": "Our words",
           "events": "Events",
           "schedule": "Schedule",
           "venue": "Venue & practical info",
@@ -241,6 +243,7 @@
       }
     },
     "view_site": "View my Site",
+    "view_site_unpublished": "Your invitation is unpublished. Publish it again to see it online.",
     "logout": "Logout",
     "logout_confirmation": {
       "title": "Confirm logout",
@@ -519,7 +522,14 @@
         "name": "FAQ / Practical Info",
         "description": "Practical info for guests"
       }
-    }
+    },
+    "dresscode_palette": "Colour palette",
+    "dresscode_palette_hint": "The colours your guests will see on the invitation. Up to 6.",
+    "dresscode_palette_swatch": "Colour {index}",
+    "dresscode_palette_remove": "Remove colour {index}",
+    "dresscode_photo": "Inspiration photo",
+    "dresscode_note": "Short note",
+    "dresscode_note_placeholder": "E.g. Stiletto heels are best avoided — the ceremony is on the lawn"
   },
   "Playlist": {
     "title": "Collaborative Playlist",
@@ -687,7 +697,8 @@
       "delete_description": "This action is irreversible. The {count} selected response(s) will be permanently deleted.",
       "deleted": "{count} response(s) deleted"
     },
-    "dietary_other_placeholder": "Other (please specify)..."
+    "dietary_other_placeholder": "Other (please specify)...",
+    "truncated_notice": "Showing the {shown} most recent responses out of {total}. The expected headcount covers only these; the other counters are complete."
   },
   "EditGuestDialog": {
     "title": "Edit guest",
@@ -876,7 +887,11 @@
     "sign_in": "Sign in",
     "error_invalid_credentials": "Invalid credentials.",
     "footer_line1": "The elegance of stationery,",
-    "footer_line2": "the power of digital"
+    "footer_line2": "the power of digital",
+    "session_expired_title": "Your session has expired",
+    "session_expired_description": "You were signed out after 30 days of inactivity. Sign in again to continue.",
+    "invalid_link_title": "This link is no longer valid",
+    "invalid_link_description": "It may already have been used, or it has expired. Request a new one."
   },
   "ResetPassword": {
     "title": "New password",
@@ -1284,5 +1299,69 @@
     "remove": "Remove photo",
     "error_type": "Unsupported format. Use a JPEG, PNG or WebP.",
     "error_size": "Photo too large. The maximum is 8 MB."
+  },
+  "SitePublication": {
+    "title": "Invitation publishing",
+    "section_desc": "Choose whether your guests can open your online invitation.",
+    "toggle_label": "Invitation online",
+    "status_online": "Online",
+    "status_offline": "Offline",
+    "hint_online": "Your guests can view your invitation with the link.",
+    "hint_offline": "The link is disabled: nobody can see your invitation.",
+    "now_online": "Your invitation is online.",
+    "now_offline": "Your invitation is offline.",
+    "save_failed": "Could not save your change."
+  },
+  "InvitationCopy": {
+    "title": "Our words",
+    "subtitle": "The sentences that sound like you, at the top and the bottom of your invitation. Leave a field empty to keep the default wording.",
+    "fields": {
+      "hero_kicker": "Above your names",
+      "announcement": "Your announcement",
+      "closing_words": "Closing words",
+      "portrait": "Your photo"
+    },
+    "hints": {
+      "hero_kicker": "The short line that opens the invitation.",
+      "announcement": "The sentence beside your names.",
+      "closing_words": "On the final page. Line breaks are kept.",
+      "portrait": "Only some themes frame a photo of the couple — on the others it will not appear."
+    },
+    "placeholders": {
+      "hero_kicker": "We're getting married",
+      "announcement": "We would love to have you with us.",
+      "closing_words": "See you very soon"
+    },
+    "save": "Save",
+    "saving": "Saving…",
+    "saved": "Your words are saved",
+    "save_failed": "Something went wrong while saving."
+  },
+  "AuthEmails": {
+    "brand": "The Studio Digital Papeterie",
+    "reset_subject": "Reset your password",
+    "reset_heading": "Reset your password",
+    "reset_body": "You asked to reset the password for your space. Click below to choose a new one.",
+    "reset_cta": "Choose a new password",
+    "magic_subject": "Your sign-in link",
+    "magic_heading": "Your sign-in link",
+    "magic_body": "Click below to reach your space. No password needed.",
+    "magic_cta": "Go to my space",
+    "confirm_subject": "Confirm your email address",
+    "confirm_heading": "Confirm your email address",
+    "confirm_body": "One step left: confirm your email address to activate your space.",
+    "confirm_cta": "Confirm my address",
+    "change_current_subject": "Confirm your email address change",
+    "change_new_subject": "Confirm your new email address",
+    "change_current_heading": "Confirm the address change",
+    "change_new_heading": "Confirm your new address",
+    "change_current_body": "You asked to change your account's email address to {newEmail}. Confirm below to authorise it.",
+    "change_new_body": "You asked to change the email address on your space. Confirm it below to make it effective.",
+    "change_current_cta": "Authorise the change",
+    "change_new_cta": "Confirm my new address",
+    "expires": "This link works once and expires in {hours} hours.",
+    "ignore": "If you did not ask for this, simply ignore this email — nothing will change.",
+    "fallback": "If the button does not work, copy this link into your browser:",
+    "footer": "A question? Just reply to this email."
   }
 }

@@ -13,6 +13,7 @@ import {
 import { buildOpenGraph } from "@/lib/seo-metadata";
 import { getSiteUrl } from "@/lib/site";
 import { Link } from "@/navigation";
+import { PageHeader } from "@/components/home/PageHeader";
 
 /**
  * The Journal index.
@@ -65,6 +66,8 @@ export default async function JournalPage({
 
   return (
     <main className="bg-studio-creme">
+      <PageHeader />
+
       <section className="px-6 py-20 md:px-12">
         <div className="mx-auto max-w-3xl text-center">
           <div className="flex items-center justify-center gap-3 font-body text-h5 tracking-luxe text-studio-pourpre">

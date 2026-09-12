@@ -1,9 +1,12 @@
 "use server";
 
-import { createClient } from "@/utils/supabase/server";
-import { translateSupabaseError } from "@/lib/supabase-errors";
+import { getLocale } from "next-intl/server";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
+
+import { sendAuthEmail } from "@/lib/auth-email";
+import { translateSupabaseError } from "@/lib/supabase-errors";
+import { createClient } from "@/utils/supabase/server";
 
 export async function getSettings() {
   const supabase = await createClient();
@@ -172,19 +175,72 @@ export async function updateProfile(formData: FormData) {
   return { success: true };
 }
 
+/**
+ * Starts an email address change.
+ *
+ * Through `sendAuthEmail` rather than `supabase.auth.updateUser({ email })`.
+ * That call has Supabase send the messages itself, which is the one path that
+ * still escaped our own templates: untranslated, off the studio's design, and
+ * subject to the shared SMTP's handful-per-hour rate limit. Supabase still
+ * mints and verifies both tokens — only delivery moves.
+ *
+ * Two emails, not one. `secure_email_change_enabled` makes Supabase require a
+ * confirmation from the current address *and* the new one, so a stolen session
+ * cannot move an account to an inbox its owner does not hold. Note that a local
+ * run completes the change after the first link alone, because
+ * `enable_confirmations = false` implies GOTRUE_MAILER_AUTOCONFIRM — production
+ * demands both. See supabase/config.toml.
+ */
 export async function updateEmail(formData: FormData) {
   const supabase = await createClient();
-  const email = formData.get("email") as string;
+  const email = String(formData.get("email") ?? "").trim();
 
-  const { error } = await supabase.auth.updateUser({ email });
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
 
-  if (error) {
-    return { success: false, error: translateSupabaseError(error.message) };
+  if (!user?.email) {
+    return { success: false, error: "Session expirée, reconnectez-vous." };
   }
+
+  if (!email) {
+    return { success: false, error: "Adresse email requise" };
+  }
+
+  if (email.toLowerCase() === user.email.toLowerCase()) {
+    return { success: false, error: "C'est déjà votre adresse actuelle." };
+  }
+
+  const locale = await getLocale();
+
+  // Sequential rather than concurrent: if minting the first link fails there is
+  // no pending change, and sending only the second would ask the new inbox to
+  // confirm something that was never started.
+  const current = await sendAuthEmail({
+    kind: "change_current",
+    to: user.email,
+    newEmail: email,
+    locale,
+  });
+
+  if (!current.sent) {
+    return {
+      success: false,
+      error: "Impossible d'envoyer l'email de confirmation. Réessayez.",
+    };
+  }
+
+  await sendAuthEmail({
+    kind: "change_new",
+    to: user.email,
+    newEmail: email,
+    locale,
+  });
 
   return {
     success: true,
-    message: "Un email de confirmation a été envoyé à la nouvelle adresse.",
+    message:
+      "Deux emails de confirmation ont été envoyés : un à votre adresse actuelle, un à la nouvelle. Confirmez les deux pour valider le changement.",
   };
 }
 

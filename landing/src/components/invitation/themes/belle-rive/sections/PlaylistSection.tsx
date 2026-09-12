@@ -1,5 +1,6 @@
 "use client";
 
+import { useTranslations } from "next-intl";
 import { type FormEvent, useState } from "react";
 
 import type { InvitationData } from "../../types";
@@ -17,6 +18,7 @@ import type { InvitationData } from "../../types";
  * joined for display rather than the pair being flattened into the data.
  */
 export function PlaylistSection({ data }: { data: InvitationData }) {
+  const t = useTranslations("Invitation.belleRive.playlist");
   const seed = (data.playlist ?? []).map((track) => `${track.title} — ${track.artist}`);
 
   const [songs, setSongs] = useState<string[]>(seed);
@@ -33,8 +35,8 @@ export function PlaylistSection({ data }: { data: InvitationData }) {
   return (
     <section className="panel playlist playlist-framed">
       <div className="playlist-content">
-        <p className="eyebrow">La musique</p>
-        <h2>Playlist participative</h2>
+        <p className="eyebrow">{t("eyebrow")}</p>
+        <h2>{t("title")}</h2>
         {data.copy?.playlistIntro ? <p>{data.copy.playlistIntro}</p> : null}
 
         <form className="input" onSubmit={handleSubmit}>
@@ -42,15 +44,15 @@ export function PlaylistSection({ data }: { data: InvitationData }) {
             name="suggestion"
             value={value}
             onChange={(event) => setValue(event.target.value)}
-            placeholder="Titre — Artiste"
-            aria-label="Votre suggestion"
+            placeholder={t("suggestionPlaceholder")}
+            aria-label={t("suggestionLabel")}
           />
-          <button type="submit">Ajouter</button>
+          <button type="submit">{t("add")}</button>
         </form>
 
         {songs.length > 0 ? (
           <>
-            <h3>Déjà proposés</h3>
+            <h3>{t("alreadySuggested")}</h3>
             <ul>
               {songs.map((song, index) => (
                 <li key={`${song}-${index}`}>{song}</li>

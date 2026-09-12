@@ -130,11 +130,13 @@
     "createButton": "招待状を作成する",
     "cgv": "利用規約",
     "privacy": "プライバシー",
-    "copyright": "© {year} The Studio Digital Papeterie. All rights reserved."
+    "copyright": "© {year} The Studio Digital Papeterie. All rights reserved.",
+    "contact": "お問い合わせ"
   },
   "HeroCarousel": {
     "prevAriaLabel": "前のカード",
     "nextAriaLabel": "次のカード",
+    "activeThemeAnnouncement": "表示中のテーマ：{name}",
     "cards": [
       {
         "alt": "結婚式の招待状の例 — Ciao Amore テーマ"
@@ -212,39 +214,60 @@
         "id": "signature",
         "name": "Signature",
         "price": "199€",
-        "positioning": "既存のデザインをお選びになるおふたりへ。",
+        "positioning": "既存のデザインから選びたいおふたりへ。",
         "description": "The Studio のデザインからひとつをお選びいただき、結婚式の情報や写真、世界観を反映してカスタマイズします。",
-        "cta": "Signature を選ぶ"
+        "cta": "Signature を選ぶ",
+        "features": [
+          "4つのモジュール込み、以降は1つ5€",
+          "The Studio のデザインから1点",
+          "パーソナライズされたオンライン招待状",
+          "ゲスト管理スペース",
+          "RSVPの回答をリアルタイムで確認"
+        ]
       },
       {
         "id": "sur-mesure",
         "name": "オーダーメイド",
         "price": "299€",
-        "positioning": "",
+        "positioning": "おふたりらしい一点ものを望む方へ。",
         "description": "おふたりの世界観、色、会場、そして伝えたい物語をもとに描く、完全オリジナルの結婚式招待状です。",
-        "cta": "オーダーメイドの招待状を作る"
+        "cta": "オーダーメイドの招待状を作る",
+        "features": [
+          "モジュール無制限、すべて込み",
+          "ブランディング一式",
+          "結婚式のカラーに合わせて調整",
+          "パーソナライズされたオンライン招待状",
+          "ゲスト管理スペース"
+        ]
       },
       {
         "id": "prestige",
         "name": "Prestige",
         "price": "499€",
-        "positioning": "",
+        "positioning": "最初から最後まで唯一無二を望むおふたりへ。",
         "description": "招待状のカスタマイズをさらに追求したいおふたりのための、The Studio でもっとも充実したご提案です。",
         "cta": "Prestige を見る",
         "features": [
+          "完全オーダーメイドの制作",
+          "モジュール無制限、すべて込み",
           "オリジナルアニメーション",
-          "グラフィックアイデンティティ一式",
-          "結婚式のカラーに合わせた調整",
-          "モジュール数無制限",
-          "優先サポート",
-          "修正回数無制限",
+          "ブランディング一式",
+          "修正回数は無制限",
           "独自ドメイン",
+          "優先サポート",
           "挙式後のフォトギャラリー",
           "ゲストブック"
         ]
       }
     ],
     "compareRows": [
+      {
+        "key": "modules_allowance",
+        "label": "含まれるモジュール",
+        "signature": "4つ、以降は1つ +5€",
+        "sur-mesure": "無制限",
+        "prestige": "無制限"
+      },
       {
         "key": "animation",
         "label": "オリジナルアニメーション",
@@ -264,13 +287,6 @@
         "label": "結婚式のカラーに合わせた調整",
         "signature": "no",
         "sur-mesure": "inc",
-        "prestige": "inc"
-      },
-      {
-        "key": "modules",
-        "label": "モジュール数無制限",
-        "signature": "no",
-        "sur-mesure": "no",
         "prestige": "inc"
       },
       {
@@ -611,7 +627,8 @@
       "オーダーメイド",
       "新郎新婦の管理画面",
       "挙式当日",
-      "よくある質問"
+      "よくある質問",
+      "お問い合わせ"
     ],
     "mariesLinks": [
       "ログイン"
@@ -723,11 +740,10 @@
   "StudioModules": {
     "titlePrefix": "あなたの",
     "titleHighlight": "機能",
-    "subtitlePremium": "すべてのモジュールがプランに含まれています。",
-    "subtitleEssential": "4つ以上のモジュールをお選びください。追加1つにつき +5€。",
+    "subtitleEssential": "{included}つのモジュールが含まれ、以降は1つにつき{price}€です。",
     "noneSelected": "モジュールが選択されていません",
-    "selectAtLeast": "4つ以上のモジュールを選択してください",
-    "minCount": "{count} / 最低4モジュール",
+    "selectAtLeast": "モジュールを{min}つ以上お選びください",
+    "minCount": "{count} / {min} モジュール（最少）",
     "countSelected": "{count} 件選択",
     "included": "込み",
     "catalog": {
@@ -791,7 +807,10 @@
         "name": "FAQ／実用情報",
         "description": "ゲスト向けの実用情報"
       }
-    }
+    },
+    "subtitleUnlimited": "モジュールは無制限。選んだものはすべて含まれます。",
+    "subtitlePrestige": "このプランは完全オーダーメイドです。モジュールは制限なくお選びいただけます。",
+    "unlimited": "無制限"
   },
   "StudioOptions": {
     "titlePrefix": "オプション",
@@ -841,7 +860,11 @@
     "paymentReferenceHint": "この番号を保管してください。ご注文の照会に使用します。",
     "contactSupport": "サポートに問い合わせる",
     "reassurePaid": "お支払いは安全に処理されています",
-    "errorDetails": "技術的な詳細"
+    "errorDetails": "技術的な詳細",
+    "orderCompleteTitle": "ご注文が完了しました",
+    "orderCompleteBody": "招待状は作成済みです。マイスペースからカスタマイズしてください。",
+    "orderCompleteCta": "マイスペースへ",
+    "orderCompleteHint": "2通目の招待状をご希望ですか？お問い合わせいただければお作りします。"
   },
   "Legal": {
     "backHome": "ホームに戻る",
@@ -925,7 +948,7 @@
         {
           "heading": "2. 収集するデータ",
           "paragraphs": [
-            "本サービスの利用にあたり、当社は特に以下を収集します：顧客の識別・連絡情報（氏名、メールアドレス）、設定ツールおよびダッシュボードに入力された結婚式およびゲストに関する情報（ゲスト名、世帯、テーブル、RSVP回答、食事制限、メッセージ）、当社の決済プロバイダーであるStripeのみが処理する決済データ、技術的な閲覧データ（クッキー、IPアドレス、接続ログ）。"
+            "本サービスの利用にあたり、当社は特に以下を収集します：顧客の識別・連絡情報（氏名、メールアドレス）、設定ツールおよびダッシュボードに入力された結婚式およびゲストに関する情報（ゲスト名、世帯、テーブル、RSVP回答、食事制限、メッセージ）、当社の決済プロバイダーであるStripeのみが処理する決済データ、技術的な閲覧データ（クッキー、IPアドレス、接続ログ）。 お問い合わせフォームをご利用の際、入力された情報（お名前、姓、メールアドレス、ならびにご記入いただいた場合は挙式日と場所、おおよそのゲスト人数、ご関心のあるコレクション、ご計画の進捗状況、メッセージ本文）を取得します。ご同意いただいた日時も記録されます。"
           ]
         },
         {
@@ -944,6 +967,7 @@
           "heading": "5. ホスティングおよび委託先",
           "paragraphs": [
             "データはSupabase（データベースおよび認証）にホスティングされ、決済はStripeによって処理されます。これらのプロバイダーは、適切な保護措置（標準契約条項またはそれに準ずるもの）のもと、欧州連合域外でデータを処理する場合があります。",
+            "お問い合わせフォームから送信されたメッセージは、メール配信事業者 Resend を通じて当社にメールで転送されます。",
             "サイトのホスティングプロバイダー：[ホスティングプロバイダーを記入]。"
           ]
         },
@@ -962,7 +986,7 @@
         {
           "heading": "8. クッキー",
           "paragraphs": [
-            "本サイトは、その運営に厳密に必要なクッキー、および該当する場合には訪問者の同意に基づくアクセス解析用クッキーを使用しており、サイト上のクッキー管理バナーから管理することができます。"
+            "本サイトは、その動作に厳密に必要なクッキーを使用します。これらにお客様の同意は必要ありません。また、お客様の同意を得た場合にのみ、サイトのアクセス状況の把握および広告効果の測定を目的としたアクセス解析クッキーおよび広告クッキーを保存することがあります。お客様が選択を行う前に、必須でないクッキーが保存されることはありません。これらのクッキーは初回訪問時に表示される同意ウィンドウで受け入れまたは拒否でき、フッターの「クッキーの管理」リンクからいつでも選択を変更できます。"
           ]
         },
         {
@@ -1006,5 +1030,319 @@
     "signature": "またすぐに",
     "copyright": "© {year} The Studio Digital Papeterie. All rights reserved.",
     "homeAriaLabel": "ホームに戻る"
+  },
+  "Contact": {
+    "meta": {
+      "title": "お問い合わせ | デジタル結婚式招待状 | The Studio",
+      "description": "デジタル結婚式招待状、パーソナライズデザイン、オーダーメイドのプロジェクトについて The Studio にお問い合わせください。あなたの結婚式についてお話ししましょう。"
+    },
+    "hero": {
+      "eyebrow": "プロジェクト、質問、アイデア",
+      "h1": "あなたの結婚式について、お話ししましょう",
+      "subtitle": "ご質問がある、気になるコレクションがある、あるいは他とは違う招待状を作りたい。そんな想いをぜひお聞かせください。あなたの結婚式に最適なプランを一緒に見つけます。"
+    },
+    "editorial": {
+      "title": "あなたのプロジェクトはここから始まります",
+      "text": "結婚式はひとつひとつ違います。世界観やご希望、求めるパーソナライズの度合いを理解するために、いくつかの情報をお聞かせください。",
+      "markers": [
+        {
+          "title": "ご質問がありますか？",
+          "desc": "直接お答えします。"
+        },
+        {
+          "title": "気になるコレクションがありますか？",
+          "desc": "ぜひ教えてください。"
+        },
+        {
+          "title": "とても具体的なアイデアがありますか？",
+          "desc": "オーダーメイドについてお話ししましょう。"
+        }
+      ],
+      "signatureName": "The Studio – デジタルペーパリー",
+      "signatureTagline": "デジタル結婚式招待状 & パーソナライズデザイン"
+    },
+    "form": {
+      "firstNameLabel": "名",
+      "firstNamePlaceholder": "お名前",
+      "lastNameLabel": "姓",
+      "lastNamePlaceholder": "苗字",
+      "emailLabel": "メールアドレス",
+      "emailPlaceholder": "you@email.com",
+      "weddingDateLabel": "結婚式の日程",
+      "weddingPlaceLabel": "挙式場所",
+      "weddingPlacePlaceholder": "都市、会場、または国",
+      "guestBandLabel": "ゲストの概算人数",
+      "guestBandOptions": {
+        "lt-50": "50人未満",
+        "50-100": "50〜100人",
+        "100-150": "100〜150人",
+        "150-200": "150〜200人",
+        "gt-200": "200人以上",
+        "unknown": "まだ分かりません"
+      },
+      "interestLabel": "ご興味のあることは？",
+      "interestOptions": {
+        "collection": "既存のコレクション",
+        "personnaliser": "コレクションのパーソナライズ",
+        "sur-mesure": "完全オーダーメイド",
+        "question": "質問があります",
+        "unknown": "まだ分かりません"
+      },
+      "collectionLabel": "気になっているコレクションはどれですか？",
+      "collectionOptions": {
+        "ciao-amore": "Ciao Amore",
+        "blanc-couture": "Blanc Couture",
+        "belle-rive": "Belle Rive",
+        "unknown": "まだ分かりません"
+      },
+      "projectStageLabel": "プロジェクトの進み具合は？",
+      "projectStageOptions": {
+        "decouvre": "The Studioについて知り始めたところです",
+        "univers-choisi": "すでに世界観を選びました",
+        "idee-precise": "かなり具体的なイメージがあります",
+        "besoin-conseil": "アドバイスが必要です"
+      },
+      "messageLabel": "あなたの結婚式について教えてください",
+      "messagePlaceholder": "世界観、カラー、ご希望、ご質問など…",
+      "consentLabel": "入力した情報がお問い合わせへの返信に使用されることに同意します。",
+      "privacyLinkLabel": "プライバシーポリシー",
+      "submit": "送信する",
+      "submitting": "送信中…",
+      "submitCaption": "担当者より直接ご返信いたします。",
+      "privacyNote": "本フォームで送信された情報は、お問い合わせへの返信のみに使用されます。",
+      "errors": {
+        "required": "この項目は必須です。",
+        "firstName": "お名前を入力してください。",
+        "lastName": "苗字を入力してください。",
+        "email": "有効なメールアドレスを入力してください。",
+        "message": "メッセージは10文字以上で入力してください。",
+        "consent": "情報の使用について同意してください。",
+        "global": "エラーが発生しました。メッセージを送信できませんでした。しばらくしてから再度お試しください。"
+      },
+      "optional": "（任意）",
+      "requiredLegend": "* が付いた項目は必須です。"
+    },
+    "success": {
+      "title": "メッセージが届きました",
+      "text": "プロジェクトについてお聞かせいただきありがとうございます。\n結婚式について改めてご連絡いたします。",
+      "backHome": "トップページへ戻る"
+    }
+  },
+  "ContactBubble": {
+    "bubbleAriaLabel": "お問い合わせ",
+    "title": "こんにちは 👋",
+    "subtitle": "招待状についてご質問がありますか？",
+    "formOption": "プロジェクトについて教えてください",
+    "emailOption": "直接メールする",
+    "whatsappOption": "WhatsApp",
+    "responseTime": "24〜48時間以内にご返信いたします。"
+  },
+  "Invitation": {
+    "ciaoAmore": {
+      "hero": {
+        "discoverCta": "見る"
+      },
+      "countdown": {
+        "eyebrow": "La dolce vita がはじまるまで",
+        "titleLine1": "一秒ごとに",
+        "titleLine2": "皆さまとの距離が近づきます",
+        "unitDays": "{count, plural, other {日}}",
+        "unitHours": "{count, plural, other {時間}}",
+        "unitMinutes": "{count, plural, other {分}}",
+        "unitSeconds": "{count, plural, other {秒}}"
+      },
+      "schedule": {
+        "introEyebrow": "特別な二日間",
+        "introTitle": "プログラム",
+        "dayOneEyebrow": "1日目",
+        "dayOneSeparator": " · ",
+        "dayOneTitle": "結婚式当日"
+      },
+      "dayTwo": {},
+      "dressCode": {
+        "eyebrow": "ドレスコード · 2日目",
+        "imageAlt": "{title} の装い"
+      },
+      "venue": {
+        "eyebrow": "会場",
+        "wazeLink": "Waze で見る",
+        "mapsLink": "Google マップ"
+      },
+      "stays": {
+        "eyebrowFallback": "皆さまのために選びました",
+        "title": "ご宿泊について",
+        "nearVenue": "{venueName} の近く",
+        "hideOptions": "選択肢を閉じる",
+        "showMoreOptions": "ほかの選択肢を見る"
+      },
+      "playlist": {
+        "eyebrow": "週末を彩る音楽",
+        "titleLine1": "みんなでつくる",
+        "titleLine2": "プレイリスト",
+        "success": "Grazie！リクエストを承りました。",
+        "searchLabel": "曲を検索",
+        "searchPlaceholder": "曲名やアーティスト名…",
+        "searchPlaceholderFull": "最大 {max} 曲まで",
+        "resultsLoading": "検索中…",
+        "resultsError": "検索をご利用いただけません。しばらくしてからお試しください。",
+        "resultsEmpty": "曲が見つかりませんでした。",
+        "removeTrack": "{title} を削除",
+        "statusFull": "最大 {max} 曲までです。ほかの曲をリクエストするには1曲削除してください。",
+        "statusEmpty": "{max} 曲までお選びいただけます",
+        "statusCount": "{count, plural, other {{max}曲中#曲選択済み}}"
+      },
+      "faq": {
+        "eyebrow": "ご案内",
+        "titleLine1": "当日を迎える前に",
+        "titleLine2": "いくつかのご案内",
+        "childrenQuestion": "お子様もご招待いただけますか？",
+        "childrenAdultsOnly": "ご両親の皆様に心ゆくまで夜をお楽しみいただけますよう、私たちの結婚式は大人のみでの開催とさせていただきます。どうぞご自身のための時間としてお過ごしください。",
+        "childrenWelcome": "はい、お子様もぜひご一緒にお越しください。ご準備のため、ご回答の際にお知らせいただけますと幸いです。"
+      },
+      "rsvp": {
+        "deadlineEyebrow": "{deadline} までにご返信ください",
+        "titleLine1": "ご出席",
+        "titleLine2": "いただけますか",
+        "thanksTitle": "ありがとうございます！",
+        "thanksBody": "ご返信を承りました。",
+        "nameLabel": "お名前",
+        "namePlaceholder": "姓名",
+        "attendanceLegend": "ご出欠",
+        "attendanceYes": "はい、喜んで出席いたします",
+        "attendanceNo": "いいえ、当日は心よりお祝い申し上げます",
+        "partyLabel": "ご出席される方",
+        "partyOptionSolo": "本人のみ",
+        "partyOptionPartner": "本人 + パートナー",
+        "partnerNameLabel": "パートナーのお名前",
+        "partnerNamePlaceholder": "姓名",
+        "childrenLabel": "ご同伴のお子さま",
+        "childrenOptionNone": "なし",
+        "childFieldLabel": "お子さま {index}",
+        "childNamePlaceholder": "姓名",
+        "dietaryLabel": "食事のご要望",
+        "messageLabel": "メッセージ",
+        "messagePlaceholder": "メッセージをご記入ください…",
+        "submit": "返信を送信",
+        "submitPending": "送信中…",
+        "childrenOptionCount": "{count, plural, other {お子さま #名}}"
+      },
+      "footer": {},
+      "scrollTop": {
+        "ariaLabel": "ページの先頭に戻る"
+      }
+    },
+    "belleRive": {
+      "hero": {
+        "discoverCta": "見る"
+      },
+      "countdown": {
+        "eyebrow": "カウントダウン",
+        "titleLine1": "皆さまとお祝いできる日を",
+        "titleLine2": "心よりお待ちしております",
+        "unitDays": "{count, plural, other {日}}",
+        "unitHours": "{count, plural, other {時間}}",
+        "unitMinutes": "{count, plural, other {分}}",
+        "unitSeconds": "{count, plural, other {秒}}"
+      },
+      "program": {
+        "eyebrow": "プログラム",
+        "titleFallback": "特別な二日間",
+        "dayOneEyebrow": "1日目"
+      },
+      "activities": {
+        "eyebrow": "2日目",
+        "brunchImageAlt": "美しくしつらえたブランチのテーブル",
+        "poolAlt": "プール",
+        "tennisAlt": "テニス",
+        "petanqueAlt": "ペタンク"
+      },
+      "dressCode": {
+        "eyebrow": "ドレスコード · 2日目",
+        "imageAlt": "装いのインスピレーション：{title}",
+        "guidance": "リネンや自然素材、夏らしい装いをどうぞお楽しみください。"
+      },
+      "venue": {
+        "eyebrow": "会場",
+        "wazeLink": "Waze で開く",
+        "mapsLink": "Google マップ"
+      },
+      "stays": {
+        "eyebrow": "ご宿泊",
+        "title": "厳選のご滞在先",
+        "partnerOffersKicker": "提携先の特別プラン",
+        "nearbyKicker": "近隣の一軒家・貸別荘",
+        "discoverAndBook": "詳細・ご予約",
+        "showMoreOptions": "その他の選択肢を見る"
+      },
+      "playlist": {
+        "eyebrow": "音楽",
+        "title": "みんなでつくるプレイリスト",
+        "suggestionPlaceholder": "曲名 — アーティスト",
+        "suggestionLabel": "リクエスト",
+        "add": "追加",
+        "alreadySuggested": "リクエスト済み"
+      },
+      "carpool": {
+        "eyebrow": "相乗り",
+        "titleLine1": "ご一緒に",
+        "titleLine2": "向かいませんか？",
+        "intro": "お車でお越しで、空席がございましたら、ほかのご招待客にお声がけください。",
+        "tripTo": "{departure} から {destination} へ",
+        "offeredBy": "{name} さんのご提案",
+        "seats": "{count, plural, other {# 席}}",
+        "returnTripOffered": "復路もご提案いただいています",
+        "contactDriver": "連絡する",
+        "contactUnavailable": "ご招待状の有効化後にご利用いただけます",
+        "emptyLine1": "現在ご提案はございません。",
+        "emptyLine2": "最初のお一人になりませんか。",
+        "successLine1": "ご提案を公開しました。",
+        "successLine2": "ご一緒いただきありがとうございます。",
+        "firstNameLabel": "お名前",
+        "firstNamePlaceholder": "お名前",
+        "departureLabel": "出発地",
+        "departurePlaceholder": "東京、大阪、名古屋…",
+        "dateLabel": "日付",
+        "timeLabel": "時刻",
+        "seatsLabel": "空席数",
+        "phoneLabel": "WhatsApp 番号",
+        "phonePlaceholder": "090-0000-0000",
+        "returnTripCheckbox": "復路もご一緒できます",
+        "consentCheckbox": "お名前と連絡先がご招待客に表示されることに同意します。",
+        "publishTrip": "ご提案を公開する",
+        "offerTrip": "相乗りを提案する"
+      },
+      "faq": {
+        "eyebrow": "よくあるご質問",
+        "title": "ご参考までに"
+      },
+      "rsvp": {
+        "eyebrow": "ご出欠",
+        "title": "ご列席いただけますか",
+        "introFallback": "皆さまをお迎えできますことを、心より願っております。",
+        "deadline": "<b>{deadline}</b> までにご出欠をお知らせくださいませ。",
+        "thanksTitle": "ご返信ありがとうございました",
+        "nameLabel": "お名前",
+        "namePlaceholder": "姓名",
+        "attendanceLegend": "ご出欠",
+        "attendanceYes": "喜んで出席いたします",
+        "attendanceNo": "欠席いたしますが、心よりお祝い申し上げます",
+        "partyLabel": "ご列席の方",
+        "partyOptionSolo": "本人のみ",
+        "partyOptionPartner": "本人とパートナー",
+        "partnerNameLabel": "パートナーのお名前",
+        "partnerNamePlaceholder": "姓名",
+        "dietaryLabel": "食事のご制限",
+        "messageLabel": "ご要望など",
+        "messagePlaceholder": "アレルギーや食事制限など…",
+        "submit": "返信を送る",
+        "submitPending": "送信中…"
+      },
+      "gifts": {
+        "eyebrow": "ご祝儀・ギフト",
+        "titleFallback": "皆さまのご列席が何よりの贈り物です",
+        "animationLabel": "真珠をあしらったギフトボックス",
+        "linkLabelFallback": "贈る"
+      }
+    }
   }
 }

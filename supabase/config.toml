@@ -8,3 +8,88 @@ schemas = ["public", "storage", "auth"]
 [db]
 port = 54322
 shadow_port = 54320
+
+[auth]
+# Where Supabase sends people when a link carries no usable `redirect_to`.
+# The dashboard is the only app that receives auth links.
+site_url = "http://127.0.0.1:3003"
+
+# Allowlist for `redirectTo`. Supabase SILENTLY falls back to `site_url` for
+# any URL not matched here — it does not error — so a missing entry shows up
+# as a link that works but lands on the wrong app, which is exactly how the
+# local reset flow was pointing at :3000.
+#
+# Production URLs live in the Supabase dashboard (Authentication → URL
+# Configuration) and must be kept in step with this list:
+#   https://<dashboard-domain>/auth/confirm
+additional_redirect_urls = [
+  "http://127.0.0.1:3003/**",
+  "http://localhost:3003/**",
+  "http://127.0.0.1:3010/**",
+  "http://localhost:3010/**",
+]
+
+# Lifetime of the access token itself. One hour is Supabase's default and is
+# right: the token is refreshed transparently in the background, so the couple
+# never sees it expire, while a stolen one stops working within the hour.
+#
+# This is NOT what the emails quote. The link in an email is governed by
+# `mailer_otp_exp` below; `LINK_VALIDITY_HOURS` in dashboard/src/lib/auth-email.ts
+# must stay in step with that one, not with this.
+jwt_expiry = 3600
+
+# Sign the couple out after 30 days with no activity; coming back resets the
+# clock. Without this Supabase never expires a refresh token, so a session
+# stays alive forever and nobody is ever signed out.
+#
+# ⚠ PAID FEATURE. This applies to the local stack, but the hosted project is on
+# the free plan, where Authentication → Sessions is locked. So production does
+# NOT get this, and the same 30 days is enforced in
+# `dashboard/src/utils/supabase/middleware.ts` instead — a cookie touched on
+# every authenticated request, and a sign-out once it goes stale.
+#
+# The two are not equivalent: this one revokes the refresh token at the source,
+# the middleware can only end the session it can see. Keep the window in the
+# middleware in step with the value here, and drop the middleware copy if this
+# project ever moves to a paid plan.
+#
+# 30 days rather than a week: a wedding is prepared over 6 to 18 months in
+# bursts, with long gaps between them, and every sign-in here costs an email
+# round trip because there is no password to type. Long enough that a couple
+# returning each month is never interrupted, short enough that a forgotten
+# session on a borrowed laptop does not stay open for a year.
+[auth.sessions]
+inactivity_timeout = "720h"
+
+# No `timebox`. It would sign a couple out mid-session regardless of activity —
+# in the middle of a seating plan, for no reason they can see — and the
+# inactivity window above already bounds an abandoned session.
+
+[auth.email]
+# Sign-up confirmation is not used on the paid path: `createWedding` creates
+# the account with `email_confirm: true`, because paying is the confirmation.
+enable_confirmations = false
+
+# Changing the address requires confirming from BOTH the old inbox and the new
+# one, so a stolen session cannot quietly move the account to an attacker's
+# address — whoever holds the current mailbox has to agree.
+#
+# Worth stating explicitly even though it is the default: `enable_confirmations
+# = false` above sets GOTRUE_MAILER_AUTOCONFIRM, which short-circuits the second
+# confirmation *locally*. So a local run completes the change after one link
+# while production demands two. `updateEmail` sends both regardless; do not
+# conclude from local behaviour that the second one is unused.
+secure_email_change_enabled = true
+
+# How long an emailed link stays usable, in seconds. 24h, kept deliberately
+# generous because the purchase flow is passwordless: the magic link is the
+# only way into an account that has just been paid for, and couples buy on a
+# phone and open their mail hours later. A shorter window would turn "I paid
+# and cannot get in" into a support ticket. The link is single-use regardless,
+# and only ever lands in the buyer's own inbox.
+#
+# Quoted to the couple by LINK_VALIDITY_HOURS in dashboard/src/lib/auth-email.ts
+# — change both together. It belongs under [auth.email], not [auth]: the CLI
+# ignores an unknown key in silence, and the container kept the 3600s default
+# while the emails promised 24 hours.
+otp_expiry = 86400

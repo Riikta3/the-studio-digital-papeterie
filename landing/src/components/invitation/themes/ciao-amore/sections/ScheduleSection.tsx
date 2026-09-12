@@ -1,5 +1,7 @@
+import { getLocale, getTranslations } from "next-intl/server";
+
 import { formatFrenchWeekday } from "../../format";
-import type { InvitationData, ScheduleEntry } from "../../types";
+import type { InvitationData, ScheduleEntry, ScheduleIcon } from "../../types";
 
 /**
  * Day-1 timeline, plus the arched intro card that precedes it.
@@ -7,20 +9,35 @@ import type { InvitationData, ScheduleEntry } from "../../types";
  * The per-entry icons are drawn in CSS (`.icon-church`, `.icon-spritz`, …), so
  * the set is closed: an entry whose `icon` is unknown falls back to the party
  * glyph rather than rendering an empty circle.
+ *
+ * `ScheduleIcon` names the moment, this theme names its drawing of it — a
+ * church for the ceremony, a spritz for the cocktail — so the contract's keys
+ * are mapped onto the CSS classes here. Before this the three themes each had
+ * their own vocabulary, and an entry written for one fell back to a default in
+ * the other two.
  */
-const ICONS = new Set(["church", "spritz", "plate", "party"]);
+const ICON_CLASS: Record<ScheduleIcon, string> = {
+  ceremony: "church",
+  cocktail: "spritz",
+  dinner: "plate",
+  party: "party",
+  // No drawing of its own; the day-2 block has its own artwork anyway.
+  brunch: "spritz",
+};
 
 function iconClass(entry: ScheduleEntry) {
-  const key = entry.icon && ICONS.has(entry.icon) ? entry.icon : "party";
-  return `icon icon-${key}`;
+  return `icon icon-${(entry.icon && ICON_CLASS[entry.icon]) || "party"}`;
 }
 
-export function ScheduleSection({ data }: { data: InvitationData }) {
+export async function ScheduleSection({ data }: { data: InvitationData }) {
+  const t = await getTranslations("Invitation.ciaoAmore.schedule");
+  const locale = await getLocale();
   const dayOne = (data.schedule ?? []).filter((entry) => entry.day === 1);
   if (dayOne.length === 0) return null;
 
   const dayLabel = formatFrenchWeekday(data.event.startsAt, {
     timeZone: data.event.timezone,
+    locale,
   });
 
   return (
@@ -40,8 +57,8 @@ export function ScheduleSection({ data }: { data: InvitationData }) {
           <b>{new Date(data.event.startsAt).getFullYear()}</b>
         </span>
         <div className="arch-copy">
-          <p className="eyebrow">Deux jours d&rsquo;exception</p>
-          <h2>Le programme</h2>
+          <p className="eyebrow">{t("introEyebrow")}</p>
+          <h2>{t("introTitle")}</h2>
           {data.copy?.scheduleIntro ? <p>{data.copy.scheduleIntro}</p> : null}
         </div>
       </section>
@@ -50,10 +67,11 @@ export function ScheduleSection({ data }: { data: InvitationData }) {
         <span className="program-sun" aria-hidden="true" />
         <span className="program-stripe" aria-hidden="true" />
         <p className="eyebrow">
-          Jour 1{dayLabel ? " · " : ""}
+          {t("dayOneEyebrow")}
+          {dayLabel ? t("dayOneSeparator") : ""}
           <span style={{ textTransform: "capitalize" }}>{dayLabel}</span>
         </p>
-        <h2>Le grand jour</h2>
+        <h2>{t("dayOneTitle")}</h2>
         <div className="timeline">
           {dayOne.map((entry) => (
             <article key={`${entry.time}-${entry.title}`}>

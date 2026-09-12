@@ -1,3 +1,5 @@
+import { getTranslations } from "next-intl/server";
+
 import type { InvitationData } from "../../types";
 
 /**
@@ -8,13 +10,14 @@ import type { InvitationData } from "../../types";
  * styles here so `dressCode.colors` drives them; the CSS rules still supply
  * the size and shadow, and remain as the fallback when a colour is missing.
  */
-export function DressCodeSection({ data }: { data: InvitationData }) {
+export async function DressCodeSection({ data }: { data: InvitationData }) {
+  const t = await getTranslations("Invitation.ciaoAmore.dressCode");
   const dress = data.dressCode;
   if (!dress) return null;
 
   return (
     <section className="paper dress-section">
-      <p className="eyebrow">Dress code · Jour 2</p>
+      <p className="eyebrow">{t("eyebrow")}</p>
       <h2>{dress.title}</h2>
       {dress.body ? <p>{dress.body}</p> : null}
 
@@ -30,7 +33,7 @@ export function DressCodeSection({ data }: { data: InvitationData }) {
 
       {dress.image ? (
         // eslint-disable-next-line @next/next/no-img-element -- sized by the theme's CSS.
-        <img src={dress.image} alt={`Tenues ${dress.title}`} loading="lazy" />
+        <img src={dress.image} alt={t("imageAlt", { title: dress.title })} loading="lazy" />
       ) : null}
     </section>
   );

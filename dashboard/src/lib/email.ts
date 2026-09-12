@@ -19,13 +19,23 @@ function getResend(): Resend | null {
   return new Resend(key);
 }
 
-// Default sender address (update with your verified domain)
-const DEFAULT_SENDER = "Acme <onboarding@resend.dev>";
+/**
+ * The verified sender, matching `auth-email.ts` and `welcome-email.ts`. It was
+ * left on Resend's `onboarding@resend.dev` placeholder, which only delivers to
+ * the account owner — so guest invitations sent from here reached nobody.
+ */
+const DEFAULT_SENDER = "The Studio <contact@thestudiopapeteriedigitale.com>";
 
 interface SendEmailParams {
   to: string;
   subject: string;
   html: string;
+  /**
+   * The plain-text alternative. Optional only because not every caller has one
+   * yet — supply it wherever possible: some clients render it instead of the
+   * HTML, and its absence counts against deliverability.
+   */
+  text?: string;
   campaignId?: string; // Optional: Link to a campaign
   householdId?: string; // Optional: Link to a household
 }
@@ -34,6 +44,7 @@ export async function sendEmail({
   to,
   subject,
   html,
+  text,
   campaignId,
   householdId,
 }: SendEmailParams) {
@@ -64,6 +75,7 @@ export async function sendEmail({
       to: [to],
       subject: subject,
       html: html,
+      ...(text ? { text } : {}),
     });
 
     if (resendError) {

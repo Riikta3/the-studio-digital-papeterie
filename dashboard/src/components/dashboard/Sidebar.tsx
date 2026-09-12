@@ -21,12 +21,43 @@ import Image from "next/image";
 import { useState } from "react";
 import { LanguageSwitcher } from "./LanguageSwitcher";
 
-export function Sidebar({ slug }: { slug: string | null }) {
+export function Sidebar({
+  slug,
+  siteLocale,
+  isPublished,
+}: {
+  slug: string | null;
+  /**
+   * The locale to open the INVITATION in — the couple's own primary language.
+   *
+   * Deliberately not the `locale` from `useLocale()` just below, which is the
+   * language the dashboard itself is displayed in: a couple may run their
+   * dashboard in French while their guests' invitation is in English. The link
+   * used to be hardcoded to `/fr/`, so a couple who bought English and Spanish
+   * was sent to a French page they had not paid for.
+   */
+  siteLocale?: string | null;
+  /**
+   * Whether the invitation answers at its public URL (`sites.status`). `null`
+   * while it is still being read.
+   *
+   * Without this the button stayed enabled after a couple unpublished their
+   * site, and opening it showed them "Cette adresse ne figure pas sur la liste
+   * des invités" — a message meant for a stranger, about their own invitation.
+   */
+  isPublished?: boolean | null;
+}) {
   const t = useTranslations("Sidebar");
   const locale = useLocale();
   const pathname = usePathname();
   const [isOpen, setIsOpen] = useState(false);
   const [showLogoutDialog, setShowLogoutDialog] = useState(false);
+
+  // Openable only once we know there is a slug AND that the site answers.
+  // `isPublished` is null while it is still being read, which counts as "not
+  // yet" — better a button that enables a moment late than one that opens a
+  // 404 on the couple's own invitation.
+  const canOpen = Boolean(slug) && isPublished === true;
 
   // Close sidebar on mobile when navigating
   const handleLinkClick = () => setIsOpen(false);
@@ -129,22 +160,34 @@ export function Sidebar({ slug }: { slug: string | null }) {
           <div className='mb-6'>
             <button
               onClick={() => {
-                if (!slug) return;
+                if (!canOpen) return;
                 const isDev = window.location.hostname === "localhost";
                 const baseUrl = isDev
                   ? "http://localhost:3010"
                   : process.env.NEXT_PUBLIC_LANDING_URL ||
                     "https://www.thestudiopapeteriedigitale.com";
-                window.open(`${baseUrl}/fr/invitation/${slug}`, "_blank");
+                window.open(
+                  `${baseUrl}/${siteLocale || "fr"}/invitation/${slug}`,
+                  "_blank",
+                );
               }}
+              disabled={!canOpen}
+              title={isPublished === false ? t("view_site_unpublished") : undefined}
               className={cn(
                 "flex items-center justify-center gap-2 w-full px-3 py-2.5 bg-studio-jaune text-studio-violet rounded-lg text-sm font-medium hover:bg-studio-jaune/90 transition-all shadow-sm whitespace-nowrap",
-                !slug && "opacity-50 cursor-not-allowed pointer-events-none",
+                !canOpen && "opacity-50 cursor-not-allowed pointer-events-none",
               )}
             >
               <Mail size={16} />
               <span>{t("view_site")}</span>
             </button>
+            {/* Said rather than left to a disabled button: a greyed-out control
+                with no reason reads as a bug. */}
+            {isPublished === false ? (
+              <p className='mt-1.5 text-center text-xs text-white/60'>
+                {t("view_site_unpublished")}
+              </p>
+            ) : null}
           </div>
 
           {/* Footer Actions */}

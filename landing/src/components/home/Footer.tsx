@@ -69,6 +69,20 @@ export async function Footer() {
             {t("colProduct")}
           </p>
           <FooterProductLinks labels={productLinkLabels} />
+          {/* Contact is a real route, not a homepage scroll anchor, so it
+              lives outside FooterProductLinks' index-mapped anchor array
+              (see the comment there) and is rendered here from its own
+              `Footer.contact` key instead. */}
+          <ul className="mt-3 flex flex-col gap-3">
+            <li>
+              <Link
+                href="/contact"
+                className="font-body text-sm text-studio-jaune hover:text-white"
+              >
+                {t("contact")}
+              </Link>
+            </li>
+          </ul>
         </nav>
 
         <div className="flex flex-col gap-8 md:contents">

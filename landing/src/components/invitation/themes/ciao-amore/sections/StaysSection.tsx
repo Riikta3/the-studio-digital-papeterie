@@ -1,5 +1,6 @@
 "use client";
 
+import { useTranslations } from "next-intl";
 import { useState } from "react";
 
 import type { InvitationData } from "../../types";
@@ -9,6 +10,7 @@ import type { InvitationData } from "../../types";
  * sit behind a "voir plus d'options" toggle, as in the source.
  */
 export function StaysSection({ data }: { data: InvitationData }) {
+  const t = useTranslations("Invitation.ciaoAmore.stays");
   const [showMore, setShowMore] = useState(false);
 
   const stays = data.stays ?? [];
@@ -24,14 +26,18 @@ export function StaysSection({ data }: { data: InvitationData }) {
         <br />
         <b>CAMERA 01</b>
       </span>
-      <p className="eyebrow">{data.copy?.staysIntro ?? "Sélectionnés pour vous"}</p>
-      <h2>Où dormir ?</h2>
+      <p className="eyebrow">{data.copy?.staysIntro ?? t("eyebrowFallback")}</p>
+      <h2>{t("title")}</h2>
 
       <div className="hotels">
         {primary.map((stay) => {
           const body = (
             <>
-              <span>À proximité de la Villa</span>
+              {/* "À proximité de la Villa" was printed on every card — the
+                  demo's Villa Cimbrone, announced beside the hotels of a
+                  wedding held anywhere else. The venue's own name is used when
+                  there is one, and the line is dropped when there is not. */}
+              {data.venue.name ? <span>{t("nearVenue", { venueName: data.venue.name })}</span> : null}
               <h3>{stay.name}</h3>
               {stay.distance ? <p>{stay.distance}</p> : null}
               {stay.address ? <small>{stay.address}</small> : null}
@@ -57,7 +63,7 @@ export function StaysSection({ data }: { data: InvitationData }) {
             onClick={() => setShowMore((open) => !open)}
             aria-expanded={showMore}
           >
-            {showMore ? "Masquer les options" : "Voir plus d’options"}
+            {showMore ? t("hideOptions") : t("showMoreOptions")}
           </button>
           {showMore ? (
             <div className="more-list">

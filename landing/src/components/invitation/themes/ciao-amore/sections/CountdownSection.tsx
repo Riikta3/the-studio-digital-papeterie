@@ -1,10 +1,28 @@
 "use client";
 
+import { useTranslations } from "next-intl";
 import { useEffect, useState } from "react";
 
 import type { InvitationData } from "../../types";
 
-const UNITS = ["jours", "heures", "minutes", "secondes"] as const;
+/**
+ * The four units, as keys — never as labels.
+ *
+ * These used to be the French plural words (`["jours", "heures", …]`) doing
+ * double duty: object keys into the remaining time AND the text printed under
+ * each number. That made the labels untranslatable and printed "01 jours" on
+ * the last day, since a fixed plural has no singular to fall back to.
+ *
+ * The keys are English and internal now; the labels come from the message
+ * catalogue as ICU plurals, so "1 jour" / "2 jours" is the locale's rule
+ * rather than a hard-coded "s".
+ */
+const UNITS = [
+  { key: "days", label: "unitDays" },
+  { key: "hours", label: "unitHours" },
+  { key: "minutes", label: "unitMinutes" },
+  { key: "seconds", label: "unitSeconds" },
+] as const;
 
 /**
  * Countdown to the ceremony.
@@ -25,35 +43,36 @@ function useRemaining(startsAt: string) {
   }, []);
 
   if (now === null || Number.isNaN(target)) {
-    return { jours: 0, heures: 0, minutes: 0, secondes: 0 };
+    return { days: 0, hours: 0, minutes: 0, seconds: 0 };
   }
 
   const distance = Math.max(0, target - now);
   return {
-    jours: Math.floor(distance / 86400000),
-    heures: Math.floor((distance / 3600000) % 24),
+    days: Math.floor(distance / 86400000),
+    hours: Math.floor((distance / 3600000) % 24),
     minutes: Math.floor((distance / 60000) % 60),
-    secondes: Math.floor((distance / 1000) % 60),
+    seconds: Math.floor((distance / 1000) % 60),
   };
 }
 
 export function CountdownSection({ data }: { data: InvitationData }) {
+  const t = useTranslations("Invitation.ciaoAmore.countdown");
   const remaining = useRemaining(data.event.startsAt);
 
   return (
     <section id="ca-compte" className="paper countdown-section">
       <span className="decor-rays" aria-hidden="true" />
-      <p className="eyebrow">La dolce vita commence dans</p>
+      <p className="eyebrow">{t("eyebrow")}</p>
       <h2>
-        Chaque seconde
+        {t("titleLine1")}
         <br />
-        nous rapproche de vous
+        {t("titleLine2")}
       </h2>
       <div className="countdown">
-        {UNITS.map((unit) => (
-          <div key={unit}>
-            <strong>{String(remaining[unit]).padStart(2, "0")}</strong>
-            <span>{unit}</span>
+        {UNITS.map(({ key, label }) => (
+          <div key={key}>
+            <strong>{String(remaining[key]).padStart(2, "0")}</strong>
+            <span>{t(label, { count: remaining[key] })}</span>
           </div>
         ))}
       </div>

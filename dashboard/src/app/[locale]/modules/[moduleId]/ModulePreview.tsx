@@ -62,6 +62,13 @@ function DressCodePreview({ config }: { config: Record<string, unknown> }) {
   const descriptionMen = str(config.description_men);
   const descriptionWomen = str(config.description_women);
   const isSplit = mode === "split" && (descriptionMen || descriptionWomen);
+  // The palette, the photograph and the note: what the themes draw under the
+  // guidance. Shown here too, so the preview matches the invitation.
+  const colors = Array.isArray(config.colors)
+    ? config.colors.filter((c): c is string => typeof c === "string")
+    : [];
+  const imageUrl = str(config.imageUrl);
+  const note = str(config.note);
 
   return (
     <div className="text-center">
@@ -91,6 +98,33 @@ function DressCodePreview({ config }: { config: Record<string, unknown> }) {
           </div>
           <p className="text-muted-foreground text-sm leading-relaxed font-light">{description}</p>
         </div>
+      )}
+
+      {colors.length > 0 && (
+        <div className="mt-7 flex items-center justify-center gap-3">
+          {colors.map((color, ix) => (
+            <span
+              key={`${color}-${ix}`}
+              className="h-8 w-8 rounded-full border border-border shadow-sm"
+              style={{ background: color }}
+              title={color}
+            />
+          ))}
+        </div>
+      )}
+
+      {imageUrl && (
+        <div className="mt-7 mx-auto max-w-sm overflow-hidden rounded-[1.5rem] border border-border">
+          {/* eslint-disable-next-line @next/next/no-img-element -- an arbitrary
+              remote host the image config does not allowlist. */}
+          <img src={imageUrl} alt="" className="aspect-video w-full object-cover" />
+        </div>
+      )}
+
+      {note && (
+        <p className="mt-6 text-xs uppercase tracking-[0.15em] text-muted-foreground/80">
+          {note}
+        </p>
       )}
     </div>
   );

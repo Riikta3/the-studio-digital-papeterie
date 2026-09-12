@@ -131,11 +131,13 @@
     "createButton": "Meine Einladung erstellen",
     "cgv": "AGB",
     "privacy": "Datenschutz",
-    "copyright": "© {year} The Studio Digital Papeterie. Alle Rechte vorbehalten."
+    "copyright": "© {year} The Studio Digital Papeterie. Alle Rechte vorbehalten.",
+    "contact": "Kontakt"
   },
   "HeroCarousel": {
     "prevAriaLabel": "Vorherige Karte",
     "nextAriaLabel": "Nächste Karte",
+    "activeThemeAnnouncement": "Angezeigtes Thema: {name}",
     "cards": [
       {
         "alt": "Beispiel einer Hochzeitseinladung — Thema Ciao Amore"
@@ -215,37 +217,58 @@
         "price": "199 €",
         "positioning": "Für Paare, die eine bestehende Vorlage wählen.",
         "description": "Wählen Sie eine der The-Studio-Kreationen und personalisieren Sie sie mit den Informationen, Bildern und der Welt Ihrer Hochzeit.",
-        "cta": "Signature wählen"
+        "cta": "Signature wählen",
+        "features": [
+          "4 Module inbegriffen, danach 5 € pro zusätzlichem Modul",
+          "Ein Design aus den Kreationen von The Studio",
+          "Personalisierte Online-Einladung",
+          "Gästeverwaltung",
+          "RSVP-Antworten in Echtzeit"
+        ]
       },
       {
         "id": "sur-mesure",
         "name": "Individuell",
         "price": "299 €",
-        "positioning": "",
+        "positioning": "Für Paare, die eine ganz eigene Gestaltung möchten.",
         "description": "Eine personalisierte Hochzeitseinladung, gestaltet rund um Ihre Welt, Ihre Farben, Ihren Ort und die Geschichte, die Sie erzählen möchten.",
-        "cta": "Einladung gestalten"
+        "cta": "Einladung gestalten",
+        "features": [
+          "Unbegrenzte Module, alle inbegriffen",
+          "Vollständige visuelle Identität",
+          "Auf eure Hochzeitsfarben abgestimmt",
+          "Personalisierte Online-Einladung",
+          "Gästeverwaltung"
+        ]
       },
       {
         "id": "prestige",
         "name": "Prestige",
         "price": "499 €",
-        "positioning": "",
+        "positioning": "Für Paare, die von A bis Z etwas Einzigartiges wollen.",
         "description": "Das umfassendste The-Studio-Erlebnis, für Paare, die bei der Personalisierung ihrer Einladung noch weiter gehen möchten.",
         "cta": "Prestige entdecken",
         "features": [
+          "Vollständig maßgeschneiderte Gestaltung",
+          "Unbegrenzte Module, alle inbegriffen",
           "Individuelle Animation",
-          "Vollständige grafische Identität",
-          "Anpassung an die Hochzeitsfarben",
-          "Unbegrenzte Module",
-          "Prioritäts-Support",
+          "Vollständige visuelle Identität",
           "Unbegrenzte Änderungen",
           "Eigene Domain",
+          "Bevorzugter Support",
           "Fotogalerie nach der Hochzeit",
           "Gästebuch"
         ]
       }
     ],
     "compareRows": [
+      {
+        "key": "modules_allowance",
+        "label": "Inbegriffene Module",
+        "signature": "4 Module, dann +5 € je Modul",
+        "sur-mesure": "Unbegrenzt",
+        "prestige": "Unbegrenzt"
+      },
       {
         "key": "animation",
         "label": "Individuelle Animation",
@@ -265,13 +288,6 @@
         "label": "Anpassung an die Hochzeitsfarben",
         "signature": "no",
         "sur-mesure": "inc",
-        "prestige": "inc"
-      },
-      {
-        "key": "modules",
-        "label": "Unbegrenzte Module",
-        "signature": "no",
-        "sur-mesure": "no",
         "prestige": "inc"
       },
       {
@@ -612,7 +628,8 @@
       "Maßgeschneidert",
       "Paarbereich",
       "Hochzeitstag",
-      "FAQ"
+      "FAQ",
+      "Kontakt"
     ],
     "mariesLinks": [
       "Anmelden"
@@ -724,11 +741,10 @@
   "StudioModules": {
     "titlePrefix": "Ihre ",
     "titleHighlight": "Funktionen",
-    "subtitlePremium": "Alle Module sind in Ihrem Paket enthalten.",
-    "subtitleEssential": "Wählen Sie mindestens 4 Module. +5€ pro zusätzlichem Modul.",
+    "subtitleEssential": "{included} Module inbegriffen, danach {price} € pro zusätzlichem Modul.",
     "noneSelected": "Kein Modul ausgewählt",
-    "selectAtLeast": "Wählen Sie mindestens 4 Module",
-    "minCount": "{count} / 4 Module Minimum",
+    "selectAtLeast": "Wählt mindestens {min} Module",
+    "minCount": "{count} / {min} Module mindestens",
     "countSelected": "{count} ausgewählt",
     "included": "inbegriffen",
     "catalog": {
@@ -792,7 +808,10 @@
         "name": "FAQ / Praktische Infos",
         "description": "Praktische Infos für Gäste"
       }
-    }
+    },
+    "subtitleUnlimited": "Unbegrenzte Module – alles, was ihr auswählt, ist inbegriffen.",
+    "subtitlePrestige": "Eure Formel ist eine maßgeschneiderte Kreation. Wählt beliebig viele Module aus.",
+    "unlimited": "unbegrenzt"
   },
   "StudioOptions": {
     "titlePrefix": "Optionen ",
@@ -842,7 +861,11 @@
     "paymentReferenceHint": "Bewahren Sie diese Referenz auf: damit finden wir Ihre Bestellung.",
     "contactSupport": "Support kontaktieren",
     "reassurePaid": "Ihre Zahlung ist sicher",
-    "errorDetails": "Technische Details"
+    "errorDetails": "Technische Details",
+    "orderCompleteTitle": "Ihre Bestellung ist abgeschlossen",
+    "orderCompleteBody": "Ihre Einladung wurde bereits erstellt. Öffnen Sie Ihren Bereich, um sie anzupassen.",
+    "orderCompleteCta": "Zu meinem Bereich",
+    "orderCompleteHint": "Sie möchten eine zweite Einladung? Melden Sie sich, wir richten sie für Sie ein."
   },
   "Legal": {
     "backHome": "Zurück zur Startseite",
@@ -926,7 +949,7 @@
         {
           "heading": "2. Erhobene Daten",
           "paragraphs": [
-            "Im Rahmen der Nutzung des Dienstes erheben wir insbesondere: Identifikations- und Kontaktdaten des Kunden (Vorname, Nachname, E-Mail-Adresse); Angaben zur Hochzeit und zu den Gästen, die im Konfigurator und im Dashboard erfasst werden (Namen der Gäste, Haushalte, Tische, RSVP-Antworten, Ernährungsgewohnheiten, Nachrichten); Zahlungsdaten, die ausschließlich von unserem Dienstleister Stripe verarbeitet werden; technische Nutzungsdaten (Cookies, IP-Adresse, Verbindungsprotokolle)."
+            "Im Rahmen der Nutzung des Dienstes erheben wir insbesondere: Identifikations- und Kontaktdaten des Kunden (Vorname, Nachname, E-Mail-Adresse); Angaben zur Hochzeit und zu den Gästen, die im Konfigurator und im Dashboard erfasst werden (Namen der Gäste, Haushalte, Tische, RSVP-Antworten, Ernährungsgewohnheiten, Nachrichten); Zahlungsdaten, die ausschließlich von unserem Dienstleister Stripe verarbeitet werden; technische Nutzungsdaten (Cookies, IP-Adresse, Verbindungsprotokolle). Wenn Sie das Kontaktformular verwenden, erfassen wir die von Ihnen eingegebenen Angaben: Vorname, Nachname, E-Mail-Adresse sowie, sofern Sie sie angeben, Datum und Ort Ihrer Hochzeit, die ungefähre Gästezahl, die Kollektion, die Sie interessiert, den Stand Ihres Projekts und den Inhalt Ihrer Nachricht. Der Zeitpunkt Ihrer Einwilligung wird ebenfalls gespeichert."
           ]
         },
         {
@@ -945,6 +968,7 @@
           "heading": "5. Hosting und Auftragsverarbeiter",
           "paragraphs": [
             "Die Daten werden von Supabase (Datenbank und Authentifizierung) gehostet, und die Zahlungen werden von Stripe verarbeitet. Diese Dienstleister können Daten außerhalb der Europäischen Union verarbeiten, im Rahmen geeigneter Garantien (Standardvertragsklauseln oder Gleichwertiges).",
+            "Über das Kontaktformular gesendete Nachrichten werden uns per E-Mail über unseren Versanddienstleister Resend zugestellt.",
             "Hosting-Anbieter der Website: [Hosting-Anbieter zu vervollständigen]."
           ]
         },
@@ -963,7 +987,7 @@
         {
           "heading": "8. Cookies",
           "paragraphs": [
-            "Die Website verwendet Cookies, die für ihren Betrieb unbedingt erforderlich sind, sowie gegebenenfalls Cookies zur Reichweitenmessung, die der Einwilligung des Besuchers unterliegen und über das auf der Website vorhandene Cookie-Verwaltungsbanner verwaltet werden können."
+            "Die Website verwendet für ihren Betrieb unbedingt erforderliche Cookies, die keine Einwilligung erfordern. Darüber hinaus können — ausschließlich nach Ihrer Zustimmung — Cookies zur Reichweitenmessung und für Werbung gesetzt werden, um die Besucherzahlen der Website zu verstehen und Kampagnen zu messen. Vor Ihrer Entscheidung wird kein nicht wesentliches Cookie gesetzt. Sie können diese Cookies im Einwilligungsfenster bei Ihrem ersten Besuch annehmen oder ablehnen und Ihre Wahl jederzeit über den Link \"Cookies verwalten\" im Fußbereich ändern."
           ]
         },
         {
@@ -1007,5 +1031,319 @@
     "signature": "BIS GANZ BALD",
     "copyright": "© {year} The Studio Digital Papeterie. Alle Rechte vorbehalten.",
     "homeAriaLabel": "Zurück zur Startseite"
+  },
+  "Contact": {
+    "meta": {
+      "title": "Kontakt | Digitale Hochzeitseinladungen | The Studio",
+      "description": "Kontaktieren Sie The Studio für Ihre digitale Hochzeitseinladung, ein personalisiertes Design oder ein individuelles Projekt. Lassen Sie uns über Ihre Hochzeit sprechen."
+    },
+    "hero": {
+      "eyebrow": "EIN PROJEKT, EINE FRAGE, EINE IDEE",
+      "h1": "Lassen Sie uns über Ihre Hochzeit sprechen",
+      "subtitle": "Haben Sie eine Frage, eine Kollektion im Kopf oder möchten Sie eine Einladung erschaffen, die es kein zweites Mal gibt? Erzählen Sie uns von Ihrem Projekt. Wir helfen Ihnen, die passende Formel für Ihre Hochzeit zu finden."
+    },
+    "editorial": {
+      "title": "Ihr Projekt beginnt hier",
+      "text": "Jede Hochzeit ist anders. Ein paar Angaben genügen uns, um Ihre Stimmung, Ihre Wünsche und den gewünschten Grad an Personalisierung zu verstehen.",
+      "markers": [
+        {
+          "title": "Eine Frage?",
+          "desc": "Wir antworten Ihnen direkt."
+        },
+        {
+          "title": "Eine Kollektion im Kopf?",
+          "desc": "Sagen Sie uns, welche."
+        },
+        {
+          "title": "Eine ganz genaue Idee?",
+          "desc": "Sprechen wir über Maßanfertigung."
+        }
+      ],
+      "signatureName": "The Studio – Digitale Papeterie",
+      "signatureTagline": "Digitale Hochzeitseinladungen & personalisierte Designs"
+    },
+    "form": {
+      "firstNameLabel": "Vorname",
+      "firstNamePlaceholder": "Ihr Vorname",
+      "lastNameLabel": "Nachname",
+      "lastNamePlaceholder": "Ihr Nachname",
+      "emailLabel": "E-Mail",
+      "emailPlaceholder": "sie@email.com",
+      "weddingDateLabel": "Hochzeitsdatum",
+      "weddingPlaceLabel": "Hochzeitsort",
+      "weddingPlacePlaceholder": "Stadt, Location oder Land",
+      "guestBandLabel": "Ungefähre Anzahl der Gäste",
+      "guestBandOptions": {
+        "lt-50": "Weniger als 50",
+        "50-100": "50 bis 100",
+        "100-150": "100 bis 150",
+        "150-200": "150 bis 200",
+        "gt-200": "Mehr als 200",
+        "unknown": "Wissen wir noch nicht"
+      },
+      "interestLabel": "Wofür interessieren Sie sich?",
+      "interestOptions": {
+        "collection": "Eine bestehende Kollektion",
+        "personnaliser": "Eine Kollektion personalisieren",
+        "sur-mesure": "Eine maßgeschneiderte Kreation",
+        "question": "Ich habe eine Frage",
+        "unknown": "Weiß ich noch nicht"
+      },
+      "collectionLabel": "Welche Kollektion haben Sie entdeckt?",
+      "collectionOptions": {
+        "ciao-amore": "Ciao Amore",
+        "blanc-couture": "Blanc Couture",
+        "belle-rive": "Belle Rive",
+        "unknown": "Weiß ich noch nicht"
+      },
+      "projectStageLabel": "Wo stehen Sie in Ihrem Projekt?",
+      "projectStageOptions": {
+        "decouvre": "Ich entdecke gerade The Studio",
+        "univers-choisi": "Ich habe meinen Stil bereits gewählt",
+        "idee-precise": "Ich habe eine recht genaue Vorstellung",
+        "besoin-conseil": "Ich brauche Beratung"
+      },
+      "messageLabel": "Erzählen Sie uns von Ihrer Hochzeit",
+      "messagePlaceholder": "Ihr Stil, Ihre Farben, Ihre Wünsche, Ihre Fragen…",
+      "consentLabel": "Ich stimme zu, dass meine Angaben zur Beantwortung meiner Anfrage verwendet werden.",
+      "privacyLinkLabel": "Datenschutzerklärung",
+      "submit": "Anfrage senden",
+      "submitting": "Wird gesendet…",
+      "submitCaption": "Wir antworten Ihnen persönlich.",
+      "privacyNote": "Die über dieses Formular übermittelten Angaben werden ausschließlich zur Beantwortung Ihrer Anfrage verwendet.",
+      "errors": {
+        "required": "Dieses Feld ist erforderlich.",
+        "firstName": "Bitte geben Sie Ihren Vornamen an.",
+        "lastName": "Bitte geben Sie Ihren Nachnamen an.",
+        "email": "Bitte geben Sie eine gültige E-Mail-Adresse an.",
+        "message": "Ihre Nachricht muss mindestens 10 Zeichen lang sein.",
+        "consent": "Bitte stimmen Sie der Verwendung Ihrer Angaben zu.",
+        "global": "Ein Fehler ist aufgetreten. Ihre Nachricht konnte nicht gesendet werden. Bitte versuchen Sie es in Kürze erneut."
+      },
+      "optional": "(optional)",
+      "requiredLegend": "Mit * markierte Felder sind erforderlich."
+    },
+    "success": {
+      "title": "Ihre Nachricht ist angekommen",
+      "text": "Danke, dass Sie uns von Ihrem Projekt erzählt haben.\nWir melden uns bei Ihnen, um über Ihre Hochzeit zu sprechen.",
+      "backHome": "Zurück zur Startseite"
+    }
+  },
+  "ContactBubble": {
+    "bubbleAriaLabel": "Kontaktieren Sie uns",
+    "title": "Hallo 👋",
+    "subtitle": "Eine Frage zu Ihrer Einladung? Wir sind für Sie da.",
+    "formOption": "Erzählen Sie uns von Ihrem Projekt",
+    "emailOption": "Schreiben Sie uns direkt",
+    "whatsappOption": "WhatsApp",
+    "responseTime": "Antwort innerhalb von 24 bis 48 Stunden."
+  },
+  "Invitation": {
+    "ciaoAmore": {
+      "hero": {
+        "discoverCta": "Entdecken"
+      },
+      "countdown": {
+        "eyebrow": "La dolce vita beginnt in",
+        "titleLine1": "Jede Sekunde",
+        "titleLine2": "bringt uns Ihnen näher",
+        "unitDays": "{count, plural, one {Tag} other {Tage}}",
+        "unitHours": "{count, plural, one {Stunde} other {Stunden}}",
+        "unitMinutes": "{count, plural, one {Minute} other {Minuten}}",
+        "unitSeconds": "{count, plural, one {Sekunde} other {Sekunden}}"
+      },
+      "schedule": {
+        "introEyebrow": "Zwei außergewöhnliche Tage",
+        "introTitle": "Das Programm",
+        "dayOneEyebrow": "Tag 1",
+        "dayOneSeparator": " · ",
+        "dayOneTitle": "Der große Tag"
+      },
+      "dayTwo": {},
+      "dressCode": {
+        "eyebrow": "Dresscode · Tag 2",
+        "imageAlt": "Outfits {title}"
+      },
+      "venue": {
+        "eyebrow": "Der Ort",
+        "wazeLink": "Auf Waze ansehen",
+        "mapsLink": "Google Maps"
+      },
+      "stays": {
+        "eyebrowFallback": "Für Sie ausgewählt",
+        "title": "Wo übernachten?",
+        "nearVenue": "In der Nähe von {venueName}",
+        "hideOptions": "Optionen ausblenden",
+        "showMoreOptions": "Weitere Optionen ansehen"
+      },
+      "playlist": {
+        "eyebrow": "Die Musik unseres Wochenendes",
+        "titleLine1": "Playlist",
+        "titleLine2": "zum Mitgestalten",
+        "success": "Grazie! Ihr Titel wurde vorgeschlagen.",
+        "searchLabel": "Suchen Sie einen Titel",
+        "searchPlaceholder": "Ein Titel, ein Künstler…",
+        "searchPlaceholderFull": "Maximal {max} Titel",
+        "resultsLoading": "Suche läuft…",
+        "resultsError": "Suche nicht verfügbar. Bitte versuchen Sie es gleich erneut.",
+        "resultsEmpty": "Keine Titel gefunden.",
+        "removeTrack": "{title} entfernen",
+        "statusFull": "Maximal {max} Titel — entfernen Sie einen, um einen anderen vorzuschlagen.",
+        "statusEmpty": "Bis zu {max} Titel",
+        "statusCount": "{count, plural, one {# Titel von {max} gewählt} other {# Titel von {max} gewählt}}"
+      },
+      "faq": {
+        "eyebrow": "Gut zu wissen",
+        "titleLine1": "Einige Antworten",
+        "titleLine2": "vor dem großen Tag",
+        "childrenQuestion": "Sind Kinder eingeladen?",
+        "childrenAdultsOnly": "Damit alle Eltern den Abend in vollen Zügen genießen und bis zum Morgen feiern können, findet unsere Hochzeit ohne Kinder statt. Genießen Sie diese Zeit ganz für sich.",
+        "childrenWelcome": "Ja, Ihre Kinder sind herzlich willkommen. Bitte geben Sie sie in Ihrer Antwort an, damit wir alles für sie vorbereiten können."
+      },
+      "rsvp": {
+        "deadlineEyebrow": "Wir bitten um Antwort bis zum {deadline}",
+        "titleLine1": "Sind Sie",
+        "titleLine2": "dabei?",
+        "thanksTitle": "Danke!",
+        "thanksBody": "Ihre Antwort wurde erfasst.",
+        "nameLabel": "Ihr Name",
+        "namePlaceholder": "Vor- und Nachname",
+        "attendanceLegend": "Teilnahme",
+        "attendanceYes": "Ja, sehr gerne",
+        "attendanceNo": "Nein, aber ich denke fest an Sie",
+        "partyLabel": "Wer wird dabei sein?",
+        "partyOptionSolo": "Nur ich",
+        "partyOptionPartner": "Ich + meine Begleitung",
+        "partnerNameLabel": "Name Ihrer Begleitung",
+        "partnerNamePlaceholder": "Vor- und Nachname",
+        "childrenLabel": "Kinder, die Sie begleiten",
+        "childrenOptionNone": "Keine",
+        "childFieldLabel": "Kind {index}",
+        "childNamePlaceholder": "Vor- und Nachname",
+        "dietaryLabel": "Ernährungsbesonderheiten",
+        "messageLabel": "Ein paar Worte",
+        "messagePlaceholder": "Ihre Nachricht…",
+        "submit": "Antwort senden",
+        "submitPending": "Wird gesendet…",
+        "childrenOptionCount": "{count, plural, one {# Kind} other {# Kinder}}"
+      },
+      "footer": {},
+      "scrollTop": {
+        "ariaLabel": "Zurück zum Seitenanfang"
+      }
+    },
+    "belleRive": {
+      "hero": {
+        "discoverCta": "Entdecken"
+      },
+      "countdown": {
+        "eyebrow": "Countdown",
+        "titleLine1": "Wir freuen uns darauf,",
+        "titleLine2": "mit Ihnen zu feiern",
+        "unitDays": "{count, plural, one {Tag} other {Tage}}",
+        "unitHours": "{count, plural, one {Stunde} other {Stunden}}",
+        "unitMinutes": "{count, plural, one {Minute} other {Minuten}}",
+        "unitSeconds": "{count, plural, one {Sekunde} other {Sekunden}}"
+      },
+      "program": {
+        "eyebrow": "Das Programm",
+        "titleFallback": "Zwei besondere Tage",
+        "dayOneEyebrow": "Tag 1"
+      },
+      "activities": {
+        "eyebrow": "Tag 2",
+        "brunchImageAlt": "Festlich gedeckte Brunch-Tafel",
+        "poolAlt": "Swimmingpool",
+        "tennisAlt": "Tennis",
+        "petanqueAlt": "Boule"
+      },
+      "dressCode": {
+        "eyebrow": "Dresscode · Tag 2",
+        "imageAlt": "Outfit-Inspiration: {title}",
+        "guidance": "Leinen, natürliche Stoffe und sommerliche Garderobe sind herzlich willkommen."
+      },
+      "venue": {
+        "eyebrow": "Der Ort",
+        "wazeLink": "In Waze öffnen",
+        "mapsLink": "Google Maps"
+      },
+      "stays": {
+        "eyebrow": "Unterkünfte",
+        "title": "Für Sie ausgewählt",
+        "partnerOffersKicker": "Unsere Partnerangebote",
+        "nearbyKicker": "Gästehäuser & Ferienhäuser in der Nähe",
+        "discoverAndBook": "Entdecken & buchen",
+        "showMoreOptions": "Weitere Optionen anzeigen"
+      },
+      "playlist": {
+        "eyebrow": "Die Musik",
+        "title": "Gemeinsame Playlist",
+        "suggestionPlaceholder": "Titel — Künstler",
+        "suggestionLabel": "Ihr Vorschlag",
+        "add": "Hinzufügen",
+        "alreadySuggested": "Bereits vorgeschlagen"
+      },
+      "carpool": {
+        "eyebrow": "Fahrgemeinschaft",
+        "titleLine1": "Fahren wir",
+        "titleLine2": "gemeinsam?",
+        "intro": "Sie kommen mit dem Auto und haben noch einen Platz frei? Bieten Sie Ihre Fahrt den anderen Gästen an.",
+        "tripTo": "{departure} nach {destination}",
+        "offeredBy": "Angeboten von {name}",
+        "seats": "{count, plural, one {# Platz} other {# Plätze}}",
+        "returnTripOffered": "Rückfahrt wird ebenfalls angeboten",
+        "contactDriver": "Kontaktieren",
+        "contactUnavailable": "Verfügbar, sobald Ihre Einladung aktiviert ist",
+        "emptyLine1": "Bisher wurde noch keine Fahrt angeboten.",
+        "emptyLine2": "Seien Sie die oder der Erste!",
+        "successLine1": "Ihre Fahrt ist veröffentlicht.",
+        "successLine2": "Danke, dass Sie gemeinsam fahren!",
+        "firstNameLabel": "Vorname",
+        "firstNamePlaceholder": "Ihr Vorname",
+        "departureLabel": "Abfahrtsort",
+        "departurePlaceholder": "Berlin, München, Hamburg…",
+        "dateLabel": "Datum",
+        "timeLabel": "Uhrzeit",
+        "seatsLabel": "Freie Plätze",
+        "phoneLabel": "WhatsApp-Nummer",
+        "phonePlaceholder": "0170 0000000",
+        "returnTripCheckbox": "Ich biete auch die Rückfahrt an",
+        "consentCheckbox": "Ich bin damit einverstanden, dass mein Vorname und meine Kontaktdaten für die Gäste sichtbar sind.",
+        "publishTrip": "Meine Fahrt veröffentlichen",
+        "offerTrip": "Ich biete eine Fahrt an"
+      },
+      "faq": {
+        "eyebrow": "FAQ",
+        "title": "Einige hilfreiche Antworten"
+      },
+      "rsvp": {
+        "eyebrow": "RSVP",
+        "title": "Sind Sie dabei?",
+        "introFallback": "Es wäre uns eine Ehre, Sie bei uns zu wissen.",
+        "deadline": "Bitte bestätigen Sie Ihre Teilnahme bis zum <b>{deadline}</b>.",
+        "thanksTitle": "Vielen Dank für Ihre Antwort!",
+        "nameLabel": "Vor- und Nachname",
+        "namePlaceholder": "Vor- und Nachname",
+        "attendanceLegend": "Teilnahme",
+        "attendanceYes": "Ja, sehr gerne",
+        "attendanceNo": "Nein, aber ich denke fest an Sie",
+        "partyLabel": "Wer wird dabei sein?",
+        "partyOptionSolo": "Nur ich",
+        "partyOptionPartner": "Ich + meine Begleitung",
+        "partnerNameLabel": "Vor- und Nachname Ihrer Begleitung",
+        "partnerNamePlaceholder": "Vor- und Nachname",
+        "dietaryLabel": "Ernährungswünsche",
+        "messageLabel": "Anmerkungen",
+        "messagePlaceholder": "Allergie oder besondere Ernährung…",
+        "submit": "Antwort senden",
+        "submitPending": "Wird gesendet…"
+      },
+      "gifts": {
+        "eyebrow": "Geschenke",
+        "titleFallback": "Ihre Anwesenheit ist unser schönstes Geschenk",
+        "animationLabel": "Mit Perlen geschmücktes Geschenkpaket",
+        "linkLabelFallback": "Beitragen"
+      }
+    }
   }
 }

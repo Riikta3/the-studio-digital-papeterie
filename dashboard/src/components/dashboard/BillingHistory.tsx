@@ -1,6 +1,7 @@
 "use client";
 
 import { BillingRecord } from "@/actions/billing-actions";
+import { InvoiceDownloadButton } from "@/components/dashboard/InvoiceDownloadButton";
 import {
   Select,
   SelectContent,
@@ -340,16 +341,11 @@ export function BillingHistory({ history }: BillingHistoryProps) {
                   </TableCell>
                   <TableCell>{getStatusBadge(record.status)}</TableCell>
                   <TableCell className='text-right'>
-                    {record.invoice_url ? (
-                      <a
-                        href={record.invoice_url}
-                        target='_blank'
-                        rel='noopener noreferrer'
-                        className='inline-flex items-center gap-1.5 text-sm font-medium text-studio-violet hover:text-studio-violet/80 transition-colors'
-                      >
-                        <Download className='h-4 w-4' />
-                        {t("download_invoice")}
-                      </a>
+                    {record.invoice_url && record.stripe_payment_intent_id ? (
+                      <InvoiceDownloadButton
+                        paymentIntentId={record.stripe_payment_intent_id}
+                        label={t("download_invoice")}
+                      />
                     ) : (
                       <span className='text-studio-violet/60 text-sm italic'>
                         -

@@ -27,6 +27,14 @@ export interface OrderState {
   adultsOnly: boolean;
   extras: string[];
   weddingInfo: WeddingInfo;
+  /**
+   * When the last order was provisioned, or null if none was.
+   *
+   * Survives `completeOrder()` clearing the basket so the checkout can tell
+   * "this couple just bought" apart from "this couple has not started yet" —
+   * the two look identical once the store is empty.
+   */
+  completedAt: number | null;
   _hasHydrated: boolean;
   setHasHydrated: (value: boolean) => void;
   emailExists: boolean;
@@ -43,6 +51,8 @@ export interface OrderState {
   setAdultsOnly: (value: boolean) => void;
   toggleExtra: (extra: string) => void;
   setWeddingInfo: (info: Partial<WeddingInfo>) => void;
+  /** Clears the basket and records that an order was provisioned. */
+  completeOrder: () => void;
   resetStore: () => void;
 }
 
@@ -85,6 +95,7 @@ export const useOrderStore = create<OrderState>()(
       languages: [],
       adultsOnly: false,
       extras: [],
+      completedAt: null,
       _hasHydrated: false,
       setHasHydrated: (value) => set({ _hasHydrated: value }),
       emailExists: false,
@@ -118,6 +129,23 @@ export const useOrderStore = create<OrderState>()(
         set((state) => ({
           weddingInfo: { ...state.weddingInfo, ...info },
         })),
+      completeOrder: () =>
+        set({
+          plan: null,
+          animation: "",
+          theme: "",
+          modules: [],
+          primaryLanguage: "fr",
+          languages: [],
+          adultsOnly: false,
+          extras: [],
+          emailExists: false,
+          weddingInfo: DEFAULT_WEDDING_INFO,
+          // Outlives the basket on purpose: it is what tells the checkout to
+          // show "your order is complete" instead of a blank configurator when
+          // the couple navigates back from the dashboard.
+          completedAt: Date.now(),
+        }),
       resetStore: () =>
         set({
           plan: null,
@@ -130,6 +158,7 @@ export const useOrderStore = create<OrderState>()(
           extras: [],
           emailExists: false,
           weddingInfo: DEFAULT_WEDDING_INFO,
+          completedAt: null,
         }),
     }),
     {

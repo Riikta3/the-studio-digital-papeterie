@@ -1,3 +1,5 @@
+import { getTranslations } from "next-intl/server";
+
 import type { InvitationData } from "../../types";
 
 /**
@@ -18,7 +20,8 @@ import type { InvitationData } from "../../types";
  * used elsewhere. `hero-lettering.webp` stays in `public/themes/belle-rive/` as
  * the visual reference this was matched against, but nothing renders it.
  */
-export function HeroSection({ data }: { data: InvitationData }) {
+export async function HeroSection({ data }: { data: InvitationData }) {
+  const t = await getTranslations("Invitation.belleRive.hero");
   const { couple, copy, venue } = data;
   const place = [venue.name, venue.city].filter(Boolean).join(" · ");
 
@@ -37,7 +40,7 @@ export function HeroSection({ data }: { data: InvitationData }) {
       {/* `#count` is far too generic an id to expose in a shared app — it is
           prefixed here, and this is the only link that targets it. */}
       <a className="scroll" href="#br-count">
-        Découvrir
+        {t("discoverCta")}
         <br />↓
       </a>
     </section>

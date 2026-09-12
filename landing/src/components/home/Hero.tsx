@@ -43,7 +43,6 @@ export function Hero() {
   // Latches on the first open: gates the dynamic import without discarding
   // the drawer's exit animation on close.
   const [menuMounted, setMenuMounted] = useState(false);
-  const eyebrowText = t("eyebrow");
   const title1Text = t("titleLine1");
   const subtitleText = t("subtitle");
 
@@ -129,33 +128,15 @@ export function Hero() {
         )}
 
         <div className="flex flex-col items-center px-6 md:px-12">
-          <div className="mt-10 flex items-center gap-3 font-body text-h5 tracking-luxe text-studio-lavande md:mt-14">
-            <Image
-              src="/images/eyebrow-separator-left.svg"
-              alt=""
-              width={42}
-              height={1}
-            />
-            <SplitText text={eyebrowText} className="font-body" animate={false} />
-            <Image
-              src="/images/eyebrow-separator-right.svg"
-              alt=""
-              width={42}
-              height={1}
-            />
-          </div>
-
-          {/* The two lines carry one sentence, and the primary keyword now
-              straddles them ("Le faire-part de mariage" / "digital,
-              réinventé"), so the whitespace between the spans is content, not
-              formatting. The spans are `block`, which every layout engine and
-              Google treat as a line break, but the raw HTML has no separator
-              between the closing and opening tag — anything reading the markup
-              without applying CSS sees "de mariagedigital" and loses the term.
-              The explicit space costs nothing visually (it collapses at the end
-              of a block line) and keeps the sentence intact in the text
-              extraction. */}
-          <h1 className="mt-6 text-center font-heading text-h1">
+          {/* The two lines carry one sentence, so the whitespace between the
+              spans is content, not formatting. The spans are `block`, which
+              every layout engine and Google treat as a line break, but the raw
+              HTML has no separator between the closing and opening tag —
+              anything reading the markup without applying CSS would run the two
+              lines together into a single word. The explicit space costs
+              nothing visually (it collapses at the end of a block line) and
+              keeps the sentence intact in the text extraction. */}
+          <h1 className="mt-10 text-center font-heading text-h1 md:mt-14">
             <SplitText
               as="span"
               text={title1Text}

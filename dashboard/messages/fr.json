@@ -23,7 +23,7 @@
       "title": "À faire",
       "no_answer": {
         "label": "{count, plural, =0 {Aucune réponse en attente} one {# invité sans réponse} other {# invités sans réponse}}",
-        "description": "Relancer les invités qui n'ont pas encore répondu"
+        "description": "Relancer les invités qui n’ont pas encore répondu"
       },
       "to_seat": {
         "label": "{count, plural, =0 {Tout le monde est placé} one {# invité à placer} other {# invités à placer}}",
@@ -31,7 +31,7 @@
       },
       "qr_code": {
         "label_no_count": "Imprimer le QR code",
-        "description": "À afficher le jour J pour l'accès invités"
+        "description": "À afficher le jour J pour l’accès invités"
       }
     },
     "invitation_preview": {
@@ -40,14 +40,15 @@
       "not_live": "Hors ligne",
       "edit_cta": "Modifier le contenu",
       "public_hint": "Lien public partagé avec vos invités",
-      "view_cta": "Voir"
+      "view_cta": "Voir",
+      "view_cta_offline": "Faire-part hors ligne — republiez-le pour le voir"
     }
   },
   "Guests": {
     "title": "Vos Invités",
     "subtitle": "Gérez votre liste, suivez les réponses et organisez votre événement.",
     "add_household": "Ajouter un Foyer",
-    "back_home": "Retour à l'accueil"
+    "back_home": "Retour à l’accueil"
   },
   "GuestStats": {
     "total": "Total Invités",
@@ -86,17 +87,17 @@
     "exporting": "Export...",
     "import": "Importer",
     "importing": "Import...",
-    "toast_exporting": "Génération de l'export Excel...",
+    "toast_exporting": "Génération de l’export Excel...",
     "toast_export_success": "Export Excel réussi !",
-    "toast_export_error": "Erreur lors de l'export",
+    "toast_export_error": "Erreur lors de l’export",
     "toast_importing": "Import en cours...",
-    "toast_import_error": "Erreur lors de l'import",
+    "toast_import_error": "Erreur lors de l’import",
     "toast_generating_template": "Génération du modèle...",
     "toast_template_downloaded": "Modèle téléchargé !",
     "toast_template_error": "Erreur lors du téléchargement",
     "help_dialog": {
       "title": "Comment importer vos invités ?",
-      "description": "Suivez ces étapes simples pour importer votre liste d'invités :",
+      "description": "Suivez ces étapes simples pour importer votre liste d’invités :",
       "step_1": "Téléchargez le modèle Excel ci-dessous.",
       "step_2": "Remplissez-le avec vos invités (respectez les colonnes).",
       "step_3": "Sauvegardez le fichier.",
@@ -127,7 +128,7 @@
     "submitting_edit": "Modification...",
     "toast_success_create": "Foyer ajouté avec succès",
     "toast_success_edit": "Foyer modifié avec succès",
-    "toast_error": "Erreur technique lors de l'enregistrement",
+    "toast_error": "Erreur technique lors de l’enregistrement",
     "cancel": "Annuler",
     "toast_unknown_error": "Erreur inconnue",
     "status_field_label": "Statut du foyer",
@@ -182,7 +183,7 @@
     "toast_error": "Erreur lors de la mise à jour",
     "toast_tech_error": "Erreur technique",
     "language_title": "Langue de la plateforme",
-    "language_desc": "Choisissez la langue de l'interface d'administration.",
+    "language_desc": "Choisissez la langue de l’interface d’administration.",
     "active_code": "Code actif",
     "remove_code": "Supprimer le code",
     "reset": "Réinitialiser",
@@ -195,7 +196,7 @@
   },
   "RsvpResponses": {
     "title": "Réponses RSVP",
-    "subtitle": "Liste des invités ayant répondu via l'invitation en ligne.",
+    "subtitle": "Liste des invités ayant répondu via l’invitation en ligne.",
     "search_placeholder": "Rechercher un invité...",
     "filter": {
       "all": "Tous",
@@ -241,17 +242,17 @@
     "save": "Enregistrer",
     "saving": "Enregistrement...",
     "saved": "Modifications enregistrées",
-    "save_error": "Erreur lors de l'enregistrement",
+    "save_error": "Erreur lors de l’enregistrement",
     "add_response": "Ajouter une réponse",
     "export": "Exporter",
     "exporting": "Export...",
     "import": "Importer",
     "importing": "Import...",
-    "import_error": "Erreur lors de l'import",
+    "import_error": "Erreur lors de l’import",
     "template": "Modèle",
     "create_dialog": {
       "title": "Ajouter une réponse RSVP",
-      "description": "Saisissez manuellement la réponse d'un invité.",
+      "description": "Saisissez manuellement la réponse d’un invité.",
       "confirm": "Créer"
     },
     "created": "Réponse créée",
@@ -288,7 +289,8 @@
       "delete_description": "Cette action est irréversible. Les {count} réponse(s) sélectionnée(s) seront définitivement supprimées.",
       "deleted": "{count} réponse(s) supprimée(s)"
     },
-    "dietary_other_placeholder": "Autre (précisez)..."
+    "dietary_other_placeholder": "Autre (précisez)...",
+    "truncated_notice": "Les {shown} réponses les plus récentes sont affichées, sur {total} au total. Le nombre de personnes attendues ne porte que sur celles-ci ; les autres compteurs sont complets."
   },
   "Sidebar": {
     "sections": {
@@ -308,6 +310,7 @@
         "label": "Invitation",
         "items": {
           "modules": "Mes modules",
+          "words": "Nos mots",
           "events": "Événements",
           "schedule": "Programme",
           "venue": "Lieu & infos pratiques",
@@ -338,6 +341,7 @@
       }
     },
     "view_site": "Voir mon faire-part",
+    "view_site_unpublished": "Votre faire-part est dépublié. Republiez-le pour le voir en ligne.",
     "logout": "Déconnexion",
     "logout_confirmation": {
       "title": "Confirmer la déconnexion",
@@ -350,8 +354,8 @@
     "select_language": "Langue"
   },
   "NotFound": {
-    "title": "Cette page n'existe pas dans votre espace",
-    "description": "Le lien est peut-être incomplet, ou la page a changé d'adresse.",
+    "title": "Cette page n’existe pas dans votre espace",
+    "description": "Le lien est peut-être incomplet, ou la page a changé d’adresse.",
     "back_home": "Retour au tableau de bord",
     "stampLabel": "ADRESSE INCONNUE",
     "stampCode": "NON RÉFÉRENCÉE",
@@ -369,9 +373,9 @@
     },
     "general": {
       "wedding_config_title": "Configuration Mariage",
-      "wedding_config_desc": "Code d'accès pour le formulaire RSVP de vos invités.",
+      "wedding_config_desc": "Code d’accès pour le formulaire RSVP de vos invités.",
       "language_title": "Langue",
-      "language_desc": "Langue de l'interface d'administration."
+      "language_desc": "Langue de l’interface d’administration."
     },
     "profile": {
       "title": "Informations personnelles",
@@ -382,7 +386,7 @@
       "email_title": "Adresse Email",
       "email_desc": "Modifier votre email nécessitera une confirmation sur la nouvelle adresse.",
       "new_email": "Nouvel Email",
-      "update_email_btn": "Modifier l'email",
+      "update_email_btn": "Modifier l’email",
       "toast_profile_success": "Profil mis à jour",
       "toast_tech_error": "Erreur technique",
       "weddingdate": "Date du mariage",
@@ -410,7 +414,7 @@
   },
   "Billing": {
     "title": "Facturation",
-    "subtitle": "Retrouvez l'historique de vos paiements et vos factures.",
+    "subtitle": "Retrouvez l’historique de vos paiements et vos factures.",
     "history_title": "Historique des paiements",
     "plan_label": "Forfait",
     "amount_label": "Montant",
@@ -423,7 +427,7 @@
     "status_refunded": "Remboursé",
     "download_invoice": "Télécharger",
     "no_invoices_title": "Aucune facture",
-    "no_invoices_desc": "Vous n'avez pas encore effectué de paiement. Les factures apparaîtront ici une fois votre première commande validée.",
+    "no_invoices_desc": "Vous n’avez pas encore effectué de paiement. Les factures apparaîtront ici une fois votre première commande validée.",
     "filter_year_all": "Toutes les années",
     "filter_month_all": "Tous les mois",
     "filter_clear": "Effacer filtres",
@@ -432,7 +436,7 @@
   },
   "WelcomePopup": {
     "title": "Bienvenue sur The Studio !",
-    "description": "Félicitations pour votre mariage. Votre faire-part numérique est prêt et n'attend plus que vous.",
+    "description": "Félicitations pour votre mariage. Votre faire-part numérique est prêt et n’attend plus que vous.",
     "view_site_btn": "Voir mon faire-part",
     "start_config_btn": "Commencer la configuration"
   },
@@ -466,14 +470,14 @@
     "video_type_embed": "Intégration (YouTube/Vimeo)",
     "video_type_upload": "Fichier direct (mp4)",
     "field_video_url": "URL de la vidéo",
-    "video_url_hint_embed": "Collez l'URL d'intégration YouTube ou Vimeo (format /embed/...)",
+    "video_url_hint_embed": "Collez l’URL d’intégration YouTube ou Vimeo (format /embed/...)",
     "video_url_hint_upload": "URL directe vers un fichier mp4 hébergé",
     "event": "Étape",
     "field_time": "Heure",
     "field_event_title": "Intitulé",
     "field_location": "Lieu (optionnel)",
     "add_event": "Ajouter une étape",
-    "accommodation_options": "Options d'hébergement",
+    "accommodation_options": "Options d’hébergement",
     "accommodation": "Hébergement",
     "field_type": "Type",
     "field_name": "Nom",
@@ -507,7 +511,7 @@
     "field_question": "Question",
     "field_answer": "Réponse",
     "add_question": "Ajouter une question",
-    "dresscode_mode": "Mode d'affichage",
+    "dresscode_mode": "Mode d’affichage",
     "dresscode_mode_global": "Message global",
     "dresscode_mode_split": "Homme / Femme",
     "dresscode_men": "Tenue Homme",
@@ -520,7 +524,7 @@
     "transport_type_car": "Voiture",
     "transport_type_ship": "Bateau",
     "order_saved": "Ordre des modules mis à jour",
-    "order_save_error": "Impossible de sauvegarder l'ordre. Veuillez réessayer.",
+    "order_save_error": "Impossible de sauvegarder l’ordre. Veuillez réessayer.",
     "module_price": "10 € / module",
     "buy_module_title": "Ajouter un module",
     "buy_module_desc": "Activez ce module pour 10 € — disponible immédiatement sur votre faire-part.",
@@ -551,8 +555,8 @@
     "gallery_uploading": "Upload en cours...",
     "gallery_dropzone_hint": "Glisser des photos ou cliquer pour parcourir",
     "gallery_dropzone_specs": "JPG, JPEG, PNG — max 5 Mo par photo — {count}/{max} photos",
-    "gallery_reorder_hint": "Glissez les photos pour modifier leur ordre d'affichage.",
-    "gallery_empty_hint": "Aucune photo ajoutée — les photos de démonstration s'afficheront sur le site.",
+    "gallery_reorder_hint": "Glissez les photos pour modifier leur ordre d’affichage.",
+    "gallery_empty_hint": "Aucune photo ajoutée — les photos de démonstration s’afficheront sur le site.",
     "reorder_hint": "— glissez pour réordonner",
     "reorder": "Réordonner",
     "catalog": {
@@ -561,7 +565,7 @@
         "description": "Le décompte avant le jour J"
       },
       "intro-video": {
-        "name": "Vidéo d'Intro",
+        "name": "Vidéo d’Intro",
         "description": "Message vidéo personnalisé"
       },
       "timeline": {
@@ -582,7 +586,7 @@
       },
       "accommodation": {
         "name": "Hébergement",
-        "description": "Suggestions d'hôtels à proximité"
+        "description": "Suggestions d’hôtels à proximité"
       },
       "transport": {
         "name": "Transport",
@@ -605,18 +609,25 @@
         "description": "Suggestions musicales"
       },
       "guestbook": {
-        "name": "Livre d'Or",
+        "name": "Livre d’Or",
         "description": "Messages des invités"
       },
       "video-guestbook": {
-        "name": "Livre d'Or Vidéo",
+        "name": "Livre d’Or Vidéo",
         "description": "Messages vidéo des invités"
       },
       "faq": {
         "name": "FAQ / Pratique",
         "description": "Infos pratiques pour les invités"
       }
-    }
+    },
+    "dresscode_palette": "Palette de couleurs",
+    "dresscode_palette_hint": "Les couleurs que vos invités verront sur l’invitation. Jusqu’à 6.",
+    "dresscode_palette_swatch": "Couleur {index}",
+    "dresscode_palette_remove": "Retirer la couleur {index}",
+    "dresscode_photo": "Photo d’inspiration",
+    "dresscode_note": "Petite note",
+    "dresscode_note_placeholder": "Ex : Les talons aiguilles sont déconseillés, la cérémonie se tient sur l’herbe"
   },
   "Playlist": {
     "title": "Playlist Collaborative",
@@ -632,7 +643,7 @@
     },
     "empty": {
       "title": "Aucune suggestion pour le moment",
-      "description": "Les suggestions musicales de vos invités apparaîtront ici une fois qu'ils auront rempli la playlist collaborative sur votre faire-part."
+      "description": "Les suggestions musicales de vos invités apparaîtront ici une fois qu’ils auront rempli la playlist collaborative sur votre faire-part."
     },
     "client": {
       "track_accepted": "\"{title}\" accepté",
@@ -691,14 +702,14 @@
   },
   "BuyModuleDialog": {
     "dialog_title": "Ajouter un module",
-    "dialog_desc_pending": "Votre paiement a été reçu. Confirmez l'activation du module.",
+    "dialog_desc_pending": "Votre paiement a été reçu. Confirmez l’activation du module.",
     "dialog_desc_default": "Activez ce module pour 10 € — disponible immédiatement sur votre faire-part.",
     "generic_error": "Une erreur est survenue.",
     "unexpected_error": "Une erreur inattendue est survenue.",
     "processing_payment": "Paiement en cours...",
     "pay_and_activate": "Payer 10 € et activer",
     "secured_by_stripe": "Paiement sécurisé par Stripe",
-    "activation_error": "Une erreur est survenue lors de l'activation.",
+    "activation_error": "Une erreur est survenue lors de l’activation.",
     "activating": "Activation en cours...",
     "activate_module": "Activer le module",
     "payment_confirmed": "Paiement confirmé",
@@ -707,12 +718,12 @@
     "module_available": "Le module {moduleName} est maintenant disponible.",
     "configure_module": "Configurer le module",
     "payment_failed_or_canceled": "Le paiement a échoué ou a été annulé. Veuillez réessayer.",
-    "payment_not_confirmed": "Le paiement n'a pas pu être confirmé.",
+    "payment_not_confirmed": "Le paiement n’a pas pu être confirmé.",
     "create_intent_error": "Impossible de créer le paiement.",
     "module_activated_toast": "Module \"{name}\" activé !"
   },
   "EditGuestDialog": {
-    "title": "Modifier l'invité",
+    "title": "Modifier l’invité",
     "description": "Modifiez les informations de cet invité",
     "first_name_label": "Prénom",
     "last_name_label": "Nom",
@@ -774,7 +785,7 @@
     "email_sent_title": "Email envoyé",
     "email_sent_description": "Si cette adresse email est associée à un compte, vous recevrez un lien de réinitialisation dans quelques minutes.",
     "check_spam": "Pensez également à vérifier vos spams.",
-    "error_generic": "Une erreur s'est produite. Veuillez réessayer."
+    "error_generic": "Une erreur s’est produite. Veuillez réessayer."
   },
   "RsvpForm": {
     "code_step": {
@@ -797,7 +808,7 @@
       "select_household": "Sélectionnez votre foyer :",
       "guests_count": "{count} invité(s)",
       "or": "Ou",
-      "not_in_list": "Je ne suis pas dans la liste / Je m'inscris"
+      "not_in_list": "Je ne suis pas dans la liste / Je m’inscris"
     },
     "register_step": {
       "eyebrow": "Nouvel Enregistrement",
@@ -850,7 +861,7 @@
     "success_step": {
       "title": "Merci !",
       "subtitle": "Votre réponse a bien été enregistrée.",
-      "back_home": "Retour à l'accueil"
+      "back_home": "Retour à l’accueil"
     },
     "loading": "Chargement..."
   },
@@ -875,8 +886,12 @@
     "signing_in": "Connexion...",
     "sign_in": "Se connecter",
     "error_invalid_credentials": "Identifiants invalides.",
-    "footer_line1": "L'élégance de la papeterie,",
-    "footer_line2": "la puissance du digital"
+    "footer_line1": "L’élégance de la papeterie,",
+    "footer_line2": "la puissance du digital",
+    "session_expired_title": "Votre session a expiré",
+    "session_expired_description": "Vous avez été déconnecté après 30 jours d'inactivité. Reconnectez-vous pour continuer.",
+    "invalid_link_title": "Ce lien n'est plus valide",
+    "invalid_link_description": "Il a peut-être déjà été utilisé ou a expiré. Demandez-en un nouveau."
   },
   "ResetPassword": {
     "title": "Nouveau mot de passe",
@@ -890,7 +905,7 @@
     "error_generic": "Erreur lors de la réinitialisation. Veuillez réessayer."
   },
   "CountdownTimer": {
-    "big_day": "C'est le grand jour !",
+    "big_day": "C’est le grand jour !",
     "months": "Mois",
     "days": "Jours",
     "hours": "H",
@@ -959,9 +974,9 @@
     "move_to": "Déplacer vers…",
     "remove": "Retirer",
     "done": "Terminé",
-    "no_tables": "Aucune table pour l'instant",
-    "assign_failed": "Erreur lors de l'affectation. L'invité n'a pas été placé.",
-    "unassign_failed": "Erreur lors du retrait de l'invité.",
+    "no_tables": "Aucune table pour l’instant",
+    "assign_failed": "Erreur lors de l’affectation. L’invité n’a pas été placé.",
+    "unassign_failed": "Erreur lors du retrait de l’invité.",
     "move_failed": "Erreur lors du déplacement de la table.",
     "add_table": "Ajouter une table",
     "edit_table": "Modifier la table",
@@ -971,7 +986,7 @@
     "table_capacity": "Nombre de places",
     "table_seats_label": "Libellé imprimé (facultatif)",
     "table_seats_label_placeholder": "Table 1",
-    "capacity_below_seated": "{count} personnes y sont déjà placées. Retirez-en d'abord.",
+    "capacity_below_seated": "{count} personnes y sont déjà placées. Retirez-en d’abord.",
     "save": "Enregistrer",
     "delete_failed": "Erreur lors de la suppression.",
     "assigned_toast": "Invité placé",
@@ -982,13 +997,13 @@
   },
   "QrCode": {
     "title": "QR Code Jour J",
-    "permanent_note": "Ce QR code est définitif. Il ne changera jamais, même si vous modifiez vos tables, votre menu, vos invités ou votre programme. Vous pouvez l'imprimer dès maintenant.",
+    "permanent_note": "Ce QR code est définitif. Il ne changera jamais, même si vous modifiez vos tables, votre menu, vos invités ou votre programme. Vous pouvez l’imprimer dès maintenant.",
     "copy": "Copier",
     "copied": "Lien copié",
     "copy_failed": "Impossible de copier le lien. Copiez-le manuellement.",
     "download_png": "Télécharger en PNG",
     "download_svg": "Télécharger en SVG",
-    "no_slug": "Votre site n'a pas encore d'adresse publique. Publiez votre site pour générer le QR code."
+    "no_slug": "Votre site n’a pas encore d’adresse publique. Publiez votre site pour générer le QR code."
   },
   "DayOfMenu": {
     "title": "Menu du Jour J",
@@ -1006,7 +1021,7 @@
       "drinks": "Boissons"
     },
     "toggle_failed": "Erreur lors de la modification de la catégorie.",
-    "add_failed": "Erreur lors de l'ajout du plat.",
+    "add_failed": "Erreur lors de l’ajout du plat.",
     "remove_failed": "Erreur lors de la suppression du plat.",
     "category_enabled": "Catégorie activée",
     "category_disabled": "Catégorie désactivée",
@@ -1018,12 +1033,12 @@
     "enabled_label": "Activer le module Jour J",
     "enabled_hint": "Vos invités accèdent à leur table, au menu et aux photos après avoir scanné le QR code.",
     "gallery_visible_label": "Galerie visible par les invités",
-    "gallery_visible_hint": "Indépendant de l'envoi : vos invités peuvent toujours partager leurs photos même si la galerie reste privée.",
+    "gallery_visible_hint": "Indépendant de l’envoi : vos invités peuvent toujours partager leurs photos même si la galerie reste privée.",
     "after_wedding_label": "Mode après-mariage",
     "after_wedding_hint": "La page passe en mode « Merci » et reste ouverte aux envois.",
-    "uploads_until_label": "Envois ouverts jusqu'au",
+    "uploads_until_label": "Envois ouverts jusqu’au",
     "uploads_until_hint": "Au-delà de cette date, vos invités ne peuvent plus ajouter de photos.",
-    "save_failed": "Erreur lors de l'enregistrement.",
+    "save_failed": "Erreur lors de l’enregistrement.",
     "settings_saved": "Réglages enregistrés"
   },
   "DayOfPhotos": {
@@ -1038,7 +1053,7 @@
     "anonymous": "Invité anonyme",
     "empty": {
       "title": "Aucune photo pour le moment",
-      "description": "Dès qu'un invité scanne votre QR code et partage une photo ou une vidéo, elle apparaîtra ici."
+      "description": "Dès qu’un invité scanne votre QR code et partage une photo ou une vidéo, elle apparaîtra ici."
     },
     "filters": {
       "all": "Tout",
@@ -1057,7 +1072,7 @@
     "deleted_toast": "Photo supprimée"
   },
   "GuestGroups": {
-    "title": "Groupes d'invités",
+    "title": "Groupes d’invités",
     "count": "{count} invité(s) au total",
     "search_placeholder": "Rechercher un invité ou un foyer...",
     "no_results": "Aucun invité ne correspond à cette recherche.",
@@ -1112,12 +1127,12 @@
   },
   "InvitationEvents": {
     "title": "Événements",
-    "subtitle": "Votre mariage, ce n'est pas un seul moment : gérez chaque temps fort séparément.",
+    "subtitle": "Votre mariage, ce n’est pas un seul moment : gérez chaque temps fort séparément.",
     "untitled": "Sans nom",
     "no_date": "Date à définir",
     "enabled": "Visible par les invités",
     "fields": {
-      "name": "Nom de l'événement",
+      "name": "Nom de l’événement",
       "date": "Date",
       "time": "Heure",
       "time_placeholder": "17h00",
@@ -1125,7 +1140,7 @@
       "description": "Description",
       "dress_code": "Dress code"
     },
-    "delete": "Supprimer l'événement",
+    "delete": "Supprimer l’événement",
     "delete_dialog": {
       "title": "Supprimer « {name} » ?",
       "description": "Les entrées du programme et les statuts de présence des invités liés à cet événement seront supprimés. Cette action est irréversible.",
@@ -1135,7 +1150,7 @@
     "add_event": "Ajouter un événement",
     "new_event_name": "Nouvel événement",
     "reorder": "Réordonner",
-    "save_failed": "Erreur lors de l'enregistrement.",
+    "save_failed": "Erreur lors de l’enregistrement.",
     "event_added": "Événement ajouté",
     "event_deleted": "Événement supprimé",
     "order_saved": "Ordre enregistré",
@@ -1144,13 +1159,13 @@
   },
   "InvitationSchedule": {
     "title": "Programme",
-    "subtitle": "Le déroulé de chaque événement, dans l'ordre où il se déroule.",
+    "subtitle": "Le déroulé de chaque événement, dans l’ordre où il se déroule.",
     "event_disabled": "Événement désactivé",
     "empty": "Aucune étape pour le moment.",
     "add_entry": "Ajouter une étape",
     "new_entry_title": "Nouvelle étape",
     "time_placeholder": "17h00",
-    "title_placeholder": "Titre de l'étape",
+    "title_placeholder": "Titre de l’étape",
     "description_placeholder": "Description (facultatif)",
     "fields": {
       "time": "Heure",
@@ -1162,13 +1177,13 @@
     "delete_entry": "Supprimer « {title} »",
     "deleted_toast": "« {title} » supprimé",
     "untitled": "Sans titre",
-    "save_failed": "Erreur lors de l'enregistrement.",
+    "save_failed": "Erreur lors de l’enregistrement.",
     "entry_added": "Entrée ajoutée",
     "order_saved": "Ordre enregistré"
   },
   "InvitationVenue": {
     "title": "Lieu & infos pratiques",
-    "subtitle": "Ces informations sont uniquement descriptives : pas de réservation d'hôtel ni de gestion de navettes ici, juste de quoi orienter vos invités.",
+    "subtitle": "Ces informations sont uniquement descriptives : pas de réservation d’hôtel ni de gestion de navettes ici, juste de quoi orienter vos invités.",
     "fields": {
       "name": "Nom du lieu",
       "name_placeholder": "Villa Bellavista",
@@ -1183,7 +1198,7 @@
       "parking_info": "Stationnement",
       "parking_info_placeholder": "Où et comment se garer",
       "access_info": "Accès",
-      "access_info_placeholder": "Comment venir jusqu'au lieu",
+      "access_info_placeholder": "Comment venir jusqu’au lieu",
       "transport_info": "Transport",
       "transport_info_placeholder": "Navettes, transports en commun, etc.",
       "photo": "Photo du lieu"
@@ -1192,7 +1207,7 @@
     "open_waze": "Ouvrir dans Waze",
     "accommodation": {
       "title": "Hébergements recommandés",
-      "hint": "Une sélection d'adresses à proximité, pour aider vos invités à se loger.",
+      "hint": "Une sélection d’adresses à proximité, pour aider vos invités à se loger.",
       "add": "Ajouter",
       "empty": "Aucun hébergement ajouté pour le moment.",
       "untitled": "sans nom",
@@ -1204,7 +1219,7 @@
         "booking_url": "Lien de réservation",
         "offer": "Offre négociée"
       },
-      "name_placeholder": "Nom de l'hébergement",
+      "name_placeholder": "Nom de l’hébergement",
       "city_placeholder": "Ville",
       "distance_placeholder": "à 10 min du domaine",
       "phone_placeholder": "+39 089 000 000",
@@ -1215,7 +1230,7 @@
     },
     "move_up": "Monter",
     "move_down": "Descendre",
-    "save_failed": "Erreur lors de l'enregistrement.",
+    "save_failed": "Erreur lors de l’enregistrement.",
     "accommodation_added": "Hébergement ajouté",
     "accommodation_deleted": "Hébergement supprimé",
     "order_saved": "Ordre enregistré"
@@ -1229,7 +1244,7 @@
     "published": "Publiée",
     "unpublished": "Non publiée",
     "published_toggle": "Publier",
-    "unpublished_hint": "Cette question reste modifiable ici mais n'apparaît pas sur le faire-part tant qu'elle n'est pas publiée.",
+    "unpublished_hint": "Cette question reste modifiable ici mais n’apparaît pas sur le faire-part tant qu’elle n’est pas publiée.",
     "fields": {
       "question": "Question",
       "answer": "Réponse"
@@ -1245,7 +1260,7 @@
       "cancel": "Annuler",
       "confirm": "Supprimer"
     },
-    "save_failed": "Erreur lors de l'enregistrement.",
+    "save_failed": "Erreur lors de l’enregistrement.",
     "entry_added": "Question ajoutée",
     "entry_deleted": "Question supprimée",
     "order_saved": "Ordre enregistré",
@@ -1284,5 +1299,69 @@
     "remove": "Retirer la photo",
     "error_type": "Format non pris en charge. Utilisez un JPEG, un PNG ou un WebP.",
     "error_size": "Photo trop lourde. Le maximum est de 8 Mo."
+  },
+  "SitePublication": {
+    "title": "Publication du faire-part",
+    "section_desc": "Décidez si vos invités peuvent accéder à votre faire-part en ligne.",
+    "toggle_label": "Faire-part en ligne",
+    "status_online": "En ligne",
+    "status_offline": "Hors ligne",
+    "hint_online": "Vos invités peuvent consulter votre faire-part avec le lien.",
+    "hint_offline": "Le lien est désactivé : personne ne peut voir votre faire-part.",
+    "now_online": "Votre faire-part est en ligne.",
+    "now_offline": "Votre faire-part est hors ligne.",
+    "save_failed": "Erreur lors de l’enregistrement."
+  },
+  "InvitationCopy": {
+    "title": "Nos mots",
+    "subtitle": "Les phrases qui vous ressemblent, en haut et en bas de votre faire-part. Laissez un champ vide pour garder le texte par défaut.",
+    "fields": {
+      "hero_kicker": "Au-dessus de vos prénoms",
+      "announcement": "Votre annonce",
+      "closing_words": "Le mot de la fin",
+      "portrait": "Votre photo"
+    },
+    "hints": {
+      "hero_kicker": "La petite ligne qui ouvre le faire-part.",
+      "announcement": "La phrase qui accompagne vos prénoms.",
+      "closing_words": "Sur la dernière page. Les retours à la ligne sont conservés.",
+      "portrait": "Seuls certains thèmes affichent une photo du couple — sur les autres, elle ne sera pas visible."
+    },
+    "placeholders": {
+      "hero_kicker": "Nous nous marions",
+      "announcement": "Nous serions heureux de vous compter parmi nous.",
+      "closing_words": "À très bientôt"
+    },
+    "save": "Enregistrer",
+    "saving": "Enregistrement…",
+    "saved": "Vos mots sont enregistrés",
+    "save_failed": "Erreur lors de l’enregistrement."
+  },
+  "AuthEmails": {
+    "brand": "The Studio Digital Papeterie",
+    "reset_subject": "Réinitialisez votre mot de passe",
+    "reset_heading": "Réinitialisation de votre mot de passe",
+    "reset_body": "Vous avez demandé à réinitialiser le mot de passe de votre espace. Cliquez ci-dessous pour en choisir un nouveau.",
+    "reset_cta": "Choisir un nouveau mot de passe",
+    "magic_subject": "Votre lien de connexion",
+    "magic_heading": "Votre lien de connexion",
+    "magic_body": "Cliquez ci-dessous pour accéder à votre espace. Aucun mot de passe n'est nécessaire.",
+    "magic_cta": "Accéder à mon espace",
+    "confirm_subject": "Confirmez votre adresse email",
+    "confirm_heading": "Confirmez votre adresse email",
+    "confirm_body": "Il ne reste qu'une étape : confirmez votre adresse email pour activer votre espace.",
+    "confirm_cta": "Confirmer mon adresse",
+    "change_current_subject": "Confirmez le changement d'adresse email",
+    "change_new_subject": "Confirmez votre nouvelle adresse email",
+    "change_current_heading": "Confirmez le changement d'adresse",
+    "change_new_heading": "Confirmez votre nouvelle adresse",
+    "change_current_body": "Vous avez demandé à remplacer l'adresse email de votre espace par {newEmail}. Confirmez ci-dessous pour autoriser ce changement.",
+    "change_new_body": "Vous avez demandé à changer l'adresse email de votre espace. Confirmez-la ci-dessous pour qu'elle prenne effet.",
+    "change_current_cta": "Autoriser le changement",
+    "change_new_cta": "Confirmer ma nouvelle adresse",
+    "expires": "Ce lien est valable une seule fois et expire dans {hours} heures.",
+    "ignore": "Si vous n'êtes pas à l'origine de cette demande, ignorez simplement cet email : rien ne sera modifié.",
+    "fallback": "Si le bouton ne fonctionne pas, copiez ce lien dans votre navigateur :",
+    "footer": "Une question ? Répondez simplement à cet email."
   }
 }

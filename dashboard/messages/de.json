@@ -40,7 +40,8 @@
       "not_live": "Offline",
       "edit_cta": "Inhalt bearbeiten",
       "public_hint": "Öffentlicher Link, der mit Ihren Gästen geteilt wird",
-      "view_cta": "Ansehen"
+      "view_cta": "Ansehen",
+      "view_cta_offline": "Einladung offline – erneut veröffentlichen, um sie anzusehen"
     }
   },
   "Guests": {
@@ -67,6 +68,7 @@
         "label": "Einladung",
         "items": {
           "modules": "Meine Module",
+          "words": "Unsere Worte",
           "events": "Veranstaltungen",
           "schedule": "Ablauf",
           "venue": "Ort & praktische Infos",
@@ -97,6 +99,7 @@
       }
     },
     "view_site": "Meine Seite ansehen",
+    "view_site_unpublished": "Eure Einladung ist nicht veröffentlicht. Veröffentlicht sie erneut, um sie online zu sehen.",
     "logout": "Abmelden",
     "logout_confirmation": {
       "title": "Abmeldung bestätigen",
@@ -448,7 +451,14 @@
         "name": "FAQ / Praktische Infos",
         "description": "Praktische Infos für Gäste"
       }
-    }
+    },
+    "dresscode_palette": "Farbpalette",
+    "dresscode_palette_hint": "Die Farben, die Ihre Gäste auf der Einladung sehen. Bis zu 6.",
+    "dresscode_palette_swatch": "Farbe {index}",
+    "dresscode_palette_remove": "Farbe {index} entfernen",
+    "dresscode_photo": "Inspirationsfoto",
+    "dresscode_note": "Kurzer Hinweis",
+    "dresscode_note_placeholder": "Z. B. Von Pfennigabsätzen raten wir ab – die Trauung findet auf der Wiese statt"
   },
   "Playlist": {
     "title": "Gemeinsame Playlist",
@@ -616,7 +626,8 @@
       "delete_description": "Diese Aktion ist unwiderruflich. Die {count} ausgewählte(n) Antwort(en) werden endgültig gelöscht.",
       "deleted": "{count} Antwort(en) gelöscht"
     },
-    "dietary_other_placeholder": "Andere (bitte angeben)..."
+    "dietary_other_placeholder": "Andere (bitte angeben)...",
+    "truncated_notice": "Es werden die {shown} neuesten Rückmeldungen von insgesamt {total} angezeigt. Die erwartete Personenzahl bezieht sich nur auf diese; die übrigen Zähler sind vollständig."
   },
   "Billing": {
     "title": "Rechnungen",
@@ -876,7 +887,11 @@
     "sign_in": "Anmelden",
     "error_invalid_credentials": "Ungültige Anmeldedaten.",
     "footer_line1": "Die Eleganz der Papeterie,",
-    "footer_line2": "die Kraft des Digitalen"
+    "footer_line2": "die Kraft des Digitalen",
+    "session_expired_title": "Ihre Sitzung ist abgelaufen",
+    "session_expired_description": "Sie wurden nach 30 Tagen Inaktivität abgemeldet. Melden Sie sich erneut an.",
+    "invalid_link_title": "Dieser Link ist nicht mehr gültig",
+    "invalid_link_description": "Er wurde möglicherweise bereits verwendet oder ist abgelaufen. Fordern Sie einen neuen an."
   },
   "ResetPassword": {
     "title": "Neues Passwort",
@@ -1284,5 +1299,69 @@
     "remove": "Foto entfernen",
     "error_type": "Format nicht unterstützt. Bitte JPEG, PNG oder WebP verwenden.",
     "error_size": "Foto zu groß. Maximal 8 MB."
+  },
+  "SitePublication": {
+    "title": "Veröffentlichung der Einladung",
+    "section_desc": "Legen Sie fest, ob Ihre Gäste Ihre Online-Einladung öffnen können.",
+    "toggle_label": "Einladung online",
+    "status_online": "Online",
+    "status_offline": "Offline",
+    "hint_online": "Ihre Gäste können die Einladung über den Link ansehen.",
+    "hint_offline": "Der Link ist deaktiviert: Niemand kann Ihre Einladung sehen.",
+    "now_online": "Ihre Einladung ist online.",
+    "now_offline": "Ihre Einladung ist offline.",
+    "save_failed": "Änderung konnte nicht gespeichert werden."
+  },
+  "InvitationCopy": {
+    "title": "Unsere Worte",
+    "subtitle": "Die Sätze, die zu euch passen – oben und unten auf eurer Einladung. Ein leeres Feld behält den Standardtext.",
+    "fields": {
+      "hero_kicker": "Über euren Namen",
+      "announcement": "Eure Ankündigung",
+      "closing_words": "Schlussworte",
+      "portrait": "Euer Foto"
+    },
+    "hints": {
+      "hero_kicker": "Die kurze Zeile, mit der die Einladung beginnt.",
+      "announcement": "Der Satz neben euren Namen.",
+      "closing_words": "Auf der letzten Seite. Zeilenumbrüche bleiben erhalten.",
+      "portrait": "Nur manche Designs zeigen ein Foto des Paares – bei den anderen erscheint es nicht."
+    },
+    "placeholders": {
+      "hero_kicker": "Wir heiraten",
+      "announcement": "Wir würden uns freuen, euch dabeizuhaben.",
+      "closing_words": "Bis ganz bald"
+    },
+    "save": "Speichern",
+    "saving": "Wird gespeichert…",
+    "saved": "Eure Worte sind gespeichert",
+    "save_failed": "Beim Speichern ist ein Fehler aufgetreten."
+  },
+  "AuthEmails": {
+    "brand": "The Studio Digital Papeterie",
+    "reset_subject": "Setzen Sie Ihr Passwort zurück",
+    "reset_heading": "Passwort zurücksetzen",
+    "reset_body": "Sie haben angefordert, das Passwort für Ihren Bereich zurückzusetzen. Klicken Sie unten, um ein neues zu wählen.",
+    "reset_cta": "Neues Passwort wählen",
+    "magic_subject": "Ihr Anmeldelink",
+    "magic_heading": "Ihr Anmeldelink",
+    "magic_body": "Klicken Sie unten, um zu Ihrem Bereich zu gelangen. Kein Passwort nötig.",
+    "magic_cta": "Zu meinem Bereich",
+    "confirm_subject": "Bestätigen Sie Ihre E-Mail-Adresse",
+    "confirm_heading": "E-Mail-Adresse bestätigen",
+    "confirm_body": "Nur noch ein Schritt: Bestätigen Sie Ihre E-Mail-Adresse, um Ihren Bereich zu aktivieren.",
+    "confirm_cta": "Adresse bestätigen",
+    "change_current_subject": "Bestätigen Sie die Änderung Ihrer E-Mail-Adresse",
+    "change_new_subject": "Bestätigen Sie Ihre neue E-Mail-Adresse",
+    "change_current_heading": "Adressänderung bestätigen",
+    "change_new_heading": "Neue Adresse bestätigen",
+    "change_current_body": "Sie haben beantragt, die E-Mail-Adresse Ihres Kontos in {newEmail} zu ändern. Bestätigen Sie unten, um dies zu genehmigen.",
+    "change_new_body": "Sie haben angefordert, die E-Mail-Adresse Ihres Bereichs zu ändern. Bestätigen Sie sie unten, damit sie wirksam wird.",
+    "change_current_cta": "Änderung genehmigen",
+    "change_new_cta": "Neue Adresse bestätigen",
+    "expires": "Dieser Link gilt einmalig und läuft in {hours} Stunden ab.",
+    "ignore": "Wenn Sie das nicht angefordert haben, ignorieren Sie diese E-Mail einfach — es ändert sich nichts.",
+    "fallback": "Falls der Button nicht funktioniert, kopieren Sie diesen Link in Ihren Browser:",
+    "footer": "Eine Frage? Antworten Sie einfach auf diese E-Mail."
   }
 }

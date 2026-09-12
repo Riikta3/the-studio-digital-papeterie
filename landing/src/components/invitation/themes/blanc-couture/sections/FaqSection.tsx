@@ -30,7 +30,7 @@ export function FaqSection({ data, side }: { data: InvitationData; side: "left" 
   if (faq.length === 0) return null;
 
   return (
-    <Page className="soft-floral-paper faq-page" side={side}>
+    <Page className="soft-floral-paper faq-page" side={side} monogram={data.couple.monogram} couple={data.couple}>
       <p className="script">Bon à savoir</p>
       <h2>
         Questions

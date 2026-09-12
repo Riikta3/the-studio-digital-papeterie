@@ -1,3 +1,5 @@
+import type { ScheduleIcon } from "../../types";
+
 /**
  * The five line icons of the timeline, drawn inline.
  *
@@ -6,7 +8,7 @@
  * ring. The set is closed: an unknown key falls back to the welcome glyph, as
  * in the source.
  */
-export function ProgramIcon({ type }: { type?: string }) {
+export function ProgramIcon({ type }: { type?: ScheduleIcon }) {
   const stroke = {
     fill: "none",
     stroke: "currentColor",
@@ -15,7 +17,7 @@ export function ProgramIcon({ type }: { type?: string }) {
     strokeLinejoin: "round" as const,
   };
 
-  if (type === "rings") {
+  if (type === "ceremony") {
     return (
       <svg viewBox="0 0 32 32" aria-hidden="true">
         <g {...stroke}>
@@ -27,7 +29,7 @@ export function ProgramIcon({ type }: { type?: string }) {
     );
   }
 
-  if (type === "glasses") {
+  if (type === "cocktail") {
     return (
       <svg viewBox="0 0 32 32" aria-hidden="true">
         <g {...stroke}>
@@ -50,7 +52,7 @@ export function ProgramIcon({ type }: { type?: string }) {
     );
   }
 
-  if (type === "music") {
+  if (type === "party") {
     return (
       <svg viewBox="0 0 32 32" aria-hidden="true">
         <g {...stroke}>

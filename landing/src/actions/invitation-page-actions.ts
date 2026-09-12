@@ -1,6 +1,11 @@
 "use server";
 
 import { createClient } from "@/utils/supabase/server";
+import {
+  type ModuleConfigRow,
+  type ModuleContent,
+  readModuleConfigs,
+} from "@/lib/module-config";
 
 /**
  * The couple's real invitation, assembled from Supabase.
@@ -70,6 +75,38 @@ export type InvitationPageData = {
   weddingId: string;
   slug: string;
   themeId: string | null;
+  /**
+   * The modules this wedding bought (`sites.modules`), which decide the
+   * sections a theme renders. Empty when the row carries none.
+   */
+  modules: string[];
+  /** `settings.adults_only` — drives the RSVP child fields and the FAQ entry. */
+  adultsOnly: boolean;
+  /**
+   * The couple's own words and their photograph (`settings`, migration
+   * 20260912140000).
+   *
+   * `InvitationData.copy` describes every one of its fields as "a sentence a
+   * couple could rewrite", and until these columns existed none of them could
+   * be: the hero line was a French literal in the mapper, so two weddings on
+   * the same theme opened with the same sentence. Each is undefined when the
+   * couple has not written it, and the mapper falls back to what it derived
+   * before.
+   */
+  heroKicker?: string;
+  announcement?: string;
+  closingWords?: string;
+  couplePhotoUrl?: string;
+  /**
+   * The locales this invitation may be served in (`sites.languages`), the
+   * couple's default first. A locale outside this list is not one they bought.
+   */
+  languages: string[];
+  /**
+   * What the couple wrote on the dashboard's module screens
+   * (`site_modules.config`), which nothing read until now.
+   */
+  moduleContent: ModuleContent;
   partner1: string;
   partner2: string;
   /** ISO date of the main ceremony, for the countdown. */
@@ -91,6 +128,19 @@ export type InvitationPageData = {
   accommodations: InvitationAccommodation[];
   faq: InvitationFaqEntry[];
 };
+
+/**
+ * A trimmed string from an untyped RPC column, or undefined.
+ *
+ * `rpc()` rows are `any`, and an empty string in one of the copy columns means
+ * "not written" rather than "written as blank" — a theme that received `""`
+ * would render an empty line where its fallback belonged.
+ */
+function text(value: unknown): string | undefined {
+  if (typeof value !== "string") return undefined;
+  const trimmed = value.trim();
+  return trimmed.length > 0 ? trimmed : undefined;
+}
 
 /** Long French date, e.g. "samedi 19 juin 2027", for a heading. */
 function frenchDateLabel(iso: string | null | undefined): string {
@@ -159,18 +209,16 @@ export async function getInvitationPage(
 
   const weddingId = site.wedding_id as string;
 
-  const [namesRes, eventsRes, scheduleRes, venueRes, staysRes, faqRes] =
+  const [namesRes, eventsRes, scheduleRes, venueRes, staysRes, faqRes, modulesRes] =
     await Promise.all([
       // The couple's names live on `profiles`, which anon cannot read. This
       // security-definer RPC is the narrow path to just the two display names
       // (see 20260902190000_couple_display_names.sql).
       supabase.rpc("get_couple_display_names", { p_wedding_id: weddingId }),
-      supabase
-        .from("events")
-        .select("id, key, name, date, time, address, description, dress_code")
-        .eq("wedding_id", weddingId)
-        .eq("enabled", true)
-        .order("position", { ascending: true }),
+      // Same narrow-RPC reason as the names above: the anon policy on `events`
+      // returned every wedding's events to a direct PostgREST call, so it was
+      // replaced by this function in 20260911110000_narrow_events_anon_read.sql.
+      supabase.rpc("public_wedding_events", { p_wedding_id: weddingId }),
       supabase
         .from("schedule_entries")
         .select("id, event_id, time, title, description, position")
@@ -194,10 +242,29 @@ export async function getInvitationPage(
         .eq("wedding_id", weddingId)
         .eq("published", true)
         .order("position", { ascending: true }),
+      // Per-module content. Through an RPC for the same reason as the events
+      // above: `site_modules` has no anon policy and must not gain one.
+      supabase.rpc("public_module_configs", { p_wedding_id: weddingId }),
     ]);
 
   const names = namesRes.data?.[0];
-  const events = (eventsRes.data ?? []).map((row) => ({
+
+  /** One row of `public_wedding_events` (20260911110000_narrow_events_anon_read.sql). */
+  type PublicEventRow = {
+    id: string;
+    key: string;
+    name: string;
+    date: string | null;
+    time: string | null;
+    address: string | null;
+    description: string | null;
+    dress_code: string | null;
+    position: number | null;
+  };
+
+  // `rpc()` gives back an untyped row (the generated types do not cover the
+  // function), so the shape is named explicitly before mapping.
+  const events = ((eventsRes.data ?? []) as PublicEventRow[]).map((row) => ({
     id: row.id as string,
     key: row.key as string,
     name: row.name as string,
@@ -247,6 +314,16 @@ export async function getInvitationPage(
     weddingId,
     slug,
     themeId: (site.theme_id as string | null) ?? null,
+    modules: (site.modules as string[] | null) ?? [],
+    adultsOnly: Boolean(site.adults_only),
+    heroKicker: text(site.hero_kicker),
+    announcement: text(site.announcement),
+    closingWords: text(site.closing_words),
+    couplePhotoUrl: text(site.couple_photo_url),
+    languages: (site.languages as string[] | null) ?? [],
+    // `rpc()` returns untyped rows (the generated types do not cover
+    // functions), so the shape is named before it is narrowed.
+    moduleContent: readModuleConfigs((modulesRes.data ?? []) as ModuleConfigRow[]),
     partner1: (names?.first_name as string | null) ?? "",
     partner2: (names?.partner_name as string | null) ?? "",
     weddingDateISO: mainEvent?.date ?? null,

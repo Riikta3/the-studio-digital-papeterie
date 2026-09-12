@@ -1,10 +1,18 @@
 "use client";
 
-import { motion, useReducedMotion } from "framer-motion";
+import {
+  animate,
+  motion,
+  useMotionValue,
+  useReducedMotion,
+  type PanInfo,
+} from "framer-motion";
 import Image from "next/image";
 import { ArrowLeft, ArrowRight } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { useEffect, useRef, useState } from "react";
+
+import { cn } from "@shared/lib/utils";
 
 import { THEMES } from "./themes";
 
@@ -24,6 +32,30 @@ const ACTIVE_SCALE = 1.2;
 
 // Card aspect ratio (w/h) — portrait, smartphone-like.
 const CARD_RATIO = 290 / 540;
+
+// Flick velocity (px/s) past which a release carries beyond the card it was
+// let go over, the way a native scroller's inertia does. Below it, the release
+// simply commits to the nearest card.
+const FLICK_VELOCITY = 400;
+
+// A hard flick can carry more than one card, but not without limit — an
+// accidental fast swipe should not spin the fan halfway around.
+const MAX_FLICK_CARDS = 2;
+
+// Resistance applied to the drag: the track moves slightly less than the
+// finger, which reads as weight rather than as lag.
+const DRAG_ELASTIC = 0.85;
+
+// The spring the track settles on after a release. Shared with arrow clicks so
+// both inputs feel like one carousel.
+const SETTLE_SPRING = { type: "spring", stiffness: 180, damping: 26 } as const;
+
+// The intro's one-shot slide-in.
+const INTRO_TRANSITION = {
+  duration: 2.2,
+  delay: 0.2,
+  ease: [0.45, 0, 0.65, 0.3],
+} as const;
 
 export function HeroCarousel({
   onActiveThemeChange,
@@ -90,13 +122,106 @@ export function HeroCarousel({
   const cardH = dims?.cardH ?? 0;
   const step = cardW + GAP;
 
+  // Translate the whole track so the active position sits centered.
+  const restX = -position * step;
+
+  // The track's x is owned here rather than declared as `animate={{ x }}`.
+  // A declarative target fights the gesture: the active card's scale is
+  // state-driven, so the component re-renders mid-drag, and each render would
+  // re-assert `x: restX` and snap the track out from under the finger. Owning
+  // the value means Framer's drag writes straight to it and only the release
+  // animates.
+  const x = useMotionValue(0);
+  // True from pointer-down to release. `position` changes during a drag (the
+  // card under the finger grows live), and the settle effect must not spring
+  // the track while the finger still holds it.
+  const draggingRef = useRef(false);
+  // The track starts at the intro's offset, which is a jump, not a transition:
+  // there is no previous value to animate from.
+  const placedRef = useRef(false);
+
+  // The intro slide-in, run once the viewport has been measured.
+  //
+  // Deliberately separate from the settle effect below, and depending on
+  // neither `position` nor `restX`: the ResizeObserver fires a second time
+  // just after mount with the measured `step`, and an effect that also handled
+  // the settle would then re-run mid-intro, call `animate` again and cancel
+  // the intro. Framer resolves a cancelled animation's promise as `false`
+  // rather than running the `.then`, so `setPhase("idle")` never fired and the
+  // carousel stayed frozen in its intro phase — arrows disabled, drag off.
+  useEffect(() => {
+    if (!step || phase !== "intro" || placedRef.current) return;
+
+    placedRef.current = true;
+    // Place the track at the overshoot offset, then animate away from it —
+    // `animate` reads the value just set as its origin.
+    x.set(-(REFERENCE_INDEX - INTRO_OVERSHOOT) * step);
+    animate(x, -REFERENCE_INDEX * step, INTRO_TRANSITION).then(() =>
+      setPhase("idle"),
+    );
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [step, phase]);
+
+  // Every automatic move once the carousel is live: arrow clicks and the
+  // settle after a release.
+  useEffect(() => {
+    // `step` is 0 until measured; during the intro the effect above owns `x`;
+    // during a drag the finger does.
+    if (!step || phase !== "idle" || draggingRef.current) return;
+
+    animate(x, restX, SETTLE_SPRING);
+    // `x` is a stable MotionValue.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [restX, step, phase]);
+
   const goTo = (direction: -1 | 1) => {
     setPosition((prev) => prev + direction);
   };
 
-  // Translate the whole track so the active position sits centered.
-  const restX = -position * step;
-  const introFromX = -(REFERENCE_INDEX - INTRO_OVERSHOOT) * step;
+  const handleDragStart = () => {
+    draggingRef.current = true;
+  };
+
+  // Move `position` as the drag crosses card boundaries so the centred card
+  // grows and shrinks during the gesture, not only once it ends. `x` is
+  // written by Framer's own drag handling, so the track still follows the
+  // finger exactly.
+  const handleDrag = () => {
+    if (!step) return;
+    const nearest = Math.round(-x.get() / step);
+    setPosition((prev) => (prev === nearest ? prev : nearest));
+  };
+
+  const handleDragEnd = (_event: unknown, info: PanInfo) => {
+    draggingRef.current = false;
+    if (!step) return;
+
+    const velocity = info.velocity.x;
+    // Where the track actually sits, in fractional card units.
+    const current = -x.get() / step;
+    // Framer reports px/s: one extra card per FLICK_VELOCITY of it, capped,
+    // and negated because dragging left (negative velocity) advances forward.
+    const flickCards =
+      Math.abs(velocity) > FLICK_VELOCITY
+        ? Math.min(
+            Math.round(Math.abs(velocity) / FLICK_VELOCITY),
+            MAX_FLICK_CARDS,
+          ) * -Math.sign(velocity)
+        : 0;
+
+    // Rounding is the half-step rule: whichever card the track is more than
+    // halfway into is the one it commits to.
+    const target = Math.round(current) + flickCards;
+
+    // Changing `position` re-runs the settle effect, which springs x to match.
+    // When the target is already `position` — a small drag that crossed no
+    // boundary — that effect does not re-run, so spring it back by hand.
+    if (target === position) {
+      animate(x, restX, SETTLE_SPRING);
+    } else {
+      setPosition(target);
+    }
+  };
 
   return (
     <div className="relative flex w-full items-center justify-center">
@@ -110,9 +235,27 @@ export function HeroCarousel({
         <ArrowLeft className="h-5 w-5" />
       </button>
 
+      {/* The fan itself is a decorative animation — the cards are images with
+          no interactive role — so the change of active theme is announced here
+          instead. Without it, arrowing through the carousel is silent: the
+          buttons say "next"/"previous" and nothing reports what landed. */}
+      <p aria-live="polite" aria-atomic="true" className="sr-only">
+        {t("activeThemeAnnouncement", { name: THEMES[activeCardId].name })}
+      </p>
+
       <div
         ref={viewportRef}
-        className="relative flex h-[620px] w-full items-center justify-center overflow-hidden md:h-[720px]"
+        className={cn(
+          "relative flex h-[620px] w-full items-center justify-center overflow-hidden md:h-[720px]",
+          // `pan-y` hands vertical gestures to the browser (the page keeps
+          // scrolling through the hero) while horizontal ones reach the drag.
+          // Without it a mostly-horizontal swipe on iOS can still be claimed
+          // as a page scroll and the carousel misses it.
+          "touch-pan-y",
+          // Only while the carousel is actually draggable: outside the gesture
+          // there is no reason to suppress selection.
+          phase === "idle" && "select-none cursor-grab active:cursor-grabbing",
+        )}
       >
         {/* The sliding track: real side-by-side cards, one shared x transform.
             Anchored so its left edge sits at the viewport center; the negative
@@ -121,16 +264,25 @@ export function HeroCarousel({
         {dims && (
           <motion.div
             className="absolute left-1/2 top-1/2 h-0 w-0"
-            initial={{ x: introFromX }}
-            animate={{ x: restX }}
-            transition={
-              phase === "intro"
-                ? { duration: 2.2, delay: 0.2, ease: [0.45, 0, 0.65, 0.3] }
-                : { type: "spring", stiffness: 180, damping: 26 }
-            }
-            onAnimationComplete={() => {
-              if (phase === "intro") setPhase("idle");
-            }}
+            // `x` is driven by the effect above and by the drag, so there is no
+            // `animate` prop here: a declarative target would overwrite the
+            // gesture on every re-render.
+            style={{ x }}
+            // Horizontal only, so a vertical swipe still scrolls the page —
+            // on a hero that fills the viewport, trapping the vertical gesture
+            // would leave a phone unable to scroll past it.
+            drag={phase === "idle" ? "x" : false}
+            // The track is infinite, so there is nothing to constrain it to;
+            // `dragElastic` alone then gives the drag its weight.
+            dragConstraints={false}
+            dragElastic={DRAG_ELASTIC}
+            // Framer's own momentum is off: the release is resolved into a
+            // card index and sprung there by `handleDragEnd`, and letting
+            // inertia run as well would drift the track off-centre.
+            dragMomentum={false}
+            onDragStart={handleDragStart}
+            onDrag={handleDrag}
+            onDragEnd={handleDragEnd}
           >
             {/* Render enough repeats around the current position for infinite feel.
               The window is re-centered on `position` every render (not a fixed
@@ -191,6 +343,10 @@ export function HeroCarousel({
                     sizes="(max-width: 768px) 60vw, 290px"
                     className="object-cover"
                     priority={cardId === REFERENCE_INDEX}
+                    // Images are natively draggable: without this, a
+                    // mouse-drag starts an HTML5 image drag instead of moving
+                    // the carousel.
+                    draggable={false}
                   />
                 </motion.div>
               );

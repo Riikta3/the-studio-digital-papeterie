@@ -12,6 +12,8 @@ import {
 import { createPortal } from "react-dom";
 
 import { submitPlaylistSuggestions } from "@/actions/invitation-submissions";
+import { useTranslations } from "next-intl";
+
 import type { InvitationData } from "../../types";
 
 /**
@@ -75,6 +77,7 @@ const DEBOUNCE_MS = 350;
 type SearchState = "idle" | "loading" | "done" | "error";
 
 export function PlaylistSection({ data }: { data: InvitationData }) {
+  const t = useTranslations("Invitation.ciaoAmore.playlist");
   const [sent, setSent] = useState(false);
   const [pending, setPending] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -116,8 +119,6 @@ export function PlaylistSection({ data }: { data: InvitationData }) {
   const weddingId = data.weddingId;
 
   const full = selected.length >= MAX_TRACKS;
-  /* French agreement: singular at 0 and 1, plural from 2 up. */
-  const plural = selected.length > 1 ? "s" : "";
 
   const trimmed = query.trim();
   /* No searching once the selection is full or the form has been sent —
@@ -348,19 +349,19 @@ export function PlaylistSection({ data }: { data: InvitationData }) {
       />
       <span className="vinyl" aria-hidden="true" />
       <div>
-        <p className="eyebrow">La musique de notre week-end</p>
+        <p className="eyebrow">{t("eyebrow")}</p>
         <h2>
-          Playlist
+          {t("titleLine1")}
           <br />
-          participative
+          {t("titleLine2")}
         </h2>
         {data.copy?.playlistIntro ? <p>{data.copy.playlistIntro}</p> : null}
 
         {sent ? (
-          <p className="success">Grazie ! Votre titre a bien été proposé.</p>
+          <p className="success">{t("success")}</p>
         ) : (
           <div className="ca-form">
-            <label htmlFor={`${listId}-input`}>Cherchez un titre</label>
+            <label htmlFor={`${listId}-input`}>{t("searchLabel")}</label>
 
             <div className="ca-search">
               <div className="ca-search-field" ref={fieldRef}>
@@ -372,7 +373,7 @@ export function PlaylistSection({ data }: { data: InvitationData }) {
                   type="text"
                   autoComplete="off"
                   placeholder={
-                    full ? "3 titres maximum" : "Un titre, un artiste…"
+                    full ? t("searchPlaceholderFull", { max: MAX_TRACKS }) : t("searchPlaceholder")
                   }
                   value={query}
                   disabled={pending || full}
@@ -422,13 +423,13 @@ export function PlaylistSection({ data }: { data: InvitationData }) {
                         style={{ maxHeight: rect.maxHeight }}
                       >
                         {searchState === "loading" ? (
-                          <p className="ca-results-note">Recherche…</p>
+                          <p className="ca-results-note">{t("resultsLoading")}</p>
                         ) : searchState === "error" ? (
                           <p className="ca-results-note">
-                            Recherche indisponible. Réessayez dans un instant.
+                            {t("resultsError")}
                           </p>
                         ) : results.length === 0 ? (
-                          <p className="ca-results-note">Aucun titre trouvé.</p>
+                          <p className="ca-results-note">{t("resultsEmpty")}</p>
                         ) : (
                           results.map((track, index) => (
                             <button
@@ -485,7 +486,7 @@ export function PlaylistSection({ data }: { data: InvitationData }) {
                       className="ca-remove"
                       onClick={() => remove(track.id)}
                       disabled={pending}
-                      aria-label={`Retirer ${track.title}`}
+                      aria-label={t("removeTrack", { title: track.title })}
                     >
                       <span aria-hidden="true">×</span>
                     </button>
@@ -496,10 +497,10 @@ export function PlaylistSection({ data }: { data: InvitationData }) {
 
             <p className="ca-status">
               {full
-                ? `${MAX_TRACKS} titres maximum — retirez-en un pour en proposer un autre.`
+                ? t("statusFull", { max: MAX_TRACKS })
                 : selected.length === 0
-                  ? `Jusqu'à ${MAX_TRACKS} titres`
-                  : `${selected.length} titre${plural} choisi${plural} sur ${MAX_TRACKS}`}
+                  ? t("statusEmpty", { max: MAX_TRACKS })
+                  : t("statusCount", { count: selected.length, max: MAX_TRACKS })}
             </p>
 
             {error ? (
