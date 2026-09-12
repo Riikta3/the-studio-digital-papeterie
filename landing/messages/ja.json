@@ -1120,5 +1120,97 @@
     "emailOption": "直接メールする",
     "whatsappOption": "WhatsApp",
     "responseTime": "24〜48時間以内にご返信いたします。"
+  },
+  "Invitation": {
+    "ciaoAmore": {
+      "hero": {
+        "discoverCta": "見る"
+      },
+      "countdown": {
+        "eyebrow": "La dolce vita がはじまるまで",
+        "titleLine1": "一秒ごとに",
+        "titleLine2": "皆さまとの距離が近づきます",
+        "unitDays": "{count, plural, other {日}}",
+        "unitHours": "{count, plural, other {時間}}",
+        "unitMinutes": "{count, plural, other {分}}",
+        "unitSeconds": "{count, plural, other {秒}}"
+      },
+      "schedule": {
+        "introEyebrow": "特別な二日間",
+        "introTitle": "プログラム",
+        "dayOneEyebrow": "1日目",
+        "dayOneSeparator": " · ",
+        "dayOneTitle": "結婚式当日"
+      },
+      "dayTwo": {},
+      "dressCode": {
+        "eyebrow": "ドレスコード · 2日目",
+        "imageAlt": "{title} の装い"
+      },
+      "venue": {
+        "eyebrow": "会場",
+        "wazeLink": "Waze で見る",
+        "mapsLink": "Google マップ"
+      },
+      "stays": {
+        "eyebrowFallback": "皆さまのために選びました",
+        "title": "ご宿泊について",
+        "nearVenue": "{venueName} の近く",
+        "hideOptions": "選択肢を閉じる",
+        "showMoreOptions": "ほかの選択肢を見る"
+      },
+      "playlist": {
+        "eyebrow": "週末を彩る音楽",
+        "titleLine1": "みんなでつくる",
+        "titleLine2": "プレイリスト",
+        "success": "Grazie！リクエストを承りました。",
+        "searchLabel": "曲を検索",
+        "searchPlaceholder": "曲名やアーティスト名…",
+        "searchPlaceholderFull": "最大 {max} 曲まで",
+        "resultsLoading": "検索中…",
+        "resultsError": "検索をご利用いただけません。しばらくしてからお試しください。",
+        "resultsEmpty": "曲が見つかりませんでした。",
+        "removeTrack": "{title} を削除",
+        "statusFull": "最大 {max} 曲までです。ほかの曲をリクエストするには1曲削除してください。",
+        "statusEmpty": "{max} 曲までお選びいただけます",
+        "statusCount": "{count, plural, other {{max}曲中#曲選択済み}}"
+      },
+      "faq": {
+        "eyebrow": "ご案内",
+        "titleLine1": "当日を迎える前に",
+        "titleLine2": "いくつかのご案内"
+      },
+      "rsvp": {
+        "deadlineEyebrow": "{deadline} までにご返信ください",
+        "titleLine1": "ご出席",
+        "titleLine2": "いただけますか",
+        "thanksTitle": "ありがとうございます！",
+        "thanksBody": "ご返信を承りました。",
+        "nameLabel": "お名前",
+        "namePlaceholder": "姓名",
+        "attendanceLegend": "ご出欠",
+        "attendanceYes": "はい、喜んで出席いたします",
+        "attendanceNo": "いいえ、当日は心よりお祝い申し上げます",
+        "partyLabel": "ご出席される方",
+        "partyOptionSolo": "本人のみ",
+        "partyOptionPartner": "本人 + パートナー",
+        "partnerNameLabel": "パートナーのお名前",
+        "partnerNamePlaceholder": "姓名",
+        "childrenLabel": "ご同伴のお子さま",
+        "childrenOptionNone": "なし",
+        "childFieldLabel": "お子さま {index}",
+        "childNamePlaceholder": "姓名",
+        "dietaryLabel": "食事のご要望",
+        "messageLabel": "メッセージ",
+        "messagePlaceholder": "メッセージをご記入ください…",
+        "submit": "返信を送信",
+        "submitPending": "送信中…",
+        "childrenOptionCount": "{count, plural, other {お子さま #名}}"
+      },
+      "footer": {},
+      "scrollTop": {
+        "ariaLabel": "ページの先頭に戻る"
+      }
+    }
   }
 }

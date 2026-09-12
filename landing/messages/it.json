@@ -1120,5 +1120,97 @@
     "emailOption": "Scriveteci direttamente",
     "whatsappOption": "WhatsApp",
     "responseTime": "Rispondiamo entro 24-48 ore."
+  },
+  "Invitation": {
+    "ciaoAmore": {
+      "hero": {
+        "discoverCta": "Scopri"
+      },
+      "countdown": {
+        "eyebrow": "La dolce vita comincia tra",
+        "titleLine1": "Ogni secondo",
+        "titleLine2": "ci avvicina a voi",
+        "unitDays": "{count, plural, one {giorno} other {giorni}}",
+        "unitHours": "{count, plural, one {ora} other {ore}}",
+        "unitMinutes": "{count, plural, one {minuto} other {minuti}}",
+        "unitSeconds": "{count, plural, one {secondo} other {secondi}}"
+      },
+      "schedule": {
+        "introEyebrow": "Due giorni indimenticabili",
+        "introTitle": "Il programma",
+        "dayOneEyebrow": "Giorno 1",
+        "dayOneSeparator": " · ",
+        "dayOneTitle": "Il grande giorno"
+      },
+      "dayTwo": {},
+      "dressCode": {
+        "eyebrow": "Dress code · Giorno 2",
+        "imageAlt": "Abiti {title}"
+      },
+      "venue": {
+        "eyebrow": "Il luogo",
+        "wazeLink": "Vedi su Waze",
+        "mapsLink": "Google Maps"
+      },
+      "stays": {
+        "eyebrowFallback": "Selezionati per voi",
+        "title": "Dove dormire?",
+        "nearVenue": "Nelle vicinanze di {venueName}",
+        "hideOptions": "Nascondi le opzioni",
+        "showMoreOptions": "Vedi altre opzioni"
+      },
+      "playlist": {
+        "eyebrow": "La musica del nostro weekend",
+        "titleLine1": "Playlist",
+        "titleLine2": "partecipativa",
+        "success": "Grazie! Il vostro brano è stato proposto.",
+        "searchLabel": "Cercate un brano",
+        "searchPlaceholder": "Un brano, un artista…",
+        "searchPlaceholderFull": "Massimo {max} brani",
+        "resultsLoading": "Ricerca in corso…",
+        "resultsError": "Ricerca non disponibile. Riprovate tra un istante.",
+        "resultsEmpty": "Nessun brano trovato.",
+        "removeTrack": "Rimuovi {title}",
+        "statusFull": "Massimo {max} brani — rimuovetene uno per proporne un altro.",
+        "statusEmpty": "Fino a {max} brani",
+        "statusCount": "{count, plural, one {# brano scelto su {max}} other {# brani scelti su {max}}}"
+      },
+      "faq": {
+        "eyebrow": "Buono a sapersi",
+        "titleLine1": "Qualche risposta",
+        "titleLine2": "prima del grande giorno"
+      },
+      "rsvp": {
+        "deadlineEyebrow": "Vi preghiamo di rispondere entro il {deadline}",
+        "titleLine1": "Sarete",
+        "titleLine2": "dei nostri?",
+        "thanksTitle": "Grazie!",
+        "thanksBody": "La vostra risposta è stata registrata.",
+        "nameLabel": "Il vostro nome",
+        "namePlaceholder": "Nome e cognome",
+        "attendanceLegend": "Presenza",
+        "attendanceYes": "Sì, con grandissimo piacere",
+        "attendanceNo": "No, ma vi penseremo con affetto",
+        "partyLabel": "Chi sarà presente?",
+        "partyOptionSolo": "Solo io",
+        "partyOptionPartner": "Io + il/la mio/mia partner",
+        "partnerNameLabel": "Nome del/della vostro/vostra partner",
+        "partnerNamePlaceholder": "Nome e cognome",
+        "childrenLabel": "Bambini che vi accompagnano",
+        "childrenOptionNone": "Nessuno",
+        "childFieldLabel": "Bambino {index}",
+        "childNamePlaceholder": "Nome e cognome",
+        "dietaryLabel": "Restrizioni alimentari",
+        "messageLabel": "Due parole",
+        "messagePlaceholder": "Il vostro messaggio…",
+        "submit": "Invia la mia risposta",
+        "submitPending": "Invio in corso…",
+        "childrenOptionCount": "{count, plural, one {# bambino} other {# bambini}}"
+      },
+      "footer": {},
+      "scrollTop": {
+        "ariaLabel": "Torna all’inizio della pagina"
+      }
+    }
   }
 }

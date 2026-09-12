@@ -1120,5 +1120,97 @@
     "emailOption": "اكتب إلينا مباشرة",
     "whatsappOption": "واتساب",
     "responseTime": "نرد خلال 24 إلى 48 ساعة."
+  },
+  "Invitation": {
+    "ciaoAmore": {
+      "hero": {
+        "discoverCta": "اكتشفوا"
+      },
+      "countdown": {
+        "eyebrow": "تبدأ La dolce vita بعد",
+        "titleLine1": "كل ثانية",
+        "titleLine2": "تقرّبنا منكم",
+        "unitDays": "{count, plural, zero {يوم} one {يوم} two {يومان} few {أيام} many {يومًا} other {يوم}}",
+        "unitHours": "{count, plural, zero {ساعة} one {ساعة} two {ساعتان} few {ساعات} many {ساعة} other {ساعة}}",
+        "unitMinutes": "{count, plural, zero {دقيقة} one {دقيقة} two {دقيقتان} few {دقائق} many {دقيقة} other {دقيقة}}",
+        "unitSeconds": "{count, plural, zero {ثانية} one {ثانية} two {ثانيتان} few {ثوانٍ} many {ثانية} other {ثانية}}"
+      },
+      "schedule": {
+        "introEyebrow": "يومان استثنائيان",
+        "introTitle": "البرنامج",
+        "dayOneEyebrow": "اليوم الأول",
+        "dayOneSeparator": " · ",
+        "dayOneTitle": "اليوم الكبير"
+      },
+      "dayTwo": {},
+      "dressCode": {
+        "eyebrow": "قواعد اللباس · اليوم الثاني",
+        "imageAlt": "أزياء {title}"
+      },
+      "venue": {
+        "eyebrow": "المكان",
+        "wazeLink": "عرض على Waze",
+        "mapsLink": "خرائط Google"
+      },
+      "stays": {
+        "eyebrowFallback": "مختارة من أجلكم",
+        "title": "أين تقيمون؟",
+        "nearVenue": "بالقرب من {venueName}",
+        "hideOptions": "إخفاء الخيارات",
+        "showMoreOptions": "عرض المزيد من الخيارات"
+      },
+      "playlist": {
+        "eyebrow": "موسيقى عطلة نهاية الأسبوع",
+        "titleLine1": "قائمة تشغيل",
+        "titleLine2": "من اختياركم",
+        "success": "Grazie! تم اقتراح أغنيتكم بنجاح.",
+        "searchLabel": "ابحثوا عن أغنية",
+        "searchPlaceholder": "أغنية أو فنان…",
+        "searchPlaceholderFull": "{max} أغنيات كحد أقصى",
+        "resultsLoading": "جارٍ البحث…",
+        "resultsError": "البحث غير متاح. يُرجى المحاولة بعد لحظات.",
+        "resultsEmpty": "لم يتم العثور على أي أغنية.",
+        "removeTrack": "إزالة {title}",
+        "statusFull": "{max} أغنيات كحد أقصى — أزيلوا واحدة لاقتراح أخرى.",
+        "statusEmpty": "حتى {max} أغنيات",
+        "statusCount": "{count, plural, zero {لم تختاروا أي أغنية من {max}} one {أغنية واحدة مختارة من {max}} two {أغنيتان مختارتان من {max}} few {# أغنيات مختارة من {max}} many {# أغنية مختارة من {max}} other {# أغنية مختارة من {max}}}"
+      },
+      "faq": {
+        "eyebrow": "من الجيد معرفته",
+        "titleLine1": "بعض الإجابات",
+        "titleLine2": "قبل اليوم الكبير"
+      },
+      "rsvp": {
+        "deadlineEyebrow": "نرجو ردّكم قبل {deadline}",
+        "titleLine1": "هل ستكونون",
+        "titleLine2": "معنا؟",
+        "thanksTitle": "شكرًا لكم!",
+        "thanksBody": "تم تسجيل ردّكم بنجاح.",
+        "nameLabel": "اسمكم",
+        "namePlaceholder": "الاسم واللقب",
+        "attendanceLegend": "الحضور",
+        "attendanceYes": "نعم، بكل سرور",
+        "attendanceNo": "لا، لكنني سأكون معكم بالقلب",
+        "partyLabel": "من سيحضر؟",
+        "partyOptionSolo": "أنا فقط",
+        "partyOptionPartner": "أنا + شريكي/شريكتي",
+        "partnerNameLabel": "اسم شريككم",
+        "partnerNamePlaceholder": "الاسم واللقب",
+        "childrenLabel": "الأطفال المرافقون لكم",
+        "childrenOptionNone": "لا أحد",
+        "childFieldLabel": "الطفل {index}",
+        "childNamePlaceholder": "الاسم واللقب",
+        "dietaryLabel": "قيود غذائية",
+        "messageLabel": "كلمة صغيرة",
+        "messagePlaceholder": "رسالتكم…",
+        "submit": "إرسال ردّي",
+        "submitPending": "جارٍ الإرسال…",
+        "childrenOptionCount": "{count, plural, zero {بدون أطفال} one {طفل واحد} two {طفلان} few {# أطفال} many {# طفلًا} other {# طفل}}"
+      },
+      "footer": {},
+      "scrollTop": {
+        "ariaLabel": "العودة إلى أعلى الصفحة"
+      }
+    }
   }
 }

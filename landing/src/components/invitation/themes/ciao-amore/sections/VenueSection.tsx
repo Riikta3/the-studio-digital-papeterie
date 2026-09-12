@@ -1,3 +1,5 @@
+import { getTranslations } from "next-intl/server";
+
 import type { InvitationData } from "../../types";
 
 /**
@@ -9,14 +11,15 @@ import type { InvitationData } from "../../types";
  * the shuttle times — reached the invitation and were dropped. It is the
  * answer to the question guests ask first.
  */
-export function VenueSection({ data }: { data: InvitationData }) {
+export async function VenueSection({ data }: { data: InvitationData }) {
+  const t = await getTranslations("Invitation.ciaoAmore.venue");
   const { venue, copy } = data;
   const access = venue.access ?? [];
 
   return (
     <section className="venue-section">
       <div className="venue-frame">
-        <p className="eyebrow">Le lieu</p>
+        <p className="eyebrow">{t("eyebrow")}</p>
         <h2>{venue.name}</h2>
 
         {copy?.venueIntro ? <p className="venue-intro">{copy.venueIntro}</p> : null}
@@ -41,12 +44,12 @@ export function VenueSection({ data }: { data: InvitationData }) {
           <div className="buttons">
             {venue.wazeUrl ? (
               <a href={venue.wazeUrl} target="_blank" rel="noreferrer">
-                Voir sur Waze
+                {t("wazeLink")}
               </a>
             ) : null}
             {venue.mapsUrl ? (
               <a href={venue.mapsUrl} target="_blank" rel="noreferrer">
-                Google Maps
+                {t("mapsLink")}
               </a>
             ) : null}
           </div>

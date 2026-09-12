@@ -1,3 +1,5 @@
+import { getTranslations } from "next-intl/server";
+
 import { formatFrenchWeekday } from "../../format";
 import type { InvitationData, ScheduleEntry, ScheduleIcon } from "../../types";
 
@@ -27,7 +29,8 @@ function iconClass(entry: ScheduleEntry) {
   return `icon icon-${(entry.icon && ICON_CLASS[entry.icon]) || "party"}`;
 }
 
-export function ScheduleSection({ data }: { data: InvitationData }) {
+export async function ScheduleSection({ data }: { data: InvitationData }) {
+  const t = await getTranslations("Invitation.ciaoAmore.schedule");
   const dayOne = (data.schedule ?? []).filter((entry) => entry.day === 1);
   if (dayOne.length === 0) return null;
 
@@ -52,8 +55,8 @@ export function ScheduleSection({ data }: { data: InvitationData }) {
           <b>{new Date(data.event.startsAt).getFullYear()}</b>
         </span>
         <div className="arch-copy">
-          <p className="eyebrow">Deux jours d&rsquo;exception</p>
-          <h2>Le programme</h2>
+          <p className="eyebrow">{t("introEyebrow")}</p>
+          <h2>{t("introTitle")}</h2>
           {data.copy?.scheduleIntro ? <p>{data.copy.scheduleIntro}</p> : null}
         </div>
       </section>
@@ -62,10 +65,11 @@ export function ScheduleSection({ data }: { data: InvitationData }) {
         <span className="program-sun" aria-hidden="true" />
         <span className="program-stripe" aria-hidden="true" />
         <p className="eyebrow">
-          Jour 1{dayLabel ? " · " : ""}
+          {t("dayOneEyebrow")}
+          {dayLabel ? t("dayOneSeparator") : ""}
           <span style={{ textTransform: "capitalize" }}>{dayLabel}</span>
         </p>
-        <h2>Le grand jour</h2>
+        <h2>{t("dayOneTitle")}</h2>
         <div className="timeline">
           {dayOne.map((entry) => (
             <article key={`${entry.time}-${entry.title}`}>

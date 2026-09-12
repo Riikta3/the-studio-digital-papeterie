@@ -1,3 +1,5 @@
+import { getTranslations } from "next-intl/server";
+
 import type { InvitationData } from "../../types";
 
 /**
@@ -7,7 +9,8 @@ import type { InvitationData } from "../../types";
  * images: `ciao-amore.css` draws them entirely in CSS, so they must stay in the
  * markup for the theme to look right.
  */
-export function HeroSection({ data }: { data: InvitationData }) {
+export async function HeroSection({ data }: { data: InvitationData }) {
+  const t = await getTranslations("Invitation.ciaoAmore.hero");
   const { couple, copy, venue } = data;
   const place = [venue.name, venue.city].filter(Boolean).join(" · ");
 
@@ -52,7 +55,7 @@ export function HeroSection({ data }: { data: InvitationData }) {
         </h1>
         {copy?.dateLabel ? <strong>{copy.dateLabel}</strong> : null}
         {place ? <small>{place}</small> : null}
-        <a href="#ca-compte">Découvrir</a>
+        <a href="#ca-compte">{t("discoverCta")}</a>
       </div>
     </section>
   );

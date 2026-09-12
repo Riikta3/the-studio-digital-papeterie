@@ -1469,5 +1469,97 @@
     "emailOption": "Écrivez-nous directement",
     "whatsappOption": "WhatsApp",
     "responseTime": "Réponse sous 24 à 48 heures."
+  },
+  "Invitation": {
+    "ciaoAmore": {
+      "hero": {
+        "discoverCta": "Découvrir"
+      },
+      "countdown": {
+        "eyebrow": "La dolce vita commence dans",
+        "titleLine1": "Chaque seconde",
+        "titleLine2": "nous rapproche de vous",
+        "unitDays": "{count, plural, one {jour} other {jours}}",
+        "unitHours": "{count, plural, one {heure} other {heures}}",
+        "unitMinutes": "{count, plural, one {minute} other {minutes}}",
+        "unitSeconds": "{count, plural, one {seconde} other {secondes}}"
+      },
+      "schedule": {
+        "introEyebrow": "Deux jours d’exception",
+        "introTitle": "Le programme",
+        "dayOneEyebrow": "Jour 1",
+        "dayOneSeparator": " · ",
+        "dayOneTitle": "Le grand jour"
+      },
+      "dayTwo": {},
+      "dressCode": {
+        "eyebrow": "Dress code · Jour 2",
+        "imageAlt": "Tenues {title}"
+      },
+      "venue": {
+        "eyebrow": "Le lieu",
+        "wazeLink": "Voir sur Waze",
+        "mapsLink": "Google Maps"
+      },
+      "stays": {
+        "eyebrowFallback": "Sélectionnés pour vous",
+        "title": "Où dormir ?",
+        "nearVenue": "À proximité de {venueName}",
+        "hideOptions": "Masquer les options",
+        "showMoreOptions": "Voir plus d’options"
+      },
+      "playlist": {
+        "eyebrow": "La musique de notre week-end",
+        "titleLine1": "Playlist",
+        "titleLine2": "participative",
+        "success": "Grazie ! Votre titre a bien été proposé.",
+        "searchLabel": "Cherchez un titre",
+        "searchPlaceholder": "Un titre, un artiste…",
+        "searchPlaceholderFull": "{max} titres maximum",
+        "resultsLoading": "Recherche…",
+        "resultsError": "Recherche indisponible. Réessayez dans un instant.",
+        "resultsEmpty": "Aucun titre trouvé.",
+        "removeTrack": "Retirer {title}",
+        "statusFull": "{max} titres maximum — retirez-en un pour en proposer un autre.",
+        "statusEmpty": "Jusqu'à {max} titres",
+        "statusCount": "{count, plural, one {# titre choisi sur {max}} other {# titres choisis sur {max}}}"
+      },
+      "faq": {
+        "eyebrow": "Bon à savoir",
+        "titleLine1": "Quelques réponses",
+        "titleLine2": "avant le grand jour"
+      },
+      "rsvp": {
+        "deadlineEyebrow": "Réponse souhaitée avant le {deadline}",
+        "titleLine1": "Serez-vous",
+        "titleLine2": "des nôtres ?",
+        "thanksTitle": "Merci !",
+        "thanksBody": "Votre réponse a bien été prise en compte.",
+        "nameLabel": "Votre nom",
+        "namePlaceholder": "Prénom et nom",
+        "attendanceLegend": "Présence",
+        "attendanceYes": "Oui, avec grand plaisir",
+        "attendanceNo": "Non, mais je penserai fort à vous",
+        "partyLabel": "Qui sera présent ?",
+        "partyOptionSolo": "Moi uniquement",
+        "partyOptionPartner": "Moi + mon/ma partenaire",
+        "partnerNameLabel": "Nom de votre partenaire",
+        "partnerNamePlaceholder": "Prénom et nom",
+        "childrenLabel": "Enfants qui vous accompagnent",
+        "childrenOptionNone": "Aucun",
+        "childFieldLabel": "Enfant {index}",
+        "childNamePlaceholder": "Prénom et nom",
+        "dietaryLabel": "Restrictions alimentaires",
+        "messageLabel": "Un petit mot",
+        "messagePlaceholder": "Votre message…",
+        "submit": "Envoyer ma réponse",
+        "submitPending": "Envoi…",
+        "childrenOptionCount": "{count, plural, one {# enfant} other {# enfants}}"
+      },
+      "footer": {},
+      "scrollTop": {
+        "ariaLabel": "Retour en haut de la page"
+      }
+    }
   }
 }

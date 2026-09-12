@@ -1,5 +1,6 @@
 "use client";
 
+import { useTranslations } from "next-intl";
 import { useEffect, useRef, useState } from "react";
 
 /**
@@ -19,6 +20,7 @@ import { useEffect, useRef, useState } from "react";
  * page.
  */
 export function ScrollTopButton() {
+  const t = useTranslations("Invitation.ciaoAmore.scrollTop");
   const [visible, setVisible] = useState(false);
   const ref = useRef<HTMLButtonElement>(null);
 
@@ -35,6 +37,7 @@ export function ScrollTopButton() {
       { threshold: 0 },
     );
     observer.observe(hero);
+
     return () => observer.disconnect();
   }, []);
 
@@ -69,7 +72,7 @@ export function ScrollTopButton() {
       type="button"
       className="ca-scrolltop"
       onClick={toTop}
-      aria-label="Retour en haut de la page"
+      aria-label={t("ariaLabel")}
       aria-hidden={!visible}
       // `inert` reflects to the attribute in every browser that ships it, and
       // React 19 types it. Closed panels elsewhere in this theme use it for the

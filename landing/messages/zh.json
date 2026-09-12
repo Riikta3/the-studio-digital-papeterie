@@ -1120,5 +1120,97 @@
     "emailOption": "直接写信给我们",
     "whatsappOption": "WhatsApp",
     "responseTime": "我们会在 24 至 48 小时内回复。"
+  },
+  "Invitation": {
+    "ciaoAmore": {
+      "hero": {
+        "discoverCta": "探索"
+      },
+      "countdown": {
+        "eyebrow": "La dolce vita 即将开始",
+        "titleLine1": "每一秒",
+        "titleLine2": "都让我们离您更近",
+        "unitDays": "{count, plural, other {天}}",
+        "unitHours": "{count, plural, other {小时}}",
+        "unitMinutes": "{count, plural, other {分钟}}",
+        "unitSeconds": "{count, plural, other {秒}}"
+      },
+      "schedule": {
+        "introEyebrow": "两天非凡时光",
+        "introTitle": "活动安排",
+        "dayOneEyebrow": "第一天",
+        "dayOneSeparator": " · ",
+        "dayOneTitle": "大喜之日"
+      },
+      "dayTwo": {},
+      "dressCode": {
+        "eyebrow": "着装要求 · 第二天",
+        "imageAlt": "{title} 着装"
+      },
+      "venue": {
+        "eyebrow": "地点",
+        "wazeLink": "在 Waze 中查看",
+        "mapsLink": "Google 地图"
+      },
+      "stays": {
+        "eyebrowFallback": "为您精选",
+        "title": "住宿推荐",
+        "nearVenue": "邻近 {venueName}",
+        "hideOptions": "收起选项",
+        "showMoreOptions": "查看更多选项"
+      },
+      "playlist": {
+        "eyebrow": "我们周末的音乐",
+        "titleLine1": "共同创建的",
+        "titleLine2": "歌单",
+        "success": "Grazie！您的歌曲已成功推荐。",
+        "searchLabel": "搜索歌曲",
+        "searchPlaceholder": "歌曲或歌手…",
+        "searchPlaceholderFull": "最多 {max} 首歌曲",
+        "resultsLoading": "搜索中…",
+        "resultsError": "搜索暂不可用，请稍后再试。",
+        "resultsEmpty": "未找到歌曲。",
+        "removeTrack": "移除 {title}",
+        "statusFull": "最多 {max} 首歌曲——请移除一首后再推荐新的。",
+        "statusEmpty": "最多可选 {max} 首",
+        "statusCount": "{count, plural, other {已选 #/{max} 首}}"
+      },
+      "faq": {
+        "eyebrow": "温馨提示",
+        "titleLine1": "大喜之日前",
+        "titleLine2": "的几点说明"
+      },
+      "rsvp": {
+        "deadlineEyebrow": "敬请于 {deadline} 前回复",
+        "titleLine1": "您会",
+        "titleLine2": "出席吗？",
+        "thanksTitle": "谢谢您！",
+        "thanksBody": "您的回复已成功提交。",
+        "nameLabel": "您的姓名",
+        "namePlaceholder": "姓名",
+        "attendanceLegend": "出席情况",
+        "attendanceYes": "是的，非常荣幸",
+        "attendanceNo": "抱歉无法出席，但会一直挂念你们",
+        "partyLabel": "谁会一同出席？",
+        "partyOptionSolo": "仅本人",
+        "partyOptionPartner": "本人 + 伴侣",
+        "partnerNameLabel": "伴侣姓名",
+        "partnerNamePlaceholder": "姓名",
+        "childrenLabel": "随行的孩子",
+        "childrenOptionNone": "无",
+        "childFieldLabel": "孩子 {index}",
+        "childNamePlaceholder": "姓名",
+        "dietaryLabel": "饮食禁忌",
+        "messageLabel": "留言",
+        "messagePlaceholder": "您的留言…",
+        "submit": "提交回复",
+        "submitPending": "提交中…",
+        "childrenOptionCount": "{count, plural, other {# 位孩子}}"
+      },
+      "footer": {},
+      "scrollTop": {
+        "ariaLabel": "返回页面顶部"
+      }
+    }
   }
 }

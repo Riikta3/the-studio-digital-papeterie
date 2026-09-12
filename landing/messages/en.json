@@ -1334,5 +1334,97 @@
     "emailOption": "Email us directly",
     "whatsappOption": "WhatsApp",
     "responseTime": "We reply within 24 to 48 hours."
+  },
+  "Invitation": {
+    "ciaoAmore": {
+      "hero": {
+        "discoverCta": "Discover"
+      },
+      "countdown": {
+        "eyebrow": "La dolce vita begins in",
+        "titleLine1": "Every second",
+        "titleLine2": "brings us closer to you",
+        "unitDays": "{count, plural, one {day} other {days}}",
+        "unitHours": "{count, plural, one {hour} other {hours}}",
+        "unitMinutes": "{count, plural, one {minute} other {minutes}}",
+        "unitSeconds": "{count, plural, one {second} other {seconds}}"
+      },
+      "schedule": {
+        "introEyebrow": "Two exceptional days",
+        "introTitle": "The programme",
+        "dayOneEyebrow": "Day 1",
+        "dayOneSeparator": " · ",
+        "dayOneTitle": "The big day"
+      },
+      "dayTwo": {},
+      "dressCode": {
+        "eyebrow": "Dress code · Day 2",
+        "imageAlt": "{title} attire"
+      },
+      "venue": {
+        "eyebrow": "The venue",
+        "wazeLink": "View on Waze",
+        "mapsLink": "Google Maps"
+      },
+      "stays": {
+        "eyebrowFallback": "Selected for you",
+        "title": "Where to stay",
+        "nearVenue": "Near {venueName}",
+        "hideOptions": "Hide options",
+        "showMoreOptions": "See more options"
+      },
+      "playlist": {
+        "eyebrow": "The music of our weekend",
+        "titleLine1": "A playlist",
+        "titleLine2": "we build together",
+        "success": "Grazie! Your track has been suggested.",
+        "searchLabel": "Search for a track",
+        "searchPlaceholder": "A song, an artist…",
+        "searchPlaceholderFull": "{max} tracks maximum",
+        "resultsLoading": "Searching…",
+        "resultsError": "Search unavailable. Please try again in a moment.",
+        "resultsEmpty": "No tracks found.",
+        "removeTrack": "Remove {title}",
+        "statusFull": "{max} tracks maximum — remove one to suggest another.",
+        "statusEmpty": "Up to {max} tracks",
+        "statusCount": "{count, plural, one {# track chosen of {max}} other {# tracks chosen of {max}}}"
+      },
+      "faq": {
+        "eyebrow": "Good to know",
+        "titleLine1": "A few answers",
+        "titleLine2": "before the big day"
+      },
+      "rsvp": {
+        "deadlineEyebrow": "Kindly reply before {deadline}",
+        "titleLine1": "Will you be",
+        "titleLine2": "joining us?",
+        "thanksTitle": "Thank you!",
+        "thanksBody": "Your reply has been recorded.",
+        "nameLabel": "Your name",
+        "namePlaceholder": "First and last name",
+        "attendanceLegend": "Attendance",
+        "attendanceYes": "Yes, with great pleasure",
+        "attendanceNo": "No, but I will be thinking of you",
+        "partyLabel": "Who will be attending?",
+        "partyOptionSolo": "Just me",
+        "partyOptionPartner": "Me + my partner",
+        "partnerNameLabel": "Your partner's name",
+        "partnerNamePlaceholder": "First and last name",
+        "childrenLabel": "Children joining you",
+        "childrenOptionNone": "None",
+        "childFieldLabel": "Child {index}",
+        "childNamePlaceholder": "First and last name",
+        "dietaryLabel": "Dietary requirements",
+        "messageLabel": "A few words",
+        "messagePlaceholder": "Your message…",
+        "submit": "Send my reply",
+        "submitPending": "Sending…",
+        "childrenOptionCount": "{count, plural, one {# child} other {# children}}"
+      },
+      "footer": {},
+      "scrollTop": {
+        "ariaLabel": "Back to top of page"
+      }
+    }
   }
 }
