@@ -64,7 +64,7 @@ export const CIAO_AMORE_DEMO: InvitationData = {
       time: "17 h 00",
       title: "Cérémonie religieuse",
       description: "Quelques mots, beaucoup d'émotion.",
-      icon: "church",
+      icon: "ceremony",
       image: "/themes/ciao-amore/program/church.webp",
     },
     {
@@ -72,7 +72,7 @@ export const CIAO_AMORE_DEMO: InvitationData = {
       time: "18 h 00",
       title: "Cocktail",
       description: "À votre santé, face à la côte amalfitaine.",
-      icon: "spritz",
+      icon: "cocktail",
       image: "/themes/ciao-amore/program/spritz-scene.webp",
     },
     {
@@ -80,7 +80,7 @@ export const CIAO_AMORE_DEMO: InvitationData = {
       time: "20 h 30",
       title: "Dîner de mariage",
       description: "À table, dans les jardins de la Villa.",
-      icon: "plate",
+      icon: "dinner",
       image: "/themes/ciao-amore/program/italian-table.webp",
     },
     {

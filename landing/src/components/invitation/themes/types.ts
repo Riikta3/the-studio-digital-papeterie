@@ -45,6 +45,30 @@ export type ModuleId = (typeof MODULE_IDS)[number];
  * Invitation content — one shape, every theme
  * ------------------------------------------------------------------ */
 
+/**
+ * What a moment in the day *is*, so any theme can draw it.
+ *
+ * Named for the event, never for a picture of it: each theme has its own
+ * artwork — an engraved line, a CSS glyph, a drawn spritz — and they agree on
+ * what a ceremony is, not on how to depict one.
+ *
+ * This used to be an open `string` described as a "theme-defined icon key",
+ * and the three themes invented disjoint sets: `heart`/`cheers`/`cutlery`,
+ * `rings`/`glasses`/`dinner`, `church`/`spritz`/`plate`. An entry written for
+ * one theme therefore fell back to a default in the other two, which
+ * contradicts the promise at the top of this file — that one wedding's content
+ * can be rendered by any theme.
+ */
+export const SCHEDULE_ICONS = [
+  "ceremony",
+  "cocktail",
+  "dinner",
+  "party",
+  "brunch",
+] as const;
+
+export type ScheduleIcon = (typeof SCHEDULE_ICONS)[number];
+
 export type ScheduleEntry = {
   /** 1 for the wedding day, 2 for the day after (brunch, pool party…). */
   day: 1 | 2;
@@ -52,8 +76,11 @@ export type ScheduleEntry = {
   time: string;
   title: string;
   description?: string;
-  /** Theme-defined icon key; ignored by themes that draw their own. */
-  icon?: string;
+  /**
+   * Which moment this is. Every theme draws all five in its own style; an
+   * entry that names none gets the theme's neutral mark.
+   */
+  icon?: ScheduleIcon;
   image?: string;
 };
 

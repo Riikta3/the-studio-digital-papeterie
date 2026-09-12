@@ -1,5 +1,5 @@
 import { formatFrenchDate, formatFrenchWeekday } from "./format";
-import type { InvitationData, ModuleId } from "./types";
+import type { InvitationData, ModuleId, ScheduleIcon } from "./types";
 
 /**
  * The content a wedding starts life with.
@@ -165,25 +165,25 @@ const SCHEDULE_OFFSETS: ReadonlyArray<{
   minutes: number;
   title: string;
   description: string;
-  icon: string;
+  icon: ScheduleIcon;
 }> = [
   {
     minutes: 0,
     title: "Cérémonie",
     description: "Le moment que nous attendons tous.",
-    icon: "church",
+    icon: "ceremony",
   },
   {
     minutes: 60,
     title: "Cocktail",
     description: "Le temps de trinquer et de se retrouver.",
-    icon: "spritz",
+    icon: "cocktail",
   },
   {
     minutes: 210,
     title: "Dîner",
     description: "À table, tous ensemble.",
-    icon: "plate",
+    icon: "dinner",
   },
   {
     minutes: 390,

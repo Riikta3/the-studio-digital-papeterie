@@ -73,11 +73,11 @@ export const BLANC_COUTURE_DEMO: InvitationData = {
   },
 
   schedule: [
-    { day: 1, time: "16 h 30", title: "Accueil des invités", icon: "welcome" },
-    { day: 1, time: "17 h", title: "Cérémonie", icon: "rings" },
-    { day: 1, time: "18 h 30", title: "Cocktail", icon: "glasses" },
+    { day: 1, time: "16 h 30", title: "Accueil des invités", icon: "cocktail" },
+    { day: 1, time: "17 h", title: "Cérémonie", icon: "ceremony" },
+    { day: 1, time: "18 h 30", title: "Cocktail", icon: "cocktail" },
     { day: 1, time: "20 h 30", title: "Dîner", icon: "dinner" },
-    { day: 1, time: "23 h", title: "Soirée dansante", icon: "music" },
+    { day: 1, time: "23 h", title: "Soirée dansante", icon: "party" },
   ],
 
   dressCode: {

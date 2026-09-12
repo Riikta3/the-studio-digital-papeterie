@@ -70,7 +70,7 @@ export const BELLE_RIVE_DEMO: InvitationData = {
       time: "17H00",
       title: "Cérémonie laïque",
       description: "Un moment d’émotion, entourés de ceux que nous aimons",
-      icon: "heart",
+      icon: "ceremony",
       image: "/themes/belle-rive/ceremony.mp4",
     },
     {
@@ -78,7 +78,7 @@ export const BELLE_RIVE_DEMO: InvitationData = {
       time: "18H00",
       title: "Cocktail",
       description: "Bulles, musique et retrouvailles",
-      icon: "cheers",
+      icon: "cocktail",
       image: "/themes/belle-rive/cocktails.mp4",
     },
     {
@@ -86,7 +86,7 @@ export const BELLE_RIVE_DEMO: InvitationData = {
       time: "20H30",
       title: "Dîner de mariage",
       description: "À table pour célébrer ensemble",
-      icon: "cutlery",
+      icon: "dinner",
       image: "/themes/belle-rive/reception.mp4",
     },
     {
@@ -94,7 +94,7 @@ export const BELLE_RIVE_DEMO: InvitationData = {
       time: "23H30",
       title: "Fête jusqu’au matin",
       description: "Place à la danse et aux souvenirs",
-      icon: "music",
+      icon: "party",
     },
   ],
 

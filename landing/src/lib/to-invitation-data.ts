@@ -3,6 +3,7 @@ import type {
   InvitationData,
   ModuleId,
   ScheduleEntry,
+  ScheduleIcon,
 } from "@/components/invitation/themes/types";
 import { MODULE_IDS } from "@/components/invitation/themes/types";
 import { formatFrenchWeekday } from "@/components/invitation/themes/format";
@@ -121,6 +122,35 @@ const DEFAULT_CEREMONY_TIME = "16:00";
  * ------------------------------------------------------------------ */
 
 /**
+ * Which moment a schedule entry is, guessed from what the couple called it.
+ *
+ * `schedule_entries` has no icon column — the invitation screen asks for a
+ * time, a title and a description — so without this every entry falls to the
+ * theme's neutral mark and a timeline of five identical medallions. The
+ * couple's own wording is the only signal available, and it is a good one:
+ * they write "Cérémonie", "Cocktail", "Dîner".
+ *
+ * Deliberately conservative. An unrecognised title returns nothing rather than
+ * a guess, because the neutral mark is right for anything this does not know,
+ * and a cocktail glass beside "Discours de témoins" would be worse than none.
+ */
+function iconForTitle(title: string): ScheduleIcon | undefined {
+  const text = title
+    .toLowerCase()
+    .normalize("NFD")
+    // \u0300-\u036f is the combining-marks block NFD splits accents into.
+    .replace(/[\u0300-\u036f]/g, "");
+
+  if (/ceremonie|mariage|benediction|voeux|oui/.test(text)) return "ceremony";
+  if (/cocktail|vin d.honneur|aperitif|apero|champagne/.test(text)) return "cocktail";
+  if (/diner|repas|banquet|table|menu/.test(text)) return "dinner";
+  if (/soiree|danse|bal|fete|dj|party/.test(text)) return "party";
+  if (/brunch|petit.dejeuner|lendemain/.test(text)) return "brunch";
+
+  return undefined;
+}
+
+/**
  * Which day of the celebration an event belongs to.
  *
  * Themes lay out day 1 and day 2 differently — a brunch is not a ceremony —
@@ -202,6 +232,7 @@ export function toInvitationData(page: InvitationPageData): InvitationData {
       time: entry.time,
       title: entry.label,
       description: entry.description,
+      icon: iconForTitle(entry.label),
     })),
   );
 
@@ -215,6 +246,7 @@ export function toInvitationData(page: InvitationPageData): InvitationData {
       time: entry.time ?? "",
       title: entry.title ?? "",
       description: [entry.description, entry.location].filter(Boolean).join(" · ") || undefined,
+      icon: iconForTitle(entry.title ?? ""),
     }));
 
   /* -- Day two ------------------------------------------------------------ */
