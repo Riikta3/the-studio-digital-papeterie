@@ -46,6 +46,10 @@ function isDateInPast(day: string, monthIndex: number, year: string): boolean {
   const y = parseInt(year);
   const d = parseInt(day);
   if (!y || !monthIndex || !d) return false;
+  // Half-typed years are not "in the past", they are unfinished: "202" on the
+  // way to "2027" would otherwise flash the error under the field while the
+  // couple is still typing.
+  if (year.trim().length < 4) return false;
   if (y < CURRENT_YEAR) return true;
   if (y === CURRENT_YEAR && monthIndex < CURRENT_MONTH) return true;
   if (y === CURRENT_YEAR && monthIndex === CURRENT_MONTH && d < CURRENT_DAY)
@@ -159,7 +163,9 @@ export default function StudioStartPage() {
     !!weddingInfo.partner2.trim() &&
     !!weddingInfo.day &&
     !!weddingInfo.month &&
-    !!weddingInfo.year &&
+    // Four digits, not merely non-empty: the field accepts the year as it is
+    // typed, so "202" is a valid keystroke but not a valid answer.
+    weddingInfo.year.trim().length === 4 &&
     !dateInPast &&
     !!weddingInfo.venue.trim() &&
     !!weddingInfo.email.trim() &&
@@ -171,10 +177,29 @@ export default function StudioStartPage() {
       setWeddingInfo({ day: val === "" ? "" : String(n) });
   }
 
+  /**
+   * Accepts the year as it is typed, digit by digit.
+   *
+   * This used to reject anything below CURRENT_YEAR on every keystroke, which
+   * made the field impossible to fill: typing "2027" goes through "2", "20"
+   * and "202", each of which parses to a number far below 2026 and was thrown
+   * away, so the input never got past its first character. The placeholder
+   * showing a greyed-out "2027" made it look like a value was already there.
+   *
+   * Only the shape is enforced here — digits, at most four. Whether the date
+   * is in the past is answered by `dateInPast` once the three fields are
+   * filled, which is the right place for it: it needs the day and month too,
+   * and it can explain itself instead of silently swallowing a keystroke.
+   */
   function handleYearChange(val: string) {
-    const n = parseInt(val);
-    if (val === "" || n >= CURRENT_YEAR)
-      setWeddingInfo({ year: val === "" ? "" : String(n) });
+    if (val === "") {
+      setWeddingInfo({ year: "" });
+      return;
+    }
+
+    if (!/^\d{1,4}$/.test(val)) return;
+
+    setWeddingInfo({ year: val });
   }
 
   return (
