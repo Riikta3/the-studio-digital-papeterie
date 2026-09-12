@@ -42,6 +42,17 @@ jwt_expiry = 3600
 # clock. Without this Supabase never expires a refresh token, so a session
 # stays alive forever and nobody is ever signed out.
 #
+# ⚠ PAID FEATURE. This applies to the local stack, but the hosted project is on
+# the free plan, where Authentication → Sessions is locked. So production does
+# NOT get this, and the same 30 days is enforced in
+# `dashboard/src/utils/supabase/middleware.ts` instead — a cookie touched on
+# every authenticated request, and a sign-out once it goes stale.
+#
+# The two are not equivalent: this one revokes the refresh token at the source,
+# the middleware can only end the session it can see. Keep the window in the
+# middleware in step with the value here, and drop the middleware copy if this
+# project ever moves to a paid plan.
+#
 # 30 days rather than a week: a wedding is prepared over 6 to 18 months in
 # bursts, with long gaps between them, and every sign-in here costs an email
 # round trip because there is no password to type. Long enough that a couple

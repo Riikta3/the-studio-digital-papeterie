@@ -20,6 +20,33 @@ const PUBLIC_PATHS = [
   "/rsvp",
 ];
 
+/**
+ * How long a session survives with no activity, enforced in this file.
+ *
+ * Supabase's own `[auth.sessions] inactivity_timeout` does the same thing at
+ * the source — and revokes the refresh token, which this cannot — but it is
+ * only available on paid plans. The value here and the one in
+ * `supabase/config.toml` describe the same intent; whichever applies, the
+ * couple sees the same 30 days.
+ *
+ * 30 days rather than a week: a wedding is prepared over 6 to 18 months in
+ * bursts, and signing back in costs an email round trip because the flow is
+ * passwordless.
+ */
+const IDLE_TIMEOUT_MS = 30 * 24 * 60 * 60 * 1000;
+
+/** Timestamp of the last authenticated request, refreshed on every visit. */
+const LAST_SEEN_COOKIE = "sb-last-seen";
+
+/** The locale a path is under, falling back to the default. */
+function localeOf(pathname: string): string {
+  const [first] = pathname.split("/").filter(Boolean);
+
+  return (routing.locales as readonly string[]).includes(first)
+    ? first
+    : routing.defaultLocale;
+}
+
 /** Strips a leading `/fr`, `/en`, … so one list covers all nine locales. */
 function pathWithoutLocale(pathname: string): string {
   const segments = pathname.split("/").filter(Boolean);
@@ -98,17 +125,53 @@ export async function updateSession(request: NextRequest) {
     data: { user },
   } = await supabase.auth.getUser();
 
+  // Idle expiry, enforced here because Supabase's own
+  // `[auth.sessions] inactivity_timeout` is a paid feature. Without it a
+  // refresh token never expires, so a session signed in once stays valid for
+  // ever and nobody is ever signed out.
+  //
+  // This is a convenience boundary, not a security one: the cookie below is
+  // set by us and could be forged, and the underlying Supabase session stays
+  // valid until it is explicitly signed out. What it buys is the behaviour
+  // couples expect — a laptop left at a venue does not stay signed in
+  // indefinitely — and it costs nothing.
+  if (user) {
+    const seen = request.cookies.get(LAST_SEEN_COOKIE)?.value;
+    const lastSeen = seen ? Number(seen) : NaN;
+    const now = Date.now();
+
+    // A session older than the window is ended here rather than merely
+    // redirected: signing out revokes the refresh token, so the browser cannot
+    // simply drop our cookie and carry on with the Supabase session it holds.
+    if (Number.isFinite(lastSeen) && now - lastSeen > IDLE_TIMEOUT_MS) {
+      await supabase.auth.signOut();
+
+      const url = request.nextUrl.clone();
+      url.pathname = `/${localeOf(request.nextUrl.pathname)}/login`;
+      url.search = "?reason=expired";
+
+      const response = NextResponse.redirect(url);
+      response.cookies.delete(LAST_SEEN_COOKIE);
+      return response;
+    }
+
+    // Touched on every authenticated request, which is what makes the window
+    // slide: the clock restarts each time the couple comes back.
+    supabaseResponse.cookies.set(LAST_SEEN_COOKIE, String(now), {
+      httpOnly: true,
+      sameSite: "lax",
+      secure: process.env.NODE_ENV === "production",
+      path: "/",
+      maxAge: IDLE_TIMEOUT_MS / 1000,
+    });
+  }
+
   if (!user && !isPublicPath(request.nextUrl.pathname)) {
     const url = request.nextUrl.clone();
 
     // Keep the locale the visitor was browsing, so a German couple lands on
     // /de/login rather than being dropped into the default locale.
-    const segments = request.nextUrl.pathname.split("/").filter(Boolean);
-    const locale = (routing.locales as readonly string[]).includes(segments[0])
-      ? segments[0]
-      : routing.defaultLocale;
-
-    url.pathname = `/${locale}/login`;
+    url.pathname = `/${localeOf(request.nextUrl.pathname)}/login`;
 
     // So the login page can send them back where they were headed. Only the
     // path and query are kept — never an absolute URL, which would turn this
