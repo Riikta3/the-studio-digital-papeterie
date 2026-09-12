@@ -70,6 +70,13 @@ export type InvitationPageData = {
   weddingId: string;
   slug: string;
   themeId: string | null;
+  /**
+   * The modules this wedding bought (`sites.modules`), which decide the
+   * sections a theme renders. Empty when the row carries none.
+   */
+  modules: string[];
+  /** `settings.adults_only` — drives the RSVP child fields and the FAQ entry. */
+  adultsOnly: boolean;
   partner1: string;
   partner2: string;
   /** ISO date of the main ceremony, for the countdown. */
@@ -261,6 +268,8 @@ export async function getInvitationPage(
     weddingId,
     slug,
     themeId: (site.theme_id as string | null) ?? null,
+    modules: (site.modules as string[] | null) ?? [],
+    adultsOnly: Boolean(site.adults_only),
     partner1: (names?.first_name as string | null) ?? "",
     partner2: (names?.partner_name as string | null) ?? "",
     weddingDateISO: mainEvent?.date ?? null,
