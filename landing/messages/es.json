@@ -215,39 +215,60 @@
         "id": "signature",
         "name": "Signature",
         "price": "199 €",
-        "positioning": "Para las parejas que eligen un modelo existente.",
+        "positioning": "Para parejas que eligen un modelo existente.",
         "description": "Elige una de las creaciones de The Studio y personalízala con la información, las imágenes y el universo de vuestra boda.",
-        "cta": "Elegir Signature"
+        "cta": "Elegir Signature",
+        "features": [
+          "4 módulos incluidos y luego 5€ por módulo adicional",
+          "Un tema de las creaciones de The Studio",
+          "Invitación en línea personalizada",
+          "Espacio de gestión de invitados",
+          "Respuestas RSVP en tiempo real"
+        ]
       },
       {
         "id": "sur-mesure",
         "name": "A medida",
         "price": "299 €",
-        "positioning": "",
+        "positioning": "Para parejas que quieren una creación a su imagen.",
         "description": "Una invitación de boda personalizada, imaginada en torno a vuestro universo, vuestros colores, vuestro lugar y la historia que queréis contar.",
-        "cta": "Crear mi invitación a medida"
+        "cta": "Crear mi invitación a medida",
+        "features": [
+          "Módulos ilimitados, todos incluidos",
+          "Identidad gráfica completa",
+          "Adaptada a los colores de vuestra boda",
+          "Invitación en línea personalizada",
+          "Espacio de gestión de invitados"
+        ]
       },
       {
         "id": "prestige",
         "name": "Prestige",
         "price": "499 €",
-        "positioning": "",
+        "positioning": "Para parejas que quieren algo único, de principio a fin.",
         "description": "La experiencia The Studio más completa, pensada para las parejas que desean ir más lejos en la personalización de su invitación.",
         "cta": "Descubrir Prestige",
         "features": [
+          "Creación totalmente a medida",
+          "Módulos ilimitados, todos incluidos",
           "Animación personalizada",
           "Identidad gráfica completa",
-          "Adaptación a los colores de la boda",
-          "Módulos ilimitados",
-          "Asistencia prioritaria",
           "Modificaciones ilimitadas",
           "Dominio personalizado",
+          "Asistencia prioritaria",
           "Galería de fotos después de la boda",
           "Libro de firmas"
         ]
       }
     ],
     "compareRows": [
+      {
+        "key": "modules_allowance",
+        "label": "Módulos incluidos",
+        "signature": "4 módulos, luego +5€ cada uno",
+        "sur-mesure": "Ilimitados",
+        "prestige": "Ilimitados"
+      },
       {
         "key": "animation",
         "label": "Animación personalizada",
@@ -267,13 +288,6 @@
         "label": "Adaptación a los colores de la boda",
         "signature": "no",
         "sur-mesure": "inc",
-        "prestige": "inc"
-      },
-      {
-        "key": "modules",
-        "label": "Módulos ilimitados",
-        "signature": "no",
-        "sur-mesure": "no",
         "prestige": "inc"
       },
       {
@@ -727,11 +741,10 @@
   "StudioModules": {
     "titlePrefix": "Vuestras ",
     "titleHighlight": "funcionalidades",
-    "subtitlePremium": "Todos los módulos están incluidos en vuestro plan.",
-    "subtitleEssential": "Elegid al menos 4 módulos. +5€ por módulo adicional.",
+    "subtitleEssential": "{included} módulos incluidos y luego {price}€ por cada módulo adicional.",
     "noneSelected": "Ningún módulo seleccionado",
-    "selectAtLeast": "Seleccionad al menos 4 módulos",
-    "minCount": "{count} / 4 módulos mínimo",
+    "selectAtLeast": "Seleccionad al menos {min} módulos",
+    "minCount": "{count} / {min} módulos mínimo",
     "countSelected": "{count} seleccionado(s)",
     "included": "incluido",
     "catalog": {
@@ -795,7 +808,10 @@
         "name": "FAQ / Info Práctica",
         "description": "Información práctica para los invitados"
       }
-    }
+    },
+    "subtitleUnlimited": "Módulos ilimitados: todo lo que elijáis está incluido.",
+    "subtitlePrestige": "Vuestra fórmula es una creación a medida. Elegid los módulos que queráis, sin límite.",
+    "unlimited": "ilimitados"
   },
   "StudioOptions": {
     "titlePrefix": "Opciones ",

@@ -214,39 +214,60 @@
         "id": "signature",
         "name": "Signature",
         "price": "199€",
-        "positioning": "既存のデザインをお選びになるおふたりへ。",
+        "positioning": "既存のデザインから選びたいおふたりへ。",
         "description": "The Studio のデザインからひとつをお選びいただき、結婚式の情報や写真、世界観を反映してカスタマイズします。",
-        "cta": "Signature を選ぶ"
+        "cta": "Signature を選ぶ",
+        "features": [
+          "4つのモジュール込み、以降は1つ5€",
+          "The Studio のデザインから1点",
+          "パーソナライズされたオンライン招待状",
+          "ゲスト管理スペース",
+          "RSVPの回答をリアルタイムで確認"
+        ]
       },
       {
         "id": "sur-mesure",
         "name": "オーダーメイド",
         "price": "299€",
-        "positioning": "",
+        "positioning": "おふたりらしい一点ものを望む方へ。",
         "description": "おふたりの世界観、色、会場、そして伝えたい物語をもとに描く、完全オリジナルの結婚式招待状です。",
-        "cta": "オーダーメイドの招待状を作る"
+        "cta": "オーダーメイドの招待状を作る",
+        "features": [
+          "モジュール無制限、すべて込み",
+          "ブランディング一式",
+          "結婚式のカラーに合わせて調整",
+          "パーソナライズされたオンライン招待状",
+          "ゲスト管理スペース"
+        ]
       },
       {
         "id": "prestige",
         "name": "Prestige",
         "price": "499€",
-        "positioning": "",
+        "positioning": "最初から最後まで唯一無二を望むおふたりへ。",
         "description": "招待状のカスタマイズをさらに追求したいおふたりのための、The Studio でもっとも充実したご提案です。",
         "cta": "Prestige を見る",
         "features": [
+          "完全オーダーメイドの制作",
+          "モジュール無制限、すべて込み",
           "オリジナルアニメーション",
-          "グラフィックアイデンティティ一式",
-          "結婚式のカラーに合わせた調整",
-          "モジュール数無制限",
-          "優先サポート",
-          "修正回数無制限",
+          "ブランディング一式",
+          "修正回数は無制限",
           "独自ドメイン",
+          "優先サポート",
           "挙式後のフォトギャラリー",
           "ゲストブック"
         ]
       }
     ],
     "compareRows": [
+      {
+        "key": "modules_allowance",
+        "label": "含まれるモジュール",
+        "signature": "4つ、以降は1つ +5€",
+        "sur-mesure": "無制限",
+        "prestige": "無制限"
+      },
       {
         "key": "animation",
         "label": "オリジナルアニメーション",
@@ -266,13 +287,6 @@
         "label": "結婚式のカラーに合わせた調整",
         "signature": "no",
         "sur-mesure": "inc",
-        "prestige": "inc"
-      },
-      {
-        "key": "modules",
-        "label": "モジュール数無制限",
-        "signature": "no",
-        "sur-mesure": "no",
         "prestige": "inc"
       },
       {
@@ -726,11 +740,10 @@
   "StudioModules": {
     "titlePrefix": "あなたの",
     "titleHighlight": "機能",
-    "subtitlePremium": "すべてのモジュールがプランに含まれています。",
-    "subtitleEssential": "4つ以上のモジュールをお選びください。追加1つにつき +5€。",
+    "subtitleEssential": "{included}つのモジュールが含まれ、以降は1つにつき{price}€です。",
     "noneSelected": "モジュールが選択されていません",
-    "selectAtLeast": "4つ以上のモジュールを選択してください",
-    "minCount": "{count} / 最低4モジュール",
+    "selectAtLeast": "モジュールを{min}つ以上お選びください",
+    "minCount": "{count} / {min} モジュール（最少）",
     "countSelected": "{count} 件選択",
     "included": "込み",
     "catalog": {
@@ -794,7 +807,10 @@
         "name": "FAQ／実用情報",
         "description": "ゲスト向けの実用情報"
       }
-    }
+    },
+    "subtitleUnlimited": "モジュールは無制限。選んだものはすべて含まれます。",
+    "subtitlePrestige": "このプランは完全オーダーメイドです。モジュールは制限なくお選びいただけます。",
+    "unlimited": "無制限"
   },
   "StudioOptions": {
     "titlePrefix": "オプション",

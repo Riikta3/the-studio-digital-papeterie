@@ -217,37 +217,58 @@
         "price": "199 €",
         "positioning": "Für Paare, die eine bestehende Vorlage wählen.",
         "description": "Wählen Sie eine der The-Studio-Kreationen und personalisieren Sie sie mit den Informationen, Bildern und der Welt Ihrer Hochzeit.",
-        "cta": "Signature wählen"
+        "cta": "Signature wählen",
+        "features": [
+          "4 Module inbegriffen, danach 5 € pro zusätzlichem Modul",
+          "Ein Design aus den Kreationen von The Studio",
+          "Personalisierte Online-Einladung",
+          "Gästeverwaltung",
+          "RSVP-Antworten in Echtzeit"
+        ]
       },
       {
         "id": "sur-mesure",
         "name": "Individuell",
         "price": "299 €",
-        "positioning": "",
+        "positioning": "Für Paare, die eine ganz eigene Gestaltung möchten.",
         "description": "Eine personalisierte Hochzeitseinladung, gestaltet rund um Ihre Welt, Ihre Farben, Ihren Ort und die Geschichte, die Sie erzählen möchten.",
-        "cta": "Einladung gestalten"
+        "cta": "Einladung gestalten",
+        "features": [
+          "Unbegrenzte Module, alle inbegriffen",
+          "Vollständige visuelle Identität",
+          "Auf eure Hochzeitsfarben abgestimmt",
+          "Personalisierte Online-Einladung",
+          "Gästeverwaltung"
+        ]
       },
       {
         "id": "prestige",
         "name": "Prestige",
         "price": "499 €",
-        "positioning": "",
+        "positioning": "Für Paare, die von A bis Z etwas Einzigartiges wollen.",
         "description": "Das umfassendste The-Studio-Erlebnis, für Paare, die bei der Personalisierung ihrer Einladung noch weiter gehen möchten.",
         "cta": "Prestige entdecken",
         "features": [
+          "Vollständig maßgeschneiderte Gestaltung",
+          "Unbegrenzte Module, alle inbegriffen",
           "Individuelle Animation",
-          "Vollständige grafische Identität",
-          "Anpassung an die Hochzeitsfarben",
-          "Unbegrenzte Module",
-          "Prioritäts-Support",
+          "Vollständige visuelle Identität",
           "Unbegrenzte Änderungen",
           "Eigene Domain",
+          "Bevorzugter Support",
           "Fotogalerie nach der Hochzeit",
           "Gästebuch"
         ]
       }
     ],
     "compareRows": [
+      {
+        "key": "modules_allowance",
+        "label": "Inbegriffene Module",
+        "signature": "4 Module, dann +5 € je Modul",
+        "sur-mesure": "Unbegrenzt",
+        "prestige": "Unbegrenzt"
+      },
       {
         "key": "animation",
         "label": "Individuelle Animation",
@@ -267,13 +288,6 @@
         "label": "Anpassung an die Hochzeitsfarben",
         "signature": "no",
         "sur-mesure": "inc",
-        "prestige": "inc"
-      },
-      {
-        "key": "modules",
-        "label": "Unbegrenzte Module",
-        "signature": "no",
-        "sur-mesure": "no",
         "prestige": "inc"
       },
       {
@@ -727,11 +741,10 @@
   "StudioModules": {
     "titlePrefix": "Ihre ",
     "titleHighlight": "Funktionen",
-    "subtitlePremium": "Alle Module sind in Ihrem Paket enthalten.",
-    "subtitleEssential": "Wählen Sie mindestens 4 Module. +5€ pro zusätzlichem Modul.",
+    "subtitleEssential": "{included} Module inbegriffen, danach {price} € pro zusätzlichem Modul.",
     "noneSelected": "Kein Modul ausgewählt",
-    "selectAtLeast": "Wählen Sie mindestens 4 Module",
-    "minCount": "{count} / 4 Module Minimum",
+    "selectAtLeast": "Wählt mindestens {min} Module",
+    "minCount": "{count} / {min} Module mindestens",
     "countSelected": "{count} ausgewählt",
     "included": "inbegriffen",
     "catalog": {
@@ -795,7 +808,10 @@
         "name": "FAQ / Praktische Infos",
         "description": "Praktische Infos für Gäste"
       }
-    }
+    },
+    "subtitleUnlimited": "Unbegrenzte Module – alles, was ihr auswählt, ist inbegriffen.",
+    "subtitlePrestige": "Eure Formel ist eine maßgeschneiderte Kreation. Wählt beliebig viele Module aus.",
+    "unlimited": "unbegrenzt"
   },
   "StudioOptions": {
     "titlePrefix": "Optionen ",

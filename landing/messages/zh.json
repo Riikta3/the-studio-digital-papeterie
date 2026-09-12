@@ -214,39 +214,60 @@
         "id": "signature",
         "name": "Signature",
         "price": "199€",
-        "positioning": "适合选择现有设计的新人。",
+        "positioning": "适合选择现成设计的新人。",
         "description": "从 The Studio 的作品中选择一款，并用你们婚礼的信息、照片与氛围进行个性化设计。",
-        "cta": "选择 Signature"
+        "cta": "选择 Signature",
+        "features": [
+          "包含 4 个模块，之后每个 5€",
+          "从 The Studio 的设计中选择一款",
+          "个性化在线请柬",
+          "宾客管理空间",
+          "实时 RSVP 回复"
+        ]
       },
       {
         "id": "sur-mesure",
         "name": "定制",
         "price": "299€",
-        "positioning": "",
+        "positioning": "适合想要专属设计的新人。",
         "description": "一份专属定制的婚礼请柬，围绕你们的风格、色彩、场地，以及你们想讲述的故事而设计。",
-        "cta": "创建我的定制请柬"
+        "cta": "创建我的定制请柬",
+        "features": [
+          "模块不限量，全部包含",
+          "完整视觉识别",
+          "匹配婚礼的色彩",
+          "个性化在线请柬",
+          "宾客管理空间"
+        ]
       },
       {
         "id": "prestige",
         "name": "Prestige",
         "price": "499€",
-        "positioning": "",
+        "positioning": "适合想要从头到尾独一无二作品的新人。",
         "description": "The Studio 最完整的体验，为希望在请柬个性化上走得更远的新人而设。",
         "cta": "了解 Prestige",
         "features": [
-          "定制动画",
-          "完整视觉识别设计",
-          "配合婚礼主色调",
-          "无限模块",
-          "优先支持",
-          "无限次修改",
+          "完全定制的创作",
+          "模块不限量，全部包含",
+          "专属动画",
+          "完整视觉识别",
+          "不限次修改",
           "专属域名",
-          "婚礼后照片库",
+          "优先支持",
+          "婚礼后照片相册",
           "留言簿"
         ]
       }
     ],
     "compareRows": [
+      {
+        "key": "modules_allowance",
+        "label": "包含模块",
+        "signature": "4 个模块，之后每个 +5€",
+        "sur-mesure": "不限量",
+        "prestige": "不限量"
+      },
       {
         "key": "animation",
         "label": "定制动画",
@@ -266,13 +287,6 @@
         "label": "配合婚礼主色调",
         "signature": "no",
         "sur-mesure": "inc",
-        "prestige": "inc"
-      },
-      {
-        "key": "modules",
-        "label": "无限模块",
-        "signature": "no",
-        "sur-mesure": "no",
         "prestige": "inc"
       },
       {
@@ -726,11 +740,10 @@
   "StudioModules": {
     "titlePrefix": "您的",
     "titleHighlight": "功能",
-    "subtitlePremium": "您的套餐包含所有模块。",
-    "subtitleEssential": "请至少选择 4 个模块。每增加一个模块 +5€。",
+    "subtitleEssential": "包含 {included} 个模块，之后每增加一个模块 {price}€。",
     "noneSelected": "未选择模块",
-    "selectAtLeast": "请至少选择 4 个模块",
-    "minCount": "{count} / 至少 4 个模块",
+    "selectAtLeast": "请至少选择 {min} 个模块",
+    "minCount": "{count} / {min} 个模块（最少）",
     "countSelected": "已选 {count} 个",
     "included": "已包含",
     "catalog": {
@@ -794,7 +807,10 @@
         "name": "常见问题 / 实用信息",
         "description": "为宾客提供的实用信息"
       }
-    }
+    },
+    "subtitleUnlimited": "模块不限量：你们选择的全部包含在内。",
+    "subtitlePrestige": "你们的方案是完全定制的创作。模块任选，没有数量限制。",
+    "unlimited": "不限量"
   },
   "StudioOptions": {
     "titlePrefix": "选项",

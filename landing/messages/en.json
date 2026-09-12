@@ -216,39 +216,60 @@
         "id": "signature",
         "name": "Signature",
         "price": "€199",
-        "positioning": "For couples who choose an existing design.",
+        "positioning": "For couples who choose one of our existing designs.",
         "description": "Choose one of The Studio designs and personalise it with the details, images and world of your wedding.",
-        "cta": "Choose Signature"
+        "cta": "Choose Signature",
+        "features": [
+          "4 modules included, then €5 per extra module",
+          "A theme from The Studio's own designs",
+          "Personalised online invitation",
+          "Guest management space",
+          "RSVP replies in real time"
+        ]
       },
       {
         "id": "sur-mesure",
         "name": "Bespoke",
         "price": "€299",
-        "positioning": "",
+        "positioning": "For couples who want a creation of their own.",
         "description": "A personalised wedding invitation, imagined around your world, your colours, your venue and the story you want to tell.",
-        "cta": "Create my bespoke invitation"
+        "cta": "Create my bespoke invitation",
+        "features": [
+          "Unlimited modules, all included",
+          "Full visual identity",
+          "Matched to your wedding's colours",
+          "Personalised online invitation",
+          "Guest management space"
+        ]
       },
       {
         "id": "prestige",
         "name": "Prestige",
         "price": "€499",
-        "positioning": "",
+        "positioning": "For couples who want something unique, from start to finish.",
         "description": "The most complete The Studio experience, designed for couples who want to go further in personalising their invitation.",
         "cta": "Discover Prestige",
         "features": [
+          "Entirely bespoke creation",
+          "Unlimited modules, all included",
           "Custom animation",
-          "Complete visual identity",
-          "Matched to your wedding colours",
-          "Unlimited modules",
-          "Priority support",
+          "Full visual identity",
           "Unlimited revisions",
           "Custom domain",
-          "Post-wedding photo gallery",
+          "Priority support",
+          "Photo gallery after the wedding",
           "Guest book"
         ]
       }
     ],
     "compareRows": [
+      {
+        "key": "modules_allowance",
+        "label": "Modules included",
+        "signature": "4 modules, then +€5 each",
+        "sur-mesure": "Unlimited",
+        "prestige": "Unlimited"
+      },
       {
         "key": "animation",
         "label": "Custom animation",
@@ -268,13 +289,6 @@
         "label": "Matched to your wedding colours",
         "signature": "no",
         "sur-mesure": "inc",
-        "prestige": "inc"
-      },
-      {
-        "key": "modules",
-        "label": "Unlimited modules",
-        "signature": "no",
-        "sur-mesure": "no",
         "prestige": "inc"
       },
       {
@@ -940,11 +954,10 @@
   "StudioModules": {
     "titlePrefix": "Your ",
     "titleHighlight": "features",
-    "subtitlePremium": "All modules are included in your plan.",
-    "subtitleEssential": "Choose at least 4 modules. +5€ per extra module.",
+    "subtitleEssential": "{included} modules included, then €{price} per extra module.",
     "noneSelected": "No module selected",
-    "selectAtLeast": "Select at least 4 modules",
-    "minCount": "{count} / 4 modules minimum",
+    "selectAtLeast": "Select at least {min} modules",
+    "minCount": "{count} / {min} modules minimum",
     "countSelected": "{count} selected",
     "included": "included",
     "catalog": {
@@ -1008,7 +1021,10 @@
         "name": "FAQ / Practical Info",
         "description": "Practical info for guests"
       }
-    }
+    },
+    "subtitleUnlimited": "Unlimited modules — everything you pick is included.",
+    "subtitlePrestige": "Your plan is a bespoke creation. Pick whichever modules you want, with no limit.",
+    "unlimited": "unlimited"
   },
   "StudioOptions": {
     "titlePrefix": "Options ",

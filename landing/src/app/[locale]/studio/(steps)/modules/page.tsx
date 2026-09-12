@@ -17,21 +17,43 @@ export default function StudioModulesPage() {
   const t = useTranslations("StudioModules");
   const { modules, toggleModule, plan } = useOrderStore();
 
+  // Three plans, three different answers to "how many modules do I get?":
+  //   signature   → FREE_MODULES_LIMIT included, then EXTRA_MODULE_PRICE each
+  //   sur-mesure  → unlimited, all included
+  //   prestige    → unlimited too, but the plan is a bespoke creation rather
+  //                 than a list of modules, so it is worded differently
+  // The page used to know only "metered or not", which told a Sur-mesure
+  // couple "all modules are included in your plan" without ever saying the
+  // word unlimited, and told a Prestige couple the same generic sentence.
   const isEssential = hasMeteredModules(plan);
+  const isPrestige = plan === "prestige";
   const extraCount = isEssential
     ? Math.max(0, modules.length - FREE_MODULES_LIMIT)
     : 0;
   const extraCost = extraCount * EXTRA_MODULE_PRICE;
 
+  const subtitle = isEssential
+    ? t("subtitleEssential", {
+        included: FREE_MODULES_LIMIT,
+        price: EXTRA_MODULE_PRICE,
+      })
+    : isPrestige
+      ? t("subtitlePrestige")
+      : t("subtitleUnlimited");
+
   function counterLabel() {
     if (modules.length === 0) {
-      return isEssential ? t("selectAtLeast") : t("noneSelected");
+      return isEssential
+        ? t("selectAtLeast", { min: FREE_MODULES_LIMIT })
+        : t("noneSelected");
     }
-    if (isEssential && modules.length < 4) {
-      return t("minCount", { count: modules.length });
+    if (isEssential && modules.length < FREE_MODULES_LIMIT) {
+      return t("minCount", { count: modules.length, min: FREE_MODULES_LIMIT });
     }
     const base = t("countSelected", { count: modules.length });
-    if (!isEssential) return base;
+    // Unlimited plans: say so on the counter rather than leaving a bare number
+    // that looks like it might be approaching a cap.
+    if (!isEssential) return `${base} · ${t("unlimited")}`;
     return extraCost > 0 ? `${base} · +${extraCost}€` : `${base} · ${t("included")}`;
   }
 
@@ -44,7 +66,7 @@ export default function StudioModulesPage() {
             <span className="text-studio-pourpre">{t("titleHighlight")}</span>
           </h1>
           <p className="mx-auto max-w-sm font-body text-sm text-studio-violet/60">
-            {isEssential ? t("subtitleEssential") : t("subtitlePremium")}
+            {subtitle}
           </p>
         </div>
 
@@ -55,7 +77,7 @@ export default function StudioModulesPage() {
               "rounded-full px-4 py-1.5 font-body text-xs font-semibold",
               modules.length === 0
                 ? "bg-studio-lavande/20 text-studio-violet/60"
-                : isEssential && modules.length < 4
+                : isEssential && modules.length < FREE_MODULES_LIMIT
                   ? "bg-amber-50 text-amber-600"
                   : "bg-studio-lavande/30 text-studio-violet",
             )}

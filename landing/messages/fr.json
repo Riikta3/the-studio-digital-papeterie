@@ -379,37 +379,58 @@
         "price": "199€",
         "positioning": "Pour les couples qui choisissent un modèle existant.",
         "description": "Choisissez l’une des créations The Studio et personnalisez-la avec les informations, les images et l’univers de votre mariage.",
-        "cta": "Choisir Signature"
+        "cta": "Choisir Signature",
+        "features": [
+          "4 modules inclus, puis 5€ par module supplémentaire",
+          "Un thème parmi les créations The Studio",
+          "Faire-part en ligne personnalisé",
+          "Espace de gestion des invités",
+          "Réponses RSVP en temps réel"
+        ]
       },
       {
         "id": "sur-mesure",
         "name": "Sur-mesure",
         "price": "299€",
-        "positioning": "",
+        "positioning": "Pour les couples qui veulent une création à leur image.",
         "description": "Une invitation de mariage personnalisée, imaginée autour de votre univers, de vos couleurs, de votre lieu et de l’histoire que vous souhaitez raconter.",
-        "cta": "Créer mon invitation sur-mesure"
+        "cta": "Créer mon invitation sur-mesure",
+        "features": [
+          "Modules illimités, tous inclus",
+          "Identité graphique complète",
+          "Adaptation aux couleurs de votre mariage",
+          "Faire-part en ligne personnalisé",
+          "Espace de gestion des invités"
+        ]
       },
       {
         "id": "prestige",
         "name": "Prestige",
         "price": "499€",
-        "positioning": "",
+        "positioning": "Pour les couples qui veulent une création unique, de A à Z.",
         "description": "L’expérience The Studio la plus complète, pensée pour les couples qui souhaitent aller plus loin dans la personnalisation de leur invitation.",
         "cta": "Découvrir Prestige",
         "features": [
+          "Création entièrement sur-mesure",
+          "Modules illimités, tous inclus",
           "Animation personnalisée",
           "Identité graphique complète",
-          "Adaptation aux couleurs du mariage",
-          "Modules illimités",
-          "Assistance prioritaire",
           "Modifications illimitées",
           "Domaine personnalisé",
+          "Assistance prioritaire",
           "Galerie photo après mariage",
           "Livre d’or"
         ]
       }
     ],
     "compareRows": [
+      {
+        "key": "modules_allowance",
+        "label": "Modules inclus",
+        "signature": "4 modules, puis +5€ l’unité",
+        "sur-mesure": "Illimités",
+        "prestige": "Illimités"
+      },
       {
         "key": "animation",
         "label": "Animation personnalisée",
@@ -429,13 +450,6 @@
         "label": "Adaptation aux couleurs du mariage",
         "signature": "no",
         "sur-mesure": "inc",
-        "prestige": "inc"
-      },
-      {
-        "key": "modules",
-        "label": "Modules illimités",
-        "signature": "no",
-        "sur-mesure": "no",
         "prestige": "inc"
       },
       {
@@ -1075,11 +1089,10 @@
   "StudioModules": {
     "titlePrefix": "Vos ",
     "titleHighlight": "fonctionnalités",
-    "subtitlePremium": "Tous les modules sont inclus dans votre offre.",
-    "subtitleEssential": "Choisissez au minimum 4 modules. +5€ par module supplémentaire.",
+    "subtitleEssential": "{included} modules inclus, puis {price}€ par module supplémentaire.",
     "noneSelected": "Aucun module sélectionné",
-    "selectAtLeast": "Sélectionnez au moins 4 modules",
-    "minCount": "{count} / 4 modules minimum",
+    "selectAtLeast": "Sélectionnez au moins {min} modules",
+    "minCount": "{count} / {min} modules minimum",
     "countSelected": "{count} sélectionné(s)",
     "included": "inclus",
     "catalog": {
@@ -1143,7 +1156,10 @@
         "name": "FAQ / Pratique",
         "description": "Infos pratiques pour les invités"
       }
-    }
+    },
+    "subtitleUnlimited": "Modules illimités : tout ce que vous sélectionnez est inclus.",
+    "subtitlePrestige": "Votre formule est une création sur-mesure. Sélectionnez les modules que vous souhaitez, sans limite.",
+    "unlimited": "illimités"
   },
   "StudioOptions": {
     "titlePrefix": "Options ",

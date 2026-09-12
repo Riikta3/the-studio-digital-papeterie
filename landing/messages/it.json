@@ -216,37 +216,58 @@
         "price": "199 €",
         "positioning": "Per le coppie che scelgono un modello esistente.",
         "description": "Scegliete una delle creazioni The Studio e personalizzatela con le informazioni, le immagini e l’universo del vostro matrimonio.",
-        "cta": "Scegliere Signature"
+        "cta": "Scegliere Signature",
+        "features": [
+          "4 moduli inclusi, poi 5€ per ogni modulo aggiuntivo",
+          "Un tema tra le creazioni di The Studio",
+          "Partecipazione online personalizzata",
+          "Spazio di gestione degli ospiti",
+          "Risposte RSVP in tempo reale"
+        ]
       },
       {
         "id": "sur-mesure",
         "name": "Su misura",
         "price": "299 €",
-        "positioning": "",
+        "positioning": "Per le coppie che vogliono una creazione a loro immagine.",
         "description": "Un invito di matrimonio personalizzato, immaginato attorno al vostro universo, ai vostri colori, al vostro luogo e alla storia che desiderate raccontare.",
-        "cta": "Creare il mio invito su misura"
+        "cta": "Creare il mio invito su misura",
+        "features": [
+          "Moduli illimitati, tutti inclusi",
+          "Identità grafica completa",
+          "Adattata ai colori del vostro matrimonio",
+          "Partecipazione online personalizzata",
+          "Spazio di gestione degli ospiti"
+        ]
       },
       {
         "id": "prestige",
         "name": "Prestige",
         "price": "499 €",
-        "positioning": "",
+        "positioning": "Per le coppie che vogliono qualcosa di unico, dall'inizio alla fine.",
         "description": "L’esperienza The Studio più completa, pensata per le coppie che desiderano andare oltre nella personalizzazione del loro invito.",
         "cta": "Scoprire Prestige",
         "features": [
+          "Creazione interamente su misura",
+          "Moduli illimitati, tutti inclusi",
           "Animazione personalizzata",
           "Identità grafica completa",
-          "Adattamento ai colori del matrimonio",
-          "Moduli illimitati",
-          "Assistenza prioritaria",
           "Modifiche illimitate",
           "Dominio personalizzato",
+          "Assistenza prioritaria",
           "Galleria fotografica dopo il matrimonio",
           "Libro degli ospiti"
         ]
       }
     ],
     "compareRows": [
+      {
+        "key": "modules_allowance",
+        "label": "Moduli inclusi",
+        "signature": "4 moduli, poi +5€ l'uno",
+        "sur-mesure": "Illimitati",
+        "prestige": "Illimitati"
+      },
       {
         "key": "animation",
         "label": "Animazione personalizzata",
@@ -266,13 +287,6 @@
         "label": "Adattamento ai colori del matrimonio",
         "signature": "no",
         "sur-mesure": "inc",
-        "prestige": "inc"
-      },
-      {
-        "key": "modules",
-        "label": "Moduli illimitati",
-        "signature": "no",
-        "sur-mesure": "no",
         "prestige": "inc"
       },
       {
@@ -726,11 +740,10 @@
   "StudioModules": {
     "titlePrefix": "Le vostre ",
     "titleHighlight": "funzionalità",
-    "subtitlePremium": "Tutti i moduli sono inclusi nel vostro piano.",
-    "subtitleEssential": "Scegliete almeno 4 moduli. +5€ per modulo aggiuntivo.",
+    "subtitleEssential": "{included} moduli inclusi, poi {price}€ per ogni modulo aggiuntivo.",
     "noneSelected": "Nessun modulo selezionato",
-    "selectAtLeast": "Selezionate almeno 4 moduli",
-    "minCount": "{count} / 4 moduli minimo",
+    "selectAtLeast": "Selezionate almeno {min} moduli",
+    "minCount": "{count} / {min} moduli minimo",
     "countSelected": "{count} selezionato/i",
     "included": "incluso",
     "catalog": {
@@ -794,7 +807,10 @@
         "name": "FAQ / Info Pratiche",
         "description": "Informazioni pratiche per gli ospiti"
       }
-    }
+    },
+    "subtitleUnlimited": "Moduli illimitati: tutto ciò che scegliete è incluso.",
+    "subtitlePrestige": "La vostra formula è una creazione su misura. Scegliete i moduli che volete, senza limiti.",
+    "unlimited": "illimitati"
   },
   "StudioOptions": {
     "titlePrefix": "Opzioni ",
