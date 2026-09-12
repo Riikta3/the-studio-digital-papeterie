@@ -76,3 +76,23 @@ Pour `ar` : vouvoiement d'un foyer (pluriel) ou d'une personne.
 | ciao-amore | ✅ | ✅ | ✅ 9 locales |
 | belle-rive | ⚠️ fuites corrigées, `venue.access` non rendu | ✅ | ❌ français |
 | blanc-couture | ⚠️ idem | ✅ | ❌ français |
+
+---
+
+## Constats ouverts (hors thèmes)
+
+### Sur-mesure sans aucun module — assumé pour l'instant
+
+Sur le plan Sur-mesure, l'étape modules du studio laisse continuer sans rien
+sélectionner : le compteur affiche « aucun sélectionné » mais c'est un simple
+libellé, il n'y a ni `disabled` sur le bouton ni garde côté serveur.
+
+Un couple peut donc payer 299 € et recevoir une invitation sans programme,
+sans lieu et sans RSVP. Les thèmes masquent correctement ces sections — c'est
+leur rôle — mais le contenu semé à l'achat reste invisible.
+
+**Décision : laissé en l'état** (2026-09-12). À rouvrir si des commandes
+arrivent avec `sites.modules` vide.
+
+Constaté lors du premier test d'achat de bout en bout.
+
