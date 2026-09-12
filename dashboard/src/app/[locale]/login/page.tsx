@@ -8,7 +8,7 @@ import { Eye, EyeOff } from "lucide-react";
 import { useTranslations } from "next-intl";
 import Image from "next/image";
 import { useSearchParams } from "next/navigation";
-import { useActionState, useEffect, useRef, useState } from "react";
+import { Suspense, useActionState, useEffect, useRef, useState } from "react";
 import { toast } from "sonner";
 import { login } from "./actions";
 
@@ -26,10 +26,9 @@ const initialState = {
  * Both looked to the couple like being logged out at random.
  *
  * Kept in its own component so the toast logic sits apart from the form rather
- * than adding a third effect to it. No Suspense boundary: `useSearchParams`
- * needs one only where a route is prerendered, and this one is rendered on
- * demand (`ƒ` in the build output) because the middleware reads its cookies —
- * verified by building without the boundary, which succeeds.
+ * than adding a third effect to it. Both it and the form read
+ * `useSearchParams`, so the Suspense boundary they need lives once at the
+ * bottom of this file rather than around each of them.
  */
 function RedirectNotice() {
   const t = useTranslations("Login");
@@ -62,17 +61,40 @@ function RedirectNotice() {
   return null;
 }
 
-export default function LoginPage() {
+/**
+ * Where to send the couple after signing in.
+ *
+ * The middleware redirects here with `?next=` carrying the page they were
+ * trying to reach, and that was being thrown away — everyone landed on the
+ * dashboard home no matter what they had clicked.
+ *
+ * Only a path from our own app is honoured. `next` arrives in the URL, so a
+ * caller can put anything in it: without this check, a link to
+ * `/fr/login?next=https://evil.example` would sign the couple in and then hand
+ * them to someone else's site, with our domain in the referrer. Anything not
+ * starting with a single `/` — an absolute URL, a protocol-relative `//host`,
+ * a backslash Chrome normalises to one — falls back to the home page.
+ */
+function safeNext(next: string | null): string {
+  if (!next) return "/";
+  if (!next.startsWith("/")) return "/";
+  if (next.startsWith("//") || next.startsWith("/\\")) return "/";
+
+  return next;
+}
+
+function LoginForm() {
   const t = useTranslations("Login");
+  const searchParams = useSearchParams();
   const [showPassword, setShowPassword] = useState(false);
   const [state, formAction, isPending] = useActionState(login, initialState);
 
   // Redirect on successful login with full page reload to update auth state
   useEffect(() => {
     if (state?.success) {
-      window.location.href = "/";
+      window.location.href = safeNext(searchParams.get("next"));
     }
-  }, [state?.success]);
+  }, [state?.success, searchParams]);
 
   return (
     <div className='min-h-screen bg-studio-creme flex flex-col items-center justify-center p-4 relative overflow-hidden'>
@@ -200,5 +222,18 @@ export default function LoginPage() {
         </div>
       </div>
     </div>
+  );
+}
+
+/**
+ * `useSearchParams` is read by both children, so the boundary sits here rather
+ * than in each of them. It is what lets this route keep prerendering its shell
+ * instead of being forced fully dynamic by the hook.
+ */
+export default function LoginPage() {
+  return (
+    <Suspense fallback={null}>
+      <LoginForm />
+    </Suspense>
   );
 }
