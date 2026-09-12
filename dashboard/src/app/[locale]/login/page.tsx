@@ -8,7 +8,7 @@ import { Eye, EyeOff } from "lucide-react";
 import { useTranslations } from "next-intl";
 import Image from "next/image";
 import { useSearchParams } from "next/navigation";
-import { Suspense, useActionState, useEffect, useRef, useState } from "react";
+import { useActionState, useEffect, useRef, useState } from "react";
 import { toast } from "sonner";
 import { login } from "./actions";
 
@@ -25,8 +25,11 @@ const initialState = {
  * `update-password` bounces a spent recovery link with `?error=invalid_link`.
  * Both looked to the couple like being logged out at random.
  *
- * Its own component because `useSearchParams` opts the subtree into client-side
- * rendering, and a Suspense boundary keeps that from holding up the form.
+ * Kept in its own component so the toast logic sits apart from the form rather
+ * than adding a third effect to it. No Suspense boundary: `useSearchParams`
+ * needs one only where a route is prerendered, and this one is rendered on
+ * demand (`ƒ` in the build output) because the middleware reads its cookies —
+ * verified by building without the boundary, which succeeds.
  */
 function RedirectNotice() {
   const t = useTranslations("Login");
@@ -73,9 +76,7 @@ export default function LoginPage() {
 
   return (
     <div className='min-h-screen bg-studio-creme flex flex-col items-center justify-center p-4 relative overflow-hidden'>
-      <Suspense fallback={null}>
-        <RedirectNotice />
-      </Suspense>
+      <RedirectNotice />
 
       {/* Decorative background elements */}
       <div className='absolute inset-0 opacity-[0.03]'>
