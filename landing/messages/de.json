@@ -1179,7 +1179,10 @@
       "faq": {
         "eyebrow": "Gut zu wissen",
         "titleLine1": "Einige Antworten",
-        "titleLine2": "vor dem großen Tag"
+        "titleLine2": "vor dem großen Tag",
+        "childrenQuestion": "Sind Kinder eingeladen?",
+        "childrenAdultsOnly": "Damit alle Eltern den Abend in vollen Zügen genießen und bis zum Morgen feiern können, findet unsere Hochzeit ohne Kinder statt. Genießen Sie diese Zeit ganz für sich.",
+        "childrenWelcome": "Ja, Ihre Kinder sind herzlich willkommen. Bitte geben Sie sie in Ihrer Antwort an, damit wir alles für sie vorbereiten können."
       },
       "rsvp": {
         "deadlineEyebrow": "Wir bitten um Antwort bis zum {deadline}",

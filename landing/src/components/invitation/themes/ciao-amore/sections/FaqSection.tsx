@@ -21,7 +21,11 @@ export function FaqSection({ data }: { data: InvitationData }) {
   const t = useTranslations("Invitation.ciaoAmore.faq");
   // The children question is derived from `settings.adults_only` rather than
   // written by hand, so the answer can never contradict the RSVP form above.
-  const faq = withChildrenPolicyFaq(data);
+  const faq = withChildrenPolicyFaq(data, {
+    question: t("childrenQuestion"),
+    adultsOnlyAnswer: t("childrenAdultsOnly"),
+    childrenWelcomeAnswer: t("childrenWelcome"),
+  });
   const baseId = useId();
   const [openIndex, setOpenIndex] = useState<number | null>(0);
 

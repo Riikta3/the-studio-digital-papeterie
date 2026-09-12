@@ -29,23 +29,20 @@ import type { FaqEntry, InvitationData } from "./types";
  *  rather than sitting next to it. */
 export const CHILDREN_FAQ_ID = "children-policy";
 
-const ADULTS_ONLY: FaqEntry = {
-  id: CHILDREN_FAQ_ID,
-  question: "Les enfants sont-ils conviés ?",
-  answer:
-    "Afin que tous les parents puissent profiter pleinement de la soirée et faire la fête jusqu'au bout de la nuit, notre mariage se déroulera entre adultes. Profitez de cette parenthèse rien que pour vous.",
-};
-
 /**
- * Children are welcome. Kept short and factual on purpose: the couple never
- * wrote this sentence, so it states the policy and nothing more — no promise
- * of a kids' table, a babysitter or a children's menu that may not exist.
+ * The wording for the derived entry, supplied by the caller.
+ *
+ * The question and both answers used to be French string literals in this
+ * file, so the one FAQ entry the product writes itself stayed French on an
+ * invitation served in any of the other eight locales. They come from the
+ * theme's message catalogue now — this module still decides WHICH of the two
+ * answers applies, which is the part that must never disagree with the RSVP
+ * form.
  */
-const CHILDREN_WELCOME: FaqEntry = {
-  id: CHILDREN_FAQ_ID,
-  question: "Les enfants sont-ils conviés ?",
-  answer:
-    "Oui, vos enfants sont les bienvenus. Merci de les indiquer dans votre réponse afin que nous puissions tout prévoir pour eux.",
+export type ChildrenPolicyCopy = {
+  question: string;
+  adultsOnlyAnswer: string;
+  childrenWelcomeAnswer: string;
 };
 
 /**
@@ -55,7 +52,10 @@ const CHILDREN_WELCOME: FaqEntry = {
  * Precedence: a couple's own entry (matched by `id`) > the derived default.
  * The derived entry is appended last, after the copy the couple did write.
  */
-export function withChildrenPolicyFaq(data: InvitationData): FaqEntry[] {
+export function withChildrenPolicyFaq(
+  data: InvitationData,
+  copy: ChildrenPolicyCopy,
+): FaqEntry[] {
   const faq = data.faq ?? [];
 
   // The couple answered this question themselves — their wording wins, and
@@ -66,5 +66,12 @@ export function withChildrenPolicyFaq(data: InvitationData): FaqEntry[] {
   // children are allowed unless the couple ruled them out.
   const allowChildren = data.rsvp?.allowChildren !== false;
 
-  return [...faq, allowChildren ? CHILDREN_WELCOME : ADULTS_ONLY];
+  return [
+    ...faq,
+    {
+      id: CHILDREN_FAQ_ID,
+      question: copy.question,
+      answer: allowChildren ? copy.childrenWelcomeAnswer : copy.adultsOnlyAnswer,
+    },
+  ];
 }

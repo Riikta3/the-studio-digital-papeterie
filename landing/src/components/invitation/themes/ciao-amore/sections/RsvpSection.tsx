@@ -3,7 +3,7 @@
 import { type FormEvent, useState } from "react";
 
 import { type RsvpCompanion, submitRsvp } from "@/actions/invitation-submissions";
-import { useTranslations } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 
 import { formatFrenchDate } from "../../format";
 import type { InvitationData } from "../../types";
@@ -30,6 +30,7 @@ const MAX_CHILDREN = 4;
 
 export function RsvpSection({ data }: { data: InvitationData }) {
   const t = useTranslations("Invitation.ciaoAmore.rsvp");
+  const locale = useLocale();
   const [sent, setSent] = useState(false);
   const [pending, setPending] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -40,7 +41,7 @@ export function RsvpSection({ data }: { data: InvitationData }) {
   const [attending, setAttending] = useState<boolean | null>(null);
 
   const rsvp = data.rsvp;
-  const deadline = formatFrenchDate(data.event.rsvpDeadline);
+  const deadline = formatFrenchDate(data.event.rsvpDeadline, { locale });
   const weddingId = data.weddingId;
 
   // `settings.adults_only` reaches the theme inverted as `allowChildren`

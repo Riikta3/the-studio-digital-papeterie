@@ -1178,7 +1178,10 @@
       "faq": {
         "eyebrow": "Bom saber",
         "titleLine1": "Algumas respostas",
-        "titleLine2": "antes do grande dia"
+        "titleLine2": "antes do grande dia",
+        "childrenQuestion": "As crianças estão convidadas?",
+        "childrenAdultsOnly": "Para que todos os pais possam aproveitar plenamente a noite e dançar até de madrugada, o nosso casamento será apenas para adultos. Aproveitem este momento só para si.",
+        "childrenWelcome": "Sim, os vossos filhos são bem-vindos. Indiquem-nos na vossa resposta para que possamos preparar tudo para eles."
       },
       "rsvp": {
         "deadlineEyebrow": "Agradecemos a sua resposta até {deadline}",

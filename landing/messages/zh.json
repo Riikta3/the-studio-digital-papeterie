@@ -1178,7 +1178,10 @@
       "faq": {
         "eyebrow": "温馨提示",
         "titleLine1": "大喜之日前",
-        "titleLine2": "的几点说明"
+        "titleLine2": "的几点说明",
+        "childrenQuestion": "孩子可以出席吗？",
+        "childrenAdultsOnly": "为了让所有父母都能尽情享受这个夜晚、畅舞至天明，我们的婚礼仅限成人出席。请好好享受这段属于您的时光。",
+        "childrenWelcome": "当然可以，欢迎您的孩子出席。请在回复中告知我们，以便为他们做好一切准备。"
       },
       "rsvp": {
         "deadlineEyebrow": "敬请于 {deadline} 前回复",

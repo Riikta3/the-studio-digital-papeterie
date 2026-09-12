@@ -1178,7 +1178,10 @@
       "faq": {
         "eyebrow": "Buono a sapersi",
         "titleLine1": "Qualche risposta",
-        "titleLine2": "prima del grande giorno"
+        "titleLine2": "prima del grande giorno",
+        "childrenQuestion": "I bambini sono invitati?",
+        "childrenAdultsOnly": "Perché tutti i genitori possano godersi appieno la serata e ballare fino all'alba, il nostro matrimonio sarà riservato agli adulti. Approfittate di questo momento tutto vostro.",
+        "childrenWelcome": "Sì, i vostri bambini sono i benvenuti. Segnalateli nella vostra risposta, così potremo preparare tutto per loro."
       },
       "rsvp": {
         "deadlineEyebrow": "Vi preghiamo di rispondere entro il {deadline}",

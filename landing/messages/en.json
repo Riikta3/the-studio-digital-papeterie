@@ -1392,7 +1392,10 @@
       "faq": {
         "eyebrow": "Good to know",
         "titleLine1": "A few answers",
-        "titleLine2": "before the big day"
+        "titleLine2": "before the big day",
+        "childrenQuestion": "Are children invited?",
+        "childrenAdultsOnly": "So that every parent can enjoy the evening and dance until dawn, our wedding will be an adults-only celebration. Do make the most of this time just for you.",
+        "childrenWelcome": "Yes, your children are very welcome. Please mention them in your reply so we can make everything ready for them."
       },
       "rsvp": {
         "deadlineEyebrow": "Kindly reply before {deadline}",

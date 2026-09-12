@@ -1179,7 +1179,10 @@
       "faq": {
         "eyebrow": "Bueno saberlo",
         "titleLine1": "Algunas respuestas",
-        "titleLine2": "antes del gran día"
+        "titleLine2": "antes del gran día",
+        "childrenQuestion": "¿Están invitados los niños?",
+        "childrenAdultsOnly": "Para que todos los padres puedan disfrutar plenamente de la velada y bailar hasta el amanecer, nuestra boda será solo para adultos. Aprovechen este momento para ustedes.",
+        "childrenWelcome": "Sí, sus niños son bienvenidos. Indíquenlos en su respuesta para que podamos prepararlo todo para ellos."
       },
       "rsvp": {
         "deadlineEyebrow": "Le agradecemos su respuesta antes del {deadline}",

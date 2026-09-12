@@ -1,4 +1,4 @@
-import { getTranslations } from "next-intl/server";
+import { getLocale, getTranslations } from "next-intl/server";
 
 import { formatFrenchWeekday } from "../../format";
 import type { InvitationData, ScheduleEntry, ScheduleIcon } from "../../types";
@@ -31,11 +31,13 @@ function iconClass(entry: ScheduleEntry) {
 
 export async function ScheduleSection({ data }: { data: InvitationData }) {
   const t = await getTranslations("Invitation.ciaoAmore.schedule");
+  const locale = await getLocale();
   const dayOne = (data.schedule ?? []).filter((entry) => entry.day === 1);
   if (dayOne.length === 0) return null;
 
   const dayLabel = formatFrenchWeekday(data.event.startsAt, {
     timeZone: data.event.timezone,
+    locale,
   });
 
   return (
