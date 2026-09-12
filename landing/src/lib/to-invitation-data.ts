@@ -294,6 +294,10 @@ export function toInvitationData(page: InvitationPageData): InvitationData {
 
     event: {
       startsAt,
+      // From the RSVP module, the only place a couple sets it. Themes format
+      // it themselves, so they get the ISO day rather than the label the
+      // dashboard also stores.
+      rsvpDeadline: mod.rsvpDeadline,
       timezone: "Europe/Paris",
     },
 
@@ -310,12 +314,14 @@ export function toInvitationData(page: InvitationPageData): InvitationData {
       venueIntro: mod.venue.description,
       staysIntro: mod.accommodation.description,
       playlistIntro: mod.playlist.description,
-      // The dashboard writes this already formatted in the couple's locale
-      // ("14 novembre 2026"), so it is printed, never parsed — see
-      // `ModuleContent.rsvpDeadlineLabel`.
-      rsvpNote: page.moduleContent.rsvpDeadlineLabel
-        ? `Merci de répondre avant le ${page.moduleContent.rsvpDeadlineLabel}.`
-        : undefined,
+      // Only for rows saved before the ISO deadline existed: those carry a
+      // pre-formatted label and nothing a theme can compute with, so it is
+      // printed as a note. With an ISO value the themes format it themselves
+      // from `event.rsvpDeadline`, and this stays out of their way.
+      rsvpNote:
+        !mod.rsvpDeadline && mod.rsvpDeadlineLabel
+          ? `Merci de répondre avant le ${mod.rsvpDeadlineLabel}.`
+          : undefined,
     },
 
     venue: {
@@ -355,6 +361,18 @@ export function toInvitationData(page: InvitationPageData): InvitationData {
           body: brunch.description ?? undefined,
         }
       : undefined,
+
+    // From the gift-list module, the only place a couple writes this. Absent
+    // when they wrote nothing, so a theme renders no gift section at all
+    // rather than one promising arrangements they never made.
+    gifts:
+      mod.giftList.description || mod.giftList.url
+        ? {
+            body: mod.giftList.description,
+            url: mod.giftList.url,
+            linkLabel: mod.giftList.label,
+          }
+        : undefined,
 
     dressCode: dressCodeBody
       ? {

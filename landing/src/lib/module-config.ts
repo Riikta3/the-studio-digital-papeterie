@@ -125,13 +125,19 @@ export type ModuleContent = {
   faq: { title?: string; subtitle?: string; description?: string; questions: FaqConfig[] };
   gallery: { images: string[] };
   /**
-   * The RSVP deadline, exactly as stored.
+   * The RSVP deadline as an ISO day ("2027-04-12"), when the couple set one.
    *
-   * Deliberately NOT parsed into a date. The dashboard writes it already
-   * formatted in the couple's own locale ("14 novembre 2026"), so there is no
-   * machine-readable value to recover — `new Date()` returns Invalid Date for
-   * the French form, which is why re-opening that screen loses the date. A
-   * theme prints this string; the real deadline belongs in a column.
+   * The dashboard used to save this *only* pre-formatted in its own locale
+   * ("14 novembre 2026"), which a theme could print but nothing could compute
+   * with — and which its own screen could not read back, so re-opening it lost
+   * the date. It now writes `rsvp_deadline_iso` beside the label.
+   */
+  rsvpDeadline?: string;
+  /**
+   * The same deadline as the couple's locale formatted it.
+   *
+   * Kept for rows written before the ISO value existed: those have a label and
+   * nothing else, and a theme can still print it.
    */
   rsvpDeadlineLabel?: string;
 };
@@ -223,9 +229,12 @@ export function readModuleConfigs(rows: ModuleConfigRow[]): ModuleContent {
         content.playlist = { description: str(config.description) };
         break;
 
-      case "rsvp":
+      case "rsvp": {
+        const iso = str(config.rsvp_deadline_iso);
+        content.rsvpDeadline = iso && /^\d{4}-\d{2}-\d{2}$/.test(iso) ? iso : undefined;
         content.rsvpDeadlineLabel = str(config.rsvp_deadline);
         break;
+      }
 
       case "timeline":
         content.timeline = list(config.events)

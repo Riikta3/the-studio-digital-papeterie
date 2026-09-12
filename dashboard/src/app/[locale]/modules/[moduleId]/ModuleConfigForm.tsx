@@ -271,6 +271,54 @@ function DressCodeForm({
   );
 }
 
+/** "2027-06-12" from a Date, read in the browser's own timezone. */
+function toIsoDay(date: Date): string {
+  const pad = (n: number) => String(n).padStart(2, "0");
+  return `${date.getFullYear()}-${pad(date.getMonth() + 1)}-${pad(date.getDate())}`;
+}
+
+/**
+ * The stored RSVP deadline, back as a Date.
+ *
+ * The deadline used to be saved *only* as a string already formatted in the
+ * couple's locale ("14 novembre 2026"), and read back with `new Date(raw)` —
+ * which returns Invalid Date for the French form. Re-opening this screen
+ * therefore showed an empty field, and saving again wiped the deadline the
+ * couple had set.
+ *
+ * It is stored as `rsvp_deadline_iso` now. This still accepts the old value so
+ * a row written before that keeps working: an ISO day parses directly, and a
+ * French one is matched by month name rather than left to `Date`. Other
+ * locales fall through to undefined, which is the behaviour they already had.
+ */
+const FRENCH_MONTHS = [
+  "janvier", "février", "mars", "avril", "mai", "juin",
+  "juillet", "août", "septembre", "octobre", "novembre", "décembre",
+];
+
+function parseDeadline(raw: string | undefined): Date | undefined {
+  if (!raw) return undefined;
+
+  const iso = raw.match(/^(\d{4})-(\d{2})-(\d{2})$/);
+  if (iso) {
+    // Built from parts: `new Date("2027-06-12")` is UTC midnight, which is the
+    // previous day west of Greenwich.
+    return new Date(Number(iso[1]), Number(iso[2]) - 1, Number(iso[3]));
+  }
+
+  const french = raw
+    .trim()
+    .toLowerCase()
+    .match(/^(\d{1,2})(?:er)?\s+([a-zéûà]+)\s+(\d{4})$/);
+  if (french) {
+    const month = FRENCH_MONTHS.indexOf(french[2]);
+    if (month >= 0) return new Date(Number(french[3]), month, Number(french[1]));
+  }
+
+  const parsed = new Date(raw);
+  return Number.isNaN(parsed.getTime()) ? undefined : parsed;
+}
+
 // --- RSVP ---
 function RsvpForm({
   config,
@@ -284,28 +332,30 @@ function RsvpForm({
   const t = useTranslations("Modules");
   const locale = useLocale();
   const [saving, setSaving] = useState(false);
-  const [deadline, setDeadline] = useState<Date | undefined>(() => {
-    const raw = str(config?.rsvp_deadline);
-    if (!raw) return undefined;
-    const d = new Date(raw);
-    return isNaN(d.getTime()) ? undefined : d;
+  const [deadline, setDeadline] = useState<Date | undefined>(() =>
+    parseDeadline(str(config?.rsvp_deadline)),
+  );
+
+  // Both keys are sent: `rsvp_deadline_iso` is the value, and
+  // `rsvp_deadline` stays for rows and readers that predate it.
+  const payload = (date: Date | undefined) => ({
+    rsvp_deadline_iso: date ? toIsoDay(date) : "",
+    rsvp_deadline: date
+      ? date.toLocaleDateString(locale, { day: "numeric", month: "long", year: "numeric" })
+      : "",
   });
 
   useEffect(() => {
-    const formatted = deadline
-      ? deadline.toLocaleDateString(locale, { day: "numeric", month: "long", year: "numeric" })
-      : "";
-    onPreview?.({ rsvp_deadline: formatted });
+    onPreview?.(payload(deadline));
+    // `payload` closes over `locale` only, and is recreated each render.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [deadline, onPreview, locale]);
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
     setSaving(true);
     try {
-      const formatted = deadline
-        ? deadline.toLocaleDateString(locale, { day: "numeric", month: "long", year: "numeric" })
-        : "";
-      await onSave({ rsvp_deadline: formatted });
+      await onSave(payload(deadline));
     } finally {
       setSaving(false);
     }
