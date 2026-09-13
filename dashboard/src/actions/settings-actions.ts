@@ -92,7 +92,33 @@ export async function updateSettings(formData: FormData) {
   const updates: Record<string, string | null> = {};
 
   if (wedding_code !== null) {
-    updates.wedding_code = (wedding_code as string).trim() || null;
+    // Upper-cased on the way in, like `guest_code` below. Guests are told the
+    // code in capitals and `resolve_wedding_code` compares with
+    // `upper(trim(...))`, so storing it as typed changed nothing for them —
+    // but `settings_wedding_code_unique` indexes the upper-cased form, so two
+    // couples picking the same word in different cases would collide on a
+    // constraint neither of them can see. Storing the compared form keeps
+    // what is displayed, what is matched and what is constrained identical.
+    const trimmed = (wedding_code as string).trim();
+
+    /*
+     * Four characters minimum, because `resolve_wedding_code` refuses to even
+     * look up anything shorter — it returns early to keep a 1-to-3 character
+     * code from matching half the table under a brute-force sweep.
+     *
+     * Without this check the couple could save a code the entry screen would
+     * never accept: it would show as their active code in the dashboard while
+     * every guest who typed it was told it was wrong. Refused here, where we
+     * can explain why, rather than silently.
+     */
+    if (trimmed && trimmed.length < 4) {
+      return {
+        success: false,
+        error: "Le code doit contenir au moins 4 caractères.",
+      };
+    }
+
+    updates.wedding_code = trimmed.toUpperCase() || null;
   }
   if (guest_code !== null) {
     updates.guest_code = (guest_code as string).trim()
@@ -116,6 +142,17 @@ export async function updateSettings(formData: FormData) {
     .eq("wedding_id", wedding.id);
 
   if (error) {
+    // 23505 is `settings_wedding_code_unique`: a code belongs to exactly one
+    // wedding, so a guest typing it can only ever reach one couple. Raw, the
+    // message names a Postgres index — say what the couple has to do instead.
+    if (error.code === "23505") {
+      return {
+        success: false,
+        error:
+          "Ce code est déjà utilisé par un autre mariage. Choisissez-en un autre.",
+      };
+    }
+
     return { success: false, error: error.message };
   }
 
