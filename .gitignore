@@ -81,3 +81,7 @@ The Studio Papeterie Digital/
 /belle_rive/
 /carte_blanche/
 /ciao_amore/
+.env*
+
+# Fichiers d'import Vercel : contiennent les vraies clés, jamais commités.
+vercel-env/

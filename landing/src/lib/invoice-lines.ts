@@ -108,13 +108,29 @@ export function buildInvoiceLines(
     }
   }
 
-  const languages = items.languages ?? [];
-  if (languages.length > 0) {
+  /*
+   * `items.languages` is written default-first at checkout, and the couple's
+   * own language is included in every plan — only the ones after it are paid
+   * extras. This billed the whole list, so a French couple who added English
+   * and German was invoiced 45 € of languages against 30 € actually charged.
+   *
+   * The mismatch was not a rounding detail: `issueInvoiceForPayment` refuses
+   * to issue when the lines do not reconcile with the charge, so NO invoice
+   * was produced at all — the sale went through and the customer received
+   * nothing, with only `[INVOICE_TOTAL_MISMATCH]` in the logs to say why.
+   *
+   * Mirrors `computeOrderTotal`, which already skips the first entry for the
+   * same reason. Both read the same list, so they must count it the same way.
+   */
+  const extraLanguages = (items.languages ?? []).slice(1);
+  if (extraLanguages.length > 0) {
     lines.push({
-      label: `Langues supplémentaires (${languages.join(", ").toUpperCase()})`,
-      quantity: languages.length,
+      label: `Langues supplémentaires (${extraLanguages
+        .join(", ")
+        .toUpperCase()})`,
+      quantity: extraLanguages.length,
       unitPrice: LANGUAGE_PRICE,
-      total: languages.length * LANGUAGE_PRICE,
+      total: extraLanguages.length * LANGUAGE_PRICE,
     });
   }
 

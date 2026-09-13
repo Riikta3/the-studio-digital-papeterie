@@ -39,3 +39,6 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# Le modèle est versionné : il ne contient aucune valeur réelle.
+!.env.example
