@@ -242,6 +242,36 @@ export async function createWedding(data: CreateWeddingData) {
 
   const weddingId = weddingData.id;
 
+  /*
+   * Draw a code no other wedding is already using.
+   *
+   * The random suffix makes a collision unlikely; this makes it impossible in
+   * practice. `settings.wedding_code` has no unique constraint — adding one
+   * would need the existing duplicates resolved first — so the check lives
+   * here, where a collision can still be turned into another draw rather than
+   * into a failed provisioning after payment.
+   */
+  let weddingCode = generateWeddingCode(data.firstName, data.partnerName);
+
+  for (let i = 0; i < 5; i++) {
+    const { data: taken } = await supabaseAdmin
+      .from("settings")
+      .select("id")
+      .eq("wedding_code", weddingCode)
+      .maybeSingle();
+
+    if (!taken) break;
+
+    weddingCode = generateWeddingCode(data.firstName, data.partnerName);
+
+    if (i === 4) {
+      // Five draws collided, which should not happen. A timestamp cannot
+      // collide with a code minted at any other moment.
+      weddingCode = `${weddingCode}-${Date.now().toString(36).slice(-4).toUpperCase()}`;
+      console.warn(`[CODE_FALLBACK] falling back to ${weddingCode}.`);
+    }
+  }
+
   // 3. Create Settings
   const { error: settingsError } = await supabaseAdmin.from("settings").insert({
     wedding_id: weddingId,
@@ -250,7 +280,7 @@ export async function createWedding(data: CreateWeddingData) {
     is_module_schedule_enabled: data.modules.includes("timeline"),
     is_module_accommodation_enabled: data.modules.includes("accommodation"),
     theme_config: { themeId: data.themeId },
-    wedding_code: generateWeddingCode(data.firstName, data.partnerName),
+    wedding_code: weddingCode,
     adults_only: data.adultsOnly ?? false,
   });
 
@@ -286,6 +316,27 @@ export async function createWedding(data: CreateWeddingData) {
       attempts++;
       finalSlug = `${baseSlug}-${Math.floor(1000 + Math.random() * 9000)}`;
     }
+  }
+
+  /*
+   * The loop can run out, and used to fall through anyway.
+   *
+   * `sites.slug` is `text unique`, so the insert below would then be refused
+   * by Postgres and provisioning would fail with "Failed to create site" — on
+   * a payment already taken. Vanishingly unlikely (the base slug carries four
+   * random characters and each retry adds four more digits), but the cost of
+   * being wrong is a charged customer with no site, so it is worth the two
+   * lines.
+   *
+   * A timestamp rather than another random draw: it cannot collide with a
+   * slug minted at any other moment, which is exactly the guarantee the
+   * retries were failing to give.
+   */
+  if (!isUnique) {
+    finalSlug = `${baseSlug}-${Date.now().toString(36)}`;
+    console.warn(
+      `[SLUG_FALLBACK] ${baseSlug} collided five times; using ${finalSlug}.`,
+    );
   }
 
   const { data: siteData, error: siteError } = await supabaseAdmin
@@ -531,14 +582,41 @@ async function generateLoginLink(
   return linkData?.properties?.action_link;
 }
 
+/**
+ * The code a guest types to reach their household on the RSVP screen.
+ *
+ * This was `TARI&CHAR2026` — four letters of each first name and the year,
+ * and nothing else. Entirely deterministic, so every "Tarik & Charlotte"
+ * marrying in 2026 got the same one, and `settings.wedding_code` carries no
+ * unique constraint to catch it. Four of the five weddings in production
+ * shared a single code.
+ *
+ * That is not cosmetic: `resolve_wedding_code` matches on the code and takes
+ * `limit 1`, so a guest typing a shared code reaches whichever wedding the
+ * database returns first — someone else's guest list, and their own RSVP
+ * filed against a stranger's wedding.
+ *
+ * Two random characters make the code unique in practice without making it
+ * unreadable: the couple reads it aloud or prints it, so it stays short and
+ * keeps the names that make it recognisable. `checkCodeIsFree` below is what
+ * actually guarantees it.
+ */
 function generateWeddingCode(n1: string, n2: string): string {
   const clean = (s: string) =>
     s
       .replace(/[^a-zA-Z]/g, "")
       .toUpperCase()
       .substring(0, 4);
+
+  // No I, O, 0 or 1: the code is read off a screen and typed back in.
+  const alphabet = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789";
+  const suffix = Array.from(
+    { length: 2 },
+    () => alphabet[Math.floor(Math.random() * alphabet.length)],
+  ).join("");
+
   const year = new Date().getFullYear();
-  return `${clean(n1)}&${clean(n2)}${year}`;
+  return `${clean(n1)}&${clean(n2)}${year}-${suffix}`;
 }
 
 function generateSlug(n1: string, n2: string): string {
