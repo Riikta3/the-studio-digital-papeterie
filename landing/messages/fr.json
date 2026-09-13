@@ -1198,7 +1198,7 @@
     "paymentError": "Une erreur est survenue.",
     "loadingPayment": "Initialisation du paiement…",
     "paymentSuccessTitle": "Paiement confirmé !",
-    "paymentSuccessBody": "Nous créons votre espace. Vous allez être redirigé automatiquement.",
+    "paymentSuccessBody": "Nous créons votre espace. Cela ne prend que quelques secondes.",
     "creatingAccount": "Création de votre espace…",
     "magicLinkNote": "Vous recevrez un lien de connexion par email — aucun mot de passe à retenir.",
     "provisionFailedTitle": "Paiement reçu, création en attente",
@@ -1213,7 +1213,9 @@
     "orderCompleteTitle": "Votre commande est finalisée",
     "orderCompleteBody": "Votre invitation a déjà été créée. Retrouvez-la dans votre espace pour la personnaliser.",
     "orderCompleteCta": "Accéder à mon espace",
-    "orderCompleteHint": "Vous souhaitez une seconde invitation ? Contactez-nous, nous la créerons pour vous."
+    "orderCompleteHint": "Vous souhaitez une seconde invitation ? Contactez-nous, nous la créerons pour vous.",
+    "spaceReadyBody": "Votre espace est prêt. Retrouvez votre invitation et personnalisez-la dès maintenant.",
+    "spaceReadyHint": "Ce lien vous connecte sans mot de passe. Nous vous l'avons aussi envoyé par email."
   },
   "Legal": {
     "backHome": "Retour à l’accueil",

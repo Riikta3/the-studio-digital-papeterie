@@ -303,6 +303,15 @@ export default function StudioCheckoutPage() {
   const [isProvisioning, setIsProvisioning] = useState(false);
   const [provisionError, setProvisionError] = useState<string | null>(null);
 
+  /**
+   * The couple's sign-in link, once their wedding exists.
+   *
+   * Set instead of being followed immediately, so the success screen stays on
+   * screen until they choose to leave it. Single-use, and also delivered by
+   * email, so losing this tab is not losing the account.
+   */
+  const [loginLink, setLoginLink] = useState<string | null>(null);
+
   // Mirrors paymentIntentId for the repricing effect below, which must not
   // re-run when the id changes (that would loop) yet still needs the current
   // value. Reading the state variable there captured the initial null and
@@ -369,7 +378,23 @@ export default function StudioCheckoutPage() {
        */
       intentIdRef.current = null;
 
-      window.location.href = result.loginLink;
+      /*
+       * Held for a button rather than followed straight away.
+       *
+       * This used to be `window.location.href = result.loginLink`, which took
+       * the couple out of the funnel the instant provisioning returned — a
+       * success screen nobody had time to read, then a dashboard. Two things
+       * were wrong with it: the confirmation of a payment they had just made
+       * flashed past, and any browser that delayed the navigation left them
+       * looking at a spinner with no way forward.
+       *
+       * The link is single-use, so it is kept in state and spent only when
+       * they click. Nothing is lost if they never do: the same link was also
+       * emailed to them by `createWedding`, and the login page can now send a
+       * fresh one.
+       */
+      setLoginLink(result.loginLink);
+      setIsProvisioning(false);
     } else if (!result.success) {
       setProvisionError(result.error ?? t("paymentError"));
       setIsProvisioning(false);
@@ -474,7 +499,21 @@ export default function StudioCheckoutPage() {
   // raw error underneath and a retry button labelled "Traitement…", and it
   // never showed the payment reference — so a customer who could not recover
   // had nothing to quote to support either.
-  if (isPaymentSuccess) {
+  /*
+   * The post-payment screen, for both ways a payment can settle.
+   *
+   * `payment_success` is only ever set by Stripe's `return_url`, which means
+   * redirect-based methods — Klarna, iDEAL, Bancontact. A card settles inline
+   * and never leaves the page, so that flag stays false for most orders.
+   *
+   * It did not show while the browser was being sent straight to the
+   * dashboard: the redirect fired the moment provisioning returned and nobody
+   * saw what was underneath. Now that the couple leaves on their own click,
+   * this branch has to own the card path too — otherwise a card payment falls
+   * through to the "order complete" screen below, which has no sign-in link
+   * to offer because it is written for someone arriving back later.
+   */
+  if (isPaymentSuccess || isProvisioning || loginLink || provisionError) {
     const reference = intentIdFromUrl ?? paymentIntentId;
 
     if (provisionError) {
@@ -571,13 +610,32 @@ export default function StudioCheckoutPage() {
               {t("paymentSuccessTitle")}
             </h1>
             <p className="mx-auto max-w-xs font-body text-sm text-studio-violet/60">
-              {t("paymentSuccessBody")}
+              {loginLink ? t("spaceReadyBody") : t("paymentSuccessBody")}
             </p>
           </div>
-          <div className="flex items-center gap-2 font-body text-sm text-studio-violet/50">
-            <Loader2 className="h-4 w-4 animate-spin" />
-            {t("creatingAccount")}
-          </div>
+
+          {/* The couple leaves on their own click. While the wedding is still
+              being built there is nothing to click yet, so the spinner stands
+              in — same screen, no jump. */}
+          {loginLink ? (
+            <a
+              href={loginLink}
+              className="flex w-full max-w-xs items-center justify-center gap-2 rounded-full bg-studio-violet px-6 py-3.5 font-body text-sm font-semibold text-white transition-colors hover:bg-studio-violet/90"
+            >
+              {t("orderCompleteCta")}
+            </a>
+          ) : (
+            <div className="flex items-center gap-2 font-body text-sm text-studio-violet/50">
+              <Loader2 className="h-4 w-4 animate-spin" />
+              {t("creatingAccount")}
+            </div>
+          )}
+
+          {loginLink && (
+            <p className="mx-auto max-w-xs font-body text-xs leading-relaxed text-studio-violet/50">
+              {t("spaceReadyHint")}
+            </p>
+          )}
         </div>
       </StepTransition>
     );

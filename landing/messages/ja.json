@@ -849,7 +849,7 @@
     "paymentError": "エラーが発生しました。",
     "loadingPayment": "支払いを準備しています…",
     "paymentSuccessTitle": "お支払いが完了しました！",
-    "paymentSuccessBody": "スペースを作成しています。自動的に移動します。",
+    "paymentSuccessBody": "スペースを作成しています。数秒で完了します。",
     "creatingAccount": "スペースを作成中…",
     "magicLinkNote": "ログインリンクをメールでお送りします — パスワードは不要です。",
     "provisionFailedTitle": "お支払い完了、セットアップ保留中",
@@ -864,7 +864,9 @@
     "orderCompleteTitle": "ご注文が完了しました",
     "orderCompleteBody": "招待状は作成済みです。マイスペースからカスタマイズしてください。",
     "orderCompleteCta": "マイスペースへ",
-    "orderCompleteHint": "2通目の招待状をご希望ですか？お問い合わせいただければお作りします。"
+    "orderCompleteHint": "2通目の招待状をご希望ですか？お問い合わせいただければお作りします。",
+    "spaceReadyBody": "スペースの準備ができました。招待状を開いてカスタマイズを始めましょう。",
+    "spaceReadyHint": "このリンクはパスワードなしでログインできます。メールでもお送りしています。"
   },
   "Legal": {
     "backHome": "ホームに戻る",

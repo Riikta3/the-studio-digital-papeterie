@@ -849,7 +849,7 @@
     "paymentError": "Ocorreu um erro.",
     "loadingPayment": "A inicializar o pagamento…",
     "paymentSuccessTitle": "Pagamento confirmado!",
-    "paymentSuccessBody": "Estamos a criar o vosso espaço. Serão redirecionados automaticamente.",
+    "paymentSuccessBody": "Estamos a criar o seu espaço. Demora apenas alguns segundos.",
     "creatingAccount": "A criar o vosso espaço…",
     "magicLinkNote": "Receberão um link de acesso por email — sem palavra-passe para memorizar.",
     "provisionFailedTitle": "Pagamento recebido, criação pendente",
@@ -864,7 +864,9 @@
     "orderCompleteTitle": "A sua encomenda está concluída",
     "orderCompleteBody": "O seu convite já foi criado. Aceda ao seu espaço para o personalizar.",
     "orderCompleteCta": "Aceder ao meu espaço",
-    "orderCompleteHint": "Quer um segundo convite? Contacte-nos e criamo-lo para si."
+    "orderCompleteHint": "Quer um segundo convite? Contacte-nos e criamo-lo para si.",
+    "spaceReadyBody": "O seu espaço está pronto. Abra o seu convite e comece a personalizá-lo.",
+    "spaceReadyHint": "Este link liga-o sem palavra-passe. Também lho enviámos por email."
   },
   "Legal": {
     "backHome": "Voltar ao início",

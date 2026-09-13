@@ -850,7 +850,7 @@
     "paymentError": "Se ha producido un error.",
     "loadingPayment": "Inicializando el pago…",
     "paymentSuccessTitle": "¡Pago confirmado!",
-    "paymentSuccessBody": "Estamos creando vuestro espacio. Seréis redirigidos automáticamente.",
+    "paymentSuccessBody": "Estamos creando su espacio. Solo tarda unos segundos.",
     "creatingAccount": "Creando vuestro espacio…",
     "magicLinkNote": "Recibiréis un enlace de acceso por email — sin contraseña que recordar.",
     "provisionFailedTitle": "Pago recibido, configuración pendiente",
@@ -865,7 +865,9 @@
     "orderCompleteTitle": "Tu pedido está finalizado",
     "orderCompleteBody": "Tu invitación ya ha sido creada. Accede a tu espacio para personalizarla.",
     "orderCompleteCta": "Ir a mi espacio",
-    "orderCompleteHint": "¿Quieres una segunda invitación? Escríbenos y la crearemos para ti."
+    "orderCompleteHint": "¿Quieres una segunda invitación? Escríbenos y la crearemos para ti.",
+    "spaceReadyBody": "Su espacio está listo. Abra su invitación y empiece a personalizarla.",
+    "spaceReadyHint": "Este enlace le conecta sin contraseña. También se lo hemos enviado por correo."
   },
   "Legal": {
     "backHome": "Volver al inicio",

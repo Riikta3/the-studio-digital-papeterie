@@ -1063,7 +1063,7 @@
     "paymentError": "An error occurred.",
     "loadingPayment": "Initializing payment…",
     "paymentSuccessTitle": "Payment confirmed!",
-    "paymentSuccessBody": "We are creating your space. You will be redirected automatically.",
+    "paymentSuccessBody": "We are building your space. This only takes a few seconds.",
     "creatingAccount": "Creating your space…",
     "magicLinkNote": "You will receive a sign-in link by email — no password to remember.",
     "provisionFailedTitle": "Payment received, setup pending",
@@ -1078,7 +1078,9 @@
     "orderCompleteTitle": "Your order is complete",
     "orderCompleteBody": "Your invitation has already been created. Open your space to personalise it.",
     "orderCompleteCta": "Go to my space",
-    "orderCompleteHint": "Need a second invitation? Get in touch and we'll set it up for you."
+    "orderCompleteHint": "Need a second invitation? Get in touch and we'll set it up for you.",
+    "spaceReadyBody": "Your space is ready. Open your invitation and start personalising it.",
+    "spaceReadyHint": "This link signs you in without a password. We have emailed it to you as well."
   },
   "Legal": {
     "backHome": "Back to home",

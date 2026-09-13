@@ -101,9 +101,8 @@ function StudioStepsLayoutInner({
      * it, so the checkout drives that path from `provision()` alone and this
      * is the only thing that tells the layout an order just completed.
      *
-     * The checkout has its own screen for this state (`completedAt && !plan`),
-     * and it is the right place for it: it offers a way into the dashboard
-     * rather than restarting the funnel.
+     * The checkout owns this state instead, and shows the couple their
+     * sign-in button rather than restarting the funnel.
      */
     if (completedAt && !plan) return;
 
