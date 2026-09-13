@@ -25,6 +25,52 @@ import { supabaseAdmin } from "@/lib/supabase-admin";
 
 const webhookSecret = process.env.STRIPE_WEBHOOK_SECRET;
 
+/**
+ * How long the recovery net waits before deciding the browser gave up.
+ *
+ * Provisioning takes roughly five seconds (account, wedding, settings, site,
+ * modules, purchases, then the intent is stamped), and Stripe can deliver
+ * `payment_intent.succeeded` before any of it has landed. Ten seconds clears
+ * a normal run with room to spare while still recovering a dead tab inside a
+ * single delivery.
+ *
+ * Well within Stripe's timeout, which is 30s per attempt.
+ */
+const RECOVERY_GRACE_MS = 10_000;
+
+/**
+ * Whether this order looks provisioned — waiting out the browser first.
+ *
+ * Returns true as soon as a wedding exists, so a checkout that finished long
+ * ago (a Stripe redelivery, days later) costs nothing. It only pays the grace
+ * period when the wedding is genuinely absent, which is either a run still in
+ * flight or a real failure — and telling those two apart is the whole point.
+ */
+async function hasWedding(
+  email: string,
+  user: { id: string } | undefined,
+): Promise<boolean> {
+  const lookup = async (id: string | undefined) => {
+    if (!id) return false;
+    const { data } = await supabaseAdmin
+      .from("weddings")
+      .select("id")
+      .eq("user_id", id)
+      .limit(1)
+      .maybeSingle();
+    return Boolean(data);
+  };
+
+  if (await lookup(user?.id)) return true;
+
+  await new Promise((resolve) => setTimeout(resolve, RECOVERY_GRACE_MS));
+
+  // Re-resolve the account too: on a brand-new customer it did not exist when
+  // this event arrived, and the browser will have created it during the wait.
+  const settled = user ?? (await findUserByEmail(email));
+  return lookup(settled?.id);
+}
+
 export async function POST(req: Request) {
   if (!webhookSecret) {
     console.error("Missing STRIPE_WEBHOOK_SECRET in environment");
@@ -92,11 +138,46 @@ export async function POST(req: Request) {
         if (email) {
           let user = await findUserByEmail(email);
 
-          // Safety net. Provisioning normally runs in the customer's browser
-          // right after payment; if their tab died in those two seconds the
-          // charge settled and nothing was created. This used to only warn.
-          // Stripe retries this delivery, so the order still gets fulfilled.
-          if (!user) {
+          /*
+           * Safety net. Provisioning normally runs in the customer's browser
+           * right after payment; if their tab died in those two seconds the
+           * charge settled and nothing was created. This used to only warn.
+           * Stripe retries this delivery, so the order still gets fulfilled.
+           *
+           * ── Why it waits, and why it asks about the wedding ──────────────
+           * Stripe delivered this event one second BEFORE the browser had
+           * finished writing the wedding it had already started. The net fired
+           * on a healthy checkout and built a second, identical wedding — and
+           * the dashboard, which resolves the couple's wedding with
+           * `.single()`, then 500'd on every page.
+           *
+           * Two changes, because a rescue has to be sure the patient is
+           * actually down:
+           *
+           * 1. It waits. Provisioning takes ~5s end to end, so a verdict
+           *    reached at t+0 is meaningless. `GRACE_MS` buys the browser the
+           *    time it needs; a genuinely dead tab is still dead afterwards
+           *    and gets rescued one delivery later.
+           *
+           * 2. It asks whether the WEDDING exists, not the user. The account
+           *    is created in the first second of provisioning and the wedding
+           *    four seconds later, so "user missing" is true for a fraction of
+           *    a healthy run while "wedding missing" tracks the thing we would
+           *    actually be recovering.
+           *
+           * The unique index on `weddings(user_id)` is what makes a mistake
+           * here harmless rather than expensive: should both paths still run,
+           * the loser adopts the winner's wedding instead of duplicating it.
+           * This grace period keeps us from relying on that every time.
+           */
+          const provisioned = await hasWedding(email, user);
+
+          // The account may have been created by the browser while we waited,
+          // so the lookup above is stale either way. The billing upsert and
+          // the invoice below both need the real user.
+          if (!user) user = await findUserByEmail(email);
+
+          if (!provisioned) {
             console.warn(
               `⚠️ Paid but unprovisioned, recovering: ${email} (${paymentIntent.id})`,
             );

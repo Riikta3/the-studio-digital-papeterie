@@ -29,13 +29,40 @@ export async function requireWedding() {
   const { data: { user } } = await supabase.auth.getUser();
   if (!user) throw new Error("Unauthorized");
 
-  const { data: wedding } = await supabase
+  const { data: wedding, error } = await supabase
     .from("weddings")
     .select("id")
     .eq("user_id", user.id)
     .single();
 
-  if (!wedding) throw new Error("Wedding not found");
+  /*
+   * `.single()` fails two different ways and used to report both as "Wedding
+   * not found", which sent us looking for a missing row when the account in
+   * fact owned two — a checkout provisioned twice by a race between the
+   * browser and the Stripe webhook. Every dashboard page 500'd, and the error
+   * pointed the wrong way for the whole investigation.
+   *
+   * PGRST116 covers "no rows" and "more than one row" alike, so the count is
+   * what tells them apart. A duplicate is now unreachable — `weddings` has a
+   * unique index on `user_id` — but rows predating it still exist, and a v2
+   * that allows several weddings per account will land here first.
+   */
+  if (!wedding) {
+    const { count } = await supabase
+      .from("weddings")
+      .select("id", { count: "exact", head: true })
+      .eq("user_id", user.id);
+
+    if ((count ?? 0) > 1) {
+      throw new Error(
+        `Account ${user.id} owns ${count} weddings; this dashboard resolves ` +
+          `exactly one. Likely a double-provisioned checkout — see the vault ` +
+          `note "Provisioning et Facturation".`,
+      );
+    }
+
+    throw new Error(error ? `Wedding not found: ${error.message}` : "Wedding not found");
+  }
 
   return { supabase, user, weddingId: wedding.id as string };
 }

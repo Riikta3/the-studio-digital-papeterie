@@ -236,6 +236,51 @@ export async function createWedding(data: CreateWeddingData) {
     .single();
 
   if (weddingError || !weddingData) {
+    /*
+     * 23505 on `weddings_one_per_user` means the other provisioning path got
+     * there first — this exact order is already being built, or is built.
+     *
+     * Two paths provision a paid order: the buyer's browser, and the webhook's
+     * safety net for a browser that died. Both check first whether the work is
+     * already done, and both checks are reads that can land before the other
+     * path's write. That is how one checkout produced two identical weddings
+     * 4.4 seconds apart, and left the dashboard 500ing because
+     * `requireWedding()` resolves with `.single()`.
+     *
+     * The unique index is what actually closes that window, and this is the
+     * losing side of it: adopt the wedding the winner created rather than
+     * reporting a failure for an order that did go through. Nothing below has
+     * run yet, so there is nothing to unwind — the winner seeds the site, the
+     * settings and the purchases, and stamps the intent.
+     *
+     * Deliberately no welcome email and no refund here: the winner sends the
+     * one, and the couple is charged once for the one wedding they now own.
+     */
+    if (weddingError?.code === "23505") {
+      const { data: winner } = await supabaseAdmin
+        .from("weddings")
+        .select("id")
+        .eq("user_id", userId)
+        .maybeSingle();
+
+      if (winner) {
+        console.log(
+          `\u267b\ufe0f Provisioning race lost for intent ${data.paymentIntentId}; ` +
+            `adopting wedding ${winner.id}.`,
+        );
+
+        const link = await generateLoginLink(data.email, undefined, data.locale);
+
+        return {
+          success: true,
+          weddingId: winner.id,
+          email: data.email,
+          loginLink: link,
+          alreadyProvisioned: true,
+        };
+      }
+    }
+
     console.error("Wedding Creation Error:", weddingError);
     return { success: false, error: "Failed to create wedding entity." };
   }
@@ -245,11 +290,10 @@ export async function createWedding(data: CreateWeddingData) {
   /*
    * Draw a code no other wedding is already using.
    *
-   * The random suffix makes a collision unlikely; this makes it impossible in
-   * practice. `settings.wedding_code` has no unique constraint — adding one
-   * would need the existing duplicates resolved first — so the check lives
-   * here, where a collision can still be turned into another draw rather than
-   * into a failed provisioning after payment.
+   * The random suffix makes a collision unlikely, and
+   * `settings_wedding_code_unique` makes one impossible. This check is what
+   * keeps that constraint from being felt: it turns a collision into another
+   * draw here, rather than into a failed insert after the couple has paid.
    */
   let weddingCode = generateWeddingCode(data.firstName, data.partnerName);
 
