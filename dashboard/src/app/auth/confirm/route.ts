@@ -95,9 +95,28 @@ export async function GET(request: NextRequest) {
     return NextResponse.redirect(redirectTo);
   }
 
-  // Auth failed -> Redirect to login with generic error
-  const redirectTo = request.nextUrl.clone();
-  redirectTo.pathname = "/login";
-  redirectTo.searchParams.set("error", "auth_failed");
-  return NextResponse.redirect(redirectTo);
+  /*
+   * Nothing usable in the query — which is the NORMAL case for the magic
+   * link sent after checkout, not a failure.
+   *
+   * `generateLink({type: "magiclink"})` uses Supabase's implicit flow, and
+   * that returns the session in the URL fragment:
+   *   /auth/confirm?next=/fr#access_token=…&refresh_token=…
+   *
+   * A fragment is never sent to the server. This handler therefore saw an
+   * empty query, found neither `token_hash` nor `code`, and used to answer
+   * `auth_failed` — sending a couple who had just paid to the login page,
+   * from a link whose own text promises to sign them in without a password.
+   *
+   * The browser is the only place that can read those tokens, so hand the
+   * request to a page that runs there. The fragment survives a redirect on
+   * its own: the browser re-attaches it to the new location, so it does not
+   * need to be — and must not be — copied into the query string, where it
+   * would land in server logs and in the referrer of every later request.
+   */
+  const handoff = request.nextUrl.clone();
+  handoff.pathname = "/auth/session";
+  handoff.search = `?next=${encodeURIComponent(next)}`;
+
+  return NextResponse.redirect(handoff);
 }
