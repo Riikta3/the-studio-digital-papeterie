@@ -103,8 +103,11 @@ export default async function LocaleLayout({
           homepage. It renders nothing until hydration, so it adds nothing to
           the served HTML of any of them. */}
       <CookieConsent />
-      {/* Site-wide, but the component hides itself on /contact where the form
-          is already on screen. */}
+      {/* Site-wide, but the component hides itself on /contact (the form is
+          already on screen) and on the guest pages — an invitation, a Jour J
+          screen and a journal belong to the couple, and our support bubble has
+          no business floating over them. Unlike the consent banner above,
+          which is a legal obligation on every page including those. */}
       <ContactBubble />
     </NextIntlClientProvider>
   );
