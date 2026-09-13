@@ -123,7 +123,84 @@ export async function updateSession(request: NextRequest) {
   // sets must be carried on the response returned below.
   const {
     data: { user },
+    error: userError,
   } = await supabase.auth.getUser();
+
+  /*
+   * A refresh token the auth server no longer knows about.
+   *
+   * The cookies are still in the browser and still look like a session, so
+   * every single request re-sends them, Supabase tries the same dead token
+   * again, and the visitor is redirected to /login — where the client-side
+   * Supabase client makes the same doomed call. The dashboard sat on its
+   * loading spinner while the server logged `refresh_token_not_found` over
+   * and over: the browser had no way out, because nothing ever cleared the
+   * cookies that were causing it.
+   *
+   * Dropping them here is what breaks the cycle. `signOut` is not enough and
+   * not even appropriate — there is no live session to end, and the call
+   * would fail on the same missing token — so the cookies are expired
+   * directly on the response.
+   *
+   * Happens whenever the auth server's side of a session goes away while the
+   * browser keeps its half: a refresh token already spent (two tabs racing to
+   * refresh), a session revoked from the Supabase dashboard, or a project
+   * whose users were reset.
+   */
+  /*
+   * The browser is carrying auth cookies the auth server will not accept.
+   *
+   * Either it has never heard of this refresh token, or will not honour it
+   * again, or the cookie is malformed — a truncated chunk, a half-written
+   * value. Every one of them produces the same dead end, so they are treated
+   * alike: the couple's half of the session is junk and has to go.
+   */
+  const STALE_SESSION_CODES = new Set([
+    "refresh_token_not_found",
+    "refresh_token_already_used",
+    "session_not_found",
+    "session_expired",
+    // A cookie Supabase cannot even parse. Not "no session" — a broken one,
+    // which keeps being re-sent and re-rejected exactly like a dead token.
+    "validation_failed",
+    "bad_jwt",
+  ]);
+
+  const errorCode = userError?.code;
+  const staleSession = !user && !!errorCode && STALE_SESSION_CODES.has(errorCode);
+
+  if (staleSession) {
+    /*
+     * On a public page — /login above all — clear the cookies and let the page
+     * render. Redirecting to /login from /login is a loop of its own, and the
+     * couple is already where they need to be; what they were missing is a
+     * browser no longer carrying a dead session.
+     */
+    const onPublicPath = isPublicPath(request.nextUrl.pathname);
+
+    const response = onPublicPath
+      ? NextResponse.next({ request })
+      : (() => {
+          const url = request.nextUrl.clone();
+          url.pathname = `/${localeOf(request.nextUrl.pathname)}/login`;
+          // The same `reason` the idle-timeout redirect uses, so the login
+          // page shows its existing "your session expired" toast. From the
+          // couple's side the two are the same event: they were signed in,
+          // now they are not, and they need to ask for a fresh link.
+          url.search = "?reason=expired";
+          return NextResponse.redirect(url);
+        })();
+
+    // Every cookie Supabase set for this project, whatever the chunking:
+    // `sb-<ref>-auth-token`, `.0`, `.1`, plus our own idle marker.
+    for (const cookie of request.cookies.getAll()) {
+      if (cookie.name.startsWith("sb-")) {
+        response.cookies.set(cookie.name, "", { path: "/", maxAge: 0 });
+      }
+    }
+
+    return response;
+  }
 
   // Idle expiry, enforced here because Supabase's own
   // `[auth.sessions] inactivity_timeout` is a paid feature. Without it a
