@@ -61,10 +61,34 @@ export async function POST(req: Request) {
         const existing = await stripe.paymentIntents.retrieve(paymentIntentId);
 
         if (existing.status === "succeeded") {
-          return NextResponse.json(
-            { error: "Cette commande a déjà été réglée." },
-            { status: 409 },
-          );
+          /*
+           * A settled intent means one of two very different things, and
+           * answering 409 to both was wrong.
+           *
+           * The order store is persisted, so `paymentIntentId` outlives the
+           * order it belonged to. A couple coming back to buy again — a
+           * second invitation, a new test — arrived at a freshly filled
+           * basket carrying the PREVIOUS order's id. Stripe found it
+           * `succeeded` and this branch refused the payment with "Cette
+           * commande a déjà été réglée", on an order nobody had paid for.
+           *
+           * The address on the intent tells the two apart: same buyer means a
+           * genuine replay (a reload of the success page), and is still
+           * refused. A different one means a stale id, and falls through to
+           * mint a fresh intent — which is what every other unusable status
+           * already does below.
+           */
+          const paidBy = (existing.metadata?.email || existing.receipt_email || "")
+            .trim()
+            .toLowerCase();
+          const orderedBy = (email ? String(email) : "").trim().toLowerCase();
+
+          if (!orderedBy || paidBy === orderedBy) {
+            return NextResponse.json(
+              { error: "Cette commande a déjà été réglée." },
+              { status: 409 },
+            );
+          }
         }
 
         if (REUSABLE_STATUSES.has(existing.status)) {

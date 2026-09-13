@@ -101,7 +101,24 @@ export const useOrderStore = create<OrderState>()(
       emailExists: false,
       setEmailExists: (value) => set({ emailExists: value }),
       weddingInfo: DEFAULT_WEDDING_INFO,
-      setPlan: (plan) => set({ plan }),
+      /*
+       * Picking an offer starts a new order, so the previous one stops being
+       * "just completed".
+       *
+       * `completedAt` is persisted and nothing used to clear it. A couple who
+       * bought once and came back to buy again — a second invitation, or
+       * simply a new test — carried the flag forever, and the checkout showed
+       * them "Votre commande est finalisée" over a basket they had just
+       * filled. Worse, the stale `paymentIntentId` went back to
+       * /api/create-payment-intent, which found that intent `succeeded` and
+       * answered 409 "Cette commande a déjà été réglée" — on an order that
+       * had never been paid for.
+       *
+       * Cleared here rather than in `resetStore` because this is the single
+       * door every order goes through: /studio/start cannot be passed without
+       * choosing a plan.
+       */
+      setPlan: (plan) => set({ plan, completedAt: null }),
       setPrimaryLanguage: (code) => set({ primaryLanguage: code }),
       setAnimation: (animation) => set({ animation }),
       setTheme: (theme) => set({ theme }),
