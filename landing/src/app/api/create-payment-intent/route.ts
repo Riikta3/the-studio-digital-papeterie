@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 
+import { findUserByEmail } from "@/lib/find-user-by-email";
 import { buildOrderMetadata } from "@/lib/order-metadata";
 import { computeOrderTotal } from "@/lib/pricing";
 import { stripe, toCents } from "@/lib/stripe";
@@ -32,6 +33,56 @@ export async function POST(req: Request) {
     }
 
     const amountInCents = toCents(amount);
+
+    /*
+     * Refuse the payment before it is taken, not after.
+     *
+     * One account owns one wedding (v1), and `create-wedding` enforces that
+     * at the end of the funnel by REFUNDING a second purchase. That is the
+     * wrong place to find out: the couple has already entered their card,
+     * watched it go through, and then reads that they are getting their money
+     * back. It also leaves a real charge and a real refund on the statement
+     * for an order that should never have been accepted.
+     *
+     * The studio does ask (`/api/check-email`, on the email field's `blur`),
+     * but that is a browser-side courtesy and it cannot be the gate: the blur
+     * never fires if the couple taps the CTA straight from the keyboard, the
+     * order survives in localStorage across sessions, and nothing stops a
+     * request being made directly to this endpoint.
+     *
+     * So the check lives here too, where the money is. Same lookup, same
+     * message as the studio shows, one step earlier.
+     */
+    if (email) {
+      let taken = false;
+      try {
+        taken = Boolean(await findUserByEmail(String(email)));
+      } catch (lookupError) {
+        // Never take a payment we cannot vet. Failing closed costs us an
+        // order; failing open costs the couple a charge and a refund.
+        console.error("[PAYMENT_EMAIL_LOOKUP_FAILED]", lookupError);
+        return NextResponse.json(
+          {
+            error:
+              "Impossible de vérifier votre compte pour le moment. " +
+              "Merci de réessayer dans quelques instants.",
+          },
+          { status: 503 },
+        );
+      }
+
+      if (taken) {
+        return NextResponse.json(
+          {
+            error:
+              "Cet email est déjà lié à un compte existant ! Veuillez vous " +
+              "connecter ou utiliser une autre adresse.",
+            emailTaken: true,
+          },
+          { status: 409 },
+        );
+      }
+    }
 
     // Order summary kept on the intent so a failed provisioning can always be
     // reconstructed from Stripe alone. This now carries the couple's identity

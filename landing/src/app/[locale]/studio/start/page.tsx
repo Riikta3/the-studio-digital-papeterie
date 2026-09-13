@@ -120,8 +120,15 @@ export default function StudioStartPage() {
     setPlan((valid ? requested : RECOMMENDED_PLAN_ID) as PlanType);
   }, [_hasHydrated, plan, setPlan, searchParams, plans]);
 
-  async function checkEmail(email: string) {
-    if (!email || !email.includes("@")) return;
+  /**
+   * Asks whether this email already has an account.
+   *
+   * Returns whether the address is free, so a caller that is about to
+   * navigate can wait for the answer rather than racing it. `emailExists` is
+   * set either way for the form's own validity.
+   */
+  async function checkEmail(email: string): Promise<boolean> {
+    if (!email || !email.includes("@")) return true;
     setEmailChecking(true);
     setEmailError(null);
     setEmailExists(false);
@@ -135,12 +142,32 @@ export default function StudioStartPage() {
         const data = await res.json();
         setEmailError(data.error);
         setEmailExists(true);
+        return false;
       }
+      return true;
     } catch {
-      // silently ignore
+      // Stay out of the couple's way on a network blip: the same check runs
+      // server-side in `/api/create-payment-intent`, which is the one that
+      // actually has to hold.
+      return true;
     } finally {
       setEmailChecking(false);
     }
+  }
+
+  /**
+   * Leaves step one only once we know the email is free.
+   *
+   * The check normally runs on the field's `blur`, but the CTA calls
+   * `preventDefault()` on pointerdown — which keeps the field focused, so the
+   * blur never fires for a couple who taps straight from the keyboard. This
+   * re-asks and waits, rather than navigating on a stale `emailExists`.
+   */
+  async function goToNextStep() {
+    if (!isFormValid) return;
+    const free = await checkEmail(weddingInfo.email.trim());
+    if (!free) return;
+    router.push("/studio/theme");
   }
 
   // Re-validate an email restored from a previous session, once hydrated.
@@ -459,6 +486,16 @@ export default function StudioStartPage() {
                 that counts. Guarded on `isFormValid` inside the handler
                 instead of through `disabled`, because a disabled button
                 receives no pointer events at all — which is the bug.
+
+                The catch, and why navigation goes through `goToNextStep`:
+                `preventDefault()` on pointerdown ALSO stops the focused field
+                from blurring, so the email check that hangs off `onBlur`
+                never ran for anyone who tapped the CTA straight from the
+                keyboard. `emailExists` stayed false and a couple who already
+                had an account sailed into the funnel — and, before the server
+                check in `/api/create-payment-intent`, all the way to a charge
+                that then had to be refunded. `goToNextStep` re-asks and waits
+                for the answer instead of navigating on a stale flag.
               */}
               <Button
                 variant="studio-violet"
@@ -469,12 +506,12 @@ export default function StudioStartPage() {
                   // Keeps the tap from also firing the blur-then-click pair,
                   // which would navigate twice on browsers that emulate both.
                   e.preventDefault();
-                  router.push("/studio/theme");
+                  goToNextStep();
                 }}
                 // Keyboard and assistive tech never produce a pointer event,
                 // so Enter and Space still have to reach the same navigation.
                 onClick={() => {
-                  if (isFormValid) router.push("/studio/theme");
+                  goToNextStep();
                 }}
                 className={cn(
                   "mt-6 w-full",
