@@ -114,9 +114,25 @@ export async function GET(request: NextRequest) {
    * need to be — and must not be — copied into the query string, where it
    * would land in server logs and in the referrer of every later request.
    */
-  const handoff = request.nextUrl.clone();
-  handoff.pathname = "/auth/session";
-  handoff.search = `?next=${encodeURIComponent(next)}`;
+  /*
+   * Only when the query held nothing to verify. A `token_hash` or `code`
+   * that WAS present and failed is a spent or forged link, not an implicit
+   * flow — sending it here would bounce it through the browser and report
+   * the same failure one redirect later, after telling the couple we were
+   * signing them in.
+   */
+  if (!token_hash && !searchParams.get("code")) {
+    const handoff = request.nextUrl.clone();
+    handoff.pathname = "/auth/session";
+    handoff.search = `?next=${encodeURIComponent(next)}`;
 
-  return NextResponse.redirect(handoff);
+    return NextResponse.redirect(handoff);
+  }
+
+  // A credential was supplied and did not check out.
+  const failed = request.nextUrl.clone();
+  failed.pathname = "/login";
+  failed.search = "?error=invalid_link";
+
+  return NextResponse.redirect(failed);
 }
