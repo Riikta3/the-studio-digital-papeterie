@@ -180,7 +180,7 @@ export const useOrderStore = create<OrderState>()(
     }),
     {
       name: "order-store-v2",
-      version: 2,
+      version: 3,
       // Each bump clears values that name something the app no longer renders.
       // A stale id is worse than an empty one: the card comes back unselected
       // while the guard still waves the user through, and here the price shown
@@ -205,6 +205,24 @@ export const useOrderStore = create<OrderState>()(
           // guessing an equivalent would quietly change what the couple pays.
           // An empty plan re-runs the preselect on /studio/start.
           state.plan = null;
+        }
+
+        /*
+         * v3 — clear a `completedAt` left over from an order that finished
+         * before `setPlan` learned to reset it.
+         *
+         * The flag is persisted, so the fix that stops it being stranded does
+         * nothing for a browser that is already carrying one: the couple would
+         * keep seeing "Votre commande est finalisée" over a fresh basket, and
+         * the checkout would keep refusing the order with "Cette commande a
+         * déjà été réglée". A version bump is what reaches those browsers
+         * without asking anyone to clear site data by hand.
+         *
+         * Only the flag is dropped. A basket in progress survives, because
+         * this must not empty the cart of someone mid-purchase.
+         */
+        if (version < 3) {
+          state.completedAt = null;
         }
 
         return state as OrderState;

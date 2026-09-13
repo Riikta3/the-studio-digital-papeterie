@@ -891,7 +891,16 @@
     "session_expired_title": "انتهت صلاحية جلستك",
     "session_expired_description": "تم تسجيل خروجك بعد 30 يومًا من عدم النشاط. سجّل الدخول مجددًا للمتابعة.",
     "invalid_link_title": "لم يعد هذا الرابط صالحًا",
-    "invalid_link_description": "ربما تم استخدامه بالفعل أو انتهت صلاحيته. اطلب رابطًا جديدًا."
+    "invalid_link_description": "ربما تم استخدامه بالفعل أو انتهت صلاحيته. اطلب رابطًا جديدًا.",
+    "magic_link_cta": "أرسل لي رابط تسجيل الدخول",
+    "magic_link_title": "تسجيل الدخول بدون كلمة مرور",
+    "magic_link_description": "أدخل بريدك الإلكتروني وسنرسل إليك رابطًا يسجّل دخولك مباشرة.",
+    "magic_link_submit": "إرسال الرابط",
+    "magic_link_sending": "جارٍ الإرسال…",
+    "magic_link_sent_title": "تحقق من بريدك",
+    "magic_link_sent_description": "إذا كان هناك حساب بهذا البريد، فسيصلك رابط تسجيل الدخول بعد قليل.",
+    "magic_link_error": "يرجى إدخال بريدك الإلكتروني.",
+    "magic_link_back": "العودة إلى تسجيل الدخول"
   },
   "ResetPassword": {
     "title": "كلمة مرور جديدة",

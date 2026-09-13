@@ -891,7 +891,16 @@
     "session_expired_title": "Votre session a expiré",
     "session_expired_description": "Vous avez été déconnecté après 30 jours d'inactivité. Reconnectez-vous pour continuer.",
     "invalid_link_title": "Ce lien n'est plus valide",
-    "invalid_link_description": "Il a peut-être déjà été utilisé ou a expiré. Demandez-en un nouveau."
+    "invalid_link_description": "Il a peut-être déjà été utilisé ou a expiré. Demandez-en un nouveau.",
+    "magic_link_cta": "Recevoir un lien de connexion",
+    "magic_link_title": "Connexion sans mot de passe",
+    "magic_link_description": "Saisissez votre adresse email : nous vous envoyons un lien qui vous connecte directement.",
+    "magic_link_submit": "Envoyer le lien",
+    "magic_link_sending": "Envoi…",
+    "magic_link_sent_title": "Vérifiez votre boîte mail",
+    "magic_link_sent_description": "Si un compte existe pour cette adresse, vous recevrez un lien de connexion dans quelques instants.",
+    "magic_link_error": "Veuillez saisir votre adresse email.",
+    "magic_link_back": "Revenir à la connexion"
   },
   "ResetPassword": {
     "title": "Nouveau mot de passe",

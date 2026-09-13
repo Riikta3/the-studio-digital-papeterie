@@ -891,7 +891,16 @@
     "session_expired_title": "Ihre Sitzung ist abgelaufen",
     "session_expired_description": "Sie wurden nach 30 Tagen Inaktivität abgemeldet. Melden Sie sich erneut an.",
     "invalid_link_title": "Dieser Link ist nicht mehr gültig",
-    "invalid_link_description": "Er wurde möglicherweise bereits verwendet oder ist abgelaufen. Fordern Sie einen neuen an."
+    "invalid_link_description": "Er wurde möglicherweise bereits verwendet oder ist abgelaufen. Fordern Sie einen neuen an.",
+    "magic_link_cta": "Anmeldelink per E-Mail erhalten",
+    "magic_link_title": "Anmelden ohne Passwort",
+    "magic_link_description": "Geben Sie Ihre E-Mail-Adresse ein – wir senden Ihnen einen Link, der Sie direkt anmeldet.",
+    "magic_link_submit": "Link senden",
+    "magic_link_sending": "Wird gesendet…",
+    "magic_link_sent_title": "Prüfen Sie Ihr Postfach",
+    "magic_link_sent_description": "Falls ein Konto für diese Adresse besteht, erhalten Sie in Kürze einen Anmeldelink.",
+    "magic_link_error": "Bitte geben Sie Ihre E-Mail-Adresse ein.",
+    "magic_link_back": "Zurück zur Anmeldung"
   },
   "ResetPassword": {
     "title": "Neues Passwort",

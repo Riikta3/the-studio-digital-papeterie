@@ -891,7 +891,16 @@
     "session_expired_title": "您的登录已过期",
     "session_expired_description": "因 30 天未使用，您已被登出。请重新登录以继续。",
     "invalid_link_title": "此链接已失效",
-    "invalid_link_description": "该链接可能已被使用或已过期。请重新获取一个。"
+    "invalid_link_description": "该链接可能已被使用或已过期。请重新获取一个。",
+    "magic_link_cta": "发送登录链接",
+    "magic_link_title": "无需密码登录",
+    "magic_link_description": "输入您的邮箱地址，我们将发送一个可直接登录的链接。",
+    "magic_link_submit": "发送链接",
+    "magic_link_sending": "发送中…",
+    "magic_link_sent_title": "请查收邮件",
+    "magic_link_sent_description": "如果该邮箱已注册，您将在稍后收到登录链接。",
+    "magic_link_error": "请输入您的邮箱地址。",
+    "magic_link_back": "返回登录"
   },
   "ResetPassword": {
     "title": "设置新密码",

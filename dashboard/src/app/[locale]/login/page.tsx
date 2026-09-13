@@ -4,13 +4,14 @@ import { Link } from "@/navigation";
 import { Button } from "@shared/components/ui/button";
 import { Input } from "@shared/components/ui/input";
 import { Label } from "@shared/components/ui/label";
-import { Eye, EyeOff } from "lucide-react";
+import { Eye, EyeOff, Mail } from "lucide-react";
 import { useTranslations } from "next-intl";
 import Image from "next/image";
 import { useSearchParams } from "next/navigation";
 import { Suspense, useActionState, useEffect, useRef, useState } from "react";
 import { toast } from "sonner";
 import { login } from "./actions";
+import { requestMagicLink } from "./magic-link-action";
 
 const initialState = {
   error: "",
@@ -83,11 +84,119 @@ function safeNext(next: string | null): string {
   return next;
 }
 
+/**
+ * Asks for a fresh sign-in link.
+ *
+ * The accounts created at checkout have no password at all — the couple is
+ * meant to arrive through the magic link in their welcome email. That link is
+ * single-use and expires, and once spent the only thing on this page was
+ * "Mot de passe oublié": a reset for a password that does not exist. A couple
+ * who had paid could not get back into their own space.
+ *
+ * Shown in place of the password form rather than beside it, so the page keeps
+ * one obvious action instead of two competing ones.
+ */
+function MagicLinkForm({ onBack }: { onBack: () => void }) {
+  const t = useTranslations("Login");
+  const [state, formAction, isPending] = useActionState(requestMagicLink, {});
+
+  if (state?.success) {
+    return (
+      <div className='relative space-y-6 text-center'>
+        <div className='mx-auto flex h-12 w-12 items-center justify-center rounded-full bg-primary/10'>
+          <Mail className='h-5 w-5 text-primary' />
+        </div>
+        <div className='space-y-2'>
+          <p className='font-heading text-lg text-studio-violet'>
+            {t("magic_link_sent_title")}
+          </p>
+          <p className='text-sm font-light leading-relaxed text-gray-500'>
+            {t("magic_link_sent_description")}
+          </p>
+        </div>
+        <button
+          type='button'
+          onClick={onBack}
+          className='text-xs font-light tracking-wide text-primary/60 transition-colors hover:text-primary'
+        >
+          {t("magic_link_back")}
+        </button>
+      </div>
+    );
+  }
+
+  return (
+    <form
+      action={formAction}
+      className='relative space-y-7'
+    >
+      <div className='space-y-2 text-center'>
+        <p className='font-heading text-lg text-studio-violet'>
+          {t("magic_link_title")}
+        </p>
+        <p className='text-sm font-light leading-relaxed text-gray-500'>
+          {t("magic_link_description")}
+        </p>
+      </div>
+
+      <div className='space-y-3'>
+        <Label
+          htmlFor='magic-email'
+          className='text-xs font-medium uppercase tracking-[0.15em] text-gray-600'
+        >
+          {t("email_label")}
+        </Label>
+        <Input
+          id='magic-email'
+          name='email'
+          type='email'
+          placeholder={t("email_placeholder")}
+          required
+          className='h-14 rounded-xl border-gray-200/80 bg-white text-base transition-all duration-300 placeholder:text-gray-400 focus:border-primary/50 focus:ring-primary/20'
+        />
+      </div>
+
+      {state?.error && (
+        <div className='rounded-xl border border-red-200/60 bg-red-50/80 p-4 backdrop-blur-sm'>
+          <p className='text-center text-sm font-light tracking-wide text-red-600'>
+            {state.error}
+          </p>
+        </div>
+      )}
+
+      <Button
+        type='submit'
+        disabled={isPending}
+        className='mt-10 h-14 w-full rounded-xl bg-primary text-base font-light uppercase tracking-[0.1em] text-white shadow-lg transition-all duration-300 hover:bg-primary/90 hover:shadow-xl disabled:cursor-not-allowed disabled:opacity-50'
+      >
+        {isPending ? t("magic_link_sending") : t("magic_link_submit")}
+      </Button>
+
+      <button
+        type='button'
+        onClick={onBack}
+        className='w-full text-xs font-light tracking-wide text-primary/60 transition-colors hover:text-primary'
+      >
+        {t("magic_link_back")}
+      </button>
+    </form>
+  );
+}
+
 function LoginForm() {
   const t = useTranslations("Login");
   const searchParams = useSearchParams();
   const [showPassword, setShowPassword] = useState(false);
   const [state, formAction, isPending] = useActionState(login, initialState);
+
+  /*
+   * Opened automatically when the couple arrives from a link that no longer
+   * works. That is the exact moment they need a new one, and leaving them to
+   * find the button themselves is how the dead end felt like a dead end.
+   */
+  const [wantsMagicLink, setWantsMagicLink] = useState(
+    searchParams.get("error") === "invalid_link",
+  );
 
   // Redirect on successful login with full page reload to update auth state
   useEffect(() => {
@@ -134,7 +243,10 @@ function LoginForm() {
             </p>
           </div>
 
-          {/* Login form */}
+          {wantsMagicLink ? (
+            <MagicLinkForm onBack={() => setWantsMagicLink(false)} />
+          ) : (
+          /* Login form */
           <form
             action={formAction}
             className='relative space-y-7'
@@ -209,7 +321,19 @@ function LoginForm() {
             >
               {isPending ? t("signing_in") : t("sign_in")}
             </Button>
+
+            {/* The way in for a passwordless account, which is every account
+                created at checkout. */}
+            <button
+              type='button'
+              onClick={() => setWantsMagicLink(true)}
+              className='flex w-full items-center justify-center gap-2 text-xs font-light tracking-wide text-primary/60 transition-colors hover:text-primary'
+            >
+              <Mail className='h-3.5 w-3.5' />
+              {t("magic_link_cta")}
+            </button>
           </form>
+          )}
 
           {/* Footer */}
           <div className='relative text-center pt-6 border-t border-gray-100'>

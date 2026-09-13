@@ -891,7 +891,16 @@
     "session_expired_title": "セッションの有効期限が切れました",
     "session_expired_description": "30日間ご利用がなかったためログアウトされました。もう一度ログインしてください。",
     "invalid_link_title": "このリンクは無効です",
-    "invalid_link_description": "すでに使用されたか、有効期限が切れています。新しいリンクをリクエストしてください。"
+    "invalid_link_description": "すでに使用されたか、有効期限が切れています。新しいリンクをリクエストしてください。",
+    "magic_link_cta": "ログインリンクを受け取る",
+    "magic_link_title": "パスワードなしでログイン",
+    "magic_link_description": "メールアドレスを入力してください。そのままログインできるリンクをお送りします。",
+    "magic_link_submit": "リンクを送信",
+    "magic_link_sending": "送信中…",
+    "magic_link_sent_title": "メールをご確認ください",
+    "magic_link_sent_description": "このアドレスのアカウントが存在する場合、まもなくログインリンクが届きます。",
+    "magic_link_error": "メールアドレスを入力してください。",
+    "magic_link_back": "ログインに戻る"
   },
   "ResetPassword": {
     "title": "新しいパスワード",

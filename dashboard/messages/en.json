@@ -891,7 +891,16 @@
     "session_expired_title": "Your session has expired",
     "session_expired_description": "You were signed out after 30 days of inactivity. Sign in again to continue.",
     "invalid_link_title": "This link is no longer valid",
-    "invalid_link_description": "It may already have been used, or it has expired. Request a new one."
+    "invalid_link_description": "It may already have been used, or it has expired. Request a new one.",
+    "magic_link_cta": "Email me a sign-in link",
+    "magic_link_title": "Sign in without a password",
+    "magic_link_description": "Enter your email address and we will send you a link that signs you straight in.",
+    "magic_link_submit": "Send the link",
+    "magic_link_sending": "Sending…",
+    "magic_link_sent_title": "Check your inbox",
+    "magic_link_sent_description": "If an account exists for that address, a sign-in link is on its way.",
+    "magic_link_error": "Please enter your email address.",
+    "magic_link_back": "Back to sign in"
   },
   "ResetPassword": {
     "title": "New password",

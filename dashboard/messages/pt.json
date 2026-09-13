@@ -891,7 +891,16 @@
     "session_expired_title": "A sua sessão expirou",
     "session_expired_description": "Terminou a sessão após 30 dias de inatividade. Inicie sessão novamente para continuar.",
     "invalid_link_title": "Este link já não é válido",
-    "invalid_link_description": "Pode já ter sido utilizado ou ter expirado. Peça um novo."
+    "invalid_link_description": "Pode já ter sido utilizado ou ter expirado. Peça um novo.",
+    "magic_link_cta": "Receber um link de acesso",
+    "magic_link_title": "Entrar sem palavra-passe",
+    "magic_link_description": "Introduza o seu email: enviamos-lhe um link que o liga diretamente.",
+    "magic_link_submit": "Enviar o link",
+    "magic_link_sending": "A enviar…",
+    "magic_link_sent_title": "Verifique o seu email",
+    "magic_link_sent_description": "Se existir uma conta para este endereço, receberá um link de acesso dentro de momentos.",
+    "magic_link_error": "Introduza o seu endereço de email.",
+    "magic_link_back": "Voltar ao início de sessão"
   },
   "ResetPassword": {
     "title": "Nova palavra-passe",

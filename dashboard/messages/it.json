@@ -891,7 +891,16 @@
     "session_expired_title": "La tua sessione è scaduta",
     "session_expired_description": "Sei stato disconnesso dopo 30 giorni di inattività. Accedi di nuovo per continuare.",
     "invalid_link_title": "Questo link non è più valido",
-    "invalid_link_description": "Potrebbe essere già stato usato o essere scaduto. Richiedine uno nuovo."
+    "invalid_link_description": "Potrebbe essere già stato usato o essere scaduto. Richiedine uno nuovo.",
+    "magic_link_cta": "Ricevi un link di accesso",
+    "magic_link_title": "Accedi senza password",
+    "magic_link_description": "Inserisci il tuo indirizzo email: ti invieremo un link che ti collega direttamente.",
+    "magic_link_submit": "Invia il link",
+    "magic_link_sending": "Invio…",
+    "magic_link_sent_title": "Controlla la tua casella",
+    "magic_link_sent_description": "Se esiste un account per questo indirizzo, riceverai a breve un link di accesso.",
+    "magic_link_error": "Inserisci il tuo indirizzo email.",
+    "magic_link_back": "Torna all'accesso"
   },
   "ResetPassword": {
     "title": "Nuova password",

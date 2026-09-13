@@ -891,7 +891,16 @@
     "session_expired_title": "Su sesión ha caducado",
     "session_expired_description": "Se ha cerrado su sesión tras 30 días de inactividad. Vuelva a iniciar sesión para continuar.",
     "invalid_link_title": "Este enlace ya no es válido",
-    "invalid_link_description": "Puede que ya se haya usado o que haya caducado. Solicite uno nuevo."
+    "invalid_link_description": "Puede que ya se haya usado o que haya caducado. Solicite uno nuevo.",
+    "magic_link_cta": "Recibir un enlace de acceso",
+    "magic_link_title": "Acceder sin contraseña",
+    "magic_link_description": "Introduzca su correo electrónico: le enviaremos un enlace que le conecta directamente.",
+    "magic_link_submit": "Enviar el enlace",
+    "magic_link_sending": "Enviando…",
+    "magic_link_sent_title": "Revise su correo",
+    "magic_link_sent_description": "Si existe una cuenta con esa dirección, recibirá un enlace de acceso en unos instantes.",
+    "magic_link_error": "Introduzca su correo electrónico.",
+    "magic_link_back": "Volver al acceso"
   },
   "ResetPassword": {
     "title": "Nueva contraseña",
