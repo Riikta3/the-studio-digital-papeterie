@@ -1,1 +1,20 @@
 @import '../../../shared/styles/globals.css';
+/*
+ * Stop iOS zooming the page when a field takes focus.
+ *
+ * Mobile Safari zooms in on any input whose text is under 16px and leaves the
+ * page scaled afterwards. The shared `Input` is `text-sm` (14px), so every
+ * form in the dashboard triggered it — the guest list and the settings
+ * screens most of all, which are the ones a couple fills in from a phone.
+ *
+ * The font is raised instead of the viewport being pinned with
+ * `maximum-scale=1`: that would also block deliberate zoom, which is an
+ * accessibility failure. Coarse pointers only, so desktop keeps its 14px.
+ */
+@media (pointer: coarse) {
+  input:not([type="checkbox"]):not([type="radio"]),
+  select,
+  textarea {
+    font-size: 16px;
+  }
+}

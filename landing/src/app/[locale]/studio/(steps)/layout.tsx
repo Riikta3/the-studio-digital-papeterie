@@ -247,12 +247,34 @@ function StudioStepsLayoutInner({
               {t("back")}
             </Button>
           )}
+          {/*
+            `onPointerDown` for the same reason as the CTA on /studio/start: a
+            tap made while a field has focus fires that field's `blur` first,
+            and anything the blur triggers can disable this button before the
+            click lands. The first tap is then swallowed and the couple has to
+            tap twice. `pointerdown` runs before blur.
+
+            `aria-disabled` rather than `disabled`, because a disabled button
+            receives no pointer events at all — which is the bug. The guard
+            lives in the handler instead.
+          */}
           <Button
             variant="studio-violet"
             size="pill"
-            disabled={!isStepValid}
-            onClick={() => router.push(nextStep)}
-            className="w-full sm:w-auto"
+            aria-disabled={!isStepValid}
+            onPointerDown={(e) => {
+              if (!isStepValid) return;
+              e.preventDefault();
+              router.push(nextStep);
+            }}
+            onClick={() => {
+              // Keyboard activation produces no pointer event.
+              if (isStepValid) router.push(nextStep);
+            }}
+            className={cn(
+              "w-full sm:w-auto",
+              !isStepValid && "opacity-50",
+            )}
           >
             {totalPrice}€ - {isLastStep ? t("finish") : t("continue")}
             <ArrowRight className="ml-2 h-4 w-4" />

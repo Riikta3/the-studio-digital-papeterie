@@ -34,3 +34,27 @@
     transform: none;
   }
 }
+
+/*
+ * Stop iOS zooming the page when a field takes focus.
+ *
+ * Mobile Safari zooms in on any input whose text is smaller than 16px, then
+ * leaves the page scaled — so tapping the first field of the studio form
+ * jumped the layout and every field after it was read at the wrong size. Our
+ * fields are `text-sm` (14px), which is exactly the trigger.
+ *
+ * Fixed by raising the font rather than by pinning the viewport with
+ * `maximum-scale=1`: that would also stop a reader from zooming the page
+ * deliberately, which is an accessibility failure and something iOS ignores
+ * on newer versions anyway.
+ *
+ * Applied only on coarse pointers so the design keeps its 14px fields on
+ * desktop, where nothing zooms. `select` is included: it zooms too.
+ */
+@media (pointer: coarse) {
+  input:not([type="checkbox"]):not([type="radio"]),
+  select,
+  textarea {
+    font-size: 16px;
+  }
+}

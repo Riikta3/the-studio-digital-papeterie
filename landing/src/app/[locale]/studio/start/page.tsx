@@ -445,12 +445,41 @@ export default function StudioStartPage() {
                 {t("privacyHint")}
               </p>
 
+              {/*
+                `onPointerDown` rather than `onClick`, and the email check no
+                longer disables this.
+
+                On a phone the first tap on this button did nothing. Tapping it
+                while the email field has focus fires that field's `blur`
+                first, which starts `checkEmail` — a network request. While it
+                is in flight the button was disabled, so the tap that caused it
+                landed on a dead control and the couple had to tap again.
+
+                `pointerdown` fires before blur, so the first tap is the one
+                that counts. Guarded on `isFormValid` inside the handler
+                instead of through `disabled`, because a disabled button
+                receives no pointer events at all — which is the bug.
+              */}
               <Button
                 variant="studio-violet"
                 size="pill"
-                disabled={!isFormValid}
-                onClick={() => router.push("/studio/theme")}
-                className="mt-6 w-full"
+                aria-disabled={!isFormValid}
+                onPointerDown={(e) => {
+                  if (!isFormValid) return;
+                  // Keeps the tap from also firing the blur-then-click pair,
+                  // which would navigate twice on browsers that emulate both.
+                  e.preventDefault();
+                  router.push("/studio/theme");
+                }}
+                // Keyboard and assistive tech never produce a pointer event,
+                // so Enter and Space still have to reach the same navigation.
+                onClick={() => {
+                  if (isFormValid) router.push("/studio/theme");
+                }}
+                className={cn(
+                  "mt-6 w-full",
+                  !isFormValid && "pointer-events-auto opacity-50",
+                )}
               >
                 {totalPrice}€ - {t("submitButton")}
                 <ArrowRight className="ml-2 h-4 w-4" />
