@@ -322,14 +322,30 @@ function LoginForm() {
               {isPending ? t("signing_in") : t("sign_in")}
             </Button>
 
-            {/* The way in for a passwordless account, which is every account
-                created at checkout. */}
+            {/*
+              A second way in, given the same weight as the first.
+
+              Every account created at checkout starts without a password, and
+              setting one is optional — so for a good share of couples the
+              field above is one they cannot fill. Offered as a footnote, it
+              read as a fallback for people who had forgotten something, which
+              is not what it is. The separator says plainly that these are two
+              equal routes.
+            */}
+            <div className='flex items-center gap-4 pt-2'>
+              <span className='h-px flex-1 bg-gray-200' />
+              <span className='text-[11px] font-light uppercase tracking-[0.15em] text-gray-400'>
+                {t("or")}
+              </span>
+              <span className='h-px flex-1 bg-gray-200' />
+            </div>
+
             <button
               type='button'
               onClick={() => setWantsMagicLink(true)}
-              className='flex w-full items-center justify-center gap-2 text-xs font-light tracking-wide text-primary/60 transition-colors hover:text-primary'
+              className='flex h-14 w-full items-center justify-center gap-2 rounded-xl border border-primary/20 bg-white text-base font-light uppercase tracking-[0.1em] text-primary transition-all duration-300 hover:border-primary/40 hover:bg-primary/[0.03]'
             >
-              <Mail className='h-3.5 w-3.5' />
+              <Mail className='h-4 w-4' />
               {t("magic_link_cta")}
             </button>
           </form>

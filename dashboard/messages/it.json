@@ -900,7 +900,8 @@
     "magic_link_sent_title": "Controlla la tua casella",
     "magic_link_sent_description": "Se esiste un account per questo indirizzo, riceverai a breve un link di accesso.",
     "magic_link_error": "Inserisci il tuo indirizzo email.",
-    "magic_link_back": "Torna all'accesso"
+    "magic_link_back": "Torna all'accesso",
+    "or": "o"
   },
   "ResetPassword": {
     "title": "Nuova password",
@@ -1372,5 +1373,22 @@
     "ignore": "Se non sei stato tu, ignora semplicemente questa email: non cambierà nulla.",
     "fallback": "Se il pulsante non funziona, copia questo link nel tuo browser:",
     "footer": "Una domanda? Rispondi semplicemente a questa email."
+  },
+  "SetPassword": {
+    "title": "Proteggi il tuo spazio",
+    "body": "Imposta una password per riconnetterti direttamente, senza aspettare un'email. Puoi farlo anche più tardi.",
+    "cta": "Imposta una password",
+    "later": "Più tardi",
+    "label": "Nuova password",
+    "placeholder": "Almeno {min} caratteri",
+    "save": "Salva",
+    "saving": "Salvataggio…",
+    "too_short": "La password deve contenere almeno {min} caratteri.",
+    "error_title": "Impossibile salvare la password",
+    "success_title": "Password salvata",
+    "success_body": "Ora puoi accedere con la tua email e questa password.",
+    "dismiss": "Chiudi",
+    "reveal": "Mostra password",
+    "hide": "Nascondi password"
   }
 }

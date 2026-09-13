@@ -900,7 +900,8 @@
     "magic_link_sent_title": "Verifique o seu email",
     "magic_link_sent_description": "Se existir uma conta para este endereço, receberá um link de acesso dentro de momentos.",
     "magic_link_error": "Introduza o seu endereço de email.",
-    "magic_link_back": "Voltar ao início de sessão"
+    "magic_link_back": "Voltar ao início de sessão",
+    "or": "ou"
   },
   "ResetPassword": {
     "title": "Nova palavra-passe",
@@ -1372,5 +1373,22 @@
     "ignore": "Se não foi você, ignore simplesmente este email — nada será alterado.",
     "fallback": "Se o botão não funcionar, copie este link para o seu navegador:",
     "footer": "Alguma questão? Responda simplesmente a este email."
+  },
+  "SetPassword": {
+    "title": "Proteja o seu espaço",
+    "body": "Defina uma palavra-passe para voltar a entrar diretamente, sem esperar por um email. Também pode fazê-lo mais tarde.",
+    "cta": "Definir uma palavra-passe",
+    "later": "Mais tarde",
+    "label": "Nova palavra-passe",
+    "placeholder": "Pelo menos {min} caracteres",
+    "save": "Guardar",
+    "saving": "A guardar…",
+    "too_short": "A palavra-passe deve ter pelo menos {min} caracteres.",
+    "error_title": "Não foi possível guardar a palavra-passe",
+    "success_title": "Palavra-passe guardada",
+    "success_body": "Já pode entrar com o seu email e esta palavra-passe.",
+    "dismiss": "Fechar",
+    "reveal": "Mostrar palavra-passe",
+    "hide": "Ocultar palavra-passe"
   }
 }

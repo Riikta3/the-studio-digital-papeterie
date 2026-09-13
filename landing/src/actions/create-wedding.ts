@@ -173,6 +173,23 @@ export async function createWedding(data: CreateWeddingData) {
           first_name: data.firstName,
           last_name: data.lastName,
           partner_name: data.partnerName,
+          /*
+           * This account has no password: `createUser` is called without one,
+           * and the couple gets in through the magic link below.
+           *
+           * Supabase exposes no way to ask "does this user have a password" —
+           * `identities` is null and `app_metadata.providers` reads ["email"]
+           * either way — so the dashboard cannot tell a couple who never set
+           * one from a couple who did. It needs to know, because the two are
+           * offered different things: an invitation to set a password, or
+           * nothing at all.
+           *
+           * Cleared by the dashboard the moment a password is set. Absent on
+           * every account created before this flag existed, which reads the
+           * same as "has a password" — the safe way round, since it only
+           * means we stay quiet rather than nagging someone who is fine.
+           */
+          needs_password: true,
         },
       });
 

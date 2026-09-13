@@ -3,6 +3,7 @@ import { CountdownTimer } from "@/components/dashboard/CountdownTimer";
 import { HomeQuickActions } from "@/components/home/HomeQuickActions";
 import { InvitationPreviewCard } from "@/components/home/InvitationPreviewCard";
 import { KpiGroupCard, type KpiTile } from "@/components/home/KpiGroupCard";
+import { SetPasswordPrompt } from "@/components/dashboard/SetPasswordPrompt";
 import { Link, redirect } from "@/navigation";
 import { createClient } from "@/utils/supabase/server";
 import { Button } from "@shared/components/ui/button";
@@ -45,9 +46,19 @@ export default async function DashboardHome() {
     { key: "media", label: t("kpi.jour_j.media"), value: summary.media.total },
   ];
 
+  /*
+   * Set at checkout, cleared the moment a password is saved. Supabase exposes
+   * no way to ask whether a user has one, so an account created before this
+   * flag existed reads as `undefined` — treated here as "has a password",
+   * which is the quiet side to be wrong on.
+   */
+  const needsPassword = user.user_metadata?.needs_password === true;
+
   return (
     <div className='min-h-screen bg-studio-creme p-4 md:p-8 lg:p-12'>
       <div className='mx-auto max-w-5xl space-y-6'>
+        {needsPassword && <SetPasswordPrompt />}
+
         <header className='flex flex-col items-start justify-between gap-4 border-b border-studio-lavande/30 pb-6 md:flex-row md:items-center'>
           <h1 className='font-heading text-h3 text-studio-violet'>
             {t("greeting", {

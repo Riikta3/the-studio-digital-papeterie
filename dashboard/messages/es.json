@@ -900,7 +900,8 @@
     "magic_link_sent_title": "Revise su correo",
     "magic_link_sent_description": "Si existe una cuenta con esa dirección, recibirá un enlace de acceso en unos instantes.",
     "magic_link_error": "Introduzca su correo electrónico.",
-    "magic_link_back": "Volver al acceso"
+    "magic_link_back": "Volver al acceso",
+    "or": "o"
   },
   "ResetPassword": {
     "title": "Nueva contraseña",
@@ -1372,5 +1373,22 @@
     "ignore": "Si no ha sido usted, ignore este correo: no se cambiará nada.",
     "fallback": "Si el botón no funciona, copie este enlace en su navegador:",
     "footer": "¿Una pregunta? Responda simplemente a este correo."
+  },
+  "SetPassword": {
+    "title": "Proteja su espacio",
+    "body": "Defina una contraseña para volver a conectarse directamente, sin esperar un correo. También puede hacerlo más tarde.",
+    "cta": "Definir una contraseña",
+    "later": "Más tarde",
+    "label": "Nueva contraseña",
+    "placeholder": "Al menos {min} caracteres",
+    "save": "Guardar",
+    "saving": "Guardando…",
+    "too_short": "La contraseña debe tener al menos {min} caracteres.",
+    "error_title": "No se pudo guardar la contraseña",
+    "success_title": "Contraseña guardada",
+    "success_body": "Ya puede acceder con su correo y esta contraseña.",
+    "dismiss": "Cerrar",
+    "reveal": "Mostrar contraseña",
+    "hide": "Ocultar contraseña"
   }
 }

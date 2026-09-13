@@ -900,7 +900,8 @@
     "magic_link_sent_title": "请查收邮件",
     "magic_link_sent_description": "如果该邮箱已注册，您将在稍后收到登录链接。",
     "magic_link_error": "请输入您的邮箱地址。",
-    "magic_link_back": "返回登录"
+    "magic_link_back": "返回登录",
+    "or": "或"
   },
   "ResetPassword": {
     "title": "设置新密码",
@@ -1372,5 +1373,22 @@
     "ignore": "如果这不是您本人的操作，请忽略本邮件，账户不会有任何变化。",
     "fallback": "如果按钮无法使用，请将此链接复制到浏览器中打开：",
     "footer": "有疑问？直接回复本邮件即可。"
+  },
+  "SetPassword": {
+    "title": "保护您的空间",
+    "body": "设置密码即可直接登录，无需等待邮件。您也可以稍后设置。",
+    "cta": "设置密码",
+    "later": "稍后",
+    "label": "新密码",
+    "placeholder": "至少 {min} 个字符",
+    "save": "保存",
+    "saving": "保存中…",
+    "too_short": "密码至少需要 {min} 个字符。",
+    "error_title": "密码保存失败",
+    "success_title": "密码已保存",
+    "success_body": "现在您可以使用邮箱和此密码登录。",
+    "dismiss": "关闭",
+    "reveal": "显示密码",
+    "hide": "隐藏密码"
   }
 }

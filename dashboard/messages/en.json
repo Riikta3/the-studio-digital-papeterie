@@ -900,7 +900,8 @@
     "magic_link_sent_title": "Check your inbox",
     "magic_link_sent_description": "If an account exists for that address, a sign-in link is on its way.",
     "magic_link_error": "Please enter your email address.",
-    "magic_link_back": "Back to sign in"
+    "magic_link_back": "Back to sign in",
+    "or": "or"
   },
   "ResetPassword": {
     "title": "New password",
@@ -1372,5 +1373,22 @@
     "ignore": "If you did not ask for this, simply ignore this email — nothing will change.",
     "fallback": "If the button does not work, copy this link into your browser:",
     "footer": "A question? Just reply to this email."
+  },
+  "SetPassword": {
+    "title": "Secure your space",
+    "body": "Set a password to sign back in directly, without waiting for an email. You can also do this later.",
+    "cta": "Set a password",
+    "later": "Later",
+    "label": "New password",
+    "placeholder": "At least {min} characters",
+    "save": "Save",
+    "saving": "Saving…",
+    "too_short": "The password must be at least {min} characters.",
+    "error_title": "The password could not be saved",
+    "success_title": "Password saved",
+    "success_body": "You can now sign in with your email and this password.",
+    "dismiss": "Close",
+    "reveal": "Show password",
+    "hide": "Hide password"
   }
 }

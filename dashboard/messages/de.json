@@ -900,7 +900,8 @@
     "magic_link_sent_title": "Prüfen Sie Ihr Postfach",
     "magic_link_sent_description": "Falls ein Konto für diese Adresse besteht, erhalten Sie in Kürze einen Anmeldelink.",
     "magic_link_error": "Bitte geben Sie Ihre E-Mail-Adresse ein.",
-    "magic_link_back": "Zurück zur Anmeldung"
+    "magic_link_back": "Zurück zur Anmeldung",
+    "or": "oder"
   },
   "ResetPassword": {
     "title": "Neues Passwort",
@@ -1372,5 +1373,22 @@
     "ignore": "Wenn Sie das nicht angefordert haben, ignorieren Sie diese E-Mail einfach — es ändert sich nichts.",
     "fallback": "Falls der Button nicht funktioniert, kopieren Sie diesen Link in Ihren Browser:",
     "footer": "Eine Frage? Antworten Sie einfach auf diese E-Mail."
+  },
+  "SetPassword": {
+    "title": "Sichern Sie Ihren Bereich",
+    "body": "Legen Sie ein Passwort fest, um sich direkt anzumelden, ohne auf eine E-Mail zu warten. Sie können das auch später tun.",
+    "cta": "Passwort festlegen",
+    "later": "Später",
+    "label": "Neues Passwort",
+    "placeholder": "Mindestens {min} Zeichen",
+    "save": "Speichern",
+    "saving": "Wird gespeichert…",
+    "too_short": "Das Passwort muss mindestens {min} Zeichen lang sein.",
+    "error_title": "Das Passwort konnte nicht gespeichert werden",
+    "success_title": "Passwort gespeichert",
+    "success_body": "Sie können sich jetzt mit Ihrer E-Mail und diesem Passwort anmelden.",
+    "dismiss": "Schließen",
+    "reveal": "Passwort anzeigen",
+    "hide": "Passwort verbergen"
   }
 }

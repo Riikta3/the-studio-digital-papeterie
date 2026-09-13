@@ -52,8 +52,22 @@ function buildHtml(input: WelcomeEmailInput): string {
         "Votre invitation est prête. Cliquez ci-dessous pour accéder à votre espace et commencer à la personnaliser.",
       ),
       button("Accéder à mon espace", esc(input.loginLink)),
+      /*
+       * What used to be here stopped at "demandez-en un depuis la page de
+       * connexion", which was true and useless: it did not say the account
+       * has no password yet, so a couple who came back later met a password
+       * field they could not fill and a "mot de passe oublié" link offering
+       * to reset something that did not exist.
+       *
+       * Both ways back are named instead, in the order they will need them:
+       * the space itself offers a password, and the login page can always
+       * email a fresh link to someone who never set one.
+       */
       muted(
-        "Ce lien vous connecte directement, sans mot de passe. Il est valable une seule fois — si vous en avez besoin d'un nouveau, demandez-en un depuis la page de connexion.",
+        "Ce lien vous connecte directement, sans mot de passe, et ne peut servir qu'une fois.",
+      ),
+      muted(
+        "Pour revenir ensuite : définissez un mot de passe depuis votre espace, ou demandez un nouveau lien de connexion depuis la page de connexion. Les deux fonctionnent.",
       ),
     ],
     footer: "Une question ? Répondez simplement à cet email.",
@@ -91,6 +105,11 @@ export async function sendWelcomeEmail(
         input.loginLink,
         "",
         "Ce lien vous connecte sans mot de passe et n'est valable qu'une fois.",
+        "",
+        "Pour revenir ensuite : définissez un mot de passe depuis votre espace,",
+        "ou demandez un nouveau lien de connexion depuis la page de connexion.",
+        "Les deux fonctionnent.",
+        "",
         "Une question ? Répondez simplement à cet email.",
       ].join("\n"),
     });

@@ -900,7 +900,8 @@
     "magic_link_sent_title": "Vérifiez votre boîte mail",
     "magic_link_sent_description": "Si un compte existe pour cette adresse, vous recevrez un lien de connexion dans quelques instants.",
     "magic_link_error": "Veuillez saisir votre adresse email.",
-    "magic_link_back": "Revenir à la connexion"
+    "magic_link_back": "Revenir à la connexion",
+    "or": "ou"
   },
   "ResetPassword": {
     "title": "Nouveau mot de passe",
@@ -1372,5 +1373,22 @@
     "ignore": "Si vous n'êtes pas à l'origine de cette demande, ignorez simplement cet email : rien ne sera modifié.",
     "fallback": "Si le bouton ne fonctionne pas, copiez ce lien dans votre navigateur :",
     "footer": "Une question ? Répondez simplement à cet email."
+  },
+  "SetPassword": {
+    "title": "Sécurisez votre espace",
+    "body": "Définissez un mot de passe pour vous reconnecter directement, sans attendre un email. Vous pouvez aussi le faire plus tard.",
+    "cta": "Définir un mot de passe",
+    "later": "Plus tard",
+    "label": "Nouveau mot de passe",
+    "placeholder": "Au moins {min} caractères",
+    "save": "Enregistrer",
+    "saving": "Enregistrement…",
+    "too_short": "Le mot de passe doit contenir au moins {min} caractères.",
+    "error_title": "Le mot de passe n'a pas pu être enregistré",
+    "success_title": "Mot de passe enregistré",
+    "success_body": "Vous pouvez désormais vous connecter avec votre email et ce mot de passe.",
+    "dismiss": "Fermer",
+    "reveal": "Afficher le mot de passe",
+    "hide": "Masquer le mot de passe"
   }
 }
