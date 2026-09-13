@@ -22,6 +22,39 @@ const intlMiddleware = createMiddleware(routing);
  */
 const GUESSED_SITEMAPS = new Set(["/sitemap-0.xml", "/sitemap_index.xml"]);
 
+/**
+ * What stays reachable while the site is closed for launch.
+ *
+ * Maintenance mode used to send every path to /coming-soon, which is right for
+ * the shop front and wrong for what a couple has already bought: their
+ * invitation lives here, and the whole product is a link they send to their
+ * guests. A couple who paid before the public launch could not share anything
+ * — the link in their own dashboard bounced to a "coming soon" page.
+ *
+ * These three are the guest-facing pages, and every one of them is addressed
+ * by a slug generated with a random suffix (`generateSlug` in
+ * `actions/create-wedding.ts`). They are unguessable and carry no way into the
+ * shop, so opening them does not open the launch.
+ *
+ * The marketing pages under `(landing)/[slug]` are deliberately NOT here: they
+ * are part of the site being held back.
+ */
+const GUEST_PREFIXES = ["/invitation/", "/jourj/", "/journal/"];
+
+/** True for a guest page, with or without its locale prefix. */
+function isGuestPath(pathname: string): boolean {
+  const segments = pathname.split("/").filter(Boolean);
+  const withoutLocale = (routing.locales as readonly string[]).includes(
+    segments[0],
+  )
+    ? "/" + segments.slice(1).join("/")
+    : pathname;
+
+  // The trailing slash in each prefix is what requires a slug after it, so
+  // `/invitation` on its own still goes to /coming-soon.
+  return GUEST_PREFIXES.some((prefix) => withoutLocale.startsWith(prefix));
+}
+
 export default function proxy(request: NextRequest) {
   const { pathname } = request.nextUrl;
 
@@ -39,7 +72,7 @@ export default function proxy(request: NextRequest) {
   }
 
   // Maintenance mode redirect — MAINTENANCE_MODE is baked at build time, toggling requires a redeploy
-  if (process.env.MAINTENANCE_MODE === "true") {
+  if (process.env.MAINTENANCE_MODE === "true" && !isGuestPath(pathname)) {
     const segments = pathname.split("/").filter(Boolean);
     const locale = (routing.locales as readonly string[]).includes(segments[0])
       ? segments[0]
