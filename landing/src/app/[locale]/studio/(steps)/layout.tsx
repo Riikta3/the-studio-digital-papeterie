@@ -47,6 +47,7 @@ function StudioStepsLayoutInner({
   const weddingInfo = useOrderStore((s) => s.weddingInfo);
   const emailExists = useOrderStore((s) => s.emailExists);
   const hasHydrated = useOrderStore((s) => s._hasHydrated);
+  const completedAt = useOrderStore((s) => s.completedAt);
 
   const [menuOpen, setMenuOpen] = useState(false);
   // Checkout is the one long step in the funnel (summary + Stripe form), so
@@ -88,6 +89,24 @@ function StudioStepsLayoutInner({
     if (!hasHydrated) return;
     if (searchParams.get("payment_success")) return;
 
+    /*
+     * A finished order empties the basket, which makes every step below look
+     * invalid — so this guard fired on the way out and pushed the couple to
+     * /studio/start while the browser was still navigating to their dashboard.
+     * That is the flash of a success screen followed by a bounce back to step
+     * one, on an order that had in fact gone through.
+     *
+     * `payment_success` above only covers the redirect-based payment methods,
+     * which come back through the URL. A card settles inline and never sets
+     * it, so the checkout drives that path from `provision()` alone and this
+     * is the only thing that tells the layout an order just completed.
+     *
+     * The checkout has its own screen for this state (`completedAt && !plan`),
+     * and it is the right place for it: it offers a way into the dashboard
+     * rather than restarting the funnel.
+     */
+    if (completedAt && !plan) return;
+
     if (currentStepIndex >= 1 && !isStartValid) {
       router.push("/studio/start");
     } else if (currentStepIndex >= 2 && !theme) {
@@ -103,6 +122,8 @@ function StudioStepsLayoutInner({
     isModulesValid,
     router,
     searchParams,
+    completedAt,
+    plan,
   ]);
 
   return (

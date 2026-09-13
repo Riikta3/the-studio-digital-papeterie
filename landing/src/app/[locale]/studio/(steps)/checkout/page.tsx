@@ -357,6 +357,18 @@ export default function StudioCheckoutPage() {
       // so the couple could pay twice for the same wedding. The server refuses
       // that second order too, but the money would already have been taken.
       useOrderStore.getState().completeOrder();
+
+      /*
+       * Drop the id of the intent we just paid. It is a ref, so it survives
+       * `completeOrder()` and every re-render — and if the couple comes back
+       * into the funnel without a full page load, it would be sent to
+       * /api/create-payment-intent as the intent to reprice. That endpoint
+       * now mints a fresh one rather than refusing, so this is belt and
+       * braces; it still keeps a spent id from travelling any further than
+       * the order that used it.
+       */
+      intentIdRef.current = null;
+
       window.location.href = result.loginLink;
     } else if (!result.success) {
       setProvisionError(result.error ?? t("paymentError"));
