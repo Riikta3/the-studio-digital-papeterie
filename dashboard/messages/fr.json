@@ -189,7 +189,7 @@
     "reset": "Réinitialiser",
     "no_active_code": "Aucun code invité actif — votre faire-part est accessible à tous.",
     "change_code": "Modifier le code",
-    "guest_code_hint": "Les invités devront saisir ce code pour accéder à votre faire-part.",
+    "guest_code_hint": "Les invités devront saisir ce code pour accéder à votre faire-part. Vous aussi lorsque vous l'ouvrez depuis un nouvel appareil.",
     "toast_code_saved": "Code invité enregistré",
     "toast_code_removed": "Code invité supprimé",
     "toast_remove_error": "Erreur lors de la suppression"

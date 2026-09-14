@@ -1,5 +1,10 @@
 import type { Viewport } from "next";
-import { getInvitationPage } from "@/actions/invitation-page-actions";
+import {
+  getInvitationGate,
+  getInvitationPage,
+} from "@/actions/invitation-page-actions";
+import { GuestGate } from "@/components/invitation/GuestGate";
+import { hasGuestPass } from "@/lib/guest-gate";
 import { notFound, redirect } from "next/navigation";
 import { resolveTheme } from "@/components/invitation/themes/registry";
 import { toInvitationData } from "@/lib/to-invitation-data";
@@ -38,6 +43,38 @@ export default async function InvitationPage({
   params: Promise<{ locale: string; slug: string }>;
 }) {
   const { locale, slug } = await params;
+
+  /*
+   * The door, before anything else.
+   *
+   * `getInvitationPage` loads the couple's names, their events, their venue,
+   * their guest-facing FAQ. Fetching that and then rendering a gate over it
+   * would put the whole wedding in the HTML, one "view source" away — so the
+   * decision is made from `getInvitationGate`, which reads nothing but the
+   * slug, the theme and whether a code is required.
+   *
+   * A wedding with no code set is untouched: `isGated` is false and the
+   * invitation renders exactly as it always has.
+   */
+  const gate = await getInvitationGate(slug);
+  if (!gate) notFound();
+
+  if (
+    gate.isGated &&
+    !(await hasGuestPass(gate.weddingId, gate.codeFingerprint ?? ""))
+  ) {
+    const theme = resolveTheme(gate.themeId);
+
+    return (
+      <GuestGate
+        weddingId={gate.weddingId}
+        scopeClass={theme.scopeClass}
+        fontVars={theme.fontVars}
+        accentColor={theme.accentColor}
+      />
+    );
+  }
+
   const page = await getInvitationPage(slug);
   if (!page) notFound();
 
@@ -64,6 +101,24 @@ export async function generateMetadata({
   params: Promise<{ slug: string }>;
 }) {
   const { slug } = await params;
+
+  /*
+   * A gated invitation gives away nothing here either.
+   *
+   * This runs independently of the render above, so without this check a
+   * locked wedding still announced "Michelle & Michel — Faire-part" in the
+   * browser tab, in the bookmark, and in the link preview of any messaging
+   * app the URL was pasted into. The door would have been shut on a page
+   * whose own title said who was behind it.
+   */
+  const gate = await getInvitationGate(slug);
+  if (
+    gate?.isGated &&
+    !(await hasGuestPass(gate.weddingId, gate.codeFingerprint ?? ""))
+  ) {
+    return { title: "Faire-part", robots: { index: false, follow: false } };
+  }
+
   const data = await getInvitationPage(slug);
   if (!data) return { title: "Faire-part" };
 

@@ -25,6 +25,14 @@ export default function robots(): MetadataRoute.Robots {
       //
       // Locale-prefixed routes need a wildcard: a bare "/jourj/" would match
       // no real URL, since every page lives under /{locale}/.
+      // `/invitation/` is NOT listed here either, for the same reason as the
+      // studio above: it serves `noindex` from its own `generateMetadata`,
+      // and a crawler must be able to fetch the page to see it. Disallowing
+      // the path would strand any invitation URL that has already been
+      // indexed, since the directive telling Google to drop it would be
+      // unreachable. An invitation is kept private by its unguessable slug
+      // and, when the couple sets one, by the guest code — not by robots.txt,
+      // which is a request rather than an access control.
       disallow: ["/api/", "/*/jourj/"],
     },
     sitemap: `${siteUrl}/sitemap.xml`,

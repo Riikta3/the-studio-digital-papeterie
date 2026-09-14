@@ -189,6 +189,80 @@ function buildAccess(row: {
  * the caller 404s on both — indistinguishable from outside, so this route
  * cannot be used to discover which couples exist.
  */
+/**
+ * Resolves a slug to just enough to decide whether to open the door.
+ *
+ * `getInvitationPage` below loads the whole wedding — names, events, venue,
+ * FAQ, the lot. That is exactly what a guest without a code must not receive,
+ * and "render it but hide it" would still put every word of it in the HTML.
+ * So the gate is decided from this, before a single content query runs.
+ *
+ * Returns the theme too, so a locked invitation can still be dressed in the
+ * couple's own typography and accent — the one thing a guest may see.
+ */
+export async function getInvitationGate(slug: string): Promise<{
+  weddingId: string;
+  themeId: string | null;
+  isGated: boolean;
+  /**
+   * Fingerprint of the code currently in force, null when there is none.
+   * Passes are signed with it, so changing the code expires them.
+   */
+  codeFingerprint: string | null;
+} | null> {
+  if (!slug) return null;
+
+  const supabase = await createClient();
+
+  const { data: resolved, error: siteError } = await supabase.rpc(
+    "resolve_public_slug",
+    { p_slug: slug },
+  );
+
+  const site = resolved?.[0];
+  if (siteError || !site?.wedding_id) return null;
+
+  const weddingId = site.wedding_id as string;
+
+  const { data: gated, error: gateError } = await supabase.rpc(
+    "invitation_is_gated",
+    { p_wedding_id: weddingId },
+  );
+
+  if (gateError) {
+    // Fail closed: if we cannot tell whether a code is required, we must not
+    // assume it is not. A couple's guests are told to try again; the
+    // alternative is publishing a wedding that asked to be private.
+    console.error("[INVITATION_GATE_CHECK_FAILED]", gateError);
+    return {
+      weddingId,
+      themeId: (site.theme_id as string) ?? null,
+      isGated: true,
+      // No fingerprint means no pass can verify, so the door stays shut
+      // rather than opening on a guess.
+      codeFingerprint: null,
+    };
+  }
+
+  const isGated = gated === true;
+
+  // Only fetched when there is a door to check a pass against.
+  let codeFingerprint: string | null = null;
+  if (isGated) {
+    const { data: fp } = await supabase.rpc("guest_code_fingerprint", {
+      p_wedding_id: weddingId,
+    });
+    codeFingerprint = (fp as string) ?? null;
+  }
+
+  return {
+    weddingId,
+    themeId: (site.theme_id as string) ?? null,
+    isGated,
+    codeFingerprint,
+  };
+}
+
 export async function getInvitationPage(
   slug: string,
 ): Promise<InvitationPageData | null> {
