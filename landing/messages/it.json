@@ -147,7 +147,13 @@
       {
         "alt": "Esempio di invito di nozze — tema Belle Rive"
       }
-    ]
+    ],
+    "regionLabel": "Temi di partecipazione",
+    "roleDescription": "carosello",
+    "slideRoleDescription": "diapositiva",
+    "slideLabel": "{name}, {index} di {total}",
+    "pauseAriaLabel": "Metti in pausa il carosello",
+    "playAriaLabel": "Riprendi il carosello"
   },
   "Preview": {
     "eyebrow": "Personalizza dal vivo",

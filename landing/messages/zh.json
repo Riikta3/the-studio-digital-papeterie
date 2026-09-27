@@ -147,7 +147,13 @@
       {
         "alt": "婚礼请柬示例 — Belle Rive 主题"
       }
-    ]
+    ],
+    "regionLabel": "请柬主题",
+    "roleDescription": "轮播",
+    "slideRoleDescription": "幻灯片",
+    "slideLabel": "{name}，第 {index} 张，共 {total} 张",
+    "pauseAriaLabel": "暂停轮播",
+    "playAriaLabel": "继续轮播"
   },
   "Preview": {
     "eyebrow": "实时定制",

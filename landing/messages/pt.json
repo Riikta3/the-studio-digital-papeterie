@@ -147,7 +147,13 @@
       {
         "alt": "Exemplo de convite de casamento — tema Belle Rive"
       }
-    ]
+    ],
+    "regionLabel": "Temas de convite",
+    "roleDescription": "carrossel",
+    "slideRoleDescription": "slide",
+    "slideLabel": "{name}, {index} de {total}",
+    "pauseAriaLabel": "Pausar o carrossel",
+    "playAriaLabel": "Retomar o carrossel"
   },
   "Preview": {
     "eyebrow": "Personalize ao vivo",

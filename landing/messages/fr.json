@@ -310,7 +310,13 @@
       {
         "alt": "Exemple d’invitation de mariage — thème Belle Rive"
       }
-    ]
+    ],
+    "regionLabel": "Thèmes de faire-part",
+    "roleDescription": "carrousel",
+    "slideRoleDescription": "diapositive",
+    "slideLabel": "{name}, {index} sur {total}",
+    "pauseAriaLabel": "Mettre le défilement en pause",
+    "playAriaLabel": "Relancer le défilement"
   },
   "Preview": {
     "eyebrow": "Configurez en direct",

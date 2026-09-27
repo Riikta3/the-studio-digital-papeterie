@@ -148,7 +148,13 @@
       {
         "alt": "Ejemplo de invitación de boda — tema Belle Rive"
       }
-    ]
+    ],
+    "regionLabel": "Temas de invitación",
+    "roleDescription": "carrusel",
+    "slideRoleDescription": "diapositiva",
+    "slideLabel": "{name}, {index} de {total}",
+    "pauseAriaLabel": "Pausar el carrusel",
+    "playAriaLabel": "Reanudar el carrusel"
   },
   "Preview": {
     "eyebrow": "Personaliza en directo",

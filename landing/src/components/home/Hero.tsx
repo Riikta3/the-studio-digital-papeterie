@@ -11,7 +11,7 @@ import { useEffect, useRef, useState } from "react";
 import { hasThemePages } from "@/lib/theme-pages";
 import { Link } from "@/navigation";
 
-import { HeroCarousel } from "./HeroCarousel";
+import { HeroCurvedCarousel } from "./HeroCurvedCarousel";
 import {
   setSelectedThemeIndex,
   useSelectedThemeIndex,
@@ -53,7 +53,7 @@ export function Hero() {
   const contentRef = useRef<HTMLDivElement>(null);
   const carouselRef = useRef<HTMLDivElement>(null);
   const [violetHeight, setVioletHeight] = useState<number | null>(null);
-  // The fan opens on its middle card; `HeroCarousel` centres on the same index.
+  // The fan opens on its middle card; `HeroCurvedCarousel` centres on the same index.
   // The selection is shared with the phone mockup below rather than kept local,
   // so "Tester le thème X" scrolls to a mockup already showing X.
   const activeThemeName = THEMES[useSelectedThemeIndex()].name;
@@ -196,7 +196,7 @@ export function Hero() {
 
         <div ref={carouselRef} className="relative mt-4 w-full md:mt-20">
           <div className="relative z-10">
-            <HeroCarousel onActiveThemeChange={setSelectedThemeIndex} />
+            <HeroCurvedCarousel onActiveThemeChange={setSelectedThemeIndex} />
           </div>
           <Image
             src="/images/hero-leaf-bottom.svg"

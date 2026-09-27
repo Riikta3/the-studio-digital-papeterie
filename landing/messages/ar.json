@@ -147,7 +147,13 @@
       {
         "alt": "نموذج دعوة زفاف — قالب Belle Rive"
       }
-    ]
+    ],
+    "regionLabel": "أنماط الدعوات",
+    "roleDescription": "عرض دوّار",
+    "slideRoleDescription": "شريحة",
+    "slideLabel": "{name}، {index} من {total}",
+    "pauseAriaLabel": "إيقاف العرض مؤقتًا",
+    "playAriaLabel": "استئناف العرض"
   },
   "Preview": {
     "eyebrow": "خصّصي مباشرة",

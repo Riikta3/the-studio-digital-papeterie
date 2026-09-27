@@ -147,7 +147,13 @@
       {
         "alt": "結婚式の招待状の例 — Belle Rive テーマ"
       }
-    ]
+    ],
+    "regionLabel": "招待状のテーマ",
+    "roleDescription": "カルーセル",
+    "slideRoleDescription": "スライド",
+    "slideLabel": "{name}（{total}枚中{index}枚目）",
+    "pauseAriaLabel": "カルーセルを一時停止",
+    "playAriaLabel": "カルーセルを再開"
   },
   "Preview": {
     "eyebrow": "リアルタイムでカスタマイズ",

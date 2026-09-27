@@ -148,7 +148,13 @@
       {
         "alt": "Beispiel einer Hochzeitseinladung — Thema Belle Rive"
       }
-    ]
+    ],
+    "regionLabel": "Einladungsdesigns",
+    "roleDescription": "Karussell",
+    "slideRoleDescription": "Folie",
+    "slideLabel": "{name}, {index} von {total}",
+    "pauseAriaLabel": "Karussell anhalten",
+    "playAriaLabel": "Karussell fortsetzen"
   },
   "Preview": {
     "eyebrow": "Live gestalten",

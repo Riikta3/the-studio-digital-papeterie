@@ -149,7 +149,13 @@
       {
         "alt": "Wedding invitation example — Belle Rive theme"
       }
-    ]
+    ],
+    "regionLabel": "Invitation themes",
+    "roleDescription": "carousel",
+    "slideRoleDescription": "slide",
+    "slideLabel": "{name}, {index} of {total}",
+    "pauseAriaLabel": "Pause the carousel",
+    "playAriaLabel": "Resume the carousel"
   },
   "Preview": {
     "eyebrow": "Customize live",
