@@ -844,13 +844,17 @@
     "loading": "A carregar..."
   },
   "UpdatePassword": {
-    "title": "Bem-vindo!",
-    "subtitle": "Defina a sua palavra-passe para aceder ao seu espaço.",
-    "password_placeholder": "Nova palavra-passe",
-    "submit": "Aceder ao meu espaço",
+    "title": "Nova palavra-passe",
+    "subtitle": "Escolha a palavra-passe com que vai iniciar sessão no seu espaço.",
+    "password_placeholder": "Palavra-passe",
+    "submit": "Guardar",
     "loading": "A carregar...",
     "toast_error": "Erro ao atualizar",
-    "toast_success": "Palavra-passe definida com sucesso!"
+    "confirm_label": "Confirmar palavra-passe",
+    "error_too_short": "Pelo menos {min} caracteres.",
+    "error_mismatch": "As duas palavras-passe não coincidem.",
+    "show_password": "Mostrar palavra-passe",
+    "hide_password": "Ocultar palavra-passe"
   },
   "BuyModuleDialog": {
     "dialog_title": "Adicionar um módulo",
@@ -892,6 +896,8 @@
     "session_expired_description": "Terminou a sessão após 30 dias de inatividade. Inicie sessão novamente para continuar.",
     "invalid_link_title": "Este link já não é válido",
     "invalid_link_description": "Pode já ter sido utilizado ou ter expirado. Peça um novo.",
+    "no_wedding_title": "Nenhum convite associado a esta conta",
+    "no_wedding_description": "Este endereço ainda não tem nenhuma encomenda. Inicie sessão com o endereço utilizado na compra.",
     "magic_link_cta": "Receber um link de acesso",
     "magic_link_title": "Entrar sem palavra-passe",
     "magic_link_description": "Introduza o seu email: enviamos-lhe um link que o liga diretamente.",

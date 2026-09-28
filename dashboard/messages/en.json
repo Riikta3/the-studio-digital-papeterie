@@ -844,13 +844,17 @@
     "loading": "Loading..."
   },
   "UpdatePassword": {
-    "title": "Welcome!",
-    "subtitle": "Set your password to access your space.",
-    "password_placeholder": "New password",
-    "submit": "Access my space",
+    "title": "New password",
+    "subtitle": "Choose the password you will use to sign in to your space.",
+    "password_placeholder": "Password",
+    "submit": "Save",
     "loading": "Loading...",
     "toast_error": "Error while updating",
-    "toast_success": "Password set successfully!"
+    "confirm_label": "Confirm password",
+    "error_too_short": "At least {min} characters.",
+    "error_mismatch": "The two passwords do not match.",
+    "show_password": "Show password",
+    "hide_password": "Hide password"
   },
   "BuyModuleDialog": {
     "dialog_title": "Add a module",
@@ -892,6 +896,8 @@
     "session_expired_description": "You were signed out after 30 days of inactivity. Sign in again to continue.",
     "invalid_link_title": "This link is no longer valid",
     "invalid_link_description": "It may already have been used, or it has expired. Request a new one.",
+    "no_wedding_title": "No invitation linked to this account",
+    "no_wedding_description": "This address has no order yet. Sign in with the address you used at purchase.",
     "magic_link_cta": "Email me a sign-in link",
     "magic_link_title": "Sign in without a password",
     "magic_link_description": "Enter your email address and we will send you a link that signs you straight in.",

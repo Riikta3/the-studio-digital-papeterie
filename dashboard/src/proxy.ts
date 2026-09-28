@@ -1,11 +1,30 @@
 import createMiddleware from "next-intl/middleware";
-import { NextRequest } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 import { routing } from "./navigation";
 import { updateSession } from "./utils/supabase/middleware";
 
 const intlMiddleware = createMiddleware(routing);
 
+/**
+ * `/fr/update-password` and friends. The page lives outside `[locale]`, but
+ * reset emails used to send `next=/<locale>/update-password` — a 404 reached
+ * AFTER the recovery link had signed the couple in, so they landed in the
+ * dashboard without ever being asked for a new password. Links already in
+ * inboxes stay valid for a day, so this redirect has to catch them.
+ */
+const LOCALIZED_UPDATE_PASSWORD = new RegExp(
+  `^/(${routing.locales.join("|")})/update-password/?$`,
+);
+
 export default async function proxy(request: NextRequest) {
+  const localized = request.nextUrl.pathname.match(LOCALIZED_UPDATE_PASSWORD);
+  if (localized) {
+    const target = request.nextUrl.clone();
+    target.pathname = "/update-password";
+    target.searchParams.set("locale", localized[1]);
+    return NextResponse.redirect(target);
+  }
+
   // Auth first: `updateSession` either redirects an anonymous visitor to
   // /<locale>/login or refreshes their token. It had never been wired in —
   // the function existed but nothing imported it — so until now no dashboard

@@ -65,7 +65,18 @@ export default function AuthSessionPage() {
       const fragment = new URLSearchParams(hash);
       const query = new URLSearchParams(window.location.search);
 
-      const next = safeNext(query.get("next"));
+      /*
+       * A recovery link exists to change the password, so it ends on that
+       * form whatever `next` says. Trusting `next` here is how a stale or
+       * mistyped path once dropped the couple, signed in, onto a 404 with
+       * the password unchanged.
+       */
+      const requested = safeNext(query.get("next"));
+      const next =
+        fragment.get("type") === "recovery" &&
+        !/^\/update-password(\?|$)/.test(requested)
+          ? "/update-password"
+          : requested;
 
       /*
        * Clear the fragment before doing anything with it. It holds a usable

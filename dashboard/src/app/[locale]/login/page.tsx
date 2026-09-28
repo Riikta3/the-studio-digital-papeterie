@@ -1,6 +1,7 @@
 "use client";
 
 import { Link } from "@/navigation";
+import { createClient } from "@/utils/supabase/client";
 import { Button } from "@shared/components/ui/button";
 import { Input } from "@shared/components/ui/input";
 import { Label } from "@shared/components/ui/label";
@@ -49,6 +50,16 @@ function RedirectNotice() {
       toast.info(t("session_expired_title"), {
         description: t("session_expired_description"),
         duration: 8000,
+      });
+    } else if (reason === "no_wedding") {
+      shown.current = true;
+      // The account is signed in but owns nothing (see `requireWedding`).
+      // Ending that session here is what lets the couple sign in with the
+      // right address instead of bouncing straight back.
+      void createClient().auth.signOut();
+      toast.error(t("no_wedding_title"), {
+        description: t("no_wedding_description"),
+        duration: 10000,
       });
     } else if (error === "invalid_link") {
       shown.current = true;

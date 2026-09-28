@@ -844,13 +844,17 @@
     "loading": "加载中..."
   },
   "UpdatePassword": {
-    "title": "欢迎！",
-    "subtitle": "设置您的密码以访问您的空间。",
-    "password_placeholder": "新密码",
-    "submit": "进入我的空间",
+    "title": "新密码",
+    "subtitle": "请设置用于登录您空间的密码。",
+    "password_placeholder": "密码",
+    "submit": "保存",
     "loading": "加载中...",
     "toast_error": "更新时出错",
-    "toast_success": "密码设置成功！"
+    "confirm_label": "确认密码",
+    "error_too_short": "至少 {min} 个字符。",
+    "error_mismatch": "两次输入的密码不一致。",
+    "show_password": "显示密码",
+    "hide_password": "隐藏密码"
   },
   "BuyModuleDialog": {
     "dialog_title": "添加模块",
@@ -892,6 +896,8 @@
     "session_expired_description": "因 30 天未使用，您已被登出。请重新登录以继续。",
     "invalid_link_title": "此链接已失效",
     "invalid_link_description": "该链接可能已被使用或已过期。请重新获取一个。",
+    "no_wedding_title": "此账户未关联任何请柬",
+    "no_wedding_description": "该邮箱尚无订单。请使用购买时填写的邮箱登录。",
     "magic_link_cta": "发送登录链接",
     "magic_link_title": "无需密码登录",
     "magic_link_description": "输入您的邮箱地址，我们将发送一个可直接登录的链接。",

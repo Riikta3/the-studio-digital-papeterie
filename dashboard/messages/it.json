@@ -844,13 +844,17 @@
     "loading": "Caricamento..."
   },
   "UpdatePassword": {
-    "title": "Benvenuto!",
-    "subtitle": "Imposta la tua password per accedere al tuo spazio.",
-    "password_placeholder": "Nuova password",
-    "submit": "Accedi al mio spazio",
+    "title": "Nuova password",
+    "subtitle": "Scegli la password con cui accederai al tuo spazio.",
+    "password_placeholder": "Password",
+    "submit": "Salva",
     "loading": "Caricamento...",
     "toast_error": "Errore durante l'aggiornamento",
-    "toast_success": "Password impostata con successo!"
+    "confirm_label": "Conferma password",
+    "error_too_short": "Almeno {min} caratteri.",
+    "error_mismatch": "Le due password non coincidono.",
+    "show_password": "Mostra password",
+    "hide_password": "Nascondi password"
   },
   "BuyModuleDialog": {
     "dialog_title": "Aggiungi un modulo",
@@ -892,6 +896,8 @@
     "session_expired_description": "Sei stato disconnesso dopo 30 giorni di inattività. Accedi di nuovo per continuare.",
     "invalid_link_title": "Questo link non è più valido",
     "invalid_link_description": "Potrebbe essere già stato usato o essere scaduto. Richiedine uno nuovo.",
+    "no_wedding_title": "Nessun invito collegato a questo account",
+    "no_wedding_description": "Questo indirizzo non ha ancora ordini. Accedi con l'indirizzo usato al momento dell'acquisto.",
     "magic_link_cta": "Ricevi un link di accesso",
     "magic_link_title": "Accedi senza password",
     "magic_link_description": "Inserisci il tuo indirizzo email: ti invieremo un link che ti collega direttamente.",

@@ -844,13 +844,17 @@
     "loading": "読み込み中..."
   },
   "UpdatePassword": {
-    "title": "ようこそ！",
-    "subtitle": "マイページにアクセスするためのパスワードを設定してください。",
-    "password_placeholder": "新しいパスワード",
-    "submit": "マイページへ進む",
+    "title": "新しいパスワード",
+    "subtitle": "マイスペースへのログインに使うパスワードを設定してください。",
+    "password_placeholder": "パスワード",
+    "submit": "保存",
     "loading": "読み込み中...",
     "toast_error": "更新中にエラーが発生しました",
-    "toast_success": "パスワードが正常に設定されました！"
+    "confirm_label": "パスワード（確認）",
+    "error_too_short": "{min}文字以上で入力してください。",
+    "error_mismatch": "2つのパスワードが一致しません。",
+    "show_password": "パスワードを表示",
+    "hide_password": "パスワードを隠す"
   },
   "BuyModuleDialog": {
     "dialog_title": "モジュールを追加",
@@ -892,6 +896,8 @@
     "session_expired_description": "30日間ご利用がなかったためログアウトされました。もう一度ログインしてください。",
     "invalid_link_title": "このリンクは無効です",
     "invalid_link_description": "すでに使用されたか、有効期限が切れています。新しいリンクをリクエストしてください。",
+    "no_wedding_title": "このアカウントに招待状は紐づいていません",
+    "no_wedding_description": "このアドレスにはまだご注文がありません。ご購入時のメールアドレスでログインしてください。",
     "magic_link_cta": "ログインリンクを受け取る",
     "magic_link_title": "パスワードなしでログイン",
     "magic_link_description": "メールアドレスを入力してください。そのままログインできるリンクをお送りします。",

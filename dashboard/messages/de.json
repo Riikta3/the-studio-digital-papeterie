@@ -844,13 +844,17 @@
     "loading": "Lädt..."
   },
   "UpdatePassword": {
-    "title": "Willkommen!",
-    "subtitle": "Legen Sie Ihr Passwort fest, um auf Ihren Bereich zuzugreifen.",
-    "password_placeholder": "Neues Passwort",
-    "submit": "Zu meinem Bereich",
+    "title": "Neues Passwort",
+    "subtitle": "Wählen Sie das Passwort, mit dem Sie sich in Ihrem Bereich anmelden.",
+    "password_placeholder": "Passwort",
+    "submit": "Speichern",
     "loading": "Wird geladen...",
     "toast_error": "Fehler bei der Aktualisierung",
-    "toast_success": "Passwort erfolgreich festgelegt!"
+    "confirm_label": "Passwort bestätigen",
+    "error_too_short": "Mindestens {min} Zeichen.",
+    "error_mismatch": "Die beiden Passwörter stimmen nicht überein.",
+    "show_password": "Passwort anzeigen",
+    "hide_password": "Passwort verbergen"
   },
   "BuyModuleDialog": {
     "dialog_title": "Modul hinzufügen",
@@ -892,6 +896,8 @@
     "session_expired_description": "Sie wurden nach 30 Tagen Inaktivität abgemeldet. Melden Sie sich erneut an.",
     "invalid_link_title": "Dieser Link ist nicht mehr gültig",
     "invalid_link_description": "Er wurde möglicherweise bereits verwendet oder ist abgelaufen. Fordern Sie einen neuen an.",
+    "no_wedding_title": "Keine Einladung mit diesem Konto verknüpft",
+    "no_wedding_description": "Unter dieser Adresse gibt es noch keine Bestellung. Melden Sie sich mit der beim Kauf verwendeten Adresse an.",
     "magic_link_cta": "Anmeldelink per E-Mail erhalten",
     "magic_link_title": "Anmelden ohne Passwort",
     "magic_link_description": "Geben Sie Ihre E-Mail-Adresse ein – wir senden Ihnen einen Link, der Sie direkt anmeldet.",

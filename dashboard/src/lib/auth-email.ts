@@ -10,6 +10,7 @@ import {
   paragraph,
 } from "@shared/emails/components";
 import { renderEmail } from "@shared/emails/layout";
+import { findUserByEmail } from "@shared/lib/find-user-by-email";
 
 /**
  * The account emails — password reset, sign-in link, address confirmation.
@@ -64,7 +65,13 @@ const LINK_TYPE = {
   change_new: "email_change_new",
 } as const;
 
-/** Where `auth/confirm` should send the couple once the token is verified. */
+/**
+ * Where `auth/confirm` should send the couple once the token is verified.
+ *
+ * `update-password` lives outside `[locale]` (see `proxy.ts`), so it is the
+ * one path that must NOT get the locale prefix: `/fr/update-password` is a 404,
+ * which is where every reset link used to land after signing the couple in.
+ */
 const LANDING_PATH = {
   reset: "/update-password",
   magiclink: "",
@@ -72,6 +79,8 @@ const LANDING_PATH = {
   change_current: "/settings",
   change_new: "/settings",
 } as const;
+
+const UNLOCALIZED: ReadonlySet<AuthEmailKind> = new Set(["reset"]);
 
 export interface AuthEmailInput {
   kind: AuthEmailKind;
@@ -217,12 +226,34 @@ export async function sendAuthEmail(
     return { sent: false };
   }
 
+  /*
+   * `generateLink({type: "magiclink"})` does not fail for an unknown address:
+   * it CREATES the account. Anyone typing an address into the login form got
+   * a real, wedding-less account and a link into it — every dashboard page
+   * then threw "Wedding not found". It also let a stranger make us email any
+   * inbox they liked, which is how a sending domain earns its spam folder.
+   * Accounts are created by checkout only; here we just check one exists.
+   * (`recovery` refuses unknown addresses by itself.)
+   */
+  if (input.kind === "magiclink") {
+    try {
+      if (!(await findUserByEmail(admin, input.to))) return { sent: false };
+    } catch (err) {
+      console.error("[AUTH_EMAIL] account lookup failed (magiclink)", err);
+      return { sent: false };
+    }
+  }
+
   const dashboardUrl =
     process.env.NEXT_PUBLIC_DASHBOARD_URL || "http://localhost:3003";
 
   // Through `auth/confirm`, which verifies the token and sets the session
   // cookies before forwarding — the same route the checkout's magic link uses.
-  const next = `/${input.locale}${LANDING_PATH[input.kind]}`;
+  // Outside `[locale]`, the language rides in the query instead — otherwise
+  // the page could only guess it from the browser, and did, in English.
+  const next = UNLOCALIZED.has(input.kind)
+    ? `${LANDING_PATH[input.kind]}?locale=${encodeURIComponent(input.locale)}`
+    : `/${input.locale}${LANDING_PATH[input.kind]}`;
   const redirectTo = `${dashboardUrl}/auth/confirm?next=${encodeURIComponent(next)}`;
 
   try {

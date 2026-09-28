@@ -1,3 +1,6 @@
+import { redirect } from "next/navigation";
+import { getLocale } from "next-intl/server";
+
 import { createClient } from "@/utils/supabase/server";
 
 /**
@@ -59,6 +62,20 @@ export async function requireWedding() {
           `exactly one. Likely a double-provisioned checkout — see the vault ` +
           `note "Provisioning et Facturation".`,
       );
+    }
+
+    /*
+     * No wedding at all: an account that checkout never provisioned. The
+     * login page's magic-link form used to create these for any address typed
+     * into it (`generateLink` signs unknown addresses up), and some survive.
+     * There is nothing to show such an account, and a thrown error is a 500
+     * on every page — so send it to the login page, which signs it out and
+     * says why. (Signing out here is not possible: a server component cannot
+     * write cookies, and `[locale]/loading.tsx` streams the page, so this
+     * redirect is carried out by the client router.)
+     */
+    if ((count ?? 0) === 0) {
+      redirect(`/${await getLocale()}/login?reason=no_wedding`);
     }
 
     throw new Error(error ? `Wedding not found: ${error.message}` : "Wedding not found");
