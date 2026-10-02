@@ -13,8 +13,14 @@ import localFont from "next/font/local";
  */
 
 /**
- * Titles, names, times, the dishes: the designer's Bodoni Moda, roman and italic,
- * with its optical-size axis — the hairlines of a 100px name come from it.
+ * Titles, names, times, the dishes: the designer's Bodoni Moda, roman, with its
+ * optical-size axis — the hairlines of a 100px name come from it.
+ *
+ * No italic file, as in the designer's page: its Google Fonts link asks for the
+ * roman only, so every `font-style: italic` ("royal", "du lendemain") is the
+ * browser's slant of the roman, and that slanted roman is the look the designer
+ * approved. Declaring the true italic here would set those words in a thinner,
+ * narrower face than the reference. To get it, add the italic Latin subset to `src`.
  *
  * Self-hosted under a family name of its own, on purpose. This Next version keeps
  * a Google font's family name as it is ("Bodoni Moda"), so every theme that loads
@@ -23,15 +29,14 @@ import localFont from "next/font/local";
  * axis, and when theirs win a Château title is set at the text size (wider, with
  * sturdier hairlines). A family nobody else declares cannot be overridden.
  *
- * The two files are the Latin subset of Bodoni Moda as Google Fonts serves it
- * (SIL Open Font License 1.1, © The Bodoni Moda Project Authors): the same
- * variable font, wght 400–900 and opsz 6–96.
+ * The file is the Latin subset of Bodoni Moda as Google Fonts serves it (SIL Open
+ * Font License 1.1, © The Bodoni Moda Project Authors): the same variable font,
+ * wght 400–900 and opsz 6–96.
  */
 const display = localFont({
-  src: [
-    { path: "./font-files/bodoni-moda-latin.woff2", weight: "400 900", style: "normal" },
-    { path: "./font-files/bodoni-moda-latin-italic.woff2", weight: "400 900", style: "italic" },
-  ],
+  src: "./font-files/bodoni-moda-latin.woff2",
+  weight: "400 900",
+  style: "normal",
   declarations: [{ prop: "font-family", value: "Chateau Royal Bodoni" }],
   display: "swap",
   variable: "--font-cr-display",

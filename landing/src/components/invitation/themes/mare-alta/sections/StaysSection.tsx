@@ -109,8 +109,8 @@ export function StaysSection({ data }: { data: InvitationData }) {
       />
       {stamps.length > 0 ? (
         <div className="travel-stamps">
-          {stamps.map(({ Icon, text }) => (
-            <span key={text}>
+          {stamps.map(({ Icon, text }, index) => (
+            <span key={`${index}-${text}`}>
               <Icon /> {text}
             </span>
           ))}

@@ -1409,7 +1409,7 @@
         "intro": "一天，千般时刻。",
         "dayOne": "第一天",
         "dayTwo": "第二天",
-        "alsoTitle": "还有"
+        "dressLabel": "着装"
       },
       "menu": {
         "eyebrow": "晚宴",
@@ -1601,6 +1601,12 @@
         "photosCta": "分享我的照片",
         "photosHint": "照片和视频，与新人共享",
         "soon": "婚礼当天开放"
+      },
+      "nav": {
+        "label": "快速导航",
+        "venue": "地点",
+        "programme": "日程",
+        "rsvp": "回复"
       }
     },
     "caboVerde": {
@@ -1674,7 +1680,10 @@
       "travel": {
         "eyebrow": "实用指南",
         "title": "旅行手册",
-        "open": "打开"
+        "open": "打开",
+        "ticketDestination": "目的地",
+        "ticketDate": "日期",
+        "ticketCountry": "国家"
       },
       "rsvp": {
         "stamp": "R.S.V.P.",

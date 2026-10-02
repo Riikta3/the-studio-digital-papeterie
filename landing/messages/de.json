@@ -1410,7 +1410,7 @@
         "intro": "Ein Tag, tausend Augenblicke.",
         "dayOne": "Tag I",
         "dayTwo": "Tag II",
-        "alsoTitle": "Außerdem"
+        "dressLabel": "Dresscode"
       },
       "menu": {
         "eyebrow": "Das Dinner",
@@ -1602,6 +1602,12 @@
         "photosCta": "Meine Fotos teilen",
         "photosHint": "Fotos und Videos, geteilt mit dem Brautpaar",
         "soon": "Am großen Tag verfügbar"
+      },
+      "nav": {
+        "label": "Schnellnavigation",
+        "venue": "Der Ort",
+        "programme": "Der Ablauf",
+        "rsvp": "Antworten"
       }
     },
     "caboVerde": {
@@ -1675,7 +1681,10 @@
       "travel": {
         "eyebrow": "Gut zu wissen",
         "title": "Das Reisetagebuch",
-        "open": "Öffnen"
+        "open": "Öffnen",
+        "ticketDestination": "Ziel",
+        "ticketDate": "Datum",
+        "ticketCountry": "Land"
       },
       "rsvp": {
         "stamp": "R.S.V.P.",

@@ -8,6 +8,9 @@ import type { InvitationData } from "../../types";
 
 import { FOLIAGE_LIGHTS } from "./foliage-lights";
 
+/** Past this many characters a name is set smaller (see `responsive.css`). */
+const LONG_NAME = 9;
+
 /**
  * The embroidered villa, the couple's names over the linen above it, and the
  * lights twinkling on the trees.
@@ -28,6 +31,9 @@ export function HeroSection({ data }: { data: InvitationData }) {
   const place = [data.venue.city, data.venue.country].filter(Boolean).join(" · ");
   const monogram = data.couple.monogram?.trim();
   const { partner1, partner2 } = data.couple;
+  // Compound or long first names ("Marie-Charlotte") do not fit the designer's size: the title wraps
+  // to four or five lines and runs into the villa. The stylesheet sets them smaller.
+  const longNames = Math.max([...partner1].length, [...partner2].length) > LONG_NAME;
 
   return (
     <section className="hero" id="ma-top" data-editor-section="hero">
@@ -64,7 +70,7 @@ export function HeroSection({ data }: { data: InvitationData }) {
       </div>
       <div className="hero-copy">
         <p className="eyebrow light">{data.copy?.heroKicker ?? t("eyebrow")}</p>
-        <h1>
+        <h1 data-long={longNames ? "" : undefined}>
           <span>{partner1}</span>
           <i>&amp;</i>
           <span>{partner2}</span>

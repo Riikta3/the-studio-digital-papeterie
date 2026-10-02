@@ -90,7 +90,9 @@
 
 /* An event of its own in the timeline (a welcome dinner, a party): the address under the description,
    and the event's moments as small lines. The sheet sets every `.event p` in the italic display face. */
+.theme-chateau-royal .event .cr-nowrap { white-space: nowrap; }
 .theme-chateau-royal .event .cr-event-where { font-size: 0.95rem; margin-top: 4px; }
+.theme-chateau-royal .event .cr-event-where b { font: 500 0.7rem/1 var(--font-cr-sans), Jost, sans-serif; letter-spacing: 0.16em; text-transform: uppercase; margin-inline-end: 0.5em; color: #805844; }
 .theme-chateau-royal .event .cr-event-moments,
 .theme-chateau-royal .brunch-card .cr-day-moments {
   list-style: none;
@@ -111,6 +113,16 @@
    body is no longer the last child, so it keeps its style by class. */
 .theme-chateau-royal .brunch-card > p.cr-brunch-body { margin: 0; font-size: 0.94rem; }
 .theme-chateau-royal .brunch-card .cr-day-moments { margin-top: 18px; }
+/* The day-after event's dress code, a small tracked label like the times above it. */
+.theme-chateau-royal .brunch-card > p.cr-brunch-dress { margin: 12px 0 0; }
+.theme-chateau-royal .brunch-card > p.cr-brunch-dress b {
+  margin-inline-end: 0.5em;
+  font-weight: 500;
+  font-size: 0.78rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: #805844;
+}
 .theme-chateau-royal .brunch-card > p.cr-brunch-note {
   margin: 18px 0 0;
   font: italic 0.95rem/1.5 var(--font-cr-display), "Bodoni Moda", serif;
@@ -188,6 +200,13 @@
 /* ------------------------------------------------------------------ *
  * The reply
  * ------------------------------------------------------------------ */
+
+/* The frame's side padding is 8% of the page, so past 1440px the form and the title are squeezed ever
+   narrower (407px at 1920) and the title's "?" drops alone on a third line. The padding stops growing
+   where the designer's page was at 1440px. */
+@media (min-width: 1400px) {
+  .theme-chateau-royal .rsvp-frame { padding-inline: min(8%, 112px); }
+}
 
 /* The sheet hides the success message and the designer's script shows it; here the element only
    exists once the reply is sent, so it is simply shown. */
@@ -271,6 +290,22 @@
 }
 
 /* ------------------------------------------------------------------ *
+ * Line breaks in what the couple writes
+ * ------------------------------------------------------------------ */
+
+/* The designer set three short cards of his own words. A couple writes long questions ("… pendant la
+   cérémonie ?"), addresses and times, and a narrow column then leaves a lone "?", "00" or "h" on the last
+   line. Balanced titles and "pretty" paragraphs avoid it; a browser without the property breaks as before. */
+.theme-chateau-royal .practical-item h3,
+.theme-chateau-royal .event-card h3,
+.theme-chateau-royal .event-card .event-time { text-wrap: balance; }
+.theme-chateau-royal .practical-item p,
+.theme-chateau-royal .event-card p,
+.theme-chateau-royal .brunch-card p,
+.theme-chateau-royal .menu-course p,
+.theme-chateau-royal .rsvp-frame > p { text-wrap: pretty; }
+
+/* ------------------------------------------------------------------ *
  * Eyebrows and right to left
  * ------------------------------------------------------------------ */
 
@@ -294,4 +329,10 @@
    "15 h 30" end up at the wrong side of the line. */
 [dir="rtl"] .theme-chateau-royal :is(h1, h2, h3, p, li, small, label, .event-time, .letter-top, .hero-title span, .signoff-names span, .menu-course > span) {
   unicode-bidi: plaintext;
+}
+
+/* The designer's tracked small capitals have no Arabic counterpart: letter-spacing only stretches the gaps
+   between the letters of a cursive script, so the labels are set at their natural spacing. */
+[dir="rtl"] .theme-chateau-royal :is(.hero-prelude, .letter-small, .letter-date, .section-eyebrow, .event-time, .menu-course > span, .rsvp label, .rsvp button, .royal-signoff p) {
+  letter-spacing: 0;
 }

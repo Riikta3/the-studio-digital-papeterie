@@ -1409,7 +1409,7 @@
         "intro": "Um dia, mil momentos.",
         "dayOne": "Dia I",
         "dayTwo": "Dia II",
-        "alsoTitle": "E ainda"
+        "dressLabel": "Traje"
       },
       "menu": {
         "eyebrow": "O jantar",
@@ -1601,6 +1601,12 @@
         "photosCta": "Partilhar as minhas fotos",
         "photosHint": "Fotos e vídeos, partilhados com os noivos",
         "soon": "Disponível no grande dia"
+      },
+      "nav": {
+        "label": "Navegação rápida",
+        "venue": "O local",
+        "programme": "O programa",
+        "rsvp": "Responder"
       }
     },
     "caboVerde": {
@@ -1674,7 +1680,10 @@
       "travel": {
         "eyebrow": "Algumas referências",
         "title": "O caderno de viagem",
-        "open": "Abrir"
+        "open": "Abrir",
+        "ticketDestination": "Destino",
+        "ticketDate": "Data",
+        "ticketCountry": "País"
       },
       "rsvp": {
         "stamp": "R.S.V.P.",

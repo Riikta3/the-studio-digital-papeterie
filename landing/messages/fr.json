@@ -1758,7 +1758,7 @@
         "intro": "Une journée, mille instants.",
         "dayOne": "Jour I",
         "dayTwo": "Jour II",
-        "alsoTitle": "Et aussi"
+        "dressLabel": "Tenue"
       },
       "menu": {
         "eyebrow": "Le dîner",
@@ -1785,7 +1785,7 @@
         "messagePlaceholder": "Facultatif",
         "submit": "Confirmer ma réponse",
         "titleLine1": "Vous serez",
-        "titleLine2": "des nôtres ?",
+        "titleLine2": "des nôtres ?",
         "nameLabel": "Prénom et nom",
         "pending": "Envoi…",
         "thanks": "Merci ! Votre réponse a bien été prise en compte.",
@@ -1950,6 +1950,12 @@
         "photosCta": "Partager mes photos",
         "photosHint": "Photos et vidéos, partagées avec les mariés",
         "soon": "Disponible le jour J"
+      },
+      "nav": {
+        "label": "Navigation rapide",
+        "venue": "Le lieu",
+        "programme": "Le programme",
+        "rsvp": "Répondre"
       }
     },
     "caboVerde": {
@@ -2023,7 +2029,10 @@
       "travel": {
         "eyebrow": "Quelques repères",
         "title": "Le carnet de voyage",
-        "open": "Ouvrir"
+        "open": "Ouvrir",
+        "ticketDestination": "Destination",
+        "ticketDate": "Date",
+        "ticketCountry": "Pays"
       },
       "rsvp": {
         "stamp": "R.S.V.P.",

@@ -1409,7 +1409,7 @@
         "intro": "يوم واحد، ألف لحظة.",
         "dayOne": "اليوم الأول",
         "dayTwo": "اليوم الثاني",
-        "alsoTitle": "وأيضًا"
+        "dressLabel": "اللباس"
       },
       "menu": {
         "eyebrow": "العشاء",
@@ -1601,6 +1601,12 @@
         "photosCta": "مشاركة صوري",
         "photosHint": "صور ومقاطع فيديو، تُشارك مع العروسين",
         "soon": "متاح يوم الزفاف"
+      },
+      "nav": {
+        "label": "تنقّل سريع",
+        "venue": "المكان",
+        "programme": "البرنامج",
+        "rsvp": "الرد"
       }
     },
     "caboVerde": {
@@ -1674,7 +1680,10 @@
       "travel": {
         "eyebrow": "بعض المعالم",
         "title": "دفتر السفر",
-        "open": "فتح"
+        "open": "فتح",
+        "ticketDestination": "الوجهة",
+        "ticketDate": "التاريخ",
+        "ticketCountry": "البلد"
       },
       "rsvp": {
         "stamp": "R.S.V.P.",

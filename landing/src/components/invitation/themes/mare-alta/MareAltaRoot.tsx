@@ -15,6 +15,7 @@ import { CountdownSection } from "./sections/CountdownSection";
 import { PhotosBlock, TableBlock } from "./sections/DayOfSection";
 import { DressCodeSection } from "./sections/DressCodeSection";
 import { FaqSection } from "./sections/FaqSection";
+import { FloatingNav } from "./sections/FloatingNav";
 import { FooterSection } from "./sections/FooterSection";
 import { GiftsSection } from "./sections/GiftsSection";
 import { HeroSection } from "./sections/HeroSection";
@@ -68,6 +69,14 @@ export function MareAltaRoot({ data }: { data: InvitationData }) {
     <main className={`theme-mare-alta ${mareAltaFontVars}`} data-theme-root="" style={decor}>
       <JsFlag />
       <div className="ma-column">
+        {/* The designer's quick links to the place, the programme and the reply, for what the wedding has. */}
+        <FloatingNav
+          targets={[
+            ...(has("map") ? ["#ma-map"] : []),
+            ...(has("timeline") ? ["#ma-timeline"] : []),
+            ...(has("rsvp") ? ["#ma-rsvp"] : []),
+          ]}
+        />
         <HeroSection data={data} />
         {has("countdown") ? <CountdownSection data={data} /> : null}
         {has("map") ? <VenueSection data={data} /> : null}

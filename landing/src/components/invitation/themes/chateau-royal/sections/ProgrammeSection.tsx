@@ -42,17 +42,30 @@ export function ProgrammeSection({ data }: { data: InvitationData }) {
     .filter(Boolean)
     .join(" · ");
   const intro = data.copy?.scheduleIntro?.trim() || slot(data, "timeline.intro") || t("intro");
+  const dressLabel = slot(data, "timeline.dressLabel") ?? t("dressLabel");
 
   const extraCard = (event: WeddingEvent) => {
-    const when = [dayHeading(event.date, locale), event.time].filter(Boolean).join(" · ");
+    const day = dayHeading(event.date, locale);
     const own = momentsOf(data, event.kind);
     return (
       <article className="event cr-extra" key={event.kind}>
         <div className="event-card">
-          {when ? <span className="event-time">{when}</span> : null}
+          {day || event.time ? (
+            <span className="event-time">
+              {day}
+              {day && event.time ? " · " : null}
+              {/* A time must not break across lines ("19 h" / "00"). */}
+              {event.time ? <span className="cr-nowrap">{event.time}</span> : null}
+            </span>
+          ) : null}
           <h3>{event.name}</h3>
           {event.description ? <p>{event.description}</p> : null}
           {event.address ? <p className="cr-event-where">{event.address}</p> : null}
+          {event.dressCode ? (
+            <p className="cr-event-where">
+              <b>{dressLabel}</b> {event.dressCode}
+            </p>
+          ) : null}
           {own.length > 0 ? (
             <ul className="cr-event-moments">
               {own.map((entry, index) => (

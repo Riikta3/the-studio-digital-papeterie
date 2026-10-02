@@ -1409,7 +1409,7 @@
         "intro": "一日に、千の瞬間。",
         "dayOne": "1日目",
         "dayTwo": "2日目",
-        "alsoTitle": "そのほか"
+        "dressLabel": "ドレスコード"
       },
       "menu": {
         "eyebrow": "ディナー",
@@ -1601,6 +1601,12 @@
         "photosCta": "写真を共有する",
         "photosHint": "写真と動画を、新郎新婦と共有します",
         "soon": "当日にご利用いただけます"
+      },
+      "nav": {
+        "label": "クイックナビゲーション",
+        "venue": "会場",
+        "programme": "プログラム",
+        "rsvp": "出欠の返信"
       }
     },
     "caboVerde": {
@@ -1674,7 +1680,10 @@
       "travel": {
         "eyebrow": "ご案内",
         "title": "トラベルノート",
-        "open": "開く"
+        "open": "開く",
+        "ticketDestination": "目的地",
+        "ticketDate": "日付",
+        "ticketCountry": "国"
       },
       "rsvp": {
         "stamp": "R.S.V.P.",

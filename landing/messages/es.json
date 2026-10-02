@@ -1410,7 +1410,7 @@
         "intro": "Un día, mil instantes.",
         "dayOne": "Día I",
         "dayTwo": "Día II",
-        "alsoTitle": "Y además"
+        "dressLabel": "Vestimenta"
       },
       "menu": {
         "eyebrow": "La cena",
@@ -1602,6 +1602,12 @@
         "photosCta": "Compartir mis fotos",
         "photosHint": "Fotos y vídeos, compartidos con los novios",
         "soon": "Disponible el gran día"
+      },
+      "nav": {
+        "label": "Navegación rápida",
+        "venue": "El lugar",
+        "programme": "El programa",
+        "rsvp": "Responder"
       }
     },
     "caboVerde": {
@@ -1675,7 +1681,10 @@
       "travel": {
         "eyebrow": "Algunas referencias",
         "title": "El cuaderno de viaje",
-        "open": "Abrir"
+        "open": "Abrir",
+        "ticketDestination": "Destino",
+        "ticketDate": "Fecha",
+        "ticketCountry": "País"
       },
       "rsvp": {
         "stamp": "R.S.V.P.",

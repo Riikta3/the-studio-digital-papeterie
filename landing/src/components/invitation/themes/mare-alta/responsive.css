@@ -10,6 +10,9 @@
  * Hero
  * ------------------------------------------------------------------ */
 
+/* The quick links are buttons that scroll the page: without JavaScript they would do nothing, so they are not shown. */
+.theme-mare-alta:not([data-js]) .floating-nav { display: none; }
+
 /* The scroll cue is a <button> here (no hash link, no scroll on refresh): strip the button chrome.
    The size, spacing and case come from the designer's own .scroll-cue rule, which beats the button reset. */
 .theme-mare-alta button.scroll-cue { background: none; border: 0; padding: 0; cursor: pointer; }
@@ -19,6 +22,14 @@
 @media (max-width: 760px) {
   .theme-mare-alta .hero-topline span:last-child:not(.ma-hero-place) { display: block; }
   .theme-mare-alta .hero-topline .ma-hero-place { display: none; }
+}
+
+/* Long names ("data-long", from the hero): the designer's size is made for two short names. A compound name at
+   7rem needs four or five lines and the title runs over the villa; this size keeps each name on one line on a
+   wide screen and on two at most on a phone. */
+.theme-mare-alta .hero-copy h1[data-long] { font-size: clamp(3.4rem, 10vw, 5.4rem); }
+@media (max-width: 760px) {
+  .theme-mare-alta .hero-copy h1[data-long] { font-size: clamp(2.9rem, 14vw, 4.4rem); }
 }
 
 /* A name longer than the column (a compound first name, a long single word) breaks inside the word
@@ -154,6 +165,11 @@
  * Menu
  * ------------------------------------------------------------------ */
 
+/* The designer's menu had a two-line sentence under its title that the product has no field for. The embroidered
+   tableware is placed from the top of the section for a heading that tall: without the room that sentence took
+   (a 1.5rem margin and two lines of 1.06rem at 1.75), the card rode up and the lemon landed on the title. */
+.theme-mare-alta .menu .section-heading { padding-bottom: 5.2rem; }
+
 /* A dish's description, under its name. */
 .theme-mare-alta .ma-dish-note { display: block; margin-top: 0.25rem; font: italic 0.9em/1.5 Georgia, var(--font-ma-serif), serif; color: var(--muted); }
 
@@ -278,12 +294,13 @@
  * Visibility safety nets
  * ------------------------------------------------------------------ */
 
-/* The designer hides every section (opacity .01, 34px down) until a script adds `in-view`, and each course of the
-   menu until its section has it. Without JavaScript nothing would ever show them (JsFlag sets data-js on the root
+/* The designer hides every section (opacity .01, 34px down) until a script adds `in-view`, and each programme card
+   and each course of the menu until its section has it. Without JavaScript nothing would ever show them (JsFlag sets data-js on the root
    once scripts run), so a reader with scripts off gets the whole invitation, still. */
 .theme-mare-alta:not([data-js]) .paper-section,
 .theme-mare-alta:not([data-js]) .coral-section,
 .theme-mare-alta:not([data-js]) .night-section,
+.theme-mare-alta:not([data-js]) .agenda-card,
 .theme-mare-alta:not([data-js]) .menu-list > div { opacity: 1; transform: none; }
 
 /* A reader who asked for no motion gets none, and nothing waits for a scroll. (The twinkling lights, the turning
@@ -295,7 +312,7 @@
     scroll-behavior: auto !important;
   }
   .theme-mare-alta .paper-section, .theme-mare-alta .coral-section, .theme-mare-alta .night-section,
-  .theme-mare-alta .menu-list > div { opacity: 1; transform: none; }
+  .theme-mare-alta .agenda-card, .theme-mare-alta .menu-list > div { opacity: 1; transform: none; }
 }
 
 /* ------------------------------------------------------------------ *
@@ -303,7 +320,7 @@
  * ------------------------------------------------------------------ */
 
 /* The designer's crests (the menu card's, the RSVP aside's, the Jour J card's) are circles sized for a monogram of
-   five characters, "S · M". A longer one ("MC · JB", "M & J · 2027") wrapped onto two lines inside the circle. They
+   five characters, "A · B". A longer one ("MC · JB", "M & J · 2027") wrapped onto two lines inside the circle. They
    now fit their text: the same circle up to five characters, a pill beyond (a little padding per extra character,
    from the count the root puts in --ma-monogram-chars). */
 .theme-mare-alta .restaurant-menu::before,

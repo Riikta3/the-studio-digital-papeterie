@@ -45,7 +45,12 @@ export const CHATEAU_ROYAL_DEMO: InvitationData = {
     timeLabel: "À partir de 11 h 30",
     body: "Un dernier moment ensemble, au jardin.",
   },
-  dressCode: { title: "Tenue", body: "Tenue de soirée, couleur bienvenue." },
+  // The designer's card has no swatches; they are here so the showcase draws them.
+  dressCode: {
+    title: "Tenue",
+    body: "Tenue de soirée, couleur bienvenue.",
+    colors: ["#583b32", "#b89768", "#8a9a7b", "#b5654f"],
+  },
   menu: {
     sections: [
       { title: "Pour commencer", items: [{ title: "Raviole de langoustine", description: "Bisque légère" }] },

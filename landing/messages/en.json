@@ -1623,7 +1623,7 @@
         "intro": "One day, a thousand moments.",
         "dayOne": "Day I",
         "dayTwo": "Day II",
-        "alsoTitle": "And also"
+        "dressLabel": "Dress code"
       },
       "menu": {
         "eyebrow": "The dinner",
@@ -1815,6 +1815,12 @@
         "photosCta": "Share my photos",
         "photosHint": "Photos and videos, shared with the couple",
         "soon": "Available on the big day"
+      },
+      "nav": {
+        "label": "Quick navigation",
+        "venue": "The venue",
+        "programme": "The schedule",
+        "rsvp": "Reply"
       }
     },
     "caboVerde": {
@@ -1888,7 +1894,10 @@
       "travel": {
         "eyebrow": "A few pointers",
         "title": "The travel notebook",
-        "open": "Open"
+        "open": "Open",
+        "ticketDestination": "Destination",
+        "ticketDate": "Date",
+        "ticketCountry": "Country"
       },
       "rsvp": {
         "stamp": "R.S.V.P.",

@@ -39,6 +39,8 @@ export function BrunchSection({ data }: { data: InvitationData }) {
   const time = dayTwo?.timeLabel?.trim() || brunch?.time;
   const body = dayTwo?.body?.trim() || brunch?.description;
   const note = dayTwo?.note?.trim();
+  const dress = brunch?.dressCode?.trim();
+  const dressLabel = slot(data, "timeline.dressLabel") ?? t("programme.dressLabel");
   const moments = momentsOf(data, "brunch");
 
   return (
@@ -68,6 +70,11 @@ export function BrunchSection({ data }: { data: InvitationData }) {
               </li>
             ))}
           </ul>
+        ) : null}
+        {dress ? (
+          <p className="cr-day-moments cr-brunch-dress">
+            <b>{dressLabel}</b> {dress}
+          </p>
         ) : null}
         {note ? <p className="cr-brunch-note">{note}</p> : null}
       </Reveal>

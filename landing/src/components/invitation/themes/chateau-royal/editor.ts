@@ -34,6 +34,7 @@ export const chateauRoyalEditorSlots: readonly ThemeEditorSlot[] = [
   { key: "timeline.intro", messages: [`${NS}.programme.intro`] },
   { key: "timeline.dayOne", messages: [`${NS}.programme.dayOne`] },
   { key: "timeline.dayTwo", messages: [`${NS}.programme.dayTwo`] },
+  { key: "timeline.dressLabel", messages: [`${NS}.programme.dressLabel`] },
 
   // The dinner.
   { key: "menu.eyebrow", messages: [`${NS}.menu.eyebrow`] },

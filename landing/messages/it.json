@@ -1409,7 +1409,7 @@
         "intro": "Un giorno, mille istanti.",
         "dayOne": "Giorno I",
         "dayTwo": "Giorno II",
-        "alsoTitle": "E inoltre"
+        "dressLabel": "Abbigliamento"
       },
       "menu": {
         "eyebrow": "La cena",
@@ -1601,6 +1601,12 @@
         "photosCta": "Condividi le mie foto",
         "photosHint": "Foto e video, condivisi con gli sposi",
         "soon": "Disponibile il giorno delle nozze"
+      },
+      "nav": {
+        "label": "Navigazione rapida",
+        "venue": "Il luogo",
+        "programme": "Il programma",
+        "rsvp": "Rispondere"
       }
     },
     "caboVerde": {
@@ -1674,7 +1680,10 @@
       "travel": {
         "eyebrow": "Qualche punto di riferimento",
         "title": "Il taccuino di viaggio",
-        "open": "Apri"
+        "open": "Apri",
+        "ticketDestination": "Destinazione",
+        "ticketDate": "Data",
+        "ticketCountry": "Paese"
       },
       "rsvp": {
         "stamp": "R.S.V.P.",
