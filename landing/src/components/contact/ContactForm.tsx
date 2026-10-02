@@ -36,6 +36,9 @@ const COLLECTIONS: readonly ContactCollection[] = [
   "ciao-amore",
   "blanc-couture",
   "belle-rive",
+  "mare-alta",
+  "chateau-royal",
+  "cabo-verde",
   "unknown",
 ];
 

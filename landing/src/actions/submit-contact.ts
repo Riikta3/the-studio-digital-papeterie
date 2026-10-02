@@ -69,6 +69,9 @@ export type ContactCollection =
   | "ciao-amore"
   | "blanc-couture"
   | "belle-rive"
+  | "mare-alta"
+  | "chateau-royal"
+  | "cabo-verde"
   | "unknown";
 
 export type ProjectStage =
@@ -126,6 +129,9 @@ const COLLECTIONS: readonly ContactCollection[] = [
   "ciao-amore",
   "blanc-couture",
   "belle-rive",
+  "mare-alta",
+  "chateau-royal",
+  "cabo-verde",
   "unknown",
 ];
 
@@ -284,6 +290,9 @@ const COLLECTION_FR: Record<string, string> = {
   "ciao-amore": "Ciao Amore",
   "blanc-couture": "Blanc Couture",
   "belle-rive": "Belle Rive",
+  "mare-alta": "Maré Alta",
+  "chateau-royal": "Château Royal",
+  "cabo-verde": "Cabo Verde",
   unknown: "Ne sait pas encore",
 };
 
