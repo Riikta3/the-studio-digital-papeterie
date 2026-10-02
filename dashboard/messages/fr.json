@@ -1868,7 +1868,7 @@
   },
   "Music": {
     "title": "Musique du faire-part",
-    "intro": "Une musique accompagne vos invités pendant qu’ils découvrent votre faire-part. Elle démarre dès qu’ils touchent l’écran, et l’icône en haut à droite leur permet de la couper.",
+    "intro": "Une musique accompagne vos invités pendant qu’ils découvrent votre faire-part. Elle démarre à l’ouverture quand leur navigateur l’autorise, sinon dès qu’ils touchent l’écran ; l’icône en haut à droite leur permet de la couper.",
     "not_included_title": "Option non incluse dans votre commande",
     "not_included_body": "La musique sur le faire-part est une option qui se choisit au moment de la commande.",
     "enabled_label": "Musique sur le faire-part",

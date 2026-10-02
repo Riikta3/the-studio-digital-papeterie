@@ -1868,7 +1868,7 @@
   },
   "Music": {
     "title": "Invitation music",
-    "intro": "Music accompanies your guests while they discover your invitation. It starts as soon as they touch the screen, and the icon at the top right lets them turn it off.",
+    "intro": "Music accompanies your guests while they discover your invitation. It starts as soon as the page opens when their browser allows it, otherwise at their first touch; the icon at the top right lets them turn it off.",
     "not_included_title": "Option not included in your order",
     "not_included_body": "Music on the invitation is an option chosen when ordering.",
     "enabled_label": "Music on the invitation",

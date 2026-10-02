@@ -131,3 +131,13 @@ test("the fade-in volume stays within [0, target], even for a frame stamped befo
   assert.equal(fadeInVolume(2000, 0.6, 2000), 0.6);
   assert.equal(fadeInVolume(5000, 0.6, 2000), 0.6);
 });
+
+test("on opening, the music tries to start by itself; a refusal waits for the first tap", () => {
+  assert.deepEqual(nextMusicStep("idle", "autostart"), { state: "playing", command: "play", remember: null });
+  assert.deepEqual(run("idle", ["autostart", "rejected", "gesture"]), { state: "playing", commands: ["play", "play"] });
+});
+
+test("a guest who muted this wedding is not autostarted", () => {
+  assert.deepEqual(nextMusicStep("muted", "autostart"), { state: "muted", command: null, remember: null });
+  assert.deepEqual(nextMusicStep("error", "autostart"), { state: "error", command: null, remember: null });
+});

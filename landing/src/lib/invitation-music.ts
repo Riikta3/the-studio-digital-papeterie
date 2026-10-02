@@ -9,6 +9,12 @@
 export type MusicState = "idle" | "playing" | "muted" | "error";
 
 export type MusicEvent =
+  /**
+   * The page has just opened: try to play before any gesture. Chrome and Edge
+   * allow it once the visitor has clicked on the site (« Voir la démo », the
+   * guest code); Safari refuses, and the refusal waits for the first tap.
+   */
+  | "autostart"
   /** The first tap, click or key press on the page — never one on the icon. */
   | "gesture"
   /** A tap on the icon. */
@@ -44,6 +50,7 @@ export function nextMusicStep(state: MusicState, event: MusicEvent): MusicStep {
   if (state === "error") return stay;
 
   switch (event) {
+    case "autostart":
     case "gesture":
       return state === "idle" ? { state: "playing", command: "play", remember: null } : stay;
     case "toggle":

@@ -1868,7 +1868,7 @@
   },
   "Music": {
     "title": "Musik der Einladung",
-    "intro": "Musik begleitet Ihre Gäste, während sie Ihre Einladung entdecken. Sie startet, sobald sie den Bildschirm berühren, und mit dem Symbol oben rechts können sie sie ausschalten.",
+    "intro": "Musik begleitet Ihre Gäste, während sie Ihre Einladung entdecken. Sie startet beim Öffnen, wenn der Browser es erlaubt, sonst bei der ersten Berührung; mit dem Symbol oben rechts können sie sie ausschalten.",
     "not_included_title": "Option nicht in Ihrer Bestellung enthalten",
     "not_included_body": "Musik auf der Einladung ist eine Option, die bei der Bestellung gewählt wird.",
     "enabled_label": "Musik auf der Einladung",

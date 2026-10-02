@@ -22,7 +22,7 @@ Decisions taken with the user on 2026-10-02:
 | What the `custom-music` option (10 €) unlocks | everything: no option → no music at all; option → the default track plays until the couple picks another |
 | Can it be bought after the checkout | no, checkout only |
 | Where the couple's music comes from | the studio's library (which holds the default track) **or** a file they upload |
-| When the music starts for a guest | on the guest's first tap / click / key press anywhere on the page |
+| When the music starts for a guest | on the guest's first tap / click / key press anywhere on the page — amended 2026-10-02: "on by default", it first tries to start on opening (demos and real invitations), the first tap being the fallback when the browser refuses |
 | Do the theme demos play it | yes, the default track, to sell the option |
 | Architecture | settings columns + entitlement in `resolve_public_slug` + library as code (approach A of three; a `music_tracks` table with an admin screen was rejected as unneeded today, and remains possible later without breaking this) |
 
@@ -162,6 +162,7 @@ returns to `idle`, whose listeners wait for the next real tap.
 
 - `<audio loop preload="none">`: nothing downloads before the music starts, so a
   guest who never hears it never pays 8 MB of mobile data.
+- **On by default** (amended 2026-10-02, at the user's request). On mount, once the page is visible, the player tries `play()` straight away (`autostart`). Chrome and Edge allow it after the visitor clicked on the site (« Voir la démo », the guest code); Safari and a link opened directly refuse it, and the refusal leaves the player `idle`, waiting for the first gesture below. A guest who muted this wedding is not autostarted. The home page's mock-up stays silent.
 - **First gesture.** Capture-phase listeners for `click`, `touchend` and
   `keydown` on `document`, removed after the first one fires. `scroll` is not
   a gesture browsers accept for audio. `play()` is called inside the handler,

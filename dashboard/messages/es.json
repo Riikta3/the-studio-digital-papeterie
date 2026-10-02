@@ -1868,7 +1868,7 @@
   },
   "Music": {
     "title": "Música de la invitación",
-    "intro": "Una música acompaña a sus invitados mientras descubren su invitación. Empieza en cuanto tocan la pantalla, y el icono de arriba a la derecha les permite apagarla.",
+    "intro": "Una música acompaña a sus invitados mientras descubren su invitación. Empieza al abrir la página si su navegador lo permite, si no, en cuanto tocan la pantalla; el icono de arriba a la derecha les permite apagarla.",
     "not_included_title": "Opción no incluida en su pedido",
     "not_included_body": "La música en la invitación es una opción que se elige al hacer el pedido.",
     "enabled_label": "Música en la invitación",

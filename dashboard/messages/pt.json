@@ -1868,7 +1868,7 @@
   },
   "Music": {
     "title": "Música do convite",
-    "intro": "Uma música acompanha seus convidados enquanto descobrem o seu convite. Ela começa assim que tocam na tela, e o ícone no canto superior direito permite desligá-la.",
+    "intro": "Uma música acompanha seus convidados enquanto descobrem o seu convite. Ela começa ao abrir a página quando o navegador permite, senão no primeiro toque na tela; o ícone no canto superior direito permite desligá-la.",
     "not_included_title": "Opção não incluída no seu pedido",
     "not_included_body": "A música no convite é uma opção escolhida no momento do pedido.",
     "enabled_label": "Música no convite",

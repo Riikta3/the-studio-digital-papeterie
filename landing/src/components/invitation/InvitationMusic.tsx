@@ -126,6 +126,24 @@ function MusicPlayer({ src, weddingKey, accentColor, themeId }: InvitationMusicP
     [storageKey],
   );
 
+  // On by default: try to start as soon as the page is open and in view. A
+  // browser that refuses (Safari, a link opened directly) leaves it idle,
+  // waiting for the first tap below. A tab opened in the background waits
+  // until the guest looks at it.
+  useEffect(() => {
+    const start = () => {
+      if (document.hidden) return false;
+      dispatch("autostart");
+      return true;
+    };
+    if (start()) return;
+    const onVisible = () => {
+      if (start()) document.removeEventListener("visibilitychange", onVisible);
+    };
+    document.addEventListener("visibilitychange", onVisible);
+    return () => document.removeEventListener("visibilitychange", onVisible);
+  }, [dispatch]);
+
   // While idle, the next tap, click or key press anywhere starts the music.
   useEffect(() => {
     if (state !== "idle") return;
