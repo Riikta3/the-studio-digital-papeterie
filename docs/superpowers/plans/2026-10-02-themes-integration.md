@@ -25,7 +25,7 @@
 
 ### Task 1: Whole-repo verification
 
-- [ ] **Step 1: Registry and generated data**
+- [x] **Step 1: Registry and generated data**
 
 ```bash
 npm run themes:sync -w landing
@@ -35,7 +35,7 @@ git status --short shared/data/theme-modules.ts landing/src/components/invitatio
 
 Expected: the three ids appear in `theme-ids.ts` and `registry.ts`; `themes:check` passes.
 
-- [ ] **Step 2: Types, tests, lint**
+- [x] **Step 2: Types, tests, lint**
 
 ```bash
 npx tsc --noEmit -p landing/tsconfig.json
@@ -45,11 +45,11 @@ npm test 2>&1 | grep -E "^ℹ (tests|pass|fail)"
 
 Expected: tsc exit 0 and no output; `fail 0` (125 baseline + every new test); eslint no error (warnings reported, not hidden).
 
-- [ ] **Step 3: Production build**
+- [x] **Step 3: Production build**
 
 `npm run build:landing`. Expected: success. A failure naming `mare-alta`, `chateau-royal` or `cabo-verde` goes back to that theme's agent (`SendMessage`) with the output.
 
-- [ ] **Step 4: The three themes in one document**
+- [x] **Step 4: The three themes in one document**
 
 The registry imports every theme, so any page that resolves a theme loads all their CSS together. Load `/fr/invitation/demo/ciao-amore` and the three new demos and compare each with its pre-integration screenshots in `/tmp/shots/<id>/` (and ciao-amore with a screenshot taken before the groundwork if one exists): no theme may have changed because another is present. A collision of `@keyframes` names, a leaked global selector or a shared custom property would show as a changed animation or a shifted layout.
 
@@ -73,23 +73,23 @@ A theme folder is picked up by the registry (`THEME_IDS`), and two things follow
 - Modify: `landing/scripts/shoot-hero-scroll.mjs`, `landing/src/components/home/themes.ts`, `landing/src/components/studio/themes.ts`, `landing/messages/fr.json` (`Themes` namespace only, plus the counted-collections strings of Step 5)
 - Create (generated): `landing/public/themes/{mare-alta,chateau-royal,cabo-verde}/{cover,scroll}.webp`
 
-- [ ] **Step 1: Covers and hero strips**
+- [x] **Step 1: Covers and hero strips**
 
 Add the three ids to `HERO_THEMES` in `scripts/shoot-hero-scroll.mjs`, then for each: `npm run themes:shoot-scroll -w landing -- <id>` (dev server on :3010). It writes `scroll.webp` (the tall strip the centre card scrolls) and `cover.webp` (780×1452, its first screen) from one capture. Open both images and look: the cover is the theme's hero with the demo couple; the strip must carry no floating UI (the script hides `.ca-scrolltop` and `.music-toggle`, which are ciao-amore's; add the selector of any scroll-to-top or sticky button the new themes draw to its hide list).
 
-- [ ] **Step 2: Home list**
+- [x] **Step 2: Home list**
 
 Append to `THEMES` of `components/home/themes.ts`, after the existing three: `{ id: "mare-alta", name: "Maré Alta", image: "/themes/mare-alta/cover.webp" }`, `{ id: "chateau-royal", name: "Château Royal", image: "/themes/chateau-royal/cover.webp" }`, `{ id: "cabo-verde", name: "Cabo Verde", image: "/themes/cabo-verde/cover.webp" }`. The file's header says `id` must equal the manifest id and that it must not import the registry; keep both true.
 
-- [ ] **Step 3: Studio theme step**
+- [x] **Step 3: Studio theme step**
 
 Append three `ThemeConfig` entries to `components/studio/themes.ts` (same order, same ids). Take `accentColor` from the manifest's, a two-stop `bgGradient` from the theme's ground and its lightest tint, `coupleFont`/`placeFont` as plain CSS stacks (the page does not load the themes' `next/font` faces, so name the face first and a system serif after it: `'Bodoni Moda', Didot, Georgia, serif`), and a one-line `description` in the voice of the existing ones. Open `/fr/studio/theme` at 390 and 1440: six cards, the grid stays 2 and 3 wide, each card legible; pick each one and confirm the store keeps its id.
 
-- [ ] **Step 4: Marketing pages (French only)**
+- [x] **Step 4: Marketing pages (French only)**
 
 `theme-pages.ts` reads `THEME_IDS`, so `/fr/themes/<id>` and the sitemap already exist for the new themes, and without copy they render the key `Themes.items.<id>.h1` — the exact failure that file's header warns about. Write `Themes.items.<id>` (`metaTitle`, `metaDescription`, `h1`, `tagline`, `intro`, `body1`, `body2`, `body3`, `bestFor`, `faqTitle`, `faqBody`) in `messages/fr.json` only, ~320 words each, in the voice of the three existing items, from what the theme really draws (read its `theme.config.ts` `supports` and its note); never claim a module it does not draw. The `h1` must contain a comma, because the collection card prints `h1.split(",")[0]`. Open `/fr/themes`, `/fr/themes/mare-alta`, `/fr/themes/chateau-royal`, `/fr/themes/cabo-verde`: no key printed, cover shown, demo link works. Run `npm test` (a test pins the Themes catalogue if one exists).
 
-- [ ] **Step 5: Copy that counts the collections**
+- [x] **Step 5: Copy that counts the collections**
 
 French strings say "trois" for the number of collections and become false at six: `Themes.metaDescription`, `Themes.items.belle-rive.intro` ("la plus généreuse des trois") and `.body3` ("les deux autres collections"), `Journal.ctaBody`, `Journal.articles.faire-part-mariage-digital.sections[1].body`, `Landing.pages.faire-part-mariage-digital.{metaDescription,lede,sections[1].title,ctaBody}`, `Landing.pages.rsvp-en-ligne.ctaBody`. Grep again (`grep -n "trois" messages/fr.json`) for the current set; "les trois formules" and "les trois statuts" are not about themes. Change the count where it is a claim about the collections, in French first; check whether the same key exists in the other locales and, if so, change it there too (a number word in each language). Record what was changed in the final summary — it is marketing copy the user may want to word differently.
 
@@ -97,7 +97,7 @@ French strings say "trois" for the number of collections and become false at six
 
 Leave the contact form's list as it is. Write down for the user: to offer the new themes there, a migration must replace the `contact_messages_collection_enum` check and the contact RPC's `p_collection` list (and the TS union/labels in `submit-contact.ts` and the form), and the SQL must be live before the code ships. Do not write or push it before the go.
 
-- [ ] **Step 7: Look at the home page**
+- [x] **Step 7: Look at the home page**
 
 Open `http://localhost:3010/fr` at 390 and 1440: the hero curved carousel lists six cards (the centre one scrolls its strip), the phone mockup carousel lists six themes and each loads its demo in the iframe, "How it works" lists six. Screenshot and look.
 
@@ -105,11 +105,11 @@ Open `http://localhost:3010/fr` at 390 and 1440: the hero curved carousel lists 
 
 ### Task 3: The studio and the dashboard see the themes
 
-- [ ] **Step 1: Where themes are picked**
+- [x] **Step 1: Where themes are picked**
 
 `grep -rn "THEME_IDS\|getTheme\|THEMES" landing/src dashboard/src --include=*.ts --include=*.tsx -l` to list the readers of the registry; open `/fr/studio/theme` (checkout's theme step, fed by `components/studio/themes.ts`, done in Task 2) and confirm the three new themes are offered and that choosing one carries its id through to the order. In the dashboard's editor, choose a wedding on each new theme (a local test wedding) and confirm the preview renders it and the slot fields appear in the tabs. If a screen hard-codes the theme list, report it; do not change it unless it is one line.
 
-- [ ] **Step 2: The editor's explanation for undrawn modules**
+- [x] **Step 2: The editor's explanation for undrawn modules**
 
 For a wedding that owns a module the theme does not draw (e.g. `countdown` on Château Royal, `menu` on Cabo Verde, `gallery` on all three), the editor's tab must say the theme does not draw it. Confirm for one case per theme.
 
@@ -125,12 +125,12 @@ The user wants to see new UI before it is settled. Prepare, for each theme, 390 
 
 Use the `obsidian-cli` skill; vault `The Studio Digital Papeterie`.
 
-- [ ] **Step 1: Feature notes** — `Features/Thème Maré Alta.md`, `Features/Thème Château Royal.md`, `Features/Thème Cabo Verde.md`: YAML `date` (2026-10-02), `status`, `category: Features`; the design decisions, what was dropped and why, the slots, the mock-up gates and the user's answers, links `[[Invitation]]`, `[[Checklist nouveau thème]]`, `[[Conventions]]`.
+- [x] **Step 1: Feature notes** — `Features/Thème Maré Alta.md`, `Features/Thème Château Royal.md`, `Features/Thème Cabo Verde.md`: YAML `date` (2026-10-02), `status`, `category: Features`; the design decisions, what was dropped and why, the slots, the mock-up gates and the user's answers, links `[[Invitation]]`, `[[Checklist nouveau thème]]`, `[[Conventions]]`.
 - [x] **Step 2: Conventions** (done 2026-10-02, section "Porter un thème du designer") — append to `Conventions.md`: the CSS pipeline (`themes:port-css`) replaces the manual port; `@keyframes` names are global and prefixed; `theme-checks.test.mjs` (leaks, wiring); `data-theme-root`, `Reveal`, `JsFlag`, `ScrollToButton`; `heroDates` rather than `copy.dateLabel`; the Jour J is linked through `dayOf`, never a module; `themes:messages` for catalogues; `?fixture=minimal|heavy` and `SHOOT_LOCALE`.
 - [x] **Step 3: Checklist** (done 2026-10-02, new §8) — update `Features/Checklist nouveau thème.md` with the same points as short checkboxes.
-- [ ] **Step 4: Reste à faire** — append the spec's *Out of scope* list and the coverage gaps per theme (Maré Alta: gallery, intro video; Château Royal: countdown, accommodation, playlist, gift, gallery, intro video; Cabo Verde: menu, FAQ, gift, gallery, intro video), plus the Jour J page being French and unthemed, and the guestbook.
+- [x] **Step 4: Reste à faire** — append the spec's *Out of scope* list and the coverage gaps per theme (Maré Alta: gallery, intro video; Château Royal: countdown, accommodation, playlist, gift, gallery, intro video; Cabo Verde: menu, FAQ, gift, gallery, intro video), plus the Jour J page being French and unthemed, and the guestbook.
 - [x] **Step 5: README** (done 2026-10-02: the stale lines are fixed and the playbook is linked) — in `landing/src/components/invitation/themes/README.md` fix the stale "Known debt" line about `belle-rive` having no `Invitation` namespace (it has one in nine locales) and add a short pointer to the playbook; touch nothing else.
-- [ ] **Step 6: Memory** — update `project_three_themes_port.md` in the memory folder with the state (done / what remains) and the user's mock-up answers.
+- [x] **Step 6: Memory** — update `project_three_themes_port.md` in the memory folder with the state (done / what remains) and the user's mock-up answers.
 
 ---
 

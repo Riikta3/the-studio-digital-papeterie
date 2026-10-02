@@ -309,6 +309,15 @@
       },
       {
         "alt": "Exemple d’invitation de mariage — thème Belle Rive"
+      },
+      {
+        "alt": "Exemple d’invitation de mariage — thème Maré Alta"
+      },
+      {
+        "alt": "Exemple d’invitation de mariage — thème Château Royal"
+      },
+      {
+        "alt": "Exemple d’invitation de mariage — thème Cabo Verde"
       }
     ],
     "regionLabel": "Thèmes de faire-part",
@@ -584,7 +593,7 @@
   },
   "Themes": {
     "metaTitle": "Nos collections de faire-part de mariage digital | The Studio",
-    "metaDescription": "Découvrez nos collections de faire-part de mariage digital : trois univers, du minimalisme couture à la dolce vita italienne. RSVP intégré, programme et informations pratiques réunis.",
+    "metaDescription": "Découvrez nos collections de faire-part de mariage digital : six univers, du minimalisme couture à la dolce vita italienne, de la broderie sur lin aux plages du Cap-Vert. RSVP intégré, programme et informations pratiques réunis.",
     "eyebrow": "Nos collections",
     "h1": "Faire-part de mariage digital : nos collections",
     "intro": "Chaque collection est un univers complet, pensé pour le téléphone : une invitation qui se déroule au fil du pouce, avec le programme, les lieux, le dress code, les hébergements et le RSVP réunis au même endroit. Choisissez celle qui ressemble à votre mariage.",
@@ -627,13 +636,52 @@
         "metaDescription": "Belle Rive : un faire-part de mariage digital aux teintes nacre, olivier et doré. L’élégance Riviera pour un mariage au soleil, avec RSVP intégré.",
         "h1": "Belle Rive, le faire-part de mariage digital de la Riviera",
         "tagline": "Nacre, olivier et dorures",
-        "intro": "Belle Rive est la plus généreuse des trois. Nacre, feuilles d’olivier, dorures discrètes, perles : c’est un mariage du Sud raconté en entier, du vin d’honneur jusqu’aux activités du lendemain. Sa démo se tient au Domaine de la Trinité, près de Montpellier.",
+        "intro": "Belle Rive est l’une des plus généreuses de nos collections. Nacre, feuilles d’olivier, dorures discrètes, perles : c’est un mariage du Sud raconté en entier, du vin d’honneur jusqu’aux activités du lendemain. Sa démo se tient au Domaine de la Trinité, près de Montpellier.",
         "body1": "C’est la collection des mariages qui durent plus d’une journée. Au-delà du programme et du lieu, elle porte une section activités — piscine, pétanque, tennis —, un covoiturage, une liste de cadeaux, et un dress code illustré. Les invités savent quoi prévoir dans leur valise avant d’arriver.",
         "body2": "Belle Rive assume la matière : des photographies pleine largeur, des textures nacrées, des vidéos de la cérémonie et du cocktail. Le tout reste une page unique qui s’ouvre depuis un lien, sans application à installer, et dont le contenu se corrige jusqu’au dernier moment.",
-        "body3": "Comme les deux autres collections, Belle Rive s’ouvre depuis un simple lien, sur mobile, sans rien à installer. Sa particularité est le volume d’informations qu’elle absorbe sans devenir illisible : quand un mariage se déroule sur deux ou trois jours, chaque module a sa section, et vos invités trouvent ce qu’ils cherchent sans faire défiler la moitié de la page.",
+        "body3": "Comme toutes nos collections, Belle Rive s’ouvre depuis un simple lien, sur mobile, sans rien à installer. Sa particularité est le volume d’informations qu’elle absorbe sans devenir illisible : quand un mariage se déroule sur deux ou trois jours, chaque module a sa section, et vos invités trouvent ce qu’ils cherchent sans faire défiler la moitié de la page.",
         "bestFor": "Un mariage de plusieurs jours, un domaine dans le Sud, une fête qui commence la veille.",
         "faqTitle": "Autant de contenu, est-ce que ça reste rapide à charger ?",
         "faqBody": "Les photographies sont converties au format WebP et chargées au fur et à mesure du défilement, pas toutes d’un coup. Les vidéos ne se déclenchent qu’à l’arrivée dans la section concernée. Une invitation riche reste une page mobile : c’est la contrainte que nous nous imposons sur chaque collection."
+      },
+      "mare-alta": {
+        "metaTitle": "Maré Alta — faire-part de mariage digital brodé | The Studio",
+        "metaDescription": "Maré Alta : un faire-part de mariage digital en broderie sur lin, pins parasols et glycines. Programme, menu, playlist, liste de cadeaux et RSVP intégrés.",
+        "h1": "Maré Alta, le faire-part de mariage digital en broderie sur lin",
+        "tagline": "Broderie sur lin et glycines",
+        "intro": "Maré Alta est la collection du mariage dans une villa de l’Atlantique. Du lin ivoire, des fils sauge, des glycines et des pins parasols, le tout brodé : chaque section se présente comme une pièce de tissu travaillée à la main. Sa démo se déroule à Comporta, au Portugal.",
+        "body1": "C’est la plus complète de nos collections. Compte à rebours, programme heure par heure avec les événements des autres jours, dress code, plan d’accès, hébergements, transports, menu, playlist, liste de cadeaux et questions fréquentes ont chacun leur section brodée. Le jour venu, l’invitation peut aussi renvoyer vos invités vers leur place à table et le dépôt des photos.",
+        "body2": "Rien n’y est imprimé : tout est fil et tissu, jusqu’aux disques de la playlist et aux étiquettes de bagages. Vos photos et vos mots se posent sur ce fond sans le concurrencer, et la page garde la largeur étroite d’un livret, même sur ordinateur.",
+        "body3": "Comme toutes nos collections, Maré Alta s’ouvre depuis un simple lien, sur mobile, sans application ni compte à créer. Vos invités répondent au RSVP depuis l’invitation — présence, accompagnants, allergies, un mot pour vous — et vous retrouvez leurs réponses dans votre espace. Tout se corrige jusqu’au dernier moment, le lien reste le même.",
+        "bestFor": "Un mariage dans une villa, un domaine au bord de l’océan, ou toute fête qui aime le fait main et la lumière douce.",
+        "faqTitle": "Une collection aussi riche s’adapte-t-elle à un petit programme ?",
+        "faqBody": "Oui : une section dont vous n’avez pas le contenu n’apparaît tout simplement pas. Sans liste de cadeaux, sans menu, sans transport, l’invitation se resserre et garde son rythme. La collection brode le décor ; vous choisissez ce qui s’y raconte."
+      },
+      "chateau-royal": {
+        "metaTitle": "Château Royal — faire-part de mariage digital de château | The Studio",
+        "metaDescription": "Château Royal : un faire-part de mariage digital espresso, ivoire et or, du jour à la nuit d’un château. Frise du programme, menu, brunch du lendemain et RSVP intégrés.",
+        "h1": "Château Royal, le faire-part de mariage digital d’un château de conte",
+        "tagline": "Espresso, ivoire et or",
+        "intro": "Château Royal est la collection du mariage qui dure un jour et une nuit. Un château qui passe de la lumière du jour à celle des lustres, du brun espresso, de l’ivoire et un or discret. Sa démo se déroule au château de Vaux-le-Vicomte, en Seine-et-Marne.",
+        "body1": "L’invitation se lit comme un conte : une lettre d’ouverture, l’arche du lieu, puis une frise de programme qui s’allume moment après moment pendant que l’on fait défiler. Le menu, le brunch du lendemain, le dress code, l’accès et les questions fréquentes viennent ensuite, chacun dans son cadre.",
+        "body2": "La collection assume la mise en scène : un hero qui passe du jour à la nuit, une pièce montée qui se compose au fil du défilement, un sceau à vos initiales en pied de page. Les animations s’éteignent pour les lecteurs qui ont demandé moins de mouvement, et la frise reste une simple liste lisible quand JavaScript est coupé.",
+        "body3": "Comme toutes nos collections, Château Royal s’ouvre depuis un simple lien, sans application ni compte à créer, et occupe toute la largeur sur ordinateur. Vos invités répondent au RSVP depuis l’invitation et vous retrouvez leurs réponses dans votre espace ; le programme, le menu ou l’accès se corrigent jusqu’au dernier moment.",
+        "bestFor": "Un mariage de château ou de grand domaine, une cérémonie en habit, une fête qui se prolonge jusqu’au lendemain.",
+        "faqTitle": "Et sans château, cette collection tient-elle ?",
+        "faqBody": "Le château de l’ouverture est le décor de la collection : il ne change pas avec votre lieu. Tout le reste est à vous — prénoms, dates, adresse, horaires, textes — et l’arche du lieu accueille votre photo si vous en ajoutez une. Pour un mariage sans château, une autre collection sera plus juste."
+      },
+      "cabo-verde": {
+        "metaTitle": "Cabo Verde — faire-part de mariage digital tropical | The Studio",
+        "metaDescription": "Cabo Verde : un faire-part de mariage digital pieds dans le sable, eau turquoise et bateaux colorés. Compte à rebours, programme, carnet de voyage, playlist et RSVP intégrés.",
+        "h1": "Cabo Verde, le faire-part de mariage digital des îles",
+        "tagline": "Sable blanc et eau turquoise",
+        "intro": "Cabo Verde est la collection du mariage pieds dans le sable. De l’eau turquoise, des bateaux de pêche peints, du corail et du sable blanc, dans une colonne étroite qui se lit comme un carnet de voyage. Sa démo se déroule à Baía das Gatas, sur l’île de São Vicente.",
+        "body1": "L’invitation compte les jours avec des chiffres qui se retournent, puis déroule le programme en onglets — un par événement —, le lieu, le dress code, les hébergements et un carnet de voyage : passeport, billet d’avion et une carte numérotée par moyen de s’y rendre.",
+        "body2": "La playlist est participative : vos invités cherchent un titre dans le catalogue Spotify et vous en proposent jusqu’à trois. Le RSVP se remplit sans compte, en quelques champs : présence, accompagnants, allergies, un mot pour vous.",
+        "body3": "Comme toutes nos collections, Cabo Verde s’ouvre depuis un simple lien, sur mobile, sans rien à installer. C’est une page unique que vous corrigez jusqu’au dernier moment, et dont le lien reste le même.",
+        "bestFor": "Un mariage au bord de l’eau ou à l’étranger, un week-end entre amis les pieds dans le sable, une destination qu’il faut aider à rejoindre.",
+        "faqTitle": "Notre mariage n’est pas aux îles : est-ce que ça marche ?",
+        "faqBody": "Oui, tout le contenu est le vôtre : prénoms, dates, lieu, hébergements, trajets. La collection apporte la palette — turquoise, corail, sable — et l’esprit du voyage. Le carnet se remplit avec vos propres moyens d’accès, et le billet d’avion reprend votre ville et votre date."
       }
     },
     "faqSectionTitle": "Bon à savoir"
@@ -649,7 +697,7 @@
     "relatedTitle": "À lire aussi",
     "faqSectionTitle": "Bon à savoir",
     "ctaTitle": "Créer votre faire-part",
-    "ctaBody": "The Studio dessine des faire-part de mariage digitaux : trois collections, une expérience pensée pour le téléphone, un RSVP intégré et toutes les informations de votre mariage au même endroit.",
+    "ctaBody": "The Studio dessine des faire-part de mariage digitaux : six collections, une expérience pensée pour le téléphone, un RSVP intégré et toutes les informations de votre mariage au même endroit.",
     "ctaCollections": "Voir les collections",
     "ctaCreate": "Créer mon invitation",
     "articles": {
@@ -743,7 +791,7 @@
           },
           {
             "title": "Pensé pour le téléphone, pas adapté au téléphone",
-            "body": "La quasi-totalité de vos invités ouvriront l’invitation sur un smartphone, souvent dans les secondes qui suivent la réception du message. Une mise en page conçue pour l’écran d’ordinateur puis rétrécie donne un texte illisible et des images tronquées. Nos trois collections sont dessinées d’abord au format mobile : la typographie, les marges et le rythme des sections sont calés sur un écran tenu à la main."
+            "body": "La quasi-totalité de vos invités ouvriront l’invitation sur un smartphone, souvent dans les secondes qui suivent la réception du message. Une mise en page conçue pour l’écran d’ordinateur puis rétrécie donne un texte illisible et des images tronquées. Toutes nos collections sont dessinées d’abord au format mobile : la typographie, les marges et le rythme des sections sont calés sur un écran tenu à la main."
           },
           {
             "title": "Le RSVP, intégré à l’invitation",
@@ -860,18 +908,18 @@
     "pages": {
       "faire-part-mariage-digital": {
         "metaTitle": "Faire-part de mariage digital | The Studio",
-        "metaDescription": "Un faire-part de mariage digital conçu comme une expérience : trois collections, RSVP intégré, QR code et toutes les informations de votre mariage au même endroit.",
+        "metaDescription": "Un faire-part de mariage digital conçu comme une expérience : six collections, RSVP intégré, QR code et toutes les informations de votre mariage au même endroit.",
         "eyebrow": "Faire-part de mariage digital",
         "h1": "Le faire-part de mariage digital, par The Studio",
-        "lede": "Une page web à votre nom, qui s’ouvre depuis un lien et réunit l’invitation, le programme et les réponses de vos invités. Trois collections, un paiement unique, aucun abonnement.",
+        "lede": "Une page web à votre nom, qui s’ouvre depuis un lien et réunit l’invitation, le programme et les réponses de vos invités. Six collections, un paiement unique, aucun abonnement.",
         "sections": [
           {
             "title": "Une invitation, pas un fichier",
             "body": "Vos invités reçoivent un lien par message, ou scannent un QR code imprimé. L’invitation s’ouvre dans leur navigateur : rien à télécharger, aucun compte à créer, aucune application. C’est ce qui la distingue d’une image ou d’un PDF — une page peut contenir un formulaire, une carte, un compte à rebours, et être modifiée après l’envoi sans que le lien change."
           },
           {
-            "title": "Trois collections, pas un gabarit",
-            "body": "Ciao Amore emprunte à la côte amalfitaine — jaune franc, vert olive, pastels lavés par le soleil. Blanc Couture est la collection du presque rien : du blanc, un or fin, beaucoup d’air. Belle Rive est la plus généreuse, nacre et feuilles d’olivier, faite pour les mariages qui durent plusieurs jours. Chacune se visite en démo interactive, avec de vrais contenus, avant que vous choisissiez."
+            "title": "Six collections, pas un gabarit",
+            "body": "Ciao Amore emprunte à la côte amalfitaine — jaune franc, vert olive, pastels lavés par le soleil. Blanc Couture est la collection du presque rien : du blanc, un or fin, beaucoup d’air. Belle Rive est généreuse, nacre et feuilles d’olivier, faite pour les mariages qui durent plusieurs jours. Maré Alta brode le lin ivoire de pins parasols et de glycines. Château Royal fait passer un château du jour à la nuit. Cabo Verde met les pieds dans le sable, entre eau turquoise et bateaux colorés. Chacune se visite en démo interactive, avec de vrais contenus, avant que vous choisissiez."
           },
           {
             "title": "Ce que le formulaire RSVP peut vous demander",
@@ -893,7 +941,7 @@
         "faqTitle": "Et si l’on veut garder du papier ?",
         "faqBody": "Les deux se complètent mieux qu’ils ne se concurrencent. Une carte imprimée portant un QR code garde le geste — l’enveloppe qu’on ouvre — et renvoie vers l’invitation complète pour tout ce qui est pratique. Votre espace génère le QR code de votre invitation, prêt à transmettre à votre imprimeur.",
         "ctaTitle": "Voir les collections",
-        "ctaBody": "Trois univers, de la dolce vita italienne au minimalisme couture. Chacun se visite en démo interactive avant de choisir."
+        "ctaBody": "Six univers, de la dolce vita italienne au minimalisme couture. Chacun se visite en démo interactive avant de choisir."
       },
       "rsvp-en-ligne": {
         "metaTitle": "RSVP mariage en ligne : le formulaire intégré à votre invitation",
@@ -930,7 +978,7 @@
         "faqTitle": "Que faire des invités qui ne répondent jamais ?",
         "faqBody": "Passez un appel, et traitez l’absence de réponse comme un refus à la date limite que vous avez annoncée. C’est la raison d’être de cette date : sans elle, vous attendez indéfiniment. Prévoyez la marge dans votre discussion avec le traiteur plutôt que dans vos nerfs.",
         "ctaTitle": "Créer votre invitation",
-        "ctaBody": "Le RSVP est intégré à chacune des trois collections. Choisissez votre univers, configurez vos questions, envoyez le lien."
+        "ctaBody": "Le RSVP est intégré à chacune de nos six collections. Choisissez votre univers, configurez vos questions, envoyez le lien."
       },
       "tarifs": {
         "metaTitle": "Prix d’un faire-part de mariage digital | Tarifs The Studio",

@@ -22,14 +22,18 @@ export type ThemeConfig = {
 };
 
 /**
- * The three themes that actually ship, matching `components/home/themes.ts`
- * and the folders under `components/invitation/themes/`. The ids are the ones
- * the home page's theme dialog persists into the order, so a couple who
- * configured "Ciao Amore" there finds that same card already selected here.
+ * The themes that actually ship, matching `components/home/themes.ts` and the
+ * folders under `components/invitation/themes/`. The ids are the ones the home
+ * page's theme dialog persists into the order, so a couple who configured
+ * "Ciao Amore" there finds that same card already selected here.
  *
  * The catalogue previously listed five invented themes (Floral, Minimalist,
  * Boho, Royal, Travel) that no customer could open, and whose ids matched
  * nothing the home page or the invitation renderer knew about.
+ *
+ * The cards are drawn with generic font stacks: this step does not load the
+ * themes' own `next/font` faces, so each stack names the theme's face first and
+ * a system face of the same kind after it.
  */
 export const THEMES: ThemeConfig[] = [
   {
@@ -72,5 +76,45 @@ export const THEMES: ThemeConfig[] = [
     placeFont: "Georgia, serif",
     placeStyle: "italic",
     placeColor: "#6f9b9c",
+  },
+  {
+    id: "mare-alta",
+    name: "Maré Alta",
+    description: "Broderie sur lin, pins parasols et glycines.",
+    accentColor: "#4d5845",
+    bgGradient: "linear-gradient(160deg, #f6f0e4, #dde2cf)",
+    coupleFont: "'Bodoni Moda', Didot, Georgia, serif",
+    coupleWeight: "400",
+    coupleLetterSpacing: "0.04em",
+    placeFont: "'Cormorant Garamond', Georgia, serif",
+    placeStyle: "italic",
+    placeColor: "#6d7864",
+  },
+  {
+    id: "chateau-royal",
+    name: "Château Royal",
+    description: "Un château de conte, espresso, ivoire et or.",
+    accentColor: "#583b32",
+    bgGradient: "linear-gradient(160deg, #fbf6ec, #e4d3bb)",
+    coupleFont: "'Bodoni Moda', Didot, Georgia, serif",
+    coupleWeight: "400",
+    coupleLetterSpacing: "0.02em",
+    dateColor: "#8a6a4d",
+    placeFont: "Georgia, serif",
+    placeStyle: "italic",
+    placeColor: "#8a6a4d",
+  },
+  {
+    id: "cabo-verde",
+    name: "Cabo Verde",
+    description: "Sable blanc, eau turquoise et bateaux colorés.",
+    accentColor: "#1f8f97",
+    bgGradient: "linear-gradient(160deg, #fdf5e8, #bfe6e6)",
+    coupleFont: "'Pinyon Script', 'Snell Roundhand', Georgia, serif",
+    coupleWeight: "400",
+    coupleStyle: "italic",
+    placeFont: "Georgia, serif",
+    placeStyle: "italic",
+    placeColor: "#e56f62",
   },
 ];

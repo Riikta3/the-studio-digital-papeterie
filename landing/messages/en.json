@@ -148,6 +148,15 @@
       },
       {
         "alt": "Wedding invitation example — Belle Rive theme"
+      },
+      {
+        "alt": "Wedding invitation example — Maré Alta theme"
+      },
+      {
+        "alt": "Wedding invitation example — Château Royal theme"
+      },
+      {
+        "alt": "Wedding invitation example — Cabo Verde theme"
       }
     ],
     "regionLabel": "Invitation themes",
@@ -625,7 +634,7 @@
     "relatedTitle": "Read next",
     "faqSectionTitle": "Worth knowing",
     "ctaTitle": "Create your invitation",
-    "ctaBody": "The Studio designs digital wedding invitations: three collections, an experience built for the phone, a built-in RSVP and all your wedding details in one place.",
+    "ctaBody": "The Studio designs digital wedding invitations: six collections, an experience built for the phone, a built-in RSVP and all your wedding details in one place.",
     "ctaCollections": "View the collections",
     "ctaCreate": "Create my invitation",
     "articles": {
@@ -640,8 +649,8 @@
             "body": "A page at its own web address. Your guests get that link by message, or scan it from a printed QR code. Nothing to download, no account, no app — the phone's browser is enough. That is the real difference from a PDF or an image: a page can hold a form, a map, a countdown, and it can be changed after you have sent it."
           },
           {
-            "title": "Three collections, not a template",
-            "body": "Ciao Amore borrows from the Amalfi Coast — bright lemon, deep olive, sun-washed pastels. Blanc Couture is the collection of almost nothing: white, fine gold, a great deal of air. Belle Rive is the most generous, mother-of-pearl and olive leaves, built for weddings that run over several days. Each one opens as an interactive demo, with real content, before you choose."
+            "title": "Six collections, not a template",
+            "body": "Ciao Amore borrows from the Amalfi Coast — bright lemon, deep olive, sun-washed pastels. Blanc Couture is the collection of almost nothing: white, fine gold, a great deal of air. Belle Rive is generous, mother-of-pearl and olive leaves, built for weddings that run over several days. Maré Alta embroiders ivory linen with umbrella pines and wisteria. Château Royal takes a castle from day into night. Cabo Verde puts your feet in the sand, between turquoise water and painted boats. Each one opens as an interactive demo, with real content, before you choose."
           },
           {
             "title": "What the RSVP form can ask",

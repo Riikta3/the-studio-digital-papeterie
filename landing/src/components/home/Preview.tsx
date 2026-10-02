@@ -25,6 +25,8 @@ const SCREEN_W = 390;
 const SCREEN_H = 844;
 const RIM = 3;
 const BEZEL = 10;
+/** The status bar sits above the invitation, as in a browser; the iframe starts below it. */
+const STATUS_BAR_H = 50;
 const PHONE_W = SCREEN_W + 2 * (RIM + BEZEL);
 const PHONE_H = SCREEN_H + 2 * (RIM + BEZEL);
 
@@ -79,8 +81,14 @@ function PhoneScreen({ theme }: { theme: Theme }) {
       className="relative overflow-hidden rounded-[55px] bg-studio-beurre"
       style={{ width: SCREEN_W, height: SCREEN_H }}
     >
-      {/* Status bar */}
-      <div className="pointer-events-none absolute inset-x-0 top-0 z-20 flex items-center justify-between px-10 pt-4 text-white drop-shadow">
+      {/* Status bar, on the colour of the theme's top edge */}
+      <div
+        className={cn(
+          "pointer-events-none absolute inset-x-0 top-0 z-20 flex items-center justify-between px-10 pt-1.5",
+          theme.statusBar.text === "light" ? "text-white" : "text-studio-violet",
+        )}
+        style={{ height: STATUS_BAR_H, background: theme.statusBar.background }}
+      >
         <span className="font-body text-sm font-semibold tracking-wide">
           {time}
         </span>
@@ -111,7 +119,8 @@ function PhoneScreen({ theme }: { theme: Theme }) {
         key={demoUrl}
         ref={iframeRef}
         src={demoUrl}
-        className="block h-full w-full border-none"
+        className="absolute inset-x-0 block w-full border-none"
+        style={{ top: STATUS_BAR_H, height: SCREEN_H - STATUS_BAR_H }}
         title={t("demoIframeTitle", { name: theme.name })}
         onLoad={() => setLoading(false)}
       />

@@ -33,7 +33,7 @@ import sharp from "sharp";
 import { mkdirSync } from "node:fs";
 
 /** Themes shown in the hero — keep in step with src/components/home/themes.ts. */
-const HERO_THEMES = ["ciao-amore", "blanc-couture", "belle-rive"];
+const HERO_THEMES = ["ciao-amore", "blanc-couture", "belle-rive", "mare-alta", "chateau-royal", "cabo-verde"];
 
 /** CSS pixels of invitation to keep, from the top. */
 const CAP_CSS_PX = 5000;
@@ -69,7 +69,9 @@ for (const id of themes) {
   await page.addStyleTag({
     content: [
       "nextjs-portal,[data-nextjs-toast]{display:none!important}",
-      ".ca-scrolltop,.music-toggle{display:none!important}",
+      // `.invitation-music` is the route's sticky music icon, not part of any theme;
+      // `.floating-nav` is Maré Alta's shortcut bar.
+      ".ca-scrolltop,.music-toggle,.invitation-music,.floating-nav{display:none!important}",
     ].join(""),
   });
 

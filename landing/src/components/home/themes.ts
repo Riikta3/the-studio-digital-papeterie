@@ -13,6 +13,12 @@
  * open. Showing only shipped themes means the fan, the carousel and the mockup
  * finally agree with each other.
  *
+ * `statusBar` is the colour of the top edge of the theme's first screen (read
+ * from its cover) and the text that reads on it: the phone mockup draws its
+ * status bar on that colour, above the invitation rather than over it, the way
+ * a browser does — over it, the white clock collided with each theme's own
+ * top line and vanished on the light ones.
+ *
  * This file deliberately does NOT import the theme registry: a manifest holds
  * its theme's `Root` component, and the home page is a client component —
  * importing it here would pull every theme's markup, CSS and fonts into the
@@ -24,16 +30,37 @@ export const THEMES = [
     id: "ciao-amore",
     name: "Ciao Amore",
     image: "/themes/ciao-amore/cover.webp",
+    statusBar: { background: "#fefdf9", text: "dark" },
   },
   {
     id: "blanc-couture",
     name: "Blanc Couture",
     image: "/themes/blanc-couture/cover.webp",
+    statusBar: { background: "#efefef", text: "dark" },
   },
   {
     id: "belle-rive",
     name: "Belle Rive",
     image: "/themes/belle-rive/cover.webp",
+    statusBar: { background: "#efe5d6", text: "dark" },
+  },
+  {
+    id: "mare-alta",
+    name: "Maré Alta",
+    image: "/themes/mare-alta/cover.webp",
+    statusBar: { background: "#d6cbbc", text: "dark" },
+  },
+  {
+    id: "chateau-royal",
+    name: "Château Royal",
+    image: "/themes/chateau-royal/cover.webp",
+    statusBar: { background: "#57535b", text: "light" },
+  },
+  {
+    id: "cabo-verde",
+    name: "Cabo Verde",
+    image: "/themes/cabo-verde/cover.webp",
+    statusBar: { background: "#ee9c98", text: "dark" },
   },
 ] as const;
 

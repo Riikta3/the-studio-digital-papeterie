@@ -249,3 +249,23 @@ Pour mémoire, à ne pas refaire :
 - Écran **Nos mots** (phrases du hero, annonce, mot de la fin, photo du couple).
 - Publication séparée du module Jour J, avec bascule au dashboard.
 - 12 combinaisons thème × locale en HTTP 200, zéro `MISSING_MESSAGE`.
+
+
+
+---
+
+## 7. Après le portage de Maré Alta, Château Royal et Cabo Verde (2026-10-02)
+
+Voir [[Thème Maré Alta]], [[Thème Château Royal]], [[Thème Cabo Verde]].
+
+- **Validation des éléments nouveaux** (portes de maquette) : bloc « Et aussi », monogramme et barre de raccourcis, blocs Jour J, portraits en pied de page, arche sans photo, photos facultatives de Cabo Verde, billet d'avion à texte variable. Réponses à reporter dans les notes des thèmes.
+- **Modules vendus que les thèmes ne dessinent pas** (l'éditeur l'explique au couple) :
+  - Maré Alta : galerie, vidéo d'introduction.
+  - Château Royal : compte à rebours, hébergements, playlist, liste de cadeaux, galerie, vidéo d'introduction.
+  - Cabo Verde : menu, FAQ, liste de cadeaux, galerie, vidéo d'introduction.
+- **Livre d'or** : la jarre de messages de Maré Alta n'a rien derrière (id `guestbook` sans fonctionnalité invité). Sous-projet à part : table `guestbook_messages`, action serveur, écran de lecture et de modération au dashboard, puis la section du thème. Sa migration ne part pas sans accord.
+- **Page Jour J invité** (`/jourj/<slug>/…`) : en français seulement et sans thème. Les boutons Jour J de Maré Alta y mènent tels quels.
+- **Formulaire de contact** : il ne propose pas les trois nouvelles collections. La contrainte SQL `contact_messages_collection_enum` et la RPC de contact n'acceptent que les trois anciennes ; il faut une migration (SQL en prod avant le code), puis la liste du formulaire et `submit-contact.ts`.
+- **Pages marketing** `/fr/themes/<id>` : textes écrits pour les trois thèmes (français seulement, comme les autres). Le compte « trois collections » est passé à « six » dans les pages SEO et le Journal (fr, en). À relire.
+- **Maquette téléphone de l'accueil** : la fausse barre d'état du téléphone (heure blanche) chevauche la ligne du haut de Maré Alta (date · monogramme). Cosmétique, propre à la maquette.
+- **Relecture des traductions** des trois thèmes (ja, ar, zh, pt surtout), comme pour les autres thèmes.

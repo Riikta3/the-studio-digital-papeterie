@@ -193,6 +193,9 @@ Depuis le portage de Maré Alta, Château Royal et Cabo Verde, une bonne part de
 | ciao-amore | ✅ | ✅ | ✅ 9 locales |
 | belle-rive | ✅ | ✅ | ✅ 9 locales |
 | blanc-couture | ✅ | ✅ | ❌ français |
+| mare-alta | ✅ | ✅ | ✅ 9 locales |
+| chateau-royal | ✅ | ✅ | ✅ 9 locales |
+| cabo-verde | ✅ | ✅ | ✅ 9 locales |
 
 `venue.access` est désormais rendu par les trois thèmes (2026-09-12). Sur
 belle-rive il est **sous** le cadre gravé, pas dedans : `.venue-content` est

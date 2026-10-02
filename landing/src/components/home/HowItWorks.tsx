@@ -66,9 +66,11 @@ function UniverseMock({
       </p>
       {/* Portrait covers, so one row of four rather than the 2×2 grid the
           landscape swatches needed. The closing card keeps the row even —
-          three themes across four columns would leave a hole. */}
+          three themes across four columns would leave a hole. Three themes,
+          not all of them: this pictures the step, it is not the catalogue,
+          and a second row does not fit the stacked card. */}
       <div className="grid grid-cols-4 gap-2 md:gap-3">
-        {THEMES.map((theme, i) => (
+        {THEMES.slice(0, 3).map((theme, i) => (
           <div key={theme.id} className="text-center">
             <div
               className={cn(

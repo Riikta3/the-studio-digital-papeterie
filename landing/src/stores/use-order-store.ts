@@ -65,7 +65,14 @@ export { EXTRA_PRICES, LANGUAGE_PRICE } from "@/lib/pricing";
  * than importing the catalogue so the store stays free of React/component
  * imports; `studio/themes.ts` is the source of truth for the cards themselves.
  */
-const VALID_THEME_IDS = ["ciao-amore", "blanc-couture", "belle-rive"];
+const VALID_THEME_IDS = [
+  "ciao-amore",
+  "blanc-couture",
+  "belle-rive",
+  "mare-alta",
+  "chateau-royal",
+  "cabo-verde",
+];
 
 /**
  * Plan ids the studio can price. Mirrors `PLAN_PRICES` in `lib/pricing.ts`,
