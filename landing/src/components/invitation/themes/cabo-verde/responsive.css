@@ -1,0 +1,782 @@
+/*
+ * Cabo Verde — the hand-written layer.
+ *
+ * Imported AFTER the generated sheet (`cabo-verde.css`, from the designer's
+ * stylesheet through `npm run themes:port-css`), so it wins at equal
+ * specificity. Never edit the generated file: it is rewritten by the pipeline.
+ * Every rule here sits under `.theme-cabo-verde` and says why it exists. This
+ * file holds only:
+ *   1. the visibility safety nets the designer's sheet cannot know about
+ *      (no JavaScript, reduced motion);
+ *   2. right-to-left mirroring;
+ *   3. fixes found by looking at screenshots.
+ * Any `@keyframes` written here must start with `cabo-verde-`: keyframe names
+ * are global to the document and every theme's sheet loads together.
+ */
+
+/* The root is the page backdrop (the designer's `body`): it fills the viewport
+   even when the invitation is short, as in the editor's preview or with few
+   sections. On desktop the generated sheet pads it by 2rem above and below. */
+.theme-cabo-verde {
+  min-height: 100svh;
+}
+
+/* The designer's page runs on the browser's own defaults. The landing around
+   every theme loads Tailwind's preflight, which replaces five of them; found by
+   comparing the computed style of every element with the designer's page, and
+   restored here. Every rule of the generated sheet is more specific than the
+   ones below, so only what the designer left unstated changes back. */
+
+/* Line height. The preflight sets 1.5 on `html`; the designer's body sets none,
+   so text without a `line-height` of its own is `normal` (about 1.15). Left
+   alone, every label and paragraph came out 4 to 6px taller than the design. */
+.theme-cabo-verde {
+  line-height: normal;
+}
+
+/* Font smoothing. The landing's `body` asks for `antialiased`, which draws light
+   text on a dark ground (the buttons, the programme) visibly thinner than the
+   designer's page, whose body states nothing. */
+.theme-cabo-verde {
+  -webkit-font-smoothing: auto;
+  -moz-osx-font-smoothing: auto;
+}
+
+/* Paragraph margins. The sheet writes them where it wants them and leaves the
+   browser's 1em everywhere else (the venue's two paragraphs, the form message,
+   the thank-you). The preflight zeroes them. */
+.theme-cabo-verde p {
+  margin-block: 1em;
+}
+
+/* Images. The preflight caps them at the width of their parent; the stay
+   section's pier is 122% wide on a phone, by design, and the section clips it. */
+.theme-cabo-verde img {
+  max-width: none;
+}
+
+/* A button keeps the browser's padding unless the sheet sets one (the "Discover"
+   cue under the hero does not), and a fieldset its 2px side margin. */
+.theme-cabo-verde .scroll-cue {
+  padding: 1px 6px;
+}
+
+.theme-cabo-verde .rsvp fieldset {
+  margin-inline: 2px;
+}
+
+/* Headings the sheet gives a face and a size but no weight (the travel cards, the
+   thank-you) are the browser's bold; the preflight sets every heading to
+   `font-weight: inherit`. */
+.theme-cabo-verde .practical-grid h3,
+.theme-cabo-verde .rsvp-success h3 {
+  font-weight: 700;
+}
+
+/* Form controls. The sheet's `font: inherit` takes the size and face of the label
+   around a control but not its letter-spacing, so a typed answer is set
+   normally; the preflight inherits that too, and spaced out whatever a guest
+   typed. A `select` is not in the sheet's rule at all and keeps the browser's
+   13.33px. */
+.theme-cabo-verde .rsvp :is(input, select, textarea),
+.theme-cabo-verde .cv-suggest input {
+  letter-spacing: normal;
+}
+
+.theme-cabo-verde .rsvp select {
+  font-size: 0.8333rem;
+}
+
+/* The hero is a one-cell grid whose cell is sized by its content. A long kicker
+   or long names widened the cell past the card (measured: a 464px copy block in
+   a 390px hero), so the copy was centred on a track wider than the screen and
+   clipped on the right. One fixed track keeps it the hero's own width. */
+.theme-cabo-verde .hero {
+  grid-template-columns: minmax(0, 1fr);
+}
+
+/* A very long name breaks instead of running off the card (a hyphenated one
+   already wraps after the hyphen). */
+.theme-cabo-verde .hero h1 span {
+  max-width: 100%;
+  overflow-wrap: anywhere;
+}
+
+/* The stamp along the top edge is one unbroken line in the designer's sheet.
+   The couple may rewrite it and some languages are long: let it wrap inside the
+   frame rather than run past the edge of the card. */
+.theme-cabo-verde .hero:after {
+  white-space: normal;
+  width: min(calc(100% - 4.5rem), 30rem);
+  text-align: center;
+  line-height: 1.5;
+}
+
+/* The programme's flow line was a five-column grid (name, line, name, line,
+   name) — exactly three events. One event hides it, two or four must still fit:
+   a row of names with a line growing between each pair. Long names may wrap. */
+.theme-cabo-verde .program-flow {
+  display: flex;
+}
+
+.theme-cabo-verde .program-flow span {
+  min-width: 0;
+  text-align: center;
+  overflow-wrap: anywhere;
+}
+
+.theme-cabo-verde .program-flow i {
+  flex: 1 1 1rem;
+  min-width: 0.75rem;
+}
+
+/* The couple's sentence under the title was written for a stack of cards, not a
+   tab bar: give the tabs some air. */
+.theme-cabo-verde .itinerary .intro {
+  margin-bottom: 1.8rem;
+}
+
+/* What the couple wrote on an event's own card (where, a sentence, a dress code),
+   above its moments. The designer's panel has no such block: it borrows the
+   section's palette — gold small caps for the place, the card text for the rest. */
+.theme-cabo-verde .cv-day-details {
+  max-width: 34rem;
+  margin: 0 auto 0.6rem;
+  text-align: center;
+}
+
+.theme-cabo-verde .cv-day-details p {
+  margin: 0.45rem 0 0;
+  font-size: 0.9rem;
+  line-height: 1.5;
+}
+
+.theme-cabo-verde .cv-day-details .cv-day-where {
+  color: #f0c453 !important;
+  font-size: 0.62rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+
+.theme-cabo-verde .cv-day-details .cv-day-dress {
+  font-style: italic;
+}
+
+/* The day's name above its moments, for the one reader who needs it: without
+   JavaScript there are no tabs and every day is shown in turn (see the safety
+   nets at the end of this file). */
+.theme-cabo-verde .cv-day-label {
+  display: none;
+}
+
+/* Dress code: the couple's inspiration photograph (mock-up gate), under the
+   introduction. The designer's page has no photograph; it takes the width of
+   the text and the card's rounded corners, and sits clear of the swatches. */
+.theme-cabo-verde .cv-dress-photo {
+  display: block;
+  width: 100%;
+  max-width: 30rem;
+  aspect-ratio: 4 / 3;
+  margin: 2rem auto 0;
+  border-radius: 1.2rem;
+  box-shadow: 0 14px 30px rgba(18, 61, 88, 0.14);
+  object-fit: cover;
+}
+
+/* Stay: what the couple wrote on a hotel beyond the designer's row (an offer,
+   a booking link, a phone number, a photograph). All of it lives in the row's
+   middle column, in the row's own type. */
+.theme-cabo-verde .stay-list .cv-stay-offer {
+  color: var(--beach-coral);
+  font-size: 0.78rem;
+  font-style: italic;
+}
+
+.theme-cabo-verde .stay-list .cv-stay-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.3rem 1rem;
+  margin-top: 0.55rem;
+}
+
+.theme-cabo-verde .stay-list .cv-stay-links a {
+  padding-bottom: 0.1rem;
+  border-bottom: 1px solid currentColor;
+  color: var(--beach-sage);
+  font-size: 0.68rem;
+  letter-spacing: 0.13em;
+  text-decoration: none;
+  text-transform: uppercase;
+}
+
+/* A hotel photograph (mock-up gate) is a small round picture before the text:
+   the middle column becomes two columns, the picture on the first, whatever the
+   number of text lines beside it. */
+.theme-cabo-verde .cv-stay-has-photo {
+  display: grid;
+  grid-template-columns: 3.4rem minmax(0, 1fr);
+  column-gap: 0.85rem;
+  align-items: start;
+}
+
+.theme-cabo-verde .cv-stay-has-photo > * {
+  grid-column: 2;
+}
+
+.theme-cabo-verde .cv-stay-has-photo > .cv-stay-photo {
+  grid-column: 1;
+  grid-row: 1 / span 6;
+  align-self: center;
+  width: 3.4rem;
+  height: 3.4rem;
+  border: 1px solid var(--beach-gold);
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+/* The "see more options" toggle: a quiet outlined button under the list, in the
+   section's teal, filled on hover and focus. */
+.theme-cabo-verde .cv-more {
+  display: block;
+  margin: 1.6rem auto 0;
+  padding: 0.95rem 1.4rem;
+  border: 1px solid rgba(18, 109, 139, 0.45);
+  background: transparent;
+  color: #126d8b;
+  font-size: 0.68rem;
+  letter-spacing: 0.13em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition:
+    background 0.25s,
+    color 0.25s;
+}
+
+.theme-cabo-verde .cv-more:hover,
+.theme-cabo-verde .cv-more:focus-visible {
+  background: #126d8b;
+  color: #fff;
+}
+
+/* The couple's sentence under the stay title. The designer's `.stay` has no side
+   padding — its eyebrow, title and list each carry the section's inset as a
+   margin — so the sentence takes the same inset (and the title's left edge
+   rather than the centred column of the other sections), and stays clear of the
+   pier, which rises 1.5rem into the space above it. */
+.theme-cabo-verde .stay .cv-stay-intro {
+  max-width: 32rem;
+  margin-inline: clamp(1.5rem, 7vw, 4rem);
+  margin-bottom: 2.4rem;
+}
+
+/* Playlist: the guitarist. In the designer's final sheet nothing moves it — the
+   `.playing` and beat classes his script toggles reach rules for elements that
+   left the markup — yet the brief is a dancing guitarist. A slow sway about the
+   foot of the guitar, in the sand: it keeps the sheet's own `translateX(-50%)`
+   that centres it. */
+@keyframes cabo-verde-guitar-sway {
+  0%,
+  100% {
+    transform: translateX(-50%) rotate(-1.4deg);
+  }
+  50% {
+    transform: translateX(-50%) rotate(1.4deg);
+  }
+}
+
+.theme-cabo-verde .music-beach-guitar {
+  transform-origin: 50% 92%;
+  animation: cabo-verde-guitar-sway 5.5s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .theme-cabo-verde .music-beach-guitar {
+    animation: none;
+  }
+}
+
+/* The numbered gutter of the intro (01 — 03) is only there with opening tracks. */
+.theme-cabo-verde .playlist-intro.cv-no-count {
+  grid-template-columns: minmax(0, 1fr);
+}
+
+.theme-cabo-verde .playlist-intro.cv-no-count > * {
+  grid-column: 1;
+}
+
+/* "To open the dance", above the couple's tracks. The guitarist's box overlaps
+   whatever follows it by 1.35rem, so the label clears that first. It is an h3,
+   and the landing's own stylesheet gives every h1–h6 its heading face: the
+   family is restored to the theme's. */
+.theme-cabo-verde .playlist .cv-openers {
+  margin: 1.8rem 0 0.1rem;
+  color: #137f98;
+  font-family: inherit;
+  font-size: 0.68rem;
+  font-weight: 800;
+  letter-spacing: 0.17em;
+  text-transform: uppercase;
+}
+
+/* The tracks have no player, so no button: the note is a plain circle. */
+.theme-cabo-verde .track-list .play {
+  display: grid;
+  place-items: center;
+  font-size: 1rem;
+  line-height: 1;
+}
+
+/* The guest's search (mock-up gate: the designer's free-text form is replaced by
+   a Spotify search). It keeps the form's own look — underlined field, uppercase
+   label, solid button — and lays out in one column, in the page's flow. */
+.theme-cabo-verde .cv-suggest {
+  display: block;
+}
+
+/* Without opening tracks the form follows the guitarist directly, and the
+   visual's negative bottom margin (made to tuck the first track under its sand)
+   would put the label on the sand. */
+.theme-cabo-verde .wedding-music-visual + .cv-suggest {
+  margin-top: 1.8rem;
+}
+
+.theme-cabo-verde .cv-suggest label {
+  display: block;
+}
+
+.theme-cabo-verde .cv-suggest input:focus-visible {
+  border-bottom-color: #137f98;
+  box-shadow: 0 1px 0 #137f98;
+}
+
+.theme-cabo-verde .cv-suggest input:disabled {
+  opacity: 0.55;
+}
+
+.theme-cabo-verde .cv-suggest .cv-results {
+  margin: 0.5rem 0 0;
+  padding: 0.3rem;
+  list-style: none;
+  border: 1px solid rgba(25, 56, 74, 0.16);
+  background: rgba(255, 250, 240, 0.96);
+  box-shadow: 0 14px 28px rgba(18, 61, 88, 0.12);
+}
+
+.theme-cabo-verde .cv-result,
+.theme-cabo-verde .cv-picked li {
+  display: grid;
+  grid-template-columns: 2.75rem minmax(0, 1fr);
+  gap: 0.8rem;
+  align-items: center;
+  padding: 0.5rem 0.6rem;
+}
+
+.theme-cabo-verde .cv-result {
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.theme-cabo-verde .cv-result-active {
+  background: rgba(19, 127, 152, 0.1);
+}
+
+.theme-cabo-verde .cv-suggest img {
+  width: 2.75rem;
+  height: 2.75rem;
+  border-radius: 4px;
+  background: rgba(18, 61, 88, 0.08);
+  object-fit: cover;
+}
+
+.theme-cabo-verde .cv-suggest strong {
+  display: block;
+  color: #123d58;
+  font-family: "Times New Roman", serif;
+  font-size: 1.02rem;
+  overflow-wrap: anywhere;
+}
+
+.theme-cabo-verde .cv-suggest em {
+  display: block;
+  color: #617889;
+  font-size: 0.68rem;
+  font-style: normal;
+}
+
+.theme-cabo-verde .cv-suggest .cv-picked {
+  margin: 0.8rem 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.theme-cabo-verde .cv-picked li {
+  grid-template-columns: 2.75rem minmax(0, 1fr) auto;
+  padding-inline: 0;
+  border-bottom: 1px solid rgba(25, 56, 74, 0.16);
+}
+
+/* The sheet gives every button of the form the solid full-width look (it was
+   built for one submit button): the remove buttons are small outlined circles. */
+.theme-cabo-verde .cv-suggest .cv-remove {
+  display: grid;
+  place-items: center;
+  width: 2rem;
+  height: 2rem;
+  margin: 0;
+  padding: 0;
+  border: 1px solid #137f98;
+  border-radius: 50%;
+  background: transparent;
+  color: #137f98;
+  font-size: 1.15rem;
+  letter-spacing: 0;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.theme-cabo-verde .cv-suggest .cv-remove:hover,
+.theme-cabo-verde .cv-suggest .cv-remove:focus-visible {
+  background: #137f98;
+  color: #fff;
+}
+
+.theme-cabo-verde .cv-suggest button:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.theme-cabo-verde .cv-suggest > button {
+  margin-top: 1rem;
+}
+
+.theme-cabo-verde .cv-results-note,
+.theme-cabo-verde .cv-status,
+.theme-cabo-verde .cv-error {
+  margin: 0.7rem 0 0;
+  font-size: 0.78rem;
+  line-height: 1.5;
+}
+
+.theme-cabo-verde .cv-results-note,
+.theme-cabo-verde .cv-status {
+  color: #617889;
+}
+
+.theme-cabo-verde .cv-results-note {
+  font-style: italic;
+}
+
+.theme-cabo-verde .cv-error {
+  color: #b8342c;
+}
+
+/* Travel notebook: the designer's grid holds four cards, two by two. An odd
+   number of modes leaves the last card alone in a row whose empty half has no
+   border; it takes the whole row instead. Several lines per mode are stacked,
+   a pasted link or the couple's own link is set like the stay links. */
+.theme-cabo-verde .practical-grid article:last-child:nth-child(odd) {
+  grid-column: 1 / -1;
+}
+
+.theme-cabo-verde .practical-grid p + p {
+  margin-top: 0.4rem;
+}
+
+.theme-cabo-verde .practical-grid a {
+  padding-bottom: 0.1rem;
+  border-bottom: 1px solid currentColor;
+  color: #137f98;
+  font-size: 0.68rem;
+  letter-spacing: 0.13em;
+  text-decoration: none;
+  text-transform: uppercase;
+  overflow-wrap: anywhere;
+}
+
+/* RSVP. The couple's sentence under the title sits between the centred title and
+   the form: centred, in the section's reading face. */
+.theme-cabo-verde .rsvp .cv-rsvp-intro {
+  max-width: 32rem;
+  margin: 0 auto 1.8rem;
+  color: #3e6172;
+  font-family: "Times New Roman", serif;
+  font-size: 1.1rem;
+  line-height: 1.7;
+  text-align: center;
+}
+
+.theme-cabo-verde .rsvp .cv-rsvp-error {
+  margin: 0;
+  color: #b8342c;
+  font-size: 0.85rem;
+  line-height: 1.5;
+}
+
+/* The submit waits for an answer to the first question; the sheet has no
+   disabled look for it. */
+.theme-cabo-verde .rsvp button:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+/* The sheet removes the outline of every field of the form and puts nothing in
+   its place: a keyboard user could not see where they are. The underlined
+   fields get a stronger underline, the radios a ring. */
+.theme-cabo-verde .rsvp input:focus-visible,
+.theme-cabo-verde .rsvp select:focus-visible,
+.theme-cabo-verde .rsvp textarea:focus-visible {
+  border-bottom-color: #137f98;
+  box-shadow: 0 1px 0 #137f98;
+}
+
+.theme-cabo-verde .rsvp input[type="radio"]:focus-visible {
+  outline: 2px solid #137f98;
+  outline-offset: 2px;
+  box-shadow: none;
+}
+
+/* Footer: the couple's portrait (mock-up gate), a round picture with a gold
+   hairline above the monogram. The designer's footer has none; nothing stands
+   in when the couple uploaded nothing. */
+.theme-cabo-verde .cv-portrait {
+  display: block;
+  width: 7rem;
+  height: 7rem;
+  margin: 0 0 1.3rem;
+  border: 2px solid var(--beach-gold);
+  border-radius: 50%;
+  box-shadow: 0 10px 24px rgba(18, 61, 88, 0.18);
+  object-fit: cover;
+}
+
+/* The couple's closing words are a sentence, not a caption: the footer's
+   uppercase, widely spaced `p` would shout it. */
+.theme-cabo-verde .beach-footer p.cv-closing {
+  max-width: 28rem;
+  margin: 1rem 0 0;
+  font-family: "Times New Roman", serif;
+  font-size: 1rem;
+  font-style: italic;
+  font-weight: 400;
+  letter-spacing: 0;
+  line-height: 1.5;
+  text-align: center;
+  text-transform: none;
+}
+
+/* The countdown's flip. The designer wrote `.digit-flip` and re-adds it from his
+   script on every change, but `.count-grid strong` (the idle "breathing")
+   outranks it in his own sheet, so on his page the flip never plays — the
+   computed animation of a flipping digit is the breathing. Here the flip runs
+   first and the breathing takes over once it is done; it restarts from its
+   peak so the hand-over does not jump. Reduced motion: the generated sheet and
+   the safety net below cancel every animation. */
+@keyframes cabo-verde-digit-breathe {
+  0%,
+  100% {
+    opacity: 1;
+    transform: translateY(-2px);
+  }
+  50% {
+    opacity: 0.84;
+    transform: translateY(0);
+  }
+}
+
+.theme-cabo-verde .count-grid strong.digit-flip {
+  animation:
+    cabo-verde-digitFlip 0.58s cubic-bezier(0.22, 0.72, 0.22, 1),
+    cabo-verde-digit-breathe 2.5s ease-in-out 0.58s infinite;
+}
+
+/* The invitation's music icon is mounted by the page beside the theme, fixed to
+   the top right corner (its own stylesheet invites a theme to move it with this
+   very selector). On a phone that is where the hero's stamp runs out: the last
+   letter of a long stamp sat under it. It goes just below the stamp's line;
+   above 680px the card is centred and the corner is empty. */
+@media (max-width: 680px) {
+  .invitation-music[data-theme="cabo-verde"] {
+    top: calc(4.5rem + env(safe-area-inset-top, 0px));
+  }
+}
+
+/* ------------------------------------------------------------------------- *
+ * Right to left (Arabic)
+ *
+ * The designer's sheet is written in physical terms: `text-align: left`, a
+ * `margin-left` on the venue card, an image pulled out with `margin-left`. Grids
+ * and flex rows mirror on their own (the tabs, the stay rows, the travel grid,
+ * the track list and the countdown all do); these are the places that do not.
+ * ------------------------------------------------------------------------- */
+
+/* Text the sheet pins to the left reads from the right. The sections that set it
+   (the venue card, the playlist, its form, the RSVP) are listed one by one:
+   every child inherits it, apart from those that centre themselves. */
+[dir="rtl"] .theme-cabo-verde .venue-card,
+[dir="rtl"] .theme-cabo-verde .playlist,
+[dir="rtl"] .theme-cabo-verde .playlist > .eyebrow,
+[dir="rtl"] .theme-cabo-verde .playlist-intro,
+[dir="rtl"] .theme-cabo-verde .track-list,
+[dir="rtl"] .theme-cabo-verde .song-form,
+[dir="rtl"] .theme-cabo-verde .rsvp {
+  text-align: right;
+}
+
+/* Venue: the ceremony art and the card are a pair, the card laid over the
+   art's inner edge. The grid puts the art on the left in a right-to-left page,
+   but the card keeps its physical left margin and ends up on top of it: the
+   card goes to the right, the art's pull and the ellipse's centre mirror. */
+[dir="rtl"] .theme-cabo-verde .venue-image {
+  margin-left: 0;
+  margin-right: -2.6rem;
+  clip-path: ellipse(72% 48% at 42% 50%);
+}
+
+[dir="rtl"] .theme-cabo-verde .venue-card {
+  margin-left: auto;
+  margin-right: 1.4rem;
+}
+
+@media (max-width: 440px) {
+  [dir="rtl"] .theme-cabo-verde .venue-image {
+    margin-left: 0;
+    margin-right: -3.8rem;
+  }
+
+  [dir="rtl"] .theme-cabo-verde .venue-card {
+    margin-right: 1rem;
+  }
+}
+
+/* Programme: the string of lights is an inline picture wider than the card,
+   shifted into place from the line's left edge. In a right-to-left line the
+   overflow starts from the right, which pushed it 170px off the card's centre
+   (the garland hung lopsided). Centred explicitly instead: half its width
+   (100vw, or 135vw on a phone) less half the card, from the line's start. */
+[dir="rtl"] .theme-cabo-verde .party-lights {
+  margin-left: 0;
+  left: calc(50vw - 50%);
+}
+
+@media (max-width: 560px) {
+  [dir="rtl"] .theme-cabo-verde .party-lights {
+    left: calc(67.5vw - 50%);
+  }
+}
+
+/* The title's rule grows from the side the title starts on, and sits there when
+   the sheet left-aligns it (the stay and travel titles). */
+[dir="rtl"] .theme-cabo-verde .section h2::after {
+  transform-origin: right;
+}
+
+[dir="rtl"] .theme-cabo-verde .stay h2::after,
+[dir="rtl"] .theme-cabo-verde .practical h2::after {
+  margin-left: auto;
+  margin-right: 0;
+}
+
+/* ------------------------------------------------------------------------- *
+ * Safety nets
+ *
+ * The designer's sheet hides each block of a section (its title, eyebrow, cards,
+ * swatches, the suitcase…) until his script adds `.visible` to the section.
+ * Here the section adds it itself (`Reveal`), once it is seen — so two readers
+ * would be left looking at nothing: one with JavaScript off, and one who asked
+ * for no motion and so never gets the transitions that were to show it.
+ * ------------------------------------------------------------------------- */
+
+/* Without JavaScript nothing may stay hidden (JsFlag sets `data-js` on the root,
+   so this only applies before it runs and when it never does). */
+.theme-cabo-verde:not([data-js]) :is(
+    .reveal,
+    .section h2.motion-title,
+    .section .intro,
+    .section .small,
+    .section .count-caption,
+    .section .days-tabs,
+    .section .stay-list article,
+    .section .track-list > div,
+    .section .practical-grid article,
+    .section form,
+    .venue-card,
+    .palette i,
+    .stay-objects .rolling-luggage-set
+  ) {
+  opacity: 1;
+  transform: none;
+  filter: none;
+}
+
+.theme-cabo-verde:not([data-js]) :is(.section > .eyebrow, .venue-card > .eyebrow, .count-top, .playlist-intro > span) {
+  clip-path: none;
+}
+
+.theme-cabo-verde:not([data-js]) .section h2::after {
+  transform: scaleX(1);
+}
+
+/* The programme's tabs cannot work without scripts: every day is shown in turn,
+   each under its own label. */
+.theme-cabo-verde:not([data-js]) .days-tabs {
+  display: none;
+}
+
+.theme-cabo-verde:not([data-js]) .day-panel {
+  display: block;
+}
+
+.theme-cabo-verde:not([data-js]) .cv-day-label {
+  display: block;
+  margin: 2rem 0 0.4rem;
+  color: #f0c453;
+  font-size: 0.68rem;
+  letter-spacing: 0.2em;
+  text-align: center;
+  text-transform: uppercase;
+}
+
+/* A reader who asked for no motion gets none, and nothing waits for a scroll.
+   (The sheet's own reduced-motion rules cover most of it; this is the rest, and
+   makes sure of the whole.) */
+@media (prefers-reduced-motion: reduce) {
+  .theme-cabo-verde *,
+  .theme-cabo-verde *::before,
+  .theme-cabo-verde *::after {
+    animation: none !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  .theme-cabo-verde :is(
+      .reveal,
+      .section h2.motion-title,
+      .section .intro,
+      .section .small,
+      .section .count-caption,
+      .section .days-tabs,
+      .section .stay-list article,
+      .section .track-list > div,
+      .section .practical-grid article,
+      .section form,
+      .venue-card,
+      .palette i
+    ) {
+    opacity: 1 !important;
+    transform: none !important;
+    filter: none !important;
+  }
+
+  /* The suitcase is parked, as the sheet parks it, not upright. */
+  .theme-cabo-verde .stay-objects .rolling-luggage-set {
+    opacity: 1 !important;
+  }
+
+  .theme-cabo-verde :is(.section > .eyebrow, .venue-card > .eyebrow, .count-top, .playlist-intro > span) {
+    clip-path: none !important;
+  }
+
+  .theme-cabo-verde .section h2::after {
+    transform: scaleX(1);
+  }
+}

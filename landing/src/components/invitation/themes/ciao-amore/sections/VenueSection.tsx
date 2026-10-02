@@ -1,5 +1,6 @@
-import { getTranslations } from "next-intl/server";
+import { useTranslations } from "next-intl";
 
+import { slot } from "../../text";
 import type { InvitationData } from "../../types";
 
 /**
@@ -11,15 +12,30 @@ import type { InvitationData } from "../../types";
  * the shuttle times — reached the invitation and were dropped. It is the
  * answer to the question guests ask first.
  */
-export async function VenueSection({ data }: { data: InvitationData }) {
-  const t = await getTranslations("Invitation.ciaoAmore.venue");
+function escapeRegExp(value: string): string {
+  return value.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+}
+
+export function VenueSection({ data }: { data: InvitationData }) {
+  const t = useTranslations("Invitation.ciaoAmore.venue");
   const { venue, copy } = data;
   const access = venue.access ?? [];
 
+  // The city is its own field in the editor's venue tab and was printed
+  // everywhere but here. Added after the address, unless the address already
+  // closes on it as a locality — "13090 Aix-en-Provence", "…, Lourmarin". A
+  // road named after the town ("Route de Lourmarin") is not the town.
+  const addressLines = venue.address ? venue.address.split("\n") : [];
+  const lastLine = addressLines[addressLines.length - 1]?.trim().toLowerCase() ?? "";
+  const city = venue.city?.trim().toLowerCase() ?? "";
+  const cityWritten =
+    Boolean(city) && (lastLine.endsWith(`, ${city}`) || new RegExp(`\\d\\s+${escapeRegExp(city)}$`).test(lastLine));
+  const lines = venue.city && !cityWritten ? [...addressLines, venue.city] : addressLines;
+
   return (
-    <section className="venue-section">
+    <section className="venue-section" data-editor-section="map">
       <div className="venue-frame">
-        <p className="eyebrow">{t("eyebrow")}</p>
+        <p className="eyebrow">{slot(data, "map.eyebrow") ?? t("eyebrow")}</p>
         <h2>{venue.name}</h2>
 
         {copy?.venueIntro ? <p className="venue-intro">{copy.venueIntro}</p> : null}
@@ -29,10 +45,10 @@ export async function VenueSection({ data }: { data: InvitationData }) {
           <img src={venue.image} alt={venue.name} loading="lazy" />
         ) : null}
 
-        {venue.address ? (
+        {lines.length > 0 ? (
           <p>
-            {venue.address.split("\n").map((line, index, lines) => (
-              <span key={line}>
+            {lines.map((line, index) => (
+              <span key={`${index}-${line}`}>
                 {line}
                 {index < lines.length - 1 ? <br /> : null}
               </span>
@@ -56,14 +72,16 @@ export async function VenueSection({ data }: { data: InvitationData }) {
         ) : null}
 
         {access.length > 0 ? (
-          <dl className="venue-access">
-            {access.map((entry) => (
-              <div key={entry.mode}>
+          // The directions are the transport tab's in the editor, even though
+          // they sit inside the venue: a click here opens that tab.
+          <dl className="venue-access" data-editor-section="transport">
+            {access.map((entry, entryIndex) => (
+              <div key={`${entryIndex}-${entry.mode}`}>
                 <dt>{entry.mode}</dt>
-                {entry.details.map((detail) => (
-                  <dd key={detail}>
-                    {/* A carpool entry carries its link as a detail line, so a
-                        URL is rendered as one rather than printed raw. */}
+                {entry.details.map((detail, index) => (
+                  <dd key={`${index}-${detail}`}>
+                    {/* A couple may paste a link into their directions: it is
+                        rendered as one rather than printed raw. */}
                     {/^https?:\/\//.test(detail) ? (
                       <a href={detail} target="_blank" rel="noreferrer">
                         {detail.replace(/^https?:\/\//, "")}
@@ -73,6 +91,13 @@ export async function VenueSection({ data }: { data: InvitationData }) {
                     )}
                   </dd>
                 ))}
+                {entry.link ? (
+                  <dd>
+                    <a href={entry.link.url} target="_blank" rel="noreferrer">
+                      {entry.link.label || entry.link.url.replace(/^https?:\/\//, "")}
+                    </a>
+                  </dd>
+                ) : null}
               </div>
             ))}
           </dl>

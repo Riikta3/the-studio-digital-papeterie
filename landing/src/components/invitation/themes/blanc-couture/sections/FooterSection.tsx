@@ -15,7 +15,7 @@ export function FooterSection({ data }: { data: InvitationData }) {
   const closingLines = (copy?.closing ?? "").split("\n").filter(Boolean);
 
   return (
-    <footer className="page closing-page soft-floral-paper" data-side="left">
+    <footer className="page closing-page soft-floral-paper" data-side="left" data-editor-section="footer">
       <div className="light-pass" />
       <div className="content reveal">
         {/* Only the couple's own photograph. This used to be the demo

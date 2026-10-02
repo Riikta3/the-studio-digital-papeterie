@@ -1053,6 +1053,7 @@
     "monthLabel": "Mois",
     "yearLabel": "Année",
     "dateInPastError": "La date doit être dans le futur.",
+    "dateInvalidError": "Cette date n’existe pas.",
     "venueLabel": "Lieu de la cérémonie",
     "venuePlaceholder": "Château des Roses, Provence",
     "accountLabel": "Votre compte",
@@ -1513,7 +1514,10 @@
         "introTitle": "Le programme",
         "dayOneEyebrow": "Jour 1",
         "dayOneSeparator": " · ",
-        "dayOneTitle": "Le grand jour"
+        "dayOneTitle": "Le grand jour",
+        "dressLabel": "Tenue",
+        "ribbon": "Amore · Limoni · Dolce Vita",
+        "stamp": "ITALIA"
       },
       "dayTwo": {},
       "dressCode": {
@@ -1530,7 +1534,8 @@
         "title": "Où dormir ?",
         "nearVenue": "À proximité de {venueName}",
         "hideOptions": "Masquer les options",
-        "showMoreOptions": "Voir plus d’options"
+        "showMoreOptions": "Voir plus d’options",
+        "keyTag": "CAMERA 01"
       },
       "playlist": {
         "eyebrow": "La musique de notre week-end",
@@ -1586,6 +1591,31 @@
       "footer": {},
       "scrollTop": {
         "ariaLabel": "Retour en haut de la page"
+      },
+      "introVideo": {
+        "eyebrow": "Notre film",
+        "frameTitle": "Notre vidéo"
+      },
+      "menu": {
+        "eyebrow": "À table",
+        "title": "Il Menù"
+      },
+      "gallery": {
+        "eyebrow": "Souvenirs",
+        "title": "En images",
+        "imageAlt": "Photo {index}"
+      },
+      "gifts": {
+        "eyebrow": "Liste de cadeaux",
+        "titleFallback": "Votre présence est notre plus beau cadeau",
+        "linkFallback": "Participer"
+      },
+      "decor": {
+        "heroWatermark": "MATRIMONIO\nIN ITALIA",
+        "introTag": "MATRIMONIO",
+        "archFooter": "ESTATE  ·  AMORE  ·  DOLCE VITA",
+        "timelineFooter": "LIMONI · AMORE · ESTATE",
+        "playlistTag": "♪  MUSICA ITALIANA  ♪"
       }
     },
     "belleRive": {
@@ -1699,6 +1729,328 @@
         "titleFallback": "Votre présence est notre plus beau cadeau",
         "animationLabel": "Paquet cadeau orné de perles",
         "linkLabelFallback": "Participer"
+      }
+    },
+    "editorPreview": {
+      "waiting": "Chargement de l’aperçu…",
+      "noEvent": "Activez au moins un événement dans l’onglet « Programme » pour afficher votre faire-part.",
+      "example": "Exemple · à remplir dans l’éditeur",
+      "notLive": "Pas encore visible par vos invités"
+    },
+    "chateauRoyal": {
+      "hero": {
+        "label": "Invitation au mariage de {partner1} et {partner2}"
+      },
+      "letter": {
+        "intro": "Ont la joie de vous convier à leur mariage",
+        "titleLine1": "Un mariage",
+        "titleLine2": "pour se souvenir"
+      },
+      "venue": {
+        "eyebrow": "Le lieu",
+        "titleLine1": "Un lieu,",
+        "titleLine2": "notre histoire",
+        "route": "Ouvrir l’itinéraire",
+        "archLabel": "Le lieu de la réception"
+      },
+      "programme": {
+        "title": "Le grand jour",
+        "intro": "Une journée, mille instants.",
+        "dayOne": "Jour I",
+        "dayTwo": "Jour II",
+        "alsoTitle": "Et aussi"
+      },
+      "menu": {
+        "eyebrow": "Le dîner",
+        "titleLine1": "Le menu",
+        "titleLine2": "du dîner",
+        "cakeLabel": "Pièce montée traditionnelle grignotée peu à peu sur ses trois étages"
+      },
+      "brunch": {
+        "imageLabel": "Une table de banquet dressée au jardin"
+      },
+      "practical": {
+        "eyebrow": "À savoir",
+        "title": "Les petits détails",
+        "open": "Ouvrir"
+      },
+      "rsvp": {
+        "eyebrow": "Votre réponse",
+        "deadline": "Merci de répondre avant le {date}.",
+        "attendanceLabel": "Votre réponse",
+        "attendanceChoose": "Choisissez",
+        "attendanceYes": "Je serai là",
+        "attendanceNo": "Je ne pourrai pas venir",
+        "messageLabel": "Allergies, précisions ou petit mot",
+        "messagePlaceholder": "Facultatif",
+        "submit": "Confirmer ma réponse",
+        "titleLine1": "Vous serez",
+        "titleLine2": "des nôtres ?",
+        "nameLabel": "Prénom et nom",
+        "pending": "Envoi…",
+        "thanks": "Merci ! Votre réponse a bien été prise en compte.",
+        "partyLabel": "Qui sera présent ?",
+        "partyOptionSolo": "Moi uniquement",
+        "partyOptionPartner": "Moi + mon/ma partenaire",
+        "partnerNameLabel": "Nom de votre partenaire",
+        "partnerNamePlaceholder": "Prénom et nom",
+        "childrenLabel": "Enfants qui vous accompagnent",
+        "childrenOptionNone": "Aucun",
+        "childrenOptionCount": "{count, plural, one {# enfant} other {# enfants}}",
+        "childFieldLabel": "Enfant {index}",
+        "childNamePlaceholder": "Prénom et nom",
+        "dietaryLabel": "Restrictions alimentaires"
+      },
+      "faq": {
+        "childrenQuestion": "Les enfants sont-ils conviés ?",
+        "childrenAdultsOnly": "Afin que tous les parents puissent profiter pleinement de la soirée et faire la fête jusqu’au bout de la nuit, notre mariage se déroulera entre adultes. Profitez de cette parenthèse rien que pour vous.",
+        "childrenWelcome": "Oui, vos enfants sont les bienvenus. Merci de les indiquer dans votre réponse afin que nous puissions tout prévoir pour eux."
+      }
+    },
+    "mareAlta": {
+      "hero": {
+        "imageAlt": "Une villa entièrement brodée sur un lin ivoire",
+        "eyebrow": "Nous nous marions",
+        "cta": "Découvrir"
+      },
+      "countdown": {
+        "eyebrow": "Le temps jusqu’à nous",
+        "titleLine1": "Rendez-vous",
+        "titleLine2": "dans…",
+        "note": "Chaque seconde nous rapproche de vous retrouver.",
+        "unitDays": "{count, plural, one {jour} other {jours}}",
+        "unitHours": "{count, plural, one {heure} other {heures}}",
+        "unitMinutes": "{count, plural, one {minute} other {minutes}}",
+        "unitSeconds": "{count, plural, one {seconde} other {secondes}}",
+        "cardLabel": "{value} {unit} avant le mariage"
+      },
+      "map": {
+        "eyebrow": "Destination",
+        "imageAlt": "Une maison blanche entre pins, dunes et mer, brodée sur lin",
+        "route": "Itinéraire",
+        "calendar": "Ajouter",
+        "calendarLabel": "Ajouter l’événement à mon calendrier"
+      },
+      "timeline": {
+        "eyebrow": "Le récit du grand jour",
+        "titleLine1": "Du premier regard",
+        "titleLine2": "à la dernière danse",
+        "sign": "Chaque instant a son rythme",
+        "alsoTitle": "Et aussi",
+        "dressLabel": "Tenue",
+        "kindWelcomeDinner": "Dîner de bienvenue",
+        "kindWeddingDay": "Le mariage",
+        "kindParty": "Soirée",
+        "kindBrunch": "Brunch"
+      },
+      "dressCode": {
+        "eyebrow": "Dress code",
+        "imageAlt": "Inspiration vestimentaire : une robe fluide et un costume d’été"
+      },
+      "stays": {
+        "eyebrow": "Dormir tout près",
+        "titleLine1": "Posez",
+        "titleLine2": "les valises",
+        "artAlt": "Une valise brodée, des lunettes de soleil et un foulard prêts pour le voyage",
+        "address": "Voir l’adresse",
+        "call": "Appeler",
+        "more": "Voir plus d’options",
+        "less": "Masquer les options",
+        "code": "Code {code}"
+      },
+      "transport": {
+        "eyebrow": "Votre carnet de voyage",
+        "titleLine1": "Pour voyager",
+        "titleLine2": "l’esprit léger",
+        "intro": "L’arrivée fait déjà partie de la fête. Voici l’essentiel pour voyager sereinement.",
+        "open": "Ouvrir",
+        "decorLabel": "Passeport, tampons d’aéroport, étiquette de valise et avion brodés"
+      },
+      "menu": {
+        "eyebrow": "Table d’un soir",
+        "titleLine1": "Le menu",
+        "titleLine2": "du grand jour",
+        "scatterLabel": "Vaisselle, citron, verre et linge de table brodés"
+      },
+      "playlist": {
+        "eyebrow": "Construisons la bande-son ensemble",
+        "titleLine1": "Quel morceau",
+        "titleLine2": "vous fera danser ?",
+        "intro": "Ajoutez le titre que vous voulez absolument entendre pendant la soirée.",
+        "discsLabel": "Deux disques brodés en rotation",
+        "searchLabel": "Cherchez un titre",
+        "searchPlaceholder": "Un titre, un artiste…",
+        "searchPlaceholderFull": "{max} titres maximum",
+        "resultsLoading": "Recherche…",
+        "resultsError": "Recherche indisponible. Réessayez dans un instant.",
+        "resultsEmpty": "Aucun titre trouvé.",
+        "removeTrack": "Retirer {title}",
+        "statusEmpty": "Jusqu’à {max} titres",
+        "statusCount": "{count, plural, one {# titre choisi sur {max}} other {# titres choisis sur {max}}}",
+        "statusFull": "{max} titres maximum — retirez-en un pour en proposer un autre.",
+        "send": "Ajouter à la playlist",
+        "sending": "Envoi…",
+        "thanks": "Merci ! Votre proposition a bien été envoyée."
+      },
+      "gifts": {
+        "eyebrow": "Le plus beau cadeau, c’est vous",
+        "cta": "Participer"
+      },
+      "rsvp": {
+        "eyebrow": "Votre réponse",
+        "titleLine1": "Serez-vous",
+        "titleLine2": "des nôtres ?",
+        "deadlineLabel": "Merci de répondre avant le",
+        "weekendLabel": "Les rendez-vous du mariage",
+        "step1": "Votre réponse",
+        "step2": "Avec qui venez-vous ?",
+        "step3": "Un petit mot",
+        "stepMeal": "Votre repas",
+        "attendYes": "Avec joie, je serai là",
+        "attendNo": "Je ne pourrai pas être là",
+        "thanksEyebrow": "Réponse envoyée",
+        "thanksTitle": "C’est bien noté !",
+        "thanksBody": "Merci. Votre réponse a rejoint notre carnet d’invités.",
+        "nameLabel": "Votre nom",
+        "namePlaceholder": "Prénom et nom",
+        "attendanceLegend": "Présence",
+        "partyLabel": "Qui sera présent ?",
+        "partyOptionSolo": "Moi uniquement",
+        "partyOptionPartner": "Moi + mon/ma partenaire",
+        "partnerNameLabel": "Nom de votre partenaire",
+        "partnerNamePlaceholder": "Prénom et nom",
+        "childrenLabel": "Enfants qui vous accompagnent",
+        "childrenOptionNone": "Aucun",
+        "childrenOptionCount": "{count, plural, one {# enfant} other {# enfants}}",
+        "childFieldLabel": "Enfant {index}",
+        "childNamePlaceholder": "Prénom et nom",
+        "dietaryLabel": "Restrictions alimentaires",
+        "messageLabel": "Un petit mot",
+        "messagePlaceholder": "Votre message…",
+        "submit": "Envoyer ma réponse",
+        "submitPending": "Envoi…"
+      },
+      "faq": {
+        "eyebrow": "Tout ce qu’il faut savoir",
+        "title": "Questions fréquentes",
+        "childrenQuestion": "Les enfants sont-ils conviés ?",
+        "childrenAdultsOnly": "Afin que tous les parents puissent profiter pleinement de la soirée et faire la fête jusqu’au bout de la nuit, notre mariage se déroulera entre adultes. Profitez de cette parenthèse rien que pour vous.",
+        "childrenWelcome": "Oui, vos enfants sont les bienvenus. Merci de les indiquer dans votre réponse afin que nous puissions tout prévoir pour eux."
+      },
+      "footer": {
+        "eyebrow": "On a tellement hâte",
+        "top": "Revenir en haut",
+        "tableEyebrow": "À découvrir le jour J",
+        "tableTitle": "Trouve ta place",
+        "tableBody": "Scannez le QR code à l’entrée ou cherchez votre prénom : votre table apparaîtra, avec le plan de salle.",
+        "tableCta": "Ouvrir le plan de table",
+        "photosEyebrow": "Après la fête",
+        "photosTitle": "Vos yeux, vos souvenirs",
+        "photosBody": "Le lendemain, déposez ici vos photos et découvrez la galerie partagée.",
+        "photosCta": "Partager mes photos",
+        "photosHint": "Photos et vidéos, partagées avec les mariés",
+        "soon": "Disponible le jour J"
+      }
+    },
+    "caboVerde": {
+      "hero": {
+        "eyebrow": "Nous nous marions",
+        "stamp": "Notre mariage",
+        "cta": "Découvrir"
+      },
+      "welcome": {
+        "eyebrow": "Notre mariage",
+        "titleLine1": "Notre plus beau voyage",
+        "titleLine2": "commence avec vous.",
+        "intro": "Tous ceux que nous aimons réunis pour célébrer notre histoire."
+      },
+      "countdown": {
+        "until": "Jusqu’au",
+        "titleLine1": "Le jour J",
+        "titleLine2": "approche.",
+        "caption": "avant de célébrer notre mariage",
+        "label": "Compte à rebours",
+        "unitDays": "{count, plural, one {jour} other {jours}}",
+        "unitHours": "{count, plural, one {heure} other {heures}}",
+        "unitMinutes": "{count, plural, one {minute} other {minutes}}",
+        "unitSeconds": "{count, plural, one {seconde} other {secondes}}"
+      },
+      "venue": {
+        "eyebrow": "Le lieu",
+        "route": "Voir sur la carte"
+      },
+      "itinerary": {
+        "eyebrow": "Un séjour · une histoire d’amour",
+        "title": "Le programme",
+        "flowLabel": "Les temps forts du séjour",
+        "dress": "Tenue : {value}"
+      },
+      "dress": {
+        "eyebrow": "Dress code",
+        "paletteLabel": "Palette de couleurs",
+        "photoAlt": "Inspiration de tenue"
+      },
+      "stay": {
+        "eyebrow": "Où dormir",
+        "titleLine1": "Posez vos valises",
+        "titleLine2": "pour le week-end",
+        "more": "Voir plus d’options",
+        "less": "Masquer",
+        "code": "Code {code}",
+        "book": "Réserver",
+        "call": "Appeler"
+      },
+      "playlist": {
+        "eyebrow": "La bande-son de notre mariage",
+        "titleLine1": "Playlist",
+        "titleLine2": "participative",
+        "intro": "Ajoutez le titre qui vous fera rejoindre la piste.",
+        "openers": "Pour ouvrir la danse",
+        "searchLabel": "Cherchez un titre",
+        "searchPlaceholder": "Un titre, un artiste…",
+        "searchPlaceholderFull": "{max} titres maximum",
+        "loading": "Recherche…",
+        "empty": "Aucun titre trouvé.",
+        "error": "Recherche indisponible. Réessayez dans un instant.",
+        "remove": "Retirer {title}",
+        "send": "Ajouter à la playlist",
+        "sending": "Envoi…",
+        "thanks": "{count, plural, one {Merci ! Votre titre a bien été proposé.} other {Merci ! Vos titres ont bien été proposés.}}",
+        "statusEmpty": "Jusqu’à {max} titres",
+        "statusCount": "{count, plural, one {# titre choisi sur {max}} other {# titres choisis sur {max}}}",
+        "statusFull": "{max} titres maximum — retirez-en un pour en proposer un autre."
+      },
+      "travel": {
+        "eyebrow": "Quelques repères",
+        "title": "Le carnet de voyage",
+        "open": "Ouvrir"
+      },
+      "rsvp": {
+        "stamp": "R.S.V.P.",
+        "deadline": "Réponse souhaitée avant le {date}",
+        "title": "Vous venez ?",
+        "nameLabel": "Prénom et nom",
+        "attendanceLegend": "Serez-vous des nôtres ?",
+        "attendanceYes": "Oui, avec joie",
+        "attendanceNo": "Non, à regret",
+        "partnerLegend": "Viendrez-vous avec votre conjoint·e ?",
+        "partnerYes": "Oui",
+        "partnerNo": "Non",
+        "partnerNameLabel": "Nom de votre partenaire",
+        "childrenLabel": "Combien d’enfants vous accompagneront ?",
+        "childrenNone": "Aucun",
+        "childrenCount": "{count, plural, one {# enfant} other {# enfants}}",
+        "childLabel": "Enfant {index}",
+        "dietaryLabel": "Restrictions alimentaires",
+        "messageLabel": "Un petit mot",
+        "messagePlaceholder": "Votre message…",
+        "submit": "Envoyer ma réponse",
+        "pending": "Envoi…",
+        "thanksTitle": "Merci !",
+        "thanksBody": "Votre réponse a bien été prise en compte."
+      },
+      "footer": {
+        "note": "Avec amour"
       }
     }
   }

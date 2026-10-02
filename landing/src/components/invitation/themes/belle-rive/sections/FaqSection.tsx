@@ -38,7 +38,7 @@ export function FaqSection({ data }: { data: InvitationData }) {
   if (faq.length === 0) return null;
 
   return (
-    <section className="panel faq pearled">
+    <section className="panel faq pearled" data-editor-section="faq">
       <p className="eyebrow">{t("eyebrow")}</p>
       <h2>{t("title")}</h2>
 

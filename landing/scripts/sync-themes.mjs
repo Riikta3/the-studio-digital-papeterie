@@ -18,14 +18,18 @@ import { readdirSync, readFileSync, statSync, writeFileSync } from "node:fs";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 
+import { readSupports } from "../src/lib/theme-supports.mjs";
+
 const here = dirname(fileURLToPath(import.meta.url));
 const THEMES_DIR = join(here, "..", "src", "components", "invitation", "themes");
 const REGISTRY = join(THEMES_DIR, "registry.ts");
 const THEME_IDS_FILE = join(THEMES_DIR, "theme-ids.ts");
+const MODULES_FILE = join(here, "..", "..", "shared", "data", "theme-modules.ts");
 
 const START = "// ─── THEME IMPORTS — generated, do not edit by hand ───────────────────────────";
 const END = "// ─── END GENERATED ───────────────────────────────────────────────────────────";
 const IDS_START = "// ─── THEME IDS — generated, do not edit by hand ───────────────────────────────";
+const MODULES_START = "// ─── THEME MODULES — generated, do not edit by hand ───────────────────────────";
 
 function camel(folder) {
   return folder.replace(/-([a-z0-9])/g, (_, c) => c.toUpperCase());
@@ -75,6 +79,27 @@ const idsBlock = [
   END,
 ].join("\n");
 
+// The one fact about each theme the dashboard needs: which modules it draws.
+const supports = folders.map((folder) => {
+  const ids = readSupports(readFileSync(join(THEMES_DIR, folder, "theme.config.ts"), "utf8"));
+  if (!ids) {
+    console.error(
+      `Could not read \`supports\` in ${folder}/theme.config.ts — keep it a plain array of string literals.`,
+    );
+    process.exit(1);
+  }
+  return [folder, ids];
+});
+
+const modulesBlock = [
+  MODULES_START,
+  `export const FALLBACK_THEME_ID = "${folders[0]}";`,
+  "export const THEME_MODULES: Readonly<Record<string, readonly string[]>> = {",
+  ...supports.map(([folder, ids]) => `  "${folder}": [${ids.map((id) => `"${id}"`).join(", ")}],`),
+  "};",
+  END,
+].join("\n");
+
 /** Swap the text between a generated block's markers. */
 function regenerate(file, startMarker, replacement) {
   const current = readFileSync(file, "utf8");
@@ -94,6 +119,7 @@ function regenerate(file, startMarker, replacement) {
 const targets = [
   { file: REGISTRY, ...regenerate(REGISTRY, START, block) },
   { file: THEME_IDS_FILE, ...regenerate(THEME_IDS_FILE, IDS_START, idsBlock) },
+  { file: MODULES_FILE, ...regenerate(MODULES_FILE, MODULES_START, modulesBlock) },
 ];
 
 const stale = targets.filter(({ current, next }) => current !== next);
@@ -107,10 +133,10 @@ if (process.argv.includes("--check")) {
     );
     process.exit(1);
   }
-  console.log(`Theme registry and ids are up to date (${folders.length} themes).`);
+  console.log(`Theme registry, ids and modules are up to date (${folders.length} themes).`);
 } else if (stale.length === 0) {
-  console.log(`Theme registry and ids already up to date (${folders.length} themes).`);
+  console.log(`Theme registry, ids and modules already up to date (${folders.length} themes).`);
 } else {
   for (const { file, next } of stale) writeFileSync(file, next);
-  console.log(`Theme registry and ids updated: ${folders.join(", ")}`);
+  console.log(`Theme registry, ids and modules updated: ${folders.join(", ")}`);
 }

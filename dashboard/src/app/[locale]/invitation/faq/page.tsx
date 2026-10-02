@@ -1,7 +1,10 @@
-import { FaqPageClient } from "@/components/invitation-info/FaqPageClient";
-import { listFaq } from "@/actions/faq-actions";
+import { redirect } from "next/navigation";
 
-export default async function Page() {
-  const faq = await listFaq();
-  return <FaqPageClient initialFaq={faq} />;
+/**
+ * The FAQ now live in the invitation editor's "FAQ" tab. Kept as a redirect
+ * so bookmarks, emails and old links still land somewhere useful.
+ */
+export default async function Page({ params }: { params: Promise<{ locale: string }> }) {
+  const { locale } = await params;
+  redirect(`/${locale}/invitation?section=faq`);
 }

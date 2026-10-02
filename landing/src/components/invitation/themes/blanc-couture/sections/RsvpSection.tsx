@@ -106,7 +106,7 @@ export function RsvpSection({ data, side }: { data: InvitationData; side: "left"
   }
 
   return (
-    <Page className="soft-floral-paper rsvp-page" side={side} monogram={data.couple.monogram} couple={data.couple}>
+    <Page className="soft-floral-paper rsvp-page" side={side} monogram={data.couple.monogram} couple={data.couple} data-editor-section="rsvp">
       <p className="script">RSVP</p>
       <h2>
         Serez-vous

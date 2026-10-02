@@ -67,12 +67,8 @@
       "invitation": {
         "label": "招待状",
         "items": {
+          "editor": "招待状を編集",
           "modules": "マイモジュール",
-          "words": "ふたりの言葉",
-          "events": "イベント",
-          "schedule": "プログラム",
-          "venue": "会場・実用情報",
-          "faq": "よくある質問",
           "playlist": "プレイリスト"
         }
       },
@@ -277,10 +273,7 @@
     "active_section": "有効なモジュール",
     "locked_section": "含まれていないモジュール",
     "no_modules": "現在有効なモジュールはありません。",
-    "module_price": "10ユーロ / モジュール",
     "back": "モジュール一覧に戻る",
-    "buy_module_title": "モジュールを追加",
-    "buy_module_desc": "このモジュールを10ユーロで有効化 — 招待状にすぐ反映されます。",
     "auto_configured": "自動設定済み",
     "no_config_needed": "このモジュールには手動設定は不要です。",
     "save": "保存",
@@ -458,7 +451,14 @@
     "dresscode_palette_remove": "色 {index} を削除",
     "dresscode_photo": "参考写真",
     "dresscode_note": "ひとこと",
-    "dresscode_note_placeholder": "例：挙式は芝生の上で行いますので、ピンヒールはお控えください"
+    "dresscode_note_placeholder": "例：挙式は芝生の上で行いますので、ピンヒールはお控えください",
+    "add_cta": "追加",
+    "open_cta": "開く",
+    "price_each": "1 モジュール {price}",
+    "all_included": "プランに含まれています",
+    "price_included": "プランに含む",
+    "unpaid_badge": "未払い",
+    "add_hint": "モジュールを追加してエディターで入力できます。お支払いは保存時のみです。"
   },
   "Playlist": {
     "title": "みんなでつくるプレイリスト",
@@ -856,28 +856,6 @@
     "show_password": "パスワードを表示",
     "hide_password": "パスワードを隠す"
   },
-  "BuyModuleDialog": {
-    "dialog_title": "モジュールを追加",
-    "dialog_desc_pending": "お支払いを受け付けました。モジュールの有効化を確認してください。",
-    "dialog_desc_default": "このモジュールを10ユーロで有効化 — すぐに招待状でご利用いただけます。",
-    "generic_error": "エラーが発生しました。",
-    "unexpected_error": "予期しないエラーが発生しました。",
-    "processing_payment": "お支払い処理中...",
-    "pay_and_activate": "10ユーロを支払って有効化",
-    "secured_by_stripe": "Stripeによる安全なお支払い",
-    "activation_error": "有効化中にエラーが発生しました。",
-    "activating": "有効化中...",
-    "activate_module": "モジュールを有効化",
-    "payment_confirmed": "お支払いが確認されました",
-    "payment_received": "{moduleName}へのお支払いを受け付けました。以下のボタンをクリックしてモジュールを有効化してください。",
-    "module_activated": "モジュールが有効化されました！",
-    "module_available": "{moduleName}モジュールが利用可能になりました。",
-    "configure_module": "モジュールを設定",
-    "payment_failed_or_canceled": "お支払いに失敗またはキャンセルされました。もう一度お試しください。",
-    "payment_not_confirmed": "お支払いを確認できませんでした。",
-    "create_intent_error": "お支払いを作成できませんでした。",
-    "module_activated_toast": "モジュール「{name}」が有効化されました！"
-  },
   "DatePicker": {
     "placeholder": "日付を選択"
   },
@@ -956,15 +934,6 @@
   },
   "StatCard": {
     "trend_vs_last_week": "先週比"
-  },
-  "LockedModuleCard": {
-    "preview": "プレビュー",
-    "price": "10ユーロ"
-  },
-  "LockedModulePreviewDialog": {
-    "unlock_module": "このモジュールのロックを解除",
-    "one_time_payment": "一度のお支払いで、サイトに永久に含まれます",
-    "buy_button": "購入 — 10ユーロ"
   },
   "MessagesPage": {
     "title": "メッセージ",
@@ -1396,5 +1365,504 @@
     "dismiss": "閉じる",
     "reveal": "パスワードを表示",
     "hide": "パスワードを非表示"
+  },
+  "Editor": {
+    "header": {
+      "back": "ダッシュボード",
+      "title": "ふたりの招待状",
+      "theme": "テーマ：{theme}",
+      "previewLanguage": "プレビューの言語",
+      "device": "プレビューの表示形式",
+      "devices": {
+        "phone": "スマートフォン表示",
+        "desktop": "パソコン表示"
+      }
+    },
+    "status": {
+      "saving": "保存中…",
+      "failed": "一部を保存できませんでした",
+      "unsaved": "未保存の変更があります",
+      "saved": "すべて保存済み"
+    },
+    "actions": {
+      "discard": "変更を破棄",
+      "save": "保存",
+      "saveShortcut": "保存（⌘S）",
+      "view": "招待状を見る",
+      "addEvent": "イベントを追加",
+      "addMoment": "項目を追加",
+      "addStay": "宿泊施設を追加",
+      "addQuestion": "質問を追加",
+      "addTransport": "交通手段を追加",
+      "addMenuSection": "セクションを追加",
+      "addDish": "料理を追加",
+      "addDiet": "追加",
+      "addPhotos": "写真を追加",
+      "uploadVideo": "動画を選ぶ",
+      "removeVideo": "動画を削除",
+      "openRsvp": "出欠確認で設定",
+      "openPlaylist": "リクエストを見る",
+      "importLegacy": "ここに移す",
+      "uploading": "アップロード中…"
+    },
+    "save": {
+      "success": "招待状を保存しました",
+      "partial": "一部を保存できませんでした。それ以外は保存されています。",
+      "network": "保存できませんでした。接続を確認して、もう一度お試しください。",
+      "includedLive": "保存しました · {count, plural, =1 {モジュールが公開されました} other {# 個のモジュールが公開されました}}",
+      "dueSaved": "保存しました · まだゲストには表示されません"
+    },
+    "leave": {
+      "title": "保存せずに移動しますか？",
+      "description": "最近の変更はまだ招待状に反映されていません。移動すると失われます。",
+      "stay": "編集を続ける",
+      "confirm": "移動する"
+    },
+    "tabs": {
+      "label": "招待状のセクション",
+      "hidden": "招待状には表示されません",
+      "error": "保存エラー",
+      "unsaved": "変更あり",
+      "addModule": "モジュールを追加",
+      "title": "あなたの招待状",
+      "summary": "{count} 件のセクション · 編集するセクションを選んでください",
+      "groupIntro": "招待状",
+      "groupModules": "あなたのモジュール · {count}",
+      "groupOutro": "結び",
+      "position": "セクション {index} / {total}",
+      "open": "{section} · すべてのセクションを見る",
+      "previous": "前のセクション",
+      "next": "次のセクション"
+    },
+    "preview": {
+      "label": "招待状のプレビュー",
+      "title": "プレビュー",
+      "open": "プレビュー",
+      "close": "プレビューを閉じる",
+      "loading": "プレビューを読み込み中…",
+      "frameTitle": "招待状のライブプレビュー"
+    },
+    "visibility": {
+      "unsupported": "テーマ「{theme}」はまだこのモジュールに対応していません。設定は保存されており、対応しだい表示されます。",
+      "empty": "このセクションは、内容が空のあいだ非表示になります。"
+    },
+    "list": {
+      "untitled": "項目{index}",
+      "full": "最大{max}件",
+      "reorder": "「{label}」を移動",
+      "remove": "「{label}」を削除",
+      "confirmRemove": "「{label}」の削除を確定",
+      "confirmShort": "削除しますか？"
+    },
+    "palette": {
+      "swatch": "カラー{index}",
+      "remove": "カラー{index}を削除",
+      "add": "カラーを追加",
+      "edit": "カラー{index}を変更",
+      "newTitle": "新しいカラー",
+      "code": "カラーコード",
+      "codeInvalid": "コードが正しくありません。例：#E7BDC6",
+      "cancel": "キャンセル",
+      "apply": "決定"
+    },
+    "slots": {
+      "groupTitle": "テーマの文言",
+      "groupDescription": "テーマに表示される文言です。空欄のままにすると、テーマの文言が使われます。",
+      "reset": "元に戻す",
+      "roles": {
+        "eyebrow": "小見出し",
+        "title": "タイトル",
+        "subtitle": "サブタイトル",
+        "cta": "ボタンの文言",
+        "ribbon": "装飾リボン",
+        "stamp": "装飾スタンプ",
+        "tag": "装飾タグ",
+        "introEyebrow": "導入部の小見出し",
+        "introTitle": "導入部のタイトル",
+        "dayOneEyebrow": "当日の小見出し",
+        "dayOneTitle": "当日のタイトル",
+        "dressLabel": "ドレスコードの前のラベル",
+        "watermark": "透かし文字",
+        "introTag": "導入部のタグ",
+        "archFooter": "導入部下の飾り帯",
+        "footer": "セクション下部の飾り帯"
+      },
+      "hints": {
+        "multiline": "改行すると、タイトルを2行に分けられます。",
+        "ribbon": "短い言葉をいくつか、「·」で区切って入力します。"
+      }
+    },
+    "defaults": {
+      "ceremonyName": "私たちの結婚式"
+    },
+    "sections": {
+      "hero": {
+        "label": "トップ",
+        "description": "最初の画面：おふたりの名前と、それを彩る言葉、日付と会場。"
+      },
+      "countdown": {
+        "label": "カウントダウン",
+        "description": "挙式までのカウントダウンと、文字で綴った日付。"
+      },
+      "intro-video": {
+        "label": "イントロ動画",
+        "description": "ゲストをお迎えする動画。",
+        "empty": "動画を追加すると、このセクションが表示されます。"
+      },
+      "timeline": {
+        "label": "プログラム",
+        "description": "各イベントと、その流れをひとつずつ。",
+        "empty": "表示中のイベントに項目を1つ以上追加すると、プログラムが表示されます。"
+      },
+      "dress-code": {
+        "label": "ドレスコード",
+        "description": "ゲストの装いについて：ガイドライン、カラーパレット、イメージ。",
+        "empty": "ガイドライン、カラーパレット、写真のいずれかを追加すると、ドレスコードが表示されます。"
+      },
+      "rsvp": {
+        "label": "出欠確認",
+        "description": "ゲストの回答フォームと回答期限。"
+      },
+      "map": {
+        "label": "会場",
+        "description": "結婚式の会場と、そこへの行き方。"
+      },
+      "accommodation": {
+        "label": "宿泊",
+        "description": "おふたりがおすすめする宿泊先。",
+        "empty": "宿泊施設を1件以上追加すると、このセクションが表示されます。"
+      },
+      "transport": {
+        "label": "交通手段",
+        "description": "アクセス方法：電車、飛行機、車、相乗り。",
+        "empty": "交通手段と案内を追加すると、このセクションが表示されます。"
+      },
+      "menu": {
+        "label": "メニュー",
+        "description": "お料理のメニューを、セクションごとに。",
+        "empty": "料理を1品以上追加すると、メニューが表示されます。"
+      },
+      "gallery": {
+        "label": "ギャラリー",
+        "description": "おふたりの写真を、お好きな順番で。",
+        "empty": "写真を追加すると、ギャラリーが表示されます。"
+      },
+      "gift-list": {
+        "label": "ギフトリスト",
+        "description": "ギフトについてのひとことと、リストへのリンク。",
+        "empty": "テキストかリンクを追加すると、このセクションが表示されます。"
+      },
+      "playlist": {
+        "label": "プレイリスト",
+        "description": "パーティーで流したい曲を、ゲストにリクエストしてもらいましょう。"
+      },
+      "guestbook": {
+        "label": "ゲストブック",
+        "description": "ゲストブックに添える言葉。"
+      },
+      "video-guestbook": {
+        "label": "ビデオゲストブック",
+        "description": "ビデオゲストブックに添える言葉。"
+      },
+      "faq": {
+        "label": "よくある質問",
+        "description": "ゲストが気になる質問への回答。",
+        "empty": "公開中の質問を1つ以上追加すると、よくある質問が表示されます。"
+      },
+      "footer": {
+        "label": "フッター",
+        "description": "最後のページ：おふたりの結びの言葉。"
+      }
+    },
+    "groups": {
+      "couple": "おふたり",
+      "heroWords": "名前まわりの言葉",
+      "heroWordsDescription": "最初の画面で、おふたりの名前の上と下に表示されます。",
+      "when": "日時",
+      "whenDescription": "挙式の日付と時刻。カウントダウンはここから計算されます。",
+      "where": "場所",
+      "whereDescription": "おふたりの名前の下と、招待状の最後に表示されます。",
+      "countdownTarget": "挙式",
+      "countdownTargetDescription": "カウントダウンはこの日時に終わります。",
+      "closing": "結びの言葉",
+      "portrait": "おふたりの写真",
+      "portraitDescription": "一部のテーマでは最後のページに表示されます。それ以外のテーマでは表示されません。",
+      "programmeIntro": "導入文",
+      "events": "イベント",
+      "eventsDescription": "イベントごとに日付・住所・項目を設定できます。非表示にすると、削除せずに招待状から外せます。",
+      "moments": "プログラム項目",
+      "dayTwo": "招待状での翌日の表示",
+      "dayTwoDescription": "テーマでは、このイベントを別枠で紹介します。",
+      "venue": "会場",
+      "venueIntro": "紹介",
+      "access": "会場へのアクセス",
+      "accessDescription": "1行に1つずつ記入します。",
+      "staysIntro": "導入文",
+      "stays": "宿泊施設",
+      "questions": "質問",
+      "childrenQuestion": "お子さまについての質問",
+      "legacy": "以前のエディターの質問",
+      "dress": "ドレスコード",
+      "palette": "カラーパレットとイメージ",
+      "rsvpDeadline": "回答期限",
+      "rsvpIntro": "導入文",
+      "rsvpForm": "フォーム",
+      "transportModes": "交通手段",
+      "carpool": "相乗り",
+      "menuSections": "メニュー",
+      "menuNotes": "補足情報",
+      "gallery": "写真",
+      "gift": "ギフトリスト",
+      "video": "動画",
+      "videoWords": "テキスト",
+      "playlistIntro": "導入文",
+      "playlistModeration": "ゲストからのリクエスト",
+      "guestbook": "テキスト"
+    },
+    "fields": {
+      "partner1": "1人目のお名前",
+      "partner2": "2人目のお名前",
+      "monogram": "モノグラム",
+      "heroKicker": "小見出し",
+      "announcement": "案内文",
+      "weddingDate": "結婚式の日付",
+      "ceremonyTime": "挙式の時刻",
+      "dateLabel": "表示する日付",
+      "venueName": "会場名",
+      "venueCity": "都市",
+      "dateSpelled": "文字で綴った日付",
+      "closingWords": "結びの言葉",
+      "footerNote": "ひとこと",
+      "couplePhoto": "おふたりの写真",
+      "scheduleIntro": "導入文",
+      "eventName": "名前",
+      "eventEnabled": "招待状に表示",
+      "eventDate": "日付",
+      "eventTime": "時刻",
+      "eventAddress": "住所",
+      "eventDescription": "説明",
+      "eventDressCode": "服装",
+      "eventKind": "イベントの種類",
+      "momentTime": "時刻",
+      "momentTitle": "タイトル",
+      "momentDescription": "説明",
+      "momentIcon": "イラスト",
+      "momentPhoto": "写真",
+      "dayTwoDateLabel": "表示する日付",
+      "dayTwoTimeLabel": "表示する時間",
+      "dayTwoNote": "ご案内",
+      "venueAddress": "住所",
+      "mapsUrl": "Google マップのリンク",
+      "wazeUrl": "Waze のリンク",
+      "venuePhoto": "会場の写真",
+      "venueIntro": "会場についてひとこと",
+      "transportInfo": "交通手段",
+      "parkingInfo": "駐車場",
+      "accessInfo": "アクセス",
+      "staysIntro": "導入文",
+      "stayName": "名前",
+      "stayCity": "都市",
+      "stayDistance": "距離",
+      "stayAddress": "住所",
+      "stayUrl": "予約リンク",
+      "stayOffer": "特典またはクーポンコード",
+      "stayPhone": "電話番号",
+      "stayPhoto": "写真",
+      "staySecondary": "「ほかの選択肢を見る」に入れる",
+      "question": "質問",
+      "answer": "回答",
+      "published": "公開中",
+      "dressTitle": "タイトル",
+      "dressMode": "ガイドライン",
+      "dressDescription": "ガイドライン",
+      "dressMen": "男性の方へ",
+      "dressWomen": "女性の方へ",
+      "palette": "カラーパレット",
+      "dressPhoto": "イメージ写真",
+      "dressNote": "補足",
+      "rsvpDeadline": "回答期限",
+      "rsvpIntro": "導入文",
+      "allowPartner": "同伴者を受け付ける",
+      "collectMessage": "おふたりへのメッセージ欄",
+      "allowChildren": "お子さま歓迎",
+      "askDietary": "食事制限を尋ねる",
+      "dietary": "選択できる食事制限",
+      "transportType": "種類",
+      "transportTitle": "タイトル",
+      "transportDescription": "案内",
+      "carpoolUrl": "リンク",
+      "carpoolLabel": "リンクの表示名",
+      "carpoolDescription": "テキスト",
+      "menuSectionTitle": "セクション",
+      "dishTitle": "料理",
+      "dishDescription": "説明",
+      "dietaryNote": "食事制限に関する備考",
+      "menuFooter": "メニュー下部の補足",
+      "giftTitle": "タイトル",
+      "giftText": "テキスト",
+      "giftUrl": "リストのリンク",
+      "giftLinkLabel": "リンクの表示名",
+      "videoTitle": "タイトル",
+      "videoSubtitle": "サブタイトル",
+      "videoDescription": "テキスト",
+      "videoSource": "動画のソース",
+      "videoUrl": "動画のリンク",
+      "playlistIntro": "導入文",
+      "guestbookTitle": "タイトル",
+      "guestbookText": "ウェルカムメッセージ",
+      "eventHidden": "非表示",
+      "clearDate": "クリア",
+      "unpublished": "非表示",
+      "galleryPhoto": "写真{index}"
+    },
+    "placeholders": {
+      "heroKicker": "結婚します",
+      "announcement": "ぜひご一緒いただけましたら幸いです。",
+      "closingWords": "またすぐお会いしましょう",
+      "footerNote": "愛をこめて",
+      "scheduleIntro": "当日の流れをご紹介します。",
+      "momentTitle": "挙式",
+      "dayTwoNote": "水着とタオルをお忘れなく",
+      "venueIntro": "プラタナス並木を抜けた先に…",
+      "staysIntro": "みなさまのために厳選しました",
+      "stayDistance": "会場から10分",
+      "dressTitle": "華やかな装い",
+      "dressNote": "白は花嫁の色のため、お控えください。",
+      "rsvpIntro": "ご回答いただけると、準備の大きな助けになります。",
+      "diet": "グルテンフリー…",
+      "transportTitle": "電車で",
+      "menuSectionTitle": "前菜",
+      "giftTitle": "ご出席いただけることが何よりの贈り物です",
+      "giftLinkLabel": "ギフトを贈る",
+      "playlistIntro": "パーティーのBGMづくりにご協力ください。",
+      "guestbookTitle": "ゲストブック",
+      "guestbookText": "メッセージをお寄せください…",
+      "url": "https://…"
+    },
+    "hints": {
+      "monogram": "空欄にすると表示されません。一部のテーマでは代わりにおふたりのイニシャルが印字されます。",
+      "ceremonyTime": "お好きな表記で入力できます：16時00分、16:00…",
+      "dateLabel": "空欄のままにすると、テーマの形式で日付が表示されます。",
+      "dateSpelled": "空欄のままにすると、完全な日付が表示されます。",
+      "closingWords": "文を区切りたい位置で改行してください。",
+      "links": "アプリでコピーした共有リンクを貼り付けてください。",
+      "access": "1行に1つずつ記入します。",
+      "staySecondary": "メインの宿泊施設の下に控えめに表示されます。",
+      "palette": "最大6色まで、カラーチップで表示されます。",
+      "allowPartner": "フォームで同伴者のお名前をお尋ねします。",
+      "collectMessage": "フォームの最後に自由記入欄を設けます。",
+      "allowChildren": "オフにすると、フォームにお子さまの入力欄は表示されず、よくある質問にもその旨が記載されます。",
+      "dietary": "フォームのプルダウンから選べます。",
+      "menuFooter": "1行に1項目ずつ記入します。",
+      "gallery": "写真は12枚まで、JPEGまたはPNG、1枚あたり最大5MB。",
+      "videoUpload": "MP4、MOV、WebM、最大100MB。",
+      "videoEmbed": "YouTube または Vimeo のリンク。",
+      "removeEvent": "保存すると、このイベントの項目と、このイベントへのゲストの回答が削除されます。",
+      "childrenQuestion": "この質問はよくある質問に自動で追加され、「お子さま歓迎」の設定と連動するため、フォームと食い違うことはありません。",
+      "legacy": "これらの質問に加えて、{count, plural, other {以前のよくある質問モジュールで作成した#件の質問}}が、まだ招待状に表示されています。",
+      "playlistModeration": "ゲストからリクエストされた曲を承認または却下できます。",
+      "guestbookNotLive": "ゲストブックはまだゲストに公開されていません。テキストは保存されており、公開時に表示されます。"
+    },
+    "eventKinds": {
+      "welcome-dinner": "ウェルカムディナー",
+      "wedding-day": "結婚式当日",
+      "brunch": "翌日のブランチ",
+      "party": "パーティー"
+    },
+    "icons": {
+      "auto": "自動（タイトルから判断）",
+      "ceremony": "挙式",
+      "cocktail": "カクテル",
+      "dinner": "ディナー",
+      "party": "パーティー",
+      "brunch": "ブランチ"
+    },
+    "dressModes": {
+      "global": "全員共通",
+      "split": "男性・女性別"
+    },
+    "transportTypes": {
+      "Train": "電車",
+      "Plane": "飛行機",
+      "Bus": "バス",
+      "Car": "車",
+      "Ship": "船"
+    },
+    "videoSources": {
+      "embed": "リンク",
+      "upload": "ファイル"
+    },
+    "empty": {
+      "moments": "項目はまだありません。",
+      "stays": "宿泊施設はまだありません。",
+      "questions": "質問はまだありません。",
+      "transport": "交通手段はまだありません。",
+      "menu": "セクションはまだありません。",
+      "dishes": "料理はまだありません。",
+      "gallery": "写真はまだありません。",
+      "events": "イベントはまだありません。"
+    },
+    "errors": {
+      "upload": "アップロードに失敗しました。もう一度お試しください。",
+      "tooBig": "ファイルサイズが大きすぎます。",
+      "format": "対応していない形式です。"
+    },
+    "addModule": {
+      "title": "モジュールを追加",
+      "planMetered": "{plan, select, none {ご利用のプラン} other {{plan}プラン}} · {remaining, plural, =0 {含まれるモジュールは使用済みです} other {含まれるモジュールは残り # 個}}。以降は 1 モジュールにつき {price}。",
+      "planUnlimited": "{plan, select, none {ご利用のプラン} other {{plan}プラン}} · モジュール無制限、すべて込み。",
+      "footPaid": "追加して自由に入力できます。お支払いは公開するとき（保存時）だけです。",
+      "footIncluded": "保存するとすぐに招待状に表示されます。",
+      "included": "プランに含む",
+      "available": "追加できるモジュール {count} 件 · 1 件 {price}",
+      "availableIncluded": "追加できるモジュール {count} 件 · プランに含まれています"
+    },
+    "moduleStatus": {
+      "trialTitle": "お試し中",
+      "trialBody": "このモジュールを入力してプレビューで確認できます。お支払い後にゲストに表示されます：{price}（保存時にお支払い）。",
+      "includedTitle": "プランに含まれています",
+      "includedBody": "保存するとすぐにゲストに表示されます。",
+      "dueTitle": "保存済み・未公開",
+      "dueBody": "内容は保存されています。{price} をいつでもお支払いいただくと、ゲストに表示されます。",
+      "pay": "{price} を支払う",
+      "badgeDue": "未払い",
+      "remove": "このモジュールを削除",
+      "removeTitle": "このモジュールを削除しますか？",
+      "removeBody": "招待状から消え、内容も削除されます。あとで追加し直すこともできます。",
+      "removeConfirm": "削除",
+      "removeCancel": "残す",
+      "removed": "モジュールを削除しました",
+      "removeFailed": "モジュールを削除できませんでした。もう一度お試しください。"
+    },
+    "due": {
+      "chip": "{count, plural, other {未払いのモジュール # 個}} · {price}",
+      "strip": "{count, plural, other {ゲストにまだ表示されていないモジュールが # 個あります}}"
+    },
+    "payment": {
+      "savedKicker": "変更を保存しました",
+      "title": "{count, plural, =1 {「{name}」を公開} other {# 個のモジュールを公開}}",
+      "body": "あと一歩です：{count, plural, =1 {このモジュール} other {これらのモジュール}}をお支払いいただくと、ゲストの招待状に表示されます。",
+      "planNote": "ご利用のプランには {included} 個のモジュールが含まれ、すべて使用済みです。",
+      "total": "合計",
+      "cgv": "<link>販売条件</link>に同意し、{count, plural, =1 {モジュール} other {モジュール}}の即時利用を希望します。これにより撤回権を放棄します。",
+      "later": "あとで",
+      "pay": "{price} を支払う",
+      "secure": "Stripe による安全なお支払い · 請求書は自動で送信されます",
+      "back": "戻る",
+      "processing": "お支払い処理中…",
+      "successTitle": "公開されました！",
+      "successBody": "ゲストは今すぐ招待状で見られます。請求書は「請求」からご覧いただけます。",
+      "continue": "続ける",
+      "unavailable": "現在お支払いできません。少し時間をおいて再度お試しください。",
+      "confirming": "お支払いを受け付けました。確認中です：まもなくモジュールが表示されます。",
+      "alreadyOwned": "このモジュールはすでに有効でした。重複したお支払いは自動で返金されます。",
+      "laterToast": "保存しました。モジュールはそのまま残ります。お支払いはいつでもどうぞ。",
+      "failed": "お支払いが完了しませんでした。もう一度お試しください。"
+    },
+    "panel": {
+      "hide": "設定を隠す",
+      "show": "設定を表示",
+      "label": "設定"
+    }
   }
 }

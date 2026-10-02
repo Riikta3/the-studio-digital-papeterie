@@ -168,6 +168,22 @@ payé — mais `supports` peut mentir sans que rien ne le signale.
 Points à trancher pour `pt` : portugais européen ou brésilien.
 Pour `ar` : vouvoiement d'un foyer (pluriel) ou d'une personne.
 
+## 8. Le chemin outillé (octobre 2026)
+
+Depuis le portage de Maré Alta, Château Royal et Cabo Verde, une bonne part des §3, §4 et §6 se fait par commande. Le guide pas à pas : `docs/superpowers/plans/2026-10-02-theme-port-playbook.md` ; les raisons dans [[Conventions]].
+
+- [ ] **Assets** : en WebP, et seulement ceux que le HTML du designer référence (la livraison Cabo Verde en avait 52 en PNG, 82 Mo, dont la moitié jamais utilisée).
+- [ ] **Tests d'abord** : ajouter le thème à `THEMES` dans `theme-checks.test.mjs`, avec les mots de sa démo, *avant* d'écrire les sections.
+- [ ] **CSS** : `themes:port-css` avec un petit fichier de config (scope, polices, mots du décor, `externalVars`, `keyframePrefix`). Il échoue si une chaîne de décor n'est pas mappée, si une variable est utilisée sans être définie, si un asset manque.
+- [ ] **Animations** : tout `@keyframes` écrit à la main dans `responsive.css` porte le préfixe du thème (le test le vérifie) — les noms sont globaux.
+- [ ] **Formulaires** : `useGuestRsvp` et `useGuestPlaylist` ; le thème ne dessine que le formulaire et respecte les noms de champs.
+- [ ] **Scroll** : `Reveal` + `JsFlag` pour la révélation, `ScrollToButton` pour les boutons de défilement ; jamais de script global ni de `href="#…"`.
+- [ ] **Hero** : `heroDates(data, locale)` et `monogramOf(couple)`.
+- [ ] **Jour J** : un lien via `data.dayOf`, jamais un module ; inerte sans `weddingId`.
+- [ ] **Catalogues** : `themes:messages`, une langue à la fois quand le contenu est long.
+- [ ] **Vérifier** : la démo, puis `?fixture=minimal` (aucun champ facultatif) et `?fixture=heavy` (tous remplis) ; fr, de et ar ; 390 et 1440 ; **ouvrir chaque capture** ; `themes:check`.
+- [ ] **Ce que le thème ne dessine pas** : les modules vendus qu'il n'a pas sont listés dans la note du thème (l'éditeur l'explique au couple).
+
 ---
 
 ## État actuel

@@ -67,12 +67,8 @@
       "invitation": {
         "label": "الدعوة",
         "items": {
+          "editor": "تعديل دعوتي",
           "modules": "وحداتي",
-          "words": "كلماتنا",
-          "events": "الفعاليات",
-          "schedule": "البرنامج",
-          "venue": "المكان والمعلومات العملية",
-          "faq": "الأسئلة الشائعة",
           "playlist": "قائمة التشغيل"
         }
       },
@@ -277,10 +273,7 @@
     "active_section": "الوحدات المفعّلة",
     "locked_section": "وحدات غير مشمولة",
     "no_modules": "لا توجد وحدات مفعّلة حاليًا.",
-    "module_price": "10 يورو / وحدة",
     "back": "العودة إلى الوحدات",
-    "buy_module_title": "إضافة وحدة",
-    "buy_module_desc": "فعّل هذه الوحدة مقابل 10 يورو — متاحة فورًا على دعوتك.",
     "auto_configured": "مهيّأة تلقائيًا",
     "no_config_needed": "لا تتطلب هذه الوحدة أي تهيئة يدوية.",
     "save": "حفظ",
@@ -458,7 +451,14 @@
     "dresscode_palette_remove": "إزالة اللون {index}",
     "dresscode_photo": "صورة مُلهِمة",
     "dresscode_note": "ملاحظة قصيرة",
-    "dresscode_note_placeholder": "مثال: يُفضَّل تجنّب الكعب الرفيع، فالمراسم تُقام على العشب"
+    "dresscode_note_placeholder": "مثال: يُفضَّل تجنّب الكعب الرفيع، فالمراسم تُقام على العشب",
+    "add_cta": "إضافة",
+    "open_cta": "فتح",
+    "price_each": "{price} / وحدة",
+    "all_included": "مشمولة في باقتك",
+    "price_included": "مشمولة",
+    "unpaid_badge": "بانتظار الدفع",
+    "add_hint": "أضف وحدة واملأها في المحرر: لا تدفع إلا عند حفظها."
   },
   "Playlist": {
     "title": "قائمة التشغيل التشاركية",
@@ -856,28 +856,6 @@
     "show_password": "إظهار كلمة المرور",
     "hide_password": "إخفاء كلمة المرور"
   },
-  "BuyModuleDialog": {
-    "dialog_title": "إضافة وحدة",
-    "dialog_desc_pending": "تم استلام دفعتك. أكد تفعيل الوحدة.",
-    "dialog_desc_default": "فعّل هذه الوحدة مقابل 10 يورو — متاحة فورًا على دعوتك.",
-    "generic_error": "حدث خطأ.",
-    "unexpected_error": "حدث خطأ غير متوقع.",
-    "processing_payment": "جارٍ معالجة الدفع...",
-    "pay_and_activate": "ادفع 10 يورو وفعّل",
-    "secured_by_stripe": "دفع آمن عبر Stripe",
-    "activation_error": "حدث خطأ أثناء التفعيل.",
-    "activating": "جارٍ التفعيل...",
-    "activate_module": "تفعيل الوحدة",
-    "payment_confirmed": "تم تأكيد الدفع",
-    "payment_received": "تم استلام دفعتك مقابل {moduleName}. انقر على الزر أدناه لتفعيل الوحدة.",
-    "module_activated": "تم تفعيل الوحدة!",
-    "module_available": "الوحدة {moduleName} متاحة الآن.",
-    "configure_module": "إعداد الوحدة",
-    "payment_failed_or_canceled": "فشل الدفع أو تم إلغاؤه. يرجى المحاولة مرة أخرى.",
-    "payment_not_confirmed": "تعذّر تأكيد الدفع.",
-    "create_intent_error": "تعذّر إنشاء الدفع.",
-    "module_activated_toast": "تم تفعيل الوحدة \"{name}\"!"
-  },
   "DatePicker": {
     "placeholder": "اختر تاريخًا"
   },
@@ -956,15 +934,6 @@
   },
   "StatCard": {
     "trend_vs_last_week": "مقارنة بالأسبوع الماضي"
-  },
-  "LockedModuleCard": {
-    "preview": "معاينة",
-    "price": "10 يورو"
-  },
-  "LockedModulePreviewDialog": {
-    "unlock_module": "إلغاء قفل هذه الوحدة",
-    "one_time_payment": "دفعة واحدة، مضمّنة مدى الحياة في موقعك",
-    "buy_button": "شراء — 10 يورو"
   },
   "MessagesPage": {
     "title": "الرسائل",
@@ -1396,5 +1365,504 @@
     "dismiss": "إغلاق",
     "reveal": "إظهار كلمة المرور",
     "hide": "إخفاء كلمة المرور"
+  },
+  "Editor": {
+    "header": {
+      "back": "لوحة التحكم",
+      "title": "دعوتي",
+      "theme": "قالب {theme}",
+      "previewLanguage": "لغة المعاينة",
+      "device": "جهاز المعاينة",
+      "devices": {
+        "phone": "معاينة على الجوال",
+        "desktop": "معاينة على الكمبيوتر"
+      }
+    },
+    "status": {
+      "saving": "جارٍ الحفظ…",
+      "failed": "تعذّر حفظ جزء من التعديلات",
+      "unsaved": "تعديلات غير محفوظة",
+      "saved": "تم حفظ كل شيء"
+    },
+    "actions": {
+      "discard": "إلغاء",
+      "save": "حفظ",
+      "saveShortcut": "حفظ (⌘S)",
+      "view": "عرض دعوتي",
+      "addEvent": "إضافة فعالية",
+      "addMoment": "إضافة فقرة",
+      "addStay": "إضافة مكان إقامة",
+      "addQuestion": "إضافة سؤال",
+      "addTransport": "إضافة وسيلة نقل",
+      "addMenuSection": "إضافة قسم",
+      "addDish": "إضافة طبق",
+      "addDiet": "إضافة",
+      "addPhotos": "إضافة صور",
+      "uploadVideo": "اختيار فيديو",
+      "removeVideo": "إزالة الفيديو",
+      "openRsvp": "الضبط في تأكيد الحضور",
+      "openPlaylist": "عرض الاقتراحات",
+      "importLegacy": "نقلها إلى هنا",
+      "uploading": "جارٍ الرفع…"
+    },
+    "save": {
+      "success": "تم حفظ الدعوة",
+      "partial": "تعذّر حفظ جزء من التعديلات، أمّا الباقي فقد حُفظ.",
+      "network": "تعذّر الحفظ. تحقّقوا من اتصالكم وحاولوا مرة أخرى.",
+      "includedLive": "تم الحفظ · {count, plural, =1 {الوحدة منشورة الآن} other {الوحدات الـ # منشورة الآن}}",
+      "dueSaved": "تم الحفظ · لا يراها ضيوفك بعد"
+    },
+    "leave": {
+      "title": "المغادرة دون حفظ؟",
+      "description": "آخر تعديلاتكم لم تظهر في دعوتكم بعد، وستضيع إن غادرتم.",
+      "stay": "البقاء",
+      "confirm": "مغادرة"
+    },
+    "tabs": {
+      "label": "أقسام الدعوة",
+      "hidden": "غير ظاهر في الدعوة",
+      "error": "خطأ في الحفظ",
+      "unsaved": "معدّل",
+      "addModule": "إضافة وحدة",
+      "title": "دعوتك",
+      "summary": "{count, plural, zero {لا أقسام} one {قسم واحد} two {قسمان} few {# أقسام} many {# قسمًا} other {# قسم}} · اختر القسم الذي تريد ملأه",
+      "groupIntro": "الدعوة",
+      "groupModules": "وحداتك · {count}",
+      "groupOutro": "الختام",
+      "position": "القسم {index} من {total}",
+      "open": "{section} · عرض كل الأقسام",
+      "previous": "القسم السابق",
+      "next": "القسم التالي"
+    },
+    "preview": {
+      "label": "معاينة الدعوة",
+      "title": "معاينة",
+      "open": "معاينة",
+      "close": "إغلاق المعاينة",
+      "loading": "جارٍ تحميل المعاينة…",
+      "frameTitle": "معاينة مباشرة لدعوتكم"
+    },
+    "visibility": {
+      "unsupported": "قالبكم {theme} لا يعرض هذه الوحدة بعد. إعداداتكم محفوظة وستظهر فور دعمها.",
+      "empty": "يبقى هذا القسم مخفيًا ما دام فارغًا."
+    },
+    "list": {
+      "untitled": "عنصر {index}",
+      "full": "{max} كحد أقصى",
+      "reorder": "نقل «{label}»",
+      "remove": "حذف «{label}»",
+      "confirmRemove": "تأكيد حذف «{label}»",
+      "confirmShort": "حذف؟"
+    },
+    "palette": {
+      "swatch": "اللون {index}",
+      "remove": "إزالة اللون {index}",
+      "add": "إضافة لون",
+      "edit": "تغيير اللون {index}",
+      "newTitle": "لون جديد",
+      "code": "رمز اللون",
+      "codeInvalid": "رمز غير صالح. مثال: ‎#E7BDC6",
+      "cancel": "إلغاء",
+      "apply": "تأكيد"
+    },
+    "slots": {
+      "groupTitle": "نصوص القالب",
+      "groupDescription": "النصوص التي يعرضها قالبكم. اتركوا الحقل فارغًا للإبقاء على نص القالب.",
+      "reset": "استعادة",
+      "roles": {
+        "eyebrow": "العنوان التمهيدي",
+        "title": "العنوان",
+        "subtitle": "العنوان الفرعي",
+        "cta": "نص الزر",
+        "ribbon": "شريط زخرفي",
+        "stamp": "ختم زخرفي",
+        "tag": "بطاقة زخرفية",
+        "introEyebrow": "العنوان التمهيدي للمقدمة",
+        "introTitle": "عنوان المقدمة",
+        "dayOneEyebrow": "العنوان التمهيدي ليوم الزفاف",
+        "dayOneTitle": "عنوان يوم الزفاف",
+        "dressLabel": "التسمية قبل قواعد اللباس",
+        "watermark": "علامة مائية",
+        "introTag": "بطاقة المقدمة",
+        "archFooter": "إفريز أسفل المقدمة",
+        "footer": "إفريز أسفل القسم"
+      },
+      "hints": {
+        "multiline": "انتقلوا إلى سطر جديد لتقسيم العنوان إلى جزأين.",
+        "ribbon": "بضع كلمات قصيرة تفصل بينها «·»."
+      }
+    },
+    "defaults": {
+      "ceremonyName": "زفافنا"
+    },
+    "sections": {
+      "hero": {
+        "label": "الرئيسية",
+        "description": "الشاشة الأولى: أسماؤكم والكلمات المحيطة بها، والتاريخ والمكان."
+      },
+      "countdown": {
+        "label": "العد التنازلي",
+        "description": "العد التنازلي حتى الحفل، والتاريخ مكتوبًا بالحروف."
+      },
+      "intro-video": {
+        "label": "فيديو تعريفي",
+        "description": "فيديو يرحّب بضيوفكم.",
+        "empty": "أضيفوا فيديو لإظهار هذا القسم."
+      },
+      "timeline": {
+        "label": "البرنامج",
+        "description": "فعالياتكم، وتسلسل كل منها فقرةً فقرة.",
+        "empty": "أضيفوا فقرة واحدة على الأقل إلى فعالية ظاهرة لإظهار البرنامج."
+      },
+      "dress-code": {
+        "label": "قواعد اللباس",
+        "description": "ما يمكن أن يرتديه ضيوفكم: إرشادات، ولوحة ألوان، وإلهام.",
+        "empty": "أضيفوا إرشادات أو لوحة ألوان أو صورة لإظهار قواعد اللباس."
+      },
+      "rsvp": {
+        "label": "تأكيد الحضور",
+        "description": "استمارة ردّ ضيوفكم وموعدها النهائي."
+      },
+      "map": {
+        "label": "المكان",
+        "description": "مكان إقامة الزفاف وكيفية الوصول إليه."
+      },
+      "accommodation": {
+        "label": "الإقامة",
+        "description": "الأماكن التي توصون بها للمبيت.",
+        "empty": "أضيفوا مكان إقامة واحدًا على الأقل لإظهار هذا القسم."
+      },
+      "transport": {
+        "label": "النقل",
+        "description": "كيفية الوصول: القطار، الطائرة، السيارة، التشارك في السيارة.",
+        "empty": "أضيفوا وسيلة نقل مع إرشاداتها لإظهار هذا القسم."
+      },
+      "menu": {
+        "label": "القائمة",
+        "description": "قائمة الطعام، قسمًا بعد قسم.",
+        "empty": "أضيفوا طبقًا واحدًا على الأقل لإظهار القائمة."
+      },
+      "gallery": {
+        "label": "معرض الصور",
+        "description": "صوركم، بالترتيب الذي تختارونه.",
+        "empty": "أضيفوا صورًا لإظهار المعرض."
+      },
+      "gift-list": {
+        "label": "قائمة الهدايا",
+        "description": "كلمة عن الهدايا، ورابط قائمتكم.",
+        "empty": "أضيفوا نصًا أو رابطًا لإظهار هذا القسم."
+      },
+      "playlist": {
+        "label": "قائمة التشغيل",
+        "description": "دعوة ضيوفكم إلى اقتراح أغانٍ للسهرة."
+      },
+      "guestbook": {
+        "label": "سجل الضيوف",
+        "description": "الكلمات التي سترافق سجل ضيوفكم."
+      },
+      "video-guestbook": {
+        "label": "سجل الضيوف بالفيديو",
+        "description": "الكلمات التي سترافق سجل ضيوفكم بالفيديو."
+      },
+      "faq": {
+        "label": "الأسئلة الشائعة",
+        "description": "إجابات عن الأسئلة التي تشغل ضيوفكم.",
+        "empty": "أضيفوا سؤالًا منشورًا واحدًا على الأقل لإظهار الأسئلة الشائعة."
+      },
+      "footer": {
+        "label": "التذييل",
+        "description": "الصفحة الأخيرة: كلمتكم الختامية."
+      }
+    },
+    "groups": {
+      "couple": "العروسان",
+      "heroWords": "الكلمات المحيطة بأسمائكم",
+      "heroWordsDescription": "فوق أسمائكم وتحتها، في الشاشة الأولى.",
+      "when": "متى",
+      "whenDescription": "تاريخ الحفل ووقته، ومنهما ينطلق العد التنازلي.",
+      "where": "أين",
+      "whereDescription": "يظهر تحت أسمائكم وفي أسفل الدعوة.",
+      "countdownTarget": "الحفل",
+      "countdownTargetDescription": "ينتهي العد التنازلي في هذا التاريخ وهذا الوقت.",
+      "closing": "كلمة الختام",
+      "portrait": "صورتكما",
+      "portraitDescription": "تعرضها بعض القوالب في الصفحة الأخيرة، وإلا فلن تظهر.",
+      "programmeIntro": "المقدمة",
+      "events": "فعالياتكم",
+      "eventsDescription": "لكل فعالية تاريخها وعنوانها وفقراتها. أخفوا إحداها لإزالتها من الدعوة دون أن تفقدوها.",
+      "moments": "الفقرات",
+      "dayTwo": "اليوم التالي في الدعوة",
+      "dayTwoDescription": "يعرض قالبكم هذه الفعالية في إطار منفصل.",
+      "venue": "المكان",
+      "venueIntro": "نبذة",
+      "access": "كيفية الوصول",
+      "accessDescription": "إرشاد واحد في كل سطر.",
+      "staysIntro": "المقدمة",
+      "stays": "أماكن الإقامة",
+      "questions": "الأسئلة",
+      "childrenQuestion": "السؤال عن الأطفال",
+      "legacy": "أسئلة من المحرر القديم",
+      "dress": "قواعد اللباس",
+      "palette": "لوحة الألوان والإلهام",
+      "rsvpDeadline": "الموعد النهائي",
+      "rsvpIntro": "المقدمة",
+      "rsvpForm": "الاستمارة",
+      "transportModes": "وسائل النقل",
+      "carpool": "التشارك في السيارة",
+      "menuSections": "القائمة",
+      "menuNotes": "ملاحظات",
+      "gallery": "الصور",
+      "gift": "قائمة الهدايا",
+      "video": "الفيديو",
+      "videoWords": "النصوص",
+      "playlistIntro": "المقدمة",
+      "playlistModeration": "اقتراحات ضيوفكم",
+      "guestbook": "النصوص"
+    },
+    "fields": {
+      "partner1": "اسم الطرف الأول",
+      "partner2": "اسم الطرف الثاني",
+      "monogram": "المونوغرام",
+      "heroKicker": "العنوان التمهيدي",
+      "announcement": "الإعلان",
+      "weddingDate": "تاريخ الزفاف",
+      "ceremonyTime": "وقت الحفل",
+      "dateLabel": "التاريخ المعروض",
+      "venueName": "اسم المكان",
+      "venueCity": "المدينة",
+      "dateSpelled": "التاريخ بالحروف",
+      "closingWords": "كلمة الختام",
+      "footerNote": "ملاحظة قصيرة",
+      "couplePhoto": "صورة العروسين",
+      "scheduleIntro": "جملة تمهيدية",
+      "eventName": "الاسم",
+      "eventEnabled": "ظاهر في الدعوة",
+      "eventDate": "التاريخ",
+      "eventTime": "الوقت",
+      "eventAddress": "العنوان",
+      "eventDescription": "الوصف",
+      "eventDressCode": "الزي",
+      "eventKind": "نوع الفعالية",
+      "momentTime": "الوقت",
+      "momentTitle": "العنوان",
+      "momentDescription": "الوصف",
+      "momentIcon": "الرسم التوضيحي",
+      "momentPhoto": "الصورة",
+      "dayTwoDateLabel": "التاريخ المعروض",
+      "dayTwoTimeLabel": "الوقت المعروض",
+      "dayTwoNote": "تعليمات",
+      "venueAddress": "العنوان",
+      "mapsUrl": "رابط خرائط جوجل",
+      "wazeUrl": "رابط Waze",
+      "venuePhoto": "صورة المكان",
+      "venueIntro": "كلمات عن المكان",
+      "transportInfo": "النقل",
+      "parkingInfo": "موقف السيارات",
+      "accessInfo": "الوصول",
+      "staysIntro": "جملة تمهيدية",
+      "stayName": "الاسم",
+      "stayCity": "المدينة",
+      "stayDistance": "المسافة",
+      "stayAddress": "العنوان",
+      "stayUrl": "رابط الحجز",
+      "stayOffer": "عرض أو رمز ترويجي",
+      "stayPhone": "الهاتف",
+      "stayPhoto": "الصورة",
+      "staySecondary": "ضمن «عرض المزيد من الخيارات»",
+      "question": "السؤال",
+      "answer": "الإجابة",
+      "published": "منشور",
+      "dressTitle": "العنوان",
+      "dressMode": "الإرشادات",
+      "dressDescription": "الإرشادات",
+      "dressMen": "للرجال",
+      "dressWomen": "للنساء",
+      "palette": "لوحة الألوان",
+      "dressPhoto": "صورة للإلهام",
+      "dressNote": "ملاحظة",
+      "rsvpDeadline": "الرد قبل",
+      "rsvpIntro": "جملة تمهيدية",
+      "allowPartner": "السماح بمرافق",
+      "collectMessage": "ترك رسالة للعروسين",
+      "allowChildren": "الأطفال مرحَّب بهم",
+      "askDietary": "السؤال عن الأنظمة الغذائية",
+      "dietary": "الأنظمة الغذائية المتاحة",
+      "transportType": "النوع",
+      "transportTitle": "العنوان",
+      "transportDescription": "الإرشادات",
+      "carpoolUrl": "الرابط",
+      "carpoolLabel": "تسمية الرابط",
+      "carpoolDescription": "النص",
+      "menuSectionTitle": "القسم",
+      "dishTitle": "الطبق",
+      "dishDescription": "الوصف",
+      "dietaryNote": "ملاحظة حول الأنظمة الغذائية",
+      "menuFooter": "ملاحظات أسفل القائمة",
+      "giftTitle": "العنوان",
+      "giftText": "النص",
+      "giftUrl": "رابط القائمة",
+      "giftLinkLabel": "تسمية الرابط",
+      "videoTitle": "العنوان",
+      "videoSubtitle": "العنوان الفرعي",
+      "videoDescription": "النص",
+      "videoSource": "مصدر الفيديو",
+      "videoUrl": "رابط الفيديو",
+      "playlistIntro": "جملة تمهيدية",
+      "guestbookTitle": "العنوان",
+      "guestbookText": "نص الترحيب",
+      "eventHidden": "مخفية",
+      "clearDate": "مسح",
+      "unpublished": "مخفي",
+      "galleryPhoto": "الصورة {index}"
+    },
+    "placeholders": {
+      "heroKicker": "نحن نتزوّج",
+      "announcement": "يسعدنا أن تكونوا معنا.",
+      "closingWords": "إلى اللقاء قريبًا",
+      "footerNote": "مع كل محبتنا",
+      "scheduleIntro": "برنامج يومنا.",
+      "momentTitle": "المراسم",
+      "dayTwoNote": "لا تنسوا ملابس السباحة والمنشفة",
+      "venueIntro": "في نهاية ممر أشجار الدُّلب…",
+      "staysIntro": "اخترناها لكم",
+      "stayDistance": "على بعد 10 دقائق من المكان",
+      "dressTitle": "زي احتفالي",
+      "dressNote": "اللون الأبيض مخصص للعروس.",
+      "rsvpIntro": "ردّكم سيساعدنا على تحضير كل شيء.",
+      "diet": "خالٍ من الغلوتين…",
+      "transportTitle": "بالقطار",
+      "menuSectionTitle": "المقبلات",
+      "giftTitle": "حضوركم هو أجمل هدية لنا",
+      "giftLinkLabel": "ساهموا",
+      "playlistIntro": "ساعدونا في اختيار موسيقى السهرة.",
+      "guestbookTitle": "سجل الضيوف",
+      "guestbookText": "اتركوا لنا كلمة…",
+      "url": "https://…"
+    },
+    "hints": {
+      "monogram": "اتركوه فارغًا لإخفائه. تطبع بعض القوالب حينها الحروف الأولى من أسمائكم.",
+      "ceremonyTime": "اكتبوه كما تشاؤون: 16:00، الرابعة عصرًا…",
+      "dateLabel": "اتركوه فارغًا لعرض التاريخ بتنسيق القالب.",
+      "dateSpelled": "اتركوه فارغًا لعرض التاريخ كاملًا.",
+      "closingWords": "انتقلوا إلى سطر جديد حيث تريدون أن تنقسم الجملة.",
+      "links": "الصقوا رابط المشاركة المنسوخ من التطبيق.",
+      "access": "إرشاد واحد في كل سطر.",
+      "staySecondary": "يُدرَج بشكل غير بارز أسفل أماكن الإقامة الرئيسية.",
+      "palette": "حتى 6 ألوان، تُعرض على شكل دوائر ملوّنة.",
+      "allowPartner": "تطلب الاستمارة اسم المرافق.",
+      "collectMessage": "حقل حر في نهاية الاستمارة.",
+      "allowChildren": "عند إيقافه، لا تتضمن الاستمارة أي حقل للأطفال، وتوضّح الأسئلة الشائعة ذلك.",
+      "dietary": "تُعرض في قائمة منسدلة في الاستمارة.",
+      "menuFooter": "ملاحظة واحدة في كل سطر.",
+      "gallery": "حتى 12 صورة، بصيغة JPEG أو PNG، وبحد أقصى 5 ميغابايت.",
+      "videoUpload": "MP4 أو MOV أو WebM، بحد أقصى 100 ميغابايت.",
+      "videoEmbed": "رابط من YouTube أو Vimeo.",
+      "removeEvent": "ستُحذف فقراتها وردود الضيوف على هذه الفعالية عند الحفظ.",
+      "childrenQuestion": "يُضاف هذا السؤال تلقائيًا إلى أسئلتكم الشائعة ويتبع إعدادكم «الأطفال مرحَّب بهم»، كي لا يتعارض أبدًا مع الاستمارة.",
+      "legacy": "إضافةً إلى هذه الأسئلة، لا تزال دعوتكم تعرض {count, plural, one {سؤالًا واحدًا كُتب في وحدة الأسئلة الشائعة القديمة} two {سؤالين كُتبا في وحدة الأسئلة الشائعة القديمة} few {# أسئلة كُتبت في وحدة الأسئلة الشائعة القديمة} many {# سؤالًا كُتب في وحدة الأسئلة الشائعة القديمة} other {# سؤال كُتب في وحدة الأسئلة الشائعة القديمة}}.",
+      "playlistModeration": "وافقوا على الأغاني التي يقترحها ضيوفكم أو ارفضوها.",
+      "guestbookNotLive": "سجل الضيوف غير متاح لضيوفكم بعد. نصوصكم محفوظة وسترافقه عند إطلاقه."
+    },
+    "eventKinds": {
+      "welcome-dinner": "عشاء الترحيب",
+      "wedding-day": "يوم الزفاف",
+      "brunch": "برانش اليوم التالي",
+      "party": "السهرة"
+    },
+    "icons": {
+      "auto": "تلقائي، حسب العنوان",
+      "ceremony": "المراسم",
+      "cocktail": "الكوكتيل",
+      "dinner": "العشاء",
+      "party": "السهرة",
+      "brunch": "برانش"
+    },
+    "dressModes": {
+      "global": "للجميع",
+      "split": "الرجال والنساء"
+    },
+    "transportTypes": {
+      "Train": "قطار",
+      "Plane": "طائرة",
+      "Bus": "حافلة",
+      "Car": "سيارة",
+      "Ship": "قارب"
+    },
+    "videoSources": {
+      "embed": "رابط",
+      "upload": "ملف"
+    },
+    "empty": {
+      "moments": "لا توجد فقرات بعد.",
+      "stays": "لا توجد أماكن إقامة بعد.",
+      "questions": "لا توجد أسئلة بعد.",
+      "transport": "لا توجد وسائل نقل بعد.",
+      "menu": "لا توجد أقسام بعد.",
+      "dishes": "لا توجد أطباق بعد.",
+      "gallery": "لا توجد صور بعد.",
+      "events": "لا توجد فعاليات بعد."
+    },
+    "errors": {
+      "upload": "فشل الرفع. حاولوا مرة أخرى.",
+      "tooBig": "الملف كبير جدًا.",
+      "format": "صيغة غير مدعومة."
+    },
+    "addModule": {
+      "title": "إضافة وحدة",
+      "planMetered": "{plan, select, none {باقتك} other {باقة {plan}}} · {remaining, plural, =0 {استُخدمت الوحدات المشمولة في باقتك} one {تبقّت وحدة مشمولة واحدة} other {تبقّت # وحدات مشمولة}}. بعد ذلك {price} لكل وحدة.",
+      "planUnlimited": "{plan, select, none {باقتك} other {باقة {plan}}} · وحدات غير محدودة، كلها مشمولة.",
+      "footPaid": "أضفها واملأها كما تشاء: لا تدفع إلا عند نشرها، أي عند الحفظ.",
+      "footIncluded": "تظهر في دعوتك بمجرد الحفظ.",
+      "included": "مشمولة",
+      "available": "{count, plural, zero {لا وحدات متاحة} one {وحدة واحدة متاحة} two {وحدتان متاحتان} few {# وحدات متاحة} many {# وحدة متاحة} other {# وحدة متاحة}} · {price} للوحدة",
+      "availableIncluded": "{count, plural, zero {لا وحدات متاحة} one {وحدة واحدة متاحة} two {وحدتان متاحتان} few {# وحدات متاحة} many {# وحدة متاحة} other {# وحدة متاحة}} · مشمولة في باقتك"
+    },
+    "moduleStatus": {
+      "trialTitle": "قيد التجربة",
+      "trialBody": "املأ هذه الوحدة وشاهدها في المعاينة. سيراها ضيوفك بعد الدفع: {price}، تُدفع عند الحفظ.",
+      "includedTitle": "مشمولة في باقتك",
+      "includedBody": "سيرى ضيوفك هذه الوحدة بمجرد الحفظ.",
+      "dueTitle": "محفوظة، لم تُنشر بعد",
+      "dueBody": "محتواك محفوظ. ادفع {price} متى شئت ليراه ضيوفك.",
+      "pay": "ادفع {price}",
+      "badgeDue": "بانتظار الدفع",
+      "remove": "إزالة هذه الوحدة",
+      "removeTitle": "إزالة هذه الوحدة؟",
+      "removeBody": "ستختفي من دعوتك وسيُحذف محتواها. يمكنك إضافتها لاحقًا.",
+      "removeConfirm": "إزالة",
+      "removeCancel": "الإبقاء عليها",
+      "removed": "أُزيلت الوحدة",
+      "removeFailed": "تعذّرت إزالة الوحدة. حاول مرة أخرى."
+    },
+    "due": {
+      "chip": "{count, plural, one {وحدة واحدة بانتظار الدفع} other {# وحدات بانتظار الدفع}} · {price}",
+      "strip": "{count, plural, one {وحدة لا يراها ضيوفك بعد} other {# وحدات لا يراها ضيوفك بعد}}"
+    },
+    "payment": {
+      "savedKicker": "تم حفظ التعديلات",
+      "title": "{count, plural, =1 {انشر «{name}»} other {انشر وحداتك الـ #}}",
+      "body": "بقيت خطوة واحدة: ادفع ثمن {count, plural, =1 {هذه الوحدة} other {هذه الوحدات}} ليراها ضيوفك في دعوتك.",
+      "planNote": "تتضمن باقتك {included} وحدات، استُخدمت كلها.",
+      "total": "المجموع",
+      "cgv": "أوافق على <link>الشروط العامة للبيع</link> وأطلب الوصول الفوري إلى {count, plural, =1 {الوحدة} other {الوحدات}}، وأتنازل بذلك عن حقي في العدول.",
+      "later": "لاحقًا",
+      "pay": "ادفع {price}",
+      "secure": "دفع آمن عبر Stripe · تُرسل الفاتورة تلقائيًا",
+      "back": "رجوع",
+      "processing": "جارٍ الدفع…",
+      "successTitle": "أصبحت منشورة!",
+      "successBody": "يراها ضيوفك الآن في دعوتك. فاتورتك متاحة في «الفواتير».",
+      "continue": "متابعة",
+      "unavailable": "الدفع غير متاح حاليًا. حاول مجددًا بعد لحظات.",
+      "confirming": "تم استلام الدفع وجارٍ التأكيد: ستظهر الوحدة خلال لحظات.",
+      "alreadyOwned": "كانت هذه الوحدة مفعّلة من قبل: سيُعاد إليك مبلغ الدفع المكرر تلقائيًا.",
+      "laterToast": "تم الحفظ. وحدتك بانتظارك: ادفع ثمنها متى شئت.",
+      "failed": "لم يكتمل الدفع. يمكنك المحاولة مرة أخرى."
+    },
+    "panel": {
+      "hide": "إخفاء الإعدادات",
+      "show": "إظهار الإعدادات",
+      "label": "الإعدادات"
+    }
   }
 }

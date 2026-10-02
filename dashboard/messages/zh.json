@@ -67,12 +67,8 @@
       "invitation": {
         "label": "请柬",
         "items": {
+          "editor": "编辑我的请柬",
           "modules": "我的模块",
-          "words": "我们的话",
-          "events": "活动",
-          "schedule": "流程安排",
-          "venue": "场地与实用信息",
-          "faq": "常见问题",
           "playlist": "歌单"
         }
       },
@@ -277,10 +273,7 @@
     "active_section": "已启用的模块",
     "locked_section": "未包含的模块",
     "no_modules": "目前没有已启用的模块。",
-    "module_price": "10 欧元 / 模块",
     "back": "返回模块列表",
-    "buy_module_title": "添加模块",
-    "buy_module_desc": "以 10 欧元启用此模块——立即在您的请柬中生效。",
     "auto_configured": "自动配置",
     "no_config_needed": "此模块无需手动配置。",
     "save": "保存",
@@ -458,7 +451,14 @@
     "dresscode_palette_remove": "移除颜色 {index}",
     "dresscode_photo": "着装参考照片",
     "dresscode_note": "温馨提示",
-    "dresscode_note_placeholder": "例如：仪式在草坪上举行，建议不要穿细高跟鞋"
+    "dresscode_note_placeholder": "例如：仪式在草坪上举行，建议不要穿细高跟鞋",
+    "add_cta": "添加",
+    "open_cta": "打开",
+    "price_each": "每个模块 {price}",
+    "all_included": "已包含在您的套餐中",
+    "price_included": "已包含",
+    "unpaid_badge": "待支付",
+    "add_hint": "添加模块并在编辑器中填写：保存时才需付款。"
   },
   "Playlist": {
     "title": "共创歌单",
@@ -856,28 +856,6 @@
     "show_password": "显示密码",
     "hide_password": "隐藏密码"
   },
-  "BuyModuleDialog": {
-    "dialog_title": "添加模块",
-    "dialog_desc_pending": "已收到您的付款。请确认激活该模块。",
-    "dialog_desc_default": "支付 10 欧元即可激活此模块 — 可立即在您的邀请函中使用。",
-    "generic_error": "发生了一个错误。",
-    "unexpected_error": "发生了意外错误。",
-    "processing_payment": "正在处理付款……",
-    "pay_and_activate": "支付 10 欧元并激活",
-    "secured_by_stripe": "由 Stripe 提供安全支付",
-    "activation_error": "激活过程中发生错误。",
-    "activating": "正在激活……",
-    "activate_module": "激活模块",
-    "payment_confirmed": "付款已确认",
-    "payment_received": "已收到您为 {moduleName} 支付的款项。点击下方按钮激活该模块。",
-    "module_activated": "模块已激活！",
-    "module_available": "{moduleName} 模块现已可用。",
-    "configure_module": "配置模块",
-    "payment_failed_or_canceled": "付款失败或已取消，请重试。",
-    "payment_not_confirmed": "无法确认付款。",
-    "create_intent_error": "无法创建付款。",
-    "module_activated_toast": "模块 \"{name}\" 已激活！"
-  },
   "DatePicker": {
     "placeholder": "选择日期"
   },
@@ -956,15 +934,6 @@
   },
   "StatCard": {
     "trend_vs_last_week": "较上周"
-  },
-  "LockedModuleCard": {
-    "preview": "预览",
-    "price": "10 欧元"
-  },
-  "LockedModulePreviewDialog": {
-    "unlock_module": "解锁此模块",
-    "one_time_payment": "一次性付款，终身包含在您的网站中",
-    "buy_button": "购买 — 10 欧元"
   },
   "MessagesPage": {
     "title": "留言",
@@ -1396,5 +1365,504 @@
     "dismiss": "关闭",
     "reveal": "显示密码",
     "hide": "隐藏密码"
+  },
+  "Editor": {
+    "header": {
+      "back": "控制面板",
+      "title": "我的请柬",
+      "theme": "主题：{theme}",
+      "previewLanguage": "预览语言",
+      "device": "预览设备",
+      "devices": {
+        "phone": "手机预览",
+        "desktop": "电脑预览"
+      }
+    },
+    "status": {
+      "saving": "保存中…",
+      "failed": "部分内容未能保存",
+      "unsaved": "有未保存的更改",
+      "saved": "已全部保存"
+    },
+    "actions": {
+      "discard": "放弃更改",
+      "save": "保存",
+      "saveShortcut": "保存 (⌘S)",
+      "view": "查看我的请柬",
+      "addEvent": "添加活动",
+      "addMoment": "添加环节",
+      "addStay": "添加住宿",
+      "addQuestion": "添加问题",
+      "addTransport": "添加交通方式",
+      "addMenuSection": "添加分类",
+      "addDish": "添加菜品",
+      "addDiet": "添加",
+      "addPhotos": "添加照片",
+      "uploadVideo": "选择视频",
+      "removeVideo": "移除视频",
+      "openRsvp": "在出席回复中设置",
+      "openPlaylist": "查看推荐",
+      "importLegacy": "移到此处",
+      "uploading": "上传中…"
+    },
+    "save": {
+      "success": "请柬已保存",
+      "partial": "部分内容未能保存，其余已保存。",
+      "network": "无法保存。请检查网络连接后重试。",
+      "includedLive": "已保存 · {count, plural, =1 {模块已上线} other {# 个模块已上线}}",
+      "dueSaved": "已保存 · 宾客暂时还看不到"
+    },
+    "leave": {
+      "title": "不保存就离开？",
+      "description": "你们最近的修改尚未更新到请柬上，离开后将会丢失。",
+      "stay": "继续编辑",
+      "confirm": "离开"
+    },
+    "tabs": {
+      "label": "请柬版块",
+      "hidden": "未在请柬上显示",
+      "error": "保存出错",
+      "unsaved": "已修改",
+      "addModule": "添加模块",
+      "title": "您的请柬",
+      "summary": "共 {count} 个版块 · 选择要填写的版块",
+      "groupIntro": "请柬",
+      "groupModules": "您的模块 · {count}",
+      "groupOutro": "结尾",
+      "position": "第 {index} 个版块，共 {total} 个",
+      "open": "{section} · 查看所有版块",
+      "previous": "上一个版块",
+      "next": "下一个版块"
+    },
+    "preview": {
+      "label": "请柬预览",
+      "title": "预览",
+      "open": "预览",
+      "close": "关闭预览",
+      "loading": "正在加载预览…",
+      "frameTitle": "你们请柬的实时预览"
+    },
+    "visibility": {
+      "unsupported": "你们的 {theme} 主题暂不显示此模块。设置已保存，一旦支持便会显示。",
+      "empty": "此版块为空时不会显示。"
+    },
+    "list": {
+      "untitled": "项目 {index}",
+      "full": "最多 {max} 项",
+      "reorder": "移动「{label}」",
+      "remove": "删除「{label}」",
+      "confirmRemove": "确认删除「{label}」",
+      "confirmShort": "删除？"
+    },
+    "palette": {
+      "swatch": "颜色 {index}",
+      "remove": "移除颜色 {index}",
+      "add": "添加颜色",
+      "edit": "修改颜色 {index}",
+      "newTitle": "新颜色",
+      "code": "颜色代码",
+      "codeInvalid": "代码无效。例如：#E7BDC6",
+      "cancel": "取消",
+      "apply": "确定"
+    },
+    "slots": {
+      "groupTitle": "主题文字",
+      "groupDescription": "你们的主题所显示的文字。留空则保留主题默认文字。",
+      "reset": "恢复默认",
+      "roles": {
+        "eyebrow": "上方小标题",
+        "title": "标题",
+        "subtitle": "副标题",
+        "cta": "按钮文字",
+        "ribbon": "装饰横幅",
+        "stamp": "装饰印章",
+        "tag": "装饰标签",
+        "introEyebrow": "开篇上方小标题",
+        "introTitle": "开篇标题",
+        "dayOneEyebrow": "婚礼当天上方小标题",
+        "dayOneTitle": "婚礼当天标题",
+        "dressLabel": "着装前的标签",
+        "watermark": "水印文字",
+        "introTag": "开篇标签",
+        "archFooter": "开篇下方饰带",
+        "footer": "版块底部饰带"
+      },
+      "hints": {
+        "multiline": "换行即可将标题分成两行。",
+        "ribbon": "几个简短的词，用“·”分隔。"
+      }
+    },
+    "defaults": {
+      "ceremonyName": "我们的婚礼"
+    },
+    "sections": {
+      "hero": {
+        "label": "首页",
+        "description": "第一屏：你们的名字、名字周围的文字、日期和地点。"
+      },
+      "countdown": {
+        "label": "倒计时",
+        "description": "距离仪式的倒计时，以及用文字书写的完整日期。"
+      },
+      "intro-video": {
+        "label": "开场视频",
+        "description": "一段迎接宾客的视频。",
+        "empty": "添加视频后即可显示此版块。"
+      },
+      "timeline": {
+        "label": "日程安排",
+        "description": "你们的各项活动，以及每项活动的流程，逐个环节呈现。",
+        "empty": "为一项可见的活动至少添加一个环节，即可显示日程安排。"
+      },
+      "dress-code": {
+        "label": "着装要求",
+        "description": "宾客可以怎么穿：着装建议、色彩搭配与灵感参考。",
+        "empty": "添加着装建议、色彩搭配或照片后即可显示着装要求。"
+      },
+      "rsvp": {
+        "label": "出席回复",
+        "description": "宾客的回复表单及截止日期。"
+      },
+      "map": {
+        "label": "场地",
+        "description": "婚礼在哪里举行，以及如何到达。"
+      },
+      "accommodation": {
+        "label": "住宿",
+        "description": "你们推荐的过夜住处。",
+        "empty": "至少添加一处住宿，即可显示此版块。"
+      },
+      "transport": {
+        "label": "交通",
+        "description": "如何前往：火车、飞机、自驾、拼车。",
+        "empty": "添加一种交通方式及其说明，即可显示此版块。"
+      },
+      "menu": {
+        "label": "菜单",
+        "description": "婚宴菜单，按分类呈现。",
+        "empty": "至少添加一道菜品，即可显示菜单。"
+      },
+      "gallery": {
+        "label": "相册",
+        "description": "你们的照片，按你们喜欢的顺序排列。",
+        "empty": "添加照片后即可显示相册。"
+      },
+      "gift-list": {
+        "label": "礼物清单",
+        "description": "关于礼物的几句话，以及礼物清单的链接。",
+        "empty": "添加文字或链接后即可显示此版块。"
+      },
+      "playlist": {
+        "label": "歌单",
+        "description": "邀请宾客为晚会推荐歌曲。"
+      },
+      "guestbook": {
+        "label": "留言簿",
+        "description": "留言簿的配套文字。"
+      },
+      "video-guestbook": {
+        "label": "视频留言簿",
+        "description": "视频留言簿的配套文字。"
+      },
+      "faq": {
+        "label": "常见问题",
+        "description": "解答宾客关心的问题。",
+        "empty": "至少添加一个已发布的问题，即可显示常见问题。"
+      },
+      "footer": {
+        "label": "页脚",
+        "description": "最后一页：你们的结束语。"
+      }
+    },
+    "groups": {
+      "couple": "新人",
+      "heroWords": "名字周围的文字",
+      "heroWordsDescription": "显示在第一屏你们名字的上方和下方。",
+      "when": "时间",
+      "whenDescription": "仪式的日期和时间，倒计时以此为准。",
+      "where": "地点",
+      "whereDescription": "显示在你们的名字下方和请柬底部。",
+      "countdownTarget": "仪式",
+      "countdownTargetDescription": "倒计时将在此日期和时间结束。",
+      "closing": "结束语",
+      "portrait": "你们的合照",
+      "portraitDescription": "部分主题会在最后一页展示，其他主题则不会显示。",
+      "programmeIntro": "引言",
+      "events": "你们的活动",
+      "eventsDescription": "每项活动都有自己的日期、地址和环节。隐藏某项活动即可将其从请柬中移除，而不会丢失。",
+      "moments": "环节",
+      "dayTwo": "请柬上的次日活动",
+      "dayTwoDescription": "你们的主题会将此活动单独放在一个方框中展示。",
+      "venue": "场地",
+      "venueIntro": "场地介绍",
+      "access": "如何到达",
+      "accessDescription": "每行填写一条说明。",
+      "staysIntro": "引言",
+      "stays": "住宿",
+      "questions": "问题",
+      "childrenQuestion": "关于儿童的问题",
+      "legacy": "旧版编辑器中的问题",
+      "dress": "着装要求",
+      "palette": "色彩搭配与灵感",
+      "rsvpDeadline": "截止日期",
+      "rsvpIntro": "引言",
+      "rsvpForm": "表单",
+      "transportModes": "交通方式",
+      "carpool": "拼车",
+      "menuSections": "菜单",
+      "menuNotes": "备注",
+      "gallery": "照片",
+      "gift": "礼物清单",
+      "video": "视频",
+      "videoWords": "文字",
+      "playlistIntro": "引言",
+      "playlistModeration": "宾客推荐的歌曲",
+      "guestbook": "文字"
+    },
+    "fields": {
+      "partner1": "第一位新人的名字",
+      "partner2": "第二位新人的名字",
+      "monogram": "姓名首字母图案",
+      "heroKicker": "上方小标题",
+      "announcement": "邀请语",
+      "weddingDate": "婚礼日期",
+      "ceremonyTime": "仪式时间",
+      "dateLabel": "显示的日期",
+      "venueName": "场地名称",
+      "venueCity": "城市",
+      "dateSpelled": "文字书写的日期",
+      "closingWords": "结束语",
+      "footerNote": "简短附言",
+      "couplePhoto": "新人合照",
+      "scheduleIntro": "引言",
+      "eventName": "名称",
+      "eventEnabled": "在请柬上显示",
+      "eventDate": "日期",
+      "eventTime": "时间",
+      "eventAddress": "地址",
+      "eventDescription": "说明",
+      "eventDressCode": "着装",
+      "eventKind": "活动类型",
+      "momentTime": "时间",
+      "momentTitle": "标题",
+      "momentDescription": "说明",
+      "momentIcon": "插图",
+      "momentPhoto": "照片",
+      "dayTwoDateLabel": "显示的日期",
+      "dayTwoTimeLabel": "显示的时间",
+      "dayTwoNote": "提示",
+      "venueAddress": "地址",
+      "mapsUrl": "谷歌地图链接",
+      "wazeUrl": "Waze 链接",
+      "venuePhoto": "场地照片",
+      "venueIntro": "关于场地的几句话",
+      "transportInfo": "交通方式",
+      "parkingInfo": "停车信息",
+      "accessInfo": "交通指南",
+      "staysIntro": "引言",
+      "stayName": "名称",
+      "stayCity": "城市",
+      "stayDistance": "距离",
+      "stayAddress": "地址",
+      "stayUrl": "预订链接",
+      "stayOffer": "优惠或优惠码",
+      "stayPhone": "电话",
+      "stayPhoto": "照片",
+      "staySecondary": "放在“查看更多选项”中",
+      "question": "问题",
+      "answer": "回答",
+      "published": "已发布",
+      "dressTitle": "标题",
+      "dressMode": "着装建议",
+      "dressDescription": "着装建议",
+      "dressMen": "男士",
+      "dressWomen": "女士",
+      "palette": "色彩搭配",
+      "dressPhoto": "灵感参考图",
+      "dressNote": "备注",
+      "rsvpDeadline": "回复截止日期",
+      "rsvpIntro": "引言",
+      "allowPartner": "允许携伴",
+      "collectMessage": "给新人留言",
+      "allowChildren": "欢迎携带儿童",
+      "askDietary": "询问饮食需求",
+      "dietary": "可选饮食类型",
+      "transportType": "类型",
+      "transportTitle": "标题",
+      "transportDescription": "说明",
+      "carpoolUrl": "链接",
+      "carpoolLabel": "链接文字",
+      "carpoolDescription": "文字",
+      "menuSectionTitle": "分类",
+      "dishTitle": "菜品",
+      "dishDescription": "说明",
+      "dietaryNote": "饮食备注",
+      "menuFooter": "菜单底部说明",
+      "giftTitle": "标题",
+      "giftText": "文字",
+      "giftUrl": "清单链接",
+      "giftLinkLabel": "链接文字",
+      "videoTitle": "标题",
+      "videoSubtitle": "副标题",
+      "videoDescription": "文字",
+      "videoSource": "视频来源",
+      "videoUrl": "视频链接",
+      "playlistIntro": "引言",
+      "guestbookTitle": "标题",
+      "guestbookText": "欢迎语",
+      "eventHidden": "已隐藏",
+      "clearDate": "清除",
+      "unpublished": "已隐藏",
+      "galleryPhoto": "照片 {index}"
+    },
+    "placeholders": {
+      "heroKicker": "我们要结婚了",
+      "announcement": "很希望你能来。",
+      "closingWords": "很快见",
+      "footerNote": "满怀爱意",
+      "scheduleIntro": "我们这一天的安排。",
+      "momentTitle": "仪式",
+      "dayTwoNote": "请务必携带泳衣和毛巾",
+      "venueIntro": "梧桐林荫道的尽头…",
+      "staysIntro": "为你们精心挑选",
+      "stayDistance": "距场地10分钟",
+      "dressTitle": "节日盛装",
+      "dressNote": "白色留给新娘。",
+      "rsvpIntro": "你们的回复将帮助我们做好一切准备。",
+      "diet": "无麸质…",
+      "transportTitle": "乘火车",
+      "menuSectionTitle": "前菜",
+      "giftTitle": "你们的到来就是最好的礼物",
+      "giftLinkLabel": "送上心意",
+      "playlistIntro": "帮我们一起打造晚会的背景音乐。",
+      "guestbookTitle": "留言簿",
+      "guestbookText": "给我们留句话吧…",
+      "url": "https://…"
+    },
+    "hints": {
+      "monogram": "留空则不显示。部分主题会改为印上你们的姓名首字母。",
+      "ceremonyTime": "按你们喜欢的方式填写：16:00、下午4点…",
+      "dateLabel": "留空则按主题格式显示日期。",
+      "dateSpelled": "留空则显示完整日期。",
+      "closingWords": "在希望断句的地方换行。",
+      "links": "粘贴从应用中复制的分享链接。",
+      "access": "每行填写一条说明。",
+      "staySecondary": "以低调方式列在主要住宿下方。",
+      "palette": "最多 6 种颜色，以圆形色块显示。",
+      "allowPartner": "表单会询问同伴的姓名。",
+      "collectMessage": "表单末尾的自由填写栏。",
+      "allowChildren": "关闭后，表单将不提供任何儿童相关字段，常见问题中也会注明。",
+      "dietary": "在表单中以下拉列表形式提供。",
+      "menuFooter": "每行填写一条说明。",
+      "gallery": "最多 12 张照片，JPEG 或 PNG 格式，每张不超过 5 MB。",
+      "videoUpload": "MP4、MOV 或 WebM 格式，不超过 100 MB。",
+      "videoEmbed": "YouTube 或 Vimeo 链接。",
+      "removeEvent": "保存后，此活动的所有环节及宾客对该活动的回复都将被删除。",
+      "childrenQuestion": "此问题会自动加入你们的常见问题，并随“欢迎携带儿童”设置同步，确保与表单始终一致。",
+      "legacy": "除了这些问题之外，{count, plural, other {旧版常见问题模块中的 # 个问题}}仍会显示在你们的请柬上。",
+      "playlistModeration": "通过或拒绝宾客推荐的歌曲。",
+      "guestbookNotLive": "留言簿尚未向宾客开放。你们的文字已保存，开放时将一并呈现。"
+    },
+    "eventKinds": {
+      "welcome-dinner": "欢迎晚宴",
+      "wedding-day": "婚礼当天",
+      "brunch": "次日早午餐",
+      "party": "晚会"
+    },
+    "icons": {
+      "auto": "自动（根据标题）",
+      "ceremony": "仪式",
+      "cocktail": "鸡尾酒会",
+      "dinner": "晚宴",
+      "party": "晚会",
+      "brunch": "早午餐"
+    },
+    "dressModes": {
+      "global": "所有人统一",
+      "split": "男士与女士分开"
+    },
+    "transportTypes": {
+      "Train": "火车",
+      "Plane": "飞机",
+      "Bus": "巴士",
+      "Car": "汽车",
+      "Ship": "船"
+    },
+    "videoSources": {
+      "embed": "链接",
+      "upload": "文件"
+    },
+    "empty": {
+      "moments": "暂无环节。",
+      "stays": "暂无住宿。",
+      "questions": "暂无问题。",
+      "transport": "暂无交通方式。",
+      "menu": "暂无分类。",
+      "dishes": "暂无菜品。",
+      "gallery": "暂无照片。",
+      "events": "暂无活动。"
+    },
+    "errors": {
+      "upload": "上传失败，请重试。",
+      "tooBig": "文件过大。",
+      "format": "不支持该格式。"
+    },
+    "addModule": {
+      "title": "添加模块",
+      "planMetered": "{plan, select, none {您的套餐} other {{plan} 套餐}} · {remaining, plural, =0 {包含的模块已用完} other {还剩 # 个包含的模块}}。之后每个模块 {price}。",
+      "planUnlimited": "{plan, select, none {您的套餐} other {{plan} 套餐}} · 模块不限，全部包含。",
+      "footPaid": "先添加、随意填写：只有在保存发布时才需付款。",
+      "footIncluded": "保存后即会出现在您的请柬上。",
+      "included": "已包含",
+      "available": "可添加 {count} 个模块 · 每个 {price}",
+      "availableIncluded": "可添加 {count} 个模块 · 已包含在您的套餐中"
+    },
+    "moduleStatus": {
+      "trialTitle": "试用中",
+      "trialBody": "填写此模块并在预览中查看。付款后宾客即可看到：{price}，在保存时支付。",
+      "includedTitle": "已包含在您的套餐中",
+      "includedBody": "保存后，宾客即可看到此模块。",
+      "dueTitle": "已保存，尚未发布",
+      "dueBody": "您的内容已保留。随时支付 {price}，宾客即可看到。",
+      "pay": "支付 {price}",
+      "badgeDue": "待支付",
+      "remove": "移除此模块",
+      "removeTitle": "移除此模块？",
+      "removeBody": "它将从您的请柬中消失，内容也会被删除。之后可以重新添加。",
+      "removeConfirm": "移除",
+      "removeCancel": "保留",
+      "removed": "模块已移除",
+      "removeFailed": "无法移除该模块，请重试。"
+    },
+    "due": {
+      "chip": "{count, plural, other {# 个模块待支付}} · {price}",
+      "strip": "{count, plural, other {# 个模块宾客暂时还看不到}}"
+    },
+    "payment": {
+      "savedKicker": "修改已保存",
+      "title": "{count, plural, =1 {发布「{name}」} other {发布您的 # 个模块}}",
+      "body": "还差一步：为{count, plural, =1 {此模块} other {这些模块}}付款，宾客即可在请柬上看到。",
+      "planNote": "您的套餐包含 {included} 个模块，已全部使用。",
+      "total": "合计",
+      "cgv": "我接受<link>销售条款</link>，并要求立即获得{count, plural, =1 {该模块} other {这些模块}}的使用权，因此放弃撤回权。",
+      "later": "稍后",
+      "pay": "支付 {price}",
+      "secure": "由 Stripe 提供安全支付 · 发票将自动发送",
+      "back": "返回",
+      "processing": "正在付款…",
+      "successTitle": "已上线！",
+      "successBody": "宾客现在就能在您的请柬上看到它。发票可在「账单」中查看。",
+      "continue": "继续",
+      "unavailable": "暂时无法付款，请稍后再试。",
+      "confirming": "已收到付款，正在确认：模块稍后就会出现。",
+      "alreadyOwned": "此模块此前已启用：重复付款将自动退还。",
+      "laterToast": "已保存。您的模块在等您：随时都可以付款。",
+      "failed": "付款未成功，您可以重试。"
+    },
+    "panel": {
+      "hide": "隐藏设置",
+      "show": "显示设置",
+      "label": "设置"
+    }
   }
 }

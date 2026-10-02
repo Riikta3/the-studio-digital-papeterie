@@ -181,8 +181,16 @@ export function DashboardLayout({ children }: { children: React.ReactNode }) {
     pathname.includes("/forgot-password") ||
     pathname.includes("/reset-password");
 
+  // `usePathname` from next/navigation keeps the locale prefix ("/fr/…").
+  const barePath = pathname.replace(/^\/(fr|en|de|es|pt|it|ar|zh|ja)(?=\/|$)/, "") || "/";
+
+  // The invitation editor is a full-screen builder with its own header and a
+  // way back: a form, a phone preview and a strip of section tabs do not fit
+  // beside the 256px sidebar on a laptop.
+  const isEditor = barePath === "/invitation";
+
   const isAlwaysFullScreen =
-    pathname.startsWith("/rsvp") || pathname === "/preview" || isAuthPage;
+    pathname.startsWith("/rsvp") || pathname === "/preview" || isAuthPage || isEditor;
 
   const showSidebar = isAuthenticated && !isAlwaysFullScreen;
 

@@ -13,7 +13,7 @@
  */
 
 // ─── THEME IDS — generated, do not edit by hand ───────────────────────────────
-export const THEME_IDS = ["belle-rive", "blanc-couture", "ciao-amore"] as const;
+export const THEME_IDS = ["belle-rive", "blanc-couture", "cabo-verde", "chateau-royal", "ciao-amore", "mare-alta"] as const;
 // ─── END GENERATED ───────────────────────────────────────────────────────────
 
 export type ThemeId = (typeof THEME_IDS)[number];

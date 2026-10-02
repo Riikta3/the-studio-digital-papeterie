@@ -1,0 +1,297 @@
+/*
+ * Hand-written layer for "Château Royal", imported after the generated sheet.
+ * Every rule sits under .theme-chateau-royal and says why it exists. In page order:
+ * hero and letter, venue, programme and brunch, menu, the small details, the
+ * reply, the footer — then the safety nets (no JavaScript, reduced motion) and
+ * right-to-left.
+ */
+
+/* ------------------------------------------------------------------ *
+ * Hero and letter
+ * ------------------------------------------------------------------ */
+
+/* On a phone the second name sits over the dark slate of the roof, in the day scene and its dark ink
+   (the designer's handoff asks for this to be checked: it is illegible). A halo in the sky's colour
+   lifts the dark ink off the roof; it swaps to a dark halo with the light ink at night. The halo is
+   also the resting style, so a reader who asked for no motion (day scene only) keeps it. */
+@keyframes chateau-royal-heroGlow {
+  0%, 7%, 86%, 100% { text-shadow: 0 0 16px #f8f5edd9, 0 0 4px #f8f5edb3; }
+  22%, 64% { text-shadow: 0 0 16px #1b142ac0, 0 1px 3px #1b142a80; }
+}
+@media (max-width: 760px) {
+  .theme-chateau-royal .hero-copy {
+    text-shadow: 0 0 16px #f8f5edd9, 0 0 4px #f8f5edb3;
+    animation: chateau-royal-heroInkFast 10s ease-in-out infinite, chateau-royal-heroGlow 10s ease-in-out infinite;
+  }
+}
+
+/* The veil of rings is pinned to the bottom of the letter, and the letter's padding keeps its room free.
+   An announcement makes the letter taller than its minimum height, and its last line then ran into the veil. */
+.theme-chateau-royal .letter.cr-has-announcement { padding-bottom: 180px; }
+@media (max-width: 760px) {
+  .theme-chateau-royal .letter.cr-has-announcement { padding-bottom: 150px; }
+}
+
+/* The date is written by Intl, which starts a weekday in lower case ("samedi 19 – …");
+   the designer's page opens it with a capital. */
+.theme-chateau-royal .letter-date::first-letter { text-transform: uppercase; }
+
+/* The hero tab's announcement, under the date. It borrows the letter's small voice but is a
+   sentence, not a label: not upper-cased, not tracked out, and held to a readable measure. */
+.theme-chateau-royal .letter .cr-announcement {
+  text-transform: none;
+  letter-spacing: 0.03em;
+  font-size: 1rem;
+  line-height: 1.7;
+  max-width: 34rem;
+  margin: 30px auto 0;
+}
+
+/* ------------------------------------------------------------------ *
+ * Venue
+ * ------------------------------------------------------------------ */
+
+/* The designer's venue film is not ported (it was an illustration made for one château);
+   the couple's photo is the whole content of the arch, so it must always show. */
+.theme-chateau-royal .venue-arch .venue-still { display: block; }
+
+/* In place of the film's motion: a slow zoom, off for readers who asked for none. */
+@keyframes chateau-royal-venue-zoom { from { transform: scale(1); } to { transform: scale(1.06); } }
+.theme-chateau-royal .venue-arch .venue-still { animation: chateau-royal-venue-zoom 18s ease-in-out infinite alternate; }
+
+/* No photograph yet: the arch is an empty frame. Rather than a bare outline it becomes a quiet
+   parchment panel with one ornament, so the section still reads as finished. */
+.theme-chateau-royal .venue-arch:empty {
+  display: grid;
+  place-items: center;
+  background: radial-gradient(ellipse at 50% 36%, #fffdf7 0%, #f8efe3 58%, #efe2d1 100%);
+}
+.theme-chateau-royal .venue-arch:empty::before {
+  content: "✣";
+  font: 3.2rem/1 var(--font-cr-display), "Bodoni Moda", serif;
+  color: #c4a98a;
+}
+
+/* The map tab's description: a short paragraph in the sans face, after the venue's name. The
+   sheet sets every `.venue p` in the display face at 1.15rem. */
+.theme-chateau-royal .venue .cr-venue-intro {
+  font: 400 0.95rem/1.7 var(--font-cr-sans), Jost, sans-serif;
+  margin: -6px 0 24px;
+  max-width: 32rem;
+}
+
+/* ------------------------------------------------------------------ *
+ * Programme and brunch
+ * ------------------------------------------------------------------ */
+
+/* A moment the couple illustrated: their photograph fills the medallion instead of the line drawing. */
+.theme-chateau-royal .event-icon.cr-photo { overflow: hidden; padding: 0; }
+.theme-chateau-royal .event-icon.cr-photo img { display: block; width: 100%; height: 100%; object-fit: cover; }
+
+/* An event of its own in the timeline (a welcome dinner, a party): the address under the description,
+   and the event's moments as small lines. The sheet sets every `.event p` in the italic display face. */
+.theme-chateau-royal .event .cr-event-where { font-size: 0.95rem; margin-top: 4px; }
+.theme-chateau-royal .event .cr-event-moments,
+.theme-chateau-royal .brunch-card .cr-day-moments {
+  list-style: none;
+  margin: 14px 0 0;
+  padding: 0;
+  font: 400 0.9rem/1.7 var(--font-cr-sans), Jost, sans-serif;
+  color: #89705e;
+}
+.theme-chateau-royal .event .cr-event-moments span,
+.theme-chateau-royal .brunch-card .cr-day-moments span {
+  margin-inline-end: 0.5em;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  color: #805844;
+}
+
+/* The designer's last paragraph of the card is the small print; with a list or a note after it the
+   body is no longer the last child, so it keeps its style by class. */
+.theme-chateau-royal .brunch-card > p.cr-brunch-body { margin: 0; font-size: 0.94rem; }
+.theme-chateau-royal .brunch-card .cr-day-moments { margin-top: 18px; }
+.theme-chateau-royal .brunch-card > p.cr-brunch-note {
+  margin: 18px 0 0;
+  font: italic 0.95rem/1.5 var(--font-cr-display), "Bodoni Moda", serif;
+  color: #89705e;
+}
+
+/* ------------------------------------------------------------------ *
+ * Menu
+ * ------------------------------------------------------------------ */
+
+/* The crest and the seal are fixed circles with white-space: nowrap; a longer monogram is set smaller so it stays inside. */
+.theme-chateau-royal .menu-crest strong[data-long] { font-size: 0.82rem; letter-spacing: 0.06em; }
+
+/* The menu tab's small print — the note and the footer lines — under the last course, in the card's
+   own cream: italic, centred, with the same hairline that separates the courses. */
+.theme-chateau-royal .menu-card-inner .cr-menu-notes {
+  border-top: 1px solid #b597748c;
+  padding: 16px 0 6px;
+}
+.theme-chateau-royal .menu-card-inner .cr-menu-notes p {
+  margin: 0;
+  font: italic 0.95rem/1.5 var(--font-cr-display), "Bodoni Moda", serif;
+  color: #e0caba;
+}
+.theme-chateau-royal .menu-card-inner .cr-menu-notes p + p { margin-top: 4px; }
+
+/* ------------------------------------------------------------------ *
+ * The small details
+ * ------------------------------------------------------------------ */
+
+/* The designer's grid had exactly three cards. A wedding has one, four or twenty (the children question
+   alone is always there), and a grid leaves the last card of a row hanging at the left. The cards keep
+   their three-column width but wrap and centre, so an odd one out sits in the middle of its row. They also
+   keep their own height: a long answer no longer stretches its neighbours. */
+.theme-chateau-royal .practical-grid {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: flex-start;
+}
+.theme-chateau-royal .practical-item {
+  flex: 0 1 calc((100% - 56px) / 3);
+  min-width: 0;
+}
+@media (max-width: 760px) {
+  .theme-chateau-royal .practical-item { flex-basis: 100%; }
+}
+
+/* The dress code's colours, as a row of small round swatches under its text. */
+.theme-chateau-royal .cr-swatches {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 8px;
+  margin-top: 4px;
+}
+.theme-chateau-royal .cr-swatches span {
+  width: 1.1rem;
+  height: 1.1rem;
+  border-radius: 50%;
+  border: 1px solid #b49a7e;
+}
+
+/* The couple's picture of the dress code takes the place of the card's ornament. */
+.theme-chateau-royal .practical-item .cr-card-photo {
+  display: block;
+  width: 5.5rem;
+  height: 5.5rem;
+  margin: 2px auto 8px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 1px solid #b89768;
+}
+
+/* ------------------------------------------------------------------ *
+ * The reply
+ * ------------------------------------------------------------------ */
+
+/* The sheet hides the success message and the designer's script shows it; here the element only
+   exists once the reply is sent, so it is simply shown. */
+.theme-chateau-royal .success { display: block; }
+
+/* The RSVP tab's sentence above the form, set like the deadline line under it, in italic. */
+.theme-chateau-royal .rsvp-frame > p.cr-rsvp-intro { font-style: italic; margin-top: 0; }
+
+/* A failed send says so, in the card's own ink, right above the button. */
+.theme-chateau-royal .rsvp .cr-rsvp-error {
+  margin: 0;
+  font-size: 0.9rem;
+  letter-spacing: 0.02em;
+  color: #8b3a2b;
+}
+
+/* The button waits while the reply is on its way. */
+.theme-chateau-royal .rsvp button:disabled { opacity: 0.65; cursor: progress; }
+
+/* ------------------------------------------------------------------ *
+ * The footer
+ * ------------------------------------------------------------------ */
+
+/* The footer tab's photograph of the couple, a round portrait above the seal. */
+.theme-chateau-royal .royal-signoff .cr-portrait {
+  display: block;
+  width: 7rem;
+  height: 7rem;
+  margin: 0 auto 22px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 1px solid var(--gold);
+}
+
+/* The seal is a fixed circle with white-space: nowrap; a longer monogram is set smaller so it stays inside. */
+.theme-chateau-royal .royal-signoff .signoff-seal[data-long] { font-size: 0.8rem; letter-spacing: 0.05em; }
+
+/* The closing words are a sentence, not a label: the sheet upper-cases and spreads every `.royal-signoff p`
+   (it is built for the date), so this one is set back to the display face, in the footer's own cream. */
+.theme-chateau-royal .royal-signoff p.cr-closing {
+  font: italic 1.3rem/1.5 var(--font-cr-display), "Bodoni Moda", serif;
+  letter-spacing: 0.01em;
+  text-transform: none;
+  color: #f0e3cc;
+  max-width: 28rem;
+  margin: 6px auto 0;
+}
+.theme-chateau-royal .royal-signoff p.cr-footnote {
+  margin: 16px 0 0;
+  font-size: 0.72rem;
+  opacity: 0.85;
+}
+
+/* ------------------------------------------------------------------ *
+ * Safety nets
+ * ------------------------------------------------------------------ */
+
+/* Without JavaScript nothing may stay hidden (JsFlag sets data-js on the root once scripts run): no reveal
+   ever fires, the timeline never lights a moment and its drawings never draw themselves. The medallion keeps
+   the vertical centring its transform gives it — the sheet's own `transform: none` for this case leaves it
+   half its height too low. The hero stays on its day scene: the night layer is transparent at rest. */
+.theme-chateau-royal:not([data-js]) .reveal { opacity: 1; transform: none; }
+.theme-chateau-royal:not([data-js]) .event-card { opacity: 1; transform: none; }
+.theme-chateau-royal:not([data-js]) .event-icon { opacity: 1; transform: translateY(-50%); }
+.theme-chateau-royal:not([data-js]) .event-icon svg { stroke-dashoffset: 0; }
+.theme-chateau-royal:not([data-js]) .letter-divider:before,
+.theme-chateau-royal:not([data-js]) .letter-divider:after { transform: scaleX(1); }
+@media (max-width: 760px) {
+  .theme-chateau-royal:not([data-js]) .event-icon { transform: rotate(0) !important; }
+}
+
+/* A reader who asked for no motion gets none, and nothing waits for a scroll or a script. The sheet's own
+   reduced-motion block covers the animations and the reveals; what it gets wrong is the medallion, whose
+   `transform: none` drops its vertical centring on a wide screen. The timeline lights every moment
+   (ProgrammeTimeline), and the cake stays whole (CakeScene). */
+@media (prefers-reduced-motion: reduce) {
+  .theme-chateau-royal .event-icon { opacity: 1; transform: translateY(-50%); }
+  .theme-chateau-royal .event-icon svg { stroke-dashoffset: 0; }
+  .theme-chateau-royal .letter-divider:before,
+  .theme-chateau-royal .letter-divider:after { transform: scaleX(1); }
+}
+
+/* ------------------------------------------------------------------ *
+ * Eyebrows and right to left
+ * ------------------------------------------------------------------ */
+
+/* An eyebrow is a tracked line of capitals that wraps in a narrow card ("MITTWOCH, 3. MÄRZ · TAG / II"):
+   it is balanced so the last word never hangs alone. Block, so that it can be (in some cards the sheet
+   sets it on a span — followed by a block, so nothing moves). */
+.theme-chateau-royal .section-eyebrow { display: block; text-wrap: balance; }
+
+/* The timeline is built from a centre line, cards that alternate between its two sides by position and
+   medallions on the opposite side. Both the columns and the offsets are physical: mirrored by the page's
+   direction, the columns swap and every medallion lands on its own card. The geometry stays as designed;
+   the card's text is read right to left. */
+[dir="rtl"] .theme-chateau-royal .timeline { direction: ltr; }
+[dir="rtl"] .theme-chateau-royal .event-card { direction: rtl; }
+
+/* The sheet aligns the form to the left, the fields write from the right. */
+[dir="rtl"] .theme-chateau-royal .rsvp form { text-align: right; }
+
+/* What the couple wrote may be in another script than the page ("Un dernier moment ensemble, au jardin."
+   on an Arabic page): each block takes its direction from its own first letter, or its full stop and its
+   "15 h 30" end up at the wrong side of the line. */
+[dir="rtl"] .theme-chateau-royal :is(h1, h2, h3, p, li, small, label, .event-time, .letter-top, .hero-title span, .signoff-names span, .menu-course > span) {
+  unicode-bidi: plaintext;
+}

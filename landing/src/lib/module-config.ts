@@ -42,6 +42,20 @@ function list(value: unknown): Record<string, unknown>[] {
   return Array.isArray(value) ? value.filter(isRecord) : [];
 }
 
+/** A real boolean, or undefined — a stored "false" string is not an answer. */
+function bool(value: unknown): boolean | undefined {
+  return typeof value === "boolean" ? value : undefined;
+}
+
+/** Non-empty trimmed strings from a list, or undefined when none survive. */
+function stringList(value: unknown): string[] | undefined {
+  if (!Array.isArray(value)) return undefined;
+  const entries = value
+    .map((entry) => str(entry))
+    .filter((entry): entry is string => entry !== undefined);
+  return entries.length > 0 ? entries : undefined;
+}
+
 /**
  * A list of CSS colours, or undefined.
  *
@@ -139,7 +153,7 @@ export type ModuleContent = {
     videoUrl?: string;
     videoType?: "embed" | "upload";
   };
-  giftList: { description?: string; url?: string; label?: string };
+  giftList: { title?: string; description?: string; url?: string; label?: string };
   playlist: { description?: string };
   timeline: TimelineEntryConfig[];
   accommodation: {
@@ -157,6 +171,14 @@ export type ModuleContent = {
   menu: { sections: MenuSectionConfig[]; dietaryNote?: string; footer: string[] };
   faq: { title?: string; subtitle?: string; description?: string; questions: FaqConfig[] };
   gallery: { images: string[] };
+  /**
+   * How the RSVP form is laid out, from the editor's RSVP tab.
+   *
+   * Every field is optional and the mapper supplies the defaults: a couple who
+   * never opened the tab gets the form every wedding had before — partner and
+   * message asked, no dietary select (the themes hide it without options).
+   */
+  rsvp: { allowPartner?: boolean; collectMessage?: boolean; dietaryOptions?: string[] };
   /**
    * The RSVP deadline as an ISO day ("2027-04-12"), when the couple set one.
    *
@@ -194,6 +216,7 @@ const EMPTY: ModuleContent = {
   menu: { sections: [], footer: [] },
   faq: { questions: [] },
   gallery: { images: [] },
+  rsvp: {},
 };
 
 /* ------------------------------------------------------------------ *
@@ -255,6 +278,7 @@ export function readModuleConfigs(rows: ModuleConfigRow[]): ModuleContent {
 
       case "gift-list":
         content.giftList = {
+          title: str(config.title),
           description: str(config.description),
           url: str(config.gift_list_url),
           label: str(config.gift_list_label),
@@ -269,6 +293,11 @@ export function readModuleConfigs(rows: ModuleConfigRow[]): ModuleContent {
         const iso = str(config.rsvp_deadline_iso);
         content.rsvpDeadline = iso && /^\d{4}-\d{2}-\d{2}$/.test(iso) ? iso : undefined;
         content.rsvpDeadlineLabel = str(config.rsvp_deadline);
+        content.rsvp = {
+          allowPartner: bool(config.allow_partner),
+          collectMessage: bool(config.collect_message),
+          dietaryOptions: stringList(config.dietary_options),
+        };
         break;
       }
 

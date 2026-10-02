@@ -5,7 +5,7 @@ export function FinaleSection({ data }: { data: InvitationData }) {
   const { couple, copy, venue } = data;
 
   return (
-    <section className="panel finale pearl-panel">
+    <section className="panel finale pearl-panel" data-editor-section="footer">
       <div className="arch">
         {copy?.closing ? <p className="eyebrow">{copy.closing}</p> : null}
         <h2 className="calligraphy">

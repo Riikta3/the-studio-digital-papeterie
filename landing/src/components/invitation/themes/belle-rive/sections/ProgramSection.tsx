@@ -1,4 +1,4 @@
-import { getLocale, getTranslations } from "next-intl/server";
+import { useLocale, useTranslations } from "next-intl";
 
 import { formatFrenchWeekday } from "../../format";
 import type { InvitationData } from "../../types";
@@ -13,9 +13,9 @@ import { TimelineIcon } from "./TimelineIcon";
  * (`i === 0 && <Media name="ceremony.mp4" />`), so reordering the programme
  * silently reassigned the footage. Each entry now carries its own `image`.
  */
-export async function ProgramSection({ data }: { data: InvitationData }) {
-  const t = await getTranslations("Invitation.belleRive.program");
-  const locale = await getLocale();
+export function ProgramSection({ data }: { data: InvitationData }) {
+  const t = useTranslations("Invitation.belleRive.program");
+  const locale = useLocale();
   const dayOne = (data.schedule ?? []).filter((entry) => entry.day === 1);
   if (dayOne.length === 0) return null;
 
@@ -25,7 +25,7 @@ export async function ProgramSection({ data }: { data: InvitationData }) {
   });
 
   return (
-    <section className="panel program">
+    <section className="panel program" data-editor-section="timeline">
       <Reveal>
         <p className="eyebrow">{t("eyebrow")}</p>
         <h2>{data.copy?.scheduleIntro ?? t("titleFallback")}</h2>

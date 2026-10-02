@@ -22,7 +22,7 @@ export function DressCodeSection({
   if (!dress) return null;
 
   return (
-    <Page className="soft-floral-paper dress-page" side={side} monogram={data.couple.monogram} couple={data.couple}>
+    <Page className="soft-floral-paper dress-page" side={side} monogram={data.couple.monogram} couple={data.couple} data-editor-section="dress-code">
       <p className="script">Dress code</p>
       <h2>{dress.title}</h2>
       {dress.body ? <p className="intro">{dress.body}</p> : null}

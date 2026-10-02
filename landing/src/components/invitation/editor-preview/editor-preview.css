@@ -1,0 +1,95 @@
+/*
+ * The editor preview's own chrome, drawn over a theme it knows nothing about.
+ *
+ * Outlines only: sections of every theme already use their ::before/::after
+ * for suns, petals and ribbons, so a label drawn with a pseudo-element would
+ * fight them. An outline sits outside the box model and cannot shift a pixel of
+ * the layout the couple is judging.
+ */
+
+.editor-preview-root [data-editor-section][data-editor-hover] {
+  outline: 2px dashed rgba(117, 96, 177, 0.55);
+  outline-offset: -4px;
+  cursor: pointer;
+}
+
+/* A module guests cannot see yet (EditorPreview's marks): sample content, or
+   content saved but unpaid. Outlines only, like the hover. */
+.editor-preview-root [data-editor-section][data-editor-example] {
+  outline: 2px dashed rgba(117, 96, 177, 0.55);
+  outline-offset: -8px;
+}
+
+.editor-preview-root [data-editor-section][data-editor-locked] {
+  outline: 2px dashed rgba(146, 64, 14, 0.35);
+  outline-offset: -8px;
+}
+
+.editor-preview-marks {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 0;
+  z-index: 2147483000;
+  pointer-events: none;
+}
+
+.editor-preview-mark {
+  position: absolute;
+  left: 50%;
+  transform: translate(-50%, 14px);
+  display: inline-flex;
+  align-items: center;
+  white-space: nowrap;
+  border-radius: 999px;
+  padding: 6px 12px;
+  font: 700 12px/1.2 system-ui, sans-serif;
+  box-shadow: 0 6px 18px rgba(35, 29, 54, 0.18);
+}
+
+.editor-preview-mark--example {
+  background: #4b3f72;
+  color: #fff;
+}
+
+.editor-preview-mark--locked {
+  background: #fef3c7;
+  color: #92400e;
+}
+
+/* The section the couple just opened in the editor. After the hover rule so it
+   wins when both apply. */
+.editor-preview-root [data-editor-section][data-editor-flash] {
+  outline: 3px solid rgba(117, 96, 177, 0.9);
+  outline-offset: -3px;
+  animation: editor-preview-flash 1.2s ease-out forwards;
+}
+
+@keyframes editor-preview-flash {
+  from {
+    outline-color: rgba(117, 96, 177, 0.9);
+  }
+  to {
+    outline-color: rgba(117, 96, 177, 0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .editor-preview-root [data-editor-section][data-editor-flash] {
+    animation: none;
+  }
+}
+
+.editor-preview-status {
+  display: flex;
+  min-height: 100svh;
+  align-items: center;
+  justify-content: center;
+  margin: 0;
+  padding: 32px;
+  background: #fffde8;
+  color: #4b3f72;
+  font: 500 14px/1.5 system-ui, sans-serif;
+  text-align: center;
+}

@@ -1,13 +1,10 @@
-import { LieuPageClient } from "@/components/invitation-info/LieuPageClient";
-import { getVenue, listAccommodations } from "@/actions/venue-actions";
+import { redirect } from "next/navigation";
 
-export default async function Page() {
-  const [venue, accommodation] = await Promise.all([
-    getVenue(),
-    listAccommodations(),
-  ]);
-
-  return (
-    <LieuPageClient initialVenue={venue} initialAccommodation={accommodation} />
-  );
+/**
+ * The venue and its practical notes now live in the invitation editor's "Lieu" tab. Kept as a redirect
+ * so bookmarks, emails and old links still land somewhere useful.
+ */
+export default async function Page({ params }: { params: Promise<{ locale: string }> }) {
+  const { locale } = await params;
+  redirect(`/${locale}/invitation?section=map`);
 }

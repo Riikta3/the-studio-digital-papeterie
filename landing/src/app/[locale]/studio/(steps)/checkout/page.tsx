@@ -27,6 +27,7 @@ import { createWedding } from "@/actions/create-wedding";
 import { StepTransition } from "@/components/studio/StepTransition";
 import { ALL_LANGUAGES, EXTRAS } from "@/components/studio/options";
 import { THEMES } from "@/components/studio/themes";
+import { weddingDateFrom } from "@/lib/wedding-date";
 import { useRouter } from "@/navigation";
 import { selectTotalPrice, useOrderStore } from "@/stores/use-order-store";
 
@@ -36,46 +37,6 @@ const stripePromise = loadStripe(
 
 /** Where a customer whose provisioning failed can reach a human. */
 const SUPPORT_EMAIL = "contact@thestudiopapeteriedigitale.com";
-
-/**
- * French month names, kept only to read back orders stored before the fix
- * below — see `monthIndexFrom`.
- */
-const MONTHS_FR = [
-  "Janvier", "Février", "Mars", "Avril", "Mai", "Juin",
-  "Juillet", "Août", "Septembre", "Octobre", "Novembre", "Décembre",
-];
-
-/**
- * Turns the stored month label into a 1-12 index.
- *
- * The start page writes `weddingInfo.month` as the *translated* label it
- * rendered (`t.raw("months")`, studio/start/page.tsx:86), so it holds
- * "January" for an English couple and "1月" for a Japanese one. This function
- * used to match that against `MONTHS_FR` alone, which returns -1 for all eight
- * non-French locales — `weddingDate` then fell to `undefined` and the couple's
- * wedding date was silently dropped at checkout, with no error shown and
- * nothing in the Stripe metadata for the webhook to recover from.
- *
- * The localised list is therefore the one that matters; MONTHS_FR stays as a
- * fallback because the order store is persisted, so a basket started before
- * this deploy still carries whatever label it was written with.
- */
-function monthIndexFrom(month: string, localisedMonths: string[]): number {
-  const needle = month.trim().toLowerCase();
-  if (!needle) return 0;
-
-  const inLocale = localisedMonths.findIndex(
-    (m) => m.trim().toLowerCase() === needle,
-  );
-  if (inLocale >= 0) return inLocale + 1;
-
-  const inFrench = MONTHS_FR.findIndex(
-    (m) => m.trim().toLowerCase() === needle,
-  );
-  return inFrench >= 0 ? inFrench + 1 : 0;
-}
-
 
 function labelFor(id: string, list: { id: string; name: string }[]): string {
   return list.find((x) => x.id === id)?.name ?? id;
@@ -105,17 +66,11 @@ function toWeddingIdentity(
   const firstName = nameParts[0] || info.partner1;
   const lastName = nameParts.slice(1).join(" ") || "";
 
-  const monthIndex = monthIndexFrom(info.month, localisedMonths);
-  const weddingDate =
-    info.day && monthIndex > 0 && info.year
-      ? `${info.year}-${String(monthIndex).padStart(2, "0")}-${String(info.day).padStart(2, "0")}`
-      : undefined;
-
   return {
     firstName,
     lastName,
     partnerName: info.partner2,
-    weddingDate,
+    weddingDate: weddingDateFrom(info, localisedMonths),
     // Free text, kept verbatim. The couple typed this at the start of the
     // studio and it used to stop here — the dashboard then asked them for it
     // a second time. It seeds their venue row instead.
@@ -245,7 +200,7 @@ export default function StudioCheckoutPage() {
   const t = useTranslations("StudioCheckout");
   // The month labels the start page rendered, in this locale — the list
   // `toWeddingIdentity` needs to read `weddingInfo.month` back (see
-  // `monthIndexFrom`).
+  // `monthIndexFrom` in `@/lib/wedding-date`).
   const localisedMonths = useTranslations("StudioStart").raw(
     "months",
   ) as string[];

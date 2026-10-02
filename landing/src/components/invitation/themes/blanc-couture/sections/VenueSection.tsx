@@ -21,7 +21,7 @@ export function VenueSection({ data, side }: { data: InvitationData; side: "left
   // last "de"/"of" style particle would be guesswork, so the name is printed as
   // one string and the CSS wraps it.
   return (
-    <Page className="venue-paper" side={side} monogram={data.couple.monogram} couple={data.couple}>
+    <Page className="venue-paper" side={side} monogram={data.couple.monogram} couple={data.couple} data-editor-section="map">
       <p className="script">Le lieu</p>
       <h2>{venue.name}</h2>
       {copy?.venueIntro ? <p className="intro">{copy.venueIntro}</p> : null}

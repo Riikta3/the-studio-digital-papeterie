@@ -21,8 +21,11 @@ themes/
   registry.ts     GENERATED from the folders (npm run themes:sync)
   format.ts       French date helpers ("1er juin", never "1 juin")
   demo-date.ts    rolling demo dates
+  text.tsx        slot() / <Lines> — reading the couple's rewritten words
+  video.ts        YouTube / Vimeo embed URLs, rebuilt from the video id
   <theme-id>/
     theme.config.ts    the manifest the rest of the app reads
+    editor.ts          the words the couple may rewrite ("slots")
     fonts.ts           next/font, variables prefixed --font-<xx>-*
     demo-data.ts       InvitationData for the showcase
     <theme-id>.css     GENERATED: the source stylesheet, scoped
@@ -38,6 +41,7 @@ Everything else is derived:
 | `/invitation/demo/<id>` | the manifest — the route is generic |
 | Home carousel + phone mockup | `components/home/themes.ts` (one line per theme) |
 | A real wedding's invitation | `sites.theme_id` → `resolveTheme()` |
+| The dashboard editor's live preview | `/invitation/apercu`, fed the couple's draft |
 
 ---
 
@@ -129,9 +133,27 @@ This substitution is a post-processing step on a generated file. Re-running
 Format the source first (`npx prettier --parser babel-ts`) — it ships minified
 onto very long lines.
 
-- Static sections are **Server Components**. Only countdowns, forms, toggles and
-  accordions get `"use client"`.
+- Sections are **isomorphic**: plain function components, never `async`, and
+  nothing from `next-intl/server`. Use `useTranslations` / `useLocale` from
+  `next-intl`, which work in a Server Component (the public page still renders
+  on the server) and in a client tree — the dashboard editor's live preview
+  imports the theme's `Root` into a client component and re-renders it as the
+  couple types. An `async` section breaks the preview for every couple on the
+  theme. Only countdowns, forms, toggles and accordions need `"use client"`.
+- Put `data-editor-section="<id>"` on each section's root element, with the id
+  from `shared/data/invitation-sections.ts` (the hero is `hero`, the footer
+  `footer`, every other section its module id — the day-after block belongs to
+  `timeline`). The preview scrolls to it when the couple opens that tab, reports
+  which sections are on the page, and lets a click on it open the tab.
 - Every value comes from typed props. **Zero content in the JSX.**
+- **Draw every field the editor lets a couple fill**, in the section of the tab
+  that edits it — the preview scrolls there, so a field printed elsewhere looks
+  broken. The ones themes forget: `couple.monogram` (hero tab),
+  `couple.portrait` (footer tab), `events` — each event's name, date, time,
+  address, description and dress code (programme tab), the brunch's moments
+  (`schedule` with `day: 2`), a hotel's `city`, `phone`, `offer` and `image`,
+  `copy.rsvpIntro`, and `venue.access[].link` (the carpool board, with the
+  couple's wording). `ciao-amore` draws all of them; read it before guessing.
 - Use `formatFrenchDate` / `formatFrenchWeekday` from `../../format` for every
   date, so "1er juin" is right everywhere.
 - Demo forms keep their local success state — nothing is persisted yet — but put
@@ -157,7 +179,31 @@ These helpers are computed from midnight UTC on purpose: they run on the server
 and again in the browser, and a value derived from the exact current time would
 differ between the two and trip a hydration mismatch.
 
-### 6. Manifest, register, verify
+### 6. The couple's words ("slots")
+
+Every word the theme prints in its own voice — an eyebrow, a title, a
+decorative stamp — must be rewritable by the couple. Declare each one in
+`editor.ts`:
+
+```ts
+{ key: "faq.title", messages: ["Invitation.<camelId>.faq.titleLine1",
+                               "Invitation.<camelId>.faq.titleLine2"], multiline: true }
+```
+
+and read it in the section with the catalogue as the fallback:
+
+```tsx
+<h2><Lines text={slot(data, "faq.title") ?? `${t("titleLine1")}\n${t("titleLine2")}`} /></h2>
+```
+
+Keys are `<sectionId>.<role>`; reuse the generic roles (`eyebrow`, `title`,
+`cta`, `tag`…) so a key means the same thing across themes. The editor shows
+each slot with the theme's default as its placeholder, resolved by the preview
+in the invitation's language — the dashboard knows nothing about any theme.
+Words written into the markup (ciao-amore's "Amore ✦ Limoni ✦ Dolce Vita")
+move to the catalogue first, so there is a default to fall back to.
+
+### 7. Manifest, register, verify
 
 ```ts
 export const <camelId>Theme: ThemeManifest = {
@@ -166,6 +212,7 @@ export const <camelId>Theme: ThemeManifest = {
   accentColor: "#...", cover: "/themes/<id>/cover.webp",
   scopeClass: "theme-<id>", fontVars: <camelId>FontVars,
   demoData: <ID>_DEMO, Root: <Theme>Root,
+  editorSlots: <camelId>EditorSlots,
 };
 ```
 
@@ -278,6 +325,9 @@ Keep each one on the side the source put it — check before batching.
 - [ ] Every date derived from the rolling demo date
 - [ ] Forms capped; every input has a `name`
 - [ ] FAQ one column, animated, `prefers-reduced-motion` honoured
+- [ ] No section is `async`; nothing imports `next-intl/server`
+- [ ] Every section root carries `data-editor-section`
+- [ ] Every word in the theme's own voice is a slot in `editor.ts`, and wired
 - [ ] `npm run themes:sync` run; production build passes
 
 ### Then: wiring it up
@@ -301,28 +351,43 @@ had it:
       pass `locale` to the date helpers or a translated page still prints
       French dates.
 - [ ] **Icons** use `ScheduleIcon` — the moment, not the drawing.
+- [ ] **Every editor field changes the preview.** Fill each tab of the editor
+      and watch its section: a field that changes nothing is a field the theme
+      forgot (see "Sections" above for the usual ones).
 
 Full checklist, with the reasoning and the traps behind each line:
 `The Studio Digital Papeterie/Features/Checklist nouveau thème.md`.
+
+How the October 2026 ports were done — the `themes:port-css` pipeline, the
+shared guest-form hooks, `themes:messages`, `?fixture=minimal|heavy`, the
+screenshot protocol — is in
+`docs/superpowers/plans/2026-10-02-theme-port-playbook.md`.
 
 ---
 
 ## Known debt
 
 - **Only `ciao-amore` is fully wired.** `belle-rive` and `blanc-couture` render
-  and persist their RSVPs, but they are French-only, and `venue.access` — the
-  couple's travel directions — is still rendered by neither. They need the
-  second pass described above before they are sold.
+  and persist their RSVPs and work in the editor's preview, but neither declares
+  slots yet (their catalogue words cannot be rewritten). `belle-rive` is
+  translated (`Invitation.belleRive`, nine locales); `blanc-couture` is still
+  French-only. `venue.access` — the couple's travel directions — is still
+  rendered by neither. Nor are `events`, a hotel's phone and photo, or
+  `copy.rsvpIntro` (`blanc-couture` does draw the portrait and the monogram).
+  They need the second pass described above before they are sold.
+- **Modules a theme does not draw.** `ciao-amore` draws all twelve modules with
+  guest-facing content (`modules.css` holds the four its source never had);
+  the guestbooks have no guest-facing feature anywhere yet. A theme that drops
+  a module the couple bought shows an explanation in the editor's tab.
 
 - **`belle-rive` ships 38 MB of video.** Six uncompressed `.mp4` autoplaying in a
   marketing iframe. Compressing them trades visual quality against load time, so
   it was left as an explicit decision rather than made silently.
 - **Font substitution is a post-processing step** on generated CSS and is lost on
-  re-scope. Worth folding into `themes:scope-css`.
+  re-scope. `themes:port-css` now does it (and the rest of the port) from a
+  config; a theme ported by hand with `themes:scope-css` still needs it redone.
 - **`npm run lint` is broken repo-wide** (ESLint 9 without a flat config),
   unrelated to theming. `tsc --noEmit` is the gate that works.
-- **Forms are demo-only.** RSVP and playlist submissions are not persisted; the
-  Supabase wiring (`rsvp_responses`, `playlist_suggestions`) is the next phase.
 - **`mediterranean-classy` predates this architecture** and still lives at
   `components/invitation/theme-mediterranean-classy/` with its own route. It
   should be migrated into `themes/` when someone touches it.

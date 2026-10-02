@@ -14,6 +14,7 @@ import { createPortal } from "react-dom";
 import { submitPlaylistSuggestions } from "@/actions/invitation-submissions";
 import { useTranslations } from "next-intl";
 
+import { Lines, slot } from "../../text";
 import type { InvitationData } from "../../types";
 
 /**
@@ -338,7 +339,7 @@ export function PlaylistSection({ data }: { data: InvitationData }) {
   }
 
   return (
-    <section className="playlist-section">
+    <section className="playlist-section" data-editor-section="playlist">
       {/* eslint-disable-next-line @next/next/no-img-element -- decorative, positioned by CSS. */}
       <img
         className="decor decor-spritz-playlist"
@@ -349,11 +350,12 @@ export function PlaylistSection({ data }: { data: InvitationData }) {
       />
       <span className="vinyl" aria-hidden="true" />
       <div>
-        <p className="eyebrow">{t("eyebrow")}</p>
+        {/* "La musique de notre week-end": the showcase's weekend again. */}
+        <p className="eyebrow">{slot(data, "playlist.eyebrow") ?? t("eyebrow")}</p>
         <h2>
-          {t("titleLine1")}
-          <br />
-          {t("titleLine2")}
+          <Lines
+            text={slot(data, "playlist.title") ?? `${t("titleLine1")}\n${t("titleLine2")}`}
+          />
         </h2>
         {data.copy?.playlistIntro ? <p>{data.copy.playlistIntro}</p> : null}
 

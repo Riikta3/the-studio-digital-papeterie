@@ -45,13 +45,14 @@ export const NAV_SECTIONS: NavSectionDef[] = [
   {
     key: "invitation",
     icon: CalendarHeart,
+    // One editor for every word of the invitation (`/invitation`), which
+    // replaced the five screens that used to sit here — "Nos mots",
+    // événements, programme, lieu, FAQ. The catalogue stays, to buy a module,
+    // and the playlist stays because it moderates what guests send, which is
+    // not editing the invitation.
     items: [
+      { key: "editor", href: "/invitation" },
       { key: "modules", href: "/modules" },
-      { key: "words", href: "/invitation/nos-mots" },
-      { key: "events", href: "/invitation/evenements" },
-      { key: "schedule", href: "/invitation/programme" },
-      { key: "venue", href: "/invitation/lieu" },
-      { key: "faq", href: "/invitation/faq" },
       { key: "playlist", href: "/playlist" },
     ],
   },

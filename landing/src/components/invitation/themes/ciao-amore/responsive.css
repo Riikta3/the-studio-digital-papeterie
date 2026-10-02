@@ -2107,3 +2107,30 @@
   text-underline-offset: 3px;
   overflow-wrap: anywhere;
 }
+
+/* ------------------------------------------------------------------ *
+ * The ribbon's words are the couple's now (slot `timeline.ribbon`), and
+ * nothing stops them typing five where the showcase had three. The ribbon is
+ * a fixed-height flex row centred on the page, so extra words would push past
+ * both edges and give the whole invitation a horizontal scroll. Clip them
+ * instead: the words that fit stay centred, the rest are simply not drawn.
+ * ------------------------------------------------------------------ */
+.theme-ciao-amore .italian-ribbon {
+  overflow: hidden;
+}
+
+.theme-ciao-amore .italian-ribbon span {
+  white-space: nowrap;
+}
+
+/* ------------------------------------------------------------------ *
+ * The day after: the card goes above the parasol. On a phone, the
+ * parasol's deck chair (`.decor`, z-index 3 in the generated sheet)
+ * reaches down over the card's corner and covers the date. Put the card
+ * on top and the chair now sits behind it, with the parasol still
+ * showing above. On a desktop they stand side by side and nothing
+ * changes.
+ * ------------------------------------------------------------------ */
+.theme-ciao-amore .brunch-card {
+  z-index: 4;
+}

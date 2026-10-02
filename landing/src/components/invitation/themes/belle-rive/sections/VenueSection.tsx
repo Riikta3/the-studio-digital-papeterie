@@ -1,17 +1,17 @@
-import { getTranslations } from "next-intl/server";
+import { useTranslations } from "next-intl";
 
 import type { InvitationData } from "../../types";
 import { Reveal } from "../Reveal";
 import { Media } from "./Media";
 
 /** Venue, inside the ornate engraved frame (`venue-frame.webp`). */
-export async function VenueSection({ data }: { data: InvitationData }) {
-  const t = await getTranslations("Invitation.belleRive.venue");
+export function VenueSection({ data }: { data: InvitationData }) {
+  const t = useTranslations("Invitation.belleRive.venue");
   const { venue, copy } = data;
   const access = venue.access ?? [];
 
   return (
-    <section className="panel venue ornate-venue">
+    <section className="panel venue ornate-venue" data-editor-section="map">
       <div className="venue-content">
         <Reveal>
           <p className="eyebrow">{t("eyebrow")}</p>

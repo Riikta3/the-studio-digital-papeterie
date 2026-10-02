@@ -1,4 +1,4 @@
-import { getTranslations } from "next-intl/server";
+import { useTranslations } from "next-intl";
 
 import type { InvitationData } from "../../types";
 import { Reveal } from "../Reveal";
@@ -18,13 +18,13 @@ import { Reveal } from "../Reveal";
  * heading keeps a default because it names the section rather than making a
  * claim; the sprite stays because it is the theme's own artwork.
  */
-export async function GiftsSection({ data }: { data: InvitationData }) {
-  const t = await getTranslations("Invitation.belleRive.gifts");
+export function GiftsSection({ data }: { data: InvitationData }) {
+  const t = useTranslations("Invitation.belleRive.gifts");
   const gifts = data.gifts;
   if (!gifts?.body && !gifts?.url) return null;
 
   return (
-    <section className="panel gifts pearled">
+    <section className="panel gifts pearled" data-editor-section="gift-list">
       <Reveal>
         <p className="eyebrow">{t("eyebrow")}</p>
         <h2>{gifts.title ?? t("titleFallback")}</h2>

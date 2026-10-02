@@ -32,6 +32,13 @@ import type { CarpoolTrip } from "./types";
  * this wrapper is not optional — without it the theme is unstyled. The source's
  * `main` selector was folded onto this same class by the scoping script, so the
  * element is also what carries the 480px column.
+ *
+ * No section is `async`, and none may become one: the editor's live preview
+ * renders this tree in the browser, where an async Server Component cannot run.
+ * Sections read their messages through `useTranslations` / `useLocale`, which
+ * work on the server (the public page) and in the preview alike. Each section's
+ * root element carries `data-editor-section`, the id the preview scrolls to,
+ * outlines and reports.
  */
 export function BelleRiveRoot({
   data,

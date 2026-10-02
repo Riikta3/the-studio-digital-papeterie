@@ -96,7 +96,7 @@ export async function InvitationPreviewCard({ slug, enabled, locale }: Props) {
           </span>
         )}
         <Link
-          href='/modules'
+          href='/invitation'
           className='flex min-h-11 flex-1 items-center justify-center gap-2 rounded-lg bg-studio-violet px-4 text-sm font-medium text-white transition-colors hover:bg-studio-violet-fonce'
         >
           <Pencil className='h-4 w-4' />

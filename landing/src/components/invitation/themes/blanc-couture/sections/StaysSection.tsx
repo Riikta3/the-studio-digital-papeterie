@@ -15,7 +15,7 @@ export function StaysSection({ data, side }: { data: InvitationData; side: "left
   if (stays.length === 0) return null;
 
   return (
-    <Page className="soft-floral-paper" side={side} monogram={data.couple.monogram} couple={data.couple}>
+    <Page className="soft-floral-paper" side={side} monogram={data.couple.monogram} couple={data.couple} data-editor-section="accommodation">
       <p className="script">Où dormir</p>
       {/* "sur la Riviera" was written here, so a wedding in Brittany invited
           its guests to stay on the Côte d'Azur. The couple's own city is used

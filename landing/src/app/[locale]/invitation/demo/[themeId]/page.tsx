@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import { notFound } from "next/navigation";
 
+import { demoDataFor } from "@/components/invitation/themes/fixtures";
 import { getTheme } from "@/components/invitation/themes/registry";
 
 /**
@@ -51,14 +52,19 @@ export async function generateMetadata({
 
 export default async function ThemeDemoPage({
   params,
+  searchParams,
 }: {
   params: Promise<{ themeId: string }>;
+  searchParams: Promise<{ fixture?: string }>;
 }) {
   const { themeId } = await params;
+  const { fixture } = await searchParams;
   const theme = getTheme(themeId);
 
   if (!theme) notFound();
 
+  // `?fixture=minimal|heavy` swaps in a control dataset outside production, to
+  // check a theme against data that is not its own demo.
   const { Root, demoData } = theme;
-  return <Root data={demoData} />;
+  return <Root data={demoDataFor(demoData, fixture)} />;
 }

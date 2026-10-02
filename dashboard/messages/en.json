@@ -211,12 +211,8 @@
       "invitation": {
         "label": "Invitation",
         "items": {
+          "editor": "Edit my invitation",
           "modules": "My modules",
-          "words": "Our words",
-          "events": "Events",
-          "schedule": "Schedule",
-          "venue": "Venue & practical info",
-          "faq": "FAQ",
           "playlist": "Playlist"
         }
       },
@@ -348,10 +344,7 @@
     "active_section": "Enabled modules",
     "locked_section": "Modules not included",
     "no_modules": "No modules enabled yet.",
-    "module_price": "€10 / module",
     "back": "Back to modules",
-    "buy_module_title": "Add a module",
-    "buy_module_desc": "Enable this module for €10 — available immediately on your invitation.",
     "auto_configured": "Automatically configured",
     "no_config_needed": "This module doesn't require any manual configuration.",
     "save": "Save",
@@ -529,7 +522,14 @@
     "dresscode_palette_remove": "Remove colour {index}",
     "dresscode_photo": "Inspiration photo",
     "dresscode_note": "Short note",
-    "dresscode_note_placeholder": "E.g. Stiletto heels are best avoided — the ceremony is on the lawn"
+    "dresscode_note_placeholder": "E.g. Stiletto heels are best avoided — the ceremony is on the lawn",
+    "add_cta": "Add",
+    "open_cta": "Open",
+    "price_each": "{price} / module",
+    "all_included": "Included in your plan",
+    "price_included": "Included",
+    "unpaid_badge": "To pay",
+    "add_hint": "Add a module and fill it in in the editor: you only pay when you save it."
   },
   "Playlist": {
     "title": "Collaborative Playlist",
@@ -856,28 +856,6 @@
     "show_password": "Show password",
     "hide_password": "Hide password"
   },
-  "BuyModuleDialog": {
-    "dialog_title": "Add a module",
-    "dialog_desc_pending": "Your payment has been received. Confirm the module activation.",
-    "dialog_desc_default": "Activate this module for €10 — available immediately on your invitation.",
-    "generic_error": "An error occurred.",
-    "unexpected_error": "An unexpected error occurred.",
-    "processing_payment": "Processing payment...",
-    "pay_and_activate": "Pay €10 and activate",
-    "secured_by_stripe": "Secure payment by Stripe",
-    "activation_error": "An error occurred during activation.",
-    "activating": "Activating...",
-    "activate_module": "Activate module",
-    "payment_confirmed": "Payment confirmed",
-    "payment_received": "Your payment for {moduleName} has been received. Click the button below to activate the module.",
-    "module_activated": "Module activated!",
-    "module_available": "The {moduleName} module is now available.",
-    "configure_module": "Configure module",
-    "payment_failed_or_canceled": "Payment failed or was canceled. Please try again.",
-    "payment_not_confirmed": "Payment could not be confirmed.",
-    "create_intent_error": "Unable to create the payment.",
-    "module_activated_toast": "Module \"{name}\" activated!"
-  },
   "DatePicker": {
     "placeholder": "Choose a date"
   },
@@ -956,15 +934,6 @@
   },
   "StatCard": {
     "trend_vs_last_week": "vs. last week"
-  },
-  "LockedModuleCard": {
-    "preview": "Preview",
-    "price": "€10"
-  },
-  "LockedModulePreviewDialog": {
-    "unlock_module": "Unlock this module",
-    "one_time_payment": "One-time payment, included for life on your site",
-    "buy_button": "Buy — €10"
   },
   "MessagesPage": {
     "title": "Messages",
@@ -1396,5 +1365,504 @@
     "dismiss": "Close",
     "reveal": "Show password",
     "hide": "Hide password"
+  },
+  "Editor": {
+    "header": {
+      "back": "Dashboard",
+      "title": "My invitation",
+      "theme": "{theme} theme",
+      "previewLanguage": "Preview language",
+      "device": "Preview format",
+      "devices": {
+        "phone": "Mobile preview",
+        "desktop": "Desktop preview"
+      }
+    },
+    "status": {
+      "saving": "Saving…",
+      "failed": "Some changes couldn't be saved",
+      "unsaved": "Unsaved changes",
+      "saved": "All changes saved"
+    },
+    "actions": {
+      "discard": "Discard",
+      "save": "Save",
+      "saveShortcut": "Save (⌘S)",
+      "view": "View my invitation",
+      "addEvent": "Add an event",
+      "addMoment": "Add a moment",
+      "addStay": "Add accommodation",
+      "addQuestion": "Add a question",
+      "addTransport": "Add a transport option",
+      "addMenuSection": "Add a section",
+      "addDish": "Add a dish",
+      "addDiet": "Add",
+      "addPhotos": "Add photos",
+      "uploadVideo": "Choose a video",
+      "removeVideo": "Remove video",
+      "openRsvp": "Set it in RSVP",
+      "openPlaylist": "See suggestions",
+      "importLegacy": "Move them here",
+      "uploading": "Uploading…"
+    },
+    "save": {
+      "success": "Invitation saved",
+      "partial": "Some changes couldn't be saved. Everything else was.",
+      "network": "Couldn't save. Check your connection and try again.",
+      "includedLive": "Saved · {count, plural, =1 {the module is live} other {the # modules are live}}",
+      "dueSaved": "Saved · not visible to your guests yet"
+    },
+    "leave": {
+      "title": "Leave without saving?",
+      "description": "Your latest changes aren't on your invitation yet. They will be lost.",
+      "stay": "Stay",
+      "confirm": "Leave"
+    },
+    "tabs": {
+      "label": "Invitation sections",
+      "hidden": "Not visible on the invitation",
+      "error": "Couldn't save",
+      "unsaved": "Edited",
+      "addModule": "Add a module",
+      "title": "Your invitation",
+      "summary": "{count, plural, one {# section} other {# sections}} · pick one to fill in",
+      "groupIntro": "The invitation",
+      "groupModules": "Your modules · {count}",
+      "groupOutro": "The end",
+      "position": "Section {index} of {total}",
+      "open": "{section} · see all sections",
+      "previous": "Previous section",
+      "next": "Next section"
+    },
+    "preview": {
+      "label": "Invitation preview",
+      "title": "Preview",
+      "open": "Preview",
+      "close": "Close preview",
+      "loading": "Loading preview…",
+      "frameTitle": "Live preview of your invitation"
+    },
+    "visibility": {
+      "unsupported": "Your {theme} theme doesn't show this module yet. Your settings are saved and will appear as soon as it's supported.",
+      "empty": "This section stays hidden while it's empty."
+    },
+    "list": {
+      "untitled": "Item {index}",
+      "full": "{max} maximum",
+      "reorder": "Move \"{label}\"",
+      "remove": "Delete \"{label}\"",
+      "confirmRemove": "Confirm deleting \"{label}\"",
+      "confirmShort": "Delete?"
+    },
+    "palette": {
+      "swatch": "Colour {index}",
+      "remove": "Remove colour {index}",
+      "add": "Add a colour",
+      "edit": "Change colour {index}",
+      "newTitle": "New colour",
+      "code": "Colour code",
+      "codeInvalid": "Invalid code. Example: #E7BDC6",
+      "cancel": "Cancel",
+      "apply": "Apply"
+    },
+    "slots": {
+      "groupTitle": "Theme wording",
+      "groupDescription": "The text your theme displays. Leave a field empty to keep the theme's wording.",
+      "reset": "Reset",
+      "roles": {
+        "eyebrow": "Top line",
+        "title": "Title",
+        "subtitle": "Subtitle",
+        "cta": "Button text",
+        "ribbon": "Decorative ribbon",
+        "stamp": "Decorative stamp",
+        "tag": "Decorative tag",
+        "introEyebrow": "Intro top line",
+        "introTitle": "Intro title",
+        "dayOneEyebrow": "Wedding day top line",
+        "dayOneTitle": "Wedding day title",
+        "dressLabel": "Label before the dress code",
+        "watermark": "Watermark",
+        "introTag": "Intro tag",
+        "archFooter": "Border below the intro",
+        "footer": "Border at the bottom of the section"
+      },
+      "hints": {
+        "multiline": "Add a line break to split the title in two.",
+        "ribbon": "A few short words, separated by \"·\"."
+      }
+    },
+    "defaults": {
+      "ceremonyName": "Our wedding"
+    },
+    "sections": {
+      "hero": {
+        "label": "Welcome",
+        "description": "The first screen: your names, the words around them, the date and the venue."
+      },
+      "countdown": {
+        "label": "Countdown",
+        "description": "The countdown to the ceremony, and the date written out in full."
+      },
+      "intro-video": {
+        "label": "Intro video",
+        "description": "A video to welcome your guests.",
+        "empty": "Add a video to show this section."
+      },
+      "timeline": {
+        "label": "Programme",
+        "description": "Your events, and how each one unfolds, moment by moment.",
+        "empty": "Add at least one moment to a visible event to show the programme."
+      },
+      "dress-code": {
+        "label": "Dress code",
+        "description": "What your guests can wear: guidelines, palette, inspiration.",
+        "empty": "Add guidelines, a palette or a photo to show the dress code."
+      },
+      "rsvp": {
+        "label": "RSVP",
+        "description": "Your guests' reply form and its deadline."
+      },
+      "map": {
+        "label": "Venue",
+        "description": "Where the wedding takes place, and how to get there."
+      },
+      "accommodation": {
+        "label": "Accommodation",
+        "description": "The places you recommend for the night.",
+        "empty": "Add at least one place to stay to show this section."
+      },
+      "transport": {
+        "label": "Transport",
+        "description": "How to get there: train, plane, car, carpooling.",
+        "empty": "Add a transport option with its directions to show this section."
+      },
+      "menu": {
+        "label": "Menu",
+        "description": "The meal's menu, section by section.",
+        "empty": "Add at least one dish to show the menu."
+      },
+      "gallery": {
+        "label": "Gallery",
+        "description": "Your photos, in the order you choose.",
+        "empty": "Add photos to show the gallery."
+      },
+      "gift-list": {
+        "label": "Gift registry",
+        "description": "A few words about gifts, and the link to your registry.",
+        "empty": "Add some text or a link to show this section."
+      },
+      "playlist": {
+        "label": "Playlist",
+        "description": "Ask your guests to suggest songs for the party."
+      },
+      "guestbook": {
+        "label": "Guestbook",
+        "description": "The words that will go with your guestbook."
+      },
+      "video-guestbook": {
+        "label": "Video guestbook",
+        "description": "The words that will go with your video guestbook."
+      },
+      "faq": {
+        "label": "FAQ",
+        "description": "Answers to the questions your guests are asking.",
+        "empty": "Add at least one published question to show the FAQ."
+      },
+      "footer": {
+        "label": "Footer",
+        "description": "The last page: your closing words."
+      }
+    },
+    "groups": {
+      "couple": "The couple",
+      "heroWords": "The words around your names",
+      "heroWordsDescription": "Above and below your names, on the first screen.",
+      "when": "When",
+      "whenDescription": "The date and time of the ceremony. The countdown is based on it.",
+      "where": "Where",
+      "whereDescription": "Shown below your names and at the bottom of the invitation.",
+      "countdownTarget": "The ceremony",
+      "countdownTargetDescription": "The countdown ends on this date and at this time.",
+      "closing": "Closing words",
+      "portrait": "Your photo",
+      "portraitDescription": "Some themes show it on the last page. Otherwise, it doesn't appear.",
+      "programmeIntro": "Introduction",
+      "events": "Your events",
+      "eventsDescription": "Each event has its own date, address and moments. Hide one to remove it from the invitation without losing it.",
+      "moments": "Moments",
+      "dayTwo": "The day after, on the invitation",
+      "dayTwoDescription": "Your theme shows this event in a separate box.",
+      "venue": "The venue",
+      "venueIntro": "Overview",
+      "access": "Getting there",
+      "accessDescription": "One direction per line.",
+      "staysIntro": "Introduction",
+      "stays": "Accommodation",
+      "questions": "Questions",
+      "childrenQuestion": "The question about children",
+      "legacy": "Questions from the old editor",
+      "dress": "The dress code",
+      "palette": "Palette and inspiration",
+      "rsvpDeadline": "Deadline",
+      "rsvpIntro": "Introduction",
+      "rsvpForm": "The form",
+      "transportModes": "Transport options",
+      "carpool": "Carpooling",
+      "menuSections": "The menu",
+      "menuNotes": "Notes",
+      "gallery": "Photos",
+      "gift": "Gift registry",
+      "video": "The video",
+      "videoWords": "Text",
+      "playlistIntro": "Introduction",
+      "playlistModeration": "Your guests' suggestions",
+      "guestbook": "Text"
+    },
+    "fields": {
+      "partner1": "First partner's name",
+      "partner2": "Second partner's name",
+      "monogram": "Monogram",
+      "heroKicker": "Top line",
+      "announcement": "Announcement",
+      "weddingDate": "Wedding date",
+      "ceremonyTime": "Ceremony time",
+      "dateLabel": "Displayed date",
+      "venueName": "Venue name",
+      "venueCity": "City",
+      "dateSpelled": "Date written out",
+      "closingWords": "Closing words",
+      "footerNote": "Short note",
+      "couplePhoto": "Couple photo",
+      "scheduleIntro": "Intro sentence",
+      "eventName": "Name",
+      "eventEnabled": "Visible on the invitation",
+      "eventDate": "Date",
+      "eventTime": "Time",
+      "eventAddress": "Address",
+      "eventDescription": "Description",
+      "eventDressCode": "Attire",
+      "eventKind": "Event type",
+      "momentTime": "Time",
+      "momentTitle": "Title",
+      "momentDescription": "Description",
+      "momentIcon": "Illustration",
+      "momentPhoto": "Photo",
+      "dayTwoDateLabel": "Displayed date",
+      "dayTwoTimeLabel": "Displayed time",
+      "dayTwoNote": "Instructions",
+      "venueAddress": "Address",
+      "mapsUrl": "Google Maps link",
+      "wazeUrl": "Waze link",
+      "venuePhoto": "Venue photo",
+      "venueIntro": "A few words about the venue",
+      "transportInfo": "Transport",
+      "parkingInfo": "Parking",
+      "accessInfo": "Access",
+      "staysIntro": "Intro sentence",
+      "stayName": "Name",
+      "stayCity": "City",
+      "stayDistance": "Distance",
+      "stayAddress": "Address",
+      "stayUrl": "Booking link",
+      "stayOffer": "Offer or promo code",
+      "stayPhone": "Phone",
+      "stayPhoto": "Photo",
+      "staySecondary": "Under \"See more options\"",
+      "question": "Question",
+      "answer": "Answer",
+      "published": "Published",
+      "dressTitle": "Title",
+      "dressMode": "Guidelines",
+      "dressDescription": "Guidelines",
+      "dressMen": "For the gentlemen",
+      "dressWomen": "For the ladies",
+      "palette": "Palette",
+      "dressPhoto": "Inspiration photo",
+      "dressNote": "Note",
+      "rsvpDeadline": "Reply by",
+      "rsvpIntro": "Intro sentence",
+      "allowPartner": "Offer a plus-one",
+      "collectMessage": "Leave a message for the couple",
+      "allowChildren": "Children welcome",
+      "askDietary": "Ask about dietary requirements",
+      "dietary": "Dietary options",
+      "transportType": "Type",
+      "transportTitle": "Title",
+      "transportDescription": "Directions",
+      "carpoolUrl": "Link",
+      "carpoolLabel": "Link label",
+      "carpoolDescription": "Text",
+      "menuSectionTitle": "Section",
+      "dishTitle": "Dish",
+      "dishDescription": "Description",
+      "dietaryNote": "Dietary note",
+      "menuFooter": "Menu footer notes",
+      "giftTitle": "Title",
+      "giftText": "Text",
+      "giftUrl": "Registry link",
+      "giftLinkLabel": "Link label",
+      "videoTitle": "Title",
+      "videoSubtitle": "Subtitle",
+      "videoDescription": "Text",
+      "videoSource": "Video source",
+      "videoUrl": "Video link",
+      "playlistIntro": "Intro sentence",
+      "guestbookTitle": "Title",
+      "guestbookText": "Welcome text",
+      "eventHidden": "hidden",
+      "clearDate": "Clear",
+      "unpublished": "hidden",
+      "galleryPhoto": "Photo {index}"
+    },
+    "placeholders": {
+      "heroKicker": "We're getting married",
+      "announcement": "We would love to have you with us.",
+      "closingWords": "See you very soon",
+      "footerNote": "With all our love",
+      "scheduleIntro": "How our day will unfold.",
+      "momentTitle": "Ceremony",
+      "dayTwoNote": "Swimsuit and towel essential",
+      "venueIntro": "At the end of the plane-tree avenue…",
+      "staysIntro": "Hand-picked for you",
+      "stayDistance": "10 min from the venue",
+      "dressTitle": "Festive attire",
+      "dressNote": "White is reserved for the bride.",
+      "rsvpIntro": "Your reply will help us get everything ready.",
+      "diet": "Gluten-free…",
+      "transportTitle": "By train",
+      "menuSectionTitle": "Starter",
+      "giftTitle": "Your presence is our greatest gift",
+      "giftLinkLabel": "Contribute",
+      "playlistIntro": "Help us put together the soundtrack for the party.",
+      "guestbookTitle": "Guestbook",
+      "guestbookText": "Leave us a little note…",
+      "url": "https://…"
+    },
+    "hints": {
+      "monogram": "Leave empty to hide it. Some themes then print your initials instead.",
+      "ceremonyTime": "Write it however you like: 4:00 PM, 4 pm…",
+      "dateLabel": "Leave empty to use the theme's date format.",
+      "dateSpelled": "Leave empty for the full date.",
+      "closingWords": "Add a line break where you want the sentence to break.",
+      "links": "Paste the share link copied from the app.",
+      "access": "One direction per line.",
+      "staySecondary": "Listed discreetly below the main accommodation.",
+      "palette": "Up to 6 colours, shown as swatches.",
+      "allowPartner": "The form asks for the plus-one's name.",
+      "collectMessage": "A free-text field at the end of the form.",
+      "allowChildren": "When off, the form has no fields for children, and the FAQ says so.",
+      "dietary": "Offered as a drop-down list in the form.",
+      "menuFooter": "One note per line.",
+      "gallery": "Up to 12 photos, JPEG or PNG, 5 MB max.",
+      "videoUpload": "MP4, MOV or WebM, 100 MB max.",
+      "videoEmbed": "A YouTube or Vimeo link.",
+      "removeEvent": "Its moments and guests' replies for this event will be deleted when you save.",
+      "childrenQuestion": "This question is added to your FAQ automatically and follows your \"Children welcome\" setting, so it never contradicts the form.",
+      "legacy": "{count, plural, one {# question written in the old FAQ module still appears} other {# questions written in the old FAQ module still appear}} on your invitation, in addition to these.",
+      "playlistModeration": "Approve or decline the songs your guests suggest.",
+      "guestbookNotLive": "The guestbook isn't open to your guests yet. Your text is saved and will go with it when it launches."
+    },
+    "eventKinds": {
+      "welcome-dinner": "Welcome dinner",
+      "wedding-day": "The wedding day",
+      "brunch": "Day-after brunch",
+      "party": "Party"
+    },
+    "icons": {
+      "auto": "Automatic, based on the title",
+      "ceremony": "Ceremony",
+      "cocktail": "Cocktails",
+      "dinner": "Dinner",
+      "party": "Party",
+      "brunch": "Brunch"
+    },
+    "dressModes": {
+      "global": "For everyone",
+      "split": "Gentlemen and ladies"
+    },
+    "transportTypes": {
+      "Train": "Train",
+      "Plane": "Plane",
+      "Bus": "Bus",
+      "Car": "Car",
+      "Ship": "Boat"
+    },
+    "videoSources": {
+      "embed": "A link",
+      "upload": "A file"
+    },
+    "empty": {
+      "moments": "No moments yet.",
+      "stays": "No accommodation yet.",
+      "questions": "No questions yet.",
+      "transport": "No transport options yet.",
+      "menu": "No sections yet.",
+      "dishes": "No dishes yet.",
+      "gallery": "No photos yet.",
+      "events": "No events yet."
+    },
+    "errors": {
+      "upload": "Upload failed. Try again.",
+      "tooBig": "File too large.",
+      "format": "Unsupported format."
+    },
+    "addModule": {
+      "title": "Add a module",
+      "planMetered": "{plan, select, none {Your plan} other {{plan} plan}} · {remaining, plural, =0 {your included modules are used} one {# included module left} other {# included modules left}}. Then {price} per module.",
+      "planUnlimited": "{plan, select, none {Your plan} other {{plan} plan}} · unlimited modules, all included.",
+      "footPaid": "Add it and fill it in freely: you only pay when you publish it, by saving.",
+      "footIncluded": "It appears on your invitation as soon as you save.",
+      "included": "Included",
+      "available": "{count, plural, one {# module available} other {# modules available}} · {price} each",
+      "availableIncluded": "{count, plural, one {# module available} other {# modules available}} · included in your plan"
+    },
+    "moduleStatus": {
+      "trialTitle": "On trial",
+      "trialBody": "Fill in this module and see it in the preview. Your guests will see it after payment: {price}, paid when you save.",
+      "includedTitle": "Included in your plan",
+      "includedBody": "Your guests will see this module as soon as you save.",
+      "dueTitle": "Saved, not published yet",
+      "dueBody": "Your content is kept. Pay {price} whenever you like for your guests to see it.",
+      "pay": "Pay {price}",
+      "badgeDue": "To pay",
+      "remove": "Remove this module",
+      "removeTitle": "Remove this module?",
+      "removeBody": "It disappears from your invitation and its content is deleted. You can add it again later.",
+      "removeConfirm": "Remove",
+      "removeCancel": "Keep",
+      "removed": "Module removed",
+      "removeFailed": "The module could not be removed. Try again."
+    },
+    "due": {
+      "chip": "{count, plural, one {# module to pay} other {# modules to pay}} · {price}",
+      "strip": "{count, plural, one {A module is not visible to your guests yet} other {# modules are not visible to your guests yet}}"
+    },
+    "payment": {
+      "savedKicker": "Changes saved",
+      "title": "{count, plural, =1 {Publish “{name}”} other {Publish your # modules}}",
+      "body": "One step left: pay for {count, plural, =1 {this module} other {these modules}} so your guests can see {count, plural, =1 {it} other {them}} on your invitation.",
+      "planNote": "Your plan includes {included} modules, already used.",
+      "total": "Total",
+      "cgv": "I accept the <link>Terms and Conditions of Sale</link> and ask for immediate access to {count, plural, =1 {the module} other {the modules}}, thereby waiving my right of withdrawal.",
+      "later": "Later",
+      "pay": "Pay {price}",
+      "secure": "Secure payment by Stripe · invoice sent automatically",
+      "back": "Back",
+      "processing": "Processing payment…",
+      "successTitle": "It’s live!",
+      "successBody": "Your guests can see it on your invitation right now. Your invoice is in “Billing”.",
+      "continue": "Continue",
+      "unavailable": "Payment is unavailable right now. Try again in a moment.",
+      "confirming": "Payment received, confirming: the module will appear in a few moments.",
+      "alreadyOwned": "This module was already active: the duplicate payment will be refunded automatically.",
+      "laterToast": "Saved. Your module is waiting: pay for it whenever you like.",
+      "failed": "The payment did not go through. You can try again."
+    },
+    "panel": {
+      "hide": "Hide the settings",
+      "show": "Show the settings",
+      "label": "Settings"
+    }
   }
 }

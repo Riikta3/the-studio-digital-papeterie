@@ -1191,6 +1191,106 @@ export type Database = {
         }
         Relationships: []
       }
+      custom_domains: {
+        Row: {
+          activated_at: string | null
+          attempts: number
+          claims_since_progress: number
+          created_at: string
+          expires_at: string | null
+          id: string
+          last_error: string | null
+          lease_token: string | null
+          locked_until: string | null
+          name: string | null
+          next_attempt_at: string
+          notices_sent: string[]
+          price_paid_cents: number
+          purchase_started_at: string | null
+          registered_at: string | null
+          site_id: string
+          status: string
+          status_changed_at: string
+          stripe_payment_intent_id: string | null
+          updated_at: string
+          vercel_order_id: string | null
+          wedding_id: string
+          years: number
+        }
+        Insert: {
+          activated_at?: string | null
+          attempts?: number
+          claims_since_progress?: number
+          created_at?: string
+          expires_at?: string | null
+          id?: string
+          last_error?: string | null
+          lease_token?: string | null
+          locked_until?: string | null
+          name?: string | null
+          next_attempt_at?: string
+          notices_sent?: string[]
+          price_paid_cents: number
+          purchase_started_at?: string | null
+          registered_at?: string | null
+          site_id: string
+          status?: string
+          status_changed_at?: string
+          stripe_payment_intent_id?: string | null
+          updated_at?: string
+          vercel_order_id?: string | null
+          wedding_id: string
+          years: number
+        }
+        Update: {
+          activated_at?: string | null
+          attempts?: number
+          claims_since_progress?: number
+          created_at?: string
+          expires_at?: string | null
+          id?: string
+          last_error?: string | null
+          lease_token?: string | null
+          locked_until?: string | null
+          name?: string | null
+          next_attempt_at?: string
+          notices_sent?: string[]
+          price_paid_cents?: number
+          purchase_started_at?: string | null
+          registered_at?: string | null
+          site_id?: string
+          status?: string
+          status_changed_at?: string
+          stripe_payment_intent_id?: string | null
+          updated_at?: string
+          vercel_order_id?: string | null
+          wedding_id?: string
+          years?: number
+        }
+        Relationships: [
+          {
+            foreignKeyName: "custom_domains_site_id_fkey"
+            columns: ["site_id"]
+            isOneToOne: true
+            referencedRelation: "sites"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "custom_domains_site_wedding_fkey"
+            columns: ["site_id", "wedding_id"]
+            isOneToOne: false
+            referencedRelation: "sites"
+            referencedColumns: ["id", "wedding_id"]
+          },
+          {
+            foreignKeyName: "custom_domains_wedding_id_fkey"
+            columns: ["wedding_id"]
+            isOneToOne: false
+            referencedRelation: "weddings"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       day_of_settings: {
         Row: {
           after_wedding_mode: boolean | null
@@ -1977,6 +2077,7 @@ export type Database = {
           item_type: string
           price_paid: number | null
           status: string | null
+          stripe_payment_intent_id: string | null
           wedding_id: string
         }
         Insert: {
@@ -1987,6 +2088,7 @@ export type Database = {
           item_type: string
           price_paid?: number | null
           status?: string | null
+          stripe_payment_intent_id?: string | null
           wedding_id: string
         }
         Update: {
@@ -1997,6 +2099,7 @@ export type Database = {
           item_type?: string
           price_paid?: number | null
           status?: string | null
+          stripe_payment_intent_id?: string | null
           wedding_id?: string
         }
         Relationships: [
@@ -2253,12 +2356,12 @@ export type Database = {
         Row: {
           animation_id: string | null
           created_at: string
-          domain: string | null
           extras: string[] | null
           id: string
           is_demo: boolean | null
           languages: string[] | null
           modules: string[] | null
+          pending_modules: string[]
           plan_id: string
           slug: string | null
           status: string | null
@@ -2269,12 +2372,12 @@ export type Database = {
         Insert: {
           animation_id?: string | null
           created_at?: string
-          domain?: string | null
           extras?: string[] | null
           id?: string
           is_demo?: boolean | null
           languages?: string[] | null
           modules?: string[] | null
+          pending_modules?: string[]
           plan_id?: string
           slug?: string | null
           status?: string | null
@@ -2285,12 +2388,12 @@ export type Database = {
         Update: {
           animation_id?: string | null
           created_at?: string
-          domain?: string | null
           extras?: string[] | null
           id?: string
           is_demo?: boolean | null
           languages?: string[] | null
           modules?: string[] | null
+          pending_modules?: string[]
           plan_id?: string
           slug?: string | null
           status?: string | null
@@ -2505,6 +2608,82 @@ export type Database = {
         }
         Returns: boolean
       }
+      claim_custom_domain: {
+        Args: { p_id: string }
+        Returns: {
+          activated_at: string | null
+          attempts: number
+          claims_since_progress: number
+          created_at: string
+          expires_at: string | null
+          id: string
+          last_error: string | null
+          lease_token: string | null
+          locked_until: string | null
+          name: string | null
+          next_attempt_at: string
+          notices_sent: string[]
+          price_paid_cents: number
+          purchase_started_at: string | null
+          registered_at: string | null
+          site_id: string
+          status: string
+          status_changed_at: string
+          stripe_payment_intent_id: string | null
+          updated_at: string
+          vercel_order_id: string | null
+          wedding_id: string
+          years: number
+        }[]
+        SetofOptions: {
+          from: "*"
+          to: "custom_domains"
+          isOneToOne: false
+          isSetofReturn: true
+        }
+      }
+      claim_custom_domain_notice: {
+        Args: { p_code: string; p_id: string }
+        Returns: boolean
+      }
+      claim_due_custom_domains: {
+        Args: { p_limit: number }
+        Returns: {
+          activated_at: string | null
+          attempts: number
+          claims_since_progress: number
+          created_at: string
+          expires_at: string | null
+          id: string
+          last_error: string | null
+          lease_token: string | null
+          locked_until: string | null
+          name: string | null
+          next_attempt_at: string
+          notices_sent: string[]
+          price_paid_cents: number
+          purchase_started_at: string | null
+          registered_at: string | null
+          site_id: string
+          status: string
+          status_changed_at: string
+          stripe_payment_intent_id: string | null
+          updated_at: string
+          vercel_order_id: string | null
+          wedding_id: string
+          years: number
+        }[]
+        SetofOptions: {
+          from: "*"
+          to: "custom_domains"
+          isOneToOne: false
+          isSetofReturn: true
+        }
+      }
+      custom_domain_name_taken: {
+        Args: { p_except_site?: string; p_name: string }
+        Returns: boolean
+      }
       dashboard_counts: {
         Args: { p_wedding_id: string }
         Returns: {
@@ -2526,6 +2705,15 @@ export type Database = {
           first_name: string
           partner_name: string
         }[]
+      }
+      grant_modules: {
+        Args: {
+          p_modules: string[]
+          p_payment_intent_id?: string
+          p_site_id: string
+          p_unit_price_cents?: number
+        }
+        Returns: string[]
       }
       guest_media_count: { Args: { p_wedding_id: string }; Returns: number }
       guest_uploads_open: { Args: { p_wedding_id: string }; Returns: boolean }
@@ -2575,6 +2763,21 @@ export type Database = {
           p_wedding_id: string
         }
         Returns: string
+      }
+      release_custom_domain_notice: {
+        Args: { p_code: string; p_id: string }
+        Returns: undefined
+      }
+      resolve_custom_domain: {
+        Args: { p_host: string }
+        Returns: {
+          // Hand-corrected: the generator marks every column of a SQL
+          // function's result non-null, but slug and languages are null when
+          // live is false (20261002130000_custom_domains_hardening.sql, §4).
+          languages: string[] | null
+          live: boolean
+          slug: string | null
+        }[]
       }
       resolve_public_slug: {
         Args: { p_slug: string }

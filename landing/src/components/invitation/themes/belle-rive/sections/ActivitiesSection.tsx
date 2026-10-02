@@ -1,4 +1,4 @@
-import { getTranslations } from "next-intl/server";
+import { useTranslations } from "next-intl";
 
 import type { InvitationData } from "../../types";
 import { Reveal } from "../Reveal";
@@ -17,13 +17,13 @@ const ACTIVITIES = [
   { src: "/themes/belle-rive/petanque.mp4", alt: "petanqueAlt" },
 ] as const;
 
-export async function ActivitiesSection({ data }: { data: InvitationData }) {
-  const t = await getTranslations("Invitation.belleRive.activities");
+export function ActivitiesSection({ data }: { data: InvitationData }) {
+  const t = useTranslations("Invitation.belleRive.activities");
   const dayTwo = data.dayTwo;
   if (!dayTwo) return null;
 
   return (
-    <section className="panel activities pearled">
+    <section className="panel activities pearled" data-editor-section="timeline">
       <Reveal>
         <p className="eyebrow">{t("eyebrow")}</p>
         {dayTwo.title ? <h2>{dayTwo.title}</h2> : null}

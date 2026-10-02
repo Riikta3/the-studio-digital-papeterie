@@ -1,4 +1,4 @@
-import { getTranslations } from "next-intl/server";
+import { useTranslations } from "next-intl";
 
 import type { InvitationData } from "../../types";
 
@@ -20,13 +20,13 @@ import type { InvitationData } from "../../types";
  * used elsewhere. `hero-lettering.webp` stays in `public/themes/belle-rive/` as
  * the visual reference this was matched against, but nothing renders it.
  */
-export async function HeroSection({ data }: { data: InvitationData }) {
-  const t = await getTranslations("Invitation.belleRive.hero");
+export function HeroSection({ data }: { data: InvitationData }) {
+  const t = useTranslations("Invitation.belleRive.hero");
   const { couple, copy, venue } = data;
   const place = [venue.name, venue.city].filter(Boolean).join(" · ");
 
   return (
-    <section className="panel hero">
+    <section className="panel hero" data-editor-section="hero">
       <div className="hero-glow" />
       {copy?.announcement ? <p className="eyebrow">{copy.announcement}</p> : null}
 

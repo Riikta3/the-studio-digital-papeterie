@@ -33,7 +33,7 @@ export function PlaylistSection({ data }: { data: InvitationData }) {
   }
 
   return (
-    <section className="panel playlist playlist-framed">
+    <section className="panel playlist playlist-framed" data-editor-section="playlist">
       <div className="playlist-content">
         <p className="eyebrow">{t("eyebrow")}</p>
         <h2>{t("title")}</h2>

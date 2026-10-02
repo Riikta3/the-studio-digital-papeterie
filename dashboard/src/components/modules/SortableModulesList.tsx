@@ -79,7 +79,7 @@ function SortableModuleItem({ id, t }: SortableModuleItemProps) {
       {/* Module content — linked or static */}
       {configurable ? (
         <Link
-          href={`/modules/${id}`}
+          href={`/invitation?section=${id}`}
           className="flex items-center gap-3 flex-1 min-w-0 pr-4 py-4 hover:text-studio-violet group"
         >
           <div className="w-9 h-9 bg-studio-lavande/20 rounded-lg flex items-center justify-center text-studio-violet shrink-0">

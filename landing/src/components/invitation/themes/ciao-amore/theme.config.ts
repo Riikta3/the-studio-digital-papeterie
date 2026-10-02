@@ -2,6 +2,7 @@ import type { ThemeManifest } from "../types";
 
 import { CiaoAmoreRoot } from "./CiaoAmoreRoot";
 import { CIAO_AMORE_DEMO } from "./demo-data";
+import { ciaoAmoreEditorSlots } from "./editor";
 import { ciaoAmoreFontVars } from "./fonts";
 
 /**
@@ -17,6 +18,8 @@ export const ciaoAmoreTheme: ThemeManifest = {
   name: "Ciao Amore",
   description: "Dolce vita sur la côte amalfitaine — citrons, pastel et lumière d'Italie.",
 
+  // The last four have no counterpart in the source project; they were added
+  // so a couple who bought them on this theme sees them (`modules.css`).
   supports: [
     "countdown",
     "timeline",
@@ -26,6 +29,12 @@ export const ciaoAmoreTheme: ThemeManifest = {
     "playlist",
     "faq",
     "rsvp",
+    "intro-video",
+    "menu",
+    "gallery",
+    "gift-list",
+    // Drawn inside the venue section, as its travel directions.
+    "transport",
   ],
 
   accentColor: "#566247",
@@ -36,4 +45,5 @@ export const ciaoAmoreTheme: ThemeManifest = {
 
   demoData: CIAO_AMORE_DEMO,
   Root: CiaoAmoreRoot,
+  editorSlots: ciaoAmoreEditorSlots,
 };

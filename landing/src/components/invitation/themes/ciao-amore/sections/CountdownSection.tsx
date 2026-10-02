@@ -3,6 +3,7 @@
 import { useTranslations } from "next-intl";
 import { useEffect, useState } from "react";
 
+import { Lines, slot } from "../../text";
 import type { InvitationData } from "../../types";
 
 /**
@@ -60,13 +61,13 @@ export function CountdownSection({ data }: { data: InvitationData }) {
   const remaining = useRemaining(data.event.startsAt);
 
   return (
-    <section id="ca-compte" className="paper countdown-section">
+    <section id="ca-compte" className="paper countdown-section" data-editor-section="countdown">
       <span className="decor-rays" aria-hidden="true" />
-      <p className="eyebrow">{t("eyebrow")}</p>
+      <p className="eyebrow">{slot(data, "countdown.eyebrow") ?? t("eyebrow")}</p>
       <h2>
-        {t("titleLine1")}
-        <br />
-        {t("titleLine2")}
+        <Lines
+          text={slot(data, "countdown.title") ?? `${t("titleLine1")}\n${t("titleLine2")}`}
+        />
       </h2>
       <div className="countdown">
         {UNITS.map(({ key, label }) => (

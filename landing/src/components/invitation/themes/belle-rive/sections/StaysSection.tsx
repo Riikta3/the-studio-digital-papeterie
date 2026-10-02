@@ -1,4 +1,4 @@
-import { getTranslations } from "next-intl/server";
+import { useTranslations } from "next-intl";
 
 import type { InvitationData, Stay } from "../../types";
 import { Reveal } from "../Reveal";
@@ -38,15 +38,15 @@ function StayRow({ stay }: { stay: Stay }) {
   );
 }
 
-export async function StaysSection({ data }: { data: InvitationData }) {
-  const t = await getTranslations("Invitation.belleRive.stays");
+export function StaysSection({ data }: { data: InvitationData }) {
+  const t = useTranslations("Invitation.belleRive.stays");
   const stays = data.stays ?? [];
   if (stays.length === 0) return null;
 
   const { featured, nearby, more } = tiers(stays);
 
   return (
-    <section className="panel stays pearled">
+    <section className="panel stays pearled" data-editor-section="accommodation">
       <Reveal>
         <p className="eyebrow">{t("eyebrow")}</p>
         <h2>{t("title")}</h2>

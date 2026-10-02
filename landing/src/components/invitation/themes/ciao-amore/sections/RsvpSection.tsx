@@ -6,6 +6,7 @@ import { type RsvpCompanion, submitRsvp } from "@/actions/invitation-submissions
 import { useLocale, useTranslations } from "next-intl";
 
 import { formatFrenchDate } from "../../format";
+import { Lines, slot } from "../../text";
 import type { InvitationData } from "../../types";
 
 /**
@@ -132,15 +133,22 @@ export function RsvpSection({ data }: { data: InvitationData }) {
   }
 
   return (
-    <section className="rsvp-section">
+    <section className="rsvp-section" data-editor-section="rsvp">
       <span className="rsvp-sun" aria-hidden="true" />
       <div className="rsvp-card">
         {deadline ? <p className="eyebrow">{t("deadlineEyebrow", { deadline })}</p> : null}
         <h2>
-          {t("titleLine1")}
-          <br />
-          {t("titleLine2")}
+          <Lines text={slot(data, "rsvp.title") ?? `${t("titleLine1")}\n${t("titleLine2")}`} />
         </h2>
+        {/* The couple's sentence above the form (the RSVP tab), and — for a
+            deadline saved before it was a date — the note that stands in for
+            the eyebrow above. */}
+        {data.copy?.rsvpIntro ? (
+          <p className="ca-rsvp-intro">
+            <Lines text={data.copy.rsvpIntro} />
+          </p>
+        ) : null}
+        {!deadline && data.copy?.rsvpNote ? <p className="ca-rsvp-note">{data.copy.rsvpNote}</p> : null}
 
         {sent ? (
           <div className="thanks">

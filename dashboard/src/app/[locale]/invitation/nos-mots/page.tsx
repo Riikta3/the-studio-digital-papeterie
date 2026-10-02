@@ -1,23 +1,10 @@
-import { getInvitationCopy } from "@/actions/invitation-copy-actions";
-import { NosMotsForm } from "@/components/invitation-info/NosMotsForm";
-import { getTranslations } from "next-intl/server";
+import { redirect } from "next/navigation";
 
-export default async function Page() {
-  const [copy, t] = await Promise.all([
-    getInvitationCopy(),
-    getTranslations("InvitationCopy"),
-  ]);
-
-  return (
-    <div className='min-h-screen bg-studio-creme p-4 md:p-8 lg:p-12'>
-      <div className='mx-auto max-w-2xl'>
-        <h1 className='font-heading text-h3 text-studio-violet'>{t("title")}</h1>
-        <p className='mt-2 text-sm text-studio-violet/70'>{t("subtitle")}</p>
-
-        <div className='mt-6'>
-          <NosMotsForm initial={copy} />
-        </div>
-      </div>
-    </div>
-  );
+/**
+ * The couple's own words (kicker, announcement, closing, portrait) now live in the invitation editor's "Accueil" tab. Kept as a redirect
+ * so bookmarks, emails and old links still land somewhere useful.
+ */
+export default async function Page({ params }: { params: Promise<{ locale: string }> }) {
+  const { locale } = await params;
+  redirect(`/${locale}/invitation?section=hero`);
 }

@@ -32,6 +32,7 @@ export function AccessSection({ data, side }: { data: InvitationData; side: "lef
       side={side}
       monogram={data.couple.monogram}
       couple={data.couple}
+      data-editor-section="map"
     >
       <p className="script">Pour venir</p>
       <h2>Accès</h2>

@@ -309,12 +309,8 @@
       "invitation": {
         "label": "Invitation",
         "items": {
+          "editor": "Éditer mon faire-part",
           "modules": "Mes modules",
-          "words": "Nos mots",
-          "events": "Événements",
-          "schedule": "Programme",
-          "venue": "Lieu & infos pratiques",
-          "faq": "FAQ",
           "playlist": "Playlist"
         }
       },
@@ -525,9 +521,6 @@
     "transport_type_ship": "Bateau",
     "order_saved": "Ordre des modules mis à jour",
     "order_save_error": "Impossible de sauvegarder l’ordre. Veuillez réessayer.",
-    "module_price": "10 € / module",
-    "buy_module_title": "Ajouter un module",
-    "buy_module_desc": "Activez ce module pour 10 € — disponible immédiatement sur votre faire-part.",
     "live_preview": "Aperçu en direct",
     "choose_deadline": "Choisir une date limite",
     "toast_photo_uploaded": "Photo uploadée",
@@ -627,7 +620,14 @@
     "dresscode_palette_remove": "Retirer la couleur {index}",
     "dresscode_photo": "Photo d’inspiration",
     "dresscode_note": "Petite note",
-    "dresscode_note_placeholder": "Ex : Les talons aiguilles sont déconseillés, la cérémonie se tient sur l’herbe"
+    "dresscode_note_placeholder": "Ex : Les talons aiguilles sont déconseillés, la cérémonie se tient sur l’herbe",
+    "add_cta": "Ajouter",
+    "open_cta": "Ouvrir",
+    "price_each": "{price} / module",
+    "all_included": "Inclus dans votre formule",
+    "price_included": "Inclus",
+    "unpaid_badge": "À régler",
+    "add_hint": "Ajoutez un module et remplissez-le dans l’éditeur : vous ne payez qu’en l’enregistrant."
   },
   "Playlist": {
     "title": "Playlist Collaborative",
@@ -699,28 +699,6 @@
       "confirm": "Confirmer",
       "cancel": "Annuler"
     }
-  },
-  "BuyModuleDialog": {
-    "dialog_title": "Ajouter un module",
-    "dialog_desc_pending": "Votre paiement a été reçu. Confirmez l’activation du module.",
-    "dialog_desc_default": "Activez ce module pour 10 € — disponible immédiatement sur votre faire-part.",
-    "generic_error": "Une erreur est survenue.",
-    "unexpected_error": "Une erreur inattendue est survenue.",
-    "processing_payment": "Paiement en cours...",
-    "pay_and_activate": "Payer 10 € et activer",
-    "secured_by_stripe": "Paiement sécurisé par Stripe",
-    "activation_error": "Une erreur est survenue lors de l’activation.",
-    "activating": "Activation en cours...",
-    "activate_module": "Activer le module",
-    "payment_confirmed": "Paiement confirmé",
-    "payment_received": "Votre paiement pour {moduleName} a bien été reçu. Cliquez sur le bouton ci-dessous pour activer le module.",
-    "module_activated": "Module activé !",
-    "module_available": "Le module {moduleName} est maintenant disponible.",
-    "configure_module": "Configurer le module",
-    "payment_failed_or_canceled": "Le paiement a échoué ou a été annulé. Veuillez réessayer.",
-    "payment_not_confirmed": "Le paiement n’a pas pu être confirmé.",
-    "create_intent_error": "Impossible de créer le paiement.",
-    "module_activated_toast": "Module \"{name}\" activé !"
   },
   "EditGuestDialog": {
     "title": "Modifier l’invité",
@@ -962,15 +940,6 @@
     "description": "Les mots que vos invités vous ont laissés.",
     "no_messages": "Aucun message pour le moment.",
     "message_count": "{count} message(s)"
-  },
-  "LockedModuleCard": {
-    "preview": "Aperçu",
-    "price": "10 €"
-  },
-  "LockedModulePreviewDialog": {
-    "unlock_module": "Débloquer ce module",
-    "one_time_payment": "Paiement unique, inclus à vie dans votre site",
-    "buy_button": "Acheter — 10 €"
   },
   "DashboardLayout": {
     "initializing": "Initialisation de votre espace..."
@@ -1396,5 +1365,504 @@
     "dismiss": "Fermer",
     "reveal": "Afficher le mot de passe",
     "hide": "Masquer le mot de passe"
+  },
+  "Editor": {
+    "header": {
+      "back": "Tableau de bord",
+      "title": "Mon faire-part",
+      "theme": "Thème {theme}",
+      "previewLanguage": "Langue de l’aperçu",
+      "device": "Format de l’aperçu",
+      "devices": {
+        "phone": "Aperçu mobile",
+        "desktop": "Aperçu ordinateur"
+      }
+    },
+    "status": {
+      "saving": "Enregistrement…",
+      "failed": "Une partie n’a pas pu être enregistrée",
+      "unsaved": "Modifications non enregistrées",
+      "saved": "Tout est enregistré"
+    },
+    "actions": {
+      "discard": "Annuler",
+      "save": "Enregistrer",
+      "saveShortcut": "Enregistrer (⌘S)",
+      "view": "Voir mon faire-part",
+      "addEvent": "Ajouter un événement",
+      "addMoment": "Ajouter un moment",
+      "addStay": "Ajouter un hébergement",
+      "addQuestion": "Ajouter une question",
+      "addTransport": "Ajouter un mode de transport",
+      "addMenuSection": "Ajouter une section",
+      "addDish": "Ajouter un plat",
+      "addDiet": "Ajouter",
+      "addPhotos": "Ajouter des photos",
+      "uploadVideo": "Choisir une vidéo",
+      "removeVideo": "Retirer la vidéo",
+      "openRsvp": "Régler dans RSVP",
+      "openPlaylist": "Voir les suggestions",
+      "importLegacy": "Les reprendre ici",
+      "uploading": "Envoi en cours…"
+    },
+    "save": {
+      "success": "Faire-part enregistré",
+      "partial": "Une partie n’a pas pu être enregistrée. Le reste l’est.",
+      "network": "Enregistrement impossible. Vérifiez votre connexion et réessayez.",
+      "includedLive": "Enregistré · {count, plural, =1 {le module est en ligne} other {les # modules sont en ligne}}",
+      "dueSaved": "Enregistré · pas encore visible par vos invités"
+    },
+    "leave": {
+      "title": "Quitter sans enregistrer ?",
+      "description": "Vos dernières modifications ne sont pas encore sur votre faire-part. Elles seront perdues.",
+      "stay": "Rester",
+      "confirm": "Quitter"
+    },
+    "tabs": {
+      "label": "Sections du faire-part",
+      "hidden": "Pas visible sur le faire-part",
+      "error": "Erreur d’enregistrement",
+      "unsaved": "Modifié",
+      "addModule": "Ajouter un module",
+      "title": "Votre faire-part",
+      "summary": "{count, plural, one {# section} other {# sections}} · choisissez celle à remplir",
+      "groupIntro": "Le faire-part",
+      "groupModules": "Vos modules · {count}",
+      "groupOutro": "La fin",
+      "position": "Section {index} sur {total}",
+      "open": "{section} · voir toutes les sections",
+      "previous": "Section précédente",
+      "next": "Section suivante"
+    },
+    "preview": {
+      "label": "Aperçu du faire-part",
+      "title": "Aperçu",
+      "open": "Aperçu",
+      "close": "Fermer l’aperçu",
+      "loading": "Chargement de l’aperçu…",
+      "frameTitle": "Aperçu en direct de votre faire-part"
+    },
+    "visibility": {
+      "unsupported": "Votre thème {theme} n’affiche pas encore ce module. Vos réglages sont enregistrés et apparaîtront dès qu’il sera pris en charge.",
+      "empty": "Cette section est masquée tant qu’elle est vide."
+    },
+    "list": {
+      "untitled": "Élément {index}",
+      "full": "{max} au maximum",
+      "reorder": "Déplacer « {label} »",
+      "remove": "Supprimer « {label} »",
+      "confirmRemove": "Confirmer la suppression de « {label} »",
+      "confirmShort": "Supprimer ?"
+    },
+    "palette": {
+      "swatch": "Couleur {index}",
+      "remove": "Retirer la couleur {index}",
+      "add": "Ajouter une couleur",
+      "edit": "Modifier la couleur {index}",
+      "newTitle": "Nouvelle couleur",
+      "code": "Code couleur",
+      "codeInvalid": "Code invalide. Exemple : #E7BDC6",
+      "cancel": "Annuler",
+      "apply": "Valider"
+    },
+    "slots": {
+      "groupTitle": "Les mots du thème",
+      "groupDescription": "Les textes que votre thème affiche. Laissez un champ vide pour garder celui du thème.",
+      "reset": "Rétablir",
+      "roles": {
+        "eyebrow": "Sur-titre",
+        "title": "Titre",
+        "subtitle": "Sous-titre",
+        "cta": "Texte du bouton",
+        "ribbon": "Bandeau décoratif",
+        "stamp": "Tampon décoratif",
+        "tag": "Étiquette décorative",
+        "introEyebrow": "Sur-titre de l’introduction",
+        "introTitle": "Titre de l’introduction",
+        "dayOneEyebrow": "Sur-titre du jour J",
+        "dayOneTitle": "Titre du jour J",
+        "dressLabel": "Libellé avant la tenue",
+        "watermark": "Filigrane",
+        "introTag": "Étiquette de l’introduction",
+        "archFooter": "Frise sous l’introduction",
+        "footer": "Frise en bas de section"
+      },
+      "hints": {
+        "multiline": "Allez à la ligne pour couper le titre en deux.",
+        "ribbon": "Quelques mots courts, séparés par « · »."
+      }
+    },
+    "defaults": {
+      "ceremonyName": "Notre mariage"
+    },
+    "sections": {
+      "hero": {
+        "label": "Accueil",
+        "description": "Le premier écran : vos prénoms, les mots qui les entourent, la date et le lieu."
+      },
+      "countdown": {
+        "label": "Compte à rebours",
+        "description": "Le décompte jusqu’à la cérémonie, et la date écrite en toutes lettres."
+      },
+      "intro-video": {
+        "label": "Vidéo d’intro",
+        "description": "Une vidéo qui accueille vos invités.",
+        "empty": "Ajoutez une vidéo pour afficher cette section."
+      },
+      "timeline": {
+        "label": "Programme",
+        "description": "Vos événements, et le déroulé de chacun, moment par moment.",
+        "empty": "Ajoutez au moins un moment à un événement visible pour afficher le programme."
+      },
+      "dress-code": {
+        "label": "Dress code",
+        "description": "Ce que vos invités peuvent porter : consignes, palette, inspiration.",
+        "empty": "Ajoutez des consignes, une palette ou une photo pour afficher le dress code."
+      },
+      "rsvp": {
+        "label": "RSVP",
+        "description": "Le formulaire de réponse de vos invités et sa date limite."
+      },
+      "map": {
+        "label": "Lieu",
+        "description": "Où se passe le mariage, et comment y venir."
+      },
+      "accommodation": {
+        "label": "Hébergements",
+        "description": "Les adresses que vous recommandez pour la nuit.",
+        "empty": "Ajoutez au moins un hébergement pour afficher cette section."
+      },
+      "transport": {
+        "label": "Transports",
+        "description": "Comment venir : train, avion, voiture, covoiturage.",
+        "empty": "Ajoutez un mode de transport avec ses indications pour afficher cette section."
+      },
+      "menu": {
+        "label": "Menu",
+        "description": "Le menu du repas, section par section.",
+        "empty": "Ajoutez au moins un plat pour afficher le menu."
+      },
+      "gallery": {
+        "label": "Galerie",
+        "description": "Vos photos, dans l’ordre de votre choix.",
+        "empty": "Ajoutez des photos pour afficher la galerie."
+      },
+      "gift-list": {
+        "label": "Liste de cadeaux",
+        "description": "Un mot sur vos cadeaux, et le lien vers votre liste.",
+        "empty": "Ajoutez un texte ou un lien pour afficher cette section."
+      },
+      "playlist": {
+        "label": "Playlist",
+        "description": "L’invitation à proposer des musiques pour la soirée."
+      },
+      "guestbook": {
+        "label": "Livre d’or",
+        "description": "Les mots qui accompagneront votre livre d’or."
+      },
+      "video-guestbook": {
+        "label": "Livre d’or vidéo",
+        "description": "Les mots qui accompagneront votre livre d’or vidéo."
+      },
+      "faq": {
+        "label": "FAQ",
+        "description": "Les réponses aux questions que vos invités se posent.",
+        "empty": "Ajoutez au moins une question publiée pour afficher la FAQ."
+      },
+      "footer": {
+        "label": "Pied de page",
+        "description": "La dernière page : votre mot de la fin."
+      }
+    },
+    "groups": {
+      "couple": "Le couple",
+      "heroWords": "Les mots autour de vos prénoms",
+      "heroWordsDescription": "Au-dessus et en dessous de vos prénoms, sur le premier écran.",
+      "when": "Quand",
+      "whenDescription": "La date et l’heure de la cérémonie. Le compte à rebours part de là.",
+      "where": "Où",
+      "whereDescription": "Affiché sous vos prénoms et en bas du faire-part.",
+      "countdownTarget": "La cérémonie",
+      "countdownTargetDescription": "Le compte à rebours se termine à cette date et à cette heure.",
+      "closing": "Le mot de la fin",
+      "portrait": "Votre photo",
+      "portraitDescription": "Certains thèmes l’affichent sur la dernière page. Sinon, elle n’apparaît pas.",
+      "programmeIntro": "Introduction",
+      "events": "Vos événements",
+      "eventsDescription": "Chaque événement a sa date, son adresse et ses moments. Masquez-en un pour le retirer du faire-part sans le perdre.",
+      "moments": "Moments",
+      "dayTwo": "Le lendemain sur le faire-part",
+      "dayTwoDescription": "Votre thème présente cet événement dans un encadré à part.",
+      "venue": "Le lieu",
+      "venueIntro": "Présentation",
+      "access": "Venir jusqu’à vous",
+      "accessDescription": "Une indication par ligne.",
+      "staysIntro": "Introduction",
+      "stays": "Hébergements",
+      "questions": "Questions",
+      "childrenQuestion": "La question sur les enfants",
+      "legacy": "Questions de l’ancien éditeur",
+      "dress": "Le dress code",
+      "palette": "Palette et inspiration",
+      "rsvpDeadline": "Date limite",
+      "rsvpIntro": "Introduction",
+      "rsvpForm": "Le formulaire",
+      "transportModes": "Modes de transport",
+      "carpool": "Covoiturage",
+      "menuSections": "Le menu",
+      "menuNotes": "Mentions",
+      "gallery": "Photos",
+      "gift": "Liste de cadeaux",
+      "video": "La vidéo",
+      "videoWords": "Les textes",
+      "playlistIntro": "Introduction",
+      "playlistModeration": "Les suggestions de vos invités",
+      "guestbook": "Les textes"
+    },
+    "fields": {
+      "partner1": "Premier prénom",
+      "partner2": "Second prénom",
+      "monogram": "Monogramme",
+      "heroKicker": "Sur-titre",
+      "announcement": "Annonce",
+      "weddingDate": "Date du mariage",
+      "ceremonyTime": "Heure de la cérémonie",
+      "dateLabel": "Date affichée",
+      "venueName": "Nom du lieu",
+      "venueCity": "Ville",
+      "dateSpelled": "Date en toutes lettres",
+      "closingWords": "Mot de la fin",
+      "footerNote": "Petite note",
+      "couplePhoto": "Photo du couple",
+      "scheduleIntro": "Phrase d’introduction",
+      "eventName": "Nom",
+      "eventEnabled": "Visible sur le faire-part",
+      "eventDate": "Date",
+      "eventTime": "Heure",
+      "eventAddress": "Adresse",
+      "eventDescription": "Description",
+      "eventDressCode": "Tenue",
+      "eventKind": "Type d’événement",
+      "momentTime": "Heure",
+      "momentTitle": "Titre",
+      "momentDescription": "Description",
+      "momentIcon": "Illustration",
+      "momentPhoto": "Photo",
+      "dayTwoDateLabel": "Date affichée",
+      "dayTwoTimeLabel": "Horaire affiché",
+      "dayTwoNote": "Consigne",
+      "venueAddress": "Adresse",
+      "mapsUrl": "Lien Google Maps",
+      "wazeUrl": "Lien Waze",
+      "venuePhoto": "Photo du lieu",
+      "venueIntro": "Quelques mots sur le lieu",
+      "transportInfo": "Transports",
+      "parkingInfo": "Stationnement",
+      "accessInfo": "Accès",
+      "staysIntro": "Phrase d’introduction",
+      "stayName": "Nom",
+      "stayCity": "Ville",
+      "stayDistance": "Distance",
+      "stayAddress": "Adresse",
+      "stayUrl": "Lien de réservation",
+      "stayOffer": "Offre ou code promo",
+      "stayPhone": "Téléphone",
+      "stayPhoto": "Photo",
+      "staySecondary": "Dans « Voir plus d’options »",
+      "question": "Question",
+      "answer": "Réponse",
+      "published": "Publiée",
+      "dressTitle": "Titre",
+      "dressMode": "Consignes",
+      "dressDescription": "Consignes",
+      "dressMen": "Pour ces messieurs",
+      "dressWomen": "Pour ces dames",
+      "palette": "Palette",
+      "dressPhoto": "Photo d’inspiration",
+      "dressNote": "Note",
+      "rsvpDeadline": "Répondre avant le",
+      "rsvpIntro": "Phrase d’introduction",
+      "allowPartner": "Proposer un accompagnant",
+      "collectMessage": "Laisser un message aux mariés",
+      "allowChildren": "Enfants acceptés",
+      "askDietary": "Demander les régimes alimentaires",
+      "dietary": "Régimes proposés",
+      "transportType": "Type",
+      "transportTitle": "Titre",
+      "transportDescription": "Indications",
+      "carpoolUrl": "Lien",
+      "carpoolLabel": "Libellé du lien",
+      "carpoolDescription": "Texte",
+      "menuSectionTitle": "Section",
+      "dishTitle": "Plat",
+      "dishDescription": "Description",
+      "dietaryNote": "Note sur les régimes",
+      "menuFooter": "Mentions de bas de menu",
+      "giftTitle": "Titre",
+      "giftText": "Texte",
+      "giftUrl": "Lien de la liste",
+      "giftLinkLabel": "Libellé du lien",
+      "videoTitle": "Titre",
+      "videoSubtitle": "Sous-titre",
+      "videoDescription": "Texte",
+      "videoSource": "Source de la vidéo",
+      "videoUrl": "Lien de la vidéo",
+      "playlistIntro": "Phrase d’introduction",
+      "guestbookTitle": "Titre",
+      "guestbookText": "Texte d’accueil",
+      "eventHidden": "masqué",
+      "clearDate": "Effacer",
+      "unpublished": "masquée",
+      "galleryPhoto": "Photo {index}"
+    },
+    "placeholders": {
+      "heroKicker": "Nous nous marions",
+      "announcement": "Nous serions heureux de vous compter parmi nous.",
+      "closingWords": "À très bientôt",
+      "footerNote": "Avec tout notre amour",
+      "scheduleIntro": "Le déroulé de notre journée.",
+      "momentTitle": "Cérémonie",
+      "dayTwoNote": "Maillot de bain et serviette indispensables",
+      "venueIntro": "Au bout de l’allée de platanes…",
+      "staysIntro": "Sélectionnés pour vous",
+      "stayDistance": "À 10 min du domaine",
+      "dressTitle": "Tenue de fête",
+      "dressNote": "Le blanc est réservé à la mariée.",
+      "rsvpIntro": "Votre réponse nous aidera à tout préparer.",
+      "diet": "Sans gluten…",
+      "transportTitle": "En train",
+      "menuSectionTitle": "Entrée",
+      "giftTitle": "Votre présence est notre plus beau cadeau",
+      "giftLinkLabel": "Participer",
+      "playlistIntro": "Aidez-nous à composer la bande-son de la soirée.",
+      "guestbookTitle": "Livre d’or",
+      "guestbookText": "Laissez-nous un petit mot…",
+      "url": "https://…"
+    },
+    "hints": {
+      "monogram": "Laissez vide pour ne pas l'afficher. Certains thèmes impriment alors vos initiales.",
+      "ceremonyTime": "Écrite comme vous la voulez : 16h00, 16 h 00…",
+      "dateLabel": "Laissez vide pour la date au format du thème.",
+      "dateSpelled": "Laissez vide pour la date complète.",
+      "closingWords": "Allez à la ligne là où vous voulez que la phrase se coupe.",
+      "links": "Collez le lien de partage copié depuis l’application.",
+      "access": "Une indication par ligne.",
+      "staySecondary": "Listé discrètement sous les hébergements principaux.",
+      "palette": "Jusqu’à 6 couleurs, affichées en pastilles.",
+      "allowPartner": "Le formulaire demande le nom de l’accompagnant.",
+      "collectMessage": "Un champ libre en fin de formulaire.",
+      "allowChildren": "Désactivé, le formulaire ne propose aucun champ enfant, et la FAQ le précise.",
+      "dietary": "Proposés en liste déroulante dans le formulaire.",
+      "menuFooter": "Une mention par ligne.",
+      "gallery": "Jusqu’à 12 photos, JPEG ou PNG, 5 Mo maximum.",
+      "videoUpload": "MP4, MOV ou WebM, 100 Mo maximum.",
+      "videoEmbed": "Un lien YouTube ou Vimeo.",
+      "removeEvent": "Ses moments et les réponses des invités à cet événement seront supprimés à l’enregistrement.",
+      "childrenQuestion": "Cette question s’ajoute d’elle-même à votre FAQ et suit votre réglage « Enfants acceptés », pour ne jamais contredire le formulaire.",
+      "legacy": "{count, plural, one {# question écrite dans l’ancien module FAQ apparaît} other {# questions écrites dans l’ancien module FAQ apparaissent}} encore sur votre faire-part, en plus de celles-ci.",
+      "playlistModeration": "Validez ou refusez les titres proposés par vos invités.",
+      "guestbookNotLive": "Le livre d’or n’est pas encore ouvert à vos invités. Vos textes sont enregistrés et l’accompagneront à son lancement."
+    },
+    "eventKinds": {
+      "welcome-dinner": "Dîner de bienvenue",
+      "wedding-day": "Le jour J",
+      "brunch": "Brunch du lendemain",
+      "party": "Soirée"
+    },
+    "icons": {
+      "auto": "Automatique, d’après le titre",
+      "ceremony": "Cérémonie",
+      "cocktail": "Cocktail",
+      "dinner": "Dîner",
+      "party": "Soirée",
+      "brunch": "Brunch"
+    },
+    "dressModes": {
+      "global": "Pour tout le monde",
+      "split": "Messieurs et mesdames"
+    },
+    "transportTypes": {
+      "Train": "Train",
+      "Plane": "Avion",
+      "Bus": "Bus",
+      "Car": "Voiture",
+      "Ship": "Bateau"
+    },
+    "videoSources": {
+      "embed": "Un lien",
+      "upload": "Un fichier"
+    },
+    "empty": {
+      "moments": "Aucun moment pour l’instant.",
+      "stays": "Aucun hébergement pour l’instant.",
+      "questions": "Aucune question pour l’instant.",
+      "transport": "Aucun mode de transport pour l’instant.",
+      "menu": "Aucune section pour l’instant.",
+      "dishes": "Aucun plat pour l’instant.",
+      "gallery": "Aucune photo pour l’instant.",
+      "events": "Aucun événement pour l’instant."
+    },
+    "errors": {
+      "upload": "L’envoi a échoué. Réessayez.",
+      "tooBig": "Fichier trop lourd.",
+      "format": "Format non pris en charge."
+    },
+    "addModule": {
+      "title": "Ajouter un module",
+      "planMetered": "{plan, select, none {Votre formule} other {Formule {plan}}} · {remaining, plural, =0 {vos modules inclus sont utilisés} one {encore # module inclus} other {encore # modules inclus}}. Ensuite {price} par module.",
+      "planUnlimited": "{plan, select, none {Votre formule} other {Formule {plan}}} · modules illimités, tous inclus.",
+      "footPaid": "Ajoutez-le et remplissez-le librement : vous ne payez qu’au moment de le publier, en enregistrant.",
+      "footIncluded": "Il apparaît sur votre faire-part dès que vous enregistrez.",
+      "included": "Inclus",
+      "available": "{count, plural, one {# module disponible} other {# modules disponibles}} · {price} l’un",
+      "availableIncluded": "{count, plural, one {# module disponible} other {# modules disponibles}} · inclus dans votre formule"
+    },
+    "moduleStatus": {
+      "trialTitle": "À l’essai",
+      "trialBody": "Remplissez ce module et regardez-le dans l’aperçu. Il sera visible par vos invités après paiement : {price}, réglés au moment d’enregistrer.",
+      "includedTitle": "Inclus dans votre formule",
+      "includedBody": "Ce module sera visible par vos invités dès que vous enregistrerez.",
+      "dueTitle": "Enregistré, pas encore publié",
+      "dueBody": "Votre contenu est gardé. Réglez {price} quand vous voulez pour que vos invités le voient.",
+      "pay": "Payer {price}",
+      "badgeDue": "À régler",
+      "remove": "Retirer ce module",
+      "removeTitle": "Retirer ce module ?",
+      "removeBody": "Il disparaît de votre faire-part et son contenu est supprimé. Vous pourrez le rajouter plus tard.",
+      "removeConfirm": "Retirer",
+      "removeCancel": "Garder",
+      "removed": "Module retiré",
+      "removeFailed": "Le module n’a pas pu être retiré. Réessayez."
+    },
+    "due": {
+      "chip": "{count, plural, one {# module à régler} other {# modules à régler}} · {price}",
+      "strip": "{count, plural, one {Un module n’est pas encore visible par vos invités} other {# modules ne sont pas encore visibles par vos invités}}"
+    },
+    "payment": {
+      "savedKicker": "Modifications enregistrées",
+      "title": "{count, plural, =1 {Publiez « {name} »} other {Publiez vos # modules}}",
+      "body": "Il ne reste qu’à régler {count, plural, =1 {ce module} other {ces modules}} pour que vos invités {count, plural, =1 {le voient} other {les voient}} sur votre faire-part.",
+      "planNote": "Votre formule inclut {included} modules, déjà utilisés.",
+      "total": "Total",
+      "cgv": "J’accepte les <link>Conditions Générales de Vente</link> et je demande l’accès immédiat {count, plural, =1 {au module} other {aux modules}} ; je renonce ainsi à mon droit de rétractation.",
+      "later": "Plus tard",
+      "pay": "Payer {price}",
+      "secure": "Paiement sécurisé par Stripe · facture envoyée automatiquement",
+      "back": "Retour",
+      "processing": "Paiement en cours…",
+      "successTitle": "C’est en ligne !",
+      "successBody": "Vos invités le voient dès maintenant sur votre faire-part. Votre facture est disponible dans « Facturation ».",
+      "continue": "Continuer",
+      "unavailable": "Paiement indisponible pour le moment. Réessayez dans un instant.",
+      "confirming": "Paiement reçu, confirmation en cours : le module apparaîtra dans quelques instants.",
+      "alreadyOwned": "Ce module était déjà actif : le paiement en double vous sera remboursé automatiquement.",
+      "laterToast": "C’est enregistré. Votre module vous attend : réglez-le quand vous voulez.",
+      "failed": "Le paiement n’a pas abouti. Vous pouvez réessayer."
+    },
+    "panel": {
+      "hide": "Masquer la configuration",
+      "show": "Afficher la configuration",
+      "label": "Configuration"
+    }
   }
 }

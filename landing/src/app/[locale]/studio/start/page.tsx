@@ -14,7 +14,7 @@ import { useEffect, useState } from "react";
 
 import { Button } from "@shared/components/ui/button";
 import { cn } from "@shared/lib/utils";
-import { PLAN_PRICES } from "@/lib/pricing";
+import { PLAN_PRICES, isRealDate } from "@/lib/pricing";
 import {
   useOrderStore,
   selectTotalPrice,
@@ -55,6 +55,22 @@ function isDateInPast(day: string, monthIndex: number, year: string): boolean {
   if (y === CURRENT_YEAR && monthIndex === CURRENT_MONTH && d < CURRENT_DAY)
     return true;
   return false;
+}
+
+/**
+ * A day the chosen month does not have: 31 April, 30 February, 29 February
+ * outside a leap year. The day field accepts 1-31 whatever the month, and
+ * such a date used to go through: the server refuses it when it prices the
+ * custom domain, which then charged one year of registration for a wedding
+ * three years away. Same half-typed-year guard as `isDateInPast`, so the
+ * error does not flash while the couple is still typing.
+ */
+function isDateImpossible(day: string, monthIndex: number, year: string): boolean {
+  const y = parseInt(year);
+  const d = parseInt(day);
+  if (!y || !monthIndex || !d) return false;
+  if (year.trim().length < 4) return false;
+  return !isRealDate(y, monthIndex, d);
 }
 
 /** Field label sitting above its input, as in the mockup. */
@@ -183,6 +199,11 @@ export default function StudioStartPage() {
     monthIndex,
     weddingInfo.year,
   );
+  const dateImpossible = isDateImpossible(
+    weddingInfo.day,
+    monthIndex,
+    weddingInfo.year,
+  );
 
   const isFormValid =
     !!plan &&
@@ -194,6 +215,7 @@ export default function StudioStartPage() {
     // typed, so "202" is a valid keystroke but not a valid answer.
     weddingInfo.year.trim().length === 4 &&
     !dateInPast &&
+    !dateImpossible &&
     !!weddingInfo.venue.trim() &&
     !!weddingInfo.email.trim() &&
     !emailExists;
@@ -423,10 +445,18 @@ export default function StudioStartPage() {
                 </div>
               </div>
 
-              {dateInPast && (
+              {/* One message at a time: a day that does not exist is the
+                  first thing to fix, whether or not it is also past. */}
+              {dateImpossible ? (
                 <p className="mt-2 font-body text-[12px] text-red-500">
-                  {t("dateInPastError")}
+                  {t("dateInvalidError")}
                 </p>
+              ) : (
+                dateInPast && (
+                  <p className="mt-2 font-body text-[12px] text-red-500">
+                    {t("dateInPastError")}
+                  </p>
+                )
               )}
 
               <div className="mt-4">

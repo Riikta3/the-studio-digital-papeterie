@@ -3,9 +3,11 @@ import type Stripe from "stripe";
 
 import { provisionFromPaymentIntent } from "@/actions/create-wedding";
 import { findUserByEmail } from "@/lib/find-user-by-email";
+import { fulfilModuleAddOn } from "@/lib/fulfil-module-addon";
 import { issueInvoiceForPayment } from "@/lib/invoice";
 import { stripe } from "@/lib/stripe";
 import { supabaseAdmin } from "@/lib/supabase-admin";
+import { isModuleAddOn } from "@shared/lib/module-addon";
 
 /*
  * Uses the shared lazy client from `@/lib/stripe` rather than constructing its
@@ -131,6 +133,15 @@ export async function POST(req: Request) {
     switch (event.type) {
       case "payment_intent.succeeded": {
         const paymentIntent = event.data.object as Stripe.PaymentIntent;
+
+        // A module bought from the dashboard after the sale. It carries an
+        // email, so it must be routed here before the checkout path below
+        // could take it for an order to provision (spec D6).
+        if (isModuleAddOn(paymentIntent)) {
+          await fulfilModuleAddOn(paymentIntent);
+          break;
+        }
+
         const email =
           paymentIntent.metadata.email ||
           (paymentIntent.receipt_email as string);

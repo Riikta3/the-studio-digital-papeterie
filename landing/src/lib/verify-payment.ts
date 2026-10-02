@@ -1,8 +1,19 @@
+import { domainFromIntentMetadata, type IntentDomain } from "@/lib/order-metadata";
 import { computeOrderTotal, type OrderItems } from "@/lib/pricing";
 import { stripe, toCents } from "@/lib/stripe";
 
 export type PaymentCheck =
-  | { ok: true; amountPaid: number; alreadyProvisionedAs?: string }
+  | {
+      ok: true;
+      amountPaid: number;
+      alreadyProvisionedAs?: string;
+      /**
+       * The custom domain this payment bought, read from the intent's own
+       * metadata — never from the browser's payload (spec D3). Provisioning
+       * creates the `custom_domains` row from this.
+       */
+      domain: IntentDomain;
+    }
   | { ok: false; reason: string };
 
 /**
@@ -35,16 +46,26 @@ export async function verifyPaymentForOrder(
     return { ok: false, reason: "Référence de paiement manquante." };
   }
 
-  const expectedTotal = computeOrderTotal(items);
-  if (expectedTotal === null) {
-    return { ok: false, reason: "Offre invalide." };
-  }
-
   let intent;
   try {
     intent = await stripe.paymentIntents.retrieve(paymentIntentId);
   } catch {
     return { ok: false, reason: "Paiement introuvable." };
+  }
+
+  /*
+   * The intent is fetched before the order is priced, because part of the
+   * price lives on it: the custom domain's years were computed by the
+   * payment route from the wedding date and the day of payment, then frozen
+   * in the metadata (spec D1). Recomputing them here from today's date would
+   * disagree with the charge as soon as a boundary passed between paying and
+   * provisioning — the webhook can run a day later — and the browser's
+   * payload carries no years at all.
+   */
+  const domain = domainFromIntentMetadata(intent.metadata);
+  const expectedTotal = computeOrderTotal({ ...items, domainYears: domain.years });
+  if (expectedTotal === null) {
+    return { ok: false, reason: "Offre invalide." };
   }
 
   if (intent.status !== "succeeded") {
@@ -88,6 +109,7 @@ export async function verifyPaymentForOrder(
     amountPaid: intent.amount_received,
     // Set by markPaymentProvisioned() once a wedding exists for this payment.
     alreadyProvisionedAs: intent.metadata?.wedding_id || undefined,
+    domain,
   };
 }
 

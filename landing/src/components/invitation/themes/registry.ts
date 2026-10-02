@@ -6,9 +6,12 @@ import type { ThemeManifest } from "./types";
 // import list has to be static; the script keeps it in step with the folders.
 import { belleRiveTheme } from "./belle-rive/theme.config";
 import { blancCoutureTheme } from "./blanc-couture/theme.config";
+import { caboVerdeTheme } from "./cabo-verde/theme.config";
+import { chateauRoyalTheme } from "./chateau-royal/theme.config";
 import { ciaoAmoreTheme } from "./ciao-amore/theme.config";
+import { mareAltaTheme } from "./mare-alta/theme.config";
 
-const MANIFESTS: ThemeManifest[] = [belleRiveTheme, blancCoutureTheme, ciaoAmoreTheme];
+const MANIFESTS: ThemeManifest[] = [belleRiveTheme, blancCoutureTheme, caboVerdeTheme, chateauRoyalTheme, ciaoAmoreTheme, mareAltaTheme];
 // ─── END GENERATED ───────────────────────────────────────────────────────────
 
 /** Every registered theme, in registry order. */

@@ -83,7 +83,7 @@ export function RsvpSection({ data }: { data: InvitationData }) {
   }
 
   return (
-    <section className="panel rsvp pearled">
+    <section className="panel rsvp pearled" data-editor-section="rsvp">
       <p className="eyebrow">{t("eyebrow")}</p>
       <h2>{t("title")}</h2>
       <p>

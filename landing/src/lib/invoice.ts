@@ -1,7 +1,8 @@
 import type Stripe from "stripe";
 
+import { invoiceCustomerName } from "@/lib/addon-invoice-lines";
 import { VAT_RATE, VAT_REGIME, assertCompanyConfigured } from "@/lib/company";
-import { buildInvoiceLines, frenchModuleName } from "@/lib/invoice-lines";
+import { type InvoiceLine, buildInvoiceLines, frenchModuleName } from "@/lib/invoice-lines";
 import { renderInvoicePdf } from "@/lib/invoice-pdf";
 import { parseOrderMetadata } from "@/lib/order-metadata";
 import { supabaseAdmin } from "@/lib/supabase-admin";
@@ -24,6 +25,14 @@ export interface IssueInvoiceInput {
   userId: string;
   email: string;
   paymentIntent: Stripe.PaymentIntent;
+  /**
+   * What was sold, when the caller knows better than the order metadata — a
+   * module add-on, whose lines are the modules its payment actually granted.
+   * Without it, the checkout's order is read back from the intent.
+   */
+  content?: { lines: InvoiceLine[]; customerName: string };
+  /** The sale's final amount in cents, when part of the charge was refunded before invoicing. */
+  netCents?: number;
 }
 
 /** Storage bucket holding rendered invoices (private; see the migration). */
@@ -65,18 +74,31 @@ export async function issueInvoiceForPayment(
     return { issued: false, reason: (err as Error).message };
   }
 
-  const order = parseOrderMetadata(paymentIntent);
-  if (!order) {
-    return { issued: false, reason: "no order metadata on intent" };
+  let lines: InvoiceLine[];
+  let coupleName: string;
+  if (input.content) {
+    lines = input.content.lines;
+    coupleName = input.content.customerName;
+  } else {
+    const order = parseOrderMetadata(paymentIntent);
+    if (!order) {
+      return { issued: false, reason: "no order metadata on intent" };
+    }
+    lines = buildInvoiceLines(order, frenchModuleName);
+    coupleName = invoiceCustomerName(order.firstName, order.lastName, order.partnerName);
+  }
+  if (lines.length === 0) {
+    return { issued: false, reason: "nothing to invoice" };
   }
 
-  const lines = buildInvoiceLines(order, frenchModuleName);
   const linesTotal = lines.reduce((sum, line) => sum + line.total, 0);
 
-  // Reconcile against what was actually charged. A mismatch means the pricing
+  // Reconcile against what was actually charged — net of a refund made before
+  // invoicing (an add-on paid twice, spec D6). A mismatch means the pricing
   // rules moved since the payment: issuing an invoice for a different amount
   // than the money taken is the one error that must never reach a customer.
-  const chargedEuros = (paymentIntent.amount_received || paymentIntent.amount) / 100;
+  const chargedEuros =
+    (input.netCents ?? (paymentIntent.amount_received || paymentIntent.amount)) / 100;
   if (Math.abs(linesTotal - chargedEuros) > 0.01) {
     console.error(
       `[INVOICE_TOTAL_MISMATCH] ${paymentIntent.id}: lines ${linesTotal}€ vs charged ${chargedEuros}€`,
@@ -90,14 +112,6 @@ export async function issueInvoiceForPayment(
   const subtotal =
     VAT_REGIME === "standard" ? total / (1 + VAT_RATE) : total;
   const vat = total - subtotal;
-
-  const customerName = [order.firstName, order.lastName]
-    .filter(Boolean)
-    .join(" ")
-    .trim();
-  const coupleName = order.partnerName
-    ? `${customerName} & ${order.partnerName}`
-    : customerName;
 
   // Allocate last: a number handed out then abandoned leaves a gap.
   const { data: numberData, error: numberError } = await supabaseAdmin.rpc(

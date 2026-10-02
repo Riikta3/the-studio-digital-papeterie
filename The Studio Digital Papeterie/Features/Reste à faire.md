@@ -20,7 +20,7 @@ Voir aussi [[Checklist nouveau thème]], [[Invitation]], [[Conventions]].
 | 1 | i18n de blanc-couture | Claude, seul | Oui si un couple achète ce thème en non-français |
 | 2 | ~~Base de production~~ | — | ~~Oui~~ — **fait le 12/09, 53 migrations en ligne** |
 | 3 | Relecture ja / ar / zh / pt | Un locuteur natif | Non, mais visible par les invités |
-| 4 | Champs du contrat sans écran | Claude, seul | Non |
+| 4 | ~~Champs du contrat sans écran~~ | — | ~~Non~~ — **fait le 27/09 avec [[Éditeur de faire-part]]** |
 | 5 | Sur-mesure sans module | Décision produit | Non — assumé |
 | 6 | `site_url` Supabase sur une preview Vercel | Toi (choisir le domaine), Claude (pousser) | Non — filet mal accroché |
 
@@ -130,7 +130,14 @@ plate abîme le produit.
 
 ---
 
-## 4. Champs du contrat encore sans écran
+## 4. Champs du contrat encore sans écran — FAIT le 27/09/2026
+
+L'[[Éditeur de faire-part]] donne un écran à chacun : `copy.scheduleIntro`,
+`copy.rsvpIntro`, `copy.footerNote`, `copy.rsvpNote`, le monogramme, les
+libellés de date, la note du lendemain (dans `settings.invitation_texts`), et
+les intros de section disent maintenant où elles atterrissent. Le texte
+ci-dessous est conservé pour l'historique.
+
 
 Le piège déjà nommé dans [[Checklist nouveau thème]] : **un champ de
 `types.ts` qu'aucun formulaire n'alimente est un champ mort**, même s'il est

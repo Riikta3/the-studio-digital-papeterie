@@ -60,7 +60,7 @@ export function CountdownSection({ data }: { data: InvitationData }) {
   const remaining = useRemaining(data.event.startsAt);
 
   return (
-    <section className="panel pearled" id="br-count">
+    <section className="panel pearled" id="br-count" data-editor-section="countdown">
       <Reveal>
         <p className="eyebrow">{t("eyebrow")}</p>
         <h2>

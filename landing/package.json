@@ -12,7 +12,10 @@
     "themes:check": "node scripts/sync-themes.mjs --check",
     "themes:scope-css": "node scripts/scope-theme-css.mjs",
     "themes:shoot": "node scripts/shoot-theme.mjs",
-    "themes:shoot-scroll": "node scripts/shoot-hero-scroll.mjs"
+    "themes:shoot-scroll": "node scripts/shoot-hero-scroll.mjs",
+    "themes:messages": "node scripts/theme-messages.mjs",
+    "themes:port-css": "node scripts/port-theme-css.mjs",
+    "themes:shoot-url": "node scripts/shoot-url.mjs"
   },
   "keywords": [],
   "author": "",

@@ -1,11 +1,16 @@
-import type { InvitationPageData } from "@/actions/invitation-page-actions";
+import { splitTexts } from "@shared/data/invitation-texts";
+import { safeUrl } from "@shared/lib/safe-url";
+import { EVENT_KEYS, type EventKey } from "@shared/types/invitation";
+
+import type { InvitationPageData } from "@/lib/assemble-invitation-page";
 import type {
   InvitationData,
   ModuleId,
   ScheduleEntry,
   ScheduleIcon,
+  WeddingEvent,
 } from "@/components/invitation/themes/types";
-import { MODULE_IDS } from "@/components/invitation/themes/types";
+import { MODULE_IDS, SCHEDULE_ICONS } from "@/components/invitation/themes/types";
 import { formatFrenchWeekday } from "@/components/invitation/themes/format";
 
 /**
@@ -150,6 +155,19 @@ function iconForTitle(title: string): ScheduleIcon | undefined {
   return undefined;
 }
 
+const KNOWN_ICONS = new Set<string>(SCHEDULE_ICONS);
+
+/**
+ * The icon the couple picked for a moment, when it is one the themes draw.
+ *
+ * `schedule_entries.icon` is checked against the same five values in the
+ * database, so this only matters for rows that did not come from it — the
+ * editor's preview posts the couple's draft straight here.
+ */
+function knownIcon(icon: string | undefined): ScheduleIcon | undefined {
+  return icon && KNOWN_ICONS.has(icon) ? (icon as ScheduleIcon) : undefined;
+}
+
 /**
  * Which day of the celebration an event belongs to.
  *
@@ -160,6 +178,30 @@ function iconForTitle(title: string): ScheduleIcon | undefined {
  */
 function dayForEventKey(key: string): 1 | 2 {
   return key === "brunch" ? 2 : 1;
+}
+
+/**
+ * The transport module's kinds (`TransportForm`'s identifiers), as a heading.
+ * French, like the other headings this file writes ("Stationnement", "Accès").
+ */
+const TRANSPORT_KIND_LABELS: Record<string, string> = {
+  Train: "En train",
+  Plane: "En avion",
+  Bus: "En bus",
+  Car: "En voiture",
+  Ship: "En bateau",
+};
+
+const KNOWN_EVENT_KEYS = new Set<string>(EVENT_KEYS);
+
+/** An `events.key` the contract knows; a stale value is dropped, not passed on. */
+function knownEventKey(key: string | undefined): EventKey | undefined {
+  return key && KNOWN_EVENT_KEYS.has(key) ? (key as EventKey) : undefined;
+}
+
+/** A trimmed string, or undefined for an empty one. */
+function nonEmpty(value: string | undefined): string | undefined {
+  return value?.trim() || undefined;
 }
 
 /* ------------------------------------------------------------------ *
@@ -207,6 +249,13 @@ export function toInvitationData(page: InvitationPageData): InvitationData {
   /** What the couple wrote on the module screens. Read throughout. */
   const mod = page.moduleContent;
 
+  /**
+   * What the couple rewrote in the editor: contract copy with no column of
+   * its own, and the theme's own words ("slots"). A contract value, when
+   * present, beats whatever this function would otherwise derive.
+   */
+  const { contract: written, slots } = splitTexts(page.texts);
+
   /* -- The main event, which anchors the countdown and the day-1 label ----- */
 
   // `getInvitationPage` already picks the ceremony, falling back to the first
@@ -222,19 +271,43 @@ export function toInvitationData(page: InvitationPageData): InvitationData {
   /* -- Schedule ----------------------------------------------------------- */
 
   // `programme` is already grouped by event and ordered; flattened back here
-  // because a theme lays out a day, not an event. The day-2 split is the only
-  // grouping the contract keeps.
-  const eventByName = new Map(page.events.map((event) => [event.name, event]));
-
+  // because a theme lays out a day. Each moment keeps its event, so a theme
+  // that prints the events can put their moments under them.
   const schedule: ScheduleEntry[] = page.programme.flatMap((day) =>
     day.entries.map((entry) => ({
-      day: dayForEventKey(eventByName.get(day.title)?.key ?? "wedding-day"),
+      day: dayForEventKey(day.key),
       time: entry.time,
       title: entry.label,
       description: entry.description,
-      icon: iconForTitle(entry.label),
+      // The couple's own pick first; the title is only a guess.
+      icon: knownIcon(entry.icon) ?? iconForTitle(entry.label),
+      image: safeUrl(entry.image),
+      event: knownEventKey(day.key),
     })),
   );
+
+  /* -- Events ------------------------------------------------------------- */
+
+  // Every event the couple kept on, with what they wrote on its card. Until
+  // this, only the ceremony's time (for the countdown) and the brunch (as the
+  // day-after block) reached a theme: an address or a description typed on an
+  // event appeared nowhere.
+  const events: WeddingEvent[] = page.events.flatMap((event) => {
+    const kind = knownEventKey(event.key);
+    if (!kind) return [];
+    return [
+      {
+        kind,
+        name: event.name.trim(),
+        date: nonEmpty(event.date),
+        time: nonEmpty(event.time),
+        address: nonEmpty(event.address),
+        description: nonEmpty(event.description),
+        dressCode: nonEmpty(event.dressCode),
+        day: dayForEventKey(kind),
+      },
+    ];
+  });
 
   // Sorted by the index the form writes at save time; entries saved before
   // that existed fall back to the order they were stored in.
@@ -255,7 +328,6 @@ export function toInvitationData(page: InvitationPageData): InvitationData {
   // rows, so the brunch event is surfaced separately when the couple enabled
   // one. Its schedule entries still appear above as `day: 2`.
   const brunch = page.events.find((event) => event.key === "brunch");
-  const brunchDay = page.programme.find((day) => day.title === brunch?.name);
 
   /* -- Dress code --------------------------------------------------------- */
 
@@ -287,19 +359,32 @@ export function toInvitationData(page: InvitationPageData): InvitationData {
   // get there, by mode — so the module's rows become access entries rather
   // than a section the contract has no room for. Carpooling is appended as its
   // own mode when the couple published a link.
-  const transportAccess = mod.transport.options.map((option) => ({
-    mode: option.title ?? option.iconType ?? "Accès",
+  // A mode with no title of its own is named after its kind — in words, not
+  // as the form's identifier: "Plane" was printed as is on French invitations.
+  const transportAccess: Array<{
+    mode: string;
+    details: string[];
+    link?: { url: string; label?: string };
+  }> = mod.transport.options.map((option) => ({
+    mode: option.title ?? (option.iconType && TRANSPORT_KIND_LABELS[option.iconType]) ?? "Accès",
     details: option.description ? [option.description] : [],
   }));
 
-  if (mod.transport.carpoolUrl) {
+  const carpoolUrl = safeUrl(mod.transport.carpoolUrl);
+  if (carpoolUrl) {
     transportAccess.push({
       mode: "Covoiturage",
-      details: [mod.transport.carpoolDescription, mod.transport.carpoolUrl].filter(
-        (detail): detail is string => Boolean(detail),
-      ),
+      details: mod.transport.carpoolDescription ? [mod.transport.carpoolDescription] : [],
+      // The couple's wording for the link ("Proposer une place") was
+      // collected and dropped; the raw URL stood in for it.
+      link: { url: carpoolUrl, label: mod.transport.carpoolLinkLabel },
     });
   }
+
+  // Both, venue first. This used to be one or the other — the transport
+  // module's modes were dropped the moment the venue had a single line of
+  // parking text, so a couple who filled in both screens lost the trains.
+  const access = [...(page.venue?.access ?? []), ...transportAccess];
 
   /* -- RSVP --------------------------------------------------------------- */
 
@@ -314,18 +399,21 @@ export function toInvitationData(page: InvitationPageData): InvitationData {
     // invitation from the showcase.
     weddingId: page.weddingId,
 
+    // Only when the couple switched the Jour J on. The slug is the page's own,
+    // so a theme can build `/jourj/<slug>/…` without being told it separately.
+    dayOf: page.dayOf ? { slug: page.slug, photos: page.dayOf.photos } : undefined,
+
     couple: {
       partner1: page.partner1,
       partner2: page.partner2,
       // Absent for most weddings, and that is the correct state: a theme must
       // render its closing page without one rather than substitute a stock
       // image. blanc-couture used to hardcode the demo couple's portrait here.
-      portrait: page.couplePhotoUrl,
-      monogram:
-        [page.partner1, page.partner2]
-          .map((name) => name.trim().charAt(0).toUpperCase())
-          .filter(Boolean)
-          .join(" & ") || undefined,
+      portrait: safeUrl(page.couplePhotoUrl),
+      // Only the couple's own: a monogram cleared in the editor must leave
+      // the page. A theme built around one (blanc-couture) falls back to the
+      // initials itself; the others print nothing.
+      monogram: written["couple.monogram"],
     },
 
     event: {
@@ -348,9 +436,15 @@ export function toInvitationData(page: InvitationPageData): InvitationData {
       heroKicker: page.heroKicker ?? "Nous nous marions",
       announcement: page.announcement,
       closing: page.closingWords,
-      dateLabel: dottedLabel(date),
+      dateLabel: written["copy.dateLabel"] ?? dottedLabel(date),
       dateSpelled:
-        formatFrenchWeekday(startsAt, { timeZone: "Europe/Paris" }) ?? undefined,
+        written["copy.dateSpelled"] ??
+        formatFrenchWeekday(startsAt, { timeZone: "Europe/Paris" }) ??
+        undefined,
+      // No column ever held these three: the editor is their only writer.
+      scheduleIntro: written["copy.scheduleIntro"],
+      rsvpIntro: written["copy.rsvpIntro"],
+      footerNote: written["copy.footerNote"],
       venueIntro: mod.venue.description,
       staysIntro: mod.accommodation.description,
       playlistIntro: mod.playlist.description,
@@ -359,10 +453,15 @@ export function toInvitationData(page: InvitationPageData): InvitationData {
       // printed as a note. With an ISO value the themes format it themselves
       // from `event.rsvpDeadline`, and this stays out of their way.
       rsvpNote:
-        !mod.rsvpDeadline && mod.rsvpDeadlineLabel
+        written["copy.rsvpNote"] ??
+        (!mod.rsvpDeadline && mod.rsvpDeadlineLabel
           ? `Merci de répondre avant le ${mod.rsvpDeadlineLabel}.`
-          : undefined,
+          : undefined),
     },
+
+    // The theme's own words, rewritten. Absent rather than empty when there
+    // are none, so a theme's `data.texts?.[key]` reads the same either way.
+    texts: Object.keys(slots).length > 0 ? slots : undefined,
 
     venue: {
       // The venue row wins; the map module stands in when it is empty, which
@@ -370,17 +469,13 @@ export function toInvitationData(page: InvitationPageData): InvitationData {
       name: page.venue?.name || mod.venue.name || "",
       city: page.venue?.city,
       address: page.venue?.address || mod.venue.address,
-      mapsUrl: page.venue?.mapsUrl,
-      wazeUrl: page.venue?.wazeUrl,
-      image: page.venue?.photoUrl || mod.venue.imageUrl,
-      access:
-        page.venue && page.venue.access.length > 0
-          ? page.venue.access
-          : // The transport module is the same idea in another shape: one
-            // mode, one set of directions.
-            transportAccess.length > 0
-            ? transportAccess
-            : undefined,
+      // Every link and image below is printed as an `href` or a `src` on a
+      // page every guest opens: only web URLs get through, whatever the row
+      // (or the preview's draft) holds.
+      mapsUrl: safeUrl(page.venue?.mapsUrl),
+      wazeUrl: safeUrl(page.venue?.wazeUrl),
+      image: safeUrl(page.venue?.photoUrl || mod.venue.imageUrl),
+      access: access.length > 0 ? access : undefined,
     },
 
     // `schedule_entries` wins; the timeline module stands in when the couple
@@ -393,12 +488,23 @@ export function toInvitationData(page: InvitationPageData): InvitationData {
           ? moduleSchedule
           : undefined,
 
+    events: events.length > 0 ? events : undefined,
+
     dayTwo: brunch
       ? {
           title: brunch.name,
-          dateLabel: brunchDay?.date || undefined,
-          timeLabel: brunch.time ?? undefined,
+          // From the event's own date: the programme day it used to come from
+          // exists only once the brunch has moments, so a brunch without any
+          // lost its date.
+          dateLabel:
+            written["dayTwo.dateLabel"] ??
+            // A bare day, so no time zone: `toDate` pins it to local midnight,
+            // and formatting that in another zone can land on the day before.
+            formatFrenchWeekday(brunch.date) ??
+            undefined,
+          timeLabel: written["dayTwo.timeLabel"] ?? brunch.time ?? undefined,
           body: brunch.description ?? undefined,
+          note: written["dayTwo.note"],
         }
       : undefined,
 
@@ -408,8 +514,9 @@ export function toInvitationData(page: InvitationPageData): InvitationData {
     gifts:
       mod.giftList.description || mod.giftList.url
         ? {
+            title: mod.giftList.title,
             body: mod.giftList.description,
-            url: mod.giftList.url,
+            url: safeUrl(mod.giftList.url),
             linkLabel: mod.giftList.label,
           }
         : undefined,
@@ -425,10 +532,48 @@ export function toInvitationData(page: InvitationPageData): InvitationData {
             title: moduleDress.subtitle ?? moduleDress.title ?? "Dress code",
             body: dressCodeBody || undefined,
             colors: moduleDress.colors,
-            image: moduleDress.imageUrl,
+            image: safeUrl(moduleDress.imageUrl),
             note: moduleDress.note,
           }
         : undefined,
+
+    // The three modules below had a screen and a config, and no theme drew
+    // them: a couple who bought one saw nothing on their invitation. Absent
+    // whenever the couple has not filled them in, so a theme hides the section.
+    introVideo: (() => {
+      const url = safeUrl(mod.introVideo.videoUrl);
+      return url
+        ? {
+            title: mod.introVideo.title,
+            subtitle: mod.introVideo.subtitle,
+            body: mod.introVideo.description,
+            url,
+            kind: mod.introVideo.videoType === "upload" ? ("file" as const) : ("embed" as const),
+          }
+        : undefined;
+    })(),
+
+    menu:
+      mod.menu.sections.length > 0
+        ? {
+            sections: mod.menu.sections.map((section) => ({
+              title: section.title,
+              items: section.items.map((item) => ({
+                title: item.title ?? "",
+                description: item.description,
+              })),
+            })),
+            note: mod.menu.dietaryNote,
+            footer: mod.menu.footer.length > 0 ? mod.menu.footer : undefined,
+          }
+        : undefined,
+
+    gallery: (() => {
+      const images = mod.gallery.images
+        .map((url) => safeUrl(url))
+        .filter((url): url is string => Boolean(url));
+      return images.length > 0 ? { images } : undefined;
+    })(),
 
     stays:
       page.accommodations.length > 0
@@ -436,9 +581,12 @@ export function toInvitationData(page: InvitationPageData): InvitationData {
             name: stay.name,
             city: stay.city,
             distance: stay.distance,
-            url: stay.bookingUrl,
+            address: stay.address,
+            url: safeUrl(stay.bookingUrl),
             offer: stay.offer,
-            image: stay.photoUrl,
+            phone: nonEmpty(stay.phone),
+            image: safeUrl(stay.photoUrl),
+            secondary: stay.secondary,
           }))
         : mod.accommodation.options.length > 0
           ? mod.accommodation.options.map((option) => ({
@@ -447,7 +595,7 @@ export function toInvitationData(page: InvitationPageData): InvitationData {
               // The module has no `offer` column; its free-text description is
               // where a couple writes "code X : -10 %".
               offer: option.description,
-              url: option.url,
+              url: safeUrl(option.url),
             }))
           : undefined,
 
@@ -475,9 +623,14 @@ export function toInvitationData(page: InvitationPageData): InvitationData {
         : undefined,
 
     rsvp: {
-      allowPartner: true,
+      // Open by default: a couple who never opened the RSVP tab gets the form
+      // every wedding had before these became settings.
+      allowPartner: mod.rsvp.allowPartner ?? true,
       allowChildren,
-      collectMessage: true,
+      collectMessage: mod.rsvp.collectMessage ?? true,
+      // No list, no select: the themes hide the field rather than offer a
+      // single meaningless option.
+      dietaryOptions: mod.rsvp.dietaryOptions,
       // Only asked when the couple actually enabled that event.
       collectWelcomeDinner: page.events.some((event) => event.key === "welcome-dinner"),
       collectBrunch: Boolean(brunch),

@@ -1,4 +1,5 @@
 import frMessages from "../../messages/fr.json";
+import { domainInvoiceLine } from "@/lib/domain-invoice-line";
 import {
   EXTRA_MODULE_PRICE,
   EXTRA_PRICES,
@@ -6,6 +7,7 @@ import {
   LANGUAGE_PRICE,
   PLAN_PRICES,
   hasMeteredModules,
+  parseDomainYears,
   type OrderItems,
 } from "@/lib/pricing";
 
@@ -30,12 +32,15 @@ export interface InvoiceLine {
   total: number;
 }
 
-/** Human labels for the paid extras, matching the studio's option cards. */
+/**
+ * Human labels for the flat-priced extras, matching the studio's option
+ * cards. The custom domain is not one: its line names the domain and the
+ * years, and comes from `domainInvoiceLine`.
+ */
 const EXTRA_LABELS: Record<string, string> = {
   "custom-music": "Musique personnalisée",
   "custom-illustration": "Illustration personnalisée",
   "animated-video": "Vidéo animée",
-  "custom-domain": "Nom de domaine personnalisé",
 };
 
 /** Plan labels as sold on the homepage pricing cards. */
@@ -54,7 +59,8 @@ const PLAN_LABELS: Record<string, string> = {
  * which is what a French accounting document requires.
  */
 export function buildInvoiceLines(
-  items: OrderItems,
+  /** `domainName` and `domainYears` as read back from the intent (`parseOrderMetadata`). */
+  items: OrderItems & { domainName?: string },
   moduleName: (id: string) => string,
 ): InvoiceLine[] {
   const lines: InvoiceLine[] = [];
@@ -134,7 +140,12 @@ export function buildInvoiceLines(
     });
   }
 
-  for (const extra of items.extras ?? []) {
+  const extras = items.extras ?? [];
+
+  // The domain is skipped by name, not only for lacking a flat price: were it
+  // ever priced in EXTRA_PRICES again, it would be billed twice here.
+  for (const extra of extras) {
+    if (extra === "custom-domain") continue;
     const price = EXTRA_PRICES[extra];
     if (price === undefined) continue;
 
@@ -144,6 +155,14 @@ export function buildInvoiceLines(
       unitPrice: price,
       total: price,
     });
+  }
+
+  // Priced for the years on the intent, with `computeOrderTotal`'s own
+  // fallback of one year, so the line and the charge cannot disagree.
+  if (extras.includes("custom-domain")) {
+    lines.push(
+      domainInvoiceLine(items.domainName, parseDomainYears(items.domainYears) ?? 1),
+    );
   }
 
   return lines;

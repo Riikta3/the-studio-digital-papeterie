@@ -1,4 +1,4 @@
-import { getTranslations } from "next-intl/server";
+import { useTranslations } from "next-intl";
 
 import type { InvitationData } from "../../types";
 import { Reveal } from "../Reveal";
@@ -25,13 +25,13 @@ import { Reveal } from "../Reveal";
  * reader.
  */
 
-export async function DressCodeSection({ data }: { data: InvitationData }) {
-  const t = await getTranslations("Invitation.belleRive.dressCode");
+export function DressCodeSection({ data }: { data: InvitationData }) {
+  const t = useTranslations("Invitation.belleRive.dressCode");
   const dress = data.dressCode;
   if (!dress) return null;
 
   return (
-    <section className="panel dresscode dresscode-clean">
+    <section className="panel dresscode dresscode-clean" data-editor-section="dress-code">
       <Reveal>
         <p className="eyebrow">{t("eyebrow")}</p>
         <h2>{dress.title}</h2>

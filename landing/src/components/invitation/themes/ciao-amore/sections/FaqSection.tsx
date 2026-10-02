@@ -4,6 +4,7 @@ import { useTranslations } from "next-intl";
 import { useId, useState } from "react";
 
 import { withChildrenPolicyFaq } from "../../faq";
+import { Lines, slot } from "../../text";
 import type { InvitationData } from "../../types";
 
 /**
@@ -32,7 +33,7 @@ export function FaqSection({ data }: { data: InvitationData }) {
   if (faq.length === 0) return null;
 
   return (
-    <section className="paper faq-section">
+    <section className="paper faq-section" data-editor-section="faq">
       {/* eslint-disable-next-line @next/next/no-img-element -- decorative, positioned by CSS. */}
       <img
         className="decor decor-faq-lemon"
@@ -41,11 +42,9 @@ export function FaqSection({ data }: { data: InvitationData }) {
         aria-hidden="true"
         loading="lazy"
       />
-      <p className="eyebrow">{t("eyebrow")}</p>
+      <p className="eyebrow">{slot(data, "faq.eyebrow") ?? t("eyebrow")}</p>
       <h2>
-        {t("titleLine1")}
-        <br />
-        {t("titleLine2")}
+        <Lines text={slot(data, "faq.title") ?? `${t("titleLine1")}\n${t("titleLine2")}`} />
       </h2>
       <div>
         {faq.map((entry, index) => {
@@ -54,7 +53,7 @@ export function FaqSection({ data }: { data: InvitationData }) {
           const buttonId = `${baseId}-button-${index}`;
 
           return (
-            <div className="ca-faq-item" data-open={open || undefined} key={entry.question}>
+            <div className="ca-faq-item" data-open={open || undefined} key={`${index}-${entry.question}`}>
               <button
                 type="button"
                 id={buttonId}

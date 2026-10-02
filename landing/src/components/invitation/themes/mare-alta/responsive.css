@@ -1,0 +1,385 @@
+/*
+ * Hand-written layer for "Maré Alta", imported after the generated sheet.
+ * Every rule sits under .theme-mare-alta and says why it exists.
+ */
+
+/* The root is the sage backdrop behind the 720px column; make it at least a screen tall. */
+.theme-mare-alta { min-height: 100svh; }
+
+/* ------------------------------------------------------------------ *
+ * Hero
+ * ------------------------------------------------------------------ */
+
+/* The scroll cue is a <button> here (no hash link, no scroll on refresh): strip the button chrome.
+   The size, spacing and case come from the designer's own .scroll-cue rule, which beats the button reset. */
+.theme-mare-alta button.scroll-cue { background: none; border: 0; padding: 0; cursor: pointer; }
+
+/* The designer drops the LAST item of the top line on a phone: that was the place, after the date. With a
+   wedding that has no place the date is the last item, and it vanished. Name the place instead. */
+@media (max-width: 760px) {
+  .theme-mare-alta .hero-topline span:last-child:not(.ma-hero-place) { display: block; }
+  .theme-mare-alta .hero-topline .ma-hero-place { display: none; }
+}
+
+/* A name longer than the column (a compound first name, a long single word) breaks inside the word
+   instead of running past the edge, where the hero's overflow:hidden would cut it off. */
+.theme-mare-alta .hero-copy h1 span { max-width: 100%; overflow-wrap: anywhere; hyphens: auto; }
+
+/* The monogram the couple wrote, centred on the top line whatever the width of the date beside it. */
+.theme-mare-alta .ma-hero-mark { position: absolute; left: 50%; transform: translateX(-50%); letter-spacing: 0.2em; }
+
+/* The couple's announcement. The designer's hero had no such line; it sits in the linen above the
+   names (a free area, so the villa below is never covered) and does not push the names down. */
+.theme-mare-alta .ma-announcement {
+  position: absolute; bottom: calc(100% + 0.5rem); left: 50%; transform: translateX(-50%);
+  width: min(22rem, calc(100vw - 3rem)); margin: 0; text-align: center; text-wrap: balance;
+  font: italic 0.98rem/1.5 Georgia, var(--font-ma-serif), serif; color: var(--wine);
+}
+
+/* ------------------------------------------------------------------ *
+ * Programme
+ * ------------------------------------------------------------------ */
+
+/* The designer cut each card's embroidery from the sheet by the card's POSITION (first the church, second the
+   rings...), which is only right for their own five moments in their own order. The object follows the kind of
+   moment instead (data-moment, from the entry's icon): the demo's five cards come out exactly as designed, and
+   a programme of three or eight still shows the right drawing. The sheet holds five objects side by side: church,
+   rings, glass, place setting, disco ball. Dinner keeps the designer's own table scene. */
+.theme-mare-alta .agenda-card .agenda-medallion[data-moment] {
+  background-image: url("/themes/mare-alta/embroidered-timeline-v3.webp");
+  background-size: 690px 245px;
+}
+.theme-mare-alta .agenda-card .agenda-medallion[data-moment="arrival"] { background-position: 0 center; }
+.theme-mare-alta .agenda-card .agenda-medallion[data-moment="ceremony"] { background-position: 35% center; }
+.theme-mare-alta .agenda-card .agenda-medallion[data-moment="brunch"] { background-position: 51% center; }
+.theme-mare-alta .agenda-card .agenda-medallion[data-moment="cocktail"] { background-position: 68% center; }
+.theme-mare-alta .agenda-card .agenda-medallion[data-moment="party"] { background-position: 100% center; }
+.theme-mare-alta .agenda-card .agenda-medallion[data-moment="dinner"] {
+  background-image: url("/themes/mare-alta/embroidered-portuguese-table-v6.webp");
+  background-size: cover;
+  background-position: center;
+}
+
+/* The wedding's other events (welcome dinner, brunch): new, the designer's programme had no place for them.
+   They reuse the card, under a heading of their own, with the same width as the list above. */
+.theme-mare-alta .ma-also { max-width: 575px; margin: 3.5rem auto 0; }
+.theme-mare-alta .ma-also > .eyebrow { margin-bottom: 1.2rem; text-align: center; }
+
+/* The card's text sits in one box (the designer's grid placed each line in turn, which needs the same number of
+   lines on every card); the medallion keeps the left column. */
+.theme-mare-alta .ma-event-body { min-width: 0; align-self: center; }
+.theme-mare-alta .ma-event-head { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 0.1rem 0.8rem; }
+.theme-mare-alta .ma-event-day { margin-inline-end: 16px; color: var(--gold); font: 1rem Georgia, var(--font-ma-serif), serif; }
+.theme-mare-alta .ma-event-body > p.ma-event-line { margin-top: 0.4rem; font-size: 0.82rem; }
+.theme-mare-alta .ma-event-body > p.ma-event-note { font-style: italic; }
+.theme-mare-alta .ma-event-moments { margin: 0.8rem 0 0; padding: 0.6rem 0 0; border-top: 1px solid var(--line); list-style: none; }
+.theme-mare-alta .ma-event-moments li { display: flex; gap: 0.6rem; padding: 0.18rem 0; color: var(--ink); font-size: 0.86rem; line-height: 1.4; }
+.theme-mare-alta .ma-event-moments time { flex: none; min-width: 3.2rem; color: var(--gold); font-size: 0.68rem; font-weight: 700; letter-spacing: 0.1em; line-height: 1.7; }
+
+/* ------------------------------------------------------------------ *
+ * Venue
+ * ------------------------------------------------------------------ */
+
+/* The address paragraph spaced the buttons from the picture; a venue with no address left them touching it. */
+.theme-mare-alta .location-window + .button-row { margin-top: 1.8rem; }
+
+/* ------------------------------------------------------------------ *
+ * Dress code
+ * ------------------------------------------------------------------ */
+
+/* The designer's tags named three colours; the couple's palette is any number of CSS colours, drawn as swatches
+   (the colour is the span's inline background). They wrap rather than run off the picture. */
+.theme-mare-alta .fashion-tags { flex-wrap: wrap; gap: 0.6rem; }
+.theme-mare-alta .fashion-tags span {
+  width: 1.9rem; height: 1.9rem; min-width: 0; padding: 0; border: 2px solid #f6efe6;
+  border-radius: 50%; box-shadow: 0 2px 6px #0003; backdrop-filter: none;
+}
+
+/* The note is the couple's: one paragraph takes the whole row (the designer's grid paired two), and more than
+   two run on below, full width. */
+.theme-mare-alta .dress-manifesto > p:nth-child(2):last-child { grid-column: 2 / -1; }
+.theme-mare-alta .dress-manifesto > .ma-dress-more { grid-column: 1 / -1; }
+
+/* ------------------------------------------------------------------ *
+ * Accommodation
+ * ------------------------------------------------------------------ */
+
+/* A hotel's photograph, above its card: wide, cropped to fit, hairline-framed like the other pictures. */
+.theme-mare-alta .ma-stay-photo { display: block; width: 100%; aspect-ratio: 16 / 9; margin: 1.5rem 0 0; object-fit: cover; border: 1px solid var(--line); }
+
+/* The designer styled the card's action as a <button>; here it is a link, so give it the same declarations
+   (`.stay-card button` in the generated sheet), desktop and phone. */
+.theme-mare-alta .stay-card a {
+  grid-column: 3; grid-row: 2 / 4; display: flex; align-items: center; gap: 0.3rem;
+  color: var(--wine); font-size: 0.72rem; text-decoration: none; cursor: pointer;
+}
+/* The phone number is a second link in the text column, underlined to tell it from the action. */
+.theme-mare-alta .stay-card a.ma-stay-call { grid-column: 2; grid-row: auto; margin-top: 0.35rem; text-decoration: underline; text-underline-offset: 3px; }
+@media (max-width: 760px) {
+  .theme-mare-alta .stay-card a { grid-column: 2; grid-row: auto; justify-self: start; padding: 0; }
+}
+
+/* The "more options" button and the row it sits in. */
+.theme-mare-alta .ma-more-row { display: flex; justify-content: center; margin-top: 1.6rem; }
+
+/* ------------------------------------------------------------------ *
+ * Travel notebook
+ * ------------------------------------------------------------------ */
+
+/* A card's link, when the couple published one: the whole card is the target (the link's ::after stretches over
+   it), the wording stays visible and keyboard-focusable. */
+.theme-mare-alta .travel-guide-grid article { position: relative; }
+.theme-mare-alta .ma-card-link {
+  display: inline-block; margin-top: 1rem; color: var(--wine); font-size: 0.72rem; font-weight: 700;
+  letter-spacing: 0.1em; text-transform: uppercase; text-decoration: underline; text-underline-offset: 4px;
+}
+.theme-mare-alta .ma-card-link::after { content: ""; position: absolute; inset: 0; }
+
+/* The designer's luggage tag had the demo couple's initials embroidered in its middle, in the picture itself. The
+   file shipped here (`embroidered-luggage-tag-blank-v10.webp`) is that tag with the lettering removed from the
+   linen and nothing else touched; the couple's own monogram is set on it as text, tilted like the tag and sized by
+   the tag's width (a container: 19cqw for the designer's five characters, smaller as the monogram gets longer). */
+.theme-mare-alta .travel-object.luggage-tag { container-type: size; }
+.theme-mare-alta .travel-object.luggage-tag::after {
+  content: var(--ma-menu-monogram);
+  position: absolute; left: 51.8%; top: 63.8%; transform: translate(-50%, -50%) rotate(5deg);
+  color: #5a6c4d; text-shadow: 0 1px 0 #fff7; white-space: nowrap; letter-spacing: 0.02em;
+  font: 400 min(19cqw, calc(97cqw / var(--ma-monogram-chars, 5)))/1 Didot, var(--font-ma-display), "Bodoni MT", Georgia, var(--font-ma-serif), serif;
+}
+
+/* An odd number of cards leaves a hole in the designer's two columns: the last one takes the whole row. */
+.theme-mare-alta .travel-guide-grid article:last-child:nth-child(odd) { grid-column: 1 / -1; }
+
+/* ------------------------------------------------------------------ *
+ * Menu
+ * ------------------------------------------------------------------ */
+
+/* A dish's description, under its name. */
+.theme-mare-alta .ma-dish-note { display: block; margin-top: 0.25rem; font: italic 0.9em/1.5 Georgia, var(--font-ma-serif), serif; color: var(--muted); }
+
+/* ------------------------------------------------------------------ *
+ * Playlist
+ * ------------------------------------------------------------------ */
+
+/* The designer's field is a row (icon, input, button) in a bordered box. The suggestions and the guest's picks
+   are new: they open inside the same box, in the page's flow, between the field and the send button. Named
+   areas keep the row on one line on a wide screen and stack the button last on a phone; an empty area
+   collapses. */
+.theme-mare-alta .song-suggest {
+  grid-template-areas: "icon field send" "results results results" "picked picked picked" "status status status" "error error error";
+}
+.theme-mare-alta .song-suggest > svg { grid-area: icon; }
+.theme-mare-alta .song-suggest > input { grid-area: field; }
+.theme-mare-alta .song-suggest > .ma-send { grid-area: send; }
+.theme-mare-alta .song-suggest > .ma-send:disabled { opacity: 0.45; cursor: not-allowed; }
+@media (max-width: 760px) {
+  .theme-mare-alta .song-suggest {
+    grid-template-areas: "icon field" "results results" "picked picked" "status status" "error error" "send send";
+  }
+}
+
+/* Suggestions: hairline rows under the field, the same height as the designer's track list rows. */
+.theme-mare-alta .ma-results { grid-area: results; max-height: 18rem; overflow-y: auto; overscroll-behavior: contain; border-top: 1px solid var(--line); }
+.theme-mare-alta .ma-results ul, .theme-mare-alta .ma-picked { margin: 0; padding: 0; list-style: none; }
+.theme-mare-alta .ma-results li {
+  display: grid; grid-template-columns: 44px 1fr; align-items: center; gap: 0.8rem;
+  padding: 0.55rem 1rem; border-bottom: 1px solid var(--line); cursor: pointer;
+}
+.theme-mare-alta .ma-results li:last-child { border-bottom: 0; }
+.theme-mare-alta .ma-results li:hover, .theme-mare-alta .ma-results li.ma-active { background: #efe6d6; }
+.theme-mare-alta .ma-results img, .theme-mare-alta .ma-picked img { width: 44px; height: 44px; object-fit: cover; background: var(--silk); }
+.theme-mare-alta .ma-results li > span, .theme-mare-alta .ma-picked li > span { display: grid; min-width: 0; }
+.theme-mare-alta .ma-results strong, .theme-mare-alta .ma-picked strong { overflow: hidden; color: var(--sage-dark); font: 1.05rem/1.25 Didot, var(--font-ma-display), Georgia, var(--font-ma-serif), serif; text-overflow: ellipsis; white-space: nowrap; }
+.theme-mare-alta .ma-results em, .theme-mare-alta .ma-picked em { overflow: hidden; color: var(--muted); font: normal 0.78rem/1.4 "Avenir Next", var(--font-ma-sans), Avenir, Arial, sans-serif; text-overflow: ellipsis; white-space: nowrap; }
+.theme-mare-alta .ma-note { margin: 0; padding: 0.9rem 1rem; color: var(--muted); font: italic 0.9rem Georgia, var(--font-ma-serif), serif; }
+
+/* The guest's picks (up to three), each with a way to take it back. The designer's rule for any button in this
+   box paints it as the sage send button; the remove buttons are quiet. */
+.theme-mare-alta .ma-picked { grid-area: picked; border-top: 1px solid var(--line); }
+.theme-mare-alta .ma-picked li { display: grid; grid-template-columns: 44px 1fr auto; align-items: center; gap: 0.8rem; padding: 0.55rem 1rem; border-bottom: 1px solid var(--line); }
+.theme-mare-alta .song-suggest .ma-picked button {
+  grid-column: auto; align-self: center; width: 2.2rem; height: 2.2rem; min-height: 0; padding: 0; border: 1px solid var(--line);
+  background: transparent; color: var(--sage-dark); font-size: 1.2rem; line-height: 1; letter-spacing: 0;
+}
+.theme-mare-alta .song-suggest .ma-picked button:disabled { opacity: 0.5; cursor: not-allowed; }
+
+.theme-mare-alta .ma-status { grid-area: status; margin: 0; padding: 0.6rem 1rem; color: var(--muted); font: italic 0.85rem Georgia, var(--font-ma-serif), serif; }
+.theme-mare-alta .ma-error { grid-area: error; margin: 0; padding: 0 1rem 0.7rem; color: #9b3942; font-size: 0.85rem; }
+
+/* ------------------------------------------------------------------ *
+ * RSVP
+ * ------------------------------------------------------------------ */
+
+/* A failed submission: the server's message, in the form, in the theme's own red (the designer's palette has none). */
+.theme-mare-alta .rsvp-error { margin: 0; color: #9b3942; font: italic 0.95rem/1.5 Georgia, var(--font-ma-serif), serif; text-align: center; }
+
+/* ------------------------------------------------------------------ *
+ * FAQ
+ * ------------------------------------------------------------------ */
+
+/* The designer used native <details>, which cannot animate; this is the same look as a controlled accordion.
+   The declarations are the designer's own final ones for `.faq details`, `.faq summary` and its chevron. */
+.theme-mare-alta .ma-faq-item { border-top: 1px solid var(--line); margin: 0 0 1.4rem; line-height: 1.65; transition: background 0.35s, padding 0.35s; }
+.theme-mare-alta .ma-faq-item[data-open] { padding-inline: 1rem; background: #ffffff0a; }
+.theme-mare-alta .ma-faq-q {
+  display: flex; width: 100%; padding: 1.25rem 0; align-items: center; justify-content: space-between; gap: 1rem;
+  border: 0; background: none; text-align: start; cursor: pointer;
+  color: var(--sage-dark); font: 1.08rem Georgia, var(--font-ma-serif), serif;
+}
+.theme-mare-alta .ma-faq-q svg { flex: none; transition: transform 0.3s; }
+.theme-mare-alta .ma-faq-item[data-open] .ma-faq-q svg { transform: rotate(180deg); }
+.theme-mare-alta .ma-faq-a { display: grid; grid-template-rows: 0fr; transition: grid-template-rows 0.35s ease; }
+.theme-mare-alta .ma-faq-item[data-open] .ma-faq-a { grid-template-rows: 1fr; }
+.theme-mare-alta .ma-faq-a-inner { overflow: hidden; min-height: 0; }
+.theme-mare-alta .ma-faq-a p { margin: 0 0 1.4rem; color: var(--muted); line-height: 1.65; }
+@media (prefers-reduced-motion: reduce) {
+  .theme-mare-alta .ma-faq-item, .theme-mare-alta .ma-faq-a, .theme-mare-alta .ma-faq-q svg { transition: none; }
+}
+
+/* ------------------------------------------------------------------ *
+ * Jour J blocks
+ * ------------------------------------------------------------------ */
+
+/* The designer drew the photo drop as a <label> and the seating button as an <a>/<button>; here they are a link
+   (a real invitation) or a span (the showcase: nothing to open yet). A link's underline would run under every
+   line of the card. */
+.theme-mare-alta a.upload { text-decoration: none; }
+
+/* Inert in the showcase and the editor's preview: it looks like what it will be, but is not clickable. The seating
+   button is dimmed to say so; the photo card is already translucent over its art, so it only loses the pointer. */
+.theme-mare-alta span.button[aria-disabled] { cursor: default; opacity: 0.7; }
+.theme-mare-alta span.upload[aria-disabled] { cursor: default; }
+
+/* The hint under "Share my photos" kept the light tone it had on the designer's first, dark ground: pale grey on the
+   pale card, near invisible. */
+.theme-mare-alta .photos .upload span { color: var(--muted); font-size: 0.78rem; }
+
+/* The title, the sentence and the button of the seating card touched each other; give them room. */
+.theme-mare-alta .dayof-card > p:not(.eyebrow) { margin: 1.2rem 0 1.8rem; }
+
+/* ------------------------------------------------------------------ *
+ * Footer
+ * ------------------------------------------------------------------ */
+
+/* "Back to top" is a <button> here (no hash link): the designer's `footer a` style, minus the button chrome. */
+.theme-mare-alta footer .ma-top { margin-top: 2.5rem; padding: 0; border: 0; background: none; color: var(--sage-dark); font: inherit; font-size: 0.72rem; cursor: pointer; }
+
+/* The couple's portrait, above their names: a round frame, hairline-bordered like the monogram circles. */
+.theme-mare-alta .ma-portrait { width: 7rem; height: 7rem; margin: 0 0 1.6rem; object-fit: cover; border: 1px solid var(--gold); border-radius: 50%; box-shadow: 0 0 0 5px #fffa; }
+
+/* The designer's footer paragraphs are small tracked capitals; the couple's own words are sentences. */
+.theme-mare-alta footer > p.ma-closing { max-width: 26rem; margin: 1.6rem auto 0; font: italic 1.15rem/1.6 Georgia, var(--font-ma-serif), serif; letter-spacing: 0; text-transform: none; color: var(--sage-dark); }
+.theme-mare-alta footer > p.ma-footer-note { max-width: 26rem; margin: 0.6rem auto 0; font-size: 0.8rem; letter-spacing: 0.04em; text-transform: none; color: var(--muted); }
+
+/* The thank-you title is 3.4rem in the designer's sheet: on a phone it broke "C'est bien noté !" over three lines. */
+.theme-mare-alta .rsvp-card .success h3 { font-size: clamp(2.4rem, 11vw, 3.4rem); }
+
+/* ------------------------------------------------------------------ *
+ * Visibility safety nets
+ * ------------------------------------------------------------------ */
+
+/* The designer hides every section (opacity .01, 34px down) until a script adds `in-view`, and each course of the
+   menu until its section has it. Without JavaScript nothing would ever show them (JsFlag sets data-js on the root
+   once scripts run), so a reader with scripts off gets the whole invitation, still. */
+.theme-mare-alta:not([data-js]) .paper-section,
+.theme-mare-alta:not([data-js]) .coral-section,
+.theme-mare-alta:not([data-js]) .night-section,
+.theme-mare-alta:not([data-js]) .menu-list > div { opacity: 1; transform: none; }
+
+/* A reader who asked for no motion gets none, and nothing waits for a scroll. (The twinkling lights, the turning
+   records and the plane are motion; they rest.) */
+@media (prefers-reduced-motion: reduce) {
+  .theme-mare-alta *, .theme-mare-alta *::before, .theme-mare-alta *::after {
+    animation: none !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+  .theme-mare-alta .paper-section, .theme-mare-alta .coral-section, .theme-mare-alta .night-section,
+  .theme-mare-alta .menu-list > div { opacity: 1; transform: none; }
+}
+
+/* ------------------------------------------------------------------ *
+ * Monogram crests
+ * ------------------------------------------------------------------ */
+
+/* The designer's crests (the menu card's, the RSVP aside's, the Jour J card's) are circles sized for a monogram of
+   five characters, "S · M". A longer one ("MC · JB", "M & J · 2027") wrapped onto two lines inside the circle. They
+   now fit their text: the same circle up to five characters, a pill beyond (a little padding per extra character,
+   from the count the root puts in --ma-monogram-chars). */
+.theme-mare-alta .restaurant-menu::before,
+.theme-mare-alta .rsvp-intro .rsvp-monogram,
+.theme-mare-alta .mini-mark {
+  width: fit-content;
+  padding-inline: calc(max(0, var(--ma-monogram-chars, 5) - 5) * 0.2rem);
+  border-radius: 999px;
+  white-space: nowrap;
+}
+.theme-mare-alta .restaurant-menu::before { min-width: 62px; }
+.theme-mare-alta .rsvp-intro .rsvp-monogram { min-width: 82px; }
+.theme-mare-alta .mini-mark { min-width: 4rem; }
+
+/* ------------------------------------------------------------------ *
+ * Photos block
+ * ------------------------------------------------------------------ */
+
+/* The embroidered cameras and the gold lamp sit right behind the sentence under the title; its first words were lost
+   over the lamp. A soft linen glow keeps the art whole and the words readable. */
+.theme-mare-alta .photos .section-intro { color: var(--ink) !important; text-shadow: 0 0 6px var(--ivory), 0 0 14px var(--ivory), 0 0 22px var(--ivory); }
+
+/* ------------------------------------------------------------------ *
+ * Hero: the music button
+ * ------------------------------------------------------------------ */
+
+/* The invitation's music button is fixed at the top-RIGHT of the screen, in either direction, over whatever is there.
+   On a phone, and on a tablet whose column runs to within 62px of the screen's edge, that is the right end of the
+   hero's top line: the place on a tablet, the date in an Arabic page. The line leaves it room: a physical padding,
+   because the button's side does not mirror. */
+@media (max-width: 860px) {
+  .theme-mare-alta .hero-topline { padding-right: 4.6rem; }
+}
+
+/* On a phone the place is dropped (the designer's rule) and the date sits against the button's side in an Arabic page,
+   which leaves the centred monogram, if it is a long one, nothing to hold it off the date: it takes the free corner. */
+@media (max-width: 760px) {
+  [dir="rtl"] .theme-mare-alta .ma-hero-mark { left: 1.5rem; transform: none; }
+}
+
+/* ------------------------------------------------------------------ *
+ * Right-to-left (Arabic)
+ * ------------------------------------------------------------------ */
+
+/* The designer placed things with physical left and right. Mirrored here only where the meaning flips: what sits
+   beside a picture, which side a divider is on, where a text starts. The embroidered art (the table scatter, the
+   passport and the tag, the vinyls) is decoration and keeps its composition. */
+
+/* The number badge of a programme card sits in the corner opposite the picture, which is on the other side in RTL. */
+[dir="rtl"] .theme-mare-alta .agenda-number { right: auto; left: 16px; }
+@media (max-width: 760px) {
+  [dir="rtl"] .theme-mare-alta .agenda-number { left: 0.5rem; }
+}
+
+/* The countdown's dividers are the left border of every card but the first: in RTL the first card is the right-most. */
+[dir="rtl"] .theme-mare-alta .scratch-card + .scratch-card { border-left: 0; border-right: 1px solid var(--line); }
+
+/* The travel cards' text starts at the right with their icon. */
+[dir="rtl"] .theme-mare-alta .travel-guide-grid article { text-align: start; }
+
+/* The playlist field's note icon had its margin on the left (towards the input); in RTL the input is on its left. */
+[dir="rtl"] .theme-mare-alta .song-suggest > svg { margin-left: 0; margin-right: 1rem; }
+
+/* Arabic is cursive: letter-spacing pulls the letters of a word apart (and the designer's tracked capitals mean
+   nothing without capitals). Its glyphs are also smaller than Latin ones at the same size, and the designer's small
+   labels (0.58-0.75rem, set for Latin capitals) become unreadable: they are raised to 0.9rem. */
+[dir="rtl"] .theme-mare-alta,
+[dir="rtl"] .theme-mare-alta * { letter-spacing: 0 !important; }
+[dir="rtl"] .theme-mare-alta :is(
+  .eyebrow, .hero-topline, .hero-date, .scroll-cue, .scratch-value small, .button, .travel-stamps span,
+  .travel-guide-grid span, .restaurant-menu small, .restaurant-menu::after, .location-stamp, .song-suggest button,
+  .rsvp-deadline span, .rsvp-weekend small, .rsvp-card label, .rsvp-card legend, .rsvp-card .submit,
+  .stay-card > span, .stay-card a, .ma-card-link, .ma-event-line, .type-rhythm .title-sans, .upload span
+) { font-size: 0.9rem; }
+[dir="rtl"] .theme-mare-alta .hero-topline { font-size: 0.8rem; }
+[dir="rtl"] .theme-mare-alta .scratch-value small { font-size: 0.85rem; }
+@media (max-width: 760px) {
+  [dir="rtl"] .theme-mare-alta .scratch-value small { font-size: 0.78rem; }
+}

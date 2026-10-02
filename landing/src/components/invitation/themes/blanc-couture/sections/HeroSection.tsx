@@ -13,7 +13,7 @@ export function HeroSection({ data, side }: { data: InvitationData; side: "left"
   const { couple, copy, venue } = data;
 
   return (
-    <Page className="hero hero-paper" side={side} monogram={data.couple.monogram} couple={data.couple}>
+    <Page className="hero hero-paper" side={side} monogram={data.couple.monogram} couple={data.couple} data-editor-section="hero">
       {copy?.heroKicker ? <p className="eyebrow">{copy.heroKicker}</p> : null}
       <h1>
         <span>{couple.partner1}</span>

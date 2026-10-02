@@ -3,6 +3,7 @@
 import { useTranslations } from "next-intl";
 import { useState } from "react";
 
+import { slot } from "../../text";
 import type { InvitationData } from "../../types";
 
 /**
@@ -20,37 +21,49 @@ export function StaysSection({ data }: { data: InvitationData }) {
   if (stays.length === 0) return null;
 
   return (
-    <section className="paper stays-section">
+    <section className="paper stays-section" data-editor-section="accommodation">
       <span className="hotel-key" aria-hidden="true">
         {(data.venue.city ?? data.venue.name).toUpperCase()}
         <br />
-        <b>CAMERA 01</b>
+        <b>{slot(data, "accommodation.tag") ?? t("keyTag")}</b>
       </span>
       <p className="eyebrow">{data.copy?.staysIntro ?? t("eyebrowFallback")}</p>
-      <h2>{t("title")}</h2>
+      <h2>{slot(data, "accommodation.title") ?? t("title")}</h2>
 
       <div className="hotels">
-        {primary.map((stay) => {
+        {primary.map((stay, index) => {
+          // Everything the couple wrote on the hotel's card in the editor —
+          // its city, phone, offer and photo were collected and never shown.
+          const where = [stay.distance, stay.city].filter(Boolean).join(" · ");
           const body = (
             <>
+              {stay.image ? (
+                // The couple's upload, cropped to the card's head by the theme's CSS.
+                // eslint-disable-next-line @next/next/no-img-element
+                <img className="ca-stay-photo" src={stay.image} alt={stay.name} loading="lazy" />
+              ) : null}
               {/* "À proximité de la Villa" was printed on every card — the
                   demo's Villa Cimbrone, announced beside the hotels of a
                   wedding held anywhere else. The venue's own name is used when
                   there is one, and the line is dropped when there is not. */}
               {data.venue.name ? <span>{t("nearVenue", { venueName: data.venue.name })}</span> : null}
               <h3>{stay.name}</h3>
-              {stay.distance ? <p>{stay.distance}</p> : null}
+              {where ? <p>{where}</p> : null}
               {stay.address ? <small>{stay.address}</small> : null}
+              {stay.phone ? <small className="ca-stay-phone">{stay.phone}</small> : null}
+              {stay.offer ? <em className="ca-stay-offer">{stay.offer}</em> : null}
             </>
           );
 
+          // Two hotels may share a name while the couple is still typing.
+          const key = `${index}-${stay.name}`;
           return stay.url ? (
-            <a href={stay.url} target="_blank" rel="noreferrer" key={stay.name}>
+            <a href={stay.url} target="_blank" rel="noreferrer" key={key}>
               {body}
             </a>
           ) : (
             // Keep the same box when a stay has no link to point at.
-            <div key={stay.name}>{body}</div>
+            <div key={key}>{body}</div>
           );
         })}
       </div>
@@ -67,10 +80,19 @@ export function StaysSection({ data }: { data: InvitationData }) {
           </button>
           {showMore ? (
             <div className="more-list">
-              {secondary.map((stay) => (
-                <p key={stay.name}>
-                  {stay.name}
-                  {stay.distance ? ` · ${stay.distance}` : ""}
+              {secondary.map((stay, index) => (
+                <p key={`${index}-${stay.name}`}>
+                  {stay.url ? (
+                    <a href={stay.url} target="_blank" rel="noreferrer">
+                      {stay.name}
+                    </a>
+                  ) : (
+                    stay.name
+                  )}
+                  {[stay.distance, stay.city].filter(Boolean).map((part) => ` · ${part}`)}
+                  {stay.address ? <small>{stay.address}</small> : null}
+                  {stay.phone ? <small>{stay.phone}</small> : null}
+                  {stay.offer ? <small className="ca-stay-offer-line">{stay.offer}</small> : null}
                 </p>
               ))}
             </div>

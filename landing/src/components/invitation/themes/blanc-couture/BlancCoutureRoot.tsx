@@ -34,6 +34,12 @@ type Slot = { key: string; render: (side: "left" | "right") => ReactNode };
  *
  * Every rule in `blanc-couture.css` is scoped under `.theme-blanc-couture`,
  * which is why this wrapper is not optional — without it the theme is unstyled.
+ *
+ * No section may be `async`: the editor's live preview renders this tree in the
+ * browser, where an async Server Component cannot run, so messages come from
+ * `useTranslations`, never `getTranslations`. Each section's root element
+ * carries `data-editor-section` (through `Page` for all but the footer), the id
+ * the preview scrolls to, outlines and reports.
  */
 export function BlancCoutureRoot({ data }: { data: InvitationData }) {
   // No module list at all means "render everything the data supports", which is

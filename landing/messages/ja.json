@@ -704,6 +704,7 @@
     "monthLabel": "月",
     "yearLabel": "年",
     "dateInPastError": "日付は未来の日付にしてください。",
+    "dateInvalidError": "この日付は存在しません。",
     "venueLabel": "挙式会場",
     "venuePlaceholder": "Château des Roses, Provence",
     "accountLabel": "アカウント情報",
@@ -1164,7 +1165,10 @@
         "introTitle": "プログラム",
         "dayOneEyebrow": "1日目",
         "dayOneSeparator": " · ",
-        "dayOneTitle": "結婚式当日"
+        "dayOneTitle": "結婚式当日",
+        "dressLabel": "ドレスコード",
+        "ribbon": "Amore · Limoni · Dolce Vita",
+        "stamp": "ITALIA"
       },
       "dayTwo": {},
       "dressCode": {
@@ -1181,7 +1185,8 @@
         "title": "ご宿泊について",
         "nearVenue": "{venueName} の近く",
         "hideOptions": "選択肢を閉じる",
-        "showMoreOptions": "ほかの選択肢を見る"
+        "showMoreOptions": "ほかの選択肢を見る",
+        "keyTag": "CAMERA 01"
       },
       "playlist": {
         "eyebrow": "週末を彩る音楽",
@@ -1237,6 +1242,31 @@
       "footer": {},
       "scrollTop": {
         "ariaLabel": "ページの先頭に戻る"
+      },
+      "introVideo": {
+        "eyebrow": "私たちのムービー",
+        "frameTitle": "私たちの動画"
+      },
+      "menu": {
+        "eyebrow": "お食事",
+        "title": "Il Menù"
+      },
+      "gallery": {
+        "eyebrow": "思い出",
+        "title": "写真で",
+        "imageAlt": "写真 {index}"
+      },
+      "gifts": {
+        "eyebrow": "ギフトリスト",
+        "titleFallback": "皆さまのご出席が何よりの贈り物です",
+        "linkFallback": "参加する"
+      },
+      "decor": {
+        "heroWatermark": "MATRIMONIO\nIN ITALIA",
+        "introTag": "MATRIMONIO",
+        "archFooter": "ESTATE  ·  AMORE  ·  DOLCE VITA",
+        "timelineFooter": "LIMONI · AMORE · ESTATE",
+        "playlistTag": "♪  MUSICA ITALIANA  ♪"
       }
     },
     "belleRive": {
@@ -1350,6 +1380,328 @@
         "titleFallback": "皆さまのご列席が何よりの贈り物です",
         "animationLabel": "真珠をあしらったギフトボックス",
         "linkLabelFallback": "贈る"
+      }
+    },
+    "editorPreview": {
+      "waiting": "プレビューを読み込み中…",
+      "noEvent": "招待状を表示するには、「プログラム」タブでイベントを1つ以上有効にしてください。",
+      "example": "サンプル · エディターで入力してください",
+      "notLive": "まだゲストには表示されません"
+    },
+    "chateauRoyal": {
+      "hero": {
+        "label": "{partner1}と{partner2}の結婚式へのご招待"
+      },
+      "letter": {
+        "intro": "お二人の結婚式にご招待いたします",
+        "titleLine1": "ひとつの結婚式",
+        "titleLine2": "心に残る日に"
+      },
+      "venue": {
+        "eyebrow": "会場",
+        "titleLine1": "ひとつの場所、",
+        "titleLine2": "私たちの物語",
+        "route": "ルートを開く",
+        "archLabel": "披露宴の会場"
+      },
+      "programme": {
+        "title": "特別な一日",
+        "intro": "一日に、千の瞬間。",
+        "dayOne": "1日目",
+        "dayTwo": "2日目",
+        "alsoTitle": "そのほか"
+      },
+      "menu": {
+        "eyebrow": "ディナー",
+        "titleLine1": "ディナーの",
+        "titleLine2": "メニュー",
+        "cakeLabel": "三段重ねのウエディングケーキが、少しずつ食べられていきます"
+      },
+      "brunch": {
+        "imageLabel": "庭に整えられた宴の食卓"
+      },
+      "practical": {
+        "eyebrow": "お知らせ",
+        "title": "こまごまとしたご案内",
+        "open": "開く"
+      },
+      "rsvp": {
+        "eyebrow": "ご返信",
+        "deadline": "{date}までにご返信をお願いいたします。",
+        "attendanceLabel": "お返事",
+        "attendanceChoose": "選択してください",
+        "attendanceYes": "出席します",
+        "attendanceNo": "欠席します",
+        "messageLabel": "アレルギー、補足事項、ひとことなど",
+        "messagePlaceholder": "任意",
+        "submit": "返信を送信する",
+        "titleLine1": "ご出席",
+        "titleLine2": "いただけますか",
+        "nameLabel": "姓名",
+        "pending": "送信中…",
+        "thanks": "ありがとうございます！ご返信を承りました。",
+        "partyLabel": "ご出席される方",
+        "partyOptionSolo": "本人のみ",
+        "partyOptionPartner": "本人 + パートナー",
+        "partnerNameLabel": "パートナーのお名前",
+        "partnerNamePlaceholder": "姓名",
+        "childrenLabel": "ご同伴のお子さま",
+        "childrenOptionNone": "なし",
+        "childrenOptionCount": "{count, plural, other {お子さま #名}}",
+        "childFieldLabel": "お子さま {index}",
+        "childNamePlaceholder": "姓名",
+        "dietaryLabel": "食事のご要望"
+      },
+      "faq": {
+        "childrenQuestion": "お子様もご招待いただけますか？",
+        "childrenAdultsOnly": "ご両親の皆様に心ゆくまで夜をお楽しみいただけますよう、私たちの結婚式は大人のみでの開催とさせていただきます。どうぞご自身のための時間としてお過ごしください。",
+        "childrenWelcome": "はい、お子様もぜひご一緒にお越しください。ご準備のため、ご回答の際にお知らせいただけますと幸いです。"
+      }
+    },
+    "mareAlta": {
+      "hero": {
+        "imageAlt": "アイボリーのリネンに刺繍された一軒のヴィラ",
+        "eyebrow": "私たち、結婚します",
+        "cta": "見る"
+      },
+      "countdown": {
+        "eyebrow": "二人の日まで",
+        "titleLine1": "お会いするまで",
+        "titleLine2": "あと…",
+        "note": "一秒ごとに、みなさまと再びお会いできる日が近づいています。",
+        "unitDays": "{count, plural, other {日}}",
+        "unitHours": "{count, plural, other {時間}}",
+        "unitMinutes": "{count, plural, other {分}}",
+        "unitSeconds": "{count, plural, other {秒}}",
+        "cardLabel": "結婚式まであと{value}{unit}"
+      },
+      "map": {
+        "eyebrow": "目的地",
+        "imageAlt": "松林と砂丘と海のあいだに建つ白い家。リネンに刺繍されています",
+        "route": "ルート",
+        "calendar": "追加",
+        "calendarLabel": "イベントをカレンダーに追加"
+      },
+      "timeline": {
+        "eyebrow": "特別な一日の物語",
+        "titleLine1": "最初の眼差しから",
+        "titleLine2": "最後のダンスまで",
+        "sign": "ひとときごとに、それぞれのリズムがあります",
+        "alsoTitle": "あわせて",
+        "dressLabel": "ドレスコード",
+        "kindWelcomeDinner": "ウェルカムディナー",
+        "kindWeddingDay": "結婚式",
+        "kindParty": "パーティー",
+        "kindBrunch": "ブランチ"
+      },
+      "dressCode": {
+        "eyebrow": "ドレスコード",
+        "imageAlt": "装いのヒント：軽やかなドレスと夏のスーツ"
+      },
+      "stays": {
+        "eyebrow": "近くに泊まる",
+        "titleLine1": "荷物を",
+        "titleLine2": "おろして",
+        "artAlt": "刺繍のスーツケースとサングラス、スカーフ。旅の支度が整っています",
+        "address": "住所を見る",
+        "call": "電話する",
+        "more": "ほかの選択肢を見る",
+        "less": "選択肢を閉じる",
+        "code": "コード {code}"
+      },
+      "transport": {
+        "eyebrow": "旅のノート",
+        "titleLine1": "軽やかな心で",
+        "titleLine2": "旅立つために",
+        "intro": "到着の瞬間から、お祝いは始まっています。安心して旅していただくための大切な情報です。",
+        "open": "開く",
+        "decorLabel": "刺繍のパスポート、空港のスタンプ、荷物タグ、飛行機"
+      },
+      "menu": {
+        "eyebrow": "ある夜の食卓",
+        "titleLine1": "特別な日の",
+        "titleLine2": "メニュー",
+        "scatterLabel": "刺繍の食器、レモン、グラス、テーブルリネン"
+      },
+      "playlist": {
+        "eyebrow": "みんなで、この日のサウンドトラックを",
+        "titleLine1": "どの曲で",
+        "titleLine2": "踊りたくなりますか？",
+        "intro": "夜のパーティーでどうしても聴きたい曲を、ぜひ追加してください。",
+        "discsLabel": "回転する二枚の刺繍のレコード",
+        "searchLabel": "曲を検索",
+        "searchPlaceholder": "曲名やアーティスト名…",
+        "searchPlaceholderFull": "最大 {max} 曲まで",
+        "resultsLoading": "検索中…",
+        "resultsError": "検索をご利用いただけません。しばらくしてからお試しください。",
+        "resultsEmpty": "曲が見つかりませんでした。",
+        "removeTrack": "{title} を削除",
+        "statusEmpty": "{max} 曲までお選びいただけます",
+        "statusCount": "{count, plural, other {{max}曲中#曲選択済み}}",
+        "statusFull": "最大 {max} 曲までです。ほかの曲をリクエストするには1曲削除してください。",
+        "send": "プレイリストに追加",
+        "sending": "送信中…",
+        "thanks": "ありがとうございます！ご提案を送信しました。"
+      },
+      "gifts": {
+        "eyebrow": "いちばんの贈り物は、あなたです",
+        "cta": "参加する"
+      },
+      "rsvp": {
+        "eyebrow": "ご返信",
+        "titleLine1": "ご出席",
+        "titleLine2": "いただけますか？",
+        "deadlineLabel": "ご返信の期限",
+        "weekendLabel": "結婚式の日程",
+        "step1": "ご返信",
+        "step2": "ご同伴の方は？",
+        "step3": "メッセージ",
+        "stepMeal": "お食事について",
+        "attendYes": "喜んで出席します",
+        "attendNo": "残念ながら欠席します",
+        "thanksEyebrow": "返信を送信しました",
+        "thanksTitle": "承りました！",
+        "thanksBody": "ありがとうございます。ご返信はゲストブックに加わりました。",
+        "nameLabel": "お名前",
+        "namePlaceholder": "姓名",
+        "attendanceLegend": "ご出欠",
+        "partyLabel": "ご出席される方",
+        "partyOptionSolo": "本人のみ",
+        "partyOptionPartner": "本人 + パートナー",
+        "partnerNameLabel": "パートナーのお名前",
+        "partnerNamePlaceholder": "姓名",
+        "childrenLabel": "ご同伴のお子さま",
+        "childrenOptionNone": "なし",
+        "childrenOptionCount": "{count, plural, other {お子さま #名}}",
+        "childFieldLabel": "お子さま {index}",
+        "childNamePlaceholder": "姓名",
+        "dietaryLabel": "食事のご要望",
+        "messageLabel": "メッセージ",
+        "messagePlaceholder": "メッセージをご記入ください…",
+        "submit": "返信を送信",
+        "submitPending": "送信中…"
+      },
+      "faq": {
+        "eyebrow": "知っておきたいこと",
+        "title": "よくあるご質問",
+        "childrenQuestion": "お子様もご招待いただけますか？",
+        "childrenAdultsOnly": "ご両親の皆様に心ゆくまで夜をお楽しみいただけますよう、私たちの結婚式は大人のみでの開催とさせていただきます。どうぞご自身のための時間としてお過ごしください。",
+        "childrenWelcome": "はい、お子様もぜひご一緒にお越しください。ご準備のため、ご回答の際にお知らせいただけますと幸いです。"
+      },
+      "footer": {
+        "eyebrow": "待ちきれません",
+        "top": "ページの先頭へ",
+        "tableEyebrow": "当日のお楽しみ",
+        "tableTitle": "お席を探す",
+        "tableBody": "入口でQRコードを読み取るか、お名前を検索してください。お席とテーブルの配置図が表示されます。",
+        "tableCta": "席次表を開く",
+        "photosEyebrow": "パーティーのあとで",
+        "photosTitle": "あなたの目で見た思い出を",
+        "photosBody": "翌日、ここに写真をアップロードして、みんなのギャラリーをご覧ください。",
+        "photosCta": "写真を共有する",
+        "photosHint": "写真と動画を、新郎新婦と共有します",
+        "soon": "当日にご利用いただけます"
+      }
+    },
+    "caboVerde": {
+      "hero": {
+        "eyebrow": "私たち、結婚します",
+        "stamp": "私たちの結婚式",
+        "cta": "もっと見る"
+      },
+      "welcome": {
+        "eyebrow": "私たちの結婚式",
+        "titleLine1": "私たちのいちばん素敵な旅は",
+        "titleLine2": "皆さまとともに始まります。",
+        "intro": "大切な皆さまとともに、私たちの物語を祝います。"
+      },
+      "countdown": {
+        "until": "カウントダウン",
+        "titleLine1": "特別な日が",
+        "titleLine2": "近づいています。",
+        "caption": "私たちの結婚式まで",
+        "label": "カウントダウン",
+        "unitDays": "{count, plural, other {日}}",
+        "unitHours": "{count, plural, other {時間}}",
+        "unitMinutes": "{count, plural, other {分}}",
+        "unitSeconds": "{count, plural, other {秒}}"
+      },
+      "venue": {
+        "eyebrow": "会場",
+        "route": "地図で見る"
+      },
+      "itinerary": {
+        "eyebrow": "ひとときの滞在 · ひとつの愛の物語",
+        "title": "プログラム",
+        "flowLabel": "滞在のハイライト",
+        "dress": "ドレスコード：{value}"
+      },
+      "dress": {
+        "eyebrow": "ドレスコード",
+        "paletteLabel": "カラーパレット",
+        "photoAlt": "コーディネートのヒント"
+      },
+      "stay": {
+        "eyebrow": "ご宿泊について",
+        "titleLine1": "荷物を置いて",
+        "titleLine2": "週末を過ごしましょう",
+        "more": "ほかの選択肢を見る",
+        "less": "閉じる",
+        "code": "コード {code}",
+        "book": "予約する",
+        "call": "電話する"
+      },
+      "playlist": {
+        "eyebrow": "私たちの結婚式のサウンドトラック",
+        "titleLine1": "みんなでつくる",
+        "titleLine2": "プレイリスト",
+        "intro": "ダンスフロアに誘われる一曲を追加してください。",
+        "openers": "ダンスのオープニングに",
+        "searchLabel": "曲を検索",
+        "searchPlaceholder": "曲名やアーティスト名…",
+        "searchPlaceholderFull": "最大 {max} 曲まで",
+        "loading": "検索中…",
+        "empty": "曲が見つかりませんでした。",
+        "error": "検索をご利用いただけません。しばらくしてからお試しください。",
+        "remove": "{title} を削除",
+        "send": "プレイリストに追加",
+        "sending": "送信中…",
+        "thanks": "{count, plural, other {ありがとうございます！リクエストを承りました。}}",
+        "statusEmpty": "{max} 曲までお選びいただけます",
+        "statusCount": "{count, plural, other {{max}曲中#曲選択済み}}",
+        "statusFull": "最大 {max} 曲までです。ほかの曲をリクエストするには1曲削除してください。"
+      },
+      "travel": {
+        "eyebrow": "ご案内",
+        "title": "トラベルノート",
+        "open": "開く"
+      },
+      "rsvp": {
+        "stamp": "R.S.V.P.",
+        "deadline": "{date} までにご返信ください",
+        "title": "お越しになりますか",
+        "nameLabel": "姓名",
+        "attendanceLegend": "ご出席いただけますか",
+        "attendanceYes": "はい、喜んで",
+        "attendanceNo": "残念ながら欠席します",
+        "partnerLegend": "パートナーとご一緒ですか",
+        "partnerYes": "はい",
+        "partnerNo": "いいえ",
+        "partnerNameLabel": "パートナーのお名前",
+        "childrenLabel": "同伴されるお子さまの人数",
+        "childrenNone": "なし",
+        "childrenCount": "{count, plural, other {お子さま #名}}",
+        "childLabel": "お子さま {index}",
+        "dietaryLabel": "食事のご要望",
+        "messageLabel": "メッセージ",
+        "messagePlaceholder": "メッセージをご記入ください…",
+        "submit": "返信を送信",
+        "pending": "送信中…",
+        "thanksTitle": "ありがとうございます！",
+        "thanksBody": "ご返信を承りました。"
+      },
+      "footer": {
+        "note": "愛を込めて"
       }
     }
   }

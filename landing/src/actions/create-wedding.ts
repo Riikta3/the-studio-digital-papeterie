@@ -3,11 +3,13 @@
 import type Stripe from "stripe";
 
 import type { ModuleId } from "@/components/invitation/themes/types";
+import { recordCustomDomain } from "@/lib/custom-domain-row";
 import { findUserByEmail } from "@/lib/find-user-by-email";
 import { seedInvitationContent } from "@/lib/seed-invitation-content";
 import { parseOrderMetadata } from "@/lib/order-metadata";
 import { supabaseAdmin } from "@/lib/supabase-admin";
 import { getDashboardUrl } from "@/lib/urls";
+import { checkedWeddingDate } from "@/lib/wedding-date";
 import { sendWelcomeEmail } from "@/lib/welcome-email";
 import {
   markPaymentProvisioned,
@@ -88,6 +90,23 @@ export async function createWedding(data: CreateWeddingData) {
       loginLink: link,
       alreadyProvisioned: true,
     };
+  }
+
+  /*
+   * A date that does not exist (31 April) is dropped rather than inserted.
+   * `weddings.wedding_date` is a `date` column, so Postgres would refuse it
+   * and fail the provisioning of an order that is already paid. The studio
+   * no longer sends one, but this action is reachable directly and the
+   * webhook replays whatever an older build wrote to the intent. The couple
+   * enters the date from the dashboard instead; the domain was already priced
+   * as one year for such a date (`domainYearsFor`).
+   */
+  const weddingDate = checkedWeddingDate(data.weddingDate);
+  if (data.weddingDate && !weddingDate) {
+    console.warn("[WEDDING_DATE_INVALID]", {
+      paymentIntentId: data.paymentIntentId,
+      weddingDate: data.weddingDate,
+    });
   }
 
   let userId: string;
@@ -230,7 +249,7 @@ export async function createWedding(data: CreateWeddingData) {
     .insert({
       user_id: userId,
       partner_name: data.partnerName,
-      wedding_date: data.weddingDate || null,
+      wedding_date: weddingDate ?? null,
     })
     .select("id")
     .single();
@@ -421,6 +440,25 @@ export async function createWedding(data: CreateWeddingData) {
       .insert(siteModulesEntries);
 
     if (smError) console.error("Site Modules Registry Error:", smError);
+
+    // 4.5b The custom domain, when this payment bought one. Read from the
+    // intent (`payment.domain`), never from `data`: the browser could name
+    // any domain, or drop « plus tard » for a name nobody checked. Never fails
+    // provisioning — `recordCustomDomain` logs `[DOMAIN_ROW_FAILED]` instead.
+    if (payment.domain.has) {
+      await recordCustomDomain(
+        (row) => supabaseAdmin.from("custom_domains").insert(row).select("id").single(),
+        {
+          siteId,
+          weddingId,
+          paymentIntentId: data.paymentIntentId,
+          domain: payment.domain,
+        },
+      );
+      // Phase 5: when the row was inserted with a name, start the purchase
+      // without holding up the couple's redirect —
+      // `after(() => advanceCustomDomain(id))` with the returned row id.
+    }
   }
 
   // 4.6 Seed the invitation's starting content.
@@ -433,12 +471,12 @@ export async function createWedding(data: CreateWeddingData) {
   //
   // Deliberately not awaited for its result: the order is already paid, and a
   // seeding failure must not fail provisioning. It logs internally.
-  if (data.weddingDate) {
+  if (weddingDate) {
     await seedInvitationContent({
       weddingId,
       partner1: data.firstName,
       partner2: data.partnerName,
-      weddingDate: data.weddingDate,
+      weddingDate,
       venue: data.venue,
       modules: sortedModules as ModuleId[],
     });

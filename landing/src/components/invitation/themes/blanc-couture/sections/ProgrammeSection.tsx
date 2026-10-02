@@ -15,7 +15,7 @@ export function ProgrammeSection({
   if (dayOne.length === 0) return null;
 
   return (
-    <Page className="soft-floral-paper programme-page" side={side} monogram={data.couple.monogram} couple={data.couple}>
+    <Page className="soft-floral-paper programme-page" side={side} monogram={data.couple.monogram} couple={data.couple} data-editor-section="timeline">
       <p className="script">Le programme</p>
       <h2>
         Une journée

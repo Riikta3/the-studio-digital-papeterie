@@ -58,7 +58,7 @@ export function CarpoolSection({
   }
 
   return (
-    <section className="panel carpool pearled">
+    <section className="panel carpool pearled" data-editor-section="transport">
       <p className="eyebrow">{t("eyebrow")}</p>
       <h2>
         {t("titleLine1")}

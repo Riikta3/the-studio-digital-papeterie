@@ -12,6 +12,9 @@
 
 import type { ComponentType } from "react";
 
+import { SCHEDULE_ICON_KEYS } from "@shared/data/schedule-icons";
+import type { EventKey } from "@shared/types/invitation";
+
 /* ------------------------------------------------------------------ *
  * Modules
  * ------------------------------------------------------------------ */
@@ -59,13 +62,7 @@ export type ModuleId = (typeof MODULE_IDS)[number];
  * contradicts the promise at the top of this file — that one wedding's content
  * can be rendered by any theme.
  */
-export const SCHEDULE_ICONS = [
-  "ceremony",
-  "cocktail",
-  "dinner",
-  "party",
-  "brunch",
-] as const;
+export const SCHEDULE_ICONS = SCHEDULE_ICON_KEYS;
 
 export type ScheduleIcon = (typeof SCHEDULE_ICONS)[number];
 
@@ -82,6 +79,36 @@ export type ScheduleEntry = {
    */
   icon?: ScheduleIcon;
   image?: string;
+  /**
+   * The event this moment belongs to (`InvitationData.events[].kind`), so a
+   * theme can print each event's moments under it. Absent for a programme
+   * built on the old timeline module screen, which knew no events.
+   */
+  event?: EventKey;
+};
+
+/**
+ * One of the couple's events: the day itself, or what surrounds it — a
+ * welcome dinner the evening before, a party, the brunch after. A wedding has
+ * at most one of each kind.
+ *
+ * Everything here is what the couple typed in the editor's programme, where
+ * each event has a card; a theme that prints none of it offers them fields
+ * that change nothing.
+ */
+export type WeddingEvent = {
+  kind: EventKey;
+  name: string;
+  /** ISO day (YYYY-MM-DD). Themes format it in the page's language. */
+  date?: string;
+  /** Display string, kept verbatim, like `ScheduleEntry.time`. */
+  time?: string;
+  address?: string;
+  description?: string;
+  /** One line — "Chic champêtre". The dress-code module says more. */
+  dressCode?: string;
+  /** As `ScheduleEntry.day`: 2 for the day after. */
+  day: 1 | 2;
 };
 
 export type Stay = {
@@ -93,6 +120,8 @@ export type Stay = {
   url?: string;
   bookingCode?: string;
   offer?: string;
+  /** Printed as the couple typed it — "04 90 12 34 56". */
+  phone?: string;
   image?: string;
   /** Rendered behind a "voir plus d'options" toggle rather than up front. */
   secondary?: boolean;
@@ -128,8 +157,11 @@ export type Venue = {
   mapsUrl?: string;
   wazeUrl?: string;
   image?: string;
-  /** "En voiture" / "En avion" style directions. */
-  access?: Array<{ mode: string; details: string[] }>;
+  /**
+   * "En voiture" / "En avion" style directions. `link` is a page the couple
+   * published for that mode — the carpool board — with their wording for it.
+   */
+  access?: Array<{ mode: string; details: string[]; link?: { url: string; label?: string } }>;
 };
 
 /**
@@ -159,16 +191,20 @@ export type InvitationData = {
   couple: {
     partner1: string;
     partner2: string;
-    /** "V & G" — themes that print a monogram fall back to initials. */
+    /**
+     * "V & G", as the couple wrote it in the editor — absent when they wrote
+     * none, or cleared it. A theme whose design needs one falls back to the
+     * initials itself (`blanc-couture`); the others print nothing.
+     */
     monogram?: string;
     /**
-     * A photograph of the couple, for themes that frame one.
+     * A photograph of the couple, uploaded in the editor's footer tab — so a
+     * theme draws it on its closing page.
      *
-     * Absent for most weddings: there is no screen where a couple uploads it
-     * yet, and a theme must render its closing page without one rather than
-     * substitute a stock image. `blanc-couture` used to hardcode the demo
-     * couple's portrait here, captioned with whoever's names the invitation
-     * carried.
+     * Absent until the couple uploads one, and a theme must then render its
+     * closing page without it rather than substitute a stock image.
+     * `blanc-couture` used to hardcode the demo couple's portrait here,
+     * captioned with whoever's names the invitation carried.
      */
     portrait?: string;
   };
@@ -202,6 +238,8 @@ export type InvitationData = {
   };
 
   schedule?: ScheduleEntry[];
+  /** The couple's events, in their order. See `WeddingEvent`. */
+  events?: WeddingEvent[];
   /** Day-2 block when a theme renders it apart from the timeline. */
   dayTwo?: {
     dateLabel?: string;
@@ -230,6 +268,32 @@ export type InvitationData = {
   };
 
   dressCode?: DressCode;
+
+  /**
+   * The intro-video module: a film that welcomes guests. `url` is always a
+   * web link — an embed page (YouTube, Vimeo) when `kind` is "embed", a video
+   * file the couple uploaded when it is "file". A theme must render nothing for
+   * an embed host it does not know how to frame.
+   */
+  introVideo?: {
+    title?: string;
+    subtitle?: string;
+    body?: string;
+    url: string;
+    kind: "embed" | "file";
+  };
+
+  /** The menu module: courses, each with its dishes, and the small print. */
+  menu?: {
+    sections: Array<{ title?: string; items: Array<{ title: string; description?: string }> }>;
+    /** "Menu végétarien sur demande". */
+    note?: string;
+    footer?: string[];
+  };
+
+  /** The gallery module: the couple's photographs, in their order. */
+  gallery?: { images: string[] };
+
   stays?: Stay[];
   faq?: FaqEntry[];
   playlist?: PlaylistSuggestion[];
@@ -260,6 +324,34 @@ export type InvitationData = {
 
   /** Which modules this wedding actually bought, in render order. */
   modules?: ModuleId[];
+
+  /**
+   * The theme's own words, as the couple rewrote them in the editor.
+   *
+   * Keyed `<sectionId>.<role>` — `countdown.eyebrow`, `faq.title`,
+   * `timeline.ribbon` — the keys a theme declares in its `editorSlots`. A
+   * theme reads `data.texts?.[key]` and falls back to its own catalogue, so
+   * a couple who rewrote nothing sees the theme exactly as designed.
+   *
+   * Absent on the demos, and absent for a wedding that never changed a word.
+   * A value may hold a line break where the theme sets that text on two lines.
+   */
+  texts?: Readonly<Record<string, string>>;
+
+  /**
+   * The Jour J guest page, present only when the couple switched it on.
+   *
+   * The Jour J (seating finder, shared photos) is included with every wedding
+   * and is deliberately not a module, so it has no entry in `modules`. A theme
+   * that wants to point guests at it reads this: `slug` builds the paths
+   * (`/jourj/<slug>/ma-table`, `/jourj/<slug>/photos`), and `photos` is true
+   * while the upload window is open or the gallery is visible to guests.
+   *
+   * Absent in the editor's preview. A demo may set it to show the block, but a
+   * theme given a `dayOf` and no `weddingId` is showing its showcase and must
+   * render the buttons inert, never as links to a page that would 404.
+   */
+  dayOf?: { slug: string; photos: boolean };
 };
 
 /* ------------------------------------------------------------------ *
@@ -299,4 +391,36 @@ export type ThemeManifest = {
    * decides how to lay it out — themes differ too much for a shared shell.
    */
   Root: ComponentType<{ data: InvitationData }>;
+
+  /**
+   * Every word this theme prints that a couple may rewrite.
+   *
+   * Read by the editor's live preview, which resolves each default in the
+   * invitation's language and hands the list to the dashboard, where each
+   * slot becomes a field with that default as its placeholder. A theme that
+   * declares none simply offers no such fields — nothing breaks.
+   */
+  editorSlots?: readonly ThemeEditorSlot[];
+};
+
+/**
+ * One rewritable word of a theme — see `ThemeManifest.editorSlots`.
+ *
+ * The theme itself renders `data.texts?.[key] ?? <its catalogue text>`; this
+ * declaration is what tells the editor the slot exists and what it says today.
+ */
+export type ThemeEditorSlot = {
+  /**
+   * `<sectionId>.<role>`, where the section id is one of
+   * `shared/data/invitation-sections.ts`. Keep roles generic (`eyebrow`,
+   * `title`) wherever they can be: a key means the same thing in every theme.
+   */
+  key: string;
+  /**
+   * Full catalogue keys (`Invitation.ciaoAmore.faq.titleLine1`) whose
+   * messages, joined by a line break, are the default text.
+   */
+  messages: readonly string[];
+  /** Set on two lines by the theme: the couple's value may hold a line break. */
+  multiline?: boolean;
 };

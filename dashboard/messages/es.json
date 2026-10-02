@@ -67,12 +67,8 @@
       "invitation": {
         "label": "Invitación",
         "items": {
+          "editor": "Editar mi invitación",
           "modules": "Mis módulos",
-          "words": "Nuestras palabras",
-          "events": "Eventos",
-          "schedule": "Programa",
-          "venue": "Lugar e información práctica",
-          "faq": "Preguntas frecuentes",
           "playlist": "Playlist"
         }
       },
@@ -277,10 +273,7 @@
     "active_section": "Módulos activados",
     "locked_section": "Módulos no incluidos",
     "no_modules": "Ningún módulo activado por el momento.",
-    "module_price": "10 € / módulo",
     "back": "Volver a los módulos",
-    "buy_module_title": "Añadir un módulo",
-    "buy_module_desc": "Active este módulo por 10 € — disponible de inmediato en su invitación.",
     "auto_configured": "Configurado automáticamente",
     "no_config_needed": "Este módulo no requiere configuración manual.",
     "save": "Guardar",
@@ -458,7 +451,14 @@
     "dresscode_palette_remove": "Quitar el color {index}",
     "dresscode_photo": "Foto de inspiración",
     "dresscode_note": "Nota breve",
-    "dresscode_note_placeholder": "Ej.: Mejor evitar los tacones de aguja: la ceremonia es sobre césped"
+    "dresscode_note_placeholder": "Ej.: Mejor evitar los tacones de aguja: la ceremonia es sobre césped",
+    "add_cta": "Añadir",
+    "open_cta": "Abrir",
+    "price_each": "{price} / módulo",
+    "all_included": "Incluido en tu plan",
+    "price_included": "Incluido",
+    "unpaid_badge": "Por pagar",
+    "add_hint": "Añade un módulo y rellénalo en el editor: solo pagas al guardarlo."
   },
   "Playlist": {
     "title": "Playlist Colaborativa",
@@ -856,28 +856,6 @@
     "show_password": "Mostrar contraseña",
     "hide_password": "Ocultar contraseña"
   },
-  "BuyModuleDialog": {
-    "dialog_title": "Añadir un módulo",
-    "dialog_desc_pending": "Se ha recibido tu pago. Confirma la activación del módulo.",
-    "dialog_desc_default": "Activa este módulo por 10 € — disponible de inmediato en tu invitación.",
-    "generic_error": "Se ha producido un error.",
-    "unexpected_error": "Se ha producido un error inesperado.",
-    "processing_payment": "Procesando el pago...",
-    "pay_and_activate": "Pagar 10 € y activar",
-    "secured_by_stripe": "Pago seguro con Stripe",
-    "activation_error": "Se ha producido un error durante la activación.",
-    "activating": "Activando...",
-    "activate_module": "Activar módulo",
-    "payment_confirmed": "Pago confirmado",
-    "payment_received": "Se ha recibido tu pago de {moduleName}. Haz clic en el botón de abajo para activar el módulo.",
-    "module_activated": "¡Módulo activado!",
-    "module_available": "El módulo {moduleName} ya está disponible.",
-    "configure_module": "Configurar módulo",
-    "payment_failed_or_canceled": "El pago ha fallado o se ha cancelado. Inténtalo de nuevo.",
-    "payment_not_confirmed": "No se ha podido confirmar el pago.",
-    "create_intent_error": "No se ha podido crear el pago.",
-    "module_activated_toast": "¡Módulo \"{name}\" activado!"
-  },
   "DatePicker": {
     "placeholder": "Elegir una fecha"
   },
@@ -956,15 +934,6 @@
   },
   "StatCard": {
     "trend_vs_last_week": "vs. semana anterior"
-  },
-  "LockedModuleCard": {
-    "preview": "Vista previa",
-    "price": "10 €"
-  },
-  "LockedModulePreviewDialog": {
-    "unlock_module": "Desbloquear este módulo",
-    "one_time_payment": "Pago único, incluido de por vida en tu sitio",
-    "buy_button": "Comprar — 10 €"
   },
   "MessagesPage": {
     "title": "Mensajes",
@@ -1396,5 +1365,504 @@
     "dismiss": "Cerrar",
     "reveal": "Mostrar contraseña",
     "hide": "Ocultar contraseña"
+  },
+  "Editor": {
+    "header": {
+      "back": "Panel",
+      "title": "Mi invitación",
+      "theme": "Tema {theme}",
+      "previewLanguage": "Idioma de la vista previa",
+      "device": "Formato de la vista previa",
+      "devices": {
+        "phone": "Vista previa en móvil",
+        "desktop": "Vista previa en ordenador"
+      }
+    },
+    "status": {
+      "saving": "Guardando…",
+      "failed": "Una parte no se ha podido guardar",
+      "unsaved": "Cambios sin guardar",
+      "saved": "Todo guardado"
+    },
+    "actions": {
+      "discard": "Descartar",
+      "save": "Guardar",
+      "saveShortcut": "Guardar (⌘S)",
+      "view": "Ver mi invitación",
+      "addEvent": "Añadir un evento",
+      "addMoment": "Añadir un momento",
+      "addStay": "Añadir un alojamiento",
+      "addQuestion": "Añadir una pregunta",
+      "addTransport": "Añadir un medio de transporte",
+      "addMenuSection": "Añadir una sección",
+      "addDish": "Añadir un plato",
+      "addDiet": "Añadir",
+      "addPhotos": "Añadir fotos",
+      "uploadVideo": "Elegir un vídeo",
+      "removeVideo": "Quitar el vídeo",
+      "openRsvp": "Ajustar en RSVP",
+      "openPlaylist": "Ver las sugerencias",
+      "importLegacy": "Moverlas aquí",
+      "uploading": "Subiendo…"
+    },
+    "save": {
+      "success": "Invitación guardada",
+      "partial": "Una parte no se ha podido guardar. El resto, sí.",
+      "network": "No se ha podido guardar. Comprobad vuestra conexión y volved a intentarlo.",
+      "includedLive": "Guardado · {count, plural, =1 {el módulo está en línea} other {los # módulos están en línea}}",
+      "dueSaved": "Guardado · aún no visible para tus invitados"
+    },
+    "leave": {
+      "title": "¿Salir sin guardar?",
+      "description": "Vuestros últimos cambios aún no están en vuestra invitación. Se perderán.",
+      "stay": "Quedarse",
+      "confirm": "Salir"
+    },
+    "tabs": {
+      "label": "Secciones de la invitación",
+      "hidden": "No visible en la invitación",
+      "error": "Error al guardar",
+      "unsaved": "Modificado",
+      "addModule": "Añadir un módulo",
+      "title": "Tu invitación",
+      "summary": "{count, plural, one {# sección} other {# secciones}} · elige la que quieras rellenar",
+      "groupIntro": "La invitación",
+      "groupModules": "Tus módulos · {count}",
+      "groupOutro": "El final",
+      "position": "Sección {index} de {total}",
+      "open": "{section} · ver todas las secciones",
+      "previous": "Sección anterior",
+      "next": "Sección siguiente"
+    },
+    "preview": {
+      "label": "Vista previa de la invitación",
+      "title": "Vista previa",
+      "open": "Vista previa",
+      "close": "Cerrar la vista previa",
+      "loading": "Cargando la vista previa…",
+      "frameTitle": "Vista previa en directo de vuestra invitación"
+    },
+    "visibility": {
+      "unsupported": "Vuestro tema {theme} todavía no muestra este módulo. Vuestros ajustes están guardados y aparecerán en cuanto sea compatible.",
+      "empty": "Esta sección permanece oculta mientras esté vacía."
+    },
+    "list": {
+      "untitled": "Elemento {index}",
+      "full": "{max} como máximo",
+      "reorder": "Mover «{label}»",
+      "remove": "Eliminar «{label}»",
+      "confirmRemove": "Confirmar la eliminación de «{label}»",
+      "confirmShort": "¿Eliminar?"
+    },
+    "palette": {
+      "swatch": "Color {index}",
+      "remove": "Quitar el color {index}",
+      "add": "Añadir un color",
+      "edit": "Cambiar el color {index}",
+      "newTitle": "Nuevo color",
+      "code": "Código de color",
+      "codeInvalid": "Código no válido. Ejemplo: #E7BDC6",
+      "cancel": "Cancelar",
+      "apply": "Aplicar"
+    },
+    "slots": {
+      "groupTitle": "Los textos del tema",
+      "groupDescription": "Los textos que muestra vuestro tema. Dejad un campo vacío para conservar el del tema.",
+      "reset": "Restablecer",
+      "roles": {
+        "eyebrow": "Antetítulo",
+        "title": "Título",
+        "subtitle": "Subtítulo",
+        "cta": "Texto del botón",
+        "ribbon": "Cinta decorativa",
+        "stamp": "Sello decorativo",
+        "tag": "Etiqueta decorativa",
+        "introEyebrow": "Antetítulo de la introducción",
+        "introTitle": "Título de la introducción",
+        "dayOneEyebrow": "Antetítulo del gran día",
+        "dayOneTitle": "Título del gran día",
+        "dressLabel": "Etiqueta antes de la vestimenta",
+        "watermark": "Marca de agua",
+        "introTag": "Etiqueta de la introducción",
+        "archFooter": "Cenefa bajo la introducción",
+        "footer": "Cenefa al pie de la sección"
+      },
+      "hints": {
+        "multiline": "Añadid un salto de línea para dividir el título en dos.",
+        "ribbon": "Unas pocas palabras cortas, separadas por «·»."
+      }
+    },
+    "defaults": {
+      "ceremonyName": "Nuestra boda"
+    },
+    "sections": {
+      "hero": {
+        "label": "Inicio",
+        "description": "La primera pantalla: vuestros nombres, las palabras que los acompañan, la fecha y el lugar."
+      },
+      "countdown": {
+        "label": "Cuenta atrás",
+        "description": "La cuenta atrás hasta la ceremonia y la fecha escrita con letras."
+      },
+      "intro-video": {
+        "label": "Vídeo de intro",
+        "description": "Un vídeo para dar la bienvenida a vuestros invitados.",
+        "empty": "Añadid un vídeo para mostrar esta sección."
+      },
+      "timeline": {
+        "label": "Programa",
+        "description": "Vuestros eventos y el desarrollo de cada uno, momento a momento.",
+        "empty": "Añadid al menos un momento a un evento visible para mostrar el programa."
+      },
+      "dress-code": {
+        "label": "Código de vestimenta",
+        "description": "Lo que pueden llevar vuestros invitados: indicaciones, paleta, inspiración.",
+        "empty": "Añadid indicaciones, una paleta o una foto para mostrar el código de vestimenta."
+      },
+      "rsvp": {
+        "label": "RSVP",
+        "description": "El formulario de respuesta de vuestros invitados y su fecha límite."
+      },
+      "map": {
+        "label": "Lugar",
+        "description": "Dónde se celebra la boda y cómo llegar."
+      },
+      "accommodation": {
+        "label": "Alojamientos",
+        "description": "Los sitios que recomendáis para pasar la noche.",
+        "empty": "Añadid al menos un alojamiento para mostrar esta sección."
+      },
+      "transport": {
+        "label": "Transporte",
+        "description": "Cómo llegar: tren, avión, coche, coche compartido.",
+        "empty": "Añadid un medio de transporte con sus indicaciones para mostrar esta sección."
+      },
+      "menu": {
+        "label": "Menú",
+        "description": "El menú de la comida, sección por sección.",
+        "empty": "Añadid al menos un plato para mostrar el menú."
+      },
+      "gallery": {
+        "label": "Galería",
+        "description": "Vuestras fotos, en el orden que elijáis.",
+        "empty": "Añadid fotos para mostrar la galería."
+      },
+      "gift-list": {
+        "label": "Lista de bodas",
+        "description": "Unas palabras sobre los regalos y el enlace a vuestra lista.",
+        "empty": "Añadid un texto o un enlace para mostrar esta sección."
+      },
+      "playlist": {
+        "label": "Playlist",
+        "description": "Pedid a vuestros invitados que propongan canciones para la fiesta."
+      },
+      "guestbook": {
+        "label": "Libro de visitas",
+        "description": "Los textos que acompañarán a vuestro libro de visitas."
+      },
+      "video-guestbook": {
+        "label": "Libro de visitas en vídeo",
+        "description": "Los textos que acompañarán a vuestro libro de visitas en vídeo."
+      },
+      "faq": {
+        "label": "Preguntas frecuentes",
+        "description": "Las respuestas a las preguntas que se hacen vuestros invitados.",
+        "empty": "Añadid al menos una pregunta publicada para mostrar las preguntas frecuentes."
+      },
+      "footer": {
+        "label": "Pie de página",
+        "description": "La última página: vuestras palabras de despedida."
+      }
+    },
+    "groups": {
+      "couple": "La pareja",
+      "heroWords": "Las palabras en torno a vuestros nombres",
+      "heroWordsDescription": "Encima y debajo de vuestros nombres, en la primera pantalla.",
+      "when": "Cuándo",
+      "whenDescription": "La fecha y la hora de la ceremonia. La cuenta atrás parte de aquí.",
+      "where": "Dónde",
+      "whereDescription": "Se muestra debajo de vuestros nombres y al final de la invitación.",
+      "countdownTarget": "La ceremonia",
+      "countdownTargetDescription": "La cuenta atrás termina en esta fecha y a esta hora.",
+      "closing": "Unas últimas palabras",
+      "portrait": "Vuestra foto",
+      "portraitDescription": "Algunos temas la muestran en la última página. Si no, no aparece.",
+      "programmeIntro": "Introducción",
+      "events": "Vuestros eventos",
+      "eventsDescription": "Cada evento tiene su fecha, su dirección y sus momentos. Ocultad uno para quitarlo de la invitación sin perderlo.",
+      "moments": "Momentos",
+      "dayTwo": "El día siguiente en la invitación",
+      "dayTwoDescription": "Vuestro tema presenta este evento en un recuadro aparte.",
+      "venue": "El lugar",
+      "venueIntro": "Presentación",
+      "access": "Cómo llegar",
+      "accessDescription": "Una indicación por línea.",
+      "staysIntro": "Introducción",
+      "stays": "Alojamientos",
+      "questions": "Preguntas",
+      "childrenQuestion": "La pregunta sobre los niños",
+      "legacy": "Preguntas del antiguo editor",
+      "dress": "El código de vestimenta",
+      "palette": "Paleta e inspiración",
+      "rsvpDeadline": "Fecha límite",
+      "rsvpIntro": "Introducción",
+      "rsvpForm": "El formulario",
+      "transportModes": "Medios de transporte",
+      "carpool": "Coche compartido",
+      "menuSections": "El menú",
+      "menuNotes": "Notas",
+      "gallery": "Fotos",
+      "gift": "Lista de bodas",
+      "video": "El vídeo",
+      "videoWords": "Los textos",
+      "playlistIntro": "Introducción",
+      "playlistModeration": "Las sugerencias de vuestros invitados",
+      "guestbook": "Los textos"
+    },
+    "fields": {
+      "partner1": "Nombre 1",
+      "partner2": "Nombre 2",
+      "monogram": "Monograma",
+      "heroKicker": "Antetítulo",
+      "announcement": "Anuncio",
+      "weddingDate": "Fecha de la boda",
+      "ceremonyTime": "Hora de la ceremonia",
+      "dateLabel": "Fecha mostrada",
+      "venueName": "Nombre del lugar",
+      "venueCity": "Ciudad",
+      "dateSpelled": "Fecha escrita con letras",
+      "closingWords": "Últimas palabras",
+      "footerNote": "Nota breve",
+      "couplePhoto": "Foto de la pareja",
+      "scheduleIntro": "Frase de introducción",
+      "eventName": "Nombre",
+      "eventEnabled": "Visible en la invitación",
+      "eventDate": "Fecha",
+      "eventTime": "Hora",
+      "eventAddress": "Dirección",
+      "eventDescription": "Descripción",
+      "eventDressCode": "Vestimenta",
+      "eventKind": "Tipo de evento",
+      "momentTime": "Hora",
+      "momentTitle": "Título",
+      "momentDescription": "Descripción",
+      "momentIcon": "Ilustración",
+      "momentPhoto": "Foto",
+      "dayTwoDateLabel": "Fecha mostrada",
+      "dayTwoTimeLabel": "Horario mostrado",
+      "dayTwoNote": "Indicación",
+      "venueAddress": "Dirección",
+      "mapsUrl": "Enlace de Google Maps",
+      "wazeUrl": "Enlace de Waze",
+      "venuePhoto": "Foto del lugar",
+      "venueIntro": "Unas palabras sobre el lugar",
+      "transportInfo": "Transporte",
+      "parkingInfo": "Aparcamiento",
+      "accessInfo": "Acceso",
+      "staysIntro": "Frase de introducción",
+      "stayName": "Nombre",
+      "stayCity": "Ciudad",
+      "stayDistance": "Distancia",
+      "stayAddress": "Dirección",
+      "stayUrl": "Enlace de reserva",
+      "stayOffer": "Oferta o código promocional",
+      "stayPhone": "Teléfono",
+      "stayPhoto": "Foto",
+      "staySecondary": "En «Ver más opciones»",
+      "question": "Pregunta",
+      "answer": "Respuesta",
+      "published": "Publicada",
+      "dressTitle": "Título",
+      "dressMode": "Indicaciones",
+      "dressDescription": "Indicaciones",
+      "dressMen": "Para ellos",
+      "dressWomen": "Para ellas",
+      "palette": "Paleta",
+      "dressPhoto": "Foto de inspiración",
+      "dressNote": "Nota",
+      "rsvpDeadline": "Responder antes del",
+      "rsvpIntro": "Frase de introducción",
+      "allowPartner": "Ofrecer un acompañante",
+      "collectMessage": "Dejar un mensaje a los novios",
+      "allowChildren": "Niños bienvenidos",
+      "askDietary": "Preguntar por las dietas",
+      "dietary": "Dietas disponibles",
+      "transportType": "Tipo",
+      "transportTitle": "Título",
+      "transportDescription": "Indicaciones",
+      "carpoolUrl": "Enlace",
+      "carpoolLabel": "Etiqueta del enlace",
+      "carpoolDescription": "Texto",
+      "menuSectionTitle": "Sección",
+      "dishTitle": "Plato",
+      "dishDescription": "Descripción",
+      "dietaryNote": "Nota sobre dietas",
+      "menuFooter": "Notas al pie del menú",
+      "giftTitle": "Título",
+      "giftText": "Texto",
+      "giftUrl": "Enlace de la lista",
+      "giftLinkLabel": "Etiqueta del enlace",
+      "videoTitle": "Título",
+      "videoSubtitle": "Subtítulo",
+      "videoDescription": "Texto",
+      "videoSource": "Origen del vídeo",
+      "videoUrl": "Enlace del vídeo",
+      "playlistIntro": "Frase de introducción",
+      "guestbookTitle": "Título",
+      "guestbookText": "Texto de bienvenida",
+      "eventHidden": "oculto",
+      "clearDate": "Borrar",
+      "unpublished": "oculta",
+      "galleryPhoto": "Foto {index}"
+    },
+    "placeholders": {
+      "heroKicker": "Nos casamos",
+      "announcement": "Nos encantaría contar con vosotros.",
+      "closingWords": "Hasta muy pronto",
+      "footerNote": "Con todo nuestro cariño",
+      "scheduleIntro": "Así será nuestro día.",
+      "momentTitle": "Ceremonia",
+      "dayTwoNote": "Imprescindible traje de baño y toalla",
+      "venueIntro": "Al final del paseo de plátanos…",
+      "staysIntro": "Seleccionados para vosotros",
+      "stayDistance": "a 10 min de la finca",
+      "dressTitle": "Vestimenta de fiesta",
+      "dressNote": "El blanco está reservado a la novia.",
+      "rsvpIntro": "Vuestra respuesta nos ayudará a prepararlo todo.",
+      "diet": "Sin gluten…",
+      "transportTitle": "En tren",
+      "menuSectionTitle": "Entrante",
+      "giftTitle": "Vuestra presencia es nuestro mejor regalo",
+      "giftLinkLabel": "Participar",
+      "playlistIntro": "Ayudadnos a crear la banda sonora de la fiesta.",
+      "guestbookTitle": "Libro de visitas",
+      "guestbookText": "Dejadnos unas palabras…",
+      "url": "https://…"
+    },
+    "hints": {
+      "monogram": "Dejadlo vacío para no mostrarlo. Algunos temas imprimen entonces vuestras iniciales.",
+      "ceremonyTime": "Escribidla como queráis: 16:00, 16 h…",
+      "dateLabel": "Dejadlo vacío para mostrar la fecha en el formato del tema.",
+      "dateSpelled": "Dejadlo vacío para mostrar la fecha completa.",
+      "closingWords": "Añadid un salto de línea donde queráis que se corte la frase.",
+      "links": "Pegad el enlace para compartir copiado desde la aplicación.",
+      "access": "Una indicación por línea.",
+      "staySecondary": "Aparece discretamente debajo de los alojamientos principales.",
+      "palette": "Hasta 6 colores, mostrados como muestras de color.",
+      "allowPartner": "El formulario pide el nombre del acompañante.",
+      "collectMessage": "Un campo libre al final del formulario.",
+      "allowChildren": "Si está desactivado, el formulario no incluye ningún campo para niños, y las preguntas frecuentes lo indican.",
+      "dietary": "Se ofrecen en una lista desplegable en el formulario.",
+      "menuFooter": "Una nota por línea.",
+      "gallery": "Hasta 12 fotos, JPEG o PNG, 5 MB como máximo.",
+      "videoUpload": "MP4, MOV o WebM, 100 MB como máximo.",
+      "videoEmbed": "Un enlace de YouTube o Vimeo.",
+      "removeEvent": "Sus momentos y las respuestas de los invitados a este evento se eliminarán al guardar.",
+      "childrenQuestion": "Esta pregunta se añade automáticamente a vuestras preguntas frecuentes y sigue vuestro ajuste «Niños bienvenidos», para no contradecir nunca el formulario.",
+      "legacy": "{count, plural, one {# pregunta escrita en el antiguo módulo de preguntas frecuentes sigue apareciendo} other {# preguntas escritas en el antiguo módulo de preguntas frecuentes siguen apareciendo}} en vuestra invitación, además de estas.",
+      "playlistModeration": "Aprobad o rechazad las canciones que proponen vuestros invitados.",
+      "guestbookNotLive": "El libro de visitas aún no está abierto a vuestros invitados. Vuestros textos están guardados y lo acompañarán cuando se active."
+    },
+    "eventKinds": {
+      "welcome-dinner": "Cena de bienvenida",
+      "wedding-day": "El gran día",
+      "brunch": "Brunch del día siguiente",
+      "party": "Fiesta"
+    },
+    "icons": {
+      "auto": "Automático, según el título",
+      "ceremony": "Ceremonia",
+      "cocktail": "Cóctel",
+      "dinner": "Cena",
+      "party": "Fiesta",
+      "brunch": "Brunch"
+    },
+    "dressModes": {
+      "global": "Para todos",
+      "split": "Ellos y ellas"
+    },
+    "transportTypes": {
+      "Train": "Tren",
+      "Plane": "Avión",
+      "Bus": "Autobús",
+      "Car": "Coche",
+      "Ship": "Barco"
+    },
+    "videoSources": {
+      "embed": "Un enlace",
+      "upload": "Un archivo"
+    },
+    "empty": {
+      "moments": "Aún no hay momentos.",
+      "stays": "Aún no hay alojamientos.",
+      "questions": "Aún no hay preguntas.",
+      "transport": "Aún no hay medios de transporte.",
+      "menu": "Aún no hay secciones.",
+      "dishes": "Aún no hay platos.",
+      "gallery": "Aún no hay fotos.",
+      "events": "Aún no hay eventos."
+    },
+    "errors": {
+      "upload": "No se ha podido subir. Volved a intentarlo.",
+      "tooBig": "Archivo demasiado grande.",
+      "format": "Formato no compatible."
+    },
+    "addModule": {
+      "title": "Añadir un módulo",
+      "planMetered": "{plan, select, none {Tu plan} other {Plan {plan}}} · {remaining, plural, =0 {tus módulos incluidos ya están usados} one {te queda # módulo incluido} other {te quedan # módulos incluidos}}. Después, {price} por módulo.",
+      "planUnlimited": "{plan, select, none {Tu plan} other {Plan {plan}}} · módulos ilimitados, todos incluidos.",
+      "footPaid": "Añádelo y rellénalo con calma: solo pagas al publicarlo, cuando guardas.",
+      "footIncluded": "Aparece en tu invitación en cuanto guardas.",
+      "included": "Incluido",
+      "available": "{count, plural, one {# módulo disponible} other {# módulos disponibles}} · {price} cada uno",
+      "availableIncluded": "{count, plural, one {# módulo disponible} other {# módulos disponibles}} · incluidos en tu plan"
+    },
+    "moduleStatus": {
+      "trialTitle": "De prueba",
+      "trialBody": "Rellena este módulo y míralo en la vista previa. Tus invitados lo verán tras el pago: {price}, que pagas al guardar.",
+      "includedTitle": "Incluido en tu plan",
+      "includedBody": "Tus invitados verán este módulo en cuanto guardes.",
+      "dueTitle": "Guardado, aún sin publicar",
+      "dueBody": "Tu contenido se conserva. Paga {price} cuando quieras para que tus invitados lo vean.",
+      "pay": "Pagar {price}",
+      "badgeDue": "Por pagar",
+      "remove": "Quitar este módulo",
+      "removeTitle": "¿Quitar este módulo?",
+      "removeBody": "Desaparece de tu invitación y su contenido se elimina. Podrás volver a añadirlo más tarde.",
+      "removeConfirm": "Quitar",
+      "removeCancel": "Conservar",
+      "removed": "Módulo quitado",
+      "removeFailed": "No se ha podido quitar el módulo. Inténtalo de nuevo."
+    },
+    "due": {
+      "chip": "{count, plural, one {# módulo por pagar} other {# módulos por pagar}} · {price}",
+      "strip": "{count, plural, one {Un módulo aún no es visible para tus invitados} other {# módulos aún no son visibles para tus invitados}}"
+    },
+    "payment": {
+      "savedKicker": "Cambios guardados",
+      "title": "{count, plural, =1 {Publica «{name}»} other {Publica tus # módulos}}",
+      "body": "Solo queda un paso: paga {count, plural, =1 {este módulo} other {estos módulos}} para que tus invitados {count, plural, =1 {lo vean} other {los vean}} en tu invitación.",
+      "planNote": "Tu plan incluye {included} módulos, ya utilizados.",
+      "total": "Total",
+      "cgv": "Acepto las <link>Condiciones Generales de Venta</link> y solicito el acceso inmediato {count, plural, =1 {al módulo} other {a los módulos}}; renuncio así a mi derecho de desistimiento.",
+      "later": "Más tarde",
+      "pay": "Pagar {price}",
+      "secure": "Pago seguro con Stripe · factura enviada automáticamente",
+      "back": "Volver",
+      "processing": "Procesando el pago…",
+      "successTitle": "¡Ya está en línea!",
+      "successBody": "Tus invitados ya lo ven en tu invitación. Tu factura está disponible en «Facturación».",
+      "continue": "Continuar",
+      "unavailable": "El pago no está disponible en este momento. Inténtalo de nuevo en un instante.",
+      "confirming": "Pago recibido, confirmando: el módulo aparecerá en unos instantes.",
+      "alreadyOwned": "Este módulo ya estaba activo: el pago duplicado se te reembolsará automáticamente.",
+      "laterToast": "Guardado. Tu módulo te espera: págalo cuando quieras.",
+      "failed": "El pago no se ha completado. Puedes volver a intentarlo."
+    },
+    "panel": {
+      "hide": "Ocultar la configuración",
+      "show": "Mostrar la configuración",
+      "label": "Configuración"
+    }
   }
 }

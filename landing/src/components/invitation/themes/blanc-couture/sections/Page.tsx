@@ -1,5 +1,7 @@
 import type { ReactNode } from "react";
 
+import type { EditorSectionId } from "@shared/data/invitation-sections";
+
 /**
  * The `.page` wrapper every section of the source is built on.
  *
@@ -21,6 +23,7 @@ export function Page({
   id,
   monogram,
   couple,
+  "data-editor-section": editorSection,
 }: {
   className?: string;
   children: ReactNode;
@@ -34,9 +37,16 @@ export function Page({
    * initials, printed on every wedding that set none of its own.
    */
   monogram?: string;
+  /**
+   * Which editor section this page is. Forwarded to the `<section>` because
+   * that is the element the editor's live preview scrolls to, outlines and
+   * reports. Required, so a page added later cannot quietly go missing from
+   * the editor.
+   */
+  "data-editor-section": EditorSectionId;
 }) {
   return (
-    <section id={id} className={`page ${className}`} data-side={side}>
+    <section id={id} className={`page ${className}`} data-side={side} data-editor-section={editorSection}>
       <div className="light-pass" />
       <div className="content reveal">{children}</div>
       <Monogram text={monogram} couple={couple} />
