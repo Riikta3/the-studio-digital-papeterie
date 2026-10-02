@@ -2,7 +2,7 @@
 
 import { logout } from "@/app/[locale]/login/actions";
 import { usePathname } from "@/navigation";
-import { NAV_SECTIONS } from "@/components/navigation/nav-config";
+import { NAV_SECTIONS, visibleNavSections } from "@/components/navigation/nav-config";
 import { NavSection } from "@/components/navigation/NavSection";
 import { Button } from "@shared/components/ui/button";
 import {
@@ -25,6 +25,7 @@ export function Sidebar({
   slug,
   siteLocale,
   isPublished,
+  extras,
 }: {
   slug: string | null;
   /**
@@ -46,6 +47,8 @@ export function Sidebar({
    * des invités" — a message meant for a stranger, about their own invitation.
    */
   isPublished?: boolean | null;
+  /** `sites.extras`, null while still being read: decides the items an option unlocks. */
+  extras?: string[] | null;
 }) {
   const t = useTranslations("Sidebar");
   const locale = useLocale();
@@ -146,9 +149,12 @@ export function Sidebar({
 
           {/* Navigation */}
           <nav className='flex-1 space-y-1 overflow-y-auto'>
-            {NAV_SECTIONS.map((section) => (
+            {visibleNavSections(NAV_SECTIONS, extras ?? null).map((section) => (
               <NavSection
-                key={section.key}
+                // Keyed on its items too: an item an option unlocks arrives
+                // once `extras` is read, and a section opens only on mount
+                // (`useState(active)`) — on /musique it stayed folded.
+                key={`${section.key}:${(section.items ?? []).map((item) => item.key).join(",")}`}
                 section={section}
                 pathname={pathname}
                 onNavigate={handleLinkClick}

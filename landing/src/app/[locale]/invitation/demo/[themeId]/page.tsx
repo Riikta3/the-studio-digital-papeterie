@@ -1,8 +1,10 @@
 import type { Metadata, Viewport } from "next";
 import { notFound } from "next/navigation";
 
+import { InvitationMusic } from "@/components/invitation/InvitationMusic";
 import { demoDataFor } from "@/components/invitation/themes/fixtures";
 import { getTheme } from "@/components/invitation/themes/registry";
+import { musicPublicUrl, resolveMusicSource } from "@shared/lib/music";
 
 /**
  * Demo of one invitation theme, rendered inside the phone mockup on the home
@@ -66,5 +68,26 @@ export default async function ThemeDemoPage({
   // `?fixture=minimal|heavy` swaps in a control dataset outside production, to
   // check a theme against data that is not its own demo.
   const { Root, demoData } = theme;
-  return <Root data={demoDataFor(demoData, fixture)} />;
+  // Every demo plays the library's default track: a prospect hears the
+  // option before buying it. Silent inside the home page's mock-up (see
+  // InvitationMusic).
+  const music = resolveMusicSource(
+    { music_enabled: true, music_track: null, music_upload_path: null },
+    (path) => musicPublicUrl(process.env.NEXT_PUBLIC_SUPABASE_URL!, path),
+  );
+  return (
+    <>
+      {/* First in the DOM, though fixed on screen: a keyboard or screen-reader
+          user reaches the mute button before the whole invitation. */}
+      {music ? (
+        <InvitationMusic
+          src={music.src}
+          weddingKey={`demo:${theme.id}`}
+          accentColor={theme.accentColor}
+          themeId={theme.id}
+        />
+      ) : null}
+      <Root data={demoDataFor(demoData, fixture)} />
+    </>
+  );
 }

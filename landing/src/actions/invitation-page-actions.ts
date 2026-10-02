@@ -1,5 +1,6 @@
 "use server";
 
+import { musicPublicUrl, resolveMusicSource } from "@shared/lib/music";
 import type { InvitationRows } from "@shared/types/invitation-rows";
 
 import { createClient } from "@/utils/supabase/server";
@@ -204,5 +205,15 @@ export async function getInvitationPage(
   if (!page) return null;
 
   const dayOf = readDayOf(dayOfRes.data);
-  return dayOf ? { ...page, dayOf } : page;
+  // Already blanked by `resolve_public_slug` when the option was not bought or
+  // the couple switched it off.
+  const music = resolveMusicSource(
+    {
+      music_enabled: (site.music_enabled as boolean | null) ?? null,
+      music_track: (site.music_track as string | null) ?? null,
+      music_upload_path: (site.music_upload_path as string | null) ?? null,
+    },
+    (path) => musicPublicUrl(process.env.NEXT_PUBLIC_SUPABASE_URL!, path),
+  );
+  return { ...page, ...(dayOf ? { dayOf } : {}), music };
 }

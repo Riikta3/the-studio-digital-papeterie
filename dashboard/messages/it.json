@@ -69,7 +69,8 @@
         "items": {
           "editor": "Modifica il mio invito",
           "modules": "I miei moduli",
-          "playlist": "Playlist"
+          "playlist": "Playlist",
+          "music": "Musica"
         }
       },
       "day_of": {
@@ -1864,5 +1865,35 @@
       "show": "Mostra le impostazioni",
       "label": "Impostazioni"
     }
+  },
+  "Music": {
+    "title": "Musica dell’invito",
+    "intro": "Una musica accompagna i vostri ospiti mentre scoprono il vostro invito. Parte non appena toccano lo schermo, e l’icona in alto a destra permette di spegnerla.",
+    "not_included_title": "Opzione non inclusa nel vostro ordine",
+    "not_included_body": "La musica sull’invito è un’opzione da scegliere al momento dell’ordine.",
+    "enabled_label": "Musica sull’invito",
+    "enabled_hint": "Se disattivata, l’icona scompare per tutti i vostri ospiti.",
+    "current_label": "Brano attuale",
+    "your_file": "Il vostro file",
+    "listen": "Ascolta",
+    "pause": "Pausa",
+    "listen_failed": "Riproduzione non riuscita.",
+    "library_title": "Libreria",
+    "default_badge": "Predefinito",
+    "choose": "Scegli",
+    "chosen": "Selezionato",
+    "replace_confirm": "Il vostro file verrà eliminato. Continuare?",
+    "confirm": "Conferma",
+    "cancel": "Annulla",
+    "upload_title": "Caricate la vostra musica",
+    "upload_hint": "MP3 o M4A, massimo 15 MB.",
+    "upload_cta": "Scegli un file",
+    "uploading": "Caricamento in corso…",
+    "rights_notice": "Caricando un file, confermate di avere il diritto di diffonderlo.",
+    "error_type": "Formato non supportato (solo MP3 o M4A).",
+    "error_size": "Il file supera i 15 MB.",
+    "error_empty": "Questo file è vuoto.",
+    "saved": "Musica aggiornata",
+    "save_failed": "Impossibile salvare. Riprovate."
   }
 }

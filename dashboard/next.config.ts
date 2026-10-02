@@ -13,6 +13,21 @@ const withNextIntl = createNextIntlPlugin("./src/i18n.ts");
  */
 const previewOrigin = editorPreviewUrl();
 
+/**
+ * The Supabase project the app talks to, allowed as a media source: the music
+ * screen previews files from its Storage. In production it is already covered
+ * by `https:`; a local stack serves Storage over plain http
+ * (http://127.0.0.1:54321), which `media-src … https:` refused — every
+ * « Écouter » failed with « Lecture impossible. ».
+ */
+const supabaseMediaOrigin = (() => {
+  try {
+    return new URL(process.env.NEXT_PUBLIC_SUPABASE_URL ?? "").origin;
+  } catch {
+    return "";
+  }
+})();
+
 const nextConfig: NextConfig = {
   experimental: {
     serverActions: {
@@ -26,7 +41,7 @@ const nextConfig: NextConfig = {
         headers: [
           {
             key: "Content-Security-Policy",
-            value: `frame-src 'self' ${previewOrigin} https://js.stripe.com https://*.js.stripe.com https://hooks.stripe.com https://open.spotify.com https://www.youtube.com https://player.vimeo.com https://maps.google.com; media-src 'self' blob: https://*.supabase.co https:;`,
+            value: `frame-src 'self' ${previewOrigin} https://js.stripe.com https://*.js.stripe.com https://hooks.stripe.com https://open.spotify.com https://www.youtube.com https://player.vimeo.com https://maps.google.com; media-src 'self' blob: ${supabaseMediaOrigin} https://*.supabase.co https:;`,
           },
         ],
       },

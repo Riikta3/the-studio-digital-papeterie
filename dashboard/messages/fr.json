@@ -311,7 +311,8 @@
         "items": {
           "editor": "Éditer mon faire-part",
           "modules": "Mes modules",
-          "playlist": "Playlist"
+          "playlist": "Playlist",
+          "music": "Musique"
         }
       },
       "day_of": {
@@ -1864,5 +1865,35 @@
       "show": "Afficher la configuration",
       "label": "Configuration"
     }
+  },
+  "Music": {
+    "title": "Musique du faire-part",
+    "intro": "Une musique accompagne vos invités pendant qu’ils découvrent votre faire-part. Elle démarre dès qu’ils touchent l’écran, et l’icône en haut à droite leur permet de la couper.",
+    "not_included_title": "Option non incluse dans votre commande",
+    "not_included_body": "La musique sur le faire-part est une option qui se choisit au moment de la commande.",
+    "enabled_label": "Musique sur le faire-part",
+    "enabled_hint": "Désactivée, l’icône disparaît pour tous vos invités.",
+    "current_label": "Morceau actuel",
+    "your_file": "Votre fichier",
+    "listen": "Écouter",
+    "pause": "Pause",
+    "listen_failed": "Lecture impossible.",
+    "library_title": "Bibliothèque",
+    "default_badge": "Par défaut",
+    "choose": "Choisir",
+    "chosen": "Sélectionné",
+    "replace_confirm": "Votre fichier sera supprimé. Continuer ?",
+    "confirm": "Confirmer",
+    "cancel": "Annuler",
+    "upload_title": "Envoyer votre musique",
+    "upload_hint": "MP3 ou M4A, 15 Mo maximum.",
+    "upload_cta": "Choisir un fichier",
+    "uploading": "Envoi en cours…",
+    "rights_notice": "En envoyant un fichier, vous confirmez avoir le droit de le diffuser.",
+    "error_type": "Format non supporté (MP3 ou M4A uniquement).",
+    "error_size": "Le fichier dépasse 15 Mo.",
+    "error_empty": "Ce fichier est vide.",
+    "saved": "Musique mise à jour",
+    "save_failed": "Impossible d’enregistrer. Veuillez réessayer."
   }
 }

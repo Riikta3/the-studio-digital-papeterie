@@ -61,3 +61,11 @@ Un seul écrivain par fait : l'éditeur écrit les tables (`venues`,
 - Vérifications : `supabase/tests/module_addons.sql`, en local et en transaction annulée.
 
 Voir [[Achat de modules]].
+
+
+## Musique du faire-part (2026-10-02)
+
+- `settings.music_enabled` (bool, défaut true), `settings.music_track` (id de `shared/data/music-library.ts`, null = défaut), `settings.music_upload_path` (objet du bucket `music`, prioritaire sur `music_track`).
+- Bucket public `music` : `library/<fichier>` (bibliothèque du studio), `<wedding_id>/<timestamp>-<nom>.<ext>` (fichier du couple). 15 Mo, MP3/M4A/AAC. Aucune policy `authenticated` : écritures par server action uniquement.
+- `resolve_public_slug` renvoie `music_enabled`, `music_track`, `music_upload_path`, vides tant que `sites.extras` ne contient pas `custom-music` ou que le couple a coupé la musique. C'est le paywall.
+- Migration `20261002150000_invitation_music.sql`. Voir [[Musique du faire-part]].

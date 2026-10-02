@@ -69,7 +69,8 @@
         "items": {
           "editor": "Editar o meu convite",
           "modules": "Meus módulos",
-          "playlist": "Playlist"
+          "playlist": "Playlist",
+          "music": "Música"
         }
       },
       "day_of": {
@@ -1864,5 +1865,35 @@
       "show": "Mostrar a configuração",
       "label": "Configuração"
     }
+  },
+  "Music": {
+    "title": "Música do convite",
+    "intro": "Uma música acompanha seus convidados enquanto descobrem o seu convite. Ela começa assim que tocam na tela, e o ícone no canto superior direito permite desligá-la.",
+    "not_included_title": "Opção não incluída no seu pedido",
+    "not_included_body": "A música no convite é uma opção escolhida no momento do pedido.",
+    "enabled_label": "Música no convite",
+    "enabled_hint": "Desativada, o ícone desaparece para todos os seus convidados.",
+    "current_label": "Faixa atual",
+    "your_file": "Seu arquivo",
+    "listen": "Ouvir",
+    "pause": "Pausar",
+    "listen_failed": "Não foi possível reproduzir.",
+    "library_title": "Biblioteca",
+    "default_badge": "Padrão",
+    "choose": "Escolher",
+    "chosen": "Selecionada",
+    "replace_confirm": "Seu arquivo será excluído. Continuar?",
+    "confirm": "Confirmar",
+    "cancel": "Cancelar",
+    "upload_title": "Enviar sua música",
+    "upload_hint": "MP3 ou M4A, até 15 MB.",
+    "upload_cta": "Escolher um arquivo",
+    "uploading": "Enviando…",
+    "rights_notice": "Ao enviar um arquivo, você confirma que tem o direito de divulgá-lo.",
+    "error_type": "Formato não suportado (apenas MP3 ou M4A).",
+    "error_size": "O arquivo ultrapassa 15 MB.",
+    "error_empty": "Este arquivo está vazio.",
+    "saved": "Música atualizada",
+    "save_failed": "Não foi possível salvar. Tente novamente."
   }
 }

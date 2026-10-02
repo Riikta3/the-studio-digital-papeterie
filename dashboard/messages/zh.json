@@ -69,7 +69,8 @@
         "items": {
           "editor": "编辑我的请柬",
           "modules": "我的模块",
-          "playlist": "歌单"
+          "playlist": "歌单",
+          "music": "音乐"
         }
       },
       "day_of": {
@@ -1864,5 +1865,35 @@
       "show": "显示设置",
       "label": "设置"
     }
+  },
+  "Music": {
+    "title": "请柬音乐",
+    "intro": "宾客浏览您的请柬时，会有音乐相伴。音乐在他们触碰屏幕后开始播放，右上角的图标可将其关闭。",
+    "not_included_title": "您的订单未包含此选项",
+    "not_included_body": "请柬音乐是下单时选择的附加选项。",
+    "enabled_label": "请柬音乐",
+    "enabled_hint": "关闭后，所有宾客都将看不到该图标。",
+    "current_label": "当前曲目",
+    "your_file": "您的文件",
+    "listen": "试听",
+    "pause": "暂停",
+    "listen_failed": "无法播放。",
+    "library_title": "曲库",
+    "default_badge": "默认",
+    "choose": "选择",
+    "chosen": "已选择",
+    "replace_confirm": "您的文件将被删除。是否继续？",
+    "confirm": "确认",
+    "cancel": "取消",
+    "upload_title": "上传您的音乐",
+    "upload_hint": "MP3 或 M4A，最大 15 MB。",
+    "upload_cta": "选择文件",
+    "uploading": "正在上传…",
+    "rights_notice": "上传文件即表示您确认有权公开播放该文件。",
+    "error_type": "不支持的格式（仅限 MP3 或 M4A）。",
+    "error_size": "文件超过 15 MB。",
+    "error_empty": "该文件为空。",
+    "saved": "音乐已更新",
+    "save_failed": "无法保存，请重试。"
   }
 }

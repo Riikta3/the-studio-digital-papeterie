@@ -1,0 +1,95 @@
+/*
+ * The invitation's music icon (InvitationMusic.tsx).
+ *
+ * Top right: belle-rive's designer put the music there, and ciao-amore's
+ * scroll-to-top button already holds the bottom right corner. z-index 90 sits
+ * above the themes' floating navs (50-60) and below their opening overlays
+ * (100), so it appears once an invitation is opened.
+ *
+ * Rendered beside the theme's Root, so no theme rule reaches it by accident;
+ * a theme that wants it elsewhere writes `.invitation-music[data-theme="<id>"]`
+ * in its own responsive.css.
+ */
+.invitation-music {
+  position: fixed;
+  z-index: 90;
+  /* The insets are set by InvitationMusic.tsx from the visual viewport, so
+     the icon stays on screen when the page is wider than the phone. */
+  top: calc(18px + env(safe-area-inset-top, 0px) + var(--invitation-music-inset-top, 0px));
+  right: calc(18px + var(--invitation-music-inset-right, 0px));
+  display: grid;
+  place-items: center;
+  /* Square, and stated three ways, so nothing inherited can stretch it. */
+  width: 44px;
+  height: 44px;
+  min-width: 44px;
+  max-width: 44px;
+  flex: none;
+  padding: 0;
+  border: 1px solid color-mix(in srgb, var(--invitation-music-accent) 45%, transparent);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.86);
+  backdrop-filter: blur(8px);
+  color: var(--invitation-music-accent);
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.12);
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.invitation-music:focus-visible {
+  outline: 2px solid var(--invitation-music-accent);
+  outline-offset: 3px;
+}
+
+/* Waiting for the first tap: a slow halo says there is sound to be had. */
+.invitation-music[data-state="idle"] {
+  animation: invitation-music-pulse 2.4s ease-in-out infinite;
+}
+
+.invitation-music__bars {
+  display: flex;
+  align-items: flex-end;
+  gap: 3px;
+  height: 16px;
+}
+
+.invitation-music__bars i {
+  width: 3px;
+  height: 100%;
+  border-radius: 2px;
+  background: currentColor;
+  transform-origin: bottom;
+  animation: invitation-music-bar 0.9s ease-in-out infinite alternate;
+}
+
+.invitation-music__bars i:nth-child(2) {
+  animation-delay: 0.3s;
+}
+
+.invitation-music__bars i:nth-child(3) {
+  animation-delay: 0.6s;
+}
+
+@keyframes invitation-music-pulse {
+  50% {
+    box-shadow:
+      0 0 0 7px color-mix(in srgb, var(--invitation-music-accent) 18%, transparent),
+      0 6px 18px rgba(0, 0, 0, 0.12);
+  }
+}
+
+@keyframes invitation-music-bar {
+  from {
+    transform: scaleY(0.3);
+  }
+  to {
+    transform: scaleY(1);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .invitation-music,
+  .invitation-music__bars i {
+    animation: none;
+  }
+}

@@ -213,7 +213,8 @@
         "items": {
           "editor": "Edit my invitation",
           "modules": "My modules",
-          "playlist": "Playlist"
+          "playlist": "Playlist",
+          "music": "Music"
         }
       },
       "day_of": {
@@ -1864,5 +1865,35 @@
       "show": "Show the settings",
       "label": "Settings"
     }
+  },
+  "Music": {
+    "title": "Invitation music",
+    "intro": "Music accompanies your guests while they discover your invitation. It starts as soon as they touch the screen, and the icon at the top right lets them turn it off.",
+    "not_included_title": "Option not included in your order",
+    "not_included_body": "Music on the invitation is an option chosen when ordering.",
+    "enabled_label": "Music on the invitation",
+    "enabled_hint": "When off, the icon disappears for all your guests.",
+    "current_label": "Current track",
+    "your_file": "Your file",
+    "listen": "Listen",
+    "pause": "Pause",
+    "listen_failed": "Playback failed.",
+    "library_title": "Library",
+    "default_badge": "Default",
+    "choose": "Choose",
+    "chosen": "Selected",
+    "replace_confirm": "Your file will be deleted. Continue?",
+    "confirm": "Confirm",
+    "cancel": "Cancel",
+    "upload_title": "Upload your music",
+    "upload_hint": "MP3 or M4A, 15 MB max.",
+    "upload_cta": "Choose a file",
+    "uploading": "Uploading…",
+    "rights_notice": "By uploading a file, you confirm you have the right to play it publicly.",
+    "error_type": "Unsupported format (MP3 or M4A only).",
+    "error_size": "The file is larger than 15 MB.",
+    "error_empty": "This file is empty.",
+    "saved": "Music updated",
+    "save_failed": "Could not save. Please try again."
   }
 }

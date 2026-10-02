@@ -69,7 +69,8 @@
         "items": {
           "editor": "招待状を編集",
           "modules": "マイモジュール",
-          "playlist": "プレイリスト"
+          "playlist": "プレイリスト",
+          "music": "音楽"
         }
       },
       "day_of": {
@@ -1864,5 +1865,35 @@
       "show": "設定を表示",
       "label": "設定"
     }
+  },
+  "Music": {
+    "title": "招待状の音楽",
+    "intro": "ゲストが招待状をご覧になる間、音楽が流れます。画面に触れると再生が始まり、右上のアイコンで止めることができます。",
+    "not_included_title": "このオプションはご注文に含まれていません",
+    "not_included_body": "招待状の音楽は、ご注文時に選択するオプションです。",
+    "enabled_label": "招待状の音楽",
+    "enabled_hint": "オフにすると、すべてのゲストからアイコンが消えます。",
+    "current_label": "現在の曲",
+    "your_file": "アップロードしたファイル",
+    "listen": "試聴",
+    "pause": "一時停止",
+    "listen_failed": "再生できません。",
+    "library_title": "ライブラリ",
+    "default_badge": "デフォルト",
+    "choose": "選択",
+    "chosen": "選択中",
+    "replace_confirm": "アップロードしたファイルは削除されます。続けますか？",
+    "confirm": "確認",
+    "cancel": "キャンセル",
+    "upload_title": "音楽をアップロード",
+    "upload_hint": "MP3 または M4A、最大 15 MB。",
+    "upload_cta": "ファイルを選択",
+    "uploading": "アップロード中…",
+    "rights_notice": "ファイルをアップロードすることで、公開で再生する権利があることを確認したものとみなされます。",
+    "error_type": "対応していない形式です（MP3 または M4A のみ）。",
+    "error_size": "ファイルが 15 MB を超えています。",
+    "error_empty": "このファイルは空です。",
+    "saved": "音楽を更新しました",
+    "save_failed": "保存できませんでした。もう一度お試しください。"
   }
 }

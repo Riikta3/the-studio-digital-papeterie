@@ -69,7 +69,8 @@
         "items": {
           "editor": "Einladung bearbeiten",
           "modules": "Meine Module",
-          "playlist": "Playlist"
+          "playlist": "Playlist",
+          "music": "Musik"
         }
       },
       "day_of": {
@@ -1864,5 +1865,35 @@
       "show": "Einstellungen einblenden",
       "label": "Einstellungen"
     }
+  },
+  "Music": {
+    "title": "Musik der Einladung",
+    "intro": "Musik begleitet Ihre Gäste, während sie Ihre Einladung entdecken. Sie startet, sobald sie den Bildschirm berühren, und mit dem Symbol oben rechts können sie sie ausschalten.",
+    "not_included_title": "Option nicht in Ihrer Bestellung enthalten",
+    "not_included_body": "Musik auf der Einladung ist eine Option, die bei der Bestellung gewählt wird.",
+    "enabled_label": "Musik auf der Einladung",
+    "enabled_hint": "Ausgeschaltet verschwindet das Symbol für alle Ihre Gäste.",
+    "current_label": "Aktueller Titel",
+    "your_file": "Ihre Datei",
+    "listen": "Anhören",
+    "pause": "Pause",
+    "listen_failed": "Wiedergabe nicht möglich.",
+    "library_title": "Bibliothek",
+    "default_badge": "Standard",
+    "choose": "Auswählen",
+    "chosen": "Ausgewählt",
+    "replace_confirm": "Ihre Datei wird gelöscht. Fortfahren?",
+    "confirm": "Bestätigen",
+    "cancel": "Abbrechen",
+    "upload_title": "Eigene Musik hochladen",
+    "upload_hint": "MP3 oder M4A, maximal 15 MB.",
+    "upload_cta": "Datei auswählen",
+    "uploading": "Wird hochgeladen…",
+    "rights_notice": "Mit dem Hochladen bestätigen Sie, dass Sie die Datei öffentlich abspielen dürfen.",
+    "error_type": "Format nicht unterstützt (nur MP3 oder M4A).",
+    "error_size": "Die Datei ist größer als 15 MB.",
+    "error_empty": "Diese Datei ist leer.",
+    "saved": "Musik aktualisiert",
+    "save_failed": "Speichern nicht möglich. Bitte versuchen Sie es erneut."
   }
 }

@@ -2052,6 +2052,9 @@
       "footer": {
         "note": "Avec amour"
       }
+    },
+    "music": {
+      "label": "Musique"
     }
   }
 }

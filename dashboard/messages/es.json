@@ -69,7 +69,8 @@
         "items": {
           "editor": "Editar mi invitación",
           "modules": "Mis módulos",
-          "playlist": "Playlist"
+          "playlist": "Playlist",
+          "music": "Música"
         }
       },
       "day_of": {
@@ -1864,5 +1865,35 @@
       "show": "Mostrar la configuración",
       "label": "Configuración"
     }
+  },
+  "Music": {
+    "title": "Música de la invitación",
+    "intro": "Una música acompaña a sus invitados mientras descubren su invitación. Empieza en cuanto tocan la pantalla, y el icono de arriba a la derecha les permite apagarla.",
+    "not_included_title": "Opción no incluida en su pedido",
+    "not_included_body": "La música en la invitación es una opción que se elige al hacer el pedido.",
+    "enabled_label": "Música en la invitación",
+    "enabled_hint": "Si la desactiva, el icono desaparece para todos sus invitados.",
+    "current_label": "Canción actual",
+    "your_file": "Su archivo",
+    "listen": "Escuchar",
+    "pause": "Pausa",
+    "listen_failed": "No se puede reproducir.",
+    "library_title": "Biblioteca",
+    "default_badge": "Predeterminada",
+    "choose": "Elegir",
+    "chosen": "Seleccionada",
+    "replace_confirm": "Su archivo se eliminará. ¿Continuar?",
+    "confirm": "Confirmar",
+    "cancel": "Cancelar",
+    "upload_title": "Subir su música",
+    "upload_hint": "MP3 o M4A, 15 MB como máximo.",
+    "upload_cta": "Elegir un archivo",
+    "uploading": "Subiendo…",
+    "rights_notice": "Al subir un archivo, confirma que tiene derecho a difundirlo.",
+    "error_type": "Formato no compatible (solo MP3 o M4A).",
+    "error_size": "El archivo supera los 15 MB.",
+    "error_empty": "Este archivo está vacío.",
+    "saved": "Música actualizada",
+    "save_failed": "No se pudo guardar. Inténtelo de nuevo."
   }
 }

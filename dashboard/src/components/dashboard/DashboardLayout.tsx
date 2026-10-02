@@ -29,6 +29,8 @@ export function DashboardLayout({ children }: { children: React.ReactNode }) {
    */
   const [isPublished, setIsPublished] = useState<boolean | null>(null);
   const [siteLocale, setSiteLocale] = useState<string | null>(null);
+  /** `sites.extras` — the options bought at checkout; null while unknown. */
+  const [siteExtras, setSiteExtras] = useState<string[] | null>(null);
   const [showWelcome, setShowWelcome] = useState(false);
 
   // Use a ref to prevent multiple concurrent fetchSlug calls for the same user
@@ -62,11 +64,12 @@ export function DashboardLayout({ children }: { children: React.ReactNode }) {
 
         if (wedding) {
           // 2. Fetch Site Slug
-          // `status` and `languages` ride along in the query that was already
-          // being made — the button needs both and neither costs a round trip.
+          // `status`, `languages` and `extras` ride along in the query that was
+          // already being made — the button needs the first two, the sidebar
+          // the options bought, and none of them costs a round trip.
           const { data: site, error: sError } = await supabase
             .from("sites")
-            .select("slug, status, languages")
+            .select("slug, status, languages, extras")
             .eq("wedding_id", wedding.id)
             .maybeSingle();
 
@@ -82,6 +85,7 @@ export function DashboardLayout({ children }: { children: React.ReactNode }) {
             // The couple's own language is first in the array (the primary one
             // they picked at checkout); `fr` only as a last resort.
             setSiteLocale(site.languages?.[0] ?? "fr");
+            setSiteExtras(site.extras ?? []);
           } else {
             console.warn(
               "⚠️ [fetchSlug] No slug found for wedding:",
@@ -227,7 +231,7 @@ export function DashboardLayout({ children }: { children: React.ReactNode }) {
         isOpen={showWelcome}
         onClose={() => setShowWelcome(false)}
       />
-      <Sidebar slug={slug} siteLocale={siteLocale} isPublished={isPublished} />
+      <Sidebar slug={slug} siteLocale={siteLocale} isPublished={isPublished} extras={siteExtras} />
       <main className='md:ml-64 min-h-screen transition-all'>{children}</main>
     </div>
   );

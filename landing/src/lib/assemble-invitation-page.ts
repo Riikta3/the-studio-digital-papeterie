@@ -142,6 +142,13 @@ export type InvitationPageData = {
    * shows no Jour J blocks.
    */
   dayOf?: { photos: boolean };
+  /**
+   * The invitation's music, when the site owns the `custom-music` option and
+   * the couple left it on. Set by the public loader from `resolve_public_slug`,
+   * which blanks it otherwise; the editor's preview never has it, and no theme
+   * reads it — the page mounts the player beside the theme.
+   */
+  music?: { src: string } | null;
 };
 
 /**

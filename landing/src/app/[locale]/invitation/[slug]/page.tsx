@@ -4,6 +4,7 @@ import {
   getInvitationPage,
 } from "@/actions/invitation-page-actions";
 import { GuestGate } from "@/components/invitation/GuestGate";
+import { InvitationMusic } from "@/components/invitation/InvitationMusic";
 import { hasGuestPass } from "@/lib/guest-gate";
 import { notFound, redirect } from "next/navigation";
 import { resolveTheme } from "@/components/invitation/themes/registry";
@@ -90,9 +91,24 @@ export default async function InvitationPage({
   // couple has already paid for.
   // A theme's Root applies its own scope class and font variables, exactly as
   // on the demo route — this passes it the data and nothing else.
-  const { Root } = resolveTheme(page.themeId);
+  const theme = resolveTheme(page.themeId);
+  const { Root } = theme;
 
-  return <Root data={toInvitationData(page)} />;
+  return (
+    <>
+      {/* First in the DOM, though fixed on screen: a keyboard or screen-reader
+          user reaches the mute button before the whole invitation. */}
+      {page.music ? (
+        <InvitationMusic
+          src={page.music.src}
+          weddingKey={page.weddingId}
+          accentColor={theme.accentColor}
+          themeId={theme.id}
+        />
+      ) : null}
+      <Root data={toInvitationData(page)} />
+    </>
+  );
 }
 
 export async function generateMetadata({

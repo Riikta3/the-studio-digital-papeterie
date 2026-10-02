@@ -1917,6 +1917,9 @@
       "footer": {
         "note": "With love"
       }
+    },
+    "music": {
+      "label": "Music"
     }
   }
 }

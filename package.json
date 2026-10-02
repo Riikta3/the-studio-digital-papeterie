@@ -14,6 +14,6 @@
     "dev:dashboard": "npm run dev -w dashboard",
     "build:dashboard": "npm run build -w dashboard",
     "start:dashboard": "npm run start -w dashboard",
-    "test": "node --experimental-strip-types --import ./scripts/register-ts-aliases.mjs --test shared/lib/*.test.mjs landing/src/lib/*.test.mjs dashboard/src/components/editor/*.test.mjs dashboard/src/lib/db/*.test.mjs"
+    "test": "node --experimental-strip-types --import ./scripts/register-ts-aliases.mjs --test shared/lib/*.test.mjs landing/src/lib/*.test.mjs dashboard/src/components/editor/*.test.mjs dashboard/src/lib/db/*.test.mjs dashboard/src/components/navigation/*.test.mjs"
   }
 }

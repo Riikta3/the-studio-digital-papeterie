@@ -1703,6 +1703,9 @@
       "footer": {
         "note": "Com amor"
       }
+    },
+    "music": {
+      "label": "Música"
     }
   }
 }

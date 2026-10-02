@@ -2259,6 +2259,9 @@ export type Database = {
           is_module_gallery_enabled: boolean | null
           is_module_rsvp_meal_enabled: boolean | null
           is_module_schedule_enabled: boolean | null
+          music_enabled: boolean
+          music_track: string | null
+          music_upload_path: string | null
           rsvp_mode: string | null
           theme_config: Json | null
           wedding_code: string | null
@@ -2277,6 +2280,9 @@ export type Database = {
           is_module_gallery_enabled?: boolean | null
           is_module_rsvp_meal_enabled?: boolean | null
           is_module_schedule_enabled?: boolean | null
+          music_enabled?: boolean
+          music_track?: string | null
+          music_upload_path?: string | null
           rsvp_mode?: string | null
           theme_config?: Json | null
           wedding_code?: string | null
@@ -2295,6 +2301,9 @@ export type Database = {
           is_module_gallery_enabled?: boolean | null
           is_module_rsvp_meal_enabled?: boolean | null
           is_module_schedule_enabled?: boolean | null
+          music_enabled?: boolean
+          music_track?: string | null
+          music_upload_path?: string | null
           rsvp_mode?: string | null
           theme_config?: Json | null
           wedding_code?: string | null
@@ -2788,6 +2797,9 @@ export type Database = {
           couple_photo_url: string
           hero_kicker: string
           modules: string[]
+          music_enabled: boolean
+          music_track: string
+          music_upload_path: string
           theme_id: string
           wedding_id: string
         }[]

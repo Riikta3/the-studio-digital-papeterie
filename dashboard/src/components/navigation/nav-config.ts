@@ -19,6 +19,12 @@ export type NavItemDef = {
   /** i18n key under `Sidebar.sections.<section>.items` */
   key: string;
   href: string;
+  /**
+   * A checkout extra (`sites.extras`) the site must own for the item to be
+   * listed — a screen for an option the couple did not buy is a door to
+   * nothing.
+   */
+  requiresExtra?: string;
 };
 
 export type NavSectionDef = {
@@ -54,6 +60,7 @@ export const NAV_SECTIONS: NavSectionDef[] = [
       { key: "editor", href: "/invitation" },
       { key: "modules", href: "/modules" },
       { key: "playlist", href: "/playlist" },
+      { key: "music", href: "/musique", requiresExtra: "custom-music" },
     ],
   },
   {
@@ -103,4 +110,25 @@ export function activeItemHref(
     .map((item) => item.href)
     .filter((href) => pathname === href || pathname.startsWith(`${href}/`))
     .sort((a, b) => b.length - a.length)[0];
+}
+
+/**
+ * The sections as this site sees them: items tied to an extra it did not buy
+ * are left out. `extras` is null while the site is still being read, which
+ * lists none of them rather than flashing one that then disappears.
+ */
+export function visibleNavSections(
+  sections: NavSectionDef[],
+  extras: readonly string[] | null,
+): NavSectionDef[] {
+  return sections.map((section) =>
+    section.items
+      ? {
+          ...section,
+          items: section.items.filter(
+            (item) => !item.requiresExtra || (extras ?? []).includes(item.requiresExtra),
+          ),
+        }
+      : section,
+  );
 }
