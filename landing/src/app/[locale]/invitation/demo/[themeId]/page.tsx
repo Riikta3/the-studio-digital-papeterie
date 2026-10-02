@@ -2,6 +2,8 @@ import type { Metadata, Viewport } from "next";
 import { notFound } from "next/navigation";
 
 import { InvitationMusic } from "@/components/invitation/InvitationMusic";
+import { AtelierBar } from "@/components/invitation/atelier/AtelierBar";
+import { atelierEnabled, atelierThemes } from "@/components/invitation/atelier/atelier";
 import { demoDataFor } from "@/components/invitation/themes/fixtures";
 import { getTheme } from "@/components/invitation/themes/registry";
 import { musicPublicUrl, resolveMusicSource } from "@shared/lib/music";
@@ -56,11 +58,11 @@ export default async function ThemeDemoPage({
   params,
   searchParams,
 }: {
-  params: Promise<{ themeId: string }>;
-  searchParams: Promise<{ fixture?: string }>;
+  params: Promise<{ locale: string; themeId: string }>;
+  searchParams: Promise<{ fixture?: string; atelier?: string }>;
 }) {
-  const { themeId } = await params;
-  const { fixture } = await searchParams;
+  const { locale, themeId } = await params;
+  const { fixture, atelier } = await searchParams;
   const theme = getTheme(themeId);
 
   if (!theme) notFound();
@@ -88,6 +90,15 @@ export default async function ThemeDemoPage({
         />
       ) : null}
       <Root data={demoDataFor(demoData, fixture)} />
+      {/* The studio's workshop switcher (`/invitation/atelier`), never for guests. */}
+      {atelier === "1" && atelierEnabled() ? (
+        <AtelierBar
+          themes={atelierThemes()}
+          themeId={theme.id}
+          fixture={fixture === "minimal" || fixture === "heavy" ? fixture : "demo"}
+          locale={locale}
+        />
+      ) : null}
     </>
   );
 }
