@@ -40,7 +40,8 @@ export const MARE_ALTA_DEMO: InvitationData = {
         details: ["Transfert privé", "Départs groupés vendredi et samedi sur réservation."],
         link: { url: "https://transferts.example.org/sienna-malo", label: "Réserver un transfert" },
       },
-      { mode: "Prévoir", details: ["24° en juin", "Du soleil la journée et une étole légère après minuit."] },
+      // Season-neutral: the date rolls (always six months out), so the designer's "24° en juin" would lie half the year.
+      { mode: "Prévoir", details: ["Le soleil, puis la brise", "Du soleil la journée et une étole légère après minuit."] },
       { mode: "Prolonger", details: ["Les pieds dans le sable", "Nos plages, tables et balades préférées autour de Comporta."] },
     ],
   },
@@ -81,9 +82,10 @@ export const MARE_ALTA_DEMO: InvitationData = {
   },
   dressCode: {
     title: "Élégance au jardin",
-    body: "Habillez-vous pour un dîner d’été portugais : chic, fluide et lumineux.",
+    body: "Habillez-vous pour un dîner portugais à ciel ouvert : chic, fluide et lumineux.",
     colors: ["#8a9a7b", "#f3ecdd", "#b8a6c9"],
-    note: "On aime les volumes fluides, le lin qui vit, les bijoux sculpturaux, les couleurs du jardin et les détails précieux.\n\nOn évite le total look blanc. Pour le reste : venez spectaculaire, mais venez vous-même.",
+    // A short first line on its own is the paragraph's heading, as the designer set "On aime" and "On évite".
+    note: "On aime\nles volumes fluides, le lin qui vit, les bijoux sculpturaux, les couleurs du jardin et les détails précieux.\n\nOn évite\nle total look blanc. Pour le reste : venez spectaculaire, mais venez vous-même.",
   },
   stays: [
     { name: "Villa Pinhal", city: "Comporta", address: "Rua dos Pinhais 12", distance: "7 min", bookingCode: "SIENNA", url: "https://villa-pinhal.example.org" },
@@ -114,6 +116,19 @@ export const MARE_ALTA_DEMO: InvitationData = {
     { question: "Puis-je modifier mon RSVP ?", answer: "Écrivez-nous avant la date limite et nous mettrons à jour vos réponses, accompagnants ou allergies." },
     { question: "Quel sera le sol sur place ?", answer: "La cérémonie et le dîner se déroulent sur un sol naturel et sablonneux. Les talons larges, sandales et mocassins sont vos meilleurs alliés." },
   ],
+  // The couple has no photographs of their own: the showcase album is the designer's embroidery, whole
+  // pictures in the order the gallery sets them (a wide one, a pair, a wide one, a pair). The landscape
+  // scenes take the wide places, so their crop to 3:2 loses the least. No intro video: no film fits.
+  gallery: {
+    images: [
+      "/themes/mare-alta/embroidered-portuguese-table-v6.webp",
+      "/themes/mare-alta/embroidered-menu-v6.webp",
+      "/themes/mare-alta/embroidered-dresscode-v5.webp",
+      "/themes/mare-alta/embroidered-playlist-v6.webp",
+      "/themes/mare-alta/embroidered-destination-v5.webp",
+      "/themes/mare-alta/embroidered-celebration-v5.webp",
+    ],
+  },
   playlist: [
     { title: "O Sol", artist: "Vitor Kley" },
     { title: "Manga", artist: "Mayra Andrade" },
@@ -129,11 +144,13 @@ export const MARE_ALTA_DEMO: InvitationData = {
   // The designer's own wording, kept for the showcase. A real wedding gets the
   // neutral catalogue default until the couple rewrites it.
   texts: {
-    "countdown.note": "Le soleil se couche à 21 h 04. Soyez là avant lui.",
+    // The designer's "Le soleil se couche à 21 h 04" without the hour, which only held for their June date.
+    "countdown.note": "Le soleil se couche sur l’Atlantique. Soyez là avant lui.",
     "timeline.sign": "L’Atlantique donne le rythme",
     "transport.title": "Quelques jours\nau Portugal",
     "transport.intro": "L’arrivée fait déjà partie de la fête. Voici l’essentiel pour voyager léger jusqu’à Comporta.",
     "menu.eyebrow": "Casa Maré Alta · Table d’un soir",
+    "menu.intro": "Une carte imaginée comme un dîner au restaurant, entre l’Atlantique et l’Alentejo.",
   },
   // Renders the two Jour J blocks. There is no `weddingId`, so they are inert.
   dayOf: { slug: "demo", photos: true },

@@ -6,6 +6,12 @@
  * datasets call these helpers instead, so the wedding is always six months out
  * and the RSVP deadline always ahead of it.
  *
+ * Every date lands on a Saturday, as a wedding does: a demo that reads
+ * "mardi 2 mars" looks wrong to a couple, and the designers' mock-ups all
+ * marry on a Saturday with a brunch on the Sunday. The same rule applies to
+ * every helper, so a theme's `demoStartsAt(n)` and `demoDate(n)` stay the
+ * same day.
+ *
  * ## Why the day is pinned
  *
  * These run on the server (rendering the page) and again in the browser
@@ -37,21 +43,33 @@ function addMonths(date: Date, months: number): Date {
   return out;
 }
 
+/** The date itself when it is a Saturday, otherwise the next one. */
+function nextSaturday(date: Date): Date {
+  const out = new Date(date);
+  out.setUTCDate(out.getUTCDate() + ((6 - out.getUTCDay() + 7) % 7));
+  return out;
+}
+
+/** The Saturday `monthsAhead` months from today — the day every helper below names. */
+function demoDay(monthsAhead: number): Date {
+  return nextSaturday(addMonths(todayUtc(), monthsAhead));
+}
+
 function pad(n: number): string {
   return String(n).padStart(2, "0");
 }
 
 /**
- * An ISO timestamp `monthsAhead` months from today, at the given wall-clock
- * time and UTC offset.
+ * An ISO timestamp on the Saturday `monthsAhead` months from today, at the
+ * given wall-clock time and UTC offset.
  *
  * The offset is the theme's own — a wedding in Ravello is `+01:00`, one on the
  * Riviera in June is `+02:00` — so it is passed in rather than guessed.
  *
- * @example demoStartsAt(6, "17:00", "+01:00") // "2027-03-02T17:00:00+01:00"
+ * @example demoStartsAt(6, "17:00", "+01:00") // "2027-03-06T17:00:00+01:00"
  */
 export function demoStartsAt(monthsAhead = 6, time = "17:00", offset = "+02:00"): string {
-  const date = addMonths(todayUtc(), monthsAhead);
+  const date = demoDay(monthsAhead);
   const [hh = "17", mm = "00"] = time.split(":");
   return (
     `${date.getUTCFullYear()}-${pad(date.getUTCMonth() + 1)}-${pad(date.getUTCDate())}` +
@@ -59,9 +77,9 @@ export function demoStartsAt(monthsAhead = 6, time = "17:00", offset = "+02:00")
   );
 }
 
-/** A plain `YYYY-MM-DD` date `monthsAhead` months from today. */
+/** A plain `YYYY-MM-DD` date: the Saturday `monthsAhead` months from today. */
 export function demoDate(monthsAhead: number): string {
-  const date = addMonths(todayUtc(), monthsAhead);
+  const date = demoDay(monthsAhead);
   return `${date.getUTCFullYear()}-${pad(date.getUTCMonth() + 1)}-${pad(date.getUTCDate())}`;
 }
 
@@ -70,7 +88,7 @@ export function demoDate(monthsAhead: number): string {
  * (brunch, pool party).
  */
 export function demoDayAfter(monthsAhead = 6): string {
-  const date = addMonths(todayUtc(), monthsAhead);
+  const date = demoDay(monthsAhead);
   date.setUTCDate(date.getUTCDate() + 1);
   return `${date.getUTCFullYear()}-${pad(date.getUTCMonth() + 1)}-${pad(date.getUTCDate())}`;
 }

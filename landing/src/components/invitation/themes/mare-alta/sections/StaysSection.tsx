@@ -4,10 +4,12 @@ import { ExternalLink, Hotel, Luggage, Plane, Shell } from "lucide-react";
 import { useLocale, useTranslations } from "next-intl";
 import { useId, useState } from "react";
 
-import { formatDateRange, weddingSpan } from "../../date-range";
+import { weddingSpan } from "../../date-range";
 import { slot } from "../../text";
 import type { InvitationData, Stay } from "../../types";
 import { mapsUrl } from "../calendar-url";
+
+import { shortSpan } from "./event-day";
 
 import { Section } from "./Section";
 import { RhythmTitle, SectionTitle } from "./SectionTitle";
@@ -79,7 +81,8 @@ export function StaysSection({ data }: { data: InvitationData }) {
   const secondary = stays.filter((stay) => stay.secondary);
 
   const span = weddingSpan(data);
-  const days = span ? formatDateRange(span.start, span.end, { locale }) : null;
+  // Short ("2–4 avr."): the three stamps share one row, as the designer's three single words did.
+  const days = span ? shortSpan(span.start, span.end, locale) : null;
   const stamps = [
     { Icon: Plane, text: data.venue.country },
     { Icon: Shell, text: data.venue.city },
@@ -111,7 +114,9 @@ export function StaysSection({ data }: { data: InvitationData }) {
         <div className="travel-stamps">
           {stamps.map(({ Icon, text }, index) => (
             <span key={`${index}-${text}`}>
-              <Icon /> {text}
+              <Icon />
+              {/* Its own box, so a long name wraps inside its stamp instead of pushing the row onto two. */}
+              <bdi className="ma-stamp-text">{text}</bdi>
             </span>
           ))}
         </div>

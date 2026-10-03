@@ -14,10 +14,10 @@ export const FALLBACK_THEME_ID = "belle-rive";
 export const THEME_MODULES: Readonly<Record<string, readonly string[]>> = {
   "belle-rive": ["countdown", "map", "timeline", "dress-code", "accommodation", "playlist", "faq", "rsvp", "gift-list"],
   "blanc-couture": ["countdown", "map", "timeline", "dress-code", "accommodation", "transport", "playlist", "faq", "rsvp"],
-  "cabo-verde": ["countdown", "map", "timeline", "dress-code", "accommodation", "playlist", "transport", "rsvp"],
-  "chateau-royal": ["timeline", "menu", "map", "dress-code", "faq", "transport", "rsvp"],
+  "cabo-verde": ["countdown", "map", "timeline", "dress-code", "accommodation", "playlist", "transport", "rsvp", "intro-video", "gallery", "menu", "faq", "gift-list"],
+  "chateau-royal": ["countdown", "intro-video", "timeline", "menu", "map", "playlist", "gallery", "dress-code", "faq", "transport", "accommodation", "gift-list", "rsvp"],
   "ciao-amore": ["countdown", "timeline", "dress-code", "map", "accommodation", "playlist", "faq", "rsvp", "intro-video", "menu", "gallery", "gift-list", "transport"],
-  "mare-alta": ["countdown", "timeline", "dress-code", "map", "accommodation", "transport", "menu", "playlist", "gift-list", "rsvp", "faq"],
+  "mare-alta": ["countdown", "intro-video", "timeline", "dress-code", "map", "accommodation", "transport", "menu", "playlist", "gallery", "gift-list", "rsvp", "faq"],
 };
 // ─── END GENERATED ───────────────────────────────────────────────────────────
 

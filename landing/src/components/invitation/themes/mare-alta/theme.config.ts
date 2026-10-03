@@ -16,6 +16,7 @@ export const mareAltaTheme: ThemeManifest = {
   description: "Broderie sur lin ivoire, pins parasols et glycines : un mariage dans une villa de l'Atlantique.",
   supports: [
     "countdown",
+    "intro-video",
     "timeline",
     "dress-code",
     "map",
@@ -23,6 +24,7 @@ export const mareAltaTheme: ThemeManifest = {
     "transport",
     "menu",
     "playlist",
+    "gallery",
     "gift-list",
     "rsvp",
     "faq",

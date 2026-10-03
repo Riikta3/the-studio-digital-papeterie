@@ -25,6 +25,15 @@ export const caboVerdeEditorSlots: readonly ThemeEditorSlot[] = [
     multiline: true,
   },
 
+  { key: "intro-video.eyebrow", messages: [`${NS}.introVideo.eyebrow`] },
+
+  { key: "gallery.eyebrow", messages: [`${NS}.gallery.eyebrow`] },
+  {
+    key: "gallery.title",
+    messages: [`${NS}.gallery.titleLine1`, `${NS}.gallery.titleLine2`],
+    multiline: true,
+  },
+
   { key: "countdown.until", messages: [`${NS}.countdown.until`] },
   {
     key: "countdown.title",
@@ -37,6 +46,13 @@ export const caboVerdeEditorSlots: readonly ThemeEditorSlot[] = [
 
   { key: "timeline.eyebrow", messages: [`${NS}.itinerary.eyebrow`] },
   { key: "timeline.title", messages: [`${NS}.itinerary.title`] },
+
+  { key: "menu.eyebrow", messages: [`${NS}.menu.eyebrow`] },
+  {
+    key: "menu.title",
+    messages: [`${NS}.menu.titleLine1`, `${NS}.menu.titleLine2`],
+    multiline: true,
+  },
 
   { key: "dress-code.eyebrow", messages: [`${NS}.dress.eyebrow`] },
 
@@ -57,6 +73,19 @@ export const caboVerdeEditorSlots: readonly ThemeEditorSlot[] = [
 
   { key: "transport.eyebrow", messages: [`${NS}.travel.eyebrow`] },
   { key: "transport.title", messages: [`${NS}.travel.title`] },
+  // The words on the notebook's stationery: the airline on the pass's stub, the
+  // word on the passport's cover.
+  { key: "transport.airline", messages: [`${NS}.travel.airline`] },
+  { key: "transport.passport", messages: [`${NS}.travel.passport`] },
+
+  { key: "faq.eyebrow", messages: [`${NS}.faq.eyebrow`] },
+  {
+    key: "faq.title",
+    messages: [`${NS}.faq.titleLine1`, `${NS}.faq.titleLine2`],
+    multiline: true,
+  },
+
+  { key: "gift-list.eyebrow", messages: [`${NS}.gifts.eyebrow`] },
 
   { key: "rsvp.title", messages: [`${NS}.rsvp.title`] },
 ];

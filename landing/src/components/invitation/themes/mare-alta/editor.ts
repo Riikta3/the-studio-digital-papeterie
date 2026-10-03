@@ -20,8 +20,12 @@ export const mareAltaEditorSlots: readonly ThemeEditorSlot[] = [
   },
   { key: "countdown.note", messages: [`${NS}.countdown.note`] },
 
+  // The film's title, subtitle and words are the couple's own fields; only the eyebrow is the theme's.
+  { key: "intro-video.eyebrow", messages: [`${NS}.introVideo.eyebrow`] },
+
   { key: "map.eyebrow", messages: [`${NS}.map.eyebrow`] },
 
+  // Dated phrases are split (spec D2): the slot is the wording ("Le récit du"), the section appends the day.
   { key: "timeline.eyebrow", messages: [`${NS}.timeline.eyebrow`] },
   {
     key: "timeline.title",
@@ -53,6 +57,8 @@ export const mareAltaEditorSlots: readonly ThemeEditorSlot[] = [
     messages: [`${NS}.menu.titleLine1`, `${NS}.menu.titleLine2`],
     multiline: true,
   },
+  // Empty by default: the sentence under the menu's title is the couple's to write, or nothing.
+  { key: "menu.intro", messages: [`${NS}.menu.intro`] },
 
   { key: "playlist.eyebrow", messages: [`${NS}.playlist.eyebrow`] },
   {
@@ -61,6 +67,13 @@ export const mareAltaEditorSlots: readonly ThemeEditorSlot[] = [
     multiline: true,
   },
   { key: "playlist.intro", messages: [`${NS}.playlist.intro`] },
+
+  { key: "gallery.eyebrow", messages: [`${NS}.gallery.eyebrow`] },
+  {
+    key: "gallery.title",
+    messages: [`${NS}.gallery.titleLine1`, `${NS}.gallery.titleLine2`],
+    multiline: true,
+  },
 
   { key: "gift-list.eyebrow", messages: [`${NS}.gifts.eyebrow`] },
 

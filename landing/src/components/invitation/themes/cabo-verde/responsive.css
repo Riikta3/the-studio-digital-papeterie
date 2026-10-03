@@ -14,6 +14,15 @@
  * are global to the document and every theme's sheet loads together.
  */
 
+/* The canvas around the invitation. The landing's `body` is the studio's yellow
+   (`bg-studio-jaune`), which a rubber-band scroll showed above and below the
+   theme. The designer's page ground is his `body`: #fffaf0 in his last layer.
+   The one selector of this file outside `.theme-cabo-verde`, and harmless: it
+   only matches while the theme is on the page. */
+html:has(.theme-cabo-verde) {
+  background-color: #fffaf0;
+}
+
 /* The root is the page backdrop (the designer's `body`): it fills the viewport
    even when the invitation is short, as in the editor's preview or with few
    sections. On desktop the generated sheet pads it by 2rem above and below. */
@@ -55,6 +64,17 @@
   max-width: none;
 }
 
+/* The preflight also makes every image a block, aligned on the middle of the
+   line. The programme's string of lights is an inline picture in the designer's
+   page, on the baseline, wider than the card and pulled into place from the
+   line's start (36px right of centre at 390, in his page too): as a block it
+   sat elsewhere, and on the middle it lost the line's descent, lifting the
+   programme by 4px. */
+.theme-cabo-verde .party-lights {
+  display: inline;
+  vertical-align: baseline;
+}
+
 /* A button keeps the browser's padding unless the sheet sets one (the "Discover"
    cue under the hero does not), and a fieldset its 2px side margin. */
 .theme-cabo-verde .scroll-cue {
@@ -85,6 +105,14 @@
 
 .theme-cabo-verde .rsvp select {
   font-size: 0.8333rem;
+}
+
+/* The designer's fields take the size of the label they sit in (10.88px); the
+   guest search's field is a sibling of its label and fell back to 16px. It is
+   set like the RSVP's fields, so the page has one size of field. (iOS zooms
+   into a field under 16px on focus: true of the designer's RSVP fields too.) */
+.theme-cabo-verde .cv-suggest input {
+  font-size: 0.68rem;
 }
 
 /* The hero is a one-cell grid whose cell is sized by its content. A long kicker
@@ -128,6 +156,31 @@
 .theme-cabo-verde .program-flow i {
   flex: 1 1 1rem;
   min-width: 0.75rem;
+}
+
+/* A freshly opened day deals its cards one after the other. The sheet counts
+   them with `article:nth-child()`, but a panel starts with the day's label (and
+   the event's details when there are some), so the fourth card landed first.
+   Counted among the cards instead, with the sheet's delays; a fifth card and
+   the next ones follow the fourth. */
+.theme-cabo-verde .day-panel.day-entering article:nth-of-type(1) {
+  animation-delay: 0s;
+}
+
+.theme-cabo-verde .day-panel.day-entering article:nth-of-type(2) {
+  animation-delay: 0.08s;
+}
+
+.theme-cabo-verde .day-panel.day-entering article:nth-of-type(3) {
+  animation-delay: 0.16s;
+}
+
+.theme-cabo-verde .day-panel.day-entering article:nth-of-type(4) {
+  animation-delay: 0.24s;
+}
+
+.theme-cabo-verde .day-panel.day-entering article:nth-of-type(n + 5) {
+  animation-delay: 0.32s;
 }
 
 /* The couple's sentence under the title was written for a stack of cards, not a
@@ -331,6 +384,21 @@
    label, solid button — and lays out in one column, in the page's flow. */
 .theme-cabo-verde .cv-suggest {
   display: block;
+}
+
+/* It arrives with the rest of the section, as the designer's form did: his
+   `.section form` rise (opacity and 22px, .75s / .85s) does not reach a `div`. */
+.theme-cabo-verde .section .cv-suggest {
+  opacity: 0;
+  transform: translateY(22px);
+  transition:
+    opacity 0.75s cubic-bezier(0.2, 0.75, 0.2, 1),
+    transform 0.85s cubic-bezier(0.2, 0.75, 0.2, 1);
+}
+
+.theme-cabo-verde .section.visible .cv-suggest {
+  opacity: 1;
+  transform: translateY(0);
 }
 
 /* Without opening tracks the form follows the guitarist directly, and the
@@ -624,15 +692,154 @@
   left: 14.55cqw;
   max-width: 36cqw;
   letter-spacing: 0.045em;
+  /* The printed destination was a shade lighter than the navy of the rest. */
+  color: rgba(11, 35, 72, 0.86);
 }
 
 /* The gold rule under the destination, drawn here since it left the picture
-   with the words it underlined. */
+   with the words it underlined: as fine as the picture's (about a pixel of the
+   1100px art; it read twice as thick at 0.2cqw). */
 .theme-cabo-verde .cv-ticket-rule {
   top: 22.3cqw;
   width: 32.6cqw;
-  height: 0.2cqw;
+  height: 0.11cqw;
   background: #b39a62;
+}
+
+/* The words the picture used to carry elsewhere, cleaned off with the rest
+   (see TravelSection.tsx). Up the blue band, the place, in the plane's gold,
+   read from the foot of the band as the designer set it — sideways glyphs in
+   every script, so nothing stands upside down. */
+.theme-cabo-verde .cv-ticket-text > .cv-ticket-band {
+  left: 7.55cqw;
+  top: 26.8cqw;
+  max-height: 16cqw;
+  color: #d9b46f;
+  font-family: Arial, Helvetica, sans-serif;
+  letter-spacing: 0.55em;
+  line-height: 1;
+  writing-mode: vertical-rl;
+  text-orientation: sideways;
+  translate: -50% -50%;
+  rotate: 180deg;
+}
+
+/* On the stub: the airline (a slot), two lines at most above the gold rule
+   the picture keeps; under them, where the designer's tagline was, the
+   passenger — the couple's initials. */
+.theme-cabo-verde .cv-ticket-text > .cv-ticket-airline {
+  left: 83.1cqw;
+  top: 12.06cqw;
+  display: -webkit-box;
+  max-width: 11.8cqw;
+  color: rgba(11, 35, 72, 0.88);
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 1cqw;
+  letter-spacing: 0.32em;
+  line-height: 2.4;
+  white-space: normal;
+  overflow-wrap: anywhere;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+}
+
+.theme-cabo-verde .cv-ticket-text > .cv-ticket-passenger {
+  left: 83.1cqw;
+  top: 25.4cqw;
+  max-width: 11.2cqw;
+  color: #0b2348;
+  font-family: "Times New Roman", Times, serif;
+  font-size: 2.3cqw;
+  letter-spacing: 0.06em;
+  line-height: 1.3;
+}
+
+/* The passport: the same construction as the pass — a size container in the
+   sheet's box (width, height, position, tilt), the picture's contain-fit
+   (733 × 1100) in it, and the cover's words over the cleaned picture in the
+   art's embossed gold. Every length is in `cqw` of the picture: 1cqw is
+   7.33px of it. */
+.theme-cabo-verde .travel-scene .cv-passport {
+  position: absolute;
+  display: grid;
+  place-items: center;
+  container-type: size;
+  pointer-events: none;
+}
+
+.theme-cabo-verde .cv-passport-art {
+  position: relative;
+  width: min(100cqw, calc(100cqh * 733 / 1100));
+  aspect-ratio: 733 / 1100;
+  container-type: inline-size;
+}
+
+.theme-cabo-verde .travel-scene .cv-passport-img {
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.theme-cabo-verde .cv-passport-text {
+  position: absolute;
+  inset: 0;
+  color: #d9b46f;
+  direction: ltr;
+  text-shadow:
+    0 0.14cqw 0 rgba(4, 18, 40, 0.55),
+    0 -0.07cqw 0 rgba(255, 236, 196, 0.25);
+}
+
+/* Centred on the cover (its middle is at 48.6% of the picture). */
+.theme-cabo-verde .cv-passport-text > * {
+  position: absolute;
+  left: 48.6cqw;
+  margin: 0;
+  overflow: hidden;
+  text-align: center;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  unicode-bidi: plaintext;
+  translate: -50% 0;
+}
+
+.theme-cabo-verde .cv-passport-place,
+.theme-cabo-verde .cv-passport-word {
+  max-width: 47cqw;
+  font-family: "Times New Roman", Times, serif;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  line-height: 1.3;
+}
+
+/* Where the national emblem was: a double gold ring holding the monogram. */
+.theme-cabo-verde .cv-passport-text > .cv-passport-seal {
+  top: 74.4cqw;
+  display: grid;
+  place-items: center;
+  width: 29cqw;
+  height: 29cqw;
+  border: 0.55cqw solid currentColor;
+  border-radius: 50%;
+  box-shadow: 0 0.14cqw 0 rgba(4, 18, 40, 0.5);
+  translate: -50% -50%;
+}
+
+.theme-cabo-verde .cv-passport-seal::before {
+  content: "";
+  position: absolute;
+  inset: 1.4cqw;
+  border: 0.25cqw solid currentColor;
+  border-radius: 50%;
+}
+
+.theme-cabo-verde .cv-passport-seal span {
+  max-width: 22cqw;
+  overflow: hidden;
+  font-family: Didot, var(--font-cv-display), "Bodoni 72", "Times New Roman", serif;
+  line-height: 1;
+  white-space: nowrap;
 }
 
 .theme-cabo-verde .cv-ticket-date {
@@ -711,6 +918,196 @@
 }
 
 /* ------------------------------------------------------------------------- *
+ * Device sweep (320 to 2560, phones in landscape, iPads both ways)
+ *
+ * Each rule names the device it was seen on and what went wrong there. The
+ * approved renderings (390 and the desktop card) do not move: these rules
+ * either only match elsewhere or reproduce the same geometry.
+ * ------------------------------------------------------------------------- */
+
+/* Hero, short screens. The sheet lifts the copy into the sky with a negative
+   top margin (-17svh; -18svh on a phone) and centres it in a 100svh grid. When
+   the copy is taller than the room it has, it climbed out of the top of the
+   card: a long kicker under the music button on a 320×640 or 375×667 phone (and
+   on any iPhone in Safari, whose svh is ~660), the names over the stamp and the
+   kicker cut off on a phone in landscape (852×393), « Découvrir » over the
+   place line. The same lift is now padding below the copy, so the copy sits
+   exactly where it did whenever it fits; when it does not, the hero grows
+   instead. The top padding keeps the stamp's line clear (it ends 47px down;
+   on a phone the music button under it ends at 116px). */
+.theme-cabo-verde .hero {
+  --cv-hero-lift: 17svh;
+  --cv-hero-top: 3.5rem;
+  padding-top: var(--cv-hero-top);
+  padding-bottom: calc(var(--cv-hero-top) + var(--cv-hero-lift));
+}
+
+.theme-cabo-verde .hero-copy {
+  margin-top: 0;
+}
+
+@media (max-width: 680px) {
+  .theme-cabo-verde .hero {
+    --cv-hero-top: 7.5rem;
+  }
+}
+
+@media (max-width: 560px) {
+  .theme-cabo-verde .hero {
+    --cv-hero-lift: 18svh;
+  }
+}
+
+/* Phone in landscape (852×393, 932×430, 667×375): 100svh is under 430px. The
+   names were set for the card's width (123px) and took the whole height. They
+   follow the height instead, the copy loses half of its inner padding and no
+   longer lifts, and the bottom padding keeps « Découvrir » off the place line. */
+@media (orientation: landscape) and (max-height: 500px) {
+  .theme-cabo-verde .hero {
+    --cv-hero-top: 4rem;
+    padding-bottom: 5.4rem;
+  }
+
+  .theme-cabo-verde .hero-copy {
+    padding-top: 1.1rem;
+    padding-bottom: 0.6rem;
+  }
+
+  .theme-cabo-verde .hero h1 {
+    font-size: clamp(3rem, 16svh, 7.7rem);
+  }
+}
+
+/* The stamp along the top of the hero wraps on a narrow phone (320, 360): its
+   last word alone on the second line (« L'OCÉAN »). Balanced, like every
+   eyebrow below. */
+.theme-cabo-verde .hero:after {
+  text-wrap: balance;
+}
+
+/* Eyebrows. On 320–375 most of them wrap, leaving a word alone on the second
+   line (« D'AMOUR », « MARIAGE »), and the RSVP's deadline split its date
+   (« … AVANT LE 5 / DÉCEMBRE 2026 », at 390 too). Balanced lines instead; an
+   eyebrow that fits on one line is unchanged. */
+.theme-cabo-verde .eyebrow {
+  text-wrap: balance;
+}
+
+/* Section titles under 390px (320, 360, 375). A long second line broke on its
+   hyphen and left a fragment alone (« pour le week- / end »), a short last word
+   sat alone (« … avant le grand / jour »). `pretty` reflows only those; from
+   390 the titles keep the designer's breaks. */
+@media (max-width: 389px) {
+  .theme-cabo-verde .section h2 {
+    text-wrap: pretty;
+  }
+}
+
+/* Programme, the string of lights. The sheet sizes it on the viewport (100vw)
+   and centres it with a negative margin. Inside the 680px card that went wrong
+   twice: on an iPad (744, 820) the picture fitted the line, was centred as text
+   and then shifted, so it hung 80–100px right of centre with its left end in
+   view; on a large screen (1920, 2560) it grew with the screen, its bulbs
+   turned into a billboard and pushed the programme 400px down. From 561px it
+   is placed from the line's start, centred on the card; past 680px it keeps
+   the size it has in the approved 1440 card, whatever the screen. Phones keep
+   the designer's placement. */
+@media (min-width: 561px) {
+  .theme-cabo-verde .party-lights {
+    margin-left: 0;
+    left: calc(50% - 50vw);
+  }
+}
+
+@media (min-width: 681px) {
+  .theme-cabo-verde .party-lights {
+    width: 1440px;
+    left: calc(50% - 720px);
+  }
+}
+
+/* Lazy pictures in the flow of the page had no height until they arrived: when
+   one loaded, everything under it jumped down — the programme by 490px on a
+   desktop (the lights), the stays by 450px (the pier), everything after the
+   venue by 94px (its flowers, which have a grid row of their own), less on a
+   phone. Each box takes its picture's ratio beforehand (pixel sizes of the WebP
+   files), so nothing moves when it lands; once loaded they are drawn exactly as
+   before. */
+.theme-cabo-verde .party-lights {
+  aspect-ratio: 2143 / 734;
+}
+
+.theme-cabo-verde .venue-wedding-flowers {
+  aspect-ratio: 1050 / 700;
+}
+
+.theme-cabo-verde .stay-pilotis {
+  aspect-ratio: 1536 / 1024;
+}
+
+.theme-cabo-verde .countdown-rings {
+  aspect-ratio: 820 / 547;
+}
+
+.theme-cabo-verde .cv-faq-shells {
+  aspect-ratio: 900 / 444;
+}
+
+/* Travel notebook on a 320px phone: two cards side by side left ~80px of text,
+   a word or two per line (« Prévoyez des / chaussures / adaptées au / sable… »).
+   One card per row below 360px. */
+@media (max-width: 359px) {
+  .theme-cabo-verde .practical-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+/* Stay, a hotel with a photograph, on a 320px phone: the picture's column left
+   the name, the address and the offer ten letters a line (« Hôtel du / Lac »,
+   « 04 50 12 34 / 56 »). Below 360px the picture sits above the text. */
+@media (max-width: 359px) {
+  .theme-cabo-verde .cv-stay-has-photo {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .theme-cabo-verde .cv-stay-has-photo > * {
+    grid-column: 1;
+  }
+
+  .theme-cabo-verde .cv-stay-has-photo > .cv-stay-photo {
+    grid-row: auto;
+    align-self: start;
+    width: 2.8rem;
+    height: 2.8rem;
+    margin-bottom: 0.45rem;
+  }
+}
+
+/* Footer monogram on a 320px phone. Its size stops shrinking at 4.8rem (77px),
+   so a couple with two-letter initials (« MC · JB ») broke onto two lines with
+   the dot hanging off the first. It keeps following the width below 366px;
+   from there up nothing changes. */
+.theme-cabo-verde .beach-footer .monogram {
+  font-size: min(clamp(4.8rem, 18vw, 7.6rem), 21vw);
+}
+
+/* Touch targets. On a phone or a tablet the day tabs (41px tall), « Découvrir »
+   (38px), the round buttons that remove a picked song (32px) and the small
+   uppercase links of the stays and the travel cards (18px) were under 44px.
+   Their hit area grows to 44px without changing what is drawn. */
+@media (pointer: coarse) {
+  .theme-cabo-verde :is(.tab, .cv-suggest .cv-remove, .cv-stay-links a, .practical-grid a) {
+    position: relative;
+  }
+
+  .theme-cabo-verde :is(.scroll-cue, .tab, .cv-suggest .cv-remove, .cv-stay-links a, .practical-grid a)::after {
+    content: "";
+    position: absolute;
+    inset: min(0px, (100% - 44px) / 2);
+  }
+}
+
+/* ------------------------------------------------------------------------- *
  * Right to left (Arabic)
  *
  * The designer's sheet is written in physical terms: `text-align: left`, a
@@ -774,9 +1171,16 @@
   }
 }
 
+/* Past 680px the lights keep their 1440px (see "Device sweep" above). */
+@media (min-width: 681px) {
+  [dir="rtl"] .theme-cabo-verde .party-lights {
+    left: calc(720px - 50%);
+  }
+}
+
 /* Letter-spacing cuts Arabic script into separate letters: the pass's labels, which
    are tracked in the other languages, are set solid. */
-[dir="rtl"] .theme-cabo-verde .cv-ticket-label {
+[dir="rtl"] .theme-cabo-verde :is(.cv-ticket-label, .cv-ticket-band, .cv-ticket-airline) {
   letter-spacing: 0;
 }
 
@@ -815,6 +1219,7 @@
     .section .track-list > div,
     .section .practical-grid article,
     .section form,
+    .section .cv-suggest,
     .venue-card,
     .palette i,
     .stay-objects .rolling-luggage-set
@@ -875,6 +1280,7 @@
       .section .track-list > div,
       .section .practical-grid article,
       .section form,
+      .section .cv-suggest,
       .venue-card,
       .palette i
     ) {

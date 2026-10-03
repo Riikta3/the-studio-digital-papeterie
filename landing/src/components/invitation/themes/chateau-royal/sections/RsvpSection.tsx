@@ -1,6 +1,7 @@
 "use client";
 
 import { useLocale, useTranslations } from "next-intl";
+import { useState } from "react";
 
 import { formatFrenchDate } from "../../format";
 import { slot } from "../../text";
@@ -24,6 +25,8 @@ export function RsvpSection({ data }: { data: InvitationData }) {
   const t = useTranslations("Invitation.chateauRoyal.rsvp");
   const locale = useLocale();
   const rsvp = useGuestRsvp(data);
+  // The designer's thank-you greets the guest by the name they typed ("Merci Jeanne Martin !").
+  const [guestName, setGuestName] = useState("");
 
   const options = data.rsvp;
   const deadline = formatFrenchDate(data.event.rsvpDeadline, { locale });
@@ -44,10 +47,15 @@ export function RsvpSection({ data }: { data: InvitationData }) {
 
         {rsvp.sent ? (
           <div className="success" role="status">
-            {t("thanks")}
+            {guestName ? t("thanksName", { name: guestName }) : t("thanks")}
           </div>
         ) : (
-          <form onSubmit={rsvp.handleSubmit}>
+          <form
+            onSubmit={(event) => {
+              setGuestName(String(new FormData(event.currentTarget).get("fullName") ?? "").trim());
+              void rsvp.handleSubmit(event);
+            }}
+          >
             <label>
               {t("nameLabel")}
               <input name="fullName" autoComplete="name" required />

@@ -30,6 +30,7 @@ export function FloatingNav({ targets }: { targets: readonly string[] }) {
   const nav = useRef<HTMLElement>(null);
 
   const items = ITEMS.filter((item) => targets.includes(item.target));
+  const hasItems = items.length > 0;
 
   // After every render of the page (the editor's preview adds and removes sections as the couple
   // types): look in the theme's own root for each section and show the matching button or not.
@@ -49,10 +50,32 @@ export function FloatingNav({ targets }: { targets: readonly string[] }) {
     aside.style.display = shown > 0 ? "" : "none";
   });
 
-  if (items.length === 0) return null;
+  // The pill and the hero's "Discover" cue both sit at the bottom centre of the screen: on the first screen of every
+  // device the pill covered the cue. It stays away (`data-away`, `responsive.css`) while the cue is in the bottom
+  // fifth of the screen, where the pill is, and comes in as soon as the guest scrolls it clear. It is rendered away
+  // so it does not flash in and out on load; a page with no cue, or no IntersectionObserver, simply shows it.
+  useEffect(() => {
+    const aside = nav.current;
+    const cue = aside?.closest("[data-theme-root]")?.querySelector(".hero .scroll-cue");
+    if (!aside) return;
+    if (!cue || !("IntersectionObserver" in window)) {
+      aside.removeAttribute("data-away");
+      return;
+    }
+    const observer = new IntersectionObserver(
+      ([entry]) => aside.toggleAttribute("data-away", entry.isIntersecting),
+      // The document as root: inside the home page's phone mock-up (an iframe) the band is the mock-up's screen.
+      { root: document, rootMargin: "-80% 0px 0px 0px" },
+    );
+    observer.observe(cue);
+    return () => observer.disconnect();
+    // Re-run when the pill itself appears (the editor's preview can add its first section after mount).
+  }, [hasItems]);
+
+  if (!hasItems) return null;
 
   return (
-    <aside ref={nav} className="floating-nav" aria-label={t("label")}>
+    <aside ref={nav} className="floating-nav" aria-label={t("label")} data-away="">
       {items.map(({ key, target, Icon }) => (
         <ScrollToButton key={key} target={target} ariaLabel={t(key)}>
           <Icon size={17} aria-hidden="true" />

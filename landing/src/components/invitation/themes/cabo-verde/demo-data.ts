@@ -42,7 +42,9 @@ export const CABO_VERDE_DEMO: InvitationData = {
   venue: {
     name: "Baía das Gatas",
     city: "São Vicente",
-    country: "Cabo Verde",
+    // The designer's venue card says the country in French; it also goes up
+    // the boarding pass's band and onto the passport's cover.
+    country: "Cap-Vert",
     mapsUrl: "https://maps.google.com/?q=Baia+das+Gatas+Cabo+Verde",
     access: [
       { mode: "Arrivée", details: ["Aéroport Cesária-Évora, São Vicente."] },
@@ -119,22 +121,93 @@ export const CABO_VERDE_DEMO: InvitationData = {
     note: "Le blanc et l’ivoire sont réservés aux mariés.",
   },
 
+  // The modules the designer's page had no section for, written in the same
+  // world so that the showcase shows the theme drawing every one of them. No
+  // intro film: no clip fits the island (the `heavy` control dataset has one).
+  menu: {
+    sections: [
+      {
+        title: "Pour commencer",
+        items: [
+          { title: "Pastéis de thon", description: "Chaussons croustillants, piment doux de l’île" },
+          { title: "Ceviche de wahoo", description: "Citron vert, lait de coco et coriandre fraîche" },
+        ],
+      },
+      {
+        title: "Le plat",
+        items: [
+          { title: "Langouste grillée au feu de bois", description: "Beurre aux herbes, riz au coco" },
+          { title: "Cachupa rica", description: "Le plat de l’archipel, maïs et haricots mijotés — en version végétarienne" },
+        ],
+      },
+      {
+        title: "Pour finir",
+        items: [
+          { title: "Pudim de queijo", description: "Flan au fromage frais et confiture de papaye" },
+          { title: "Mangue et fruits de la passion" },
+        ],
+      },
+    ],
+    note: "Ponche et grogue servis au coucher du soleil.",
+    footer: ["Vins de Chã das Caldeiras", "Café de São Antão"],
+  },
+
+  gallery: {
+    images: [
+      "/themes/cabo-verde/album-1.webp",
+      "/themes/cabo-verde/album-2.webp",
+      "/themes/cabo-verde/album-3.webp",
+      "/themes/cabo-verde/album-4.webp",
+      "/themes/cabo-verde/album-5.webp",
+    ],
+  },
+
+  faq: [
+    {
+      question: "Faut-il un visa pour le Cap-Vert ?",
+      answer:
+        "Les voyageurs européens en sont dispensés. Une préinscription en ligne est demandée quelques jours avant le départ : nous vous enverrons le lien.",
+    },
+    {
+      question: "Comment rejoindre la plage depuis Mindelo ?",
+      answer: "Des navettes partent du centre une heure avant la cérémonie et vous ramènent toute la nuit.",
+    },
+    {
+      question: "Quelles chaussures pour la cérémonie ?",
+      answer: "Elle a lieu sur le sable : des sandales plates, ou pieds nus si le cœur vous en dit.",
+    },
+    {
+      question: "Et s’il pleut ?",
+      answer: "Il ne pleut presque jamais sur l’île. Une grande tente est tout de même prévue au bord de l’eau.",
+    },
+  ],
+
+  gifts: {
+    title: "Un cadeau, si vous y tenez",
+    body: "Votre présence au bout du monde est déjà le plus beau des cadeaux. Pour celles et ceux qui le souhaitent, une cagnotte participera à notre voyage de noces d’île en île.",
+    url: "https://cagnotte.example.org/paula-ricardo",
+    linkLabel: "Participer au voyage",
+  },
+
+  // The small line over each name is a hotel's town in a real wedding; the
+  // designer used it for a tag on each area (his names are areas, not hotels),
+  // and the showcase keeps his words.
   stays: [
     {
       name: "Mindelo centre",
-      city: "Mindelo",
+      city: "Ville & musique",
       address: "Hôtels de charme au cœur des restaurants et des rues colorées.",
       distance: "20 min",
     },
     {
       name: "Laginha",
-      city: "Laginha",
+      city: "Plage à pied",
       address: "Chambres lumineuses à quelques pas du sable et du centre.",
       distance: "25 min",
     },
     {
       name: "São Pedro",
-      city: "São Pedro",
+      city: "Calme & océan",
       address: "Adresses paisibles, lits face à l’Atlantique et réveils au soleil.",
       distance: "35 min",
     },
@@ -162,5 +235,7 @@ export const CABO_VERDE_DEMO: InvitationData = {
     "countdown.caption": "avant de célébrer notre mariage au bord de l’Atlantique",
     "timeline.eyebrow": "Trois jours · une histoire d’amour",
     "accommodation.title": "Posez vos valises\nà Mindelo",
+    "transport.airline": "Cabo Verde Airways",
+    "transport.passport": "Passaporte",
   },
 };

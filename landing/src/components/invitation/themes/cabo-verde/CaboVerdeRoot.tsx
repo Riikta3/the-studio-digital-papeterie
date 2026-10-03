@@ -6,17 +6,25 @@ import { monogramOf } from "../monogram";
 import { cssString, slot } from "../text";
 import type { InvitationData, ModuleId } from "../types";
 
-// Order matters: `cabo-verde.css` is generated from the designer's sheet, and
-// `responsive.css` layers the safety nets and the fixes on top of it.
+// Order matters: `cabo-verde.css` is generated from the designer's sheet,
+// `responsive.css` layers the safety nets and the fixes on top of it, and
+// `modules.css` draws the sections the designer did not (and the motion added
+// to the ones he did).
 import "./cabo-verde.css";
 import "./responsive.css";
+import "./modules.css";
 
 import { caboVerdeFontVars } from "./fonts";
 import { CountdownSection } from "./sections/CountdownSection";
 import { DressSection } from "./sections/DressSection";
+import { FaqSection } from "./sections/FaqSection";
 import { FooterSection } from "./sections/FooterSection";
+import { GallerySection } from "./sections/GallerySection";
+import { GiftsSection } from "./sections/GiftsSection";
 import { HeroSection } from "./sections/HeroSection";
+import { IntroVideoSection } from "./sections/IntroVideoSection";
 import { ItinerarySection } from "./sections/ItinerarySection";
+import { MenuSection } from "./sections/MenuSection";
 import { ParallaxShift } from "./sections/ParallaxShift";
 import { PlaylistSection } from "./sections/PlaylistSection";
 import { RsvpSection } from "./sections/RsvpSection";
@@ -56,15 +64,25 @@ export function CaboVerdeRoot({ data }: { data: InvitationData }) {
       <div className="cv-column">
         <HeroSection data={data} />
         <WelcomeSection data={data} />
+        {/* The couple speak first: their announcement, their film, their
+            album — then the countdown and the practical pages. */}
+        {has("intro-video") ? <IntroVideoSection data={data} /> : null}
+        {has("gallery") ? <GallerySection data={data} /> : null}
         {has("countdown") ? <CountdownSection data={data} /> : null}
         {has("map") ? <VenueSection data={data} /> : null}
         {has("timeline") ? <ItinerarySection data={data} /> : null}
+        {/* The dinner follows the programme that announces it. */}
+        {has("menu") ? <MenuSection data={data} /> : null}
         {has("dress-code") ? <DressSection data={data} /> : null}
         {has("accommodation") ? <StaySection data={data} /> : null}
         {has("playlist") ? <PlaylistSection data={data} /> : null}
         {/* The travel notebook is the venue's directions: owning the transport
             module or the map shows it (and only when there are directions). */}
         {has("transport") || has("map") ? <TravelSection data={data} /> : null}
+        {/* The questions close the practical pages, and the gift note comes
+            before the reply so that the RSVP stays the last call. */}
+        {has("faq") ? <FaqSection data={data} /> : null}
+        {has("gift-list") ? <GiftsSection data={data} /> : null}
         {has("rsvp") ? (
           <RsvpSection
             // Outside a real invitation (the showcase, the editor's preview) a

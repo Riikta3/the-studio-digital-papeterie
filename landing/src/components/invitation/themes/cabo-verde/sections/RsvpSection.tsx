@@ -35,12 +35,13 @@ export function RsvpSection({ data }: { data: InvitationData }) {
   const deadline = formatFrenchDate(data.event.rsvpDeadline, { locale });
   const note = deadline ? null : data.copy?.rsvpNote;
 
-  // The designer's script brought the confirmation to the middle of the screen:
-  // the form it replaces was taller, and the page would otherwise slide under it.
+  // The designer's script brought the section to the middle of the screen once
+  // answered (`#rsvp`, `block: "center"`): the form the thank-you replaces was
+  // taller, and the page would otherwise slide under it.
   useEffect(() => {
     if (!rsvp.sent) return;
     const calm = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    thanks.current?.scrollIntoView({ behavior: calm ? "auto" : "smooth", block: "center" });
+    thanks.current?.closest("section")?.scrollIntoView({ behavior: calm ? "auto" : "smooth", block: "center" });
   }, [rsvp.sent]);
 
   return (

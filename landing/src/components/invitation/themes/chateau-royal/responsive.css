@@ -7,6 +7,28 @@
  */
 
 /* ------------------------------------------------------------------ *
+ * The page itself
+ * ------------------------------------------------------------------ */
+
+/* The app's <body> is yellow (bg-studio-jaune) and shows wherever the page is pulled past its ends
+   (overscroll, rubber-band). The designer's page ground is espresso — his last `html` rule. Once `html`
+   has a background the canvas takes it instead of the body's. The one selector outside the scope: it
+   only matches while this theme is on the page. */
+html:has(.theme-chateau-royal) { background-color: #3c2924; }
+
+/* The app's <body> sets `antialiased`, which renders the Bodoni hairlines and the light-on-espresso
+   text thinner than the designer's page on macOS. The theme keeps the browser's own smoothing. */
+.theme-chateau-royal {
+  -webkit-font-smoothing: auto;
+  -moz-osx-font-smoothing: auto;
+}
+
+/* The app's base layer (Tailwind preflight) makes form controls inherit their label's tracking (0.07em)
+   and greys their placeholders. The designer's fields have neither. */
+.theme-chateau-royal :is(input, select, textarea) { letter-spacing: normal; }
+.theme-chateau-royal :is(input, textarea)::placeholder { color: #757575; opacity: 1; }
+
+/* ------------------------------------------------------------------ *
  * Hero and letter
  * ------------------------------------------------------------------ */
 
@@ -261,6 +283,110 @@
 }
 
 /* ------------------------------------------------------------------ *
+ * Every device: the 320px phone, the phone on its side, the iPad mini,
+ * the 27-inch screen
+ * ------------------------------------------------------------------ */
+
+/* The designer drew the page at 390px and 1440px. Below 390 the same sizes leave words alone on their
+   lines; on a phone held sideways the hero is taller than the screen; between 390 and 760 a few blocks
+   lose their centre; past 1920 the venue spreads across the whole width. Every rule below names the
+   device and the symptom. None of them changes the 390px or the 1440px page. */
+
+/* Phone on its side (852×393, 667×375): the hero kept its 620–660px minimum height, so the second name
+   was cut by the bottom of the screen and the rest of the hero sat below it. The hero is the screen's
+   height and the names are set from that height; with long names (two lines each) the hero grows to
+   fit them instead of clipping them. The copy is laid in the flow, at the same horizontal place. */
+@media (orientation: landscape) and (max-height: 500px) {
+  .theme-chateau-royal .hero {
+    display: flex;
+    align-items: center;
+    height: auto;
+    min-height: 100svh;
+  }
+  .theme-chateau-royal .hero-copy {
+    position: relative;
+    top: auto;
+    flex: none;
+    margin-block: 24px;
+  }
+  .theme-chateau-royal .hero-title { font-size: clamp(3rem, 17svh, 5.5rem); }
+  .theme-chateau-royal .hero-title em { font-size: clamp(2.8rem, 15svh, 4.5rem); }
+}
+
+/* 320–375px phones: the letter's tracked line, its date and the countdown's sentence each left one word
+   alone on a second line ("MARIAGE", "2027", "vous."). Balanced, they break in two even halves; on one
+   line (390px and up) nothing changes. */
+.theme-chateau-royal .letter-small:not(.cr-announcement),
+.theme-chateau-royal .letter-date { text-wrap: balance; }
+
+/* 320–375px phones: the script line under the title ("pour se souvenir") broke after its second word.
+   It keeps its 390px size down to 375px, then follows the width. */
+@media (max-width: 380px) {
+  .theme-chateau-royal .letter h1 em { font-size: clamp(2.6rem, 13vw, 3.1rem); }
+}
+
+/* iPad mini portrait (744px) and phones up to 760px: the venue is centred, but the title (max 620px)
+   and the map tab's description (max 32rem) kept their place at the left of a wider column, so both
+   sat visibly off-centre above the centred address and link. */
+@media (max-width: 760px) {
+  .theme-chateau-royal .venue h2,
+  .theme-chateau-royal .venue .cr-venue-intro { margin-inline: auto; }
+}
+
+/* 27-inch screens (2560px): the venue's two columns spread over the whole width — the title at the
+   far left, the arch at the far right, 640px of empty paper between them, the arch flattened to
+   985×580. Past 1920px the venue keeps the width it has at 1920px (1613px between its paddings),
+   centred. */
+@media (min-width: 1921px) {
+  .theme-chateau-royal .venue { padding-inline: max(8vw, calc((100% - 1613px) / 2)); }
+}
+
+/* 320–375px phones: the timeline's gutter (82px) and the medallion's room (55px) left the moment a
+   150px column — "La / cérémonie", descriptions at 13 letters a line. The line moves closer to the
+   edge and the titles follow the width below 375px. */
+@media (max-width: 380px) {
+  .theme-chateau-royal .track,
+  .theme-chateau-royal .progress,
+  .theme-chateau-royal .runner,
+  .theme-chateau-royal .event:after { left: 26px; }
+  .theme-chateau-royal .event { padding-left: 56px; }
+  .theme-chateau-royal .event h3 { font-size: clamp(1.65rem, 8.4vw, 1.9rem); }
+}
+
+/* iPad mini portrait (744px) and large phones up to 760px: the timeline ran the full width, so each
+   medallion sat 200–500px to the right of its moment. It keeps a phone's width, centred. */
+@media (min-width: 521px) and (max-width: 760px) {
+  .theme-chateau-royal .timeline { max-width: 600px; }
+}
+
+/* 320–375px phones: the day-after title broke into four lines ("Le / banquet / du / lendemain"). The
+   card gives a little of its side padding and the title follows the width. A moment that wraps
+   ("Balade au bord du / lac") is balanced. */
+@media (max-width: 380px) {
+  .theme-chateau-royal .brunch-card { padding-inline: 28px; }
+  .theme-chateau-royal .brunch h2 { font-size: clamp(2.3rem, 11.5vw, 2.8rem); }
+}
+.theme-chateau-royal .brunch-card .cr-day-moments li { text-wrap: balance; }
+
+/* 320–375px phones: the reply's title broke as "Vous serez / des / nôtres ?". It follows the width
+   below 375px. A label that wraps ("Allergies, précisions ou petit / mot") avoids the lone word. */
+@media (max-width: 380px) {
+  .theme-chateau-royal .rsvp h2 { font-size: clamp(2.5rem, 12.3vw, 3rem); }
+}
+.theme-chateau-royal .rsvp label { text-wrap: pretty; }
+
+/* Touch screens: the venue's and the small details' links are a 27px-high line of small capitals. Their
+   tappable area grows to 47px, invisibly; the drawing does not change. */
+@media (pointer: coarse) {
+  .theme-chateau-royal :is(.venue-head > a, .practical-item > a) { position: relative; }
+  .theme-chateau-royal :is(.venue-head > a, .practical-item > a)::after {
+    content: "";
+    position: absolute;
+    inset: -10px -6px;
+  }
+}
+
+/* ------------------------------------------------------------------ *
  * Safety nets
  * ------------------------------------------------------------------ */
 
@@ -310,9 +436,11 @@
  * ------------------------------------------------------------------ */
 
 /* An eyebrow is a tracked line of capitals that wraps in a narrow card ("MITTWOCH, 3. MÄRZ · TAG / II"):
-   it is balanced so the last word never hangs alone. Block, so that it can be (in some cards the sheet
-   sets it on a span — followed by a block, so nothing moves). */
+   it is balanced so the last word never hangs alone. Block, so that it can be. Where the sheet sets it on
+   a span, the designer's line was the card's own 24px line box (1.5 × 16px), not the span's shorter one;
+   a block span keeps that height, or the menu, the brunch and the reply cards came out 3–8px shorter. */
 .theme-chateau-royal .section-eyebrow { display: block; text-wrap: balance; }
+.theme-chateau-royal span.section-eyebrow { line-height: 1.5rem; }
 
 /* The timeline is built from a centre line, cards that alternate between its two sides by position and
    medallions on the opposite side. Both the columns and the offsets are physical: mirrored by the page's

@@ -2,6 +2,7 @@ import { useLocale } from "next-intl";
 
 import { formatDateRange, weddingSpan } from "../../date-range";
 import { monogramOf } from "../../monogram";
+import { Reveal } from "../../reveal";
 import type { InvitationData } from "../../types";
 import { splitMonogram } from "../monogram-parts";
 
@@ -9,6 +10,9 @@ import { splitMonogram } from "../monogram-parts";
  * The closing signature, pressed into espresso velvet: the seal with the
  * monogram, the names, the dates, and — when the couple wrote them — their
  * closing words and their small note. Always rendered: it carries the names.
+ *
+ * The first time it comes into view the seal is pressed, the gold rules draw
+ * out from their ornaments and a candle-light warmth rises behind the names.
  */
 export function FooterSection({ data }: { data: InvitationData }) {
   const locale = useLocale();
@@ -23,7 +27,7 @@ export function FooterSection({ data }: { data: InvitationData }) {
 
   return (
     <footer className="royal-signoff" data-editor-section="footer">
-      <div className="signoff-border">
+      <Reveal as="div" className="signoff-border" revealedClass="visible" threshold={0.25}>
         {/* The footer tab's photograph of the couple, above the seal. */}
         {portrait ? (
           // eslint-disable-next-line @next/next/no-img-element -- the couple's own photograph, cropped by CSS.
@@ -64,7 +68,9 @@ export function FooterSection({ data }: { data: InvitationData }) {
           <span>✧</span>
           <i />
         </div>
-      </div>
+      </Reveal>
+      {/* The candle-light that rises behind the signature once it is seen. */}
+      <span className="cr-glow" aria-hidden="true" />
     </footer>
   );
 }

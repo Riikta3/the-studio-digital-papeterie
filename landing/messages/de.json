@@ -1463,12 +1463,67 @@
         "childrenOptionCount": "{count, plural, one {# Kind} other {# Kinder}}",
         "childFieldLabel": "Kind {index}",
         "childNamePlaceholder": "Vor- und Nachname",
-        "dietaryLabel": "Ernährungsbesonderheiten"
+        "dietaryLabel": "Ernährungsbesonderheiten",
+        "thanksName": "Danke, {name}! Ihre Antwort wurde erfasst."
       },
       "faq": {
         "childrenQuestion": "Sind Kinder eingeladen?",
         "childrenAdultsOnly": "Damit alle Eltern den Abend in vollen Zügen genießen und bis zum Morgen feiern können, findet unsere Hochzeit ohne Kinder statt. Genießen Sie diese Zeit ganz für sich.",
         "childrenWelcome": "Ja, Ihre Kinder sind herzlich willkommen. Bitte geben Sie sie in Ihrer Antwort an, damit wir alles für sie vorbereiten können."
+      },
+      "countdown": {
+        "eyebrow": "Bis zum großen Tag",
+        "note": "Jeder Augenblick bringt uns Ihnen näher.",
+        "label": "Die Zeit bis zur Hochzeit",
+        "remaining": "Noch {days, plural, one {# Tag} other {# Tage}}, {hours, plural, one {# Stunde} other {# Stunden}} und {minutes, plural, one {# Minute} other {# Minuten}} bis zur Hochzeit",
+        "unitDays": "{count, plural, one {Tag} other {Tage}}",
+        "unitHours": "{count, plural, one {Stunde} other {Stunden}}",
+        "unitMinutes": "{count, plural, one {Minute} other {Minuten}}",
+        "unitSeconds": "{count, plural, one {Sekunde} other {Sekunden}}"
+      },
+      "film": {
+        "eyebrow": "Unser Film",
+        "frameTitle": "Unser Video"
+      },
+      "playlist": {
+        "eyebrow": "Ballkarte",
+        "titleLine1": "Welches Lied",
+        "titleLine2": "für den Ball?",
+        "intro": "Schlagen Sie die Titel vor, zu denen Sie tanzen möchten.",
+        "picks": "Schon auf der Karte",
+        "searchLabel": "Suchen Sie einen Titel",
+        "searchPlaceholder": "Ein Titel, ein Künstler…",
+        "searchPlaceholderFull": "Maximal {max} Titel",
+        "resultsLoading": "Suche läuft…",
+        "resultsError": "Suche nicht verfügbar. Bitte versuchen Sie es gleich erneut.",
+        "resultsEmpty": "Keine Titel gefunden.",
+        "removeTrack": "{title} entfernen",
+        "statusEmpty": "Bis zu {max} Titel",
+        "statusCount": "{count, plural, one {# Titel von {max} gewählt} other {# Titel von {max} gewählt}}",
+        "statusFull": "Maximal {max} Titel — entfernen Sie einen, um einen anderen vorzuschlagen.",
+        "send": "Zur Ballkarte hinzufügen",
+        "sending": "Wird gesendet…",
+        "thanks": "Danke! Ihr Vorschlag wurde gesendet."
+      },
+      "gallery": {
+        "eyebrow": "In Bildern",
+        "titleLine1": "Die Galerie",
+        "titleLine2": "der Erinnerungen",
+        "imageAlt": "Foto {index}"
+      },
+      "stays": {
+        "eyebrow": "Für die Nacht",
+        "title": "Übernachten",
+        "code": "Code {code}",
+        "call": "Anrufen",
+        "book": "Buchen",
+        "more": "Weitere Optionen ansehen",
+        "less": "Optionen ausblenden"
+      },
+      "gifts": {
+        "eyebrow": "Wunschliste",
+        "titleFallback": "Ihre Anwesenheit ist unser schönstes Geschenk",
+        "linkFallback": "Beitragen"
       }
     },
     "mareAlta": {
@@ -1488,6 +1543,10 @@
         "unitSeconds": "{count, plural, one {Sekunde} other {Sekunden}}",
         "cardLabel": "Noch {value} {unit} bis zur Hochzeit"
       },
+      "introVideo": {
+        "eyebrow": "Unser Film",
+        "frameTitle": "Unser Video"
+      },
       "map": {
         "eyebrow": "Reiseziel",
         "imageAlt": "Ein weißes Haus zwischen Pinien, Dünen und Meer, auf Leinen gestickt",
@@ -1496,7 +1555,8 @@
         "calendarLabel": "Den Termin zu meinem Kalender hinzufügen"
       },
       "timeline": {
-        "eyebrow": "Die Geschichte des großen Tages",
+        "eyebrow": "Die Geschichte vom",
+        "eyebrowWithDate": "{wording} {date}",
         "titleLine1": "Vom ersten Blick",
         "titleLine2": "bis zum letzten Tanz",
         "sign": "Jeder Augenblick hat seinen eigenen Rhythmus",
@@ -1533,7 +1593,9 @@
       "menu": {
         "eyebrow": "Ein Abend bei Tisch",
         "titleLine1": "Das Menü",
-        "titleLine2": "des großen Tages",
+        "titleLine2": "vom",
+        "titleWithDate": "{wording} {date}",
+        "intro": "",
         "scatterLabel": "Bestickter Teller, Zitrone, Glas und Tischwäsche"
       },
       "playlist": {
@@ -1556,6 +1618,18 @@
         "sending": "Wird gesendet…",
         "thanks": "Danke! Ihr Vorschlag wurde gesendet."
       },
+      "gallery": {
+        "eyebrow": "Ein wenig von uns",
+        "titleLine1": "Unsere Erinnerungen",
+        "titleLine2": "in ein paar Bildern",
+        "open": "Foto {index} vergrößern",
+        "imageAlt": "Foto {index}",
+        "viewerLabel": "Die Fotos",
+        "close": "Schließen",
+        "previous": "Vorheriges Foto",
+        "next": "Nächstes Foto",
+        "counter": "Foto {index} von {count}"
+      },
       "gifts": {
         "eyebrow": "Das schönste Geschenk sind Sie",
         "cta": "Beitragen"
@@ -1575,22 +1649,23 @@
         "thanksEyebrow": "Antwort gesendet",
         "thanksTitle": "Das ist vermerkt!",
         "thanksBody": "Danke. Ihre Antwort steht jetzt in unserem Gästebuch.",
-        "nameLabel": "Ihr Name",
-        "namePlaceholder": "Vor- und Nachname",
+        "nameLabel": "Vor- und Nachname",
+        "namePlaceholder": "Ihr vollständiger Name",
         "attendanceLegend": "Teilnahme",
         "partyLabel": "Wer wird dabei sein?",
         "partyOptionSolo": "Nur ich",
         "partyOptionPartner": "Ich + meine Begleitung",
-        "partnerNameLabel": "Name Ihrer Begleitung",
+        "partnerNameLabel": "Ihre Begleitung",
         "partnerNamePlaceholder": "Vor- und Nachname",
-        "childrenLabel": "Kinder, die Sie begleiten",
-        "childrenOptionNone": "Keine",
+        "childrenLabel": "Anzahl der Kinder",
+        "childrenOptionNone": "Keine Kinder",
         "childrenOptionCount": "{count, plural, one {# Kind} other {# Kinder}}",
         "childFieldLabel": "Kind {index}",
         "childNamePlaceholder": "Vor- und Nachname",
-        "dietaryLabel": "Ernährungsbesonderheiten",
-        "messageLabel": "Ein paar Worte",
-        "messagePlaceholder": "Ihre Nachricht…",
+        "dietaryLabel": "Allergien oder Ernährungsweise",
+        "messageLabel": "Ein paar Worte für uns",
+        "optional": "freiwillig",
+        "messagePlaceholder": "Ein Hinweis, eine Frage, ein paar Worte…",
         "submit": "Antwort senden",
         "submitPending": "Wird gesendet…"
       },
@@ -1696,7 +1771,9 @@
         "open": "Öffnen",
         "ticketDestination": "Ziel",
         "ticketDate": "Datum",
-        "ticketCountry": "Land"
+        "ticketCountry": "Land",
+        "airline": "Hochzeitsflug",
+        "passport": "Reisepass"
       },
       "rsvp": {
         "stamp": "R.S.V.P.",
@@ -1724,6 +1801,34 @@
       },
       "footer": {
         "note": "In Liebe"
+      },
+      "introVideo": {
+        "eyebrow": "Unser Film",
+        "frameTitle": "Unser Video"
+      },
+      "gallery": {
+        "eyebrow": "Erinnerungen",
+        "titleLine1": "Das Album",
+        "titleLine2": "unserer Geschichte",
+        "imageAlt": "Foto {index}"
+      },
+      "menu": {
+        "eyebrow": "Zu Tisch",
+        "titleLine1": "Das Menü",
+        "titleLine2": "des großen Tages"
+      },
+      "faq": {
+        "eyebrow": "Gut zu wissen",
+        "titleLine1": "Ein paar Antworten",
+        "titleLine2": "vor der Abreise",
+        "childrenQuestion": "Sind Kinder eingeladen?",
+        "childrenAdultsOnly": "Damit alle Eltern den Abend in vollen Zügen genießen und bis zum Morgen feiern können, findet unsere Hochzeit ohne Kinder statt. Genießen Sie diese Zeit ganz für sich.",
+        "childrenWelcome": "Ja, Ihre Kinder sind herzlich willkommen. Bitte geben Sie sie in Ihrer Antwort an, damit wir alles für sie vorbereiten können."
+      },
+      "gifts": {
+        "eyebrow": "Wunschliste",
+        "titleFallback": "Eure Anwesenheit ist unser schönstes Geschenk",
+        "linkFallback": "Beitragen"
       }
     },
     "music": {

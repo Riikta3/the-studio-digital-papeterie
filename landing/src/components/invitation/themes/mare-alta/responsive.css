@@ -6,6 +6,11 @@
 /* The root is the sage backdrop behind the 720px column; make it at least a screen tall. */
 .theme-mare-alta { min-height: 100svh; }
 
+/* The page's <body> carries the app's yellow (bg-studio-jaune), which a rubber-band scroll past either end of the
+   invitation shows. The canvas takes the designer's own page ground instead (the last `body` background of their
+   cascade, the sage the column floats on). The one rule outside .theme-mare-alta, and only on a page that holds it. */
+html:has(.theme-mare-alta) { background-color: #747e6d; }
+
 /* ------------------------------------------------------------------ *
  * Hero
  * ------------------------------------------------------------------ */
@@ -130,6 +135,18 @@
   .theme-mare-alta .stay-card a { grid-column: 2; grid-row: auto; justify-self: start; padding: 0; }
 }
 
+/* The stamps (country, city, days) hold one row, as the designer's three single words did: a name too long for its
+   share of the row wraps inside its own stamp (the stamps keep one height) rather than dropping a stamp onto a
+   second row. On a phone they sit a little closer to leave the words their room. */
+.theme-mare-alta .travel-stamps { flex-wrap: nowrap; }
+.theme-mare-alta .travel-stamps span { flex: 0 1 auto; text-align: start; }
+.theme-mare-alta .travel-stamps svg { flex: none; }
+.theme-mare-alta .ma-stamp-text { line-height: 1.35; }
+@media (max-width: 430px) {
+  .theme-mare-alta .travel-stamps { gap: 0.35rem; }
+  .theme-mare-alta .travel-stamps span { padding-inline: 0.55rem; }
+}
+
 /* The "more options" button and the row it sits in. */
 .theme-mare-alta .ma-more-row { display: flex; justify-content: center; margin-top: 1.6rem; }
 
@@ -149,13 +166,15 @@
 /* The designer's luggage tag had the demo couple's initials embroidered in its middle, in the picture itself. The
    file shipped here (`embroidered-luggage-tag-blank-v10.webp`) is that tag with the lettering removed from the
    linen and nothing else touched; the couple's own monogram is set on it as text, tilted like the tag and sized by
-   the tag's width (a container: 19cqw for the designer's five characters, smaller as the monogram gets longer). */
+   the tag's width (a container: 20cqw for the designer's three characters, smaller as the monogram gets longer).
+   It reads as their embroidery: the initials close around their dot ("S·M", from the root), a heavy cut in the
+   deep sage of the thread, a light emboss under it and a soft edge like satin stitch. */
 .theme-mare-alta .travel-object.luggage-tag { container-type: size; }
 .theme-mare-alta .travel-object.luggage-tag::after {
-  content: var(--ma-menu-monogram);
+  content: var(--ma-tag-monogram);
   position: absolute; left: 51.8%; top: 63.8%; transform: translate(-50%, -50%) rotate(5deg);
-  color: #5a6c4d; text-shadow: 0 1px 0 #fff7; white-space: nowrap; letter-spacing: 0.02em;
-  font: 400 min(19cqw, calc(97cqw / var(--ma-monogram-chars, 5)))/1 Didot, var(--font-ma-display), "Bodoni MT", Georgia, var(--font-ma-serif), serif;
+  color: #45543c; text-shadow: 0 1px 0 #fff9, 0 0 1px #45543c99; white-space: nowrap; letter-spacing: 0;
+  font: 700 min(20cqw, calc(60cqw / var(--ma-tag-chars, 3)))/1 Didot, var(--font-ma-display), "Bodoni MT", Georgia, var(--font-ma-serif), serif;
 }
 
 /* An odd number of cards leaves a hole in the designer's two columns: the last one takes the whole row. */
@@ -165,10 +184,11 @@
  * Menu
  * ------------------------------------------------------------------ */
 
-/* The designer's menu had a two-line sentence under its title that the product has no field for. The embroidered
-   tableware is placed from the top of the section for a heading that tall: without the room that sentence took
-   (a 1.5rem margin and two lines of 1.06rem at 1.75), the card rode up and the lemon landed on the title. */
-.theme-mare-alta .menu .section-heading { padding-bottom: 5.2rem; }
+/* The designer's menu has a two-line sentence under its title (the `menu.intro` slot). The embroidered tableware is
+   placed from the top of the section for a heading that tall; a wedding that leaves the sentence empty loses that
+   room (a 1.5rem margin and two lines of 1.06rem at 1.75) and its card rides up by it, so the tableware rides up by
+   the same height (`ma-menu-bare`, from the section) and keeps its place around the card. */
+.theme-mare-alta .ma-menu-bare .menu-scatter { transform: translateY(-5.2rem); }
 
 /* A dish's description, under its name. */
 .theme-mare-alta .ma-dish-note { display: block; margin-top: 0.25rem; font: italic 0.9em/1.5 Georgia, var(--font-ma-serif), serif; color: var(--muted); }
@@ -187,7 +207,10 @@
 .theme-mare-alta .song-suggest > svg { grid-area: icon; }
 .theme-mare-alta .song-suggest > input { grid-area: field; }
 .theme-mare-alta .song-suggest > .ma-send { grid-area: send; }
-.theme-mare-alta .song-suggest > .ma-send:disabled { opacity: 0.45; cursor: not-allowed; }
+/* The send button keeps the designer's solid sage at rest. With nothing picked it is `aria-disabled` (a press leads
+   back to the field); only while sending is it truly disabled, and its words say so ("Envoi…"). */
+.theme-mare-alta .song-suggest > .ma-send[aria-disabled="true"] { cursor: default; }
+.theme-mare-alta .song-suggest > .ma-send:disabled { cursor: progress; }
 @media (max-width: 760px) {
   .theme-mare-alta .song-suggest {
     grid-template-areas: "icon field" "results results" "picked picked" "status status" "error error" "send send";
@@ -235,7 +258,8 @@
 
 /* The designer used native <details>, which cannot animate; this is the same look as a controlled accordion.
    The declarations are the designer's own final ones for `.faq details`, `.faq summary` and its chevron. */
-.theme-mare-alta .ma-faq-item { border-top: 1px solid var(--line); margin: 0 0 1.4rem; line-height: 1.65; transition: background 0.35s, padding 0.35s; }
+.theme-mare-alta .ma-faq-item { border-top: 1px solid var(--line); line-height: 1.65; transition: background 0.35s, padding 0.35s; }
+.theme-mare-alta .ma-faq-item:last-child { border-bottom: 1px solid var(--line); }
 .theme-mare-alta .ma-faq-item[data-open] { padding-inline: 1rem; background: #ffffff0a; }
 .theme-mare-alta .ma-faq-q {
   display: flex; width: 100%; padding: 1.25rem 0; align-items: center; justify-content: space-between; gap: 1rem;
@@ -399,4 +423,100 @@
 [dir="rtl"] .theme-mare-alta .scratch-value small { font-size: 0.85rem; }
 @media (max-width: 760px) {
   [dir="rtl"] .theme-mare-alta .scratch-value small { font-size: 0.78rem; }
+}
+
+/* ------------------------------------------------------------------ *
+ * Devices: what the October 2026 matrix (320 to 2560, phones held either way, iPads) found
+ * ------------------------------------------------------------------ */
+
+/* Titles wrap in balanced lines: a couple's long title ("Un petit film avant le grand jour") left its last word
+   alone on a line at every width, a kicker its last word under two full lines. Not on the three titles whose line
+   break the designer's mock-up fixes at 390 and 1440 and which balance would move (dress code "Élégance au |
+   jardin", gift "Si le cœur vous | en dit", photos "Vos yeux, vos | souvenirs"): the couple's own words there keep
+   the plain wrap. A FAQ question left its "?" alone on a line (320, and 390 with long questions): it only needs
+   its last line kept from being a single word (pretty); balanced, it broke "Y a-t-il" at its hyphen. */
+.theme-mare-alta :is(.section-heading h2, .countdown-title, .rsvp-intro h2, .eyebrow, .button,
+  .agenda-card h3, .stay-card h3) { text-wrap: balance; }
+.theme-mare-alta :is(.dresscode, .gift, .photos) .section-heading h2 { text-wrap: wrap; }
+.theme-mare-alta .ma-faq-q > span { text-wrap: pretty; }
+
+/* The floating nav stays away while the hero's "Discover" cue is in the bottom band of the screen (FloatingNav):
+   on the first screen of every device, phone to 27", the pill sat right on the cue. It fades and drops a little,
+   and only goes out of reach (visibility) once it has faded. It also steps away while a guest types in a field: on a
+   tablet or a phone held sideways (852 x 393) it sat over the playlist's suggestions and the RSVP fields. */
+.theme-mare-alta .floating-nav { transition: opacity 0.35s ease, transform 0.35s ease, visibility 0s linear 0s; }
+.theme-mare-alta .floating-nav[data-away],
+.theme-mare-alta:has(.ma-column :is(input, textarea, select):focus) .floating-nav {
+  opacity: 0; visibility: hidden; transform: translate(50%, 0.75rem);
+  transition: opacity 0.35s ease, transform 0.35s ease, visibility 0s linear 0.35s;
+}
+
+/* Phone held sideways (852 x 393, 667 x 375): the hero is one short screen. The names at the designer's size
+   (7.1rem, 5.8rem on a phone) and the copy lifted by 8vh were made for a tall one: the kicker ran under the top
+   line, the names over the villa, and the couple's announcement (placed above the names) off the top of the page.
+   The copy flows from under the top line instead, the names sized by the screen's height, the announcement first
+   in that flow; a copy taller than the screen makes the hero taller rather than running into the scroll cue. */
+@media (orientation: landscape) and (max-height: 500px) {
+  .theme-mare-alta .hero { align-content: start; padding: 3.5rem 0 4.6rem; }
+  .theme-mare-alta .hero-copy { display: flex; flex-direction: column; align-items: center; transform: none; }
+  .theme-mare-alta .hero-copy h1 { font-size: 15svh; }
+  .theme-mare-alta .hero-copy h1[data-long] { font-size: 11svh; }
+  .theme-mare-alta .hero-date { margin-top: 0.9rem; }
+  .theme-mare-alta .ma-announcement {
+    position: static; order: -1; transform: none; width: min(34rem, 100%); margin: 0 0 0.9rem;
+  }
+}
+
+/* Short phone held upright (320 x 640, iPhone SE 375 x 667): the couple's announcement sits in the linen above the
+   names, and four lines of it ran over the date and the monogram at the top. With an announcement the hero is at
+   least 760px tall, the height at which it fits (as on a 360 x 780 phone): the picture grows with it and the
+   villa is one short scroll away. Taller phones, tablets and desktops are unchanged. */
+@media (orientation: portrait) and (max-height: 759px) {
+  .theme-mare-alta .hero:has(.ma-announcement) { min-height: 47.5rem; }
+}
+
+/* The floating nav covers 16 to 68px above the bottom of the screen. The footer's last line ("Revenir en haut") sat
+   64px above the end of the page: on a footer taller than its 78svh (a portrait and long names, a phone held
+   sideways, a 13" laptop) no scroll position showed it clear of the nav. 6rem instead of 4rem, above as below: a
+   footer at its min-height (the demo at 390 and 1440) centres its words where it did. */
+.theme-mare-alta footer { padding-block: 6rem; }
+
+/* The names are set at line-height 0.95, the date line right under them with no margin: a name with a descender
+   ("Jean-Baptiste", "Hugo") drew its p or g through the date (seen at every width with long names). A gap of
+   0.14em, the depth the descender reaches below the line, keeps them apart. */
+.theme-mare-alta footer h2 { margin-bottom: 0.14em; }
+
+/* Desktop and iPad (761px and up): the menu's sentence ran 540px wide, its first words under the embroidered lemon
+   and its last under the glass, unreadable. It keeps to the linen between them. */
+@media (min-width: 761px) {
+  .theme-mare-alta .menu .section-intro { max-width: 22rem; }
+}
+
+/* iPad mini upright (744) and phones held sideways use the phone layout up to 760px. There the two records (185 and
+   205px, pinned to either end of a 590px stage) stood 200px apart, and the suitcase (108% of the column, as on a
+   phone) ran 6px past the column's edge, cutting the sunglasses. The records keep the places they have at 390
+   (either end of a 345px band, overlapping), centred on the stage; the tone arm keeps its own, clear of the
+   sentence above; the suitcase keeps the desktop's 590px. */
+@media (min-width: 480px) and (max-width: 760px) {
+  .theme-mare-alta .sage-vinyl { left: calc(50% - 10.75rem); }
+  .theme-mare-alta .ivory-vinyl { right: calc(50% - 10.75rem); }
+  .theme-mare-alta .stay-art { width: min(100%, 590px); margin-inline: auto; }
+}
+
+/* Touch screens: targets of at least 44 x 44. The floating nav's buttons were 40.8px, 2.4px apart: too close for a
+   margin of tap, so they are 44px (the pill grows by 10px). Where a target stands alone, an invisible margin of tap
+   around it (nothing moves): the hero's cue and "back to top" (one 18px line of small capitals), a pick's 35px
+   "remove". A hotel's two links ("Appeler", "Voir l'adresse") are stacked on a phone, where margins of tap would
+   overlap: each becomes a 44px row. */
+@media (pointer: coarse) {
+  .theme-mare-alta .floating-nav button { width: 2.75rem; height: 2.75rem; }
+  .theme-mare-alta footer .ma-top,
+  .theme-mare-alta .song-suggest .ma-picked button { position: relative; }
+  .theme-mare-alta button.scroll-cue::after,
+  .theme-mare-alta footer .ma-top::after,
+  .theme-mare-alta .song-suggest .ma-picked button::after { content: ""; position: absolute; }
+  .theme-mare-alta button.scroll-cue::after { inset: -14px -12px; }
+  .theme-mare-alta footer .ma-top::after { inset: -14px -16px; }
+  .theme-mare-alta .song-suggest .ma-picked button::after { inset: -5px; }
+  .theme-mare-alta .stay-card a { min-height: 2.75rem; }
 }

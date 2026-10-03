@@ -1462,12 +1462,67 @@
         "childrenOptionCount": "{count, plural, other {お子さま #名}}",
         "childFieldLabel": "お子さま {index}",
         "childNamePlaceholder": "姓名",
-        "dietaryLabel": "食事のご要望"
+        "dietaryLabel": "食事のご要望",
+        "thanksName": "{name}様、ありがとうございます！ご返信を承りました。"
       },
       "faq": {
         "childrenQuestion": "お子様もご招待いただけますか？",
         "childrenAdultsOnly": "ご両親の皆様に心ゆくまで夜をお楽しみいただけますよう、私たちの結婚式は大人のみでの開催とさせていただきます。どうぞご自身のための時間としてお過ごしください。",
         "childrenWelcome": "はい、お子様もぜひご一緒にお越しください。ご準備のため、ご回答の際にお知らせいただけますと幸いです。"
+      },
+      "countdown": {
+        "eyebrow": "その日まで",
+        "note": "一瞬ごとに、皆さまにお会いできる日が近づいています。",
+        "label": "結婚式までの残り時間",
+        "remaining": "結婚式まであと{days}日{hours}時間{minutes}分",
+        "unitDays": "{count, plural, other {日}}",
+        "unitHours": "{count, plural, other {時間}}",
+        "unitMinutes": "{count, plural, other {分}}",
+        "unitSeconds": "{count, plural, other {秒}}"
+      },
+      "film": {
+        "eyebrow": "私たちのムービー",
+        "frameTitle": "私たちの動画"
+      },
+      "playlist": {
+        "eyebrow": "ダンスカード",
+        "titleLine1": "舞踏会に",
+        "titleLine2": "どの曲を？",
+        "intro": "思わず踊りたくなる曲を教えてください。",
+        "picks": "カードに記された曲",
+        "searchLabel": "曲を検索",
+        "searchPlaceholder": "曲名やアーティスト名…",
+        "searchPlaceholderFull": "最大 {max} 曲まで",
+        "resultsLoading": "検索中…",
+        "resultsError": "検索をご利用いただけません。しばらくしてからお試しください。",
+        "resultsEmpty": "曲が見つかりませんでした。",
+        "removeTrack": "{title} を削除",
+        "statusEmpty": "{max} 曲までお選びいただけます",
+        "statusCount": "{count, plural, other {{max}曲中#曲選択済み}}",
+        "statusFull": "最大 {max} 曲までです。ほかの曲をリクエストするには1曲削除してください。",
+        "send": "ダンスカードに追加",
+        "sending": "送信中…",
+        "thanks": "ありがとうございます！ご提案を送信しました。"
+      },
+      "gallery": {
+        "eyebrow": "写真で",
+        "titleLine1": "ギャラリー",
+        "titleLine2": "思い出の数々",
+        "imageAlt": "写真 {index}"
+      },
+      "stays": {
+        "eyebrow": "ご宿泊",
+        "title": "宿泊先のご案内",
+        "code": "コード {code}",
+        "call": "電話する",
+        "book": "予約する",
+        "more": "ほかの選択肢を見る",
+        "less": "選択肢を閉じる"
+      },
+      "gifts": {
+        "eyebrow": "ギフトリスト",
+        "titleFallback": "皆さまのご出席が何よりの贈り物です",
+        "linkFallback": "参加する"
       }
     },
     "mareAlta": {
@@ -1487,6 +1542,10 @@
         "unitSeconds": "{count, plural, other {秒}}",
         "cardLabel": "結婚式まであと{value}{unit}"
       },
+      "introVideo": {
+        "eyebrow": "私たちのムービー",
+        "frameTitle": "私たちの動画"
+      },
       "map": {
         "eyebrow": "目的地",
         "imageAlt": "松林と砂丘と海のあいだに建つ白い家。リネンに刺繍されています",
@@ -1495,7 +1554,8 @@
         "calendarLabel": "イベントをカレンダーに追加"
       },
       "timeline": {
-        "eyebrow": "特別な一日の物語",
+        "eyebrow": "物語",
+        "eyebrowWithDate": "{date}の{wording}",
         "titleLine1": "最初の眼差しから",
         "titleLine2": "最後のダンスまで",
         "sign": "ひとときごとに、それぞれのリズムがあります",
@@ -1531,8 +1591,10 @@
       },
       "menu": {
         "eyebrow": "ある夜の食卓",
-        "titleLine1": "特別な日の",
-        "titleLine2": "メニュー",
+        "titleLine1": "メニュー",
+        "titleLine2": "祝宴",
+        "titleWithDate": "{wording}・{date}",
+        "intro": "",
         "scatterLabel": "刺繍の食器、レモン、グラス、テーブルリネン"
       },
       "playlist": {
@@ -1555,6 +1617,18 @@
         "sending": "送信中…",
         "thanks": "ありがとうございます！ご提案を送信しました。"
       },
+      "gallery": {
+        "eyebrow": "私たちのこと",
+        "titleLine1": "ふたりの思い出",
+        "titleLine2": "いくつかの写真で",
+        "open": "写真 {index} を拡大",
+        "imageAlt": "写真 {index}",
+        "viewerLabel": "写真",
+        "close": "閉じる",
+        "previous": "前の写真",
+        "next": "次の写真",
+        "counter": "{count} 枚中 {index} 枚目"
+      },
       "gifts": {
         "eyebrow": "いちばんの贈り物は、あなたです",
         "cta": "参加する"
@@ -1574,22 +1648,23 @@
         "thanksEyebrow": "返信を送信しました",
         "thanksTitle": "承りました！",
         "thanksBody": "ありがとうございます。ご返信はゲストブックに加わりました。",
-        "nameLabel": "お名前",
-        "namePlaceholder": "姓名",
+        "nameLabel": "お名前（姓・名）",
+        "namePlaceholder": "フルネームでご記入ください",
         "attendanceLegend": "ご出欠",
         "partyLabel": "ご出席される方",
         "partyOptionSolo": "本人のみ",
         "partyOptionPartner": "本人 + パートナー",
-        "partnerNameLabel": "パートナーのお名前",
+        "partnerNameLabel": "配偶者・パートナー",
         "partnerNamePlaceholder": "姓名",
-        "childrenLabel": "ご同伴のお子さま",
-        "childrenOptionNone": "なし",
+        "childrenLabel": "お子さまの人数",
+        "childrenOptionNone": "お子さまなし",
         "childrenOptionCount": "{count, plural, other {お子さま #名}}",
         "childFieldLabel": "お子さま {index}",
         "childNamePlaceholder": "姓名",
-        "dietaryLabel": "食事のご要望",
-        "messageLabel": "メッセージ",
-        "messagePlaceholder": "メッセージをご記入ください…",
+        "dietaryLabel": "アレルギー・食事制限",
+        "messageLabel": "私たちへのひとこと",
+        "optional": "任意",
+        "messagePlaceholder": "ご質問やひとことなど…",
         "submit": "返信を送信",
         "submitPending": "送信中…"
       },
@@ -1695,7 +1770,9 @@
         "open": "開く",
         "ticketDestination": "目的地",
         "ticketDate": "日付",
-        "ticketCountry": "国"
+        "ticketCountry": "国",
+        "airline": "ウェディング便",
+        "passport": "パスポート"
       },
       "rsvp": {
         "stamp": "R.S.V.P.",
@@ -1723,6 +1800,34 @@
       },
       "footer": {
         "note": "愛を込めて"
+      },
+      "introVideo": {
+        "eyebrow": "私たちのムービー",
+        "frameTitle": "私たちの動画"
+      },
+      "gallery": {
+        "eyebrow": "思い出",
+        "titleLine1": "アルバム",
+        "titleLine2": "ふたりの物語",
+        "imageAlt": "写真 {index}"
+      },
+      "menu": {
+        "eyebrow": "お食事",
+        "titleLine1": "ウェディング",
+        "titleLine2": "メニュー"
+      },
+      "faq": {
+        "eyebrow": "ご案内",
+        "titleLine1": "ご出発の前に",
+        "titleLine2": "よくあるご質問",
+        "childrenQuestion": "お子様もご招待いただけますか？",
+        "childrenAdultsOnly": "ご両親の皆様に心ゆくまで夜をお楽しみいただけますよう、私たちの結婚式は大人のみでの開催とさせていただきます。どうぞご自身のための時間としてお過ごしください。",
+        "childrenWelcome": "はい、お子様もぜひご一緒にお越しください。ご準備のため、ご回答の際にお知らせいただけますと幸いです。"
+      },
+      "gifts": {
+        "eyebrow": "ギフトリスト",
+        "titleFallback": "皆さまのご出席が何よりの贈り物です",
+        "linkFallback": "参加する"
       }
     },
     "music": {

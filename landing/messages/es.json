@@ -1463,12 +1463,67 @@
         "childrenOptionCount": "{count, plural, one {# niño} other {# niños}}",
         "childFieldLabel": "Niño {index}",
         "childNamePlaceholder": "Nombre y apellidos",
-        "dietaryLabel": "Restricciones alimentarias"
+        "dietaryLabel": "Restricciones alimentarias",
+        "thanksName": "¡Gracias, {name}! Su respuesta se ha registrado correctamente."
       },
       "faq": {
         "childrenQuestion": "¿Están invitados los niños?",
         "childrenAdultsOnly": "Para que todos los padres puedan disfrutar plenamente de la velada y bailar hasta el amanecer, nuestra boda será solo para adultos. Aprovechen este momento para ustedes.",
         "childrenWelcome": "Sí, sus niños son bienvenidos. Indíquenlos en su respuesta para que podamos prepararlo todo para ellos."
+      },
+      "countdown": {
+        "eyebrow": "Hasta el gran día",
+        "note": "Cada instante nos acerca a ustedes.",
+        "label": "El tiempo que falta para la boda",
+        "remaining": "Faltan {days, plural, one {# día} other {# días}}, {hours, plural, one {# hora} other {# horas}} y {minutes, plural, one {# minuto} other {# minutos}} para la boda",
+        "unitDays": "{count, plural, one {día} other {días}}",
+        "unitHours": "{count, plural, one {hora} other {horas}}",
+        "unitMinutes": "{count, plural, one {minuto} other {minutos}}",
+        "unitSeconds": "{count, plural, one {segundo} other {segundos}}"
+      },
+      "film": {
+        "eyebrow": "Nuestra película",
+        "frameTitle": "Nuestro vídeo"
+      },
+      "playlist": {
+        "eyebrow": "Carné de baile",
+        "titleLine1": "¿Qué canción",
+        "titleLine2": "para el baile?",
+        "intro": "Propongan las canciones que les harán bailar.",
+        "picks": "Ya en el carné",
+        "searchLabel": "Busque una canción",
+        "searchPlaceholder": "Una canción, un artista…",
+        "searchPlaceholderFull": "{max} canciones como máximo",
+        "resultsLoading": "Buscando…",
+        "resultsError": "Búsqueda no disponible. Inténtelo de nuevo en un momento.",
+        "resultsEmpty": "No se ha encontrado ninguna canción.",
+        "removeTrack": "Quitar {title}",
+        "statusEmpty": "Hasta {max} canciones",
+        "statusCount": "{count, plural, one {# canción elegida de {max}} other {# canciones elegidas de {max}}}",
+        "statusFull": "{max} canciones como máximo — quite una para proponer otra.",
+        "send": "Añadir al carné de baile",
+        "sending": "Enviando…",
+        "thanks": "¡Gracias! Su propuesta ha sido enviada."
+      },
+      "gallery": {
+        "eyebrow": "En imágenes",
+        "titleLine1": "La galería",
+        "titleLine2": "de recuerdos",
+        "imageAlt": "Foto {index}"
+      },
+      "stays": {
+        "eyebrow": "Para la noche",
+        "title": "Dónde dormir",
+        "code": "Código {code}",
+        "call": "Llamar",
+        "book": "Reservar",
+        "more": "Ver más opciones",
+        "less": "Ocultar opciones"
+      },
+      "gifts": {
+        "eyebrow": "Lista de regalos",
+        "titleFallback": "Su presencia es nuestro mejor regalo",
+        "linkFallback": "Participar"
       }
     },
     "mareAlta": {
@@ -1488,6 +1543,10 @@
         "unitSeconds": "{count, plural, one {segundo} other {segundos}}",
         "cardLabel": "{value} {unit} para la boda"
       },
+      "introVideo": {
+        "eyebrow": "Nuestra película",
+        "frameTitle": "Nuestro vídeo"
+      },
       "map": {
         "eyebrow": "Destino",
         "imageAlt": "Una casa blanca entre pinos, dunas y mar, bordada sobre lino",
@@ -1496,7 +1555,8 @@
         "calendarLabel": "Añadir el evento a mi calendario"
       },
       "timeline": {
-        "eyebrow": "El relato del gran día",
+        "eyebrow": "El relato del",
+        "eyebrowWithDate": "{wording} {date}",
         "titleLine1": "De la primera mirada",
         "titleLine2": "al último baile",
         "sign": "Cada instante tiene su propio ritmo",
@@ -1533,7 +1593,9 @@
       "menu": {
         "eyebrow": "Mesa de una noche",
         "titleLine1": "El menú",
-        "titleLine2": "del gran día",
+        "titleLine2": "del",
+        "titleWithDate": "{wording} {date}",
+        "intro": "",
         "scatterLabel": "Vajilla, limón, copa y mantelería bordados"
       },
       "playlist": {
@@ -1556,6 +1618,18 @@
         "sending": "Enviando…",
         "thanks": "¡Gracias! Su propuesta ha sido enviada."
       },
+      "gallery": {
+        "eyebrow": "Un poco de nosotros",
+        "titleLine1": "Nuestros recuerdos",
+        "titleLine2": "en unas pocas imágenes",
+        "open": "Ampliar la foto {index}",
+        "imageAlt": "Foto {index}",
+        "viewerLabel": "Las fotos",
+        "close": "Cerrar",
+        "previous": "Foto anterior",
+        "next": "Foto siguiente",
+        "counter": "Foto {index} de {count}"
+      },
       "gifts": {
         "eyebrow": "El mejor regalo son ustedes",
         "cta": "Participar"
@@ -1575,22 +1649,23 @@
         "thanksEyebrow": "Respuesta enviada",
         "thanksTitle": "¡Anotado!",
         "thanksBody": "Gracias. Su respuesta ya forma parte de nuestro cuaderno de invitados.",
-        "nameLabel": "Su nombre",
-        "namePlaceholder": "Nombre y apellidos",
+        "nameLabel": "Nombre y apellidos",
+        "namePlaceholder": "Su nombre completo",
         "attendanceLegend": "Asistencia",
         "partyLabel": "¿Quién asistirá?",
         "partyOptionSolo": "Solo yo",
         "partyOptionPartner": "Yo + mi pareja",
-        "partnerNameLabel": "Nombre de su pareja",
+        "partnerNameLabel": "Su pareja",
         "partnerNamePlaceholder": "Nombre y apellidos",
-        "childrenLabel": "Niños que le acompañan",
-        "childrenOptionNone": "Ninguno",
+        "childrenLabel": "Número de niños",
+        "childrenOptionNone": "Ningún niño",
         "childrenOptionCount": "{count, plural, one {# niño} other {# niños}}",
         "childFieldLabel": "Niño {index}",
         "childNamePlaceholder": "Nombre y apellidos",
-        "dietaryLabel": "Restricciones alimentarias",
-        "messageLabel": "Unas palabras",
-        "messagePlaceholder": "Su mensaje…",
+        "dietaryLabel": "Alergias o dieta",
+        "messageLabel": "Unas palabras para nosotros",
+        "optional": "opcional",
+        "messagePlaceholder": "Un detalle, una pregunta, unas palabras…",
         "submit": "Enviar mi respuesta",
         "submitPending": "Enviando…"
       },
@@ -1696,7 +1771,9 @@
         "open": "Abrir",
         "ticketDestination": "Destino",
         "ticketDate": "Fecha",
-        "ticketCountry": "País"
+        "ticketCountry": "País",
+        "airline": "Vuelo de boda",
+        "passport": "Pasaporte"
       },
       "rsvp": {
         "stamp": "R.S.V.P.",
@@ -1724,6 +1801,34 @@
       },
       "footer": {
         "note": "Con amor"
+      },
+      "introVideo": {
+        "eyebrow": "Nuestra película",
+        "frameTitle": "Nuestro vídeo"
+      },
+      "gallery": {
+        "eyebrow": "Recuerdos",
+        "titleLine1": "El álbum",
+        "titleLine2": "de nuestra historia",
+        "imageAlt": "Foto {index}"
+      },
+      "menu": {
+        "eyebrow": "A la mesa",
+        "titleLine1": "El menú",
+        "titleLine2": "del gran día"
+      },
+      "faq": {
+        "eyebrow": "Bueno saberlo",
+        "titleLine1": "Algunas respuestas",
+        "titleLine2": "antes de partir",
+        "childrenQuestion": "¿Están invitados los niños?",
+        "childrenAdultsOnly": "Para que todos los padres puedan disfrutar plenamente de la velada y bailar hasta el amanecer, nuestra boda será solo para adultos. Aprovechen este momento para ustedes.",
+        "childrenWelcome": "Sí, sus niños son bienvenidos. Indíquenlos en su respuesta para que podamos prepararlo todo para ellos."
+      },
+      "gifts": {
+        "eyebrow": "Lista de regalos",
+        "titleFallback": "Vuestra presencia es nuestro mejor regalo",
+        "linkFallback": "Participar"
       }
     },
     "music": {

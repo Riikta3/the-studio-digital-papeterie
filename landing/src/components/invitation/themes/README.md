@@ -375,9 +375,11 @@ screenshot protocol — is in
   rendered by neither. Nor are `events`, a hotel's phone and photo, or
   `copy.rsvpIntro` (`blanc-couture` does draw the portrait and the monogram).
   They need the second pass described above before they are sold.
-- **Modules a theme does not draw.** `ciao-amore` draws all twelve modules with
-  guest-facing content (`modules.css` holds the four its source never had);
-  the guestbooks have no guest-facing feature anywhere yet. A theme that drops
+- **Modules a theme does not draw.** `ciao-amore`, `mare-alta`, `chateau-royal`
+  and `cabo-verde` draw all thirteen modules with guest-facing content; each
+  keeps the sections its designer never drew in a hand-written `modules.css`,
+  in the theme's own grammar. `belle-rive` and `blanc-couture` still drop some.
+  The guestbooks have no guest-facing feature anywhere yet. A theme that drops
   a module the couple bought shows an explanation in the editor's tab.
 
 - **`belle-rive` ships 38 MB of video.** Six uncompressed `.mp4` autoplaying in a

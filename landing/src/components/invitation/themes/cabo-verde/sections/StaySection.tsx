@@ -10,6 +10,27 @@ import { Art } from "./Art";
 import { Section } from "./Section";
 import { Title } from "./Title";
 
+/** Letters and figures only, lower case, without accents: "Évora-Monte" → "evora monte". */
+function plain(text: string): string {
+  return text
+    .normalize("NFD")
+    .replace(/\p{M}/gu, "")
+    .toLocaleLowerCase()
+    .replace(/[^\p{L}\p{N}]+/gu, " ")
+    .trim();
+}
+
+/**
+ * The small line over a hotel's name: its town — unless the name already says
+ * it ("Hôtel Annecy Centre" in Annecy, "Évora" in Évora), where it would
+ * only repeat the line under it.
+ */
+function kickerOf(stay: Stay): string | null {
+  const city = stay.city?.trim();
+  if (!city) return null;
+  return ` ${plain(stay.name)} `.includes(` ${plain(city)} `) ? null : city;
+}
+
 /** A phone number as a `tel:` link: the digits and a leading plus, whatever the couple typed. */
 function telHref(phone: string): string | null {
   const dialled = phone.replace(/[^\d+]/g, "");
@@ -42,6 +63,7 @@ export function StaySection({ data }: { data: InvitationData }) {
     const codeInOffer = Boolean(code && stay.offer?.toLowerCase().includes(code.toLowerCase()));
     const offer = [stay.offer, code && !codeInOffer ? t("code", { code }) : null].filter(Boolean).join(" · ");
     const tel = stay.phone ? telHref(stay.phone) : null;
+    const kicker = kickerOf(stay);
 
     return (
       <article key={`${index}-${stay.name}`}>
@@ -51,7 +73,7 @@ export function StaySection({ data }: { data: InvitationData }) {
             // eslint-disable-next-line @next/next/no-img-element -- the couple's own upload, a small round photo.
             <img className="cv-stay-photo" src={stay.image} alt="" loading="lazy" />
           ) : null}
-          {stay.city ? <small>{stay.city}</small> : null}
+          {kicker ? <small>{kicker}</small> : null}
           <h3>{stay.name}</h3>
           {stay.address ? <p>{stay.address}</p> : null}
           {offer ? <p className="cv-stay-offer">{offer}</p> : null}

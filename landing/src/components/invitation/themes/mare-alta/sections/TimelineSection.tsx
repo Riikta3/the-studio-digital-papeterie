@@ -1,11 +1,12 @@
 import { Waves } from "lucide-react";
 import { useLocale, useTranslations } from "next-intl";
 
+import { Reveal } from "../../reveal";
 import { slot } from "../../text";
 import type { InvitationData } from "../../types";
 
 import { ICON_OF_EVENT, eventOf, extraEvents } from "./extra-events";
-import { shortDay } from "./event-day";
+import { dayMonth, shortDay } from "./event-day";
 import { useEventKindNames } from "./event-names";
 import { ScheduleMedallion } from "./ScheduleMedallion";
 import { Section } from "./Section";
@@ -29,11 +30,16 @@ export function TimelineSection({ data }: { data: InvitationData }) {
 
   if (moments.length === 0 && extras.length === 0) return null;
 
+  // "Le récit du 19 juin", as the designer wrote it: the wording is a slot, the day is the wedding's,
+  // put in place by a pattern each language orders its own way (spec D2).
+  const wording = slot(data, "timeline.eyebrow") ?? t("eyebrow");
+  const day = dayMonth(data.event.startsAt, locale);
+
   return (
     <Section id="ma-timeline" className="program coral-section" editorSection="timeline">
       <SectionTitle
         rhythm
-        eyebrow={slot(data, "timeline.eyebrow") ?? t("eyebrow")}
+        eyebrow={day ? t("eyebrowWithDate", { wording, date: day }) : wording}
         title={<RhythmTitle text={slot(data, "timeline.title") ?? `${t("titleLine1")}\n${t("titleLine2")}`} />}
         intro={data.copy?.scheduleIntro}
       />
@@ -47,13 +53,16 @@ export function TimelineSection({ data }: { data: InvitationData }) {
       {moments.length > 0 ? (
         <div className="agenda-grid">
           {moments.map((entry, index) => (
-            <article className="agenda-card" key={`${index}-${entry.time}-${entry.title}`}>
+            // Each card watches itself: its embroidered object turns in as the card comes into view
+            // (`modules.css`). Keyed by position, so a moment the couple is retyping in the editor keeps
+            // its card instead of replaying the entrance at every keystroke.
+            <Reveal as="article" className="agenda-card" revealedClass="ma-seen" threshold={0.4} key={index}>
               <span className="agenda-number">{String(index + 1).padStart(2, "0")}</span>
               <ScheduleMedallion icon={entry.icon} image={entry.image} />
               <time>{entry.time}</time>
               <h3>{entry.title}</h3>
               {entry.description ? <p>{entry.description}</p> : null}
-            </article>
+            </Reveal>
           ))}
         </div>
       ) : null}
@@ -67,7 +76,13 @@ export function TimelineSection({ data }: { data: InvitationData }) {
               const day = event.dateLabel ?? shortDay(event.date, locale);
               const title = event.name || kindName[event.kind];
               return (
-                <article className="agenda-card ma-event" key={event.kind}>
+                <Reveal
+                  as="article"
+                  className="agenda-card ma-event"
+                  revealedClass="ma-seen"
+                  threshold={0.4}
+                  key={event.kind}
+                >
                   <ScheduleMedallion icon={ICON_OF_EVENT[event.kind]} image={event.image} />
                   <div className="ma-event-body">
                     {/* The day and the time share a line and wrap apart when the couple's
@@ -97,7 +112,7 @@ export function TimelineSection({ data }: { data: InvitationData }) {
                       </ul>
                     ) : null}
                   </div>
-                </article>
+                </Reveal>
               );
             })}
           </div>

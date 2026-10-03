@@ -9,6 +9,7 @@ import type { InvitationData, ModuleId } from "../types";
 
 import "./mare-alta.css";
 import "./responsive.css";
+import "./modules.css";
 
 import { mareAltaFontVars } from "./fonts";
 import { CountdownSection } from "./sections/CountdownSection";
@@ -17,8 +18,10 @@ import { DressCodeSection } from "./sections/DressCodeSection";
 import { FaqSection } from "./sections/FaqSection";
 import { FloatingNav } from "./sections/FloatingNav";
 import { FooterSection } from "./sections/FooterSection";
+import { GallerySection } from "./sections/GallerySection";
 import { GiftsSection } from "./sections/GiftsSection";
 import { HeroSection } from "./sections/HeroSection";
+import { IntroVideoSection } from "./sections/IntroVideoSection";
 import { MenuSection } from "./sections/MenuSection";
 import { PlaylistSection } from "./sections/PlaylistSection";
 import { RsvpSection } from "./sections/RsvpSection";
@@ -57,12 +60,17 @@ export function MareAltaRoot({ data }: { data: InvitationData }) {
     : [data.venue.name, day].filter(Boolean).join(" · ");
 
   const monogram = monogramOf(data.couple, " · ");
+  // Embroidered on the luggage tag, the initials sit close around their dot ("S·M"), as the designer stitched them.
+  const tagMonogram = monogram.replace(/\s*·\s*/g, "·");
 
   const decor = {
     "--ma-menu-monogram": cssString(monogram),
     "--ma-menu-footer": cssString(menuFooter.toLocaleUpperCase(locale)),
-    // How many characters the monogram has: the luggage tag sizes its lettering by it.
+    // How many characters the monogram has: the crests make room for a long one.
     "--ma-monogram-chars": String(Math.max([...monogram].length, 1)),
+    "--ma-tag-monogram": cssString(tagMonogram),
+    // The tag sizes its lettering by its own count.
+    "--ma-tag-chars": String(Math.max([...tagMonogram].length, 1)),
   } as CSSProperties;
 
   return (
@@ -79,6 +87,9 @@ export function MareAltaRoot({ data }: { data: InvitationData }) {
         />
         <HeroSection data={data} />
         {has("countdown") ? <CountdownSection data={data} /> : null}
+        {/* The couple's film opens what the invitation has to tell, once the hero and the countdown
+            (the designer's opening pair) have set the date. */}
+        {has("intro-video") ? <IntroVideoSection data={data} /> : null}
         {has("map") ? <VenueSection data={data} /> : null}
         {has("timeline") ? <TimelineSection data={data} /> : null}
         {has("dress-code") ? <DressCodeSection data={data} /> : null}
@@ -87,6 +98,9 @@ export function MareAltaRoot({ data }: { data: InvitationData }) {
         {has("transport") || has("map") ? <TransportSection data={data} /> : null}
         {has("menu") ? <MenuSection data={data} /> : null}
         {has("playlist") ? <PlaylistSection data={data} /> : null}
+        {/* The couple's photographs: a pause after the evening (the menu, the music), before the two
+            things the page asks of a guest (a gift, a reply). */}
+        {has("gallery") ? <GallerySection data={data} /> : null}
         {has("gift-list") ? <GiftsSection data={data} /> : null}
         {has("rsvp") ? (
           <RsvpSection

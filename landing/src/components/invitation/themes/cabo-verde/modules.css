@@ -1,0 +1,1198 @@
+/*
+ * "Cabo Verde" — the sections its designer never drew: the intro film, the
+ * album, the menu, the FAQ and the gift note; and the motion added to the
+ * sections he did draw.
+ *
+ * Couples who bought these modules on this theme saw nothing: the theme
+ * dropped what it could not draw. They are drawn here in the designer's own
+ * grammar rather than a neutral one — the alternating grounds of his page
+ * (ivory, pale lagoon, the programme's night blue, the dress code's sunset),
+ * Didot for titles with an italic accent on the second line, Times for the
+ * reading copy, Arial small capitals for eyebrows and labels, coral figures
+ * numbering the lists, hairline rows on translucent ivory, the hero's arch,
+ * the gold linework and the painted objects of his stationery.
+ *
+ * Motion follows his: soft ease-outs (`cubic-bezier(.16,.84,.2,1)` and
+ * `(.2,.75,.2,1)`), rises of 22 to 54px, staggers of about a tenth of a second,
+ * each played once when the section is seen (`.visible`, from `Reveal`).
+ * Rules of the house:
+ *   - only `transform` (and its `translate` / `rotate` / `scale` longhands),
+ *     `opacity`, `filter` and `clip-path` move — plus the FAQ's
+ *     `grid-template-rows`, the one sanctioned way to open an answer;
+ *   - a hidden starting state is only ever written under `[data-js]`, so a
+ *     page without JavaScript shows everything;
+ *   - transitions are declared on the revealed state only, so the hiding when
+ *     scripts start is instant and a section never fades out before it fades
+ *     in; nothing replays when the editor's preview re-renders (`Reveal` keeps
+ *     `.visible`);
+ *   - `prefers-reduced-motion`: the safety net at the end of `responsive.css`
+ *     cancels every animation and transition, and the end of this file covers
+ *     the rest.
+ *
+ * Hand-written, in its own file for the same reason as `responsive.css`:
+ * `cabo-verde.css` is generated and would swallow edits. Loaded after both.
+ * Every selector sits under `.theme-cabo-verde`; every `@keyframes` name starts
+ * with `cabo-verde-` (keyframe names are global to the document).
+ */
+
+/* ── Shared ─────────────────────────────────────────────────────────────── */
+
+.theme-cabo-verde .cv-film,
+.theme-cabo-verde .cv-gallery,
+.theme-cabo-verde .cv-menu,
+.theme-cabo-verde .cv-faq,
+.theme-cabo-verde .cv-gifts {
+  text-align: center;
+}
+
+/* The sheet's base title is the old palette's wine, which every designed
+   section overrides with the ink and an italic accent of its own: these do the
+   same (the accent is the welcome's sea, the playlist's coral on the menu). */
+.theme-cabo-verde :is(.cv-gallery, .cv-menu, .cv-faq, .cv-gifts) h2 {
+  color: #123d58;
+}
+
+.theme-cabo-verde :is(.cv-gallery, .cv-faq, .cv-gifts) h2 em {
+  color: #16a9b8;
+}
+
+/* The landing's own stylesheet gives every h1–h6 its heading face: the h3s of
+   these sections take the theme's back, and set their own. */
+.theme-cabo-verde :is(.cv-menu, .cv-faq) h3 {
+  font-family: inherit;
+  font-weight: inherit;
+}
+
+/* ── Intro film: the programme's night blue, an ivory mat ───────────────── */
+
+.theme-cabo-verde .cv-film {
+  background: linear-gradient(180deg, #0d3047 0%, #123d58 46%, #126d8b 100%);
+  color: #fffaf0;
+}
+
+.theme-cabo-verde .cv-film > .eyebrow {
+  color: #f0c453;
+}
+
+.theme-cabo-verde .cv-film h2 {
+  color: #fffaf0;
+}
+
+.theme-cabo-verde .cv-film h2 em {
+  color: #f0c453;
+}
+
+/* The subtitle in the script the programme's title is set in. */
+.theme-cabo-verde .cv-film-subtitle {
+  margin: -0.6rem auto 0;
+  max-width: 30rem;
+  color: #f0c453;
+  font-family:
+    "Snell Roundhand", var(--font-cv-script), "Bodoni 72 Italic", Didot,
+    var(--font-cv-display), serif;
+  font-size: clamp(1.7rem, 6.5vw, 2.3rem);
+  line-height: 1.15;
+}
+
+/* The film in an ivory mat with the card's rounded corners, a gold hairline
+   standing off it like the double frame of a print. */
+.theme-cabo-verde .cv-film-frame {
+  position: relative;
+  max-width: 34rem;
+  margin: 2.4rem auto 0;
+  padding: 0.55rem;
+  border-radius: 1.2rem;
+  background: #fffaf0;
+  outline: 1px solid rgba(240, 196, 83, 0.55);
+  outline-offset: 7px;
+  box-shadow: 0 22px 44px rgba(4, 22, 34, 0.45);
+}
+
+.theme-cabo-verde .cv-film-screen {
+  overflow: hidden;
+  border-radius: 0.75rem;
+  background: #0b2348;
+}
+
+.theme-cabo-verde .cv-film-screen iframe {
+  display: block;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  border: 0;
+}
+
+/* An uploaded film may be portrait (a phone video): never taller than the
+   screen it is watched on. */
+.theme-cabo-verde .cv-film-screen video {
+  display: block;
+  width: 100%;
+  max-height: 78svh;
+  object-fit: contain;
+  background: #0b2348;
+}
+
+.theme-cabo-verde .cv-film .cv-film-body {
+  margin-top: 2.6rem;
+  color: rgba(255, 250, 240, 0.86);
+}
+
+/* Arrival: the frame opens from its middle, like a curtain drawn on a screen.
+   The clip reaches well past the frame so the hairline and the shadow stay. */
+.theme-cabo-verde .cv-film-frame {
+  clip-path: inset(-80px -80px -80px -80px round 4rem);
+}
+
+.theme-cabo-verde[data-js] .cv-film:not(.visible) .cv-film-frame {
+  opacity: 0.35;
+  clip-path: inset(-80px 50% -80px 50% round 4rem);
+}
+
+.theme-cabo-verde .cv-film.visible .cv-film-frame {
+  transition:
+    clip-path 1.3s 0.35s cubic-bezier(0.16, 0.84, 0.2, 1),
+    opacity 0.8s 0.35s ease;
+}
+
+/* ── Gallery: instant prints taped into an album ────────────────────────── */
+
+/* The pale lagoon of the venue and the travel notebook, the gold linework of
+   the stationery in two corners, drifting with the section's parallax. */
+.theme-cabo-verde .cv-gallery {
+  background: #dff4f1;
+}
+
+.theme-cabo-verde .cv-gallery::before,
+.theme-cabo-verde .cv-gallery::after {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  width: 15rem;
+  aspect-ratio: 2 / 3;
+  background: url("/themes/cabo-verde/cabo-linework-v7.webp") center / contain no-repeat;
+  opacity: 0.7;
+  pointer-events: none;
+  translate: 0 var(--section-shift-soft, 0px);
+}
+
+.theme-cabo-verde .cv-gallery::before {
+  top: -1.5rem;
+  right: -4rem;
+}
+
+.theme-cabo-verde .cv-gallery::after {
+  bottom: -2rem;
+  left: -4rem;
+  transform: scaleX(-1);
+}
+
+/* Prints in rows, the last row centred whatever the count: two across on a
+   phone, three in the desktop card. Every other print sits a little lower, as
+   if laid down by hand. */
+.theme-cabo-verde .cv-album {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 1.5rem 1.1rem;
+  max-width: 34rem;
+  margin: 2.6rem auto 0;
+  padding: 0;
+  list-style: none;
+}
+
+.theme-cabo-verde .cv-album li {
+  position: relative;
+  flex: 0 0 calc((100% - 1.1rem) / 2);
+  --tilt: -2.6deg;
+  --tape: rgba(240, 196, 83, 0.62);
+}
+
+.theme-cabo-verde .cv-album li:nth-child(even) {
+  margin-top: 1.4rem;
+}
+
+.theme-cabo-verde .cv-album li:nth-child(6n + 2) {
+  --tilt: 2.2deg;
+  --tape: rgba(229, 111, 98, 0.45);
+}
+
+.theme-cabo-verde .cv-album li:nth-child(6n + 3) {
+  --tilt: -1.3deg;
+  --tape: rgba(22, 169, 184, 0.4);
+}
+
+.theme-cabo-verde .cv-album li:nth-child(6n + 4) {
+  --tilt: 2.8deg;
+}
+
+.theme-cabo-verde .cv-album li:nth-child(6n + 5) {
+  --tilt: -2deg;
+  --tape: rgba(229, 111, 98, 0.45);
+}
+
+.theme-cabo-verde .cv-album li:nth-child(6n) {
+  --tilt: 1.4deg;
+  --tape: rgba(22, 169, 184, 0.4);
+}
+
+@media (min-width: 600px) {
+  .theme-cabo-verde .cv-album {
+    gap: 2rem 1.4rem;
+    max-width: none;
+  }
+
+  .theme-cabo-verde .cv-album li {
+    flex-basis: calc((100% - 2.8rem) / 3);
+  }
+}
+
+/* The print: a white border, wider at the foot, the photograph cropped to it. */
+.theme-cabo-verde .cv-print {
+  position: relative;
+  margin: 0;
+  padding: 0.5rem 0.5rem 1.9rem;
+  background: #fff;
+  rotate: var(--tilt);
+  filter: drop-shadow(0 10px 14px rgba(18, 61, 88, 0.16));
+  transition:
+    transform 0.45s cubic-bezier(0.2, 0.8, 0.2, 1),
+    filter 0.45s ease;
+}
+
+.theme-cabo-verde .cv-print img {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 4 / 5;
+  object-fit: cover;
+  background: #e6efe9;
+}
+
+/* A strip of tape across the top edge, in the palette's gold, coral or sea. */
+.theme-cabo-verde .cv-print::before {
+  content: "";
+  position: absolute;
+  z-index: 1;
+  top: -0.6rem;
+  left: 50%;
+  width: 3.6rem;
+  height: 1.1rem;
+  background: var(--tape);
+  translate: -50% 0;
+  rotate: calc(var(--tilt) * -1.6);
+}
+
+/* Under the pointer a print straightens and lifts off the page. */
+@media (hover: hover) {
+  .theme-cabo-verde .cv-album li:hover {
+    z-index: 2;
+  }
+
+  .theme-cabo-verde .cv-album li:hover .cv-print {
+    transform: translateY(-6px) rotate(calc(var(--tilt) * -1));
+    filter: drop-shadow(0 18px 22px rgba(18, 61, 88, 0.24));
+  }
+}
+
+/* Arrival: the prints are laid down one after the other — each drops a little,
+   more askew, and settles at its angle. */
+.theme-cabo-verde[data-js] .cv-gallery:not(.visible) .cv-print {
+  opacity: 0;
+  translate: 0 -1.6rem;
+  scale: 1.06;
+  rotate: calc(var(--tilt) * 3);
+}
+
+.theme-cabo-verde .cv-gallery.visible .cv-print {
+  --d: calc(0.3s + min(var(--i, 0), 8) * 0.11s);
+  transition:
+    opacity 0.6s var(--d) ease,
+    translate 0.9s var(--d) cubic-bezier(0.18, 0.84, 0.2, 1),
+    scale 0.9s var(--d) cubic-bezier(0.18, 0.84, 0.2, 1),
+    rotate 1.05s var(--d) cubic-bezier(0.18, 0.84, 0.2, 1),
+    transform 0.45s cubic-bezier(0.2, 0.8, 0.2, 1),
+    filter 0.45s ease;
+}
+
+/* ── Menu: an arched card on the table ──────────────────────────────────── */
+
+/* From the programme's pale lagoon to the cream the dress code starts on. */
+.theme-cabo-verde .cv-menu {
+  background: linear-gradient(180deg, #dff4f1 0%, #eef8f2 55%, #fff4d2 100%);
+}
+
+/* The hero's arch, on a card standing on the table: ivory paper, the form's
+   hairline, a gold rule inside it following the arch. */
+.theme-cabo-verde .cv-menu-card {
+  position: relative;
+  max-width: 30rem;
+  margin: 0 auto;
+  padding: 5.2rem clamp(1.3rem, 6vw, 2.8rem) 3.4rem;
+  border: 1px solid rgba(18, 61, 88, 0.14);
+  border-radius: 50% 50% 1.2rem 1.2rem / 11rem 11rem 1.2rem 1.2rem;
+  background: rgba(255, 250, 240, 0.94);
+  box-shadow: 0 18px 40px rgba(18, 61, 88, 0.1);
+}
+
+.theme-cabo-verde .cv-menu-card::before {
+  content: "";
+  position: absolute;
+  inset: 0.55rem;
+  border: 1px solid rgba(212, 180, 112, 0.5);
+  border-radius: 50% 50% 0.8rem 0.8rem / 10.5rem 10.5rem 0.8rem 0.8rem;
+  pointer-events: none;
+}
+
+.theme-cabo-verde .cv-menu-card > .eyebrow {
+  margin-bottom: 0.9rem;
+}
+
+/* The section titles' size is set for the column; inside the card it is held
+   to the card's measure, so a two-word line stays on one line. */
+.theme-cabo-verde .cv-menu-card h2 {
+  font-size: clamp(2.8rem, 11vw, 3.7rem);
+}
+
+.theme-cabo-verde .cv-menu-card h2 em {
+  color: var(--beach-coral);
+}
+
+.theme-cabo-verde .cv-course {
+  margin-top: 1.9rem;
+}
+
+/* A gold wave between two courses. */
+.theme-cabo-verde .cv-wave {
+  display: block;
+  width: 4.4rem;
+  height: 0.7rem;
+  margin: 0 auto 1.7rem;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 88 12'%3E%3Cpath d='M1 6c7-6 14-6 21 0s14 6 21 0 14-6 21 0 14 6 21 0' fill='none' stroke='%23d4b470' stroke-width='1.4' stroke-linecap='round'/%3E%3C/svg%3E")
+    center / contain no-repeat;
+}
+
+/* The course's figure, coral like the stays' and the travel cards'. */
+.theme-cabo-verde .cv-course-number {
+  display: block;
+  color: var(--beach-coral);
+  font-family: "Times New Roman", serif;
+  font-size: 0.85rem;
+  letter-spacing: 0.15em;
+}
+
+.theme-cabo-verde .cv-course h3 {
+  margin: 0.35rem 0 1.05rem;
+  color: #137f98;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+}
+
+.theme-cabo-verde .cv-course ul {
+  display: grid;
+  gap: 1.05rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.theme-cabo-verde .cv-course strong {
+  display: block;
+  color: #123d58;
+  font-family: Didot, var(--font-cv-display), "Bodoni 72", "Times New Roman", serif;
+  font-size: 1.45rem;
+  font-weight: 400;
+  line-height: 1.12;
+  overflow-wrap: anywhere;
+  /* A dish that wraps on a phone keeps its lines even, never one word alone. */
+  text-wrap: balance;
+}
+
+.theme-cabo-verde .cv-course em {
+  display: block;
+  max-width: 24rem;
+  margin: 0.3rem auto 0;
+  color: #3e6172;
+  font-family: "Times New Roman", serif;
+  font-size: 0.98rem;
+  font-style: italic;
+  line-height: 1.5;
+  text-wrap: pretty;
+}
+
+/* The couple's note, set like the dress code's: italic, over a hairline. */
+.theme-cabo-verde .cv-menu-card .cv-menu-note {
+  margin: 2.3rem 0 0;
+  padding-top: 1rem;
+  border-top: 1px solid rgba(18, 61, 88, 0.18);
+  color: #123d58;
+  font-family: Didot, var(--font-cv-display), "Bodoni 72", "Times New Roman", serif;
+  font-size: 1rem;
+  font-style: italic;
+  line-height: 1.5;
+  text-wrap: pretty;
+}
+
+.theme-cabo-verde .cv-menu-footer {
+  display: grid;
+  gap: 0.35rem;
+  margin-top: 1.3rem;
+}
+
+.theme-cabo-verde .cv-menu-footer small {
+  color: #617889;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 0.62rem;
+  letter-spacing: 0.18em;
+  line-height: 1.5;
+  text-transform: uppercase;
+}
+
+/* A coconut and a glass at the foot of the card, on the table. The strip has
+   no height: the objects stand under the card's bottom corners and rise just
+   over its edge — never as far as the text, whatever the card holds. */
+.theme-cabo-verde .cv-menu-table {
+  position: relative;
+  z-index: 1;
+  max-width: 30rem;
+  height: 0;
+  margin: 0 auto;
+}
+
+.theme-cabo-verde .cv-menu-table img {
+  position: absolute;
+  display: block;
+  height: auto;
+  object-fit: contain;
+  pointer-events: none;
+}
+
+/* Heights from the pictures' ratios (coconut 440 × 483, glass 180 × 560): each
+   rises 2.2rem above the card's foot. */
+.theme-cabo-verde .cv-menu-coconut {
+  left: -1.1rem;
+  bottom: calc(2.2rem - 6.2rem * 483 / 440);
+  width: 6.2rem;
+  rotate: -8deg;
+}
+
+.theme-cabo-verde .cv-menu-cocktail {
+  right: -0.3rem;
+  bottom: calc(2.2rem - 2.7rem * 560 / 180);
+  width: 2.7rem;
+  rotate: 6deg;
+}
+
+.theme-cabo-verde .cv-menu {
+  padding-bottom: 7.5rem;
+}
+
+@media (min-width: 600px) {
+  .theme-cabo-verde .cv-menu-coconut {
+    left: -2.6rem;
+    bottom: calc(2.6rem - 7.2rem * 483 / 440);
+    width: 7.2rem;
+  }
+
+  .theme-cabo-verde .cv-menu-cocktail {
+    right: -1.6rem;
+    bottom: calc(2.6rem - 3.2rem * 560 / 180);
+    width: 3.2rem;
+  }
+
+  .theme-cabo-verde .cv-menu {
+    padding-bottom: 8.5rem;
+  }
+}
+
+/* Arrival: the card rises and straightens like the venue's, its eyebrow is
+   drawn out like every eyebrow of the page, the courses follow one by one,
+   the coconut rolls in and the glass is set down. */
+.theme-cabo-verde .cv-menu-card > .eyebrow {
+  clip-path: inset(0 0 0 0);
+}
+
+.theme-cabo-verde[data-js] .cv-menu:not(.visible) .cv-menu-card {
+  opacity: 0;
+  translate: 0 54px;
+  rotate: 0.7deg;
+}
+
+.theme-cabo-verde[data-js] .cv-menu:not(.visible) .cv-menu-card > .eyebrow {
+  clip-path: inset(0 100% 0 0);
+}
+
+.theme-cabo-verde[data-js] .cv-menu:not(.visible) :is(.cv-course, .cv-menu-note, .cv-menu-footer) {
+  opacity: 0;
+  translate: 0 22px;
+}
+
+.theme-cabo-verde[data-js] .cv-menu:not(.visible) .cv-menu-coconut {
+  opacity: 0;
+  translate: -2.6rem 0;
+  rotate: -70deg;
+}
+
+.theme-cabo-verde[data-js] .cv-menu:not(.visible) .cv-menu-cocktail {
+  opacity: 0;
+  translate: 0 1.4rem;
+}
+
+.theme-cabo-verde .cv-menu.visible .cv-menu-card {
+  transition:
+    opacity 0.9s 0.2s ease,
+    translate 1.05s 0.2s cubic-bezier(0.16, 0.84, 0.2, 1),
+    rotate 1.05s 0.2s cubic-bezier(0.16, 0.84, 0.2, 1);
+}
+
+.theme-cabo-verde .cv-menu.visible .cv-menu-card > .eyebrow {
+  transition: clip-path 1s 0.45s cubic-bezier(0.22, 0.75, 0.2, 1);
+}
+
+.theme-cabo-verde .cv-menu.visible .cv-course {
+  --d: calc(0.7s + min(var(--i, 0), 8) * 0.12s);
+  transition:
+    opacity 0.75s var(--d) cubic-bezier(0.2, 0.75, 0.2, 1),
+    translate 0.85s var(--d) cubic-bezier(0.2, 0.75, 0.2, 1);
+}
+
+.theme-cabo-verde .cv-menu.visible :is(.cv-menu-note, .cv-menu-footer) {
+  transition:
+    opacity 0.75s 1.1s cubic-bezier(0.2, 0.75, 0.2, 1),
+    translate 0.85s 1.1s cubic-bezier(0.2, 0.75, 0.2, 1);
+}
+
+.theme-cabo-verde .cv-menu.visible .cv-menu-coconut {
+  transition:
+    opacity 0.5s 0.9s ease,
+    translate 1.1s 0.9s cubic-bezier(0.16, 0.84, 0.2, 1),
+    rotate 1.1s 0.9s cubic-bezier(0.16, 0.84, 0.2, 1);
+}
+
+.theme-cabo-verde .cv-menu.visible .cv-menu-cocktail {
+  transition:
+    opacity 0.6s 1.05s ease,
+    translate 0.9s 1.05s cubic-bezier(0.2, 0.75, 0.2, 1);
+}
+
+/* ── FAQ: numbered rows over the sand ───────────────────────────────────── */
+
+/* Ivory to sand, the shells lying in it at the foot of the section. */
+.theme-cabo-verde .cv-faq {
+  background: linear-gradient(180deg, #fffaf0 0%, #fbf0df 62%, #f3dfc3 100%);
+}
+
+.theme-cabo-verde .cv-faq-list {
+  max-width: 34rem;
+  margin: 0 auto;
+  border-top: 1px solid rgba(35, 76, 69, 0.16);
+  text-align: start;
+}
+
+/* A row: the stays' translucent ivory and hairline; open, a sea-coloured bar
+   grows along its leading edge. */
+.theme-cabo-verde .cv-faq-item {
+  position: relative;
+  border-bottom: 1px solid rgba(35, 76, 69, 0.16);
+  background: rgba(255, 250, 240, 0.78);
+}
+
+.theme-cabo-verde .cv-faq-item::before {
+  content: "";
+  position: absolute;
+  inset-block: 0;
+  inset-inline-start: 0;
+  width: 2px;
+  background: #137f98;
+  scale: 1 0;
+  transform-origin: top;
+  transition: scale 0.5s cubic-bezier(0.2, 0.75, 0.2, 1);
+}
+
+.theme-cabo-verde .cv-faq-item[data-open]::before {
+  scale: 1 1;
+}
+
+.theme-cabo-verde .cv-faq-item h3 {
+  margin: 0;
+}
+
+.theme-cabo-verde .cv-faq-question {
+  display: grid;
+  grid-template-columns: 2.1rem minmax(0, 1fr) 2rem;
+  gap: 0.8rem;
+  align-items: center;
+  width: 100%;
+  margin: 0;
+  padding: 1.25rem 0.85rem;
+  border: 0;
+  background: transparent;
+  color: #123d58;
+  font: inherit;
+  letter-spacing: normal;
+  text-align: start;
+  cursor: pointer;
+}
+
+.theme-cabo-verde .cv-faq-question:focus-visible {
+  outline: 2px solid #137f98;
+  outline-offset: -2px;
+}
+
+.theme-cabo-verde .cv-faq-number {
+  color: var(--beach-coral);
+  font-family: "Times New Roman", serif;
+  font-size: 1.15rem;
+}
+
+.theme-cabo-verde .cv-faq-text {
+  font-family: "Times New Roman", serif;
+  font-size: 1.15rem;
+  line-height: 1.35;
+  overflow-wrap: anywhere;
+  /* French sets a space before « ? »: on a 320–375 phone the mark wrapped
+     alone onto the last line (« Les enfants sont-ils conviés / ? »). */
+  text-wrap: pretty;
+}
+
+.theme-cabo-verde .cv-faq-question:hover .cv-faq-text {
+  color: #137f98;
+}
+
+/* The sign: the track list's sea-coloured ring; a + that turns a quarter under
+   the pointer and becomes a × on a filled disc when the answer is open. */
+.theme-cabo-verde .cv-faq-sign {
+  position: relative;
+  justify-self: end;
+  width: 2rem;
+  height: 2rem;
+  border: 1px solid #137f98;
+  border-radius: 50%;
+  color: #137f98;
+  transition: rotate 0.45s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.theme-cabo-verde .cv-faq-sign::before,
+.theme-cabo-verde .cv-faq-sign::after {
+  content: "";
+  position: absolute;
+  z-index: 1;
+  top: 50%;
+  left: 50%;
+  width: 0.7rem;
+  height: 1px;
+  background: currentColor;
+  translate: -50% -50%;
+  transition: rotate 0.45s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.theme-cabo-verde .cv-faq-sign::after {
+  rotate: 90deg;
+}
+
+/* The filled disc behind the strokes, grown from the centre. */
+.theme-cabo-verde .cv-faq-sign i {
+  position: absolute;
+  inset: -1px;
+  border-radius: 50%;
+  background: #137f98;
+  scale: 0;
+  transition: scale 0.45s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+@media (hover: hover) {
+  .theme-cabo-verde .cv-faq-question:hover .cv-faq-sign {
+    rotate: 90deg;
+  }
+}
+
+.theme-cabo-verde .cv-faq-item[data-open] .cv-faq-sign {
+  color: #fff;
+  rotate: 0deg;
+}
+
+.theme-cabo-verde .cv-faq-item[data-open] .cv-faq-sign i {
+  scale: 1;
+}
+
+.theme-cabo-verde .cv-faq-item[data-open] .cv-faq-sign::before {
+  rotate: 45deg;
+}
+
+.theme-cabo-verde .cv-faq-item[data-open] .cv-faq-sign::after {
+  rotate: 135deg;
+}
+
+/* The answer opens to the height its text decides (README: no `<details>`). */
+.theme-cabo-verde .cv-faq-answer {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 0.5s cubic-bezier(0.2, 0.75, 0.2, 1);
+}
+
+.theme-cabo-verde .cv-faq-item[data-open] .cv-faq-answer {
+  grid-template-rows: 1fr;
+}
+
+.theme-cabo-verde .cv-faq-answer-inner {
+  min-height: 0;
+  overflow: hidden;
+}
+
+/* Aligned under the question, past its figure. */
+.theme-cabo-verde .cv-faq-answer p {
+  margin: 0;
+  padding: 0 0.85rem 1.4rem;
+  padding-inline-start: calc(0.85rem + 2.1rem + 0.8rem);
+  color: #3e6172;
+  font-family: "Times New Roman", serif;
+  font-size: 1.04rem;
+  line-height: 1.7;
+  opacity: 0;
+  translate: 0 -6px;
+  transition:
+    opacity 0.3s ease,
+    translate 0.4s cubic-bezier(0.2, 0.75, 0.2, 1);
+}
+
+.theme-cabo-verde .cv-faq-item[data-open] .cv-faq-answer p {
+  opacity: 1;
+  translate: 0 0;
+  transition-delay: 0.12s;
+}
+
+/* The shells, half in the sand at the foot of the section, drifting with its
+   parallax. */
+.theme-cabo-verde .cv-faq-shells {
+  position: relative;
+  z-index: -1;
+  display: block;
+  width: min(86%, 26rem);
+  height: auto;
+  margin: 2.8rem auto -3rem;
+  translate: 0 var(--section-shift-soft, 0px);
+}
+
+/* Arrival: the rows come up one after the other, as the stays' do; the shells
+   surface from the sand. */
+.theme-cabo-verde[data-js] .cv-faq:not(.visible) .cv-faq-item {
+  opacity: 0;
+  translate: 0 22px;
+}
+
+.theme-cabo-verde[data-js] .cv-faq:not(.visible) .cv-faq-shells {
+  opacity: 0;
+  filter: blur(4px);
+}
+
+.theme-cabo-verde .cv-faq.visible .cv-faq-item {
+  --d: calc(0.35s + min(var(--i, 0), 8) * 0.08s);
+  transition:
+    opacity 0.75s var(--d) cubic-bezier(0.2, 0.75, 0.2, 1),
+    translate 0.85s var(--d) cubic-bezier(0.2, 0.75, 0.2, 1);
+}
+
+.theme-cabo-verde .cv-faq.visible .cv-faq-shells {
+  transition:
+    opacity 1s 0.6s ease,
+    filter 1s 0.6s ease;
+}
+
+/* ── Gift list: a postcard from the island ──────────────────────────────── */
+
+/* The dress code's sunset, a shade deeper. */
+.theme-cabo-verde .cv-gifts {
+  background: linear-gradient(165deg, #fff1dc 0%, #ffe0cc 55%, #fbcdbf 100%);
+}
+
+.theme-cabo-verde .cv-gifts > .eyebrow {
+  color: var(--beach-coral);
+}
+
+/* The card: ivory paper inside an airmail edge of coral and navy stripes,
+   tilted, with the designer's postcard shadow (a soft one at rest). */
+.theme-cabo-verde .cv-postcard {
+  position: relative;
+  display: grid;
+  gap: 1.2rem;
+  max-width: 34rem;
+  margin: 1.2rem auto 0;
+  padding: 1.5rem 1.3rem 1.8rem;
+  border: 7px solid transparent;
+  border-radius: 0.5rem;
+  background:
+    linear-gradient(#fffaf0, #fffaf0) padding-box,
+    repeating-linear-gradient(-45deg, #e56f62 0 9px, #fffaf0 9px 18px, #174f8b 18px 27px, #fffaf0 27px 36px) border-box;
+  text-align: start;
+  rotate: -1.4deg;
+  filter: drop-shadow(0 16px 24px rgba(122, 52, 40, 0.16));
+  transition:
+    transform 0.5s cubic-bezier(0.2, 0.8, 0.2, 1),
+    filter 0.5s ease;
+}
+
+/* Under the pointer, or with the link focused, it straightens and lifts onto
+   its coral shadow, as the designer's postcard did. */
+@media (hover: hover) {
+  .theme-cabo-verde .cv-postcard:hover {
+    transform: translateY(-7px) rotate(2.4deg);
+    filter: drop-shadow(11px 15px 0 rgba(229, 111, 98, 0.85));
+  }
+}
+
+.theme-cabo-verde .cv-postcard:focus-within {
+  transform: translateY(-7px) rotate(2.4deg);
+  filter: drop-shadow(11px 15px 0 rgba(229, 111, 98, 0.85));
+}
+
+.theme-cabo-verde .cv-postcard h2 {
+  margin: 0 0 1.1rem;
+  font-size: clamp(2.1rem, 7.6vw, 2.7rem);
+  line-height: 0.98;
+  text-align: start;
+}
+
+.theme-cabo-verde .cv-postcard h2:after {
+  margin-inline: 0 auto;
+}
+
+.theme-cabo-verde .cv-postcard .cv-postcard-body {
+  margin: 0;
+  color: #3e6172;
+  font-family: "Times New Roman", serif;
+  font-size: 1.08rem;
+  font-style: italic;
+  line-height: 1.7;
+}
+
+/* The venue card's button. */
+.theme-cabo-verde .cv-postcard-link {
+  display: inline-block;
+  margin-top: 1.4rem;
+  padding: 1rem 1.25rem;
+  background: #126d8b;
+  color: #fff;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 0.68rem;
+  letter-spacing: 0.13em;
+  line-height: 1.4;
+  text-decoration: none;
+  text-transform: uppercase;
+  transition:
+    transform 0.35s cubic-bezier(0.2, 0.8, 0.2, 1),
+    filter 0.35s ease;
+}
+
+.theme-cabo-verde .cv-postcard-link:hover,
+.theme-cabo-verde .cv-postcard-link:focus-visible {
+  transform: translateY(-2px);
+  filter: brightness(1.15);
+}
+
+.theme-cabo-verde .cv-postcard-link:focus-visible {
+  outline: 2px solid #123d58;
+  outline-offset: 3px;
+}
+
+/* The stamp side. On a phone it is a strip along the top: the stamp at the
+   end, the postmark over its corner; no address lines. */
+.theme-cabo-verde .cv-postcard-side {
+  position: relative;
+  order: -1;
+  display: flex;
+  justify-content: flex-end;
+  min-height: 88px;
+}
+
+/* A perforated stamp (holes punched along its edge by a mask) holding one of
+   the hero's boats on a sky-to-lagoon ground. Sized in whole multiples of the
+   8px perforation, so a hole falls on every corner. */
+.theme-cabo-verde .cv-stamp {
+  display: block;
+  box-sizing: border-box;
+  width: 72px;
+  height: 88px;
+  padding: 6px;
+  background: #fff;
+  rotate: 3deg;
+  filter: drop-shadow(0 3px 4px rgba(18, 61, 88, 0.18));
+  -webkit-mask:
+    radial-gradient(circle, transparent 2.4px, #000 2.9px) -4px -4px / 8px 8px,
+    linear-gradient(#000 0 0) content-box;
+  mask:
+    radial-gradient(circle, transparent 2.4px, #000 2.9px) -4px -4px / 8px 8px,
+    linear-gradient(#000 0 0) content-box;
+}
+
+.theme-cabo-verde .cv-stamp-art {
+  display: block;
+  width: 100%;
+  height: 100%;
+  padding: 0.3rem;
+  box-sizing: border-box;
+  background: linear-gradient(180deg, #fbe3c4 0%, #bceae5 60%, #3aaeb5 100%);
+  object-fit: contain;
+}
+
+/* The postmark: two rings in navy ink with the day between them, and the wavy
+   cancellation lines running off it across the stamp. */
+.theme-cabo-verde .cv-postmark {
+  position: absolute;
+  top: 0.4rem;
+  inset-inline-end: 3.1rem;
+  display: grid;
+  place-items: center;
+  width: 4.9rem;
+  height: 4.9rem;
+  border: 1.5px solid rgba(23, 79, 139, 0.72);
+  border-radius: 50%;
+  color: rgba(23, 79, 139, 0.85);
+  rotate: -14deg;
+  mix-blend-mode: multiply;
+}
+
+.theme-cabo-verde .cv-postmark::before {
+  content: "";
+  position: absolute;
+  inset: 0.32rem;
+  border: 1px solid rgba(23, 79, 139, 0.5);
+  border-radius: 50%;
+}
+
+.theme-cabo-verde .cv-postmark::after {
+  content: "";
+  position: absolute;
+  top: 1.2rem;
+  inset-inline-start: 82%;
+  width: 5.6rem;
+  height: 2.4rem;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 96 36'%3E%3Cg fill='none' stroke='%23174f8b' stroke-opacity='.62' stroke-width='1.5' stroke-linecap='round'%3E%3Cpath d='M2 7c8-5 15-5 23 0s15 5 23 0 15-5 23 0 15 5 23 0'/%3E%3Cpath d='M2 18c8-5 15-5 23 0s15 5 23 0 15-5 23 0 15 5 23 0'/%3E%3Cpath d='M2 29c8-5 15-5 23 0s15 5 23 0 15-5 23 0 15 5 23 0'/%3E%3C/g%3E%3C/svg%3E")
+    left center / contain no-repeat;
+}
+
+.theme-cabo-verde .cv-postmark span {
+  max-width: 3.9rem;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 0.5rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  line-height: 1.2;
+  text-align: center;
+}
+
+.theme-cabo-verde .cv-postcard-line {
+  display: none;
+}
+
+/* Wide enough for a real postcard: message | stamp side, a hairline between,
+   ruled lines for the address under the stamp. */
+@media (min-width: 600px) {
+  .theme-cabo-verde .cv-postcard {
+    grid-template-columns: minmax(0, 1.55fr) minmax(0, 1fr);
+    gap: 0;
+    padding: 2rem 1.8rem 2.2rem;
+  }
+
+  .theme-cabo-verde .cv-postcard-message {
+    padding-inline-end: 1.6rem;
+    border-inline-end: 1px solid rgba(18, 61, 88, 0.18);
+  }
+
+  .theme-cabo-verde .cv-postcard-side {
+    order: 0;
+    display: block;
+    padding-inline-start: 1.6rem;
+  }
+
+  .theme-cabo-verde .cv-stamp {
+    margin-inline-start: auto;
+  }
+
+  .theme-cabo-verde .cv-postmark {
+    top: 2.4rem;
+    inset-inline-end: 3.6rem;
+  }
+
+  .theme-cabo-verde .cv-postcard-line {
+    display: block;
+    height: 1px;
+    margin-top: 1.7rem;
+    background: rgba(18, 61, 88, 0.24);
+  }
+
+  .theme-cabo-verde .cv-postcard-line:first-of-type {
+    margin-top: 3.6rem;
+  }
+}
+
+/* Arrival: the card is dealt onto the page and settles at its angle; then the
+   postmark lands on the stamp — a press, a slight give, the ink. */
+.theme-cabo-verde[data-js] .cv-gifts:not(.visible) .cv-postcard {
+  opacity: 0;
+  translate: 0 40px;
+  rotate: -6deg;
+}
+
+.theme-cabo-verde[data-js] .cv-gifts:not(.visible) .cv-postmark {
+  opacity: 0;
+}
+
+.theme-cabo-verde .cv-gifts.visible .cv-postcard {
+  transition:
+    opacity 0.9s 0.25s ease,
+    translate 1.05s 0.25s cubic-bezier(0.16, 0.84, 0.2, 1),
+    rotate 1.05s 0.25s cubic-bezier(0.16, 0.84, 0.2, 1),
+    transform 0.5s cubic-bezier(0.2, 0.8, 0.2, 1),
+    filter 0.5s ease;
+}
+
+.theme-cabo-verde .cv-gifts.visible .cv-postmark {
+  animation: cabo-verde-postmark 0.75s 1.15s both cubic-bezier(0.2, 0.75, 0.2, 1);
+}
+
+@keyframes cabo-verde-postmark {
+  0% {
+    opacity: 0;
+    scale: 1.7;
+    rotate: -36deg;
+  }
+  55% {
+    opacity: 1;
+    scale: 0.94;
+    rotate: -12deg;
+  }
+  100% {
+    opacity: 1;
+    scale: 1;
+    rotate: -14deg;
+  }
+}
+
+/* ── Signature moments on the designer's sections ───────────────────────── */
+
+/* 1. Welcome: the island surfaces. When the reader reaches it (the island
+   watches itself, see WelcomeSection.tsx), it rises out of a water line under
+   it: the island climbs by as much as its clip opens, so the line stays put
+   while the island comes up through it. The designer had frozen an endless
+   float on the picture (`animation`, `transform` and `translate` all `none
+   !important`); this plays once, on the wrapper around it. */
+.theme-cabo-verde .cv-island {
+  clip-path: inset(-10% -10% 0 -10%);
+}
+
+/* The island is a lazy picture with no size until it loads: a 0px box, inside
+   a wrapper clipped to its own (0px) height, never counted as seen, so it was
+   never fetched. On a phone it is near enough to load with the page; on an
+   iPad or a desktop (744 to 2560) the welcome had no island at all. Its box
+   takes the picture's ratio before it arrives (1774 × 887). */
+.theme-cabo-verde .welcome .welcome-island {
+  aspect-ratio: 1774 / 887;
+}
+
+.theme-cabo-verde[data-js] .cv-island:not(.cv-surfaced) {
+  opacity: 0;
+  translate: 0 2.6rem;
+  clip-path: inset(-10% -10% 2.6rem -10%);
+}
+
+.theme-cabo-verde .cv-island.cv-surfaced {
+  transition:
+    opacity 0.7s 0.1s ease,
+    translate 1.6s 0.1s cubic-bezier(0.16, 0.84, 0.2, 1),
+    clip-path 1.6s 0.1s cubic-bezier(0.16, 0.84, 0.2, 1);
+}
+
+/* 2. Programme: the string of lights switches on. Dim while the section is
+   still below, it flickers twice and glows when the programme appears, then
+   keeps swaying as before (the designer's `lightSway`, restated because one
+   `animation` declaration carries both). */
+.theme-cabo-verde[data-js] .itinerary:not(.visible) .party-lights {
+  filter: brightness(0.45) saturate(0.5) drop-shadow(0 0 0 rgba(240, 196, 83, 0));
+}
+
+.theme-cabo-verde .itinerary.visible .party-lights {
+  filter: brightness(1.04) saturate(1.06) drop-shadow(0 0 0 rgba(240, 196, 83, 0));
+  animation:
+    cabo-verde-lightSway 5s ease-in-out infinite,
+    cabo-verde-lights-on 1.9s 0.5s both;
+}
+
+@keyframes cabo-verde-lights-on {
+  0% {
+    filter: brightness(0.45) saturate(0.5) drop-shadow(0 0 0 rgba(240, 196, 83, 0));
+  }
+  12% {
+    filter: brightness(1.1) saturate(1) drop-shadow(0 0 4px rgba(240, 196, 83, 0.3));
+  }
+  19% {
+    filter: brightness(0.55) saturate(0.6) drop-shadow(0 0 0 rgba(240, 196, 83, 0));
+  }
+  32% {
+    filter: brightness(1.16) saturate(1.04) drop-shadow(0 0 6px rgba(240, 196, 83, 0.4));
+  }
+  38% {
+    filter: brightness(0.72) saturate(0.78) drop-shadow(0 0 0 rgba(240, 196, 83, 0));
+  }
+  62% {
+    filter: brightness(1.26) saturate(1.12) drop-shadow(0 0 10px rgba(240, 196, 83, 0.55));
+  }
+  100% {
+    filter: brightness(1.04) saturate(1.06) drop-shadow(0 0 0 rgba(240, 196, 83, 0));
+  }
+}
+
+/* 3. Travel notebook: the boarding pass is drawn out of the passport. Tucked
+   behind it, askew, while the section is below; when the notebook opens the
+   pass slides out to its place and the passport gives a little, as a hand
+   pulling a ticket from it would make it. */
+.theme-cabo-verde[data-js] .practical:not(.visible) .travel-scene .cv-ticket {
+  opacity: 0;
+  translate: -42% 5%;
+  rotate: -7deg;
+}
+
+.theme-cabo-verde .practical.visible .travel-scene .cv-ticket {
+  transition:
+    opacity 0.45s 0.4s ease,
+    translate 1.25s 0.4s cubic-bezier(0.16, 0.84, 0.2, 1),
+    rotate 1.25s 0.4s cubic-bezier(0.16, 0.84, 0.2, 1);
+}
+
+.theme-cabo-verde .practical.visible .travel-passport {
+  animation: cabo-verde-passport-give 1.3s 0.35s both cubic-bezier(0.2, 0.75, 0.2, 1);
+}
+
+@keyframes cabo-verde-passport-give {
+  0%,
+  100% {
+    translate: 0 0;
+    rotate: 0deg;
+  }
+  32% {
+    translate: -5px 2px;
+    rotate: -2.5deg;
+  }
+}
+
+/* ── Reduced motion ─────────────────────────────────────────────────────── */
+
+/* `responsive.css` cancels every animation and transition; `Reveal` marks
+   every section seen at once, so the revealed states above apply. What is left
+   is the hover lifts, and the parallax of the decorations. */
+@media (prefers-reduced-motion: reduce) {
+  .theme-cabo-verde .cv-album li:hover .cv-print,
+  .theme-cabo-verde .cv-postcard:hover,
+  .theme-cabo-verde .cv-postcard:focus-within,
+  .theme-cabo-verde .cv-postcard-link:hover,
+  .theme-cabo-verde .cv-postcard-link:focus-visible {
+    transform: none;
+  }
+
+  .theme-cabo-verde .cv-gallery::before,
+  .theme-cabo-verde .cv-gallery::after,
+  .theme-cabo-verde .cv-faq-shells {
+    translate: none;
+  }
+}

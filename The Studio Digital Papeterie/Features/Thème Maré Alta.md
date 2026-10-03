@@ -14,11 +14,24 @@ Porté en même temps que [[Thème Château Royal]] et [[Thème Cabo Verde]], av
 
 Hero (prénoms, date, monogramme, ligne d'annonce), barre flottante de trois raccourcis (lieu, programme, réponse), compte à rebours en quatre cartes, lieu avec itinéraire et « ajouter à l'agenda », programme avec le bloc **« Et aussi »** (événements des autres jours et leurs moments), dress code (pastilles de couleurs), hébergements, transport (`venue.access`), menu, playlist (recherche Spotify), cadeaux (un lien), RSVP, FAQ (première question ouverte), deux blocs **Jour J** (« Trouve ta place », « Partage tes photos »), pied de page avec le portrait du couple.
 
-`supports` : countdown, timeline, dress-code, map, accommodation, transport, menu, playlist, gift-list, rsvp, faq. **31 slots** dans `editor.ts`, `Invitation.mareAlta` = 121 clés × 9 langues.
+`supports` : les **13 modules** à contenu invité, comme `ciao-amore` (tous sauf les deux livres d'or). `Invitation.mareAlta` = 137 clés × 9 langues.
+
+### Galerie et vidéo d'introduction (2026-10-03)
+
+Dessinées dans la recette du designer (`modules.css`), sur des bandes `coral-section` pour garder l'alternance papier / nuit / corail :
+- **Film**, juste après le compte à rebours : passe-partout de soie ivoire, filet d'or, point avant cousu à 8 px, rangée de perles en haut et en bas. Hôte d'embed inconnu = rien ; fichier = `<video controls>`.
+- **Galerie**, entre la playlist et les cadeaux : tirages sur passe-partout, point de croix doré à chaque coin (une large, puis deux côte à côte ; un tirage seul en fin prend toute la largeur). Chaque tirage ouvre une visionneuse `<dialog>` (précédent/suivant, compteur, flèches, glisser — inversé en arabe, Échap, retour du focus).
+
+### Mouvement
+
+Le point se coud tout seul autour du film puis les perles s'enfilent ; les tirages se posent en tournant légèrement, puis leurs points de croix se resserrent. Sur les sections du designer : les fils d'or du compte à rebours se tirent depuis le centre et les cartes s'ouvrent tour à tour, chaque médaillon du programme pivote quand sa carte arrive, le tampon de la ville est pressé sur la photo du lieu. Keyframes préfixées `mare-alta-`.
+
+### Contrôle contre la maquette en ligne (2026-10-03)
+
+Audit contre https://sienna-malo-mare-alta.emiliethestudio.chatgpt.site (mêmes 15 sections et textes que la source) : polices, couleurs, colonne et toutes les animations identiques sur ~150 éléments. Corrigés : sous-titres « On aime / On évite » (une première ligne courte devient le titre), intro du menu (slot `menu.intro`, vide par défaut), marges et dernier filet de la FAQ, tampons des hébergements sur une ligne (date courte « 2–4 avr. »), titres datés « Le récit du 3 avril » / « Le menu du 3 avril » (date du couple, spec D2), libellés RSVP du designer, monogramme brodé de l'étiquette, bouton d'envoi de la playlist en sauge plein (`aria-disabled`), textes de démo indépendants de la saison, fond au rebond (`html:has(.theme-mare-alta)`).
 
 ## Ce qu'il ne dessine pas
 
-- **Galerie et vidéo d'introduction** : le design n'a pas de section pour eux. L'éditeur le dit au couple s'il a acheté le module.
 - **La jarre de messages** : aucune fonctionnalité invité derrière (le module `guestbook` existe, pas son côté invité). Sous-projet séparé, voir [[Reste à faire]].
 - Retirés du design parce que le produit ne sait pas les honorer : lecteur audio et sa liste fixe de 4 titres, IBAN et barre de progression de la cagnotte, tampon GPS (remplacé par ville · pays), e-mail / téléphone / arrivée / hébergement / cases dîner et brunch / âges des enfants dans le RSVP, « modifiable jusqu'au… », covoiturage intégré.
 

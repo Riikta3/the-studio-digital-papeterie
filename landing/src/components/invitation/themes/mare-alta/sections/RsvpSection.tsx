@@ -232,7 +232,8 @@ export function RsvpSection({ data }: { data: InvitationData }) {
                   ) : null}
                   {askMessage ? (
                     <label>
-                      {t("messageLabel")}
+                      {/* The designer's label, with its small "optional" beside it. */}
+                      {t("messageLabel")} <span className="optional">{t("optional")}</span>
                       <textarea name="message" placeholder={t("messagePlaceholder")} />
                     </label>
                   ) : null}

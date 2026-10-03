@@ -21,6 +21,10 @@ export const chateauRoyalEditorSlots: readonly ThemeEditorSlot[] = [
     multiline: true,
   },
 
+  // The time left, engraved under the letter.
+  { key: "countdown.eyebrow", messages: [`${NS}.countdown.eyebrow`] },
+  { key: "countdown.note", messages: [`${NS}.countdown.note`] },
+
   // The place.
   { key: "map.eyebrow", messages: [`${NS}.venue.eyebrow`] },
   {
@@ -28,6 +32,9 @@ export const chateauRoyalEditorSlots: readonly ThemeEditorSlot[] = [
     messages: [`${NS}.venue.titleLine1`, `${NS}.venue.titleLine2`],
     multiline: true,
   },
+
+  // The couple's film.
+  { key: "intro-video.eyebrow", messages: [`${NS}.film.eyebrow`] },
 
   // The programme and the day after.
   { key: "timeline.title", messages: [`${NS}.programme.title`] },
@@ -44,9 +51,34 @@ export const chateauRoyalEditorSlots: readonly ThemeEditorSlot[] = [
     multiline: true,
   },
 
+  // The ball's dance card: the guests' songs.
+  { key: "playlist.eyebrow", messages: [`${NS}.playlist.eyebrow`] },
+  {
+    key: "playlist.title",
+    messages: [`${NS}.playlist.titleLine1`, `${NS}.playlist.titleLine2`],
+    multiline: true,
+  },
+  { key: "playlist.intro", messages: [`${NS}.playlist.intro`] },
+  { key: "playlist.picks", messages: [`${NS}.playlist.picks`] },
+
+  // The gallery.
+  { key: "gallery.eyebrow", messages: [`${NS}.gallery.eyebrow`] },
+  {
+    key: "gallery.title",
+    messages: [`${NS}.gallery.titleLine1`, `${NS}.gallery.titleLine2`],
+    multiline: true,
+  },
+
   // The small details: the dress code, the ways to get there, the questions.
   { key: "faq.eyebrow", messages: [`${NS}.practical.eyebrow`] },
   { key: "faq.title", messages: [`${NS}.practical.title`] },
+
+  // Where to sleep.
+  { key: "accommodation.eyebrow", messages: [`${NS}.stays.eyebrow`] },
+  { key: "accommodation.title", messages: [`${NS}.stays.title`] },
+
+  // The gift note.
+  { key: "gift-list.eyebrow", messages: [`${NS}.gifts.eyebrow`] },
 
   // The reply.
   { key: "rsvp.eyebrow", messages: [`${NS}.rsvp.eyebrow`] },

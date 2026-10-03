@@ -17,8 +17,8 @@ export const caboVerdeTheme: ThemeManifest = {
   name: "Cabo Verde",
   description: "Pieds dans le sable, eau turquoise et bateaux colorés : un mariage tropical au bord de l'océan.",
 
-  // Only what the design draws. Not drawn, because it has no section for them:
-  // menu, faq, gift-list, gallery, intro-video.
+  // Every module with a guest-facing feature. The designer drew the first
+  // eight; the last five are drawn in his grammar in `modules.css`.
   supports: [
     "countdown",
     "map",
@@ -28,6 +28,11 @@ export const caboVerdeTheme: ThemeManifest = {
     "playlist",
     "transport",
     "rsvp",
+    "intro-video",
+    "gallery",
+    "menu",
+    "faq",
+    "gift-list",
   ],
 
   accentColor: "#3aaeb5",

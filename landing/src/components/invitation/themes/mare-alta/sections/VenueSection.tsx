@@ -1,6 +1,7 @@
 import { CalendarDays, MapPin, Navigation, Sun } from "lucide-react";
 import { useTranslations } from "next-intl";
 
+import { Reveal } from "../../reveal";
 import { Lines, slot } from "../../text";
 import type { InvitationData } from "../../types";
 import { calendarUrl, mapsUrl } from "../calendar-url";
@@ -32,7 +33,10 @@ export function VenueSection({ data }: { data: InvitationData }) {
         title={venue.name}
         intro={data.copy?.venueIntro}
       />
-      <div className="location-window">
+      {/* The picture watches itself: its stamp is pressed on once a good part of it is on screen (`modules.css`).
+          0.4, not more: on a phone held sideways (852 x 393) the picture is 730px tall, so at most 54% of it is
+          ever on screen, and the stamp never came. */}
+      <Reveal className="location-window" revealedClass="ma-seen" threshold={0.4}>
         {venue.image ? (
           // The couple's own photograph, cropped to the window by the theme's CSS.
           // eslint-disable-next-line @next/next/no-img-element
@@ -57,7 +61,7 @@ export function VenueSection({ data }: { data: InvitationData }) {
         <span className="sun-glow">
           <Sun />
         </span>
-      </div>
+      </Reveal>
       {venue.address ? (
         <p className="address">
           <Lines text={venue.address} />

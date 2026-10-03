@@ -14,11 +14,26 @@ Porté avec [[Thème Maré Alta]] et [[Thème Château Royal]]. Voir [[Invitatio
 
 Hero (bateaux, prénoms, tampon lieu · date), accueil, **compte à rebours à chiffres qui se retournent**, lieu, itinéraire en **onglets** (un par événement du couple), dress code (photo facultative), hébergements (photos facultatives), **playlist participative** (recherche Spotify, jusqu'à 3 titres), **carnet de voyage** (passeport, billet d'avion, avion, puis une carte numérotée par moyen d'accès `venue.access`), RSVP, pied de page avec portrait.
 
-`supports` : countdown, map, timeline, dress-code, accommodation, playlist, transport, rsvp. **19 slots**, `Invitation.caboVerde` = 80 clés × 9 langues.
+`supports` : les **13 modules** à contenu invité, comme `ciao-amore` (tous sauf les deux livres d'or). `Invitation.caboVerde` = 100 clés × 9 langues.
+
+### Les modules que le designer n'avait pas dessinés (2026-10-03)
+
+Dessinés dans la grammaire de la carte peinte (`modules.css`, helpers `Section`/`Title` pour hériter du surtitre balayé, du titre qui monte et du filet qui pousse) :
+
+hero → accueil → **film** (bande bleu nuit, passe-partout ivoire) → **album** (polaroïds scotchés, inclinés ; 2 par ligne sur mobile, 3 sur ordinateur) → compte à rebours → lieu → itinéraire → **menu** (carte en arche, plats numérotés, vagues dorées, noix de coco et cocktail peints au pied) → dress → hébergements → playlist → carnet de voyage → **FAQ** (accordéon, une réponse ouverte à la fois, coquillages) → **cadeaux** (carte postale « par avion », timbre au bateau du hero, cachet à la date du mariage) → RSVP → pied de page.
+
+### Mouvement
+
+Entrées uniques sur les nouvelles sections (les polaroïds tombent un à un, cours du menu et questions montent tour à tour, le cachet se pose sur le timbre, le cadre du film s'ouvre par le milieu) et trois moments sur celles du designer : l'île sort de l'eau au défilement, la guirlande du programme vacille puis s'allume, le billet glisse de derrière le passeport. Keyframes préfixées `cabo-verde-`.
+
+### Contrôle contre la maquette en ligne (2026-10-03)
+
+Audit contre https://cabo-invitation-mariage.emiliethestudio.chatgpt.site/ (identique à la source) : 9 sections sur 11 identiques au pixel, toutes les animations du designer présentes. Corrigés : ordre d'arrivée des cartes au changement d'onglet (`span.cv-day-label` décalait `nth-child`), taille du champ de recherche, guirlande `inline` (preflight Tailwind), étiquettes des hébergements, « Cap-Vert », entrée du bloc de recherche, épaisseur du filet du billet, centrage du remerciement, fond au rebond (`html:has(.theme-cabo-verde)`).
+
+**Fuite par l'image corrigée** : le passeport (« República de Cabo Verde », emblème, « PASSAPORTE ») et le talon du billet (« CABO VERDE », « Cabo Verde Airways ») étaient dessinés dans les images. Effacés ; posés en HTML : pays du couple, monogramme dans un double anneau, slots `transport.passport` et `transport.airline` (défauts neutres, la démo garde les mots du designer). Restent dessinés : la silhouette de l'île, la rose des vents, l'avion, aucun mot.
 
 ## Ce qu'il ne dessine pas
 
-- **Menu, FAQ, liste de cadeaux, galerie, vidéo d'introduction** : pas de section dans le design.
 - Retirés du design source : la porte d'ouverture, le calendrier, la carte postale, le disque, les boutons play et les durées, le formulaire libre de chanson, les notes « Elle / Lui », le prénom et le nom séparés dans le RSVP.
 
 ## Décisions de portage

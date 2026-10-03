@@ -1,6 +1,7 @@
 import { useLocale, useTranslations } from "next-intl";
 import type { CSSProperties } from "react";
 
+import { monogramOf } from "../../monogram";
 import { slot } from "../../text";
 import type { InvitationData } from "../../types";
 
@@ -8,29 +9,90 @@ import { shortDate } from "../dates";
 import { Art } from "./Art";
 import { Section } from "./Section";
 
+type Fit = { size: number; min: number; room: number; em: number };
+
 /**
- * A value's size and place on the pass, in container units (`cqw`).
- *
- * The designer set his eleven-letter destination at `size`; a longer text steps down so that it
- * still fits its `room` on one line (`em` is the average width of a letter,
- * tracking included) and is never smaller than `min`. The text is anchored by
- * its baseline, which stays where the designer's was whatever the size. Past
- * `min` the stylesheet's ellipsis takes over.
+ * A word's size in container units (`cqw`): the designer's `size` for his own
+ * word, stepped down for a longer one so that it still fits its `room` on one
+ * line (`em` is the average width of a letter, tracking included), never under
+ * `min`. Past `min` the stylesheet's ellipsis takes over.
  */
-function fitted(
-  text: string,
-  { size, min, room, em, baseline }: { size: number; min: number; room: number; em: number; baseline: number },
-): CSSProperties {
+function fitSize(text: string, { size, min, room, em }: Fit): number {
   const letters = Math.max(1, [...text].length);
-  const fontSize = Math.max(min, Math.min(size, room / (letters * em)));
-  return { fontSize: `${fontSize.toFixed(2)}cqw`, top: `${(baseline - 0.9875 * fontSize).toFixed(2)}cqw` };
+  return Math.max(min, Math.min(size, room / (letters * em)));
 }
 
 /**
- * The boarding pass. Its words — destination, date, country — are HTML laid over
- * `travel-boarding-pass-v12.webp`, not part of the picture: the designer's file
- * had his own wedding's town and day drawn into it, and the leak test cannot
- * read inside an image. The WebP was cleaned of that text on purpose; do not put
+ * A value's size and place on the art, in container units: sized by `fitSize`
+ * and anchored by its baseline, which stays where the designer's was whatever
+ * the size (Times, line-height 1.3).
+ */
+function fitted(text: string, fit: Fit & { baseline: number }): CSSProperties {
+  const fontSize = fitSize(text, fit);
+  return { fontSize: `${fontSize.toFixed(2)}cqw`, top: `${(fit.baseline - 0.9875 * fontSize).toFixed(2)}cqw` };
+}
+
+/** The wedding's place in capitals: the country, else the town. */
+function placeOf(data: InvitationData, locale: string): string {
+  return (data.venue.country?.trim() || data.venue.city?.trim() || "").toLocaleUpperCase(locale);
+}
+
+/**
+ * The passport. The designer's cover named his wedding's country three times —
+ * a title, a national emblem lettered round its ring, and the word for passport
+ * in its language — so every couple's notebook would have carried it. The
+ * picture (`travel-passport-v12.webp`) was cleaned of all three on purpose (do
+ * not put the original back); what the cover says is HTML laid over it, in the
+ * art's own gold: the couple's country (else their town), a seal holding their
+ * monogram where the emblem was, and the theme's word for passport (a slot).
+ * Placed and sized in container units, like the boarding pass.
+ */
+function Passport({ data }: { data: InvitationData }) {
+  const t = useTranslations("Invitation.caboVerde.travel");
+  const locale = useLocale();
+
+  const place = placeOf(data, locale);
+  const word = (slot(data, "transport.passport") ?? t("passport")).toLocaleUpperCase(locale);
+  const monogram = monogramOf(data.couple, "&");
+
+  return (
+    <div className="travel-passport cv-passport">
+      <div className="cv-passport-art">
+        {/* eslint-disable-next-line @next/next/no-img-element -- decorative, positioned and animated by CSS. */}
+        <img className="cv-passport-img" src="/themes/cabo-verde/travel-passport-v12.webp" alt="" loading="lazy" />
+        <div className="cv-passport-text">
+          {place ? (
+            <span
+              className="cv-passport-place"
+              style={fitted(place, { size: 6.4, min: 3.2, room: 46, em: 0.78, baseline: 47.1 })}
+            >
+              {place}
+            </span>
+          ) : null}
+          <span className="cv-passport-seal">
+            <span style={{ fontSize: `${fitSize(monogram, { size: 7.2, min: 3.4, room: 19, em: 0.62 }).toFixed(2)}cqw` }}>
+              {monogram}
+            </span>
+          </span>
+          <span
+            className="cv-passport-word"
+            style={fitted(word, { size: 5.2, min: 2.6, room: 44, em: 0.78, baseline: 112 })}
+          >
+            {word}
+          </span>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+/**
+ * The boarding pass. Its words — destination, date, country, the place up the
+ * blue band, the airline on the stub and the passenger's initials under it —
+ * are HTML laid over `travel-boarding-pass-v12.webp`, not part of the picture:
+ * the designer's file had his own wedding's town, day and country drawn into
+ * it (and an English tagline in two places), and the leak test cannot read
+ * inside an image. The WebP was cleaned of that text on purpose; do not put
  * the original back. The overlay is placed in percentages of the picture and
  * sized in container units (`cqw`), so it scales with it at every width.
  *
@@ -43,6 +105,9 @@ function BoardingPass({ data }: { data: InvitationData }) {
 
   const destination = (data.venue.city?.trim() || data.venue.name?.trim() || "").toLocaleUpperCase(locale);
   const country = (data.venue.country?.trim() ?? "").toLocaleUpperCase(locale);
+  const place = placeOf(data, locale);
+  const airline = (slot(data, "transport.airline") ?? t("airline")).toLocaleUpperCase(locale);
+  const monogram = monogramOf(data.couple, " & ");
   // The calendar day written in `startsAt`, not the instant: an instant prints a
   // different day on a server in UTC and in a browser far west of it.
   const date = shortDate(data.event.startsAt.slice(0, 10), locale);
@@ -53,6 +118,16 @@ function BoardingPass({ data }: { data: InvitationData }) {
         {/* eslint-disable-next-line @next/next/no-img-element -- decorative, positioned and animated by CSS. */}
         <img className="cv-ticket-img" src="/themes/cabo-verde/travel-boarding-pass-v12.webp" alt="" loading="lazy" />
         <div className="cv-ticket-text">
+          {place ? (
+            <span
+              className="cv-ticket-band"
+              style={{ fontSize: `${fitSize(place, { size: 1.2, min: 0.75, room: 15.5, em: 1.25 }).toFixed(2)}cqw` }}
+            >
+              {place}
+            </span>
+          ) : null}
+          <span className="cv-ticket-airline">{airline}</span>
+          {monogram ? <span className="cv-ticket-passenger">{monogram}</span> : null}
           {destination ? (
             <>
               <span className="cv-ticket-label cv-ticket-label-destination">{t("ticketDestination")}</span>
@@ -108,7 +183,7 @@ export function TravelSection({ data }: { data: InvitationData }) {
   return (
     <Section className="practical decorated" editorSection="transport">
       <div className="travel-scene" aria-hidden="true">
-        <Art className="travel-passport" file="travel-passport-v12" />
+        <Passport data={data} />
         <BoardingPass data={data} />
         <Art className="travel-plane" file="travel-plane-v12" />
       </div>

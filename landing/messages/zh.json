@@ -1462,12 +1462,67 @@
         "childrenOptionCount": "{count, plural, other {# 位孩子}}",
         "childFieldLabel": "孩子 {index}",
         "childNamePlaceholder": "姓名",
-        "dietaryLabel": "饮食禁忌"
+        "dietaryLabel": "饮食禁忌",
+        "thanksName": "谢谢您，{name}！您的回复已成功提交。"
       },
       "faq": {
         "childrenQuestion": "孩子可以出席吗？",
         "childrenAdultsOnly": "为了让所有父母都能尽情享受这个夜晚、畅舞至天明，我们的婚礼仅限成人出席。请好好享受这段属于您的时光。",
         "childrenWelcome": "当然可以，欢迎您的孩子出席。请在回复中告知我们，以便为他们做好一切准备。"
+      },
+      "countdown": {
+        "eyebrow": "距离大喜之日",
+        "note": "每一刻，都让我们离您更近。",
+        "label": "距离婚礼的时间",
+        "remaining": "距离婚礼还有 {days} 天 {hours} 小时 {minutes} 分钟",
+        "unitDays": "{count, plural, other {天}}",
+        "unitHours": "{count, plural, other {小时}}",
+        "unitMinutes": "{count, plural, other {分钟}}",
+        "unitSeconds": "{count, plural, other {秒}}"
+      },
+      "film": {
+        "eyebrow": "我们的影片",
+        "frameTitle": "我们的视频"
+      },
+      "playlist": {
+        "eyebrow": "舞会卡",
+        "titleLine1": "哪一首歌",
+        "titleLine2": "献给舞会？",
+        "intro": "推荐让您忍不住起舞的歌曲。",
+        "picks": "已写进舞会卡",
+        "searchLabel": "搜索歌曲",
+        "searchPlaceholder": "歌曲或歌手…",
+        "searchPlaceholderFull": "最多 {max} 首歌曲",
+        "resultsLoading": "搜索中…",
+        "resultsError": "搜索暂不可用，请稍后再试。",
+        "resultsEmpty": "未找到歌曲。",
+        "removeTrack": "移除 {title}",
+        "statusEmpty": "最多可选 {max} 首",
+        "statusCount": "{count, plural, other {已选 #/{max} 首}}",
+        "statusFull": "最多 {max} 首歌曲——请移除一首后再推荐新的。",
+        "send": "加入舞会卡",
+        "sending": "提交中…",
+        "thanks": "谢谢！您的推荐已发送。"
+      },
+      "gallery": {
+        "eyebrow": "影像",
+        "titleLine1": "画廊",
+        "titleLine2": "珍藏的回忆",
+        "imageAlt": "照片 {index}"
+      },
+      "stays": {
+        "eyebrow": "过夜",
+        "title": "住宿推荐",
+        "code": "优惠码 {code}",
+        "call": "致电",
+        "book": "预订",
+        "more": "查看更多选项",
+        "less": "收起选项"
+      },
+      "gifts": {
+        "eyebrow": "礼物清单",
+        "titleFallback": "您的到来就是最好的礼物",
+        "linkFallback": "参与"
       }
     },
     "mareAlta": {
@@ -1487,6 +1542,10 @@
         "unitSeconds": "{count, plural, other {秒}}",
         "cardLabel": "距离婚礼还有{value}{unit}"
       },
+      "introVideo": {
+        "eyebrow": "我们的影片",
+        "frameTitle": "我们的视频"
+      },
       "map": {
         "eyebrow": "目的地",
         "imageAlt": "绣在亚麻布上的画面：松林、沙丘与大海之间的白色房子",
@@ -1495,7 +1554,8 @@
         "calendarLabel": "将活动添加到我的日历"
       },
       "timeline": {
-        "eyebrow": "这一天的故事",
+        "eyebrow": "故事",
+        "eyebrowWithDate": "{date}的{wording}",
         "titleLine1": "从第一次对视",
         "titleLine2": "到最后一支舞",
         "sign": "每一刻都有它的节奏",
@@ -1532,7 +1592,9 @@
       "menu": {
         "eyebrow": "一夜的餐桌",
         "titleLine1": "菜单",
-        "titleLine2": "大喜之日",
+        "titleLine2": "婚宴",
+        "titleWithDate": "{wording} · {date}",
+        "intro": "",
         "scatterLabel": "绣制的餐盘、柠檬、玻璃杯和桌布"
       },
       "playlist": {
@@ -1555,6 +1617,18 @@
         "sending": "提交中…",
         "thanks": "谢谢！您的推荐已发送。"
       },
+      "gallery": {
+        "eyebrow": "关于我们",
+        "titleLine1": "我们的回忆",
+        "titleLine2": "定格于几张照片",
+        "open": "放大照片 {index}",
+        "imageAlt": "照片 {index}",
+        "viewerLabel": "照片",
+        "close": "关闭",
+        "previous": "上一张照片",
+        "next": "下一张照片",
+        "counter": "第 {index} 张，共 {count} 张"
+      },
       "gifts": {
         "eyebrow": "最好的礼物，是您的到来",
         "cta": "参与"
@@ -1574,22 +1648,23 @@
         "thanksEyebrow": "回复已发送",
         "thanksTitle": "已记录！",
         "thanksBody": "谢谢。您的回复已记入我们的宾客簿。",
-        "nameLabel": "您的姓名",
-        "namePlaceholder": "姓名",
+        "nameLabel": "姓名",
+        "namePlaceholder": "您的全名",
         "attendanceLegend": "出席情况",
         "partyLabel": "谁会一同出席？",
         "partyOptionSolo": "仅本人",
         "partyOptionPartner": "本人 + 伴侣",
-        "partnerNameLabel": "伴侣姓名",
+        "partnerNameLabel": "您的伴侣",
         "partnerNamePlaceholder": "姓名",
-        "childrenLabel": "随行的孩子",
-        "childrenOptionNone": "无",
+        "childrenLabel": "孩子人数",
+        "childrenOptionNone": "不带孩子",
         "childrenOptionCount": "{count, plural, other {# 位孩子}}",
         "childFieldLabel": "孩子 {index}",
         "childNamePlaceholder": "姓名",
-        "dietaryLabel": "饮食禁忌",
-        "messageLabel": "留言",
-        "messagePlaceholder": "您的留言…",
+        "dietaryLabel": "过敏或饮食要求",
+        "messageLabel": "给我们的留言",
+        "optional": "选填",
+        "messagePlaceholder": "补充说明、问题，或几句话…",
         "submit": "提交回复",
         "submitPending": "提交中…"
       },
@@ -1695,7 +1770,9 @@
         "open": "打开",
         "ticketDestination": "目的地",
         "ticketDate": "日期",
-        "ticketCountry": "国家"
+        "ticketCountry": "国家",
+        "airline": "婚礼航班",
+        "passport": "护照"
       },
       "rsvp": {
         "stamp": "R.S.V.P.",
@@ -1723,6 +1800,34 @@
       },
       "footer": {
         "note": "满怀爱意"
+      },
+      "introVideo": {
+        "eyebrow": "我们的影片",
+        "frameTitle": "我们的视频"
+      },
+      "gallery": {
+        "eyebrow": "回忆",
+        "titleLine1": "相册",
+        "titleLine2": "我们的故事",
+        "imageAlt": "照片 {index}"
+      },
+      "menu": {
+        "eyebrow": "入席",
+        "titleLine1": "婚宴",
+        "titleLine2": "菜单"
+      },
+      "faq": {
+        "eyebrow": "温馨提示",
+        "titleLine1": "出发之前",
+        "titleLine2": "为您解答",
+        "childrenQuestion": "孩子可以出席吗？",
+        "childrenAdultsOnly": "为了让所有父母都能尽情享受这个夜晚、畅舞至天明，我们的婚礼仅限成人出席。请好好享受这段属于您的时光。",
+        "childrenWelcome": "当然可以，欢迎您的孩子出席。请在回复中告知我们，以便为他们做好一切准备。"
+      },
+      "gifts": {
+        "eyebrow": "礼物清单",
+        "titleFallback": "您的到来就是最好的礼物",
+        "linkFallback": "参与"
       }
     },
     "music": {

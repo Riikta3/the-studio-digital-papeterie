@@ -174,7 +174,21 @@ export function PlaylistSection({ data }: { data: InvitationData }) {
             </p>
           ) : null}
 
-          <button type="button" className="ma-send" disabled={pending || selected.length === 0} onClick={send}>
+          {/* The designer's solid sage button, never washed out: with nothing picked yet it says so to a screen
+              reader (`aria-disabled`) and, pressed, sends the guest back to the field to search first. */}
+          <button
+            type="button"
+            className="ma-send"
+            disabled={pending}
+            aria-disabled={selected.length === 0 || undefined}
+            onClick={() => {
+              if (selected.length === 0) {
+                inputRef.current?.focus();
+                return;
+              }
+              void send();
+            }}
+          >
             {pending ? t("sending") : t("send")}
           </button>
         </div>

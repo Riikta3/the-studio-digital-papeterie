@@ -48,6 +48,9 @@ const THEMES = {
       "Éléonore", "Eleonore", "Raphaël", "Raphael", "Vaux-le-Vicomte", "Vaux",
       "Maincy", "Meaux", "Seine-et-Marne", "Île-de-France", "77950",
       "Bresse", "morilles", "langoustine",
+      "Orangerie", "Grand Parterre", "Relais des Écuries", "Reine-Blanche", "Bergerie du Parc",
+      "Charmilles", "Pont-Neuf", "Domaine des Tilleuls", "Melun", "ER2027", "Venise",
+      "Strauss", "Aznavour", "Earth, Wind & Fire",
     ],
   },
   "cabo-verde": {
@@ -56,6 +59,7 @@ const THEMES = {
       "Paula", "Ricardo", "Baía das Gatas", "Baia das Gatas", "São Vicente", "Sao Vicente",
       "Mindelo", "Laginha", "São Pedro", "Cesária", "Cesaria", "Cap-Vert",
       "Daniel Caesar", "Stephen Sanchez", "SÃO VICENTE",
+      "Cachupa", "Chã das Caldeiras", "São Antão",
     ],
   },
 };

@@ -1,0 +1,450 @@
+/*
+ * "Maré Alta" sections for the modules its designer never drew — the intro
+ * video and the gallery — and the theme's signature motion.
+ *
+ * Couples who bought those modules on this theme saw nothing: the theme dropped
+ * what it could not draw. These are drawn in the designer's own grammar, not a
+ * neutral one: the ivory linen bands (both are `coral-section`s, which keeps
+ * the designer's alternation of paper bands with night or coral ones around
+ * them), the solid gold hairline with a dashed running stitch 8px inside it and
+ * a row of pearls on its edge (their jar note and RSVP card), Didot for titles,
+ * Georgia for copy, the sage and gold of the final palette. The motion speaks
+ * their language too:
+ * soft rises of 16-34px, `cubic-bezier(.2, .7, .2, 1)` over 0.7-1.2s, staggers
+ * of about 0.1s, no bounce.
+ *
+ * Hand-written, in its own file, for the same reason as `responsive.css`:
+ * `mare-alta.css` is generated and would swallow edits. Loaded after both.
+ * Every selector sits under `.theme-mare-alta`; every @keyframes name starts
+ * with `mare-alta-` (they are global to the document). Motion animates only
+ * transform, opacity, filter and clip-path, and the end of the file undoes
+ * every hidden state for a page without JavaScript and for a reader who asked
+ * for no motion.
+ */
+
+/* ── Shared ─────────────────────────────────────────────────────────────── */
+
+/* Words for a screen reader only (the viewer's "photo 2 of 6"). */
+.theme-mare-alta .ma-sr-only {
+  position: absolute; width: 1px; height: 1px; margin: -1px; padding: 0; overflow: hidden;
+  clip-path: inset(50%); white-space: nowrap; border: 0;
+}
+
+/* ── Intro video: the film, mounted like a piece of needlework ───────────── */
+
+/* The mat: the designer's framed-card recipe (gold hairline, ivory silk), held to the width of their
+   other pictures (the venue's window, the dress-code stage). */
+.theme-mare-alta .ma-film-frame {
+  position: relative;
+  max-width: 590px;
+  margin: 0 auto;
+  padding: 1.35rem;
+  border: 1px solid var(--gold);
+  background: #faf5eced;
+  box-shadow: 0 16px 34px #3b45381a;
+}
+
+/* A row of pearls along the top and the bottom edge, as on the RSVP card. */
+.theme-mare-alta .ma-film-frame::before,
+.theme-mare-alta .ma-film-frame::after {
+  content: "";
+  position: absolute;
+  left: 20px;
+  right: 20px;
+  height: 15px;
+  background: radial-gradient(circle, #fff 0 3px, #c7b28d 3.5px 4.5px, transparent 5px) 0 50% / 16px 13px repeat-x;
+  pointer-events: none;
+}
+.theme-mare-alta .ma-film-frame::before { top: -8px; }
+.theme-mare-alta .ma-film-frame::after { bottom: -8px; }
+
+/* The running stitch, 8px inside the hairline (the designer's `outline: 1px dashed; outline-offset: -8px`),
+   drawn as four sides so it can sew itself around the screen. */
+.theme-mare-alta .ma-stitch {
+  position: absolute;
+  inset: 7px;
+  pointer-events: none;
+  transition: filter 0.4s ease;
+}
+.theme-mare-alta .ma-stitch i { position: absolute; display: block; }
+.theme-mare-alta .ma-stitch i:nth-child(odd) {
+  left: 0; right: 0; height: 1px;
+  background: repeating-linear-gradient(90deg, #b59b72 0 4px, transparent 4px 7px);
+}
+.theme-mare-alta .ma-stitch i:nth-child(even) {
+  top: 0; bottom: 0; width: 1px;
+  background: repeating-linear-gradient(180deg, #b59b72 0 4px, transparent 4px 7px);
+}
+.theme-mare-alta .ma-stitch i:nth-child(1) { top: 0; }
+.theme-mare-alta .ma-stitch i:nth-child(2) { right: 0; }
+.theme-mare-alta .ma-stitch i:nth-child(3) { bottom: 0; }
+.theme-mare-alta .ma-stitch i:nth-child(4) { left: 0; }
+
+/* The thread catches the light while a guest points at the film or tabs into its player. */
+.theme-mare-alta .ma-film-frame:hover .ma-stitch,
+.theme-mare-alta .ma-film-frame:focus-within .ma-stitch { filter: brightness(0.72) saturate(1.5); }
+
+/* The screen: a dark sage ground (no black on this palette) behind a white and a gold hairline. */
+.theme-mare-alta .ma-film-screen {
+  position: relative;
+  overflow: hidden;
+  background: #3f4a3c;
+  box-shadow: 0 0 0 1px #fff9, 0 0 0 2px var(--line);
+}
+.theme-mare-alta .ma-film-screen iframe {
+  display: block;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  border: 0;
+}
+/* An uploaded film may be portrait (a phone video): never taller than the screen it is watched on. */
+.theme-mare-alta .ma-film-screen video {
+  display: block;
+  width: 100%;
+  max-height: 78svh;
+  object-fit: contain;
+  background: #3f4a3c;
+}
+
+/* The couple's words under the film, in the voice of the section intros. */
+.theme-mare-alta .ma-film-body {
+  max-width: 540px;
+  margin: 2.6rem auto 0;
+  color: var(--muted);
+  font: 1.06rem/1.75 Georgia, var(--font-ma-serif), serif;
+  text-align: center;
+}
+
+@media (max-width: 430px) {
+  .theme-mare-alta .ma-film-frame { padding: 1rem; }
+}
+
+/* Motion: once half the mat is on screen, the needle runs once around the screen — along the top, down
+   the right, back along the bottom, up the left — slowing at each corner like a hand turning the work,
+   then the pearls are threaded on, left to right. The hidden state of each side is a clip-path closed on
+   its starting end; the drawn state opens past the line (-2px) so nothing is cut. */
+.theme-mare-alta .ma-stitch i {
+  transition: clip-path 0.5s cubic-bezier(0.45, 0.05, 0.55, 0.95);
+}
+.theme-mare-alta .ma-stitch i:nth-child(1) { clip-path: inset(-2px calc(100% + 2px) -2px -2px); transition-delay: 0.3s; }
+.theme-mare-alta .ma-stitch i:nth-child(2) { clip-path: inset(-2px -2px calc(100% + 2px) -2px); transition-delay: 0.8s; transition-duration: 0.32s; }
+.theme-mare-alta .ma-stitch i:nth-child(3) { clip-path: inset(-2px -2px -2px calc(100% + 2px)); transition-delay: 1.12s; }
+.theme-mare-alta .ma-stitch i:nth-child(4) { clip-path: inset(calc(100% + 2px) -2px -2px -2px); transition-delay: 1.62s; transition-duration: 0.32s; }
+.theme-mare-alta .ma-film-frame.ma-sewn .ma-stitch i { clip-path: inset(-2px); }
+
+.theme-mare-alta .ma-film-frame::before,
+.theme-mare-alta .ma-film-frame::after {
+  clip-path: inset(-2px calc(100% + 2px) -2px -2px);
+  transition: clip-path 0.8s cubic-bezier(0.2, 0.7, 0.2, 1) 1.75s;
+}
+.theme-mare-alta .ma-film-frame.ma-sewn::before,
+.theme-mare-alta .ma-film-frame.ma-sewn::after { clip-path: inset(-2px); }
+
+/* ── Gallery: photographs sewn onto the linen ───────────────────────────── */
+
+/* The rhythm the designer gives a sans-and-serif title (the stays, the menu). */
+.theme-mare-alta .ma-gallery .type-rhythm { gap: 0.18em; }
+.theme-mare-alta .ma-gallery .type-rhythm .title-serif { font-size: 0.9em; }
+
+/* One wide print, then two side by side, and again. A print that would be left alone on the last row
+   takes the whole width instead. */
+.theme-mare-alta .ma-prints {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1.5rem 1.1rem;
+  max-width: 590px;
+  margin: 0 auto;
+  padding: 0;
+  list-style: none;
+}
+.theme-mare-alta .ma-print-item { min-width: 0; }
+.theme-mare-alta .ma-print-item:nth-child(3n + 1),
+.theme-mare-alta .ma-print-item:last-child:nth-child(3n + 2) { grid-column: 1 / -1; }
+
+/* A print: the photo on an ivory silk mat, a gold hairline round it, the soft shadow of the theme's
+   pictures. The whole print is the button that opens the viewer. */
+.theme-mare-alta .ma-print {
+  position: relative;
+  display: block;
+  width: 100%;
+  margin: 0;
+  padding: 10px;
+  border: 1px solid var(--line);
+  background: #faf5ec;
+  color: inherit;
+  font: inherit;
+  box-shadow: inset 0 0 0 3px #fff8, 0 10px 22px #3b453817;
+  cursor: zoom-in;
+  transition: transform 0.6s cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+.theme-mare-alta .ma-print-photo {
+  display: block;
+  overflow: hidden;
+  aspect-ratio: 4 / 5;
+  background: #e9e0d0;
+}
+.theme-mare-alta .ma-print-item:nth-child(3n + 1) .ma-print-photo,
+.theme-mare-alta .ma-print-item:last-child:nth-child(3n + 2) .ma-print-photo { aspect-ratio: 3 / 2; }
+.theme-mare-alta .ma-print-photo img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 38%;
+  transition: transform 1.2s cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+
+/* A gold cross-stitch over each corner of the photo, holding it to the mat: two crossed threads per
+   corner, eight layers on one element, embossed like the theme's titles (a white line under them). */
+.theme-mare-alta .ma-print-stitches {
+  --ma-x: linear-gradient(45deg, transparent calc(50% - 0.75px), #b59b72 calc(50% - 0.75px) calc(50% + 0.75px), transparent calc(50% + 0.75px));
+  --ma-y: linear-gradient(-45deg, transparent calc(50% - 0.75px), #b59b72 calc(50% - 0.75px) calc(50% + 0.75px), transparent calc(50% + 0.75px));
+  position: absolute;
+  inset: 4px;
+  pointer-events: none;
+  background:
+    var(--ma-x) left top / 12px 12px no-repeat, var(--ma-y) left top / 12px 12px no-repeat,
+    var(--ma-x) right top / 12px 12px no-repeat, var(--ma-y) right top / 12px 12px no-repeat,
+    var(--ma-x) left bottom / 12px 12px no-repeat, var(--ma-y) left bottom / 12px 12px no-repeat,
+    var(--ma-x) right bottom / 12px 12px no-repeat, var(--ma-y) right bottom / 12px 12px no-repeat;
+  filter: drop-shadow(0 1px 0 #fffc);
+}
+
+/* Pointing at a print (or tabbing to it) lifts it off the linen a little and brings the photo closer —
+   the same 1.035 the designer gives the dress-code picture. */
+.theme-mare-alta .ma-print:hover,
+.theme-mare-alta .ma-print:focus-visible { transform: translateY(-4px); }
+.theme-mare-alta .ma-print:hover .ma-print-photo img,
+.theme-mare-alta .ma-print:focus-visible .ma-print-photo img { transform: scale(1.035); }
+
+/* Motion: each print is laid on the linen as it comes into view (a soft rise, settling from a slight
+   tilt; the second of a pair a beat later), then its four stitches are pulled tight onto the corners. */
+.theme-mare-alta .ma-print-item {
+  opacity: 0;
+  transform: translateY(26px) rotate(-1.2deg);
+  transition: opacity 0.8s ease, transform 1s cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+.theme-mare-alta .ma-print-item:nth-child(even) { transform: translateY(26px) rotate(1.2deg); }
+.theme-mare-alta .ma-print-item:nth-child(3n) { transition-delay: 0.12s; }
+.theme-mare-alta .ma-print-item.ma-laid { opacity: 1; transform: none; }
+
+.theme-mare-alta .ma-print-item .ma-print-stitches {
+  opacity: 0;
+  transform: scale(1.07);
+  transition: opacity 0.5s ease 0.55s, transform 0.8s cubic-bezier(0.2, 0.7, 0.2, 1) 0.55s;
+}
+.theme-mare-alta .ma-print-item:nth-child(3n) .ma-print-stitches { transition-delay: 0.67s; }
+.theme-mare-alta .ma-print-item.ma-laid .ma-print-stitches { opacity: 1; transform: none; }
+
+/* ── Gallery: the viewer ────────────────────────────────────────────────── */
+
+/* The whole photograph, uncropped, on the sage of the page's backdrop with the linen's weave. Only an
+   open dialog is laid out: the browser's own rule keeps a closed one out of the page. */
+.theme-mare-alta .ma-viewer[open] {
+  position: fixed;
+  inset: 0;
+  display: grid;
+  grid-template-rows: minmax(0, 1fr) auto;
+  justify-items: center;
+  align-items: center;
+  gap: 1rem;
+  width: auto;
+  height: auto;
+  max-width: none;
+  max-height: none;
+  margin: 0;
+  padding: 4.2rem 1rem max(1.2rem, env(safe-area-inset-bottom));
+  border: 0;
+  background-color: #5d6857;
+  background-image: repeating-linear-gradient(90deg, transparent 0 2px, #ffffff07 2px 4px);
+  color: #f8f1e8;
+  overscroll-behavior: contain;
+  animation: mare-alta-viewer-in 0.4s ease both;
+}
+.theme-mare-alta .ma-viewer::backdrop { background: transparent; }
+
+.theme-mare-alta .ma-viewer-print {
+  position: relative;
+  max-width: 100%;
+  margin: 0;
+  padding: 10px;
+  border: 1px solid #d9ccb4;
+  background: #faf5ec;
+  box-shadow: inset 0 0 0 3px #fff8, 0 26px 60px #1f261d59;
+  touch-action: pan-y;
+  animation: mare-alta-print-settle 0.7s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+}
+.theme-mare-alta .ma-viewer-print img {
+  display: block;
+  width: auto;
+  height: auto;
+  max-width: min(calc(100vw - 2rem - 22px), 980px);
+  max-height: calc(100dvh - 11rem);
+  user-select: none;
+  -webkit-user-drag: none;
+}
+
+/* Close, previous, next: the floating nav's round ivory buttons, sage on hover (theirs, no transition). */
+.theme-mare-alta .ma-viewer-close,
+.theme-mare-alta .ma-viewer-step {
+  display: grid;
+  place-items: center;
+  width: 2.75rem;
+  height: 2.75rem;
+  padding: 0;
+  border: 1px solid #b6a48578;
+  border-radius: 50%;
+  background: #f8f1e8f0;
+  color: var(--sage-dark);
+  box-shadow: 0 8px 25px #2b33281f, inset 0 1px #fff;
+  cursor: pointer;
+}
+.theme-mare-alta .ma-viewer-close:hover,
+.theme-mare-alta .ma-viewer-step:hover { background: #65705f; color: #fff; }
+.theme-mare-alta .ma-viewer-close svg,
+.theme-mare-alta .ma-viewer-step svg { width: 1.15rem; height: 1.15rem; }
+.theme-mare-alta .ma-viewer-close {
+  position: absolute;
+  top: max(1rem, env(safe-area-inset-top));
+  inset-inline-end: 1rem;
+}
+
+.theme-mare-alta .ma-viewer-bar { display: flex; align-items: center; gap: 1.4rem; }
+
+/* "02 — 06" in the menu's numbering: Didot italics in gold, a gold thread between. */
+.theme-mare-alta .ma-viewer-count {
+  margin: 0;
+  color: #e8d8b8;
+  font: italic 1.05rem/1 Didot, var(--font-ma-display), Georgia, var(--font-ma-serif), serif;
+  letter-spacing: 0.06em;
+}
+.theme-mare-alta .ma-viewer-count i {
+  display: inline-block;
+  width: 1.6rem;
+  height: 1px;
+  margin: 0 0.6rem;
+  vertical-align: middle;
+  background: var(--gold);
+}
+
+/* The arrows point the way the pages turn: backwards is to the right in a right-to-left page. */
+[dir="rtl"] .theme-mare-alta .ma-viewer-step svg { transform: scaleX(-1); }
+
+/* A phone held sideways (852 x 393): the 4.2rem kept above the photograph for the close button, plus the bar
+   under it, left the photograph 217px tall, a stamp in the middle of the screen. The close button sits in a
+   corner of its own; the photograph keeps the sides clear of it (a wide panorama would otherwise run under it)
+   and takes the height that is left. */
+@media (orientation: landscape) and (max-height: 500px) {
+  .theme-mare-alta .ma-viewer[open] { gap: 0.6rem; padding-top: 1rem; }
+  .theme-mare-alta .ma-viewer-print img {
+    max-width: min(calc(100vw - 2rem - 22px - 7.5rem), 980px);
+    /* 1rem above, the mat (22px), the gap, the 2.75rem bar, 1.2rem below. */
+    max-height: calc(100dvh - 7.2rem);
+  }
+}
+
+@keyframes mare-alta-viewer-in {
+  from { opacity: 0; }
+}
+/* The designer's soft rise (16px), with the slight tilt of a print being set down. */
+@keyframes mare-alta-print-settle {
+  from { opacity: 0; transform: translateY(16px) rotate(-0.8deg); }
+}
+
+/* ── Signature motion on the designer's own sections ────────────────────── */
+
+/* Countdown. The two gold threads that frame the four numbers run out from the middle as the section
+   rises, then each card opens from that line, left to right (right to left in Arabic, which reads that
+   way), its number rising into place. The threads replace the grid's own top and bottom borders, at the
+   same place and in the same colour; the dividers stay the cards' borders and open with them. */
+.theme-mare-alta .countdown-grid { position: relative; border-block-color: transparent; }
+.theme-mare-alta .countdown-grid::before,
+.theme-mare-alta .countdown-grid::after {
+  content: "";
+  position: absolute;
+  inset-inline: 0;
+  height: 1px;
+  background: var(--line);
+  pointer-events: none;
+  transform: scaleX(0);
+  transition: transform 1.2s cubic-bezier(0.2, 0.7, 0.2, 1) 0.35s;
+}
+.theme-mare-alta .countdown-grid::before { top: -1px; }
+.theme-mare-alta .countdown-grid::after { bottom: -1px; }
+.theme-mare-alta .countdown.in-view .countdown-grid::before,
+.theme-mare-alta .countdown.in-view .countdown-grid::after { transform: none; }
+
+/* The open state reaches past the card (-20%, -10%) so a long unit label is never clipped. */
+.theme-mare-alta .scratch-card {
+  clip-path: inset(50% -10% 50% -10%);
+  transition: clip-path 0.9s cubic-bezier(0.2, 0.7, 0.2, 1) 0.6s;
+}
+.theme-mare-alta .scratch-card .scratch-value {
+  opacity: 0;
+  transform: translateY(14px);
+  transition: opacity 0.8s ease 0.7s, transform 1s cubic-bezier(0.2, 0.7, 0.2, 1) 0.7s;
+}
+/* A tenth of a second between cards; each number a tenth after its card. */
+.theme-mare-alta .scratch-card:nth-child(2) { transition-delay: 0.7s; }
+.theme-mare-alta .scratch-card:nth-child(3) { transition-delay: 0.8s; }
+.theme-mare-alta .scratch-card:nth-child(4) { transition-delay: 0.9s; }
+.theme-mare-alta .scratch-card:nth-child(2) .scratch-value { transition-delay: 0.8s; }
+.theme-mare-alta .scratch-card:nth-child(3) .scratch-value { transition-delay: 0.9s; }
+.theme-mare-alta .scratch-card:nth-child(4) .scratch-value { transition-delay: 1s; }
+.theme-mare-alta .countdown.in-view .scratch-card { clip-path: inset(-20% -10% -20% -10%); }
+.theme-mare-alta .countdown.in-view .scratch-card .scratch-value { opacity: 1; transform: none; }
+
+/* Programme. Each moment's embroidered object turns in as its card comes into view (each card watches
+   itself: the programme is taller than a screen, and a section-wide cue would have played long before
+   the last ones were reached). */
+.theme-mare-alta .agenda-card .agenda-medallion {
+  opacity: 0;
+  transform: rotate(-9deg) scale(0.84);
+  transition: opacity 0.7s ease 0.1s, transform 1s cubic-bezier(0.2, 0.7, 0.2, 1) 0.1s;
+}
+.theme-mare-alta .agenda-card.ma-seen .agenda-medallion { opacity: 1; transform: none; }
+
+/* Venue. The city-and-country stamp is pressed onto the embroidered picture once a good part of the picture
+   is on screen: it comes down from a little above the linen, turning straight as it lands. */
+.theme-mare-alta .location-window .location-stamp {
+  opacity: 0;
+  transform: scale(1.28) rotate(-7deg);
+  transition: opacity 0.45s ease 0.25s, transform 0.85s cubic-bezier(0.2, 0.7, 0.2, 1) 0.25s;
+}
+.theme-mare-alta .location-window.ma-seen .location-stamp { opacity: 1; transform: none; }
+
+/* ── Safety nets ────────────────────────────────────────────────────────── */
+
+/* Without JavaScript nothing above is ever revealed (JsFlag sets data-js on the root once scripts run):
+   a reader with scripts off gets every stitch, print, number, medallion and stamp in place. */
+.theme-mare-alta:not([data-js]) .ma-stitch i,
+.theme-mare-alta:not([data-js]) .ma-film-frame::before,
+.theme-mare-alta:not([data-js]) .ma-film-frame::after,
+.theme-mare-alta:not([data-js]) .scratch-card { clip-path: none; }
+.theme-mare-alta:not([data-js]) .ma-print-item,
+.theme-mare-alta:not([data-js]) .ma-print-item .ma-print-stitches,
+.theme-mare-alta:not([data-js]) .countdown-grid::before,
+.theme-mare-alta:not([data-js]) .countdown-grid::after,
+.theme-mare-alta:not([data-js]) .scratch-card .scratch-value,
+.theme-mare-alta:not([data-js]) .agenda-card .agenda-medallion,
+.theme-mare-alta:not([data-js]) .location-window .location-stamp { opacity: 1; transform: none; }
+
+/* A reader who asked for no motion gets none: everything in its final place at once, no delay, no
+   hover lift (responsive.css already stops every animation and shortens every transition). */
+@media (prefers-reduced-motion: reduce) {
+  .theme-mare-alta .ma-stitch i,
+  .theme-mare-alta .ma-film-frame::before,
+  .theme-mare-alta .ma-film-frame::after,
+  .theme-mare-alta .scratch-card { clip-path: none; transition: none; }
+  .theme-mare-alta .ma-print-item,
+  .theme-mare-alta .ma-print-item .ma-print-stitches,
+  .theme-mare-alta .countdown-grid::before,
+  .theme-mare-alta .countdown-grid::after,
+  .theme-mare-alta .scratch-card .scratch-value,
+  .theme-mare-alta .agenda-card .agenda-medallion,
+  .theme-mare-alta .location-window .location-stamp { opacity: 1; transform: none; transition: none; }
+  .theme-mare-alta .ma-print:hover,
+  .theme-mare-alta .ma-print:focus-visible,
+  .theme-mare-alta .ma-print:hover .ma-print-photo img,
+  .theme-mare-alta .ma-print:focus-visible .ma-print-photo img { transform: none; }
+}

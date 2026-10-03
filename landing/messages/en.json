@@ -1669,19 +1669,74 @@
         "partyLabel": "Who will be attending?",
         "partyOptionSolo": "Just me",
         "partyOptionPartner": "Me + my partner",
-        "partnerNameLabel": "Your partner's name",
+        "partnerNameLabel": "Your partner’s name",
         "partnerNamePlaceholder": "First and last name",
         "childrenLabel": "Children joining you",
         "childrenOptionNone": "None",
         "childrenOptionCount": "{count, plural, one {# child} other {# children}}",
         "childFieldLabel": "Child {index}",
         "childNamePlaceholder": "First and last name",
-        "dietaryLabel": "Dietary requirements"
+        "dietaryLabel": "Dietary requirements",
+        "thanksName": "Thank you, {name}! Your reply has been recorded."
       },
       "faq": {
         "childrenQuestion": "Are children invited?",
         "childrenAdultsOnly": "So that every parent can enjoy the evening and dance until dawn, our wedding will be an adults-only celebration. Do make the most of this time just for you.",
         "childrenWelcome": "Yes, your children are very welcome. Please mention them in your reply so we can make everything ready for them."
+      },
+      "countdown": {
+        "eyebrow": "Until the big day",
+        "note": "Every moment brings us closer to you.",
+        "label": "Time left until the wedding",
+        "remaining": "{days, plural, one {# day} other {# days}}, {hours, plural, one {# hour} other {# hours}} and {minutes, plural, one {# minute} other {# minutes}} to go until the wedding",
+        "unitDays": "{count, plural, one {day} other {days}}",
+        "unitHours": "{count, plural, one {hour} other {hours}}",
+        "unitMinutes": "{count, plural, one {minute} other {minutes}}",
+        "unitSeconds": "{count, plural, one {second} other {seconds}}"
+      },
+      "film": {
+        "eyebrow": "Our film",
+        "frameTitle": "Our video"
+      },
+      "playlist": {
+        "eyebrow": "Dance card",
+        "titleLine1": "Which song",
+        "titleLine2": "for the ball?",
+        "intro": "Suggest the songs that will get you dancing.",
+        "picks": "Already on the card",
+        "searchLabel": "Search for a track",
+        "searchPlaceholder": "A song, an artist…",
+        "searchPlaceholderFull": "{max} tracks maximum",
+        "resultsLoading": "Searching…",
+        "resultsError": "Search unavailable. Please try again in a moment.",
+        "resultsEmpty": "No tracks found.",
+        "removeTrack": "Remove {title}",
+        "statusEmpty": "Up to {max} tracks",
+        "statusCount": "{count, plural, one {# track chosen of {max}} other {# tracks chosen of {max}}}",
+        "statusFull": "{max} tracks maximum — remove one to suggest another.",
+        "send": "Add to the dance card",
+        "sending": "Sending…",
+        "thanks": "Thank you! Your suggestion has been sent."
+      },
+      "gallery": {
+        "eyebrow": "In pictures",
+        "titleLine1": "The gallery",
+        "titleLine2": "of memories",
+        "imageAlt": "Photo {index}"
+      },
+      "stays": {
+        "eyebrow": "For the night",
+        "title": "Where to stay",
+        "code": "Code {code}",
+        "call": "Call",
+        "book": "Book",
+        "more": "See more options",
+        "less": "Hide options"
+      },
+      "gifts": {
+        "eyebrow": "Gift registry",
+        "titleFallback": "Your presence is our greatest gift",
+        "linkFallback": "Contribute"
       }
     },
     "mareAlta": {
@@ -1701,6 +1756,10 @@
         "unitSeconds": "{count, plural, one {second} other {seconds}}",
         "cardLabel": "{value} {unit} until the wedding"
       },
+      "introVideo": {
+        "eyebrow": "Our film",
+        "frameTitle": "Our video"
+      },
       "map": {
         "eyebrow": "Destination",
         "imageAlt": "A white house between pines, dunes and sea, embroidered on linen",
@@ -1709,7 +1768,8 @@
         "calendarLabel": "Add the event to my calendar"
       },
       "timeline": {
-        "eyebrow": "The story of the big day",
+        "eyebrow": "The story of",
+        "eyebrowWithDate": "{wording} {date}",
         "titleLine1": "From the first glance",
         "titleLine2": "to the last dance",
         "sign": "Every moment has its own rhythm",
@@ -1746,7 +1806,9 @@
       "menu": {
         "eyebrow": "An evening at the table",
         "titleLine1": "The menu",
-        "titleLine2": "of the big day",
+        "titleLine2": "for",
+        "titleWithDate": "{wording} {date}",
+        "intro": "",
         "scatterLabel": "Embroidered plate, lemon, glass and table linen"
       },
       "playlist": {
@@ -1769,6 +1831,18 @@
         "sending": "Sending…",
         "thanks": "Thank you! Your suggestion has been sent."
       },
+      "gallery": {
+        "eyebrow": "A little of us",
+        "titleLine1": "Our memories",
+        "titleLine2": "in a few pictures",
+        "open": "Enlarge photo {index}",
+        "imageAlt": "Photo {index}",
+        "viewerLabel": "The photos",
+        "close": "Close",
+        "previous": "Previous photo",
+        "next": "Next photo",
+        "counter": "Photo {index} of {count}"
+      },
       "gifts": {
         "eyebrow": "The best gift is you",
         "cta": "Contribute"
@@ -1788,22 +1862,23 @@
         "thanksEyebrow": "Reply sent",
         "thanksTitle": "Noted, thank you!",
         "thanksBody": "Thank you. Your reply has joined our guest book.",
-        "nameLabel": "Your name",
-        "namePlaceholder": "First and last name",
+        "nameLabel": "First and last name",
+        "namePlaceholder": "Your full name",
         "attendanceLegend": "Attendance",
         "partyLabel": "Who will be attending?",
         "partyOptionSolo": "Just me",
         "partyOptionPartner": "Me + my partner",
-        "partnerNameLabel": "Your partner's name",
+        "partnerNameLabel": "Your partner",
         "partnerNamePlaceholder": "First and last name",
-        "childrenLabel": "Children joining you",
-        "childrenOptionNone": "None",
+        "childrenLabel": "Number of children",
+        "childrenOptionNone": "No children",
         "childrenOptionCount": "{count, plural, one {# child} other {# children}}",
         "childFieldLabel": "Child {index}",
         "childNamePlaceholder": "First and last name",
-        "dietaryLabel": "Dietary requirements",
-        "messageLabel": "A few words",
-        "messagePlaceholder": "Your message…",
+        "dietaryLabel": "Allergies or dietary needs",
+        "messageLabel": "A little note for us",
+        "optional": "optional",
+        "messagePlaceholder": "A detail, a question, a few words…",
         "submit": "Send my reply",
         "submitPending": "Sending…"
       },
@@ -1909,7 +1984,9 @@
         "open": "Open",
         "ticketDestination": "Destination",
         "ticketDate": "Date",
-        "ticketCountry": "Country"
+        "ticketCountry": "Country",
+        "airline": "Wedding flight",
+        "passport": "Passport"
       },
       "rsvp": {
         "stamp": "R.S.V.P.",
@@ -1937,6 +2014,34 @@
       },
       "footer": {
         "note": "With love"
+      },
+      "introVideo": {
+        "eyebrow": "Our film",
+        "frameTitle": "Our video"
+      },
+      "gallery": {
+        "eyebrow": "Memories",
+        "titleLine1": "The album",
+        "titleLine2": "of our story",
+        "imageAlt": "Photo {index}"
+      },
+      "menu": {
+        "eyebrow": "At the table",
+        "titleLine1": "The menu",
+        "titleLine2": "for the big day"
+      },
+      "faq": {
+        "eyebrow": "Good to know",
+        "titleLine1": "A few answers",
+        "titleLine2": "before you set off",
+        "childrenQuestion": "Are children invited?",
+        "childrenAdultsOnly": "So that every parent can enjoy the evening and dance until dawn, our wedding will be an adults-only celebration. Do make the most of this time just for you.",
+        "childrenWelcome": "Yes, your children are very welcome. Please mention them in your reply so we can make everything ready for them."
+      },
+      "gifts": {
+        "eyebrow": "Gift registry",
+        "titleFallback": "Your presence is our greatest gift",
+        "linkFallback": "Contribute"
       }
     },
     "music": {

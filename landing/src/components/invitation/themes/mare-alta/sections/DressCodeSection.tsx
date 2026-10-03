@@ -7,14 +7,44 @@ import type { InvitationData } from "../../types";
 import { Section } from "./Section";
 import { SectionTitle } from "./SectionTitle";
 
+/** Past this many characters a paragraph's first line is a sentence, not a heading. */
+const HEADING_MAX = 40;
+
+/**
+ * A paragraph of the note, split the way the designer set theirs: a short first
+ * line on its own ("On aime", "On évite") is the paragraph's heading, in the
+ * serif, and the lines after it are its text. A paragraph of one line, or whose
+ * first line is a whole sentence, has no heading.
+ */
+function splitParagraph(paragraph: string): { heading?: string; text: string } {
+  const [first = "", ...rest] = paragraph.split("\n");
+  const body = rest.join("\n").trim();
+  if (!body || first.trim().length > HEADING_MAX) return { text: paragraph };
+  return { heading: first.trim(), text: body };
+}
+
+/** One paragraph of the note, with its heading when it has one. */
+function NoteParagraph({ paragraph, className }: { paragraph: string; className?: string }) {
+  const { heading, text } = splitParagraph(paragraph);
+  return (
+    <p className={className}>
+      {heading ? <strong>{heading}</strong> : null}
+      {heading ? " " : null}
+      <Lines text={text} />
+    </p>
+  );
+}
+
 /**
  * The dress code: the couple's title and words, their palette as swatches over
  * the picture, and the note under it.
  *
  * The designer named three colours ("Sauge", "Ivoire", "Lilas") and wrote two
- * paragraphs for the note. A palette is any number of CSS colours here, and the
- * note is whatever the couple wrote: its first paragraph follows the shirt, the
- * second the sparkle, any more run on below. Nothing to say, nothing drawn.
+ * paragraphs for the note, each under a heading of its own. A palette is any
+ * number of CSS colours here, and the note is whatever the couple wrote: its
+ * first paragraph follows the shirt, the second the sparkle, any more run on
+ * below, and a paragraph that starts with a short line on its own gets that line
+ * as its heading (`splitParagraph`). Nothing to say, nothing drawn.
  */
 export function DressCodeSection({ data }: { data: InvitationData }) {
   const t = useTranslations("Invitation.mareAlta.dressCode");
@@ -58,21 +88,15 @@ export function DressCodeSection({ data }: { data: InvitationData }) {
       {first ? (
         <div className="dress-manifesto">
           <Shirt />
-          <p>
-            <Lines text={first} />
-          </p>
+          <NoteParagraph paragraph={first} />
           {second ? (
             <>
               <Sparkles />
-              <p>
-                <Lines text={second} />
-              </p>
+              <NoteParagraph paragraph={second} />
             </>
           ) : null}
           {more.map((paragraph, index) => (
-            <p className="ma-dress-more" key={`${index}-${paragraph.slice(0, 12)}`}>
-              <Lines text={paragraph} />
-            </p>
+            <NoteParagraph className="ma-dress-more" paragraph={paragraph} key={`${index}-${paragraph.slice(0, 12)}`} />
           ))}
         </div>
       ) : null}

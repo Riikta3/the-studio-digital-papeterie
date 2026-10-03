@@ -1462,12 +1462,67 @@
         "childrenOptionCount": "{count, plural, zero {بدون أطفال} one {طفل واحد} two {طفلان} few {# أطفال} many {# طفلًا} other {# طفل}}",
         "childFieldLabel": "الطفل {index}",
         "childNamePlaceholder": "الاسم واللقب",
-        "dietaryLabel": "قيود غذائية"
+        "dietaryLabel": "قيود غذائية",
+        "thanksName": "شكرًا {name}! تم تسجيل ردّكم بنجاح."
       },
       "faq": {
         "childrenQuestion": "هل الأطفال مدعوون؟",
         "childrenAdultsOnly": "لكي يتمكن جميع الآباء من الاستمتاع بالأمسية والرقص حتى الفجر، سيكون حفل زفافنا مخصصًا للكبار. استمتعوا بهذه اللحظة لأنفسكم.",
         "childrenWelcome": "نعم، أطفالكم مرحب بهم. يُرجى ذكرهم في ردكم حتى نتمكن من تجهيز كل شيء لهم."
+      },
+      "countdown": {
+        "eyebrow": "حتى اليوم الكبير",
+        "note": "كل لحظة تقرّبنا منكم.",
+        "label": "الوقت المتبقي حتى حفل الزفاف",
+        "remaining": "بقي {days, plural, zero {# يوم} one {يوم واحد} two {يومان} few {# أيام} many {# يومًا} other {# يوم}} و{hours, plural, zero {# ساعة} one {ساعة واحدة} two {ساعتان} few {# ساعات} many {# ساعة} other {# ساعة}} و{minutes, plural, zero {# دقيقة} one {دقيقة واحدة} two {دقيقتان} few {# دقائق} many {# دقيقة} other {# دقيقة}} على حفل الزفاف",
+        "unitDays": "{count, plural, zero {يوم} one {يوم} two {يومان} few {أيام} many {يومًا} other {يوم}}",
+        "unitHours": "{count, plural, zero {ساعة} one {ساعة} two {ساعتان} few {ساعات} many {ساعة} other {ساعة}}",
+        "unitMinutes": "{count, plural, zero {دقيقة} one {دقيقة} two {دقيقتان} few {دقائق} many {دقيقة} other {دقيقة}}",
+        "unitSeconds": "{count, plural, zero {ثانية} one {ثانية} two {ثانيتان} few {ثوانٍ} many {ثانية} other {ثانية}}"
+      },
+      "film": {
+        "eyebrow": "فيلمنا",
+        "frameTitle": "الفيديو الخاص بنا"
+      },
+      "playlist": {
+        "eyebrow": "بطاقة الرقص",
+        "titleLine1": "أيّ أغنية",
+        "titleLine2": "للحفل الراقص؟",
+        "intro": "اقترحوا الأغاني التي ستدعوكم إلى الرقص.",
+        "picks": "مدوّنة في البطاقة",
+        "searchLabel": "ابحثوا عن أغنية",
+        "searchPlaceholder": "أغنية أو فنان…",
+        "searchPlaceholderFull": "{max} أغنيات كحد أقصى",
+        "resultsLoading": "جارٍ البحث…",
+        "resultsError": "البحث غير متاح. يُرجى المحاولة بعد لحظات.",
+        "resultsEmpty": "لم يتم العثور على أي أغنية.",
+        "removeTrack": "إزالة {title}",
+        "statusEmpty": "حتى {max} أغنيات",
+        "statusCount": "{count, plural, zero {لم تختاروا أي أغنية من {max}} one {أغنية واحدة مختارة من {max}} two {أغنيتان مختارتان من {max}} few {# أغنيات مختارة من {max}} many {# أغنية مختارة من {max}} other {# أغنية مختارة من {max}}}",
+        "statusFull": "{max} أغنيات كحد أقصى — أزيلوا واحدة لاقتراح أخرى.",
+        "send": "إضافة إلى بطاقة الرقص",
+        "sending": "جارٍ الإرسال…",
+        "thanks": "شكرًا لكم! تم إرسال اقتراحكم."
+      },
+      "gallery": {
+        "eyebrow": "بالصور",
+        "titleLine1": "معرض",
+        "titleLine2": "الذكريات",
+        "imageAlt": "صورة {index}"
+      },
+      "stays": {
+        "eyebrow": "لقضاء الليلة",
+        "title": "أين تبيتون",
+        "code": "الرمز {code}",
+        "call": "اتصال",
+        "book": "احجزوا",
+        "more": "عرض المزيد من الخيارات",
+        "less": "إخفاء الخيارات"
+      },
+      "gifts": {
+        "eyebrow": "قائمة الهدايا",
+        "titleFallback": "حضوركم هو أجمل هدية لنا",
+        "linkFallback": "المساهمة"
       }
     },
     "mareAlta": {
@@ -1487,6 +1542,10 @@
         "unitSeconds": "{count, plural, zero {ثوانٍ} one {ثانية} two {ثانيتان} few {ثوانٍ} many {ثانيةً} other {ثانية}}",
         "cardLabel": "{value} {unit} قبل الزفاف"
       },
+      "introVideo": {
+        "eyebrow": "فيلمنا",
+        "frameTitle": "الفيديو الخاص بنا"
+      },
       "map": {
         "eyebrow": "الوجهة",
         "imageAlt": "منزل أبيض بين أشجار الصنوبر والكثبان والبحر، مطرَّز على الكتّان",
@@ -1495,7 +1554,8 @@
         "calendarLabel": "إضافة المناسبة إلى تقويمي"
       },
       "timeline": {
-        "eyebrow": "حكاية اليوم الكبير",
+        "eyebrow": "حكاية يوم",
+        "eyebrowWithDate": "{wording} {date}",
         "titleLine1": "من النظرة الأولى",
         "titleLine2": "حتى الرقصة الأخيرة",
         "sign": "لكل لحظة إيقاعها",
@@ -1532,7 +1592,9 @@
       "menu": {
         "eyebrow": "مائدة أمسية",
         "titleLine1": "قائمة الطعام",
-        "titleLine2": "لليوم الكبير",
+        "titleLine2": "ليوم",
+        "titleWithDate": "{wording} {date}",
+        "intro": "",
         "scatterLabel": "صحن وليمونة وكأس ومفارش مائدة، كلها مطرَّزة"
       },
       "playlist": {
@@ -1555,6 +1617,18 @@
         "sending": "جارٍ الإرسال…",
         "thanks": "شكرًا لكم! تم إرسال اقتراحكم."
       },
+      "gallery": {
+        "eyebrow": "شيء منّا",
+        "titleLine1": "ذكرياتنا",
+        "titleLine2": "في بضع صور",
+        "open": "تكبير الصورة {index}",
+        "imageAlt": "صورة {index}",
+        "viewerLabel": "الصور",
+        "close": "إغلاق",
+        "previous": "الصورة السابقة",
+        "next": "الصورة التالية",
+        "counter": "الصورة {index} من {count}"
+      },
       "gifts": {
         "eyebrow": "أجمل هدية هي وجودكم",
         "cta": "المساهمة"
@@ -1574,22 +1648,23 @@
         "thanksEyebrow": "تم إرسال الرد",
         "thanksTitle": "تم تسجيل ردّكم!",
         "thanksBody": "شكرًا لكم. انضمّ ردّكم إلى دفتر ضيوفنا.",
-        "nameLabel": "اسمكم",
-        "namePlaceholder": "الاسم واللقب",
+        "nameLabel": "الاسم واللقب",
+        "namePlaceholder": "اسمكم الكامل",
         "attendanceLegend": "الحضور",
         "partyLabel": "من سيحضر؟",
         "partyOptionSolo": "أنا فقط",
         "partyOptionPartner": "أنا + شريكي/شريكتي",
-        "partnerNameLabel": "اسم شريككم",
+        "partnerNameLabel": "شريك حياتكم",
         "partnerNamePlaceholder": "الاسم واللقب",
-        "childrenLabel": "الأطفال المرافقون لكم",
-        "childrenOptionNone": "لا أحد",
+        "childrenLabel": "عدد الأطفال",
+        "childrenOptionNone": "لا أطفال",
         "childrenOptionCount": "{count, plural, zero {بدون أطفال} one {طفل واحد} two {طفلان} few {# أطفال} many {# طفلًا} other {# طفل}}",
         "childFieldLabel": "الطفل {index}",
         "childNamePlaceholder": "الاسم واللقب",
-        "dietaryLabel": "قيود غذائية",
-        "messageLabel": "كلمة صغيرة",
-        "messagePlaceholder": "رسالتكم…",
+        "dietaryLabel": "الحساسية أو النظام الغذائي",
+        "messageLabel": "كلمة صغيرة لنا",
+        "optional": "اختياري",
+        "messagePlaceholder": "توضيح، سؤال، بضع كلمات…",
         "submit": "إرسال ردّي",
         "submitPending": "جارٍ الإرسال…"
       },
@@ -1695,7 +1770,9 @@
         "open": "فتح",
         "ticketDestination": "الوجهة",
         "ticketDate": "التاريخ",
-        "ticketCountry": "البلد"
+        "ticketCountry": "البلد",
+        "airline": "رحلة الزفاف",
+        "passport": "جواز سفر"
       },
       "rsvp": {
         "stamp": "R.S.V.P.",
@@ -1723,6 +1800,34 @@
       },
       "footer": {
         "note": "بكل حب"
+      },
+      "introVideo": {
+        "eyebrow": "فيلمنا",
+        "frameTitle": "الفيديو الخاص بنا"
+      },
+      "gallery": {
+        "eyebrow": "ذكريات",
+        "titleLine1": "ألبوم",
+        "titleLine2": "حكايتنا",
+        "imageAlt": "صورة {index}"
+      },
+      "menu": {
+        "eyebrow": "إلى المائدة",
+        "titleLine1": "قائمة الطعام",
+        "titleLine2": "ليومنا الكبير"
+      },
+      "faq": {
+        "eyebrow": "من الجيد معرفته",
+        "titleLine1": "بعض الإجابات",
+        "titleLine2": "قبل السفر",
+        "childrenQuestion": "هل الأطفال مدعوون؟",
+        "childrenAdultsOnly": "لكي يتمكن جميع الآباء من الاستمتاع بالأمسية والرقص حتى الفجر، سيكون حفل زفافنا مخصصًا للكبار. استمتعوا بهذه اللحظة لأنفسكم.",
+        "childrenWelcome": "نعم، أطفالكم مرحب بهم. يُرجى ذكرهم في ردكم حتى نتمكن من تجهيز كل شيء لهم."
+      },
+      "gifts": {
+        "eyebrow": "قائمة الهدايا",
+        "titleFallback": "حضوركم هو أجمل هدية لنا",
+        "linkFallback": "المساهمة"
       }
     },
     "music": {

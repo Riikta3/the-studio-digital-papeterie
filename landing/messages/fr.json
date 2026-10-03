@@ -1850,12 +1850,67 @@
         "childrenOptionCount": "{count, plural, one {# enfant} other {# enfants}}",
         "childFieldLabel": "Enfant {index}",
         "childNamePlaceholder": "Prénom et nom",
-        "dietaryLabel": "Restrictions alimentaires"
+        "dietaryLabel": "Restrictions alimentaires",
+        "thanksName": "Merci {name} ! Votre réponse a bien été prise en compte."
       },
       "faq": {
         "childrenQuestion": "Les enfants sont-ils conviés ?",
         "childrenAdultsOnly": "Afin que tous les parents puissent profiter pleinement de la soirée et faire la fête jusqu’au bout de la nuit, notre mariage se déroulera entre adultes. Profitez de cette parenthèse rien que pour vous.",
         "childrenWelcome": "Oui, vos enfants sont les bienvenus. Merci de les indiquer dans votre réponse afin que nous puissions tout prévoir pour eux."
+      },
+      "countdown": {
+        "eyebrow": "Avant le grand jour",
+        "note": "Chaque instant nous rapproche de vous.",
+        "label": "Le temps qui nous sépare du mariage",
+        "remaining": "Plus que {days, plural, one {# jour} other {# jours}}, {hours, plural, one {# heure} other {# heures}} et {minutes, plural, one {# minute} other {# minutes}} avant le mariage",
+        "unitDays": "{count, plural, one {jour} other {jours}}",
+        "unitHours": "{count, plural, one {heure} other {heures}}",
+        "unitMinutes": "{count, plural, one {minute} other {minutes}}",
+        "unitSeconds": "{count, plural, one {seconde} other {secondes}}"
+      },
+      "film": {
+        "eyebrow": "Notre film",
+        "frameTitle": "Notre vidéo"
+      },
+      "playlist": {
+        "eyebrow": "Carnet de bal",
+        "titleLine1": "Quelle chanson",
+        "titleLine2": "pour le bal ?",
+        "intro": "Proposez les titres qui vous feront danser.",
+        "picks": "Déjà dans le carnet",
+        "searchLabel": "Cherchez un titre",
+        "searchPlaceholder": "Un titre, un artiste…",
+        "searchPlaceholderFull": "{max} titres maximum",
+        "resultsLoading": "Recherche…",
+        "resultsError": "Recherche indisponible. Réessayez dans un instant.",
+        "resultsEmpty": "Aucun titre trouvé.",
+        "removeTrack": "Retirer {title}",
+        "statusEmpty": "Jusqu’à {max} titres",
+        "statusCount": "{count, plural, one {# titre choisi sur {max}} other {# titres choisis sur {max}}}",
+        "statusFull": "{max} titres maximum — retirez-en un pour en proposer un autre.",
+        "send": "Ajouter au carnet de bal",
+        "sending": "Envoi…",
+        "thanks": "Merci ! Votre proposition a bien été envoyée."
+      },
+      "gallery": {
+        "eyebrow": "En images",
+        "titleLine1": "La galerie",
+        "titleLine2": "des souvenirs",
+        "imageAlt": "Photo {index}"
+      },
+      "stays": {
+        "eyebrow": "Pour la nuit",
+        "title": "Où dormir",
+        "code": "Code {code}",
+        "call": "Appeler",
+        "book": "Réserver",
+        "more": "Voir plus d’options",
+        "less": "Masquer les options"
+      },
+      "gifts": {
+        "eyebrow": "Liste de cadeaux",
+        "titleFallback": "Votre présence est notre plus beau cadeau",
+        "linkFallback": "Participer"
       }
     },
     "mareAlta": {
@@ -1875,6 +1930,10 @@
         "unitSeconds": "{count, plural, one {seconde} other {secondes}}",
         "cardLabel": "{value} {unit} avant le mariage"
       },
+      "introVideo": {
+        "eyebrow": "Notre film",
+        "frameTitle": "Notre vidéo"
+      },
       "map": {
         "eyebrow": "Destination",
         "imageAlt": "Une maison blanche entre pins, dunes et mer, brodée sur lin",
@@ -1883,7 +1942,8 @@
         "calendarLabel": "Ajouter l’événement à mon calendrier"
       },
       "timeline": {
-        "eyebrow": "Le récit du grand jour",
+        "eyebrow": "Le récit du",
+        "eyebrowWithDate": "{wording} {date}",
         "titleLine1": "Du premier regard",
         "titleLine2": "à la dernière danse",
         "sign": "Chaque instant a son rythme",
@@ -1920,7 +1980,9 @@
       "menu": {
         "eyebrow": "Table d’un soir",
         "titleLine1": "Le menu",
-        "titleLine2": "du grand jour",
+        "titleLine2": "du",
+        "titleWithDate": "{wording} {date}",
+        "intro": "",
         "scatterLabel": "Vaisselle, citron, verre et linge de table brodés"
       },
       "playlist": {
@@ -1943,6 +2005,18 @@
         "sending": "Envoi…",
         "thanks": "Merci ! Votre proposition a bien été envoyée."
       },
+      "gallery": {
+        "eyebrow": "Un peu de nous",
+        "titleLine1": "Nos souvenirs",
+        "titleLine2": "en quelques images",
+        "open": "Agrandir la photo {index}",
+        "imageAlt": "Photo {index}",
+        "viewerLabel": "Les photos",
+        "close": "Fermer",
+        "previous": "Photo précédente",
+        "next": "Photo suivante",
+        "counter": "Photo {index} sur {count}"
+      },
       "gifts": {
         "eyebrow": "Le plus beau cadeau, c’est vous",
         "cta": "Participer"
@@ -1962,22 +2036,23 @@
         "thanksEyebrow": "Réponse envoyée",
         "thanksTitle": "C’est bien noté !",
         "thanksBody": "Merci. Votre réponse a rejoint notre carnet d’invités.",
-        "nameLabel": "Votre nom",
-        "namePlaceholder": "Prénom et nom",
+        "nameLabel": "Prénom et nom",
+        "namePlaceholder": "Votre nom complet",
         "attendanceLegend": "Présence",
         "partyLabel": "Qui sera présent ?",
         "partyOptionSolo": "Moi uniquement",
         "partyOptionPartner": "Moi + mon/ma partenaire",
-        "partnerNameLabel": "Nom de votre partenaire",
+        "partnerNameLabel": "Votre conjoint·e",
         "partnerNamePlaceholder": "Prénom et nom",
-        "childrenLabel": "Enfants qui vous accompagnent",
-        "childrenOptionNone": "Aucun",
+        "childrenLabel": "Nombre d’enfants",
+        "childrenOptionNone": "Aucun enfant",
         "childrenOptionCount": "{count, plural, one {# enfant} other {# enfants}}",
         "childFieldLabel": "Enfant {index}",
         "childNamePlaceholder": "Prénom et nom",
-        "dietaryLabel": "Restrictions alimentaires",
-        "messageLabel": "Un petit mot",
-        "messagePlaceholder": "Votre message…",
+        "dietaryLabel": "Allergies ou régime alimentaire",
+        "messageLabel": "Un petit mot pour nous",
+        "optional": "facultatif",
+        "messagePlaceholder": "Une précision, une question, quelques mots…",
         "submit": "Envoyer ma réponse",
         "submitPending": "Envoi…"
       },
@@ -2083,7 +2158,9 @@
         "open": "Ouvrir",
         "ticketDestination": "Destination",
         "ticketDate": "Date",
-        "ticketCountry": "Pays"
+        "ticketCountry": "Pays",
+        "airline": "Vol des mariés",
+        "passport": "Passeport"
       },
       "rsvp": {
         "stamp": "R.S.V.P.",
@@ -2111,6 +2188,34 @@
       },
       "footer": {
         "note": "Avec amour"
+      },
+      "introVideo": {
+        "eyebrow": "Notre film",
+        "frameTitle": "Notre vidéo"
+      },
+      "gallery": {
+        "eyebrow": "Souvenirs",
+        "titleLine1": "L’album",
+        "titleLine2": "de notre histoire",
+        "imageAlt": "Photo {index}"
+      },
+      "menu": {
+        "eyebrow": "À table",
+        "titleLine1": "Le menu",
+        "titleLine2": "du grand jour"
+      },
+      "faq": {
+        "eyebrow": "Bon à savoir",
+        "titleLine1": "Quelques réponses",
+        "titleLine2": "avant le départ",
+        "childrenQuestion": "Les enfants sont-ils conviés ?",
+        "childrenAdultsOnly": "Afin que tous les parents puissent profiter pleinement de la soirée et faire la fête jusqu’au bout de la nuit, notre mariage se déroulera entre adultes. Profitez de cette parenthèse rien que pour vous.",
+        "childrenWelcome": "Oui, vos enfants sont les bienvenus. Merci de les indiquer dans votre réponse afin que nous puissions tout prévoir pour eux."
+      },
+      "gifts": {
+        "eyebrow": "Liste de cadeaux",
+        "titleFallback": "Votre présence est notre plus beau cadeau",
+        "linkFallback": "Participer"
       }
     },
     "music": {

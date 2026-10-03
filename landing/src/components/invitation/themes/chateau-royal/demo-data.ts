@@ -28,13 +28,18 @@ export const CHATEAU_ROYAL_DEMO: InvitationData = {
       },
     ],
   },
-  copy: { closing: "Merci d'être là, vraiment.", footerNote: "Avec toute notre affection" },
+  copy: {
+    closing: "Merci d’être là, vraiment.",
+    footerNote: "Avec toute notre affection",
+    staysIntro: "Quelques adresses autour du château, à quelques minutes des jardins.",
+    playlistIntro: "Une valse, un classique, un titre qui vous fera quitter votre chaise : notez-le, nous l’ajouterons au bal.",
+  },
   schedule: [
     { day: 1, time: "15 h 30", title: "La cérémonie", description: "Dans les jardins", icon: "ceremony", event: "wedding-day" },
     { day: 1, time: "17 h 00", title: "Le cocktail", description: "Sur la terrasse", icon: "cocktail", event: "wedding-day" },
     { day: 1, time: "19 h 30", title: "Le dîner", description: "Dans la grande galerie", icon: "dinner", event: "wedding-day" },
     { day: 1, time: "22 h 30", title: "La première danse", description: "Sous les lustres", icon: "party", event: "wedding-day" },
-    { day: 1, time: "Jusqu'à l'aube", title: "Le bal", description: "La nuit est à nous", event: "wedding-day" },
+    { day: 1, time: "Jusqu’à l’aube", title: "Le bal", description: "La nuit est à nous", event: "wedding-day" },
   ],
   events: [
     { kind: "wedding-day", name: "Le grand jour", date: WEDDING_DAY, time: "15 h 30", day: 1 },
@@ -59,6 +64,55 @@ export const CHATEAU_ROYAL_DEMO: InvitationData = {
     ],
   },
   faq: [{ question: "Pour la soirée", answer: "Prévoyez une petite laine pour les jardins." }],
+  stays: [
+    {
+      name: "Hôtel de l’Orangerie",
+      city: "Maincy",
+      address: "2 rue du Grand Parterre",
+      distance: "5 min",
+      offer: "Tarif mariage jusqu’au mois précédent",
+      bookingCode: "ER2027",
+      url: "https://hotel-orangerie.example.org",
+      image: "/themes/chateau-royal/stay-hotel.webp",
+    },
+    {
+      name: "Le Relais des Écuries",
+      city: "Melun",
+      address: "14 quai de la Reine-Blanche",
+      distance: "12 min",
+      phone: "01 64 00 00 00",
+    },
+    {
+      name: "La Bergerie du Parc",
+      city: "Maincy",
+      address: "Chemin des Charmilles",
+      distance: "8 min",
+      offer: "Chambres d’hôtes, petit-déjeuner compris",
+    },
+    { name: "Hôtel du Pont-Neuf", city: "Melun", distance: "15 min", secondary: true },
+    { name: "Domaine des Tilleuls", city: "Vaux-le-Pénil", distance: "18 min", secondary: true },
+  ],
+  playlist: [
+    { title: "Le Beau Danube bleu", artist: "Johann Strauss II" },
+    { title: "La Bohème", artist: "Charles Aznavour" },
+    { title: "September", artist: "Earth, Wind & Fire" },
+  ],
+  gallery: {
+    images: [
+      "/themes/chateau-royal/gallery-facade.webp",
+      "/themes/chateau-royal/gallery-jardins.webp",
+      "/themes/chateau-royal/gallery-table.webp",
+      "/themes/chateau-royal/gallery-nuit.webp",
+      "/themes/chateau-royal/gallery-chaises.webp",
+      "/themes/chateau-royal/gallery-reflet.webp",
+    ],
+  },
+  gifts: {
+    title: "Votre présence est notre plus beau cadeau",
+    body: "Si vous souhaitez tout de même nous gâter, une urne vous attendra dans la grande galerie, et une cagnotte est ouverte pour notre voyage de noces à Venise.",
+    url: "https://cagnotte.example.org/eleonore-raphael",
+    linkLabel: "Participer à notre voyage de noces",
+  },
   rsvp: { allowPartner: true, allowChildren: true, collectMessage: true },
   // The designer's own wording, kept for the showcase. A real wedding gets the
   // neutral catalogue default until the couple rewrites it.
@@ -67,4 +121,5 @@ export const CHATEAU_ROYAL_DEMO: InvitationData = {
     "map.title": "Un château,\nnotre histoire",
     "menu.title": "Le menu\nroyal",
   },
+  // No intro video: no film fits the showcase. The `heavy` fixture carries one.
 };

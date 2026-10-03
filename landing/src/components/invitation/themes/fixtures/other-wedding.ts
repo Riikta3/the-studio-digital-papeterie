@@ -122,6 +122,15 @@ export const HEAVY_WEDDING: InvitationData = {
     note: "Menu végétarien et sans gluten sur demande, à préciser dans votre réponse.",
     footer: ["Vins de Savoie sélectionnés par Hugo", "Café et infusions à volonté"],
   },
+  // The one file on disk: a video cannot be inlined. Any short clip does, so a
+  // theme's own assets are borrowed rather than a file added for the fixture.
+  introVideo: {
+    title: "Un petit film avant le grand jour",
+    subtitle: "Tourné l'été dernier, au bord du lac",
+    body: "Deux minutes pour vous montrer les lieux, et vous donner envie de nous rejoindre le jour venu.",
+    url: "/themes/belle-rive/cocktails.mp4",
+    kind: "file",
+  },
   gallery: { images: [picture("Souvenir 1", 10), picture("Souvenir 2", 80), picture("Souvenir 3", 160), picture("Souvenir 4", 240), picture("Souvenir 5", 300), picture("Souvenir 6", 350)] },
   stays: Array.from({ length: 10 }, (_, index) => ({
     name: ["Hôtel du Lac", "Auberge des Trois Sapins", "Chambres d'hôtes Les Glycines", "Résidence Belle Vue", "Camping des Pins", "Gîte du Châtaignier", "Hôtel de la Poste", "Maison Berthod", "Le Chalet Fleuri", "Villa Marguerite"][index]!,

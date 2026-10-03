@@ -33,9 +33,9 @@ import { toInvitationData } from "@/lib/to-invitation-data";
  * serving the language the couple chose.
  */
 export async function generateViewport(): Promise<Viewport> {
-  // The themes are drawn mobile-first around a ~390-520px frame, same as the
-  // demo route.
-  return { width: 390, initialScale: 1 };
+  // The phone's own width, same as the demo route: a fixed `width: 390` let
+  // guests on narrower phones drag the invitation sideways.
+  return { width: "device-width", initialScale: 1 };
 }
 
 export default async function InvitationPage({

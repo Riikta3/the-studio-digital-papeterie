@@ -1462,12 +1462,67 @@
         "childrenOptionCount": "{count, plural, one {# criança} other {# crianças}}",
         "childFieldLabel": "Criança {index}",
         "childNamePlaceholder": "Nome e apelido",
-        "dietaryLabel": "Restrições alimentares"
+        "dietaryLabel": "Restrições alimentares",
+        "thanksName": "Obrigado, {name}! A sua resposta foi registada."
       },
       "faq": {
         "childrenQuestion": "As crianças estão convidadas?",
         "childrenAdultsOnly": "Para que todos os pais possam aproveitar plenamente a noite e dançar até de madrugada, o nosso casamento será apenas para adultos. Aproveitem este momento só para si.",
         "childrenWelcome": "Sim, os vossos filhos são bem-vindos. Indiquem-nos na vossa resposta para que possamos preparar tudo para eles."
+      },
+      "countdown": {
+        "eyebrow": "Até ao grande dia",
+        "note": "Cada instante aproxima-nos de vós.",
+        "label": "O tempo que falta para o casamento",
+        "remaining": "Faltam {days, plural, one {# dia} other {# dias}}, {hours, plural, one {# hora} other {# horas}} e {minutes, plural, one {# minuto} other {# minutos}} para o casamento",
+        "unitDays": "{count, plural, one {dia} other {dias}}",
+        "unitHours": "{count, plural, one {hora} other {horas}}",
+        "unitMinutes": "{count, plural, one {minuto} other {minutos}}",
+        "unitSeconds": "{count, plural, one {segundo} other {segundos}}"
+      },
+      "film": {
+        "eyebrow": "O nosso filme",
+        "frameTitle": "O nosso vídeo"
+      },
+      "playlist": {
+        "eyebrow": "Cartão de dança",
+        "titleLine1": "Que canção",
+        "titleLine2": "para o baile?",
+        "intro": "Sugira as músicas que o vão fazer dançar.",
+        "picks": "Já no cartão",
+        "searchLabel": "Procure uma música",
+        "searchPlaceholder": "Uma música, um artista…",
+        "searchPlaceholderFull": "Máximo de {max} músicas",
+        "resultsLoading": "A pesquisar…",
+        "resultsError": "Pesquisa indisponível. Tente novamente dentro de instantes.",
+        "resultsEmpty": "Nenhuma música encontrada.",
+        "removeTrack": "Remover {title}",
+        "statusEmpty": "Até {max} músicas",
+        "statusCount": "{count, plural, one {# música escolhida de {max}} other {# músicas escolhidas de {max}}}",
+        "statusFull": "Máximo de {max} músicas — remova uma para propor outra.",
+        "send": "Adicionar ao cartão de dança",
+        "sending": "A enviar…",
+        "thanks": "Obrigado! A sua sugestão foi enviada."
+      },
+      "gallery": {
+        "eyebrow": "Em imagens",
+        "titleLine1": "A galeria",
+        "titleLine2": "das recordações",
+        "imageAlt": "Foto {index}"
+      },
+      "stays": {
+        "eyebrow": "Para a noite",
+        "title": "Onde dormir",
+        "code": "Código {code}",
+        "call": "Ligar",
+        "book": "Reservar",
+        "more": "Ver mais opções",
+        "less": "Ocultar opções"
+      },
+      "gifts": {
+        "eyebrow": "Lista de presentes",
+        "titleFallback": "A vossa presença é o nosso maior presente",
+        "linkFallback": "Participar"
       }
     },
     "mareAlta": {
@@ -1487,6 +1542,10 @@
         "unitSeconds": "{count, plural, one {segundo} other {segundos}}",
         "cardLabel": "{value} {unit} para o casamento"
       },
+      "introVideo": {
+        "eyebrow": "O nosso filme",
+        "frameTitle": "O nosso vídeo"
+      },
       "map": {
         "eyebrow": "Destino",
         "imageAlt": "Uma casa branca entre pinheiros, dunas e mar, bordada em linho",
@@ -1495,7 +1554,8 @@
         "calendarLabel": "Adicionar o evento ao meu calendário"
       },
       "timeline": {
-        "eyebrow": "A história do grande dia",
+        "eyebrow": "A história de",
+        "eyebrowWithDate": "{wording} {date}",
         "titleLine1": "Do primeiro olhar",
         "titleLine2": "à última dança",
         "sign": "Cada instante tem o seu ritmo",
@@ -1532,7 +1592,9 @@
       "menu": {
         "eyebrow": "Mesa de uma noite",
         "titleLine1": "A ementa",
-        "titleLine2": "do grande dia",
+        "titleLine2": "de",
+        "titleWithDate": "{wording} {date}",
+        "intro": "",
         "scatterLabel": "Louça, limão, copo e roupa de mesa bordados"
       },
       "playlist": {
@@ -1555,6 +1617,18 @@
         "sending": "A enviar…",
         "thanks": "Obrigado! A sua sugestão foi enviada."
       },
+      "gallery": {
+        "eyebrow": "Um pouco de nós",
+        "titleLine1": "As nossas memórias",
+        "titleLine2": "em algumas imagens",
+        "open": "Ampliar a foto {index}",
+        "imageAlt": "Foto {index}",
+        "viewerLabel": "As fotos",
+        "close": "Fechar",
+        "previous": "Foto anterior",
+        "next": "Foto seguinte",
+        "counter": "Foto {index} de {count}"
+      },
       "gifts": {
         "eyebrow": "O melhor presente são vocês",
         "cta": "Participar"
@@ -1574,22 +1648,23 @@
         "thanksEyebrow": "Resposta enviada",
         "thanksTitle": "Fica registado!",
         "thanksBody": "Obrigado. A sua resposta já faz parte do nosso caderno de convidados.",
-        "nameLabel": "O seu nome",
-        "namePlaceholder": "Nome e apelido",
+        "nameLabel": "Nome e apelido",
+        "namePlaceholder": "O seu nome completo",
         "attendanceLegend": "Presença",
         "partyLabel": "Quem estará presente?",
         "partyOptionSolo": "Apenas eu",
         "partyOptionPartner": "Eu + o/a meu/minha companheiro(a)",
-        "partnerNameLabel": "Nome do/a seu/sua companheiro(a)",
+        "partnerNameLabel": "Cônjuge ou companheiro(a)",
         "partnerNamePlaceholder": "Nome e apelido",
-        "childrenLabel": "Crianças que o acompanham",
-        "childrenOptionNone": "Nenhuma",
+        "childrenLabel": "Número de crianças",
+        "childrenOptionNone": "Nenhuma criança",
         "childrenOptionCount": "{count, plural, one {# criança} other {# crianças}}",
         "childFieldLabel": "Criança {index}",
         "childNamePlaceholder": "Nome e apelido",
-        "dietaryLabel": "Restrições alimentares",
-        "messageLabel": "Umas palavras",
-        "messagePlaceholder": "A sua mensagem…",
+        "dietaryLabel": "Alergias ou regime alimentar",
+        "messageLabel": "Umas palavras para nós",
+        "optional": "opcional",
+        "messagePlaceholder": "Um pormenor, uma pergunta, algumas palavras…",
         "submit": "Enviar a minha resposta",
         "submitPending": "A enviar…"
       },
@@ -1695,7 +1770,9 @@
         "open": "Abrir",
         "ticketDestination": "Destino",
         "ticketDate": "Data",
-        "ticketCountry": "País"
+        "ticketCountry": "País",
+        "airline": "Voo de casamento",
+        "passport": "Passaporte"
       },
       "rsvp": {
         "stamp": "R.S.V.P.",
@@ -1723,6 +1800,34 @@
       },
       "footer": {
         "note": "Com amor"
+      },
+      "introVideo": {
+        "eyebrow": "O nosso filme",
+        "frameTitle": "O nosso vídeo"
+      },
+      "gallery": {
+        "eyebrow": "Memórias",
+        "titleLine1": "O álbum",
+        "titleLine2": "da nossa história",
+        "imageAlt": "Foto {index}"
+      },
+      "menu": {
+        "eyebrow": "À mesa",
+        "titleLine1": "O menu",
+        "titleLine2": "do grande dia"
+      },
+      "faq": {
+        "eyebrow": "Bom saber",
+        "titleLine1": "Algumas respostas",
+        "titleLine2": "antes da partida",
+        "childrenQuestion": "As crianças estão convidadas?",
+        "childrenAdultsOnly": "Para que todos os pais possam aproveitar plenamente a noite e dançar até de madrugada, o nosso casamento será apenas para adultos. Aproveitem este momento só para si.",
+        "childrenWelcome": "Sim, os vossos filhos são bem-vindos. Indiquem-nos na vossa resposta para que possamos preparar tudo para eles."
+      },
+      "gifts": {
+        "eyebrow": "Lista de presentes",
+        "titleFallback": "A vossa presença é o nosso maior presente",
+        "linkFallback": "Participar"
       }
     },
     "music": {

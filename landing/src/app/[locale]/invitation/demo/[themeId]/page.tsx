@@ -34,8 +34,11 @@ import { musicPublicUrl, resolveMusicSource } from "@shared/lib/music";
 export const dynamic = "force-dynamic";
 
 export async function generateViewport(): Promise<Viewport> {
-  // The themes are drawn mobile-first around a ~390-520px frame.
-  return { width: 390, initialScale: 1 };
+  // The phone's own width, like any page. A fixed `width: 390` with
+  // `initialScale: 1` laid narrower phones (360 px Androids, the 375 px
+  // iPhone SE) out 390 wide at scale 1, so guests could drag the invitation
+  // sideways; every theme now holds down to 320.
+  return { width: "device-width", initialScale: 1 };
 }
 
 export async function generateMetadata({

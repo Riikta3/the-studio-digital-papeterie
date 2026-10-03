@@ -6,6 +6,7 @@ import { Reveal } from "../../reveal";
 import { slot } from "../../text";
 import type { InvitationData } from "../../types";
 import { weekdayRange } from "../dates";
+import { splitMonogram } from "../monogram-parts";
 
 import { TitleLines } from "./TitleLines";
 
@@ -22,7 +23,11 @@ export function LetterSection({ data }: { data: InvitationData }) {
 
   const span = weddingSpan(data);
   const date = span ? weekdayRange(span.start, span.end, locale) : null;
-  const monogram = monogramOf(data.couple, " · ");
+  // The designer's top line joins the two halves with a middle dot ("E · R"), whatever separator the
+  // couple wrote in their monogram ("E & R"); a monogram without one is printed as written.
+  const written = monogramOf(data.couple, " · ");
+  const halves = splitMonogram(written);
+  const monogram = halves ? `${halves.left} · ${halves.right}` : written;
   const announcement = data.copy?.announcement?.trim();
 
   return (

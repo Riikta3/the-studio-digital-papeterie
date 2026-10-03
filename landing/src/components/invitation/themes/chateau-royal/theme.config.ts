@@ -17,9 +17,24 @@ export const chateauRoyalTheme: ThemeManifest = {
   name: "Château Royal",
   description: "Un château de conte au fil d'un jour et d'une nuit : espresso, ivoire et or discret.",
 
-  // Only what the design has a place for. The countdown, the lodgings, the
-  // playlist, the gift list, the gallery and the intro video are not drawn.
-  supports: ["timeline", "menu", "map", "dress-code", "faq", "transport", "rsvp"],
+  // Every guest-facing module. The designer drew seven; the countdown, the film,
+  // the playlist, the gallery, the lodgings and the gift note are drawn in the
+  // same language (`modules.css`).
+  supports: [
+    "countdown",
+    "intro-video",
+    "timeline",
+    "menu",
+    "map",
+    "playlist",
+    "gallery",
+    "dress-code",
+    "faq",
+    "transport",
+    "accommodation",
+    "gift-list",
+    "rsvp",
+  ],
 
   accentColor: "#583b32",
   cover: "/themes/chateau-royal/cover.webp",
