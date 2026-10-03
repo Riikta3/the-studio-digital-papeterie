@@ -592,3 +592,29 @@
     transition: none;
   }
 }
+
+/* ── Narrow phones (320–389 px) ─────────────────────────────────────────── */
+/* Same scope as the "Narrow phones" pass at the end of `responsive.css`;
+   these live here because this file loads last and owns the base rules.
+
+   320 px iPhone SE: inside the brunch card (27 px padding, 7 px double border)
+   the moments' text column was ~110 px — "Oeufs, / viennoiseries, / café à
+   volonté." at a dozen characters a line — and the hour, a 50 px column of
+   1rem Italiana, broke into "11 h / 00" at every width below 390. A slimmer
+   card padding, icon column and hour give the copy back ~30 px and keep the
+   hour on one line. */
+@media (max-width: 389px) {
+  .theme-ciao-amore .brunch-card {
+    padding-inline: 18px;
+  }
+
+  .theme-ciao-amore .ca-brunch-moments li {
+    grid-template-columns: 50px 32px minmax(0, 1fr);
+    gap: 6px;
+  }
+
+  .theme-ciao-amore .ca-brunch-moments time {
+    font-size: 0.88rem;
+    white-space: nowrap;
+  }
+}

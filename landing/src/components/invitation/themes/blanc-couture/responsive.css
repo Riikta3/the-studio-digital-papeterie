@@ -129,6 +129,88 @@
   }
 }
 
+/* ── 3b. Narrow phones (320–389px) ──────────────────────────────────────── */
+/*
+ * The invitation routes now lay out at the phone's own width, so a 360px
+ * Android or a 375/320px iPhone SE renders at that width instead of a 390px
+ * page dragged sideways. Everything here is scoped below 390px: from 390 up
+ * the page is pixel-identical to what it was.
+ */
+@media (max-width: 389px) {
+  /*
+   * 320×568 iPhone SE: below 520px every page overlaps the one before it by
+   * 82px (`.page + .page { margin-top: -82px }`, to hide the seam between two
+   * papers) but keeps only 72px of bottom padding. While a page's content fits
+   * the screen it is centred and clear of the overlap; on a short phone it
+   * fills the page, and the next paper covered its last line — "…dès que
+   * possible", "…tenues estivales raffinées" were cut in half. Pad every page
+   * that has a successor past the overlap.
+   */
+  .theme-blanc-couture .page:has(+ .page) {
+    padding-bottom: 96px;
+  }
+
+  /*
+   * 320×568 and 375×667 iPhone SE: the oval wreath behind the venue is sized
+   * to the page's HEIGHT (`background-size: auto 92%`), and the page is one
+   * screen tall. On a short phone the oval came out narrower than the text,
+   * so the venue name, the address and the route links ran across the
+   * wreath's leaves. Never let the page be squatter than the 390×844
+   * reference (844 / 390 ≈ 216vw): the oval then keeps the proportion to the
+   * text that it has at 390px.
+   */
+  .theme-blanc-couture .venue-paper {
+    min-height: max(100svh, 216vw);
+  }
+
+  /*
+   * 320px: `.page` is a grid whose single column grows to its content's
+   * min-content width. Eight dress-code swatches in one 311px row widened the
+   * column past the screen, and the intro above them ran 11px off the right
+   * edge, clipped by the page. The column may now shrink, and the swatches
+   * shrink a little and wrap if a couple picks even more colours.
+   */
+  .theme-blanc-couture .page > .content {
+    min-width: 0;
+  }
+
+  .theme-blanc-couture .natural-palette {
+    flex-wrap: wrap;
+    gap: 8px 6px;
+  }
+
+  .theme-blanc-couture .natural-palette i {
+    width: min(31px, 9vw);
+    height: min(31px, 9vw);
+  }
+
+  /* French puts a space before "?"; on a narrow row the "?" of a long
+     question fell alone onto the last line. */
+  .theme-blanc-couture .bc-faq-trigger {
+    text-wrap: pretty;
+  }
+
+  /* 320 px: section titles bottom out at 36 px (`clamp(36px, 8vw, 56px)`), so
+     "à Annecy-le-Vieux" no longer fit the 280 px column and broke inside the
+     town's name. Scaled below 334 px, and balanced so a long venue name does
+     not leave one word on its own line. */
+  .theme-blanc-couture h2 {
+    font-size: min(36px, 10.8vw);
+    text-wrap: balance;
+  }
+
+  /*
+   * 320×568 iPhone SE with a long announcement: the hero's content is taller
+   * than the screen, so it starts at the very top (26px padding, lifted 3vh),
+   * where the fixed music button sits (18–62px from the top, right corner) —
+   * the end of the first lines ran under it. Start the content below it; when
+   * the content is shorter than the screen it stays centred, ~15px lower.
+   */
+  .theme-blanc-couture .hero {
+    padding-top: 80px;
+  }
+}
+
 /* ── 4. Tablet and desktop ──────────────────────────────────────────────── */
 
 /*

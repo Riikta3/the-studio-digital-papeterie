@@ -698,6 +698,72 @@
   .theme-belle-rive .carpool-row {
     grid-template-columns: 1fr;
   }
+
+  /* 320 px iPhone SE: the playlist field is what is left of the plate after a
+     15 px-padded "Ajouter", and its placeholder ("Titre — Artiste") lost its
+     last letter. */
+  .theme-belle-rive .playlist-content .input button {
+    padding-inline: 10px;
+  }
+}
+
+/* ── Narrow phones (320–389 px) ─────────────────────────────────────────── */
+/*
+ * The invitation routes now lay out at the phone's own width, so a 360 px
+ * Android or a 375/320 px iPhone SE renders at that width instead of a 390 px
+ * page dragged sideways. Everything here is scoped below 390 px: from 390 up
+ * the page is pixel-identical to what it was.
+ *
+ * The display sizes below are the 390 px size scaled with the viewport, so a
+ * narrower phone keeps the composition of the 390 px one.
+ */
+@media (max-width: 389px) {
+  /* 320 px: "PARTICIPATIVE" (31 px caps, 0.08em tracking) ran 7 px past the
+     right edge of the green playlist plate. 320–375 px: every section title
+     broke one line more than at 390 px — "Quelques / réponses / utiles". */
+  .theme-belle-rive h2 {
+    font-size: min(31px, 7.95vw);
+    text-wrap: balance;
+  }
+
+  /* 320–350 px: a hyphenated name ("Jean-Baptiste") no longer fit the hero at
+     58 px and broke at its hyphen. */
+  .theme-belle-rive .hero .hero-names {
+    font-size: min(58px, 16.5vw);
+  }
+
+  /* 320–375 px: same name, same break, in the closing arch (54 px). */
+  .theme-belle-rive .finale .calligraphy {
+    font-size: min(54px, 13.4vw);
+  }
+
+  /* 360–389 px: the palette only wraps below 360 px (rule above), so a couple
+     with more than three colours got a single row of 78 px swatches wider than
+     the panel, cut off at both edges. Wrap and centre here too. */
+  .theme-belle-rive .palette {
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  /* 320–360 px: a carpool route ("Toulouse vers Annecy-le-Vieux") broke
+     inside the town's name, at a hyphen. Balanced, it breaks after "vers". */
+  .theme-belle-rive .trip h3 {
+    text-wrap: balance;
+  }
+
+  /* French puts a space before "?"; on a narrow row the "?" of a long
+     question fell alone onto the last line. */
+  .theme-belle-rive .q button {
+    text-wrap: pretty;
+  }
+}
+
+/* 852×393 landscape phone: the ≥700 px title size left "cadeau" alone under
+   "Votre présence est notre plus beau". */
+@media (orientation: landscape) and (max-height: 500px) {
+  .theme-belle-rive h2 {
+    text-wrap: balance;
+  }
 }
 
 /* ─── RSVP failure ──────────────────────────────────────────────────────────

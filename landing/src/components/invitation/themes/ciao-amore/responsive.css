@@ -224,19 +224,18 @@
 }
 
 /* ── Small phones: the theme's own breakpoint stops at 390px ────────────── */
+/* The timeline's columns for these widths now live in "Narrow phones" at the
+   end of this file, with the rest of the 320–389 pass. */
 @media (max-width: 360px) {
   .theme-ciao-amore .countdown strong {
     font-size: 1.6rem;
   }
 
+  /* 360 px Android, 320 px iPhone SE: the unit labels were taken down to
+     0.42rem (6.7 px), too small to read. "SECONDE" / "SEKUNDEN" still fit a
+     quarter of a 320 px row at the 390 px size, so they keep it. */
   .theme-ciao-amore .countdown span {
-    font-size: 0.42rem;
-  }
-
-  /* Three columns get too tight to hold a readable title. */
-  .theme-ciao-amore .timeline article {
-    grid-template-columns: 52px 32px 1fr;
-    gap: 8px;
+    font-size: 0.46rem;
   }
 }
 
@@ -2133,4 +2132,176 @@
  * ------------------------------------------------------------------ */
 .theme-ciao-amore .brunch-card {
   z-index: 4;
+}
+
+/* ── Narrow phones (320–389 px) ─────────────────────────────────────────── */
+/*
+ * The invitation routes now lay out at the phone's own width, so a 360 px
+ * Android or a 375/320 px iPhone SE renders at that width instead of a 390 px
+ * page dragged sideways. Everything here is scoped below 390 px: from 390 up
+ * the page is pixel-identical to what it was. Brunch moments are in
+ * `modules.css`, next to the rules they adjust.
+ */
+@media (max-width: 389px) {
+  /* 320–359 px: `clamp(2.7rem, 12vw, 4.5rem)` stops shrinking at 360 px, so
+     section titles kept their 360 px size in a narrower column and broke into
+     an extra line ("Villa / Cimbrone", "Le brunch / du / lendemain"). Let them
+     follow the viewport down, and balance the lines they do break into. */
+  .theme-ciao-amore h2 {
+    font-size: clamp(2.2rem, 12vw, 4.5rem);
+    text-wrap: balance;
+  }
+
+  /* 320–375 px: the countdown title is a fixed 3.15rem and went from three
+     lines at 390 px to five at 320 px ("Chaque / seconde / nous / rapproche
+     de / vous"). Scaled with the viewport it keeps the 390 px composition. */
+  .theme-ciao-amore .countdown-section h2 {
+    font-size: min(3.15rem, 12.9vw);
+  }
+
+  /* 320–360 px: the time and icon columns left the event cards a 148 px
+     column — about 20 characters a line, titles over three lines. Tighter
+     columns and padding give the card back ~20 px; the hour stays on one line
+     ("22 h 00" wrapped once the column narrowed). */
+  .theme-ciao-amore .timeline article {
+    grid-template-columns: 46px 32px minmax(0, 1fr);
+    gap: 6px;
+  }
+
+  .theme-ciao-amore .timeline:before {
+    left: 69px;
+  }
+
+  .theme-ciao-amore .timeline time {
+    font-size: 0.72rem;
+    white-space: nowrap;
+  }
+
+  .theme-ciao-amore .timeline article > div:last-child {
+    padding: 16px 13px;
+  }
+
+  .theme-ciao-amore .timeline h3 {
+    font-size: min(1.65rem, 7vw);
+    text-wrap: balance;
+  }
+
+  /* 320–360 px: the spritz glass (145 px, pinned right) covered the end of the
+     eyebrow ("WEEK-EN…") and the last word of the intro. Smaller, pushed a
+     little further off the edge, and the eyebrow wraps before reaching it.
+     The padding is physical: the glass is on the right in Arabic too. */
+  .theme-ciao-amore .decor-spritz-playlist {
+    width: min(145px, 36vw);
+    right: -24px;
+  }
+
+  .theme-ciao-amore .playlist-section .eyebrow {
+    padding-right: 50px;
+  }
+
+  /* Arabic: the title is right-aligned, so its first letters sat under the
+     glass ("قائمة" read "ائمة"). Start it clear of the glass. */
+  .theme-ciao-amore:dir(rtl) .playlist-section h2 {
+    padding-right: min(27vw, 100px);
+  }
+
+  /* 320–389 px: a long venue name in the hotel card's kicker ("À proximité de
+     Le Prieuré de Saint-Étienne-…") ran under the lemon badge pinned top right
+     (`.hotels a:before`). Hold the kicker clear of it. */
+  .theme-ciao-amore .hotels > * > span {
+    display: block;
+    padding-right: 40px;
+  }
+
+  .theme-ciao-amore .hotels h3 {
+    text-wrap: balance;
+  }
+
+  /* 320–389 px: French puts a space before "?", and a narrow card left the
+     "?" alone on the last line of a question. At 320 px the question column
+     was also ~190 px of 1.2rem Italiana (15–18 characters a line, three lines
+     a question): slimmer padding — the answer keeps the question's indent —
+     and a type size that follows the viewport below 362 px. */
+  .theme-ciao-amore .ca-faq-trigger {
+    text-wrap: pretty;
+    gap: 10px;
+    padding-inline: 14px;
+    font-size: min(1.2rem, 5.3vw);
+  }
+
+  .theme-ciao-amore .ca-faq-panel p {
+    margin-inline: 14px;
+  }
+
+  /* 320 px: the programme intro left "rire." alone on its last line. */
+  .theme-ciao-amore .arch-copy p {
+    text-wrap: pretty;
+  }
+
+  /* 320–360 px: the closing names are a fixed 4rem script; a hyphenated name
+     ("Jean-Baptiste") broke at its hyphen. Scaled from the 390 px size. */
+  .theme-ciao-amore footer h2 {
+    font-size: min(4rem, 16.4vw);
+  }
+
+  /* 320–389 px: the "back to top" button is pinned bottom right, and a field
+     sitting at the foot of the screen — which is where it lands while a guest
+     types above the keyboard — had its right end under the button (36×35 px of
+     the playlist search, the end of the RSVP name and message). It steps aside
+     while a field has focus. */
+  .theme-ciao-amore:has(:is(input, select, textarea):focus) .ca-scrolltop[data-visible="true"] {
+    opacity: 0;
+    visibility: hidden;
+  }
+}
+
+/* ── Landscape phones ───────────────────────────────────────────────────── */
+/*
+ * 852×393 (iPhone 14/15 landscape), 812×375, 667×375 (iPhone SE), 640×360:
+ * the hero is a fixed 100svh (min 720px) and its panel is either capped at
+ * 88svh (≥700 px) or absolutely inset (<700 px). On a 393 px tall screen the
+ * panel is ~350 px tall, so the names spilled out of the frame and the date,
+ * the venue and "Découvrir" were cut by the hero's `overflow:hidden` — or,
+ * below 700 px, the date landed on the blue wave. Let the panel take its
+ * content's height and the hero grow around it; the bottom padding keeps the
+ * last line above the wave (`bottom: 8%`).
+ */
+@media (orientation: landscape) and (max-height: 500px) {
+  .theme-ciao-amore .hero-direct {
+    display: grid;
+    place-items: center;
+    height: auto;
+    min-height: 100svh;
+    padding-block: 32px 96px;
+  }
+
+  .theme-ciao-amore .hero-panel.hero-panel {
+    position: relative;
+    inset: auto;
+    width: var(--ca-stage, 82%);
+    max-height: none;
+    margin: auto;
+  }
+
+  /* A long kicker ("Ils se disent oui au bord du lac…") left "monde" alone on
+     its last line at 852 px. */
+  .theme-ciao-amore .hero-panel > span {
+    text-wrap: balance;
+  }
+
+  /* The announcement ran the full 784 px of the panel at 852 px, and its last
+     word went under the lemon pinned to the right edge. */
+  .theme-ciao-amore .hero-panel > p {
+    max-width: 560px;
+  }
+}
+
+/* ≥700 px the timeline is nudged 60 px left so the cards sit on the page's
+   axis. On an 812–932 px landscape phone it is full width (30–36 px from each
+   edge), so the nudge put the hours at x = −30: "17 h 00" read "00". Keep the
+   hours on screen. */
+@media (orientation: landscape) and (max-height: 500px) and (min-width: 700px) {
+  .theme-ciao-amore .timeline {
+    transform: translateX(-14px);
+  }
 }
