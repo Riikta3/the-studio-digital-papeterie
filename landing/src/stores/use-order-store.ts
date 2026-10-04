@@ -241,10 +241,21 @@ export const useOrderStore = create<OrderState>()(
   ),
 );
 
+/**
+ * The running total the studio shows, from the same rules the server charges
+ * with (`computeOrderTotal`).
+ *
+ * The languages go in default-first, as the checkout sends them: the rule
+ * bills every entry after the first, so passing only the paid extras (as this
+ * did) showed 15 € less per extra language than the payment route charged.
+ */
 export const selectTotalPrice = (state: OrderState) =>
   computeOrderTotal({
     plan: state.plan,
     modules: state.modules,
-    languages: state.languages,
+    languages: [
+      state.primaryLanguage,
+      ...state.languages.filter((code) => code !== state.primaryLanguage),
+    ],
     extras: state.extras,
   }) ?? 0;
