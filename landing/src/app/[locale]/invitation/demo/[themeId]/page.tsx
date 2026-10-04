@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import { notFound } from "next/navigation";
 
+import { DemoLinkGuard } from "@/components/invitation/DemoLinkGuard";
 import { InvitationMusic } from "@/components/invitation/InvitationMusic";
 import { AtelierBar } from "@/components/invitation/atelier/AtelierBar";
 import { atelierEnabled, atelierThemes } from "@/components/invitation/atelier/atelier";
@@ -93,6 +94,8 @@ export default async function ThemeDemoPage({
         />
       ) : null}
       <Root data={demoDataFor(demoData, fixture)} />
+      {/* Made-up hotels, funds and phone numbers lead nowhere in a demo. */}
+      <DemoLinkGuard />
       {/* The studio's workshop switcher (`/invitation/atelier`), never for guests. */}
       {atelier === "1" && atelierEnabled() ? (
         <AtelierBar
