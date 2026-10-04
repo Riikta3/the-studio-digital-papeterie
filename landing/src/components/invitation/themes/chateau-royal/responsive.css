@@ -47,6 +47,24 @@ html:has(.theme-chateau-royal) { background-color: #3c2924; }
   }
 }
 
+/* From 761px the designer set the names in the left third, over a veil running from the left edge.
+   The studio wants them centred on the façade, as on a phone: the copy is centred and the veil (day,
+   and its night twin) becomes an oval under the names instead of a band from the left. */
+@media (min-width: 761px) {
+  .theme-chateau-royal .hero-copy {
+    left: 50%;
+    transform: translateX(-50%);
+  }
+  .theme-chateau-royal .hero-shade {
+    background: radial-gradient(ellipse 42% 62% at 50% 40%, #f8f5edb8, transparent),
+      linear-gradient(0deg, #1b172235, transparent 27%);
+  }
+  .theme-chateau-royal .hero-shade:after {
+    background: radial-gradient(ellipse 42% 62% at 50% 40%, #221d2b91, transparent),
+      linear-gradient(0deg, #1713214f, transparent 30%);
+  }
+}
+
 /* The veil of rings is pinned to the bottom of the letter, and the letter's padding keeps its room free.
    An announcement makes the letter taller than its minimum height, and its last line then ran into the veil. */
 .theme-chateau-royal .letter.cr-has-announcement { padding-bottom: 180px; }
