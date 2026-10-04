@@ -20,7 +20,7 @@ import {
   selectTotalPrice,
   type PlanType,
 } from "@/stores/use-order-store";
-import { useRouter } from "@/navigation";
+import { Link, useRouter } from "@/navigation";
 import { useSearchParams } from "next/navigation";
 import { MobileMenu } from "@/components/home/MobileMenu";
 
@@ -255,12 +255,14 @@ export default function StudioStartPage() {
     <div className="min-h-screen bg-studio-beurre">
       <div className="mx-auto flex w-full flex-col px-5 pb-16 pt-6 md:max-w-3xl">
         <nav className="flex w-full items-center justify-between rounded-full bg-white px-5 py-3 shadow-[0_2px_12px_rgba(75,63,114,0.06)]">
-          <Image
-            src="/logo-violet.svg"
-            alt="The Studio Digital Papeterie"
-            width={40}
-            height={42}
-          />
+          <Link href="/">
+            <Image
+              src="/logo-violet.svg"
+              alt="The Studio Digital Papeterie"
+              width={40}
+              height={42}
+            />
+          </Link>
           <button
             type="button"
             onClick={() => setMenuOpen(true)}

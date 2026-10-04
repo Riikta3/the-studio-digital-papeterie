@@ -11,8 +11,8 @@ import { Button } from "@shared/components/ui/button";
 import { cn } from "@shared/lib/utils";
 import { MobileMenu } from "@/components/home/MobileMenu";
 import { useHeaderReveal } from "@/lib/use-header-reveal";
-import { usePathname, useRouter } from "@/navigation";
-import { FREE_MODULES_LIMIT, hasMeteredModules } from "@/lib/pricing";
+import { Link, usePathname, useRouter } from "@/navigation";
+import { FREE_MODULES_LIMIT, countedModules, hasMeteredModules } from "@/lib/pricing";
 import { selectTotalPrice, useOrderStore } from "@/stores/use-order-store";
 
 // /start lives outside this layout: it keeps its own nav and CTA.
@@ -74,7 +74,7 @@ function StudioStepsLayoutInner({
   // Only the metered plan has to reach the included allowance before moving
   // on; the unlimited ones can continue with any selection.
   const isModulesValid =
-    !hasMeteredModules(plan) || (modules ?? []).length >= FREE_MODULES_LIMIT;
+    !hasMeteredModules(plan) || countedModules(modules ?? []) >= FREE_MODULES_LIMIT;
 
   const isStepValid = pathname.includes("/studio/theme")
     ? !!theme
@@ -151,13 +151,15 @@ function StudioStepsLayoutInner({
             headerRevealed ? "translate-y-0" : "-translate-y-3",
           )}
         >
-          <Image
-            src="/logo-violet.svg"
-            alt="The Studio Digital Papeterie"
-            width={32}
-            height={34}
-            className="h-[34px] w-auto"
-          />
+          <Link href="/">
+            <Image
+              src="/logo-violet.svg"
+              alt="The Studio Digital Papeterie"
+              width={32}
+              height={34}
+              className="h-[34px] w-auto"
+            />
+          </Link>
         </div>
         <button
           type="button"
@@ -175,12 +177,14 @@ function StudioStepsLayoutInner({
       <div className="mx-auto w-full max-w-4xl px-5 pt-6">
         {/* Same pill nav as /studio/start */}
         <nav className="flex w-full items-center justify-between rounded-full bg-white px-5 py-3 shadow-[0_2px_12px_rgba(75,63,114,0.06)]">
-          <Image
-            src="/logo-violet.svg"
-            alt="The Studio Digital Papeterie"
-            width={40}
-            height={42}
-          />
+          <Link href="/">
+            <Image
+              src="/logo-violet.svg"
+              alt="The Studio Digital Papeterie"
+              width={40}
+              height={42}
+            />
+          </Link>
           <button
             type="button"
             onClick={() => setMenuOpen(true)}
