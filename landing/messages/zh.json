@@ -22,7 +22,7 @@
     "menuAriaLabel": "打开菜单",
     "discoverButton": "探索系列",
     "createButton": "创建我的邀请函",
-    "themeCta": "试用{name}主题"
+    "themeCta": "试用此主题"
   },
   "Common": {
     "loading": "加载中..."

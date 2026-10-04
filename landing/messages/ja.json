@@ -22,7 +22,7 @@
     "menuAriaLabel": "メニューを開く",
     "discoverButton": "コレクションを見る",
     "createButton": "招待状をつくる",
-    "themeCta": "{name} テーマを試す"
+    "themeCta": "このテーマを試す"
   },
   "Common": {
     "loading": "読み込み中..."

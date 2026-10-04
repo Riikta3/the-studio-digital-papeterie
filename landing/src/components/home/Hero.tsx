@@ -12,12 +12,8 @@ import { hasThemePages } from "@/lib/theme-pages";
 import { Link } from "@/navigation";
 
 import { HeroCurvedCarousel } from "./HeroCurvedCarousel";
-import {
-  setSelectedThemeIndex,
-  useSelectedThemeIndex,
-} from "./selected-theme";
+import { setSelectedThemeIndex } from "./selected-theme";
 import { StickyHeader } from "./StickyHeader";
-import { THEMES } from "./themes";
 import { TextureOverlay } from "./TextureOverlay";
 
 // The drawer is closed on load and never opens during a page-load trace, but
@@ -53,10 +49,6 @@ export function Hero() {
   const contentRef = useRef<HTMLDivElement>(null);
   const carouselRef = useRef<HTMLDivElement>(null);
   const [violetHeight, setVioletHeight] = useState<number | null>(null);
-  // The fan opens on its middle card; `HeroCurvedCarousel` centres on the same index.
-  // The selection is shared with the phone mockup below rather than kept local,
-  // so "Tester le thème X" scrolls to a mockup already showing X.
-  const activeThemeName = THEMES[useSelectedThemeIndex()].name;
 
   useEffect(() => {
     const measure = () => {
@@ -221,7 +213,7 @@ export function Hero() {
                 ?.scrollIntoView({ behavior: "smooth", block: "center" })
             }
           >
-            {t("themeCta", { name: activeThemeName })}{" "}
+            {t("themeCta")}{" "}
             <ArrowRight className="ml-2 h-4 w-4" />
           </Button>
         </div>
