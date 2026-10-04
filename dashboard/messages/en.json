@@ -920,7 +920,7 @@
     "toast_deleted": "Message deleted",
     "toast_delete_error": "Error while deleting",
     "confirm_title": "Delete this message?",
-    "confirm_description": "{name}'s message will be permanently deleted. This action is irreversible.",
+    "confirm_description": "{name}’s message will be permanently deleted. Their RSVP answer is kept.",
     "cancel": "Cancel",
     "deleting": "Deleting...",
     "delete": "Delete",

@@ -920,7 +920,7 @@
     "toast_deleted": "Nachricht gelöscht",
     "toast_delete_error": "Fehler beim Löschen",
     "confirm_title": "Diese Nachricht löschen?",
-    "confirm_description": "Die Nachricht von {name} wird endgültig gelöscht. Diese Aktion ist unwiderruflich.",
+    "confirm_description": "Die Nachricht von {name} wird endgültig gelöscht. Die Rückmeldung bleibt erhalten.",
     "cancel": "Abbrechen",
     "deleting": "Wird gelöscht...",
     "delete": "Löschen",

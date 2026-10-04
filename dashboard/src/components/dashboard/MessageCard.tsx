@@ -1,7 +1,7 @@
 "use client";
 
 import { deleteGuestbookMessage } from "@/actions/guestbook-actions";
-import { deleteRsvpResponse } from "@/actions/rsvp-response-actions";
+import { clearRsvpMessage } from "@/actions/rsvp-response-actions";
 import { useRouter } from "@/navigation";
 import { Button } from "@shared/components/ui/button";
 import {
@@ -25,7 +25,7 @@ interface MessageCardProps {
   date: string;
   /**
    * Where the message came from: left with an RSVP answer (`rsvp_responses`,
-   * deleting removes the whole answer) or in the guestbook
+   * deleting removes only the message, the answer stays) or in the guestbook
    * (`guestbook_messages`).
    */
   source?: "rsvp" | "guestbook";
@@ -40,7 +40,7 @@ export function MessageCard({ id, name, message, date, source = "rsvp" }: Messag
   const handleDelete = () => {
     startTransition(async () => {
       try {
-        await (source === "guestbook" ? deleteGuestbookMessage(id) : deleteRsvpResponse(id));
+        await (source === "guestbook" ? deleteGuestbookMessage(id) : clearRsvpMessage(id));
         toast.success(t("toast_deleted"));
         setOpen(false);
         router.refresh();

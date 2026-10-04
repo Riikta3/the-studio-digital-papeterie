@@ -164,3 +164,32 @@ export async function deleteRsvpResponses(ids: string[]) {
     revalidatePath(`/${locale}/rsvp-responses`);
   }
 }
+
+/** Removes only the free message left with an RSVP answer; the answer itself stays. */
+export async function clearRsvpMessage(id: string) {
+  const supabase = await createClient();
+
+  const { data: { user } } = await supabase.auth.getUser();
+  if (!user) throw new Error("Unauthorized");
+
+  const { data: wedding } = await supabase
+    .from("weddings")
+    .select("id")
+    .eq("user_id", user.id)
+    .single();
+
+  if (!wedding) throw new Error("Wedding not found");
+
+  const { error } = await supabase
+    .from("rsvp_responses")
+    .update({ message: null })
+    .eq("id", id)
+    .eq("wedding_id", wedding.id);
+
+  if (error) throw new Error(error.message);
+
+  for (const locale of ["fr", "en", "de", "es", "pt", "it", "ar", "zh", "ja"]) {
+    revalidatePath(`/${locale}/messages`);
+    revalidatePath(`/${locale}/rsvp-responses`);
+  }
+}

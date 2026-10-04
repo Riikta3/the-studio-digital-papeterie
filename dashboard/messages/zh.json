@@ -920,7 +920,7 @@
     "toast_deleted": "留言已删除",
     "toast_delete_error": "删除时出错",
     "confirm_title": "删除此留言？",
-    "confirm_description": "{name} 的留言将被永久删除，此操作无法撤销。",
+    "confirm_description": "{name} 的留言将被永久删除，其回复保留。",
     "cancel": "取消",
     "deleting": "删除中...",
     "delete": "删除",

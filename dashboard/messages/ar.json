@@ -920,7 +920,7 @@
     "toast_deleted": "تم حذف الرسالة",
     "toast_delete_error": "خطأ أثناء الحذف",
     "confirm_title": "حذف هذه الرسالة؟",
-    "confirm_description": "ستُحذف رسالة {name} نهائيًا. هذا الإجراء لا رجعة فيه.",
+    "confirm_description": "ستُحذف رسالة {name} نهائيًا. يبقى ردّه على الدعوة محفوظًا.",
     "cancel": "إلغاء",
     "deleting": "جارٍ الحذف...",
     "delete": "حذف",
