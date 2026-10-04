@@ -34,7 +34,6 @@ import { THEMES } from "./themes";
  *   theme's real invitation — a pre-rendered strip (`npm run
  *   themes:shoot-scroll`), not an iframe, so the first screen of the site does
  *   not load a whole theme to show a moving picture of it.
- * - **A name above.** `{ Belle Rive }`, changing as the carousel turns.
  *
  * The carousel advances by itself every `DWELL_MS`, and stops doing so the
  * moment the visitor touches it, hovers it, focuses it, scrolls it out of
@@ -367,30 +366,6 @@ export function HeroCurvedCarousel({
       }}
       className="relative flex w-full flex-col items-center"
     >
-      {/* The name of the theme in front. Decorative duplicate of the live
-          region below, so hidden from assistive tech. */}
-      <div
-        aria-hidden
-        className="relative z-20 flex h-10 items-center gap-5 font-heading text-2xl text-white md:h-12 md:text-3xl"
-      >
-        <span className="font-light text-studio-jaune/70">{"{"}</span>
-        <span className="relative inline-grid min-w-[9ch] place-items-center overflow-hidden">
-          <AnimatePresence mode="popLayout" initial={false}>
-            <motion.span
-              key={activeTheme.id}
-              initial={reduceMotion ? { opacity: 0 } : { opacity: 0, x: 28, filter: "blur(6px)" }}
-              animate={{ opacity: 1, x: 0, filter: "blur(0px)" }}
-              exit={reduceMotion ? { opacity: 0 } : { opacity: 0, x: -28, filter: "blur(6px)" }}
-              transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
-              className="whitespace-nowrap"
-            >
-              {activeTheme.name}
-            </motion.span>
-          </AnimatePresence>
-        </span>
-        <span className="font-light text-studio-jaune/70">{"}"}</span>
-      </div>
-
       <p aria-live={autoplay ? "off" : "polite"} aria-atomic="true" className="sr-only">
         {t("activeThemeAnnouncement", { name: activeTheme.name })}
       </p>
