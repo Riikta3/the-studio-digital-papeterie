@@ -55,6 +55,9 @@ export const THEMES = [
     name: "Château Royal",
     image: "/themes/chateau-royal/cover.webp",
     statusBar: { background: "#57535b", text: "light" },
+    // Its hero turns from day to night: the hero card falls into the night
+    // once, and scrolls on in it (`scroll-night.webp`).
+    nightfall: true,
   },
   {
     id: "cabo-verde",

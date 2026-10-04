@@ -44,6 +44,35 @@ const CAP_CSS_PX = 5000;
  */
 const OUT_WIDTH = 640;
 
+/**
+ * Themes whose hero turns from day to night. Their active hero card fades
+ * from the day cover into a night strip, once, and stays there: they get a
+ * second pair of files, `scroll-night.webp` and `cover-night.webp`, shot with
+ * the hero's own animations frozen at that phase (see `freezeHero`).
+ */
+const NIGHTFALL_THEMES = new Set(["chateau-royal"]);
+
+/**
+ * Freezes every animation inside the hero at a share of its own cycle, so a
+ * capture lands on a known frame rather than wherever the clock happens to
+ * be: 0.02 is full day, 0.5 the middle of the night plateau (Château Royal's
+ * `nightfall` is opaque from 43 % to 66 %, its mobile `nightfallFast` from
+ * 22 % to 64 %).
+ */
+async function freezeHero(page, progress) {
+  await page.evaluate((share) => {
+    for (const animation of document.getAnimations()) {
+      const target = animation.effect && animation.effect.target;
+      if (!target || !target.closest || !target.closest(".hero")) continue;
+      const timing = animation.effect.getComputedTiming();
+      const duration = Number(timing.duration) || 0;
+      animation.pause();
+      animation.currentTime = (Number(timing.delay) || 0) + duration * share;
+    }
+  }, progress);
+  await page.waitForTimeout(300);
+}
+
 const only = process.argv[2];
 const themes = only ? [only] : HERO_THEMES;
 
@@ -88,32 +117,43 @@ for (const id of themes) {
   await page.evaluate(() => window.scrollTo(0, 0));
   await page.waitForTimeout(800);
 
-  const png = await page.screenshot({
-    fullPage: true,
-    clip: { x: 0, y: 0, width: 390, height },
-  });
-
   const dir = `public/themes/${id}`;
   mkdirSync(dir, { recursive: true });
-  const out = `${dir}/scroll.webp`;
 
-  const info = await sharp(png)
-    .resize({ width: OUT_WIDTH })
-    .webp({ quality: 72, effort: 6 })
-    .toFile(out);
+  const phases = NIGHTFALL_THEMES.has(id)
+    ? [
+        { suffix: "", progress: 0.02 },
+        { suffix: "-night", progress: 0.5 },
+      ]
+    : [{ suffix: "", progress: null }];
 
-  // Same 780x1452 frame as before (the card's 290:540 ratio at 2x), so every
-  // other reader of `cover.webp` keeps its geometry.
-  const coverOut = `${dir}/cover.webp`;
-  const cover = await sharp(png)
-    .extract({ left: 0, top: 0, width: 780, height: 1452 })
-    .webp({ quality: 78, effort: 6 })
-    .toFile(coverOut);
+  for (const { suffix, progress } of phases) {
+    if (progress !== null) await freezeHero(page, progress);
 
-  console.log(
-    `${id}: ${out} ${info.width}x${info.height} ${(info.size / 1024).toFixed(0)} KB` +
-      ` · ${coverOut} ${(cover.size / 1024).toFixed(0)} KB`,
-  );
+    const png = await page.screenshot({
+      fullPage: true,
+      clip: { x: 0, y: 0, width: 390, height },
+    });
+
+    const out = `${dir}/scroll${suffix}.webp`;
+    const info = await sharp(png)
+      .resize({ width: OUT_WIDTH })
+      .webp({ quality: 72, effort: 6 })
+      .toFile(out);
+
+    // Same 780x1452 frame as before (the card's 290:540 ratio at 2x), so every
+    // other reader of `cover.webp` keeps its geometry.
+    const coverOut = `${dir}/cover${suffix}.webp`;
+    const cover = await sharp(png)
+      .extract({ left: 0, top: 0, width: 780, height: 1452 })
+      .webp({ quality: 78, effort: 6 })
+      .toFile(coverOut);
+
+    console.log(
+      `${id}: ${out} ${info.width}x${info.height} ${(info.size / 1024).toFixed(0)} KB` +
+        ` · ${coverOut} ${(cover.size / 1024).toFixed(0)} KB`,
+    );
+  }
 
   await page.close();
 }

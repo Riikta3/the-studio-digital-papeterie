@@ -112,6 +112,15 @@ const DWELL_MS = 9000;
 /** Pause before the centre card starts scrolling, so the cover is seen first. */
 const SCROLL_DELAY_S = 1.1;
 
+/** How long a day-to-night card takes to fall into the night. */
+const NIGHTFALL_S = 2.4;
+
+/** Whether a hero card turns from day to night (`nightfall` in `home/themes.ts`). */
+function nightfall(cardId: number): boolean {
+  const theme = THEMES[cardId];
+  return Boolean(theme && "nightfall" in theme && theme.nightfall);
+}
+
 /** How far the centre card scrolls, in card heights. */
 const SCROLL_SCREENS = 2.2;
 
@@ -439,7 +448,8 @@ export function HeroCurvedCarousel({
                   total: CARD_COUNT,
                 })}
                 slideRoleDescription={t("slideRoleDescription")}
-                strip={`/themes/${THEMES[cardId].id}/scroll.webp`}
+                strip={`/themes/${THEMES[cardId].id}/${nightfall(cardId) ? "scroll-night" : "scroll"}.webp`}
+                nightfall={nightfall(cardId)}
                 alt={cardAlts[cardId]?.alt ?? ""}
                 priority={trackIndex === REFERENCE_INDEX}
                 // Scrolls only once the carousel is at rest on it: during the
@@ -505,6 +515,7 @@ function CurvedCard({
   slideLabel,
   slideRoleDescription,
   strip,
+  nightfall = false,
   alt,
   priority,
   live,
@@ -523,6 +534,8 @@ function CurvedCard({
   slideLabel: string;
   slideRoleDescription: string;
   strip: string;
+  /** Day cover, night strip: the strip fades in slowly, once, as dusk. */
+  nightfall?: boolean;
   alt: string;
   priority: boolean;
   live: boolean;
@@ -582,7 +595,9 @@ function CurvedCard({
       />
 
       <AnimatePresence>
-        {live && <ScrollingStrip key="strip" src={strip} cardW={cardW} cardH={cardH} />}
+        {live && (
+          <ScrollingStrip key="strip" src={strip} cardW={cardW} cardH={cardH} nightfall={nightfall} />
+        )}
       </AnimatePresence>
     </motion.div>
   );
@@ -599,16 +614,23 @@ function ScrollingStrip({
   src,
   cardW,
   cardH,
+  nightfall = false,
 }: {
   src: string;
   cardW: number;
   cardH: number;
+  nightfall?: boolean;
 }) {
   const [loaded, setLoaded] = useState(false);
   const stripH = cardW / STRIP_RATIO;
   const travel = Math.min(stripH - cardH, cardH * SCROLL_SCREENS);
+  // A night strip over the day cover: the fade in *is* the fall of night, so
+  // it is slow, and the scroll waits for it. It plays once per arrival and
+  // ends in the night — never back to day.
+  const fadeIn = nightfall ? NIGHTFALL_S : 0.25;
+  const delay = nightfall ? NIGHTFALL_S + 0.3 : SCROLL_DELAY_S;
   // Paced to finish just before the carousel turns, with the delay in front.
-  const duration = DWELL_MS / 1000 - SCROLL_DELAY_S - 0.6;
+  const duration = DWELL_MS / 1000 - delay - 0.6;
 
   return (
     <motion.div
@@ -616,7 +638,7 @@ function ScrollingStrip({
       initial={{ opacity: 0 }}
       animate={{ opacity: loaded ? 1 : 0 }}
       exit={{ opacity: 0, transition: { duration: 0.35 } }}
-      transition={{ duration: 0.25 }}
+      transition={{ duration: fadeIn, ease: "easeInOut" }}
     >
       <motion.img
         src={src}
@@ -627,7 +649,7 @@ function ScrollingStrip({
         style={{ height: stripH }}
         initial={{ y: 0 }}
         animate={loaded ? { y: -travel } : { y: 0 }}
-        transition={{ delay: SCROLL_DELAY_S, duration, ease: [0.45, 0.05, 0.35, 1] }}
+        transition={{ delay, duration, ease: [0.45, 0.05, 0.35, 1] }}
       />
     </motion.div>
   );

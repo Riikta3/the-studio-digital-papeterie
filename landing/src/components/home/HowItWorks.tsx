@@ -15,7 +15,6 @@ import Image from "next/image";
 import { useEffect, useRef } from "react";
 
 import { THEMES } from "./themes";
-import { UpcomingThemeCard } from "./UpcomingThemeCard";
 
 // Card visuals (border gradient, shadow tint) come straight from the studio
 // design tokens — Tailwind v3 has no CSS-variable escape hatch for gradient
@@ -45,17 +44,9 @@ type Step = {
  *
  * Like the two mocks below it, this is an illustration and not a control: the
  * selectable version of this lives in `Preview`, and making one card here
- * clickable would suggest the other three are too.
+ * clickable would suggest the others are too.
  */
-function UniverseMock({
-  label,
-  upcomingTitle,
-  upcomingSubtitle,
-}: {
-  label: string;
-  upcomingTitle: string;
-  upcomingSubtitle: string;
-}) {
+function UniverseMock({ label }: { label: string }) {
   return (
     <div
       style={MOCK_BORDER_STYLE}
@@ -64,14 +55,12 @@ function UniverseMock({
       <p className="mb-4 text-center font-body text-h4 text-studio-violet/70">
         {label}
       </p>
-      {/* Portrait covers, so one row of four rather than the 2×2 grid the
-          landscape swatches needed. The closing card keeps the row even —
-          three themes across four columns would leave a hole. Three themes,
-          not all of them: this pictures the step, it is not the catalogue,
-          and a second row does not fit the stacked card. */}
-      <div className="grid grid-cols-4 gap-2 md:gap-3">
-        {THEMES.slice(0, 3).map((theme, i) => (
-          <div key={theme.id} className="text-center">
+      {/* Every collection, in one row: a second row would sit under the next
+          stacked step card. On a phone the row slides sideways, a peek of the
+          fourth cover saying there is more; from md up all six fit. */}
+      <div className="-mx-5 flex snap-x snap-mandatory scroll-px-5 gap-2 overflow-x-auto px-5 pb-1 pt-1 [scrollbar-width:none] md:mx-0 md:grid md:grid-cols-6 md:gap-3 md:overflow-visible md:px-0 [&::-webkit-scrollbar]:hidden">
+        {THEMES.map((theme, i) => (
+          <div key={theme.id} className="w-[28%] shrink-0 snap-start text-center md:w-auto">
             <div
               className={cn(
                 "relative aspect-[290/540] overflow-hidden rounded-xl",
@@ -83,29 +72,15 @@ function UniverseMock({
                 src={theme.image}
                 alt={theme.name}
                 fill
-                sizes="(min-width: 1024px) 120px, 80px"
+                sizes="(min-width: 1024px) 80px, 100px"
                 className="object-cover"
               />
             </div>
-            <p className="mt-2 truncate font-body text-[11px] text-studio-violet/70">
+            <p className="mt-2 font-body text-[11px] leading-tight text-studio-violet/70">
               {theme.name}
             </p>
           </div>
         ))}
-        <div className="text-center">
-          <div className="relative aspect-[290/540]">
-            <UpcomingThemeCard
-              compact
-              title={upcomingTitle}
-              subtitle={upcomingSubtitle}
-            />
-          </div>
-          {/* Spacer, not a label: holds this card's artwork level with the
-              themed ones, whose names sit on this line. */}
-          <p aria-hidden="true" className="mt-2 font-body text-[11px]">
-            &nbsp;
-          </p>
-        </div>
       </div>
     </div>
   );
@@ -454,8 +429,6 @@ export function HowItWorks() {
     <UniverseMock
       key="universe"
       label={t("universeMockLabel")}
-      upcomingTitle={t("upcomingTitle")}
-      upcomingSubtitle={t("upcomingSubtitle")}
     />,
     <PersonalizeMock
       key="personalize"
