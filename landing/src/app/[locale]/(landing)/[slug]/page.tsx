@@ -226,8 +226,10 @@ export default async function LandingPage({
                   below still carries both states for wider screens. */}
               <div className="mt-6 flex flex-col gap-4 md:hidden">
                 {plans.map((plan) => {
+                  // A row holds "inc", "no", or a sentence of its own ("4
+                  // modules, puis +5€ l’unité"); only "no" stays off the list.
                   const included = compareRows.filter(
-                    (row) => row[plan.id] === "inc",
+                    (row) => row[plan.id] !== "no",
                   );
                   return (
                     <div
@@ -244,7 +246,9 @@ export default async function LandingPage({
                               key={row.key}
                               className="font-body text-sm text-studio-violet/70"
                             >
-                              {row.label}
+                              {row[plan.id] === "inc"
+                                ? row.label
+                                : `${row.label} — ${row[plan.id]}`}
                             </li>
                           ))}
                         </ul>
@@ -300,14 +304,21 @@ export default async function LandingPage({
                             {/* The glyph is decorative; the sr-only text is
                                 what a screen reader announces, so a row is
                                 not read as a line of bare symbols. */}
-                            <span aria-hidden="true">
-                              {row[plan.id] === "inc" ? "●" : "—"}
-                            </span>
-                            <span className="sr-only">
-                              {row[plan.id] === "inc"
-                                ? tPricing("compareIncluded")
-                                : tPricing("compareExcluded")}
-                            </span>
+                            {row[plan.id] === "inc" || row[plan.id] === "no" ? (
+                              <>
+                                <span aria-hidden="true">
+                                  {row[plan.id] === "inc" ? "●" : "—"}
+                                </span>
+                                <span className="sr-only">
+                                  {row[plan.id] === "inc"
+                                    ? tPricing("compareIncluded")
+                                    : tPricing("compareExcluded")}
+                                </span>
+                              </>
+                            ) : (
+                              // A sentence of its own, e.g. the modules allowance.
+                              row[plan.id]
+                            )}
                           </td>
                         ))}
                       </tr>
