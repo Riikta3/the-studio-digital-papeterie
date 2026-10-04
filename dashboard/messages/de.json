@@ -1042,7 +1042,10 @@
     "save_failed": "Die Einstellungen konnten nicht gespeichert werden.",
     "settings_saved": "Einstellungen gespeichert",
     "not_included_title": "Modul „Finde deinen Platz“ nicht enthalten",
-    "not_included_body": "Euer Paket enthält die Hochzeitstag-Seite (Tisch per QR-Code finden) nicht. Kontaktiert uns, um sie hinzuzufügen."
+    "not_included_body": "Euer Paket enthält die Hochzeitstag-Seite (Tisch per QR-Code finden) nicht. Fügt das Modul hinzu, um sie zu aktivieren.",
+    "add_cta": "Modul hinzufügen · {price}",
+    "add_free_cta": "Modul hinzufügen (in eurem Paket enthalten)",
+    "unlocked": "Modul hinzugefügt: Ihr könnt die Hochzeitstag-Seite jetzt aktivieren."
   },
   "DayOfPhotos": {
     "title": "Fotos & Videos",

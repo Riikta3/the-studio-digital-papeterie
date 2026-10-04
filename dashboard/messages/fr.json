@@ -1042,7 +1042,10 @@
     "save_failed": "Erreur lors de l’enregistrement.",
     "settings_saved": "Réglages enregistrés",
     "not_included_title": "Module « Trouve ta place » non inclus",
-    "not_included_body": "Votre formule ne comprend pas la page Jour J (trouver sa table grâce à un QR code). Contactez-nous pour l’ajouter."
+    "not_included_body": "Votre formule ne comprend pas la page Jour J (trouver sa table grâce à un QR code). Ajoutez le module pour l’activer.",
+    "add_cta": "Ajouter le module · {price}",
+    "add_free_cta": "Ajouter le module (inclus dans votre formule)",
+    "unlocked": "Module ajouté : vous pouvez activer le Jour J."
   },
   "DayOfPhotos": {
     "title": "Photos & vidéos",

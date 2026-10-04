@@ -4,6 +4,7 @@ import { requireWedding } from "@/lib/db/current-wedding";
 import { revalidatePath } from "next/cache";
 import type { ActionResult } from "@/types";
 import { dayOfIncluded } from "@shared/lib/day-of-access";
+import { addOnQuote, countedModules } from "@shared/lib/pricing";
 import type { DayOfSettings } from "@shared/types/jour-j";
 
 /**
@@ -100,6 +101,21 @@ export async function getDayOfSettings(): Promise<DayOfSettings> {
 export async function getDayOfIncluded(): Promise<boolean> {
   const { supabase, weddingId } = await requireWedding();
   return loadDayOfIncluded(supabase, weddingId);
+}
+
+/**
+ * Whether adding « Trouve ta place » would cost nothing: Signature with one
+ * of its four modules still free. Only read when it is not included already.
+ */
+export async function getDayOfAddIsFree(): Promise<boolean> {
+  const { supabase, weddingId } = await requireWedding();
+  const { data: site, error } = await supabase
+    .from("sites")
+    .select("plan_id, modules")
+    .eq("wedding_id", weddingId)
+    .maybeSingle();
+  if (error) throw new Error(error.message);
+  return addOnQuote(site?.plan_id, countedModules((site?.modules as string[] | null) ?? []), 1).billable === 0;
 }
 
 async function loadDayOfIncluded(

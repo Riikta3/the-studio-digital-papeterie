@@ -1042,7 +1042,10 @@
     "save_failed": "无法保存设置。",
     "settings_saved": "设置已保存",
     "not_included_title": "未包含“找到你的座位”模块",
-    "not_included_body": "你们的套餐不包含婚礼当天页面（扫描二维码查找座位）。请联系我们添加。"
+    "not_included_body": "你们的套餐不包含婚礼当天页面（扫描二维码查找座位）。添加该模块即可启用。",
+    "add_cta": "添加模块 · {price}",
+    "add_free_cta": "添加模块（已包含在你们的套餐中）",
+    "unlocked": "模块已添加：现在可以启用婚礼当天页面。"
   },
   "DayOfPhotos": {
     "title": "照片和视频",

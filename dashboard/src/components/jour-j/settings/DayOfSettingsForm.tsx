@@ -2,6 +2,7 @@
 
 import { updateDayOfSettings } from "@/actions/day-of-settings-actions";
 import type { DayOfSettings } from "@shared/types/jour-j";
+import { DayOfPurchase } from "./DayOfPurchase";
 import { useTranslations } from "next-intl";
 import { useState } from "react";
 import { toast } from "sonner";
@@ -68,10 +69,13 @@ function Toggle({
 export function DayOfSettingsForm({
   initialSettings,
   included,
+  addIsFree,
 }: {
   initialSettings: DayOfSettings;
   /** Whether the plan includes « Trouve ta place » (`dayOfIncluded`). */
   included: boolean;
+  /** Signature with a free slot left: adding the module costs nothing. */
+  addIsFree: boolean;
 }) {
   const t = useTranslations("DayOfSettings");
   const [settings, setSettings] = useState(initialSettings);
@@ -118,6 +122,7 @@ export function DayOfSettingsForm({
             <div className='border-b border-studio-lavande/30 py-3'>
               <p className='text-sm font-medium text-studio-violet'>{t("not_included_title")}</p>
               <p className='mt-0.5 text-xs text-studio-violet/60'>{t("not_included_body")}</p>
+              <DayOfPurchase free={addIsFree} />
             </div>
           )}
           {/* Sharing and browsing are two separate permissions — §21. */}

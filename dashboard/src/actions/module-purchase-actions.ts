@@ -1,6 +1,6 @@
 "use server";
 
-import { getModuleName } from "@shared/data/modules";
+import { DAY_OF_MODULE, getModuleName } from "@shared/data/modules";
 import { knownModuleIds, splitUnpaid } from "@shared/lib/addable-modules";
 import {
   type AddOnOrder,
@@ -9,7 +9,8 @@ import {
   isReusableIntent,
   isUnsettledAddOn,
 } from "@shared/lib/module-addon";
-import { EXTRA_MODULE_PRICE } from "@shared/lib/pricing";
+import { dayOfIncluded } from "@shared/lib/day-of-access";
+import { EXTRA_MODULE_PRICE, addOnQuote, countedModules } from "@shared/lib/pricing";
 import { getTranslations } from "next-intl/server";
 
 import type { ModuleLists } from "@/components/editor/types";
@@ -220,5 +221,110 @@ export async function removePendingModule(
   } catch (error) {
     console.error("[MODULE_REMOVE_PENDING]", error);
     return { ok: false };
+  }
+}
+
+export type DayOfPaymentStart =
+  | { ok: true; kind: "pay"; clientSecret: string; amountCents: number }
+  | { ok: true; kind: "granted" }
+  | { ok: true; kind: "confirming" }
+  | { ok: false; error: string };
+
+/**
+ * Buys « Trouve ta place » from the Jour J screen: granted at once when the
+ * plan includes it or Signature still has a free slot, otherwise a 5 € add-on
+ * intent for that module alone. It never goes through `pending_modules`, which
+ * the editor reads: an abandoned Jour J payment must not show up there.
+ *
+ * Paid like any add-on, so `completeModulePayment` and the landing's webhook
+ * grant it the same way.
+ */
+export async function startDayOfPayment(locale: string): Promise<DayOfPaymentStart> {
+  try {
+    const { supabase, user, weddingId, site } = await coupleSite();
+    const owned = (site.modules as string[] | null) ?? [];
+    const { data: siteRow } = await supabase
+      .from("sites")
+      .select("plan_id, modules, created_at")
+      .eq("id", site.id)
+      .single();
+    if (dayOfIncluded(siteRow ?? null, false)) {
+      if (!owned.includes(DAY_OF_MODULE)) await grant(site.id, [DAY_OF_MODULE]);
+      return { ok: true, kind: "granted" };
+    }
+
+    // `grant_modules` skips ids missing from the registry: until migration
+    // 20261004200000 has run, refuse rather than take 5 € for nothing.
+    const { data: registered } = await supabase
+      .from("modules")
+      .select("id")
+      .eq("id", DAY_OF_MODULE)
+      .maybeSingle();
+    if (!registered) return { ok: false, error: "unavailable" };
+
+    if (addOnQuote(site.plan_id, countedModules(owned), 1).billable === 0) {
+      await grant(site.id, [DAY_OF_MODULE]);
+      return { ok: true, kind: "granted" };
+    }
+
+    const email = user.email?.trim();
+    if (!email) return { ok: false, error: "no-email" };
+
+    const [{ data: profile }, t] = await Promise.all([
+      supabase.from("profiles").select("first_name, last_name, partner_name").eq("id", user.id).maybeSingle(),
+      getTranslations({ locale: "fr", namespace: "Modules" }),
+    ]);
+
+    const unitPriceCents = toCents(EXTRA_MODULE_PRICE);
+    const order: AddOnOrder = {
+      weddingId,
+      siteId: site.id,
+      userId: user.id,
+      modules: [DAY_OF_MODULE],
+      unitPriceCents,
+      amountCents: unitPriceCents,
+      planId: site.plan_id ?? "",
+      email,
+      firstName: profile?.first_name ?? undefined,
+      lastName: profile?.last_name ?? undefined,
+      partnerName: profile?.partner_name ?? undefined,
+      locale,
+    };
+
+    const customer = await customerFor(email);
+    const recent = await stripe.paymentIntents.list({ customer, limit: 20 });
+
+    // Paid but not granted yet (the tab closed before the fast path): grant now.
+    const unsettled = recent.data.find(
+      (candidate) =>
+        isUnsettledAddOn(candidate, { siteId: site.id, owned }) &&
+        candidate.metadata?.modules === DAY_OF_MODULE,
+    );
+    if (unsettled?.status === "processing") return { ok: true, kind: "confirming" };
+    if (unsettled) {
+      const check = checkAddOnIntent(unsettled, { siteId: site.id });
+      if (check.ok) {
+        await grant(site.id, check.order.modules, unsettled.id, check.order.unitPriceCents);
+        return { ok: true, kind: "granted" };
+      }
+    }
+
+    const intent =
+      recent.data.find((candidate) => isReusableIntent(candidate, order)) ??
+      (await stripe.paymentIntents.create({
+        amount: order.amountCents,
+        currency: "eur",
+        customer,
+        receipt_email: email,
+        automatic_payment_methods: { enabled: true },
+        description: `Module supplémentaire : ${getModuleName(t, DAY_OF_MODULE)}`,
+        metadata: buildAddOnMetadata(order),
+      }));
+
+    if (!intent.client_secret) throw new Error(`No client secret on ${intent.id}`);
+    return { ok: true, kind: "pay", clientSecret: intent.client_secret, amountCents: order.amountCents };
+  } catch (error) {
+    console.error("[DAY_OF_PAYMENT_START]", error);
+    return { ok: false, error: "unavailable" };
   }
 }

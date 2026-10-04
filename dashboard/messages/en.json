@@ -1042,7 +1042,10 @@
     "save_failed": "Couldn't save the settings.",
     "settings_saved": "Settings saved",
     "not_included_title": "“Find your seat” module not included",
-    "not_included_body": "Your plan does not include the Wedding Day page (finding your table with a QR code). Contact us to add it."
+    "not_included_body": "Your plan does not include the Wedding Day page (finding your table with a QR code). Add the module to turn it on.",
+    "add_cta": "Add the module · {price}",
+    "add_free_cta": "Add the module (included in your plan)",
+    "unlocked": "Module added: you can now turn on the Wedding Day page."
   },
   "DayOfPhotos": {
     "title": "Photos & videos",

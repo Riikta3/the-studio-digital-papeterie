@@ -1042,7 +1042,10 @@
     "save_failed": "Impossibile salvare le impostazioni.",
     "settings_saved": "Impostazioni salvate",
     "not_included_title": "Modulo «Trova il tuo posto» non incluso",
-    "not_included_body": "Il vostro pacchetto non include la pagina del Giorno del sì (trovare il tavolo con un QR code). Contattateci per aggiungerla."
+    "not_included_body": "Il vostro pacchetto non include la pagina del Giorno del sì (trovare il tavolo con un QR code). Aggiungete il modulo per attivarla.",
+    "add_cta": "Aggiungi il modulo · {price}",
+    "add_free_cta": "Aggiungi il modulo (incluso nel vostro pacchetto)",
+    "unlocked": "Modulo aggiunto: ora potete attivare il Giorno del sì."
   },
   "DayOfPhotos": {
     "title": "Foto e video",

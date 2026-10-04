@@ -1042,7 +1042,10 @@
     "save_failed": "Não foi possível guardar as definições.",
     "settings_saved": "Definições guardadas",
     "not_included_title": "Módulo «Encontra o teu lugar» não incluído",
-    "not_included_body": "O seu plano não inclui a página do Dia D (encontrar a mesa com um QR code). Contacte-nos para a adicionar."
+    "not_included_body": "O seu plano não inclui a página do Dia D (encontrar a mesa com um QR code). Adicione o módulo para a ativar.",
+    "add_cta": "Adicionar o módulo · {price}",
+    "add_free_cta": "Adicionar o módulo (incluído no seu plano)",
+    "unlocked": "Módulo adicionado: já pode ativar o Dia D."
   },
   "DayOfPhotos": {
     "title": "Fotos e vídeos",
