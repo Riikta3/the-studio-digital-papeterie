@@ -1279,6 +1279,23 @@
         "archFooter": "ESTATE  ·  AMORE  ·  DOLCE VITA",
         "timelineFooter": "LIMONI · AMORE · ESTATE",
         "playlistTag": "♪  MUSICA ITALIANA  ♪"
+      },
+      "guestbook": {
+        "eyebrow": "Uma palavra para nós",
+        "titleLine1": "Deixe-nos",
+        "titleLine2": "uma mensagem",
+        "intro": "Uma recordação, um desejo, um conselho: algumas linhas para reler muito depois da festa. Só nós as vamos ler.",
+        "nameLabel": "O seu nome",
+        "namePlaceholder": "Nome",
+        "messageLabel": "A sua mensagem",
+        "messagePlaceholder": "Uma recordação, um desejo, um conselho…",
+        "counter": "{count} / {max}",
+        "submit": "Enviar a minha mensagem",
+        "submitPending": "A enviar…",
+        "thanksTitle": "Grazie!",
+        "thanksTitleNamed": "Grazie, {name}!",
+        "thanksBody": "A sua mensagem chegou. Vamos guardá-la com carinho.",
+        "another": "Escrever outra mensagem"
       }
     },
     "belleRive": {
@@ -1523,6 +1540,20 @@
         "eyebrow": "Lista de presentes",
         "titleFallback": "A vossa presença é o nosso maior presente",
         "linkFallback": "Participar"
+      },
+      "guestbook": {
+        "eyebrow": "Livro de honra",
+        "intro": "Uma memória, um desejo, algumas palavras: só os noivos as vão ler.",
+        "nameLabel": "O seu nome",
+        "messageLabel": "A sua mensagem",
+        "count": "{count} / {max}",
+        "submit": "Enviar a minha mensagem",
+        "pending": "A enviar…",
+        "thanks": "Obrigado, {name}!",
+        "again": "Escrever outra mensagem",
+        "titleLine1": "Uma palavra",
+        "titleLine2": "para os noivos",
+        "thanksBody": "A sua mensagem foi selada e entregue aos noivos."
       }
     },
     "mareAlta": {
@@ -1694,6 +1725,33 @@
         "venue": "O local",
         "programme": "O programa",
         "rsvp": "Responder"
+      },
+      "guestbook": {
+        "eyebrow": "Palavras para guardar para sempre",
+        "titleLine1": "O frasco das palavras",
+        "titleLine2": "que fazem bem",
+        "intro": "Deixe uma mensagem que os noivos poderão abrir ao longo dos anos, para rir, recordar e celebrar tudo o que os une.",
+        "tag": "O seu papel para o frasco",
+        "prompt1": "Deixe-lhes uma palavra para reler quando o dia a dia correr depressa demais.",
+        "prompt2": "Para abrir depois de um desentendimento: o que devem lembrar sempre?",
+        "prompt3": "Lembre-lhes o que os torna mais fortes juntos.",
+        "prompt4": "Escreva-lhes umas palavras para um dia em que precisem de ânimo.",
+        "prompt5": "Que recordação do seu amor devem guardar com carinho?",
+        "prompt6": "Que conselho lhes daria para saberem sempre reencontrar-se?",
+        "anotherPrompt": "Outra pergunta",
+        "messageLabel": "A sua mensagem",
+        "messagePlaceholder": "Escreva aqui a sua mensagem…",
+        "counter": "{count} / {max}",
+        "nameLabel": "O seu nome",
+        "namePlaceholder": "Assine a sua mensagem",
+        "send": "Pôr no frasco",
+        "sending": "A enviar…",
+        "jarAlt": "Frasco bordado com pérolas, cheio de bilhetinhos para os noivos",
+        "thanksEyebrow": "No frasco",
+        "thanksTitle": "Obrigado!",
+        "thanksTitleNamed": "Obrigado, {name}!",
+        "thanksBody": "A sua mensagem já está no frasco. Os noivos vão lê-la e relê-la.",
+        "another": "Escrever outra mensagem"
       }
     },
     "caboVerde": {
@@ -1828,6 +1886,21 @@
         "eyebrow": "Lista de presentes",
         "titleFallback": "A vossa presença é o nosso maior presente",
         "linkFallback": "Participar"
+      },
+      "guestbook": {
+        "eyebrow": "Livro de honra",
+        "intro": "Uma memória, um desejo, algumas palavras: só os noivos as vão ler.",
+        "nameLabel": "O seu nome",
+        "messageLabel": "A sua mensagem",
+        "count": "{count} / {max}",
+        "submit": "Enviar a minha mensagem",
+        "pending": "A enviar…",
+        "thanks": "Obrigado, {name}!",
+        "again": "Escrever outra mensagem",
+        "titleLine1": "Um postal",
+        "titleLine2": "para os noivos",
+        "thanksBody": "O seu postal já seguiu: os noivos vão lê-lo.",
+        "messagePlaceholder": "Escreva-lhes algumas palavras…"
       }
     },
     "music": {

@@ -923,7 +923,9 @@
     "confirm_description": "{name}のメッセージは完全に削除されます。この操作は元に戻せません。",
     "cancel": "キャンセル",
     "deleting": "削除中...",
-    "delete": "削除"
+    "delete": "削除",
+    "delete_label": "{name}さんのメッセージを削除",
+    "confirm_description_guestbook": "{name}さんのメッセージはゲストブックから完全に削除されます。この操作は取り消せません。"
   },
   "SendMagicLinkMenuItem": {
     "toast_no_email": "{name}のメールアドレスがありません",
@@ -940,7 +942,16 @@
     "title": "メッセージ",
     "description": "ゲストから届いたメッセージ。",
     "no_messages": "まだメッセージはありません。",
-    "message_count": "{count}件のメッセージ"
+    "message_count": "{count}件のメッセージ",
+    "guestbook_title": "ゲストブック",
+    "guestbook_description": "招待状のゲストブックに残された言葉です。読めるのはおふたりだけです。",
+    "guestbook_empty": "ゲストが招待状からメッセージを書くと、ここに表示されます。",
+    "guestbook_not_owned": "招待状にゲストブックがありません。追加すると、ゲストがおふたりにメッセージを残せます。読めるのはおふたりだけ、ここで読めます。",
+    "guestbook_pending": "ゲストブックは招待状に追加されていますが、まだお支払いが済んでいません。お支払い後にゲストへ公開され、メッセージがここに表示されます。",
+    "guestbook_add": "ゲストブックを追加",
+    "guestbook_open_editor": "エディターを開く",
+    "rsvp_title": "出欠の回答に添えられたメッセージ",
+    "rsvp_description": "ゲストが招待状に回答する際に残した言葉です。"
   },
   "DashboardLayout": {
     "initializing": "スペースを準備しています..."
@@ -1559,7 +1570,7 @@
       },
       "guestbook": {
         "label": "ゲストブック",
-        "description": "ゲストブックに添える言葉。"
+        "description": "ゲストがおふたりにメッセージを書くフォームの上に表示されるタイトルとあいさつ文です。メッセージは「メッセージ」に届きます。"
       },
       "video-guestbook": {
         "label": "ビデオゲストブック",
@@ -1762,7 +1773,7 @@
       "childrenQuestion": "この質問はよくある質問に自動で追加され、「お子さま歓迎」の設定と連動するため、フォームと食い違うことはありません。",
       "legacy": "これらの質問に加えて、{count, plural, other {以前のよくある質問モジュールで作成した#件の質問}}が、まだ招待状に表示されています。",
       "playlistModeration": "ゲストからリクエストされた曲を承認または却下できます。",
-      "guestbookNotLive": "ゲストブックはまだゲストに公開されていません。テキストは保存されており、公開時に表示されます。"
+      "videoGuestbookNotLive": "ビデオゲストブックはまだゲストに公開されていません。テキストは保存されており、公開時に一緒に表示されます。"
     },
     "eventKinds": {
       "welcome-dinner": "ウェルカムディナー",

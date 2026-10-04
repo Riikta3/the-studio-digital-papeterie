@@ -923,7 +923,9 @@
     "confirm_description": "{name}'s message will be permanently deleted. This action is irreversible.",
     "cancel": "Cancel",
     "deleting": "Deleting...",
-    "delete": "Delete"
+    "delete": "Delete",
+    "delete_label": "Delete {name}’s message",
+    "confirm_description_guestbook": "{name}’s note will be permanently deleted from the guestbook. This action is irreversible."
   },
   "SendMagicLinkMenuItem": {
     "toast_no_email": "No email for {name}",
@@ -940,7 +942,16 @@
     "title": "Messages",
     "description": "The words your guests have left you.",
     "no_messages": "No messages yet.",
-    "message_count": "{count} message(s)"
+    "message_count": "{count} message(s)",
+    "guestbook_title": "Guestbook",
+    "guestbook_description": "The words left in your invitation’s guestbook. Only you can read them.",
+    "guestbook_empty": "Your guests’ words will appear here as soon as they write to you from your invitation.",
+    "guestbook_not_owned": "The guestbook isn’t on your invitation. Add it so your guests can leave you a note: only you will read it, here.",
+    "guestbook_pending": "The guestbook is added to your invitation but not paid for yet. It will open to your guests once paid, and their words will appear here.",
+    "guestbook_add": "Add the guestbook",
+    "guestbook_open_editor": "Open the editor",
+    "rsvp_title": "With RSVP answers",
+    "rsvp_description": "The words your guests left when answering the invitation."
   },
   "DashboardLayout": {
     "initializing": "Setting up your space..."
@@ -1559,7 +1570,7 @@
       },
       "guestbook": {
         "label": "Guestbook",
-        "description": "The words that will go with your guestbook."
+        "description": "The title and welcome words above the form where your guests write to you. Their messages arrive in Messages."
       },
       "video-guestbook": {
         "label": "Video guestbook",
@@ -1762,7 +1773,7 @@
       "childrenQuestion": "This question is added to your FAQ automatically and follows your \"Children welcome\" setting, so it never contradicts the form.",
       "legacy": "{count, plural, one {# question written in the old FAQ module still appears} other {# questions written in the old FAQ module still appear}} on your invitation, in addition to these.",
       "playlistModeration": "Approve or decline the songs your guests suggest.",
-      "guestbookNotLive": "The guestbook isn't open to your guests yet. Your text is saved and will go with it when it launches."
+      "videoGuestbookNotLive": "The video guestbook isn’t open to your guests yet. Your text is saved and will go with it when it launches."
     },
     "eventKinds": {
       "welcome-dinner": "Welcome dinner",

@@ -923,7 +923,9 @@
     "confirm_description": "{name} 的留言将被永久删除，此操作无法撤销。",
     "cancel": "取消",
     "deleting": "删除中...",
-    "delete": "删除"
+    "delete": "删除",
+    "delete_label": "删除 {name} 的留言",
+    "confirm_description_guestbook": "{name} 的留言将从留言簿中永久删除。此操作无法撤销。"
   },
   "SendMagicLinkMenuItem": {
     "toast_no_email": "{name} 没有邮箱地址",
@@ -940,7 +942,16 @@
     "title": "留言",
     "description": "宾客留给您的话语。",
     "no_messages": "暂无留言。",
-    "message_count": "{count} 条留言"
+    "message_count": "{count} 条留言",
+    "guestbook_title": "留言簿",
+    "guestbook_description": "宾客在你们请柬留言簿中留下的话。只有你们能看到。",
+    "guestbook_empty": "宾客通过请柬给你们留言后，他们的话会显示在这里。",
+    "guestbook_not_owned": "你们的请柬中还没有留言簿。添加后，宾客就能给你们留言：只有你们能在这里看到。",
+    "guestbook_pending": "留言簿已添加到请柬中，但尚未付款。付款后将向宾客开放，他们的留言会显示在这里。",
+    "guestbook_add": "添加留言簿",
+    "guestbook_open_editor": "打开编辑器",
+    "rsvp_title": "随 RSVP 回复留下的",
+    "rsvp_description": "宾客回复邀请时留下的话。"
   },
   "DashboardLayout": {
     "initializing": "正在初始化您的空间..."
@@ -1559,7 +1570,7 @@
       },
       "guestbook": {
         "label": "留言簿",
-        "description": "留言簿的配套文字。"
+        "description": "宾客给你们写留言的表单上方的标题和欢迎语。他们的留言会出现在“消息”中。"
       },
       "video-guestbook": {
         "label": "视频留言簿",
@@ -1762,7 +1773,7 @@
       "childrenQuestion": "此问题会自动加入你们的常见问题，并随“欢迎携带儿童”设置同步，确保与表单始终一致。",
       "legacy": "除了这些问题之外，{count, plural, other {旧版常见问题模块中的 # 个问题}}仍会显示在你们的请柬上。",
       "playlistModeration": "通过或拒绝宾客推荐的歌曲。",
-      "guestbookNotLive": "留言簿尚未向宾客开放。你们的文字已保存，开放时将一并呈现。"
+      "videoGuestbookNotLive": "视频留言簿尚未向宾客开放。你们的文字已保存，将在其上线时一并显示。"
     },
     "eventKinds": {
       "welcome-dinner": "欢迎晚宴",

@@ -171,6 +171,8 @@ export type ModuleContent = {
   menu: { sections: MenuSectionConfig[]; dietaryNote?: string; footer: string[] };
   faq: { title?: string; subtitle?: string; description?: string; questions: FaqConfig[] };
   gallery: { images: string[] };
+  /** The guestbook's heading and welcome words, from the editor's tab. */
+  guestbook: { title?: string; description?: string };
   /**
    * How the RSVP form is laid out, from the editor's RSVP tab.
    *
@@ -216,6 +218,7 @@ const EMPTY: ModuleContent = {
   menu: { sections: [], footer: [] },
   faq: { questions: [] },
   gallery: { images: [] },
+  guestbook: {},
   rsvp: {},
 };
 
@@ -396,7 +399,14 @@ export function readModuleConfigs(rows: ModuleConfigRow[]): ModuleContent {
         };
         break;
 
-      // `countdown`, `guestbook` and `video-guestbook` have no config screen;
+      case "guestbook":
+        content.guestbook = {
+          title: str(config.title),
+          description: str(config.description),
+        };
+        break;
+
+      // `countdown` and `video-guestbook` have nothing a theme draws from here;
       // an unknown id is a module added since this was written.
       default:
         break;

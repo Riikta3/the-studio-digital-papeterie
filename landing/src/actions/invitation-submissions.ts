@@ -237,3 +237,52 @@ export async function submitPlaylistSuggestions(
 
   return { ok: true };
 }
+
+/* ------------------------------------------------------------------ *
+ * Guestbook
+ * ------------------------------------------------------------------ */
+
+export type GuestbookSubmission = {
+  weddingId: string;
+  guestName: string;
+  message: string;
+};
+
+/**
+ * One guest's message to the couple (`guestbook_messages`). Private: only the
+ * couple reads it, in the dashboard. Line breaks are kept — a message is
+ * written like a card — but runs of blank lines are folded.
+ */
+export async function submitGuestbookMessage(input: GuestbookSubmission): Promise<SubmissionResult> {
+  if (!isValidWeddingId(input?.weddingId)) {
+    return { ok: false, error: GENERIC_ERROR };
+  }
+
+  const guestName = clean(input.guestName, LIMITS.name);
+  const message =
+    typeof input.message === "string"
+      ? input.message
+          .replace(/\r\n?/g, "\n")
+          .replace(/[^\S\n]+/g, " ")
+          .replace(/\n{3,}/g, "\n\n")
+          .trim()
+          .slice(0, LIMITS.message)
+      : "";
+
+  if (!guestName) return { ok: false, error: "Merci d'indiquer votre prénom." };
+  if (!message) return { ok: false, error: "Merci d'écrire un message." };
+
+  const supabase = await createClient();
+  const { error } = await supabase.from("guestbook_messages").insert({
+    wedding_id: input.weddingId,
+    guest_name: guestName,
+    message,
+  });
+
+  if (error) {
+    console.error("[guestbook] insert failed", error.code, error.message);
+    return { ok: false, error: GENERIC_ERROR };
+  }
+
+  return { ok: true };
+}

@@ -923,7 +923,9 @@
     "confirm_description": "Le message de {name} sera définitivement supprimé. Cette action est irréversible.",
     "cancel": "Annuler",
     "deleting": "Suppression...",
-    "delete": "Supprimer"
+    "delete": "Supprimer",
+    "delete_label": "Supprimer le message de {name}",
+    "confirm_description_guestbook": "Le mot de {name} sera définitivement supprimé du livre d’or. Cette action est irréversible."
   },
   "SendMagicLinkMenuItem": {
     "toast_no_email": "Aucun email pour {name}",
@@ -940,7 +942,16 @@
     "title": "Messages",
     "description": "Les mots que vos invités vous ont laissés.",
     "no_messages": "Aucun message pour le moment.",
-    "message_count": "{count} message(s)"
+    "message_count": "{count} message(s)",
+    "guestbook_title": "Livre d’or",
+    "guestbook_description": "Les mots laissés dans le livre d’or de votre faire-part. Vous seuls les lisez.",
+    "guestbook_empty": "Les mots de vos invités apparaîtront ici dès qu’ils vous écriront depuis votre faire-part.",
+    "guestbook_not_owned": "Le livre d’or n’est pas sur votre faire-part. Ajoutez-le pour que vos invités puissent vous laisser un mot : vous seuls le lirez, ici.",
+    "guestbook_pending": "Le livre d’or est ajouté à votre faire-part mais pas encore réglé. Il s’ouvrira à vos invités une fois réglé, et leurs mots apparaîtront ici.",
+    "guestbook_add": "Ajouter le livre d’or",
+    "guestbook_open_editor": "Ouvrir l’éditeur",
+    "rsvp_title": "Avec les réponses RSVP",
+    "rsvp_description": "Les mots laissés par vos invités en répondant à l’invitation."
   },
   "DashboardLayout": {
     "initializing": "Initialisation de votre espace..."
@@ -1559,7 +1570,7 @@
       },
       "guestbook": {
         "label": "Livre d’or",
-        "description": "Les mots qui accompagneront votre livre d’or."
+        "description": "Le titre et le mot d’accueil au-dessus du formulaire où vos invités vous écrivent. Leurs messages arrivent dans Messages."
       },
       "video-guestbook": {
         "label": "Livre d’or vidéo",
@@ -1762,7 +1773,7 @@
       "childrenQuestion": "Cette question s’ajoute d’elle-même à votre FAQ et suit votre réglage « Enfants acceptés », pour ne jamais contredire le formulaire.",
       "legacy": "{count, plural, one {# question écrite dans l’ancien module FAQ apparaît} other {# questions écrites dans l’ancien module FAQ apparaissent}} encore sur votre faire-part, en plus de celles-ci.",
       "playlistModeration": "Validez ou refusez les titres proposés par vos invités.",
-      "guestbookNotLive": "Le livre d’or n’est pas encore ouvert à vos invités. Vos textes sont enregistrés et l’accompagneront à son lancement."
+      "videoGuestbookNotLive": "Le livre d’or vidéo n’est pas encore ouvert à vos invités. Vos textes sont enregistrés et l’accompagneront à son lancement."
     },
     "eventKinds": {
       "welcome-dinner": "Dîner de bienvenue",

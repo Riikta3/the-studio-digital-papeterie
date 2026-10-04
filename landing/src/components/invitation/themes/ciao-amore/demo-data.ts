@@ -189,5 +189,6 @@ export const CIAO_AMORE_DEMO: InvitationData = {
     "playlist",
     "faq",
     "rsvp",
+    "guestbook",
   ],
 };

@@ -1279,6 +1279,23 @@
         "archFooter": "ESTATE  ·  AMORE  ·  DOLCE VITA",
         "timelineFooter": "LIMONI · AMORE · ESTATE",
         "playlistTag": "♪  MUSICA ITALIANA  ♪"
+      },
+      "guestbook": {
+        "eyebrow": "كلمة لنا",
+        "titleLine1": "اترك لنا",
+        "titleLine2": "كلمة صغيرة",
+        "intro": "ذكرى، أمنية، نصيحة: بضعة أسطر نعيد قراءتها بعد الحفل بزمن طويل. لن يقرأها أحد سوانا.",
+        "nameLabel": "اسمك",
+        "namePlaceholder": "الاسم",
+        "messageLabel": "رسالتك",
+        "messagePlaceholder": "ذكرى، أمنية، نصيحة…",
+        "counter": "{count} / {max}",
+        "submit": "أرسل كلمتي",
+        "submitPending": "جارٍ الإرسال…",
+        "thanksTitle": "Grazie!",
+        "thanksTitleNamed": "Grazie، {name}!",
+        "thanksBody": "وصلت كلمتك. سنحتفظ بها بكل حب.",
+        "another": "اكتب كلمة أخرى"
       }
     },
     "belleRive": {
@@ -1523,6 +1540,20 @@
         "eyebrow": "قائمة الهدايا",
         "titleFallback": "حضوركم هو أجمل هدية لنا",
         "linkFallback": "المساهمة"
+      },
+      "guestbook": {
+        "eyebrow": "سجل الضيوف",
+        "intro": "ذكرى، أمنية، بضع كلمات: لن يقرأها سوى العروسين.",
+        "nameLabel": "اسمك الأول",
+        "messageLabel": "رسالتك",
+        "count": "{count} / {max}",
+        "submit": "أرسل كلمتي",
+        "pending": "جارٍ الإرسال…",
+        "thanks": "شكرًا، {name}!",
+        "again": "اكتب كلمة أخرى",
+        "titleLine1": "كلمة",
+        "titleLine2": "للعروسين",
+        "thanksBody": "خُتمت كلمتك وسُلّمت إلى العروسين."
       }
     },
     "mareAlta": {
@@ -1694,6 +1725,33 @@
         "venue": "المكان",
         "programme": "البرنامج",
         "rsvp": "الرد"
+      },
+      "guestbook": {
+        "eyebrow": "كلمات تبقى إلى الأبد",
+        "titleLine1": "جرّة الكلمات",
+        "titleLine2": "التي تُسعد القلب",
+        "intro": "اترك رسالة يفتحها العروسان على مرّ السنين، ليضحكا ويتذكّرا ويحتفيا بكل ما يجمعهما.",
+        "tag": "ورقتك لتضعها في الجرّة",
+        "prompt1": "اكتب لهما كلمة يعيدان قراءتها حين تمضي الأيام بسرعة.",
+        "prompt2": "تُفتح بعد خلاف: ما الذي عليهما أن يتذكّراه دائمًا؟",
+        "prompt3": "ذكّرهما بما يجعلهما أقوى معًا.",
+        "prompt4": "اكتب لهما بضع كلمات ليوم يحتاجان فيه إلى دفعة.",
+        "prompt5": "أيّ ذكرى من حبّهما عليهما أن يحتفظا بها؟",
+        "prompt6": "أيّ نصيحة تقدّمها لهما ليعرفا دائمًا كيف يلتقيان من جديد؟",
+        "anotherPrompt": "سؤال آخر",
+        "messageLabel": "رسالتك",
+        "messagePlaceholder": "اكتب رسالتك هنا…",
+        "counter": "{count} / {max}",
+        "nameLabel": "اسمك",
+        "namePlaceholder": "وقّع رسالتك",
+        "send": "ضعها في الجرّة",
+        "sending": "جارٍ الإرسال…",
+        "jarAlt": "جرّة مطرّزة باللؤلؤ مليئة بالرسائل الصغيرة للعروسين",
+        "thanksEyebrow": "في الجرّة",
+        "thanksTitle": "شكرًا!",
+        "thanksTitleNamed": "شكرًا، {name}!",
+        "thanksBody": "وصلت رسالتك إلى الجرّة. سيقرؤها العروسان مرّة بعد مرّة.",
+        "another": "اكتب رسالة أخرى"
       }
     },
     "caboVerde": {
@@ -1828,6 +1886,21 @@
         "eyebrow": "قائمة الهدايا",
         "titleFallback": "حضوركم هو أجمل هدية لنا",
         "linkFallback": "المساهمة"
+      },
+      "guestbook": {
+        "eyebrow": "سجل الضيوف",
+        "intro": "ذكرى، أمنية، بضع كلمات: لن يقرأها سوى العروسين.",
+        "nameLabel": "اسمك الأول",
+        "messageLabel": "رسالتك",
+        "count": "{count} / {max}",
+        "submit": "أرسل كلمتي",
+        "pending": "جارٍ الإرسال…",
+        "thanks": "شكرًا، {name}!",
+        "again": "اكتب كلمة أخرى",
+        "titleLine1": "بطاقة بريدية",
+        "titleLine2": "للعروسين",
+        "thanksBody": "أُرسلت بطاقتك: سيقرؤها العروسان.",
+        "messagePlaceholder": "اكتب لهما بضع كلمات…"
       }
     },
     "music": {

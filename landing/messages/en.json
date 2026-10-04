@@ -1493,6 +1493,23 @@
         "archFooter": "ESTATE  ·  AMORE  ·  DOLCE VITA",
         "timelineFooter": "LIMONI · AMORE · ESTATE",
         "playlistTag": "♪  MUSICA ITALIANA  ♪"
+      },
+      "guestbook": {
+        "eyebrow": "A word for us",
+        "titleLine1": "Leave us",
+        "titleLine2": "a little note",
+        "intro": "A memory, a wish, a piece of advice: a few lines to read again long after the party. Only we will read them.",
+        "nameLabel": "Your first name",
+        "namePlaceholder": "First name",
+        "messageLabel": "Your message",
+        "messagePlaceholder": "A memory, a wish, some advice…",
+        "counter": "{count} / {max}",
+        "submit": "Send my note",
+        "submitPending": "Sending…",
+        "thanksTitle": "Grazie!",
+        "thanksTitleNamed": "Grazie, {name}!",
+        "thanksBody": "Your note has arrived. We will treasure it.",
+        "another": "Write another note"
       }
     },
     "belleRive": {
@@ -1737,6 +1754,20 @@
         "eyebrow": "Gift registry",
         "titleFallback": "Your presence is our greatest gift",
         "linkFallback": "Contribute"
+      },
+      "guestbook": {
+        "eyebrow": "Guestbook",
+        "intro": "A memory, a wish, a few words: only the couple will read them.",
+        "nameLabel": "Your first name",
+        "messageLabel": "Your message",
+        "count": "{count} / {max}",
+        "submit": "Send my note",
+        "pending": "Sending…",
+        "thanks": "Thank you, {name}!",
+        "again": "Write another note",
+        "titleLine1": "A word",
+        "titleLine2": "for the couple",
+        "thanksBody": "Your note is sealed and delivered to the couple."
       }
     },
     "mareAlta": {
@@ -1908,6 +1939,33 @@
         "venue": "The venue",
         "programme": "The schedule",
         "rsvp": "Reply"
+      },
+      "guestbook": {
+        "eyebrow": "Words to keep forever",
+        "titleLine1": "The jar of words",
+        "titleLine2": "that do good",
+        "intro": "Slip in a message the couple can open over the years, to laugh, to remember and to celebrate all that binds them.",
+        "tag": "Your slip of paper for the jar",
+        "prompt1": "Give them a word to read again when everyday life moves a little too fast.",
+        "prompt2": "To open after a disagreement: what should they always remember?",
+        "prompt3": "Remind them what makes them stronger together.",
+        "prompt4": "Write them a few words for a day when they need a lift.",
+        "prompt5": "Which memory of their love should they treasure?",
+        "prompt6": "What advice would you give them to always find their way back to each other?",
+        "anotherPrompt": "Another question",
+        "messageLabel": "Your message",
+        "messagePlaceholder": "Write your message here…",
+        "counter": "{count} / {max}",
+        "nameLabel": "Your first name",
+        "namePlaceholder": "Sign your note",
+        "send": "Slip it into the jar",
+        "sending": "Sending…",
+        "jarAlt": "Embroidered, beaded jar filled with little notes for the couple",
+        "thanksEyebrow": "In the jar",
+        "thanksTitle": "Thank you!",
+        "thanksTitleNamed": "Thank you, {name}!",
+        "thanksBody": "Your note is in the jar. The couple will read it again and again.",
+        "another": "Write another note"
       }
     },
     "caboVerde": {
@@ -2042,6 +2100,21 @@
         "eyebrow": "Gift registry",
         "titleFallback": "Your presence is our greatest gift",
         "linkFallback": "Contribute"
+      },
+      "guestbook": {
+        "eyebrow": "Guestbook",
+        "intro": "A memory, a wish, a few words: only the couple will read them.",
+        "nameLabel": "Your first name",
+        "messageLabel": "Your message",
+        "count": "{count} / {max}",
+        "submit": "Send my note",
+        "pending": "Sending…",
+        "thanks": "Thank you, {name}!",
+        "again": "Write another note",
+        "titleLine1": "A postcard",
+        "titleLine2": "for the couple",
+        "thanksBody": "Your postcard is on its way: the couple will read it.",
+        "messagePlaceholder": "Write them a few words…"
       }
     },
     "music": {

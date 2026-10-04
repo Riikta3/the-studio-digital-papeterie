@@ -12,9 +12,11 @@ import { text } from "../fields/coerce";
 import { FormLayout } from "./shared";
 
 /**
- * The words that will introduce the guestbook — written or filmed — once it
- * opens to guests. Neither is live yet, so the tab says so before anything
- * else; what the couple writes is saved all the same.
+ * The words that introduce the guestbook — written or filmed — on the
+ * invitation. The written guestbook is live: guests write from the invitation
+ * and the couple reads them in Messages. The video guestbook is not open to
+ * guests yet, so its tab says so before anything else; what the couple writes
+ * is saved all the same.
  *
  * One form for both modules: they store the same two keys.
  */
@@ -27,10 +29,12 @@ export function GuestbookForm({ moduleId }: { moduleId: "guestbook" | "video-gue
     <FormLayout>
       <SectionIntro section={moduleId} />
 
-      <div className="flex gap-3 rounded-xl border border-studio-lavande/50 bg-studio-card-selected px-4 py-3 text-sm text-studio-violet">
-        <Hourglass className="mt-0.5 h-4 w-4 shrink-0 text-studio-violet/60" aria-hidden="true" />
-        <p className="leading-relaxed">{t("hints.guestbookNotLive")}</p>
-      </div>
+      {moduleId === "video-guestbook" && (
+        <div className="flex gap-3 rounded-xl border border-studio-lavande/50 bg-studio-card-selected px-4 py-3 text-sm text-studio-violet">
+          <Hourglass className="mt-0.5 h-4 w-4 shrink-0 text-studio-violet/60" aria-hidden="true" />
+          <p className="leading-relaxed">{t("hints.videoGuestbookNotLive")}</p>
+        </div>
+      )}
 
       <FieldGroup title={t("groups.guestbook")}>
         <TextField

@@ -84,6 +84,29 @@ export const mareAltaEditorSlots: readonly ThemeEditorSlot[] = [
     multiline: true,
   },
 
+  // The heading and the welcome words are the couple's own fields (the guestbook tab); these are the theme's
+  // defaults under them. The prompts are the designer's, one per line: "Une autre question" turns to the next.
+  { key: "guestbook.eyebrow", messages: [`${NS}.guestbook.eyebrow`] },
+  {
+    key: "guestbook.title",
+    messages: [`${NS}.guestbook.titleLine1`, `${NS}.guestbook.titleLine2`],
+    multiline: true,
+  },
+  { key: "guestbook.intro", messages: [`${NS}.guestbook.intro`] },
+  { key: "guestbook.tag", messages: [`${NS}.guestbook.tag`] },
+  {
+    key: "guestbook.prompts",
+    messages: [
+      `${NS}.guestbook.prompt1`,
+      `${NS}.guestbook.prompt2`,
+      `${NS}.guestbook.prompt3`,
+      `${NS}.guestbook.prompt4`,
+      `${NS}.guestbook.prompt5`,
+      `${NS}.guestbook.prompt6`,
+    ],
+    multiline: true,
+  },
+
   { key: "faq.eyebrow", messages: [`${NS}.faq.eyebrow`] },
   { key: "faq.title", messages: [`${NS}.faq.title`] },
 

@@ -1,6 +1,8 @@
 "use client";
 
+import { deleteGuestbookMessage } from "@/actions/guestbook-actions";
 import { deleteRsvpResponse } from "@/actions/rsvp-response-actions";
+import { useRouter } from "@/navigation";
 import { Button } from "@shared/components/ui/button";
 import {
   Dialog,
@@ -21,19 +23,27 @@ interface MessageCardProps {
   name: string;
   message: string;
   date: string;
+  /**
+   * Where the message came from: left with an RSVP answer (`rsvp_responses`,
+   * deleting removes the whole answer) or in the guestbook
+   * (`guestbook_messages`).
+   */
+  source?: "rsvp" | "guestbook";
 }
 
-export function MessageCard({ id, name, message, date }: MessageCardProps) {
+export function MessageCard({ id, name, message, date, source = "rsvp" }: MessageCardProps) {
   const t = useTranslations("MessageCard");
+  const router = useRouter();
   const [open, setOpen] = useState(false);
   const [isPending, startTransition] = useTransition();
 
   const handleDelete = () => {
     startTransition(async () => {
       try {
-        await deleteRsvpResponse(id);
+        await (source === "guestbook" ? deleteGuestbookMessage(id) : deleteRsvpResponse(id));
         toast.success(t("toast_deleted"));
         setOpen(false);
+        router.refresh();
       } catch {
         toast.error(t("toast_delete_error"));
       }
@@ -46,15 +56,20 @@ export function MessageCard({ id, name, message, date }: MessageCardProps) {
         <Quote className="w-5 h-5 text-studio-violet/30 shrink-0" />
         <Dialog open={open} onOpenChange={setOpen}>
           <DialogTrigger asChild>
-            <button className="opacity-0 group-hover:opacity-100 transition-opacity p-1 rounded-lg text-studio-violet/60 hover:text-red-500 hover:bg-red-50">
-              <Trash2 size={15} />
+            {/* Always visible on touch screens, where there is no hover. */}
+            <button
+              type="button"
+              aria-label={t("delete_label", { name })}
+              className="-m-2.5 p-2.5 md:-m-1 md:p-1 rounded-lg text-studio-violet/60 transition-opacity hover:text-red-500 hover:bg-red-50 md:opacity-0 md:group-hover:opacity-100 focus-visible:opacity-100"
+            >
+              <Trash2 size={15} aria-hidden="true" />
             </button>
           </DialogTrigger>
           <DialogContent>
             <DialogHeader>
               <DialogTitle>{t("confirm_title")}</DialogTitle>
               <DialogDescription>
-                {t("confirm_description", { name })}
+                {t(source === "guestbook" ? "confirm_description_guestbook" : "confirm_description", { name })}
               </DialogDescription>
             </DialogHeader>
             <DialogFooter className="gap-2 sm:gap-0">
@@ -77,7 +92,7 @@ export function MessageCard({ id, name, message, date }: MessageCardProps) {
         </Dialog>
       </div>
 
-      <p className="text-studio-violet font-light leading-relaxed italic text-sm flex-1">
+      <p className="text-studio-violet font-light leading-relaxed italic text-sm flex-1 whitespace-pre-line break-words">
         {message}
       </p>
 

@@ -18,7 +18,7 @@ export const chateauRoyalTheme: ThemeManifest = {
   description: "Un château de conte au fil d'un jour et d'une nuit : espresso, ivoire et or discret.",
 
   // Every guest-facing module. The designer drew seven; the countdown, the film,
-  // the playlist, the gallery, the lodgings and the gift note are drawn in the
+  // the playlist, the gallery, the lodgings, the gift note and the guestbook are drawn in the
   // same language (`modules.css`).
   supports: [
     "countdown",
@@ -34,6 +34,7 @@ export const chateauRoyalTheme: ThemeManifest = {
     "accommodation",
     "gift-list",
     "rsvp",
+    "guestbook",
   ],
 
   accentColor: "#583b32",

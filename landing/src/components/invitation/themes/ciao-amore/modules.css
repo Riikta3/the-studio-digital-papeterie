@@ -1,6 +1,6 @@
 /**
  * "Ciao Amore" sections for the modules its source project never had: the
- * intro video, the menu, the gallery and the gift list.
+ * intro video, the menu, the gallery, the gift list and the guestbook.
  *
  * The couples who bought them on this theme saw nothing — the theme silently
  * dropped modules it could not draw. These are drawn in the theme's own
@@ -11,7 +11,8 @@
  *
  * Hand-written, in its own file, for the same reason as `responsive.css`:
  * `ciao-amore.css` is generated and would swallow edits. Loaded after both.
- * Every selector sits under `.theme-ciao-amore`.
+ * Every selector sits under `.theme-ciao-amore`; every @keyframes name starts
+ * with `ciao-amore-`.
  */
 
 /* ── Shared ─────────────────────────────────────────────────────────────── */
@@ -267,6 +268,237 @@
 .theme-ciao-amore .ca-gifts-link:hover {
   transform: translateY(-1px);
   box-shadow: 0 8px 18px #193b9140;
+}
+
+/* ── Guestbook: a lemon card on the cobalt band ─────────────────────────── */
+/* The band is the film's and the playlist's: cobalt, edged top and bottom with
+   a 14px rule of sun, the heading in sun. On it, the RSVP card (its classes,
+   so the fields are the RSVP's exactly) with the gift card's two lemons at
+   opposite corners; its offset shadow turns sun, cobalt on cobalt would vanish. */
+
+.theme-ciao-amore .ca-guestbook-section {
+  position: relative;
+  padding: 95px 24px;
+  background: var(--cobalt);
+  background-image: radial-gradient(#ffffff14 1.2px, transparent 1.2px);
+  background-size: 14px 14px;
+  border-block: 14px solid var(--sun);
+  color: #fff;
+  text-align: center;
+  isolation: isolate;
+}
+
+.theme-ciao-amore .ca-guestbook-head .eyebrow,
+.theme-ciao-amore .ca-guestbook-head h2 {
+  color: var(--sun);
+}
+
+.theme-ciao-amore .ca-guestbook-head h2 {
+  margin: 14px 0 18px;
+  overflow-wrap: break-word;
+}
+
+.theme-ciao-amore .ca-guestbook-intro {
+  max-width: 34rem;
+  margin: 0 auto 44px;
+  color: #f4f0ff;
+  font-family: var(--font-ca-serif), "Libre Caslon Display", serif;
+  font-size: 1.05rem;
+  line-height: 1.6;
+}
+
+.theme-ciao-amore .rsvp-card.ca-guestbook-card {
+  max-width: 560px;
+  margin-inline: auto;
+  /* The band sets white type; the card is cream, so it takes back the RSVP's ink. */
+  color: var(--ink);
+  box-shadow: 8px 9px 0 var(--sun);
+}
+
+.theme-ciao-amore .ca-guestbook-card:before,
+.theme-ciao-amore .ca-guestbook-card:after {
+  content: "";
+  position: absolute;
+  z-index: 1;
+  width: 46px;
+  height: 46px;
+  border-radius: 50%;
+  background: #d3ae39;
+  box-shadow: inset -9px -4px 0 #bd9023, 0 4px 10px #554a2e30;
+  border: 3px solid #f3dfa0;
+  pointer-events: none;
+}
+
+.theme-ciao-amore .ca-guestbook-card:before {
+  left: -22px;
+  top: -22px;
+}
+
+.theme-ciao-amore .ca-guestbook-card:after {
+  right: -22px;
+  bottom: -22px;
+}
+
+/* "12 / 1000", tucked under the textarea in the labels' small caps. */
+.theme-ciao-amore .ca-guestbook-card .ca-guestbook-count {
+  margin: -16px 0 0;
+  color: #193b91b3;
+  font-family: var(--font-ca-sans), Montserrat, sans-serif;
+  font-size: 0.6rem;
+  letter-spacing: 0.12em;
+  text-align: end;
+}
+
+/* The thank-you: the RSVP's Parisienne line, with the guest's name. */
+.theme-ciao-amore .ca-guestbook-thanks h3 {
+  color: var(--cobalt);
+  font-size: clamp(2.3rem, 10vw, 3.4rem);
+  line-height: 1.1;
+  overflow-wrap: anywhere;
+}
+
+.theme-ciao-amore .ca-guestbook-thanks p {
+  margin: 0 0 18px;
+  font-family: var(--font-ca-serif), "Libre Caslon Display", serif;
+  line-height: 1.6;
+}
+
+/* "Écrire un autre mot": a quiet link, not a second cobalt slab (every button
+   in `.rsvp-card` is one by default). */
+.theme-ciao-amore .rsvp-card button.ca-guestbook-again {
+  width: auto;
+  min-height: 44px;
+  padding: 10px 6px;
+  border: 0;
+  background: none;
+  color: var(--cobalt);
+  font-family: var(--font-ca-sans), Montserrat, sans-serif;
+  font-size: 0.62rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-decoration: underline;
+  text-decoration-color: var(--sun);
+  text-decoration-thickness: 3px;
+  text-underline-offset: 6px;
+  cursor: pointer;
+}
+
+/* The stamp: a lemon with its leaf, inside a scalloped sun postmark. */
+.theme-ciao-amore .ca-guestbook-stamp {
+  position: relative;
+  display: block;
+  width: 92px;
+  height: 92px;
+  margin: 0 auto 6px;
+  border-radius: 50%;
+  border: 3px dotted var(--cobalt);
+  background: radial-gradient(circle, #fff6c9 0 52%, var(--sun) 53% 100%);
+  transform: rotate(-10deg);
+}
+
+.theme-ciao-amore .ca-guestbook-stamp:before {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 46px;
+  height: 34px;
+  margin: -15px 0 0 -23px;
+  border-radius: 50% 46% 50% 46% / 60% 50% 60% 50%;
+  background: #f0c53a;
+  box-shadow: inset -7px -4px 0 #d3a524;
+}
+
+.theme-ciao-amore .ca-guestbook-stamp:after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 22px;
+  width: 18px;
+  height: 10px;
+  border-radius: 0 100% 0 100%;
+  background: #566247;
+  transform: rotate(-20deg);
+}
+
+/* Motion: the band's heading rises, then the card is laid on it from a slight
+   tilt. Hidden only once scripts run (the root's `data-js`). */
+.theme-ciao-amore[data-js] .ca-guestbook-head,
+.theme-ciao-amore[data-js] .ca-guestbook-card {
+  opacity: 0;
+  transform: translateY(24px);
+  transition:
+    opacity 0.8s ease,
+    transform 1s cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+
+.theme-ciao-amore[data-js] .ca-guestbook-card {
+  transform: translateY(34px) rotate(-1.4deg);
+  transition-delay: 0.15s;
+}
+
+.theme-ciao-amore[data-js] .ca-seen .ca-guestbook-head,
+.theme-ciao-amore[data-js] .ca-seen .ca-guestbook-card {
+  opacity: 1;
+  transform: none;
+}
+
+/* Sent: the stamp comes down onto the card and lands a little crooked. */
+.theme-ciao-amore .ca-guestbook-sent .ca-guestbook-stamp {
+  animation: ciao-amore-stamp 0.7s cubic-bezier(0.3, 0.8, 0.3, 1.1) both;
+}
+
+.theme-ciao-amore .ca-guestbook-sent .ca-guestbook-thanks h3,
+.theme-ciao-amore .ca-guestbook-sent .ca-guestbook-thanks p {
+  animation: ciao-amore-thanks 0.8s ease 0.35s both;
+}
+
+@keyframes ciao-amore-stamp {
+  0% { opacity: 0; transform: scale(1.8) rotate(-28deg); }
+  60% { opacity: 1; transform: scale(0.94) rotate(-8deg); }
+  100% { opacity: 1; transform: scale(1) rotate(-10deg); }
+}
+
+@keyframes ciao-amore-thanks {
+  from { opacity: 0; transform: translateY(10px); }
+}
+
+@media (min-width: 900px) {
+  .theme-ciao-amore .ca-guestbook-section {
+    padding-inline: clamp(24px, 5vw, 80px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .theme-ciao-amore[data-js] .ca-guestbook-head,
+  .theme-ciao-amore[data-js] .ca-guestbook-card {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+
+  .theme-ciao-amore .ca-guestbook-sent .ca-guestbook-stamp,
+  .theme-ciao-amore .ca-guestbook-sent .ca-guestbook-thanks h3,
+  .theme-ciao-amore .ca-guestbook-sent .ca-guestbook-thanks p {
+    animation: none;
+  }
+}
+
+/* A 360px phone: the lemons stay on the card's corners, inside the band. */
+@media (max-width: 389px) {
+  .theme-ciao-amore .ca-guestbook-section {
+    padding-inline: 22px;
+  }
+
+  .theme-ciao-amore .ca-guestbook-card:before {
+    left: -14px;
+    top: -14px;
+  }
+
+  .theme-ciao-amore .ca-guestbook-card:after {
+    right: -14px;
+    bottom: -14px;
+  }
 }
 
 /* ── Decorative words, made the couple's ────────────────────────────────── */

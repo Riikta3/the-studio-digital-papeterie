@@ -7,7 +7,7 @@ const OWNED_FOUR = ["countdown", "timeline", "map", "rsvp"];
 
 test("addableModules offers what the theme draws and the couple lacks, in catalogue order", () => {
   const list = addableModules("ciao-amore", OWNED_FOUR, ["gallery"]);
-  assert.deepEqual(list, ["intro-video", "dress-code", "accommodation", "transport", "menu", "gift-list", "playlist", "faq"]);
+  assert.deepEqual(list, ["intro-video", "dress-code", "accommodation", "transport", "menu", "gift-list", "playlist", "guestbook", "faq"]);
   assert.ok(!addableModules("belle-rive", []).includes("gallery"));
 });
 
@@ -22,8 +22,8 @@ test("splitUnpaid gives the plan's free slots to the first modules added", () =>
 
 test("splitUnpaid ignores unknown, owned, duplicated and undrawn ids", () => {
   assert.deepEqual(
-    splitUnpaid("signature", OWNED_FOUR, ["gallery", "gallery", "rsvp", "guestbook", "nope"], "ciao-amore"),
-    { free: [], billable: ["gallery"], ignored: ["gallery", "rsvp", "guestbook", "nope"] },
+    splitUnpaid("signature", OWNED_FOUR, ["gallery", "gallery", "rsvp", "video-guestbook", "nope"], "ciao-amore"),
+    { free: [], billable: ["gallery"], ignored: ["gallery", "rsvp", "video-guestbook", "nope"] },
   );
   // Written by hand through the API on a theme that cannot draw it.
   assert.deepEqual(splitUnpaid("signature", OWNED_FOUR, ["gallery"], "belle-rive").billable, []);

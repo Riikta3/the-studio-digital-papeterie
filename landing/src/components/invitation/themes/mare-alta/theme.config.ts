@@ -27,6 +27,7 @@ export const mareAltaTheme: ThemeManifest = {
     "gallery",
     "gift-list",
     "rsvp",
+    "guestbook",
     "faq",
   ],
   accentColor: "#4d5845",

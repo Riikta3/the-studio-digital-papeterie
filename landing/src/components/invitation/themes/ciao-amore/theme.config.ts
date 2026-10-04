@@ -33,6 +33,7 @@ export const ciaoAmoreTheme: ThemeManifest = {
     "menu",
     "gallery",
     "gift-list",
+    "guestbook",
     // Drawn inside the venue section, as its travel directions.
     "transport",
   ],

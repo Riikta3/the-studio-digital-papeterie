@@ -1280,6 +1280,23 @@
         "archFooter": "ESTATE  ·  AMORE  ·  DOLCE VITA",
         "timelineFooter": "LIMONI · AMORE · ESTATE",
         "playlistTag": "♪  MUSICA ITALIANA  ♪"
+      },
+      "guestbook": {
+        "eyebrow": "Ein Wort für uns",
+        "titleLine1": "Schreiben Sie",
+        "titleLine2": "uns ein Wort",
+        "intro": "Eine Erinnerung, ein Wunsch, ein Rat: ein paar Zeilen, die wir noch lange nach dem Fest lesen werden. Nur wir lesen sie.",
+        "nameLabel": "Ihr Vorname",
+        "namePlaceholder": "Vorname",
+        "messageLabel": "Ihre Nachricht",
+        "messagePlaceholder": "Eine Erinnerung, ein Wunsch, ein Rat…",
+        "counter": "{count} / {max}",
+        "submit": "Nachricht senden",
+        "submitPending": "Wird gesendet…",
+        "thanksTitle": "Grazie!",
+        "thanksTitleNamed": "Grazie, {name}!",
+        "thanksBody": "Ihre Nachricht ist angekommen. Wir werden sie gut aufbewahren.",
+        "another": "Noch eine Nachricht schreiben"
       }
     },
     "belleRive": {
@@ -1524,6 +1541,20 @@
         "eyebrow": "Wunschliste",
         "titleFallback": "Ihre Anwesenheit ist unser schönstes Geschenk",
         "linkFallback": "Beitragen"
+      },
+      "guestbook": {
+        "eyebrow": "Gästebuch",
+        "intro": "Eine Erinnerung, ein Wunsch, ein paar Worte: Nur das Brautpaar wird sie lesen.",
+        "nameLabel": "Ihr Vorname",
+        "messageLabel": "Ihre Nachricht",
+        "count": "{count} / {max}",
+        "submit": "Meine Worte senden",
+        "pending": "Wird gesendet…",
+        "thanks": "Danke, {name}!",
+        "again": "Noch ein paar Worte schreiben",
+        "titleLine1": "Ein paar Worte",
+        "titleLine2": "für das Brautpaar",
+        "thanksBody": "Ihre Worte sind versiegelt und beim Brautpaar."
       }
     },
     "mareAlta": {
@@ -1695,6 +1726,33 @@
         "venue": "Der Ort",
         "programme": "Der Ablauf",
         "rsvp": "Antworten"
+      },
+      "guestbook": {
+        "eyebrow": "Worte für immer",
+        "titleLine1": "Das Glas der Worte",
+        "titleLine2": "die guttun",
+        "intro": "Legen Sie eine Nachricht hinein, die das Brautpaar über die Jahre öffnen kann – zum Lachen, Erinnern und Feiern all dessen, was sie verbindet.",
+        "tag": "Ihr Zettel für das Glas",
+        "prompt1": "Schreiben Sie ihnen ein Wort für Tage, an denen der Alltag zu schnell wird.",
+        "prompt2": "Nach einem Streit zu öffnen: Woran sollten sie sich immer erinnern?",
+        "prompt3": "Erinnern Sie sie daran, was sie gemeinsam stärker macht.",
+        "prompt4": "Schreiben Sie ihnen ein paar Worte für einen Tag, an dem sie Schwung brauchen.",
+        "prompt5": "Welche Erinnerung an ihre Liebe sollten sie gut bewahren?",
+        "prompt6": "Welchen Rat würden Sie ihnen geben, damit sie immer wieder zueinanderfinden?",
+        "anotherPrompt": "Eine andere Frage",
+        "messageLabel": "Ihre Nachricht",
+        "messagePlaceholder": "Schreiben Sie hier Ihre Nachricht…",
+        "counter": "{count} / {max}",
+        "nameLabel": "Ihr Vorname",
+        "namePlaceholder": "Unterschreiben Sie",
+        "send": "Ins Glas legen",
+        "sending": "Wird gesendet…",
+        "jarAlt": "Besticktes Glas mit Perlen, gefüllt mit kleinen Botschaften für das Brautpaar",
+        "thanksEyebrow": "Im Glas",
+        "thanksTitle": "Danke!",
+        "thanksTitleNamed": "Danke, {name}!",
+        "thanksBody": "Ihre Nachricht liegt im Glas. Das Brautpaar wird sie wieder und wieder lesen.",
+        "another": "Noch eine Nachricht schreiben"
       }
     },
     "caboVerde": {
@@ -1829,6 +1887,21 @@
         "eyebrow": "Wunschliste",
         "titleFallback": "Eure Anwesenheit ist unser schönstes Geschenk",
         "linkFallback": "Beitragen"
+      },
+      "guestbook": {
+        "eyebrow": "Gästebuch",
+        "intro": "Eine Erinnerung, ein Wunsch, ein paar Worte: Nur das Brautpaar wird sie lesen.",
+        "nameLabel": "Ihr Vorname",
+        "messageLabel": "Ihre Nachricht",
+        "count": "{count} / {max}",
+        "submit": "Meine Worte senden",
+        "pending": "Wird gesendet…",
+        "thanks": "Danke, {name}!",
+        "again": "Noch ein paar Worte schreiben",
+        "titleLine1": "Eine Karte",
+        "titleLine2": "für das Brautpaar",
+        "thanksBody": "Ihre Karte ist unterwegs: Das Brautpaar wird sie lesen.",
+        "messagePlaceholder": "Schreiben Sie ihnen ein paar Worte…"
       }
     },
     "music": {

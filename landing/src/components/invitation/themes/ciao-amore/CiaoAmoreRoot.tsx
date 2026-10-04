@@ -1,6 +1,7 @@
 import { useTranslations } from "next-intl";
 import type { CSSProperties } from "react";
 
+import { JsFlag } from "../reveal";
 import { cssString, slot } from "../text";
 import type { InvitationData, ModuleId } from "../types";
 
@@ -17,6 +18,7 @@ import { FaqSection } from "./sections/FaqSection";
 import { FooterSection } from "./sections/FooterSection";
 import { GallerySection } from "./sections/GallerySection";
 import { GiftsSection } from "./sections/GiftsSection";
+import { GuestbookSection } from "./sections/GuestbookSection";
 import { HeroSection } from "./sections/HeroSection";
 import { IntroVideoSection } from "./sections/IntroVideoSection";
 import { MenuSection } from "./sections/MenuSection";
@@ -65,7 +67,9 @@ export function CiaoAmoreRoot({ data }: { data: InvitationData }) {
   const has = (id: ModuleId) => !enabled || enabled.includes(id);
 
   return (
-    <main className={`theme-ciao-amore ${ciaoAmoreFontVars}`} style={decor}>
+    <main className={`theme-ciao-amore ${ciaoAmoreFontVars}`} data-theme-root="" style={decor}>
+      {/* Marks the root once scripts run: the guestbook hides its entrance state only then. */}
+      <JsFlag />
       <HeroSection data={data} />
 
       {has("intro-video") ? <IntroVideoSection data={data} /> : null}
@@ -92,6 +96,8 @@ export function CiaoAmoreRoot({ data }: { data: InvitationData }) {
           data={data}
         />
       ) : null}
+      {/* A word for the couple once the reply is sent, before the gifts. */}
+      {has("guestbook") ? <GuestbookSection data={data} /> : null}
       {has("gift-list") ? <GiftsSection data={data} /> : null}
 
       <FooterSection data={data} />

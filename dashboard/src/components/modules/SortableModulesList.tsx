@@ -26,7 +26,7 @@ import { useTranslations } from "next-intl";
 import { useState } from "react";
 import { toast } from "sonner";
 
-const NON_CONFIGURABLE = ["guestbook", "video-guestbook"];
+const NON_CONFIGURABLE = ["video-guestbook"];
 
 interface SortableModuleItemProps {
   id: string;

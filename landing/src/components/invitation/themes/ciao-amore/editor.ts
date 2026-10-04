@@ -69,6 +69,15 @@ export const ciaoAmoreEditorSlots: readonly ThemeEditorSlot[] = [
   { key: "gallery.eyebrow", messages: [`${NS}.gallery.eyebrow`] },
   { key: "gallery.title", messages: [`${NS}.gallery.title`], multiline: true },
   { key: "gift-list.eyebrow", messages: [`${NS}.gifts.eyebrow`] },
+  // The heading and the welcome words are the couple's own fields (the guestbook tab); these are the
+  // theme's defaults under them.
+  { key: "guestbook.eyebrow", messages: [`${NS}.guestbook.eyebrow`] },
+  {
+    key: "guestbook.title",
+    messages: [`${NS}.guestbook.titleLine1`, `${NS}.guestbook.titleLine2`],
+    multiline: true,
+  },
+  { key: "guestbook.intro", messages: [`${NS}.guestbook.intro`] },
 
   // Drawn by the stylesheet (`content:`), fed through custom properties by
   // `CiaoAmoreRoot` — see DECOR_WORDS there.

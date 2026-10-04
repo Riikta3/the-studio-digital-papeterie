@@ -12,6 +12,7 @@ import { CountdownSection } from "./sections/CountdownSection";
 import { FooterSection } from "./sections/FooterSection";
 import { GallerySection } from "./sections/GallerySection";
 import { GiftsSection } from "./sections/GiftsSection";
+import { GuestbookSection } from "./sections/GuestbookSection";
 import { HeroSection } from "./sections/HeroSection";
 import { IntroVideoSection } from "./sections/IntroVideoSection";
 import { LetterSection } from "./sections/LetterSection";
@@ -34,8 +35,9 @@ import { VenueSection } from "./sections/VenueSection";
  * The page follows the day: the letter and the time left to it, the place, the
  * couple's film, the programme, the dinner, then night falls on the ball (the
  * playlist's dance card) and the next day opens on the brunch; the souvenirs,
- * the small details and where to sleep, the gift note, the reply, the
- * signature.
+ * the small details and where to sleep, the gift note, the reply, a word in
+ * the guestbook (« livre d'or », signed on leaving, as in a château's hall),
+ * the signature.
  *
  * Full-bleed: the stylesheet's `html`, `body` and `main` rules all landed on
  * this element.
@@ -87,6 +89,8 @@ export function ChateauRoyalRoot({ data }: { data: InvitationData }) {
           data={data}
         />
       ) : null}
+      {/* The guestbook is signed on the way out: after the reply, before the signature. */}
+      {has("guestbook") ? <GuestbookSection data={data} /> : null}
       <FooterSection data={data} />
     </main>
   );

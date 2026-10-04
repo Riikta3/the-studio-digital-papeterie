@@ -1280,6 +1280,23 @@
         "archFooter": "ESTATE  ·  AMORE  ·  DOLCE VITA",
         "timelineFooter": "LIMONI · AMORE · ESTATE",
         "playlistTag": "♪  MUSICA ITALIANA  ♪"
+      },
+      "guestbook": {
+        "eyebrow": "Unas palabras para nosotros",
+        "titleLine1": "Déjenos",
+        "titleLine2": "unas palabras",
+        "intro": "Un recuerdo, un deseo, un consejo: unas líneas para releer mucho después de la fiesta. Solo nosotros las leeremos.",
+        "nameLabel": "Su nombre",
+        "namePlaceholder": "Nombre",
+        "messageLabel": "Su mensaje",
+        "messagePlaceholder": "Un recuerdo, un deseo, un consejo…",
+        "counter": "{count} / {max}",
+        "submit": "Enviar mi mensaje",
+        "submitPending": "Enviando…",
+        "thanksTitle": "¡Grazie!",
+        "thanksTitleNamed": "¡Grazie, {name}!",
+        "thanksBody": "Su mensaje ha llegado. Lo guardaremos con cariño.",
+        "another": "Escribir otro mensaje"
       }
     },
     "belleRive": {
@@ -1524,6 +1541,20 @@
         "eyebrow": "Lista de regalos",
         "titleFallback": "Su presencia es nuestro mejor regalo",
         "linkFallback": "Participar"
+      },
+      "guestbook": {
+        "eyebrow": "Libro de firmas",
+        "intro": "Un recuerdo, un deseo, unas palabras: solo los novios las leerán.",
+        "nameLabel": "Tu nombre",
+        "messageLabel": "Tu mensaje",
+        "count": "{count} / {max}",
+        "submit": "Enviar mi mensaje",
+        "pending": "Enviando…",
+        "thanks": "¡Gracias, {name}!",
+        "again": "Escribir otro mensaje",
+        "titleLine1": "Unas palabras",
+        "titleLine2": "para los novios",
+        "thanksBody": "Tu mensaje está sellado y entregado a los novios."
       }
     },
     "mareAlta": {
@@ -1695,6 +1726,33 @@
         "venue": "El lugar",
         "programme": "El programa",
         "rsvp": "Responder"
+      },
+      "guestbook": {
+        "eyebrow": "Palabras para guardar siempre",
+        "titleLine1": "El tarro de las palabras",
+        "titleLine2": "que hacen bien",
+        "intro": "Deje un mensaje que los novios podrán abrir con los años, para reír, recordar y celebrar todo lo que los une.",
+        "tag": "Su papelito para el tarro",
+        "prompt1": "Dígales unas palabras para releer cuando el día a día vaya demasiado rápido.",
+        "prompt2": "Para abrir tras un desacuerdo: ¿qué deben recordar siempre?",
+        "prompt3": "Recuérdeles lo que los hace más fuertes juntos.",
+        "prompt4": "Escríbales unas palabras para un día en que necesiten ánimo.",
+        "prompt5": "¿Qué recuerdo de su amor deben guardar como un tesoro?",
+        "prompt6": "¿Qué consejo les daría para que siempre sepan reencontrarse?",
+        "anotherPrompt": "Otra pregunta",
+        "messageLabel": "Su mensaje",
+        "messagePlaceholder": "Escriba aquí su mensaje…",
+        "counter": "{count} / {max}",
+        "nameLabel": "Su nombre",
+        "namePlaceholder": "Firme su mensaje",
+        "send": "Meter en el tarro",
+        "sending": "Enviando…",
+        "jarAlt": "Tarro bordado con perlas, lleno de notitas para los novios",
+        "thanksEyebrow": "En el tarro",
+        "thanksTitle": "¡Gracias!",
+        "thanksTitleNamed": "¡Gracias, {name}!",
+        "thanksBody": "Su mensaje ya está en el tarro. Los novios lo leerán una y otra vez.",
+        "another": "Escribir otro mensaje"
       }
     },
     "caboVerde": {
@@ -1829,6 +1887,21 @@
         "eyebrow": "Lista de regalos",
         "titleFallback": "Vuestra presencia es nuestro mejor regalo",
         "linkFallback": "Participar"
+      },
+      "guestbook": {
+        "eyebrow": "Libro de firmas",
+        "intro": "Un recuerdo, un deseo, unas palabras: solo los novios las leerán.",
+        "nameLabel": "Tu nombre",
+        "messageLabel": "Tu mensaje",
+        "count": "{count} / {max}",
+        "submit": "Enviar mi mensaje",
+        "pending": "Enviando…",
+        "thanks": "¡Gracias, {name}!",
+        "again": "Escribir otro mensaje",
+        "titleLine1": "Una postal",
+        "titleLine2": "para los novios",
+        "thanksBody": "Tu postal ya va en camino: los novios la leerán.",
+        "messagePlaceholder": "Escríbeles unas palabras…"
       }
     },
     "music": {

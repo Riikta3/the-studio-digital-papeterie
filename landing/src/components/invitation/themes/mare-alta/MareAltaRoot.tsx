@@ -20,6 +20,7 @@ import { FloatingNav } from "./sections/FloatingNav";
 import { FooterSection } from "./sections/FooterSection";
 import { GallerySection } from "./sections/GallerySection";
 import { GiftsSection } from "./sections/GiftsSection";
+import { GuestbookSection } from "./sections/GuestbookSection";
 import { HeroSection } from "./sections/HeroSection";
 import { IntroVideoSection } from "./sections/IntroVideoSection";
 import { MenuSection } from "./sections/MenuSection";
@@ -113,6 +114,8 @@ export function MareAltaRoot({ data }: { data: InvitationData }) {
         ) : null}
         {/* The Jour J blocks are not modules: they follow the wedding's own Jour J page. */}
         <PhotosBlock data={data} />
+        {/* The jar of words, where the designer put it: after the photos, before the questions. */}
+        {has("guestbook") ? <GuestbookSection data={data} /> : null}
         {has("faq") ? <FaqSection data={data} /> : null}
         <TableBlock data={data} />
         <FooterSection data={data} />

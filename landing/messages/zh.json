@@ -1279,6 +1279,23 @@
         "archFooter": "ESTATE  ·  AMORE  ·  DOLCE VITA",
         "timelineFooter": "LIMONI · AMORE · ESTATE",
         "playlistTag": "♪  MUSICA ITALIANA  ♪"
+      },
+      "guestbook": {
+        "eyebrow": "写给我们的话",
+        "titleLine1": "给我们",
+        "titleLine2": "留一句话",
+        "intro": "一段回忆、一个祝愿、一条建议：几行在婚礼过后很久仍会重读的文字。只有我们会读到。",
+        "nameLabel": "你的名字",
+        "namePlaceholder": "名字",
+        "messageLabel": "你的留言",
+        "messagePlaceholder": "一段回忆、一个祝愿、一条建议…",
+        "counter": "{count} / {max}",
+        "submit": "发送留言",
+        "submitPending": "发送中…",
+        "thanksTitle": "Grazie！",
+        "thanksTitleNamed": "Grazie，{name}！",
+        "thanksBody": "你的留言已收到，我们会好好珍藏。",
+        "another": "再写一句"
       }
     },
     "belleRive": {
@@ -1523,6 +1540,20 @@
         "eyebrow": "礼物清单",
         "titleFallback": "您的到来就是最好的礼物",
         "linkFallback": "参与"
+      },
+      "guestbook": {
+        "eyebrow": "留言簿",
+        "intro": "一段回忆、一个祝愿、几句话：只有新人会读到。",
+        "nameLabel": "您的名字",
+        "messageLabel": "您的留言",
+        "count": "{count} / {max}",
+        "submit": "发送我的留言",
+        "pending": "发送中…",
+        "thanks": "谢谢您，{name}！",
+        "again": "再写一条留言",
+        "titleLine1": "寄语",
+        "titleLine2": "致新人",
+        "thanksBody": "您的留言已封缄，交给了新人。"
       }
     },
     "mareAlta": {
@@ -1694,6 +1725,33 @@
         "venue": "地点",
         "programme": "日程",
         "rsvp": "回复"
+      },
+      "guestbook": {
+        "eyebrow": "永远珍藏的话语",
+        "titleLine1": "话语之罐",
+        "titleLine2": "温暖人心",
+        "intro": "留下一段话，让新人在岁月里慢慢打开：一起欢笑、回忆，庆祝让他们相守的一切。",
+        "tag": "放进罐子里的小纸条",
+        "prompt1": "写一句话，让他们在生活太匆忙时重温。",
+        "prompt2": "争吵后打开：他们应该永远记住什么？",
+        "prompt3": "提醒他们，是什么让他们在一起更坚强。",
+        "prompt4": "为他们需要鼓励的那一天写几句话。",
+        "prompt5": "他们爱情中的哪段回忆值得珍藏？",
+        "prompt6": "你会给他们什么建议，让他们总能找回彼此？",
+        "anotherPrompt": "换一个问题",
+        "messageLabel": "你的留言",
+        "messagePlaceholder": "在这里写下你的留言…",
+        "counter": "{count} / {max}",
+        "nameLabel": "你的名字",
+        "namePlaceholder": "为留言署名",
+        "send": "放进罐子",
+        "sending": "发送中…",
+        "jarAlt": "缀满珍珠的刺绣玻璃罐，装满写给新人的小纸条",
+        "thanksEyebrow": "已放进罐子",
+        "thanksTitle": "谢谢！",
+        "thanksTitleNamed": "谢谢你，{name}！",
+        "thanksBody": "你的留言已放进罐子，新人会一遍又一遍地读。",
+        "another": "再写一张"
       }
     },
     "caboVerde": {
@@ -1828,6 +1886,21 @@
         "eyebrow": "礼物清单",
         "titleFallback": "您的到来就是最好的礼物",
         "linkFallback": "参与"
+      },
+      "guestbook": {
+        "eyebrow": "留言簿",
+        "intro": "一段回忆、一个祝愿、几句话：只有新人会读到。",
+        "nameLabel": "您的名字",
+        "messageLabel": "您的留言",
+        "count": "{count} / {max}",
+        "submit": "发送我的留言",
+        "pending": "发送中…",
+        "thanks": "谢谢您，{name}！",
+        "again": "再写一条留言",
+        "titleLine1": "一张明信片",
+        "titleLine2": "寄给新人",
+        "thanksBody": "您的明信片已寄出：新人会读到它。",
+        "messagePlaceholder": "给他们写几句话…"
       }
     },
     "music": {

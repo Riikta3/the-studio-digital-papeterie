@@ -923,7 +923,9 @@
     "confirm_description": "A mensagem de {name} será eliminada definitivamente. Esta ação é irreversível.",
     "cancel": "Cancelar",
     "deleting": "A eliminar...",
-    "delete": "Eliminar"
+    "delete": "Eliminar",
+    "delete_label": "Eliminar a mensagem de {name}",
+    "confirm_description_guestbook": "A mensagem de {name} será eliminada definitivamente do livro de visitas. Esta ação é irreversível."
   },
   "SendMagicLinkMenuItem": {
     "toast_no_email": "Sem email para {name}",
@@ -940,7 +942,16 @@
     "title": "Mensagens",
     "description": "As palavras que os seus convidados lhe deixaram.",
     "no_messages": "Ainda não há mensagens.",
-    "message_count": "{count} mensagem(ns)"
+    "message_count": "{count} mensagem(ns)",
+    "guestbook_title": "Livro de visitas",
+    "guestbook_description": "As palavras deixadas no livro de visitas do vosso convite. Só vocês as leem.",
+    "guestbook_empty": "As palavras dos vossos convidados aparecerão aqui assim que vos escreverem a partir do convite.",
+    "guestbook_not_owned": "O livro de visitas não está no vosso convite. Adicionem-no para que os vossos convidados vos deixem algumas palavras: só vocês as lerão, aqui.",
+    "guestbook_pending": "O livro de visitas foi adicionado ao vosso convite, mas ainda não foi pago. Abrirá aos vossos convidados depois do pagamento, e as palavras deles aparecerão aqui.",
+    "guestbook_add": "Adicionar o livro de visitas",
+    "guestbook_open_editor": "Abrir o editor",
+    "rsvp_title": "Com as respostas RSVP",
+    "rsvp_description": "As palavras que os vossos convidados deixaram ao responder ao convite."
   },
   "DashboardLayout": {
     "initializing": "A preparar o seu espaço..."
@@ -1559,7 +1570,7 @@
       },
       "guestbook": {
         "label": "Livro de visitas",
-        "description": "Os textos que vão acompanhar o vosso livro de visitas."
+        "description": "O título e as palavras de boas-vindas acima do formulário onde os vossos convidados vos escrevem. As mensagens chegam a Mensagens."
       },
       "video-guestbook": {
         "label": "Livro de visitas em vídeo",
@@ -1762,7 +1773,7 @@
       "childrenQuestion": "Esta pergunta é adicionada automaticamente às vossas perguntas frequentes e segue a vossa definição «Crianças bem-vindas», para nunca contradizer o formulário.",
       "legacy": "{count, plural, one {# pergunta escrita no antigo módulo de perguntas frequentes continua a aparecer} other {# perguntas escritas no antigo módulo de perguntas frequentes continuam a aparecer}} no vosso convite, além destas.",
       "playlistModeration": "Aprovem ou recusem as músicas sugeridas pelos vossos convidados.",
-      "guestbookNotLive": "O livro de visitas ainda não está aberto aos vossos convidados. Os vossos textos estão guardados e vão acompanhá-lo quando for lançado."
+      "videoGuestbookNotLive": "O livro de visitas em vídeo ainda não está aberto aos vossos convidados. Os vossos textos estão guardados e vão acompanhá-lo no lançamento."
     },
     "eventKinds": {
       "welcome-dinner": "Jantar de boas-vindas",

@@ -87,4 +87,13 @@ export const chateauRoyalEditorSlots: readonly ThemeEditorSlot[] = [
     messages: [`${NS}.rsvp.titleLine1`, `${NS}.rsvp.titleLine2`],
     multiline: true,
   },
+
+  // The guestbook (« livre d'or »): a page the guests write on, for the couple only.
+  { key: "guestbook.eyebrow", messages: [`${NS}.guestbook.eyebrow`] },
+  {
+    key: "guestbook.title",
+    messages: [`${NS}.guestbook.titleLine1`, `${NS}.guestbook.titleLine2`],
+    multiline: true,
+  },
+  { key: "guestbook.intro", messages: [`${NS}.guestbook.intro`] },
 ];

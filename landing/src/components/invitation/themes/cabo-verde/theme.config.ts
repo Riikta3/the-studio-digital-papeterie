@@ -33,6 +33,7 @@ export const caboVerdeTheme: ThemeManifest = {
     "menu",
     "faq",
     "gift-list",
+    "guestbook",
   ],
 
   accentColor: "#3aaeb5",

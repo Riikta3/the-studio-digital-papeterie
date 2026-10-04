@@ -1667,6 +1667,23 @@
         "archFooter": "ESTATE  ·  AMORE  ·  DOLCE VITA",
         "timelineFooter": "LIMONI · AMORE · ESTATE",
         "playlistTag": "♪  MUSICA ITALIANA  ♪"
+      },
+      "guestbook": {
+        "eyebrow": "Un mot pour nous",
+        "titleLine1": "Laissez-nous",
+        "titleLine2": "un petit mot",
+        "intro": "Un souvenir, un vœu, un conseil : quelques lignes à relire longtemps après la fête. Nous serons les seuls à les lire.",
+        "nameLabel": "Votre prénom",
+        "namePlaceholder": "Prénom",
+        "messageLabel": "Votre message",
+        "messagePlaceholder": "Un souvenir, un vœu, un conseil…",
+        "counter": "{count} / {max}",
+        "submit": "Envoyer mon mot",
+        "submitPending": "Envoi…",
+        "thanksTitle": "Grazie !",
+        "thanksTitleNamed": "Grazie, {name} !",
+        "thanksBody": "Votre mot est bien arrivé. Nous le garderons précieusement.",
+        "another": "Écrire un autre mot"
       }
     },
     "belleRive": {
@@ -1911,6 +1928,20 @@
         "eyebrow": "Liste de cadeaux",
         "titleFallback": "Votre présence est notre plus beau cadeau",
         "linkFallback": "Participer"
+      },
+      "guestbook": {
+        "eyebrow": "Livre d'or",
+        "intro": "Un souvenir, un vœu, quelques mots : seuls les mariés les liront.",
+        "nameLabel": "Votre prénom",
+        "messageLabel": "Votre message",
+        "count": "{count} / {max}",
+        "submit": "Envoyer mon mot",
+        "pending": "Envoi…",
+        "thanks": "Merci {name} !",
+        "again": "Écrire un autre mot",
+        "titleLine1": "Un mot",
+        "titleLine2": "pour les mariés",
+        "thanksBody": "Votre mot est scellé et remis aux mariés."
       }
     },
     "mareAlta": {
@@ -2082,6 +2113,33 @@
         "venue": "Le lieu",
         "programme": "Le programme",
         "rsvp": "Répondre"
+      },
+      "guestbook": {
+        "eyebrow": "Des mots à garder pour toujours",
+        "titleLine1": "La jarre des mots",
+        "titleLine2": "qui font du bien",
+        "intro": "Glissez un message que les mariés pourront ouvrir au fil des années, pour rire, se souvenir et célébrer tout ce qui les unit.",
+        "tag": "Votre papier à glisser dans la jarre",
+        "prompt1": "Dites-leur un mot à relire quand le quotidien ira un peu trop vite.",
+        "prompt2": "À ouvrir après un désaccord : que doivent-ils toujours se rappeler ?",
+        "prompt3": "Rappelez-leur ce qui les rend plus forts ensemble.",
+        "prompt4": "Écrivez-leur quelques mots pour un jour où ils auront besoin d’un élan.",
+        "prompt5": "Quel souvenir de leur amour doivent-ils garder précieusement ?",
+        "prompt6": "Quel conseil leur donneriez-vous pour toujours savoir se retrouver ?",
+        "anotherPrompt": "Une autre question",
+        "messageLabel": "Votre message",
+        "messagePlaceholder": "Écrivez votre message ici…",
+        "counter": "{count} / {max}",
+        "nameLabel": "Votre prénom",
+        "namePlaceholder": "Signez votre mot",
+        "send": "Glisser dans la jarre",
+        "sending": "Envoi…",
+        "jarAlt": "Jarre brodée et perlée remplie de petits mots pour les mariés",
+        "thanksEyebrow": "Dans la jarre",
+        "thanksTitle": "Merci !",
+        "thanksTitleNamed": "Merci, {name} !",
+        "thanksBody": "Votre mot a rejoint la jarre. Les mariés le liront et le reliront.",
+        "another": "Écrire un autre mot"
       }
     },
     "caboVerde": {
@@ -2216,6 +2274,21 @@
         "eyebrow": "Liste de cadeaux",
         "titleFallback": "Votre présence est notre plus beau cadeau",
         "linkFallback": "Participer"
+      },
+      "guestbook": {
+        "eyebrow": "Livre d'or",
+        "intro": "Un souvenir, un vœu, quelques mots : seuls les mariés les liront.",
+        "nameLabel": "Votre prénom",
+        "messageLabel": "Votre message",
+        "count": "{count} / {max}",
+        "submit": "Envoyer mon mot",
+        "pending": "Envoi…",
+        "thanks": "Merci {name} !",
+        "again": "Écrire un autre mot",
+        "titleLine1": "Une carte",
+        "titleLine2": "pour les mariés",
+        "thanksBody": "Votre carte est partie : les mariés la liront.",
+        "messagePlaceholder": "Écrivez-leur quelques mots…"
       }
     },
     "music": {

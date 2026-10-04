@@ -42,5 +42,5 @@ test("themeModules falls back like the invitation does", () => {
   assert.deepEqual(themeModules("does-not-exist"), THEME_MODULES[FALLBACK_THEME_ID]);
   assert.deepEqual(themeModules(null), THEME_MODULES[FALLBACK_THEME_ID]);
   assert.ok(themeModules("ciao-amore").includes("gallery"));
-  assert.ok(!themeModules("ciao-amore").includes("guestbook"));
+  assert.ok(!themeModules("ciao-amore").includes("video-guestbook"));
 });

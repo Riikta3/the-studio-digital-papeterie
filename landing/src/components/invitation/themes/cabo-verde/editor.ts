@@ -88,4 +88,13 @@ export const caboVerdeEditorSlots: readonly ThemeEditorSlot[] = [
   { key: "gift-list.eyebrow", messages: [`${NS}.gifts.eyebrow`] },
 
   { key: "rsvp.title", messages: [`${NS}.rsvp.title`] },
+
+  // The guestbook (« livre d'or »): a postcard the guests write to the couple.
+  { key: "guestbook.eyebrow", messages: [`${NS}.guestbook.eyebrow`] },
+  {
+    key: "guestbook.title",
+    messages: [`${NS}.guestbook.titleLine1`, `${NS}.guestbook.titleLine2`],
+    multiline: true,
+  },
+  { key: "guestbook.intro", messages: [`${NS}.guestbook.intro`] },
 ];

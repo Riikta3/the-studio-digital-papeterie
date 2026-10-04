@@ -575,6 +575,10 @@ export function toInvitationData(page: InvitationPageData): InvitationData {
       return images.length > 0 ? { images } : undefined;
     })(),
 
+    // Always present when the module is on: the form is the section, and the
+    // couple's words over it are optional.
+    guestbook: { title: mod.guestbook.title, body: mod.guestbook.description },
+
     stays:
       page.accommodations.length > 0
         ? page.accommodations.map((stay) => ({

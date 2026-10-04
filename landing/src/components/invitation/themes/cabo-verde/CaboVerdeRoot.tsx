@@ -21,6 +21,7 @@ import { FaqSection } from "./sections/FaqSection";
 import { FooterSection } from "./sections/FooterSection";
 import { GallerySection } from "./sections/GallerySection";
 import { GiftsSection } from "./sections/GiftsSection";
+import { GuestbookSection } from "./sections/GuestbookSection";
 import { HeroSection } from "./sections/HeroSection";
 import { IntroVideoSection } from "./sections/IntroVideoSection";
 import { ItinerarySection } from "./sections/ItinerarySection";
@@ -76,6 +77,9 @@ export function CaboVerdeRoot({ data }: { data: InvitationData }) {
         {has("dress-code") ? <DressSection data={data} /> : null}
         {has("accommodation") ? <StaySection data={data} /> : null}
         {has("playlist") ? <PlaylistSection data={data} /> : null}
+        {/* The guests' words follow the guests' songs: a postcard to the couple,
+            kept apart from the gift note's postcard by the practical pages. */}
+        {has("guestbook") ? <GuestbookSection data={data} /> : null}
         {/* The travel notebook is the venue's directions: owning the transport
             module or the map shows it (and only when there are directions). */}
         {has("transport") || has("map") ? <TravelSection data={data} /> : null}

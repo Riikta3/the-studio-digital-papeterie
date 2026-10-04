@@ -294,6 +294,14 @@ export type InvitationData = {
   /** The gallery module: the couple's photographs, in their order. */
   gallery?: { images: string[] };
 
+  /**
+   * The guestbook module: a form where guests leave the couple a message.
+   * Private: the theme never shows other guests' messages, only the form and
+   * the couple's own heading and welcome words. Messages go through
+   * `useGuestGuestbook`; without `weddingId` (demo, preview) nothing is sent.
+   */
+  guestbook?: { title?: string; body?: string };
+
   stays?: Stay[];
   faq?: FaqEntry[];
   playlist?: PlaylistSuggestion[];

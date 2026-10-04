@@ -1196,3 +1196,265 @@
     translate: none;
   }
 }
+
+/* ── Guestbook: a postcard to the couple ────────────────────────────────── */
+
+/* From the playlist's peach into the travel notebook's lagoon. */
+.theme-cabo-verde .cv-book {
+  text-align: center;
+  background: linear-gradient(180deg, #ffe6dc 0%, #fff3ea 45%, #dff4f1 100%);
+}
+
+.theme-cabo-verde .cv-book > .eyebrow {
+  color: var(--beach-coral);
+}
+
+.theme-cabo-verde .cv-book h2 {
+  color: #123d58;
+}
+
+.theme-cabo-verde .cv-book h2 em {
+  color: #16a9b8;
+}
+
+.theme-cabo-verde .cv-book-intro {
+  max-width: 32rem;
+  margin: 0 auto 2.2rem;
+  color: #3e6172;
+  font-family: "Times New Roman", serif;
+  font-size: 1.1rem;
+  line-height: 1.7;
+  white-space: pre-line;
+  text-wrap: pretty;
+}
+
+/* The card: the gift note's airmail edge and ivory paper, tilted the other
+   way — this one travels from the guest to the couple. */
+.theme-cabo-verde .cv-book-card {
+  position: relative;
+  display: grid;
+  gap: 1.4rem;
+  max-width: 40rem;
+  margin: 0 auto;
+  padding: 1.4rem 1.3rem 1.8rem;
+  border: 7px solid transparent;
+  border-radius: 0.5rem;
+  background:
+    linear-gradient(#fffaf0, #fffaf0) padding-box,
+    repeating-linear-gradient(-45deg, #e56f62 0 9px, #fffaf0 9px 18px, #174f8b 18px 27px, #fffaf0 27px 36px) border-box;
+  color: #123d58;
+  text-align: start;
+  rotate: 1.2deg;
+  filter: drop-shadow(0 16px 24px rgba(18, 61, 88, 0.14));
+}
+
+/* The RSVP's fields, exactly, in the card's navy ink. */
+.theme-cabo-verde .cv-book-card label {
+  display: block;
+  font-size: 0.68rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.theme-cabo-verde .cv-book-card :is(input, textarea) {
+  display: block;
+  width: 100%;
+  margin-top: 0.35rem;
+  padding: 0.8rem 0.1rem;
+  border: 0;
+  border-bottom: 1px solid rgba(18, 61, 88, 0.42);
+  border-radius: 0;
+  background: transparent;
+  color: #123d58;
+  letter-spacing: normal;
+  outline: none;
+}
+
+/* The message is written on the card's ruled lines. */
+.theme-cabo-verde .cv-book-card textarea {
+  min-height: 11rem;
+  padding-top: 0.2rem;
+  line-height: 2.2;
+  resize: vertical;
+  background: repeating-linear-gradient(transparent 0 calc(2.2em - 1px), rgba(18, 61, 88, 0.16) calc(2.2em - 1px) 2.2em);
+  background-attachment: local;
+}
+
+.theme-cabo-verde .cv-book-card textarea::placeholder {
+  color: rgba(18, 61, 88, 0.42);
+}
+
+.theme-cabo-verde .cv-book-card :is(input, textarea):focus-visible {
+  border-bottom-color: #137f98;
+  box-shadow: 0 1px 0 #137f98;
+}
+
+.theme-cabo-verde .cv-book-count {
+  display: block;
+  margin-top: 0.45rem;
+  color: #557083;
+  font-size: 0.68rem;
+  letter-spacing: 0.1em;
+  text-align: end;
+  font-variant-numeric: tabular-nums;
+}
+
+/* The couple's names, handwritten on the address line. */
+.theme-cabo-verde .cv-book-to {
+  margin: 0 0 1rem;
+  padding-bottom: 0.2rem;
+  border-bottom: 1px solid rgba(18, 61, 88, 0.24);
+  color: #123d58;
+  font-family: var(--font-cv-script), "Snell Roundhand", cursive;
+  font-size: 1.9rem;
+  line-height: 1.2;
+  overflow-wrap: anywhere;
+}
+
+.theme-cabo-verde .cv-book-error {
+  margin: 0.9rem 0 0;
+  color: #b8342c;
+  font-size: 0.85rem;
+  line-height: 1.5;
+}
+
+/* The RSVP's button, in the venue card's sea blue. */
+.theme-cabo-verde .cv-book-button {
+  display: block;
+  width: 100%;
+  min-height: 44px;
+  margin-top: 1.2rem;
+  padding: 1rem 1.25rem;
+  border: 0;
+  background: #126d8b;
+  color: #fff;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.13em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: filter 0.35s ease, transform 0.35s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.theme-cabo-verde .cv-book-button:hover:not(:disabled) {
+  transform: translateY(-2px);
+  filter: brightness(1.15);
+}
+
+.theme-cabo-verde .cv-book-button:focus-visible {
+  outline: 2px solid #123d58;
+  outline-offset: 3px;
+}
+
+.theme-cabo-verde .cv-book-button:disabled {
+  opacity: 0.55;
+  cursor: progress;
+}
+
+/* The stamp corner: the gift note's perforated stamp, at the end of the line. */
+.theme-cabo-verde .cv-book-side {
+  position: relative;
+  display: flex;
+  justify-content: flex-end;
+  min-height: 88px;
+  margin-bottom: 1rem;
+}
+
+/* Grid children may shrink below a long word, so nothing pushes the card. */
+.theme-cabo-verde .cv-book-card > * {
+  min-width: 0;
+}
+
+@media (min-width: 600px) {
+  /* A real postcard: the message on the left, the address side on the right
+     (the stamp and the names above, the signature and the post below). */
+  .theme-cabo-verde form.cv-book-card {
+    grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr);
+    grid-template-rows: auto 1fr;
+    grid-template-areas: "message head" "message sign";
+    gap: 0;
+    padding: 2rem 1.8rem 2.2rem;
+  }
+
+  .theme-cabo-verde .cv-book-message {
+    grid-area: message;
+    padding-inline-end: 1.6rem;
+    border-inline-end: 1px solid rgba(18, 61, 88, 0.18);
+  }
+
+  .theme-cabo-verde .cv-book-head {
+    grid-area: head;
+    padding-inline-start: 1.6rem;
+  }
+
+  .theme-cabo-verde .cv-book-sign {
+    grid-area: sign;
+    align-self: end;
+    padding-inline-start: 1.6rem;
+  }
+
+  .theme-cabo-verde .cv-book-card textarea {
+    min-height: 15rem;
+  }
+}
+
+/* Posted: the card comes back dealt onto the page, and the postmark lands on
+   its stamp with the wedding day. */
+.theme-cabo-verde .cv-book-posted {
+  max-width: 34rem;
+  text-align: center;
+  animation: cabo-verde-book-posted 1s cubic-bezier(0.16, 0.84, 0.2, 1) both;
+}
+
+.theme-cabo-verde .cv-book-posted .cv-postmark {
+  animation: cabo-verde-postmark 0.75s 0.75s both cubic-bezier(0.2, 0.75, 0.2, 1);
+}
+
+.theme-cabo-verde .cv-book-thanks h3 {
+  margin: 0 0 0.4rem;
+  color: #123d58;
+  font-family: Didot, var(--font-cv-display), "Times New Roman", serif;
+  font-size: 2.1rem;
+  font-weight: 400;
+  line-height: 1.1;
+  overflow-wrap: anywhere;
+}
+
+.theme-cabo-verde .cv-book-thanks p {
+  margin: 0;
+  color: #3e6172;
+  font-family: "Times New Roman", serif;
+  font-size: 1.08rem;
+  font-style: italic;
+  line-height: 1.7;
+}
+
+@keyframes cabo-verde-book-posted {
+  0% {
+    opacity: 0;
+    translate: 0 48px;
+    rotate: 7deg;
+  }
+  100% {
+    opacity: 1;
+    translate: 0 0;
+    rotate: 1.2deg;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .theme-cabo-verde .cv-book-posted,
+  .theme-cabo-verde .cv-book-posted .cv-postmark {
+    animation: none;
+    opacity: 1;
+  }
+
+  .theme-cabo-verde .cv-book-button:hover:not(:disabled) {
+    transform: none;
+  }
+}
+
+[dir="rtl"] .theme-cabo-verde :is(.cv-book-intro, .cv-book-to, .cv-book-thanks h3) {
+  unicode-bidi: plaintext;
+}

@@ -1279,6 +1279,23 @@
         "archFooter": "ESTATE  ·  AMORE  ·  DOLCE VITA",
         "timelineFooter": "LIMONI · AMORE · ESTATE",
         "playlistTag": "♪  MUSICA ITALIANA  ♪"
+      },
+      "guestbook": {
+        "eyebrow": "わたしたちへのひとこと",
+        "titleLine1": "わたしたちに",
+        "titleLine2": "ひとことを",
+        "intro": "思い出、願い、アドバイス。パーティーのずっと後にも読み返したい数行を。読むのはわたしたちだけです。",
+        "nameLabel": "お名前",
+        "namePlaceholder": "お名前",
+        "messageLabel": "メッセージ",
+        "messagePlaceholder": "思い出、願い、アドバイス…",
+        "counter": "{count} / {max}",
+        "submit": "メッセージを送る",
+        "submitPending": "送信中…",
+        "thanksTitle": "Grazie！",
+        "thanksTitleNamed": "Grazie、{name}さん！",
+        "thanksBody": "メッセージが届きました。大切にします。",
+        "another": "もうひとこと書く"
       }
     },
     "belleRive": {
@@ -1523,6 +1540,20 @@
         "eyebrow": "ギフトリスト",
         "titleFallback": "皆さまのご出席が何よりの贈り物です",
         "linkFallback": "参加する"
+      },
+      "guestbook": {
+        "eyebrow": "ゲストブック",
+        "intro": "思い出、願い、ひとこと。読むのはおふたりだけです。",
+        "nameLabel": "お名前（名）",
+        "messageLabel": "メッセージ",
+        "count": "{count} / {max}",
+        "submit": "メッセージを送る",
+        "pending": "送信中…",
+        "thanks": "{name}さん、ありがとうございます！",
+        "again": "もうひとこと書く",
+        "titleLine1": "ひとこと",
+        "titleLine2": "おふたりへ",
+        "thanksBody": "メッセージは封をして、おふたりに届けられました。"
       }
     },
     "mareAlta": {
@@ -1694,6 +1725,33 @@
         "venue": "会場",
         "programme": "プログラム",
         "rsvp": "出欠の返信"
+      },
+      "guestbook": {
+        "eyebrow": "ずっと残しておきたい言葉",
+        "titleLine1": "言葉の瓶",
+        "titleLine2": "心が温まる",
+        "intro": "おふたりが何年もかけて開けられるメッセージを入れてください。笑って、思い出して、ふたりを結ぶすべてを祝えるように。",
+        "tag": "瓶に入れるあなたの紙",
+        "prompt1": "毎日が慌ただしく過ぎるときに読み返せる言葉を。",
+        "prompt2": "けんかの後に開けるなら：ふたりがいつも忘れずにいるべきことは？",
+        "prompt3": "ふたりを一緒に強くしてくれるものを思い出させてあげてください。",
+        "prompt4": "元気がほしい日のために、ひとこと書いてください。",
+        "prompt5": "ふたりの愛のどんな思い出を大切にしてほしいですか？",
+        "prompt6": "いつでもまた寄り添えるように、どんなアドバイスを贈りますか？",
+        "anotherPrompt": "別の質問",
+        "messageLabel": "メッセージ",
+        "messagePlaceholder": "ここにメッセージを書いてください…",
+        "counter": "{count} / {max}",
+        "nameLabel": "お名前",
+        "namePlaceholder": "署名してください",
+        "send": "瓶に入れる",
+        "sending": "送信中…",
+        "jarAlt": "新郎新婦への小さな手紙でいっぱいの、刺繍とパールの瓶",
+        "thanksEyebrow": "瓶の中へ",
+        "thanksTitle": "ありがとうございます！",
+        "thanksTitleNamed": "{name}さん、ありがとうございます！",
+        "thanksBody": "メッセージは瓶に入りました。おふたりが何度も読み返します。",
+        "another": "もう一通書く"
       }
     },
     "caboVerde": {
@@ -1828,6 +1886,21 @@
         "eyebrow": "ギフトリスト",
         "titleFallback": "皆さまのご出席が何よりの贈り物です",
         "linkFallback": "参加する"
+      },
+      "guestbook": {
+        "eyebrow": "ゲストブック",
+        "intro": "思い出、願い、ひとこと。読むのはおふたりだけです。",
+        "nameLabel": "お名前（名）",
+        "messageLabel": "メッセージ",
+        "count": "{count} / {max}",
+        "submit": "メッセージを送る",
+        "pending": "送信中…",
+        "thanks": "{name}さん、ありがとうございます！",
+        "again": "もうひとこと書く",
+        "titleLine1": "一枚のポストカード",
+        "titleLine2": "おふたりへ",
+        "thanksBody": "ポストカードを送りました。おふたりが読んでくれます。",
+        "messagePlaceholder": "おふたりへひとこと…"
       }
     },
     "music": {

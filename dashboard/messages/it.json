@@ -923,7 +923,9 @@
     "confirm_description": "Il messaggio di {name} verrà eliminato definitivamente. Questa azione è irreversibile.",
     "cancel": "Annulla",
     "deleting": "Eliminazione...",
-    "delete": "Elimina"
+    "delete": "Elimina",
+    "delete_label": "Elimina il messaggio di {name}",
+    "confirm_description_guestbook": "Il messaggio di {name} sarà eliminato definitivamente dal libro degli ospiti. Questa azione è irreversibile."
   },
   "SendMagicLinkMenuItem": {
     "toast_no_email": "Nessuna email per {name}",
@@ -940,7 +942,16 @@
     "title": "Messaggi",
     "description": "Le parole che i tuoi ospiti ti hanno lasciato.",
     "no_messages": "Nessun messaggio per ora.",
-    "message_count": "{count} messaggio/i"
+    "message_count": "{count} messaggio/i",
+    "guestbook_title": "Libro degli ospiti",
+    "guestbook_description": "Le parole lasciate nel libro degli ospiti del vostro invito. Solo voi le leggete.",
+    "guestbook_empty": "Le parole dei vostri ospiti appariranno qui non appena vi scriveranno dal vostro invito.",
+    "guestbook_not_owned": "Il libro degli ospiti non è nel vostro invito. Aggiungetelo perché i vostri ospiti possano lasciarvi un pensiero: lo leggerete solo voi, qui.",
+    "guestbook_pending": "Il libro degli ospiti è stato aggiunto al vostro invito ma non è ancora pagato. Si aprirà ai vostri ospiti dopo il pagamento e le loro parole appariranno qui.",
+    "guestbook_add": "Aggiungi il libro degli ospiti",
+    "guestbook_open_editor": "Apri l’editor",
+    "rsvp_title": "Con le risposte RSVP",
+    "rsvp_description": "Le parole che i vostri ospiti hanno lasciato rispondendo all’invito."
   },
   "DashboardLayout": {
     "initializing": "Preparazione del tuo spazio..."
@@ -1559,7 +1570,7 @@
       },
       "guestbook": {
         "label": "Libro degli ospiti",
-        "description": "I testi che accompagneranno il vostro libro degli ospiti."
+        "description": "Il titolo e le parole di benvenuto sopra il modulo in cui i vostri ospiti vi scrivono. I loro messaggi arrivano in Messaggi."
       },
       "video-guestbook": {
         "label": "Libro degli ospiti video",
@@ -1762,7 +1773,7 @@
       "childrenQuestion": "Questa domanda si aggiunge da sola alle vostre FAQ e segue la vostra impostazione «Bambini ammessi», per non contraddire mai il modulo.",
       "legacy": "{count, plural, one {# domanda scritta nel vecchio modulo FAQ compare} other {# domande scritte nel vecchio modulo FAQ compaiono}} ancora sul vostro invito, oltre a queste.",
       "playlistModeration": "Approvate o rifiutate i brani proposti dai vostri invitati.",
-      "guestbookNotLive": "Il libro degli ospiti non è ancora aperto ai vostri invitati. I vostri testi sono salvati e lo accompagneranno al lancio."
+      "videoGuestbookNotLive": "Il libro degli ospiti video non è ancora aperto ai vostri ospiti. I vostri testi sono salvati e lo accompagneranno al lancio."
     },
     "eventKinds": {
       "welcome-dinner": "Cena di benvenuto",

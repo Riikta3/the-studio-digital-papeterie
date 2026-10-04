@@ -1031,3 +1031,226 @@
 /* A title in a Latin script keeps its own direction, but sits against its number (on the right), not
    across the card from it. */
 [dir="rtl"] .theme-chateau-royal .cr-ball-track :is(strong, em) { text-align: right; }
+
+/* ------------------------------------------------------------------ *
+ * The guestbook (« livre d'or »): a page in an espresso binding
+ * ------------------------------------------------------------------ */
+
+/* Signed on the way out: the reply's warm paper deepening towards the closing page's espresso. */
+.theme-chateau-royal .cr-book {
+  padding: 110px 20px 130px;
+  background: linear-gradient(#efe4d5, #e3d0bb 70%, #d6bea5);
+}
+
+/* The binding: espresso leather tooled with a gold rule, the page laid inside it. */
+.theme-chateau-royal .cr-book-cover {
+  position: relative;
+  width: min(600px, 100%);
+  margin: 0 auto;
+  padding: 16px;
+  background: radial-gradient(ellipse at 30% 20%, #6a4a3d, #4b312a 60%, #3f2923);
+  outline: 1px solid #b99c6d99;
+  outline-offset: -8px;
+  box-shadow: 0 25px 60px #39231940;
+}
+
+/* A silk ribbon marks the page; it drops from the head of the book once the book is seen. */
+.theme-chateau-royal .cr-book-ribbon {
+  position: absolute;
+  z-index: 2;
+  top: 0;
+  inset-inline-end: 54px;
+  width: 16px;
+  height: 92px;
+  background: linear-gradient(90deg, #8f3f3a, #a65049 50%, #8f3f3a);
+  clip-path: polygon(0 0, 100% 0, 100% 100%, 50% 84%, 0 100%);
+  transform-origin: top;
+  transition: transform 0.9s cubic-bezier(0.2, 0.7, 0.3, 1) 0.6s;
+}
+.theme-chateau-royal[data-js] .cr-book-cover:not(.visible) .cr-book-ribbon { transform: scaleY(0); }
+
+/* The page: ivory, a double gold hairline, and its edges stacked like a book's leaves. */
+.theme-chateau-royal .cr-book-page {
+  position: relative;
+  padding: 72px clamp(24px, 6vw, 56px) 60px;
+  text-align: center;
+  color: var(--ink);
+  background: #fffaf1;
+  border: 1px solid #a78564;
+  outline: 1px solid #b59b75;
+  outline-offset: -14px;
+  box-shadow: 2px 2px 0 #efe3d1, 4px 4px 0 #e2d2bb;
+}
+/* The gold rule under the title draws out with the book (the shared rule keys off its direct parent). */
+.theme-chateau-royal[data-js] .cr-book-cover.visible .cr-rule { transform: none; }
+.theme-chateau-royal .cr-book h2 {
+  margin: 14px 0 22px;
+  font: 400 clamp(2.6rem, 4.6vw, 4.2rem)/1.04 var(--font-cr-display), "Bodoni Moda", serif;
+  letter-spacing: -0.06em;
+  text-wrap: balance;
+}
+.theme-chateau-royal .cr-book h2 em {
+  font: italic 400 1em/1.12 var(--font-cr-display), "Bodoni Moda", serif;
+  letter-spacing: -0.055em;
+  color: #83604c;
+}
+.theme-chateau-royal .cr-book-intro {
+  max-width: 26rem;
+  margin: 0 auto 8px;
+  font: italic 1.15rem/1.5 var(--font-cr-display), "Bodoni Moda", serif;
+  color: #89705e;
+  white-space: pre-line;
+  text-wrap: pretty;
+}
+
+/* The reply's ruled form, exactly: same labels, same underlined fields, same button. */
+.theme-chateau-royal .cr-book-form {
+  display: grid;
+  gap: 17px;
+  margin-top: 38px;
+  text-align: start;
+}
+.theme-chateau-royal .cr-book-form label {
+  font-size: 0.84rem;
+  letter-spacing: 0.07em;
+  text-wrap: pretty;
+}
+.theme-chateau-royal .cr-book-form :is(input, textarea) {
+  display: block;
+  width: 100%;
+  padding: 12px 3px;
+  border: 0;
+  border-bottom: 1px solid #b59a81;
+  border-radius: 0;
+  background: transparent;
+  color: var(--ink);
+  font: inherit;
+  font-size: 1rem;
+  letter-spacing: normal;
+  outline-offset: 3px;
+}
+/* The message is written on the page's ruled lines. */
+.theme-chateau-royal .cr-book-form textarea {
+  min-height: 170px;
+  padding-top: 4px;
+  line-height: 32px;
+  resize: vertical;
+  background: repeating-linear-gradient(transparent 0 31px, #e4d5bf 31px 32px);
+  background-attachment: local;
+}
+.theme-chateau-royal .cr-book-count {
+  margin-top: -9px;
+  font: 400 0.85rem var(--font-cr-display), "Bodoni Moda", serif;
+  letter-spacing: 0.06em;
+  text-align: end;
+  color: #89705e;
+  font-variant-numeric: tabular-nums;
+}
+.theme-chateau-royal .cr-book-error {
+  margin: 0;
+  font-size: 0.9rem;
+  letter-spacing: 0.02em;
+  color: #8b3a2b;
+}
+.theme-chateau-royal :is(.cr-book-send, .cr-book-again) {
+  display: block;
+  width: 100%;
+  min-height: 48px;
+  margin-top: 15px;
+  padding: 17px;
+  border: 0;
+  background: #58372d;
+  color: #fff9ed;
+  font: inherit;
+  font-size: 0.78rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  text-wrap: balance;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+.theme-chateau-royal :is(.cr-book-send, .cr-book-again):hover:not(:disabled) { background: #3b261f; }
+.theme-chateau-royal .cr-book-send:disabled { opacity: 0.65; cursor: progress; }
+.theme-chateau-royal :is(.cr-book-send, .cr-book-again) span {
+  display: inline-block;
+  margin-inline-start: 12px;
+  transition: transform 0.6s ease-out;
+}
+.theme-chateau-royal :is(.cr-book-send, .cr-book-again):is(:hover, :focus-visible) span { transform: rotate(90deg); }
+.theme-chateau-royal :is(.cr-book-form input, .cr-book-form textarea, .cr-book-send, .cr-book-again):focus-visible {
+  outline: 1px solid #9c7656;
+  outline-offset: 4px;
+}
+
+/* Sent: the couple's monogram is pressed into espresso wax on the page. */
+.theme-chateau-royal .cr-book-sealed { margin-top: 34px; }
+.theme-chateau-royal .cr-book-seal {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 2px;
+  width: 76px;
+  height: 76px;
+  margin: 0 auto 22px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 30%, #75503f, #58372d 55%, #432a23);
+  color: #ead3a8;
+  font: 400 1.1rem var(--font-cr-display), "Bodoni Moda", serif;
+  letter-spacing: 0.06em;
+  white-space: nowrap;
+  box-shadow:
+    0 0 0 3px #5e3c31,
+    0 4px 10px #2b17114d,
+    inset 0 0 0 5px #4f3129,
+    inset 0 0 0 6px #b99c6d99;
+  animation: chateau-royal-sealPress 0.9s cubic-bezier(0.2, 0.7, 0.3, 1) 0.15s both;
+}
+.theme-chateau-royal .cr-book-seal i {
+  font: 1.2rem var(--font-cr-script), "Pinyon Script", cursive;
+  letter-spacing: 0;
+}
+.theme-chateau-royal .cr-book-seal[data-long] { font-size: 0.8rem; letter-spacing: 0.03em; }
+.theme-chateau-royal .cr-book-thanks {
+  margin: 0 0 8px;
+  font: 1.4rem/1.4 var(--font-cr-display), "Bodoni Moda", serif;
+  overflow-wrap: anywhere;
+}
+.theme-chateau-royal .cr-book-thanks-body {
+  margin: 0 auto 18px;
+  max-width: 26rem;
+  font: italic 1.05rem/1.5 var(--font-cr-display), "Bodoni Moda", serif;
+  color: #89705e;
+}
+.theme-chateau-royal :is(.cr-book-thanks, .cr-book-thanks-body, .cr-book-again) {
+  animation: chateau-royal-bookInk 0.8s ease-out 0.7s both;
+}
+
+@keyframes chateau-royal-sealPress {
+  0% { opacity: 0; transform: scale(1.35) rotate(-10deg); }
+  60% { opacity: 1; transform: scale(0.96) rotate(1deg); }
+  100% { opacity: 1; transform: none; }
+}
+@keyframes chateau-royal-bookInk {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: none; }
+}
+
+@media (max-width: 760px) {
+  .theme-chateau-royal .cr-book { padding: 96px 12px 104px; }
+  .theme-chateau-royal .cr-book-cover { padding: 10px; outline-offset: -5px; }
+  .theme-chateau-royal .cr-book-ribbon { inset-inline-end: 34px; height: 76px; width: 14px; }
+  .theme-chateau-royal .cr-book-page { padding: 62px 24px 48px; }
+  .theme-chateau-royal .cr-book h2 { font-size: clamp(2.3rem, 10vw, 3.2rem); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .theme-chateau-royal :is(.cr-book-ribbon, .cr-book .cr-rule) { transform: none !important; }
+  .theme-chateau-royal :is(.cr-book-seal, .cr-book-thanks, .cr-book-thanks-body, .cr-book-again) {
+    animation: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+  }
+}
+
+[dir="rtl"] .theme-chateau-royal :is(.cr-book-form label, .cr-book-send, .cr-book-again) { letter-spacing: 0; }
+[dir="rtl"] .theme-chateau-royal :is(.cr-book-intro, .cr-book-thanks) { unicode-bidi: plaintext; }

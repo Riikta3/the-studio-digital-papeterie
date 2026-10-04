@@ -1279,6 +1279,23 @@
         "archFooter": "ESTATE  ·  AMORE  ·  DOLCE VITA",
         "timelineFooter": "LIMONI · AMORE · ESTATE",
         "playlistTag": "♪  MUSICA ITALIANA  ♪"
+      },
+      "guestbook": {
+        "eyebrow": "Un pensiero per noi",
+        "titleLine1": "Lasciateci",
+        "titleLine2": "un pensiero",
+        "intro": "Un ricordo, un augurio, un consiglio: qualche riga da rileggere molto dopo la festa. Saremo gli unici a leggerla.",
+        "nameLabel": "Il vostro nome",
+        "namePlaceholder": "Nome",
+        "messageLabel": "Il vostro messaggio",
+        "messagePlaceholder": "Un ricordo, un augurio, un consiglio…",
+        "counter": "{count} / {max}",
+        "submit": "Invia il mio pensiero",
+        "submitPending": "Invio…",
+        "thanksTitle": "Grazie!",
+        "thanksTitleNamed": "Grazie, {name}!",
+        "thanksBody": "Il vostro pensiero è arrivato. Lo custodiremo con cura.",
+        "another": "Scrivi un altro pensiero"
       }
     },
     "belleRive": {
@@ -1523,6 +1540,20 @@
         "eyebrow": "Lista nozze",
         "titleFallback": "La vostra presenza è il regalo più bello",
         "linkFallback": "Partecipa"
+      },
+      "guestbook": {
+        "eyebrow": "Libro degli ospiti",
+        "intro": "Un ricordo, un augurio, qualche parola: le leggeranno solo gli sposi.",
+        "nameLabel": "Il tuo nome",
+        "messageLabel": "Il tuo messaggio",
+        "count": "{count} / {max}",
+        "submit": "Invia il mio messaggio",
+        "pending": "Invio…",
+        "thanks": "Grazie, {name}!",
+        "again": "Scrivi un altro messaggio",
+        "titleLine1": "Una parola",
+        "titleLine2": "per gli sposi",
+        "thanksBody": "Il tuo messaggio è sigillato e consegnato agli sposi."
       }
     },
     "mareAlta": {
@@ -1694,6 +1725,33 @@
         "venue": "Il luogo",
         "programme": "Il programma",
         "rsvp": "Rispondere"
+      },
+      "guestbook": {
+        "eyebrow": "Parole da custodire per sempre",
+        "titleLine1": "Il barattolo delle parole",
+        "titleLine2": "che fanno bene",
+        "intro": "Lasciate un messaggio che gli sposi potranno aprire negli anni, per ridere, ricordare e celebrare tutto ciò che li unisce.",
+        "tag": "Il vostro biglietto per il barattolo",
+        "prompt1": "Scrivete loro una parola da rileggere quando la vita di tutti i giorni corre troppo.",
+        "prompt2": "Da aprire dopo un litigio: che cosa devono ricordare sempre?",
+        "prompt3": "Ricordate loro che cosa li rende più forti insieme.",
+        "prompt4": "Scrivete loro qualche parola per un giorno in cui avranno bisogno di slancio.",
+        "prompt5": "Quale ricordo del loro amore devono custodire gelosamente?",
+        "prompt6": "Quale consiglio dareste loro per ritrovarsi sempre?",
+        "anotherPrompt": "Un’altra domanda",
+        "messageLabel": "Il vostro messaggio",
+        "messagePlaceholder": "Scrivete qui il vostro messaggio…",
+        "counter": "{count} / {max}",
+        "nameLabel": "Il vostro nome",
+        "namePlaceholder": "Firmate il biglietto",
+        "send": "Infilalo nel barattolo",
+        "sending": "Invio…",
+        "jarAlt": "Barattolo ricamato e perlato, pieno di bigliettini per gli sposi",
+        "thanksEyebrow": "Nel barattolo",
+        "thanksTitle": "Grazie!",
+        "thanksTitleNamed": "Grazie, {name}!",
+        "thanksBody": "Il vostro biglietto è nel barattolo. Gli sposi lo leggeranno e rileggeranno.",
+        "another": "Scrivi un altro biglietto"
       }
     },
     "caboVerde": {
@@ -1828,6 +1886,21 @@
         "eyebrow": "Lista nozze",
         "titleFallback": "La vostra presenza è il regalo più bello",
         "linkFallback": "Partecipa"
+      },
+      "guestbook": {
+        "eyebrow": "Libro degli ospiti",
+        "intro": "Un ricordo, un augurio, qualche parola: le leggeranno solo gli sposi.",
+        "nameLabel": "Il tuo nome",
+        "messageLabel": "Il tuo messaggio",
+        "count": "{count} / {max}",
+        "submit": "Invia il mio messaggio",
+        "pending": "Invio…",
+        "thanks": "Grazie, {name}!",
+        "again": "Scrivi un altro messaggio",
+        "titleLine1": "Una cartolina",
+        "titleLine2": "per gli sposi",
+        "thanksBody": "La tua cartolina è partita: gli sposi la leggeranno.",
+        "messagePlaceholder": "Scrivi loro qualche parola…"
       }
     },
     "music": {

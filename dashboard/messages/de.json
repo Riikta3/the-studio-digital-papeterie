@@ -923,7 +923,9 @@
     "confirm_description": "Die Nachricht von {name} wird endgültig gelöscht. Diese Aktion ist unwiderruflich.",
     "cancel": "Abbrechen",
     "deleting": "Wird gelöscht...",
-    "delete": "Löschen"
+    "delete": "Löschen",
+    "delete_label": "Nachricht von {name} löschen",
+    "confirm_description_guestbook": "Der Eintrag von {name} wird endgültig aus dem Gästebuch gelöscht. Diese Aktion ist unwiderruflich."
   },
   "SendMagicLinkMenuItem": {
     "toast_no_email": "Keine E-Mail für {name}",
@@ -940,7 +942,16 @@
     "title": "Nachrichten",
     "description": "Die Worte, die Ihre Gäste Ihnen hinterlassen haben.",
     "no_messages": "Noch keine Nachrichten.",
-    "message_count": "{count} Nachricht(en)"
+    "message_count": "{count} Nachricht(en)",
+    "guestbook_title": "Gästebuch",
+    "guestbook_description": "Die Worte aus dem Gästebuch Ihrer Einladung. Nur Sie können sie lesen.",
+    "guestbook_empty": "Die Worte Ihrer Gäste erscheinen hier, sobald sie Ihnen über Ihre Einladung schreiben.",
+    "guestbook_not_owned": "Das Gästebuch ist nicht Teil Ihrer Einladung. Fügen Sie es hinzu, damit Ihre Gäste Ihnen ein paar Worte hinterlassen können – nur Sie lesen sie, hier.",
+    "guestbook_pending": "Das Gästebuch ist Ihrer Einladung hinzugefügt, aber noch nicht bezahlt. Nach der Zahlung öffnet es sich für Ihre Gäste, und ihre Worte erscheinen hier.",
+    "guestbook_add": "Gästebuch hinzufügen",
+    "guestbook_open_editor": "Editor öffnen",
+    "rsvp_title": "Mit den RSVP-Antworten",
+    "rsvp_description": "Die Worte, die Ihre Gäste bei ihrer Antwort auf die Einladung hinterlassen haben."
   },
   "DashboardLayout": {
     "initializing": "Ihr Bereich wird eingerichtet..."
@@ -1559,7 +1570,7 @@
       },
       "guestbook": {
         "label": "Gästebuch",
-        "description": "Die Texte, die euer Gästebuch begleiten."
+        "description": "Titel und Begrüßung über dem Formular, in dem eure Gäste euch schreiben. Ihre Nachrichten landen unter Nachrichten."
       },
       "video-guestbook": {
         "label": "Video-Gästebuch",
@@ -1762,7 +1773,7 @@
       "childrenQuestion": "Diese Frage wird automatisch zu eurer FAQ hinzugefügt und folgt eurer Einstellung „Kinder willkommen“, damit sie dem Formular nie widerspricht.",
       "legacy": "{count, plural, one {# Frage aus dem alten FAQ-Modul erscheint} other {# Fragen aus dem alten FAQ-Modul erscheinen}} zusätzlich zu diesen weiterhin auf eurer Einladung.",
       "playlistModeration": "Nehmt die von euren Gästen vorgeschlagenen Titel an oder lehnt sie ab.",
-      "guestbookNotLive": "Das Gästebuch ist für eure Gäste noch nicht geöffnet. Eure Texte sind gespeichert und begleiten es, sobald es startet."
+      "videoGuestbookNotLive": "Das Video-Gästebuch ist für eure Gäste noch nicht geöffnet. Eure Texte sind gespeichert und begleiten es, sobald es startet."
     },
     "eventKinds": {
       "welcome-dinner": "Willkommensdinner",
