@@ -4,7 +4,7 @@ import { AddableModulesList } from "@/components/modules/AddableModulesList";
 import { SortableModulesList } from "@/components/modules/SortableModulesList";
 import { getModuleShop } from "@/lib/db/module-shop";
 import { addableModules } from "@shared/lib/addable-modules";
-import { EXTRA_MODULE_PRICE, addOnQuote } from "@shared/lib/pricing";
+import { EXTRA_MODULE_PRICE, addOnQuote, countedModules } from "@shared/lib/pricing";
 import { getLocale, getTranslations } from "next-intl/server";
 
 export default async function ModulesPage() {
@@ -20,7 +20,7 @@ export default async function ModulesPage() {
 
   // The editor's own menu, as a list: the theme's modules the couple lacks.
   const addable = addableModules(shop.themeId, shop.owned, shop.pending);
-  const nextIsPaid = addOnQuote(shop.planId, shop.owned.length + shop.pending.length, 1).billable > 0;
+  const nextIsPaid = addOnQuote(shop.planId, countedModules([...shop.owned, ...shop.pending]), 1).billable > 0;
   const price = formatEuros(EXTRA_MODULE_PRICE * 100, locale);
 
   return (
@@ -62,6 +62,7 @@ export default async function ModulesPage() {
             addable={addable}
             pending={shop.pending}
             priceLabel={nextIsPaid ? price : t("price_included")}
+            includedLabel={t("price_included")}
           />
         </div>
       )}

@@ -386,64 +386,68 @@
     "reorder": "Riordina",
     "catalog": {
       "countdown": {
-        "name": "Countdown",
-        "description": "Il conto alla rovescia per il grande giorno"
+        "name": "Conto alla rovescia",
+        "description": "Il conto alla rovescia verso il matrimonio"
       },
       "intro-video": {
-        "name": "Video Introduttivo",
-        "description": "Messaggio video personalizzato"
+        "name": "Video di benvenuto",
+        "description": "Il video che preferite nella pagina iniziale"
       },
       "timeline": {
         "name": "Programma",
         "description": "Lo svolgimento della giornata"
       },
       "dress-code": {
-        "name": "Dress Code",
-        "description": "Abbigliamento consigliato"
+        "name": "Dress code",
+        "description": "L’abbigliamento consigliato"
       },
       "rsvp": {
         "name": "Gestione RSVP",
         "description": "Conferme di presenza"
       },
       "map": {
-        "name": "Mappa e Accesso",
-        "description": "Posizione dei luoghi"
+        "name": "Mappa e accesso",
+        "description": "Indirizzi e itinerari"
       },
       "accommodation": {
         "name": "Alloggio",
-        "description": "Suggerimenti di hotel nelle vicinanze"
+        "description": "Alloggi nelle vicinanze"
       },
       "transport": {
-        "name": "Trasporto",
-        "description": "Navette e trasporto degli ospiti"
+        "name": "Trasporti",
+        "description": "Informazioni su navette e trasporti"
       },
       "menu": {
-        "name": "Menu",
-        "description": "Dettagli del pasto"
+        "name": "Menù",
+        "description": "I dettagli del pranzo"
       },
       "gallery": {
-        "name": "Galleria Fotografica",
-        "description": "Condividi i tuoi ricordi"
+        "name": "Spazio condivisione foto",
+        "description": "Sposi e invitati condividono foto e ricordi"
       },
       "gift-list": {
-        "name": "Lista Nozze",
+        "name": "Lista nozze",
         "description": "Regali e contributi"
       },
       "playlist": {
         "name": "Playlist",
-        "description": "Suggerimenti musicali"
+        "description": "I suggerimenti musicali degli invitati"
       },
       "guestbook": {
-        "name": "Libro degli Ospiti",
-        "description": "Messaggi degli ospiti"
+        "name": "Libro degli ospiti — Barattolo di dolci parole",
+        "description": "Gli invitati lasciano i loro messaggi nel barattolo"
       },
       "video-guestbook": {
         "name": "Libro degli Ospiti Video",
         "description": "Messaggi video degli ospiti"
       },
       "faq": {
-        "name": "FAQ / Info Pratiche",
-        "description": "Informazioni pratiche per gli ospiti"
+        "name": "FAQ / Info pratiche",
+        "description": "Le risposte alle domande degli invitati"
+      },
+      "jour-j": {
+        "name": "Trova il tuo posto",
+        "description": "Un QR code permette a ogni invitato di trovare il proprio tavolo"
       }
     },
     "dresscode_palette": "Palette di colori",
@@ -1036,7 +1040,9 @@
     "uploads_until_label": "Caricamenti aperti fino al",
     "uploads_until_hint": "Dopo questa data, gli invitati non potranno più aggiungere foto.",
     "save_failed": "Impossibile salvare le impostazioni.",
-    "settings_saved": "Impostazioni salvate"
+    "settings_saved": "Impostazioni salvate",
+    "not_included_title": "Modulo «Trova il tuo posto» non incluso",
+    "not_included_body": "Il vostro pacchetto non include la pagina del Giorno del sì (trovare il tavolo con un QR code). Contattateci per aggiungerla."
   },
   "DayOfPhotos": {
     "title": "Foto e video",

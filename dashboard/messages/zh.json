@@ -390,16 +390,16 @@
         "description": "婚礼倒计时"
       },
       "intro-video": {
-        "name": "开场视频",
-        "description": "个性化视频留言"
+        "name": "欢迎视频",
+        "description": "在首页展示你们选择的视频"
       },
       "timeline": {
-        "name": "流程安排",
-        "description": "当天的活动流程"
+        "name": "流程",
+        "description": "当天的安排"
       },
       "dress-code": {
         "name": "着装要求",
-        "description": "建议着装"
+        "description": "推荐的着装"
       },
       "rsvp": {
         "name": "RSVP 管理",
@@ -407,23 +407,23 @@
       },
       "map": {
         "name": "地图与交通",
-        "description": "场地位置"
+        "description": "地址与路线"
       },
       "accommodation": {
         "name": "住宿",
-        "description": "附近酒店推荐"
+        "description": "附近的住宿"
       },
       "transport": {
         "name": "交通",
-        "description": "宾客接驳与交通安排"
+        "description": "接驳车与交通信息"
       },
       "menu": {
         "name": "菜单",
-        "description": "餐点详情"
+        "description": "餐食详情"
       },
       "gallery": {
-        "name": "照片相册",
-        "description": "分享您的美好回忆"
+        "name": "照片分享空间",
+        "description": "新人与宾客分享照片和回忆"
       },
       "gift-list": {
         "name": "礼物清单",
@@ -431,11 +431,11 @@
       },
       "playlist": {
         "name": "歌单",
-        "description": "音乐推荐"
+        "description": "宾客的音乐推荐"
       },
       "guestbook": {
-        "name": "留言簿",
-        "description": "宾客留言"
+        "name": "留言簿 — 甜言蜜语罐",
+        "description": "宾客把留言投进罐子里"
       },
       "video-guestbook": {
         "name": "视频留言簿",
@@ -443,7 +443,11 @@
       },
       "faq": {
         "name": "常见问题 / 实用信息",
-        "description": "为宾客提供的实用信息"
+        "description": "解答宾客的疑问"
+      },
+      "jour-j": {
+        "name": "找到你的座位",
+        "description": "宾客扫描二维码即可找到自己的餐桌"
       }
     },
     "dresscode_palette": "色彩搭配",
@@ -1036,7 +1040,9 @@
     "uploads_until_label": "照片上传截止日期",
     "uploads_until_hint": "超过此日期后，宾客将无法再添加照片。",
     "save_failed": "无法保存设置。",
-    "settings_saved": "设置已保存"
+    "settings_saved": "设置已保存",
+    "not_included_title": "未包含“找到你的座位”模块",
+    "not_included_body": "你们的套餐不包含婚礼当天页面（扫描二维码查找座位）。请联系我们添加。"
   },
   "DayOfPhotos": {
     "title": "照片和视频",

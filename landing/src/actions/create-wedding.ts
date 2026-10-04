@@ -17,6 +17,7 @@ import {
   verifyPaymentForOrder,
 } from "@/lib/verify-payment";
 import { APP_MODULES } from "@shared/data/modules";
+import { ALWAYS_INCLUDED_MODULES } from "@shared/lib/pricing";
 
 /**
  * Locales the dashboard actually serves (dashboard/src/navigation.ts). Kept in
@@ -73,6 +74,13 @@ export async function createWedding(data: CreateWeddingData) {
     console.warn("🚫 Provisioning refused:", payment.reason);
     return { success: false, error: payment.reason };
   }
+
+  // The RSVP is part of every plan: the couple never picks it, so it is added
+  // here, once the basket they paid for has been verified as sent.
+  data = {
+    ...data,
+    modules: [...new Set([...data.modules, ...ALWAYS_INCLUDED_MODULES])],
+  };
 
   // Replay guard: a page reload after payment must not create a second wedding.
   if (payment.alreadyProvisionedAs) {
@@ -360,6 +368,10 @@ export async function createWedding(data: CreateWeddingData) {
     return orderA - orderB;
   });
 
+  const sectionModules = sortedModules.filter((id) =>
+    APP_MODULES.some((m) => m.id === id),
+  );
+
   // Generate a unique slug
   const baseSlug = generateSlug(data.firstName, data.partnerName);
   let finalSlug = baseSlug;
@@ -429,7 +441,10 @@ export async function createWedding(data: CreateWeddingData) {
   } else {
     // 4.5 Insert into site_modules (New Registry Architecture)
     const siteId = siteData.id;
-    const siteModulesEntries = sortedModules.map((modId, index) => ({
+    // Only invitation sections have a row in the `modules` registry, which
+    // `site_modules` references: « Trouve ta place » (jour-j) is a dashboard
+    // feature, kept in `sites.modules` alone.
+    const siteModulesEntries = sectionModules.map((modId, index) => ({
       site_id: siteId,
       module_id: modId,
       position: index + 1,
@@ -478,7 +493,7 @@ export async function createWedding(data: CreateWeddingData) {
       partner2: data.partnerName,
       weddingDate,
       venue: data.venue,
-      modules: sortedModules as ModuleId[],
+      modules: sectionModules as ModuleId[],
     });
   }
 

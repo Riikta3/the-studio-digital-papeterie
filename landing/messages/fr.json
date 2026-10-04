@@ -396,45 +396,54 @@
         "description": "Choisissez l’une des créations The Studio et personnalisez-la avec les informations, les images et l’univers de votre mariage.",
         "cta": "Choisir Signature",
         "features": [
-          "4 modules inclus, puis 5€ par module supplémentaire",
-          "Un thème parmi les créations The Studio",
-          "Faire-part en ligne personnalisé",
+          "Un thème parmi les créations The Studio au choix",
+          "Informations personnalisables (prénoms, lieu, date etc.)",
+          "4 modules inclus",
+          "Module supplémentaire : 5 €",
           "Espace de gestion des invités",
-          "Réponses RSVP en temps réel"
+          "RSVP avec réponses en temps réel",
+          "Invitation partagée par lien",
+          "Invitation accessible dès sa publication",
+          "En ligne jusqu’à 12 mois après la date de publication"
         ]
       },
       {
         "id": "sur-mesure",
         "name": "Sur-mesure",
         "price": "299€",
-        "positioning": "Pour les couples qui veulent une création à leur image.",
+        "positioning": "Pour les couples qui souhaitent adapter un modèle à leur mariage.",
         "description": "Une invitation de mariage personnalisée, imaginée autour de votre univers, de vos couleurs, de votre lieu et de l’histoire que vous souhaitez raconter.",
         "cta": "Créer mon invitation sur-mesure",
         "features": [
-          "Modules illimités, tous inclus",
-          "Identité graphique complète",
-          "Adaptation aux couleurs de votre mariage",
-          "Faire-part en ligne personnalisé",
-          "Espace de gestion des invités"
+          "Un thème parmi les créations The Studio au choix",
+          "Personnalisation graphique du thème",
+          "Tous les modules inclus en illimité",
+          "Espace de gestion des invités",
+          "RSVP avec réponses en temps réel",
+          "Module Jour J : trouver sa table grâce à un QR code",
+          "Invitation partagée par lien",
+          "Invitation accessible dès sa publication",
+          "En ligne jusqu’à 12 mois après la date de publication"
         ]
       },
       {
         "id": "prestige",
         "name": "Prestige",
         "price": "499€",
-        "positioning": "Pour les couples qui veulent une création unique, de A à Z.",
+        "positioning": "Pour les couples qui souhaitent une création unique.",
         "description": "L’expérience The Studio la plus complète, pensée pour les couples qui souhaitent aller plus loin dans la personnalisation de leur invitation.",
         "cta": "Découvrir Prestige",
         "features": [
-          "Création entièrement sur-mesure",
-          "Modules illimités, tous inclus",
+          "Création entièrement sur mesure",
+          "Identité graphique créée pour votre mariage",
+          "Tous les modules",
+          "Toutes les options premium",
           "Animation personnalisée",
-          "Identité graphique complète",
           "Modifications illimitées",
-          "Domaine personnalisé",
-          "Assistance prioritaire",
-          "Galerie photo après mariage",
-          "Livre d’or"
+          "Espace mariés inclus",
+          "RSVP avec réponses en temps réel",
+          "Domaine personnalisé inclus",
+          "Assistance prioritaire"
         ]
       }
     ],
@@ -442,34 +451,55 @@
       {
         "key": "modules_allowance",
         "label": "Modules inclus",
-        "signature": "4 modules, puis +5€ l’unité",
-        "sur-mesure": "Illimités",
-        "prestige": "Illimités"
+        "signature": "4 modules, puis +5 € l’unité",
+        "sur-mesure": "Tous, en illimité",
+        "prestige": "Tous, en illimité"
       },
       {
-        "key": "animation",
-        "label": "Animation personnalisée",
+        "key": "rsvp",
+        "label": "Gestion des invités et RSVP en temps réel",
+        "signature": "inc",
+        "sur-mesure": "inc",
+        "prestige": "inc"
+      },
+      {
+        "key": "customisation",
+        "label": "Personnalisation graphique du thème",
+        "signature": "no",
+        "sur-mesure": "inc",
+        "prestige": "inc"
+      },
+      {
+        "key": "day_of",
+        "label": "Jour J : trouver sa table grâce à un QR code",
+        "signature": "En module, +5 €",
+        "sur-mesure": "inc",
+        "prestige": "inc"
+      },
+      {
+        "key": "bespoke",
+        "label": "Création entièrement sur mesure",
         "signature": "no",
         "sur-mesure": "no",
         "prestige": "inc"
       },
       {
         "key": "identity",
-        "label": "Identité graphique complète",
+        "label": "Identité graphique créée pour votre mariage",
         "signature": "no",
-        "sur-mesure": "inc",
+        "sur-mesure": "no",
         "prestige": "inc"
       },
       {
-        "key": "colors",
-        "label": "Adaptation aux couleurs du mariage",
+        "key": "premium",
+        "label": "Toutes les options premium",
         "signature": "no",
-        "sur-mesure": "inc",
+        "sur-mesure": "no",
         "prestige": "inc"
       },
       {
-        "key": "support",
-        "label": "Assistance prioritaire",
+        "key": "animation",
+        "label": "Animation personnalisée",
         "signature": "no",
         "sur-mesure": "no",
         "prestige": "inc"
@@ -489,15 +519,8 @@
         "prestige": "inc"
       },
       {
-        "key": "gallery",
-        "label": "Galerie photo après mariage",
-        "signature": "no",
-        "sur-mesure": "no",
-        "prestige": "inc"
-      },
-      {
-        "key": "guestbook",
-        "label": "Livre d’or",
+        "key": "support",
+        "label": "Assistance prioritaire",
         "signature": "no",
         "sur-mesure": "no",
         "prestige": "inc"
@@ -1152,64 +1175,68 @@
     "included": "inclus",
     "catalog": {
       "countdown": {
-        "name": "Compte à Rebours",
-        "description": "Le décompte avant le jour J"
+        "name": "Compte à rebours",
+        "description": "Le décompte avant le mariage"
       },
       "intro-video": {
-        "name": "Vidéo d’Intro",
-        "description": "Message vidéo personnalisé"
+        "name": "Vidéo d’accueil",
+        "description": "La vidéo de votre choix sur la page d’accueil"
       },
       "timeline": {
         "name": "Programme",
-        "description": "Déroulé de la journée"
+        "description": "Le déroulé de la journée"
       },
       "dress-code": {
-        "name": "Dress Code",
-        "description": "Tenue recommandée"
+        "name": "Dress code",
+        "description": "Les tenues recommandées"
       },
       "rsvp": {
         "name": "Gestion RSVP",
         "description": "Confirmations de présence"
       },
       "map": {
-        "name": "Plan & Accès",
-        "description": "Localisation des lieux"
+        "name": "Plan & accès",
+        "description": "Les adresses et itinéraires"
       },
       "accommodation": {
         "name": "Hébergement",
-        "description": "Suggestions d’hôtels à proximité"
+        "description": "Les logements à proximité"
       },
       "transport": {
         "name": "Transport",
-        "description": "Navettes & transport des invités"
+        "description": "Les informations sur les navettes et transports"
       },
       "menu": {
         "name": "Menu",
-        "description": "Détails du repas"
+        "description": "Les détails du repas"
       },
       "gallery": {
-        "name": "Galerie Photo",
-        "description": "Partagez vos souvenirs"
+        "name": "Espace de partage de photos",
+        "description": "Mariés et invités partagent leurs photos et souvenirs"
       },
       "gift-list": {
-        "name": "Liste de Mariage",
-        "description": "Cadeaux & participations"
+        "name": "Liste de mariage",
+        "description": "Les cadeaux et participations"
       },
       "playlist": {
         "name": "Playlist",
-        "description": "Suggestions musicales"
+        "description": "Les suggestions musicales des invités"
       },
       "guestbook": {
-        "name": "Livre d’Or",
-        "description": "Messages des invités"
+        "name": "Livre d’or — Jar à mots doux",
+        "description": "Les invités déposent leurs messages dans la jar"
       },
       "video-guestbook": {
         "name": "Livre d’Or Vidéo",
         "description": "Messages vidéo des invités"
       },
       "faq": {
-        "name": "FAQ / Pratique",
-        "description": "Infos pratiques pour les invités"
+        "name": "FAQ / Infos pratiques",
+        "description": "Les réponses aux questions des invités"
+      },
+      "jour-j": {
+        "name": "Trouve ta place",
+        "description": "Un QR code permet à chaque invité de retrouver sa table"
       }
     },
     "subtitleUnlimited": "Modules illimités : tout ce que vous sélectionnez est inclus.",

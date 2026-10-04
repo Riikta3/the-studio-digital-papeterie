@@ -458,63 +458,67 @@
     "catalog": {
       "countdown": {
         "name": "Countdown",
-        "description": "The countdown to the big day"
+        "description": "The countdown to the wedding"
       },
       "intro-video": {
-        "name": "Intro Video",
-        "description": "Personalized video message"
+        "name": "Welcome video",
+        "description": "The video of your choice on the home page"
       },
       "timeline": {
-        "name": "Timeline",
-        "description": "The day's schedule"
+        "name": "Programme",
+        "description": "How the day unfolds"
       },
       "dress-code": {
-        "name": "Dress Code",
-        "description": "Recommended attire"
+        "name": "Dress code",
+        "description": "The recommended attire"
       },
       "rsvp": {
         "name": "RSVP Management",
         "description": "Attendance confirmations"
       },
       "map": {
-        "name": "Map & Access",
-        "description": "Venue locations"
+        "name": "Map & directions",
+        "description": "Addresses and routes"
       },
       "accommodation": {
         "name": "Accommodation",
-        "description": "Nearby hotel suggestions"
+        "description": "Places to stay nearby"
       },
       "transport": {
         "name": "Transport",
-        "description": "Shuttles & guest transport"
+        "description": "Shuttle and transport information"
       },
       "menu": {
         "name": "Menu",
-        "description": "Meal details"
+        "description": "The details of the meal"
       },
       "gallery": {
-        "name": "Photo Gallery",
-        "description": "Share your memories"
+        "name": "Photo sharing space",
+        "description": "The couple and guests share their photos and memories"
       },
       "gift-list": {
-        "name": "Gift Registry",
-        "description": "Gifts & contributions"
+        "name": "Wedding registry",
+        "description": "Gifts and contributions"
       },
       "playlist": {
         "name": "Playlist",
-        "description": "Music suggestions"
+        "description": "Guests’ song suggestions"
       },
       "guestbook": {
-        "name": "Guestbook",
-        "description": "Messages from guests"
+        "name": "Guestbook — Jar of sweet notes",
+        "description": "Guests leave their messages in the jar"
       },
       "video-guestbook": {
         "name": "Video Guestbook",
         "description": "Video messages from guests"
       },
       "faq": {
-        "name": "FAQ / Practical Info",
-        "description": "Practical info for guests"
+        "name": "FAQ / Practical info",
+        "description": "Answers to guests’ questions"
+      },
+      "jour-j": {
+        "name": "Find your seat",
+        "description": "A QR code lets each guest find their table"
       }
     },
     "dresscode_palette": "Colour palette",
@@ -1036,7 +1040,9 @@
     "uploads_until_label": "Uploads open until",
     "uploads_until_hint": "Past this date, guests can no longer add photos.",
     "save_failed": "Couldn't save the settings.",
-    "settings_saved": "Settings saved"
+    "settings_saved": "Settings saved",
+    "not_included_title": "“Find your seat” module not included",
+    "not_included_body": "Your plan does not include the Wedding Day page (finding your table with a QR code). Contact us to add it."
   },
   "DayOfPhotos": {
     "title": "Photos & videos",

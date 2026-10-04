@@ -231,49 +231,58 @@
         "id": "signature",
         "name": "Signature",
         "price": "€199",
-        "positioning": "For couples who choose one of our existing designs.",
+        "positioning": "For couples who choose an existing design.",
         "description": "Choose one of The Studio designs and personalise it with the details, images and world of your wedding.",
         "cta": "Choose Signature",
         "features": [
-          "4 modules included, then €5 per extra module",
-          "A theme from The Studio's own designs",
-          "Personalised online invitation",
+          "Your choice of one of The Studio’s designs",
+          "Personalised details (names, venue, date, etc.)",
+          "4 modules included",
+          "Additional module: €5",
           "Guest management space",
-          "RSVP replies in real time"
+          "RSVP with real-time responses",
+          "Invitation shared by link",
+          "Invitation available as soon as it is published",
+          "Online for up to 12 months after publication"
         ]
       },
       {
         "id": "sur-mesure",
         "name": "Bespoke",
         "price": "€299",
-        "positioning": "For couples who want a creation of their own.",
+        "positioning": "For couples who want to adapt a design to their wedding.",
         "description": "A personalised wedding invitation, imagined around your world, your colours, your venue and the story you want to tell.",
         "cta": "Create my bespoke invitation",
         "features": [
-          "Unlimited modules, all included",
-          "Full visual identity",
-          "Matched to your wedding's colours",
-          "Personalised online invitation",
-          "Guest management space"
+          "Your choice of one of The Studio’s designs",
+          "Graphic customisation of the design",
+          "All modules included, unlimited",
+          "Guest management space",
+          "RSVP with real-time responses",
+          "Wedding Day module: find your table with a QR code",
+          "Invitation shared by link",
+          "Invitation available as soon as it is published",
+          "Online for up to 12 months after publication"
         ]
       },
       {
         "id": "prestige",
         "name": "Prestige",
         "price": "€499",
-        "positioning": "For couples who want something unique, from start to finish.",
+        "positioning": "For couples who want a one-of-a-kind creation.",
         "description": "The most complete The Studio experience, designed for couples who want to go further in personalising their invitation.",
         "cta": "Discover Prestige",
         "features": [
-          "Entirely bespoke creation",
-          "Unlimited modules, all included",
+          "Fully bespoke creation",
+          "Visual identity created for your wedding",
+          "All modules",
+          "All premium options",
           "Custom animation",
-          "Full visual identity",
           "Unlimited revisions",
-          "Custom domain",
-          "Priority support",
-          "Photo gallery after the wedding",
-          "Guest book"
+          "Couple’s space included",
+          "RSVP with real-time responses",
+          "Custom domain included",
+          "Priority support"
         ]
       }
     ],
@@ -282,33 +291,54 @@
         "key": "modules_allowance",
         "label": "Modules included",
         "signature": "4 modules, then +€5 each",
-        "sur-mesure": "Unlimited",
-        "prestige": "Unlimited"
+        "sur-mesure": "All, unlimited",
+        "prestige": "All, unlimited"
       },
       {
-        "key": "animation",
-        "label": "Custom animation",
+        "key": "rsvp",
+        "label": "Guest management and real-time RSVP",
+        "signature": "inc",
+        "sur-mesure": "inc",
+        "prestige": "inc"
+      },
+      {
+        "key": "customisation",
+        "label": "Graphic customisation of the design",
+        "signature": "no",
+        "sur-mesure": "inc",
+        "prestige": "inc"
+      },
+      {
+        "key": "day_of",
+        "label": "Wedding Day: find your table with a QR code",
+        "signature": "As a module, +€5",
+        "sur-mesure": "inc",
+        "prestige": "inc"
+      },
+      {
+        "key": "bespoke",
+        "label": "Fully bespoke creation",
         "signature": "no",
         "sur-mesure": "no",
         "prestige": "inc"
       },
       {
         "key": "identity",
-        "label": "Complete visual identity",
+        "label": "Visual identity created for your wedding",
         "signature": "no",
-        "sur-mesure": "inc",
+        "sur-mesure": "no",
         "prestige": "inc"
       },
       {
-        "key": "colors",
-        "label": "Matched to your wedding colours",
+        "key": "premium",
+        "label": "All premium options",
         "signature": "no",
-        "sur-mesure": "inc",
+        "sur-mesure": "no",
         "prestige": "inc"
       },
       {
-        "key": "support",
-        "label": "Priority support",
+        "key": "animation",
+        "label": "Custom animation",
         "signature": "no",
         "sur-mesure": "no",
         "prestige": "inc"
@@ -328,15 +358,8 @@
         "prestige": "inc"
       },
       {
-        "key": "gallery",
-        "label": "Post-wedding photo gallery",
-        "signature": "no",
-        "sur-mesure": "no",
-        "prestige": "inc"
-      },
-      {
-        "key": "guestbook",
-        "label": "Guest book",
+        "key": "support",
+        "label": "Priority support",
         "signature": "no",
         "sur-mesure": "no",
         "prestige": "inc"
@@ -979,63 +1002,67 @@
     "catalog": {
       "countdown": {
         "name": "Countdown",
-        "description": "The countdown to the big day"
+        "description": "The countdown to the wedding"
       },
       "intro-video": {
-        "name": "Intro Video",
-        "description": "Personalized video message"
+        "name": "Welcome video",
+        "description": "The video of your choice on the home page"
       },
       "timeline": {
-        "name": "Timeline",
-        "description": "The day's schedule"
+        "name": "Programme",
+        "description": "How the day unfolds"
       },
       "dress-code": {
-        "name": "Dress Code",
-        "description": "Recommended attire"
+        "name": "Dress code",
+        "description": "The recommended attire"
       },
       "rsvp": {
         "name": "RSVP Management",
         "description": "Attendance confirmations"
       },
       "map": {
-        "name": "Map & Access",
-        "description": "Venue locations"
+        "name": "Map & directions",
+        "description": "Addresses and routes"
       },
       "accommodation": {
         "name": "Accommodation",
-        "description": "Nearby hotel suggestions"
+        "description": "Places to stay nearby"
       },
       "transport": {
         "name": "Transport",
-        "description": "Shuttles & guest transport"
+        "description": "Shuttle and transport information"
       },
       "menu": {
         "name": "Menu",
-        "description": "Meal details"
+        "description": "The details of the meal"
       },
       "gallery": {
-        "name": "Photo Gallery",
-        "description": "Share your memories"
+        "name": "Photo sharing space",
+        "description": "The couple and guests share their photos and memories"
       },
       "gift-list": {
-        "name": "Gift Registry",
-        "description": "Gifts & contributions"
+        "name": "Wedding registry",
+        "description": "Gifts and contributions"
       },
       "playlist": {
         "name": "Playlist",
-        "description": "Music suggestions"
+        "description": "Guests’ song suggestions"
       },
       "guestbook": {
-        "name": "Guestbook",
-        "description": "Messages from guests"
+        "name": "Guestbook — Jar of sweet notes",
+        "description": "Guests leave their messages in the jar"
       },
       "video-guestbook": {
         "name": "Video Guestbook",
         "description": "Video messages from guests"
       },
       "faq": {
-        "name": "FAQ / Practical Info",
-        "description": "Practical info for guests"
+        "name": "FAQ / Practical info",
+        "description": "Answers to guests’ questions"
+      },
+      "jour-j": {
+        "name": "Find your seat",
+        "description": "A QR code lets each guest find their table"
       }
     },
     "subtitleUnlimited": "Unlimited modules — everything you pick is included.",

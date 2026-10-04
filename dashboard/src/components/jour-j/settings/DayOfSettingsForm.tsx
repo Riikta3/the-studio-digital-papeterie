@@ -67,8 +67,11 @@ function Toggle({
 
 export function DayOfSettingsForm({
   initialSettings,
+  included,
 }: {
   initialSettings: DayOfSettings;
+  /** Whether the plan includes « Trouve ta place » (`dayOfIncluded`). */
+  included: boolean;
 }) {
   const t = useTranslations("DayOfSettings");
   const [settings, setSettings] = useState(initialSettings);
@@ -104,12 +107,19 @@ export function DayOfSettingsForm({
         <h1 className='font-heading text-h3 text-studio-violet'>{t("title")}</h1>
 
         <div className='mt-6 rounded-2xl border border-studio-lavande/40 bg-white px-4 shadow-studio-card'>
-          <Toggle
-            label={t("enabled_label")}
-            hint={t("enabled_hint")}
-            checked={settings.enabled}
-            onChange={() => toggle("enabled")}
-          />
+          {included || settings.enabled ? (
+            <Toggle
+              label={t("enabled_label")}
+              hint={t("enabled_hint")}
+              checked={settings.enabled}
+              onChange={() => toggle("enabled")}
+            />
+          ) : (
+            <div className='border-b border-studio-lavande/30 py-3'>
+              <p className='text-sm font-medium text-studio-violet'>{t("not_included_title")}</p>
+              <p className='mt-0.5 text-xs text-studio-violet/60'>{t("not_included_body")}</p>
+            </div>
+          )}
           {/* Sharing and browsing are two separate permissions — §21. */}
           <Toggle
             label={t("gallery_visible_label")}

@@ -3,6 +3,7 @@
 import { requireWedding } from "@/lib/db/current-wedding";
 import { revalidatePath } from "next/cache";
 import type { ActionResult } from "@/types";
+import { dayOfIncluded } from "@shared/lib/day-of-access";
 import type { DayOfSettings } from "@shared/types/jour-j";
 
 /**
@@ -92,6 +93,33 @@ export async function getDayOfSettings(): Promise<DayOfSettings> {
 }
 
 /**
+ * Whether the couple may switch the Jour J guest page on — « Trouve ta place »
+ * is a module on Signature (`dayOfIncluded`). Read with the couple's session:
+ * both rows are theirs.
+ */
+export async function getDayOfIncluded(): Promise<boolean> {
+  const { supabase, weddingId } = await requireWedding();
+  return loadDayOfIncluded(supabase, weddingId);
+}
+
+async function loadDayOfIncluded(
+  supabase: Awaited<ReturnType<typeof requireWedding>>["supabase"],
+  weddingId: string,
+): Promise<boolean> {
+  const [siteRes, settingsRes] = await Promise.all([
+    supabase
+      .from("sites")
+      .select("plan_id, modules, created_at")
+      .eq("wedding_id", weddingId)
+      .maybeSingle(),
+    supabase.from("day_of_settings").select("enabled").eq("wedding_id", weddingId).maybeSingle(),
+  ]);
+  if (siteRes.error) throw new Error(siteRes.error.message);
+  if (settingsRes.error) throw new Error(settingsRes.error.message);
+  return dayOfIncluded(siteRes.data, Boolean(settingsRes.data?.enabled));
+}
+
+/**
  * `day_of_settings` declares `unique(wedding_id)`, so an upsert on that
  * column can never insert a duplicate row — this creates the row on first
  * write and updates it afterwards, exactly like `upsertVenue`.
@@ -105,6 +133,21 @@ export async function updateDayOfSettings(
   const ctx = await requireWeddingForWrite();
   if (ctx.failure) return ctx.failure;
   const { supabase, weddingId } = ctx;
+
+  if (patch.enabled === true) {
+    let included = false;
+    try {
+      included = await loadDayOfIncluded(supabase, weddingId);
+    } catch (lookupError) {
+      console.error("Error reading Jour J access:", lookupError);
+    }
+    if (!included) {
+      return {
+        success: false,
+        error: "Le module « Trouve ta place » n'est pas inclus dans votre formule.",
+      };
+    }
+  }
 
   const row: Record<string, unknown> = { wedding_id: weddingId };
   if ("enabled" in patch) row.enabled = patch.enabled;

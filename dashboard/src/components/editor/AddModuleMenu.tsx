@@ -15,7 +15,9 @@ import {
   EXTRA_MODULE_PRICE,
   FREE_MODULES_LIMIT,
   addOnQuote,
+  countedModules,
   hasMeteredAddOns,
+  isAlwaysIncludedModule,
 } from "@shared/lib/pricing";
 import { cn } from "@shared/lib/utils";
 import { Gift, Plus, Sparkles } from "lucide-react";
@@ -48,7 +50,7 @@ export function useAddModuleChoices() {
 
   const taken = [...meta.pendingModules, ...draftedModules(draft, meta)];
   const choices = addableModules(meta.themeId, meta.ownedModules, taken);
-  const counted = meta.ownedModules.length + taken.length;
+  const counted = countedModules([...meta.ownedModules, ...taken]);
   const nextIsPaid = addOnQuote(meta.planId, counted, 1).billable > 0;
   const price = formatEuros(EXTRA_MODULE_PRICE * 100, locale);
   const plan = PLAN_NAMES[meta.planId ?? ""] ?? "none";
@@ -108,12 +110,12 @@ function AddModuleList({ onChoose }: { onChoose: (id: string) => void }) {
                 <span
                   className={cn(
                     "shrink-0 rounded-full px-2 py-0.5 text-[11px] font-bold",
-                    nextIsPaid
+                    nextIsPaid && !isAlwaysIncludedModule(id)
                       ? "bg-studio-card-selected text-studio-violet-clair"
                       : "bg-emerald-50 text-emerald-700",
                   )}
                 >
-                  {nextIsPaid ? price : t("addModule.included")}
+                  {nextIsPaid && !isAlwaysIncludedModule(id) ? price : t("addModule.included")}
                 </span>
               </button>
             </li>

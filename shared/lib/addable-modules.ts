@@ -1,6 +1,6 @@
 import { EDITOR_SECTION_IDS } from "../data/invitation-sections";
 import { themeModules } from "../data/theme-modules";
-import { EXTRA_MODULE_PRICE, addOnQuote } from "./pricing";
+import { EXTRA_MODULE_PRICE, addOnQuote, countedModules, isAlwaysIncludedModule } from "./pricing";
 
 /**
  * Which modules a couple can still add, and what the ones they added cost
@@ -58,8 +58,17 @@ export function splitUnpaid(
     }
   }
 
-  const { included } = addOnQuote(planId, owned.length, valid.length);
-  return { free: valid.slice(0, included), billable: valid.slice(included), ignored };
+  // An always-included module (the RSVP) is free on every plan and takes
+  // nothing from the allowance: a site sold before it was, which lacks it,
+  // gets it back without paying.
+  const alwaysFree = valid.filter(isAlwaysIncludedModule);
+  const counted = valid.filter((id) => !isAlwaysIncludedModule(id));
+  const { included } = addOnQuote(planId, countedModules(owned), counted.length);
+  return {
+    free: [...alwaysFree, ...counted.slice(0, included)],
+    billable: counted.slice(included),
+    ignored,
+  };
 }
 
 export interface AmountDue {

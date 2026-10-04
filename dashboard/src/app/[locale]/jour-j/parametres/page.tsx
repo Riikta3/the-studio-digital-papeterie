@@ -1,7 +1,7 @@
-import { getDayOfSettings } from "@/actions/day-of-settings-actions";
+import { getDayOfIncluded, getDayOfSettings } from "@/actions/day-of-settings-actions";
 import { DayOfSettingsForm } from "@/components/jour-j/settings/DayOfSettingsForm";
 
 export default async function DayOfSettingsPage() {
-  const settings = await getDayOfSettings();
-  return <DayOfSettingsForm initialSettings={settings} />;
+  const [settings, included] = await Promise.all([getDayOfSettings(), getDayOfIncluded()]);
+  return <DayOfSettingsForm initialSettings={settings} included={included} />;
 }

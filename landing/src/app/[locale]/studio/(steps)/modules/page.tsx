@@ -3,7 +3,7 @@
 import { Check } from "lucide-react";
 import { useTranslations } from "next-intl";
 
-import { APP_MODULES, getModuleDescription, getModuleName } from "@shared/data/modules";
+import { STUDIO_MODULES, getModuleDescription, getModuleName } from "@shared/data/modules";
 import { cn } from "@shared/lib/utils";
 import { StepTransition } from "@/components/studio/StepTransition";
 import {
@@ -15,7 +15,10 @@ import { useOrderStore } from "@/stores/use-order-store";
 
 export default function StudioModulesPage() {
   const t = useTranslations("StudioModules");
-  const { modules, toggleModule, plan } = useOrderStore();
+  const { modules: basket, toggleModule, plan } = useOrderStore();
+  // Only what this page offers: a basket kept from before the RSVP became part
+  // of every plan may still name it, and it must not take one of the four.
+  const modules = basket.filter((id) => STUDIO_MODULES.some((m) => m.id === id));
 
   // Three plans, three different answers to "how many modules do I get?":
   //   signature   → FREE_MODULES_LIMIT included, then EXTRA_MODULE_PRICE each
@@ -88,7 +91,7 @@ export default function StudioModulesPage() {
 
         {/* Grid */}
         <div className="mx-auto grid w-full max-w-2xl grid-cols-2 gap-6">
-          {APP_MODULES.map((mod) => {
+          {STUDIO_MODULES.map((mod) => {
             const isSelected = modules.includes(mod.id);
             // In the Essential plan, anything past the 4th pick costs extra.
             const isExtra =

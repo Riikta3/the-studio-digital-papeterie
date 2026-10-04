@@ -1,4 +1,5 @@
 import { APP_MODULES, getModuleDescription, getModuleName } from "@shared/data/modules";
+import { isAlwaysIncludedModule } from "@shared/lib/pricing";
 import { cn } from "@shared/lib/utils";
 import { ArrowRight, Plus } from "lucide-react";
 import { getTranslations } from "next-intl/server";
@@ -14,10 +15,13 @@ export async function AddableModulesList({
   addable,
   pending,
   priceLabel,
+  includedLabel,
 }: {
   addable: string[];
   pending: string[];
   priceLabel: string;
+  /** For the modules every plan includes (the RSVP), whatever the allowance left. */
+  includedLabel: string;
 }) {
   const t = await getTranslations("Modules");
 
@@ -56,7 +60,7 @@ export async function AddableModulesList({
   return (
     <div className="space-y-3">
       {pending.map((id) => row(id, `/invitation?section=${id}`, t("unpaid_badge"), t("open_cta"), true))}
-      {addable.map((id) => row(id, `/invitation?add=${id}`, priceLabel, t("add_cta"), false))}
+      {addable.map((id) => row(id, `/invitation?add=${id}`, isAlwaysIncludedModule(id) ? includedLabel : priceLabel, t("add_cta"), false))}
     </div>
   );
 }

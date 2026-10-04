@@ -387,8 +387,9 @@ test("a module added in the draft is drawn, marked and priced before it is saved
 
   const all = ["countdown", "timeline", "rsvp", "faq", "menu", "gallery"];
   assert.deepEqual(previewModules(state, meta), all);
-  // Signature with four modules owned: both are billable, so both are marked.
-  assert.deepEqual(previewMarks(state, meta), { samples: ["menu", "gallery"], notLive: ["menu", "gallery"] });
+  // Signature owning three counted modules (the RSVP takes no slot): menu
+  // fills the last free one, gallery is billable and marked.
+  assert.deepEqual(previewMarks(state, meta), { samples: ["menu", "gallery"], notLive: ["gallery"] });
 
   const rows = toPreviewRows(state, meta);
   assert.deepEqual(rows.site.modules, all);

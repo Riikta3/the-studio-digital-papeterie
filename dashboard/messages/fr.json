@@ -555,64 +555,68 @@
     "reorder": "Réordonner",
     "catalog": {
       "countdown": {
-        "name": "Compte à Rebours",
-        "description": "Le décompte avant le jour J"
+        "name": "Compte à rebours",
+        "description": "Le décompte avant le mariage"
       },
       "intro-video": {
-        "name": "Vidéo d’Intro",
-        "description": "Message vidéo personnalisé"
+        "name": "Vidéo d’accueil",
+        "description": "La vidéo de votre choix sur la page d’accueil"
       },
       "timeline": {
         "name": "Programme",
-        "description": "Déroulé de la journée"
+        "description": "Le déroulé de la journée"
       },
       "dress-code": {
-        "name": "Dress Code",
-        "description": "Tenue recommandée"
+        "name": "Dress code",
+        "description": "Les tenues recommandées"
       },
       "rsvp": {
         "name": "Gestion RSVP",
         "description": "Confirmations de présence"
       },
       "map": {
-        "name": "Plan & Accès",
-        "description": "Localisation des lieux"
+        "name": "Plan & accès",
+        "description": "Les adresses et itinéraires"
       },
       "accommodation": {
         "name": "Hébergement",
-        "description": "Suggestions d’hôtels à proximité"
+        "description": "Les logements à proximité"
       },
       "transport": {
         "name": "Transport",
-        "description": "Navettes & transport des invités"
+        "description": "Les informations sur les navettes et transports"
       },
       "menu": {
         "name": "Menu",
-        "description": "Détails du repas"
+        "description": "Les détails du repas"
       },
       "gallery": {
-        "name": "Galerie Photo",
-        "description": "Partagez vos souvenirs"
+        "name": "Espace de partage de photos",
+        "description": "Mariés et invités partagent leurs photos et souvenirs"
       },
       "gift-list": {
-        "name": "Liste de Mariage",
-        "description": "Cadeaux & participations"
+        "name": "Liste de mariage",
+        "description": "Les cadeaux et participations"
       },
       "playlist": {
         "name": "Playlist",
-        "description": "Suggestions musicales"
+        "description": "Les suggestions musicales des invités"
       },
       "guestbook": {
-        "name": "Livre d’Or",
-        "description": "Messages des invités"
+        "name": "Livre d’or — Jar à mots doux",
+        "description": "Les invités déposent leurs messages dans la jar"
       },
       "video-guestbook": {
         "name": "Livre d’Or Vidéo",
         "description": "Messages vidéo des invités"
       },
       "faq": {
-        "name": "FAQ / Pratique",
-        "description": "Infos pratiques pour les invités"
+        "name": "FAQ / Infos pratiques",
+        "description": "Les réponses aux questions des invités"
+      },
+      "jour-j": {
+        "name": "Trouve ta place",
+        "description": "Un QR code permet à chaque invité de retrouver sa table"
       }
     },
     "dresscode_palette": "Palette de couleurs",
@@ -1036,7 +1040,9 @@
     "uploads_until_label": "Envois ouverts jusqu’au",
     "uploads_until_hint": "Au-delà de cette date, vos invités ne peuvent plus ajouter de photos.",
     "save_failed": "Erreur lors de l’enregistrement.",
-    "settings_saved": "Réglages enregistrés"
+    "settings_saved": "Réglages enregistrés",
+    "not_included_title": "Module « Trouve ta place » non inclus",
+    "not_included_body": "Votre formule ne comprend pas la page Jour J (trouver sa table grâce à un QR code). Contactez-nous pour l’ajouter."
   },
   "DayOfPhotos": {
     "title": "Photos & vidéos",

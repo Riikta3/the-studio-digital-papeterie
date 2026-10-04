@@ -3,21 +3,30 @@ import test from "node:test";
 
 import { addableModules, amountDue, knownModuleIds, splitUnpaid } from "./addable-modules.ts";
 
-const OWNED_FOUR = ["countdown", "timeline", "map", "rsvp"];
+// Four counted modules; the RSVP is part of every plan and takes no slot.
+const OWNED_FOUR = ["countdown", "timeline", "map", "dress-code", "rsvp"];
 
 test("addableModules offers what the theme draws and the couple lacks, in catalogue order", () => {
   const list = addableModules("ciao-amore", OWNED_FOUR, ["gallery"]);
-  assert.deepEqual(list, ["intro-video", "dress-code", "accommodation", "transport", "menu", "gift-list", "playlist", "guestbook", "faq"]);
+  assert.deepEqual(list, ["intro-video", "accommodation", "transport", "menu", "gift-list", "playlist", "guestbook", "faq"]);
   assert.ok(!addableModules("belle-rive", []).includes("gallery"));
 });
 
 test("splitUnpaid gives the plan's free slots to the first modules added", () => {
-  assert.deepEqual(splitUnpaid("signature", ["countdown", "timeline", "rsvp"], ["gallery", "faq"], "ciao-amore"), {
+  assert.deepEqual(splitUnpaid("signature", ["countdown", "timeline", "map", "rsvp"], ["gallery", "faq"], "ciao-amore"), {
     free: ["gallery"],
     billable: ["faq"],
     ignored: [],
   });
   assert.deepEqual(splitUnpaid("prestige", OWNED_FOUR, ["gallery", "faq"], "ciao-amore").billable, []);
+});
+
+test("splitUnpaid gives the RSVP back for free, without using a slot", () => {
+  // A site sold before the RSVP was part of every plan, allowance used up.
+  assert.deepEqual(
+    splitUnpaid("signature", ["countdown", "timeline", "map", "dress-code"], ["rsvp", "faq"], "ciao-amore"),
+    { free: ["rsvp"], billable: ["faq"], ignored: [] },
+  );
 });
 
 test("splitUnpaid ignores unknown, owned, duplicated and undrawn ids", () => {

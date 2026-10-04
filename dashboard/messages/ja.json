@@ -387,63 +387,67 @@
     "catalog": {
       "countdown": {
         "name": "カウントダウン",
-        "description": "当日までのカウントダウン"
+        "description": "結婚式までのカウントダウン"
       },
       "intro-video": {
-        "name": "イントロ動画",
-        "description": "パーソナライズされたビデオメッセージ"
+        "name": "ウェルカム動画",
+        "description": "トップページにお好きな動画を"
       },
       "timeline": {
         "name": "プログラム",
-        "description": "当日のスケジュール"
+        "description": "当日の流れ"
       },
       "dress-code": {
         "name": "ドレスコード",
-        "description": "推奨される服装"
+        "description": "おすすめの服装"
       },
       "rsvp": {
         "name": "RSVP管理",
         "description": "出欠確認"
       },
       "map": {
-        "name": "地図とアクセス",
-        "description": "会場の場所"
+        "name": "地図・アクセス",
+        "description": "住所とルート"
       },
       "accommodation": {
         "name": "宿泊",
-        "description": "近隣ホテルのご案内"
+        "description": "近くの宿泊先"
       },
       "transport": {
-        "name": "交通手段",
-        "description": "シャトル・ゲスト送迎"
+        "name": "交通",
+        "description": "送迎バスと交通の案内"
       },
       "menu": {
         "name": "メニュー",
         "description": "お料理の詳細"
       },
       "gallery": {
-        "name": "フォトギャラリー",
-        "description": "思い出をシェアしましょう"
+        "name": "フォト共有スペース",
+        "description": "新郎新婦とゲストが写真と思い出を共有"
       },
       "gift-list": {
         "name": "ギフトリスト",
-        "description": "贈り物・ご祝儀"
+        "description": "ギフトとお祝い"
       },
       "playlist": {
         "name": "プレイリスト",
-        "description": "楽曲のリクエスト"
+        "description": "ゲストからの音楽リクエスト"
       },
       "guestbook": {
-        "name": "ゲストブック",
-        "description": "ゲストからのメッセージ"
+        "name": "ゲストブック — やさしい言葉のジャー",
+        "description": "ゲストがジャーにメッセージを入れます"
       },
       "video-guestbook": {
         "name": "ビデオゲストブック",
         "description": "ゲストからのビデオメッセージ"
       },
       "faq": {
-        "name": "FAQ／実用情報",
-        "description": "ゲスト向けの実用情報"
+        "name": "FAQ・ご案内",
+        "description": "ゲストの質問への回答"
+      },
+      "jour-j": {
+        "name": "あなたの席",
+        "description": "QR コードで各ゲストが自分のテーブルを確認"
       }
     },
     "dresscode_palette": "カラーパレット",
@@ -1036,7 +1040,9 @@
     "uploads_until_label": "写真の受付締切日",
     "uploads_until_hint": "この日付を過ぎると、ゲストは写真を追加できなくなります。",
     "save_failed": "設定を保存できませんでした。",
-    "settings_saved": "設定を保存しました"
+    "settings_saved": "設定を保存しました",
+    "not_included_title": "「あなたの席」モジュールは含まれていません",
+    "not_included_body": "ご利用のプランには当日ページ（QR コードで席を確認）が含まれていません。追加をご希望の場合はお問い合わせください。"
   },
   "DayOfPhotos": {
     "title": "写真・動画",

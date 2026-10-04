@@ -9,6 +9,7 @@ import {
   MapPin,
   MessageSquare,
   Music,
+  QrCode,
   Timer,
   Users,
   Utensils,
@@ -35,6 +36,23 @@ export const APP_MODULES = [
   { id: "guestbook", icon: MessageSquare, defaultOrder: 13 },
   { id: "video-guestbook", icon: MessageSquare, defaultOrder: 14 },
   { id: "faq", icon: Info, defaultOrder: 15 },
+];
+
+/** « Trouve ta place »: the Jour J guest page (QR code → table), sold as a module. */
+export const DAY_OF_MODULE = "jour-j";
+
+/**
+ * The modules the studio offers at checkout, in the order it lists them.
+ *
+ * Not APP_MODULES: that registry also holds what sites sold earlier may still
+ * have (the RSVP, now part of every plan; the video guestbook, no longer
+ * sold), and it lists invitation sections only. « Trouve ta place » is no
+ * section — it switches on the Jour J page in the dashboard — so it lives
+ * here alone.
+ */
+export const STUDIO_MODULES = [
+  ...APP_MODULES.filter((m) => m.id !== "rsvp" && m.id !== "video-guestbook"),
+  { id: DAY_OF_MODULE, icon: QrCode, defaultOrder: 16 },
 ];
 
 type ModuleTranslator = (key: string) => string;

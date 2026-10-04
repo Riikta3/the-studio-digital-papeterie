@@ -229,84 +229,114 @@
         "id": "signature",
         "name": "Signature",
         "price": "199€",
-        "positioning": "适合选择现成设计的新人。",
+        "positioning": "适合选择现有模板的新人。",
         "description": "从 The Studio 的作品中选择一款，并用你们婚礼的信息、照片与氛围进行个性化设计。",
         "cta": "选择 Signature",
         "features": [
-          "包含 4 个模块，之后每个 5€",
-          "从 The Studio 的设计中选择一款",
-          "个性化在线请柬",
+          "从 The Studio 作品中任选一款主题",
+          "可自定义信息（姓名、地点、日期等）",
+          "包含 4 个模块",
+          "额外模块：5 €",
           "宾客管理空间",
-          "实时 RSVP 回复"
+          "实时回复的 RSVP",
+          "通过链接分享请柬",
+          "发布后即可访问",
+          "发布后最长在线 12 个月"
         ]
       },
       {
         "id": "sur-mesure",
         "name": "定制",
         "price": "299€",
-        "positioning": "适合想要专属设计的新人。",
+        "positioning": "适合希望根据婚礼调整模板的新人。",
         "description": "一份专属定制的婚礼请柬，围绕你们的风格、色彩、场地，以及你们想讲述的故事而设计。",
         "cta": "创建我的定制请柬",
         "features": [
-          "模块不限量，全部包含",
-          "完整视觉识别",
-          "匹配婚礼的色彩",
-          "个性化在线请柬",
-          "宾客管理空间"
+          "从 The Studio 作品中任选一款主题",
+          "主题视觉定制",
+          "所有模块无限包含",
+          "宾客管理空间",
+          "实时回复的 RSVP",
+          "婚礼当天模块：扫描二维码查找座位",
+          "通过链接分享请柬",
+          "发布后即可访问",
+          "发布后最长在线 12 个月"
         ]
       },
       {
         "id": "prestige",
         "name": "Prestige",
         "price": "499€",
-        "positioning": "适合想要从头到尾独一无二作品的新人。",
+        "positioning": "适合希望拥有独一无二作品的新人。",
         "description": "The Studio 最完整的体验，为希望在请柬个性化上走得更远的新人而设。",
         "cta": "了解 Prestige",
         "features": [
-          "完全定制的创作",
-          "模块不限量，全部包含",
-          "专属动画",
-          "完整视觉识别",
-          "不限次修改",
-          "专属域名",
-          "优先支持",
-          "婚礼后照片相册",
-          "留言簿"
+          "完全量身定制",
+          "为你们的婚礼打造的视觉形象",
+          "所有模块",
+          "所有高级选项",
+          "定制动画",
+          "无限次修改",
+          "包含新人专属空间",
+          "实时回复的 RSVP",
+          "包含自定义域名",
+          "优先协助"
         ]
       }
     ],
     "compareRows": [
       {
         "key": "modules_allowance",
-        "label": "包含模块",
-        "signature": "4 个模块，之后每个 +5€",
-        "sur-mesure": "不限量",
-        "prestige": "不限量"
+        "label": "包含的模块",
+        "signature": "4 个模块，之后每个 +5 €",
+        "sur-mesure": "全部，无限",
+        "prestige": "全部，无限"
       },
       {
-        "key": "animation",
-        "label": "定制动画",
+        "key": "rsvp",
+        "label": "宾客管理与实时 RSVP",
+        "signature": "inc",
+        "sur-mesure": "inc",
+        "prestige": "inc"
+      },
+      {
+        "key": "customisation",
+        "label": "主题视觉定制",
+        "signature": "no",
+        "sur-mesure": "inc",
+        "prestige": "inc"
+      },
+      {
+        "key": "day_of",
+        "label": "婚礼当天：扫描二维码查找座位",
+        "signature": "作为模块，+5 €",
+        "sur-mesure": "inc",
+        "prestige": "inc"
+      },
+      {
+        "key": "bespoke",
+        "label": "完全量身定制",
         "signature": "no",
         "sur-mesure": "no",
         "prestige": "inc"
       },
       {
         "key": "identity",
-        "label": "完整视觉识别设计",
+        "label": "为你们的婚礼打造的视觉形象",
         "signature": "no",
-        "sur-mesure": "inc",
+        "sur-mesure": "no",
         "prestige": "inc"
       },
       {
-        "key": "colors",
-        "label": "配合婚礼主色调",
+        "key": "premium",
+        "label": "所有高级选项",
         "signature": "no",
-        "sur-mesure": "inc",
+        "sur-mesure": "no",
         "prestige": "inc"
       },
       {
-        "key": "support",
-        "label": "优先支持",
+        "key": "animation",
+        "label": "定制动画",
         "signature": "no",
         "sur-mesure": "no",
         "prestige": "inc"
@@ -320,21 +350,14 @@
       },
       {
         "key": "domain",
-        "label": "专属域名",
+        "label": "自定义域名",
         "signature": "no",
         "sur-mesure": "no",
         "prestige": "inc"
       },
       {
-        "key": "gallery",
-        "label": "婚礼后照片库",
-        "signature": "no",
-        "sur-mesure": "no",
-        "prestige": "inc"
-      },
-      {
-        "key": "guestbook",
-        "label": "留言簿",
+        "key": "support",
+        "label": "优先协助",
         "signature": "no",
         "sur-mesure": "no",
         "prestige": "inc"
@@ -768,16 +791,16 @@
         "description": "婚礼倒计时"
       },
       "intro-video": {
-        "name": "开场视频",
-        "description": "个性化视频留言"
+        "name": "欢迎视频",
+        "description": "在首页展示你们选择的视频"
       },
       "timeline": {
-        "name": "流程安排",
-        "description": "当天的活动流程"
+        "name": "流程",
+        "description": "当天的安排"
       },
       "dress-code": {
         "name": "着装要求",
-        "description": "建议着装"
+        "description": "推荐的着装"
       },
       "rsvp": {
         "name": "RSVP 管理",
@@ -785,23 +808,23 @@
       },
       "map": {
         "name": "地图与交通",
-        "description": "场地位置"
+        "description": "地址与路线"
       },
       "accommodation": {
         "name": "住宿",
-        "description": "附近酒店推荐"
+        "description": "附近的住宿"
       },
       "transport": {
         "name": "交通",
-        "description": "宾客接驳与交通安排"
+        "description": "接驳车与交通信息"
       },
       "menu": {
         "name": "菜单",
-        "description": "餐点详情"
+        "description": "餐食详情"
       },
       "gallery": {
-        "name": "照片相册",
-        "description": "分享您的美好回忆"
+        "name": "照片分享空间",
+        "description": "新人与宾客分享照片和回忆"
       },
       "gift-list": {
         "name": "礼物清单",
@@ -809,11 +832,11 @@
       },
       "playlist": {
         "name": "歌单",
-        "description": "音乐推荐"
+        "description": "宾客的音乐推荐"
       },
       "guestbook": {
-        "name": "留言簿",
-        "description": "宾客留言"
+        "name": "留言簿 — 甜言蜜语罐",
+        "description": "宾客把留言投进罐子里"
       },
       "video-guestbook": {
         "name": "视频留言簿",
@@ -821,7 +844,11 @@
       },
       "faq": {
         "name": "常见问题 / 实用信息",
-        "description": "为宾客提供的实用信息"
+        "description": "解答宾客的疑问"
+      },
+      "jour-j": {
+        "name": "找到你的座位",
+        "description": "宾客扫描二维码即可找到自己的餐桌"
       }
     },
     "subtitleUnlimited": "模块不限量：你们选择的全部包含在内。",

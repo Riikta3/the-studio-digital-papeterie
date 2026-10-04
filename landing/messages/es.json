@@ -230,49 +230,58 @@
         "id": "signature",
         "name": "Signature",
         "price": "199 €",
-        "positioning": "Para parejas que eligen un modelo existente.",
+        "positioning": "Para las parejas que eligen un diseño existente.",
         "description": "Elige una de las creaciones de The Studio y personalízala con la información, las imágenes y el universo de vuestra boda.",
         "cta": "Elegir Signature",
         "features": [
-          "4 módulos incluidos y luego 5€ por módulo adicional",
-          "Un tema de las creaciones de The Studio",
-          "Invitación en línea personalizada",
+          "Un diseño a elegir entre las creaciones de The Studio",
+          "Información personalizable (nombres, lugar, fecha, etc.)",
+          "4 módulos incluidos",
+          "Módulo adicional: 5 €",
           "Espacio de gestión de invitados",
-          "Respuestas RSVP en tiempo real"
+          "RSVP con respuestas en tiempo real",
+          "Invitación compartida por enlace",
+          "Invitación disponible desde su publicación",
+          "En línea hasta 12 meses después de su publicación"
         ]
       },
       {
         "id": "sur-mesure",
         "name": "A medida",
         "price": "299 €",
-        "positioning": "Para parejas que quieren una creación a su imagen.",
+        "positioning": "Para las parejas que quieren adaptar un diseño a su boda.",
         "description": "Una invitación de boda personalizada, imaginada en torno a vuestro universo, vuestros colores, vuestro lugar y la historia que queréis contar.",
         "cta": "Crear mi invitación a medida",
         "features": [
-          "Módulos ilimitados, todos incluidos",
-          "Identidad gráfica completa",
-          "Adaptada a los colores de vuestra boda",
-          "Invitación en línea personalizada",
-          "Espacio de gestión de invitados"
+          "Un diseño a elegir entre las creaciones de The Studio",
+          "Personalización gráfica del diseño",
+          "Todos los módulos incluidos, sin límite",
+          "Espacio de gestión de invitados",
+          "RSVP con respuestas en tiempo real",
+          "Módulo Día D: encontrar su mesa con un código QR",
+          "Invitación compartida por enlace",
+          "Invitación disponible desde su publicación",
+          "En línea hasta 12 meses después de su publicación"
         ]
       },
       {
         "id": "prestige",
         "name": "Prestige",
         "price": "499 €",
-        "positioning": "Para parejas que quieren algo único, de principio a fin.",
+        "positioning": "Para las parejas que desean una creación única.",
         "description": "La experiencia The Studio más completa, pensada para las parejas que desean ir más lejos en la personalización de su invitación.",
         "cta": "Descubrir Prestige",
         "features": [
           "Creación totalmente a medida",
-          "Módulos ilimitados, todos incluidos",
+          "Identidad gráfica creada para vuestra boda",
+          "Todos los módulos",
+          "Todas las opciones premium",
           "Animación personalizada",
-          "Identidad gráfica completa",
           "Modificaciones ilimitadas",
-          "Dominio personalizado",
-          "Asistencia prioritaria",
-          "Galería de fotos después de la boda",
-          "Libro de firmas"
+          "Espacio de los novios incluido",
+          "RSVP con respuestas en tiempo real",
+          "Dominio personalizado incluido",
+          "Asistencia prioritaria"
         ]
       }
     ],
@@ -280,34 +289,55 @@
       {
         "key": "modules_allowance",
         "label": "Módulos incluidos",
-        "signature": "4 módulos, luego +5€ cada uno",
-        "sur-mesure": "Ilimitados",
-        "prestige": "Ilimitados"
+        "signature": "4 módulos, luego +5 € cada uno",
+        "sur-mesure": "Todos, sin límite",
+        "prestige": "Todos, sin límite"
       },
       {
-        "key": "animation",
-        "label": "Animación personalizada",
+        "key": "rsvp",
+        "label": "Gestión de invitados y RSVP en tiempo real",
+        "signature": "inc",
+        "sur-mesure": "inc",
+        "prestige": "inc"
+      },
+      {
+        "key": "customisation",
+        "label": "Personalización gráfica del diseño",
+        "signature": "no",
+        "sur-mesure": "inc",
+        "prestige": "inc"
+      },
+      {
+        "key": "day_of",
+        "label": "Día D: encontrar su mesa con un código QR",
+        "signature": "Como módulo, +5 €",
+        "sur-mesure": "inc",
+        "prestige": "inc"
+      },
+      {
+        "key": "bespoke",
+        "label": "Creación totalmente a medida",
         "signature": "no",
         "sur-mesure": "no",
         "prestige": "inc"
       },
       {
         "key": "identity",
-        "label": "Identidad gráfica completa",
+        "label": "Identidad gráfica creada para vuestra boda",
         "signature": "no",
-        "sur-mesure": "inc",
+        "sur-mesure": "no",
         "prestige": "inc"
       },
       {
-        "key": "colors",
-        "label": "Adaptación a los colores de la boda",
+        "key": "premium",
+        "label": "Todas las opciones premium",
         "signature": "no",
-        "sur-mesure": "inc",
+        "sur-mesure": "no",
         "prestige": "inc"
       },
       {
-        "key": "support",
-        "label": "Asistencia prioritaria",
+        "key": "animation",
+        "label": "Animación personalizada",
         "signature": "no",
         "sur-mesure": "no",
         "prestige": "inc"
@@ -327,15 +357,8 @@
         "prestige": "inc"
       },
       {
-        "key": "gallery",
-        "label": "Galería de fotos después de la boda",
-        "signature": "no",
-        "sur-mesure": "no",
-        "prestige": "inc"
-      },
-      {
-        "key": "guestbook",
-        "label": "Libro de firmas",
+        "key": "support",
+        "label": "Asistencia prioritaria",
         "signature": "no",
         "sur-mesure": "no",
         "prestige": "inc"
@@ -765,64 +788,68 @@
     "included": "incluido",
     "catalog": {
       "countdown": {
-        "name": "Cuenta Atrás",
-        "description": "La cuenta atrás hasta el gran día"
+        "name": "Cuenta atrás",
+        "description": "La cuenta atrás hasta la boda"
       },
       "intro-video": {
-        "name": "Vídeo de Intro",
-        "description": "Mensaje de vídeo personalizado"
+        "name": "Vídeo de bienvenida",
+        "description": "El vídeo que elijáis en la página de inicio"
       },
       "timeline": {
         "name": "Programa",
         "description": "El desarrollo del día"
       },
       "dress-code": {
-        "name": "Código de Vestimenta",
-        "description": "Vestimenta recomendada"
+        "name": "Dress code",
+        "description": "La vestimenta recomendada"
       },
       "rsvp": {
         "name": "Gestión de RSVP",
         "description": "Confirmaciones de asistencia"
       },
       "map": {
-        "name": "Mapa y Acceso",
-        "description": "Ubicación de los lugares"
+        "name": "Plano y acceso",
+        "description": "Direcciones e itinerarios"
       },
       "accommodation": {
         "name": "Alojamiento",
-        "description": "Sugerencias de hoteles cercanos"
+        "description": "Alojamientos cercanos"
       },
       "transport": {
         "name": "Transporte",
-        "description": "Traslados y transporte de invitados"
+        "description": "Información sobre lanzaderas y transporte"
       },
       "menu": {
         "name": "Menú",
-        "description": "Detalles de la comida"
+        "description": "Los detalles de la comida"
       },
       "gallery": {
-        "name": "Galería de Fotos",
-        "description": "Comparte tus recuerdos"
+        "name": "Espacio para compartir fotos",
+        "description": "Novios e invitados comparten sus fotos y recuerdos"
       },
       "gift-list": {
-        "name": "Lista de Bodas",
+        "name": "Lista de bodas",
         "description": "Regalos y aportaciones"
       },
       "playlist": {
         "name": "Playlist",
-        "description": "Sugerencias musicales"
+        "description": "Las sugerencias musicales de los invitados"
       },
       "guestbook": {
-        "name": "Libro de Visitas",
-        "description": "Mensajes de los invitados"
+        "name": "Libro de visitas — Tarro de palabras dulces",
+        "description": "Los invitados dejan sus mensajes en el tarro"
       },
       "video-guestbook": {
         "name": "Libro de Visitas en Vídeo",
         "description": "Mensajes de vídeo de los invitados"
       },
       "faq": {
-        "name": "FAQ / Info Práctica",
-        "description": "Información práctica para los invitados"
+        "name": "FAQ / Información práctica",
+        "description": "Las respuestas a las preguntas de los invitados"
+      },
+      "jour-j": {
+        "name": "Encuentra tu sitio",
+        "description": "Un código QR permite a cada invitado encontrar su mesa"
       }
     },
     "subtitleUnlimited": "Módulos ilimitados: todo lo que elijáis está incluido.",

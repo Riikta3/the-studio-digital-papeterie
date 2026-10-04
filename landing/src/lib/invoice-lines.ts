@@ -6,7 +6,9 @@ import {
   FREE_MODULES_LIMIT,
   LANGUAGE_PRICE,
   PLAN_PRICES,
+  countedModules,
   hasMeteredModules,
+  isAlwaysIncludedModule,
   parseDomainYears,
   type OrderItems,
 } from "@/lib/pricing";
@@ -77,14 +79,20 @@ export function buildInvoiceLines(
     });
   }
 
-  const modules = items.modules ?? [];
+  // Modules every plan includes (the RSVP) first, so they always fall among
+  // the included ones and never into the overage.
+  const picked = items.modules ?? [];
+  const modules = [
+    ...picked.filter(isAlwaysIncludedModule),
+    ...picked.filter((id) => !isAlwaysIncludedModule(id)),
+  ];
 
   // Metered plans include an allowance; only the overage is billed, so the
   // invoice shows the included modules at 0 € rather than hiding them — the
   // couple paid for a bundle and should see what it contained.
   if (modules.length > 0) {
     const billableCount = hasMeteredModules(plan)
-      ? Math.max(0, modules.length - FREE_MODULES_LIMIT)
+      ? Math.max(0, countedModules(modules) - FREE_MODULES_LIMIT)
       : 0;
 
     const includedCount = modules.length - billableCount;

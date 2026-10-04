@@ -387,19 +387,19 @@
     "catalog": {
       "countdown": {
         "name": "Countdown",
-        "description": "Der Countdown bis zum großen Tag"
+        "description": "Der Countdown bis zur Hochzeit"
       },
       "intro-video": {
-        "name": "Intro-Video",
-        "description": "Persönliche Videobotschaft"
+        "name": "Begrüßungsvideo",
+        "description": "Das Video eurer Wahl auf der Startseite"
       },
       "timeline": {
-        "name": "Ablaufplan",
+        "name": "Programm",
         "description": "Der Ablauf des Tages"
       },
       "dress-code": {
         "name": "Dresscode",
-        "description": "Empfohlene Kleidung"
+        "description": "Die empfohlene Kleidung"
       },
       "rsvp": {
         "name": "RSVP-Verwaltung",
@@ -407,43 +407,47 @@
       },
       "map": {
         "name": "Karte & Anfahrt",
-        "description": "Standorte der Veranstaltungsorte"
+        "description": "Adressen und Wegbeschreibungen"
       },
       "accommodation": {
         "name": "Unterkunft",
-        "description": "Hotelvorschläge in der Nähe"
+        "description": "Unterkünfte in der Nähe"
       },
       "transport": {
         "name": "Transport",
-        "description": "Shuttles & Gästetransport"
+        "description": "Infos zu Shuttles und Anreise"
       },
       "menu": {
         "name": "Menü",
-        "description": "Details zum Essen"
+        "description": "Die Details des Essens"
       },
       "gallery": {
-        "name": "Fotogalerie",
-        "description": "Teilen Sie Ihre Erinnerungen"
+        "name": "Fotobereich",
+        "description": "Brautpaar und Gäste teilen ihre Fotos und Erinnerungen"
       },
       "gift-list": {
-        "name": "Geschenkeliste",
-        "description": "Geschenke & Beiträge"
+        "name": "Wunschliste",
+        "description": "Geschenke und Beiträge"
       },
       "playlist": {
         "name": "Playlist",
-        "description": "Musikvorschläge"
+        "description": "Musikwünsche der Gäste"
       },
       "guestbook": {
-        "name": "Gästebuch",
-        "description": "Nachrichten der Gäste"
+        "name": "Gästebuch – Glas der lieben Worte",
+        "description": "Die Gäste legen ihre Nachrichten ins Glas"
       },
       "video-guestbook": {
         "name": "Video-Gästebuch",
         "description": "Videobotschaften der Gäste"
       },
       "faq": {
-        "name": "FAQ / Praktische Infos",
-        "description": "Praktische Infos für Gäste"
+        "name": "FAQ / Praktisches",
+        "description": "Antworten auf die Fragen der Gäste"
+      },
+      "jour-j": {
+        "name": "Finde deinen Platz",
+        "description": "Ein QR-Code zeigt jedem Gast seinen Tisch"
       }
     },
     "dresscode_palette": "Farbpalette",
@@ -1036,7 +1040,9 @@
     "uploads_until_label": "Uploads geöffnet bis",
     "uploads_until_hint": "Nach diesem Datum können Gäste keine Fotos mehr hinzufügen.",
     "save_failed": "Die Einstellungen konnten nicht gespeichert werden.",
-    "settings_saved": "Einstellungen gespeichert"
+    "settings_saved": "Einstellungen gespeichert",
+    "not_included_title": "Modul „Finde deinen Platz“ nicht enthalten",
+    "not_included_body": "Euer Paket enthält die Hochzeitstag-Seite (Tisch per QR-Code finden) nicht. Kontaktiert uns, um sie hinzuzufügen."
   },
   "DayOfPhotos": {
     "title": "Fotos & Videos",

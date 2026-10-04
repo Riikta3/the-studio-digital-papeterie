@@ -148,6 +148,12 @@ test("parseDomainYears accepts a whole number of years from 1 to 10, as a number
   }
 });
 
+test("computeOrderTotal never counts the RSVP towards Signature's four modules", () => {
+  const four = ["countdown", "timeline", "map", "menu"];
+  assert.equal(computeOrderTotal({ plan: "signature", modules: [...four, "rsvp"] }), 199);
+  assert.equal(computeOrderTotal({ plan: "signature", modules: [...four, "faq", "rsvp"] }), 204);
+});
+
 test("computeOrderTotal bills the domain for its years", () => {
   const order = { plan: "signature", extras: ["custom-domain"] };
   assert.equal(computeOrderTotal({ ...order, domainYears: 1 }), 199 + 65);

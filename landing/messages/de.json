@@ -230,84 +230,114 @@
         "id": "signature",
         "name": "Signature",
         "price": "199 €",
-        "positioning": "Für Paare, die eine bestehende Vorlage wählen.",
+        "positioning": "Für Paare, die ein bestehendes Design wählen.",
         "description": "Wählen Sie eine der The-Studio-Kreationen und personalisieren Sie sie mit den Informationen, Bildern und der Welt Ihrer Hochzeit.",
         "cta": "Signature wählen",
         "features": [
-          "4 Module inbegriffen, danach 5 € pro zusätzlichem Modul",
-          "Ein Design aus den Kreationen von The Studio",
-          "Personalisierte Online-Einladung",
-          "Gästeverwaltung",
-          "RSVP-Antworten in Echtzeit"
+          "Ein Design aus den Kreationen von The Studio nach Wahl",
+          "Anpassbare Angaben (Vornamen, Ort, Datum usw.)",
+          "4 Module inklusive",
+          "Zusätzliches Modul: 5 €",
+          "Bereich zur Gästeverwaltung",
+          "RSVP mit Antworten in Echtzeit",
+          "Einladung per Link geteilt",
+          "Einladung ab Veröffentlichung abrufbar",
+          "Bis zu 12 Monate nach Veröffentlichung online"
         ]
       },
       {
         "id": "sur-mesure",
         "name": "Individuell",
         "price": "299 €",
-        "positioning": "Für Paare, die eine ganz eigene Gestaltung möchten.",
+        "positioning": "Für Paare, die ein Design an ihre Hochzeit anpassen möchten.",
         "description": "Eine personalisierte Hochzeitseinladung, gestaltet rund um Ihre Welt, Ihre Farben, Ihren Ort und die Geschichte, die Sie erzählen möchten.",
         "cta": "Einladung gestalten",
         "features": [
-          "Unbegrenzte Module, alle inbegriffen",
-          "Vollständige visuelle Identität",
-          "Auf eure Hochzeitsfarben abgestimmt",
-          "Personalisierte Online-Einladung",
-          "Gästeverwaltung"
+          "Ein Design aus den Kreationen von The Studio nach Wahl",
+          "Grafische Anpassung des Designs",
+          "Alle Module unbegrenzt inklusive",
+          "Bereich zur Gästeverwaltung",
+          "RSVP mit Antworten in Echtzeit",
+          "Modul Hochzeitstag: Tisch per QR-Code finden",
+          "Einladung per Link geteilt",
+          "Einladung ab Veröffentlichung abrufbar",
+          "Bis zu 12 Monate nach Veröffentlichung online"
         ]
       },
       {
         "id": "prestige",
         "name": "Prestige",
         "price": "499 €",
-        "positioning": "Für Paare, die von A bis Z etwas Einzigartiges wollen.",
+        "positioning": "Für Paare, die sich eine einzigartige Kreation wünschen.",
         "description": "Das umfassendste The-Studio-Erlebnis, für Paare, die bei der Personalisierung ihrer Einladung noch weiter gehen möchten.",
         "cta": "Prestige entdecken",
         "features": [
-          "Vollständig maßgeschneiderte Gestaltung",
-          "Unbegrenzte Module, alle inbegriffen",
+          "Vollständig maßgeschneiderte Kreation",
+          "Für eure Hochzeit gestaltete Bildidentität",
+          "Alle Module",
+          "Alle Premium-Optionen",
           "Individuelle Animation",
-          "Vollständige visuelle Identität",
           "Unbegrenzte Änderungen",
-          "Eigene Domain",
-          "Bevorzugter Support",
-          "Fotogalerie nach der Hochzeit",
-          "Gästebuch"
+          "Brautpaar-Bereich inklusive",
+          "RSVP mit Antworten in Echtzeit",
+          "Eigene Domain inklusive",
+          "Bevorzugter Support"
         ]
       }
     ],
     "compareRows": [
       {
         "key": "modules_allowance",
-        "label": "Inbegriffene Module",
-        "signature": "4 Module, dann +5 € je Modul",
-        "sur-mesure": "Unbegrenzt",
-        "prestige": "Unbegrenzt"
+        "label": "Enthaltene Module",
+        "signature": "4 Module, dann +5 € pro Modul",
+        "sur-mesure": "Alle, unbegrenzt",
+        "prestige": "Alle, unbegrenzt"
       },
       {
-        "key": "animation",
-        "label": "Individuelle Animation",
+        "key": "rsvp",
+        "label": "Gästeverwaltung und RSVP in Echtzeit",
+        "signature": "inc",
+        "sur-mesure": "inc",
+        "prestige": "inc"
+      },
+      {
+        "key": "customisation",
+        "label": "Grafische Anpassung des Designs",
+        "signature": "no",
+        "sur-mesure": "inc",
+        "prestige": "inc"
+      },
+      {
+        "key": "day_of",
+        "label": "Hochzeitstag: Tisch per QR-Code finden",
+        "signature": "Als Modul, +5 €",
+        "sur-mesure": "inc",
+        "prestige": "inc"
+      },
+      {
+        "key": "bespoke",
+        "label": "Vollständig maßgeschneiderte Kreation",
         "signature": "no",
         "sur-mesure": "no",
         "prestige": "inc"
       },
       {
         "key": "identity",
-        "label": "Vollständige grafische Identität",
+        "label": "Für eure Hochzeit gestaltete Bildidentität",
         "signature": "no",
-        "sur-mesure": "inc",
+        "sur-mesure": "no",
         "prestige": "inc"
       },
       {
-        "key": "colors",
-        "label": "Anpassung an die Hochzeitsfarben",
+        "key": "premium",
+        "label": "Alle Premium-Optionen",
         "signature": "no",
-        "sur-mesure": "inc",
+        "sur-mesure": "no",
         "prestige": "inc"
       },
       {
-        "key": "support",
-        "label": "Prioritäts-Support",
+        "key": "animation",
+        "label": "Individuelle Animation",
         "signature": "no",
         "sur-mesure": "no",
         "prestige": "inc"
@@ -327,15 +357,8 @@
         "prestige": "inc"
       },
       {
-        "key": "gallery",
-        "label": "Fotogalerie nach der Hochzeit",
-        "signature": "no",
-        "sur-mesure": "no",
-        "prestige": "inc"
-      },
-      {
-        "key": "guestbook",
-        "label": "Gästebuch",
+        "key": "support",
+        "label": "Bevorzugter Support",
         "signature": "no",
         "sur-mesure": "no",
         "prestige": "inc"
@@ -766,19 +789,19 @@
     "catalog": {
       "countdown": {
         "name": "Countdown",
-        "description": "Der Countdown bis zum großen Tag"
+        "description": "Der Countdown bis zur Hochzeit"
       },
       "intro-video": {
-        "name": "Intro-Video",
-        "description": "Persönliche Videobotschaft"
+        "name": "Begrüßungsvideo",
+        "description": "Das Video eurer Wahl auf der Startseite"
       },
       "timeline": {
-        "name": "Ablaufplan",
+        "name": "Programm",
         "description": "Der Ablauf des Tages"
       },
       "dress-code": {
         "name": "Dresscode",
-        "description": "Empfohlene Kleidung"
+        "description": "Die empfohlene Kleidung"
       },
       "rsvp": {
         "name": "RSVP-Verwaltung",
@@ -786,43 +809,47 @@
       },
       "map": {
         "name": "Karte & Anfahrt",
-        "description": "Standorte der Veranstaltungsorte"
+        "description": "Adressen und Wegbeschreibungen"
       },
       "accommodation": {
         "name": "Unterkunft",
-        "description": "Hotelvorschläge in der Nähe"
+        "description": "Unterkünfte in der Nähe"
       },
       "transport": {
         "name": "Transport",
-        "description": "Shuttles & Gästetransport"
+        "description": "Infos zu Shuttles und Anreise"
       },
       "menu": {
         "name": "Menü",
-        "description": "Details zum Essen"
+        "description": "Die Details des Essens"
       },
       "gallery": {
-        "name": "Fotogalerie",
-        "description": "Teilen Sie Ihre Erinnerungen"
+        "name": "Fotobereich",
+        "description": "Brautpaar und Gäste teilen ihre Fotos und Erinnerungen"
       },
       "gift-list": {
-        "name": "Geschenkeliste",
-        "description": "Geschenke & Beiträge"
+        "name": "Wunschliste",
+        "description": "Geschenke und Beiträge"
       },
       "playlist": {
         "name": "Playlist",
-        "description": "Musikvorschläge"
+        "description": "Musikwünsche der Gäste"
       },
       "guestbook": {
-        "name": "Gästebuch",
-        "description": "Nachrichten der Gäste"
+        "name": "Gästebuch – Glas der lieben Worte",
+        "description": "Die Gäste legen ihre Nachrichten ins Glas"
       },
       "video-guestbook": {
         "name": "Video-Gästebuch",
         "description": "Videobotschaften der Gäste"
       },
       "faq": {
-        "name": "FAQ / Praktische Infos",
-        "description": "Praktische Infos für Gäste"
+        "name": "FAQ / Praktisches",
+        "description": "Antworten auf die Fragen der Gäste"
+      },
+      "jour-j": {
+        "name": "Finde deinen Platz",
+        "description": "Ein QR-Code zeigt jedem Gast seinen Tisch"
       }
     },
     "subtitleUnlimited": "Unbegrenzte Module – alles, was ihr auswählt, ist inbegriffen.",

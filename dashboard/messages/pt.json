@@ -386,64 +386,68 @@
     "reorder": "Reordenar",
     "catalog": {
       "countdown": {
-        "name": "Contagem Decrescente",
-        "description": "A contagem decrescente até ao grande dia"
+        "name": "Contagem decrescente",
+        "description": "A contagem até ao casamento"
       },
       "intro-video": {
-        "name": "Vídeo de Introdução",
-        "description": "Mensagem de vídeo personalizada"
+        "name": "Vídeo de boas-vindas",
+        "description": "O vídeo à sua escolha na página inicial"
       },
       "timeline": {
         "name": "Programa",
         "description": "O desenrolar do dia"
       },
       "dress-code": {
-        "name": "Dress Code",
-        "description": "Traje recomendado"
+        "name": "Dress code",
+        "description": "Os trajes recomendados"
       },
       "rsvp": {
         "name": "Gestão de RSVP",
         "description": "Confirmações de presença"
       },
       "map": {
-        "name": "Mapa e Acesso",
-        "description": "Localização dos locais"
+        "name": "Mapa e acesso",
+        "description": "Moradas e itinerários"
       },
       "accommodation": {
         "name": "Alojamento",
-        "description": "Sugestões de hotéis próximos"
+        "description": "Alojamentos nas proximidades"
       },
       "transport": {
         "name": "Transporte",
-        "description": "Transfers e transporte de convidados"
+        "description": "Informações sobre shuttles e transportes"
       },
       "menu": {
         "name": "Menu",
-        "description": "Detalhes da refeição"
+        "description": "Os detalhes da refeição"
       },
       "gallery": {
-        "name": "Galeria de Fotos",
-        "description": "Partilhe as suas memórias"
+        "name": "Espaço de partilha de fotos",
+        "description": "Noivos e convidados partilham fotos e recordações"
       },
       "gift-list": {
-        "name": "Lista de Casamento",
+        "name": "Lista de casamento",
         "description": "Presentes e contribuições"
       },
       "playlist": {
         "name": "Playlist",
-        "description": "Sugestões musicais"
+        "description": "As sugestões musicais dos convidados"
       },
       "guestbook": {
-        "name": "Livro de Visitas",
-        "description": "Mensagens dos convidados"
+        "name": "Livro de honra — Frasco de mensagens doces",
+        "description": "Os convidados deixam as suas mensagens no frasco"
       },
       "video-guestbook": {
         "name": "Livro de Visitas em Vídeo",
         "description": "Mensagens de vídeo dos convidados"
       },
       "faq": {
-        "name": "FAQ / Info Prática",
-        "description": "Informações práticas para os convidados"
+        "name": "FAQ / Informações práticas",
+        "description": "As respostas às perguntas dos convidados"
+      },
+      "jour-j": {
+        "name": "Encontra o teu lugar",
+        "description": "Um QR code permite a cada convidado encontrar a sua mesa"
       }
     },
     "dresscode_palette": "Paleta de cores",
@@ -1036,7 +1040,9 @@
     "uploads_until_label": "Envios abertos até",
     "uploads_until_hint": "Após esta data, os convidados deixam de poder adicionar fotos.",
     "save_failed": "Não foi possível guardar as definições.",
-    "settings_saved": "Definições guardadas"
+    "settings_saved": "Definições guardadas",
+    "not_included_title": "Módulo «Encontra o teu lugar» não incluído",
+    "not_included_body": "O seu plano não inclui a página do Dia D (encontrar a mesa com um QR code). Contacte-nos para a adicionar."
   },
   "DayOfPhotos": {
     "title": "Fotos e vídeos",

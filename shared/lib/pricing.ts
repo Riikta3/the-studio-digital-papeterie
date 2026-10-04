@@ -51,6 +51,23 @@ export const LANGUAGE_PRICE = 15;
 export const FREE_MODULES_LIMIT = 4;
 export const EXTRA_MODULE_PRICE = 5;
 
+/**
+ * Modules every plan includes whatever the allowance: the RSVP is a service of
+ * each offer, not one of the modules the couple picks. Provisioning adds it to
+ * every order, and it never counts towards FREE_MODULES_LIMIT nor is billed.
+ */
+export const ALWAYS_INCLUDED_MODULES: readonly string[] = ["rsvp"];
+
+/** Whether this module is part of every plan rather than one the couple picks. */
+export function isAlwaysIncludedModule(id: string): boolean {
+  return ALWAYS_INCLUDED_MODULES.includes(id);
+}
+
+/** How many of these modules count towards the allowance (and the 5 € each beyond it). */
+export function countedModules(modules: readonly string[]): number {
+  return new Set(modules.filter((id) => !isAlwaysIncludedModule(id))).size;
+}
+
 /*
  * Custom domain (docs/superpowers/specs/2026-10-02-custom-domain-design.md, D1).
  *
@@ -232,7 +249,7 @@ export function computeOrderTotal(items: OrderItems): number | null {
 
   const modules = items.modules ?? [];
   const moduleSurcharge = hasMeteredModules(items.plan)
-    ? Math.max(0, modules.length - FREE_MODULES_LIMIT) * EXTRA_MODULE_PRICE
+    ? Math.max(0, countedModules(modules) - FREE_MODULES_LIMIT) * EXTRA_MODULE_PRICE
     : 0;
 
   // The first entry is the couple's default language, which is included in
