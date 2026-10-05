@@ -243,7 +243,7 @@
           "RSVP with real-time responses",
           "Invitation shared by link",
           "Invitation available as soon as it is published",
-          "Online for up to 12 months after publication"
+          "Online for up to 12 months after the wedding"
         ]
       },
       {
@@ -262,7 +262,7 @@
           "Wedding Day module: find your table with a QR code",
           "Invitation shared by link",
           "Invitation available as soon as it is published",
-          "Online for up to 12 months after publication"
+          "Online for up to 12 months after the wedding"
         ]
       },
       {
@@ -610,7 +610,7 @@
       },
       {
         "question": "How long does my invitation stay accessible?",
-        "answer": "Your invitation stays accessible for the period set out in your package. We confirm that period when you place your order. During that time, your guests can return to the schedule, the venues, the practical details and their invitation from the same link."
+        "answer": "Your invitation stays online for up to 12 months after your wedding date. If you chose a custom domain name, your address stays live for as long as the domain is paid for: it is registered until at least 3 months after the wedding, and you can renew it. During that time, your guests can return to the schedule, the venues, the practical details and their invitation from the same link."
       },
       {
         "question": "Can I use a custom domain name for my invitation?",
@@ -1163,7 +1163,7 @@
         {
           "heading": "5. Duration and termination",
           "paragraphs": [
-            "Access to the invitation website and, where applicable, to the dashboard is provided for the duration specified in the offer purchased by the Customer at the time of purchase. At the end of this period, access may be suspended or the offer renewed according to the terms communicated to the Customer before expiry."
+            "Access to the invitation website and, where applicable, to the dashboard is provided for up to twelve (12) months after the wedding date given by the Client. Where the Client has taken the custom domain name option, the website remains available at that address for as long as the domain name is registered: its initial registration period, stated at the time of the order, covers at least the three (3) months following the wedding, and the Client may extend it by renewing the domain. At the end of these periods, access may be suspended or the offer renewed under the terms communicated to the Client before expiry."
           ]
         },
         {

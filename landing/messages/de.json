@@ -242,7 +242,7 @@
           "RSVP mit Antworten in Echtzeit",
           "Einladung per Link geteilt",
           "Einladung ab Veröffentlichung abrufbar",
-          "Bis zu 12 Monate nach Veröffentlichung online"
+          "Bis zu 12 Monate nach der Hochzeit online"
         ]
       },
       {
@@ -261,7 +261,7 @@
           "Modul Hochzeitstag: Tisch per QR-Code finden",
           "Einladung per Link geteilt",
           "Einladung ab Veröffentlichung abrufbar",
-          "Bis zu 12 Monate nach Veröffentlichung online"
+          "Bis zu 12 Monate nach der Hochzeit online"
         ]
       },
       {
@@ -609,7 +609,7 @@
       },
       {
         "question": "Wie lange bleibt meine Einladung online?",
-        "answer": "Ihre Einladung bleibt für die in Ihrem Paket vorgesehene Dauer erreichbar. Diese Dauer wird Ihnen bei Ihrer Bestellung mitgeteilt. In dieser Zeit können Ihre Gäste das Programm, die Orte, die praktischen Informationen und ihre Einladung erneut über denselben Link aufrufen."
+        "answer": "Ihre Einladung bleibt bis zu 12 Monate nach Ihrem Hochzeitsdatum online. Haben Sie eine eigene Domain gewählt, bleibt Ihre Adresse aktiv, solange die Domain bezahlt ist: Sie ist mindestens bis 3 Monate nach der Hochzeit registriert und kann verlängert werden. In dieser Zeit können Ihre Gäste den Ablauf, die Orte, die praktischen Informationen und ihre Einladung über denselben Link erneut aufrufen."
       },
       {
         "question": "Kann ich die Adresse meiner Einladung mit meinem eigenen Domainnamen personalisieren?",
@@ -950,7 +950,7 @@
         {
           "heading": "5. Laufzeit und Kündigung",
           "paragraphs": [
-            "Der Zugang zur Einladungswebsite und gegebenenfalls zum Dashboard wird für die im vom Kunden zum Zeitpunkt des Kaufs gewählten Angebot angegebene Dauer bereitgestellt. Nach Ablauf dieser Dauer kann der Zugang gesperrt oder das Angebot gemäß den dem Kunden vor Ablauf mitgeteilten Bedingungen verlängert werden."
+            "Der Zugang zur Einladungswebsite und gegebenenfalls zum Dashboard wird bis zu zwölf (12) Monate nach dem vom Kunden angegebenen Hochzeitsdatum bereitgestellt. Hat der Kunde die Option eigene Domain gebucht, bleibt die Website unter dieser Adresse erreichbar, solange der Domainname registriert ist: Die anfängliche Registrierungsdauer, die bei der Bestellung angegeben wird, umfasst mindestens die drei (3) Monate nach der Hochzeit, und der Kunde kann sie durch Verlängerung der Domain ausdehnen. Nach Ablauf dieser Fristen kann der Zugang gesperrt oder das Angebot zu den dem Kunden vor Ablauf mitgeteilten Bedingungen verlängert werden."
           ]
         },
         {

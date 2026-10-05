@@ -241,7 +241,7 @@
           "RSVP con risposte in tempo reale",
           "Invito condiviso tramite link",
           "Invito accessibile dalla pubblicazione",
-          "Online fino a 12 mesi dopo la data di pubblicazione"
+          "Online fino a 12 mesi dopo il matrimonio"
         ]
       },
       {
@@ -260,7 +260,7 @@
           "Modulo Giorno del sì: trovare il proprio tavolo con un QR code",
           "Invito condiviso tramite link",
           "Invito accessibile dalla pubblicazione",
-          "Online fino a 12 mesi dopo la data di pubblicazione"
+          "Online fino a 12 mesi dopo il matrimonio"
         ]
       },
       {
@@ -608,7 +608,7 @@
       },
       {
         "question": "Per quanto tempo il mio invito resta accessibile?",
-        "answer": "Il tuo invito resta accessibile per la durata prevista dalla tua formula. Questa durata ti viene precisata al momento dell'ordine. In questo periodo i tuoi invitati possono consultare di nuovo il programma, i luoghi, le informazioni pratiche e il loro invito dallo stesso link."
+        "answer": "Il tuo invito resta online fino a 12 mesi dopo la data del matrimonio. Se hai scelto un nome di dominio personalizzato, il tuo indirizzo resta attivo finché il dominio è pagato: è registrato almeno fino a 3 mesi dopo il matrimonio, e puoi rinnovarlo. In questo periodo i tuoi ospiti possono rivedere il programma, i luoghi, le informazioni pratiche e il loro invito dallo stesso link."
       },
       {
         "question": "Posso personalizzare l'indirizzo del mio invito con un nome di dominio personale?",
@@ -949,7 +949,7 @@
         {
           "heading": "5. Durata e risoluzione",
           "paragraphs": [
-            "L'accesso al sito web di invito e, se applicabile, alla dashboard è fornito per la durata specificata nell'offerta sottoscritta dal Cliente al momento dell'acquisto. Al termine di tale periodo, l'accesso potrà essere sospeso o l'offerta rinnovata secondo le modalità comunicate al Cliente prima della scadenza."
+            "L’accesso al sito dell’invito e, se previsto, alla dashboard è fornito fino a dodici (12) mesi dopo la data del matrimonio indicata dal Cliente. Se il Cliente ha sottoscritto l’opzione nome di dominio personalizzato, il sito resta accessibile a tale indirizzo finché il nome di dominio è registrato: la sua durata di registrazione iniziale, indicata al momento dell’ordine, copre almeno i tre (3) mesi successivi al matrimonio, e il Cliente può prolungarla rinnovando il dominio. Al termine di tali periodi, l’accesso potrà essere sospeso o l’offerta rinnovata secondo le modalità comunicate al Cliente prima della scadenza."
           ]
         },
         {

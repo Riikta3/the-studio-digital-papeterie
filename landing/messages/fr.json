@@ -404,7 +404,7 @@
           "RSVP avec réponses en temps réel",
           "Invitation partagée par lien",
           "Invitation accessible dès sa publication",
-          "En ligne jusqu’à 12 mois après la date de publication"
+          "En ligne jusqu’à 12 mois après le mariage"
         ]
       },
       {
@@ -423,7 +423,7 @@
           "Module Jour J : trouver sa table grâce à un QR code",
           "Invitation partagée par lien",
           "Invitation accessible dès sa publication",
-          "En ligne jusqu’à 12 mois après la date de publication"
+          "En ligne jusqu’à 12 mois après le mariage"
         ]
       },
       {
@@ -578,7 +578,7 @@
       },
       {
         "question": "Combien de temps mon invitation reste-t-elle accessible ?",
-        "answer": "Votre invitation reste accessible pendant la durée prévue dans votre formule. Cette durée vous est précisée lors de votre commande. Pendant cette période, vos invités peuvent consulter à nouveau le programme, les lieux, les informations pratiques et leur invitation depuis le même lien."
+        "answer": "Votre invitation reste en ligne jusqu’à 12 mois après la date de votre mariage. Si vous avez choisi un nom de domaine personnalisé, votre adresse reste active tant que le domaine est payé : il est réservé au moins jusqu’à 3 mois après le mariage, et vous pouvez le renouveler. Pendant cette période, vos invités peuvent consulter à nouveau le programme, les lieux, les informations pratiques et leur invitation depuis le même lien."
       },
       {
         "question": "Puis-je personnaliser l’adresse de mon invitation avec mon propre nom de domaine ?",
@@ -636,7 +636,7 @@
         "intro": "Ciao Amore est né d’un mariage à Ravello, sur les hauteurs de la côte amalfitaine. C’est la collection des mariages qui sentent le citron et la pierre chaude : un jaune franc, un vert olive profond, des pastels lavés par le soleil, et une typographie qui a la générosité des enseignes italiennes.",
         "body1": "L’invitation s’ouvre sur une arche méditerranéenne et se déroule ensuite comme une journée en Italie. Le compte à rebours, le programme heure par heure, le lieu avec son itinéraire, le dress code, les hébergements à réserver et la playlist que vos invités alimentent : chaque module a sa place, et rien ne sort de l’univers.",
         "body2": "Ciao Amore porte aussi une section « lendemain » : le brunch au bord de la piscine, la seconde journée, ce moment que les faire-part papier ne savent pas raconter. Vos invités répondent au RSVP directement depuis l’invitation, et vous retrouvez leurs réponses réunies dans votre espace.",
-        "body3": "Techniquement, c’est une page web : vos invités reçoivent un lien par message ou scannent un QR code, et l’invitation s’ouvre dans leur navigateur. Rien à installer, rien à créer comme compte. Elle se consulte aussi bien depuis un iPhone que depuis un vieil Android, et reste accessible pendant toute la durée prévue dans votre formule — utile quand un invité cherche l’adresse du domaine la veille.",
+        "body3": "Techniquement, c’est une page web : vos invités reçoivent un lien par message ou scannent un QR code, et l’invitation s’ouvre dans leur navigateur. Rien à installer, rien à créer comme compte. Elle se consulte aussi bien depuis un iPhone que depuis un vieil Android, et reste en ligne jusqu’à 12 mois après le mariage — utile quand un invité cherche l’adresse du domaine la veille.",
         "bestFor": "Un mariage en Italie, sur la Riviera, ou partout où la lumière compte autant que le lieu.",
         "faqTitle": "Et si notre mariage n’est pas en Italie ?",
         "faqBody": "Ciao Amore n’impose pas de destination. Les prénoms, les dates, le lieu, le programme et les textes sont les vôtres : la collection apporte une palette et une typographie, pas un décor imposé. Beaucoup de mariages en France choisissent cet univers pour sa lumière, simplement parce qu’il ressemble à l’ambiance qu’ils veulent donner."
@@ -1337,7 +1337,7 @@
         {
           "heading": "5. Durée et résiliation",
           "paragraphs": [
-            "L’accès au site d’invitation et, le cas échéant, au tableau de bord est fourni pour la durée précisée dans l’offre souscrite par le Client au moment de l’achat. À l’issue de cette durée, l’accès pourra être suspendu ou l’offre reconduite selon les modalités communiquées au Client avant l’expiration."
+            "L’accès au site d’invitation et, le cas échéant, au tableau de bord est fourni jusqu’à douze (12) mois après la date du mariage indiquée par le Client. Lorsque le Client a souscrit l’option nom de domaine personnalisé, le site reste accessible à cette adresse tant que le nom de domaine est enregistré : sa durée d’enregistrement initiale, précisée au moment de la commande, couvre au moins les trois (3) mois qui suivent le mariage, et le Client peut la prolonger en renouvelant le domaine. À l’issue de ces durées, l’accès pourra être suspendu ou l’offre reconduite selon les modalités communiquées au Client avant l’expiration."
           ]
         },
         {

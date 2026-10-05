@@ -241,7 +241,7 @@
           "RSVP com respostas em tempo real",
           "Convite partilhado por link",
           "Convite acessível desde a publicação",
-          "Online até 12 meses após a data de publicação"
+          "Online até 12 meses após o casamento"
         ]
       },
       {
@@ -260,7 +260,7 @@
           "Módulo Dia D: encontrar a mesa com um QR code",
           "Convite partilhado por link",
           "Convite acessível desde a publicação",
-          "Online até 12 meses após a data de publicação"
+          "Online até 12 meses após o casamento"
         ]
       },
       {
@@ -608,7 +608,7 @@
       },
       {
         "question": "Durante quanto tempo o meu convite fica acessível?",
-        "answer": "O seu convite fica acessível durante o período previsto na sua fórmula. Essa duração é-lhe indicada no momento da encomenda. Durante esse período, os seus convidados podem voltar a consultar o programa, os locais, as informações práticas e o seu convite a partir do mesmo link."
+        "answer": "O seu convite fica online até 12 meses após a data do seu casamento. Se escolheu um nome de domínio personalizado, o seu endereço mantém-se ativo enquanto o domínio estiver pago: fica registado pelo menos até 3 meses após o casamento, e pode renová-lo. Durante esse período, os seus convidados podem voltar a consultar o programa, os locais, as informações práticas e o convite a partir do mesmo link."
       },
       {
         "question": "Posso personalizar o endereço do meu convite com o meu próprio nome de domínio?",
@@ -949,7 +949,7 @@
         {
           "heading": "5. Duração e rescisão",
           "paragraphs": [
-            "O acesso ao site de convite e, se aplicável, ao painel de controlo é fornecido pela duração especificada na oferta subscrita pelo Cliente no momento da compra. No final desse período, o acesso poderá ser suspenso ou a oferta renovada de acordo com as modalidades comunicadas ao Cliente antes do termo."
+            "O acesso ao site do convite e, se aplicável, ao painel de gestão é disponibilizado até doze (12) meses após a data do casamento indicada pelo Cliente. Quando o Cliente subscreveu a opção de nome de domínio personalizado, o site permanece acessível nesse endereço enquanto o nome de domínio estiver registado: o seu período de registo inicial, indicado no momento da encomenda, cobre pelo menos os três (3) meses seguintes ao casamento, e o Cliente pode prolongá-lo renovando o domínio. No termo destes prazos, o acesso poderá ser suspenso ou a oferta renovada nas condições comunicadas ao Cliente antes da expiração."
           ]
         },
         {

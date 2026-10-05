@@ -242,7 +242,7 @@
           "RSVP con respuestas en tiempo real",
           "Invitación compartida por enlace",
           "Invitación disponible desde su publicación",
-          "En línea hasta 12 meses después de su publicación"
+          "En línea hasta 12 meses después de la boda"
         ]
       },
       {
@@ -261,7 +261,7 @@
           "Módulo Día D: encontrar su mesa con un código QR",
           "Invitación compartida por enlace",
           "Invitación disponible desde su publicación",
-          "En línea hasta 12 meses después de su publicación"
+          "En línea hasta 12 meses después de la boda"
         ]
       },
       {
@@ -609,7 +609,7 @@
       },
       {
         "question": "¿Cuánto tiempo permanece accesible mi invitación?",
-        "answer": "Tu invitación permanece accesible durante el tiempo previsto en tu fórmula. La duración exacta se te indica al realizar tu pedido. Durante ese periodo, tus invitados pueden volver a consultar el programa, los lugares, la información práctica y su invitación desde el mismo enlace."
+        "answer": "Tu invitación permanece en línea hasta 12 meses después de la fecha de tu boda. Si elegiste un nombre de dominio personalizado, tu dirección sigue activa mientras el dominio esté pagado: queda registrado al menos hasta 3 meses después de la boda, y puedes renovarlo. Durante ese tiempo, tus invitados pueden volver a consultar el programa, los lugares, la información práctica y su invitación desde el mismo enlace."
       },
       {
         "question": "¿Puedo personalizar la dirección de mi invitación con mi propio nombre de dominio?",
@@ -950,7 +950,7 @@
         {
           "heading": "5. Duración y resolución",
           "paragraphs": [
-            "El acceso al sitio web de invitación y, en su caso, al panel de control se proporciona durante la duración especificada en la oferta contratada por el Cliente en el momento de la compra. Al finalizar dicho periodo, el acceso podrá suspenderse o la oferta renovarse según las modalidades comunicadas al Cliente antes de su vencimiento."
+            "El acceso al sitio de invitación y, en su caso, al panel de control se proporciona hasta doce (12) meses después de la fecha de la boda indicada por el Cliente. Cuando el Cliente ha contratado la opción de nombre de dominio personalizado, el sitio sigue accesible en esa dirección mientras el nombre de dominio esté registrado: su periodo de registro inicial, indicado en el momento del pedido, cubre al menos los tres (3) meses siguientes a la boda, y el Cliente puede prolongarlo renovando el dominio. Al término de estos plazos, el acceso podrá suspenderse o la oferta renovarse según las condiciones comunicadas al Cliente antes del vencimiento."
           ]
         },
         {
