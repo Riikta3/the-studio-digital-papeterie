@@ -329,6 +329,13 @@ Keep each one on the side the source put it — check before batching.
 - [ ] Every section root carries `data-editor-section`
 - [ ] Every word in the theme's own voice is a slot in `editor.ts`, and wired
 - [ ] `npm run themes:sync` run; production build passes
+- [ ] **Listed for sale.** One entry in `landing/src/components/home/themes.ts`
+      (`id`, `name`, `image`, `statusBar`), plus `cover.webp`
+      (`themes:shoot`) and `scroll.webp` (`themes:shoot-scroll`) in
+      `public/themes/<id>/`. That single entry shows the theme in the hero
+      carousel, the phone preview and its row, the « Comment ça marche »
+      cards, the studio's theme step and the checkout summary;
+      `src/lib/theme-catalogue.test.mjs` (`npm test`) fails until it is there.
 
 ### Then: wiring it up
 

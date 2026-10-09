@@ -12,7 +12,7 @@ import {
 import { Link2, Mail, Send } from "lucide-react";
 import { useTranslations } from "next-intl";
 import Image from "next/image";
-import { useEffect, useRef } from "react";
+import { type CSSProperties, useEffect, useRef } from "react";
 
 import { THEMES } from "./themes";
 
@@ -57,8 +57,12 @@ function UniverseMock({ label }: { label: string }) {
       </p>
       {/* Every collection, in one row: a second row would sit under the next
           stacked step card. On a phone the row slides sideways, a peek of the
-          fourth cover saying there is more; from md up all six fit. */}
-      <div className="-mx-5 flex snap-x snap-mandatory scroll-px-5 gap-2 overflow-x-auto px-5 pb-1 pt-1 [scrollbar-width:none] md:mx-0 md:grid md:grid-cols-6 md:gap-3 md:overflow-visible md:px-0 [&::-webkit-scrollbar]:hidden">
+          fourth cover saying there is more; from md up every theme fits, one
+          column each, however many there are. */}
+      <div
+        style={{ "--theme-count": THEMES.length } as CSSProperties}
+        className="-mx-5 flex snap-x snap-mandatory scroll-px-5 gap-2 overflow-x-auto px-5 pb-1 pt-1 [scrollbar-width:none] md:mx-0 md:grid md:grid-cols-[repeat(var(--theme-count),minmax(0,1fr))] md:gap-3 md:overflow-visible md:px-0 [&::-webkit-scrollbar]:hidden"
+      >
         {THEMES.map((theme, i) => (
           <div key={theme.id} className="w-[28%] shrink-0 snap-start text-center md:w-auto">
             <div

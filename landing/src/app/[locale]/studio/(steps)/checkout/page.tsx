@@ -38,7 +38,7 @@ const stripePromise = loadStripe(
 /** Where a customer whose provisioning failed can reach a human. */
 const SUPPORT_EMAIL = "contact@thestudiopapeteriedigitale.com";
 
-function labelFor(id: string, list: { id: string; name: string }[]): string {
+function labelFor(id: string, list: readonly { id: string; name: string }[]): string {
   return list.find((x) => x.id === id)?.name ?? id;
 }
 
