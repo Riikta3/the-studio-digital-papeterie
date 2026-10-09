@@ -4,6 +4,7 @@ import { dirname, join } from "node:path";
 import test from "node:test";
 import { fileURLToPath } from "node:url";
 
+import { THEME_DEMO_TRACKS, findMusicTrack } from "../../../shared/data/music-library.ts";
 import { THEMES } from "../components/home/themes.ts";
 import { THEME_IDS } from "../components/invitation/themes/theme-ids.ts";
 
@@ -44,5 +45,13 @@ test("every listed theme has its cover and the hero's scrolling strip", () => {
         `${theme.id}: nightfall needs public/themes/${theme.id}/scroll-night.webp.`,
       );
     }
+  }
+});
+
+test("every theme's demo has its own track, taken from the library", () => {
+  for (const id of THEME_IDS) {
+    const trackId = THEME_DEMO_TRACKS[id];
+    assert.ok(trackId, `${id}: add its demo track to THEME_DEMO_TRACKS in shared/data/music-library.ts.`);
+    assert.ok(findMusicTrack(trackId), `${id}: « ${trackId} » is not in MUSIC_LIBRARY.`);
   }
 });

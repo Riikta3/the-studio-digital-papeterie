@@ -7,6 +7,7 @@ import { AtelierBar } from "@/components/invitation/atelier/AtelierBar";
 import { atelierEnabled, atelierThemes } from "@/components/invitation/atelier/atelier";
 import { demoDataFor } from "@/components/invitation/themes/fixtures";
 import { getTheme } from "@/components/invitation/themes/registry";
+import { demoTrackFor } from "@shared/data/music-library";
 import { musicPublicUrl, resolveMusicSource } from "@shared/lib/music";
 
 /**
@@ -74,11 +75,11 @@ export default async function ThemeDemoPage({
   // `?fixture=minimal|heavy` swaps in a control dataset outside production, to
   // check a theme against data that is not its own demo.
   const { Root, demoData } = theme;
-  // Every demo plays the library's default track: a prospect hears the
-  // option before buying it. Silent inside the home page's mock-up (see
-  // InvitationMusic).
+  // Every demo plays its theme's own track (`THEME_DEMO_TRACKS`): a
+  // prospect hears the option before buying it. Silent inside the home
+  // page's mock-up (see InvitationMusic).
   const music = resolveMusicSource(
-    { music_enabled: true, music_track: null, music_upload_path: null },
+    { music_enabled: true, music_track: demoTrackFor(theme.id), music_upload_path: null },
     (path) => musicPublicUrl(process.env.NEXT_PUBLIC_SUPABASE_URL!, path),
   );
   return (

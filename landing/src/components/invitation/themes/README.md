@@ -336,6 +336,9 @@ Keep each one on the side the source put it — check before batching.
       carousel, the phone preview and its row, the « Comment ça marche »
       cards, the studio's theme step and the checkout summary;
       `src/lib/theme-catalogue.test.mjs` (`npm test`) fails until it is there.
+- [ ] **Its demo music.** One line in `THEME_DEMO_TRACKS`
+      (`shared/data/music-library.ts`) naming a library track; the same test
+      fails without it.
 
 ### Then: wiring it up
 
