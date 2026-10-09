@@ -2,189 +2,22 @@
 
 import { Button } from "@shared/components/ui/button";
 import { cn } from "@shared/lib/utils";
-import { ArrowLeft, ArrowRight, BatteryFull, Signal, Wifi } from "lucide-react";
-import { useLocale, useTranslations } from "next-intl";
+import { ArrowLeft, ArrowRight } from "lucide-react";
+import { useTranslations } from "next-intl";
 import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
 
 import { Link } from "@/navigation";
 
 import { FadeIn } from "./FadeIn";
+import { PhoneFrame } from "./PhoneFrame";
 import {
   setSelectedThemeIndex,
   useSelectedThemeIndex,
 } from "./selected-theme";
-import { THEMES, type Theme, themeDemoPath } from "./themes";
+import { THEMES } from "./themes";
 import { UpcomingThemeCard } from "./UpcomingThemeCard";
 import { ThemeConfigSheet } from "./ThemeConfigSheet";
-
-// iPhone 15 Pro-style proportions: 390×844pt screen, titanium rim and
-// thin black bezel around it. The frame renders at this fixed size and
-// is scaled down to fit its container.
-const SCREEN_W = 390;
-const SCREEN_H = 844;
-const RIM = 3;
-const BEZEL = 10;
-/** The status bar sits above the invitation, as in a browser; the iframe starts below it. */
-const STATUS_BAR_H = 50;
-const PHONE_W = SCREEN_W + 2 * (RIM + BEZEL);
-const PHONE_H = SCREEN_H + 2 * (RIM + BEZEL);
-
-function PhoneScreen({ theme }: { theme: Theme }) {
-  const t = useTranslations("Preview");
-  const locale = useLocale();
-  // Follows the carousel selection: each theme renders its own demo route.
-  const demoUrl = themeDemoPath(locale, theme.id);
-  const screenRef = useRef<HTMLDivElement>(null);
-  const iframeRef = useRef<HTMLIFrameElement>(null);
-  const [loading, setLoading] = useState(true);
-  const [time, setTime] = useState("");
-
-  // The iframe remounts when the theme changes (see its `key`), so the spinner
-  // has to come back with it — `loading` lives on this component, which does not
-  // remount.
-  useEffect(() => {
-    setLoading(true);
-  }, [demoUrl]);
-
-  // Live clock in the status bar, refreshed every minute.
-  useEffect(() => {
-    const formatTime = () =>
-      new Date().toLocaleTimeString("fr-FR", {
-        hour: "2-digit",
-        minute: "2-digit",
-      });
-    setTime(formatTime());
-    const interval = setInterval(() => setTime(formatTime()), 30_000);
-    return () => clearInterval(interval);
-  }, []);
-
-  // Forward mouse wheel events into the iframe so the invitation scrolls
-  // as if the phone screen were a real touch surface.
-  useEffect(() => {
-    const el = screenRef.current;
-    if (!el) return;
-    const handleWheel = (e: WheelEvent) => {
-      e.preventDefault();
-      iframeRef.current?.contentWindow?.scrollBy({
-        top: e.deltaY,
-        behavior: "auto",
-      });
-    };
-    el.addEventListener("wheel", handleWheel, { passive: false });
-    return () => el.removeEventListener("wheel", handleWheel);
-  }, []);
-
-  return (
-    <div
-      ref={screenRef}
-      className="relative overflow-hidden rounded-[55px] bg-studio-beurre"
-      style={{ width: SCREEN_W, height: SCREEN_H }}
-    >
-      {/* Status bar, on the colour of the theme's top edge */}
-      <div
-        className={cn(
-          "pointer-events-none absolute inset-x-0 top-0 z-20 flex items-center justify-between px-10 pt-1.5",
-          theme.statusBar.text === "light" ? "text-white" : "text-studio-violet",
-        )}
-        style={{ height: STATUS_BAR_H, background: theme.statusBar.background }}
-      >
-        <span className="font-body text-sm font-semibold tracking-wide">
-          {time}
-        </span>
-        <span className="flex items-center gap-1.5">
-          <Signal className="h-3.5 w-3.5" strokeWidth={2.5} />
-          <Wifi className="h-3.5 w-3.5" strokeWidth={2.5} />
-          <BatteryFull className="h-4 w-4" strokeWidth={2} />
-        </span>
-      </div>
-
-      {/* Dynamic Island */}
-      <div className="absolute left-1/2 top-[11px] z-20 flex h-[34px] w-[122px] -translate-x-1/2 items-center justify-end rounded-full bg-black pr-3">
-        <div className="h-3 w-3 rounded-full bg-[#1a1a1c] shadow-[inset_0_1px_2px_rgba(255,255,255,0.08)]" />
-      </div>
-
-      {/* Home indicator */}
-      <div className="pointer-events-none absolute bottom-2 left-1/2 z-20 h-[5px] w-[130px] -translate-x-1/2 rounded-full bg-white/80" />
-
-      {loading && (
-        <div className="absolute inset-0 z-10 flex items-center justify-center bg-studio-beurre">
-          <div className="h-8 w-8 animate-spin rounded-full border border-studio-violet/30 border-t-studio-violet" />
-        </div>
-      )}
-      <iframe
-        // Remount on theme change: without a key React keeps the same iframe
-        // and swapping `src` would push an entry onto its history instead of
-        // replacing the page.
-        key={demoUrl}
-        ref={iframeRef}
-        src={demoUrl}
-        className="absolute inset-x-0 block w-full border-none"
-        style={{ top: STATUS_BAR_H, height: SCREEN_H - STATUS_BAR_H }}
-        title={t("demoIframeTitle", { name: theme.name })}
-        onLoad={() => setLoading(false)}
-      />
-    </div>
-  );
-}
-
-function PhoneFrame({ theme }: { theme: Theme }) {
-  const wrapRef = useRef<HTMLDivElement>(null);
-  // null until measured on the client → avoids SSR/client mismatch.
-  const [scale, setScale] = useState<number | null>(null);
-
-  useEffect(() => {
-    const el = wrapRef.current;
-    if (!el) return;
-    const measure = () => setScale(Math.min(1, el.clientWidth / PHONE_W));
-    measure();
-    const ro = new ResizeObserver(measure);
-    ro.observe(el);
-    return () => ro.disconnect();
-  }, []);
-
-  return (
-    <div
-      ref={wrapRef}
-      className="mx-auto w-full max-w-[340px] md:max-w-[416px]"
-    >
-      {scale !== null && (
-        <div className="relative" style={{ height: PHONE_H * scale }}>
-          {/* Titanium rim */}
-          <div
-            className="absolute left-0 top-0"
-            style={{
-              width: PHONE_W,
-              height: PHONE_H,
-              padding: RIM,
-              borderRadius: 68,
-              background:
-                "linear-gradient(145deg, #6a6a6e 0%, #3a3a3d 25%, #2a2a2d 60%, #55555a 100%)",
-              boxShadow:
-                "0 0 0 1px rgba(0,0,0,0.4), 0 32px 80px rgba(0,0,0,0.28), 0 8px 24px rgba(0,0,0,0.18)",
-              transform: `scale(${scale})`,
-              transformOrigin: "top left",
-            }}
-          >
-            {/* Hardware buttons on the titanium band */}
-            <div className="absolute left-[-2.5px] top-[175px] h-[26px] w-[3px] rounded-l-sm bg-gradient-to-b from-[#55555a] via-[#3a3a3d] to-[#55555a]" />
-            <div className="absolute left-[-2.5px] top-[235px] h-[52px] w-[3px] rounded-l-sm bg-gradient-to-b from-[#55555a] via-[#3a3a3d] to-[#55555a]" />
-            <div className="absolute left-[-2.5px] top-[300px] h-[52px] w-[3px] rounded-l-sm bg-gradient-to-b from-[#55555a] via-[#3a3a3d] to-[#55555a]" />
-            <div className="absolute right-[-2.5px] top-[260px] h-[84px] w-[3px] rounded-r-sm bg-gradient-to-b from-[#55555a] via-[#3a3a3d] to-[#55555a]" />
-
-            {/* Black bezel */}
-            <div
-              className="h-full w-full"
-              style={{ padding: BEZEL, borderRadius: 65, background: "#000" }}
-            >
-              <PhoneScreen theme={theme} />
-            </div>
-          </div>
-        </div>
-      )}
-    </div>
-  );
-}
 
 // One set = every theme, then the "more coming" card that closes the row.
 const CARD_SET = [
@@ -192,30 +25,14 @@ const CARD_SET = [
   { theme: null, index: null },
 ];
 
-// How many times the set is repeated to fake an infinite scroller.
-//
-// Repeating only pays off when a set is wider than the viewport: with a handful
-// of themes a desktop screen fits several sets at once, and the loop stops
-// reading as a loop — it reads as the same three invitations printed over and
-// over, which is what it looked like on a 1728px screen. Below that threshold
-// the track shows one set and simply does not scroll.
-//
-// The threshold is deliberately generous (7): at 144px per card plus a 16px
-// gap, seven cards fill 1120px, so anything wider only starts repeating once
-// there are genuinely enough themes for the repetition to go unnoticed.
-const LOOPS_WHEN_ENOUGH_CARDS = 5;
-const MIN_CARDS_TO_LOOP = 7;
-const LOOP_REPEATS =
-  CARD_SET.length >= MIN_CARDS_TO_LOOP ? LOOPS_WHEN_ENOUGH_CARDS : 1;
-const MIDDLE_SET = Math.floor(LOOP_REPEATS / 2);
-
-const LOOPED_THEMES = Array.from({ length: LOOP_REPEATS }, (_, set) =>
-  CARD_SET.map(({ theme, index }) => ({
-    theme,
-    index,
-    key: `${set}-${theme?.name ?? "upcoming"}`,
-  })),
-).flat();
+// Each theme once, never repeated: a looping row printed the same covers
+// two or three times side by side on a wide screen. The row scrolls when it
+// is wider than the screen, and the arrows say so.
+const CARDS = CARD_SET.map(({ theme, index }) => ({
+  theme,
+  index,
+  key: theme?.id ?? "upcoming",
+}));
 
 function ThemeCarousel({
   active,
@@ -226,7 +43,6 @@ function ThemeCarousel({
 }) {
   const t = useTranslations("Preview");
   const trackRef = useRef<HTMLDivElement>(null);
-  const cardStepRef = useRef(0);
 
   // Whether the track actually overflows. With only a few themes a desktop
   // screen fits every card, and then the arrows and the dots point at nothing —
@@ -242,36 +58,6 @@ function ThemeCarousel({
     observer.observe(el);
     return () => observer.disconnect();
   }, []);
-
-  // Start scrolled into the middle repeat so there's room to scroll both
-  // ways from the first paint.
-  useEffect(() => {
-    const el = trackRef.current;
-    if (!el) return;
-    const card = el.children[0] as HTMLElement | undefined;
-    const step = (card?.offsetWidth ?? 0) + 16; // 16 = gap-4
-    cardStepRef.current = step;
-    // A set is every theme plus the closing card, so the offset counts
-    // `CARD_SET.length` — using `THEMES.length` here landed one card short and
-    // drifted a little further out of alignment on every wrap.
-    el.scrollLeft = step * CARD_SET.length * MIDDLE_SET;
-  }, []);
-
-  // Once the user scrolls within one set's width of either end, silently
-  // (no smooth-scroll) jump back by exactly one repeat's width — invisible
-  // to the user since the content at that offset is identical.
-  const handleScroll = () => {
-    const el = trackRef.current;
-    const step = cardStepRef.current;
-    // Nothing to re-centre when the track holds a single set.
-    if (!el || !step || LOOP_REPEATS === 1) return;
-    const setWidth = step * CARD_SET.length;
-    if (el.scrollLeft < setWidth) {
-      el.scrollLeft += setWidth * (LOOP_REPEATS - 2);
-    } else if (el.scrollLeft > setWidth * (LOOP_REPEATS - 1)) {
-      el.scrollLeft -= setWidth * (LOOP_REPEATS - 2);
-    }
-  };
 
   const scrollByCard = (direction: -1 | 1) => {
     trackRef.current?.scrollBy({ left: direction * 180, behavior: "smooth" });
@@ -296,7 +82,6 @@ function ThemeCarousel({
 
       <div
         ref={trackRef}
-        onScroll={handleScroll}
         className={cn(
           "scrollbar-hide flex snap-x gap-4 overflow-x-auto px-6 py-2 md:px-12",
           // Only centre when everything fits: `justify-center` on an
@@ -305,7 +90,7 @@ function ThemeCarousel({
           overflows ? "justify-start" : "justify-center",
         )}
       >
-        {LOOPED_THEMES.map(({ theme, index, key }) =>
+        {CARDS.map(({ theme, index, key }) =>
           theme === null || index === null ? (
             <div
               key={key}
