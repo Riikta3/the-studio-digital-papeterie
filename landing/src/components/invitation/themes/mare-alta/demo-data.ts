@@ -80,9 +80,14 @@ export const MARE_ALTA_DEMO: InvitationData = {
     body: "Un dernier moment ensemble, au jardin.",
     note: "Prévoyez un maillot pour la plage.",
   },
+  // The couple's own welcome words for the jar, as the designer wrote them; a real couple
+  // without words of their own gets the theme's neutral sentence.
+  guestbook: {
+    body: "Glissez un message que Sienna et Malo pourront ouvrir au fil des années, pour rire, se souvenir et célébrer tout ce qui les unit.",
+  },
   dressCode: {
     title: "Élégance au jardin",
-    body: "Habillez-vous pour un dîner portugais à ciel ouvert : chic, fluide et lumineux.",
+    body: "Habillez-vous pour un dîner d’été portugais : chic, fluide et lumineux.",
     colors: ["#8a9a7b", "#f3ecdd", "#b8a6c9"],
     // A short first line on its own is the paragraph's heading, as the designer set "On aime" and "On évite".
     note: "On aime\nles volumes fluides, le lin qui vit, les bijoux sculpturaux, les couleurs du jardin et les détails précieux.\n\nOn évite\nle total look blanc. Pour le reste : venez spectaculaire, mais venez vous-même.",

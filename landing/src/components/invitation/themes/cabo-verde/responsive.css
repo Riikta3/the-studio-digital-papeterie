@@ -580,8 +580,9 @@ html:has(.theme-cabo-verde) {
   line-height: 1.5;
 }
 
-/* The submit waits for an answer to the first question; the sheet has no
-   disabled look for it. */
+/* Disabled only while the answer is being sent. Before that it stays the
+   designer's solid coral: the attendance radios are `required`, so a press
+   without an answer is stopped by the browser, which points at the question. */
 .theme-cabo-verde .rsvp button:disabled {
   opacity: 0.45;
   cursor: not-allowed;

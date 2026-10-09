@@ -29,15 +29,20 @@ import localFont from "next/font/local";
  * axis, and when theirs win a Château title is set at the text size (wider, with
  * sturdier hairlines). A family nobody else declares cannot be overridden.
  *
+ * The family is named by Next after this constant, so the constant's name is
+ * what keeps it unique. Never rename it with `declarations: font-family`: the
+ * production build applies that name to the `@font-face` rule only, while the
+ * `--font-cr-display` variable keeps the constant's name — every Château title
+ * was set in Arial online, though `next dev` showed it right.
+ *
  * The file is the Latin subset of Bodoni Moda as Google Fonts serves it (SIL Open
  * Font License 1.1, © The Bodoni Moda Project Authors): the same variable font,
  * wght 400–900 and opsz 6–96.
  */
-const display = localFont({
+const chateauRoyalBodoni = localFont({
   src: "./font-files/bodoni-moda-latin.woff2",
   weight: "400 900",
   style: "normal",
-  declarations: [{ prop: "font-family", value: "Chateau Royal Bodoni" }],
   display: "swap",
   variable: "--font-cr-display",
 });
@@ -58,4 +63,4 @@ const sans = Jost({
   variable: "--font-cr-sans",
 });
 
-export const chateauRoyalFontVars = [display.variable, script.variable, sans.variable].join(" ");
+export const chateauRoyalFontVars = [chateauRoyalBodoni.variable, script.variable, sans.variable].join(" ");
