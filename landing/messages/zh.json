@@ -228,7 +228,7 @@
       {
         "id": "signature",
         "name": "Signature",
-        "price": "199€",
+        "price": "149€",
         "positioning": "适合选择现有模板的新人。",
         "description": "从 The Studio 的作品中选择一款，并用你们婚礼的信息、照片与氛围进行个性化设计。",
         "cta": "选择 Signature",
@@ -247,7 +247,7 @@
       {
         "id": "sur-mesure",
         "name": "定制",
-        "price": "299€",
+        "price": "199€",
         "positioning": "适合希望根据婚礼调整模板的新人。",
         "description": "一份专属定制的婚礼请柬，围绕你们的风格、色彩、场地，以及你们想讲述的故事而设计。",
         "cta": "创建我的定制请柬",

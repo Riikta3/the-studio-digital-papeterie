@@ -228,7 +228,7 @@
       {
         "id": "signature",
         "name": "Signature",
-        "price": "199 €",
+        "price": "149 €",
         "positioning": "Para casais que escolhem um modelo existente.",
         "description": "Escolham uma das criações The Studio e personalizem-na com as informações, as imagens e o universo do seu casamento.",
         "cta": "Escolher Signature",
@@ -247,7 +247,7 @@
       {
         "id": "sur-mesure",
         "name": "Por medida",
-        "price": "299 €",
+        "price": "199 €",
         "positioning": "Para casais que desejam adaptar um modelo ao seu casamento.",
         "description": "Um convite de casamento personalizado, imaginado em torno do seu universo, das suas cores, do seu local e da história que desejam contar.",
         "cta": "Criar o meu convite por medida",

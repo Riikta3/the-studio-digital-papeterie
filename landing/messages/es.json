@@ -229,7 +229,7 @@
       {
         "id": "signature",
         "name": "Signature",
-        "price": "199 €",
+        "price": "149 €",
         "positioning": "Para las parejas que eligen un diseño existente.",
         "description": "Elige una de las creaciones de The Studio y personalízala con la información, las imágenes y el universo de vuestra boda.",
         "cta": "Elegir Signature",
@@ -248,7 +248,7 @@
       {
         "id": "sur-mesure",
         "name": "A medida",
-        "price": "299 €",
+        "price": "199 €",
         "positioning": "Para las parejas que quieren adaptar un diseño a su boda.",
         "description": "Una invitación de boda personalizada, imaginada en torno a vuestro universo, vuestros colores, vuestro lugar y la historia que queréis contar.",
         "cta": "Crear mi invitación a medida",

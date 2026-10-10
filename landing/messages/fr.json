@@ -391,7 +391,7 @@
       {
         "id": "signature",
         "name": "Signature",
-        "price": "199€",
+        "price": "149€",
         "positioning": "Pour les couples qui choisissent un modèle existant.",
         "description": "Choisissez l’une des créations The Studio et personnalisez-la avec les informations, les images et l’univers de votre mariage.",
         "cta": "Choisir Signature",
@@ -410,7 +410,7 @@
       {
         "id": "sur-mesure",
         "name": "Sur-mesure",
-        "price": "299€",
+        "price": "199€",
         "positioning": "Pour les couples qui souhaitent adapter un modèle à leur mariage.",
         "description": "Une invitation de mariage personnalisée, imaginée autour de votre univers, de vos couleurs, de votre lieu et de l’histoire que vous souhaitez raconter.",
         "cta": "Créer mon invitation sur-mesure",
@@ -1005,10 +1005,10 @@
       },
       "tarifs": {
         "metaTitle": "Prix d’un faire-part de mariage digital | Tarifs The Studio",
-        "metaDescription": "Trois formules de faire-part de mariage digital, de 199 € à 499 €. Paiement unique, sans abonnement. Ce que comprend chaque niveau de personnalisation.",
+        "metaDescription": "Trois formules de faire-part de mariage digital, de 149 € à 499 €. Paiement unique, sans abonnement. Ce que comprend chaque niveau de personnalisation.",
         "eyebrow": "Nos formules",
         "h1": "Combien coûte un faire-part de mariage digital ?",
-        "lede": "Trois formules, de 199 € à 499 €, selon le niveau de personnalisation. Un paiement unique dans tous les cas : aucun abonnement mensuel pour continuer à utiliser votre invitation pendant sa période de mise en ligne.",
+        "lede": "Trois formules, de 149 € à 499 €, selon le niveau de personnalisation. Un paiement unique dans tous les cas : aucun abonnement mensuel pour continuer à utiliser votre invitation pendant sa période de mise en ligne.",
         "sections": [
           {
             "title": "Ce qui fait varier le prix",

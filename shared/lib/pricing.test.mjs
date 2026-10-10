@@ -150,28 +150,28 @@ test("parseDomainYears accepts a whole number of years from 1 to 10, as a number
 
 test("computeOrderTotal never counts the RSVP towards Signature's four modules", () => {
   const four = ["countdown", "timeline", "map", "menu"];
-  assert.equal(computeOrderTotal({ plan: "signature", modules: [...four, "rsvp"] }), 199);
-  assert.equal(computeOrderTotal({ plan: "signature", modules: [...four, "faq", "rsvp"] }), 204);
+  assert.equal(computeOrderTotal({ plan: "signature", modules: [...four, "rsvp"] }), 149);
+  assert.equal(computeOrderTotal({ plan: "signature", modules: [...four, "faq", "rsvp"] }), 154);
 });
 
 test("computeOrderTotal bills the domain for its years", () => {
   const order = { plan: "signature", extras: ["custom-domain"] };
-  assert.equal(computeOrderTotal({ ...order, domainYears: 1 }), 199 + 65);
-  assert.equal(computeOrderTotal({ ...order, domainYears: 2 }), 199 + 85);
-  assert.equal(computeOrderTotal({ ...order, domainYears: 4 }), 199 + 125);
+  assert.equal(computeOrderTotal({ ...order, domainYears: 1 }), 149 + 65);
+  assert.equal(computeOrderTotal({ ...order, domainYears: 2 }), 149 + 85);
+  assert.equal(computeOrderTotal({ ...order, domainYears: 4 }), 149 + 125);
   // Before the years are known, the domain is priced as one year.
-  assert.equal(computeOrderTotal(order), 199 + 65);
+  assert.equal(computeOrderTotal(order), 149 + 65);
   // A stored or sent value that is not a number of years the registry sells
   // is not a reason to refuse the whole order: it is priced as one year,
   // never as years nobody computed.
   for (const domainYears of [0, 11, 2.5, Number.NaN, "abc"]) {
-    assert.equal(computeOrderTotal({ ...order, domainYears }), 199 + 65, String(domainYears));
+    assert.equal(computeOrderTotal({ ...order, domainYears }), 149 + 65, String(domainYears));
   }
-  assert.equal(computeOrderTotal({ ...order, domainYears: "3" }), 199 + 105);
+  assert.equal(computeOrderTotal({ ...order, domainYears: "3" }), 149 + 105);
 });
 
 test("computeOrderTotal ignores domain years when the domain is not ordered", () => {
-  assert.equal(computeOrderTotal({ plan: "signature", domainYears: 4 }), 199);
+  assert.equal(computeOrderTotal({ plan: "signature", domainYears: 4 }), 149);
   assert.equal(
     computeOrderTotal({ plan: "prestige", extras: ["custom-music"], domainYears: 3 }),
     499 + 10,

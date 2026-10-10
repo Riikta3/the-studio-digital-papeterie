@@ -230,7 +230,7 @@
       {
         "id": "signature",
         "name": "Signature",
-        "price": "€199",
+        "price": "€149",
         "positioning": "For couples who choose an existing design.",
         "description": "Choose one of The Studio designs and personalise it with the details, images and world of your wedding.",
         "cta": "Choose Signature",
@@ -249,7 +249,7 @@
       {
         "id": "sur-mesure",
         "name": "Bespoke",
-        "price": "€299",
+        "price": "€199",
         "positioning": "For couples who want to adapt a design to their wedding.",
         "description": "A personalised wedding invitation, imagined around your world, your colours, your venue and the story you want to tell.",
         "cta": "Create my bespoke invitation",

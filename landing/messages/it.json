@@ -228,7 +228,7 @@
       {
         "id": "signature",
         "name": "Signature",
-        "price": "199 €",
+        "price": "149 €",
         "positioning": "Per le coppie che scelgono un modello esistente.",
         "description": "Scegliete una delle creazioni The Studio e personalizzatela con le informazioni, le immagini e l’universo del vostro matrimonio.",
         "cta": "Scegliere Signature",
@@ -247,7 +247,7 @@
       {
         "id": "sur-mesure",
         "name": "Su misura",
-        "price": "299 €",
+        "price": "199 €",
         "positioning": "Per le coppie che desiderano adattare un modello al loro matrimonio.",
         "description": "Un invito di matrimonio personalizzato, immaginato attorno al vostro universo, ai vostri colori, al vostro luogo e alla storia che desiderate raccontare.",
         "cta": "Creare il mio invito su misura",
