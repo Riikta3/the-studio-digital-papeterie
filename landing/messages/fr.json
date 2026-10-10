@@ -2315,6 +2315,14 @@
     },
     "opening": {
       "skip": "Passer l’introduction"
+    },
+    "household": {
+      "legend": "Votre foyer — une réponse pour chacun",
+      "alreadyAnswered": "Votre foyer a déjà répondu le {date}. Vous pouvez modifier les réponses ci-dessous.",
+      "present": "Présent(e)",
+      "absent": "Absent(e)",
+      "unsure": "Pas encore sûr(e)",
+      "missing": "Merci d'indiquer une réponse pour chaque personne."
     }
   }
 }

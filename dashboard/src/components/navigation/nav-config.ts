@@ -46,6 +46,7 @@ export const NAV_SECTIONS: NavSectionDef[] = [
       { key: "rsvp", href: "/rsvp-responses" },
       { key: "groups", href: "/guests/groupes" },
       { key: "meals", href: "/guests/repas" },
+      { key: "sending", href: "/guests/envoi" },
     ],
   },
   {

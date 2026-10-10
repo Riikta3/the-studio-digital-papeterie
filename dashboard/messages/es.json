@@ -61,7 +61,8 @@
           "all": "Todos los invitados",
           "rsvp": "Respuestas RSVP",
           "groups": "Grupos",
-          "meals": "Comidas"
+          "meals": "Comidas",
+          "sending": "Envío"
         }
       },
       "invitation": {
@@ -632,7 +633,22 @@
       "deleted": "{count} respuesta(s) eliminada(s)"
     },
     "dietary_other_placeholder": "Otro (especifica)...",
-    "truncated_notice": "Se muestran las {shown} respuestas más recientes de un total de {total}. El número de personas previstas solo incluye estas; los demás contadores están completos."
+    "truncated_notice": "Se muestran las {shown} respuestas más recientes de un total de {total}. El número de personas previstas solo incluye estas; los demás contadores están completos.",
+    "household": {
+      "title": "Hogar en la lista de invitados",
+      "to_link": "Por vincular",
+      "to_link_help": "El nombre no se reconoció en la invitación. Elija el hogar: se actualizarán las personas mencionadas en la respuesta.",
+      "choose": "Elegir un hogar",
+      "suggested": "sugerido",
+      "link": "Vincular",
+      "unlink": "Desvincular",
+      "linked_toast": "Respuesta vinculada — {count, plural, =0 {ningún estado modificado} one {# persona actualizada} other {# personas actualizadas}}.",
+      "unmatched": "No encontrados en el hogar: {names}. Actualícelos desde la lista de invitados.",
+      "unlinked_toast": "Respuesta desvinculada del hogar.",
+      "already_linked": "Este hogar ya tiene una respuesta. Desvincúlela primero.",
+      "link_error": "No se pudo vincular la respuesta. Inténtelo de nuevo.",
+      "no_households": "Aún no hay hogares en su lista de invitados."
+    }
   },
   "Billing": {
     "title": "Facturación",
@@ -1915,5 +1931,72 @@
     "error_empty": "Este archivo está vacío.",
     "saved": "Música actualizada",
     "save_failed": "No se pudo guardar. Inténtelo de nuevo."
+  },
+  "InvitationSending": {
+    "title": "Enviar las invitaciones",
+    "subtitle": "Envíe la invitación a cada hogar desde su teléfono, por WhatsApp o SMS —gratis, desde su propio número— y recuerde a quienes no han respondido.",
+    "stats": {
+      "households": "Hogares",
+      "sent": "Invitaciones enviadas",
+      "answered": "Han respondido",
+      "to_remind": "Por recordar"
+    },
+    "no_link": "Su invitación aún no tiene dirección pública: publíquela antes de enviar las invitaciones.",
+    "messages": {
+      "title": "Sus mensajes",
+      "help": "Personalice el texto. {prenoms} se convierte en los nombres del hogar, {foyer} en su nombre, {lien} en la dirección de su invitación, {couple} en sus nombres.",
+      "invitation": "Mensaje de invitación",
+      "reminder": "Mensaje de recordatorio",
+      "reset": "Texto predeterminado",
+      "save": "Guardar"
+    },
+    "messages_saved": "Mensajes guardados.",
+    "tabs": {
+      "invite": "Por enviar",
+      "remind": "Por recordar",
+      "all": "Todos los hogares"
+    },
+    "channel": {
+      "label": "Enviar por",
+      "whatsapp": "WhatsApp",
+      "sms": "SMS"
+    },
+    "series": {
+      "title_invite": "Envío uno a uno",
+      "title_remind": "Recordatorio uno a uno",
+      "progress": "{left, plural, one {Queda # hogar} other {Quedan # hogares}}",
+      "send_whatsapp": "Abrir WhatsApp",
+      "send_sms": "Abrir SMS",
+      "skip": "Saltar",
+      "how": "El mensaje se abre ya redactado: pulse Enviar en WhatsApp o SMS y vuelva aquí para el siguiente hogar.",
+      "done_invite": "Todos los hogares han recibido su invitación. 🎉",
+      "done_remind": "Nadie a quien recordar: todos los hogares invitados han respondido.",
+      "done_rest": "Los hogares restantes no tienen un número válido para este canal: añádalo en la lista de abajo."
+    },
+    "list": {
+      "empty": "Su lista de invitados está vacía.",
+      "empty_link": "Añadir invitados",
+      "nothing_here": "Ningún hogar en esta pestaña."
+    },
+    "badge": {
+      "sent": "Enviado el {date} · {channel}",
+      "not_sent": "Aún no enviado",
+      "reminded": "Recordado {count, plural, one {# vez} other {# veces}} · {date}"
+    },
+    "status": {
+      "confirmed": "Ha confirmado",
+      "declined": "Ha declinado",
+      "partial": "Respuesta parcial"
+    },
+    "row": {
+      "remind": "Recordar",
+      "phone_placeholder": "N.º de teléfono",
+      "phone_fix": "Número no válido, corríjalo",
+      "phone_save": "Añadir",
+      "undo": "Anular el envío"
+    },
+    "phone_invalid": "Este número no parece válido.",
+    "phone_saved": "Número guardado.",
+    "undone": "Envío anulado: el hogar vuelve a «Por enviar»."
   }
 }

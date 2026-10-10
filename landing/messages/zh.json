@@ -1927,6 +1927,14 @@
     },
     "opening": {
       "skip": "跳过开场"
+    },
+    "household": {
+      "legend": "您的家庭——每人一个答复",
+      "alreadyAnswered": "您的家庭已于 {date} 回复。您可以在下方修改答复。",
+      "present": "出席",
+      "absent": "不出席",
+      "unsure": "尚未确定",
+      "missing": "请为每个人选择答复。"
     }
   }
 }

@@ -1928,6 +1928,14 @@
     },
     "opening": {
       "skip": "Saltar la introducción"
+    },
+    "household": {
+      "legend": "Su hogar: una respuesta por persona",
+      "alreadyAnswered": "Su hogar ya respondió el {date}. Puede modificar las respuestas a continuación.",
+      "present": "Asistirá",
+      "absent": "No asistirá",
+      "unsure": "Aún no lo sé",
+      "missing": "Indique una respuesta para cada persona."
     }
   }
 }

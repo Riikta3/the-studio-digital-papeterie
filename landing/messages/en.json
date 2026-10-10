@@ -2141,6 +2141,14 @@
     },
     "opening": {
       "skip": "Skip the introduction"
+    },
+    "household": {
+      "legend": "Your household — one answer for each person",
+      "alreadyAnswered": "Your household already replied on {date}. You can change the answers below.",
+      "present": "Attending",
+      "absent": "Not attending",
+      "unsure": "Not sure yet",
+      "missing": "Please give an answer for each person."
     }
   }
 }

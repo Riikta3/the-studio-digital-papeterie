@@ -56,6 +56,8 @@ import { useLocale, useTranslations } from "next-intl";
 import React, { useRef, useState } from "react";
 import { toast } from "sonner";
 
+import { type HouseholdOption, HouseholdPill, RsvpHouseholdLink } from "./RsvpHouseholdLink";
+
 interface RsvpResponse {
   id: string;
   name: string;
@@ -68,6 +70,8 @@ interface RsvpResponse {
   respondent_first_name: string | null;
   respondent_last_name: string | null;
   submitted_at: string;
+  /** The household of the guest list this answer belongs to; null = to attach. */
+  household_id: string | null;
 }
 
 type SortKey = "submitted_at" | "name" | "attendance";
@@ -160,9 +164,11 @@ function getRelationOptions(t: ReturnType<typeof useTranslations>) {
 
 function ExpandPanelContent({
   response,
+  households,
   onSaved,
 }: {
   response: RsvpResponse;
+  households: HouseholdOption[];
   onSaved: (updated: Partial<RsvpResponse>) => void;
 }) {
   const t = useTranslations("RsvpResponses");
@@ -252,6 +258,13 @@ function ExpandPanelContent({
           style={{ overflow: "hidden", width: "100%" }}
         >
           <div className='bg-studio-lavande/5 px-5 py-5'>
+            <div className='mb-5 border-b border-studio-lavande/30 pb-4'>
+              <RsvpHouseholdLink
+                response={response}
+                households={households}
+                onChange={(householdId) => onSaved({ household_id: householdId })}
+              />
+            </div>
             <div
               className={`grid gap-6 text-sm w-full ${response.attendance ? "md:grid-cols-2" : "grid-cols-1"}`}
             >
@@ -425,8 +438,10 @@ function ExpandPanelContent({
 
 export function RsvpResponsesTable({
   responses: initialResponses,
+  households = [],
 }: {
   responses: RsvpResponse[];
+  households?: HouseholdOption[];
 }) {
   const t = useTranslations("RsvpResponses");
   const locale = useLocale();
@@ -791,6 +806,7 @@ export function RsvpResponsesTable({
                           {r.admin_note && (
                             <NotebookPen className='h-3.5 w-3.5 text-studio-violet/60 shrink-0' />
                           )}
+                          <HouseholdPill householdId={r.household_id} households={households} />
                         </div>
                       </td>
 
@@ -887,6 +903,7 @@ export function RsvpResponsesTable({
                         <ExpandPanelContent
                           key={r.id}
                           response={r}
+                          households={households}
                           onSaved={(updated) =>
                             setResponses((prev) =>
                               prev.map((x) =>

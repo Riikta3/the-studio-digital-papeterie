@@ -6,7 +6,9 @@ import { type RsvpCompanion, submitRsvp } from "@/actions/invitation-submissions
 import { useLocale, useTranslations } from "next-intl";
 
 import { formatFrenchDate } from "../../format";
+import { HouseholdMembers } from "../../HouseholdMembers";
 import type { InvitationData } from "../../types";
+import { useHouseholdRsvp } from "../../use-household-rsvp";
 
 /**
  * RSVP form.
@@ -29,6 +31,7 @@ export function RsvpSection({ data }: { data: InvitationData }) {
   const rsvp = data.rsvp;
   const deadline = formatFrenchDate(data.event.rsvpDeadline, { locale });
   const weddingId = data.weddingId;
+  const household = useHouseholdRsvp(weddingId);
 
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -65,6 +68,16 @@ export function RsvpSection({ data }: { data: InvitationData }) {
 
     setPending(true);
     setError(null);
+
+    // A guest of the couple's list answers for their whole household.
+    const outcome = await household.submit(form);
+    if (outcome !== "fallback") {
+      setPending(false);
+      if (outcome === "shown") return;
+      if (outcome.ok) setSent(true);
+      else setError(outcome.error);
+      return;
+    }
 
     const result = await submitRsvp({
       weddingId,
@@ -114,42 +127,53 @@ export function RsvpSection({ data }: { data: InvitationData }) {
         <form onSubmit={handleSubmit}>
           <label>
             {t("nameLabel")}
-            <input name="fullName" required placeholder={t("namePlaceholder")} />
+            <input
+              name="fullName"
+              required
+              placeholder={t("namePlaceholder")}
+              onBlur={household.onNameBlur}
+            />
           </label>
 
-          <fieldset>
-            <legend>{t("attendanceLegend")}</legend>
-            <label>
-              <input type="radio" name="attendance" value="yes" required /> {t("attendanceYes")}
-            </label>
-            <label>
-              <input type="radio" name="attendance" value="no" /> {t("attendanceNo")}
-            </label>
-          </fieldset>
-
-          {rsvp?.allowPartner ? (
+          {household.current ? (
+            <HouseholdMembers household={household} />
+          ) : (
             <>
-              <label>
-                {t("partyLabel")}
-                <select
-                  name="partyMode"
-                  value={attendance}
-                  onChange={(event) =>
-                    setAttendance(event.target.value === "partner" ? "partner" : "solo")
-                  }
-                >
-                  <option value="solo">{t("partyOptionSolo")}</option>
-                  <option value="partner">{t("partyOptionPartner")}</option>
-                </select>
-              </label>
-              {attendance === "partner" ? (
+              <fieldset>
+                <legend>{t("attendanceLegend")}</legend>
                 <label>
-                  {t("partnerNameLabel")}
-                  <input name="partnerName" required placeholder={t("partnerNamePlaceholder")} />
+                  <input type="radio" name="attendance" value="yes" required /> {t("attendanceYes")}
                 </label>
+                <label>
+                  <input type="radio" name="attendance" value="no" /> {t("attendanceNo")}
+                </label>
+              </fieldset>
+
+              {rsvp?.allowPartner ? (
+                <>
+                  <label>
+                    {t("partyLabel")}
+                    <select
+                      name="partyMode"
+                      value={attendance}
+                      onChange={(event) =>
+                        setAttendance(event.target.value === "partner" ? "partner" : "solo")
+                      }
+                    >
+                      <option value="solo">{t("partyOptionSolo")}</option>
+                      <option value="partner">{t("partyOptionPartner")}</option>
+                    </select>
+                  </label>
+                  {attendance === "partner" ? (
+                    <label>
+                      {t("partnerNameLabel")}
+                      <input name="partnerName" required placeholder={t("partnerNamePlaceholder")} />
+                    </label>
+                  ) : null}
+                </>
               ) : null}
             </>
-          ) : null}
+          )}
 
           {rsvp?.dietaryOptions?.length ? (
             <label>

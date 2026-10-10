@@ -6,8 +6,10 @@ import { type RsvpCompanion, submitRsvp } from "@/actions/invitation-submissions
 import { useLocale, useTranslations } from "next-intl";
 
 import { formatFrenchDate } from "../../format";
+import { HouseholdMembers } from "../../HouseholdMembers";
 import { Lines, slot } from "../../text";
 import type { InvitationData } from "../../types";
+import { useHouseholdRsvp } from "../../use-household-rsvp";
 
 /**
  * RSVP form.
@@ -44,6 +46,7 @@ export function RsvpSection({ data }: { data: InvitationData }) {
   const rsvp = data.rsvp;
   const deadline = formatFrenchDate(data.event.rsvpDeadline, { locale });
   const weddingId = data.weddingId;
+  const household = useHouseholdRsvp(weddingId);
 
   // `settings.adults_only` reaches the theme inverted as `allowChildren`
   // (see `themes/types.ts`). Absent means "not answered" and the column
@@ -116,6 +119,16 @@ export function RsvpSection({ data }: { data: InvitationData }) {
     setPending(true);
     setError(null);
 
+    // A guest of the couple's list answers for their whole household.
+    const outcome = await household.submit(form);
+    if (outcome !== "fallback") {
+      setPending(false);
+      if (outcome === "shown") return;
+      if (outcome.ok) setSent(true);
+      else setError(outcome.error);
+      return;
+    }
+
     const result = await submitRsvp({
       weddingId,
       firstName: firstName ?? "",
@@ -161,116 +174,127 @@ export function RsvpSection({ data }: { data: InvitationData }) {
             <label>
               {t("nameLabel")}
               <span className="rsvp-field">
-                <input required name="fullName" placeholder={t("namePlaceholder")} />
+                <input
+                  required
+                  name="fullName"
+                  placeholder={t("namePlaceholder")}
+                  onBlur={household.onNameBlur}
+                />
               </span>
             </label>
 
-            <fieldset>
-              <legend>{t("attendanceLegend")}</legend>
-              <label>
-                <input
-                  type="radio"
-                  name="attendance"
-                  value="yes"
-                  required
-                  onChange={() => setAttending(true)}
-                />{" "}
-                {t("attendanceYes")}
-              </label>
-              <label>
-                <input
-                  type="radio"
-                  name="attendance"
-                  value="no"
-                  onChange={() => setAttending(false)}
-                />{" "}
-                {t("attendanceNo")}
-              </label>
-            </fieldset>
-
-            {showParty && rsvp?.allowPartner ? (
+            {household.current ? (
+              <HouseholdMembers household={household} />
+            ) : (
               <>
-                <label>
-                  {t("partyLabel")}
-                  <span className="rsvp-field rsvp-field-select">
-                    <select
-                      name="partyMode"
-                      value={partyMode}
-                      onChange={(event) =>
-                        setPartyMode(event.target.value === "partner" ? "partner" : "solo")
-                      }
-                    >
-                      <option value="solo">{t("partyOptionSolo")}</option>
-                      <option value="partner">{t("partyOptionPartner")}</option>
-                    </select>
-                    <span className="rsvp-chevron" aria-hidden="true" />
-                  </span>
-                </label>
-                {partyMode === "partner" ? (
-                  <label className="partner-field">
-                    {t("partnerNameLabel")}
-                    <span className="rsvp-field">
-                      <input required name="partnerName" placeholder={t("partnerNamePlaceholder")} />
-                    </span>
+                <fieldset>
+                  <legend>{t("attendanceLegend")}</legend>
+                  <label>
+                    <input
+                      type="radio"
+                      name="attendance"
+                      value="yes"
+                      required
+                      onChange={() => setAttending(true)}
+                    />{" "}
+                    {t("attendanceYes")}
                   </label>
+                  <label>
+                    <input
+                      type="radio"
+                      name="attendance"
+                      value="no"
+                      onChange={() => setAttending(false)}
+                    />{" "}
+                    {t("attendanceNo")}
+                  </label>
+                </fieldset>
+
+                {showParty && rsvp?.allowPartner ? (
+                  <>
+                    <label>
+                      {t("partyLabel")}
+                      <span className="rsvp-field rsvp-field-select">
+                        <select
+                          name="partyMode"
+                          value={partyMode}
+                          onChange={(event) =>
+                            setPartyMode(event.target.value === "partner" ? "partner" : "solo")
+                          }
+                        >
+                          <option value="solo">{t("partyOptionSolo")}</option>
+                          <option value="partner">{t("partyOptionPartner")}</option>
+                        </select>
+                        <span className="rsvp-chevron" aria-hidden="true" />
+                      </span>
+                    </label>
+                    {partyMode === "partner" ? (
+                      <label className="partner-field">
+                        {t("partnerNameLabel")}
+                        <span className="rsvp-field">
+                          <input required name="partnerName" placeholder={t("partnerNamePlaceholder")} />
+                        </span>
+                      </label>
+                    ) : null}
+                  </>
+                ) : null}
+
+                {/*
+                 * Children. Rendered only when the couple accepts them AND the
+                 * guest is coming — an adults-only wedding gets no field here at
+                 * all, not a disabled one, so the form never hints at something
+                 * the couple has ruled out.
+                 *
+                 * The count is a `<select>` rather than an "add a child" button on
+                 * purpose: `.rsvp-card button { width:100%; padding:16px }` in the
+                 * generated sheet makes every button in this card a full-width
+                 * cobalt slab, so a second button would read as a second submit.
+                 * The select reuses `.rsvp-field-select`, already drawn here.
+                 */}
+                {showParty && allowChildren ? (
+                  <>
+                    <label>
+                      {t("childrenLabel")}
+                      <span className="rsvp-field rsvp-field-select">
+                        <select
+                          name="childCount"
+                          value={childCount}
+                          onChange={(event) => setChildCount(Number(event.target.value))}
+                        >
+                          <option value={0}>{t("childrenOptionNone")}</option>
+                          {Array.from({ length: MAX_CHILDREN }, (_, index) => index + 1).map(
+                            (count) => (
+                              <option key={count} value={count}>
+                                {t("childrenOptionCount", { count })}
+                              </option>
+                            ),
+                          )}
+                        </select>
+                        <span className="rsvp-chevron" aria-hidden="true" />
+                      </span>
+                    </label>
+
+                    {/* One nominal field per child, the same shape as the partner
+                        row above: a `<label>` that is a DIRECT child of the form,
+                        so it picks up the generated `> form > label` grid and the
+                        `.rsvp-field` wrapper's focus behaviour with no new CSS. */}
+                    {Array.from({ length: childCount }, (_, index) => (
+                      <label className="child-field" key={index}>
+                        {t("childFieldLabel", { index: index + 1 })}
+                        <span className="rsvp-field">
+                          <input
+                            required
+                            name={`childName-${index}`}
+                            placeholder={t("childNamePlaceholder")}
+                            autoComplete="off"
+                          />
+                        </span>
+                      </label>
+                    ))}
+                  </>
                 ) : null}
               </>
-            ) : null}
-
-            {/*
-             * Children. Rendered only when the couple accepts them AND the
-             * guest is coming — an adults-only wedding gets no field here at
-             * all, not a disabled one, so the form never hints at something
-             * the couple has ruled out.
-             *
-             * The count is a `<select>` rather than an "add a child" button on
-             * purpose: `.rsvp-card button { width:100%; padding:16px }` in the
-             * generated sheet makes every button in this card a full-width
-             * cobalt slab, so a second button would read as a second submit.
-             * The select reuses `.rsvp-field-select`, already drawn here.
-             */}
-            {showParty && allowChildren ? (
-              <>
-                <label>
-                  {t("childrenLabel")}
-                  <span className="rsvp-field rsvp-field-select">
-                    <select
-                      name="childCount"
-                      value={childCount}
-                      onChange={(event) => setChildCount(Number(event.target.value))}
-                    >
-                      <option value={0}>{t("childrenOptionNone")}</option>
-                      {Array.from({ length: MAX_CHILDREN }, (_, index) => index + 1).map(
-                        (count) => (
-                          <option key={count} value={count}>
-                            {t("childrenOptionCount", { count })}
-                          </option>
-                        ),
-                      )}
-                    </select>
-                    <span className="rsvp-chevron" aria-hidden="true" />
-                  </span>
-                </label>
-
-                {/* One nominal field per child, the same shape as the partner
-                    row above: a `<label>` that is a DIRECT child of the form,
-                    so it picks up the generated `> form > label` grid and the
-                    `.rsvp-field` wrapper's focus behaviour with no new CSS. */}
-                {Array.from({ length: childCount }, (_, index) => (
-                  <label className="child-field" key={index}>
-                    {t("childFieldLabel", { index: index + 1 })}
-                    <span className="rsvp-field">
-                      <input
-                        required
-                        name={`childName-${index}`}
-                        placeholder={t("childNamePlaceholder")}
-                        autoComplete="off"
-                      />
-                    </span>
-                  </label>
-                ))}
-              </>
-            ) : null}
+            )}
 
             {rsvp?.dietaryOptions?.length ? (
               <label>

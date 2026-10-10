@@ -290,7 +290,22 @@
       "deleted": "{count} réponse(s) supprimée(s)"
     },
     "dietary_other_placeholder": "Autre (précisez)...",
-    "truncated_notice": "Les {shown} réponses les plus récentes sont affichées, sur {total} au total. Le nombre de personnes attendues ne porte que sur celles-ci ; les autres compteurs sont complets."
+    "truncated_notice": "Les {shown} réponses les plus récentes sont affichées, sur {total} au total. Le nombre de personnes attendues ne porte que sur celles-ci ; les autres compteurs sont complets.",
+    "household": {
+      "title": "Foyer de la liste d'invités",
+      "to_link": "À rattacher",
+      "to_link_help": "Le nom n'a pas été reconnu sur l'invitation. Choisissez le foyer concerné : les personnes citées dans la réponse seront mises à jour.",
+      "choose": "Choisir un foyer",
+      "suggested": "suggéré",
+      "link": "Rattacher",
+      "unlink": "Détacher",
+      "linked_toast": "Réponse rattachée — {count, plural, =0 {aucun statut modifié} one {# personne mise à jour} other {# personnes mises à jour}}.",
+      "unmatched": "Non retrouvé(s) dans le foyer : {names}. Mettez-les à jour depuis la liste d'invités.",
+      "unlinked_toast": "Réponse détachée du foyer.",
+      "already_linked": "Ce foyer a déjà une réponse. Détachez-la d'abord.",
+      "link_error": "Impossible de rattacher la réponse. Réessayez.",
+      "no_households": "Aucun foyer dans votre liste d'invités pour l'instant."
+    }
   },
   "Sidebar": {
     "sections": {
@@ -303,7 +318,8 @@
           "all": "Tous les invités",
           "rsvp": "Réponses RSVP",
           "groups": "Groupes",
-          "meals": "Repas"
+          "meals": "Repas",
+          "sending": "Envoi"
         }
       },
       "invitation": {
@@ -1915,5 +1931,72 @@
     "error_empty": "Ce fichier est vide.",
     "saved": "Musique mise à jour",
     "save_failed": "Impossible d’enregistrer. Veuillez réessayer."
+  },
+  "InvitationSending": {
+    "title": "Envoyer les invitations",
+    "subtitle": "Envoyez le faire-part à chaque foyer depuis votre téléphone, par WhatsApp ou SMS — gratuitement, depuis votre propre numéro — puis relancez ceux qui n'ont pas répondu.",
+    "stats": {
+      "households": "Foyers",
+      "sent": "Invitations envoyées",
+      "answered": "Ont répondu",
+      "to_remind": "À relancer"
+    },
+    "no_link": "Votre faire-part n'a pas encore d'adresse publique : publiez-le avant d'envoyer les invitations.",
+    "messages": {
+      "title": "Vos messages",
+      "help": "Personnalisez le texte envoyé. {prenoms} devient les prénoms du foyer, {foyer} son nom, {lien} l'adresse de votre faire-part, {couple} vos prénoms.",
+      "invitation": "Message d'invitation",
+      "reminder": "Message de relance",
+      "reset": "Texte par défaut",
+      "save": "Enregistrer"
+    },
+    "messages_saved": "Messages enregistrés.",
+    "tabs": {
+      "invite": "À envoyer",
+      "remind": "À relancer",
+      "all": "Tous les foyers"
+    },
+    "channel": {
+      "label": "Envoyer par",
+      "whatsapp": "WhatsApp",
+      "sms": "SMS"
+    },
+    "series": {
+      "title_invite": "Envoi en série",
+      "title_remind": "Relance en série",
+      "progress": "{left, plural, one {# foyer restant} other {# foyers restants}}",
+      "send_whatsapp": "Ouvrir WhatsApp",
+      "send_sms": "Ouvrir les SMS",
+      "skip": "Passer",
+      "how": "Le message s'ouvre déjà rédigé : appuyez sur Envoyer dans WhatsApp ou SMS, puis revenez ici pour le foyer suivant.",
+      "done_invite": "Tous les foyers ont reçu leur invitation. 🎉",
+      "done_remind": "Personne à relancer : tous les foyers invités ont répondu.",
+      "done_rest": "Les foyers restants n'ont pas de numéro valide pour ce canal : ajoutez-le dans la liste ci-dessous."
+    },
+    "list": {
+      "empty": "Votre liste d'invités est vide.",
+      "empty_link": "Ajouter des invités",
+      "nothing_here": "Aucun foyer dans cet onglet."
+    },
+    "badge": {
+      "sent": "Envoyé le {date} · {channel}",
+      "not_sent": "Pas encore envoyé",
+      "reminded": "Relancé {count, plural, one {# fois} other {# fois}} · {date}"
+    },
+    "status": {
+      "confirmed": "A confirmé",
+      "declined": "A décliné",
+      "partial": "Réponse partielle"
+    },
+    "row": {
+      "remind": "Relancer",
+      "phone_placeholder": "N° de téléphone",
+      "phone_fix": "Numéro invalide, corrigez-le",
+      "phone_save": "Ajouter",
+      "undo": "Annuler l'envoi"
+    },
+    "phone_invalid": "Ce numéro ne semble pas valide.",
+    "phone_saved": "Numéro enregistré.",
+    "undone": "Envoi annulé : le foyer revient dans « À envoyer »."
   }
 }
