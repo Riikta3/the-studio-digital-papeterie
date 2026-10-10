@@ -205,7 +205,8 @@
           "all": "All guests",
           "rsvp": "RSVP replies",
           "groups": "Groups",
-          "meals": "Meals"
+          "meals": "Meals",
+          "sending": "Sending"
         }
       },
       "invitation": {
@@ -1930,5 +1931,72 @@
     "error_empty": "This file is empty.",
     "saved": "Music updated",
     "save_failed": "Could not save. Please try again."
+  },
+  "InvitationSending": {
+    "title": "Send the invitations",
+    "subtitle": "Send the invitation to each household from your phone, by WhatsApp or SMS — free, from your own number — then remind those who haven't replied.",
+    "stats": {
+      "households": "Households",
+      "sent": "Invitations sent",
+      "answered": "Replied",
+      "to_remind": "To remind"
+    },
+    "no_link": "Your invitation has no public address yet: publish it before sending the invitations.",
+    "messages": {
+      "title": "Your messages",
+      "help": "Customise the text sent. {prenoms} becomes the household's first names, {foyer} its name, {lien} your invitation's address, {couple} your names.",
+      "invitation": "Invitation message",
+      "reminder": "Reminder message",
+      "reset": "Default text",
+      "save": "Save"
+    },
+    "messages_saved": "Messages saved.",
+    "tabs": {
+      "invite": "To send",
+      "remind": "To remind",
+      "all": "All households"
+    },
+    "channel": {
+      "label": "Send by",
+      "whatsapp": "WhatsApp",
+      "sms": "SMS"
+    },
+    "series": {
+      "title_invite": "Send one by one",
+      "title_remind": "Remind one by one",
+      "progress": "{left, plural, one {# household left} other {# households left}}",
+      "send_whatsapp": "Open WhatsApp",
+      "send_sms": "Open SMS",
+      "skip": "Skip",
+      "how": "The message opens already written: press Send in WhatsApp or SMS, then come back here for the next household.",
+      "done_invite": "Every household has received its invitation. 🎉",
+      "done_remind": "Nobody to remind: every invited household has replied.",
+      "done_rest": "The remaining households have no valid number for this channel: add it in the list below."
+    },
+    "list": {
+      "empty": "Your guest list is empty.",
+      "empty_link": "Add guests",
+      "nothing_here": "No household in this tab."
+    },
+    "badge": {
+      "sent": "Sent on {date} · {channel}",
+      "not_sent": "Not sent yet",
+      "reminded": "Reminded {count, plural, one {once} other {# times}} · {date}"
+    },
+    "status": {
+      "confirmed": "Confirmed",
+      "declined": "Declined",
+      "partial": "Partial reply"
+    },
+    "row": {
+      "remind": "Remind",
+      "phone_placeholder": "Phone number",
+      "phone_fix": "Invalid number, fix it",
+      "phone_save": "Add",
+      "undo": "Undo sending"
+    },
+    "phone_invalid": "This number doesn't look valid.",
+    "phone_saved": "Number saved.",
+    "undone": "Sending undone: the household is back in “To send”."
   }
 }

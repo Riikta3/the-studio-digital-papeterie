@@ -61,7 +61,8 @@
           "all": "Tutti gli ospiti",
           "rsvp": "Risposte RSVP",
           "groups": "Gruppi",
-          "meals": "Pasti"
+          "meals": "Pasti",
+          "sending": "Invio"
         }
       },
       "invitation": {
@@ -1930,5 +1931,72 @@
     "error_empty": "Questo file è vuoto.",
     "saved": "Musica aggiornata",
     "save_failed": "Impossibile salvare. Riprovate."
+  },
+  "InvitationSending": {
+    "title": "Inviare le partecipazioni",
+    "subtitle": "Inviate la partecipazione a ogni nucleo dal vostro telefono, via WhatsApp o SMS — gratis, dal vostro numero — poi sollecitate chi non ha risposto.",
+    "stats": {
+      "households": "Nuclei",
+      "sent": "Inviti inviati",
+      "answered": "Hanno risposto",
+      "to_remind": "Da sollecitare"
+    },
+    "no_link": "La vostra partecipazione non ha ancora un indirizzo pubblico: pubblicatela prima di inviare gli inviti.",
+    "messages": {
+      "title": "I vostri messaggi",
+      "help": "Personalizzate il testo. {prenoms} diventa i nomi del nucleo, {foyer} il suo nome, {lien} l'indirizzo della partecipazione, {couple} i vostri nomi.",
+      "invitation": "Messaggio d'invito",
+      "reminder": "Messaggio di sollecito",
+      "reset": "Testo predefinito",
+      "save": "Salva"
+    },
+    "messages_saved": "Messaggi salvati.",
+    "tabs": {
+      "invite": "Da inviare",
+      "remind": "Da sollecitare",
+      "all": "Tutti i nuclei"
+    },
+    "channel": {
+      "label": "Invia con",
+      "whatsapp": "WhatsApp",
+      "sms": "SMS"
+    },
+    "series": {
+      "title_invite": "Invio uno alla volta",
+      "title_remind": "Sollecito uno alla volta",
+      "progress": "{left, plural, one {# nucleo rimanente} other {# nuclei rimanenti}}",
+      "send_whatsapp": "Apri WhatsApp",
+      "send_sms": "Apri gli SMS",
+      "skip": "Salta",
+      "how": "Il messaggio si apre già scritto: premete Invia in WhatsApp o SMS, poi tornate qui per il nucleo successivo.",
+      "done_invite": "Tutti i nuclei hanno ricevuto l'invito. 🎉",
+      "done_remind": "Nessuno da sollecitare: tutti i nuclei invitati hanno risposto.",
+      "done_rest": "I nuclei rimanenti non hanno un numero valido per questo canale: aggiungetelo nella lista qui sotto."
+    },
+    "list": {
+      "empty": "La vostra lista invitati è vuota.",
+      "empty_link": "Aggiungi invitati",
+      "nothing_here": "Nessun nucleo in questa scheda."
+    },
+    "badge": {
+      "sent": "Inviato il {date} · {channel}",
+      "not_sent": "Non ancora inviato",
+      "reminded": "Sollecitato {count, plural, one {# volta} other {# volte}} · {date}"
+    },
+    "status": {
+      "confirmed": "Ha confermato",
+      "declined": "Ha declinato",
+      "partial": "Risposta parziale"
+    },
+    "row": {
+      "remind": "Sollecita",
+      "phone_placeholder": "N. di telefono",
+      "phone_fix": "Numero non valido, correggetelo",
+      "phone_save": "Aggiungi",
+      "undo": "Annulla invio"
+    },
+    "phone_invalid": "Questo numero non sembra valido.",
+    "phone_saved": "Numero salvato.",
+    "undone": "Invio annullato: il nucleo torna in «Da inviare»."
   }
 }
