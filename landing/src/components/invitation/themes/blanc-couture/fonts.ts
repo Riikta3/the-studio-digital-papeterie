@@ -13,6 +13,9 @@ import { Bodoni_Moda, Italiana, Manrope } from "next/font/google";
 
 /** Display face: the couple's names, every `h2`, the monograms, the countdown. */
 const italiana = Italiana({
+  // Every theme is registered on every invitation page: preloading would
+  // fetch all of them. Only the faces the drawn theme uses are downloaded.
+  preload: false,
   subsets: ["latin"],
   weight: ["400"],
   display: "swap",
@@ -25,6 +28,9 @@ const italiana = Italiana({
  * weight is requested too so a browser never has to synthesise one.
  */
 const bodoniModa = Bodoni_Moda({
+  // Every theme is registered on every invitation page: preloading would
+  // fetch all of them. Only the faces the drawn theme uses are downloaded.
+  preload: false,
   subsets: ["latin"],
   weight: ["400"],
   style: ["normal", "italic"],
@@ -34,6 +40,9 @@ const bodoniModa = Bodoni_Moda({
 
 /** Body copy, uppercase labels and form controls. */
 const manrope = Manrope({
+  // Every theme is registered on every invitation page: preloading would
+  // fetch all of them. Only the faces the drawn theme uses are downloaded.
+  preload: false,
   subsets: ["latin"],
   weight: ["300", "400", "500"],
   display: "swap",

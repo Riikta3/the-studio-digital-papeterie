@@ -18,6 +18,9 @@ import {
 
 /** Section headings (`h2`), venue names, timeline titles. */
 const italiana = Italiana({
+  // Every theme is registered on every invitation page: preloading would
+  // fetch all of them. Only the faces the drawn theme uses are downloaded.
+  preload: false,
   subsets: ["latin"],
   weight: ["400"],
   display: "swap",
@@ -26,6 +29,9 @@ const italiana = Italiana({
 
 /** Couple names in the hero, and the `.date-script` line under the countdown. */
 const parisienne = Parisienne({
+  // Every theme is registered on every invitation page: preloading would
+  // fetch all of them. Only the faces the drawn theme uses are downloaded.
+  preload: false,
   subsets: ["latin"],
   weight: ["400"],
   display: "swap",
@@ -34,6 +40,9 @@ const parisienne = Parisienne({
 
 /** Timeline descriptions — the serif body face. */
 const libreCaslon = Libre_Caslon_Display({
+  // Every theme is registered on every invitation page: preloading would
+  // fetch all of them. Only the faces the drawn theme uses are downloaded.
+  preload: false,
   subsets: ["latin"],
   weight: ["400"],
   display: "swap",
@@ -42,6 +51,9 @@ const libreCaslon = Libre_Caslon_Display({
 
 /** Body copy, labels, form controls. */
 const montserrat = Montserrat({
+  // Every theme is registered on every invitation page: preloading would
+  // fetch all of them. Only the faces the drawn theme uses are downloaded.
+  preload: false,
   subsets: ["latin"],
   weight: ["300", "400", "500", "600"],
   display: "swap",

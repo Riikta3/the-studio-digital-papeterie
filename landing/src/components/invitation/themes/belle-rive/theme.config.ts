@@ -1,19 +1,19 @@
 import type { InvitationData, ThemeManifest } from "../types";
 
-import { BelleRiveRoot } from "./BelleRiveRoot";
 import { BELLE_RIVE_DEMO, BELLE_RIVE_DEMO_TRIPS } from "./demo-data";
 import { belleRiveFontVars } from "./fonts";
 
 /**
- * The manifest's `Root` is `ComponentType<{ data }>` — one prop, the same for
+ * The manifest's root (`loadRoot`) is a `ComponentType<{ data }>` — one prop, the same for
  * every theme. Carpooling is not part of that contract and widening it for a
  * single theme would be the wrong trade, so the demo trips are bound here.
  * A wedding rendered through the registry gets no trips, and the panel is
  * skipped; only this manifest's demo shows it.
  */
-function BelleRiveDemoRoot({ data }: { data: InvitationData }) {
-  return BelleRiveRoot({ data, trips: BELLE_RIVE_DEMO_TRIPS });
-}
+const withDemoTrips = ({ BelleRiveRoot }: typeof import("./BelleRiveRoot")) =>
+  function BelleRiveDemoRoot({ data }: { data: InvitationData }) {
+    return BelleRiveRoot({ data, trips: BELLE_RIVE_DEMO_TRIPS });
+  };
 
 /**
  * Manifest for "Belle Rive".
@@ -46,5 +46,5 @@ export const belleRiveTheme: ThemeManifest = {
   fontVars: belleRiveFontVars,
 
   demoData: BELLE_RIVE_DEMO,
-  Root: BelleRiveDemoRoot,
+  loadRoot: () => import("./BelleRiveRoot").then(withDemoTrips),
 };

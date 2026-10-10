@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 
 import { DemoLinkGuard } from "@/components/invitation/DemoLinkGuard";
 import { InvitationMusic } from "@/components/invitation/InvitationMusic";
+import { LazyBackgrounds } from "@/components/invitation/LazyBackgrounds";
 import { AtelierBar } from "@/components/invitation/atelier/AtelierBar";
 import { atelierEnabled, atelierThemes } from "@/components/invitation/atelier/atelier";
 import { demoDataFor } from "@/components/invitation/themes/fixtures";
@@ -74,7 +75,8 @@ export default async function ThemeDemoPage({
 
   // `?fixture=minimal|heavy` swaps in a control dataset outside production, to
   // check a theme against data that is not its own demo.
-  const { Root, demoData } = theme;
+  const { demoData } = theme;
+  const Root = await theme.loadRoot();
   // Every demo plays its theme's own track (`THEME_DEMO_TRACKS`): a
   // prospect hears the option before buying it. Silent inside the home
   // page's mock-up (see InvitationMusic).
@@ -95,6 +97,7 @@ export default async function ThemeDemoPage({
         />
       ) : null}
       <Root data={demoDataFor(demoData, fixture)} />
+      <LazyBackgrounds />
       {/* Made-up hotels, funds and phone numbers lead nowhere in a demo. */}
       <DemoLinkGuard />
       {/* The studio's workshop switcher (`/invitation/atelier`), never for guests. */}

@@ -13,6 +13,9 @@ import { Bodoni_Moda, Cormorant_Garamond, Jost } from "next/font/google";
 
 /** Headings, the couple's names, the countdown digits: Didot's stand-in. */
 const display = Bodoni_Moda({
+  // Every theme is registered on every invitation page: preloading would
+  // fetch all of them. Only the faces the drawn theme uses are downloaded.
+  preload: false,
   subsets: ["latin"],
   display: "swap",
   variable: "--font-ma-display",
@@ -20,6 +23,9 @@ const display = Bodoni_Moda({
 
 /** Eyebrows, labels, buttons, form controls: Avenir Next's stand-in. */
 const sans = Jost({
+  // Every theme is registered on every invitation page: preloading would
+  // fetch all of them. Only the faces the drawn theme uses are downloaded.
+  preload: false,
   subsets: ["latin"],
   weight: ["400", "500", "600"],
   display: "swap",
@@ -28,6 +34,9 @@ const sans = Jost({
 
 /** Running text and italics: Georgia's stand-in on devices without it. */
 const serif = Cormorant_Garamond({
+  // Every theme is registered on every invitation page: preloading would
+  // fetch all of them. Only the faces the drawn theme uses are downloaded.
+  preload: false,
   subsets: ["latin"],
   weight: ["400", "500"],
   style: ["normal", "italic"],

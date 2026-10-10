@@ -1,0 +1,21 @@
+/*
+ * Section backgrounds wait until their section nears the screen
+ * (`LazyBackgrounds.tsx`).
+ *
+ * A browser fetches the background of every element it styles, on screen or
+ * not, and `loading="lazy"` has no CSS counterpart: an invitation downloaded
+ * all its painted backdrops before the guest had scrolled once — 3.4 MB on
+ * Maré Alta's demo, on a phone. The hero is left alone: it is on screen from
+ * the first paint, before any script runs.
+ *
+ * The two `:not(#\#)` lift this above the themes' own rules, some of which are
+ * `!important` behind several classes; they match every element.
+ */
+[data-editor-section]:not([data-editor-section="hero"]):not([data-bg-ready]):not(#\#):not(#\#),
+[data-editor-section]:not([data-editor-section="hero"]):not([data-bg-ready]):not(#\#):not(#\#)::before,
+[data-editor-section]:not([data-editor-section="hero"]):not([data-bg-ready]):not(#\#):not(#\#)::after,
+[data-editor-section]:not([data-editor-section="hero"]):not([data-bg-ready]):not(#\#):not(#\#) *,
+[data-editor-section]:not([data-editor-section="hero"]):not([data-bg-ready]):not(#\#):not(#\#) *::before,
+[data-editor-section]:not([data-editor-section="hero"]):not([data-bg-ready]):not(#\#):not(#\#) *::after {
+  background-image: none !important;
+}

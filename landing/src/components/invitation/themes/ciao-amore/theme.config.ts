@@ -1,9 +1,10 @@
 import type { ThemeManifest } from "../types";
 
-import { CiaoAmoreRoot } from "./CiaoAmoreRoot";
 import { CIAO_AMORE_DEMO } from "./demo-data";
 import { ciaoAmoreEditorSlots } from "./editor";
 import { ciaoAmoreFontVars } from "./fonts";
+
+const loadCiaoAmoreRoot = () => import("./CiaoAmoreRoot").then((module) => module.CiaoAmoreRoot);
 
 /**
  * Manifest for "Ciao Amore".
@@ -45,6 +46,6 @@ export const ciaoAmoreTheme: ThemeManifest = {
   fontVars: ciaoAmoreFontVars,
 
   demoData: CIAO_AMORE_DEMO,
-  Root: CiaoAmoreRoot,
+  loadRoot: loadCiaoAmoreRoot,
   editorSlots: ciaoAmoreEditorSlots,
 };

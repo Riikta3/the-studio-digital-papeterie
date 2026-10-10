@@ -1,9 +1,10 @@
 import type { ThemeManifest } from "../types";
 
-import { ChateauRoyalRoot } from "./ChateauRoyalRoot";
 import { CHATEAU_ROYAL_DEMO } from "./demo-data";
 import { chateauRoyalEditorSlots } from "./editor";
 import { chateauRoyalFontVars } from "./fonts";
+
+const loadChateauRoyalRoot = () => import("./ChateauRoyalRoot").then((module) => module.ChateauRoyalRoot);
 
 /**
  * Manifest for "Château Royal".
@@ -44,6 +45,6 @@ export const chateauRoyalTheme: ThemeManifest = {
   fontVars: chateauRoyalFontVars,
 
   demoData: CHATEAU_ROYAL_DEMO,
-  Root: ChateauRoyalRoot,
+  loadRoot: loadChateauRoyalRoot,
   editorSlots: chateauRoyalEditorSlots,
 };

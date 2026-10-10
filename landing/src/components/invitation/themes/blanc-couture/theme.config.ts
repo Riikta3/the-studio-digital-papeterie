@@ -1,8 +1,9 @@
 import type { ThemeManifest } from "../types";
 
-import { BlancCoutureRoot } from "./BlancCoutureRoot";
 import { BLANC_COUTURE_DEMO } from "./demo-data";
 import { blancCoutureFontVars } from "./fonts";
+
+const loadBlancCoutureRoot = () => import("./BlancCoutureRoot").then((module) => module.BlancCoutureRoot);
 
 /**
  * Manifest for "Blanc Couture".
@@ -39,5 +40,5 @@ export const blancCoutureTheme: ThemeManifest = {
   fontVars: blancCoutureFontVars,
 
   demoData: BLANC_COUTURE_DEMO,
-  Root: BlancCoutureRoot,
+  loadRoot: loadBlancCoutureRoot,
 };

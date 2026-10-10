@@ -5,6 +5,7 @@ import {
 } from "@/actions/invitation-page-actions";
 import { GuestGate } from "@/components/invitation/GuestGate";
 import { InvitationMusic } from "@/components/invitation/InvitationMusic";
+import { LazyBackgrounds } from "@/components/invitation/LazyBackgrounds";
 import { hasGuestPass } from "@/lib/guest-gate";
 import { notFound, redirect } from "next/navigation";
 import { resolveTheme } from "@/components/invitation/themes/registry";
@@ -92,7 +93,7 @@ export default async function InvitationPage({
   // A theme's Root applies its own scope class and font variables, exactly as
   // on the demo route — this passes it the data and nothing else.
   const theme = resolveTheme(page.themeId);
-  const { Root } = theme;
+  const Root = await theme.loadRoot();
 
   return (
     <>
@@ -107,6 +108,7 @@ export default async function InvitationPage({
         />
       ) : null}
       <Root data={toInvitationData(page)} />
+      <LazyBackgrounds />
     </>
   );
 }

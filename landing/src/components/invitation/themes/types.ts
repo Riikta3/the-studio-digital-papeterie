@@ -395,10 +395,16 @@ export type ThemeManifest = {
   demoData: InvitationData;
 
   /**
-   * The theme's own root component. It receives the whole invitation and
-   * decides how to lay it out — themes differ too much for a shared shell.
+   * Loads the theme's own root component. It receives the whole invitation
+   * and decides how to lay it out — themes differ too much for a shared shell.
+   *
+   * A loader, not the component: the registry is imported whole, and a static
+   * Root put the code, the CSS and the images of every theme on every
+   * invitation, demo and editor preview. Through `import()` a page ships only
+   * the theme it draws (`next/dynamic` would not do: on the server it still
+   * links the CSS of every theme it could load).
    */
-  Root: ComponentType<{ data: InvitationData }>;
+  loadRoot: () => Promise<ComponentType<{ data: InvitationData }>>;
 
   /**
    * Every word this theme prints that a couple may rewrite.

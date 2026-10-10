@@ -1,9 +1,10 @@
 import type { ThemeManifest } from "../types";
 
-import { MareAltaRoot } from "./MareAltaRoot";
 import { MARE_ALTA_DEMO } from "./demo-data";
 import { mareAltaEditorSlots } from "./editor";
 import { mareAltaFontVars } from "./fonts";
+
+const loadMareAltaRoot = () => import("./MareAltaRoot").then((module) => module.MareAltaRoot);
 
 /**
  * Manifest for "Maré Alta" — embroidery on linen, a garden by the Atlantic.
@@ -35,6 +36,6 @@ export const mareAltaTheme: ThemeManifest = {
   scopeClass: "theme-mare-alta",
   fontVars: mareAltaFontVars,
   demoData: MARE_ALTA_DEMO,
-  Root: MareAltaRoot,
+  loadRoot: loadMareAltaRoot,
   editorSlots: mareAltaEditorSlots,
 };
