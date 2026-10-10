@@ -1927,6 +1927,14 @@
     },
     "opening": {
       "skip": "オープニングをスキップ"
+    },
+    "household": {
+      "legend": "ご家族 — お一人ずつご回答ください",
+      "alreadyAnswered": "ご家族は {date} にすでにご回答済みです。以下で回答を変更できます。",
+      "present": "出席",
+      "absent": "欠席",
+      "unsure": "未定",
+      "missing": "お一人ずつご回答ください。"
     }
   }
 }

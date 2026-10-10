@@ -50,6 +50,17 @@ export default async function RsvpResponsesPage() {
         .then(({ count }) => count ?? 0)
     : 0;
 
+  // The guest list, to show which household each answer belongs to and to
+  // attach the ones the invitation did not recognise.
+  const households = wedding
+    ? await supabase
+        .from("households")
+        .select("id, name, guests(first_name, last_name)")
+        .eq("wedding_id", wedding.id)
+        .order("name")
+        .then(({ data }) => data ?? [])
+    : [];
+
   /** True when older responses exist beyond the ones listed below. */
   const isTruncated = totalCount > responses.length;
 
@@ -151,7 +162,7 @@ export default async function RsvpResponsesPage() {
       </div>
 
       {/* Table */}
-      <RsvpResponsesTable responses={responses} />
+      <RsvpResponsesTable responses={responses} households={households} />
     </div>
   );
 }

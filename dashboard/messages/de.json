@@ -632,7 +632,22 @@
       "deleted": "{count} Antwort(en) gelöscht"
     },
     "dietary_other_placeholder": "Andere (bitte angeben)...",
-    "truncated_notice": "Es werden die {shown} neuesten Rückmeldungen von insgesamt {total} angezeigt. Die erwartete Personenzahl bezieht sich nur auf diese; die übrigen Zähler sind vollständig."
+    "truncated_notice": "Es werden die {shown} neuesten Rückmeldungen von insgesamt {total} angezeigt. Die erwartete Personenzahl bezieht sich nur auf diese; die übrigen Zähler sind vollständig.",
+    "household": {
+      "title": "Haushalt in der Gästeliste",
+      "to_link": "Zuzuordnen",
+      "to_link_help": "Der Name wurde auf der Einladung nicht erkannt. Wählen Sie den Haushalt: Die in der Antwort genannten Personen werden aktualisiert.",
+      "choose": "Haushalt wählen",
+      "suggested": "vorgeschlagen",
+      "link": "Zuordnen",
+      "unlink": "Lösen",
+      "linked_toast": "Antwort zugeordnet — {count, plural, =0 {kein Status geändert} one {# Person aktualisiert} other {# Personen aktualisiert}}.",
+      "unmatched": "Im Haushalt nicht gefunden: {names}. Aktualisieren Sie sie in der Gästeliste.",
+      "unlinked_toast": "Antwort vom Haushalt gelöst.",
+      "already_linked": "Dieser Haushalt hat bereits eine Antwort. Lösen Sie diese zuerst.",
+      "link_error": "Zuordnung nicht möglich. Bitte erneut versuchen.",
+      "no_households": "Noch keine Haushalte in Ihrer Gästeliste."
+    }
   },
   "Billing": {
     "title": "Rechnungen",

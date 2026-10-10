@@ -703,7 +703,22 @@
       "deleted": "{count} response(s) deleted"
     },
     "dietary_other_placeholder": "Other (please specify)...",
-    "truncated_notice": "Showing the {shown} most recent responses out of {total}. The expected headcount covers only these; the other counters are complete."
+    "truncated_notice": "Showing the {shown} most recent responses out of {total}. The expected headcount covers only these; the other counters are complete.",
+    "household": {
+      "title": "Household in the guest list",
+      "to_link": "To attach",
+      "to_link_help": "The name wasn't recognised on the invitation. Choose the household: the people named in the reply will be updated.",
+      "choose": "Choose a household",
+      "suggested": "suggested",
+      "link": "Attach",
+      "unlink": "Detach",
+      "linked_toast": "Reply attached — {count, plural, =0 {no status changed} one {# person updated} other {# people updated}}.",
+      "unmatched": "Not found in the household: {names}. Update them from the guest list.",
+      "unlinked_toast": "Reply detached from the household.",
+      "already_linked": "This household already has a reply. Detach it first.",
+      "link_error": "Couldn't attach the reply. Please try again.",
+      "no_households": "No households in your guest list yet."
+    }
   },
   "EditGuestDialog": {
     "title": "Edit guest",

@@ -632,7 +632,22 @@
       "deleted": "已删除 {count} 条回复"
     },
     "dietary_other_placeholder": "其他（请注明）...",
-    "truncated_notice": "显示最近的 {shown} 条回复，共 {total} 条。预计人数仅包含这些回复；其他计数器为完整数据。"
+    "truncated_notice": "显示最近的 {shown} 条回复，共 {total} 条。预计人数仅包含这些回复；其他计数器为完整数据。",
+    "household": {
+      "title": "宾客名单中的家庭",
+      "to_link": "待关联",
+      "to_link_help": "邀请函未识别该姓名。请选择对应的家庭：回复中提到的人员将被更新。",
+      "choose": "选择家庭",
+      "suggested": "推荐",
+      "link": "关联",
+      "unlink": "取消关联",
+      "linked_toast": "回复已关联 — {count, plural, =0 {没有状态变化} other {已更新 # 人}}。",
+      "unmatched": "家庭中未找到：{names}。请在宾客名单中更新。",
+      "unlinked_toast": "回复已与家庭取消关联。",
+      "already_linked": "该家庭已有回复。请先取消关联。",
+      "link_error": "无法关联回复，请重试。",
+      "no_households": "您的宾客名单中还没有家庭。"
+    }
   },
   "Billing": {
     "title": "账单",

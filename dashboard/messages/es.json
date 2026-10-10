@@ -632,7 +632,22 @@
       "deleted": "{count} respuesta(s) eliminada(s)"
     },
     "dietary_other_placeholder": "Otro (especifica)...",
-    "truncated_notice": "Se muestran las {shown} respuestas más recientes de un total de {total}. El número de personas previstas solo incluye estas; los demás contadores están completos."
+    "truncated_notice": "Se muestran las {shown} respuestas más recientes de un total de {total}. El número de personas previstas solo incluye estas; los demás contadores están completos.",
+    "household": {
+      "title": "Hogar en la lista de invitados",
+      "to_link": "Por vincular",
+      "to_link_help": "El nombre no se reconoció en la invitación. Elija el hogar: se actualizarán las personas mencionadas en la respuesta.",
+      "choose": "Elegir un hogar",
+      "suggested": "sugerido",
+      "link": "Vincular",
+      "unlink": "Desvincular",
+      "linked_toast": "Respuesta vinculada — {count, plural, =0 {ningún estado modificado} one {# persona actualizada} other {# personas actualizadas}}.",
+      "unmatched": "No encontrados en el hogar: {names}. Actualícelos desde la lista de invitados.",
+      "unlinked_toast": "Respuesta desvinculada del hogar.",
+      "already_linked": "Este hogar ya tiene una respuesta. Desvincúlela primero.",
+      "link_error": "No se pudo vincular la respuesta. Inténtelo de nuevo.",
+      "no_households": "Aún no hay hogares en su lista de invitados."
+    }
   },
   "Billing": {
     "title": "Facturación",

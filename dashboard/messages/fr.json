@@ -290,7 +290,22 @@
       "deleted": "{count} réponse(s) supprimée(s)"
     },
     "dietary_other_placeholder": "Autre (précisez)...",
-    "truncated_notice": "Les {shown} réponses les plus récentes sont affichées, sur {total} au total. Le nombre de personnes attendues ne porte que sur celles-ci ; les autres compteurs sont complets."
+    "truncated_notice": "Les {shown} réponses les plus récentes sont affichées, sur {total} au total. Le nombre de personnes attendues ne porte que sur celles-ci ; les autres compteurs sont complets.",
+    "household": {
+      "title": "Foyer de la liste d'invités",
+      "to_link": "À rattacher",
+      "to_link_help": "Le nom n'a pas été reconnu sur l'invitation. Choisissez le foyer concerné : les personnes citées dans la réponse seront mises à jour.",
+      "choose": "Choisir un foyer",
+      "suggested": "suggéré",
+      "link": "Rattacher",
+      "unlink": "Détacher",
+      "linked_toast": "Réponse rattachée — {count, plural, =0 {aucun statut modifié} one {# personne mise à jour} other {# personnes mises à jour}}.",
+      "unmatched": "Non retrouvé(s) dans le foyer : {names}. Mettez-les à jour depuis la liste d'invités.",
+      "unlinked_toast": "Réponse détachée du foyer.",
+      "already_linked": "Ce foyer a déjà une réponse. Détachez-la d'abord.",
+      "link_error": "Impossible de rattacher la réponse. Réessayez.",
+      "no_households": "Aucun foyer dans votre liste d'invités pour l'instant."
+    }
   },
   "Sidebar": {
     "sections": {

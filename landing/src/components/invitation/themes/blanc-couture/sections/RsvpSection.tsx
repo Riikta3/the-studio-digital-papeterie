@@ -4,7 +4,9 @@ import { type FormEvent, useState } from "react";
 
 import { type RsvpCompanion, submitRsvp } from "@/actions/invitation-submissions";
 import { formatFrenchDate } from "../../format";
+import { HouseholdMembers } from "../../HouseholdMembers";
 import type { InvitationData } from "../../types";
+import { useHouseholdRsvp } from "../../use-household-rsvp";
 
 import { Page, splitMonogram } from "./Page";
 
@@ -37,6 +39,7 @@ export function RsvpSection({ data, side }: { data: InvitationData; side: "left"
   const deadline = formatFrenchDate(data.event.rsvpDeadline);
   const note = deadline ? `Merci de répondre avant le ${deadline}` : data.copy?.rsvpNote;
   const weddingId = data.weddingId;
+  const household = useHouseholdRsvp(weddingId);
 
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -55,7 +58,9 @@ export function RsvpSection({ data, side }: { data: InvitationData; side: "left"
     const [firstName, ...rest] = fullName.split(" ");
     const lastName = rest.join(" ");
 
-    const isAttending = form.get("attendance") === "yes";
+    // A guest found in the couple's list answers per member: the dinner and
+    // brunch questions below still apply to their household.
+    const isAttending = household.current !== null || form.get("attendance") === "yes";
 
     const companions: RsvpCompanion[] = [];
     const partnerName = String(form.get("partnerName") ?? "").trim();
@@ -88,6 +93,15 @@ export function RsvpSection({ data, side }: { data: InvitationData; side: "left"
 
     setPending(true);
     setError(null);
+
+    const outcome = await household.submit(form, { message });
+    if (outcome !== "fallback") {
+      setPending(false);
+      if (outcome === "shown") return;
+      if (outcome.ok) setSent(true);
+      else setError(outcome.error);
+      return;
+    }
 
     const result = await submitRsvp({
       weddingId,
@@ -123,32 +137,38 @@ export function RsvpSection({ data, side }: { data: InvitationData; side: "left"
         </div>
       ) : (
         <form onSubmit={handleSubmit}>
-          <input required name="fullName" placeholder="Prénom et nom" />
+          <input required name="fullName" placeholder="Prénom et nom" onBlur={household.onNameBlur} />
 
-          <select required name="attendance" defaultValue="">
-            <option value="" disabled>
-              Serez-vous présent ?
-            </option>
-            <option value="yes">Accepte avec joie</option>
-            <option value="no">Décline avec regret</option>
-          </select>
-
-          {rsvp?.allowPartner ? (
+          {household.current ? (
+            <HouseholdMembers household={household} plain />
+          ) : (
             <>
-              <select
-                name="guestCount"
-                value={guestCount}
-                onChange={(event) => setGuestCount(event.target.value)}
-                aria-label="Nombre de participants"
-              >
-                <option value="1">Je viens seul(e)</option>
-                <option value="2">Je viens avec un +1</option>
+              <select required name="attendance" defaultValue="">
+                <option value="" disabled>
+                  Serez-vous présent ?
+                </option>
+                <option value="yes">Accepte avec joie</option>
+                <option value="no">Décline avec regret</option>
               </select>
-              {guestCount === "2" ? (
-                <input required name="partnerName" placeholder="Prénom et nom de votre +1" />
+
+              {rsvp?.allowPartner ? (
+                <>
+                  <select
+                    name="guestCount"
+                    value={guestCount}
+                    onChange={(event) => setGuestCount(event.target.value)}
+                    aria-label="Nombre de participants"
+                  >
+                    <option value="1">Je viens seul(e)</option>
+                    <option value="2">Je viens avec un +1</option>
+                  </select>
+                  {guestCount === "2" ? (
+                    <input required name="partnerName" placeholder="Prénom et nom de votre +1" />
+                  ) : null}
+                </>
               ) : null}
             </>
-          ) : null}
+          )}
 
           {rsvp?.collectWelcomeDinner ? (
             <select required name="welcomeDinner" defaultValue="">

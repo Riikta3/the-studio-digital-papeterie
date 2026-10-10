@@ -1927,6 +1927,14 @@
     },
     "opening": {
       "skip": "Saltar a introdução"
+    },
+    "household": {
+      "legend": "O seu agregado — uma resposta por pessoa",
+      "alreadyAnswered": "O seu agregado já respondeu a {date}. Pode alterar as respostas abaixo.",
+      "present": "Presente",
+      "absent": "Ausente",
+      "unsure": "Ainda não sei",
+      "missing": "Indique uma resposta para cada pessoa."
     }
   }
 }
