@@ -1263,7 +1263,6 @@
         "childrenOptionNone": "なし",
         "childFieldLabel": "お子さま {index}",
         "childNamePlaceholder": "姓名",
-        "dietaryLabel": "食事のご要望",
         "messageLabel": "メッセージ",
         "messagePlaceholder": "メッセージをご記入ください…",
         "submit": "返信を送信",
@@ -1417,9 +1416,8 @@
         "partyOptionPartner": "本人とパートナー",
         "partnerNameLabel": "パートナーのお名前",
         "partnerNamePlaceholder": "姓名",
-        "dietaryLabel": "食事のご制限",
-        "messageLabel": "ご要望など",
-        "messagePlaceholder": "アレルギーや食事制限など…",
+        "messageLabel": "ひとこと",
+        "messagePlaceholder": "メッセージ…",
         "submit": "返信を送る",
         "submitPending": "送信中…"
       },
@@ -1498,7 +1496,6 @@
         "childrenOptionCount": "{count, plural, other {お子さま #名}}",
         "childFieldLabel": "お子さま {index}",
         "childNamePlaceholder": "姓名",
-        "dietaryLabel": "食事のご要望",
         "thanksName": "{name}様、ありがとうございます！ご返信を承りました。"
       },
       "faq": {
@@ -1692,7 +1689,6 @@
         "step1": "ご返信",
         "step2": "ご同伴の方は？",
         "step3": "メッセージ",
-        "stepMeal": "お食事について",
         "attendYes": "喜んで出席します",
         "attendNo": "残念ながら欠席します",
         "thanksEyebrow": "返信を送信しました",
@@ -1711,7 +1707,6 @@
         "childrenOptionCount": "{count, plural, other {お子さま #名}}",
         "childFieldLabel": "お子さま {index}",
         "childNamePlaceholder": "姓名",
-        "dietaryLabel": "アレルギー・食事制限",
         "messageLabel": "私たちへのひとこと",
         "optional": "任意",
         "messagePlaceholder": "ご質問やひとことなど…",
@@ -1867,7 +1862,6 @@
         "childrenNone": "なし",
         "childrenCount": "{count, plural, other {お子さま #名}}",
         "childLabel": "お子さま {index}",
-        "dietaryLabel": "食事のご要望",
         "messageLabel": "メッセージ",
         "messagePlaceholder": "メッセージをご記入ください…",
         "submit": "返信を送信",
@@ -1927,6 +1921,15 @@
     },
     "opening": {
       "skip": "オープニングをスキップ"
+    },
+    "diet": {
+      "legendSelf": "食事制限・アレルギー",
+      "legendPartner": "パートナーの食事制限・アレルギー",
+      "legendChild": "お子さま {index} の食事制限・アレルギー",
+      "other": "その他",
+      "otherLabel": "食事制限またはアレルギーを入力",
+      "otherPlaceholder": "具体的に（例：ピーナッツ）",
+      "none": "なし"
     }
   }
 }

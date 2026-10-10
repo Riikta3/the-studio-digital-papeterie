@@ -2,8 +2,11 @@
 
 import { CircleCheck, Heart, Send } from "lucide-react";
 import { useLocale, useTranslations } from "next-intl";
+import { Fragment } from "react";
 
 import { formatFrenchDate } from "../../format";
+import { GuestDiet, useDietLegend } from "../../GuestDiet";
+import { DIET_PARTNER, DIET_SELF, dietChildKey, dietChoices } from "../../guest-diet";
 import { monogramOf } from "../../monogram";
 import { Lines, slot } from "../../text";
 import type { InvitationData } from "../../types";
@@ -23,9 +26,9 @@ import { Section } from "./Section";
  * reply cannot be edited afterwards, so neither is the line promising it.
  *
  * The questions follow the answer: nothing but the first step before the guest
- * says whether they are coming; the party and the meal only for a yes; the
- * word to the couple for either; no child field at all at an adults-only
- * wedding. Submission, pending and error state, and the demo guard (no
+ * says whether they are coming; the party and each person's diets only for a
+ * yes (one line per person, under that person's name); the word to the couple
+ * for either; no child field at all at an adults-only wedding. Submission, pending and error state, and the demo guard (no
  * `weddingId`, nothing written) are the shared hook's.
  */
 export function RsvpSection({ data }: { data: InvitationData }) {
@@ -46,14 +49,22 @@ export function RsvpSection({ data }: { data: InvitationData }) {
     })
     .sort((a, b) => (a.date < b.date ? -1 : a.date > b.date ? 1 : 0));
 
-  const dietary = (config?.dietaryOptions ?? []).filter((option) => option.trim());
   const answered = rsvp.attending !== null;
   const coming = rsvp.attending === true;
 
+  // The couple's diet list (editor, RSVP tab); empty when they did not ask.
+  const diets = dietChoices(config?.dietaryOptions);
+  const askDiets = coming && diets.length > 0;
+  const dietLegend = useDietLegend();
+  // The closed diet line is drawn as this card's fields are: the ivory box and
+  // its hairline, with a thin chevron where a select has its arrow.
+  const dietField = {
+    fieldClassName: "ma-diet-field",
+    chevron: <span className="ma-diet-chevron" aria-hidden="true" />,
+  };
+
   const askParty = coming && (rsvp.allowPartner || rsvp.allowChildren);
-  const askMeal = coming && dietary.length > 0;
   const askMessage = answered && Boolean(config?.collectMessage);
-  const askLastStep = askMeal || askMessage;
   const lastStepNumber = askParty ? "03" : "02";
 
   const partySelect = rsvp.allowPartner ? (
@@ -173,6 +184,7 @@ export function RsvpSection({ data }: { data: InvitationData }) {
                   {t("nameLabel")}
                   <input required name="fullName" autoComplete="name" placeholder={t("namePlaceholder")} />
                 </label>
+                {askDiets ? <GuestDiet person={DIET_SELF} options={diets} label={dietLegend.self} {...dietField} /> : null}
               </div>
 
               {askParty ? (
@@ -198,45 +210,46 @@ export function RsvpSection({ data }: { data: InvitationData }) {
                       <input required name="partnerName" autoComplete="off" placeholder={t("partnerNamePlaceholder")} />
                     </label>
                   ) : null}
+                  {rsvp.allowPartner && rsvp.partyMode === "partner" && askDiets ? (
+                    <GuestDiet person={DIET_PARTNER} options={diets} label={dietLegend.partner} {...dietField} />
+                  ) : null}
                   {rsvp.allowChildren
                     ? Array.from({ length: rsvp.childCount }, (_, index) => (
-                        <label key={index}>
-                          {t("childFieldLabel", { index: index + 1 })}
-                          <input
-                            required
-                            name={`childName-${index}`}
-                            autoComplete="off"
-                            placeholder={t("childNamePlaceholder")}
-                          />
-                        </label>
+                        <Fragment key={index}>
+                          <label>
+                            {t("childFieldLabel", { index: index + 1 })}
+                            <input
+                              required
+                              name={`childName-${index}`}
+                              autoComplete="off"
+                              placeholder={t("childNamePlaceholder")}
+                            />
+                          </label>
+                          {askDiets ? (
+                            <GuestDiet
+                              person={dietChildKey(index)}
+                              options={diets}
+                              label={dietLegend.child(index + 1)}
+                              {...dietField}
+                            />
+                          ) : null}
+                        </Fragment>
                       ))
                     : null}
                 </div>
               ) : null}
 
-              {askLastStep ? (
+              {askMessage ? (
                 <div className="rsvp-form-section">
                   <div className="rsvp-step">
                     <span>{lastStepNumber}</span>
-                    <h3>{askMessage ? t("step3") : t("stepMeal")}</h3>
+                    <h3>{t("step3")}</h3>
                   </div>
-                  {askMeal ? (
-                    <label>
-                      {t("dietaryLabel")}
-                      <select name="dietary">
-                        {dietary.map((option) => (
-                          <option key={option}>{option}</option>
-                        ))}
-                      </select>
-                    </label>
-                  ) : null}
-                  {askMessage ? (
-                    <label>
-                      {/* The designer's label, with its small "optional" beside it. */}
-                      {t("messageLabel")} <span className="optional">{t("optional")}</span>
-                      <textarea name="message" placeholder={t("messagePlaceholder")} />
-                    </label>
-                  ) : null}
+                  <label>
+                    {/* The designer's label, with its small "optional" beside it. */}
+                    {t("messageLabel")} <span className="optional">{t("optional")}</span>
+                    <textarea name="message" placeholder={t("messagePlaceholder")} />
+                  </label>
                 </div>
               ) : null}
 

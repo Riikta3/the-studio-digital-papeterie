@@ -1263,7 +1263,6 @@
         "childrenOptionNone": "Nenhuma",
         "childFieldLabel": "Criança {index}",
         "childNamePlaceholder": "Nome e apelido",
-        "dietaryLabel": "Restrições alimentares",
         "messageLabel": "Umas palavras",
         "messagePlaceholder": "A sua mensagem…",
         "submit": "Enviar a minha resposta",
@@ -1417,9 +1416,8 @@
         "partyOptionPartner": "Eu + o meu/a minha parceiro(a)",
         "partnerNameLabel": "Nome e apelido do seu/da sua parceiro(a)",
         "partnerNamePlaceholder": "Nome e apelido",
-        "dietaryLabel": "Restrições alimentares",
-        "messageLabel": "Precisões",
-        "messagePlaceholder": "Alergia ou regime particular…",
+        "messageLabel": "Uma palavra",
+        "messagePlaceholder": "A sua mensagem…",
         "submit": "Enviar a minha resposta",
         "submitPending": "A enviar…"
       },
@@ -1498,7 +1496,6 @@
         "childrenOptionCount": "{count, plural, one {# criança} other {# crianças}}",
         "childFieldLabel": "Criança {index}",
         "childNamePlaceholder": "Nome e apelido",
-        "dietaryLabel": "Restrições alimentares",
         "thanksName": "Obrigado, {name}! A sua resposta foi registada."
       },
       "faq": {
@@ -1692,7 +1689,6 @@
         "step1": "A sua resposta",
         "step2": "Com quem vem?",
         "step3": "Umas palavras",
-        "stepMeal": "A sua refeição",
         "attendYes": "Com alegria, estarei presente",
         "attendNo": "Não poderei estar presente",
         "thanksEyebrow": "Resposta enviada",
@@ -1711,7 +1707,6 @@
         "childrenOptionCount": "{count, plural, one {# criança} other {# crianças}}",
         "childFieldLabel": "Criança {index}",
         "childNamePlaceholder": "Nome e apelido",
-        "dietaryLabel": "Alergias ou regime alimentar",
         "messageLabel": "Umas palavras para nós",
         "optional": "opcional",
         "messagePlaceholder": "Um pormenor, uma pergunta, algumas palavras…",
@@ -1867,7 +1862,6 @@
         "childrenNone": "Nenhuma",
         "childrenCount": "{count, plural, one {# criança} other {# crianças}}",
         "childLabel": "Criança {index}",
-        "dietaryLabel": "Restrições alimentares",
         "messageLabel": "Umas palavras",
         "messagePlaceholder": "A sua mensagem…",
         "submit": "Enviar a minha resposta",
@@ -1927,6 +1921,15 @@
     },
     "opening": {
       "skip": "Saltar a introdução"
+    },
+    "diet": {
+      "legendSelf": "Dieta e alergias",
+      "legendPartner": "Dieta e alergias do seu acompanhante",
+      "legendChild": "Dieta e alergias da criança {index}",
+      "other": "Outro",
+      "otherLabel": "Indique a dieta ou a alergia",
+      "otherPlaceholder": "Especifique (ex. amendoins)",
+      "none": "Nenhuma"
     }
   }
 }

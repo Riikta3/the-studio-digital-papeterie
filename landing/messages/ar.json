@@ -1263,7 +1263,6 @@
         "childrenOptionNone": "لا أحد",
         "childFieldLabel": "الطفل {index}",
         "childNamePlaceholder": "الاسم واللقب",
-        "dietaryLabel": "قيود غذائية",
         "messageLabel": "كلمة صغيرة",
         "messagePlaceholder": "رسالتكم…",
         "submit": "إرسال ردّي",
@@ -1417,9 +1416,8 @@
         "partyOptionPartner": "أنا + شريكي/شريكتي",
         "partnerNameLabel": "الاسم الأول واسم عائلة شريككم",
         "partnerNamePlaceholder": "الاسم الأول واسم العائلة",
-        "dietaryLabel": "القيود الغذائية",
-        "messageLabel": "تفاصيل إضافية",
-        "messagePlaceholder": "حساسية أو نظام غذائي خاص…",
+        "messageLabel": "كلمة صغيرة",
+        "messagePlaceholder": "رسالتكم…",
         "submit": "إرسال ردّي",
         "submitPending": "جارٍ الإرسال…"
       },
@@ -1498,7 +1496,6 @@
         "childrenOptionCount": "{count, plural, zero {بدون أطفال} one {طفل واحد} two {طفلان} few {# أطفال} many {# طفلًا} other {# طفل}}",
         "childFieldLabel": "الطفل {index}",
         "childNamePlaceholder": "الاسم واللقب",
-        "dietaryLabel": "قيود غذائية",
         "thanksName": "شكرًا {name}! تم تسجيل ردّكم بنجاح."
       },
       "faq": {
@@ -1692,7 +1689,6 @@
         "step1": "ردّكم",
         "step2": "من سيرافقكم؟",
         "step3": "كلمة صغيرة",
-        "stepMeal": "وجبتكم",
         "attendYes": "بكل سرور، سأحضر",
         "attendNo": "لن أتمكن من الحضور",
         "thanksEyebrow": "تم إرسال الرد",
@@ -1711,7 +1707,6 @@
         "childrenOptionCount": "{count, plural, zero {بدون أطفال} one {طفل واحد} two {طفلان} few {# أطفال} many {# طفلًا} other {# طفل}}",
         "childFieldLabel": "الطفل {index}",
         "childNamePlaceholder": "الاسم واللقب",
-        "dietaryLabel": "الحساسية أو النظام الغذائي",
         "messageLabel": "كلمة صغيرة لنا",
         "optional": "اختياري",
         "messagePlaceholder": "توضيح، سؤال، بضع كلمات…",
@@ -1867,7 +1862,6 @@
         "childrenNone": "لا أحد",
         "childrenCount": "{count, plural, zero {بدون أطفال} one {طفل واحد} two {طفلان} few {# أطفال} many {# طفلًا} other {# طفل}}",
         "childLabel": "الطفل {index}",
-        "dietaryLabel": "قيود غذائية",
         "messageLabel": "كلمة صغيرة",
         "messagePlaceholder": "رسالتكم…",
         "submit": "إرسال ردّي",
@@ -1927,6 +1921,15 @@
     },
     "opening": {
       "skip": "تخطّي المقدّمة"
+    },
+    "diet": {
+      "legendSelf": "النظام الغذائي والحساسية",
+      "legendPartner": "النظام الغذائي والحساسية لمرافقكم",
+      "legendChild": "النظام الغذائي والحساسية للطفل {index}",
+      "other": "أخرى",
+      "otherLabel": "حدّدوا النظام الغذائي أو الحساسية",
+      "otherPlaceholder": "حدّدوا (مثل الفول السوداني)",
+      "none": "لا شيء"
     }
   }
 }

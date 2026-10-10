@@ -1,5 +1,6 @@
 import { demoDate, demoDayAfter, demoLabel, demoStartsAt } from "../demo-date";
 import type { InvitationData } from "../types";
+import { DIETARY_OPTIONS_FR } from "@shared/data/dietary-options";
 
 /**
  * Demo content for the "Ciao Amore" theme — Alba & Elio, Villa Cimbrone.
@@ -169,15 +170,7 @@ export const CIAO_AMORE_DEMO: InvitationData = {
     // above, so the two can never disagree.
     allowChildren: true,
     collectMessage: true,
-    dietaryOptions: [
-      "Aucune restriction",
-      "Végétarien",
-      "Végan",
-      "Sans gluten",
-      "Sans lactose",
-      "Casher",
-      "Allergie ou régime particulier",
-    ],
+    dietaryOptions: [...DIETARY_OPTIONS_FR],
   },
 
   modules: [

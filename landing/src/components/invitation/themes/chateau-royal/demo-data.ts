@@ -1,5 +1,6 @@
 import { demoDate, demoDayAfter, demoStartsAt } from "../demo-date";
 import type { InvitationData } from "../types";
+import { DIETARY_OPTIONS_FR } from "@shared/data/dietary-options";
 
 /**
  * The showcase wedding of "Château Royal": the designer's own, kept whole. The
@@ -113,7 +114,7 @@ export const CHATEAU_ROYAL_DEMO: InvitationData = {
     url: "https://cagnotte.example.org/eleonore-raphael",
     linkLabel: "Participer à notre voyage de noces",
   },
-  rsvp: { allowPartner: true, allowChildren: true, collectMessage: true },
+  rsvp: { allowPartner: true, allowChildren: true, collectMessage: true, dietaryOptions: [...DIETARY_OPTIONS_FR] },
   // The designer's own wording, kept for the showcase. A real wedding gets the
   // neutral catalogue default until the couple rewrites it.
   texts: {

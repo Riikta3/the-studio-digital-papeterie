@@ -1458,3 +1458,166 @@
 [dir="rtl"] .theme-cabo-verde :is(.cv-book-intro, .cv-book-to, .cv-book-thanks h3) {
   unicode-bidi: plaintext;
 }
+
+/* ------------------------------------------------------------------ *
+ * RSVP — diets and allergies, one line per person (GuestDiet.tsx)
+ * ------------------------------------------------------------------ */
+
+/* Labelled like the form's own fields (`.rsvp label`), the line set under its
+   label as the select is under its own. */
+.theme-cabo-verde .rsvp .guest-diet {
+  display: grid;
+  min-width: 0;
+  color: #123d58;
+}
+
+.theme-cabo-verde .rsvp .guest-diet__label {
+  font-size: 0.68rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+/* The closed line: the select's underline, which darkens like it on focus. */
+.theme-cabo-verde .rsvp .cv-diet-field {
+  position: relative;
+  display: block;
+  margin-top: 0.35rem;
+  border-bottom: 1px solid rgba(18, 61, 88, 0.38);
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.theme-cabo-verde .rsvp .cv-diet-field:has(:focus-visible) {
+  border-bottom-color: #137f98;
+  box-shadow: 0 1px 0 #137f98;
+}
+
+/* The toggle is a <button>: undo the form's coral submit (`.rsvp button`) and
+   set it as the select's text. */
+.theme-cabo-verde .rsvp .guest-diet__toggle {
+  display: block;
+  width: 100%;
+  margin: 0;
+  padding: 0.8rem 1.6rem 0.8rem 0.1rem;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  color: #123d58;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 0.8333rem;
+  font-weight: 400;
+  line-height: normal;
+  letter-spacing: normal;
+  text-transform: none;
+  text-align: start;
+  cursor: pointer;
+  outline: none;
+}
+
+[dir="rtl"] .theme-cabo-verde .rsvp .guest-diet__toggle {
+  padding-inline: 0.1rem 1.6rem;
+}
+
+.theme-cabo-verde .rsvp .guest-diet__summary {
+  display: block;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.theme-cabo-verde .rsvp .guest-diet__summary[data-empty] {
+  color: rgba(18, 61, 88, 0.72);
+}
+
+/* A thin chevron where the select has its arrow; it turns up while open. */
+.theme-cabo-verde .rsvp .cv-diet-chevron {
+  position: absolute;
+  inset-inline-end: 0.35rem;
+  top: 50%;
+  width: 6px;
+  height: 6px;
+  border-right: 2px solid #123d58;
+  border-bottom: 2px solid #123d58;
+  transform: translateY(-70%) rotate(45deg);
+  transition: transform 0.2s ease;
+  pointer-events: none;
+}
+
+.theme-cabo-verde .rsvp .guest-diet[data-open] .cv-diet-chevron {
+  transform: translateY(-25%) rotate(-135deg);
+}
+
+/* The unfolded list, framed like the form's questions (`.rsvp fieldset`):
+   two columns of boxes. */
+.theme-cabo-verde .rsvp .guest-diet__panel {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.2rem 1rem;
+  margin-top: 0.75rem;
+  padding: 0.75rem 1rem;
+  border: 1px solid rgba(18, 61, 88, 0.25);
+  animation: cabo-verde-dietOpen 0.25s ease-out;
+}
+
+.theme-cabo-verde .rsvp .guest-diet__panel[hidden] {
+  display: none;
+}
+
+/* An option is a <label>: set like the radios' answers (`.choice`), smaller. */
+.theme-cabo-verde .rsvp .guest-diet__option {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  min-height: 34px;
+  font-size: 0.82rem;
+  line-height: 1.25;
+  letter-spacing: 0;
+  text-transform: none;
+  cursor: pointer;
+}
+
+/* The browser's own box, as the radios are the browser's own: only the
+   field rule (`.rsvp input`: block, full width, underline) is undone. */
+.theme-cabo-verde .rsvp .guest-diet__option input {
+  display: inline-block;
+  flex: none;
+  width: auto;
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+.theme-cabo-verde .rsvp .guest-diet__option input:focus-visible {
+  outline: 2px solid #137f98;
+  outline-offset: 2px;
+  box-shadow: none;
+}
+
+/* « Autre » opens a field across both columns: the form's underlined field. */
+.theme-cabo-verde .rsvp .guest-diet__other {
+  grid-column: 1 / -1;
+  margin-top: 0;
+  color: #123d58;
+  font-size: 0.8333rem;
+}
+
+.theme-cabo-verde .rsvp .guest-diet__other::placeholder {
+  color: rgba(18, 61, 88, 0.5);
+}
+
+@keyframes cabo-verde-dietOpen {
+  from {
+    opacity: 0;
+    transform: translateY(-4px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .theme-cabo-verde .rsvp .guest-diet__panel {
+    animation: none;
+  }
+
+  .theme-cabo-verde .rsvp .cv-diet-chevron,
+  .theme-cabo-verde .rsvp .cv-diet-field {
+    transition: none;
+  }
+}

@@ -1,9 +1,11 @@
 "use client";
 
 import { useLocale, useTranslations } from "next-intl";
-import { useState } from "react";
+import { Fragment, useState } from "react";
 
 import { formatFrenchDate } from "../../format";
+import { GuestDiet, useDietLegend } from "../../GuestDiet";
+import { DIET_PARTNER, DIET_SELF, dietChildKey, dietChoices } from "../../guest-diet";
 import { slot } from "../../text";
 import type { InvitationData } from "../../types";
 import { useGuestRsvp } from "../../use-guest-rsvp";
@@ -18,11 +20,16 @@ import { TitleLines } from "./TitleLines";
  * people who come with them. The partner and the children are asked only once
  * the guest says yes, and an adults-only wedding shows no child field at all.
  *
+ * Diets and allergies are asked per person, under each one's line: the guest's
+ * after the answer, the partner's under their name, each child's under theirs.
+ * Closed, each is a ruled line like the form's selects (`GuestDiet`).
+ *
  * With a wedding id the answer is saved; without one (the showcase, the editor's
  * preview) the form confirms locally and writes nothing — see `useGuestRsvp`.
  */
 export function RsvpSection({ data }: { data: InvitationData }) {
   const t = useTranslations("Invitation.chateauRoyal.rsvp");
+  const tBook = useTranslations("Invitation.chateauRoyal.guestbook");
   const locale = useLocale();
   const rsvp = useGuestRsvp(data);
   // The designer's thank-you greets the guest by the name they typed ("Merci Jeanne Martin !").
@@ -33,6 +40,15 @@ export function RsvpSection({ data }: { data: InvitationData }) {
   // A deadline saved before it was a date is a note, printed as it was written.
   const deadlineLine = deadline ? t("deadline", { date: deadline }) : data.copy?.rsvpNote;
   const intro = data.copy?.rsvpIntro?.trim();
+  // The couple's diet list (editor, RSVP tab); empty when they did not ask.
+  const diets = dietChoices(options?.dietaryOptions);
+  const askDiets = rsvp.showParty && diets.length > 0;
+  const dietLegend = useDietLegend();
+  // The closed diet line is a ruled field, like the selects, with a hairline chevron.
+  const dietField = {
+    fieldClassName: "cr-diet-field",
+    chevron: <span className="cr-diet-chevron" aria-hidden="true" />,
+  };
 
   return (
     <section className="rsvp" id="cr-rsvp" data-editor-section="rsvp">
@@ -81,6 +97,8 @@ export function RsvpSection({ data }: { data: InvitationData }) {
               </select>
             </label>
 
+            {askDiets ? <GuestDiet person={DIET_SELF} options={diets} label={dietLegend.self} {...dietField} /> : null}
+
             {rsvp.showParty && rsvp.allowPartner ? (
               <>
                 <label>
@@ -97,15 +115,20 @@ export function RsvpSection({ data }: { data: InvitationData }) {
                   </select>
                 </label>
                 {rsvp.partyMode === "partner" ? (
-                  <label>
-                    {t("partnerNameLabel")}
-                    <input
-                      name="partnerName"
-                      placeholder={t("partnerNamePlaceholder")}
-                      autoComplete="off"
-                      required
-                    />
-                  </label>
+                  <>
+                    <label>
+                      {t("partnerNameLabel")}
+                      <input
+                        name="partnerName"
+                        placeholder={t("partnerNamePlaceholder")}
+                        autoComplete="off"
+                        required
+                      />
+                    </label>
+                    {askDiets ? (
+                      <GuestDiet person={DIET_PARTNER} options={diets} label={dietLegend.partner} {...dietField} />
+                    ) : null}
+                  </>
                 ) : null}
               </>
             ) : null}
@@ -130,33 +153,35 @@ export function RsvpSection({ data }: { data: InvitationData }) {
                   </select>
                 </label>
                 {Array.from({ length: rsvp.childCount }, (_, index) => (
-                  <label key={index}>
-                    {t("childFieldLabel", { index: index + 1 })}
-                    <input
-                      name={`childName-${index}`}
-                      placeholder={t("childNamePlaceholder")}
-                      autoComplete="off"
-                      required
-                    />
-                  </label>
+                  <Fragment key={index}>
+                    <label>
+                      {t("childFieldLabel", { index: index + 1 })}
+                      <input
+                        name={`childName-${index}`}
+                        placeholder={t("childNamePlaceholder")}
+                        autoComplete="off"
+                        required
+                      />
+                    </label>
+                    {askDiets ? (
+                      <GuestDiet
+                        person={dietChildKey(index)}
+                        options={diets}
+                        label={dietLegend.child(index + 1)}
+                        {...dietField}
+                      />
+                    ) : null}
+                  </Fragment>
                 ))}
               </>
             ) : null}
 
-            {options?.dietaryOptions?.length ? (
-              <label>
-                {t("dietaryLabel")}
-                <select name="dietary">
-                  {options.dietaryOptions.map((option) => (
-                    <option key={option}>{option}</option>
-                  ))}
-                </select>
-              </label>
-            ) : null}
-
+            {/* The designer's one free field asked for "allergies, details or a short note". When
+                the couple asks diets, each person has their own line above, and this is the
+                guest's note alone. */}
             {options?.collectMessage ? (
               <label>
-                {t("messageLabel")}
+                {diets.length ? tBook("messageLabel") : t("messageLabel")}
                 <input name="message" placeholder={t("messagePlaceholder")} />
               </label>
             ) : null}

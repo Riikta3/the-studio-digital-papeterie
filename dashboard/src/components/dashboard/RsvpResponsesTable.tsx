@@ -74,6 +74,19 @@ type SortKey = "submitted_at" | "name" | "attendance";
 type SortDir = "asc" | "desc";
 type Filter = "all" | "attending" | "declined" | "pending";
 
+/**
+ * Everyone's diet in one line, by first name when the party has more than one
+ * (« Camille : Sans gluten · Léo : arachides »). Guests send one per person.
+ */
+function partyDiets(r: RsvpResponse): string {
+  const withDiet = (r.participants ?? []).filter((p) => p.dietary);
+  const first = r.respondent_first_name || r.name.split(" ")[0];
+  const lines: string[] = [];
+  if (r.dietary) lines.push(withDiet.length ? `${first} : ${r.dietary}` : r.dietary);
+  for (const p of withDiet) lines.push(`${p.first_name || p.last_name} : ${p.dietary}`);
+  return lines.join(" · ");
+}
+
 // ─── Dietary Select ───────────────────────────────────────────────────────────
 
 function DietarySelect({
@@ -364,7 +377,8 @@ function ExpandPanelContent({
 
                     {/* Companions */}
                     {participants.map((p, i) => (
-                      <div key={i} className='grid grid-cols-[1fr_1fr_1fr_auto] gap-2 items-center min-w-0'>
+                      <div key={i} className='space-y-1.5'>
+                      <div className='grid grid-cols-[1fr_1fr_1fr_auto] gap-2 items-center min-w-0'>
                         <input value={p.first_name} onChange={(e) => updateParticipant(i, "first_name", e.target.value)} placeholder={t("first_name")} className={inputCls} />
                         <input value={p.last_name} onChange={(e) => updateParticipant(i, "last_name", e.target.value)} placeholder={t("last_name")} className={inputCls} />
                         <Select value={p.relation_type ?? ""} onValueChange={(v) => updateParticipant(i, "relation_type", v)}>
@@ -383,6 +397,23 @@ function ExpandPanelContent({
                         >
                           <Trash2 className='h-4 w-4' />
                         </button>
+                      </div>
+                      {/* This companion's own diet, as the guest sent it — folded to one line. */}
+                      <details className='group pl-1'>
+                        <summary className='cursor-pointer list-none text-xs text-studio-violet/60 hover:text-studio-violet [&::-webkit-details-marker]:hidden'>
+                          {t("col.dietary")} :{" "}
+                          <span className={p.dietary ? "text-studio-violet" : "text-studio-violet/30"}>
+                            {p.dietary || "—"}
+                          </span>
+                        </summary>
+                        <div className='mt-2'>
+                          <DietarySelect
+                            value={p.dietary ?? ""}
+                            onChange={(v) => updateParticipant(i, "dietary", v)}
+                            customPlaceholder={t("dietary_other_placeholder")}
+                          />
+                        </div>
+                      </details>
                       </div>
                     ))}
 
@@ -489,6 +520,8 @@ export function RsvpResponsesTable({
       if (!q) return true;
       const respondentName = `${r.respondent_first_name ?? ""} ${r.respondent_last_name ?? ""}`.toLowerCase();
       if (r.name.toLowerCase().includes(q) || respondentName.includes(q)) return true;
+      // An allergy is searchable too: « arachides » finds whoever declared it.
+      if (partyDiets(r).toLowerCase().includes(q)) return true;
       if (Array.isArray(r.participants)) {
         return r.participants.some(
           (p) =>
@@ -830,13 +863,18 @@ export function RsvpResponsesTable({
 
                       {/* Dietary */}
                       <td className='px-4 py-4 text-studio-violet/60 hidden md:table-cell'>
-                        <span className='truncate block'>
-                          {r.dietary
-                            ? r.dietary.length > 30
-                              ? r.dietary.slice(0, 30) + "…"
-                              : r.dietary
-                            : <span className='text-studio-violet/30'>—</span>}
-                        </span>
+                        {(() => {
+                          const diets = partyDiets(r);
+                          return (
+                            <span className='truncate block' title={diets || undefined}>
+                              {diets
+                                ? diets.length > 30
+                                  ? diets.slice(0, 30) + "…"
+                                  : diets
+                                : <span className='text-studio-violet/30'>—</span>}
+                            </span>
+                          );
+                        })()}
                       </td>
 
                       {/* Admin note preview */}

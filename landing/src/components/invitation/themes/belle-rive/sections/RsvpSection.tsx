@@ -2,9 +2,12 @@
 
 import { type FormEvent, useState } from "react";
 
-import { type RsvpCompanion, submitRsvp } from "@/actions/invitation-submissions";
+import { submitRsvp } from "@/actions/invitation-submissions";
 import { useLocale, useTranslations } from "next-intl";
 
+import { GuestDiet, useDietLegend } from "../../GuestDiet";
+import { DIET_PARTNER, DIET_SELF, dietChoices } from "../../guest-diet";
+import { buildRsvpSubmission } from "../../guest-rsvp-payload";
 import { formatFrenchDate } from "../../format";
 import type { InvitationData } from "../../types";
 
@@ -25,10 +28,22 @@ export function RsvpSection({ data }: { data: InvitationData }) {
   const [pending, setPending] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [attendance, setAttendance] = useState<"solo" | "partner">("solo");
+  /** Whether the guest answered yes: diets are asked of people who come. */
+  const [attending, setAttending] = useState<boolean | null>(null);
 
   const rsvp = data.rsvp;
   const deadline = formatFrenchDate(data.event.rsvpDeadline, { locale });
   const weddingId = data.weddingId;
+
+  // The couple's diet list (editor, RSVP tab); empty when they did not ask.
+  const diets = dietChoices(rsvp?.dietaryOptions);
+  const askDiets = attending === true && diets.length > 0;
+  const dietLegend = useDietLegend();
+  // The closed diet line is drawn as this form's selects are.
+  const dietField = {
+    fieldClassName: "br-diet-field",
+    chevron: <span className="br-diet-chevron" aria-hidden="true" />,
+  };
 
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -43,38 +58,21 @@ export function RsvpSection({ data }: { data: InvitationData }) {
       return;
     }
 
-    // "Prénom Nom" arrives as one field; the table stores the split halves the
-    // dashboard edits.
-    const fullName = String(form.get("fullName") ?? "").trim();
-    const [firstName, ...rest] = fullName.split(" ");
-    const lastName = rest.join(" ");
-
-    const isAttending = form.get("attendance") === "yes";
-
-    // `guest_count` is derived server-side from this list, so a companion left
-    // out here is a head the caterer never counts.
-    const companions: RsvpCompanion[] = [];
-    const partnerName = String(form.get("partnerName") ?? "").trim();
-    if (isAttending && attendance === "partner" && partnerName) {
-      const [partnerFirst, ...partnerRest] = partnerName.split(" ");
-      companions.push({
-        firstName: partnerFirst ?? "",
-        lastName: partnerRest.join(" "),
-      });
-    }
-
     setPending(true);
     setError(null);
 
-    const result = await submitRsvp({
-      weddingId,
-      firstName: firstName ?? "",
-      lastName,
-      attendance: isAttending,
-      dietary: String(form.get("dietary") ?? ""),
-      message: String(form.get("message") ?? ""),
-      companions,
-    });
+    // Names, partner and each person's diets: the shared builder
+    // (`guest-rsvp-payload.ts`). This theme asks no children.
+    const result = await submitRsvp(
+      buildRsvpSubmission({
+        weddingId,
+        form,
+        attending: form.get("attendance") === "yes",
+        partyMode: attendance,
+        childCount: 0,
+        allowChildren: false,
+      }),
+    );
 
     setPending(false);
 
@@ -120,12 +118,27 @@ export function RsvpSection({ data }: { data: InvitationData }) {
           <fieldset>
             <legend>{t("attendanceLegend")}</legend>
             <label>
-              <input type="radio" name="attendance" value="yes" required /> {t("attendanceYes")}
+              <input
+                type="radio"
+                name="attendance"
+                value="yes"
+                required
+                onChange={() => setAttending(true)}
+              />{" "}
+              {t("attendanceYes")}
             </label>
             <label>
-              <input type="radio" name="attendance" value="no" /> {t("attendanceNo")}
+              <input
+                type="radio"
+                name="attendance"
+                value="no"
+                onChange={() => setAttending(false)}
+              />{" "}
+              {t("attendanceNo")}
             </label>
           </fieldset>
+
+          {askDiets ? <GuestDiet person={DIET_SELF} options={diets} label={dietLegend.self} {...dietField} /> : null}
 
           {rsvp?.allowPartner ? (
             <>
@@ -148,18 +161,10 @@ export function RsvpSection({ data }: { data: InvitationData }) {
                   <input name="partnerName" required placeholder={t("partnerNamePlaceholder")} />
                 </label>
               ) : null}
+              {attendance === "partner" && askDiets ? (
+                <GuestDiet person={DIET_PARTNER} options={diets} label={dietLegend.partner} {...dietField} />
+              ) : null}
             </>
-          ) : null}
-
-          {rsvp?.dietaryOptions?.length ? (
-            <label>
-              {t("dietaryLabel")}
-              <select name="dietary">
-                {rsvp.dietaryOptions.map((option) => (
-                  <option key={option}>{option}</option>
-                ))}
-              </select>
-            </label>
           ) : null}
 
           {rsvp?.collectMessage ? (

@@ -1477,7 +1477,6 @@
         "childrenOptionNone": "None",
         "childFieldLabel": "Child {index}",
         "childNamePlaceholder": "First and last name",
-        "dietaryLabel": "Dietary requirements",
         "messageLabel": "A few words",
         "messagePlaceholder": "Your message…",
         "submit": "Send my reply",
@@ -1631,9 +1630,8 @@
         "partyOptionPartner": "Me + my partner",
         "partnerNameLabel": "Your partner's first and last name",
         "partnerNamePlaceholder": "First and last name",
-        "dietaryLabel": "Dietary requirements",
-        "messageLabel": "Further details",
-        "messagePlaceholder": "An allergy or particular diet…",
+        "messageLabel": "A little note",
+        "messagePlaceholder": "Your message…",
         "submit": "Send my reply",
         "submitPending": "Sending…"
       },
@@ -1712,7 +1710,6 @@
         "childrenOptionCount": "{count, plural, one {# child} other {# children}}",
         "childFieldLabel": "Child {index}",
         "childNamePlaceholder": "First and last name",
-        "dietaryLabel": "Dietary requirements",
         "thanksName": "Thank you, {name}! Your reply has been recorded."
       },
       "faq": {
@@ -1906,7 +1903,6 @@
         "step1": "Your answer",
         "step2": "Who is coming with you?",
         "step3": "A few words",
-        "stepMeal": "Your meal",
         "attendYes": "With joy, I’ll be there",
         "attendNo": "I won’t be able to come",
         "thanksEyebrow": "Reply sent",
@@ -1925,7 +1921,6 @@
         "childrenOptionCount": "{count, plural, one {# child} other {# children}}",
         "childFieldLabel": "Child {index}",
         "childNamePlaceholder": "First and last name",
-        "dietaryLabel": "Allergies or dietary needs",
         "messageLabel": "A little note for us",
         "optional": "optional",
         "messagePlaceholder": "A detail, a question, a few words…",
@@ -2081,7 +2076,6 @@
         "childrenNone": "None",
         "childrenCount": "{count, plural, one {# child} other {# children}}",
         "childLabel": "Child {index}",
-        "dietaryLabel": "Dietary requirements",
         "messageLabel": "A few words",
         "messagePlaceholder": "Your message…",
         "submit": "Send my reply",
@@ -2141,6 +2135,15 @@
     },
     "opening": {
       "skip": "Skip the introduction"
+    },
+    "diet": {
+      "legendSelf": "Diet and allergies",
+      "legendPartner": "Your partner’s diet and allergies",
+      "legendChild": "Child {index}’s diet and allergies",
+      "other": "Other",
+      "otherLabel": "Describe the diet or allergy",
+      "otherPlaceholder": "Please specify (e.g. peanuts)",
+      "none": "None"
     }
   }
 }

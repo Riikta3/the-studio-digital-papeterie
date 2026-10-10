@@ -1,10 +1,13 @@
 "use client";
 
-import { type FormEvent, useState } from "react";
+import { type FormEvent, Fragment, useState } from "react";
 
-import { type RsvpCompanion, submitRsvp } from "@/actions/invitation-submissions";
+import { submitRsvp } from "@/actions/invitation-submissions";
 import { useLocale, useTranslations } from "next-intl";
 
+import { GuestDiet, useDietLegend } from "../../GuestDiet";
+import { DIET_PARTNER, DIET_SELF, dietChildKey, dietChoices } from "../../guest-diet";
+import { MAX_CHILDREN, buildRsvpSubmission } from "../../guest-rsvp-payload";
 import { formatFrenchDate } from "../../format";
 import { Lines, slot } from "../../text";
 import type { InvitationData } from "../../types";
@@ -24,10 +27,6 @@ import type { InvitationData } from "../../types";
  * itself also rejects a missing or malformed id, so the demo path is closed on
  * both sides.
  */
-
-/** A guest cannot bring more than this many children. Well under the server's
- *  20-participant cap, which still bounds the payload whatever is sent. */
-const MAX_CHILDREN = 4;
 
 export function RsvpSection({ data }: { data: InvitationData }) {
   const t = useTranslations("Invitation.ciaoAmore.rsvp");
@@ -52,6 +51,15 @@ export function RsvpSection({ data }: { data: InvitationData }) {
   // The party questions only make sense for a guest who is coming. Before any
   // answer is given (`null`) they stay hidden, so the form opens short.
   const showParty = attending === true;
+  // The couple's diet list (editor, RSVP tab); empty when they did not ask.
+  const diets = dietChoices(rsvp?.dietaryOptions);
+  const askDiets = showParty && diets.length > 0;
+  const dietLegend = useDietLegend();
+  // The closed diet line is drawn as this form's selects are.
+  const dietField = {
+    fieldClassName: "rsvp-field rsvp-field-select",
+    chevron: <span className="rsvp-chevron" aria-hidden="true" />,
+  };
 
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -66,65 +74,21 @@ export function RsvpSection({ data }: { data: InvitationData }) {
       return;
     }
 
-    // "Prénom Nom" comes in as one field here; the table stores both the joined
-    // name and the split halves the dashboard edits.
-    const fullName = String(form.get("fullName") ?? "").trim();
-    const [firstName, ...rest] = fullName.split(" ");
-    const lastName = rest.join(" ");
-
-    const partnerName = String(form.get("partnerName") ?? "").trim();
-    const [partnerFirst, ...partnerRest] = partnerName.split(" ");
-
-    const isAttending = form.get("attendance") === "yes";
-
-    // Every companion — partner and children alike — goes into the same list.
-    // `guest_count` is derived server-side from its length (see
-    // `invitation-submissions.ts`), so a child left out here is a head the
-    // caterer never counts.
-    const companions: RsvpCompanion[] = [];
-
-    if (isAttending && partyMode === "partner" && partnerName) {
-      companions.push({ firstName: partnerFirst ?? "", lastName: partnerRest.join(" ") });
-    }
-
-    // Children are only collected when the couple allows them and the guest is
-    // coming; both conditions also gate the fields, so nothing is read here
-    // that was not rendered.
-    //
-    // A child is a nominal participant exactly like the partner — a first name
-    // and nothing more. No age, no date of birth, no age bracket: the less
-    // personal data collected about a minor, the better, and the dashboard's
-    // `Participant` has nowhere durable to keep it anyway.
-    if (isAttending && allowChildren) {
-      for (let index = 0; index < childCount; index += 1) {
-        const childName = String(form.get(`childName-${index}`) ?? "").trim();
-        if (!childName) continue;
-        const [childFirst, ...childRest] = childName.split(" ");
-        companions.push({
-          firstName: childFirst ?? "",
-          // No surname typed: children usually share the guest's, so fall back
-          // to it rather than storing a half-empty row in the dashboard.
-          lastName: childRest.length ? childRest.join(" ") : lastName,
-          // `"child"` is the exact value the dashboard's relation picker uses
-          // (AddHouseholdDialog → "Enfant"), so a child declared here lands as
-          // a first-class participant with no mapping step.
-          relationType: "child",
-        });
-      }
-    }
-
     setPending(true);
     setError(null);
 
-    const result = await submitRsvp({
-      weddingId,
-      firstName: firstName ?? "",
-      lastName,
-      attendance: isAttending,
-      dietary: String(form.get("dietary") ?? ""),
-      message: String(form.get("message") ?? ""),
-      companions,
-    });
+    // Names, partner, children and each person's diets: the shared builder
+    // (`guest-rsvp-payload.ts`), which this form follows field for field.
+    const result = await submitRsvp(
+      buildRsvpSubmission({
+        weddingId,
+        form,
+        attending: form.get("attendance") === "yes",
+        partyMode,
+        childCount,
+        allowChildren,
+      }),
+    );
 
     setPending(false);
 
@@ -188,6 +152,8 @@ export function RsvpSection({ data }: { data: InvitationData }) {
               </label>
             </fieldset>
 
+            {askDiets ? <GuestDiet person={DIET_SELF} options={diets} label={dietLegend.self} {...dietField} /> : null}
+
             {showParty && rsvp?.allowPartner ? (
               <>
                 <label>
@@ -213,6 +179,9 @@ export function RsvpSection({ data }: { data: InvitationData }) {
                       <input required name="partnerName" placeholder={t("partnerNamePlaceholder")} />
                     </span>
                   </label>
+                ) : null}
+                {partyMode === "partner" && askDiets ? (
+                  <GuestDiet person={DIET_PARTNER} options={diets} label={dietLegend.partner} {...dietField} />
                 ) : null}
               </>
             ) : null}
@@ -257,33 +226,29 @@ export function RsvpSection({ data }: { data: InvitationData }) {
                     so it picks up the generated `> form > label` grid and the
                     `.rsvp-field` wrapper's focus behaviour with no new CSS. */}
                 {Array.from({ length: childCount }, (_, index) => (
-                  <label className="child-field" key={index}>
-                    {t("childFieldLabel", { index: index + 1 })}
-                    <span className="rsvp-field">
-                      <input
-                        required
-                        name={`childName-${index}`}
-                        placeholder={t("childNamePlaceholder")}
-                        autoComplete="off"
+                  <Fragment key={index}>
+                    <label className="child-field">
+                      {t("childFieldLabel", { index: index + 1 })}
+                      <span className="rsvp-field">
+                        <input
+                          required
+                          name={`childName-${index}`}
+                          placeholder={t("childNamePlaceholder")}
+                          autoComplete="off"
+                        />
+                      </span>
+                    </label>
+                    {askDiets ? (
+                      <GuestDiet
+                        person={dietChildKey(index)}
+                        options={diets}
+                        label={dietLegend.child(index + 1)}
+                        {...dietField}
                       />
-                    </span>
-                  </label>
+                    ) : null}
+                  </Fragment>
                 ))}
               </>
-            ) : null}
-
-            {rsvp?.dietaryOptions?.length ? (
-              <label>
-                {t("dietaryLabel")}
-                <span className="rsvp-field rsvp-field-select">
-                  <select name="dietary">
-                    {rsvp.dietaryOptions.map((option) => (
-                      <option key={option}>{option}</option>
-                    ))}
-                  </select>
-                  <span className="rsvp-chevron" aria-hidden="true" />
-                </span>
-              </label>
             ) : null}
 
             {rsvp?.collectMessage ? (

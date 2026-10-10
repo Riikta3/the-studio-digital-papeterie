@@ -1,5 +1,6 @@
 import { demoDate, demoDayAfter, demoStartsAt } from "../demo-date";
 import type { InvitationData } from "../types";
+import { DIETARY_OPTIONS_FR } from "@shared/data/dietary-options";
 
 /**
  * Demo content for the "Cabo Verde" theme — the designer's own showcase wedding,
@@ -222,7 +223,7 @@ export const CABO_VERDE_DEMO: InvitationData = {
   rsvp: {
     allowPartner: true,
     allowChildren: true,
-    dietaryOptions: ["Aucun", "Végétarien", "Vegan", "Sans gluten"],
+    dietaryOptions: [...DIETARY_OPTIONS_FR],
     collectMessage: true,
   },
 

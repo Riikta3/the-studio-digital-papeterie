@@ -1,5 +1,7 @@
 import type { RsvpCompanion, RsvpSubmission } from "@/actions/invitation-submissions";
 
+import { DIET_PARTNER, DIET_SELF, dietChildKey, readDiet } from "./guest-diet";
+
 /**
  * What a guest's answer becomes when it is sent.
  *
@@ -9,8 +11,10 @@ import type { RsvpCompanion, RsvpSubmission } from "@/actions/invitation-submiss
  *
  * ## Form field names are a contract
  *
- * `fullName`, `partnerName`, `childName-<index>`, `dietary`, `message`. A theme
- * that renames one silently sends an empty value.
+ * `fullName`, `partnerName`, `childName-<index>`, `message`, and the diet fields
+ * of each person (`guest-diet.ts`). A theme that renames one silently sends an
+ * empty value. A lone `dietary` field is still read for the guest, for a form
+ * drawn before diets were asked per person.
  */
 
 /** A guest cannot bring more than this many children. Well under the server's
@@ -19,7 +23,7 @@ export const MAX_CHILDREN = 4;
 
 export type RsvpPayloadInput = {
   weddingId: string;
-  form: Pick<FormData, "get">;
+  form: Pick<FormData, "get" | "getAll">;
   /** Whether the guest answered yes. Companions are sent only for a yes. */
   attending: boolean;
   partyMode: "solo" | "partner";
@@ -31,6 +35,12 @@ export type RsvpPayloadInput = {
 function field(form: Pick<FormData, "get">, name: string): string {
   const value = form.get(name);
   return typeof value === "string" ? value.trim() : "";
+}
+
+/** A companion's diet, only when they have one: no empty key on the wire. */
+function dietOf(form: Pick<FormData, "get" | "getAll">, key: string): { dietary?: string } {
+  const dietary = readDiet(form, key);
+  return dietary ? { dietary } : {};
 }
 
 /** "Camille Durand-Martin" → ["Camille", "Durand-Martin"]. */
@@ -51,7 +61,7 @@ export function buildRsvpSubmission(input: RsvpPayloadInput): RsvpSubmission {
   const partnerName = field(form, "partnerName");
   if (attending && partyMode === "partner" && partnerName) {
     const [first, last] = splitName(partnerName);
-    companions.push({ firstName: first, lastName: last });
+    companions.push({ firstName: first, lastName: last, ...dietOf(form, DIET_PARTNER) });
   }
 
   // A child is a nominal participant like the partner — a first name and
@@ -69,6 +79,7 @@ export function buildRsvpSubmission(input: RsvpPayloadInput): RsvpSubmission {
         lastName: last || lastName,
         // The exact value the dashboard's relation picker uses.
         relationType: "child",
+        ...dietOf(form, dietChildKey(index)),
       });
     }
   }
@@ -78,7 +89,7 @@ export function buildRsvpSubmission(input: RsvpPayloadInput): RsvpSubmission {
     firstName,
     lastName,
     attendance: attending,
-    dietary: field(form, "dietary"),
+    dietary: (attending ? readDiet(form, DIET_SELF) : "") || field(form, "dietary"),
     message: field(form, "message"),
     companions,
   };

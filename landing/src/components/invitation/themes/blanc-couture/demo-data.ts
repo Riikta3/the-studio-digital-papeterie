@@ -1,5 +1,6 @@
 import { demoDate, demoLabel, demoStartsAt } from "../demo-date";
 import type { InvitationData } from "../types";
+import { DIETARY_OPTIONS_FR } from "@shared/data/dietary-options";
 
 /**
  * Demo content for the "Blanc Couture" theme — Victoria & Gabriel, Villa
@@ -117,6 +118,8 @@ export const BLANC_COUTURE_DEMO: InvitationData = {
 
   rsvp: {
     allowPartner: true,
+    // The studio's default list, as a couple gets it when they ask for diets.
+    dietaryOptions: [...DIETARY_OPTIONS_FR],
     collectMessage: false,
     collectWelcomeDinner: true,
     collectBrunch: true,

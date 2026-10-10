@@ -1264,7 +1264,6 @@
         "childrenOptionNone": "Keine",
         "childFieldLabel": "Kind {index}",
         "childNamePlaceholder": "Vor- und Nachname",
-        "dietaryLabel": "Ernährungsbesonderheiten",
         "messageLabel": "Ein paar Worte",
         "messagePlaceholder": "Ihre Nachricht…",
         "submit": "Antwort senden",
@@ -1418,9 +1417,8 @@
         "partyOptionPartner": "Ich + meine Begleitung",
         "partnerNameLabel": "Vor- und Nachname Ihrer Begleitung",
         "partnerNamePlaceholder": "Vor- und Nachname",
-        "dietaryLabel": "Ernährungswünsche",
-        "messageLabel": "Anmerkungen",
-        "messagePlaceholder": "Allergie oder besondere Ernährung…",
+        "messageLabel": "Ein paar Worte",
+        "messagePlaceholder": "Ihre Nachricht…",
         "submit": "Antwort senden",
         "submitPending": "Wird gesendet…"
       },
@@ -1499,7 +1497,6 @@
         "childrenOptionCount": "{count, plural, one {# Kind} other {# Kinder}}",
         "childFieldLabel": "Kind {index}",
         "childNamePlaceholder": "Vor- und Nachname",
-        "dietaryLabel": "Ernährungsbesonderheiten",
         "thanksName": "Danke, {name}! Ihre Antwort wurde erfasst."
       },
       "faq": {
@@ -1693,7 +1690,6 @@
         "step1": "Ihre Antwort",
         "step2": "Wer begleitet Sie?",
         "step3": "Ein paar Worte",
-        "stepMeal": "Ihr Essen",
         "attendYes": "Mit Freude, ich bin dabei",
         "attendNo": "Ich kann leider nicht kommen",
         "thanksEyebrow": "Antwort gesendet",
@@ -1712,7 +1708,6 @@
         "childrenOptionCount": "{count, plural, one {# Kind} other {# Kinder}}",
         "childFieldLabel": "Kind {index}",
         "childNamePlaceholder": "Vor- und Nachname",
-        "dietaryLabel": "Allergien oder Ernährungsweise",
         "messageLabel": "Ein paar Worte für uns",
         "optional": "freiwillig",
         "messagePlaceholder": "Ein Hinweis, eine Frage, ein paar Worte…",
@@ -1868,7 +1863,6 @@
         "childrenNone": "Keine",
         "childrenCount": "{count, plural, one {# Kind} other {# Kinder}}",
         "childLabel": "Kind {index}",
-        "dietaryLabel": "Ernährungsbesonderheiten",
         "messageLabel": "Ein paar Worte",
         "messagePlaceholder": "Ihre Nachricht…",
         "submit": "Antwort senden",
@@ -1928,6 +1922,15 @@
     },
     "opening": {
       "skip": "Intro überspringen"
+    },
+    "diet": {
+      "legendSelf": "Ernährung und Allergien",
+      "legendPartner": "Ernährung und Allergien Ihrer Begleitung",
+      "legendChild": "Ernährung und Allergien von Kind {index}",
+      "other": "Sonstiges",
+      "otherLabel": "Ernährungsweise oder Allergie angeben",
+      "otherPlaceholder": "Bitte angeben (z. B. Erdnüsse)",
+      "none": "Keine"
     }
   }
 }

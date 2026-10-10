@@ -42,6 +42,7 @@ const T = {
       companion_first: (n: number) => `Accompagnant ${n} Prénom`,
       companion_last: (n: number) => `Accompagnant ${n} Nom`,
       companion_relation: (n: number) => `Accompagnant ${n} Lien`,
+      companion_dietary: (n: number) => `Accompagnant ${n} Régime / Allergies`,
     },
     sheets: { responses: "Réponses RSVP", summary: "Récap" },
   },
@@ -76,6 +77,7 @@ const T = {
       companion_first: (n: number) => `Companion ${n} First Name`,
       companion_last: (n: number) => `Companion ${n} Last Name`,
       companion_relation: (n: number) => `Companion ${n} Relation`,
+      companion_dietary: (n: number) => `Companion ${n} Dietary / Allergies`,
     },
     sheets: { responses: "RSVP Responses", summary: "Summary" },
   },
@@ -197,6 +199,9 @@ export async function exportRsvpToExcel(
     workbook.creator = "The Studio Papeterie Digital";
     workbook.created = new Date();
 
+    // First name, last name, relation, diet — per companion, in this order.
+    const COMPANION_COLUMNS = 4;
+
     // Max companions across all responses
     const maxCompanions = responses.reduce((max, r) => {
       const count = Array.isArray(r.participants) ? r.participants.length : 0;
@@ -290,6 +295,11 @@ export async function exportRsvpToExcel(
           key: `comp_${i}_relation`,
           width: 20,
         } as ExcelJS.Column,
+        {
+          header: t.headers.companion_dietary(i),
+          key: `comp_${i}_dietary`,
+          width: 26,
+        } as ExcelJS.Column,
       );
     }
 
@@ -325,6 +335,7 @@ export async function exportRsvpToExcel(
             t.relations[p.relation_type as keyof typeof t.relations] ||
             p.relation_type ||
             "";
+          row[`comp_${n}_dietary`] = p.dietary || "";
         });
       }
 
@@ -335,8 +346,8 @@ export async function exportRsvpToExcel(
 
     // Light color for companion header cells
     for (let i = 1; i <= maxCompanions; i++) {
-      const colOffset = baseColumns.length + (i - 1) * 3;
-      for (let c = 1; c <= 3; c++) {
+      const colOffset = baseColumns.length + (i - 1) * COMPANION_COLUMNS;
+      for (let c = 1; c <= COMPANION_COLUMNS; c++) {
         const cell = responsesSheet.getRow(1).getCell(colOffset + c);
         cell.fill = {
           type: "pattern",
