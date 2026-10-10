@@ -686,16 +686,8 @@
       "accommodation": "住宿",
       "gallery": "照片相册"
     },
-    "openingStyleTitle": "开启样式",
-    "openingStyleSubtitle": "选择打开请柬时播放的动画。",
-    "openingStyles": {
-      "envelope": "信封",
-      "door": "门",
-      "curtains": "窗帘"
-    },
     "summaryTitle": "您的选择",
     "summaryModules": "已启用模块",
-    "summaryOpeningStyle": "所选动画",
     "summaryTheme": "主题",
     "validateButton": "确认我的请柬",
     "saveButton": "保存并稍后继续",
@@ -1932,6 +1924,9 @@
     },
     "music": {
       "label": "音乐"
+    },
+    "opening": {
+      "skip": "跳过开场"
     }
   }
 }

@@ -686,16 +686,8 @@
       "accommodation": "Alloggi",
       "gallery": "Galleria foto"
     },
-    "openingStyleTitle": "Stile di apertura",
-    "openingStyleSubtitle": "Scegli l'animazione che si attiva all'apertura del tuo invito.",
-    "openingStyles": {
-      "envelope": "Busta",
-      "door": "Porta",
-      "curtains": "Tende"
-    },
     "summaryTitle": "La tua selezione",
     "summaryModules": "Moduli attivi",
-    "summaryOpeningStyle": "Animazione scelta",
     "summaryTheme": "Tema",
     "validateButton": "Conferma il mio invito",
     "saveButton": "Salva e continua più tardi",
@@ -1932,6 +1924,9 @@
     },
     "music": {
       "label": "Musica"
+    },
+    "opening": {
+      "skip": "Salta l’introduzione"
     }
   }
 }

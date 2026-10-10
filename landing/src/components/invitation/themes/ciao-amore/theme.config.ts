@@ -41,6 +41,13 @@ export const ciaoAmoreTheme: ThemeManifest = {
   accentColor: "#566247",
   cover: "/themes/ciao-amore/hero-arch.webp",
 
+  // The designer's opening film (the lemon seal), played before the page.
+  opening: {
+    video: "/themes/ciao-amore/opening.mp4",
+    poster: "/themes/ciao-amore/opening-poster.webp",
+    color: "#b8b898",
+  },
+
   scopeClass: "theme-ciao-amore",
   fontVars: ciaoAmoreFontVars,
 

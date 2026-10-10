@@ -686,16 +686,8 @@
       "accommodation": "الإقامة",
       "gallery": "معرض الصور"
     },
-    "openingStyleTitle": "نمط الفتح",
-    "openingStyleSubtitle": "اختر الرسوم المتحركة التي تظهر عند فتح دعوتك.",
-    "openingStyles": {
-      "envelope": "ظرف",
-      "door": "باب",
-      "curtains": "ستائر"
-    },
     "summaryTitle": "اختيارك",
     "summaryModules": "الوحدات النشطة",
-    "summaryOpeningStyle": "الرسوم المختارة",
     "summaryTheme": "السمة",
     "validateButton": "تأكيد دعوتي",
     "saveButton": "حفظ والمتابعة لاحقًا",
@@ -1932,6 +1924,9 @@
     },
     "music": {
       "label": "الموسيقى"
+    },
+    "opening": {
+      "skip": "تخطّي المقدّمة"
     }
   }
 }

@@ -42,6 +42,13 @@ export const belleRiveTheme: ThemeManifest = {
   accentColor: "#a9906e",
   cover: "/themes/belle-rive/domaine.webp",
 
+  // The designer's opening film (ribbon and wreath seal over the painted landscape), played before the page.
+  opening: {
+    video: "/themes/belle-rive/opening.mp4",
+    poster: "/themes/belle-rive/opening-poster.webp",
+    color: "#d8d8c8",
+  },
+
   scopeClass: "theme-belle-rive",
   fontVars: belleRiveFontVars,
 

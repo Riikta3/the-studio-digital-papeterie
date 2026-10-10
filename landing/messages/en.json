@@ -900,16 +900,8 @@
       "accommodation": "Accommodation",
       "gallery": "Photo gallery"
     },
-    "openingStyleTitle": "Opening style",
-    "openingStyleSubtitle": "Choose the animation that plays when your invitation opens — a letter unfolds to reveal your invite.",
-    "openingStyles": {
-      "envelope": "Envelope",
-      "door": "Door",
-      "curtains": "Curtains"
-    },
     "summaryTitle": "Your selection",
     "summaryModules": "Active modules",
-    "summaryOpeningStyle": "Chosen animation",
     "summaryTheme": "Theme",
     "validateButton": "Confirm my invitation",
     "saveButton": "Save and continue later",
@@ -2146,6 +2138,9 @@
     },
     "music": {
       "label": "Music"
+    },
+    "opening": {
+      "skip": "Skip the introduction"
     }
   }
 }

@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 
 import { DemoLinkGuard } from "@/components/invitation/DemoLinkGuard";
 import { InvitationMusic } from "@/components/invitation/InvitationMusic";
+import { OpeningIntro } from "@/components/invitation/OpeningIntro";
 import { AtelierBar } from "@/components/invitation/atelier/AtelierBar";
 import { atelierEnabled, atelierThemes } from "@/components/invitation/atelier/atelier";
 import { demoDataFor } from "@/components/invitation/themes/fixtures";
@@ -84,6 +85,10 @@ export default async function ThemeDemoPage({
   );
   return (
     <>
+      {/* The theme's opening film, as a guest sees it — never over the studio's workshop. */}
+      {theme.opening && atelier !== "1" ? (
+        <OpeningIntro {...theme.opening} storageKey={`opening:demo:${theme.id}`} />
+      ) : null}
       {/* First in the DOM, though fixed on screen: a keyboard or screen-reader
           user reaches the mute button before the whole invitation. */}
       {music ? (
