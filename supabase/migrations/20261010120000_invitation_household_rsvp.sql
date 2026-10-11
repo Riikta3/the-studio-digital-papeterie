@@ -183,9 +183,12 @@ comment on function public.find_invitation_household(uuid, text, text) is
 
 -- ── 2. Record the household's answers ─────────────────────────────────────
 --
--- `p_answers` is `[{id, status}]` with status in confirmed/declined/pending,
--- one entry for EVERY member of the household: an answer that leaves someone
--- out is refused, which is the "nobody forgotten" rule the form enforces.
+-- `p_answers` is `[{id, status, dietary?}]` with status in
+-- confirmed/declined/pending, one entry for EVERY member of the household: an
+-- answer that leaves someone out is refused, which is the "nobody forgotten"
+-- rule the form enforces. `dietary` is that member's diets and allergies as
+-- one line (« Sans gluten, arachides »), sent only when the couple asks for
+-- diets; an empty string clears it.
 --
 -- `p_full_name` must still match a member of the household: the caller proves
 -- they went through the lookup, and a household id alone (which is not secret
@@ -196,7 +199,6 @@ create or replace function public.submit_invitation_household_rsvp(
   p_household_id uuid,
   p_full_name text,
   p_answers jsonb,
-  p_dietary text,
   p_message text,
   p_bucket text
 )
@@ -215,7 +217,6 @@ declare
   v_lead record;
   v_participants jsonb;
   v_attendance boolean;
-  v_dietary text := nullif(left(trim(coalesce(p_dietary, '')), 200), '');
   v_message text := nullif(left(trim(coalesce(p_message, '')), 1000), '');
 begin
   if p_wedding_id is null or p_household_id is null or jsonb_typeof(p_answers) <> 'array' then
@@ -263,17 +264,17 @@ begin
   end if;
 
   update public.guests g
-  set status = a->>'status'
+  set
+    status = a->>'status',
+    dietary_requirements = case
+      when a ? 'dietary' then nullif(left(trim(a->>'dietary'), 200), '')
+      else g.dietary_requirements
+    end
   from jsonb_array_elements(p_answers) a
   where g.id::text = a->>'id'
     and g.household_id = p_household_id
     and g.wedding_id = p_wedding_id
     and a->>'status' in ('confirmed', 'declined', 'pending');
-
-  -- The form asks one diet for the whole answer; it belongs to whoever typed it.
-  if v_dietary is not null then
-    update public.guests set dietary_requirements = v_dietary where id = v_respondent;
-  end if;
 
   v_status := public.household_status_from_guests(p_household_id);
 
@@ -287,14 +288,14 @@ begin
   -- "1 respondent + participants" for an answer that is coming, so the lead is
   -- the respondent when they come, otherwise the first member who does; the
   -- participants are the other members who come.
-  select g.id, g.first_name, g.last_name into v_lead
+  select g.id, g.first_name, g.last_name, g.dietary_requirements into v_lead
   from public.guests g
   where g.household_id = p_household_id and g.status = 'confirmed'
   order by (g.id = v_respondent) desc, coalesce(g.is_child, false), g.created_at
   limit 1;
 
   if v_lead.id is null then
-    select g.id, g.first_name, g.last_name into v_lead
+    select g.id, g.first_name, g.last_name, g.dietary_requirements into v_lead
     from public.guests g where g.id = v_respondent;
   end if;
 
@@ -302,7 +303,9 @@ begin
     jsonb_strip_nulls(jsonb_build_object(
       'first_name', g.first_name,
       'last_name', g.last_name,
-      'relation_type', case when g.is_child then 'child' end
+      'relation_type', case when g.is_child then 'child' end,
+      -- Per person, as the invitation's free answers carry it.
+      'dietary', g.dietary_requirements
     ))
     order by coalesce(g.is_child, false), g.created_at
   ), '[]'::jsonb) into v_participants
@@ -324,7 +327,7 @@ begin
   )
   values (
     p_wedding_id, p_household_id, v_household_name, v_lead.first_name, v_lead.last_name,
-    v_attendance, jsonb_array_length(v_participants), v_participants, v_dietary, v_message
+    v_attendance, jsonb_array_length(v_participants), v_participants, v_lead.dietary_requirements, v_message
   )
   on conflict (household_id) where household_id is not null do update
   set
@@ -334,7 +337,7 @@ begin
     attendance = excluded.attendance,
     guest_count = excluded.guest_count,
     participants = excluded.participants,
-    dietary = coalesce(excluded.dietary, rsvp_responses.dietary),
+    dietary = excluded.dietary,
     message = coalesce(excluded.message, rsvp_responses.message),
     submitted_at = timezone('utc'::text, now());
 
@@ -342,14 +345,14 @@ begin
 end;
 $$;
 
-comment on function public.submit_invitation_household_rsvp(uuid, uuid, text, jsonb, text, text, text) is
+comment on function public.submit_invitation_household_rsvp(uuid, uuid, text, jsonb, text, text) is
   'Security-definer RPC recording a household''s RSVP from the invitation. '
   'Requires the typed name to match a member, an answer for every member, '
   'derives the household status, and keeps one rsvp_responses row per '
   'household. Rate-limited.';
 
 grant execute on function public.find_invitation_household(uuid, text, text) to anon, authenticated;
-grant execute on function public.submit_invitation_household_rsvp(uuid, uuid, text, jsonb, text, text, text) to anon, authenticated;
+grant execute on function public.submit_invitation_household_rsvp(uuid, uuid, text, jsonb, text, text) to anon, authenticated;
 
 -- ── 3. The dashboard's /rsvp page: derive the status, do not assume it ─────
 --

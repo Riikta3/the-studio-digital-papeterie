@@ -10,6 +10,8 @@ import {
 } from "@/actions/invitation-household";
 import type { SubmissionResult } from "@/actions/invitation-submissions";
 
+import { readDiet } from "./guest-diet";
+
 /**
  * The guest-list half of a theme's RSVP form.
  *
@@ -37,6 +39,17 @@ export type HouseholdSubmitOutcome = "fallback" | "shown" | SubmissionResult;
 /** The radio group name of one member — the contract with `HouseholdMembers`. */
 export function memberFieldName(guestId: string): string {
   return `member-${guestId}`;
+}
+
+/** The `guest-diet.ts` person key of one member: `diet-member-<id>`, `dietOther-member-<id>`. */
+export function memberDietKey(guestId: string): string {
+  return `member-${guestId}`;
+}
+
+
+function dietOf(form: Pick<FormData, "get" | "getAll">, guestId: string): { dietary?: string } {
+  const dietary = readDiet(form, memberDietKey(guestId));
+  return dietary ? { dietary } : {};
 }
 
 function nameKey(value: string): string {
@@ -74,7 +87,7 @@ export function useHouseholdRsvp(weddingId: string | undefined) {
   }
 
   async function submit(
-    form: Pick<FormData, "get">,
+    form: Pick<FormData, "get" | "getAll">,
     /** For a theme that folds extra answers into the message. */
     overrides?: { message?: string },
   ): Promise<HouseholdSubmitOutcome> {
@@ -96,6 +109,9 @@ export function useHouseholdRsvp(weddingId: string | undefined) {
         status: (value === "confirmed" || value === "declined" || value === "pending"
           ? value
           : null) as HouseholdMemberStatus | null,
+        // Only what was ticked or typed: a member who leaves it empty keeps the
+        // diet already on the list (another member may have answered first).
+        ...dietOf(form, member.id),
       };
     });
 
@@ -109,8 +125,7 @@ export function useHouseholdRsvp(weddingId: string | undefined) {
       weddingId,
       householdId: household.id,
       fullName,
-      answers: answers as { guestId: string; status: HouseholdMemberStatus }[],
-      dietary: String(form.get("dietary") ?? ""),
+      answers: answers as { guestId: string; status: HouseholdMemberStatus; dietary?: string }[],
       message: overrides?.message ?? String(form.get("message") ?? ""),
     });
   }

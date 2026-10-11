@@ -1267,7 +1267,6 @@
         "childrenOptionNone": "无",
         "childFieldLabel": "孩子 {index}",
         "childNamePlaceholder": "姓名",
-        "dietaryLabel": "饮食禁忌",
         "messageLabel": "留言",
         "messagePlaceholder": "您的留言…",
         "submit": "提交回复",
@@ -1421,9 +1420,8 @@
         "partyOptionPartner": "我与我的伴侣",
         "partnerNameLabel": "您伴侣的姓名",
         "partnerNamePlaceholder": "姓与名",
-        "dietaryLabel": "饮食禁忌",
-        "messageLabel": "补充说明",
-        "messagePlaceholder": "过敏或特殊饮食…",
+        "messageLabel": "留言",
+        "messagePlaceholder": "您的留言…",
         "submit": "提交我的回复",
         "submitPending": "提交中…"
       },
@@ -1502,7 +1500,6 @@
         "childrenOptionCount": "{count, plural, other {# 位孩子}}",
         "childFieldLabel": "孩子 {index}",
         "childNamePlaceholder": "姓名",
-        "dietaryLabel": "饮食禁忌",
         "thanksName": "谢谢您，{name}！您的回复已成功提交。"
       },
       "faq": {
@@ -1696,7 +1693,6 @@
         "step1": "您的回复",
         "step2": "与谁同行？",
         "step3": "留言",
-        "stepMeal": "您的餐食",
         "attendYes": "非常乐意，我会到场",
         "attendNo": "很遗憾，我无法出席",
         "thanksEyebrow": "回复已发送",
@@ -1715,7 +1711,6 @@
         "childrenOptionCount": "{count, plural, other {# 位孩子}}",
         "childFieldLabel": "孩子 {index}",
         "childNamePlaceholder": "姓名",
-        "dietaryLabel": "过敏或饮食要求",
         "messageLabel": "给我们的留言",
         "optional": "选填",
         "messagePlaceholder": "补充说明、问题，或几句话…",
@@ -1871,7 +1866,6 @@
         "childrenNone": "无",
         "childrenCount": "{count, plural, other {# 位孩子}}",
         "childLabel": "孩子 {index}",
-        "dietaryLabel": "饮食禁忌",
         "messageLabel": "留言",
         "messagePlaceholder": "您的留言…",
         "submit": "提交回复",
@@ -1932,13 +1926,23 @@
     "opening": {
       "skip": "跳过开场"
     },
+    "diet": {
+      "legendSelf": "饮食与过敏",
+      "legendPartner": "同伴的饮食与过敏",
+      "legendChild": "孩子 {index} 的饮食与过敏",
+      "other": "其他",
+      "otherLabel": "请说明饮食要求或过敏",
+      "otherPlaceholder": "请说明（如：花生）",
+      "none": "无"
+    },
     "household": {
       "legend": "您的家庭——每人一个答复",
       "alreadyAnswered": "您的家庭已于 {date} 回复。您可以在下方修改答复。",
       "present": "出席",
       "absent": "不出席",
       "unsure": "尚未确定",
-      "missing": "请为每个人选择答复。"
+      "missing": "请为每个人选择答复。",
+      "dietOf": "{name} 的饮食与过敏"
     }
   }
 }

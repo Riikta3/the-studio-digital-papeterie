@@ -1,6 +1,7 @@
 import { demoDate, demoDayAfter, demoStartsAt } from "../demo-date";
 import { CHILDREN_FAQ_ID } from "../faq";
 import type { InvitationData } from "../types";
+import { DIETARY_OPTIONS_FR } from "@shared/data/dietary-options";
 
 /**
  * The showcase wedding of "Maré Alta": the designer's own, kept whole.
@@ -143,7 +144,7 @@ export const MARE_ALTA_DEMO: InvitationData = {
   rsvp: {
     allowPartner: true,
     allowChildren: true,
-    dietaryOptions: ["Aucun régime particulier", "Végétarien", "Vegan", "Sans gluten", "Sans lactose"],
+    dietaryOptions: [...DIETARY_OPTIONS_FR],
     collectMessage: true,
   },
   // The designer's own wording, kept for the showcase. A real wedding gets the

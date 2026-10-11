@@ -2,6 +2,7 @@ import { demoDate, demoDayAfter, demoLabel, demoStartsAt } from "../demo-date";
 import type { InvitationData } from "../types";
 
 import type { CarpoolTrip } from "./types";
+import { DIETARY_OPTIONS_FR } from "@shared/data/dietary-options";
 
 /**
  * Demo content for "Belle Rive" — Émilie & Jordy, Domaine de la Trinité.
@@ -311,18 +312,7 @@ export const BELLE_RIVE_DEMO: InvitationData = {
   rsvp: {
     allowPartner: true,
     collectMessage: true,
-    dietaryOptions: [
-      "Aucune restriction",
-      "Végétarien",
-      "Végan",
-      "Sans gluten",
-      "Sans lactose",
-      "Casher",
-      "Allergie aux crustacés",
-      "Allergie aux fruits à coque",
-      "Allergie aux arachides",
-      "Autre",
-    ],
+    dietaryOptions: [...DIETARY_OPTIONS_FR],
   },
 
   modules: [

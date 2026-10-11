@@ -1268,7 +1268,6 @@
         "childrenOptionNone": "Ninguno",
         "childFieldLabel": "Niño {index}",
         "childNamePlaceholder": "Nombre y apellidos",
-        "dietaryLabel": "Restricciones alimentarias",
         "messageLabel": "Unas palabras",
         "messagePlaceholder": "Su mensaje…",
         "submit": "Enviar mi respuesta",
@@ -1422,9 +1421,8 @@
         "partyOptionPartner": "Yo + mi pareja",
         "partnerNameLabel": "Nombre y apellidos de su pareja",
         "partnerNamePlaceholder": "Nombre y apellidos",
-        "dietaryLabel": "Restricciones alimentarias",
-        "messageLabel": "Precisiones",
-        "messagePlaceholder": "Alergia o régimen particular…",
+        "messageLabel": "Unas palabras",
+        "messagePlaceholder": "Su mensaje…",
         "submit": "Enviar mi respuesta",
         "submitPending": "Enviando…"
       },
@@ -1503,7 +1501,6 @@
         "childrenOptionCount": "{count, plural, one {# niño} other {# niños}}",
         "childFieldLabel": "Niño {index}",
         "childNamePlaceholder": "Nombre y apellidos",
-        "dietaryLabel": "Restricciones alimentarias",
         "thanksName": "¡Gracias, {name}! Su respuesta se ha registrado correctamente."
       },
       "faq": {
@@ -1697,7 +1694,6 @@
         "step1": "Su respuesta",
         "step2": "¿Con quién viene?",
         "step3": "Unas palabras",
-        "stepMeal": "Su comida",
         "attendYes": "Con alegría, allí estaré",
         "attendNo": "No podré asistir",
         "thanksEyebrow": "Respuesta enviada",
@@ -1716,7 +1712,6 @@
         "childrenOptionCount": "{count, plural, one {# niño} other {# niños}}",
         "childFieldLabel": "Niño {index}",
         "childNamePlaceholder": "Nombre y apellidos",
-        "dietaryLabel": "Alergias o dieta",
         "messageLabel": "Unas palabras para nosotros",
         "optional": "opcional",
         "messagePlaceholder": "Un detalle, una pregunta, unas palabras…",
@@ -1872,7 +1867,6 @@
         "childrenNone": "Ninguno",
         "childrenCount": "{count, plural, one {# niño} other {# niños}}",
         "childLabel": "Niño {index}",
-        "dietaryLabel": "Restricciones alimentarias",
         "messageLabel": "Unas palabras",
         "messagePlaceholder": "Su mensaje…",
         "submit": "Enviar mi respuesta",
@@ -1933,13 +1927,23 @@
     "opening": {
       "skip": "Saltar la introducción"
     },
+    "diet": {
+      "legendSelf": "Dieta y alergias",
+      "legendPartner": "Dieta y alergias de tu pareja",
+      "legendChild": "Dieta y alergias del niño {index}",
+      "other": "Otro",
+      "otherLabel": "Indica la dieta o la alergia",
+      "otherPlaceholder": "Especifica (ej. cacahuetes)",
+      "none": "Ninguna"
+    },
     "household": {
       "legend": "Su hogar: una respuesta por persona",
       "alreadyAnswered": "Su hogar ya respondió el {date}. Puede modificar las respuestas a continuación.",
       "present": "Asistirá",
       "absent": "No asistirá",
       "unsure": "Aún no lo sé",
-      "missing": "Indique una respuesta para cada persona."
+      "missing": "Indique una respuesta para cada persona.",
+      "dietOf": "Dietas y alergias de {name}"
     }
   }
 }
