@@ -1939,6 +1939,15 @@
       "otherLabel": "Indica la dieta o la alergia",
       "otherPlaceholder": "Especifica (ej. cacahuetes)",
       "none": "Ninguna"
+    },
+    "household": {
+      "legend": "Su hogar: una respuesta por persona",
+      "alreadyAnswered": "Su hogar ya respondió el {date}. Puede modificar las respuestas a continuación.",
+      "present": "Asistirá",
+      "absent": "No asistirá",
+      "unsure": "Aún no lo sé",
+      "missing": "Indique una respuesta para cada persona.",
+      "dietOf": "Dietas y alergias de {name}"
     }
   },
   "CustomDomain": {

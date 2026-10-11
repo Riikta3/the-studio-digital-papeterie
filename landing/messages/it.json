@@ -1938,6 +1938,15 @@
       "otherLabel": "Indica la dieta o l’allergia",
       "otherPlaceholder": "Specifica (es. arachidi)",
       "none": "Nessuna"
+    },
+    "household": {
+      "legend": "Il vostro nucleo — una risposta per ciascuno",
+      "alreadyAnswered": "Il vostro nucleo ha già risposto il {date}. Potete modificare le risposte qui sotto.",
+      "present": "Presente",
+      "absent": "Assente",
+      "unsure": "Non ancora sicuro/a",
+      "missing": "Indicate una risposta per ogni persona.",
+      "dietOf": "Diete e allergie di {name}"
     }
   },
   "CustomDomain": {

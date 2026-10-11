@@ -6,6 +6,7 @@ import { submitRsvp } from "@/actions/invitation-submissions";
 
 import { MAX_CHILDREN, buildRsvpSubmission } from "./guest-rsvp-payload";
 import type { InvitationData } from "./types";
+import { useHouseholdRsvp } from "./use-household-rsvp";
 
 /**
  * State and submission of a theme's RSVP form.
@@ -21,7 +22,11 @@ import type { InvitationData } from "./types";
  *   - use the field names listed in `guest-rsvp-payload.ts`;
  *   - show party questions only when `showParty` is true, the partner choice
  *     only when `allowPartner`, the children only when `allowChildren`;
- *   - show `error` (role="alert") and disable the button while `pending`.
+ *   - show `error` (role="alert") and disable the button while `pending`;
+ *   - wire `household` as `use-household-rsvp.ts` describes: the name input's
+ *     `onBlur`, and `<HouseholdMembers>` in place of its own attendance and
+ *     party questions while `household.current` is set. The submission side
+ *     is handled here.
  */
 export function useGuestRsvp(data: InvitationData) {
   const [sent, setSent] = useState(false);
@@ -33,6 +38,7 @@ export function useGuestRsvp(data: InvitationData) {
   const [attending, setAttending] = useState<boolean | null>(null);
 
   const weddingId = data.weddingId;
+  const household = useHouseholdRsvp(weddingId);
   // `settings.adults_only` arrives inverted as `allowChildren`; absent means
   // "not answered", and children are allowed unless explicitly ruled out.
   const allowChildren = data.rsvp?.allowChildren !== false;
@@ -53,6 +59,16 @@ export function useGuestRsvp(data: InvitationData) {
     const form = new FormData(event.currentTarget);
     setPending(true);
     setError(null);
+
+    // A guest of the couple's list answers for their whole household.
+    const outcome = await household.submit(form);
+    if (outcome !== "fallback") {
+      setPending(false);
+      if (outcome === "shown") return;
+      if (outcome.ok) setSent(true);
+      else setError(outcome.error);
+      return;
+    }
 
     const result = await submitRsvp(
       buildRsvpSubmission({
@@ -84,6 +100,7 @@ export function useGuestRsvp(data: InvitationData) {
     allowPartner,
     showParty,
     maxChildren: MAX_CHILDREN,
+    household,
     handleSubmit,
   };
 }

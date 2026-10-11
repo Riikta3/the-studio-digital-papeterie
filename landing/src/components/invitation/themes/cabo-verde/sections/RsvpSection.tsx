@@ -5,6 +5,7 @@ import { Fragment, useEffect, useRef } from "react";
 
 import { formatFrenchDate } from "../../format";
 import { GuestDiet, useDietLegend } from "../../GuestDiet";
+import { HouseholdMembers } from "../../HouseholdMembers";
 import { DIET_PARTNER, DIET_SELF, dietChildKey, dietChoices } from "../../guest-diet";
 import { slot } from "../../text";
 import type { InvitationData } from "../../types";
@@ -81,106 +82,112 @@ export function RsvpSection({ data }: { data: InvitationData }) {
         <form onSubmit={rsvp.handleSubmit}>
           <label>
             {t("nameLabel")}
-            <input required name="fullName" autoComplete="name" />
+            <input required name="fullName" autoComplete="name" onBlur={rsvp.household.onNameBlur} />
           </label>
 
-          <fieldset>
-            <legend>{t("attendanceLegend")}</legend>
-            <label className="choice">
-              <input
-                type="radio"
-                name="attendance"
-                value="yes"
-                required
-                onChange={() => rsvp.setAttending(true)}
-              />{" "}
-              {t("attendanceYes")}
-            </label>
-            <label className="choice">
-              <input
-                type="radio"
-                name="attendance"
-                value="no"
-                onChange={() => {
-                  // Nobody declares a partner or children after saying no.
-                  rsvp.setAttending(false);
-                  rsvp.setPartyMode("solo");
-                  rsvp.setChildCount(0);
-                }}
-              />{" "}
-              {t("attendanceNo")}
-            </label>
-          </fieldset>
-
-          {askDiets ? <GuestDiet person={DIET_SELF} options={diets} label={dietLegend.self} {...dietField} /> : null}
-
-          {rsvp.showParty && rsvp.allowPartner ? (
-            <fieldset>
-              <legend>{t("partnerLegend")}</legend>
-              <label className="choice">
-                <input
-                  type="radio"
-                  name="partner"
-                  value="yes"
-                  required
-                  onChange={() => rsvp.setPartyMode("partner")}
-                />{" "}
-                {t("partnerYes")}
-              </label>
-              <label className="choice">
-                <input type="radio" name="partner" value="no" onChange={() => rsvp.setPartyMode("solo")} />{" "}
-                {t("partnerNo")}
-              </label>
-            </fieldset>
-          ) : null}
-
-          {rsvp.showParty && rsvp.allowPartner && rsvp.partyMode === "partner" ? (
-            <label>
-              {t("partnerNameLabel")}
-              <input required name="partnerName" autoComplete="off" />
-            </label>
-          ) : null}
-
-          {rsvp.showParty && rsvp.allowPartner && rsvp.partyMode === "partner" && askDiets ? (
-            <GuestDiet person={DIET_PARTNER} options={diets} label={dietLegend.partner} {...dietField} />
-          ) : null}
-
-          {/* An adults-only wedding gets no child field at all, not a disabled one. */}
-          {rsvp.showParty && rsvp.allowChildren ? (
+          {rsvp.household.current ? (
+            <HouseholdMembers household={rsvp.household} choiceClassName="choice" diet={{ options: diets, ...dietField }} />
+          ) : (
             <>
-              <label>
-                {t("childrenLabel")}
-                <select
-                  name="childCount"
-                  value={rsvp.childCount}
-                  onChange={(event) => rsvp.setChildCount(Number(event.target.value))}
-                >
-                  <option value={0}>{t("childrenNone")}</option>
-                  {Array.from({ length: rsvp.maxChildren }, (_, index) => index + 1).map((count) => (
-                    <option key={count} value={count}>
-                      {t("childrenCount", { count })}
-                    </option>
-                  ))}
-                </select>
-              </label>
-              {Array.from({ length: rsvp.childCount }, (_, index) => (
-                <Fragment key={index}>
-                  <label>
-                    {t("childLabel", { index: index + 1 })}
-                    <input required name={`childName-${index}`} autoComplete="off" />
+              <fieldset>
+                <legend>{t("attendanceLegend")}</legend>
+                <label className="choice">
+                  <input
+                    type="radio"
+                    name="attendance"
+                    value="yes"
+                    required
+                    onChange={() => rsvp.setAttending(true)}
+                  />{" "}
+                  {t("attendanceYes")}
+                </label>
+                <label className="choice">
+                  <input
+                    type="radio"
+                    name="attendance"
+                    value="no"
+                    onChange={() => {
+                      // Nobody declares a partner or children after saying no.
+                      rsvp.setAttending(false);
+                      rsvp.setPartyMode("solo");
+                      rsvp.setChildCount(0);
+                    }}
+                  />{" "}
+                  {t("attendanceNo")}
+                </label>
+              </fieldset>
+
+              {askDiets ? <GuestDiet person={DIET_SELF} options={diets} label={dietLegend.self} {...dietField} /> : null}
+
+              {rsvp.showParty && rsvp.allowPartner ? (
+                <fieldset>
+                  <legend>{t("partnerLegend")}</legend>
+                  <label className="choice">
+                    <input
+                      type="radio"
+                      name="partner"
+                      value="yes"
+                      required
+                      onChange={() => rsvp.setPartyMode("partner")}
+                    />{" "}
+                    {t("partnerYes")}
                   </label>
-                  {askDiets ? (
-                    <GuestDiet
-                      person={dietChildKey(index)}
-                      options={diets}
-                      label={dietLegend.child(index + 1)}
-                      {...dietField}
-                    />
-                  ) : null}
-                </Fragment>
-              ))}
+                  <label className="choice">
+                    <input type="radio" name="partner" value="no" onChange={() => rsvp.setPartyMode("solo")} />{" "}
+                    {t("partnerNo")}
+                  </label>
+                </fieldset>
+              ) : null}
+
+              {rsvp.showParty && rsvp.allowPartner && rsvp.partyMode === "partner" ? (
+                <label>
+                  {t("partnerNameLabel")}
+                  <input required name="partnerName" autoComplete="off" />
+                </label>
+              ) : null}
+
+              {rsvp.showParty && rsvp.allowPartner && rsvp.partyMode === "partner" && askDiets ? (
+                <GuestDiet person={DIET_PARTNER} options={diets} label={dietLegend.partner} {...dietField} />
+              ) : null}
+
+              {/* An adults-only wedding gets no child field at all, not a disabled one. */}
+              {rsvp.showParty && rsvp.allowChildren ? (
+                <>
+                  <label>
+                    {t("childrenLabel")}
+                    <select
+                      name="childCount"
+                      value={rsvp.childCount}
+                      onChange={(event) => rsvp.setChildCount(Number(event.target.value))}
+                    >
+                      <option value={0}>{t("childrenNone")}</option>
+                      {Array.from({ length: rsvp.maxChildren }, (_, index) => index + 1).map((count) => (
+                        <option key={count} value={count}>
+                          {t("childrenCount", { count })}
+                        </option>
+                      ))}
+                    </select>
+                  </label>
+                  {Array.from({ length: rsvp.childCount }, (_, index) => (
+                    <Fragment key={index}>
+                      <label>
+                        {t("childLabel", { index: index + 1 })}
+                        <input required name={`childName-${index}`} autoComplete="off" />
+                      </label>
+                      {askDiets ? (
+                        <GuestDiet
+                          person={dietChildKey(index)}
+                          options={diets}
+                          label={dietLegend.child(index + 1)}
+                          {...dietField}
+                        />
+                      ) : null}
+                    </Fragment>
+                  ))}
+                </>
+              ) : null}
             </>
-          ) : null}
+          )}
 
           {data.rsvp?.collectMessage ? (
             <label>

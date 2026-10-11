@@ -61,7 +61,8 @@
           "all": "所有宾客",
           "rsvp": "回复情况",
           "groups": "分组",
-          "meals": "餐食"
+          "meals": "餐食",
+          "sending": "发送"
         }
       },
       "invitation": {
@@ -632,7 +633,22 @@
       "deleted": "已删除 {count} 条回复"
     },
     "dietary_other_placeholder": "其他（请注明）...",
-    "truncated_notice": "显示最近的 {shown} 条回复，共 {total} 条。预计人数仅包含这些回复；其他计数器为完整数据。"
+    "truncated_notice": "显示最近的 {shown} 条回复，共 {total} 条。预计人数仅包含这些回复；其他计数器为完整数据。",
+    "household": {
+      "title": "宾客名单中的家庭",
+      "to_link": "待关联",
+      "to_link_help": "邀请函未识别该姓名。请选择对应的家庭：回复中提到的人员将被更新。",
+      "choose": "选择家庭",
+      "suggested": "推荐",
+      "link": "关联",
+      "unlink": "取消关联",
+      "linked_toast": "回复已关联 — {count, plural, =0 {没有状态变化} other {已更新 # 人}}。",
+      "unmatched": "家庭中未找到：{names}。请在宾客名单中更新。",
+      "unlinked_toast": "回复已与家庭取消关联。",
+      "already_linked": "该家庭已有回复。请先取消关联。",
+      "link_error": "无法关联回复，请重试。",
+      "no_households": "您的宾客名单中还没有家庭。"
+    }
   },
   "Billing": {
     "title": "账单",
@@ -1915,5 +1931,72 @@
     "error_empty": "该文件为空。",
     "saved": "音乐已更新",
     "save_failed": "无法保存，请重试。"
+  },
+  "InvitationSending": {
+    "title": "发送邀请",
+    "subtitle": "通过 WhatsApp 或短信，用您自己的手机号免费向每个家庭发送请柬，然后提醒尚未回复的人。",
+    "stats": {
+      "households": "家庭",
+      "sent": "已发送邀请",
+      "answered": "已回复",
+      "to_remind": "待提醒"
+    },
+    "no_link": "您的请柬还没有公开地址：请先发布再发送邀请。",
+    "messages": {
+      "title": "您的消息",
+      "help": "自定义发送的文字。{prenoms} 会替换为家庭成员的名字，{foyer} 为家庭名称，{lien} 为请柬地址，{couple} 为你们的名字。",
+      "invitation": "邀请消息",
+      "reminder": "提醒消息",
+      "reset": "默认文字",
+      "save": "保存"
+    },
+    "messages_saved": "消息已保存。",
+    "tabs": {
+      "invite": "待发送",
+      "remind": "待提醒",
+      "all": "所有家庭"
+    },
+    "channel": {
+      "label": "发送方式",
+      "whatsapp": "WhatsApp",
+      "sms": "短信"
+    },
+    "series": {
+      "title_invite": "逐个发送",
+      "title_remind": "逐个提醒",
+      "progress": "{left, plural, other {剩余 # 个家庭}}",
+      "send_whatsapp": "打开 WhatsApp",
+      "send_sms": "打开短信",
+      "skip": "跳过",
+      "how": "消息会自动写好：在 WhatsApp 或短信中点击发送，然后回到这里处理下一个家庭。",
+      "done_invite": "所有家庭都已收到邀请。🎉",
+      "done_remind": "无需提醒：所有受邀家庭都已回复。",
+      "done_rest": "剩余家庭没有适用于此方式的有效号码：请在下方列表中添加。"
+    },
+    "list": {
+      "empty": "您的宾客名单是空的。",
+      "empty_link": "添加宾客",
+      "nothing_here": "此标签下没有家庭。"
+    },
+    "badge": {
+      "sent": "已于 {date} 发送 · {channel}",
+      "not_sent": "尚未发送",
+      "reminded": "已提醒 {count, plural, other {# 次}} · {date}"
+    },
+    "status": {
+      "confirmed": "已确认",
+      "declined": "已婉拒",
+      "partial": "部分回复"
+    },
+    "row": {
+      "remind": "提醒",
+      "phone_placeholder": "电话号码",
+      "phone_fix": "号码无效，请更正",
+      "phone_save": "添加",
+      "undo": "撤销发送"
+    },
+    "phone_invalid": "该号码似乎无效。",
+    "phone_saved": "号码已保存。",
+    "undone": "已撤销发送：该家庭回到“待发送”。"
   }
 }

@@ -4,10 +4,12 @@ import { type FormEvent, useState } from "react";
 
 import { submitRsvp } from "@/actions/invitation-submissions";
 import { GuestDiet, useDietLegend } from "../../GuestDiet";
+import { HouseholdMembers } from "../../HouseholdMembers";
 import { DIET_PARTNER, DIET_SELF, dietChoices } from "../../guest-diet";
 import { buildRsvpSubmission } from "../../guest-rsvp-payload";
 import { formatFrenchDate } from "../../format";
 import type { InvitationData } from "../../types";
+import { useHouseholdRsvp } from "../../use-household-rsvp";
 
 import { Page, splitMonogram } from "./Page";
 
@@ -42,6 +44,7 @@ export function RsvpSection({ data, side }: { data: InvitationData; side: "left"
   const deadline = formatFrenchDate(data.event.rsvpDeadline);
   const note = deadline ? `Merci de répondre avant le ${deadline}` : data.copy?.rsvpNote;
   const weddingId = data.weddingId;
+  const household = useHouseholdRsvp(weddingId);
 
   // The couple's diet list (editor, RSVP tab); empty when they did not ask.
   const diets = dietChoices(rsvp?.dietaryOptions);
@@ -66,7 +69,9 @@ export function RsvpSection({ data, side }: { data: InvitationData; side: "left"
       return;
     }
 
-    const isAttending = form.get("attendance") === "yes";
+    // A guest found in the couple's list answers per member: the dinner and
+    // brunch questions below still apply to their household.
+    const isAttending = household.current !== null || form.get("attendance") === "yes";
 
     // Names, partner and each person's diets: the shared builder
     // (`guest-rsvp-payload.ts`). This theme asks no children.
@@ -101,6 +106,16 @@ export function RsvpSection({ data, side }: { data: InvitationData; side: "left"
     setPending(true);
     setError(null);
 
+    // A guest of the couple's list answers for their whole household.
+    const outcome = await household.submit(form, { message });
+    if (outcome !== "fallback") {
+      setPending(false);
+      if (outcome === "shown") return;
+      if (outcome.ok) setSent(true);
+      else setError(outcome.error);
+      return;
+    }
+
     const result = await submitRsvp({ ...submission, message });
 
     setPending(false);
@@ -127,42 +142,48 @@ export function RsvpSection({ data, side }: { data: InvitationData; side: "left"
         </div>
       ) : (
         <form onSubmit={handleSubmit}>
-          <input required name="fullName" placeholder="Prénom et nom" />
+          <input required name="fullName" placeholder="Prénom et nom" onBlur={household.onNameBlur} />
 
-          <select
-            required
-            name="attendance"
-            defaultValue=""
-            onChange={(event) => setAttending(event.target.value === "yes")}
-          >
-            <option value="" disabled>
-              Serez-vous présent ?
-            </option>
-            <option value="yes">Accepte avec joie</option>
-            <option value="no">Décline avec regret</option>
-          </select>
-
-          {askDiets ? <GuestDiet person={DIET_SELF} options={diets} label={dietLegend.self} {...dietField} /> : null}
-
-          {rsvp?.allowPartner ? (
+          {household.current ? (
+            <HouseholdMembers household={household} plain diet={{ options: diets, ...dietField }} />
+          ) : (
             <>
               <select
-                name="guestCount"
-                value={guestCount}
-                onChange={(event) => setGuestCount(event.target.value)}
-                aria-label="Nombre de participants"
+                required
+                name="attendance"
+                defaultValue=""
+                onChange={(event) => setAttending(event.target.value === "yes")}
               >
-                <option value="1">Je viens seul(e)</option>
-                <option value="2">Je viens avec un +1</option>
+                <option value="" disabled>
+                  Serez-vous présent ?
+                </option>
+                <option value="yes">Accepte avec joie</option>
+                <option value="no">Décline avec regret</option>
               </select>
-              {guestCount === "2" ? (
-                <input required name="partnerName" placeholder="Prénom et nom de votre +1" />
-              ) : null}
-              {guestCount === "2" && askDiets ? (
-                <GuestDiet person={DIET_PARTNER} options={diets} label={dietLegend.partner} {...dietField} />
+
+              {askDiets ? <GuestDiet person={DIET_SELF} options={diets} label={dietLegend.self} {...dietField} /> : null}
+
+              {rsvp?.allowPartner ? (
+                <>
+                  <select
+                    name="guestCount"
+                    value={guestCount}
+                    onChange={(event) => setGuestCount(event.target.value)}
+                    aria-label="Nombre de participants"
+                  >
+                    <option value="1">Je viens seul(e)</option>
+                    <option value="2">Je viens avec un +1</option>
+                  </select>
+                  {guestCount === "2" ? (
+                    <input required name="partnerName" placeholder="Prénom et nom de votre +1" />
+                  ) : null}
+                  {guestCount === "2" && askDiets ? (
+                    <GuestDiet person={DIET_PARTNER} options={diets} label={dietLegend.partner} {...dietField} />
+                  ) : null}
+                </>
               ) : null}
             </>
-          ) : null}
+          )}
 
           {rsvp?.collectWelcomeDinner ? (
             <select required name="welcomeDinner" defaultValue="">

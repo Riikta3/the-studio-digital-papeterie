@@ -1938,6 +1938,15 @@
       "otherLabel": "Indique a dieta ou a alergia",
       "otherPlaceholder": "Especifique (ex. amendoins)",
       "none": "Nenhuma"
+    },
+    "household": {
+      "legend": "O seu agregado — uma resposta por pessoa",
+      "alreadyAnswered": "O seu agregado já respondeu a {date}. Pode alterar as respostas abaixo.",
+      "present": "Presente",
+      "absent": "Ausente",
+      "unsure": "Ainda não sei",
+      "missing": "Indique uma resposta para cada pessoa.",
+      "dietOf": "Dietas e alergias de {name}"
     }
   },
   "CustomDomain": {

@@ -1939,6 +1939,15 @@
       "otherLabel": "Ernährungsweise oder Allergie angeben",
       "otherPlaceholder": "Bitte angeben (z. B. Erdnüsse)",
       "none": "Keine"
+    },
+    "household": {
+      "legend": "Ihr Haushalt – eine Antwort pro Person",
+      "alreadyAnswered": "Ihr Haushalt hat bereits am {date} geantwortet. Sie können die Antworten unten ändern.",
+      "present": "Dabei",
+      "absent": "Nicht dabei",
+      "unsure": "Noch unsicher",
+      "missing": "Bitte geben Sie für jede Person eine Antwort an.",
+      "dietOf": "Ernährung und Allergien von {name}"
     }
   },
   "CustomDomain": {

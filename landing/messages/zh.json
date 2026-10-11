@@ -1938,6 +1938,15 @@
       "otherLabel": "请说明饮食要求或过敏",
       "otherPlaceholder": "请说明（如：花生）",
       "none": "无"
+    },
+    "household": {
+      "legend": "您的家庭——每人一个答复",
+      "alreadyAnswered": "您的家庭已于 {date} 回复。您可以在下方修改答复。",
+      "present": "出席",
+      "absent": "不出席",
+      "unsure": "尚未确定",
+      "missing": "请为每个人选择答复。",
+      "dietOf": "{name} 的饮食与过敏"
     }
   },
   "CustomDomain": {

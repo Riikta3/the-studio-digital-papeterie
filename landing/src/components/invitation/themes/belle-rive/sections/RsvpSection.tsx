@@ -6,10 +6,12 @@ import { submitRsvp } from "@/actions/invitation-submissions";
 import { useLocale, useTranslations } from "next-intl";
 
 import { GuestDiet, useDietLegend } from "../../GuestDiet";
+import { HouseholdMembers } from "../../HouseholdMembers";
 import { DIET_PARTNER, DIET_SELF, dietChoices } from "../../guest-diet";
 import { buildRsvpSubmission } from "../../guest-rsvp-payload";
 import { formatFrenchDate } from "../../format";
 import type { InvitationData } from "../../types";
+import { useHouseholdRsvp } from "../../use-household-rsvp";
 
 /**
  * RSVP form.
@@ -34,6 +36,7 @@ export function RsvpSection({ data }: { data: InvitationData }) {
   const rsvp = data.rsvp;
   const deadline = formatFrenchDate(data.event.rsvpDeadline, { locale });
   const weddingId = data.weddingId;
+  const household = useHouseholdRsvp(weddingId);
 
   // The couple's diet list (editor, RSVP tab); empty when they did not ask.
   const diets = dietChoices(rsvp?.dietaryOptions);
@@ -60,6 +63,16 @@ export function RsvpSection({ data }: { data: InvitationData }) {
 
     setPending(true);
     setError(null);
+
+    // A guest of the couple's list answers for their whole household.
+    const outcome = await household.submit(form);
+    if (outcome !== "fallback") {
+      setPending(false);
+      if (outcome === "shown") return;
+      if (outcome.ok) setSent(true);
+      else setError(outcome.error);
+      return;
+    }
 
     // Names, partner and each person's diets: the shared builder
     // (`guest-rsvp-payload.ts`). This theme asks no children.
@@ -112,60 +125,71 @@ export function RsvpSection({ data }: { data: InvitationData }) {
         <form onSubmit={handleSubmit}>
           <label>
             {t("nameLabel")}
-            <input name="fullName" required placeholder={t("namePlaceholder")} />
+            <input
+              name="fullName"
+              required
+              placeholder={t("namePlaceholder")}
+              onBlur={household.onNameBlur}
+            />
           </label>
 
-          <fieldset>
-            <legend>{t("attendanceLegend")}</legend>
-            <label>
-              <input
-                type="radio"
-                name="attendance"
-                value="yes"
-                required
-                onChange={() => setAttending(true)}
-              />{" "}
-              {t("attendanceYes")}
-            </label>
-            <label>
-              <input
-                type="radio"
-                name="attendance"
-                value="no"
-                onChange={() => setAttending(false)}
-              />{" "}
-              {t("attendanceNo")}
-            </label>
-          </fieldset>
-
-          {askDiets ? <GuestDiet person={DIET_SELF} options={diets} label={dietLegend.self} {...dietField} /> : null}
-
-          {rsvp?.allowPartner ? (
+          {household.current ? (
+            <HouseholdMembers household={household} diet={{ options: diets, ...dietField }} />
+          ) : (
             <>
-              <label>
-                {t("partyLabel")}
-                <select
-                  name="partyMode"
-                  value={attendance}
-                  onChange={(event) =>
-                    setAttendance(event.target.value === "partner" ? "partner" : "solo")
-                  }
-                >
-                  <option value="solo">{t("partyOptionSolo")}</option>
-                  <option value="partner">{t("partyOptionPartner")}</option>
-                </select>
-              </label>
-              {attendance === "partner" ? (
+              <fieldset>
+                <legend>{t("attendanceLegend")}</legend>
                 <label>
-                  {t("partnerNameLabel")}
-                  <input name="partnerName" required placeholder={t("partnerNamePlaceholder")} />
+                  <input
+                    type="radio"
+                    name="attendance"
+                    value="yes"
+                    required
+                    onChange={() => setAttending(true)}
+                  />{" "}
+                  {t("attendanceYes")}
                 </label>
-              ) : null}
-              {attendance === "partner" && askDiets ? (
-                <GuestDiet person={DIET_PARTNER} options={diets} label={dietLegend.partner} {...dietField} />
+                <label>
+                  <input
+                    type="radio"
+                    name="attendance"
+                    value="no"
+                    onChange={() => setAttending(false)}
+                  />{" "}
+                  {t("attendanceNo")}
+                </label>
+              </fieldset>
+
+              {askDiets ? <GuestDiet person={DIET_SELF} options={diets} label={dietLegend.self} {...dietField} /> : null}
+
+              {rsvp?.allowPartner ? (
+                <>
+                  <label>
+                    {t("partyLabel")}
+                    <select
+                      name="partyMode"
+                      value={attendance}
+                      onChange={(event) =>
+                        setAttendance(event.target.value === "partner" ? "partner" : "solo")
+                      }
+                    >
+                      <option value="solo">{t("partyOptionSolo")}</option>
+                      <option value="partner">{t("partyOptionPartner")}</option>
+                    </select>
+                  </label>
+                  {attendance === "partner" ? (
+                    <label>
+                      {t("partnerNameLabel")}
+                      <input name="partnerName" required placeholder={t("partnerNamePlaceholder")} />
+                    </label>
+                  ) : null}
+                  {attendance === "partner" && askDiets ? (
+                    <GuestDiet person={DIET_PARTNER} options={diets} label={dietLegend.partner} {...dietField} />
+                  ) : null}
+                </>
               ) : null}
             </>
-          ) : null}
+          )}
 
           {rsvp?.collectMessage ? (
             <label>

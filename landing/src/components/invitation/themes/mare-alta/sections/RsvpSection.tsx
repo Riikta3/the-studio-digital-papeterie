@@ -6,6 +6,7 @@ import { Fragment } from "react";
 
 import { formatFrenchDate } from "../../format";
 import { GuestDiet, useDietLegend } from "../../GuestDiet";
+import { HouseholdMembers } from "../../HouseholdMembers";
 import { DIET_PARTNER, DIET_SELF, dietChildKey, dietChoices } from "../../guest-diet";
 import { monogramOf } from "../../monogram";
 import { Lines, slot } from "../../text";
@@ -49,8 +50,11 @@ export function RsvpSection({ data }: { data: InvitationData }) {
     })
     .sort((a, b) => (a.date < b.date ? -1 : a.date > b.date ? 1 : 0));
 
-  const answered = rsvp.attending !== null;
-  const coming = rsvp.attending === true;
+  // A guest found in the couple's list answers for each member of their
+  // household instead of the yes/no and party questions.
+  const inHousehold = rsvp.household.current !== null;
+  const answered = inHousehold || rsvp.attending !== null;
+  const coming = !inHousehold && rsvp.attending === true;
 
   // The couple's diet list (editor, RSVP tab); empty when they did not ask.
   const diets = dietChoices(config?.dietaryOptions);
@@ -160,30 +164,41 @@ export function RsvpSection({ data }: { data: InvitationData }) {
                   <span>01</span>
                   <h3>{t("step1")}</h3>
                 </div>
-                <div className="choice-grid attendance-choice" role="group" aria-label={t("attendanceLegend")}>
-                  <button
-                    type="button"
-                    className={rsvp.attending === true ? "selected" : ""}
-                    aria-pressed={rsvp.attending === true}
-                    onClick={() => rsvp.setAttending(true)}
-                  >
-                    <Heart /> {t("attendYes")}
-                  </button>
-                  <button
-                    type="button"
-                    className={rsvp.attending === false ? "selected" : ""}
-                    aria-pressed={rsvp.attending === false}
-                    onClick={() => rsvp.setAttending(false)}
-                  >
-                    {t("attendNo")}
-                  </button>
-                </div>
-                {/* The answer, for the form's data: the buttons above are not fields. */}
-                <input type="hidden" name="attendance" value={rsvp.attending === true ? "yes" : "no"} />
+                {inHousehold ? null : (
+                  <>
+                    <div className="choice-grid attendance-choice" role="group" aria-label={t("attendanceLegend")}>
+                      <button
+                        type="button"
+                        className={rsvp.attending === true ? "selected" : ""}
+                        aria-pressed={rsvp.attending === true}
+                        onClick={() => rsvp.setAttending(true)}
+                      >
+                        <Heart /> {t("attendYes")}
+                      </button>
+                      <button
+                        type="button"
+                        className={rsvp.attending === false ? "selected" : ""}
+                        aria-pressed={rsvp.attending === false}
+                        onClick={() => rsvp.setAttending(false)}
+                      >
+                        {t("attendNo")}
+                      </button>
+                    </div>
+                    {/* The answer, for the form's data: the buttons above are not fields. */}
+                    <input type="hidden" name="attendance" value={rsvp.attending === true ? "yes" : "no"} />
+                  </>
+                )}
                 <label>
                   {t("nameLabel")}
-                  <input required name="fullName" autoComplete="name" placeholder={t("namePlaceholder")} />
+                  <input
+                    required
+                    name="fullName"
+                    autoComplete="name"
+                    placeholder={t("namePlaceholder")}
+                    onBlur={rsvp.household.onNameBlur}
+                  />
                 </label>
+                <HouseholdMembers household={rsvp.household} plain diet={{ options: diets, ...dietField }} />
                 {askDiets ? <GuestDiet person={DIET_SELF} options={diets} label={dietLegend.self} {...dietField} /> : null}
               </div>
 
@@ -259,7 +274,7 @@ export function RsvpSection({ data }: { data: InvitationData }) {
                 </p>
               ) : null}
 
-              <button className="submit" type="submit" disabled={rsvp.attending === null || rsvp.pending}>
+              <button className="submit" type="submit" disabled={(!inHousehold && rsvp.attending === null) || rsvp.pending}>
                 <Send size={17} /> {rsvp.pending ? t("submitPending") : t("submit")}
               </button>
             </form>

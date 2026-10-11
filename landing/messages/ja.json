@@ -1938,6 +1938,15 @@
       "otherLabel": "食事制限またはアレルギーを入力",
       "otherPlaceholder": "具体的に（例：ピーナッツ）",
       "none": "なし"
+    },
+    "household": {
+      "legend": "ご家族 — お一人ずつご回答ください",
+      "alreadyAnswered": "ご家族は {date} にすでにご回答済みです。以下で回答を変更できます。",
+      "present": "出席",
+      "absent": "欠席",
+      "unsure": "未定",
+      "missing": "お一人ずつご回答ください。",
+      "dietOf": "{name} さんの食事制限・アレルギー"
     }
   },
   "CustomDomain": {
