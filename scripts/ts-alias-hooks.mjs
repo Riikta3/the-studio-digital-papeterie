@@ -7,6 +7,8 @@
  *                  the same alias for their own `src/`)
  * - `./x`, `@/x` → the first of `x.ts`, `x.tsx`, `x/index.ts` that exists,
  *                  when written without an extension
+ * - `x.json`     → imported as JSON without the `with { type: "json" }`
+ *                  the bundler does not need (see `withJsonType`)
  */
 import { existsSync, statSync } from "node:fs";
 import { dirname, resolve as resolvePath, sep } from "node:path";
@@ -48,7 +50,20 @@ export async function resolve(specifier, context, nextResolve) {
   }
 
   const file = target && existingFile(target);
-  if (file) return nextResolve(pathToFileURL(file).href, context);
+  const resolved = await nextResolve(file ? pathToFileURL(file).href : specifier, context);
+  return withJsonType(resolved, context);
+}
 
-  return nextResolve(specifier, context);
+/**
+ * The apps import JSON the bundler's way — `import fr from "../../messages/fr.json"`,
+ * with no `with { type: "json" }` — and Node refuses that with
+ * ERR_IMPORT_ATTRIBUTE_MISSING. A `.json` file imported without a `type` is
+ * given the one the bundler implies; an import that names one keeps it.
+ */
+function withJsonType(resolved, context) {
+  if (!resolved.url.endsWith(".json") || context.importAttributes?.type) return resolved;
+  return {
+    ...resolved,
+    importAttributes: { ...(resolved.importAttributes ?? context.importAttributes), type: "json" },
+  };
 }

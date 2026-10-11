@@ -1113,6 +1113,35 @@ export type Database = {
         }
         Relationships: []
       }
+      checkout_provisions: {
+        Row: {
+          claimed_at: string
+          payment_intent_id: string
+          updated_at: string
+          wedding_id: string | null
+        }
+        Insert: {
+          claimed_at?: string
+          payment_intent_id: string
+          updated_at?: string
+          wedding_id?: string | null
+        }
+        Update: {
+          claimed_at?: string
+          payment_intent_id?: string
+          updated_at?: string
+          wedding_id?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "checkout_provisions_wedding_id_fkey"
+            columns: ["wedding_id"]
+            isOneToOne: false
+            referencedRelation: "weddings"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       contact_attempts: {
         Row: {
           attempted_at: string
@@ -2570,6 +2599,7 @@ export type Database = {
           created_at: string
           id: string
           partner_name: string | null
+          payment_intent_id: string | null
           user_id: string
           wedding_date: string | null
         }
@@ -2577,6 +2607,7 @@ export type Database = {
           created_at?: string
           id?: string
           partner_name?: string | null
+          payment_intent_id?: string | null
           user_id: string
           wedding_date?: string | null
         }
@@ -2584,6 +2615,7 @@ export type Database = {
           created_at?: string
           id?: string
           partner_name?: string | null
+          payment_intent_id?: string | null
           user_id?: string
           wedding_date?: string | null
         }

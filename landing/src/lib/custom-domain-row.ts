@@ -1,4 +1,4 @@
-import type { IntentDomain } from "@/lib/order-metadata";
+import { domainFromIntentMetadata, type IntentDomain } from "@/lib/order-metadata";
 import { domainPrice } from "@/lib/pricing";
 import { toCents } from "@/lib/stripe";
 
@@ -13,8 +13,12 @@ import { toCents } from "@/lib/stripe";
  * from, not a reason to leave them without a wedding. Like
  * `seedInvitationContent`, it logs and returns instead of throwing.
  *
- * The insert is injected so the conflict handling is tested without a
- * database; `createWedding` passes the service-role client's.
+ * Every later pass over the same payment runs it again through
+ * `ensureCustomDomainRow`, so a row a transient failure left missing is
+ * written then.
+ *
+ * The database is injected so the conflict handling is tested without one;
+ * production passes the service-role client's (`custom-domain-row-admin.ts`).
  */
 
 /** A Postgres error as PostgREST reports it. */
@@ -37,9 +41,21 @@ export interface CustomDomainRowInput {
 }
 
 export type CustomDomainRowResult =
-  | { outcome: "inserted"; id: string }
+  | { outcome: "inserted"; id: string; status: "queued" | "awaiting_choice" }
   | { outcome: "name-lost"; id: string }
   | { outcome: "replay" | "failed" | "none" };
+
+/**
+ * The row the purchase engine can start on right away, if any: one this pass
+ * has just written with a name (`queued`). « Plus tard » and a lost name wait
+ * for the couple (`awaiting_choice`), a replay was started by the pass that
+ * wrote it, and a failure has no row.
+ */
+export function domainRowToStart(
+  result: CustomDomainRowResult | { outcome: "unprovisioned" },
+): string | null {
+  return result.outcome === "inserted" && result.status === "queued" ? result.id : null;
+}
 
 /** Postgres's unique_violation. */
 const UNIQUE_VIOLATION = "23505";
@@ -82,6 +98,7 @@ export async function recordCustomDomain(
 ): Promise<CustomDomainRowResult> {
   if (!domain.has) return { outcome: "none" };
 
+  const status = domain.name ? "queued" : "awaiting_choice";
   const row = {
     site_id: siteId,
     wedding_id: weddingId,
@@ -93,7 +110,7 @@ export async function recordCustomDomain(
     stripe_payment_intent_id: paymentIntentId,
     // `status_changed_at` is left to the column's default: the database's
     // clock, like every other time the engine compares against.
-    status: domain.name ? "queued" : "awaiting_choice",
+    status,
   };
 
   const fail = (error: unknown): CustomDomainRowResult => {
@@ -103,7 +120,7 @@ export async function recordCustomDomain(
 
   try {
     const first = await insert(row);
-    if (first.data && !first.error) return { outcome: "inserted", id: first.data.id };
+    if (first.data && !first.error) return { outcome: "inserted", id: first.data.id, status };
 
     const kind = classifyDomainRowError(first.error);
     if (kind === "ignore") return { outcome: "replay" };
@@ -129,4 +146,103 @@ export async function recordCustomDomain(
   } catch (error) {
     return fail(error);
   }
+}
+
+/** Where `ensureCustomDomainRow` finds the site and writes the row. */
+export interface DomainRowStore {
+  /** The wedding's site, as PostgREST answers it (`sites.wedding_id` is unique). */
+  siteOf: (weddingId: string) => PromiseLike<{ data: { id: string } | null; error: RowError | null }>;
+  insert: DomainRowInsert;
+}
+
+/**
+ * Makes sure a paid domain has its row, once the wedding exists.
+ *
+ * `createWedding` writes the row once, right after the site. A transient
+ * failure there used to be final: every later pass over the payment stops
+ * before that point — a reload of the success page takes the
+ * `alreadyProvisionedAs` early return, the webhook finds the wedding and skips
+ * recovery — so the couple had paid for a domain with no row, and the
+ * dashboard would have offered to sell it to them again. Those passes call
+ * this, which finds the site and runs the same insert: a row already there is
+ * a `replay`, a missing one is written (without the name, should another of
+ * our couples have won it meanwhile).
+ *
+ * `domain` is the intent's (`domainFromIntentMetadata`), never the browser's.
+ * Logs and returns like `recordCustomDomain`; the caller decides what a
+ * `failed` costs — the webhook throws so Stripe retries, a reload carries on.
+ */
+export async function ensureCustomDomainRow(
+  store: DomainRowStore,
+  { weddingId, paymentIntentId, domain }: Omit<CustomDomainRowInput, "siteId">,
+): Promise<CustomDomainRowResult> {
+  if (!domain.has) return { outcome: "none" };
+
+  let siteId: string | undefined;
+  try {
+    const site = await store.siteOf(weddingId);
+    if (site.error) throw site.error;
+    siteId = site.data?.id;
+  } catch (error) {
+    console.error("[DOMAIN_ROW_FAILED]", { weddingId, paymentIntentId }, error);
+    return { outcome: "failed" };
+  }
+  if (!siteId) {
+    // The site is written before the payment is stamped with the wedding, so
+    // a stamped wedding without one has lost it since. Not something to guess
+    // around: logged, and retried by whoever asked.
+    console.error("[DOMAIN_ROW_FAILED]", { weddingId, paymentIntentId }, "the wedding has no site");
+    return { outcome: "failed" };
+  }
+
+  return recordCustomDomain(store.insert, { siteId, weddingId, paymentIntentId, domain });
+}
+
+/** The parts of a Stripe PaymentIntent read here. */
+export interface PaidIntent {
+  id: string;
+  metadata?: Record<string, string | undefined> | null;
+}
+
+/**
+ * `ensureCustomDomainRow` for the Stripe webhook, which holds the intent but
+ * not the wedding.
+ *
+ * The wedding is the one the payment is stamped with (`metadata.wedding_id`,
+ * written by `markPaymentProvisioned`), read from a fresh copy of the intent:
+ * the event's copy dates from the payment, before any stamp. Never the
+ * account's wedding found by email — a second purchase, refused and refunded
+ * by `createWedding`, belongs to an account that already has a wedding, and
+ * its domain must not land on that one.
+ *
+ * An intent not stamped yet is `unprovisioned`, and nothing is done: either
+ * the buyer's browser is still running `createWedding`, which writes the row
+ * itself (and a reload heals it), or the payment was refused.
+ *
+ * The event's copy only says whether there is a domain at all, so an order
+ * without one costs no Stripe call. The row is written from the fresh copy,
+ * as `createWedding` writes it from `verifyPaymentForOrder`'s.
+ */
+export async function ensureCustomDomainRowForIntent(
+  intent: PaidIntent,
+  deps: { store: DomainRowStore; retrieveIntent: (id: string) => PromiseLike<PaidIntent> },
+): Promise<CustomDomainRowResult | { outcome: "unprovisioned" }> {
+  if (!domainFromIntentMetadata(intent.metadata).has) return { outcome: "none" };
+
+  let fresh: PaidIntent;
+  try {
+    fresh = await deps.retrieveIntent(intent.id);
+  } catch (error) {
+    console.error("[DOMAIN_ROW_FAILED]", { paymentIntentId: intent.id }, error);
+    return { outcome: "failed" };
+  }
+
+  const weddingId = fresh.metadata?.wedding_id;
+  if (!weddingId) return { outcome: "unprovisioned" };
+
+  return ensureCustomDomainRow(deps.store, {
+    weddingId,
+    paymentIntentId: intent.id,
+    domain: domainFromIntentMetadata(fresh.metadata),
+  });
 }

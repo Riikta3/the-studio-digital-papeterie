@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 
 import { resolveGuestPage } from "@/actions/guest-page-actions";
 import { GuestNav } from "@/components/jourj/GuestNav";
+import { getCustomDomainContext } from "@/lib/custom-domain-request";
 import { notFound } from "next/navigation";
 
 /**
@@ -47,12 +48,15 @@ export default async function JourJLayout({
   const page = await resolveGuestPage(slug);
   if (!page) notFound();
 
+  // Read here because GuestNav is a client component and cannot.
+  const { custom, base } = await getCustomDomainContext();
+
   return (
     <div className='flex min-h-[100svh] flex-col bg-studio-creme'>
       <main className='mx-auto w-full max-w-md flex-1 px-4 pb-24 pt-8'>
         {children}
       </main>
-      <GuestNav slug={slug} />
+      <GuestNav slug={slug} custom={custom} base={base} />
     </div>
   );
 }

@@ -664,16 +664,8 @@
       "accommodation": "Alojamiento",
       "gallery": "Galería de fotos"
     },
-    "openingStyleTitle": "Estilo de apertura",
-    "openingStyleSubtitle": "Elija la animación que se reproduce al abrir su invitación.",
-    "openingStyles": {
-      "envelope": "Sobre",
-      "door": "Puerta",
-      "curtains": "Cortinas"
-    },
     "summaryTitle": "Su selección",
     "summaryModules": "Módulos activos",
-    "summaryOpeningStyle": "Animación elegida",
     "summaryTheme": "Tema",
     "validateButton": "Confirmar mi invitación",
     "saveButton": "Guardar y continuar más tarde",
@@ -883,7 +875,11 @@
     "orderCompleteCta": "Ir a mi espacio",
     "orderCompleteHint": "¿Quieres una segunda invitación? Escríbenos y la crearemos para ti.",
     "spaceReadyBody": "Su espacio está listo. Abra su invitación y empiece a personalizarla.",
-    "spaceReadyHint": "Este enlace le conecta sin contraseña. También se lo hemos enviado por correo."
+    "spaceReadyHint": "Este enlace le conecta sin contraseña. También se lo hemos enviado por correo.",
+    "domainUnavailable": "<name>{domain}</name> ya no está disponible. Elegid otro.",
+    "domainInvalid": "Este nombre de dominio no es válido. Corregidlo antes de pagar.",
+    "nothingCharged": "No se ha cobrado nada.",
+    "editDomain": "Cambiar mi nombre de dominio"
   },
   "Legal": {
     "backHome": "Volver al inicio",
@@ -1906,6 +1902,38 @@
     },
     "music": {
       "label": "Música"
+    },
+    "opening": {
+      "skip": "Saltar la introducción"
     }
+  },
+  "CustomDomain": {
+    "connector": "y",
+    "yearsCount": "{years, plural, one {# año} other {# años}}",
+    "priceAmount": "{price} €",
+    "fieldLabel": "Vuestro nombre de dominio",
+    "checking": "Comprobando <name>{domain}</name>…",
+    "available": "disponible",
+    "taken": "ya registrado",
+    "notForSale": "no disponible",
+    "invalidPill": "no válido",
+    "checkUnavailable": "no se puede comprobar ahora",
+    "alternatives": "Disponibles:",
+    "noAlternatives": "Probad otra ortografía.",
+    "errorEmpty": "Escribid el nombre que queréis.",
+    "errorNoLatin": "Usad letras latinas, números o guiones.",
+    "errorTooShort": "Al menos 3 letras o números.",
+    "errorTooLong": "63 caracteres como máximo.",
+    "errorInvalid": "Solo letras, números y guiones.",
+    "warning": "Revisad la ortografía: un nombre comprado ya no se puede cambiar.",
+    "later": "Lo elegiré más tarde",
+    "laterNote": "Elegiréis vuestro nombre desde vuestro espacio",
+    "chooseNow": "Elegir ahora",
+    "priceOneYear": "<strong>{price} €</strong> — {years, plural, one {# año} other {# años}}",
+    "priceYears": "<strong>{price} €</strong> — {years, plural, one {# año} other {# años}}, vuestra boda es dentro de {months, plural, one {# mes} other {# meses}}",
+    "cover": "El dominio sigue activo hasta 3 meses después de la boda.",
+    "recapLabel": "Nombre de dominio",
+    "recapChosen": "<name>{domain}</name>, {years, plural, one {# año} other {# años}}",
+    "recapLater": "A elegir más tarde"
   }
 }

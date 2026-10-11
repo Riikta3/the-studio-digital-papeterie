@@ -5,6 +5,8 @@ import {
 } from "@/actions/invitation-page-actions";
 import { GuestGate } from "@/components/invitation/GuestGate";
 import { InvitationMusic } from "@/components/invitation/InvitationMusic";
+import { OpeningIntro } from "@/components/invitation/OpeningIntro";
+import { getCustomDomainContext } from "@/lib/custom-domain-request";
 import { hasGuestPass } from "@/lib/guest-gate";
 import { notFound, redirect } from "next/navigation";
 import { resolveTheme } from "@/components/invitation/themes/registry";
@@ -81,9 +83,20 @@ export default async function InvitationPage({
 
   // An empty list means a wedding bought before languages were recorded;
   // those render in whatever locale is asked for, as they always did.
+  //
+  // On the couple's own domain the proxy has already chosen the locale from
+  // its cached languages, and turns away one they did not buy. This can only
+  // disagree for up to a minute after the couple changed their languages, and
+  // it must not redirect then: `/` is rewritten by the same stale cache to the
+  // same locale, so the guest would bounce until it expires. The page renders
+  // in the locale asked for instead. It always can: the proxy only picks
+  // locales the app ships messages for, and the couple's own words are not per
+  // language. A 404 would be the other way out, and a worse one: their
+  // domain's front page reading « Page introuvable » for a minute.
   const [fallback] = page.languages;
   if (fallback && !page.languages.includes(locale)) {
-    redirect(`/${fallback}/invitation/${slug}`);
+    const { custom } = await getCustomDomainContext();
+    if (!custom) redirect(`/${fallback}/invitation/${slug}`);
   }
 
   // Falls back to the first registered theme rather than throwing: a stale or
@@ -96,6 +109,8 @@ export default async function InvitationPage({
 
   return (
     <>
+      {/* The theme's opening film, over the page while it renders underneath. */}
+      {theme.opening ? <OpeningIntro {...theme.opening} storageKey={`opening:${page.weddingId}`} /> : null}
       {/* First in the DOM, though fixed on screen: a keyboard or screen-reader
           user reaches the mute button before the whole invitation. */}
       {page.music ? (

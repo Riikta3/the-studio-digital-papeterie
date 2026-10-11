@@ -196,7 +196,10 @@ export interface ParsedOrder {
   weddingDate?: string;
   venue?: string;
   locale?: string;
-  /** Read with `domainFromIntentMetadata`'s rules, so the invoice names what provisioning buys. */
+  /**
+   * Read with `domainFromIntentMetadata`'s rules, so it agrees with what
+   * provisioning buys. The invoice does not print it (`domainInvoiceLine`).
+   */
   domainName?: string;
   /** Absent when the intent carries no valid year count. */
   domainYears?: number;

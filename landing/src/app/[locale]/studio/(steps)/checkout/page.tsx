@@ -19,16 +19,19 @@ import {
 } from "lucide-react";
 import { useLocale, useTranslations } from "next-intl";
 import { useSearchParams } from "next/navigation";
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 
 import { getModuleName } from "@shared/data/modules";
+import { normalizeLabel, toDomainName } from "@shared/lib/custom-domain";
 import { cn } from "@shared/lib/utils";
 import { createWedding } from "@/actions/create-wedding";
 import { StepTransition } from "@/components/studio/StepTransition";
-import { ALL_LANGUAGES, EXTRAS } from "@/components/studio/options";
+import { EDIT_DOMAIN_QUERY } from "@/components/studio/CustomDomainPanel";
+import { ALL_LANGUAGES, CUSTOM_DOMAIN_EXTRA, EXTRAS } from "@/components/studio/options";
 import { THEMES } from "@/components/studio/themes";
+import { useDomainYears } from "@/components/studio/use-domain-years";
 import { weddingDateFrom } from "@/lib/wedding-date";
-import { useRouter } from "@/navigation";
+import { Link, useRouter } from "@/navigation";
 import { selectTotalPrice, useOrderStore } from "@/stores/use-order-store";
 
 const stripePromise = loadStripe(
@@ -37,6 +40,15 @@ const stripePromise = loadStripe(
 
 /** Where a customer whose provisioning failed can reach a human. */
 const SUPPORT_EMAIL = "contact@thestudiopapeteriedigitale.com";
+
+/**
+ * How long to wait before asking `createWedding` again when another pass (the
+ * webhook, a second tab) holds this payment's provisioning claim.
+ */
+const PROVISION_IN_PROGRESS_RETRY_MS = 3_000;
+
+/** Why the payment route refused the order over its domain name, before any money was taken. */
+type DomainRefusal = "unavailable" | "invalid";
 
 function labelFor(id: string, list: { id: string; name: string }[]): string {
   return list.find((x) => x.id === id)?.name ?? id;
@@ -79,10 +91,11 @@ function toWeddingIdentity(
 }
 
 function PaymentForm({
-  totalPrice,
+  amount,
   onSuccess,
 }: {
-  totalPrice: number;
+  /** What the intent will charge, as `create-payment-intent` answered. */
+  amount: number;
   onSuccess: () => void;
 }) {
   const t = useTranslations("StudioCheckout");
@@ -186,7 +199,7 @@ function PaymentForm({
         ) : (
           <CreditCard className="h-5 w-5" />
         )}
-        {isLoading ? t("processing") : t("payButton", { amount: totalPrice })}
+        {isLoading ? t("processing") : t("payButton", { amount })}
       </button>
 
       <p className="text-center font-body text-[11px] text-studio-violet/50">
@@ -206,6 +219,7 @@ export default function StudioCheckoutPage() {
   ) as string[];
   const tLayout = useTranslations("StudioLayout");
   const tModules = useTranslations("StudioModules");
+  const tDomain = useTranslations("CustomDomain");
   // The plan names shown on the homepage, so the recap calls the offer exactly
   // what the couple clicked rather than a second hardcoded vocabulary.
   const pricingPlans = useTranslations("Pricing").raw("plans") as {
@@ -226,7 +240,13 @@ export default function StudioCheckoutPage() {
     extras,
     adultsOnly,
     weddingInfo,
+    domain,
   } = useOrderStore();
+
+  // Recomputed on arrival, from this locale's month labels: the years the
+  // options step stored may predate a date edit, or come from an old basket.
+  const domainYears = useDomainYears();
+  const hasDomain = extras.includes(CUSTOM_DOMAIN_EXTRA);
 
   /**
    * The languages the invitation may be served in, default first.
@@ -236,11 +256,15 @@ export default function StudioCheckoutPage() {
    * then dropped — a wedding bought in French recorded no French at all. The
    * order of this list is meaningful: the first entry is the default, and
    * `/[locale]/invitation/...` only serves a locale that appears in it.
+   *
+   * Memoised: it is a dependency of the intent effect below, and a fresh
+   * array on every render re-ran that effect — one more POST to the payment
+   * route, and one more uncached domain check, per re-render.
    */
-  const orderedLanguages = [
-    primaryLanguage,
-    ...languages.filter((code) => code !== primaryLanguage),
-  ];
+  const orderedLanguages = useMemo(
+    () => [primaryLanguage, ...languages.filter((code) => code !== primaryLanguage)],
+    [primaryLanguage, languages],
+  );
   const totalPrice = useOrderStore(selectTotalPrice);
   const hasHydrated = useOrderStore((s) => s._hasHydrated);
   const completedAt = useOrderStore((s) => s.completedAt);
@@ -255,6 +279,13 @@ export default function StudioCheckoutPage() {
   const [clientSecret, setClientSecret] = useState<string | null>(null);
   const [paymentIntentId, setPaymentIntentId] = useState<string | null>(null);
   const [fetchError, setFetchError] = useState<string | null>(null);
+  /**
+   * The amount the intent charges, as the payment route computed it. The pay
+   * button shows this, never the store's running total: the server is the
+   * one that charges (spec D3).
+   */
+  const [serverAmount, setServerAmount] = useState<number | null>(null);
+  const [domainRefusal, setDomainRefusal] = useState<DomainRefusal | null>(null);
   const [isProvisioning, setIsProvisioning] = useState(false);
   const [provisionError, setProvisionError] = useState<string | null>(null);
 
@@ -295,7 +326,7 @@ export default function StudioCheckoutPage() {
     const { firstName, lastName, partnerName, weddingDate, venue } =
       toWeddingIdentity(weddingInfo, localisedMonths);
 
-    const result = await createWedding({
+    const order = {
       paymentIntentId: intentId,
       email: weddingInfo.email,
       firstName,
@@ -312,7 +343,19 @@ export default function StudioCheckoutPage() {
       animationId: animation,
       // Opens the dashboard in the language they bought in.
       locale,
-    });
+    };
+    let result = await createWedding(order);
+
+    /*
+     * Another pass holds this payment's provisioning — the Stripe webhook
+     * usually, racing the browser. It finishes within seconds, and asking
+     * again then adopts the wedding it built. One retry only: past it the
+     * failure screen's own retry button takes over.
+     */
+    if (!result.success && "inProgress" in result && result.inProgress) {
+      await new Promise((resolve) => window.setTimeout(resolve, PROVISION_IN_PROGRESS_RETRY_MS));
+      result = await createWedding(order);
+    }
 
     if (result.success && result.loginLink) {
       // Clear the basket before leaving, or navigating back from the dashboard
@@ -392,6 +435,10 @@ export default function StudioCheckoutPage() {
           themeId: theme,
           animationId: animation,
           adultsOnly,
+          // The name the couple typed, or « plus tard ». The server
+          // normalises it, checks it is still free, and computes the years
+          // itself; nothing about the price is taken from here.
+          domain: hasDomain ? { label: domain.label, later: domain.later } : undefined,
         },
         email: weddingInfo.email,
         weddingInfo: { ...toWeddingIdentity(weddingInfo, localisedMonths), locale },
@@ -400,9 +447,22 @@ export default function StudioCheckoutPage() {
         paymentIntentId: intentIdRef.current,
       }),
     })
-      .then((res) => res.json())
-      .then((data) => {
+      .then(async (res) => ({ status: res.status, data: await res.json() }))
+      .then(({ status, data }) => {
         if (cancelled) return;
+
+        // The name was refused before any money was taken: a 409 when it is
+        // taken (or no longer sold), a 400 when it cannot be a name at all.
+        // Its own message, with a way back to the options step.
+        if (status === 409 && data.domainUnavailable) {
+          setDomainRefusal("unavailable");
+          return;
+        }
+        if (status === 400 && data.domainInvalid) {
+          setDomainRefusal("invalid");
+          return;
+        }
+        setDomainRefusal(null);
 
         // A zero total yields no client secret by design. Surface it instead
         // of dropping into the loading branch, which never resolves.
@@ -415,6 +475,7 @@ export default function StudioCheckoutPage() {
           setClientSecret(data.clientSecret);
           intentIdRef.current = data.paymentIntentId ?? null;
           setPaymentIntentId(data.paymentIntentId ?? null);
+          setServerAmount(typeof data.amount === "number" ? data.amount : null);
           setFetchError(null);
         } else {
           setFetchError(data.error ?? t("paymentError"));
@@ -444,6 +505,9 @@ export default function StudioCheckoutPage() {
     adultsOnly,
     weddingInfo,
     locale,
+    hasDomain,
+    domain.label,
+    domain.later,
   ]);
 
   // ── Post-payment: provisioning screen ──
@@ -634,7 +698,58 @@ export default function StudioCheckoutPage() {
     );
   }
 
-  const recapRows = [
+  const flatExtras = extras.filter((e) => e !== CUSTOM_DOMAIN_EXTRA);
+  const domainLabel = normalizeLabel(domain.label);
+  const domainName = toDomainName(domainLabel);
+  const domainLater = domain.later || !domain.label.trim();
+  const priceSuffix = (
+    <span className="font-medium text-studio-violet/60">
+      {" · "}
+      {tDomain("priceAmount", { price: domainYears.price })}
+    </span>
+  );
+
+  /** « sophie-et-pierre.com, 2 ans · 85 € », or « À choisir plus tard · 2 ans · 85 € ». */
+  function domainRecapValue() {
+    if (domainLater) {
+      return (
+        <>
+          {tDomain("recapLater")}
+          <span className="font-medium text-studio-violet/60">
+            {" · "}
+            {tDomain("yearsCount", { years: domainYears.years })}
+          </span>
+          {priceSuffix}
+        </>
+      );
+    }
+    return (
+      <>
+        {tDomain.rich("recapChosen", {
+          domain: domainLabel ? domainName : domain.label,
+          years: domainYears.years,
+          name: (chunks) => (
+            <bdi dir="ltr" className="[overflow-wrap:anywhere]">
+              {chunks}
+            </bdi>
+          ),
+        })}
+        {priceSuffix}
+        {domainRefusal && (
+          <span className="ms-2 inline-block whitespace-nowrap rounded-full bg-red-50 px-2 py-0.5 align-middle text-[11px] font-bold text-red-600">
+            {domainRefusal === "unavailable" ? tDomain("taken") : tDomain("invalidPill")}
+          </span>
+        )}
+      </>
+    );
+  }
+
+  const recapRows: {
+    label: string;
+    value: React.ReactNode;
+    href: string | { pathname: string; query: Record<string, string> };
+    refused?: boolean;
+  }[] = [
     {
       label: t("offer"),
       // Falls back to the "none" label rather than silently claiming Essentiel:
@@ -665,11 +780,22 @@ export default function StudioCheckoutPage() {
     },
     {
       label: t("extrasLabel"),
-      value: extras.length
-        ? extras.map((e) => labelFor(e, EXTRAS)).join(", ")
+      // The domain has its own row below.
+      value: flatExtras.length
+        ? flatExtras.map((e) => labelFor(e, EXTRAS)).join(", ")
         : t("none"),
       href: "/studio/options",
     },
+    ...(hasDomain
+      ? [
+          {
+            label: tDomain("recapLabel"),
+            value: domainRecapValue(),
+            href: { pathname: "/studio/options", query: EDIT_DOMAIN_QUERY },
+            refused: domainRefusal !== null,
+          },
+        ]
+      : []),
     ...(adultsOnly
       ? [{ label: t("adultsOnly"), value: "✓", href: "/studio/options" }]
       : []),
@@ -695,7 +821,10 @@ export default function StudioCheckoutPage() {
             {recapRows.map((row) => (
               <div
                 key={row.label}
-                className="flex items-start gap-3 border-b border-studio-lavande/30 px-4 py-3 last:border-b-0"
+                className={cn(
+                  "flex items-start gap-3 border-b border-studio-lavande/30 px-4 py-3 last:border-b-0",
+                  row.refused && "bg-red-50/70",
+                )}
               >
                 <div className="min-w-0 flex-1">
                   <p className="font-body text-[10px] font-bold uppercase tracking-wider text-studio-violet/50">
@@ -721,14 +850,39 @@ export default function StudioCheckoutPage() {
                 {t("total")}
               </span>
               <span className="font-heading text-2xl text-white">
-                {totalPrice}€
+                {serverAmount ?? totalPrice}€
               </span>
             </div>
           </section>
 
           {/* Payment */}
           <section className="studio-card-border studio-card-fill rounded-3xl p-5">
-            {fetchError ? (
+            {domainRefusal ? (
+              <div role="alert" className="flex flex-col gap-3 py-1">
+                <p className="font-body text-sm font-semibold text-red-500">
+                  {domainRefusal === "unavailable"
+                    ? t.rich("domainUnavailable", {
+                        domain: domainName,
+                        name: (chunks) => (
+                          <bdi dir="ltr" className="[overflow-wrap:anywhere]">
+                            {chunks}
+                          </bdi>
+                        ),
+                      })
+                    : t("domainInvalid")}
+                </p>
+                <p className="-mt-1.5 font-body text-[13px] text-studio-violet/65">
+                  {t("nothingCharged")}
+                </p>
+                <Link
+                  href={{ pathname: "/studio/options", query: EDIT_DOMAIN_QUERY }}
+                  className="inline-flex items-center gap-2 self-start rounded-full border border-studio-violet px-[18px] py-2.5 font-body text-sm font-semibold text-studio-violet transition-colors hover:bg-studio-violet/[0.06]"
+                >
+                  <Pencil aria-hidden className="h-4 w-4" />
+                  {t("editDomain")}
+                </Link>
+              </div>
+            ) : fetchError ? (
               <p className="font-body text-sm text-red-500">{fetchError}</p>
             ) : clientSecret ? (
               <Elements
@@ -746,7 +900,7 @@ export default function StudioCheckoutPage() {
                   },
                 }}
               >
-                <PaymentForm totalPrice={totalPrice} onSuccess={provision} />
+                <PaymentForm amount={serverAmount ?? totalPrice} onSuccess={provision} />
               </Elements>
             ) : (
               <div className="flex items-center justify-center gap-2 py-10 font-body text-sm text-studio-violet/50">

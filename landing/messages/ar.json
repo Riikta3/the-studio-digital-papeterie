@@ -663,16 +663,8 @@
       "accommodation": "الإقامة",
       "gallery": "معرض الصور"
     },
-    "openingStyleTitle": "نمط الفتح",
-    "openingStyleSubtitle": "اختر الرسوم المتحركة التي تظهر عند فتح دعوتك.",
-    "openingStyles": {
-      "envelope": "ظرف",
-      "door": "باب",
-      "curtains": "ستائر"
-    },
     "summaryTitle": "اختيارك",
     "summaryModules": "الوحدات النشطة",
-    "summaryOpeningStyle": "الرسوم المختارة",
     "summaryTheme": "السمة",
     "validateButton": "تأكيد دعوتي",
     "saveButton": "حفظ والمتابعة لاحقًا",
@@ -882,7 +874,11 @@
     "orderCompleteCta": "الذهاب إلى مساحتي",
     "orderCompleteHint": "هل تريد دعوة ثانية؟ تواصل معنا وسننشئها لك.",
     "spaceReadyBody": "مساحتك جاهزة. افتح دعوتك وابدأ بتخصيصها.",
-    "spaceReadyHint": "يسجّل هذا الرابط دخولك بدون كلمة مرور. وقد أرسلناه إليك بالبريد الإلكتروني أيضًا."
+    "spaceReadyHint": "يسجّل هذا الرابط دخولك بدون كلمة مرور. وقد أرسلناه إليك بالبريد الإلكتروني أيضًا.",
+    "domainUnavailable": "<name>{domain}</name> لم يعد متاحًا. اختاروا اسمًا آخر.",
+    "domainInvalid": "اسم النطاق هذا غير صالح. صحّحوه قبل الدفع.",
+    "nothingCharged": "لم يُخصم أي مبلغ.",
+    "editDomain": "تعديل اسم النطاق"
   },
   "Legal": {
     "backHome": "العودة إلى الصفحة الرئيسية",
@@ -1905,6 +1901,38 @@
     },
     "music": {
       "label": "الموسيقى"
+    },
+    "opening": {
+      "skip": "تخطّي المقدّمة"
     }
+  },
+  "CustomDomain": {
+    "connector": "و",
+    "yearsCount": "{years, plural, zero {# سنة} one {سنة واحدة} two {سنتان} few {# سنوات} many {# سنة} other {# سنة}}",
+    "priceAmount": "{price}€",
+    "fieldLabel": "اسم النطاق الخاص بكم",
+    "checking": "جارٍ التحقق من <name>{domain}</name>…",
+    "available": "متاح",
+    "taken": "محجوز مسبقًا",
+    "notForSale": "غير متاح",
+    "invalidPill": "غير صالح",
+    "checkUnavailable": "يتعذّر التحقق حاليًا",
+    "alternatives": "أسماء متاحة:",
+    "noAlternatives": "جرّبوا كتابة أخرى.",
+    "errorEmpty": "اكتبوا الاسم الذي تريدونه.",
+    "errorNoLatin": "استخدموا حروفًا لاتينية أو أرقامًا أو شرطات.",
+    "errorTooShort": "3 حروف أو أرقام على الأقل.",
+    "errorTooLong": "63 حرفًا كحد أقصى.",
+    "errorInvalid": "حروف وأرقام وشرطات فقط.",
+    "warning": "تحقّقوا من الإملاء: لا يمكن تعديل الاسم بعد شرائه.",
+    "later": "سأختار لاحقًا",
+    "laterNote": "ستختارون اسمكم من مساحتكم",
+    "chooseNow": "اختيار الآن",
+    "priceOneYear": "<strong>{price}€</strong> — {years, plural, zero {# سنة} one {سنة واحدة} two {سنتان} few {# سنوات} many {# سنة} other {# سنة}}",
+    "priceYears": "<strong>{price}€</strong> — {years, plural, zero {# سنة} one {سنة واحدة} two {سنتان} few {# سنوات} many {# سنة} other {# سنة}}، زفافكم بعد {months, plural, zero {# شهر} one {شهر واحد} two {شهرين} few {# أشهر} many {# شهرًا} other {# شهر}}",
+    "cover": "يبقى النطاق فعّالًا حتى 3 أشهر بعد الزفاف.",
+    "recapLabel": "اسم النطاق",
+    "recapChosen": "<name>{domain}</name>، {years, plural, zero {# سنة} one {سنة واحدة} two {سنتان} few {# سنوات} many {# سنة} other {# سنة}}",
+    "recapLater": "يُختار لاحقًا"
   }
 }

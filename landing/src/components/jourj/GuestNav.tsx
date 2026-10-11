@@ -1,8 +1,10 @@
 "use client";
 
-import { Link, usePathname } from "@/navigation";
+import { usePathname } from "@/navigation";
 import { cn } from "@shared/lib/utils";
 import { Image as ImageIcon, MapPin, UtensilsCrossed } from "lucide-react";
+
+import { GuestLink } from "./GuestLink";
 
 const TABS = [
   { key: "ma-table", label: "Ma table", icon: MapPin },
@@ -10,7 +12,19 @@ const TABS = [
   { key: "photos", label: "Nos photos", icon: ImageIcon },
 ];
 
-export function GuestNav({ slug }: { slug: string }) {
+/**
+ * `custom` and `base` come from the layout, which reads the proxy's headers:
+ * a client component cannot. See `GuestLink` for why they change the links.
+ */
+export function GuestNav({
+  slug,
+  custom,
+  base,
+}: {
+  slug: string;
+  custom: boolean;
+  base: string;
+}) {
   const pathname = usePathname();
 
   return (
@@ -20,8 +34,11 @@ export function GuestNav({ slug }: { slug: string }) {
           const active = pathname.includes(`/${key}`);
           return (
             <li key={key} className='flex-1'>
-              <Link
-                href={`/jourj/${slug}/${key}`}
+              <GuestLink
+                subpath={key}
+                slug={slug}
+                custom={custom}
+                base={base}
                 className={cn(
                   // pb-6 clears the iOS home indicator.
                   "flex min-h-16 flex-col items-center justify-center gap-1 pb-6 pt-2 text-xs",
@@ -30,7 +47,7 @@ export function GuestNav({ slug }: { slug: string }) {
               >
                 <Icon className='h-5 w-5' />
                 {label}
-              </Link>
+              </GuestLink>
             </li>
           );
         })}

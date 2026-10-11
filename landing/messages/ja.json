@@ -663,16 +663,8 @@
       "accommodation": "宿泊",
       "gallery": "フォトギャラリー"
     },
-    "openingStyleTitle": "オープニングスタイル",
-    "openingStyleSubtitle": "招待状を開くときに表示されるアニメーションを選択してください。",
-    "openingStyles": {
-      "envelope": "封筒",
-      "door": "ドア",
-      "curtains": "カーテン"
-    },
     "summaryTitle": "あなたの選択",
     "summaryModules": "有効なモジュール",
-    "summaryOpeningStyle": "選択したアニメーション",
     "summaryTheme": "テーマ",
     "validateButton": "招待状を確定する",
     "saveButton": "保存して後で続ける",
@@ -882,7 +874,11 @@
     "orderCompleteCta": "マイスペースへ",
     "orderCompleteHint": "2通目の招待状をご希望ですか？お問い合わせいただければお作りします。",
     "spaceReadyBody": "スペースの準備ができました。招待状を開いてカスタマイズを始めましょう。",
-    "spaceReadyHint": "このリンクはパスワードなしでログインできます。メールでもお送りしています。"
+    "spaceReadyHint": "このリンクはパスワードなしでログインできます。メールでもお送りしています。",
+    "domainUnavailable": "<name>{domain}</name> は利用できなくなりました。別の名前をお選びください。",
+    "domainInvalid": "このドメイン名は無効です。お支払い前に修正してください。",
+    "nothingCharged": "料金は請求されていません。",
+    "editDomain": "ドメイン名を変更する"
   },
   "Legal": {
     "backHome": "ホームに戻る",
@@ -1905,6 +1901,38 @@
     },
     "music": {
       "label": "音楽"
+    },
+    "opening": {
+      "skip": "オープニングをスキップ"
     }
+  },
+  "CustomDomain": {
+    "connector": "と",
+    "yearsCount": "{years, plural, other {#年}}",
+    "priceAmount": "{price}€",
+    "fieldLabel": "ドメイン名",
+    "checking": "<name>{domain}</name> を確認中…",
+    "available": "利用可能",
+    "taken": "取得済み",
+    "notForSale": "利用不可",
+    "invalidPill": "無効",
+    "checkUnavailable": "現在確認できません",
+    "alternatives": "利用可能：",
+    "noAlternatives": "別の綴りをお試しください。",
+    "errorEmpty": "ご希望の名前を入力してください。",
+    "errorNoLatin": "ラテン文字、数字、ハイフンを使用してください。",
+    "errorTooShort": "3文字以上の英数字が必要です。",
+    "errorTooLong": "63文字以内で入力してください。",
+    "errorInvalid": "英字、数字、ハイフンのみ使用できます。",
+    "warning": "綴りをご確認ください：購入後の名前は変更できません。",
+    "later": "後で選ぶ",
+    "laterNote": "お名前はマイページから後で選べます",
+    "chooseNow": "今すぐ選ぶ",
+    "priceOneYear": "<strong>{price}€</strong> — {years, plural, other {#年}}",
+    "priceYears": "<strong>{price}€</strong> — {years, plural, other {#年}}、挙式まであと{months, plural, other {#か月}}",
+    "cover": "ドメインは挙式の3か月後まで有効です。",
+    "recapLabel": "ドメイン名",
+    "recapChosen": "<name>{domain}</name>、{years, plural, other {#年}}",
+    "recapLater": "後で選択"
   }
 }

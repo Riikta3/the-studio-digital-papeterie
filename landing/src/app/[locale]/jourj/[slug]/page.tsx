@@ -1,5 +1,6 @@
 import { getGuestPageData } from "@/actions/guest-page-actions";
-import { Link } from "@/navigation";
+import { GuestLink } from "@/components/jourj/GuestLink";
+import { getCustomDomainContext } from "@/lib/custom-domain-request";
 import { notFound } from "next/navigation";
 
 /**
@@ -53,6 +54,8 @@ export default async function JourJHome({
 
   const { afterWeddingMode } = data.settings;
   const heading = coupleHeading(data.coupleNames.first, data.coupleNames.partner);
+  // Clean links on a couple's own domain, today's slugged ones otherwise.
+  const linkTo = { slug, ...(await getCustomDomainContext()) };
 
   return (
     <div className='text-center'>
@@ -69,18 +72,20 @@ export default async function JourJHome({
       </p>
 
       <div className='mt-8 space-y-2'>
-        <Link
-          href={`/jourj/${slug}/ma-table`}
+        <GuestLink
+          subpath='ma-table'
+          {...linkTo}
           className='flex min-h-14 items-center justify-center rounded-xl bg-studio-violet text-sm font-medium text-white'
         >
           Trouver ma table
-        </Link>
-        <Link
-          href={`/jourj/${slug}/photos`}
+        </GuestLink>
+        <GuestLink
+          subpath='photos'
+          {...linkTo}
           className='flex min-h-14 items-center justify-center rounded-xl border border-studio-violet text-sm font-medium text-studio-violet'
         >
           Partager mes photos
-        </Link>
+        </GuestLink>
       </div>
 
       {data.events.length > 0 && (

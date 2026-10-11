@@ -17,9 +17,10 @@ import { SectionTitle } from "./SectionTitle";
  * The designer used native `<details>`, which snaps open; this is a controlled
  * accordion with the same look, whose answer opens by transitioning
  * `grid-template-rows` from 0fr to 1fr — the one way to animate to a height the
- * content decides. One answer open at a time, the first at the start, a single
- * column at every width. Closed answers are `inert` (not `hidden`, which would
- * cut the closing transition) so their links stay out of the tab order.
+ * content decides. One answer open at a time, all closed at the start as on the
+ * designer's page, a single column at every width. Closed answers are `inert`
+ * (not `hidden`, which would cut the closing transition) so their links stay
+ * out of the tab order.
  *
  * The children question is derived from the wedding's own settings, so the
  * answer can never contradict the RSVP above it.
@@ -27,7 +28,7 @@ import { SectionTitle } from "./SectionTitle";
 export function FaqSection({ data }: { data: InvitationData }) {
   const t = useTranslations("Invitation.mareAlta.faq");
   const baseId = useId();
-  const [openIndex, setOpenIndex] = useState<number | null>(0);
+  const [openIndex, setOpenIndex] = useState<number | null>(null);
 
   const entries = withChildrenPolicyFaq(data, {
     question: t("childrenQuestion"),

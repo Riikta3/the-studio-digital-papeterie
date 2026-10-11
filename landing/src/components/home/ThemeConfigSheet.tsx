@@ -3,7 +3,6 @@
 import { Button } from "@shared/components/ui/button";
 import { Switch } from "@shared/components/ui/switch";
 import { studioColors } from "@shared/lib/studio-colors";
-import { cn } from "@shared/lib/utils";
 import { AnimatePresence, motion } from "framer-motion";
 import { ArrowRight, X } from "lucide-react";
 import { useTranslations } from "next-intl";
@@ -12,12 +11,7 @@ import { useEffect, useMemo, useState } from "react";
 import { useRouter } from "@/navigation";
 import { useOrderStore } from "@/stores/use-order-store";
 
-import {
-  fromOrderAnimation,
-  fromOrderModules,
-  toOrderAnimation,
-  toOrderModules,
-} from "./theme-config-mapping";
+import { fromOrderModules, toOrderModules } from "./theme-config-mapping";
 
 const CARD_SHADOW = `0px 22px 53.9px 0px ${studioColors.cardShadow}3D`;
 
@@ -47,16 +41,11 @@ const DEFAULT_MODULES: Record<ModuleKey, boolean> = {
   gallery: false,
 };
 
-export type OpeningStyle = "envelope" | "door" | "curtains";
-
-const OPENING_STYLES: OpeningStyle[] = ["envelope", "door", "curtains"];
-
 export type ThemeConfig = {
   /** Catalogue id, as persisted in the order store. */
   theme: string;
   themeName: string;
   modules: Record<ModuleKey, boolean>;
-  openingStyle: OpeningStyle;
 };
 
 export function ThemeConfigSheet({
@@ -80,7 +69,6 @@ export function ThemeConfigSheet({
   const router = useRouter();
   const [modules, setModules] =
     useState<Record<ModuleKey, boolean>>(DEFAULT_MODULES);
-  const [openingStyle, setOpeningStyle] = useState<OpeningStyle>("envelope");
 
   // Reopen on whatever was last saved, falling back to the curated defaults
   // on a first visit. Read imperatively rather than through a selector: this
@@ -88,9 +76,8 @@ export function ThemeConfigSheet({
   // moment /studio wrote to the same store.
   useEffect(() => {
     if (!open) return;
-    const { modules: orderModules, animation } = useOrderStore.getState();
+    const { modules: orderModules } = useOrderStore.getState();
     setModules(fromOrderModules(orderModules, DEFAULT_MODULES));
-    setOpeningStyle(fromOrderAnimation(animation, "envelope"));
   }, [open, themeId]);
 
   useEffect(() => {
@@ -130,18 +117,17 @@ export function ThemeConfigSheet({
   const persistConfig = () => {
     const store = useOrderStore.getState();
     store.setTheme(themeId);
-    store.setAnimation(toOrderAnimation(openingStyle));
     store.setModules(toOrderModules(modules));
   };
 
   const handleSave = (destination: "studio" | "stay") => {
     persistConfig();
-    onSave?.({ theme: themeId, themeName, modules, openingStyle });
+    onSave?.({ theme: themeId, themeName, modules });
     onClose();
     if (destination === "studio") {
       // /studio/checkout is guarded behind the plan and the couple's details,
       // which the home page never collects — so the flow continues at the
-      // first step, with theme/modules/animation already filled in.
+      // first step, with theme and modules already filled in.
       router.push("/studio/start");
     }
   };
@@ -217,40 +203,6 @@ export function ThemeConfigSheet({
                 </ul>
               </div>
 
-              <div>
-                <p className="font-heading text-h4 text-studio-violet">
-                  {t("openingStyleTitle")}
-                </p>
-                <p className="mt-1 font-body text-sm text-studio-violet/70">
-                  {t("openingStyleSubtitle")}
-                </p>
-
-                <div className="mt-4 flex justify-center gap-6">
-                  {OPENING_STYLES.map((style) => (
-                    <button
-                      key={style}
-                      type="button"
-                      onClick={() => setOpeningStyle(style)}
-                      className="flex flex-col items-center gap-2"
-                    >
-                      <span
-                        className={cn(
-                          "flex h-16 w-16 items-center justify-center rounded-full border-2 bg-gradient-to-br from-[#B97A4E] to-[#8C5A34] font-heading text-sm text-white shadow-inner transition-transform",
-                          openingStyle === style
-                            ? "scale-105 border-studio-violet"
-                            : "border-transparent",
-                        )}
-                      >
-                        D&A
-                      </span>
-                      <span className="font-body text-xs text-studio-violet/70">
-                        {t(`openingStyles.${style}`)}
-                      </span>
-                    </button>
-                  ))}
-                </div>
-              </div>
-
               <div
                 className="rounded-2xl bg-white p-5"
                 style={{ boxShadow: CARD_SHADOW }}
@@ -265,14 +217,6 @@ export function ThemeConfigSheet({
                     </dt>
                     <dd className="font-semibold text-studio-violet">
                       {activeCount} / {MODULE_KEYS.length}
-                    </dd>
-                  </div>
-                  <div className="flex items-center justify-between">
-                    <dt className="text-studio-violet/70">
-                      {t("summaryOpeningStyle")}
-                    </dt>
-                    <dd className="font-semibold text-studio-violet">
-                      {t(`openingStyles.${openingStyle}`)}
                     </dd>
                   </div>
                   <div className="flex items-center justify-between">

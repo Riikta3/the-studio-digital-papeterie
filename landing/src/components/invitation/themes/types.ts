@@ -386,6 +386,14 @@ export type ThemeManifest = {
   /** Cover image for the marketing carousel. */
   cover?: string;
 
+  /**
+   * The opening film guests see before the invitation: a portrait video (the
+   * envelope of the theme being opened), then a fade to white onto the page.
+   * `poster` is its first frame, shown while the video loads; `color` fills
+   * the screen behind it. A theme without one opens straight on its page.
+   */
+  opening?: { video: string; poster: string; color: string };
+
   /** Class applied to the theme root; every rule in its CSS sits under it. */
   scopeClass: string;
   /** `next/font` variable classes, applied alongside `scopeClass`. */

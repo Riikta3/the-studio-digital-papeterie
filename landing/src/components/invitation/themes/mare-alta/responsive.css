@@ -285,9 +285,9 @@ html:has(.theme-mare-alta) { background-color: #747e6d; }
    line of the card. */
 .theme-mare-alta a.upload { text-decoration: none; }
 
-/* Inert in the showcase and the editor's preview: it looks like what it will be, but is not clickable. The seating
-   button is dimmed to say so; the photo card is already translucent over its art, so it only loses the pointer. */
-.theme-mare-alta span.button[aria-disabled] { cursor: default; opacity: 0.7; }
+/* Inert in the showcase and the editor's preview: it looks exactly like what it will be (the designer's solid
+   sage), but is not clickable. */
+.theme-mare-alta span.button[aria-disabled] { cursor: default; }
 .theme-mare-alta span.upload[aria-disabled] { cursor: default; }
 
 /* The hint under "Share my photos" kept the light tone it had on the designer's first, dark ground: pale grey on the
@@ -364,8 +364,8 @@ html:has(.theme-mare-alta) { background-color: #747e6d; }
  * ------------------------------------------------------------------ */
 
 /* The embroidered cameras and the gold lamp sit right behind the sentence under the title; its first words were lost
-   over the lamp. A soft linen glow keeps the art whole and the words readable. */
-.theme-mare-alta .photos .section-intro { color: var(--ink) !important; text-shadow: 0 0 6px var(--ivory), 0 0 14px var(--ivory), 0 0 22px var(--ivory); }
+   over the lamp. A soft linen glow keeps the art whole and the words readable, in the designer's own muted grey. */
+.theme-mare-alta .photos .section-intro { text-shadow: 0 0 6px var(--ivory), 0 0 14px var(--ivory), 0 0 22px var(--ivory); }
 
 /* ------------------------------------------------------------------ *
  * Hero: the music button

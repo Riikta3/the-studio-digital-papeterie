@@ -17,6 +17,29 @@ export interface WeddingInfo {
   password: string;
 }
 
+/**
+ * The custom domain the couple is choosing at the options step
+ * (docs/superpowers/specs/2026-10-02-custom-domain-design.md, D3). Only read
+ * when `extras` contains "custom-domain".
+ */
+export interface DomainChoice {
+  /**
+   * What the couple typed, kept as typed: the field normalises on blur only,
+   * so a trailing hyphen can still be typed. Readers normalise it
+   * (`normalizeLabel`); the server does too, and decides.
+   */
+  label: string;
+  /** « Je choisirai plus tard »: the name is chosen from the dashboard. */
+  later: boolean;
+  /**
+   * Years of registration, from `domainYearsFor` — for the running total
+   * only. The store holds no wedding date, just a translated month label, so
+   * the pages that have the localised months compute it (`useDomainYears`).
+   * The server computes its own before charging.
+   */
+  years: number;
+}
+
 export interface OrderState {
   plan: PlanType;
   animation: string;
@@ -27,6 +50,7 @@ export interface OrderState {
   adultsOnly: boolean;
   extras: string[];
   weddingInfo: WeddingInfo;
+  domain: DomainChoice;
   /**
    * When the last order was provisioned, or null if none was.
    *
@@ -51,6 +75,7 @@ export interface OrderState {
   setAdultsOnly: (value: boolean) => void;
   toggleExtra: (extra: string) => void;
   setWeddingInfo: (info: Partial<WeddingInfo>) => void;
+  setDomain: (domain: Partial<DomainChoice>) => void;
   /** Clears the basket and records that an order was provisioned. */
   completeOrder: () => void;
   resetStore: () => void;
@@ -80,6 +105,8 @@ const VALID_THEME_IDS = [
  */
 const VALID_PLAN_IDS: string[] = ["signature", "sur-mesure", "prestige"];
 
+export const DEFAULT_DOMAIN: DomainChoice = { label: "", later: false, years: 1 };
+
 const DEFAULT_WEDDING_INFO: WeddingInfo = {
   partner1: "",
   partner2: "",
@@ -108,6 +135,7 @@ export const useOrderStore = create<OrderState>()(
       emailExists: false,
       setEmailExists: (value) => set({ emailExists: value }),
       weddingInfo: DEFAULT_WEDDING_INFO,
+      domain: DEFAULT_DOMAIN,
       /*
        * Picking an offer starts a new order, so the previous one stops being
        * "just completed".
@@ -153,6 +181,8 @@ export const useOrderStore = create<OrderState>()(
         set((state) => ({
           weddingInfo: { ...state.weddingInfo, ...info },
         })),
+      setDomain: (domain) =>
+        set((state) => ({ domain: { ...state.domain, ...domain } })),
       completeOrder: () =>
         set({
           plan: null,
@@ -165,6 +195,7 @@ export const useOrderStore = create<OrderState>()(
           extras: [],
           emailExists: false,
           weddingInfo: DEFAULT_WEDDING_INFO,
+          domain: DEFAULT_DOMAIN,
           // Outlives the basket on purpose: it is what tells the checkout to
           // show "your order is complete" instead of a blank configurator when
           // the couple navigates back from the dashboard.
@@ -182,12 +213,13 @@ export const useOrderStore = create<OrderState>()(
           extras: [],
           emailExists: false,
           weddingInfo: DEFAULT_WEDDING_INFO,
+          domain: DEFAULT_DOMAIN,
           completedAt: null,
         }),
     }),
     {
       name: "order-store-v2",
-      version: 3,
+      version: 4,
       // Each bump clears values that name something the app no longer renders.
       // A stale id is worse than an empty one: the card comes back unselected
       // while the guard still waves the user through, and here the price shown
@@ -232,6 +264,16 @@ export const useOrderStore = create<OrderState>()(
           state.completedAt = null;
         }
 
+        /*
+         * v4 — the custom domain's choice (`domain`). A basket from before it
+         * gets the default: no name yet, so the options panel pre-fills one,
+         * and one year until the page that knows the wedding date recomputes
+         * it.
+         */
+        if (version < 4 || !state.domain) {
+          state.domain = { ...DEFAULT_DOMAIN };
+        }
+
         return state as OrderState;
       },
       onRehydrateStorage: () => (state) => {
@@ -258,4 +300,5 @@ export const selectTotalPrice = (state: OrderState) =>
       ...state.languages.filter((code) => code !== state.primaryLanguage),
     ],
     extras: state.extras,
+    domainYears: state.domain.years,
   }) ?? 0;

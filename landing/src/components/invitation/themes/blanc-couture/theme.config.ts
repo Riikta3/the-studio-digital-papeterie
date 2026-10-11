@@ -35,6 +35,13 @@ export const blancCoutureTheme: ThemeManifest = {
   accentColor: "#9b742f",
   cover: "/themes/blanc-couture/hero-white.webp",
 
+  // The designer's opening film (floral gold seal on handmade paper), played before the page.
+  opening: {
+    video: "/themes/blanc-couture/opening.mp4",
+    poster: "/themes/blanc-couture/opening-poster.webp",
+    color: "#e8d8d8",
+  },
+
   scopeClass: "theme-blanc-couture",
   fontVars: blancCoutureFontVars,
 

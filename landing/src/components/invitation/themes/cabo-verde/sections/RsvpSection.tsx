@@ -177,7 +177,7 @@ export function RsvpSection({ data }: { data: InvitationData }) {
             </p>
           ) : null}
 
-          <button type="submit" disabled={rsvp.attending === null || rsvp.pending}>
+          <button type="submit" disabled={rsvp.pending}>
             {rsvp.pending ? t("pending") : t("submit")}
           </button>
         </form>

@@ -663,16 +663,8 @@
       "accommodation": "Alloggi",
       "gallery": "Galleria foto"
     },
-    "openingStyleTitle": "Stile di apertura",
-    "openingStyleSubtitle": "Scegli l'animazione che si attiva all'apertura del tuo invito.",
-    "openingStyles": {
-      "envelope": "Busta",
-      "door": "Porta",
-      "curtains": "Tende"
-    },
     "summaryTitle": "La tua selezione",
     "summaryModules": "Moduli attivi",
-    "summaryOpeningStyle": "Animazione scelta",
     "summaryTheme": "Tema",
     "validateButton": "Conferma il mio invito",
     "saveButton": "Salva e continua più tardi",
@@ -882,7 +874,11 @@
     "orderCompleteCta": "Vai al mio spazio",
     "orderCompleteHint": "Desideri un secondo invito? Contattaci, lo creeremo per te.",
     "spaceReadyBody": "Il tuo spazio è pronto. Apri il tuo invito e inizia a personalizzarlo.",
-    "spaceReadyHint": "Questo link ti collega senza password. Te l'abbiamo inviato anche via email."
+    "spaceReadyHint": "Questo link ti collega senza password. Te l'abbiamo inviato anche via email.",
+    "domainUnavailable": "<name>{domain}</name> non è più disponibile. Sceglietene un altro.",
+    "domainInvalid": "Questo nome di dominio non è valido. Correggetelo prima di pagare.",
+    "nothingCharged": "Non è stato addebitato nulla.",
+    "editDomain": "Modifica il nome di dominio"
   },
   "Legal": {
     "backHome": "Torna alla home",
@@ -1905,6 +1901,38 @@
     },
     "music": {
       "label": "Musica"
+    },
+    "opening": {
+      "skip": "Salta l’introduzione"
     }
+  },
+  "CustomDomain": {
+    "connector": "e",
+    "yearsCount": "{years, plural, one {# anno} other {# anni}}",
+    "priceAmount": "{price} €",
+    "fieldLabel": "Il vostro nome di dominio",
+    "checking": "Verifica di <name>{domain}</name>…",
+    "available": "disponibile",
+    "taken": "già registrato",
+    "notForSale": "non disponibile",
+    "invalidPill": "non valido",
+    "checkUnavailable": "verifica non disponibile al momento",
+    "alternatives": "Disponibili:",
+    "noAlternatives": "Provate un’altra grafia.",
+    "errorEmpty": "Scrivete il nome che desiderate.",
+    "errorNoLatin": "Usate lettere latine, cifre o trattini.",
+    "errorTooShort": "Almeno 3 lettere o cifre.",
+    "errorTooLong": "Massimo 63 caratteri.",
+    "errorInvalid": "Solo lettere, cifre e trattini.",
+    "warning": "Controllate l’ortografia: un nome acquistato non può più essere modificato.",
+    "later": "Sceglierò più tardi",
+    "laterNote": "Sceglierete il nome dal vostro spazio",
+    "chooseNow": "Scegli ora",
+    "priceOneYear": "<strong>{price} €</strong> — {years, plural, one {# anno} other {# anni}}",
+    "priceYears": "<strong>{price} €</strong> — {years, plural, one {# anno} other {# anni}}, il vostro matrimonio è tra {months, plural, one {# mese} other {# mesi}}",
+    "cover": "Il dominio resta attivo fino a 3 mesi dopo il matrimonio.",
+    "recapLabel": "Nome di dominio",
+    "recapChosen": "<name>{domain}</name>, {years, plural, one {# anno} other {# anni}}",
+    "recapLater": "Da scegliere più tardi"
   }
 }
