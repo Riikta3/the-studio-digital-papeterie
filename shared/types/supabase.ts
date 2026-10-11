@@ -1744,11 +1744,14 @@ export type Database = {
           email: string | null
           guest_group: string | null
           id: string
+          invitation_channel: string | null
+          invitation_sent_at: string | null
           last_relance_at: string | null
           magic_link_token: string | null
           message_to_couple: string | null
           name: string
           phone: string | null
+          reminder_count: number
           song_request: string | null
           source: string | null
           status: string | null
@@ -1761,11 +1764,14 @@ export type Database = {
           email?: string | null
           guest_group?: string | null
           id?: string
+          invitation_channel?: string | null
+          invitation_sent_at?: string | null
           last_relance_at?: string | null
           magic_link_token?: string | null
           message_to_couple?: string | null
           name: string
           phone?: string | null
+          reminder_count?: number
           song_request?: string | null
           source?: string | null
           status?: string | null
@@ -1778,11 +1784,14 @@ export type Database = {
           email?: string | null
           guest_group?: string | null
           id?: string
+          invitation_channel?: string | null
+          invitation_sent_at?: string | null
           last_relance_at?: string | null
           magic_link_token?: string | null
           message_to_couple?: string | null
           name?: string
           phone?: string | null
+          reminder_count?: number
           song_request?: string | null
           source?: string | null
           status?: string | null
@@ -2150,6 +2159,7 @@ export type Database = {
           attendance: boolean | null
           dietary: string | null
           guest_count: number
+          household_id: string | null
           id: string
           message: string | null
           name: string
@@ -2164,6 +2174,7 @@ export type Database = {
           attendance?: boolean | null
           dietary?: string | null
           guest_count?: number
+          household_id?: string | null
           id?: string
           message?: string | null
           name: string
@@ -2178,6 +2189,7 @@ export type Database = {
           attendance?: boolean | null
           dietary?: string | null
           guest_count?: number
+          household_id?: string | null
           id?: string
           message?: string | null
           name?: string
@@ -2255,9 +2267,11 @@ export type Database = {
           guest_code: string | null
           hero_kicker: string | null
           id: string
+          invitation_message: string | null
           is_module_accommodation_enabled: boolean | null
           is_module_gallery_enabled: boolean | null
           is_module_rsvp_meal_enabled: boolean | null
+          reminder_message: string | null
           is_module_schedule_enabled: boolean | null
           music_enabled: boolean
           music_track: string | null
@@ -2276,9 +2290,11 @@ export type Database = {
           guest_code?: string | null
           hero_kicker?: string | null
           id?: string
+          invitation_message?: string | null
           is_module_accommodation_enabled?: boolean | null
           is_module_gallery_enabled?: boolean | null
           is_module_rsvp_meal_enabled?: boolean | null
+          reminder_message?: string | null
           is_module_schedule_enabled?: boolean | null
           music_enabled?: boolean
           music_track?: string | null
@@ -2297,9 +2313,11 @@ export type Database = {
           guest_code?: string | null
           hero_kicker?: string | null
           id?: string
+          invitation_message?: string | null
           is_module_accommodation_enabled?: boolean | null
           is_module_gallery_enabled?: boolean | null
           is_module_rsvp_meal_enabled?: boolean | null
+          reminder_message?: string | null
           is_module_schedule_enabled?: boolean | null
           music_enabled?: boolean
           music_track?: string | null

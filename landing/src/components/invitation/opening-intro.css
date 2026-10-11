@@ -1,0 +1,99 @@
+/*
+ * The opening film over the invitation (OpeningIntro.tsx).
+ *
+ * The films are portrait, drawn for a phone. On a phone they fill the screen;
+ * on a wider screen the film stands at full height in the middle, over a
+ * blurred, enlarged copy of its first frame so the sides are the same paper
+ * rather than bars.
+ */
+
+/* Decided before the first paint: already seen this visit, reduced motion, or an automated browser. */
+html[data-opening-skip] .opening-intro {
+  display: none;
+}
+
+/* The page waits under the film: no scrolling it, and its own entrance animations hold until it is shown. */
+html:not([data-opening-skip]):has(.opening-intro:is([data-phase="playing"], [data-phase="white"])) {
+  overflow: hidden;
+}
+html:not([data-opening-skip]):has(.opening-intro:is([data-phase="playing"], [data-phase="white"]))
+  body *:not(.opening-intro, .opening-intro *) {
+  animation-play-state: paused !important;
+}
+
+.opening-intro {
+  position: fixed;
+  inset: 0;
+  z-index: 2147483000;
+  overflow: hidden;
+  background: var(--opening-color, #f6f2ea);
+  transition: opacity 900ms ease;
+}
+
+.opening-intro__backdrop {
+  position: absolute;
+  inset: -40px;
+  background: var(--opening-poster) center / cover no-repeat;
+  filter: blur(28px) saturate(0.95);
+  opacity: 0.9;
+}
+
+.opening-intro__video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Wider than the film: full height, centred, the blurred frame on both sides. */
+@media (min-aspect-ratio: 3/4) {
+  .opening-intro__video {
+    left: 50%;
+    width: auto;
+    aspect-ratio: 720 / 1292;
+    transform: translateX(-50%);
+    object-fit: contain;
+    box-shadow: 0 0 80px rgb(0 0 0 / 0.12);
+  }
+}
+
+.opening-intro__white {
+  position: absolute;
+  inset: 0;
+  background: #fff;
+  opacity: 0;
+  transition: opacity 700ms ease-in;
+  pointer-events: none;
+}
+
+/* A tap anywhere skips to the fade. Invisible: the film says nothing to read. */
+.opening-intro__skip {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border: 0;
+  padding: 0;
+  background: transparent;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+}
+.opening-intro__skip:focus-visible {
+  outline: 2px solid #fff;
+  outline-offset: -6px;
+}
+
+.opening-intro[data-phase="white"] .opening-intro__white,
+.opening-intro[data-phase="lifting"] .opening-intro__white {
+  opacity: 1;
+}
+
+/* The white lifts off the page: the whole layer fades, white last. Without a film, it fades straight off. */
+.opening-intro:is([data-phase="lifting"], [data-phase="opening"]) {
+  opacity: 0;
+  pointer-events: none;
+}
+.opening-intro[data-phase="lifting"] :is(.opening-intro__video, .opening-intro__backdrop) {
+  visibility: hidden;
+}

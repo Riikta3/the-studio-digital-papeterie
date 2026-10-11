@@ -686,16 +686,8 @@
       "accommodation": "宿泊",
       "gallery": "フォトギャラリー"
     },
-    "openingStyleTitle": "オープニングスタイル",
-    "openingStyleSubtitle": "招待状を開くときに表示されるアニメーションを選択してください。",
-    "openingStyles": {
-      "envelope": "封筒",
-      "door": "ドア",
-      "curtains": "カーテン"
-    },
     "summaryTitle": "あなたの選択",
     "summaryModules": "有効なモジュール",
-    "summaryOpeningStyle": "選択したアニメーション",
     "summaryTheme": "テーマ",
     "validateButton": "招待状を確定する",
     "saveButton": "保存して後で続ける",
@@ -1936,6 +1928,17 @@
     },
     "music": {
       "label": "音楽"
+    },
+    "opening": {
+      "skip": "オープニングをスキップ"
+    },
+    "household": {
+      "legend": "ご家族 — お一人ずつご回答ください",
+      "alreadyAnswered": "ご家族は {date} にすでにご回答済みです。以下で回答を変更できます。",
+      "present": "出席",
+      "absent": "欠席",
+      "unsure": "未定",
+      "missing": "お一人ずつご回答ください。"
     }
   }
 }

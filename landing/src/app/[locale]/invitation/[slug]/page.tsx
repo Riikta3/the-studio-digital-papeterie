@@ -6,6 +6,7 @@ import {
 import { GuestGate } from "@/components/invitation/GuestGate";
 import { InvitationMusic } from "@/components/invitation/InvitationMusic";
 import { LazyBackgrounds } from "@/components/invitation/LazyBackgrounds";
+import { OpeningIntro } from "@/components/invitation/OpeningIntro";
 import { hasGuestPass } from "@/lib/guest-gate";
 import { notFound, redirect } from "next/navigation";
 import { resolveTheme } from "@/components/invitation/themes/registry";
@@ -97,6 +98,8 @@ export default async function InvitationPage({
 
   return (
     <>
+      {/* The theme's opening film, over the page while it renders underneath. */}
+      {theme.opening ? <OpeningIntro {...theme.opening} storageKey={`opening:${page.weddingId}`} /> : null}
       {/* First in the DOM, though fixed on screen: a keyboard or screen-reader
           user reaches the mute button before the whole invitation. */}
       {page.music ? (

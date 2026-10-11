@@ -61,7 +61,8 @@
           "all": "ゲスト一覧",
           "rsvp": "出欠回答",
           "groups": "グループ",
-          "meals": "食事"
+          "meals": "食事",
+          "sending": "送信"
         }
       },
       "invitation": {
@@ -632,7 +633,22 @@
       "deleted": "{count}件の回答を削除しました"
     },
     "dietary_other_placeholder": "その他（詳細を記入）...",
-    "truncated_notice": "最新の {shown} 件の回答を表示しています（全 {total} 件）。予定人数はこれらのみが対象です。他のカウンターは全件を反映しています。"
+    "truncated_notice": "最新の {shown} 件の回答を表示しています（全 {total} 件）。予定人数はこれらのみが対象です。他のカウンターは全件を反映しています。",
+    "household": {
+      "title": "招待客リストの世帯",
+      "to_link": "紐付け待ち",
+      "to_link_help": "招待状で名前が認識されませんでした。該当する世帯を選択してください。回答に記載された方のステータスが更新されます。",
+      "choose": "世帯を選択",
+      "suggested": "おすすめ",
+      "link": "紐付ける",
+      "unlink": "紐付けを解除",
+      "linked_toast": "回答を紐付けました — {count, plural, =0 {ステータスの変更なし} other {# 名を更新しました}}。",
+      "unmatched": "世帯に見つかりません：{names}。招待客リストから更新してください。",
+      "unlinked_toast": "回答と世帯の紐付けを解除しました。",
+      "already_linked": "この世帯にはすでに回答があります。先に紐付けを解除してください。",
+      "link_error": "回答を紐付けできませんでした。もう一度お試しください。",
+      "no_households": "招待客リストにまだ世帯がありません。"
+    }
   },
   "Billing": {
     "title": "請求",
@@ -1915,5 +1931,72 @@
     "error_empty": "このファイルは空です。",
     "saved": "音楽を更新しました",
     "save_failed": "保存できませんでした。もう一度お試しください。"
+  },
+  "InvitationSending": {
+    "title": "招待状を送る",
+    "subtitle": "ご自身の電話番号から WhatsApp または SMS で、各世帯に無料で招待状を送り、未回答の方にはリマインドしましょう。",
+    "stats": {
+      "households": "世帯",
+      "sent": "送信済み",
+      "answered": "回答済み",
+      "to_remind": "リマインド対象"
+    },
+    "no_link": "招待状にまだ公開アドレスがありません。送信する前に公開してください。",
+    "messages": {
+      "title": "メッセージ",
+      "help": "送信するテキストをカスタマイズできます。{prenoms} は世帯の方のお名前、{foyer} は世帯名、{lien} は招待状のアドレス、{couple} はお二人のお名前に置き換わります。",
+      "invitation": "招待メッセージ",
+      "reminder": "リマインドメッセージ",
+      "reset": "デフォルトの文章",
+      "save": "保存"
+    },
+    "messages_saved": "メッセージを保存しました。",
+    "tabs": {
+      "invite": "未送信",
+      "remind": "リマインド対象",
+      "all": "すべての世帯"
+    },
+    "channel": {
+      "label": "送信方法",
+      "whatsapp": "WhatsApp",
+      "sms": "SMS"
+    },
+    "series": {
+      "title_invite": "順番に送信",
+      "title_remind": "順番にリマインド",
+      "progress": "{left, plural, other {残り # 世帯}}",
+      "send_whatsapp": "WhatsApp を開く",
+      "send_sms": "SMS を開く",
+      "skip": "スキップ",
+      "how": "メッセージは作成済みの状態で開きます。WhatsApp または SMS で送信を押し、ここに戻って次の世帯へ進んでください。",
+      "done_invite": "すべての世帯に招待状を送りました。🎉",
+      "done_remind": "リマインド対象はいません。招待したすべての世帯が回答済みです。",
+      "done_rest": "残りの世帯にはこの方法で使える有効な番号がありません。下のリストで追加してください。"
+    },
+    "list": {
+      "empty": "招待客リストが空です。",
+      "empty_link": "招待客を追加",
+      "nothing_here": "このタブに世帯はありません。"
+    },
+    "badge": {
+      "sent": "{date} に送信 · {channel}",
+      "not_sent": "未送信",
+      "reminded": "{count, plural, other {# 回}}リマインド · {date}"
+    },
+    "status": {
+      "confirmed": "出席",
+      "declined": "欠席",
+      "partial": "一部回答"
+    },
+    "row": {
+      "remind": "リマインド",
+      "phone_placeholder": "電話番号",
+      "phone_fix": "無効な番号です。修正してください",
+      "phone_save": "追加",
+      "undo": "送信を取り消す"
+    },
+    "phone_invalid": "この番号は有効ではないようです。",
+    "phone_saved": "番号を保存しました。",
+    "undone": "送信を取り消しました。世帯は「未送信」に戻りました。"
   }
 }

@@ -1,0 +1,58 @@
+/*
+ * `<HouseholdMembers plain>`: a neutral layout for themes whose own field
+ * styles were drawn for text inputs and selects (full-width boxes, centred
+ * stacks) and turn a radio into a 40px block. Scoped to the opt-in class, so
+ * themes whose radios already look right keep their own look.
+ */
+.rsvp-household.rsvp-household-plain {
+  border: 0;
+  padding: 0;
+  margin: 0;
+  min-width: 0;
+  text-align: start;
+}
+
+.rsvp-household.rsvp-household-plain fieldset {
+  border: 0;
+  padding: 0;
+  margin: 0.9rem 0 0;
+  min-width: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem 1.1rem;
+}
+
+.rsvp-household.rsvp-household-plain fieldset > legend {
+  float: left;
+  width: 100%;
+  padding: 0;
+  margin: 0 0 0.2rem;
+}
+
+.rsvp-household.rsvp-household-plain label.rsvp-household-choice {
+  display: inline-flex !important;
+  flex-direction: row !important;
+  align-items: center;
+  gap: 0.45em;
+  width: auto !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  border: 0 !important;
+  cursor: pointer;
+}
+
+.rsvp-household.rsvp-household-plain input[type="radio"] {
+  -webkit-appearance: auto !important;
+  appearance: auto !important;
+  display: inline-block !important;
+  flex: none !important;
+  width: 1.05em !important;
+  height: 1.05em !important;
+  min-width: 0 !important;
+  min-height: 0 !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  border: 0 !important;
+  box-shadow: none !important;
+  accent-color: currentColor;
+}

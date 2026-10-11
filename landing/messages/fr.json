@@ -1074,16 +1074,8 @@
       "accommodation": "Hébergements",
       "gallery": "Galerie photos"
     },
-    "openingStyleTitle": "Style d’ouverture",
-    "openingStyleSubtitle": "Sélectionnez l’animation qui s’affiche à l’ouverture de l’invitation — une lettre s’ouvre, révélant votre faire-part.",
-    "openingStyles": {
-      "envelope": "Enveloppe",
-      "door": "Porte",
-      "curtains": "Rideaux"
-    },
     "summaryTitle": "Votre sélection",
     "summaryModules": "Modules actifs",
-    "summaryOpeningStyle": "Animation choisie",
     "summaryTheme": "Thème",
     "validateButton": "Valider mon invitation",
     "saveButton": "Sauvegarder et continuer plus tard",
@@ -2324,6 +2316,17 @@
     },
     "music": {
       "label": "Musique"
+    },
+    "opening": {
+      "skip": "Passer l’introduction"
+    },
+    "household": {
+      "legend": "Votre foyer — une réponse pour chacun",
+      "alreadyAnswered": "Votre foyer a déjà répondu le {date}. Vous pouvez modifier les réponses ci-dessous.",
+      "present": "Présent(e)",
+      "absent": "Absent(e)",
+      "unsure": "Pas encore sûr(e)",
+      "missing": "Merci d'indiquer une réponse pour chaque personne."
     }
   }
 }

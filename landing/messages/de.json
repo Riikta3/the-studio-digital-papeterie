@@ -687,16 +687,8 @@
       "accommodation": "Unterkünfte",
       "gallery": "Fotogalerie"
     },
-    "openingStyleTitle": "Öffnungsstil",
-    "openingStyleSubtitle": "Wählen Sie die Animation, die beim Öffnen Ihrer Einladung abgespielt wird.",
-    "openingStyles": {
-      "envelope": "Umschlag",
-      "door": "Tür",
-      "curtains": "Vorhänge"
-    },
     "summaryTitle": "Ihre Auswahl",
     "summaryModules": "Aktive Module",
-    "summaryOpeningStyle": "Gewählte Animation",
     "summaryTheme": "Thema",
     "validateButton": "Einladung bestätigen",
     "saveButton": "Speichern und später fortfahren",
@@ -1937,6 +1929,17 @@
     },
     "music": {
       "label": "Musik"
+    },
+    "opening": {
+      "skip": "Intro überspringen"
+    },
+    "household": {
+      "legend": "Ihr Haushalt – eine Antwort pro Person",
+      "alreadyAnswered": "Ihr Haushalt hat bereits am {date} geantwortet. Sie können die Antworten unten ändern.",
+      "present": "Dabei",
+      "absent": "Nicht dabei",
+      "unsure": "Noch unsicher",
+      "missing": "Bitte geben Sie für jede Person eine Antwort an."
     }
   }
 }

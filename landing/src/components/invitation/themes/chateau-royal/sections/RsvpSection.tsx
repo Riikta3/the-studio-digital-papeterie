@@ -3,6 +3,7 @@
 import { useLocale, useTranslations } from "next-intl";
 import { useState } from "react";
 
+import { HouseholdMembers } from "../../HouseholdMembers";
 import { formatFrenchDate } from "../../format";
 import { slot } from "../../text";
 import type { InvitationData } from "../../types";
@@ -58,90 +59,96 @@ export function RsvpSection({ data }: { data: InvitationData }) {
           >
             <label>
               {t("nameLabel")}
-              <input name="fullName" autoComplete="name" required />
+              <input name="fullName" autoComplete="name" required onBlur={rsvp.household.onNameBlur} />
             </label>
 
-            <label>
-              {t("attendanceLabel")}
-              <select
-                name="attendance"
-                required
-                defaultValue=""
-                onChange={(event) =>
-                  rsvp.setAttending(
-                    event.target.value === "yes" ? true : event.target.value === "no" ? false : null,
-                  )
-                }
-              >
-                <option value="" disabled>
-                  {t("attendanceChoose")}
-                </option>
-                <option value="yes">{t("attendanceYes")}</option>
-                <option value="no">{t("attendanceNo")}</option>
-              </select>
-            </label>
-
-            {rsvp.showParty && rsvp.allowPartner ? (
+            {rsvp.household.current ? (
+              <HouseholdMembers household={rsvp.household} plain />
+            ) : (
               <>
                 <label>
-                  {t("partyLabel")}
+                  {t("attendanceLabel")}
                   <select
-                    name="partyMode"
-                    value={rsvp.partyMode}
+                    name="attendance"
+                    required
+                    defaultValue=""
                     onChange={(event) =>
-                      rsvp.setPartyMode(event.target.value === "partner" ? "partner" : "solo")
+                      rsvp.setAttending(
+                        event.target.value === "yes" ? true : event.target.value === "no" ? false : null,
+                      )
                     }
                   >
-                    <option value="solo">{t("partyOptionSolo")}</option>
-                    <option value="partner">{t("partyOptionPartner")}</option>
+                    <option value="" disabled>
+                      {t("attendanceChoose")}
+                    </option>
+                    <option value="yes">{t("attendanceYes")}</option>
+                    <option value="no">{t("attendanceNo")}</option>
                   </select>
                 </label>
-                {rsvp.partyMode === "partner" ? (
-                  <label>
-                    {t("partnerNameLabel")}
-                    <input
-                      name="partnerName"
-                      placeholder={t("partnerNamePlaceholder")}
-                      autoComplete="off"
-                      required
-                    />
-                  </label>
+
+                {rsvp.showParty && rsvp.allowPartner ? (
+                  <>
+                    <label>
+                      {t("partyLabel")}
+                      <select
+                        name="partyMode"
+                        value={rsvp.partyMode}
+                        onChange={(event) =>
+                          rsvp.setPartyMode(event.target.value === "partner" ? "partner" : "solo")
+                        }
+                      >
+                        <option value="solo">{t("partyOptionSolo")}</option>
+                        <option value="partner">{t("partyOptionPartner")}</option>
+                      </select>
+                    </label>
+                    {rsvp.partyMode === "partner" ? (
+                      <label>
+                        {t("partnerNameLabel")}
+                        <input
+                          name="partnerName"
+                          placeholder={t("partnerNamePlaceholder")}
+                          autoComplete="off"
+                          required
+                        />
+                      </label>
+                    ) : null}
+                  </>
+                ) : null}
+
+                {/* Children: only when the couple accepts them AND the guest is coming. An
+                    adults-only wedding gets no field here, not a disabled one. */}
+                {rsvp.showParty && rsvp.allowChildren ? (
+                  <>
+                    <label>
+                      {t("childrenLabel")}
+                      <select
+                        name="childCount"
+                        value={rsvp.childCount}
+                        onChange={(event) => rsvp.setChildCount(Number(event.target.value))}
+                      >
+                        <option value={0}>{t("childrenOptionNone")}</option>
+                        {Array.from({ length: rsvp.maxChildren }, (_, index) => index + 1).map((count) => (
+                          <option key={count} value={count}>
+                            {t("childrenOptionCount", { count })}
+                          </option>
+                        ))}
+                      </select>
+                    </label>
+                    {Array.from({ length: rsvp.childCount }, (_, index) => (
+                      <label key={index}>
+                        {t("childFieldLabel", { index: index + 1 })}
+                        <input
+                          name={`childName-${index}`}
+                          placeholder={t("childNamePlaceholder")}
+                          autoComplete="off"
+                          required
+                        />
+                      </label>
+                    ))}
+                  </>
                 ) : null}
               </>
-            ) : null}
-
-            {/* Children: only when the couple accepts them AND the guest is coming. An
-                adults-only wedding gets no field here, not a disabled one. */}
-            {rsvp.showParty && rsvp.allowChildren ? (
-              <>
-                <label>
-                  {t("childrenLabel")}
-                  <select
-                    name="childCount"
-                    value={rsvp.childCount}
-                    onChange={(event) => rsvp.setChildCount(Number(event.target.value))}
-                  >
-                    <option value={0}>{t("childrenOptionNone")}</option>
-                    {Array.from({ length: rsvp.maxChildren }, (_, index) => index + 1).map((count) => (
-                      <option key={count} value={count}>
-                        {t("childrenOptionCount", { count })}
-                      </option>
-                    ))}
-                  </select>
-                </label>
-                {Array.from({ length: rsvp.childCount }, (_, index) => (
-                  <label key={index}>
-                    {t("childFieldLabel", { index: index + 1 })}
-                    <input
-                      name={`childName-${index}`}
-                      placeholder={t("childNamePlaceholder")}
-                      autoComplete="off"
-                      required
-                    />
-                  </label>
-                ))}
-              </>
-            ) : null}
+            )}
 
             {options?.dietaryOptions?.length ? (
               <label>

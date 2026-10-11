@@ -900,16 +900,8 @@
       "accommodation": "Accommodation",
       "gallery": "Photo gallery"
     },
-    "openingStyleTitle": "Opening style",
-    "openingStyleSubtitle": "Choose the animation that plays when your invitation opens — a letter unfolds to reveal your invite.",
-    "openingStyles": {
-      "envelope": "Envelope",
-      "door": "Door",
-      "curtains": "Curtains"
-    },
     "summaryTitle": "Your selection",
     "summaryModules": "Active modules",
-    "summaryOpeningStyle": "Chosen animation",
     "summaryTheme": "Theme",
     "validateButton": "Confirm my invitation",
     "saveButton": "Save and continue later",
@@ -2150,6 +2142,17 @@
     },
     "music": {
       "label": "Music"
+    },
+    "opening": {
+      "skip": "Skip the introduction"
+    },
+    "household": {
+      "legend": "Your household — one answer for each person",
+      "alreadyAnswered": "Your household already replied on {date}. You can change the answers below.",
+      "present": "Attending",
+      "absent": "Not attending",
+      "unsure": "Not sure yet",
+      "missing": "Please give an answer for each person."
     }
   }
 }

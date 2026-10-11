@@ -61,7 +61,8 @@
           "all": "Alle Gäste",
           "rsvp": "RSVP-Antworten",
           "groups": "Gruppen",
-          "meals": "Menüs"
+          "meals": "Menüs",
+          "sending": "Versand"
         }
       },
       "invitation": {
@@ -632,7 +633,22 @@
       "deleted": "{count} Antwort(en) gelöscht"
     },
     "dietary_other_placeholder": "Andere (bitte angeben)...",
-    "truncated_notice": "Es werden die {shown} neuesten Rückmeldungen von insgesamt {total} angezeigt. Die erwartete Personenzahl bezieht sich nur auf diese; die übrigen Zähler sind vollständig."
+    "truncated_notice": "Es werden die {shown} neuesten Rückmeldungen von insgesamt {total} angezeigt. Die erwartete Personenzahl bezieht sich nur auf diese; die übrigen Zähler sind vollständig.",
+    "household": {
+      "title": "Haushalt in der Gästeliste",
+      "to_link": "Zuzuordnen",
+      "to_link_help": "Der Name wurde auf der Einladung nicht erkannt. Wählen Sie den Haushalt: Die in der Antwort genannten Personen werden aktualisiert.",
+      "choose": "Haushalt wählen",
+      "suggested": "vorgeschlagen",
+      "link": "Zuordnen",
+      "unlink": "Lösen",
+      "linked_toast": "Antwort zugeordnet — {count, plural, =0 {kein Status geändert} one {# Person aktualisiert} other {# Personen aktualisiert}}.",
+      "unmatched": "Im Haushalt nicht gefunden: {names}. Aktualisieren Sie sie in der Gästeliste.",
+      "unlinked_toast": "Antwort vom Haushalt gelöst.",
+      "already_linked": "Dieser Haushalt hat bereits eine Antwort. Lösen Sie diese zuerst.",
+      "link_error": "Zuordnung nicht möglich. Bitte erneut versuchen.",
+      "no_households": "Noch keine Haushalte in Ihrer Gästeliste."
+    }
   },
   "Billing": {
     "title": "Rechnungen",
@@ -1915,5 +1931,72 @@
     "error_empty": "Diese Datei ist leer.",
     "saved": "Musik aktualisiert",
     "save_failed": "Speichern nicht möglich. Bitte versuchen Sie es erneut."
+  },
+  "InvitationSending": {
+    "title": "Einladungen versenden",
+    "subtitle": "Senden Sie die Einladung jedem Haushalt von Ihrem Handy per WhatsApp oder SMS – kostenlos, von Ihrer eigenen Nummer – und erinnern Sie alle, die noch nicht geantwortet haben.",
+    "stats": {
+      "households": "Haushalte",
+      "sent": "Einladungen versendet",
+      "answered": "Haben geantwortet",
+      "to_remind": "Zu erinnern"
+    },
+    "no_link": "Ihre Einladung hat noch keine öffentliche Adresse: Veröffentlichen Sie sie, bevor Sie die Einladungen versenden.",
+    "messages": {
+      "title": "Ihre Nachrichten",
+      "help": "Passen Sie den Text an. {prenoms} wird zu den Vornamen des Haushalts, {foyer} zu seinem Namen, {lien} zur Adresse Ihrer Einladung, {couple} zu Ihren Namen.",
+      "invitation": "Einladungsnachricht",
+      "reminder": "Erinnerungsnachricht",
+      "reset": "Standardtext",
+      "save": "Speichern"
+    },
+    "messages_saved": "Nachrichten gespeichert.",
+    "tabs": {
+      "invite": "Zu versenden",
+      "remind": "Zu erinnern",
+      "all": "Alle Haushalte"
+    },
+    "channel": {
+      "label": "Senden per",
+      "whatsapp": "WhatsApp",
+      "sms": "SMS"
+    },
+    "series": {
+      "title_invite": "Nacheinander versenden",
+      "title_remind": "Nacheinander erinnern",
+      "progress": "{left, plural, one {# Haushalt übrig} other {# Haushalte übrig}}",
+      "send_whatsapp": "WhatsApp öffnen",
+      "send_sms": "SMS öffnen",
+      "skip": "Überspringen",
+      "how": "Die Nachricht öffnet sich fertig geschrieben: Tippen Sie in WhatsApp oder SMS auf Senden und kommen Sie dann für den nächsten Haushalt hierher zurück.",
+      "done_invite": "Alle Haushalte haben ihre Einladung erhalten. 🎉",
+      "done_remind": "Niemand zu erinnern: Alle eingeladenen Haushalte haben geantwortet.",
+      "done_rest": "Die übrigen Haushalte haben keine gültige Nummer für diesen Kanal: Ergänzen Sie sie in der Liste unten."
+    },
+    "list": {
+      "empty": "Ihre Gästeliste ist leer.",
+      "empty_link": "Gäste hinzufügen",
+      "nothing_here": "Kein Haushalt in diesem Tab."
+    },
+    "badge": {
+      "sent": "Gesendet am {date} · {channel}",
+      "not_sent": "Noch nicht gesendet",
+      "reminded": "{count, plural, one {Einmal} other {# Mal}} erinnert · {date}"
+    },
+    "status": {
+      "confirmed": "Zugesagt",
+      "declined": "Abgesagt",
+      "partial": "Teilweise Antwort"
+    },
+    "row": {
+      "remind": "Erinnern",
+      "phone_placeholder": "Telefonnummer",
+      "phone_fix": "Ungültige Nummer, bitte korrigieren",
+      "phone_save": "Hinzufügen",
+      "undo": "Versand rückgängig machen"
+    },
+    "phone_invalid": "Diese Nummer scheint ungültig zu sein.",
+    "phone_saved": "Nummer gespeichert.",
+    "undone": "Versand rückgängig gemacht: Der Haushalt steht wieder unter „Zu versenden“."
   }
 }
