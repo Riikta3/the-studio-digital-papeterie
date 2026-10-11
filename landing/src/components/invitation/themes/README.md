@@ -137,7 +137,7 @@ onto very long lines.
   nothing from `next-intl/server`. Use `useTranslations` / `useLocale` from
   `next-intl`, which work in a Server Component (the public page still renders
   on the server) and in a client tree — the dashboard editor's live preview
-  imports the theme's `Root` into a client component and re-renders it as the
+  loads the theme's `Root` into a client component and re-renders it as the
   couple types. An `async` section breaks the preview for every couple on the
   theme. Only countdowns, forms, toggles and accordions need `"use client"`.
 - Put `data-editor-section="<id>"` on each section's root element, with the id
@@ -211,7 +211,10 @@ export const <camelId>Theme: ThemeManifest = {
   supports: [...],           // only modules this theme can actually render
   accentColor: "#...", cover: "/themes/<id>/cover.webp",
   scopeClass: "theme-<id>", fontVars: <camelId>FontVars,
-  demoData: <ID>_DEMO, Root: <Theme>Root,
+  demoData: <ID>_DEMO,
+  // A loader, never a static import: the registry is on every invitation
+  // page, and a static Root ships this theme's code and CSS on all of them.
+  loadRoot: () => import("./<Theme>Root").then((module) => module.<Theme>Root),
   editorSlots: <camelId>EditorSlots,
 };
 ```

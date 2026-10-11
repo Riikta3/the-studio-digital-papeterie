@@ -1,9 +1,10 @@
 import type { ThemeManifest } from "../types";
 
-import { CaboVerdeRoot } from "./CaboVerdeRoot";
 import { CABO_VERDE_DEMO } from "./demo-data";
 import { caboVerdeEditorSlots } from "./editor";
 import { caboVerdeFontVars } from "./fonts";
+
+const loadCaboVerdeRoot = () => import("./CaboVerdeRoot").then((module) => module.CaboVerdeRoot);
 
 /**
  * Manifest for "Cabo Verde".
@@ -43,6 +44,6 @@ export const caboVerdeTheme: ThemeManifest = {
   fontVars: caboVerdeFontVars,
 
   demoData: CABO_VERDE_DEMO,
-  Root: CaboVerdeRoot,
+  loadRoot: loadCaboVerdeRoot,
   editorSlots: caboVerdeEditorSlots,
 };

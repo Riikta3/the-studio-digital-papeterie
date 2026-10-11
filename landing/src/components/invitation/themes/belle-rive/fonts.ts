@@ -16,6 +16,9 @@ import localFont from "next/font/local";
 
 /** Couple names in the hero and in the closing arch (`.calligraphy`). */
 const script = localFont({
+  // Every theme is registered on every invitation page: preloading would
+  // fetch all of them. Only the faces the drawn theme uses are downloaded.
+  preload: false,
   src: "../../../../../public/themes/belle-rive/calligraphy.otf",
   display: "swap",
   variable: "--font-br-script",

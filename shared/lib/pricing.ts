@@ -16,8 +16,8 @@
  * disagreed.
  */
 export const PLAN_PRICES: Record<string, number> = {
-  signature: 199,
-  "sur-mesure": 299,
+  signature: 149,
+  "sur-mesure": 199,
   prestige: 499,
 };
 

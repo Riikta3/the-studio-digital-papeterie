@@ -40,6 +40,9 @@ import localFont from "next/font/local";
  * wght 400–900 and opsz 6–96.
  */
 const chateauRoyalBodoni = localFont({
+  // Every theme is registered on every invitation page: preloading would
+  // fetch all of them. Only the faces the drawn theme uses are downloaded.
+  preload: false,
   src: "./font-files/bodoni-moda-latin.woff2",
   weight: "400 900",
   style: "normal",
@@ -49,6 +52,9 @@ const chateauRoyalBodoni = localFont({
 
 /** The ampersand and the italic flourishes. */
 const script = Pinyon_Script({
+  // Every theme is registered on every invitation page: preloading would
+  // fetch all of them. Only the faces the drawn theme uses are downloaded.
+  preload: false,
   subsets: ["latin"],
   weight: "400",
   display: "swap",
@@ -57,6 +63,9 @@ const script = Pinyon_Script({
 
 /** Eyebrows, times, labels and form controls. */
 const sans = Jost({
+  // Every theme is registered on every invitation page: preloading would
+  // fetch all of them. Only the faces the drawn theme uses are downloaded.
+  preload: false,
   subsets: ["latin"],
   weight: ["400", "500", "600"],
   display: "swap",

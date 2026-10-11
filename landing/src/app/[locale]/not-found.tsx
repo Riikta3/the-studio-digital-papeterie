@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 
-import { NotFoundView } from "@/components/home/NotFoundView";
+import { NotFoundViewLoader } from "@/components/home/NotFoundViewLoader";
 
 export const metadata: Metadata = {
   title: "Page introuvable — The Studio Papeterie Digitale",
@@ -8,5 +8,5 @@ export const metadata: Metadata = {
 };
 
 export default function LocaleNotFound() {
-  return <NotFoundView />;
+  return <NotFoundViewLoader />;
 }

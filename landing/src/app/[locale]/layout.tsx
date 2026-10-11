@@ -3,7 +3,7 @@ import { NextIntlClientProvider } from "next-intl";
 import { getMessages, getTranslations, setRequestLocale } from "next-intl/server";
 import type { ReactNode } from "react";
 
-import { ContactBubble } from "@/components/contact/ContactBubble";
+import { ContactBubbleLoader } from "@/components/contact/ContactBubbleLoader";
 import { CookieConsent } from "@/components/home/CookieConsent";
 import { getSiteUrl } from "@/lib/site";
 import { routing } from "@/navigation";
@@ -108,7 +108,7 @@ export default async function LocaleLayout({
           screen and a journal belong to the couple, and our support bubble has
           no business floating over them. Unlike the consent banner above,
           which is a legal obligation on every page including those. */}
-      <ContactBubble />
+      <ContactBubbleLoader />
     </NextIntlClientProvider>
   );
 }

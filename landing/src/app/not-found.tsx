@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { NextIntlClientProvider } from "next-intl";
 import { headers } from "next/headers";
 
-import { NotFoundView } from "@/components/home/NotFoundView";
+import { NotFoundViewLoader } from "@/components/home/NotFoundViewLoader";
 import { routing } from "@/navigation";
 
 import "./globals.css";
@@ -43,7 +43,7 @@ export default async function RootNotFound() {
 
   return (
     <NextIntlClientProvider locale={locale} messages={messages}>
-      <NotFoundView />
+      <NotFoundViewLoader />
     </NextIntlClientProvider>
   );
 }

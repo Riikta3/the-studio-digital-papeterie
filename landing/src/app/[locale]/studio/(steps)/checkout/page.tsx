@@ -8,13 +8,14 @@ import {
 } from "@stripe/react-stripe-js";
 import { loadStripe } from "@stripe/stripe-js";
 import {
-  AlertTriangle,
+  ArrowRight,
   Check,
   ChevronLeft,
   CreditCard,
   Loader2,
   Mail,
   Pencil,
+  RotateCw,
   ShieldCheck,
 } from "lucide-react";
 import { useLocale, useTranslations } from "next-intl";
@@ -24,6 +25,17 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import { getModuleName } from "@shared/data/modules";
 import { cn } from "@shared/lib/utils";
 import { createWedding } from "@/actions/create-wedding";
+import {
+  InvitationKeepsake,
+  PaymentDivider,
+  PaymentEyebrow,
+  PaymentHeading,
+  PaymentSeal,
+  PostPaymentCard,
+  ProgressSteps,
+  primaryButtonClass,
+  secondaryButtonClass,
+} from "@/components/studio/PostPaymentScreen";
 import { StepTransition } from "@/components/studio/StepTransition";
 import { ALL_LANGUAGES, EXTRAS } from "@/components/studio/options";
 import { THEMES } from "@/components/studio/themes";
@@ -37,6 +49,14 @@ const stripePromise = loadStripe(
 
 /** Where a customer whose provisioning failed can reach a human. */
 const SUPPORT_EMAIL = "contact@thestudiopapeteriedigitale.com";
+
+/** "Léa & Tom", or whichever half was filled in. */
+function coupleNames(info: { partner1?: string; partner2?: string }): string {
+  return [info.partner1, info.partner2]
+    .map((n) => (n ?? "").trim())
+    .filter(Boolean)
+    .join(" & ");
+}
 
 function labelFor(id: string, list: readonly { id: string; name: string }[]): string {
   return list.find((x) => x.id === id)?.name ?? id;
@@ -267,6 +287,15 @@ export default function StudioCheckoutPage() {
    */
   const [loginLink, setLoginLink] = useState<string | null>(null);
 
+  /**
+   * The theme and names of the order being provisioned, for the success
+   * screen's keepsake card. Taken before `completeOrder()` empties the basket,
+   * which happens the moment the wedding exists.
+   */
+  const [keepsake, setKeepsake] = useState<{ themeId: string; names: string } | null>(
+    null,
+  );
+
   // Mirrors paymentIntentId for the repricing effect below, which must not
   // re-run when the id changes (that would loop) yet still needs the current
   // value. Reading the state variable there captured the initial null and
@@ -289,6 +318,7 @@ export default function StudioCheckoutPage() {
     }
 
     provisionStartedRef.current = true;
+    setKeepsake({ themeId: theme, names: coupleNames(weddingInfo) });
     setIsProvisioning(true);
     setProvisionError(null);
 
@@ -470,39 +500,29 @@ export default function StudioCheckoutPage() {
    */
   if (isPaymentSuccess || isProvisioning || loginLink || provisionError) {
     const reference = intentIdFromUrl ?? paymentIntentId;
+    // The live order on a redirect return, before `provision()` has run; the
+    // snapshot it took once the basket has been emptied.
+    const shown =
+      keepsake ?? (plan ? { themeId: theme, names: coupleNames(weddingInfo) } : null);
 
     if (provisionError) {
       const supportSubject = t("paymentReference") + (reference ? `: ${reference}` : "");
 
       return (
         <StepTransition>
-          <div className="mx-auto flex min-h-[50vh] w-full max-w-md flex-col items-center justify-center gap-5 text-center">
-            <div className="flex h-14 w-14 items-center justify-center rounded-full bg-studio-jaune">
-              <AlertTriangle
-                className="h-7 w-7 text-studio-violet"
-                strokeWidth={2}
-              />
-            </div>
+          <PostPaymentCard seal={<PaymentSeal tone="pending" />}>
+            <PaymentEyebrow>{t("reassurePaid")}</PaymentEyebrow>
+            <PaymentHeading
+              title={t("provisionFailedTitle")}
+              body={t("provisionFailedBody")}
+            />
 
-            <div className="space-y-2">
-              <h1 className="font-heading text-h3 text-studio-violet">
-                {t("provisionFailedTitle")}
-              </h1>
-              <p className="font-body text-sm leading-relaxed text-studio-violet/70">
-                {t("provisionFailedBody")}
-              </p>
-            </div>
-
-            {/* Reassurance first: the charge succeeded, and retrying cannot
-                double-bill — provisioning is idempotent per PaymentIntent. */}
-            <p className="flex items-center gap-2 font-body text-xs font-semibold text-studio-violet/60">
-              <ShieldCheck className="h-4 w-4" />
-              {t("reassurePaid")}
-            </p>
+            {shown && <InvitationKeepsake {...shown} />}
 
             {reference && (
-              <div className="w-full rounded-2xl border border-studio-lavande/60 bg-white/60 px-4 py-3 text-left">
-                <p className="font-body text-[10px] font-bold uppercase tracking-wider text-studio-violet/50">
+              <div className="w-full rounded-2xl border border-dashed border-studio-lavande/70 bg-white/70 px-4 py-3 text-left">
+                <p className="flex items-center gap-1.5 font-body text-[10px] font-bold uppercase tracking-wider text-studio-violet/50">
+                  <ShieldCheck className="h-3.5 w-3.5" />
                   {t("paymentReference")}
                 </p>
                 <p className="mt-1 break-all font-mono text-xs text-studio-violet">
@@ -514,84 +534,91 @@ export default function StudioCheckoutPage() {
               </div>
             )}
 
-            {/* The underlying reason, folded away. Server-side failures carry
-                hardcoded strings in mixed French and English
-                ("Failed to create wedding entity.") that no locale translates,
-                so it must never be the headline a paying customer reads — but
-                it is the first thing support will ask for. */}
-            <details className="w-full text-left">
-              <summary className="cursor-pointer list-none font-body text-[11px] text-studio-violet/50 underline underline-offset-2 hover:text-studio-violet/80">
-                {t("errorDetails")}
-              </summary>
-              <p className="mt-2 break-words font-mono text-[11px] leading-relaxed text-studio-violet/60">
-                {provisionError}
-              </p>
-            </details>
-
             <div className="flex w-full flex-col gap-2">
               <button
                 type="button"
                 onClick={provision}
                 disabled={isProvisioning}
-                className="flex w-full items-center justify-center gap-2 rounded-full bg-studio-violet px-6 py-3.5 font-body text-sm font-semibold text-white transition-colors hover:bg-studio-violet/90 disabled:cursor-not-allowed disabled:opacity-60"
+                className={primaryButtonClass}
               >
-                {isProvisioning && (
+                {isProvisioning ? (
                   <Loader2 className="h-4 w-4 animate-spin" />
+                ) : (
+                  <RotateCw className="h-4 w-4" />
                 )}
                 {isProvisioning ? t("provisionRetrying") : t("provisionRetry")}
               </button>
 
               <a
                 href={`mailto:${SUPPORT_EMAIL}?subject=${encodeURIComponent(supportSubject)}`}
-                className="flex w-full items-center justify-center gap-2 rounded-full border border-studio-lavande px-6 py-3 font-body text-sm font-semibold text-studio-violet/80 transition-colors hover:border-studio-violet hover:text-studio-violet"
+                className={secondaryButtonClass}
               >
                 <Mail className="h-4 w-4" />
                 {t("contactSupport")}
               </a>
             </div>
-          </div>
+
+            {/* The underlying reason, folded away. Server-side failures carry
+                hardcoded strings in mixed French and English
+                ("Failed to create wedding entity.") that no locale translates,
+                so it must never be the headline a paying customer reads — but
+                it is the first thing support will ask for. */}
+            <details className="w-full text-left">
+              <summary className="cursor-pointer list-none text-center font-body text-[11px] text-studio-violet/50 underline underline-offset-2 hover:text-studio-violet/80">
+                {t("errorDetails")}
+              </summary>
+              <p className="mt-2 break-words rounded-xl bg-studio-card-selected/60 px-3 py-2 font-mono text-[11px] leading-relaxed text-studio-violet/60">
+                {provisionError}
+              </p>
+            </details>
+          </PostPaymentCard>
         </StepTransition>
       );
     }
 
     return (
       <StepTransition>
-        <div className="flex min-h-[50vh] flex-col items-center justify-center gap-5 text-center">
-          <div className="flex h-14 w-14 items-center justify-center rounded-full bg-studio-violet">
-            <Check className="h-7 w-7 text-white" strokeWidth={2} />
-          </div>
-          <div className="space-y-2">
-            <h1 className="font-heading text-h3 text-studio-violet">
-              {t("paymentSuccessTitle")}
-            </h1>
-            <p className="mx-auto max-w-xs font-body text-sm text-studio-violet/60">
-              {loginLink ? t("spaceReadyBody") : t("paymentSuccessBody")}
-            </p>
-          </div>
+        <PostPaymentCard seal={<PaymentSeal tone="success" />}>
+          <PaymentEyebrow>{t("successEyebrow")}</PaymentEyebrow>
+          <PaymentHeading
+            title={t("paymentSuccessTitle")}
+            body={loginLink ? t("spaceReadyBody") : t("paymentSuccessBody")}
+          />
+
+          {shown && <InvitationKeepsake {...shown} />}
+
+          <ProgressSteps
+            steps={[
+              { label: t("stepPaid"), status: "done" },
+              { label: t("stepCreating"), status: loginLink ? "done" : "active" },
+              { label: t("stepEmailed"), status: loginLink ? "done" : "todo" },
+            ]}
+          />
+
+          <PaymentDivider />
 
           {/* The couple leaves on their own click. While the wedding is still
-              being built there is nothing to click yet, so the spinner stands
-              in — same screen, no jump. */}
+              being built there is nothing to click yet, so a disabled twin
+              holds its place — same screen, no jump. */}
           {loginLink ? (
-            <a
-              href={loginLink}
-              className="flex w-full max-w-xs items-center justify-center gap-2 rounded-full bg-studio-violet px-6 py-3.5 font-body text-sm font-semibold text-white transition-colors hover:bg-studio-violet/90"
-            >
+            <a href={loginLink} className={primaryButtonClass}>
               {t("orderCompleteCta")}
+              <ArrowRight className="h-4 w-4" />
             </a>
           ) : (
-            <div className="flex items-center gap-2 font-body text-sm text-studio-violet/50">
+            <button type="button" disabled className={primaryButtonClass}>
               <Loader2 className="h-4 w-4 animate-spin" />
               {t("creatingAccount")}
-            </div>
+            </button>
           )}
 
           {loginLink && (
-            <p className="mx-auto max-w-xs font-body text-xs leading-relaxed text-studio-violet/50">
+            <p className="flex items-start gap-2 text-left font-body text-xs leading-relaxed text-studio-violet/55">
+              <Mail className="mt-0.5 h-3.5 w-3.5 flex-shrink-0" />
               {t("spaceReadyHint")}
             </p>
           )}
-        </div>
+        </PostPaymentCard>
       </StepTransition>
     );
   }
@@ -605,31 +632,30 @@ export default function StudioCheckoutPage() {
   if (completedAt && !plan && hasHydrated) {
     return (
       <StepTransition>
-        <div className="mx-auto flex min-h-[50vh] w-full max-w-md flex-col items-center justify-center gap-5 text-center">
-          <div className="flex h-14 w-14 items-center justify-center rounded-full bg-studio-violet">
-            <Check className="h-7 w-7 text-white" strokeWidth={2} />
-          </div>
+        <PostPaymentCard seal={<PaymentSeal tone="success" />}>
+          <PaymentEyebrow>{t("successEyebrow")}</PaymentEyebrow>
+          <PaymentHeading
+            title={t("orderCompleteTitle")}
+            body={t("orderCompleteBody")}
+          />
 
-          <div className="space-y-2">
-            <h1 className="font-heading text-h3 text-studio-violet">
-              {t("orderCompleteTitle")}
-            </h1>
-            <p className="font-body text-sm leading-relaxed text-studio-violet/70">
-              {t("orderCompleteBody")}
-            </p>
-          </div>
-
-          <a
-            href={dashboardUrl}
-            className="flex w-full items-center justify-center gap-2 rounded-full bg-studio-violet px-6 py-3.5 font-body text-sm font-semibold text-white transition-colors hover:bg-studio-violet/90"
-          >
+          <a href={dashboardUrl} className={primaryButtonClass}>
             {t("orderCompleteCta")}
+            <ArrowRight className="h-4 w-4" />
           </a>
 
-          <p className="font-body text-xs leading-relaxed text-studio-violet/50">
-            {t("orderCompleteHint")}
+          <PaymentDivider />
+
+          <p className="font-body text-xs leading-relaxed text-studio-violet/55">
+            {t("orderCompleteHint")}{" "}
+            <a
+              href={`mailto:${SUPPORT_EMAIL}`}
+              className="font-semibold text-studio-violet underline underline-offset-2"
+            >
+              {SUPPORT_EMAIL}
+            </a>
           </p>
-        </div>
+        </PostPaymentCard>
       </StepTransition>
     );
   }

@@ -7,6 +7,8 @@ import { useEffect, useRef, useState } from "react";
 
 import { Link, usePathname } from "@/navigation";
 
+import { contactBubbleHidden } from "./contact-bubble-visibility";
+
 const SUPPORT_EMAIL = "contact@thestudiopapeteriedigitale.com";
 
 // Same threshold as ScrollToTop, deliberately: the two buttons share a corner,
@@ -134,25 +136,7 @@ export function ContactBubble() {
     };
   }, []);
 
-  /*
-   * Hidden on /contact — the form is already on screen there, so the bubble
-   * would only offer a route to the page the visitor is standing on.
-   *
-   * And hidden on the three guest pages. Those belong to the couple, not to
-   * us: an invitation, a Jour J screen and a wedding journal are read by their
-   * guests, and a floating "nous contacter" bubble there offers a stranger a
-   * line to OUR support about someone else's wedding. It also puts our brand
-   * on top of a page the couple paid to make theirs.
-   *
-   * `usePathname` here is next-intl's, which strips the locale prefix — hence
-   * the comparison against `/contact` rather than `/fr/contact`.
-   */
-  const HIDDEN_PREFIXES = ["/invitation/", "/jourj/", "/journal/"];
-
-  const onContactPage = pathname === "/contact";
-  const onGuestPage = HIDDEN_PREFIXES.some((prefix) =>
-    pathname.startsWith(prefix),
-  );
+  const hidden = contactBubbleHidden(pathname);
 
   // Close on Escape, the convention for any dismissible overlay.
   useEffect(() => {
@@ -181,7 +165,7 @@ export function ContactBubble() {
   // over hiding a row by device.
   const showWhatsApp = Boolean(whatsapp);
 
-  if (onContactPage || onGuestPage) return null;
+  if (hidden) return null;
 
   return (
     <>

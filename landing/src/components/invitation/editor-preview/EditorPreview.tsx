@@ -10,7 +10,9 @@ import {
 } from "@shared/types/editor-preview";
 import type { InvitationRows } from "@shared/types/invitation-rows";
 
+import { LazyBackgrounds } from "@/components/invitation/LazyBackgrounds";
 import { THEMES, getTheme } from "@/components/invitation/themes/registry";
+import type { ThemeManifest } from "@/components/invitation/themes/types";
 import { assembleInvitationPage } from "@/lib/assemble-invitation-page";
 import { withSamples } from "@/lib/preview-samples";
 import { toInvitationData } from "@/lib/to-invitation-data";
@@ -185,6 +187,23 @@ export function EditorPreview({ allowedOrigins }: { allowedOrigins: string[] }) 
     };
   }, [draft]);
 
+  // The theme's component, fetched on its own: the registry lists every theme,
+  // and the preview only ever draws one. Kept with its id so a theme switch
+  // never draws the new rows through the old theme while the next one loads.
+  const [loaded, setLoaded] = useState<{ id: string; Root: Awaited<ReturnType<ThemeManifest["loadRoot"]>> } | null>(null);
+  const theme = view?.theme;
+  useEffect(() => {
+    if (!theme) return;
+    let live = true;
+    theme.loadRoot().then((Root) => {
+      if (live) setLoaded((previous) => (previous?.id === theme.id && previous.Root === Root ? previous : { id: theme.id, Root }));
+    });
+    return () => {
+      live = false;
+    };
+  }, [theme]);
+  const Root = loaded && theme && loaded.id === theme.id ? loaded.Root : null;
+
   const layerRef = useRef<HTMLDivElement>(null);
   const [marks, setMarks] = useState<Mark[]>([]);
 
@@ -231,7 +250,9 @@ export function EditorPreview({ allowedOrigins }: { allowedOrigins: string[] }) 
   /* -- Report what was drawn ------------------------------------------------ */
 
   useEffect(() => {
-    if (!view) return;
+    // Not before the theme is on the page: an empty report would tell the
+    // editor the couple's invitation has no sections.
+    if (!view || !Root) return;
 
     // After paint, so the sections are in the DOM in their final order.
     const frame = window.requestAnimationFrame(() => {
@@ -269,7 +290,7 @@ export function EditorPreview({ allowedOrigins }: { allowedOrigins: string[] }) 
     });
 
     return () => window.cancelAnimationFrame(frame);
-  }, [view, post, translate, focusSection, placeMarks]);
+  }, [view, Root, post, translate, focusSection, placeMarks]);
 
   /* -- Hover and click: "edit this section" ----------------------------------- */
 
@@ -317,8 +338,6 @@ export function EditorPreview({ allowedOrigins }: { allowedOrigins: string[] }) 
 
   /* -- Markup --------------------------------------------------------------- */
 
-  const Root = view?.theme.Root;
-
   return (
     <div ref={rootRef} className="editor-preview-root">
       <div ref={layerRef} className="editor-preview-marks" aria-hidden="true">
@@ -332,12 +351,15 @@ export function EditorPreview({ allowedOrigins }: { allowedOrigins: string[] }) 
           </span>
         ))}
       </div>
-      {!view ? (
+      {!view || (view.data && !Root) ? (
         <p className="editor-preview-status" role="status">
           {tp("waiting")}
         </p>
       ) : view.data && Root ? (
-        <Root data={view.data} />
+        <>
+          <Root data={view.data} />
+          <LazyBackgrounds />
+        </>
       ) : (
         <p className="editor-preview-status" role="status">
           {tp("noEvent")}

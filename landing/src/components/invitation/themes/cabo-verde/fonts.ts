@@ -14,6 +14,9 @@ import { Bodoni_Moda, Pinyon_Script } from "next/font/google";
 
 /** Headings and the names: Didot's / Bodoni 72's stand-in. */
 const display = Bodoni_Moda({
+  // Every theme is registered on every invitation page: preloading would
+  // fetch all of them. Only the faces the drawn theme uses are downloaded.
+  preload: false,
   subsets: ["latin"],
   axes: ["opsz"],
   style: ["normal", "italic"],
@@ -23,6 +26,9 @@ const display = Bodoni_Moda({
 
 /** The italic flourishes: Snell Roundhand's stand-in. */
 const script = Pinyon_Script({
+  // Every theme is registered on every invitation page: preloading would
+  // fetch all of them. Only the faces the drawn theme uses are downloaded.
+  preload: false,
   subsets: ["latin"],
   weight: "400",
   display: "swap",
