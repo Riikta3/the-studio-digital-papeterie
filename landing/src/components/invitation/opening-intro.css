@@ -13,10 +13,10 @@ html[data-opening-skip] .opening-intro {
 }
 
 /* The page waits under the film: no scrolling it, and its own entrance animations hold until it is shown. */
-html:not([data-opening-skip]):has(.opening-intro:is([data-phase="playing"], [data-phase="white"])) {
+html:not([data-opening-skip]):has(.opening-intro:is([data-phase="waiting"], [data-phase="playing"], [data-phase="white"])) {
   overflow: hidden;
 }
-html:not([data-opening-skip]):has(.opening-intro:is([data-phase="playing"], [data-phase="white"]))
+html:not([data-opening-skip]):has(.opening-intro:is([data-phase="waiting"], [data-phase="playing"], [data-phase="white"]))
   body *:not(.opening-intro, .opening-intro *) {
   animation-play-state: paused !important;
 }
@@ -67,8 +67,8 @@ html:not([data-opening-skip]):has(.opening-intro:is([data-phase="playing"], [dat
   pointer-events: none;
 }
 
-/* A tap anywhere skips to the fade. Invisible: the film says nothing to read. */
-.opening-intro__skip {
+/* The whole screen is the button: the tap opens the envelope, a second one skips to the fade. */
+.opening-intro__tap {
   position: absolute;
   inset: 0;
   width: 100%;
@@ -79,9 +79,55 @@ html:not([data-opening-skip]):has(.opening-intro:is([data-phase="playing"], [dat
   cursor: pointer;
   -webkit-tap-highlight-color: transparent;
 }
-.opening-intro__skip:focus-visible {
+.opening-intro__tap:focus-visible {
   outline: 2px solid #fff;
   outline-offset: -6px;
+}
+
+/* « Touchez pour ouvrir », low on the closed envelope, breathing slowly. */
+.opening-intro__hint {
+  position: absolute;
+  left: 50%;
+  bottom: max(9vh, calc(env(safe-area-inset-bottom) + 32px));
+  transform: translateX(-50%);
+  padding: 10px 22px;
+  border: 1px solid rgb(255 255 255 / 0.7);
+  border-radius: 999px;
+  background: rgb(0 0 0 / 0.16);
+  -webkit-backdrop-filter: blur(6px);
+  backdrop-filter: blur(6px);
+  color: #fff;
+  font: 500 12px/1.2 ui-serif, Georgia, "Times New Roman", serif;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  text-shadow: 0 1px 8px rgb(0 0 0 / 0.25);
+  animation: opening-intro-breathe 2.4s ease-in-out infinite;
+  transition: opacity 300ms ease;
+}
+.opening-intro:not([data-phase="waiting"]) .opening-intro__hint {
+  opacity: 0;
+  animation: none;
+}
+.opening-intro__hint-click {
+  display: none;
+}
+@media (hover: hover) and (pointer: fine) {
+  .opening-intro__hint-touch {
+    display: none;
+  }
+  .opening-intro__hint-click {
+    display: inline;
+  }
+}
+@keyframes opening-intro-breathe {
+  0%,
+  100% {
+    opacity: 0.75;
+  }
+  50% {
+    opacity: 1;
+  }
 }
 
 .opening-intro[data-phase="white"] .opening-intro__white,

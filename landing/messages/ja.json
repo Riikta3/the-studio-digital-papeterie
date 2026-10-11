@@ -1928,7 +1928,10 @@
       "label": "音楽"
     },
     "opening": {
-      "skip": "オープニングをスキップ"
+      "skip": "オープニングをスキップ",
+      "open": "招待状を開く",
+      "tapToOpen": "タップして開く",
+      "clickToOpen": "クリックして開く"
     },
     "diet": {
       "legendSelf": "食事制限・アレルギー",

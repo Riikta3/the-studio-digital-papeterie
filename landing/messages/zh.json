@@ -1928,7 +1928,10 @@
       "label": "音乐"
     },
     "opening": {
-      "skip": "跳过开场"
+      "skip": "跳过开场",
+      "open": "打开请柬",
+      "tapToOpen": "轻触打开",
+      "clickToOpen": "点击打开"
     },
     "diet": {
       "legendSelf": "饮食与过敏",

@@ -2316,7 +2316,10 @@
       "label": "Musique"
     },
     "opening": {
-      "skip": "Passer l’introduction"
+      "skip": "Passer l’introduction",
+      "open": "Ouvrir l’invitation",
+      "tapToOpen": "Touchez pour ouvrir",
+      "clickToOpen": "Cliquez pour ouvrir"
     },
     "diet": {
       "legendSelf": "Régimes et allergies",

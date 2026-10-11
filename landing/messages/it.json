@@ -1928,7 +1928,10 @@
       "label": "Musica"
     },
     "opening": {
-      "skip": "Salta l’introduzione"
+      "skip": "Salta l’introduzione",
+      "open": "Apri l’invito",
+      "tapToOpen": "Tocca per aprire",
+      "clickToOpen": "Clicca per aprire"
     },
     "diet": {
       "legendSelf": "Dieta e allergie",

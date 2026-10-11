@@ -1929,7 +1929,10 @@
       "label": "Música"
     },
     "opening": {
-      "skip": "Saltar la introducción"
+      "skip": "Saltar la introducción",
+      "open": "Abrir la invitación",
+      "tapToOpen": "Toque para abrir",
+      "clickToOpen": "Haga clic para abrir"
     },
     "diet": {
       "legendSelf": "Dieta y alergias",

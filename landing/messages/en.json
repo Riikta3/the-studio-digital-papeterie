@@ -2142,7 +2142,10 @@
       "label": "Music"
     },
     "opening": {
-      "skip": "Skip the introduction"
+      "skip": "Skip the introduction",
+      "open": "Open the invitation",
+      "tapToOpen": "Tap to open",
+      "clickToOpen": "Click to open"
     },
     "diet": {
       "legendSelf": "Diet and allergies",
