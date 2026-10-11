@@ -1,10 +1,12 @@
 import type { Metadata } from "next";
-import { NextIntlClientProvider } from "next-intl";
+import { NextIntlClientProvider, hasLocale } from "next-intl";
 import { getMessages, getTranslations, setRequestLocale } from "next-intl/server";
+import { notFound } from "next/navigation";
 import type { ReactNode } from "react";
 
 import { ContactBubbleLoader } from "@/components/contact/ContactBubbleLoader";
 import { CookieConsent } from "@/components/home/CookieConsent";
+import { isCoupleDomainRequest } from "@/lib/custom-domain-request";
 import { getSiteUrl } from "@/lib/site";
 import { routing } from "@/navigation";
 
@@ -87,8 +89,22 @@ export default async function LocaleLayout({
   params: Promise<{ locale: string }>;
 }) {
   const { locale } = await params;
+
+  // next-intl's middleware only ever forwards a locale it knows, but a path
+  // with a dot skips the proxy entirely, so `/foo.bar` arrives here with
+  // "foo.bar" as its locale. It used to render the shop's homepage in French
+  // with a 200, on any host, a couple's domain included. Now the root 404.
+  if (!hasLocale(routing.locales, locale)) notFound();
+
   setRequestLocale(locale);
   const messages = await getMessages({ locale });
+
+  // On a couple's own domain neither is rendered. Both hide themselves on the
+  // guest pages by URL prefix (`/invitation/`, `/jourj/`), and a couple's
+  // domain has no such prefix: its invitation is `/`, its Jour J `/jourj`.
+  // There everything is a guest page, so the proxy's header decides instead,
+  // or the host for a path with a dot, which the proxy never sees.
+  const onCoupleDomain = await isCoupleDomainRequest();
 
   // `lang`/`dir` are stamped by the root layout, which reads the locale off
   // the `x-pathname` header the proxy forwards. They used to be patched here
@@ -102,13 +118,13 @@ export default async function LocaleLayout({
           an article or a theme page from search without ever seeing the
           homepage. It renders nothing until hydration, so it adds nothing to
           the served HTML of any of them. */}
-      <CookieConsent />
+      {onCoupleDomain ? null : <CookieConsent />}
       {/* Site-wide, but the component hides itself on /contact (the form is
           already on screen) and on the guest pages — an invitation, a Jour J
           screen and a journal belong to the couple, and our support bubble has
           no business floating over them. Unlike the consent banner above,
           which is a legal obligation on every page including those. */}
-      <ContactBubbleLoader />
+      {onCoupleDomain ? null : <ContactBubbleLoader />}
     </NextIntlClientProvider>
   );
 }

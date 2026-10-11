@@ -905,7 +905,11 @@
     "orderCompleteCta": "前往我的空间",
     "orderCompleteHint": "需要第二份请柬吗？请联系我们，我们将为您创建。",
     "spaceReadyBody": "您的空间已就绪。打开您的请柬，开始个性化设置。",
-    "spaceReadyHint": "此链接无需密码即可登录。我们也已通过邮件发送给您。"
+    "spaceReadyHint": "此链接无需密码即可登录。我们也已通过邮件发送给您。",
+    "domainUnavailable": "<name>{domain}</name> 已不可用，请另选一个。",
+    "domainInvalid": "该域名无效，请在付款前更正。",
+    "nothingCharged": "未扣除任何费用。",
+    "editDomain": "修改我的域名"
   },
   "Legal": {
     "backHome": "返回首页",
@@ -1935,5 +1939,34 @@
       "otherPlaceholder": "请说明（如：花生）",
       "none": "无"
     }
+  },
+  "CustomDomain": {
+    "connector": "和",
+    "yearsCount": "{years, plural, other {# 年}}",
+    "priceAmount": "{price}€",
+    "fieldLabel": "您的域名",
+    "checking": "正在检查 <name>{domain}</name>…",
+    "available": "可用",
+    "taken": "已被注册",
+    "notForSale": "不可用",
+    "invalidPill": "无效",
+    "checkUnavailable": "暂时无法检查",
+    "alternatives": "可用：",
+    "noAlternatives": "请尝试其他拼写。",
+    "errorEmpty": "请输入您想要的名称。",
+    "errorNoLatin": "请使用拉丁字母、数字或连字符。",
+    "errorTooShort": "至少 3 个字母或数字。",
+    "errorTooLong": "最多 63 个字符。",
+    "errorInvalid": "仅限字母、数字和连字符。",
+    "warning": "请检查拼写：域名购买后无法修改。",
+    "later": "稍后再选",
+    "laterNote": "您可以稍后在您的空间中选择域名",
+    "chooseNow": "现在选择",
+    "priceOneYear": "<strong>{price}€</strong> — {years, plural, other {# 年}}",
+    "priceYears": "<strong>{price}€</strong> — {years, plural, other {# 年}}，距离您的婚礼还有 {months, plural, other {# 个月}}",
+    "cover": "域名在婚礼后 3 个月内保持有效。",
+    "recapLabel": "域名",
+    "recapChosen": "<name>{domain}</name>，{years, plural, other {# 年}}",
+    "recapLater": "稍后选择"
   }
 }

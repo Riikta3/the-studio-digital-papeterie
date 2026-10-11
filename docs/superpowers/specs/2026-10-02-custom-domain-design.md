@@ -128,14 +128,16 @@ domainPrice(years: number): number          // 65 + (years − 1) × 20
   created or repriced, and frozen once it is paid.** They are written to its
   metadata. Every later reader — provisioning, the webhook a day later, the
   invoice — takes them from the intent and never recomputes from today's date.
-- The invoice line reads « Nom de domaine sophie-et-pierre.com — 2 ans », or
-  « Nom de domaine personnalisé — 1 an » when the name is not chosen yet.
+- The invoice line reads « Nom de domaine personnalisé (.com) — 2 ans »
+  (« — 1 an » for one year), whether or not a name was chosen. It never
+  names the domain: an invoice cannot be edited, and the name can still be
+  lost after payment (D2, D5).
   `buildInvoiceLines` must emit it itself, because it skips any extra
   without an `EXTRA_PRICES` entry. Without it, the invoice total would no
   longer reconcile with the charge and `issueInvoiceForPayment` would refuse
-  to issue. The line builder lives in its own file:
-  `invoice-lines.ts` imports `messages/fr.json`, which the test runner cannot
-  load.
+  to issue. The line builder lives in its own file,
+  `domain-invoice-line.ts`; `buildInvoiceLines` is tested as well, the test
+  runner's hook now loading the `messages/fr.json` it imports.
 - `ParsedOrder` (`order-metadata.ts`) carries `domainName` and `domainYears`,
   so the invoice and the webhook read them from the intent.
 
@@ -230,11 +232,17 @@ years: number }`, added to every hand-written reset (`completeOrder`,
   is the one `create-payment-intent` returns.
 
 **Options step.** Each extra card is a `<button>` today, and a text field
-cannot sit inside a button. The custom-domain card therefore becomes a header
-button (the toggle) with a sibling panel. It spans both grid columns while
-open. The panel opens with the height-auto pattern of
+cannot sit inside a button. The custom-domain card therefore stays a card
+(the toggle), and a **sibling panel opens below the grid**, full width. The
+card does not span two columns, which would leave an empty cell beside
+« Vidéo animée ». This was decided on the mock-up on 2026-10-02 (« Panneau
+sous la carte »).
+
+The panel opens with the height-auto pattern of
 `theme-mediterranean-classy/FaqSection.tsx` (`AnimatePresence`,
-`useReducedMotion`). The panel contains:
+`useReducedMotion`). The approved mock-up is the visual reference:
+`https://claude.ai/artifact/TLwrYkLhhYsiJMGvJ6bioc`, source in the session
+scratchpad `maquette-domaine-perso.html`. The panel contains:
 
 - a field for the label, with a fixed `.com` after it, pre-filled from the
   first word of each partner's name joined by the locale's word for "and"
@@ -245,9 +253,16 @@ open. The panel opens with the height-auto pattern of
 - availability shown while typing (debounced 400 ms): « disponible », or
   « déjà pris » with up to 3 alternatives that are available
   (`{a}-et-{b}-{year}`, `mariage-{a}-{b}`, `{a}{b}`);
-- « Je choisirai plus tard » sets `later` and collapses the field;
-- the card's price: « 65 € », or « 85 € — 2 ans, votre mariage est dans
-  14 mois »;
+- the field keeps what the couple types. A line below shows the normalised
+  name, and the field snaps to it on blur: normalising while typing would make
+  a trailing hyphen impossible to type;
+- « Je choisirai plus tard » sets `later` and collapses the field to « Vous
+  choisirez votre nom depuis votre espace », with « Choisir maintenant » to
+  reopen it;
+- the price follows the wedding date, **on the closed card too**
+  (« +85 € · 2 ans »), so the running total stays right. The panel reads
+  « 85 € — 2 ans, votre mariage est dans 14 mois », and adds « Le domaine reste
+  actif jusqu'à 3 mois après le mariage. »;
 - below the field: « Vérifiez l'orthographe : un nom acheté ne peut plus être
   modifié. »
 
@@ -306,8 +321,9 @@ issue for the other optional keys.
 text through `setFetchError`. `domainUnavailable` gets its own branch, which
 shows the message with a link back to `/studio/options`.
 
-The recap line: « Nom de domaine — sophie-et-pierre.com, 2 ans », or « à
-choisir plus tard ».
+**The recap.** The domain has its own row (and leaves the « Extras » row):
+« Nom de domaine — sophie-et-pierre.com, 2 ans · 85 € », or « à choisir plus
+tard ». The 409 message is followed by « Rien n'a été débité. ».
 
 **Provisioning** (`createWedding`):
 
@@ -322,12 +338,23 @@ choisir plus tard ».
   `name = null`, `awaiting_choice`, `last_error = 'name_unavailable'`.
 - Then `after(() => advanceCustomDomain(id))` — the couple's redirect to the
   dashboard never waits on Vercel.
-- The webhook path runs the same code (it calls `createWedding`), so it needs
-  nothing more.
+- The webhook path runs the same code (it calls `createWedding`).
+- **A missing row heals itself.** If the insert failed transiently, nothing
+  else would retry it: a reload takes the `alreadyProvisionedAs` early
+  return, and the webhook sees the wedding exists. So both of them call
+  `ensureCustomDomainRow`, which is idempotent (a replay is ignored).
+  - The webhook targets the wedding stamped on the intent (`wedding_id`),
+    never the one found by email, which would give a refunded second
+    purchase a free domain.
+  - The webhook throws on failure, so Stripe redelivers.
 
 ### D4 — Dashboard: choose later, or buy after the sale
 
-A « Nom de domaine » block. Where it sits is decided on the mock-up, not here.
+A « Nom de domaine » block in **Réglages → Général, under the publication
+card** (placement A, decided on the mock-up on 2026-10-02). The name is
+chosen once, next to the setting that already governs the public link. The
+« pris entre-temps » variant adds « Sans frais : votre domaine reste
+réglé. ».
 
 | Row state | The block shows |
 |---|---|
@@ -394,6 +421,57 @@ row up within 5 minutes. The dashboard never calls Vercel's authenticated API.
 | `purchasing` | No `vercel_order_id` (the process died between the write and the answer): wait until `purchase_started_at + 30 min`. Then `GET /v5/domains/{name}`: 200 → `registered`, else back to `queued`. With an order id, read the order and our domain's entry: `completed` → `registered`, with `registered_at` and `expires_at` from `GET /v5/domains/{name}`. `failed` with `unavailable-legal` → `awaiting_choice` as above. `failed` otherwise, `refunded` or `refund-failed` → `failed` with the code, studio alert. `draft`, `purchasing` or `pending` → look again in 2 minutes. |
 | `registered` | `POST /v10/projects/{id}/domains` for `name`, then for `www.name` with `redirect: name, redirectStatusCode: 308`. On any 400 or 409, read back `GET /v9/projects/{id}/domains/{name}`; a 200 counts as attached. `active` only when `https://name/` completes a TLS handshake and answers within 10 s, whatever the HTTP status (it is a 404 until the row is `active`, D6). Until then, look again in 5 minutes. After 48 h without a certificate → `failed`. |
 
+- **Uncertain purchases are never the couple's problem** (engine review,
+  2026-10-02).
+  - **What counts as uncertain**: a buy whose answer never arrived (timeout,
+    5xx, network error), an order id that could not be saved, or an order
+    pending without an outcome.
+  - **What the engine never does then**: requeue on its own, or call the name
+    taken.
+  - **What it does instead**:
+    - it keeps the row in `purchasing` with `last_error = 'buy_unconfirmed'`;
+    - it re-checks ownership at +30 min, +2 h, +6 h and +24 h;
+    - only then does it mark the row `failed`, with a studio alert saying
+      "our order may be pending, check the Vercel dashboard".
+  - **When it may requeue or move to `awaiting_choice`**: only after a
+    definitive pre-order refusal from the buy call (a known 4xx code).
+  - **Specific cases**:
+    - an order id that fails to save is retried, then carried in the failure
+      write;
+    - an order pending more than 24 h after `purchase_started_at` → `failed`
+      with an alert;
+    - a queued row that still has a `vercel_order_id` checks that order
+      instead of buying.
+- **Search answers carry a reason**: `taken`, `premium`, `above_ceiling`,
+  `unsupported` or `unknown`.
+  - Only `taken` and `premium` send a row to `awaiting_choice`.
+  - `above_ceiling` → `failed` with an alert.
+  - `unknown` (a missing or malformed answer) and a `null` quote right after a
+    positive search are retryable errors, never a « nom pris » email.
+- **Auth and rate limits.**
+  - 401 or 403 from Vercel → an immediate studio alert, sent once per row.
+    The row's attempts are not spent; it retries in 30 min.
+  - 429 → it honours `Retry-After`, again without spending an attempt.
+- **Adopting a domain we already own** (step 1) requires
+  `boughtAt >= row.created_at`. An older domain in the team account is never
+  given to a couple: `failed` with `domain_already_in_account` and an alert.
+- **The write-ahead** is also conditioned on the row's `name` and `years`.
+- **Before buying**, the engine checks
+  `price_paid_cents >= domainPrice(years) × 100`; otherwise `failed` with
+  `paid_amount_mismatch`.
+- **Step budget.**
+  - Each step has a 90 s budget. Every Vercel call's timeout is
+    `min(20 s, remaining)`, so a step always ends inside the 2-minute lease.
+  - The cron's `maxDuration` is 300.
+  - Each row's emails are sent right after its own step, with a 10 s timeout.
+- **Studio alerts are durable**, like couple notices: the code
+  `studio_failed` is claimed in `notices_sent`, and the cron sweeps `failed`
+  rows that lack it.
+- **Registrant fields** are transliterated to ASCII before buying (é→e). The
+  country must be a real ISO 3166 alpha-2 code (`GB`, not `UK`).
+- **Accepted risk, documented**: an email is claimed, then sent. A process
+  killed exactly between the two loses that one email. At most once is
+  preferred to duplicates.
 - **The cron**: `landing/vercel.json`, `*/5 * * * *`. It runs on production
   deployments only, so a preview deployment is advanced by `after()` alone.
   An end-to-end test on a preview must call the cron route by hand, with the
@@ -493,6 +571,16 @@ row up within 5 minutes. The dashboard never calls Vercel's authenticated API.
   by URL prefix (`/invitation/`, `/jourj/`), which a couple's domain does not
   have (`/`, `/jourj`). Where they are mounted, they are not rendered when
   `x-custom-domain` is present.
+- **Paths containing a dot skip the proxy**, because of the matcher. Every
+  host-dependent decision in the layouts and `not-found` files therefore goes
+  through `isCoupleDomainRequest()`, which costs no DB call:
+  `x-custom-domain` is present, **or** the host is not one of our own. An
+  unlisted shop alias is thus treated as a couple's domain for chrome and 404
+  pages only, never for a working page.
+- **Resolver error with nothing cached** → a minimal 503 with
+  `Retry-After: 10` and `Cache-Control: no-store`, never the shop. A stale
+  cached answer is reused when the lookup fails. Own hosts never call the
+  resolver.
 - Maintenance mode never applies on a couple's domain.
 - **Clean links**: the invitation page's language redirect, the Jour J page's
   links and `GuestNav` build their paths through one helper.
@@ -520,8 +608,12 @@ row up within 5 minutes. The dashboard never calls Vercel's authenticated API.
 
 ### D7 — Where the domain shows in the dashboard
 
-- `InvitationPreviewCard` shows `https://name` once `active`; otherwise the
-  generic link and « Domaine en cours d'activation » when a row exists.
+- `InvitationPreviewCard` shows `https://name` once `active`. Otherwise it
+  shows the generic link plus:
+  - « Domaine en cours d'activation » for `queued`, `purchasing` or
+    `registered`;
+  - « Nom de domaine à choisir », linking to the block, for `awaiting_choice`.
+    Nothing is activating until a name is chosen.
 - The Jour J QR code (`jour-j/qr-code/page.tsx`) points to
   `https://name/jourj` once `active`. It is safe to print: the domain is
   covered until the wedding + 3 months.
@@ -606,7 +698,8 @@ row up within 5 minutes. The dashboard never calls Vercel's authenticated API.
     slug and a locale not bought;
   - the host decision: own host, unknown host (falls through), known but not
     live (404), live;
-  - the invoice line with and without a name.
+  - the invoice line at 1, 2 and 4 years, and with « plus tard », reconciling
+    with `computeOrderTotal` through `buildInvoiceLines`.
 - **Database (script against local Supabase)**: one row per site; a name used
   once; the couple can `select` its row and cannot `update` it; `anon` gets
   `live = false` and no slug for a `queued` row or an unpublished site, and no

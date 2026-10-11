@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 
-import { planDomainForCheckout } from "@/lib/checkout-domain";
+import { planDomainForCheckout, refuseDomainBeforePayment } from "@/lib/checkout-domain";
 import { findUserByEmail } from "@/lib/find-user-by-email";
 import { buildOrderMetadata, metadataForUpdate } from "@/lib/order-metadata";
 import { computeOrderTotal } from "@/lib/pricing";
@@ -105,69 +105,24 @@ export async function POST(req: Request) {
 
     /*
      * The chosen domain name is checked here too, right before the money is
-     * taken (spec D3). The studio's options step shows availability while the
-     * couple types, but that answer may be a minute old, and this endpoint is
-     * reachable directly.
-     *
-     * Two sources, because neither knows everything:
-     * - our own rows: Vercel's search answers "available" for a name another
-     *   of our couples has paid for but that is not bought yet;
-     * - Vercel's search, uncached (`maxAgeMs: 0`), for the rest of the world.
-     *
-     * Same 409 shape as `emailTaken` above, so the checkout can send the
-     * couple back to the options step before anything is charged.
+     * taken (spec D3): against our own rows (closed on error) and against
+     * Vercel's uncached search (open on error). `refuseDomainBeforePayment`
+     * holds the rules; a taken name is a 409 `domainUnavailable`, the same
+     * shape as `emailTaken` above.
      */
-    if (domainPlan.wanted && domainPlan.name) {
-      if (domainPlan.invalid) {
-        return NextResponse.json(
-          { error: "Nom de domaine invalide.", domainInvalid: true },
-          { status: 400 },
-        );
-      }
-
-      const domainTaken = () =>
-        NextResponse.json(
-          {
-            error: "Ce nom vient d'être pris. Choisissez-en un autre.",
-            domainUnavailable: true,
-          },
-          { status: 409 },
-        );
-
+    const domainRefusal = await refuseDomainBeforePayment(domainPlan, {
       // Service role: the function is not granted to anon (it would let
       // anyone probe which names our couples chose), and no account exists
       // yet at this point for a user session to run it under.
-      const { data: ours, error: oursError } = await supabaseAdmin.rpc(
-        "custom_domain_name_taken",
-        { p_name: domainPlan.name },
-      );
-
-      if (oursError) {
-        // Closed, like the email lookup above: provisioning would lose this
-        // name to the other couple on the unique index, and this couple would
-        // pay for a name the studio already knew it could not buy them.
-        console.error("[DOMAIN_TAKEN_LOOKUP_FAILED]", oursError);
-        return NextResponse.json(
-          {
-            error:
-              "Impossible de vérifier le nom de domaine pour le moment. " +
-              "Merci de réessayer dans quelques instants.",
-          },
-          { status: 503 },
-        );
-      }
-      if (ours) return domainTaken();
-
-      try {
-        const [result] = await searchDomains([domainPlan.name], { maxAgeMs: 0 });
-        if (!result?.available) return domainTaken();
-      } catch (searchError) {
-        // Open, unlike the two lookups above: the order goes through on the
-        // name the couple chose, and the purchase engine still checks it
-        // before buying — a name taken in the meantime falls back to
-        // `awaiting_choice`, and the couple picks another for free (D5).
-        console.warn("[DOMAIN_SEARCH_UNREACHABLE]", searchError);
-      }
+      nameTaken: (name) =>
+        supabaseAdmin.rpc("custom_domain_name_taken", { p_name: name }),
+      searchName: async (name) =>
+        (await searchDomains([name], { maxAgeMs: 0 }))[0],
+    });
+    if (domainRefusal) {
+      return NextResponse.json(domainRefusal.body, {
+        status: domainRefusal.status,
+      });
     }
 
     // Order summary kept on the intent so a failed provisioning can always be

@@ -5,9 +5,14 @@ import { useTranslations } from "next-intl";
 import { useState } from "react";
 
 import { cn } from "@shared/lib/utils";
+import { CustomDomainPanel } from "@/components/studio/CustomDomainPanel";
 import { StepTransition } from "@/components/studio/StepTransition";
-import { ALL_LANGUAGES, EXTRAS } from "@/components/studio/options";
+import { ALL_LANGUAGES, CUSTOM_DOMAIN_EXTRA, EXTRAS } from "@/components/studio/options";
+import { useDomainYears } from "@/components/studio/use-domain-years";
 import { LANGUAGE_PRICE, useOrderStore } from "@/stores/use-order-store";
+
+/** The custom-domain card's `aria-controls`. */
+const DOMAIN_PANEL_ID = "custom-domain-panel";
 
 function SectionLabel({ children }: { children: React.ReactNode }) {
   return (
@@ -19,6 +24,7 @@ function SectionLabel({ children }: { children: React.ReactNode }) {
 
 export default function StudioOptionsPage() {
   const t = useTranslations("StudioOptions");
+  const tDomain = useTranslations("CustomDomain");
   const {
     primaryLanguage,
     setPrimaryLanguage,
@@ -30,6 +36,10 @@ export default function StudioOptionsPage() {
     toggleExtra,
   } = useOrderStore();
   const [dropdownOpen, setDropdownOpen] = useState(false);
+  // The domain's price follows the wedding date, on the closed card too, so
+  // the running total in the CTA stays right (spec D3).
+  const domain = useDomainYears();
+  const domainOpen = extras.includes(CUSTOM_DOMAIN_EXTRA);
 
   const primaryLang =
     ALL_LANGUAGES.find((l) => l.code === primaryLanguage) ?? ALL_LANGUAGES[0];
@@ -169,12 +179,16 @@ export default function StudioOptionsPage() {
               <div className="grid grid-cols-2 gap-3">
                 {EXTRAS.map((ex) => {
                   const isSelected = extras.includes(ex.id);
+                  const isDomain = ex.id === CUSTOM_DOMAIN_EXTRA;
                   const Icon = ex.icon;
                   return (
                     <button
                       key={ex.id}
                       type="button"
                       onClick={() => toggleExtra(ex.id)}
+                      // The domain card opens its panel below the grid.
+                      aria-expanded={isDomain ? isSelected : undefined}
+                      aria-controls={isDomain && isSelected ? DOMAIN_PANEL_ID : undefined}
                       className={cn(
                         "studio-card-border studio-card-fill relative flex flex-col gap-3 rounded-2xl p-4 text-left transition-shadow",
                         isSelected && "ring-2 ring-studio-violet",
@@ -207,12 +221,26 @@ export default function StudioOptionsPage() {
                         </p>
                       </div>
                       <p className="mt-auto font-body text-sm font-bold text-studio-violet">
-                        +{ex.price}€
+                        +{isDomain ? domain.price : ex.price}€
+                        {isDomain && domain.years > 1 && (
+                          <span className="text-[10px] font-semibold text-studio-violet/55">
+                            {" · "}
+                            {tDomain("yearsCount", { years: domain.years })}
+                          </span>
+                        )}
                       </p>
                     </button>
                   );
                 })}
               </div>
+              <CustomDomainPanel
+                id={DOMAIN_PANEL_ID}
+                open={domainOpen}
+                years={domain.years}
+                price={domain.price}
+                monthsUntil={domain.monthsUntil}
+                weddingYear={domain.weddingYear}
+              />
             </div>
 
             <div>

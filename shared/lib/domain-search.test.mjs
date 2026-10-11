@@ -33,7 +33,7 @@ test("searchDomains asks the public search endpoint once and answers in input or
   const results = await searchDomains(["google.com", FREE], { fetch, now: at(0) });
 
   assert.deepEqual(results, [
-    { name: "google.com", available: false },
+    { name: "google.com", available: false, reason: "taken" },
     { name: FREE, available: true, priceUsd: 11.25 },
   ]);
   assert.equal(calls.length, 1);
@@ -49,7 +49,7 @@ test("a premium name is not available, whatever its price", async () => {
   });
 
   assert.deepEqual(await searchDomains(["amour.com"], { fetch, now: at(0) }), [
-    { name: "amour.com", available: false, priceUsd: 9.5 },
+    { name: "amour.com", available: false, reason: "premium", priceUsd: 9.5 },
   ]);
 });
 
@@ -64,10 +64,10 @@ test("a name above the price ceiling is not available; one at the ceiling is", a
   });
 
   assert.deepEqual(await searchDomains(["cher.com", "juste.com", "sans-prix.com"], { fetch, now: at(0) }), [
-    { name: "cher.com", available: false, priceUsd: 15.01 },
+    { name: "cher.com", available: false, reason: "above_ceiling", priceUsd: 15.01 },
     { name: "juste.com", available: true, priceUsd: 15 },
-    // No price to hold against the ceiling: not offered.
-    { name: "sans-prix.com", available: false },
+    // No price to hold against the ceiling: not offered, and not called taken.
+    { name: "sans-prix.com", available: false, reason: "unknown" },
   ]);
 });
 
@@ -83,20 +83,63 @@ test("a name outside .com is never available, even if the registrar says so", as
   const results = await searchDomains(["example-test-8417263.fr", FREE], { fetch, now: at(0) });
 
   assert.deepEqual(results, [
-    { name: "example-test-8417263.fr", available: false },
+    { name: "example-test-8417263.fr", available: false, reason: "unsupported" },
     { name: FREE, available: true, priceUsd: 11.25 },
   ]);
   // Not worth asking about.
   assert.deepEqual(calls[0].domains, [FREE]);
 });
 
-test("a name the registrar left out of its answer is not available", async () => {
+test("a name the registrar left out of its answer is unknown, not taken, and asked again next time", async () => {
   clearDomainSearchCache();
-  const { fetch } = fakeFetch({ results: [] });
+  const { fetch, calls } = fakeFetch({ results: [] });
 
   assert.deepEqual(await searchDomains(["oublie.com"], { fetch, now: at(0) }), [
-    { name: "oublie.com", available: false },
+    { name: "oublie.com", available: false, reason: "unknown" },
   ]);
+  await searchDomains(["oublie.com"], { fetch, now: at(1_000) });
+  assert.equal(calls.length, 2);
+});
+
+test("a malformed entry is unknown, never taken, and is not cached", async () => {
+  clearDomainSearchCache();
+  const { fetch, calls } = fakeFetch({
+    results: [
+      // `premium` went missing: neither sellable nor known to be taken.
+      { domain: "sans-premium.com", available: true, years: 1, price: 11.25 },
+      // `available` is not a boolean.
+      { domain: "bizarre.com", available: "yes", price: 11.25, premium: false },
+      // `price` is not a number.
+      { domain: "prix-texte.com", available: true, price: "11.25", premium: false },
+    ],
+  });
+
+  assert.deepEqual(await searchDomains(["sans-premium.com", "bizarre.com", "prix-texte.com"], { fetch, now: at(0) }), [
+    { name: "sans-premium.com", available: false, reason: "unknown", priceUsd: 11.25 },
+    { name: "bizarre.com", available: false, reason: "unknown", priceUsd: 11.25 },
+    { name: "prix-texte.com", available: false, reason: "unknown" },
+  ]);
+  await searchDomains(["sans-premium.com"], { fetch, now: at(1_000) });
+  assert.equal(calls.length, 2, "an unknown answer is asked again");
+});
+
+test("a taken name needs no price or premium flag to be taken", async () => {
+  clearDomainSearchCache();
+  const { fetch } = fakeFetch({ results: [{ domain: "pris.com", available: false, premium: true }] });
+  assert.deepEqual(await searchDomains(["pris.com"], { fetch, now: at(0) }), [
+    { name: "pris.com", available: false, reason: "taken" },
+  ]);
+});
+
+test("timeoutMs narrows the search's own 5 s timeout", async () => {
+  clearDomainSearchCache();
+  const seen = [];
+  const fetch = async (_url, init) => {
+    seen.push(init.signal);
+    return new Response(JSON.stringify(REAL_RESPONSE), { status: 200 });
+  };
+  await searchDomains([FREE], { fetch, now: at(0), timeoutMs: 1_234 });
+  assert.ok(seen[0] instanceof AbortSignal);
 });
 
 test("answers are cached for 60 s per name", async () => {
@@ -128,12 +171,12 @@ test("maxAgeMs: 0 asks the registrar again, and still refreshes the cache", asyn
   const taken = fakeFetch({ results: [{ domain: FREE, available: false }] });
   const fresh = await searchDomains([FREE], { fetch: taken.fetch, now: at(2_000), maxAgeMs: 0 });
   assert.equal(taken.calls.length, 1);
-  assert.deepEqual(fresh, [{ name: FREE, available: false }]);
+  assert.deepEqual(fresh, [{ name: FREE, available: false, reason: "taken" }]);
 
   // A default reader right after is served that fresh answer from the cache.
   const later = fakeFetch();
   assert.deepEqual(await searchDomains([FREE], { fetch: later.fetch, now: at(3_000) }), [
-    { name: FREE, available: false },
+    { name: FREE, available: false, reason: "taken" },
   ]);
   assert.equal(later.calls.length, 0);
 });

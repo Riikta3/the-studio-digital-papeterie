@@ -17,7 +17,17 @@ export const ALL_LANGUAGES = [
   { code: "ja", flag: "🇯🇵", name: "Japonais" },
 ];
 
-export const EXTRAS = [
+/** The extra whose price follows the wedding date (`domainPrice`), not a fixed figure. */
+export const CUSTOM_DOMAIN_EXTRA = "custom-domain";
+
+export const EXTRAS: {
+  id: string;
+  icon: typeof Globe;
+  name: string;
+  desc: string;
+  /** Null for the custom domain: priced by `domainPrice(years)`, see `useDomainYears`. */
+  price: number | null;
+}[] = [
   {
     id: "custom-music",
     icon: Music,
@@ -40,10 +50,10 @@ export const EXTRAS = [
     price: 55,
   },
   {
-    id: "custom-domain",
+    id: CUSTOM_DOMAIN_EXTRA,
     icon: Globe,
     name: "Domaine personnalisé",
-    desc: "sophie-et-pierre.fr au lieu du lien générique.",
-    price: 65,
+    desc: "sophie-et-pierre.com au lieu du lien générique.",
+    price: null,
   },
 ];

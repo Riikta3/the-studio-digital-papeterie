@@ -95,3 +95,20 @@ export function checkedWeddingDate(value: unknown): string | undefined {
   if (!match) return undefined;
   return isRealDate(Number(match[1]), Number(match[2]), Number(match[3])) ? value : undefined;
 }
+
+/**
+ * Whole calendar months from `today` (its UTC date) to a `YYYY-MM-DD`
+ * wedding date: 2026-10-02 → 2027-12-11 is 14, → 2027-12-01 is 13. Null for
+ * a date that is missing, not real, or not after today.
+ *
+ * For the custom domain's price line (« votre mariage est dans 14 mois »),
+ * beside `domainYearsFor`, which reads the date the same way.
+ */
+export function monthsUntil(weddingDate: string | null | undefined, today: Date): number | null {
+  const date = checkedWeddingDate(weddingDate);
+  if (!date || !Number.isFinite(today.getTime())) return null;
+  const [year, month, day] = date.split("-").map(Number) as [number, number, number];
+  const [y, m, d] = [today.getUTCFullYear(), today.getUTCMonth() + 1, today.getUTCDate()];
+  if (Date.UTC(year, month - 1, day) <= Date.UTC(y, m - 1, d)) return null;
+  return (year - y) * 12 + (month - m) - (day < d ? 1 : 0);
+}

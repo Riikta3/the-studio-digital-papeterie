@@ -905,7 +905,11 @@
     "orderCompleteCta": "Aceder ao meu espaço",
     "orderCompleteHint": "Quer um segundo convite? Contacte-nos e criamo-lo para si.",
     "spaceReadyBody": "O seu espaço está pronto. Abra o seu convite e comece a personalizá-lo.",
-    "spaceReadyHint": "Este link liga-o sem palavra-passe. Também lho enviámos por email."
+    "spaceReadyHint": "Este link liga-o sem palavra-passe. Também lho enviámos por email.",
+    "domainUnavailable": "<name>{domain}</name> já não está disponível. Escolham outro.",
+    "domainInvalid": "Este nome de domínio não é válido. Corrijam-no antes de pagar.",
+    "nothingCharged": "Nada foi cobrado.",
+    "editDomain": "Alterar o nome de domínio"
   },
   "Legal": {
     "backHome": "Voltar ao início",
@@ -1935,5 +1939,34 @@
       "otherPlaceholder": "Especifique (ex. amendoins)",
       "none": "Nenhuma"
     }
+  },
+  "CustomDomain": {
+    "connector": "e",
+    "yearsCount": "{years, plural, one {# ano} other {# anos}}",
+    "priceAmount": "{price} €",
+    "fieldLabel": "O vosso nome de domínio",
+    "checking": "A verificar <name>{domain}</name>…",
+    "available": "disponível",
+    "taken": "já registado",
+    "notForSale": "indisponível",
+    "invalidPill": "inválido",
+    "checkUnavailable": "não é possível verificar agora",
+    "alternatives": "Disponíveis:",
+    "noAlternatives": "Experimentem outra grafia.",
+    "errorEmpty": "Escrevam o nome pretendido.",
+    "errorNoLatin": "Usem letras latinas, algarismos ou hífenes.",
+    "errorTooShort": "Pelo menos 3 letras ou algarismos.",
+    "errorTooLong": "No máximo 63 caracteres.",
+    "errorInvalid": "Apenas letras, algarismos e hífenes.",
+    "warning": "Verifiquem a ortografia: um nome comprado já não pode ser alterado.",
+    "later": "Escolho mais tarde",
+    "laterNote": "Vão escolher o vosso nome a partir do vosso espaço",
+    "chooseNow": "Escolher agora",
+    "priceOneYear": "<strong>{price} €</strong> — {years, plural, one {# ano} other {# anos}}",
+    "priceYears": "<strong>{price} €</strong> — {years, plural, one {# ano} other {# anos}}, o vosso casamento é daqui a {months, plural, one {# mês} other {# meses}}",
+    "cover": "O domínio fica ativo até 3 meses depois do casamento.",
+    "recapLabel": "Nome de domínio",
+    "recapChosen": "<name>{domain}</name>, {years, plural, one {# ano} other {# anos}}",
+    "recapLater": "A escolher mais tarde"
   }
 }

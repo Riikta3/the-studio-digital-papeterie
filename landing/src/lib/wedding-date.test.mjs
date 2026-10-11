@@ -1,7 +1,7 @@
 import assert from "node:assert/strict";
 import test from "node:test";
 
-import { MONTHS_FR, checkedWeddingDate, monthIndexFrom, weddingDateFrom } from "./wedding-date.ts";
+import { MONTHS_FR, checkedWeddingDate, monthIndexFrom, monthsUntil, weddingDateFrom } from "./wedding-date.ts";
 
 // `StudioStart.months` as the messages hold it (a test cannot import the JSON).
 const FR = ["Janvier", "Février", "Mars", "Avril", "Mai", "Juin", "Juillet", "Août", "Septembre", "Octobre", "Novembre", "Décembre"];
@@ -73,5 +73,20 @@ test("checkedWeddingDate drops a date that does not exist or is not date-only", 
     20271204,
   ]) {
     assert.equal(checkedWeddingDate(value), undefined, String(value));
+  }
+});
+
+test("monthsUntil counts whole calendar months from today's UTC date", () => {
+  const today = new Date("2026-10-02T23:30:00Z");
+  assert.equal(monthsUntil("2027-12-11", today), 14);
+  assert.equal(monthsUntil("2027-12-02", today), 14);
+  assert.equal(monthsUntil("2027-12-01", today), 13);
+  assert.equal(monthsUntil("2026-10-20", today), 0);
+});
+
+test("monthsUntil gives nothing for no date, a date that is not real, today or the past", () => {
+  const today = new Date("2026-10-02T10:00:00Z");
+  for (const value of [undefined, null, "", "2027-04-31", "2026-10-02", "2025-06-01"]) {
+    assert.equal(monthsUntil(value, today), null, String(value));
   }
 });

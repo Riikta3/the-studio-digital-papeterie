@@ -1119,7 +1119,11 @@
     "orderCompleteCta": "Go to my space",
     "orderCompleteHint": "Need a second invitation? Get in touch and we'll set it up for you.",
     "spaceReadyBody": "Your space is ready. Open your invitation and start personalising it.",
-    "spaceReadyHint": "This link signs you in without a password. We have emailed it to you as well."
+    "spaceReadyHint": "This link signs you in without a password. We have emailed it to you as well.",
+    "domainUnavailable": "<name>{domain}</name> is no longer available. Please choose another.",
+    "domainInvalid": "This domain name isn’t valid. Please fix it before paying.",
+    "nothingCharged": "Nothing has been charged.",
+    "editDomain": "Change my domain name"
   },
   "Legal": {
     "backHome": "Back to home",
@@ -2149,5 +2153,34 @@
       "otherPlaceholder": "Please specify (e.g. peanuts)",
       "none": "None"
     }
+  },
+  "CustomDomain": {
+    "connector": "and",
+    "yearsCount": "{years, plural, one {# year} other {# years}}",
+    "priceAmount": "{price}€",
+    "fieldLabel": "Your domain name",
+    "checking": "Checking <name>{domain}</name>…",
+    "available": "available",
+    "taken": "already taken",
+    "notForSale": "not available",
+    "invalidPill": "invalid",
+    "checkUnavailable": "can’t check right now",
+    "alternatives": "Available:",
+    "noAlternatives": "Try another spelling.",
+    "errorEmpty": "Type the name you’d like.",
+    "errorNoLatin": "Use Latin letters, numbers or hyphens.",
+    "errorTooShort": "At least 3 letters or numbers.",
+    "errorTooLong": "63 characters at most.",
+    "errorInvalid": "Letters, numbers and hyphens only.",
+    "warning": "Check the spelling: a name can’t be changed once it’s bought.",
+    "later": "I’ll choose later",
+    "laterNote": "You’ll choose your name from your space",
+    "chooseNow": "Choose now",
+    "priceOneYear": "<strong>{price}€</strong> — {years, plural, one {# year} other {# years}}",
+    "priceYears": "<strong>{price}€</strong> — {years, plural, one {# year} other {# years}}, your wedding is in {months, plural, one {# month} other {# months}}",
+    "cover": "The domain stays live until 3 months after the wedding.",
+    "recapLabel": "Domain name",
+    "recapChosen": "<name>{domain}</name>, {years, plural, one {# year} other {# years}}",
+    "recapLater": "To choose later"
   }
 }

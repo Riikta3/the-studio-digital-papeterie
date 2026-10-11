@@ -36,8 +36,8 @@ export interface InvoiceLine {
 
 /**
  * Human labels for the flat-priced extras, matching the studio's option
- * cards. The custom domain is not one: its line names the domain and the
- * years, and comes from `domainInvoiceLine`.
+ * cards. The custom domain is not one: its line states the years paid for,
+ * and comes from `domainInvoiceLine`.
  */
 const EXTRA_LABELS: Record<string, string> = {
   "custom-music": "Musique personnalisée",
@@ -61,8 +61,8 @@ const PLAN_LABELS: Record<string, string> = {
  * which is what a French accounting document requires.
  */
 export function buildInvoiceLines(
-  /** `domainName` and `domainYears` as read back from the intent (`parseOrderMetadata`). */
-  items: OrderItems & { domainName?: string },
+  /** `domainYears` as read back from the intent (`parseOrderMetadata`). */
+  items: OrderItems,
   moduleName: (id: string) => string,
 ): InvoiceLine[] {
   const lines: InvoiceLine[] = [];
@@ -168,9 +168,7 @@ export function buildInvoiceLines(
   // Priced for the years on the intent, with `computeOrderTotal`'s own
   // fallback of one year, so the line and the charge cannot disagree.
   if (extras.includes("custom-domain")) {
-    lines.push(
-      domainInvoiceLine(items.domainName, parseDomainYears(items.domainYears) ?? 1),
-    );
+    lines.push(domainInvoiceLine(parseDomainYears(items.domainYears) ?? 1));
   }
 
   return lines;

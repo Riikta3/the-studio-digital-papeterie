@@ -1,6 +1,6 @@
 ---
 date: 2026-10-02
-status: conception
+status: en cours
 category: Features
 ---
 
@@ -8,7 +8,8 @@ category: Features
 
 L'option « Domaine personnalisé » du studio était facturée 65 € sans rien livrer. Le couple choisit un `.com`, au checkout ou plus tard dans le dashboard. Le studio l'achète chez Vercel, puis le branche sur l'invitation et les pages Jour J, automatiquement.
 
-Spec : `docs/superpowers/specs/2026-10-02-custom-domain-design.md`. Le plan est à écrire.
+Spec : `docs/superpowers/specs/2026-10-02-custom-domain-design.md`.
+Plan : `docs/superpowers/plans/2026-10-02-custom-domain.md`.
 
 ## Décisions (2026-10-02)
 
@@ -35,3 +36,22 @@ Pièges trouvés en préparant le plan :
 - Supabase accorde par défaut le droit d'exécuter une nouvelle fonction à `anon`. Un `revoke … from public` seul ne suffit donc pas.
 - next-intl lit la langue dans l'en-tête `X-NEXT-INTL-LOCALE`, jamais dans le segment `[locale]`. Une réécriture du proxy doit le poser, avec `x-pathname` pour `<html lang/dir>`.
 - Le `expectedPrice` de l'achat Vercel est le total pour toutes les années, pas le prix annuel.
+
+## Avancement (2026-10-02)
+
+| Phase | État |
+|---|---|
+| 1. Logique partagée (prix, noms, recherche, add-on) | faite, relue, durcie |
+| 2. Base de données | faite, relue, durcie (migration `…130000_custom_domains_hardening.sql`) |
+| 3. Checkout côté serveur | faite, relue, durcie |
+| 4. Interface du studio | en attente : l'utilisateur doit valider la [maquette](https://claude.ai/artifact/TLwrYkLhhYsiJMGvJ6bioc) |
+| 5. Moteur d'achat (cron, `after()`, emails) | faite, relue, durcie |
+| 6. Routage du domaine d'un couple (`proxy.ts`) | faite, relue, durcie |
+| 7. Dashboard | reportée par l'utilisateur |
+| 8. Vérification finale, mise en ligne | pas commencée |
+
+- Les phases 1 à 3 ont été commitées et poussées sur `main` par une autre session (`ec65497f`). Tout le reste, dont les durcissements qui ont suivi, n'est pas commité.
+- Les migrations sont appliquées en local. La base de prod n'est pas vérifiée (`db push --dry-run`), et `db push` attend le feu vert.
+- Aucun vrai domaine n'a été acheté : le premier achat (environ 10 €) se fait en phase 8, sur feu vert.
+- Écarts au plan d'origine, consignés dans le plan : bail à jeton (`lease_token`), raisons de la recherche, politique des achats incertains, `domainInvoiceLine(years)` sans le nom, `isCoupleDomainRequest()`, 503 quand la résolution d'hôte échoue.
+- Défauts trouvés par les revues : [[Domaines perso — leçons de la revue]]. Table et fonctions : [[Base de Données]]. Pièges : [[Conventions]].

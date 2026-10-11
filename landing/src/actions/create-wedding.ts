@@ -3,10 +3,17 @@
 import type Stripe from "stripe";
 
 import type { ModuleId } from "@/components/invitation/themes/types";
-import { recordCustomDomain } from "@/lib/custom-domain-row";
+import { ensureCustomDomainRow, recordCustomDomain } from "@/lib/custom-domain-row";
+import { adminDomainRowStore, startDomainPurchase } from "@/lib/custom-domain-row-admin";
 import { findUserByEmail } from "@/lib/find-user-by-email";
 import { seedInvitationContent } from "@/lib/seed-invitation-content";
-import { parseOrderMetadata } from "@/lib/order-metadata";
+import { parseOrderMetadata, type IntentDomain } from "@/lib/order-metadata";
+import {
+  claimProvisioning,
+  isPaymentsWedding,
+  weddingInsertConflict,
+  type ClaimStore,
+} from "@/lib/provision-claim";
 import { supabaseAdmin } from "@/lib/supabase-admin";
 import { getDashboardUrl } from "@/lib/urls";
 import { checkedWeddingDate } from "@/lib/wedding-date";
@@ -49,7 +56,28 @@ interface CreateWeddingData {
   locale?: string;
 }
 
-export async function createWedding(data: CreateWeddingData) {
+/** What `createWedding` answers: read by the checkout page and, through `provisionFromPaymentIntent`, the webhook. */
+type CreateWeddingResult =
+  | {
+      success: true;
+      weddingId: string;
+      email: string;
+      loginLink: string | undefined;
+      userId?: string;
+      /** The wedding was built by an earlier pass over this payment. */
+      alreadyProvisioned?: boolean;
+    }
+  | {
+      success: false;
+      error: string;
+      /** Another pass is building this payment's wedding: ask again shortly. */
+      inProgress?: true;
+      /** The account owns another payment's wedding: this one was refunded. */
+      duplicatePurchase?: boolean;
+      existingWeddingId?: string;
+    };
+
+export async function createWedding(data: CreateWeddingData): Promise<CreateWeddingResult> {
   console.log("💍 Starting Wedding Provisioning (V2 Architecture)...", {
     email: data.email,
     plan: data.plan,
@@ -85,20 +113,71 @@ export async function createWedding(data: CreateWeddingData) {
   // Replay guard: a page reload after payment must not create a second wedding.
   if (payment.alreadyProvisionedAs) {
     console.log("♻️ Payment already provisioned:", payment.alreadyProvisionedAs);
-    const link = await generateLoginLink(data.email, undefined, data.locale);
-
-    // Deliberately no welcome email here. This branch fires on every reload of
-    // the success page, and the couple already received one when the wedding
-    // was first created — mailing a fresh link each time would be spam, and
-    // each new link silently invalidates the one they may be about to click.
-    return {
-      success: true,
-      weddingId: payment.alreadyProvisionedAs,
-      email: data.email,
-      loginLink: link,
-      alreadyProvisioned: true,
-    };
+    return adoptWedding(data, payment.alreadyProvisionedAs, payment.domain, {
+      healDomainRow: true,
+    });
   }
+
+  /*
+   * Claim this payment before creating anything.
+   *
+   * The replay guard above only knows the order once the intent is stamped,
+   * at the very end of provisioning. Two passes provision one payment — the
+   * buyer's browser and the webhook rescuing a dead one — and a pass landing
+   * before that stamp, or a reload after the stamp failed, found an account
+   * that already owned a wedding and the `DUPLICATE_PURCHASE` guard below
+   * refunded it: the couple's own order, with their wedding built. Seen live
+   * on 2026-10-02, 284 € refunded on a provisioned order.
+   *
+   * `checkout_provisions` is keyed on the PaymentIntent and records the
+   * wedding as soon as it exists, so a second pass over the same payment
+   * adopts that wedding (or waits for it) and never reaches the guard. Only
+   * the pass that owns the claim goes further (`provision-claim.ts`). Should
+   * the claim never learn of its wedding, the wedding still names its payment
+   * (`payment_intent_id`), and the guard adopts it instead of refunding.
+   */
+  const claim = await claimProvisioning(adminClaimStore, data.paymentIntentId);
+
+  if (claim.kind === "failed") {
+    console.error("[PROVISION_CLAIM_FAILED]", data.paymentIntentId, claim.error);
+    return { success: false, error: RETRY_LATER_ERROR };
+  }
+
+  if (claim.kind === "in-progress") {
+    // Retryable: the webhook throws on it so Stripe retries, and the browser
+    // tries again. Nothing was created, charged or refunded by this pass.
+    return inProgressAnswer(data.paymentIntentId);
+  }
+
+  if (claim.kind === "adopt") {
+    console.log(
+      `♻️ Payment ${data.paymentIntentId} was claimed by another pass; ` +
+        `adopting wedding ${claim.weddingId}.`,
+    );
+
+    // The intent is not stamped (the replay guard let this pass through),
+    // yet its wedding exists, with its site: the stamp failed, or the owner
+    // has not reached it. Written here so the replay guard and the webhook's
+    // domain pass, which both read it, find the order again — the same value
+    // either way. Skipped when this pass has just watched the owner at work:
+    // the owner stamps it and writes the domain row itself.
+    if (!claim.waited) {
+      await markPaymentProvisioned(data.paymentIntentId, claim.weddingId);
+    }
+    return adoptWedding(data, claim.weddingId, payment.domain, {
+      healDomainRow: !claim.waited,
+    });
+  }
+
+  if (claim.tookOver) {
+    console.warn(
+      `[PROVISION_CLAIM_TAKEN_OVER] ${data.paymentIntentId}: the previous ` +
+        "pass died before recording a wedding; provisioning it here.",
+    );
+  }
+
+  /** Gives the payment back to the next pass when this one stops before its wedding exists. */
+  const release = () => releaseClaim(data.paymentIntentId, claim.claimedAt);
 
   /*
    * A date that does not exist (31 April) is dropped rather than inserted.
@@ -119,136 +198,172 @@ export async function createWedding(data: CreateWeddingData) {
 
   let userId: string;
 
-  // 1. CHERCHER OU CRÉER L'UTILISATEUR (Multi-tenant)
-  let existingUser: { id: string } | undefined;
+  /*
+   * Everything up to the wedding insert. A pass that stops in here — a
+   * failure it returns, a refunded second purchase, a wedding it adopts, or
+   * an exception (a non-`AuthError` out of `createUser`, a network error) —
+   * gives the payment back on its way out, so the next pass runs at once
+   * instead of waiting ten minutes on a claim nobody holds. Only falling
+   * through to the insert keeps it. The release only removes this pass's own
+   * claim while it has no wedding, so it costs nothing where there is nothing
+   * to give back.
+   */
+  let reachedWeddingInsert = false;
   try {
-    existingUser = await findUserByEmail(data.email);
-  } catch {
-    return {
-      success: false,
-      error: "Impossible de vérifier l'existence du compte.",
-    };
-  }
-
-  if (existingUser) {
-    // Passwordless flow: an existing account is not a conflict on its own —
-    // the payment already went through, so this signs them back in.
-    userId = existingUser.id;
-
-    // One account, one wedding — a v1 constraint, not a domain truth.
-    //
-    // Guards the double-purchase path: the order store survives checkout, so
-    // navigating back from the dashboard used to show a working payment form
-    // primed with the same basket. The replay guard above is keyed on the
-    // PaymentIntent, and that second checkout mints a fresh one — so it saw
-    // nothing, charged the couple again and built them a second site.
-    //
-    // Checked server-side rather than in the browser because the store is
-    // localStorage: clearing it is one devtools click away.
-    //
-    // ── Planned for v2: multiple weddings per account ──────────────────────
-    // Wedding planners and couples gifting an invitation are legitimate
-    // second purchases, and today they are refused and refunded here, then
-    // handled by hand. Everything downstream is already keyed by wedding_id
-    // rather than user_id, so lifting this is mostly about telling an
-    // intentional second order apart from an accidental repeat — an explicit
-    // "order another invitation" entry point carrying a flag this guard
-    // honours, rather than removing the check. Deleting it outright would
-    // restore the Back-button double charge this was written to stop.
-    // See the vault note "Provisioning et Facturation".
-    const { data: existingWedding } = await supabaseAdmin
-      .from("weddings")
-      .select("id")
-      .eq("user_id", userId)
-      .limit(1)
-      .maybeSingle();
-
-    if (existingWedding) {
-      console.error(
-        `[DUPLICATE_PURCHASE] ${data.email} already owns wedding ` +
-          `${existingWedding.id}; refunding intent ${data.paymentIntentId}.`,
-      );
-
-      // Refunded here rather than left for support: nothing is provisioned for
-      // this charge, so keeping the money would be taking payment for nothing.
-      const refund = await refundPayment(
-        data.paymentIntentId,
-        `duplicate purchase — account already owns wedding ${existingWedding.id}`,
-      );
-
+    // 1. CHERCHER OU CRÉER L'UTILISATEUR (Multi-tenant)
+    let existingUser: { id: string } | undefined;
+    try {
+      existingUser = await findUserByEmail(data.email);
+    } catch {
       return {
         success: false,
-        error: refund.refunded
-          ? "Un espace existe déjà pour cette adresse email. Votre paiement " +
-            "a été remboursé — il apparaîtra sur votre compte sous 5 à 10 " +
-            "jours. Contactez-nous si vous souhaitiez une seconde invitation."
-          : "Un espace existe déjà pour cette adresse email, et le " +
-            "remboursement automatique a échoué. Contactez-nous : nous le " +
-            "traiterons manuellement sous 24h.",
-        duplicatePurchase: true,
-        existingWeddingId: existingWedding.id,
+        error: "Impossible de vérifier l'existence du compte.",
       };
     }
-  } else {
-    // Passwordless account: the couple signs in through the magic link
-    // generated at the end of this action, so no password is ever set.
-    const { data: authData, error: authError } =
-      await supabaseAdmin.auth.admin.createUser({
-        email: data.email,
-        email_confirm: true, // Auto-confirm so the magic link works immediately
-        user_metadata: {
+
+    if (existingUser) {
+      // Passwordless flow: an existing account is not a conflict on its own —
+      // the payment already went through, so this signs them back in.
+      userId = existingUser.id;
+
+      // One account, one wedding — a v1 constraint, not a domain truth.
+      //
+      // Guards the double-purchase path: the order store survives checkout, so
+      // navigating back from the dashboard used to show a working payment form
+      // primed with the same basket. The replay guard above is keyed on the
+      // PaymentIntent, and that second checkout mints a fresh one — so it saw
+      // nothing, charged the couple again and built them a second site.
+      //
+      // Checked server-side rather than in the browser because the store is
+      // localStorage: clearing it is one devtools click away.
+      //
+      // ── Planned for v2: multiple weddings per account ──────────────────────
+      // Wedding planners and couples gifting an invitation are legitimate
+      // second purchases, and today they are refused and refunded here, then
+      // handled by hand. Everything downstream is already keyed by wedding_id
+      // rather than user_id, so lifting this is mostly about telling an
+      // intentional second order apart from an accidental repeat — an explicit
+      // "order another invitation" entry point carrying a flag this guard
+      // honours, rather than removing the check. Deleting it outright would
+      // restore the Back-button double charge this was written to stop.
+      // See the vault note "Provisioning et Facturation".
+      //
+      // The wedding found here can still be this payment's own: built by an
+      // earlier pass whose claim never learnt of it (the record failed, or
+      // the pass died right after the insert) and was then taken over or
+      // released. The wedding names its payment, so that one is adopted,
+      // never refunded. Only a wedding of another payment, or one from before
+      // `payment_intent_id` existed, makes this a second purchase.
+      const { data: existingWedding } = await supabaseAdmin
+        .from("weddings")
+        .select("id, payment_intent_id")
+        .eq("user_id", userId)
+        .limit(1)
+        .maybeSingle();
+
+      if (existingWedding && !isPaymentsWedding(existingWedding, data.paymentIntentId)) {
+        return refundDuplicatePurchase(data, existingWedding.id);
+      }
+
+      if (existingWedding) {
+        const adopted = await adoptPaymentsWedding(data, existingWedding.id, payment.domain);
+        if (adopted !== "half-built") return adopted;
+
+        // No site, and no builder: the pass that inserted it held this
+        // payment's claim, which this pass holds now. Nobody will finish it,
+        // so it is rebuilt from scratch, as a failed settings or site insert
+        // would have had it (step 3).
+        console.warn(
+          `[PROVISION_REBUILD] ${data.paymentIntentId}: wedding ` +
+            `${existingWedding.id} has no site and no builder; rebuilding it.`,
+        );
+        if (!(await discardHalfBuiltWedding(data.paymentIntentId, existingWedding.id))) {
+          return { success: false, error: RETRY_LATER_ERROR };
+        }
+      }
+
+      // An account without a wedding was left by an earlier pass that failed
+      // after creating it: its half-built wedding deleted, or its profile
+      // never written. The wedding references the profile, so a missing one
+      // is written here; an existing one is left as it is.
+      const { error: profileError } = await supabaseAdmin
+        .from("profiles")
+        .upsert(
+          {
+            id: userId,
+            first_name: data.firstName,
+            last_name: data.lastName,
+            partner_name: data.partnerName,
+          },
+          { onConflict: "id", ignoreDuplicates: true },
+        );
+      if (profileError) {
+        // The wedding insert below says whether it mattered.
+        console.error("[PROFILE_ENSURE_FAILED]", { userId }, profileError);
+      }
+    } else {
+      // Passwordless account: the couple signs in through the magic link
+      // generated at the end of this action, so no password is ever set.
+      const { data: authData, error: authError } =
+        await supabaseAdmin.auth.admin.createUser({
+          email: data.email,
+          email_confirm: true, // Auto-confirm so the magic link works immediately
+          user_metadata: {
+            first_name: data.firstName,
+            last_name: data.lastName,
+            partner_name: data.partnerName,
+            /*
+             * This account has no password: `createUser` is called without one,
+             * and the couple gets in through the magic link below.
+             *
+             * Supabase exposes no way to ask "does this user have a password" —
+             * `identities` is null and `app_metadata.providers` reads ["email"]
+             * either way — so the dashboard cannot tell a couple who never set
+             * one from a couple who did. It needs to know, because the two are
+             * offered different things: an invitation to set a password, or
+             * nothing at all.
+             *
+             * Cleared by the dashboard the moment a password is set. Absent on
+             * every account created before this flag existed, which reads the
+             * same as "has a password" — the safe way round, since it only
+             * means we stay quiet rather than nagging someone who is fine.
+             */
+            needs_password: true,
+          },
+        });
+
+      if (authError) {
+        console.error("Auth Create Error:", authError);
+        return { success: false, error: authError.message };
+      }
+
+      userId = authData.user.id;
+
+      // Create or Update Profile entity
+      console.log(
+        "👥 Upserting Profile for userId:",
+        userId,
+        "Partner:",
+        data.partnerName,
+      );
+      const { error: profileError } = await supabaseAdmin
+        .from("profiles")
+        .upsert({
+          id: userId,
           first_name: data.firstName,
           last_name: data.lastName,
           partner_name: data.partnerName,
-          /*
-           * This account has no password: `createUser` is called without one,
-           * and the couple gets in through the magic link below.
-           *
-           * Supabase exposes no way to ask "does this user have a password" —
-           * `identities` is null and `app_metadata.providers` reads ["email"]
-           * either way — so the dashboard cannot tell a couple who never set
-           * one from a couple who did. It needs to know, because the two are
-           * offered different things: an invitation to set a password, or
-           * nothing at all.
-           *
-           * Cleared by the dashboard the moment a password is set. Absent on
-           * every account created before this flag existed, which reads the
-           * same as "has a password" — the safe way round, since it only
-           * means we stay quiet rather than nagging someone who is fine.
-           */
-          needs_password: true,
-        },
-      });
+        });
 
-    if (authError) {
-      console.error("Auth Create Error:", authError);
-      return { success: false, error: authError.message };
+      if (profileError) {
+        console.error("Profile Upsert Error:", profileError);
+        return { success: false, error: "Failed to create user profile." };
+      }
     }
 
-    userId = authData.user.id;
-
-    // Create or Update Profile entity
-    console.log(
-      "👥 Upserting Profile for userId:",
-      userId,
-      "Partner:",
-      data.partnerName,
-    );
-    const { error: profileError } = await supabaseAdmin
-      .from("profiles")
-      .upsert({
-        id: userId,
-        first_name: data.firstName,
-        last_name: data.lastName,
-        partner_name: data.partnerName,
-      });
-
-    if (profileError) {
-      console.error("Profile Upsert Error:", profileError);
-      // Only delete if it was a search list failure before?
-      // Actually, if it's a new user creation flux, we should keep it robust.
-      return { success: false, error: "Failed to create user profile." };
-    }
+    reachedWeddingInsert = true;
+  } finally {
+    if (!reachedWeddingInsert) await release();
   }
 
   // 2. CREATE WEDDING (The Event)
@@ -258,14 +373,18 @@ export async function createWedding(data: CreateWeddingData) {
       user_id: userId,
       partner_name: data.partnerName,
       wedding_date: weddingDate ?? null,
+      // The wedding names its payment in the very insert that creates it, so
+      // no later failure (the claim's record, the stamp) can make this order
+      // look like a second purchase. Unique: one payment, one wedding.
+      payment_intent_id: data.paymentIntentId,
     })
     .select("id")
     .single();
 
   if (weddingError || !weddingData) {
     /*
-     * 23505 on `weddings_one_per_user` means the other provisioning path got
-     * there first — this exact order is already being built, or is built.
+     * 23505 means another pass got there first: one wedding per account
+     * (`weddings_one_per_user`), or per payment (`payment_intent_id`).
      *
      * Two paths provision a paid order: the buyer's browser, and the webhook's
      * safety net for a browser that died. Both check first whether the work is
@@ -275,44 +394,81 @@ export async function createWedding(data: CreateWeddingData) {
      * `requireWedding()` resolves with `.single()`.
      *
      * The unique index is what actually closes that window, and this is the
-     * losing side of it: adopt the wedding the winner created rather than
-     * reporting a failure for an order that did go through. Nothing below has
-     * run yet, so there is nothing to unwind — the winner seeds the site, the
-     * settings and the purchases, and stamps the intent.
+     * losing side of it. Nothing below has run yet, so there is nothing to
+     * unwind — the winner seeds the site, the settings and the purchases, and
+     * stamps the intent. Deliberately no welcome email here: the winner sends
+     * the one.
      *
-     * Deliberately no welcome email and no refund here: the winner sends the
-     * one, and the couple is charged once for the one wedding they now own.
+     * Since the payment claim, two passes over one payment rarely get here:
+     * only the claim's owner creates the wedding. What is left is a take-over
+     * of an owner thought dead that was in fact still running, and two
+     * different payments for one account racing each other. The winner's
+     * `payment_intent_id` tells them apart, whichever rule Postgres names
+     * (`weddings_one_per_user` when both break, its index being older):
+     * - this payment's: adopted once its site exists. Its builder is alive,
+     *   so it is never rebuilt from here; until then this pass answers "in
+     *   progress" and keeps its claim, which the builder records its wedding
+     *   on;
+     * - another payment's, or one from before the column: the guard above,
+     *   lost by a hair, so the same refund.
      */
-    if (weddingError?.code === "23505") {
-      const { data: winner } = await supabaseAdmin
+    const conflict = weddingInsertConflict(weddingError);
+    if (conflict) {
+      const weddings = supabaseAdmin
         .from("weddings")
-        .select("id")
-        .eq("user_id", userId)
-        .maybeSingle();
+        .select("id, user_id, payment_intent_id");
+      const { data: winner } = await (conflict === "payment"
+        ? weddings.eq("payment_intent_id", data.paymentIntentId)
+        : weddings.eq("user_id", userId)
+      ).maybeSingle();
 
-      if (winner) {
-        console.log(
-          `\u267b\ufe0f Provisioning race lost for intent ${data.paymentIntentId}; ` +
-            `adopting wedding ${winner.id}.`,
-        );
+      // Never another account's wedding, whatever it carries: the sign-in
+      // link below is for this buyer.
+      if (winner && winner.user_id === userId) {
+        if (isPaymentsWedding(winner, data.paymentIntentId)) {
+          console.log(
+            `\u267b\ufe0f Provisioning race lost for intent ${data.paymentIntentId}; ` +
+              `adopting wedding ${winner.id}.`,
+          );
+          const adopted = await adoptPaymentsWedding(data, winner.id, payment.domain);
+          return adopted === "half-built"
+            ? inProgressAnswer(data.paymentIntentId)
+            : adopted;
+        }
 
-        const link = await generateLoginLink(data.email, undefined, data.locale);
-
-        return {
-          success: true,
-          weddingId: winner.id,
-          email: data.email,
-          loginLink: link,
-          alreadyProvisioned: true,
-        };
+        const refused = await refundDuplicatePurchase(data, winner.id);
+        await release();
+        return refused;
       }
     }
 
     console.error("Wedding Creation Error:", weddingError);
+    await release();
     return { success: false, error: "Failed to create wedding entity." };
   }
 
   const weddingId = weddingData.id;
+
+  // On the claim at once, before anything else can fail: from here on, every
+  // other pass over this payment waits for this wedding's site and adopts it,
+  // instead of refunding the order or building another. Should the record
+  // fail, the wedding's own `payment_intent_id` still tells the guard above
+  // whose it is.
+  await recordClaimedWedding(data.paymentIntentId, weddingId);
+
+  /*
+   * A wedding whose settings or site fail is deleted again and the claim
+   * given back, rather than left for the next pass to adopt: an adopted
+   * wedding without a site is a paid order the couple cannot use, and nothing
+   * would ever finish it. The delete cascades to what was written under it
+   * and sets the claim's `wedding_id` back to null, so the release lands and
+   * the next pass (a reload, Stripe's retry) rebuilds it from scratch, under
+   * the account this pass created.
+   */
+  const giveUp = async () => {
+    await discardHalfBuiltWedding(data.paymentIntentId, weddingId);
+    await release();
+  };
 
   /*
    * Draw a code no other wedding is already using.
@@ -357,6 +513,7 @@ export async function createWedding(data: CreateWeddingData) {
 
   if (settingsError) {
     console.error("Settings Creation Error:", settingsError);
+    await giveUp();
     return { success: false, error: "Failed to apply settings." };
   }
 
@@ -437,6 +594,7 @@ export async function createWedding(data: CreateWeddingData) {
 
   if (siteError || !siteData) {
     console.error("Site Creation Error:", siteError);
+    await giveUp();
     return { success: false, error: `Failed to create site: ${siteError?.message}` };
   } else {
     // 4.5 Insert into site_modules (New Registry Architecture)
@@ -459,10 +617,12 @@ export async function createWedding(data: CreateWeddingData) {
     // 4.5b The custom domain, when this payment bought one. Read from the
     // intent (`payment.domain`), never from `data`: the browser could name
     // any domain, or drop « plus tard » for a name nobody checked. Never fails
-    // provisioning — `recordCustomDomain` logs `[DOMAIN_ROW_FAILED]` instead.
+    // provisioning — `recordCustomDomain` logs `[DOMAIN_ROW_FAILED]` instead,
+    // and the next pass over this payment (a reload, the webhook) writes the
+    // row through `ensureCustomDomainRow`.
     if (payment.domain.has) {
-      await recordCustomDomain(
-        (row) => supabaseAdmin.from("custom_domains").insert(row).select("id").single(),
+      const domainRow = await recordCustomDomain(
+        adminDomainRowStore.insert,
         {
           siteId,
           weddingId,
@@ -470,9 +630,10 @@ export async function createWedding(data: CreateWeddingData) {
           domain: payment.domain,
         },
       );
-      // Phase 5: when the row was inserted with a name, start the purchase
-      // without holding up the couple's redirect —
-      // `after(() => advanceCustomDomain(id))` with the returned row id.
+      // With a name, the purchase starts once the response is sent: the
+      // couple's redirect must not wait on Vercel, and the 5-minute cron is
+      // the safety net. « Plus tard », a lost name or a failure start nothing.
+      startDomainPurchase(domainRow);
     }
   }
 
@@ -574,15 +735,21 @@ export async function createWedding(data: CreateWeddingData) {
  *
  * Called from the `payment_intent.succeeded` webhook, which Stripe retries on
  * its own schedule, so the order gets fulfilled with the customer long gone.
- * `createWedding()` re-verifies the payment and short-circuits on
- * `alreadyProvisionedAs`, so the browser winning the race is not a conflict —
- * whichever arrives second finds the wedding already there and stops.
+ * `createWedding()` re-verifies the payment, short-circuits on
+ * `alreadyProvisionedAs`, and claims the payment before building anything, so
+ * the browser winning the race is not a conflict — whichever arrives second
+ * adopts the wedding the first one built, or waits for it. `inProgress` means
+ * the other pass was still at work after that wait: nothing was done, and the
+ * webhook throws so Stripe delivers again. `duplicatePurchase` means the
+ * account already owns another payment's wedding, and this payment was
+ * refunded (or its refund failed and was logged): nothing was sold, so the
+ * webhook books nothing for it.
  */
 export async function provisionFromPaymentIntent(
   intent: Stripe.PaymentIntent,
 ): Promise<
   | { provisioned: true; weddingId: string; alreadyProvisioned: boolean }
-  | { provisioned: false; reason: string }
+  | { provisioned: false; reason: string; inProgress?: true; duplicatePurchase?: true }
 > {
   // Already tied to a wedding by whichever path got there first.
   if (intent.metadata?.wedding_id) {
@@ -631,7 +798,12 @@ export async function provisionFromPaymentIntent(
   });
 
   if (!result.success) {
-    return { provisioned: false, reason: result.error ?? "Unknown failure." };
+    return {
+      provisioned: false,
+      reason: result.error ?? "Unknown failure.",
+      ...(result.inProgress ? { inProgress: true as const } : {}),
+      ...(result.duplicatePurchase ? { duplicatePurchase: true as const } : {}),
+    };
   }
 
   return {
@@ -639,6 +811,240 @@ export async function provisionFromPaymentIntent(
     weddingId: result.weddingId as string,
     alreadyProvisioned: Boolean(result.alreadyProvisioned),
   };
+}
+
+/**
+ * The answer for a payment whose wedding already exists — built by an earlier
+ * pass over the same payment. A sign-in link, and nothing created, charged or
+ * refunded.
+ */
+async function adoptWedding(
+  data: CreateWeddingData,
+  weddingId: string,
+  domain: IntentDomain,
+  { healDomainRow }: { healDomainRow: boolean },
+): Promise<CreateWeddingResult> {
+  if (healDomainRow) {
+    // The domain row, should the first pass have failed to write it
+    // (`[DOMAIN_ROW_FAILED]`): every later pass returns here, before step
+    // 4.5b, so nothing else would. A row already there is a replay, and no
+    // outcome fails the reload — it only logs.
+    const healed = await ensureCustomDomainRow(adminDomainRowStore, {
+      weddingId,
+      paymentIntentId: data.paymentIntentId,
+      domain,
+    });
+    // A row written just now with a name: its purchase starts after the
+    // response, so the redirect never waits on Vercel; the cron backs it up.
+    startDomainPurchase(healed);
+  }
+
+  const link = await generateLoginLink(data.email, undefined, data.locale);
+
+  // Deliberately no welcome email here. This branch fires on every reload of
+  // the success page, and the couple already received one when the wedding
+  // was first created — mailing a fresh link each time would be spam, and
+  // each new link silently invalidates the one they may be about to click.
+  return {
+    success: true,
+    weddingId,
+    email: data.email,
+    loginLink: link,
+    alreadyProvisioned: true,
+  };
+}
+
+/**
+ * This payment's own wedding, found through the account or a lost insert
+ * rather than on the claim: an earlier pass built it, and its claim never
+ * learnt of it (the record failed, or the pass died right after the insert).
+ *
+ * Adopted only once its site exists, as an adopted claim is, and then
+ * answered like a reload with nothing to wait for: recorded on the claim so
+ * later passes find it there, the intent stamped, the domain row healed, a
+ * sign-in link. `"half-built"` for a wedding without a site, which the caller
+ * rebuilds (its builder is gone) or waits on (its builder is still running).
+ */
+async function adoptPaymentsWedding(
+  data: CreateWeddingData,
+  weddingId: string,
+  domain: IntentDomain,
+): Promise<CreateWeddingResult | "half-built"> {
+  const { data: site, error } = await adminDomainRowStore.siteOf(weddingId);
+  if (error) {
+    console.error("[PROVISION_ADOPT_FAILED]", { paymentIntentId: data.paymentIntentId, weddingId }, error);
+    return { success: false, error: RETRY_LATER_ERROR };
+  }
+  if (!site) return "half-built";
+
+  console.log(
+    `♻️ Payment ${data.paymentIntentId} already built wedding ${weddingId}; adopting it.`,
+  );
+  await recordClaimedWedding(data.paymentIntentId, weddingId);
+  await markPaymentProvisioned(data.paymentIntentId, weddingId);
+  return adoptWedding(data, weddingId, domain, { healDomainRow: true });
+}
+
+/**
+ * Refunds a second purchase: the account already owns a wedding, and not
+ * this payment's.
+ *
+ * Refunded here rather than left for support: nothing is provisioned for this
+ * charge, so keeping the money would be taking payment for nothing.
+ * `refundPayment` is idempotent, so a reload or Stripe's retry gets the same
+ * answer without a second refund. The caller gives the claim back.
+ */
+async function refundDuplicatePurchase(
+  data: CreateWeddingData,
+  existingWeddingId: string,
+): Promise<CreateWeddingResult> {
+  console.error(
+    `[DUPLICATE_PURCHASE] ${data.email} already owns wedding ` +
+      `${existingWeddingId}; refunding intent ${data.paymentIntentId}.`,
+  );
+
+  const refund = await refundPayment(
+    data.paymentIntentId,
+    `duplicate purchase — account already owns wedding ${existingWeddingId}`,
+  );
+
+  return {
+    success: false,
+    error: refund.refunded
+      ? "Un espace existe déjà pour cette adresse email. Votre paiement " +
+        "a été remboursé — il apparaîtra sur votre compte sous 5 à 10 " +
+        "jours. Contactez-nous si vous souhaitiez une seconde invitation."
+      : "Un espace existe déjà pour cette adresse email, et le " +
+        "remboursement automatique a échoué. Contactez-nous : nous le " +
+        "traiterons manuellement sous 24h.",
+    duplicatePurchase: true,
+    existingWeddingId,
+  };
+}
+
+/**
+ * Deletes a wedding of this payment that never got its settings or site.
+ * Everything under it cascades, and the claim's `wedding_id` drops back to
+ * null; the account stays, for the next pass to build under. Only this
+ * payment's wedding, whatever id is passed.
+ *
+ * A failure leaves a wedding nobody can use and no pass will rebuild while
+ * the claim names it: `[PROVISION_HALF_BUILT]`, for a human.
+ */
+async function discardHalfBuiltWedding(paymentIntentId: string, weddingId: string) {
+  const { error } = await supabaseAdmin
+    .from("weddings")
+    .delete()
+    .eq("id", weddingId)
+    .eq("payment_intent_id", paymentIntentId);
+  if (error) {
+    console.error("[PROVISION_HALF_BUILT]", { paymentIntentId, weddingId }, error);
+    return false;
+  }
+  return true;
+}
+
+/** The answer when another pass is building this payment's wedding: retryable, nothing done here. */
+function inProgressAnswer(paymentIntentId: string): CreateWeddingResult {
+  console.warn(
+    `[PROVISION_IN_PROGRESS] ${paymentIntentId} is being provisioned ` +
+      "by another pass; nothing done.",
+  );
+  return {
+    success: false,
+    error:
+      "Votre espace est en cours de création. Patientez quelques secondes " +
+      "puis rechargez cette page.",
+    inProgress: true,
+  };
+}
+
+/** A transient failure on a paid order: the couple is told to reload, not to pay again. */
+const RETRY_LATER_ERROR =
+  "Impossible de finaliser votre commande pour le moment. Rechargez " +
+  "cette page dans quelques instants : votre paiement est bien reçu.";
+
+const CLAIM_COLUMNS = "payment_intent_id, wedding_id, claimed_at";
+
+/**
+ * `checkout_provisions` through the service role (the table has no policy and
+ * no grant for anyone else). Module-private: this file is `"use server"`, so
+ * anything exported from it becomes a callable endpoint.
+ */
+const adminClaimStore: ClaimStore = {
+  siteOf: adminDomainRowStore.siteOf,
+  insert: (paymentIntentId) =>
+    supabaseAdmin
+      .from("checkout_provisions")
+      .upsert(
+        { payment_intent_id: paymentIntentId },
+        { onConflict: "payment_intent_id", ignoreDuplicates: true },
+      )
+      .select(CLAIM_COLUMNS)
+      .maybeSingle(),
+  read: (paymentIntentId) =>
+    supabaseAdmin
+      .from("checkout_provisions")
+      .select(CLAIM_COLUMNS)
+      .eq("payment_intent_id", paymentIntentId)
+      .maybeSingle(),
+  takeOver: (paymentIntentId, claimedAt) => {
+    const now = new Date().toISOString();
+    return supabaseAdmin
+      .from("checkout_provisions")
+      .update({ claimed_at: now, updated_at: now })
+      .eq("payment_intent_id", paymentIntentId)
+      .eq("claimed_at", claimedAt)
+      .is("wedding_id", null)
+      .select(CLAIM_COLUMNS)
+      .maybeSingle();
+  },
+};
+
+/**
+ * Records the wedding this payment produced on its claim.
+ *
+ * An upsert, not an update: should another pass have released the row in the
+ * meantime (a take-over that then lost the wedding insert), the wedding still
+ * lands. Never fails provisioning — the wedding names its payment itself
+ * (`weddings.payment_intent_id`), which is what keeps the order from being
+ * refunded as a second purchase; this record only spares later passes the
+ * account lookup.
+ */
+async function recordClaimedWedding(paymentIntentId: string, weddingId: string) {
+  const { error } = await supabaseAdmin
+    .from("checkout_provisions")
+    .upsert(
+      {
+        payment_intent_id: paymentIntentId,
+        wedding_id: weddingId,
+        updated_at: new Date().toISOString(),
+      },
+      { onConflict: "payment_intent_id" },
+    );
+  if (error) {
+    console.error("[PROVISION_CLAIM_RECORD_FAILED]", { paymentIntentId, weddingId }, error);
+  }
+}
+
+/**
+ * Gives a payment back after this pass stopped before creating a wedding, or
+ * deleted the one it could not finish, so the next pass (a reload, Stripe's
+ * retry) runs at once instead of waiting out a claim nobody will complete.
+ * Only this pass's own claim, still without a wedding: one taken over since,
+ * or that a wedding is recorded on, stays.
+ */
+async function releaseClaim(paymentIntentId: string, claimedAt: string) {
+  const { error } = await supabaseAdmin
+    .from("checkout_provisions")
+    .delete()
+    .eq("payment_intent_id", paymentIntentId)
+    .eq("claimed_at", claimedAt)
+    .is("wedding_id", null);
+  if (error) {
+    // The claim then expires on its own: taken over after 10 minutes.
+    console.error("[PROVISION_CLAIM_RELEASE_FAILED]", { paymentIntentId }, error);
+  }
 }
 
 /** Builds a passwordless sign-in link into the couple's dashboard. */

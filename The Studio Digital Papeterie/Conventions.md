@@ -74,3 +74,30 @@ Trois thèmes ont été portés d'un coup (Maré Alta, Château Royal, Cabo Verd
 - **Catalogues** : `npm run themes:messages -w landing -- <camelId> <dossier>` fusionne `Invitation.<camelId>` dans les neuf fichiers, sous verrou, et refuse des langues qui n'ont pas exactement les mêmes clés. Ne jamais lire-modifier-écrire à la main quand plusieurs thèmes s'ajoutent en parallèle : l'un écrase l'autre.
 - **Voir le résultat** : `?fixture=minimal|heavy` sur la page démo (hors production) donne un mariage presque vide ou chargé ; `SHOOT_LOCALE=de` change la langue de `themes:shoot` ; `themes:shoot-url` photographie la référence du designer (une URL `file://` marche quand le site est derrière une connexion). Une page de plus de 16 000 px est découpée en `-full.png`, `-full-2.png`… — Chromium plafonne à 16 384 px.
 - **Node et Chrome n'écrivent pas une plage de dates pareil** (espaces autour du tiret, selon l'ICU) : `formatDateRange` normalise, sinon un test passe en Node et la page diffère.
+
+
+## Domaines personnalisés (2026-10-02)
+
+Pièges trouvés en construisant [[Nom de domaine personnalisé]]. Défauts de la revue : [[Domaines perso — leçons de la revue]].
+
+- **Supabase : une fonction réservée au service role doit révoquer `anon` et `authenticated` par leur nom.**
+  - Pourquoi : les privilèges par défaut de Supabase accordent `EXECUTE` sur toute nouvelle fonction de `public` à `anon` et `authenticated`, si bien qu'un `revoke … from public` seul les laisse ouvertes.
+  - Correctif : `revoke all on function … from public, anon, authenticated;` puis `grant execute on function … to service_role;` (modèle : `20261002120000_custom_domains.sql`). Encore ouvertes à `anon` et `authenticated` : `check_rsvp_rate` et `check_contact_rate`, qui ne révoquent que `public`.
+- **next-intl 4.8 ne lit jamais la langue dans le segment `[locale]`.**
+  - Pourquoi : il la prend dans l'en-tête de requête `X-NEXT-INTL-LOCALE` (posé par `intlMiddleware`) ou dans `setRequestLocale`, donc une réécriture du proxy qui saute `intlMiddleware` rend la page en français sans erreur, et sans `x-pathname` le root layout perd `lang`/`dir` (l'arabe perd le RTL).
+  - Correctif : partir de `new Headers(request.headers)`, y poser `X-NEXT-INTL-LOCALE` et `x-pathname` (le chemin réécrit), puis `NextResponse.rewrite(url, { request: { headers } })`. Jamais un objet neuf : les en-têtes passés remplacent tous les autres.
+- **Registrar Vercel : ne jamais appeler `GET /v1/registrar/domains/{d}/availability`.**
+  - Pourquoi : il a répondu `true` pour un `.fr` que Vercel ne vend pas ; la recherche, elle, répond `available: false` pour une extension non vendue, comme pour un nom pris.
+  - Correctif : disponibilité par `POST /v1/registrar/domains/search` seulement, l'extension vérifiée d'abord. À l'achat, `expectedPrice` est le **total** pour N années : le `purchasePrice` de `GET …/price?years=N`, jamais le prix annuel.
+- **Stripe fusionne les métadonnées sur `paymentIntents.update`.**
+  - Pourquoi : une clé absente de la mise à jour reste sur l'intent ; un couple passé d'un nom à « plus tard » gardait son `domain_name`, que le provisioning aurait acheté.
+  - Correctif : envoyer `""` pour chaque clé à retirer, Stripe la supprime. `metadataForUpdate(existing, next)` dans `landing/src/lib/order-metadata.ts` le fait, en épargnant les clés que le serveur écrit après coup (`wedding_id`, `refunded_reason`).
+- **Le matcher du proxy saute tout chemin qui contient un point.**
+  - Pourquoi : `/x.php` ou `/photo.jpg` sur le domaine d'un couple n'atteignent jamais `proxy.ts`, qui ne pose donc pas `x-custom-domain`, et la page affichait la 404 de la boutique avec son menu.
+  - Correctif : tout ce qui dépend de l'hôte se décide aussi dans les layouts et les fichiers `not-found`, avec `isCoupleDomainRequest()` (`landing/src/lib/custom-domain-request.ts`), qui regarde aussi l'hôte. Ne pas élargir le matcher : les fichiers de `public/` passeraient par next-intl et feraient 404.
+
+## Paiements de test (2026-10-02)
+
+- **Un paiement Stripe de test est aussi provisionné par l'app déployée.**
+  - Pourquoi : le compte Stripe de test a un endpoint webhook `https://the-studio-digital-papeterie.vercel.app/api/webhooks/stripe` (`payment_intent.succeeded`, `charge.dispute.created`). Chaque intent de test créé en local y est livré : après sa grâce de 10 s, l'app déployée provisionne la commande **dans sa propre base** (compte, mariage, peut-être l'email de bienvenue) et tamponne l'intent avec un `wedding_id` inconnu de la base locale. Vu le 2026-10-02 sur un test de [[Domaines perso — leçons de la revue]] (n° 6).
+  - Correctif : un test local qui provisionne doit tamponner l'intent en moins de 10 s, ou s'attendre à un `wedding_id` étranger. Nettoyer aussi côté déployé ce qu'il a créé. `stripe listen` vers `:3010` est un second destinataire, en plus de celui-là.

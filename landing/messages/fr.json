@@ -1293,7 +1293,11 @@
     "orderCompleteCta": "Accéder à mon espace",
     "orderCompleteHint": "Vous souhaitez une seconde invitation ? Contactez-nous, nous la créerons pour vous.",
     "spaceReadyBody": "Votre espace est prêt. Retrouvez votre invitation et personnalisez-la dès maintenant.",
-    "spaceReadyHint": "Ce lien vous connecte sans mot de passe. Nous vous l'avons aussi envoyé par email."
+    "spaceReadyHint": "Ce lien vous connecte sans mot de passe. Nous vous l'avons aussi envoyé par email.",
+    "domainUnavailable": "<name>{domain}</name> n’est plus disponible. Choisissez-en un autre.",
+    "domainInvalid": "Ce nom de domaine n’est pas valide. Corrigez-le avant de payer.",
+    "nothingCharged": "Rien n’a été débité.",
+    "editDomain": "Modifier mon nom de domaine"
   },
   "Legal": {
     "backHome": "Retour à l’accueil",
@@ -2323,5 +2327,34 @@
       "otherPlaceholder": "Précisez (ex. arachides)",
       "none": "Aucun"
     }
+  },
+  "CustomDomain": {
+    "connector": "et",
+    "yearsCount": "{years, plural, one {# an} other {# ans}}",
+    "priceAmount": "{price} €",
+    "fieldLabel": "Votre nom de domaine",
+    "checking": "Vérification de <name>{domain}</name>…",
+    "available": "disponible",
+    "taken": "déjà pris",
+    "notForSale": "non disponible",
+    "invalidPill": "invalide",
+    "checkUnavailable": "vérification indisponible pour le moment",
+    "alternatives": "Disponibles :",
+    "noAlternatives": "Essayez une autre orthographe.",
+    "errorEmpty": "Saisissez le nom souhaité.",
+    "errorNoLatin": "Utilisez des lettres latines, des chiffres ou des tirets.",
+    "errorTooShort": "Au moins 3 lettres ou chiffres.",
+    "errorTooLong": "63 caractères au maximum.",
+    "errorInvalid": "Lettres, chiffres et tirets uniquement.",
+    "warning": "Vérifiez l’orthographe : un nom acheté ne peut plus être modifié.",
+    "later": "Je choisirai plus tard",
+    "laterNote": "Vous choisirez votre nom depuis votre espace",
+    "chooseNow": "Choisir maintenant",
+    "priceOneYear": "<strong>{price} €</strong> — {years, plural, one {# an} other {# ans}}",
+    "priceYears": "<strong>{price} €</strong> — {years, plural, one {# an} other {# ans}}, votre mariage est dans {months, plural, one {# mois} other {# mois}}",
+    "cover": "Le domaine reste actif jusqu’à 3 mois après le mariage.",
+    "recapLabel": "Nom de domaine",
+    "recapChosen": "<name>{domain}</name>, {years, plural, one {# an} other {# ans}}",
+    "recapLater": "À choisir plus tard"
   }
 }

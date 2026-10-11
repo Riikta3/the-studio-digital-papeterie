@@ -12,6 +12,47 @@ couple who did not take it can buy it from the dashboard at the day's price.
 **Spec:** `docs/superpowers/specs/2026-10-02-custom-domain-design.md`. Read it
 first; decisions are referred to as D1–D8. Renewal is out of scope.
 
+## Progress (2026-10-02)
+
+| Phase | State |
+|---|---|
+| 0 — Documentation discovery | done |
+| 1 — Pure shared logic | done, reviewed, hardened |
+| 2 — Database | done, reviewed, hardened |
+| 3 — Checkout, server side | done, reviewed, hardened |
+| 4 — Studio UI | waiting for the user's approval of the mock-up (https://claude.ai/artifact/TLwrYkLhhYsiJMGvJ6bioc) |
+| 5 — Purchase engine | done, reviewed, hardened |
+| 6 — Routing a couple's domain | done, reviewed, hardened |
+| 7 — Dashboard | deferred by the user |
+| 8 — Verification, documentation, go-live | not started |
+
+- Phases 1–3 were committed and pushed to `main` by another session
+  (`ec65497f`). Everything else, including the hardening that came after
+  that commit, is uncommitted.
+- Migrations are applied to the local database only; no `db push`. No real
+  domain has been bought.
+
+Notable deviations from the steps below (the spec is the reference):
+- **Phase 1** — search answers carry a reason (`taken`, `premium`,
+  `above_ceiling`, `unsupported`, `unknown`); only `taken` and `premium` mean
+  the name is lost (spec D5, "Search answers carry a reason").
+- **Phase 2** — the lease is owned: `lease_token` and `claims_since_progress`,
+  plus the composite FK `(site_id, wedding_id)` and
+  `custom_domain_name_taken`, in `20261002130000_custom_domains_hardening.sql`
+  (spec D2, D5 "The lease is owned").
+- **Phase 3** — `domainInvoiceLine(years)`, not `(name, years)`: the invoice
+  line never names the domain, since an invoice is immutable and the name can
+  still be lost (spec D1).
+- **Phase 5** — the uncertain-purchase policy: `buy_unconfirmed`, ownership
+  re-checked at +30 min, +2 h, +6 h and +24 h, then `failed` with a studio
+  alert; a requeue only after a definitive pre-order refusal (spec D5,
+  "Uncertain purchases are never the couple's problem").
+- **Phase 6** — `isCoupleDomainRequest()`
+  (`landing/src/lib/custom-domain-request.ts`): the matcher skips paths with
+  a dot, so the `not-found` files and the layout also decide by host. A
+  failed `resolve_custom_domain` lookup with nothing cached answers 503 with
+  `Retry-After`, instead of serving the shop. Neither is in the spec yet.
+
 ## Global constraints
 
 - **No `git commit` / `git push`** until the user says so. Every phase ends on
@@ -147,7 +188,7 @@ document, or observed in a public API response.
 `shared/lib/pricing.test.mjs`; `shared/lib/module-addon.ts` and its test;
 `landing/src/app/[locale]/studio/(steps)/checkout/page.tsx:50-124`.
 
-- [ ] **Pricing** (`shared/lib/pricing.ts`):
+- [x] **Pricing** (`shared/lib/pricing.ts`):
   - add the D1 constants, `domainYearsFor(weddingDate, today)` and
     `domainPrice(years)`;
   - remove `"custom-domain"` from `EXTRA_PRICES`;
@@ -158,7 +199,7 @@ document, or observed in a public API response.
   Tests first, in `shared/lib/pricing.test.mjs`, covering every
   `domainYearsFor` case listed in the spec's Testing section, and totals at
   1, 2 and 4 years. Existing pricing tests must still pass.
-- [ ] **`shared/lib/custom-domain.ts`** (new):
+- [x] **`shared/lib/custom-domain.ts`** (new):
   - `normalizeLabel`, `isValidLabel` (3–63 characters), `toDomainName(label)`
     → `label.com`;
   - `suggestLabels({ partner1, partner2, connector, year })`: the first word
@@ -166,7 +207,7 @@ document, or observed in a public API response.
     valid ones.
 
   Test file `shared/lib/custom-domain.test.mjs`.
-- [ ] **`shared/lib/domain-search.ts`** (new):
+- [x] **`shared/lib/domain-search.ts`** (new):
   - `searchDomains(names, { fetch, now })` calls **search only**. It keeps
     names that end in `.com`, are `available`, are not `premium`, and have
     `price <= DOMAIN_MAX_USD_PER_YEAR` (= 15, exported from pricing).
@@ -174,7 +215,7 @@ document, or observed in a public API response.
   - `fetch` is injected for tests.
 
   Test with a fake fetch replaying the real responses from Phase 0.
-- [ ] **`shared/lib/domain-addon.ts`** (new): copy `module-addon.ts:15-177`
+- [x] **`shared/lib/domain-addon.ts`** (new): copy `module-addon.ts:15-177`
   and adapt it.
   - `DOMAIN_ADDON_KIND = "domain_addon"`, with the D4 keys and no `plan` key.
   - `buildDomainAddOnMetadata`, `parseDomainAddOnMetadata`,
@@ -185,7 +226,7 @@ document, or observed in a public API response.
 
   Tests copy the shape of `module-addon.test.mjs`, including a tampered
   amount and a module add-on intent (`isDomainAddOn` → false).
-- [ ] **`landing/src/lib/wedding-date.ts`** (new):
+- [x] **`landing/src/lib/wedding-date.ts`** (new):
   - move `monthIndexFrom` and the date half of `toWeddingIdentity` out of the
     checkout page as `weddingDateFrom(info, localisedMonths)` →
     `"YYYY-MM-DD" | undefined`;
@@ -195,10 +236,10 @@ document, or observed in a public API response.
   label, and an unknown label → undefined.
 
 **Verification**
-- [ ] `npm test` passes.
-- [ ] `grep -rn '"custom-domain": 65' shared landing/src` → only
+- [x] `npm test` passes.
+- [x] `grep -rn '"custom-domain": 65' shared landing/src` → only
   `options.ts`, which Phase 4 removes.
-- [ ] `grep -rn "registrar/domains/.*/availability" shared landing dashboard` → nothing.
+- [x] `grep -rn "registrar/domains/.*/availability" shared landing dashboard` → nothing.
 
 **Guards:** UTC date arithmetic on `YYYY-MM-DD`, with no `new Date(local)`
 parsing of a date-only string. No import of `next/*` or `.json` in these
@@ -211,7 +252,7 @@ files.
 **Read first:** spec D2 and D8; the migration and test patterns from the
 Phase 0 table.
 
-- [ ] `supabase/migrations/20261002120000_custom_domains.sql`, with a header
+- [x] `supabase/migrations/20261002120000_custom_domains.sql`, with a header
   comment citing the spec and numbered sections:
   1. `create table public.custom_domains`, with every D2 column.
      - `status` uses a named check `custom_domains_status_check` over
@@ -244,23 +285,23 @@ Phase 0 table.
      service-role only.
   6. `alter table public.sites drop column domain;`.
   7. `comment on` every new table, column and function.
-- [ ] `supabase/tests/custom_domains.sql`, on the `module_addons.sql`
+- [x] `supabase/tests/custom_domains.sql`, on the `module_addons.sql`
   harness. Every check from the spec's Database bullet, with `set local role
   anon` for the resolver (a first in this repo: also `set_config` the claims
   with `"role":"anon"`).
-- [ ] Apply locally with `npx supabase migration up`, then run the test with
+- [x] Apply locally with `npx supabase migration up`, then run the test with
   `psql`. The last line must read `custom_domains checks passed`.
-- [ ] Regenerate the types:
+- [x] Regenerate the types:
   `npx supabase gen types typescript --local > /tmp/sb.ts`. Diff it against
   `shared/types/supabase.ts`; take the new table and functions and the
   removed `domain`, and patch by hand if the formatting churns (as the 09-28
   plan did).
 
 **Verification**
-- [ ] The psql test passes.
-- [ ] `grep -n "domain" shared/types/supabase.ts` shows no `sites.domain`.
-- [ ] `npm test` still passes.
-- [ ] As `anon`, `select * from claim_due_custom_domains(10)` raises
+- [x] The psql test passes.
+- [x] `grep -n "domain" shared/types/supabase.ts` shows no `sites.domain`.
+- [x] `npm test` still passes.
+- [x] As `anon`, `select * from claim_due_custom_domains(10)` raises
   `permission denied`.
 
 **Guards:** never edit an applied migration. No `db push`.
@@ -274,7 +315,7 @@ Phase 0 table.
 `create-payment-intent/route.ts`, `actions/create-wedding.ts`,
 `lib/invoice-lines.ts:137-147`, `lib/invoice.ts:24-107`.
 
-- [ ] **`order-metadata.ts`:**
+- [x] **`order-metadata.ts`:**
   - `OrderMetadataInput` and `ParsedOrder` gain `domainName?` and
     `domainYears?`, written as `domain_name` and `domain_years`.
   - Add a pure helper, `metadataForUpdate(existing, next)`, that returns
@@ -283,7 +324,7 @@ Phase 0 table.
 
   Tests in `landing/src/lib/order-metadata.test.mjs`: round trip, the
   later-after-a-name case, and the spared keys.
-- [ ] **`create-payment-intent/route.ts`**, when `extras` includes
+- [x] **`create-payment-intent/route.ts`**, when `extras` includes
   `custom-domain`:
   - `years = domainYearsFor(weddingInfo.weddingDate, new Date())` goes into
     `items.domainYears` before `computeOrderTotal`.
@@ -292,12 +333,12 @@ Phase 0 table.
       copying `route.ts:74-84`.
     - Search throwing → log `[DOMAIN_SEARCH_UNREACHABLE]` and continue.
   - The repricing update uses `metadataForUpdate(existing.metadata, orderMetadata)`.
-- [ ] **`verify-payment.ts`:**
+- [x] **`verify-payment.ts`:**
   - Retrieve the intent **first**, then compute the expected total with
     `domainYears` from the intent's metadata.
   - Return `domain: { has: boolean; name?: string; years: number }`, parsed
     from the intent's own `extras`, `domain_name` and `domain_years`.
-- [ ] **`create-wedding.ts`**, after the site insert (around L386-424, where
+- [x] **`create-wedding.ts`**, after the site insert (around L386-424, where
   `siteId` exists):
   - When `payment.domain.has`, insert into `custom_domains` through
     `supabaseAdmin` with `status`, `name`, `years`,
@@ -310,19 +351,20 @@ Phase 0 table.
     following the `seedInvitationContent` philosophy. The webhook path goes
     through the same code.
   - *(The `after(() => advanceCustomDomain(id))` call is added in Phase 5.)*
-- [ ] **`landing/src/lib/domain-invoice-line.ts`** (new, no `.json` import):
-  `domainInvoiceLine(name | undefined, years)` → `InvoiceLine` labelled as
-  in D1, priced with `domainPrice`.
+- [x] **`landing/src/lib/domain-invoice-line.ts`** (new, no `.json` import):
+  `domainInvoiceLine(years)` → `InvoiceLine` labelled as in D1 (never the
+  name: an invoice is immutable and the name can still be lost), priced with
+  `domainPrice`.
   - `buildInvoiceLines` (`invoice-lines.ts`) emits it when `extras` contains
-    `custom-domain`, reading `items.domainName` and `items.domainYears`.
+    `custom-domain`, reading `items.domainYears`.
   - Drop `"custom-domain"` from `EXTRA_LABELS`.
   - The invoice path's `parseOrderMetadata` now carries the fields.
 
   Test `landing/src/lib/domain-invoice-line.test.mjs`.
 
 **Verification**
-- [ ] `npm test` passes.
-- [ ] Stripe test mode (local landing, local Supabase,
+- [x] `npm test` passes.
+- [x] Stripe test mode (local landing, local Supabase,
   `stripe listen --forward-to localhost:3010/api/webhooks/stripe`), with
   Phase 4 not built yet. POST the route directly with `curl` and a domain
   label:
@@ -429,18 +471,18 @@ unlisted own host still falls through safely (D6).
 subdomain (`espace.thestudiopapeteriedigitale.com`), not `/dashboard` on the
 landing. This is done separately and is not a prerequisite of this plan.
 
-- [ ] `package.json` test script: add `landing/src/lib/custom-domains/*.test.mjs`.
-- [ ] `landing/src/lib/custom-domains/vercel-registrar.ts`: one function per
+- [x] `package.json` test script: add `landing/src/lib/custom-domains/*.test.mjs`.
+- [x] `landing/src/lib/custom-domains/vercel-registrar.ts`: one function per
   row of the Phase 0 table, with `{ fetch, token, teamId, projectId }`
   injected.
   - Errors are normalised to `{ status, code }`, handling both
     `{status,code,message}` and `{error:{code,message}}`.
   - It reads `VERCEL_API_TOKEN`, `VERCEL_TEAM_ID` and
     `VERCEL_LANDING_PROJECT_ID` only in a `fromEnv()` factory.
-- [ ] `landing/src/lib/custom-domains/registrant.ts`: builds
+- [x] `landing/src/lib/custom-domains/registrant.ts`: builds
   `contactInformation` from the D5 variables, returning `null` when any is
   missing.
-- [ ] `landing/src/lib/custom-domains/advance.ts`:
+- [x] `landing/src/lib/custom-domains/advance.ts`:
   `advanceCustomDomain(id, deps)` and `advanceDue(deps)`, implementing D5's
   step table row by row.
   - The lease comes from `claim_custom_domain`.
@@ -453,34 +495,34 @@ landing. This is done separately and is not a prerequisite of this plan.
   - Every status change sets `status_changed_at`.
   - `deps` holds the registrar, the db client, the clock, the mailer and the
     probe, so everything is testable.
-- [ ] `landing/src/lib/custom-domains/emails.ts`:
+- [x] `landing/src/lib/custom-domains/emails.ts`:
   - couple emails `active`, `name_unavailable` and `reminder`, and the studio
     alert, built with `renderEmail` and the components;
   - sent through Resend from the same `FROM` as the welcome email;
   - each is claimed with `claim_custom_domain_notice` before sending and
     released on failure.
-- [ ] `landing/src/app/api/cron/custom-domains/route.ts`: `GET`, with the
+- [x] `landing/src/app/api/cron/custom-domains/route.ts`: `GET`, with the
   `CRON_SECRET` guard from Phase 0.
   - It calls `advanceDue` (up to 10 rows) and sends the 7-day reminders
     (`awaiting_choice`, `status_changed_at < now() - 7 days`).
   - It answers a JSON summary.
-- [ ] `landing/vercel.json`, with the cron from Phase 0, in the confirmed root.
-- [ ] `create-wedding.ts`: after the row insert, call
+- [x] `landing/vercel.json`, with the cron from Phase 0, in the confirmed root.
+- [x] `create-wedding.ts`: after the row insert, call
   `after(() => advanceCustomDomain(id, fromEnv()))`.
-- [ ] `landing/.env.example`: add `VERCEL_API_TOKEN`, `VERCEL_TEAM_ID`,
+- [x] `landing/.env.example`: add `VERCEL_API_TOKEN`, `VERCEL_TEAM_ID`,
   `VERCEL_LANDING_PROJECT_ID`, `CRON_SECRET`, `COMPANY_DOMAINS_EMAIL`,
   `COMPANY_REGION`, `DOMAIN_REGISTRANT_FIRST_NAME` and
   `DOMAIN_REGISTRANT_LAST_NAME`, each with a one-line comment. Note that
   `COMPANY_PHONE` must be E.164.
-- [ ] Tests, in `landing/src/lib/custom-domains/advance.test.mjs`: one test
+- [x] Tests, in `landing/src/lib/custom-domains/advance.test.mjs`: one test
   per bullet of the spec's `advanceCustomDomain` list, with a fake registrar,
   db and clock. Plus `vercel-registrar.test.mjs`, covering error
   normalisation and the `expectedPrice` total.
 
 **Verification**
-- [ ] `npm test`.
-- [ ] `grep -rn "autoRenew: true\|/availability" landing/src` → nothing.
-- [ ] Run the cron route locally (`curl -H "Authorization: Bearer $CRON_SECRET"
+- [x] `npm test`.
+- [x] `grep -rn "autoRenew: true\|/availability" landing/src` → nothing.
+- [x] Run the cron route locally (`curl -H "Authorization: Bearer $CRON_SECRET"
   localhost:3010/api/cron/custom-domains`) with **no** Vercel token set. A
   `queued` row ends `failed` with a missing-configuration reason, and the
   studio alert is logged. This proves no buy is attempted without
@@ -500,9 +542,9 @@ from a test.
 `app/[locale]/jourj/[slug]/{layout,page}.tsx`;
 `app/[locale]/invitation/[slug]/page.tsx:83-86`.
 
-- [ ] `landing/src/lib/supabase-anon.ts`: copy `supabase-admin.ts:1-13` with
+- [x] `landing/src/lib/supabase-anon.ts`: copy `supabase-admin.ts:1-13` with
   `NEXT_PUBLIC_SUPABASE_ANON_KEY`.
-- [ ] `landing/src/lib/custom-domain-routing.ts` (pure, no `next/*` imports):
+- [x] `landing/src/lib/custom-domain-routing.ts` (pure, no `next/*` imports):
   - `isOwnHost(host, siteUrl)`;
   - `mapCustomDomainPath(pathname, { slug, languages, locales, defaultLocale })`
     → `{ rewrite, locale, base } | { redirect } | { notFound }`;
@@ -511,7 +553,7 @@ from a test.
   Test `landing/src/lib/custom-domain-routing.test.mjs`: every row of D6's
   table, a locale not bought, another couple's slug, the own-host list, and
   `guestHref` on both kinds of host.
-- [ ] **`proxy.ts`** becomes `async`. Before today's logic:
+- [x] **`proxy.ts`** becomes `async`. Before today's logic:
   - Own host → delete `x-custom-domain` and `x-custom-domain-base` from the
     request headers, then today's flow, unchanged.
   - Otherwise, `resolve_custom_domain` with a module-level cache (60 s live,
@@ -524,9 +566,9 @@ from a test.
       `x-custom-domain` and `x-custom-domain-base`.
   - The minimal 404 is `new NextResponse(<small html>, { status: 404, headers: { "content-type": "text/html; charset=utf-8" } })`.
   - Maintenance mode is skipped for couples' domains.
-- [ ] `[locale]/layout.tsx` (or wherever they mount): skip `ContactBubble`
+- [x] `[locale]/layout.tsx` (or wherever they mount): skip `ContactBubble`
   and `CookieConsent` when `x-custom-domain` is present.
-- [ ] **Clean links:**
+- [x] **Clean links:**
   - The Jour J layout reads `x-custom-domain-base` and `x-custom-domain`, and
     passes them to `GuestNav`.
   - `GuestNav`, the Jour J page links and the invitation page's language
@@ -536,19 +578,19 @@ from a test.
 
 **Verification** (local dev server, with a fake `active` row and a published
 site in local Supabase):
-- [ ] `curl -sI -H "Host: sophie-et-pierre.test" localhost:3010/` → 200.
-- [ ] `curl -s -H "Host: sophie-et-pierre.test" localhost:3010/en | grep '<html'`
+- [x] `curl -sI -H "Host: sophie-et-pierre.test" localhost:3010/` → 200.
+- [x] `curl -s -H "Host: sophie-et-pierre.test" localhost:3010/en | grep '<html'`
   → `lang="en"` and English copy in the body, with the couple having `en`.
-- [ ] `/ar` → `dir="rtl"`, with the couple having `ar`.
-- [ ] `/ja` not bought → 307 to `/`.
-- [ ] `/jourj/menu` → 200. `/studio`, `/invitation/<another-slug>` and
+- [x] `/ar` → `dir="rtl"`, with the couple having `ar`.
+- [x] `/ja` not bought → 307 to `/`.
+- [x] `/jourj/menu` → 200. `/studio`, `/invitation/<another-slug>` and
   `/journal` → 404, minimal page, no shop menu.
-- [ ] A host with no row → the shop's homepage, unchanged.
-- [ ] `localhost:3010/fr` → unchanged.
-- [ ] `curl -H "x-custom-domain: evil" localhost:3010/fr/invitation/<slug>` →
+- [x] A host with no row → the shop's homepage, unchanged.
+- [x] `localhost:3010/fr` → unchanged.
+- [x] `curl -H "x-custom-domain: evil" localhost:3010/fr/invitation/<slug>` →
   normal generic page, not the custom-domain variant.
-- [ ] No `ContactBubble` or cookie banner in the custom-domain HTML.
-- [ ] `npm test`; lint the touched files.
+- [x] No `ContactBubble` or cookie banner in the custom-domain HTML.
+- [x] `npm test`; lint the touched files.
 
 **Guards:** no change to the matcher's exclusions. `intlMiddleware` is not
 called on a couple's domain.
