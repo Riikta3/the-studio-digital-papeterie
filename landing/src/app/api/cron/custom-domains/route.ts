@@ -6,7 +6,8 @@ import { engineDepsFromEnv } from "@/lib/custom-domains/engine";
  * The purchase engine's safety net
  * (docs/superpowers/specs/2026-10-02-custom-domain-design.md, D5, "Triggers").
  *
- * Called every 5 minutes by Vercel Cron (landing/vercel.json), on production
+ * Called once a day by Vercel Cron (landing/vercel.json) — the Hobby plan's
+ * limit; back to every 5 minutes on Pro — on production
  * deployments only: a preview is advanced by `after()` alone, or by calling
  * this route by hand with the secret. Each run advances up to 10 due rows by
  * one step and sends the time-based emails. Runs may be missed, duplicated or
