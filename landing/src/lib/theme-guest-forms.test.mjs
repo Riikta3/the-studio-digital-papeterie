@@ -166,3 +166,61 @@ test("searching waits for two characters and stops once sent or full", () => {
   assert.equal(isSearchable("ab", { sent: true, full: false }), false);
   assert.equal(isSearchable("ab", { sent: false, full: true }), false);
 });
+
+/* -- diets, per person -------------------------------------------------- */
+
+import { dietChoices, readDiet } from "../components/invitation/themes/guest-diet.ts";
+
+function multiForm(entries) {
+  const data = new FormData();
+  for (const [name, value] of entries) data.append(name, value);
+  return data;
+}
+
+test("the couple's list loses its own « Autre » and « Aucun », blanks and repeats", () => {
+  assert.deepEqual(
+    dietChoices(["Aucun", "Végétarien", " Sans gluten ", "", "végétarien", "Autre", "Halal"]),
+    ["Végétarien", "Sans gluten", "Halal"],
+  );
+  assert.deepEqual(dietChoices(undefined), []);
+});
+
+test("one person's line: ticked options in order, then what they typed", () => {
+  const data = multiForm([
+    ["diet-self", "Sans gluten"],
+    ["diet-self", "Halal"],
+    ["diet-self", "Halal"],
+    ["dietOther-self", "  arachides   et kiwi "],
+    ["diet-partner", "Vegan"],
+  ]);
+  assert.equal(readDiet(data, "self"), "Sans gluten, Halal, arachides et kiwi");
+  assert.equal(readDiet(data, "partner"), "Vegan");
+  assert.equal(readDiet(data, "child-0"), "");
+});
+
+test("each person of the answer carries their own diet", () => {
+  const data = multiForm([
+    ["fullName", "Camille Durand"],
+    ["diet-self", "Végétarien"],
+    ["partnerName", "Sam Lee"],
+    ["diet-partner", "Sans lactose"],
+    ["dietOther-partner", "fraises"],
+    ["childName-0", "Léo"],
+    ["diet-child-0", "Sans gluten"],
+    ["childName-1", "Inès"],
+  ]);
+  const submission = buildRsvpSubmission({ ...base, form: data, partyMode: "partner", childCount: 2 });
+  assert.equal(submission.dietary, "Végétarien");
+  assert.deepEqual(submission.companions, [
+    { firstName: "Sam", lastName: "Lee", dietary: "Sans lactose, fraises" },
+    { firstName: "Léo", lastName: "Durand", relationType: "child", dietary: "Sans gluten" },
+    { firstName: "Inès", lastName: "Durand", relationType: "child" },
+  ]);
+});
+
+test("a guest who is not coming sends no diet, and an old single field still counts", () => {
+  const declined = multiForm([["fullName", "Camille Durand"], ["diet-self", "Halal"]]);
+  assert.equal(buildRsvpSubmission({ ...base, attending: false, form: declined }).dietary, "");
+  const legacy = multiForm([["fullName", "Camille Durand"], ["dietary", "Végétarien"]]);
+  assert.equal(buildRsvpSubmission({ ...base, form: legacy }).dietary, "Végétarien");
+});

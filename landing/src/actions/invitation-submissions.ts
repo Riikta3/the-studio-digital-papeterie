@@ -94,6 +94,8 @@ export type RsvpCompanion = {
   firstName: string;
   lastName: string;
   relationType?: string;
+  /** This person's diets and allergies, as one line (« Sans gluten, arachides »). */
+  dietary?: string;
 };
 
 export type RsvpSubmission = {
@@ -132,6 +134,7 @@ export async function submitRsvp(input: RsvpSubmission): Promise<SubmissionResul
       first_name: clean(companion?.firstName, LIMITS.name),
       last_name: clean(companion?.lastName, LIMITS.name),
       relation_type: clean(companion?.relationType, LIMITS.name) || undefined,
+      dietary: clean(companion?.dietary, LIMITS.dietary) || undefined,
     }))
     .filter((companion) => companion.first_name || companion.last_name);
 

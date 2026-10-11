@@ -850,3 +850,140 @@
     white-space: nowrap;
   }
 }
+
+/* ------------------------------------------------------------------ *
+ * RSVP — diets and allergies, one field per person (GuestDiet.tsx)
+ * ------------------------------------------------------------------ */
+
+/* Laid out and labelled like the form's own `> form > label` fields. */
+.theme-ciao-amore .rsvp-card .guest-diet {
+  display: grid;
+  gap: 8px;
+  text-align: left;
+}
+
+.theme-ciao-amore .rsvp-card .guest-diet__label {
+  text-transform: uppercase;
+  font-size: 0.55rem;
+  letter-spacing: 0.12em;
+}
+
+/* The closed line is a <button> in the select's wrapper: undo the card's
+   full-width olive button and set it as the select's text. */
+.theme-ciao-amore .rsvp-card .guest-diet__toggle {
+  width: 100%;
+  min-width: 0;
+  padding: 14px 46px 14px 18px;
+  border: 0;
+  background: transparent;
+  color: var(--cobalt);
+  font-family: var(--font-ca-sans), Montserrat, sans-serif;
+  font-size: 0.95rem;
+  letter-spacing: 0;
+  text-transform: none;
+  text-align: left;
+  cursor: pointer;
+  outline: none;
+}
+
+.theme-ciao-amore .rsvp-card .guest-diet__summary {
+  display: block;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.theme-ciao-amore .rsvp-card .guest-diet__summary[data-empty] {
+  color: #193b91cc;
+}
+
+/* Open, the chevron turns up. */
+.theme-ciao-amore .rsvp-card .guest-diet[data-open] .rsvp-field-select .rsvp-chevron {
+  transform: translateY(25%) rotate(-135deg);
+}
+
+/* The unfolded list: a card in the field's own line, two columns of boxes. */
+.theme-ciao-amore .rsvp-card .guest-diet__panel {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px 14px;
+  padding: 16px 18px;
+  border: 2px solid var(--cobalt);
+  border-radius: 18px;
+  background: var(--paper);
+  animation: ciao-amore-dietOpen 0.2s ease-out;
+}
+
+.theme-ciao-amore .rsvp-card .guest-diet__panel[hidden] {
+  display: none;
+}
+
+.theme-ciao-amore .rsvp-card .guest-diet__option {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-height: 32px;
+  color: var(--cobalt);
+  font-family: var(--font-ca-sans), Montserrat, sans-serif;
+  font-size: 0.82rem;
+  line-height: 1.25;
+  cursor: pointer;
+}
+
+/* Boxes drawn like the presence radios: a cobalt ring, filled once ticked. */
+.theme-ciao-amore .rsvp-card .guest-diet__option input {
+  appearance: none;
+  -webkit-appearance: none;
+  flex: none;
+  width: 18px;
+  height: 18px;
+  margin: 0;
+  padding: 0;
+  border: 2px solid var(--cobalt);
+  border-radius: 5px;
+  background: var(--paper);
+  cursor: pointer;
+  transition: box-shadow 0.15s ease;
+}
+
+.theme-ciao-amore .rsvp-card .guest-diet__option input:checked {
+  box-shadow: inset 0 0 0 3px var(--paper), inset 0 0 0 18px var(--cobalt);
+}
+
+.theme-ciao-amore .rsvp-card .guest-diet__option input:focus-visible {
+  outline: 2px solid var(--cobalt);
+  outline-offset: 3px;
+}
+
+/* « Autre » opens a field across both columns. */
+.theme-ciao-amore .rsvp-card .guest-diet__other {
+  grid-column: 1 / -1;
+  width: 100%;
+  padding: 10px 14px;
+  border: 2px solid var(--cobalt);
+  border-radius: 12px;
+  background: var(--paper);
+  color: var(--cobalt);
+  font-family: var(--font-ca-sans), Montserrat, sans-serif;
+  font-size: 0.95rem;
+  letter-spacing: 0;
+  text-transform: none;
+  outline: none;
+}
+
+.theme-ciao-amore .rsvp-card .guest-diet__other::placeholder {
+  color: #193b91cc;
+  opacity: 1;
+}
+
+.theme-ciao-amore .rsvp-card .guest-diet__other:focus-visible {
+  box-shadow: 3px 3px 0 var(--sun);
+}
+
+@keyframes ciao-amore-dietOpen {
+  from { opacity: 0; transform: translateY(-4px); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .theme-ciao-amore .rsvp-card .guest-diet__panel { animation: none; }
+}

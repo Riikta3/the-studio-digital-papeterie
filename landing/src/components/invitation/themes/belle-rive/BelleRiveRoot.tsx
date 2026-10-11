@@ -1,9 +1,11 @@
 import type { InvitationData, ModuleId } from "../types";
 
 // Order matters: `belle-rive.css` is generated from the source theme, and
-// `responsive.css` layers the wider breakpoints on top of it.
+// `responsive.css` layers the wider breakpoints on top of it; `modules.css`
+// draws what the source never did (the per-person diets).
 import "./belle-rive.css";
 import "./responsive.css";
+import "./modules.css";
 
 import { belleRiveFontVars } from "./fonts";
 import { ActivitiesSection } from "./sections/ActivitiesSection";

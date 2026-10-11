@@ -62,7 +62,7 @@ begin
   ok := public.submit_invitation_household_rsvp(w, martin, 'Paul Martin',
     '[{"id":"00000000-0000-4000-8000-00000000d101","status":"confirmed"},
       {"id":"00000000-0000-4000-8000-00000000d102","status":"confirmed"}]'::jsonb,
-    null, null, 'b1');
+    null, 'b1');
   assert not ok, 'missing member refused';
   select count(*) into n from public.guests where household_id = martin and status <> 'pending';
   assert n = 0, 'refused answer wrote nothing';
@@ -72,15 +72,15 @@ begin
     '[{"id":"00000000-0000-4000-8000-00000000d101","status":"declined"},
       {"id":"00000000-0000-4000-8000-00000000d102","status":"declined"},
       {"id":"00000000-0000-4000-8000-00000000d103","status":"declined"}]'::jsonb,
-    null, null, 'b1');
+    null, 'b1');
   assert not ok, 'stranger refused';
 
   -- Paul answers: he and Léo come, Claire does not.
   ok := public.submit_invitation_household_rsvp(w, martin, 'Paul Martin',
-    '[{"id":"00000000-0000-4000-8000-00000000d101","status":"confirmed"},
+    '[{"id":"00000000-0000-4000-8000-00000000d101","status":"confirmed","dietary":"Végétarien"},
       {"id":"00000000-0000-4000-8000-00000000d102","status":"declined"},
-      {"id":"00000000-0000-4000-8000-00000000d103","status":"confirmed"}]'::jsonb,
-    'Végétarien', 'Merci !', 'b1');
+      {"id":"00000000-0000-4000-8000-00000000d103","status":"confirmed","dietary":"Sans gluten"}]'::jsonb,
+    'Merci !', 'b1');
   assert ok, 'Paul''s answer accepted';
   select status into r from public.households where id = martin;
   assert r.status = 'partial', format('household status = %s', r.status);
@@ -88,17 +88,18 @@ begin
   assert r.attendance, 'answer counted as coming';
   assert r.respondent_first_name = 'Paul', 'lead is Paul';
   assert r.guest_count = 1 and r.participants->0->>'first_name' = 'Léo'
-    and r.participants->0->>'relation_type' = 'child', format('participants = %s', r.participants);
+    and r.participants->0->>'relation_type' = 'child'
+    and r.participants->0->>'dietary' = 'Sans gluten', format('participants = %s', r.participants);
   assert r.message = 'Merci !' and r.dietary = 'Végétarien', 'message and diet kept';
   select dietary_requirements into r from public.guests where id = '00000000-0000-4000-8000-00000000d101';
-  assert r.dietary_requirements = 'Végétarien', 'diet on the respondent';
+  assert r.dietary_requirements = 'Végétarien', 'diet on each member';
 
   -- Claire answers after him: nobody comes in the end. Same row, updated.
   ok := public.submit_invitation_household_rsvp(w, martin, 'Claire Dubois-Hélène',
     '[{"id":"00000000-0000-4000-8000-00000000d101","status":"declined"},
       {"id":"00000000-0000-4000-8000-00000000d102","status":"declined"},
       {"id":"00000000-0000-4000-8000-00000000d103","status":"declined"}]'::jsonb,
-    null, null, 'b2');
+    null, 'b2');
   assert ok, 'Claire''s answer accepted';
   select count(*) into n from public.rsvp_responses where household_id = martin;
   assert n = 1, 'one row per household';
@@ -117,7 +118,7 @@ begin
     '[{"id":"00000000-0000-4000-8000-00000000d101","status":"pending"},
       {"id":"00000000-0000-4000-8000-00000000d102","status":"declined"},
       {"id":"00000000-0000-4000-8000-00000000d103","status":"declined"}]'::jsonb,
-    null, null, 'b1');
+    null, 'b1');
   select status into r from public.households where id = martin;
   assert r.status = 'pending', format('household status = %s', r.status);
   select attendance into r from public.rsvp_responses where household_id = martin;

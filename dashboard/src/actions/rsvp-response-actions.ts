@@ -7,6 +7,8 @@ export interface Participant {
   first_name: string;
   last_name: string;
   relation_type?: string;
+  /** This person's diets and allergies, as the guest sent them (« Sans gluten, arachides »). */
+  dietary?: string;
 }
 
 export async function updateRsvpResponse({
@@ -49,6 +51,7 @@ export async function updateRsvpResponse({
         first_name: p.first_name.trim(),
         last_name: p.last_name.trim(),
         relation_type: p.relation_type?.trim(),
+        dietary: p.dietary?.trim() || undefined,
       })),
       guest_count: participants.length,
       ...(respondent_first_name !== undefined && { respondent_first_name: respondent_first_name.trim() }),

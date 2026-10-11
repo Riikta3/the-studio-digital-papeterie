@@ -3,9 +3,11 @@ import { Fragment, type ReactNode } from "react";
 import type { InvitationData, ModuleId } from "../types";
 
 // Order matters: `blanc-couture.css` is generated from the source theme, and
-// `responsive.css` layers the integration fixes and wider breakpoints on top.
+// `responsive.css` layers the integration fixes and wider breakpoints on top;
+// `modules.css` draws what the source never did (the per-person diets).
 import "./blanc-couture.css";
 import "./responsive.css";
+import "./modules.css";
 
 import { blancCoutureFontVars } from "./fonts";
 import { AccessSection } from "./sections/AccessSection";

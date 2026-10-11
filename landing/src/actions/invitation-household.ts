@@ -127,8 +127,8 @@ export type HouseholdRsvpSubmission = {
   householdId: string;
   /** The name typed in the form; it must still belong to the household. */
   fullName: string;
-  answers: { guestId: string; status: HouseholdMemberStatus }[];
-  dietary?: string;
+  /** `dietary`: what was ticked for that member; absent keeps the one on the list. */
+  answers: { guestId: string; status: HouseholdMemberStatus; dietary?: string }[];
   message?: string;
 };
 
@@ -145,7 +145,11 @@ export async function submitHouseholdRsvp(
   const answers = (Array.isArray(input.answers) ? input.answers : [])
     .slice(0, 40)
     .filter((answer) => UUID_RE.test(answer?.guestId ?? ""))
-    .map((answer) => ({ id: answer.guestId, status: toStatus(answer.status) }));
+    .map((answer) => ({
+      id: answer.guestId,
+      status: toStatus(answer.status),
+      ...(typeof answer.dietary === "string" ? { dietary: clean(answer.dietary, 200) } : {}),
+    }));
 
   const supabase = await createClient();
   const { data, error } = await supabase.rpc("submit_invitation_household_rsvp", {
@@ -153,7 +157,6 @@ export async function submitHouseholdRsvp(
     p_household_id: input.householdId,
     p_full_name: clean(input.fullName, 160),
     p_answers: answers,
-    p_dietary: clean(input.dietary, 200),
     p_message: clean(input.message, 1000),
     p_bucket: await callerBucket(input.weddingId),
   });
